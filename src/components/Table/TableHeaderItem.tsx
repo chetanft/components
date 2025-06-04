@@ -68,8 +68,10 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
   return (
     <th
       className={cn(
-        // Base styles from Figma: 15px 8px padding
-        "p-[15px_8px] text-left h-[50px]", // Fixed height from Figma
+        // Base styles from Figma: consistent with data cells
+        "h-[50px] text-left", // Fixed height from Figma
+        // Checkbox column gets special padding to center the checkbox
+        type === 'checkbox' ? "px-[32px]" : "py-[15px] px-[20px] pl-[8px]",
         getBackgroundColor(),
         getBorderStyles(),
         // Cursor for interactive elements
@@ -78,7 +80,11 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
       )}
       onClick={onClick}
     >
-      <div className="flex items-center h-full">
+      <div className={cn(
+        "flex items-center h-full",
+        // Center checkbox in its column to match data row alignment
+        type === 'checkbox' ? "justify-center" : "justify-start"
+      )}>
         {/* Drag Handle */}
         {draggable && (
           <div className="flex flex-col gap-[2px] w-[8px] h-[8px] mr-[10px]">
@@ -88,19 +94,17 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
           </div>
         )}
 
-        {/* Checkbox Type - Centered */}
+        {/* Checkbox Type - Perfectly centered to align with data rows */}
         {type === 'checkbox' && (
-          <div className="flex items-center justify-center w-full h-full">
-            <Checkbox
-              {...checkboxProps}
-              size="md"
-            />
-          </div>
+          <Checkbox
+            {...checkboxProps}
+            size="md"
+          />
         )}
 
-        {/* Text Type - Left aligned with proper sort icon spacing */}
+        {/* Text Type - Inline sort indicators aligned with text */}
         {type === 'text' && (
-          <div className="flex items-center justify-between w-full h-full">
+          <div className="flex items-center gap-[6px]">
             <span
               className={cn(
                 // Typography from Figma: Inter 600 16px/19.36px
@@ -111,9 +115,9 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
               {children}
             </span>
             
-            {/* Sort Indicators - Properly aligned */}
+            {/* Sort Indicators - Inline with text for better alignment */}
             {sortable && (
-              <div className="flex flex-col items-center justify-center w-[10px] h-[14px] ml-[8px]">
+              <div className="flex flex-col items-center justify-center w-[10px] h-[14px]">
                 <Icon
                   name="chevron-up"
                   size={8}
