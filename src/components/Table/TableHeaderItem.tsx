@@ -100,6 +100,7 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
             <Checkbox
               {...checkboxProps}
               size="md"
+              variant={colorVariant === 'dark25' ? 'on-dark' : 'on-light'}
             />
           </div>
         )}

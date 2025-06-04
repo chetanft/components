@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Don't built placeholders. 
+Don't built generic components.
+Never use hardcoded values unless specified by user

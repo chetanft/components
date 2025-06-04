@@ -101,7 +101,7 @@ export const RealWorldExamples: Story = {
           size="md"
         />
       </div>
-
+      
       {/* Theme Selection */}
       <div>
         <h3 className="text-lg font-semibold mb-4">Theme</h3>
@@ -116,7 +116,7 @@ export const RealWorldExamples: Story = {
           size="md"
         />
       </div>
-
+      
       {/* Payment Method */}
       <div>
         <h3 className="text-lg font-semibold mb-4">Payment Method</h3>

@@ -309,4 +309,144 @@ export const TableRowSelection: Story = {
       </div>
     );
   },
+};
+
+export const BackgroundVariants: Story = {
+  render: () => (
+    <div className="p-8 space-y-8">
+      <h2 className="text-xl font-semibold mb-6 text-gray-800">Background Variants - New Figma Design</h2>
+      
+      {/* On Light Background */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-gray-700">On Light Background (Default)</h3>
+        <div className="bg-white p-6 rounded-lg border border-gray-200">
+          <div className="flex flex-wrap gap-8">
+            <div className="text-center">
+              <div className="mb-2 text-sm font-medium text-gray-600">Unselected</div>
+              <Checkbox variant="on-light" />
+              <div className="mt-1 text-xs text-gray-500">Border: #838C9D</div>
+            </div>
+            
+            <div className="text-center">
+              <div className="mb-2 text-sm font-medium text-gray-600">Selected</div>
+              <Checkbox variant="on-light" checked />
+              <div className="mt-1 text-xs text-gray-500">Background: #434F64</div>
+            </div>
+            
+            <div className="text-center">
+              <div className="mb-2 text-sm font-medium text-gray-600">Indeterminate</div>
+              <Checkbox variant="on-light" indeterminate />
+              <div className="mt-1 text-xs text-gray-500">Background: #434F64</div>
+            </div>
+            
+            <div className="text-center">
+              <div className="mb-2 text-sm font-medium text-gray-600">Disabled</div>
+              <Checkbox variant="on-light" disabled />
+              <div className="mt-1 text-xs text-gray-500">Background: #CED1D7</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* On Dark Background */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-gray-700">On Dark Background (New)</h3>
+        <div className="bg-[#838C9D] p-6 rounded-lg">
+          <div className="flex flex-wrap gap-8">
+            <div className="text-center">
+              <div className="mb-2 text-sm font-medium text-white">Unselected</div>
+              <Checkbox variant="on-dark" />
+              <div className="mt-1 text-xs text-gray-200">Border: #FFFFFF</div>
+            </div>
+            
+            <div className="text-center">
+              <div className="mb-2 text-sm font-medium text-white">Selected</div>
+              <Checkbox variant="on-dark" checked />
+              <div className="mt-1 text-xs text-gray-200">Background: #FFFFFF</div>
+            </div>
+            
+            <div className="text-center">
+              <div className="mb-2 text-sm font-medium text-white">Indeterminate</div>
+              <Checkbox variant="on-dark" indeterminate />
+              <div className="mt-1 text-xs text-gray-200">Background: #FFFFFF</div>
+            </div>
+            
+            <div className="text-center">
+              <div className="mb-2 text-sm font-medium text-white">Disabled</div>
+              <Checkbox variant="on-dark" disabled />
+              <div className="mt-1 text-xs text-gray-200">Background: #F8F8F9</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Table Header Demo */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-gray-700">Table Header Use Cases</h3>
+        <div className="space-y-4">
+          {/* Primary Table Header (Dark) */}
+          <div>
+            <div className="text-sm font-medium text-gray-600 mb-2">Primary Table Header (Dark Background)</div>
+            <div className="bg-[#838C9D] p-4 rounded-t-lg">
+              <div className="flex items-center gap-4">
+                <Checkbox variant="on-dark" />
+                <span className="text-white font-medium">Select All</span>
+                <Checkbox variant="on-dark" checked />
+                <span className="text-white font-medium">Some Selected</span>
+                <Checkbox variant="on-dark" indeterminate />
+                <span className="text-white font-medium">Indeterminate</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Secondary Table Header (Light) */}
+          <div>
+            <div className="text-sm font-medium text-gray-600 mb-2">Secondary Table Header (Light Background)</div>
+            <div className="bg-[#F8F8F9] border border-[#F0F1F7] p-4 rounded-t-lg">
+              <div className="flex items-center gap-4">
+                <Checkbox variant="on-light" />
+                <span className="text-[#5F697B] font-medium">Select All</span>
+                <Checkbox variant="on-light" checked />
+                <span className="text-[#5F697B] font-medium">Some Selected</span>
+                <Checkbox variant="on-light" indeterminate />
+                <span className="text-[#5F697B] font-medium">Indeterminate</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Design Specifications */}
+      <div className="bg-gray-50 p-6 rounded-lg">
+        <h4 className="font-semibold text-gray-800 mb-4">Figma Design Specifications</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+          <div>
+            <h5 className="font-medium text-gray-700 mb-2">On Light Background</h5>
+            <ul className="space-y-1 text-gray-600">
+              <li>• Unselected: Transparent bg, #838C9D border</li>
+              <li>• Selected: #434F64 bg, white checkmark</li>
+              <li>• Hover: #CED1D7 bg</li>
+              <li>• Disabled: #CED1D7 bg and border</li>
+            </ul>
+          </div>
+          <div>
+            <h5 className="font-medium text-gray-700 mb-2">On Dark Background</h5>
+            <ul className="space-y-1 text-gray-600">
+              <li>• Unselected: Transparent bg, #FFFFFF border</li>
+              <li>• Selected: #FFFFFF bg, dark checkmark</li>
+              <li>• Hover: #F8F8F9 bg</li>
+              <li>• Disabled: #F8F8F9 bg and border</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates the new background variant system. The on-dark variant is automatically used in table headers with dark backgrounds (primary variant), while on-light is used for light backgrounds (secondary variant).'
+      }
+    }
+  }
 }; 

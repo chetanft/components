@@ -181,7 +181,7 @@ export const AllExamples: Story = {
           />
         </div>
       </div>
-
+      
       {/* With Icons */}
       <div>
         <h3 className="text-lg font-semibold mb-4">With Icons</h3>
@@ -202,7 +202,7 @@ export const AllExamples: Story = {
           />
         </div>
       </div>
-
+      
       {/* Sizes */}
       <div>
         <h3 className="text-lg font-semibold mb-4">Sizes</h3>
@@ -217,14 +217,14 @@ export const AllExamples: Story = {
             placeholder="Medium input..."
             size="md"
           />
-          <Input 
+        <Input 
             label="Large"
             placeholder="Large input..."
             size="lg"
-          />
+        />
         </div>
       </div>
-
+      
       {/* Variants */}
       <div>
         <h3 className="text-lg font-semibold mb-4">Variants</h3>
@@ -235,16 +235,16 @@ export const AllExamples: Story = {
             variant="default"
             size="md"
           />
-          <Input 
+        <Input 
             label="Filled variant"
             placeholder="Filled style..."
             variant="filled"
             leadingIcon="search"
             size="md"
-          />
+        />
         </div>
       </div>
-
+      
       {/* States */}
       <div>
         <h3 className="text-lg font-semibold mb-4">States</h3>
@@ -254,18 +254,18 @@ export const AllExamples: Story = {
             placeholder="Normal input..."
             size="md"
           />
-          <Input 
+        <Input 
             label="Error state"
-            placeholder="Enter email..."
+          placeholder="Enter email..."
             value="invalid-email"
             error="Please enter a valid email address"
             size="md"
-          />
-          <Input 
+        />
+        <Input 
             label="Disabled state"
             placeholder="Disabled input..."
             value="Cannot edit this"
-            disabled
+          disabled
             size="md"
           />
           <Input 
