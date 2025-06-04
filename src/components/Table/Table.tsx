@@ -217,11 +217,13 @@ const TableRowComponent = <T extends TableRow = TableRow>({
           borderStyle="single"
           className="w-[92px]" // Exact width from Figma
         >
-          <Checkbox
-            checked={selected}
-            onChange={handleSelect}
-            size="md"
-          />
+          <div className="flex items-center justify-center">
+            <Checkbox
+              checked={selected}
+              onChange={handleSelect}
+              size="md"
+            />
+          </div>
         </TableCell>
       )}
       {columns.map((column, columnIndex) => (

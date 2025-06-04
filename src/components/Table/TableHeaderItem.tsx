@@ -70,8 +70,8 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
       className={cn(
         // Base styles from Figma: consistent with data cells
         "h-[50px] text-left", // Fixed height from Figma
-        // Checkbox column gets special padding to center the checkbox
-        type === 'checkbox' ? "px-[32px]" : "py-[15px] px-[20px] pl-[8px]",
+        // Match TableCell padding exactly for proper alignment
+        type === 'checkbox' ? "py-[32px] px-[20px] pl-[8px]" : "py-[15px] px-[20px] pl-[8px]",
         getBackgroundColor(),
         getBorderStyles(),
         // Cursor for interactive elements
@@ -96,10 +96,12 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
 
         {/* Checkbox Type - Perfectly centered to align with data rows */}
         {type === 'checkbox' && (
-          <Checkbox
-            {...checkboxProps}
-            size="md"
-          />
+          <div className="flex items-center justify-center w-full">
+            <Checkbox
+              {...checkboxProps}
+              size="md"
+            />
+          </div>
         )}
 
         {/* Text Type - Inline sort indicators aligned with text */}
