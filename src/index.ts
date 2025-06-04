@@ -5,6 +5,7 @@ export { designTokens, cssVariables } from './tokens/design-tokens';
 export { Badge } from './components/Badge/Badge';
 export { Button } from './components/Button/Button';
 export { Checkbox } from './components/Checkbox/Checkbox';
+export { Chicklet } from './components/Chicklet/Chicklet';
 export { DatePicker, DatePickerField, Label } from './components/DatePicker/DatePicker';
 export { Dropdown, DropdownField, Caption } from './components/Dropdown/Dropdown';
 export { Icon } from './components/Icons';
@@ -31,6 +32,11 @@ export type {
   TableCellTextProps,
   TableHeaderItemProps
 } from './components/Table';
+export type {
+  ChickletProps,
+  ChickletVariant,
+  ChickletState
+} from './components/Chicklet/Chicklet';
 export { Typography, TypographyExample } from './components/Typography/Typography';
 
 // Colors
