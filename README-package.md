@@ -5,13 +5,13 @@ A comprehensive React component library built from Figma designs with TypeScript
 ## Installation
 
 ```bash
-npm install @your-org/design-system
+npm install @chetanft/design-system
 ```
 
 ## Usage
 
 ```tsx
-import { Button, Table, Badge, Checkbox } from '@your-org/design-system';
+import { Button, Table, Badge, Checkbox } from '@chetanft/design-system';
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
 Make sure to import the CSS file in your main application file:
 
 ```tsx
-import '@your-org/design-system/dist/output.css';
+import '@chetanft/design-system/dist/output.css';
 ```
 
 ## Components

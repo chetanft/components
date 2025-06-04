@@ -1,5 +1,5 @@
 {
-  "name": "@your-org/design-system",
+  "name": "@chetanft/design-system",
   "version": "1.0.0",
   "type": "module",
   "description": "Design system built from Figma designs using Code Connect",
