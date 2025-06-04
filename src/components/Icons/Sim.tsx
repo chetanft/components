@@ -1,0 +1,10 @@
+import React from 'react';
+
+export const Sim: React.FC = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M5 12V8H11V12H5ZM6 9H10V11H6V9Z" fill="currentColor"/>
+<path fillRule="evenodd" clipRule="evenodd" d="M4 1.5C3.17157 1.5 2.5 2.17157 2.5 3V13C2.5 13.8284 3.17157 14.5 4 14.5H12C12.8284 14.5 13.5 13.8284 13.5 13V4.79437C13.5 4.38195 13.3302 3.98773 13.0305 3.7044L11.1326 1.91003C10.8541 1.64672 10.4854 1.5 10.1021 1.5H4ZM3.5 3C3.5 2.72386 3.72386 2.5 4 2.5H10.1021C10.2299 2.5 10.3528 2.54891 10.4456 2.63668L12.3435 4.43104C12.4434 4.52549 12.5 4.65689 12.5 4.79437V13C12.5 13.2761 12.2761 13.5 12 13.5H4C3.72386 13.5 3.5 13.2761 3.5 13V3Z" fill="currentColor"/>
+  </svg>
+);
+
+export default Sim;

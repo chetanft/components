@@ -1,0 +1,241 @@
+export const designTokens = {
+  colors: {
+    // Dark tones
+    dark: {
+      100: '#434f64',
+      50: '#5f697b',
+      25: '#838c9d',
+    },
+    // Neutrals
+    border: '#ced1d7',
+    divider: '#f0f1f7',
+    background: '#f8f8f9',
+    white: '#ffffff',
+    // Status colors
+    critical: {
+      default: '#ff3533',
+      dark: '#b80100',
+      light: '#ffeaea',
+    },
+    warning: {
+      default: '#ff6c19',
+      dark: '#dd6a00',
+      light: '#ffebdc',
+    },
+    positive: {
+      default: '#00c638',
+      dark: '#00763d',
+      light: '#dfffe8',
+    },
+    neutral: {
+      default: '#1890ff',
+      dark: '#006ed3',
+      light: '#ecf6ff',
+    },
+  },
+  
+  typography: {
+    fontFamily: {
+      primary: 'Inter',
+      secondary: 'Inter',
+    },
+    fontWeight: {
+      regular: '400',
+      medium: '500',
+      semibold: '600',
+    },
+    fontSize: {
+      // Desktop (>1440px)
+      desktop: {
+        sm: '14px',
+        md: '16px',
+        lg: '20px',
+        xl: '24px',
+        xxl: '28px',
+      },
+      // Tablet (1440-800px)
+      tablet: {
+        sm: '12px',
+        md: '14px',
+        lg: '18px',
+        xl: '21px',
+        xxl: '26px',
+      },
+    },
+  },
+  
+  spacing: {
+    // Desktop spacing (>1440px)
+    desktop: {
+      x0: '0px',
+      x1: '4px',
+      x2: '8px',
+      x3: '12px',
+      x4: '16px',
+      x5: '20px',
+      x6: '24px',
+      x7: '28px',
+      x8: '32px',
+      x9: '36px',
+      x10: '40px',
+      x11: '44px',
+      x12: '48px',
+      x13: '52px',
+      x14: '56px',
+      x15: '60px',
+      x16: '64px',
+    },
+    // Tablet spacing (1440-800px)
+    tablet: {
+      x0: '0px',
+      x1: '0px',
+      x2: '4px',
+      x3: '8px',
+      x4: '12px',
+      x5: '16px',
+      x6: '20px',
+      x7: '24px',
+      x8: '28px',
+      x9: '32px',
+      x10: '36px',
+      x11: '40px',
+      x12: '44px',
+      x13: '48px',
+      x14: '52px',
+      x15: '56px',
+      x16: '60px',
+    },
+    // Card dimensions
+    card: {
+      padding: {
+        none: '0px',
+        default: '20px',
+        tablet: '16px',
+      },
+      border: {
+        none: '0px',
+        default: '1px',
+      },
+    },
+  },
+  
+  borderRadius: {
+    none: '0px',
+    sm: '4px',
+    md: '8px',
+    lg: '16px',
+    full: '100px',
+  },
+  
+  breakpoints: {
+    desktop: {
+      margins: '20px',
+      gutters: '20px',
+    },
+    tablet: {
+      margins: '16px',
+      gutters: '16px',
+    },
+  },
+} as const;
+
+// CSS Custom Properties for global usage
+export const cssVariables = `
+  :root {
+    /* Colors */
+    --color-dark-100: ${designTokens.colors.dark[100]};
+    --color-dark-50: ${designTokens.colors.dark[50]};
+    --color-dark-25: ${designTokens.colors.dark[25]};
+    --color-border: ${designTokens.colors.border};
+    --color-divider: ${designTokens.colors.divider};
+    --color-background: ${designTokens.colors.background};
+    --color-white: ${designTokens.colors.white};
+    
+    --color-critical: ${designTokens.colors.critical.default};
+    --color-critical-dark: ${designTokens.colors.critical.dark};
+    --color-critical-light: ${designTokens.colors.critical.light};
+    
+    --color-warning: ${designTokens.colors.warning.default};
+    --color-warning-dark: ${designTokens.colors.warning.dark};
+    --color-warning-light: ${designTokens.colors.warning.light};
+    
+    --color-positive: ${designTokens.colors.positive.default};
+    --color-positive-dark: ${designTokens.colors.positive.dark};
+    --color-positive-light: ${designTokens.colors.positive.light};
+    
+    --color-neutral: ${designTokens.colors.neutral.default};
+    --color-neutral-dark: ${designTokens.colors.neutral.dark};
+    --color-neutral-light: ${designTokens.colors.neutral.light};
+    
+    /* Typography */
+    --font-family-primary: ${designTokens.typography.fontFamily.primary};
+    --font-weight-regular: ${designTokens.typography.fontWeight.regular};
+    --font-weight-medium: ${designTokens.typography.fontWeight.medium};
+    --font-weight-semibold: ${designTokens.typography.fontWeight.semibold};
+    
+    /* Border Radius */
+    --radius-none: ${designTokens.borderRadius.none};
+    --radius-sm: ${designTokens.borderRadius.sm};
+    --radius-md: ${designTokens.borderRadius.md};
+    --radius-lg: ${designTokens.borderRadius.lg};
+    --radius-full: ${designTokens.borderRadius.full};
+    
+    /* Spacing Desktop */
+    --spacing-x0: ${designTokens.spacing.desktop.x0};
+    --spacing-x1: ${designTokens.spacing.desktop.x1};
+    --spacing-x2: ${designTokens.spacing.desktop.x2};
+    --spacing-x3: ${designTokens.spacing.desktop.x3};
+    --spacing-x4: ${designTokens.spacing.desktop.x4};
+    --spacing-x5: ${designTokens.spacing.desktop.x5};
+    --spacing-x6: ${designTokens.spacing.desktop.x6};
+    --spacing-x7: ${designTokens.spacing.desktop.x7};
+    --spacing-x8: ${designTokens.spacing.desktop.x8};
+    --spacing-x9: ${designTokens.spacing.desktop.x9};
+    --spacing-x10: ${designTokens.spacing.desktop.x10};
+    --spacing-x11: ${designTokens.spacing.desktop.x11};
+    --spacing-x12: ${designTokens.spacing.desktop.x12};
+    --spacing-x13: ${designTokens.spacing.desktop.x13};
+    --spacing-x14: ${designTokens.spacing.desktop.x14};
+    --spacing-x15: ${designTokens.spacing.desktop.x15};
+    --spacing-x16: ${designTokens.spacing.desktop.x16};
+    
+    /* Font Sizes Desktop */
+    --font-size-sm: ${designTokens.typography.fontSize.desktop.sm};
+    --font-size-md: ${designTokens.typography.fontSize.desktop.md};
+    --font-size-lg: ${designTokens.typography.fontSize.desktop.lg};
+    --font-size-xl: ${designTokens.typography.fontSize.desktop.xl};
+    --font-size-xxl: ${designTokens.typography.fontSize.desktop.xxl};
+  }
+  
+  /* Tablet breakpoint */
+  @media (max-width: 1440px) {
+    :root {
+      /* Spacing Tablet */
+      --spacing-x1: ${designTokens.spacing.tablet.x1};
+      --spacing-x2: ${designTokens.spacing.tablet.x2};
+      --spacing-x3: ${designTokens.spacing.tablet.x3};
+      --spacing-x4: ${designTokens.spacing.tablet.x4};
+      --spacing-x5: ${designTokens.spacing.tablet.x5};
+      --spacing-x6: ${designTokens.spacing.tablet.x6};
+      --spacing-x7: ${designTokens.spacing.tablet.x7};
+      --spacing-x8: ${designTokens.spacing.tablet.x8};
+      --spacing-x9: ${designTokens.spacing.tablet.x9};
+      --spacing-x10: ${designTokens.spacing.tablet.x10};
+      --spacing-x11: ${designTokens.spacing.tablet.x11};
+      --spacing-x12: ${designTokens.spacing.tablet.x12};
+      --spacing-x13: ${designTokens.spacing.tablet.x13};
+      --spacing-x14: ${designTokens.spacing.tablet.x14};
+      --spacing-x15: ${designTokens.spacing.tablet.x15};
+      --spacing-x16: ${designTokens.spacing.tablet.x16};
+      
+      /* Font Sizes Tablet */
+      --font-size-sm: ${designTokens.typography.fontSize.tablet.sm};
+      --font-size-md: ${designTokens.typography.fontSize.tablet.md};
+      --font-size-lg: ${designTokens.typography.fontSize.tablet.lg};
+      --font-size-xl: ${designTokens.typography.fontSize.tablet.xl};
+      --font-size-xxl: ${designTokens.typography.fontSize.tablet.xxl};
+    }
+  }
+`;
+
+export default designTokens; 

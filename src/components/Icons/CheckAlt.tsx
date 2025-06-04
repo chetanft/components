@@ -1,0 +1,9 @@
+import React from 'react';
+
+export const CheckAlt: React.FC = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M13.3391 4.6326C13.542 4.8199 13.5547 5.13623 13.3674 5.33914L7.01442 12.2215L3.64645 8.85355C3.45118 8.65829 3.45118 8.3417 3.64645 8.14644C3.84171 7.95118 4.15829 7.95118 4.35355 8.14644L6.98557 10.7785L12.6326 4.66086C12.8199 4.45795 13.1362 4.4453 13.3391 4.6326Z" fill="currentColor"/>
+  </svg>
+);
+
+export default CheckAlt;

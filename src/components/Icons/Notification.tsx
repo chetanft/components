@@ -1,0 +1,9 @@
+import React from 'react';
+
+export const Notification: React.FC = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M7.90388 2H8.09612C9.93159 2 11.5315 3.24919 11.9767 5.02986L13.7192 12H2.28078L4.02331 5.02986C4.46848 3.24919 6.06841 2 7.90388 2ZM5.17071 13H1L3.05317 4.78732C3.60963 2.56149 5.60954 1 7.90388 1H8.09612C10.3905 1 12.3904 2.56149 12.9468 4.78732L15 13H10.8293C10.4175 14.1652 9.30622 15 8 15C6.69378 15 5.58254 14.1652 5.17071 13ZM9.73244 13H6.26756C6.61337 13.5978 7.25972 14 8 14C8.74028 14 9.38663 13.5978 9.73244 13Z" fill="currentColor"/>
+  </svg>
+);
+
+export default Notification;

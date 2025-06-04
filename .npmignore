@@ -1,0 +1,29 @@
+# Source files
+src/
+.storybook/
+stories/
+
+# Build tools
+rollup.config.js
+tsconfig.json
+tailwind.config.js
+postcss.config.js
+.DS_Store
+
+# Development
+node_modules/
+*.log
+.env*
+
+# Documentation and examples
+README.md
+*.md
+example-*.tsx
+test-*.js
+figma.config.ts
+mcp.json
+links.md
+export*.json
+
+# Scripts
+scripts/ 

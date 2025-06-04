@@ -1,0 +1,11 @@
+import React from 'react';
+
+export const AlertInformational: React.FC = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8.5 7V11H7.5L7.5 7H8.5Z" fill="currentColor"/>
+<path d="M8 4.5C7.72386 4.5 7.5 4.72386 7.5 5C7.5 5.27614 7.72386 5.5 8 5.5C8.27614 5.5 8.5 5.27614 8.5 5C8.5 4.72386 8.27614 4.5 8 4.5Z" fill="currentColor"/>
+<path fillRule="evenodd" clipRule="evenodd" d="M1.33331 8.00065C1.33331 4.32065 4.31331 1.33398 7.99331 1.33398C11.68 1.33398 14.6666 4.32065 14.6666 8.00065C14.6666 11.6807 11.68 14.6673 7.99331 14.6673C4.31331 14.6673 1.33331 11.6807 1.33331 8.00065ZM7.99331 2.33398C4.8669 2.33398 2.33331 4.87163 2.33331 8.00065C2.33331 11.1297 4.8669 13.6673 7.99331 13.6673C11.1283 13.6673 13.6666 11.1277 13.6666 8.00065C13.6666 4.87359 11.1283 2.33398 7.99331 2.33398Z" fill="currentColor"/>
+  </svg>
+);
+
+export default AlertInformational;

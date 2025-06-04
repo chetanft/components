@@ -1,0 +1,9 @@
+import React from 'react';
+
+export const PhoneAlt: React.FC = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M5 3H11V13H5V3ZM4 3C4 2.44772 4.44772 2 5 2H11C11.5523 2 12 2.44772 12 3V13C12 13.5523 11.5523 14 11 14H5C4.44772 14 4 13.5523 4 13V3ZM7.5 11C7.22386 11 7 11.2239 7 11.5C7 11.7761 7.22386 12 7.5 12H8.5C8.77614 12 9 11.7761 9 11.5C9 11.2239 8.77614 11 8.5 11H7.5Z" fill="currentColor"/>
+  </svg>
+);
+
+export default PhoneAlt;
