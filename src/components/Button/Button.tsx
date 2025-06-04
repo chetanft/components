@@ -14,6 +14,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", showIcon = false, disabled = false, children, style, ...props }, ref) => {
     
+    // Check if this should be a circular button
+    const isCircular = className?.includes('rounded-full');
+    
     // Base button styles that apply to all variants
     const baseStyles = [
       "inline-flex",
@@ -64,21 +67,25 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     // Size-specific styles with proper font sizes matching Figma
+    // For circular buttons, width equals height and no horizontal padding
     const sizeStyles = {
       sm: [
         "h-[var(--button-height-sm)]",
         "text-[14px]", // Fixed font size for small buttons
-        variant === "link" ? "p-0" : "px-[16px] py-[8px]"
+        variant === "link" ? "p-0" : 
+          isCircular ? "w-[var(--button-height-sm)] p-0" : "px-[16px] py-[8px]"
       ],
       md: [
         "h-[var(--button-height-md)]", 
         "text-[16px]", // Fixed font size for medium buttons
-        variant === "link" ? "p-0" : "px-[24px] py-[12px]"
+        variant === "link" ? "p-0" : 
+          isCircular ? "w-[var(--button-height-md)] p-0" : "px-[24px] py-[12px]"
       ],
       lg: [
         "h-[var(--button-height-lg)]",
         "text-[20px]", // Fixed font size for large buttons
-        variant === "link" ? "p-0" : "px-[32px] py-[16px]"
+        variant === "link" ? "p-0" : 
+          isCircular ? "w-[var(--button-height-lg)] p-0" : "px-[32px] py-[16px]"
       ]
     };
 
