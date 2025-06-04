@@ -1,7 +1,11 @@
+"use client";
 import React, { forwardRef, useState } from 'react';
 import { cn } from '../../lib/utils';
 import { Badge } from '../Badge/Badge';
 import { Icon } from '../Icons';
+
+export type TabType = 'primary' | 'secondary' | 'tertiary';
+export type TabState = 'unselected' | 'selected' | 'hover';
 
 // Tab Item component using exact Figma specifications
 const TabContent = ({ 
@@ -10,31 +14,44 @@ const TabContent = ({
   badge, 
   badgeCount, 
   notification, 
-  state 
+  state,
+  type 
 }: {
   label: string;
   icon?: boolean;
   badge?: boolean;
   badgeCount?: string | number;
   notification?: boolean;
-  state: 'unselected' | 'selected' | 'hover';
+  state: TabState;
+  type: TabType;
 }) => (
-  <div className="flex items-center gap-[8px] justify-center">
+  <div className={cn(
+    "flex items-center gap-2",
+    // Layout based on type
+    type === 'primary' ? "justify-start" : "justify-center"
+  )}>
     {icon && (
       <Icon 
         name="check" 
         size={16} 
-        color="var(--tab-unselected-text)" 
+        className={cn(
+          state === 'selected' ? 'text-[#434F64]' : 'text-[#434F64]'
+        )}
       />
     )}
-    <span>{label}</span>
+    <span className={cn(
+      "text-base leading-[22.4px]",
+      state === 'selected' ? 'font-semibold text-[#434F64]' : 'font-normal text-[#434F64]'
+    )}>
+      {label}
+    </span>
     {badge && (
-      <Badge variant="normal" className="!text-[#5F697B] !bg-white border border-[#CED1D7]">
+      <Badge variant="normal" className="!text-[#5F697B] !bg-white border border-[#CED1D7] !text-sm !font-medium !px-1 !py-0.5 !h-6">
         {badgeCount}
       </Badge>
     )}
     {notification && (
-      <div className="w-[6px] h-[6px] bg-[var(--tab-notification-dot)] rounded-full" />
+      <div className="w-1.5 h-1.5 bg-[#FF3533] rounded-full" />
     )}
   </div>
 );
@@ -46,6 +63,7 @@ export interface TabItemProps {
   notification?: boolean;
   icon?: boolean;
   active?: boolean;
+  type?: TabType;
   onSelect?: () => void;
   className?: string;
 }
@@ -58,42 +76,61 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
     notification = false, 
     icon = false, 
     active = false,
+    type = 'primary',
     onSelect,
     className, 
     ...props 
   }, ref) => {
     const [isHovered, setIsHovered] = useState(false);
     
+    // Get current state
+    const currentState: TabState = active ? 'selected' : (isHovered ? 'hover' : 'unselected');
+    
     // Base styles using exact Figma specifications
     const baseStyles = cn(
-      // Layout - exact from Figma: 12px top/bottom, 32px left/right
-      "relative flex flex-col gap-[10px] px-[32px] py-[12px] transition-all cursor-pointer",
-      // Typography - exact from Figma  
-      "font-[Inter] text-[var(--tab-font-size)] leading-[1.4]",
-      // Border - exact from Figma
-      "border-b-[1px]",
-      // State-specific styles using exact Figma colors
-      active
-        ? [
-            // Selected state - exact from Figma
-            "border-b-[4px] border-[var(--tab-selected-border)] text-[var(--tab-selected-text)] font-[var(--tab-font-weight-selected)]",
-            "bg-[var(--tab-selected-bg)]"
-          ]
-        : isHovered
-        ? [
-            // Hover state - exact from Figma  
-            "border-[var(--tab-hover-border)] text-[var(--tab-hover-text)] font-[var(--tab-font-weight-normal)]",
-            "bg-[var(--tab-hover-bg)]"
-          ]
-        : [
-            // Unselected state - exact from Figma
-            "border-[var(--tab-unselected-border)] text-[var(--tab-unselected-text)] font-[var(--tab-font-weight-normal)]",
-            "bg-[var(--tab-unselected-bg)]"
-          ],
+      "relative flex transition-all cursor-pointer",
+      // Padding based on type - exact from Figma
+      type === 'primary' 
+        ? "px-8 py-3" // 32px horizontal, 12px vertical
+        : "px-4 py-2", // 16px horizontal, 8px vertical
+      
+      // Border radius based on type - exact from Figma
+      type === 'primary' && "rounded-none", // No border radius
+      type === 'secondary' && "rounded-lg", // 8px border radius
+      type === 'tertiary' && "rounded-full", // 100px border radius (full)
+      
+      // Border styles based on state and type
+      type === 'primary' && [
+        "border-b",
+        currentState === 'selected' 
+          ? "border-b-4 border-[#434F64]" 
+          : currentState === 'hover'
+          ? "border-b border-[#838C9D]"
+          : "border-b border-[#CED1D7]"
+      ],
+      
+      (type === 'secondary' || type === 'tertiary') && [
+        "border",
+        currentState === 'selected' || currentState === 'hover'
+          ? "border-[#838C9D]"
+          : "border-[#838C9D]"
+      ],
+      
+      // Background colors based on state and type
+      currentState === 'selected' && [
+        type === 'primary' && "bg-transparent",
+        (type === 'secondary' || type === 'tertiary') && "bg-[#F0F1F7]"
+      ],
+      
+      currentState === 'hover' && [
+        type === 'primary' && "bg-[#F0F1F7]",
+        (type === 'secondary' || type === 'tertiary') && "bg-[#F8F8F9]"
+      ],
+      
+      currentState === 'unselected' && "bg-transparent",
+      
       className
     );
-    
-    const currentState = active ? 'selected' : (isHovered ? 'hover' : 'unselected');
     
     return (
       <div
@@ -111,6 +148,7 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
           badgeCount={badgeCount}
           notification={notification}
           state={currentState}
+          type={type}
         />
       </div>
     );
@@ -131,12 +169,21 @@ export interface TabsProps {
   tabs: Tab[];
   activeTab?: number;
   onTabChange?: (index: number) => void;
+  type?: TabType;
   showLine?: boolean;
   className?: string;
 }
 
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
-  ({ showLine = true, tabs, activeTab = 0, onTabChange, className, ...props }, ref) => {
+  ({ 
+    showLine = true, 
+    tabs, 
+    activeTab = 0, 
+    onTabChange, 
+    type = 'primary',
+    className, 
+    ...props 
+  }, ref) => {
     const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
     
     const handleTabSelect = (index: number) => {
@@ -147,7 +194,10 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     // Container styles using exact Figma specifications
     const containerStyles = cn(
       "flex",
-      showLine && "border-b border-[var(--tab-unselected-border)]",
+      // Only show underline for primary type when showLine is true
+      showLine && type === 'primary' && "border-b border-[#CED1D7]",
+      // Spacing between tabs for secondary and tertiary
+      (type === 'secondary' || type === 'tertiary') && "gap-2",
       className
     );
     
@@ -165,6 +215,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
             badgeCount={tab.badgeCount}
             notification={tab.notification}
             icon={tab.icon}
+            type={type}
             active={index === internalActiveTab}
             onSelect={() => handleTabSelect(index)}
           />
