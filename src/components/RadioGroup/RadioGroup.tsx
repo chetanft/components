@@ -98,17 +98,17 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
         // Radio button styles using exact Figma specifications
         const radioStyles = cn(
           // Base styles
-          "relative shrink-0 rounded-full border-[var(--radio-border-width)] transition-all duration-200 cursor-pointer",
+          "relative shrink-0 rounded-full border-2 transition-all duration-200 cursor-pointer",
           // Size
           currentSize.radio,
-          // State styles using exact Figma colors
+          // State styles using exact Figma colors - direct color values for reliability
           isDisabled
-            ? "bg-[var(--radio-disabled-bg)] border-[var(--radio-disabled-border)] cursor-not-allowed"
+            ? "bg-transparent border-[#ced1d7] cursor-not-allowed"
             : isSelected
-            ? "bg-[var(--radio-selected-bg)] border-[var(--radio-selected-border)] hover:bg-[var(--radio-hover-selected-bg)] hover:border-[var(--radio-hover-selected-border)]"
-            : "bg-[var(--radio-unselected-bg)] border-[var(--radio-unselected-border)] hover:bg-[var(--radio-hover-unselected-bg)] hover:border-[var(--radio-hover-unselected-border)]",
+            ? "bg-transparent border-[#434f64] hover:bg-[#ced1d7] hover:border-[#434f64]"
+            : "bg-transparent border-[#838c9d] hover:bg-[#ced1d7] hover:border-[#838c9d]",
           // Focus styles
-          "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--radio-selected-border)] focus-within:ring-offset-2"
+          "focus-within:outline-none focus-within:ring-2 focus-within:ring-[#434f64] focus-within:ring-offset-2"
         );
 
         // Label styles using exact Figma specifications
@@ -150,7 +150,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div 
                       className={cn(
-                        "rounded-full bg-[var(--radio-selected-dot)]", // #434f64 from Figma
+                        "rounded-full bg-[#434f64]", // Direct color value
                         currentSize.dot
                       )}
                     />
