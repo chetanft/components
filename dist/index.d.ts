@@ -272,14 +272,40 @@ interface BadgeProps extends React__default.HTMLAttributes<HTMLDivElement> {
 }
 declare const Badge: React__default.ForwardRefExoticComponent<BadgeProps & React__default.RefAttributes<HTMLDivElement>>;
 
-type ButtonVariant = "primary" | "secondary" | "destructive" | "link";
+type ButtonVariant = "primary" | "secondary" | "destructive" | "text" | "link";
 type ButtonSize = "sm" | "md" | "lg";
+type IconPosition = "leading" | "trailing" | "only";
 interface ButtonProps extends React__default.ButtonHTMLAttributes<HTMLButtonElement> {
-    showIcon?: boolean;
+    /** Button visual variant */
     variant?: ButtonVariant;
+    /** Button size */
     size?: ButtonSize;
+    /** Icon name to display */
+    icon?: IconName;
+    /** Position of the icon relative to text */
+    iconPosition?: IconPosition;
+    /** Legacy prop for backwards compatibility */
+    showIcon?: boolean;
+    /** Whether this button is circular (for icon-only buttons) */
+    isCircular?: boolean;
 }
 declare const Button: React__default.ForwardRefExoticComponent<ButtonProps & React__default.RefAttributes<HTMLButtonElement>>;
+
+interface CollapsibleProps {
+    header: string;
+    children?: React__default.ReactNode;
+    badges?: {
+        loads?: number;
+        invoices?: number;
+        materials?: number;
+    };
+    className?: string;
+    isExpanded?: boolean;
+    onToggle?: (isExpanded: boolean) => void;
+    background?: 'gray' | 'white';
+    stage?: 'default' | 'submitted';
+}
+declare const Collapsible: React__default.FC<CollapsibleProps>;
 
 interface CheckboxProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, 'size'> {
     label?: string;
@@ -541,4 +567,4 @@ declare function cn(...inputs: ClassValue[]): string;
 
 declare const globalStyles = "./styles/globals.css";
 
-export { Badge, Button, Caption, Checkbox, Chicklet, ChickletProps, ChickletState, ChickletVariant, Colors, ColumnType, DatePicker, DatePickerField, Dropdown, DropdownField, Icon, Input, Label, RadioGroup, RadioGroupItem, SortDirection, Switch, Table, TableCell, TableCellItem, TableCellItemProps, TableCellProps, TableCellText, TableCellTextProps, TableColumn, TableHeaderItem, TableHeaderItemProps, TableProps, TableRow, TableVariant, Tabs, Typography, TypographyExample, cn, cssVariables, designTokens, globalStyles };
+export { Badge, Button, Caption, Checkbox, Chicklet, ChickletProps, ChickletState, ChickletVariant, Collapsible, CollapsibleProps, Colors, ColumnType, DatePicker, DatePickerField, Dropdown, DropdownField, Icon, Input, Label, RadioGroup, RadioGroupItem, SortDirection, Switch, Table, TableCell, TableCellItem, TableCellItemProps, TableCellProps, TableCellText, TableCellTextProps, TableColumn, TableHeaderItem, TableHeaderItemProps, TableProps, TableRow, TableVariant, Tabs, Typography, TypographyExample, cn, cssVariables, designTokens, globalStyles };

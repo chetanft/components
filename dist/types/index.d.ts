@@ -1,6 +1,7 @@
 export { designTokens, cssVariables } from './tokens/design-tokens';
 export { Badge } from './components/Badge/Badge';
 export { Button } from './components/Button/Button';
+export { Collapsible } from './components/Collapsible/Collapsible';
 export { Checkbox } from './components/Checkbox/Checkbox';
 export { Chicklet } from './components/Chicklet/Chicklet';
 export { DatePicker, DatePickerField, Label } from './components/DatePicker/DatePicker';
@@ -13,6 +14,7 @@ export { Tabs } from './components/Tabs/Tabs';
 export { Table, TableCell, TableCellItem, TableCellText, TableHeaderItem } from './components/Table';
 export type { TableColumn, TableRow, TableProps, SortDirection, ColumnType, TableVariant, TableCellProps, TableCellItemProps, TableCellTextProps, TableHeaderItemProps } from './components/Table';
 export type { ChickletProps, ChickletVariant, ChickletState } from './components/Chicklet/Chicklet';
+export type { CollapsibleProps } from './components/Collapsible/Collapsible';
 export { Typography, TypographyExample } from './components/Typography/Typography';
 export { Colors } from './components/Colors/Colors';
 export { cn } from './lib/utils';

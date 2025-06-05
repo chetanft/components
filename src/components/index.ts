@@ -1,6 +1,12 @@
 // Core components
 export { Button } from './Button/Button';
 export type { ButtonProps, ButtonVariant, ButtonSize } from './Button/Button';
+export { AppHeader } from './AppHeader/AppHeader';
+export type { AppHeaderProps, User } from './AppHeader/AppHeader';
+export { UserProfile } from './UserProfile/UserProfile';
+export type { UserProfileProps } from './UserProfile/UserProfile';
+export { Footer } from './Footer/Footer';
+export type { FooterProps } from './Footer/Footer';
 export { Typography, TypographyExample } from './Typography/Typography';
 export { Colors } from './Colors/Colors';
 
@@ -21,6 +27,14 @@ export { Badge } from './Badge/Badge';
 export type { BadgeProps } from './Badge/Badge';
 export { Collapsible } from './Collapsible/Collapsible';
 export type { CollapsibleProps } from './Collapsible/Collapsible';
+export { QuickFilters } from './QuickFilters/QuickFilters';
+export type { 
+  QuickFiltersProps, 
+  QuickFilter, 
+  FilterOption, 
+  FilterType, 
+  FilterState 
+} from './QuickFilters/QuickFilters';
 export { Steps, StepsItem } from './Steps/Steps';
 export type { StepsProps, StepsItemProps, Step } from './Steps/Steps';
 export { Tabs, TabItem } from './Tabs/Tabs';

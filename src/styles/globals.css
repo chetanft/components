@@ -309,6 +309,11 @@
   --button-link-hover-text: #1d2a38;
   --button-link-border: transparent;
   
+  --button-text-bg: transparent;
+  --button-text-text: #434f64;
+  --button-text-hover-bg: rgba(67, 79, 100, 0.1);
+  --button-text-border: transparent;
+  
   --button-disabled-opacity: 0.5;
   --button-focus-ring: #434f64;
   --button-border-radius: 8px;
@@ -573,102 +578,7 @@ h2 {
   padding: 0;
 }
 
-/* Button text color classes - ensuring proper application */
-.text-button-primary {
-  color: var(--button-primary-text) !important;
-}
-
-.text-button-secondary {
-  color: var(--button-secondary-text) !important;
-}
-
-.text-button-destructive {
-  color: var(--button-destructive-text) !important;
-}
-
-.text-button-warning {
-  color: var(--button-warning-text) !important;
-}
-
-.text-button-success {
-  color: var(--button-success-text) !important;
-}
-
-.text-button-link {
-  color: var(--button-link-text) !important;
-}
-
-/* Force button text colors with maximum specificity */
-button.text-button-primary,
-button.text-button-primary *,
-.text-button-primary button,
-.text-button-primary button * {
-  color: #ffffff !important;
-}
-
-button.text-button-secondary,
-button.text-button-secondary *,
-.text-button-secondary button,
-.text-button-secondary button * {
-  color: #434f64 !important;
-}
-
-button.text-button-destructive,
-button.text-button-destructive *,
-.text-button-destructive button,
-.text-button-destructive button * {
-  color: #ffffff !important;
-}
-
-button.text-button-warning,
-button.text-button-warning *,
-.text-button-warning button,
-.text-button-warning button * {
-  color: #ffffff !important;
-}
-
-button.text-button-success,
-button.text-button-success *,
-.text-button-success button,
-.text-button-success button * {
-  color: #ffffff !important;
-}
-
-button.text-button-link,
-button.text-button-link *,
-.text-button-link button,
-.text-button-link button * {
-  color: #434f64 !important;
-}
-
-/* Additional specificity to override body color inheritance */
-body button.text-button-primary,
-body button.text-button-primary span,
-body .text-button-primary,
-body .text-button-primary * {
-  color: #ffffff !important;
-}
-
-body button.text-button-destructive,
-body button.text-button-destructive span,
-body .text-button-destructive,
-body .text-button-destructive * {
-  color: #ffffff !important;
-}
-
-body button.text-button-warning,
-body button.text-button-warning span,
-body .text-button-warning,
-body .text-button-warning * {
-  color: #ffffff !important;
-}
-
-body button.text-button-success,
-body button.text-button-success span,
-body .text-button-success,
-body .text-button-success * {
-  color: #ffffff !important;
-}
+/* Legacy button text classes removed to prevent conflicts with new Button component */
 
 /* Size utilities for icons */
 .size-6 {
@@ -1151,4 +1061,13 @@ body {
 .border-critical { border-color: var(--color-critical); }
 .border-warning { border-color: var(--color-warning); }
 .border-positive { border-color: var(--color-positive); }
-.border-neutral { border-color: var(--color-neutral); } 
+.border-neutral { border-color: var(--color-neutral); }
+
+/* Button specific sizing */
+.h-13 {
+  height: 3.25rem; /* 52px */
+}
+
+.w-13 {
+  width: 3.25rem; /* 52px */
+} 

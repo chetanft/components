@@ -4506,107 +4506,130 @@ const Badge = React.forwardRef(({ className, variant = 'normal', size = 'md', ic
 });
 Badge.displayName = 'Badge';
 
-const Button = forwardRef(({ className, variant = "primary", size = "md", showIcon = false, disabled = false, children, style, ...props }, ref) => {
-    // Check if this should be a circular button
-    const isCircular = className?.includes('rounded-full');
-    // Base button styles that apply to all variants
-    const baseStyles = [
-        "inline-flex",
-        "items-center",
-        "justify-center",
-        "gap-[var(--spacing-x2)]",
-        "rounded-[var(--button-border-radius)]",
-        "border",
-        "border-solid",
-        "font-[var(--font-family-primary)]",
-        "font-[var(--button-font-weight)]",
-        "transition-all",
-        "duration-200",
-        "cursor-pointer",
-        "focus-visible:outline-none",
-        "focus-visible:ring-2",
-        "focus-visible:ring-[var(--button-focus-ring)]",
-        "focus-visible:ring-offset-2",
-        "disabled:pointer-events-none",
-        "disabled:opacity-[var(--button-disabled-opacity)]"
-    ];
-    // Variant-specific styles without text colors (we'll use inline styles for text)
-    const variantStyles = {
-        primary: [
-            "bg-[var(--button-primary-bg)]",
-            "border-[var(--button-primary-border)]",
-            "hover:bg-[var(--button-primary-hover-bg)]"
-        ],
-        secondary: [
-            "bg-[var(--button-secondary-bg)]",
-            "border-[var(--button-secondary-border)]",
-            "hover:bg-[var(--button-secondary-hover-bg)]",
-            "hover:border-[var(--button-secondary-hover-border)]"
-        ],
-        destructive: [
-            "bg-[var(--button-destructive-bg)]",
-            "border-[var(--button-destructive-border)]",
-            "hover:bg-[var(--button-destructive-hover-bg)]"
-        ],
-        link: [
-            "bg-[var(--button-link-bg)]",
-            "border-[var(--button-link-border)]",
-            "hover:text-[var(--button-link-hover-text)]",
-            "underline",
-            "shadow-none"
-        ]
-    };
-    // Size-specific styles with proper font sizes matching Figma
-    // For circular buttons, width equals height and no horizontal padding
-    const sizeStyles = {
-        sm: [
-            "h-[var(--button-height-sm)]",
-            "text-[14px]", // Fixed font size for small buttons
-            variant === "link" ? "p-0" :
-                isCircular ? "w-[var(--button-height-sm)] p-0" : "px-[16px] py-[8px]"
-        ],
-        md: [
-            "h-[var(--button-height-md)]",
-            "text-[16px]", // Fixed font size for medium buttons
-            variant === "link" ? "p-0" :
-                isCircular ? "w-[var(--button-height-md)] p-0" : "px-[24px] py-[12px]"
-        ],
-        lg: [
-            "h-[var(--button-height-lg)]",
-            "text-[20px]", // Fixed font size for large buttons
-            variant === "link" ? "p-0" :
-                isCircular ? "w-[var(--button-height-lg)] p-0" : "px-[32px] py-[16px]"
-        ]
-    };
-    // Text colors using inline styles to override any inheritance
-    const getTextColor = () => {
-        switch (variant) {
-            case "primary":
-            case "destructive":
-                return "#ffffff"; // White text for filled buttons
-            case "secondary":
-            case "link":
-                return "#434f64"; // Dark gray text for outlined/text buttons
-            default:
-                return "#ffffff";
+const Button = forwardRef(({ variant = "primary", size = "md", icon, iconPosition = "leading", showIcon = false, disabled = false, children, isCircular = false, style, ...props }, ref) => {
+    const shouldShowIcon = icon || showIcon;
+    const iconName = icon || "add";
+    const isIconOnly = iconPosition === "only" || (shouldShowIcon && !children);
+    const getIconSize = () => {
+        switch (size) {
+            case "sm": return 16;
+            case "md": return 20;
+            case "lg": return 24;
+            default: return 20;
         }
     };
-    // Font weight based on variant and size
-    const getFontWeight = () => {
-        return "500"; // Medium font weight for all buttons (common in modern designs)
+    // Base styles - hardcoded with !important
+    let baseStyle = {
+        display: "inline-flex !important",
+        alignItems: "center !important",
+        justifyContent: "center !important",
+        fontFamily: "'Inter', sans-serif !important",
+        fontWeight: "500 !important",
+        transition: "all 0.2s ease-in-out !important",
+        cursor: disabled ? "not-allowed !important" : "pointer !important",
+        opacity: disabled ? "0.5 !important" : "1 !important",
+        border: "1px solid transparent !important", // Default border
+        borderRadius: isIconOnly || isCircular ? "9999px !important" : "8px !important",
     };
-    // Combine all styles
-    const buttonClasses = cn(...baseStyles, ...variantStyles[variant], ...sizeStyles[size], className);
-    // Create inline style object that forces text color and font weight
-    const buttonStyle = {
-        color: getTextColor(),
-        fontWeight: getFontWeight(),
-        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif",
-        ...style
-    };
-    return (jsxRuntimeExports.jsxs("button", { className: buttonClasses, style: buttonStyle, ref: ref, disabled: disabled, ...props, children: [showIcon && variant !== "link" && (jsxRuntimeExports.jsx(Icon, { name: "add", size: 16 })), children] }));
+    // Size-specific styles - hardcoded with !important
+    if (size === "sm") {
+        baseStyle.height = "36px !important";
+        baseStyle.fontSize = "14px !important";
+        if (isIconOnly || isCircular) {
+            baseStyle.width = "36px !important";
+            baseStyle.padding = "0 !important";
+        }
+        else {
+            baseStyle.padding = "0 16px !important";
+        }
+    }
+    else if (size === "md") {
+        baseStyle.height = "44px !important";
+        baseStyle.fontSize = "16px !important";
+        if (isIconOnly || isCircular) {
+            baseStyle.width = "44px !important";
+            baseStyle.padding = "0 !important";
+        }
+        else {
+            baseStyle.padding = "0 24px !important";
+        }
+    }
+    else if (size === "lg") {
+        baseStyle.height = "52px !important";
+        baseStyle.fontSize = "20px !important";
+        if (isIconOnly || isCircular) {
+            baseStyle.width = "52px !important";
+            baseStyle.padding = "0 !important";
+        }
+        else {
+            baseStyle.padding = "0 32px !important";
+        }
+    }
+    // Variant-specific styles - hardcoded with !important
+    if (variant === "primary") {
+        baseStyle.backgroundColor = disabled ? "#434f64 !important" : "#434f64 !important";
+        baseStyle.color = "#ffffff !important";
+        baseStyle.borderColor = "#434f64 !important";
+        // No direct hover style with inline, would need JS or pseudo-classes
+    }
+    else if (variant === "secondary") {
+        baseStyle.backgroundColor = "transparent !important";
+        baseStyle.color = "#434f64 !important";
+        baseStyle.borderColor = "#ced1d7 !important";
+    }
+    else if (variant === "destructive") {
+        baseStyle.backgroundColor = "#ff3533 !important";
+        baseStyle.color = "#ffffff !important";
+        baseStyle.borderColor = "#ff3533 !important";
+    }
+    else if (variant === "text") {
+        baseStyle.backgroundColor = "transparent !important";
+        baseStyle.color = "#434f64 !important";
+        baseStyle.border = "none !important";
+    }
+    else if (variant === "link") {
+        baseStyle.backgroundColor = "transparent !important";
+        baseStyle.color = "#434f64 !important";
+        baseStyle.border = "none !important";
+        baseStyle.textDecoration = "underline !important";
+    }
+    // Combine with user-provided styles
+    const finalStyle = { ...baseStyle, ...style };
+    return (jsxRuntimeExports.jsxs("button", { style: finalStyle, ref: ref, disabled: disabled, ...props, children: [isIconOnly && shouldShowIcon && (jsxRuntimeExports.jsx(Icon, { name: iconName, size: getIconSize() })), !isIconOnly && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [shouldShowIcon && iconPosition === "leading" && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [jsxRuntimeExports.jsx(Icon, { name: iconName, size: getIconSize() }), children && jsxRuntimeExports.jsx("span", { style: { marginLeft: '8px' }, children: children })] })), !shouldShowIcon && children && (jsxRuntimeExports.jsx("span", { children: children })), shouldShowIcon && iconPosition === "trailing" && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [children && jsxRuntimeExports.jsx("span", { style: { marginRight: '8px' }, children: children }), jsxRuntimeExports.jsx(Icon, { name: iconName, size: getIconSize() })] }))] }))] }));
 });
 Button.displayName = "Button";
+
+const Collapsible = ({ header, children, badges, className, isExpanded: controlledIsExpanded, onToggle, background = 'gray', stage = 'default', }) => {
+    const [internalIsExpanded, setInternalIsExpanded] = useState(false);
+    const isExpanded = controlledIsExpanded ?? internalIsExpanded;
+    const handleToggle = () => {
+        const newValue = !isExpanded;
+        if (onToggle) {
+            onToggle(newValue);
+        }
+        else {
+            setInternalIsExpanded(newValue);
+        }
+    };
+    // Background colors based on state and background variant
+    const getBackgroundColor = () => {
+        if (background === 'white') {
+            return 'bg-white';
+        }
+        return 'bg-[#F8F8F9]';
+    };
+    // Show badges for submitted stage or when explicitly provided
+    const shouldShowBadges = stage === 'submitted' || badges;
+    const badgesToShow = badges || (stage === 'submitted' ? { loads: 1, invoices: 1, materials: 1 } : undefined);
+    if (isExpanded) {
+        // Expanded state: column layout with gap and bottom padding
+        return (jsxRuntimeExports.jsxs("div", { className: cn('rounded-lg flex flex-col gap-8 pb-5', getBackgroundColor(), className), children: [jsxRuntimeExports.jsx("div", { className: "flex items-center p-5 border-b border-[#CED1D7]", children: jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-5", children: [jsxRuntimeExports.jsx(Button, { variant: "secondary", size: "md", onClick: handleToggle, className: cn('!w-10 !h-10 !p-0 !px-0 !py-0 flex items-center justify-center rounded-lg min-w-10 min-h-10 max-w-10 max-h-10 aspect-square shrink-0', getBackgroundColor()), children: jsxRuntimeExports.jsx(MinusIcon, { className: "w-4 h-4" }) }), jsxRuntimeExports.jsx("span", { className: "text-xl font-semibold text-[#434F64]", children: header }), shouldShowBadges && badgesToShow && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [badgesToShow.loads !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Loads: ", badgesToShow.loads] })), badgesToShow.invoices !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Invoices: ", badgesToShow.invoices] })), badgesToShow.materials !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Materials: ", badgesToShow.materials] }))] }))] }) }), children && (jsxRuntimeExports.jsx("div", { className: "flex flex-row self-stretch gap-2.5 px-5", children: children }))] }));
+    }
+    // Collapsed state: single row layout with padding
+    return (jsxRuntimeExports.jsx("div", { className: cn('rounded-lg flex items-center p-5', getBackgroundColor(), className), children: jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-5", children: [jsxRuntimeExports.jsx(Button, { variant: "secondary", size: "md", onClick: handleToggle, className: cn('!w-10 !h-10 !p-0 !px-0 !py-0 flex items-center justify-center rounded-lg min-w-10 min-h-10 max-w-10 max-h-10 aspect-square shrink-0', getBackgroundColor()), children: jsxRuntimeExports.jsx(PlusIcon, { className: "w-4 h-4" }) }), jsxRuntimeExports.jsx("span", { className: "text-xl font-semibold text-[#434F64]", children: header }), shouldShowBadges && badgesToShow && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [badgesToShow.loads !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Loads: ", badgesToShow.loads] })), badgesToShow.invoices !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Invoices: ", badgesToShow.invoices] })), badgesToShow.materials !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Materials: ", badgesToShow.materials] }))] }))] }) }));
+};
+const MinusIcon = ({ className }) => (jsxRuntimeExports.jsx("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: className, children: jsxRuntimeExports.jsx("path", { d: "M13.5 8.5H2.5V7.5H13.5V8.5Z", fill: "currentColor" }) }));
+const PlusIcon = ({ className }) => (jsxRuntimeExports.jsx("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: className, children: jsxRuntimeExports.jsx("path", { d: "M8.5 2.5V7.5H13.5V8.5H8.5V13.5H7.5V8.5H2.5V7.5H7.5V2.5H8.5Z", fill: "currentColor" }) }));
 
 const Checkbox = React.forwardRef(({ className, label, indeterminate, size = 'md', variant = 'on-light', disabled, ...props }, ref) => {
     const checkboxRef = React.useRef(null);
@@ -5272,10 +5295,10 @@ const RadioGroup = ({ name, value, defaultValue, options = [], onChange, classNa
             groupGap: "gap-[12px]"
         },
         md: {
-            radio: "w-[var(--radio-size)] h-[var(--radio-size)]", // 20px from Figma patterns
-            dot: "w-[8px] h-[8px]",
-            gap: "gap-[var(--radio-gap)]", // 8px from Figma patterns
-            text: "text-[14px]", // Fixed font size matching other components
+            radio: "w-[var(--radio-size)] h-[var(--radio-size)]", // 20px from Figma
+            dot: "w-[10px] h-[10px]", // 10px inner dot from Figma
+            gap: "gap-[var(--radio-gap)]", // 8px spacing
+            text: "text-[14px]", // 14px font size from Figma
             groupGap: "gap-[16px]"
         }
     };
@@ -5298,17 +5321,17 @@ const RadioGroup = ({ name, value, defaultValue, options = [], onChange, classNa
             // Radio button styles using exact Figma specifications
             const radioStyles = cn(
             // Base styles
-            "relative shrink-0 rounded-full border-[var(--radio-border-width)] transition-all duration-200 cursor-pointer", 
+            "relative shrink-0 rounded-full border-2 transition-all duration-200 cursor-pointer", 
             // Size
             currentSize.radio, 
-            // State styles using exact Figma colors (based on checkbox patterns)
+            // State styles using exact Figma colors - direct color values for reliability
             isDisabled
-                ? "bg-[var(--radio-disabled-bg)] border-[var(--radio-disabled-border)] cursor-not-allowed"
+                ? "bg-transparent border-[#ced1d7] cursor-not-allowed"
                 : isSelected
-                    ? "bg-[var(--radio-selected-bg)] border-[var(--radio-selected-border)] hover:bg-[var(--radio-hover-unselected-bg)] hover:border-[var(--radio-hover-unselected-border)]"
-                    : "bg-[var(--radio-unselected-bg)] border-[var(--radio-unselected-border)] hover:bg-[var(--radio-hover-unselected-bg)] hover:border-[var(--radio-hover-unselected-border)]", 
+                    ? "bg-transparent border-[#434f64] hover:bg-[#ced1d7] hover:border-[#434f64]"
+                    : "bg-transparent border-[#838c9d] hover:bg-[#ced1d7] hover:border-[#838c9d]", 
             // Focus styles
-            "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--radio-selected-bg)] focus-within:ring-offset-2");
+            "focus-within:outline-none focus-within:ring-2 focus-within:ring-[#434f64] focus-within:ring-offset-2");
             // Label styles using exact Figma specifications
             const labelStyles = cn("leading-[1.4] cursor-pointer", // Remove font-weight from class, use inline style
             currentSize.text, isDisabled
@@ -5321,7 +5344,7 @@ const RadioGroup = ({ name, value, defaultValue, options = [], onChange, classNa
                 ...labelStyle,
                 color: getLabelColor(isSelected, !!isDisabled),
             };
-            return (jsxRuntimeExports.jsxs("label", { className: optionStyles, children: [jsxRuntimeExports.jsxs("div", { className: "relative", children: [jsxRuntimeExports.jsx("input", { type: "radio", name: name, value: option.value, checked: isSelected, disabled: isDisabled, onChange: () => handleChange(option.value), className: "sr-only" }), jsxRuntimeExports.jsx("div", { className: radioStyles, children: isSelected && !isDisabled && (jsxRuntimeExports.jsx("div", { className: "absolute inset-0 flex items-center justify-center", children: jsxRuntimeExports.jsx("div", { className: cn("rounded-full bg-[var(--radio-selected-dot)]", // #ffffff from Figma
+            return (jsxRuntimeExports.jsxs("label", { className: optionStyles, children: [jsxRuntimeExports.jsxs("div", { className: "relative", children: [jsxRuntimeExports.jsx("input", { type: "radio", name: name, value: option.value, checked: isSelected, disabled: isDisabled, onChange: () => handleChange(option.value), className: "sr-only" }), jsxRuntimeExports.jsx("div", { className: radioStyles, children: isSelected && !isDisabled && (jsxRuntimeExports.jsx("div", { className: "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2", children: jsxRuntimeExports.jsx("div", { className: cn("rounded-full bg-[#434f64]", // Direct color value
                                         currentSize.dot) }) })) })] }), option.label && (jsxRuntimeExports.jsx("span", { className: labelStyles, style: individualLabelStyle, children: option.label }))] }, option.value));
         }) }));
 };
@@ -5658,5 +5681,5 @@ function Colors() {
 // Global styles - consumers should import this manually
 const globalStyles = './styles/globals.css';
 
-export { Badge, Button, Caption, Checkbox, Chicklet, Colors, DatePicker, DatePickerField, Dropdown, DropdownField, Icon, Input, Label$1 as Label, RadioGroup, RadioGroupItem, Switch, Table, TableCell, TableCellItem, TableCellText, TableHeaderItem, Tabs, Typography, TypographyExample, cn, cssVariables, designTokens, globalStyles };
+export { Badge, Button, Caption, Checkbox, Chicklet, Collapsible, Colors, DatePicker, DatePickerField, Dropdown, DropdownField, Icon, Input, Label$1 as Label, RadioGroup, RadioGroupItem, Switch, Table, TableCell, TableCellItem, TableCellText, TableHeaderItem, Tabs, Typography, TypographyExample, cn, cssVariables, designTokens, globalStyles };
 //# sourceMappingURL=index.esm.js.map

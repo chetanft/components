@@ -13,14 +13,19 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'destructive', 'link'],
+      options: ['primary', 'secondary', 'destructive', 'text', 'link'],
     },
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
     },
-    showIcon: {
-      control: { type: 'boolean' },
+    icon: {
+      control: { type: 'select' },
+      options: ['add', 'search', 'copy', 'send', 'document', 'download', 'edit'],
+    },
+    iconPosition: {
+      control: { type: 'select' },
+      options: ['leading', 'trailing', 'only'],
     },
     disabled: {
       control: { type: 'boolean' },
@@ -39,7 +44,6 @@ export const Primary: Story = {
   args: {
     variant: 'primary',
     size: 'md',
-    showIcon: true,
     children: 'Button',
   },
 };
@@ -49,7 +53,6 @@ export const Secondary: Story = {
   args: {
     variant: 'secondary',
     size: 'md',
-    showIcon: true,
     children: 'Button',
   },
 };
@@ -59,7 +62,15 @@ export const Destructive: Story = {
   args: {
     variant: 'destructive',
     size: 'md',
-    showIcon: true,
+    children: 'Button',
+  },
+};
+
+// Text variant
+export const Text: Story = {
+  args: {
+    variant: 'text',
+    size: 'md',
     children: 'Button',
   },
 };
@@ -69,7 +80,6 @@ export const Link: Story = {
   args: {
     variant: 'link',
     size: 'md',
-    showIcon: false,
     children: 'Button',
   },
 };
@@ -79,7 +89,6 @@ export const Small: Story = {
   args: {
     variant: 'primary',
     size: 'sm',
-    showIcon: true,
     children: 'Button',
   },
 };
@@ -88,8 +97,39 @@ export const Large: Story = {
   args: {
     variant: 'primary',
     size: 'lg',
-    showIcon: true,
     children: 'Button',
+  },
+};
+
+// With leading icon
+export const WithLeadingIcon: Story = {
+  args: {
+    variant: 'primary',
+    size: 'md',
+    icon: 'add',
+    iconPosition: 'leading',
+    children: 'Button',
+  },
+};
+
+// With trailing icon
+export const WithTrailingIcon: Story = {
+  args: {
+    variant: 'primary',
+    size: 'md',
+    icon: 'send',
+    iconPosition: 'trailing',
+    children: 'Button',
+  },
+};
+
+// Icon only
+export const IconOnly: Story = {
+  args: {
+    variant: 'secondary',
+    size: 'md',
+    icon: 'edit',
+    iconPosition: 'only',
   },
 };
 
@@ -98,44 +138,36 @@ export const Disabled: Story = {
   args: {
     variant: 'primary',
     size: 'md',
-    showIcon: true,
+    icon: 'add',
+    iconPosition: 'leading',
     disabled: true,
     children: 'Button',
   },
 };
 
-// Without icon
-export const WithoutIcon: Story = {
-  args: {
-    variant: 'primary',
-    size: 'md',
-    showIcon: false,
-    children: 'Button',
-  },
-};
-
-// All variants showcase - updated to only show correct variants
+// All variants showcase
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-6 p-6">
       {/* Button Variants */}
       <div>
         <h3 className="text-lg font-semibold mb-4">Button Variants</h3>
-      <div className="flex gap-4">
-        <Button variant="primary" size="md" showIcon={true}>Primary</Button>
-        <Button variant="secondary" size="md" showIcon={true}>Secondary</Button>
-        <Button variant="destructive" size="md" showIcon={true}>Destructive</Button>
-        <Button variant="link" size="md" showIcon={false}>Link</Button>
-      </div>
+        <div className="flex gap-4">
+          <Button variant="primary" size="md">Primary</Button>
+          <Button variant="secondary" size="md">Secondary</Button>
+          <Button variant="destructive" size="md">Destructive</Button>
+          <Button variant="text" size="md">Text</Button>
+          <Button variant="link" size="md">Link</Button>
+        </div>
       </div>
       
       {/* Button Sizes */}
       <div>
         <h3 className="text-lg font-semibold mb-4">Button Sizes</h3>
         <div className="flex items-center gap-4">
-        <Button variant="primary" size="sm" showIcon={true}>Small</Button>
-        <Button variant="primary" size="md" showIcon={true}>Medium</Button>
-        <Button variant="primary" size="lg" showIcon={true}>Large</Button>
+          <Button variant="primary" size="sm">Small</Button>
+          <Button variant="primary" size="md">Medium</Button>
+          <Button variant="primary" size="lg">Large</Button>
         </div>
       </div>
       
@@ -143,17 +175,18 @@ export const AllVariants: Story = {
       <div>
         <h3 className="text-lg font-semibold mb-4">Button States</h3>
         <div className="flex gap-4">
-          <Button variant="primary" size="md" showIcon={true}>Normal</Button>
-          <Button variant="primary" size="md" showIcon={true} disabled>Disabled</Button>
+          <Button variant="primary" size="md">Normal</Button>
+          <Button variant="primary" size="md" disabled>Disabled</Button>
         </div>
       </div>
       
-      {/* With and Without Icons */}
+      {/* Icon Positions */}
       <div>
-        <h3 className="text-lg font-semibold mb-4">Icon Options</h3>
+        <h3 className="text-lg font-semibold mb-4">Icon Positions</h3>
         <div className="flex gap-4">
-          <Button variant="primary" size="md" showIcon={true}>With Icon</Button>
-          <Button variant="primary" size="md" showIcon={false}>Without Icon</Button>
+          <Button variant="primary" size="md" icon="add" iconPosition="leading">Leading Icon</Button>
+          <Button variant="primary" size="md" icon="send" iconPosition="trailing">Trailing Icon</Button>
+          <Button variant="secondary" size="md" icon="edit" iconPosition="only" />
         </div>
       </div>
     </div>

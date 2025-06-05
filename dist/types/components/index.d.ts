@@ -1,5 +1,7 @@
 export { Button } from './Button/Button';
 export type { ButtonProps, ButtonVariant, ButtonSize } from './Button/Button';
+export { Footer } from './Footer/Footer';
+export type { FooterProps } from './Footer/Footer';
 export { Typography, TypographyExample } from './Typography/Typography';
 export { Colors } from './Colors/Colors';
 export { Input } from './Input/Input';
@@ -14,6 +16,8 @@ export { DatePicker, DatePickerField } from './DatePicker/DatePicker';
 export type { DatePickerProps, DatePickerFieldProps } from './DatePicker/DatePicker';
 export { Badge } from './Badge/Badge';
 export type { BadgeProps } from './Badge/Badge';
+export { Collapsible } from './Collapsible/Collapsible';
+export type { CollapsibleProps } from './Collapsible/Collapsible';
 export { Steps, StepsItem } from './Steps/Steps';
 export type { StepsProps, StepsItemProps, Step } from './Steps/Steps';
 export { Tabs, TabItem } from './Tabs/Tabs';

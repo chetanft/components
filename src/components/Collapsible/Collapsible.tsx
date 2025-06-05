@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '../Button/Button';
 import { Badge } from '../Badge/Badge';
+import { Icon } from '../Icons';
 import { cn } from '../../lib/utils';
 
 export interface CollapsibleProps {
@@ -68,14 +69,14 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
             <Button
               variant="secondary"
               size="md"
+              icon="subtract"
+              iconPosition="only"
               onClick={handleToggle}
               className={cn(
                 '!w-10 !h-10 !p-0 !px-0 !py-0 flex items-center justify-center rounded-lg min-w-10 min-h-10 max-w-10 max-h-10 aspect-square shrink-0',
                 getBackgroundColor()
               )}
-            >
-              <MinusIcon className="w-4 h-4" />
-            </Button>
+            />
             <span className="text-xl font-semibold text-[#434F64]">{header}</span>
             {shouldShowBadges && badgesToShow && (
               <>
@@ -116,14 +117,14 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
         <Button
           variant="secondary"
           size="md"
+          icon="add"
+          iconPosition="only"
           onClick={handleToggle}
           className={cn(
             '!w-10 !h-10 !p-0 !px-0 !py-0 flex items-center justify-center rounded-lg min-w-10 min-h-10 max-w-10 max-h-10 aspect-square shrink-0',
             getBackgroundColor()
           )}
-        >
-          <PlusIcon className="w-4 h-4" />
-        </Button>
+        />
         <span className="text-xl font-semibold text-[#434F64]">{header}</span>
         {shouldShowBadges && badgesToShow && (
           <>
@@ -141,36 +142,4 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
       </div>
     </div>
   );
-};
-
-const MinusIcon = ({ className }: { className?: string }) => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
-    <path
-      d="M13.5 8.5H2.5V7.5H13.5V8.5Z"
-      fill="currentColor"
-    />
-  </svg>
-);
-
-const PlusIcon = ({ className }: { className?: string }) => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
-    <path
-      d="M8.5 2.5V7.5H13.5V8.5H8.5V13.5H7.5V8.5H2.5V7.5H7.5V2.5H8.5Z"
-      fill="currentColor"
-    />
-  </svg>
-); 
+}; 

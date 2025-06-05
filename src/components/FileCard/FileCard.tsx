@@ -195,56 +195,56 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
               <Button
                 variant="secondary"
                 size="md"
+                icon="download"
+                iconPosition="only"
                 className="rounded-full w-[40px] h-[40px]"
                 onClick={onDownload}
                 disabled={downloadDisabled}
-              >
-                <Icon name="download" size={16} />
-              </Button>
+              />
             )}
             
             {onPreview && (
               <Button
                 variant="secondary"
                 size="md"
+                icon="preview"
+                iconPosition="only"
                 className="rounded-full w-[40px] h-[40px]"
                 onClick={onPreview}
-              >
-                <Icon name="preview" size={16} />
-              </Button>
+              />
             )}
             
             {onRefresh && (
               <Button
                 variant="secondary"
                 size="md"
+                icon="refresh"
+                iconPosition="only"
                 className="rounded-full w-[40px] h-[40px]"
                 onClick={onRefresh}
-              >
-                <Icon name="refresh" size={16} />
-              </Button>
+              />
             )}
             
             {onDelete && (
               <Button
                 variant="secondary"
                 size="md"
+                icon="delete"
+                iconPosition="only"
                 className="rounded-full w-[40px] h-[40px]"
                 onClick={onDelete}
-              >
-                <Icon name="delete" size={16} />
-              </Button>
+              />
             )}
             
             {onClose && (
               <Button
                 variant="secondary"
                 size="md"
+                icon="cross-icon"
+                iconPosition="only"
                 className="rounded-full w-[40px] h-[40px]"
                 onClick={onClose}
-              >
-                <Icon name="cross-icon" size={16} />
-              </Button>
+              />
             )}
           </div>
         </div>
