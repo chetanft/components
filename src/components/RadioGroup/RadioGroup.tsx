@@ -61,10 +61,10 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       groupGap: "gap-[12px]"
     },
     md: {
-      radio: "w-[var(--radio-size)] h-[var(--radio-size)]", // 20px from Figma patterns
-      dot: "w-[8px] h-[8px]",
-      gap: "gap-[var(--radio-gap)]", // 8px from Figma patterns
-      text: "text-[14px]", // Fixed font size matching other components
+      radio: "w-[var(--radio-size)] h-[var(--radio-size)]", // 20px from Figma
+      dot: "w-[10px] h-[10px]", // 10px inner dot from Figma
+      gap: "gap-[var(--radio-gap)]", // 7px from Figma
+      text: "text-[14px]", // 14px font size from Figma
       groupGap: "gap-[16px]"
     }
   };
@@ -101,14 +101,14 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
           "relative shrink-0 rounded-full border-[var(--radio-border-width)] transition-all duration-200 cursor-pointer",
           // Size
           currentSize.radio,
-          // State styles using exact Figma colors (based on checkbox patterns)
+          // State styles using exact Figma colors
           isDisabled
             ? "bg-[var(--radio-disabled-bg)] border-[var(--radio-disabled-border)] cursor-not-allowed"
             : isSelected
-            ? "bg-[var(--radio-selected-bg)] border-[var(--radio-selected-border)] hover:bg-[var(--radio-hover-unselected-bg)] hover:border-[var(--radio-hover-unselected-border)]"
+            ? "bg-[var(--radio-selected-bg)] border-[var(--radio-selected-border)] hover:bg-[var(--radio-hover-selected-bg)] hover:border-[var(--radio-hover-selected-border)]"
             : "bg-[var(--radio-unselected-bg)] border-[var(--radio-unselected-border)] hover:bg-[var(--radio-hover-unselected-bg)] hover:border-[var(--radio-hover-unselected-border)]",
           // Focus styles
-          "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--radio-selected-bg)] focus-within:ring-offset-2"
+          "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--radio-selected-border)] focus-within:ring-offset-2"
         );
 
         // Label styles using exact Figma specifications
@@ -145,12 +145,12 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
                 className="sr-only"
               />
               <div className={radioStyles}>
-                {/* Radio dot - exact Figma color */}
+                {/* Radio dot - exact Figma color and positioning */}
                 {isSelected && !isDisabled && (
-                  <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div 
                       className={cn(
-                        "rounded-full bg-[var(--radio-selected-dot)]", // #ffffff from Figma
+                        "rounded-full bg-[var(--radio-selected-dot)]", // #434f64 from Figma
                         currentSize.dot
                       )}
                     />

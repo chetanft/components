@@ -179,26 +179,28 @@
   --input-font-weight: 400;
   --input-font-size: 16px;
 
-  /* Radio Component Variables - Based on Checkbox patterns */
+  /* Radio Component Variables - Exact Figma specifications */
   --radio-unselected-border: #838c9d;
   --radio-unselected-bg: transparent;
-  --radio-unselected-label: #838c9d;
+  --radio-unselected-label: #434f64;
   
-  --radio-selected-bg: #434f64;
-  --radio-selected-dot: #ffffff;
+  --radio-selected-bg: transparent;
+  --radio-selected-dot: #434f64;
   --radio-selected-label: #434f64;
   --radio-selected-border: #434f64;
   
   --radio-hover-unselected-bg: #ced1d7;
   --radio-hover-unselected-border: #838c9d;
+  --radio-hover-selected-bg: #ced1d7;
+  --radio-hover-selected-border: #434f64;
   
-  --radio-disabled-bg: #ced1d7;
+  --radio-disabled-bg: transparent;
   --radio-disabled-border: #ced1d7;
   --radio-disabled-label: #ced1d7;
   
   --radio-size: 20px;
   --radio-border-width: 2px;
-  --radio-gap: 8px;
+  --radio-gap: 7px;
 
   /* Switch Component Variables - Based on design patterns */
   --switch-off-bg: #838c9d;
