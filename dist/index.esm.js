@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useCallback } from 'react';
+import React, { useState, forwardRef, useCallback } from 'react';
 
 const designTokens = {
     colors: {
@@ -4506,98 +4506,141 @@ const Badge = React.forwardRef(({ className, variant = 'normal', size = 'md', ic
 });
 Badge.displayName = 'Badge';
 
-const Button = forwardRef(({ variant = "primary", size = "md", icon, iconPosition = "leading", showIcon = false, disabled = false, children, isCircular = false, style, ...props }, ref) => {
-    const shouldShowIcon = icon || showIcon;
-    const iconName = icon || "add";
-    const isIconOnly = iconPosition === "only" || (shouldShowIcon && !children);
+// Generate unique class name for this button instance
+const generateButtonId = () => `btn-${Math.random().toString(36).substr(2, 9)}`;
+const Button = ({ variant = 'primary', size = 'md', icon, iconPosition = 'leading', disabled = false, children, className = '', ...props }) => {
+    const isIconOnly = iconPosition === 'only' || (!children && icon);
+    const isCircular = isIconOnly || className.includes('rounded-full');
+    const buttonId = React.useMemo(() => generateButtonId(), []);
+    // Base styles that work across all browsers
+    const baseStyles = {
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontWeight: 500,
+        border: '1px solid',
+        borderRadius: isCircular ? '50%' : '8px',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        transition: 'all 0.2s ease-in-out',
+        textDecoration: 'none',
+        outline: 'none',
+        userSelect: 'none',
+        whiteSpace: 'nowrap',
+        boxSizing: 'border-box',
+        lineHeight: 1,
+        gap: isCircular ? '0' : '8px',
+    };
+    // Size configurations
+    const sizeStyles = {
+        sm: {
+            height: '36px',
+            fontSize: '14px',
+            lineHeight: '14px',
+            padding: isCircular ? '0' : '0 16px',
+            width: isCircular ? '36px' : 'auto',
+        },
+        md: {
+            height: '44px',
+            fontSize: '16px',
+            lineHeight: '16px',
+            padding: isCircular ? '0' : '0 24px',
+            width: isCircular ? '44px' : 'auto',
+        },
+        lg: {
+            height: '52px',
+            fontSize: '20px',
+            lineHeight: '20px',
+            padding: isCircular ? '0' : '0 32px',
+            width: isCircular ? '52px' : 'auto',
+        },
+    };
+    // Variant configurations
+    const variantStyles = {
+        primary: {
+            backgroundColor: '#434f64',
+            borderColor: '#434f64',
+            color: '#ffffff',
+        },
+        secondary: {
+            backgroundColor: 'transparent',
+            borderColor: '#ced1d7',
+            color: '#434f64',
+        },
+        destructive: {
+            backgroundColor: '#ff3533',
+            borderColor: '#ff3533',
+            color: '#ffffff',
+        },
+        text: {
+            backgroundColor: 'transparent',
+            borderColor: 'transparent',
+            color: '#434f64',
+        },
+        link: {
+            backgroundColor: 'transparent',
+            borderColor: 'transparent',
+            color: '#434f64',
+            textDecoration: 'underline',
+        },
+    };
+    // Disabled styles
+    const disabledStyles = disabled
+        ? {
+            opacity: 0.5,
+            cursor: 'not-allowed',
+        }
+        : {};
+    // Combine all styles
+    const finalStyles = {
+        ...baseStyles,
+        ...sizeStyles[size],
+        ...variantStyles[variant],
+        ...disabledStyles,
+    };
+    // Generate CSS with hover states
+    const buttonCSS = `
+    .${buttonId} {
+      transition: all 0.2s ease-in-out;
+    }
+    
+    .${buttonId}:not(:disabled):hover {
+      ${variant === 'primary' ? `
+        background-color: #1d2a38 !important;
+        border-color: #1d2a38 !important;
+      ` : ''}
+      ${variant === 'secondary' ? `
+        background-color: #f0f1f7 !important;
+        border-color: #838c9d !important;
+      ` : ''}
+      ${variant === 'destructive' ? `
+        background-color: #b80100 !important;
+        border-color: #b80100 !important;
+      ` : ''}
+      ${variant === 'text' ? `
+        background-color: rgba(67, 79, 100, 0.1) !important;
+      ` : ''}
+      ${variant === 'link' ? `
+        color: #1d2a38 !important;
+      ` : ''}
+    }
+    
+    .${buttonId}:not(:disabled):active {
+      transform: translateY(1px);
+    }
+  `;
+    // Icon size based on button size
     const getIconSize = () => {
         switch (size) {
-            case "sm": return 16;
-            case "md": return 20;
-            case "lg": return 24;
+            case 'sm': return 16;
+            case 'md': return 20;
+            case 'lg': return 24;
             default: return 20;
         }
     };
-    // Base styles - hardcoded with !important
-    let baseStyle = {
-        display: "inline-flex !important",
-        alignItems: "center !important",
-        justifyContent: "center !important",
-        fontFamily: "'Inter', sans-serif !important",
-        fontWeight: "500 !important",
-        transition: "all 0.2s ease-in-out !important",
-        cursor: disabled ? "not-allowed !important" : "pointer !important",
-        opacity: disabled ? "0.5 !important" : "1 !important",
-        border: "1px solid transparent !important", // Default border
-        borderRadius: isIconOnly || isCircular ? "9999px !important" : "8px !important",
-    };
-    // Size-specific styles - hardcoded with !important
-    if (size === "sm") {
-        baseStyle.height = "36px !important";
-        baseStyle.fontSize = "14px !important";
-        if (isIconOnly || isCircular) {
-            baseStyle.width = "36px !important";
-            baseStyle.padding = "0 !important";
-        }
-        else {
-            baseStyle.padding = "0 16px !important";
-        }
-    }
-    else if (size === "md") {
-        baseStyle.height = "44px !important";
-        baseStyle.fontSize = "16px !important";
-        if (isIconOnly || isCircular) {
-            baseStyle.width = "44px !important";
-            baseStyle.padding = "0 !important";
-        }
-        else {
-            baseStyle.padding = "0 24px !important";
-        }
-    }
-    else if (size === "lg") {
-        baseStyle.height = "52px !important";
-        baseStyle.fontSize = "20px !important";
-        if (isIconOnly || isCircular) {
-            baseStyle.width = "52px !important";
-            baseStyle.padding = "0 !important";
-        }
-        else {
-            baseStyle.padding = "0 32px !important";
-        }
-    }
-    // Variant-specific styles - hardcoded with !important
-    if (variant === "primary") {
-        baseStyle.backgroundColor = disabled ? "#434f64 !important" : "#434f64 !important";
-        baseStyle.color = "#ffffff !important";
-        baseStyle.borderColor = "#434f64 !important";
-        // No direct hover style with inline, would need JS or pseudo-classes
-    }
-    else if (variant === "secondary") {
-        baseStyle.backgroundColor = "transparent !important";
-        baseStyle.color = "#434f64 !important";
-        baseStyle.borderColor = "#ced1d7 !important";
-    }
-    else if (variant === "destructive") {
-        baseStyle.backgroundColor = "#ff3533 !important";
-        baseStyle.color = "#ffffff !important";
-        baseStyle.borderColor = "#ff3533 !important";
-    }
-    else if (variant === "text") {
-        baseStyle.backgroundColor = "transparent !important";
-        baseStyle.color = "#434f64 !important";
-        baseStyle.border = "none !important";
-    }
-    else if (variant === "link") {
-        baseStyle.backgroundColor = "transparent !important";
-        baseStyle.color = "#434f64 !important";
-        baseStyle.border = "none !important";
-        baseStyle.textDecoration = "underline !important";
-    }
-    // Combine with user-provided styles
-    const finalStyle = { ...baseStyle, ...style };
-    return (jsxRuntimeExports.jsxs("button", { style: finalStyle, ref: ref, disabled: disabled, ...props, children: [isIconOnly && shouldShowIcon && (jsxRuntimeExports.jsx(Icon, { name: iconName, size: getIconSize() })), !isIconOnly && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [shouldShowIcon && iconPosition === "leading" && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [jsxRuntimeExports.jsx(Icon, { name: iconName, size: getIconSize() }), children && jsxRuntimeExports.jsx("span", { style: { marginLeft: '8px' }, children: children })] })), !shouldShowIcon && children && (jsxRuntimeExports.jsx("span", { children: children })), shouldShowIcon && iconPosition === "trailing" && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [children && jsxRuntimeExports.jsx("span", { style: { marginRight: '8px' }, children: children }), jsxRuntimeExports.jsx(Icon, { name: iconName, size: getIconSize() })] }))] }))] }));
-});
-Button.displayName = "Button";
+    return (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [jsxRuntimeExports.jsx("style", { dangerouslySetInnerHTML: { __html: buttonCSS } }), jsxRuntimeExports.jsxs("button", { style: finalStyles, disabled: disabled, className: `${buttonId} ${className}`, ...props, children: [isIconOnly && icon && (jsxRuntimeExports.jsx(Icon, { name: icon, size: getIconSize() })), !isIconOnly && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [icon && iconPosition === 'leading' && (jsxRuntimeExports.jsx(Icon, { name: icon, size: getIconSize() })), children, icon && iconPosition === 'trailing' && (jsxRuntimeExports.jsx(Icon, { name: icon, size: getIconSize() }))] }))] })] }));
+};
+Button.displayName = 'Button';
 
 const Collapsible = ({ header, children, badges, className, isExpanded: controlledIsExpanded, onToggle, background = 'gray', stage = 'default', }) => {
     const [internalIsExpanded, setInternalIsExpanded] = useState(false);
@@ -4623,13 +4666,11 @@ const Collapsible = ({ header, children, badges, className, isExpanded: controll
     const badgesToShow = badges || (stage === 'submitted' ? { loads: 1, invoices: 1, materials: 1 } : undefined);
     if (isExpanded) {
         // Expanded state: column layout with gap and bottom padding
-        return (jsxRuntimeExports.jsxs("div", { className: cn('rounded-lg flex flex-col gap-8 pb-5', getBackgroundColor(), className), children: [jsxRuntimeExports.jsx("div", { className: "flex items-center p-5 border-b border-[#CED1D7]", children: jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-5", children: [jsxRuntimeExports.jsx(Button, { variant: "secondary", size: "md", onClick: handleToggle, className: cn('!w-10 !h-10 !p-0 !px-0 !py-0 flex items-center justify-center rounded-lg min-w-10 min-h-10 max-w-10 max-h-10 aspect-square shrink-0', getBackgroundColor()), children: jsxRuntimeExports.jsx(MinusIcon, { className: "w-4 h-4" }) }), jsxRuntimeExports.jsx("span", { className: "text-xl font-semibold text-[#434F64]", children: header }), shouldShowBadges && badgesToShow && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [badgesToShow.loads !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Loads: ", badgesToShow.loads] })), badgesToShow.invoices !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Invoices: ", badgesToShow.invoices] })), badgesToShow.materials !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Materials: ", badgesToShow.materials] }))] }))] }) }), children && (jsxRuntimeExports.jsx("div", { className: "flex flex-row self-stretch gap-2.5 px-5", children: children }))] }));
+        return (jsxRuntimeExports.jsxs("div", { className: cn('rounded-lg flex flex-col gap-8 pb-5', getBackgroundColor(), className), children: [jsxRuntimeExports.jsx("div", { className: "flex items-center p-5 border-b border-[#CED1D7]", children: jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-5", children: [jsxRuntimeExports.jsx(Button, { variant: "secondary", size: "md", icon: "subtract", iconPosition: "only", onClick: handleToggle, className: cn('!w-10 !h-10 !p-0 !px-0 !py-0 flex items-center justify-center rounded-lg min-w-10 min-h-10 max-w-10 max-h-10 aspect-square shrink-0', getBackgroundColor()) }), jsxRuntimeExports.jsx("span", { className: "text-xl font-semibold text-[#434F64]", children: header }), shouldShowBadges && badgesToShow && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [badgesToShow.loads !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Loads: ", badgesToShow.loads] })), badgesToShow.invoices !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Invoices: ", badgesToShow.invoices] })), badgesToShow.materials !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Materials: ", badgesToShow.materials] }))] }))] }) }), children && (jsxRuntimeExports.jsx("div", { className: "flex flex-row self-stretch gap-2.5 px-5", children: children }))] }));
     }
     // Collapsed state: single row layout with padding
-    return (jsxRuntimeExports.jsx("div", { className: cn('rounded-lg flex items-center p-5', getBackgroundColor(), className), children: jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-5", children: [jsxRuntimeExports.jsx(Button, { variant: "secondary", size: "md", onClick: handleToggle, className: cn('!w-10 !h-10 !p-0 !px-0 !py-0 flex items-center justify-center rounded-lg min-w-10 min-h-10 max-w-10 max-h-10 aspect-square shrink-0', getBackgroundColor()), children: jsxRuntimeExports.jsx(PlusIcon, { className: "w-4 h-4" }) }), jsxRuntimeExports.jsx("span", { className: "text-xl font-semibold text-[#434F64]", children: header }), shouldShowBadges && badgesToShow && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [badgesToShow.loads !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Loads: ", badgesToShow.loads] })), badgesToShow.invoices !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Invoices: ", badgesToShow.invoices] })), badgesToShow.materials !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Materials: ", badgesToShow.materials] }))] }))] }) }));
+    return (jsxRuntimeExports.jsx("div", { className: cn('rounded-lg flex items-center p-5', getBackgroundColor(), className), children: jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-5", children: [jsxRuntimeExports.jsx(Button, { variant: "secondary", size: "md", icon: "add", iconPosition: "only", onClick: handleToggle, className: cn('!w-10 !h-10 !p-0 !px-0 !py-0 flex items-center justify-center rounded-lg min-w-10 min-h-10 max-w-10 max-h-10 aspect-square shrink-0', getBackgroundColor()) }), jsxRuntimeExports.jsx("span", { className: "text-xl font-semibold text-[#434F64]", children: header }), shouldShowBadges && badgesToShow && (jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [badgesToShow.loads !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Loads: ", badgesToShow.loads] })), badgesToShow.invoices !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Invoices: ", badgesToShow.invoices] })), badgesToShow.materials !== undefined && (jsxRuntimeExports.jsxs(Badge, { variant: "neutral", children: ["Materials: ", badgesToShow.materials] }))] }))] }) }));
 };
-const MinusIcon = ({ className }) => (jsxRuntimeExports.jsx("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: className, children: jsxRuntimeExports.jsx("path", { d: "M13.5 8.5H2.5V7.5H13.5V8.5Z", fill: "currentColor" }) }));
-const PlusIcon = ({ className }) => (jsxRuntimeExports.jsx("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: className, children: jsxRuntimeExports.jsx("path", { d: "M8.5 2.5V7.5H13.5V8.5H8.5V13.5H7.5V8.5H2.5V7.5H7.5V2.5H8.5Z", fill: "currentColor" }) }));
 
 const Checkbox = React.forwardRef(({ className, label, indeterminate, size = 'md', variant = 'on-light', disabled, ...props }, ref) => {
     const checkboxRef = React.useRef(null);

@@ -272,24 +272,17 @@ interface BadgeProps extends React__default.HTMLAttributes<HTMLDivElement> {
 }
 declare const Badge: React__default.ForwardRefExoticComponent<BadgeProps & React__default.RefAttributes<HTMLDivElement>>;
 
-type ButtonVariant = "primary" | "secondary" | "destructive" | "text" | "link";
-type ButtonSize = "sm" | "md" | "lg";
-type IconPosition = "leading" | "trailing" | "only";
+type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'text' | 'link';
+type ButtonSize = 'sm' | 'md' | 'lg';
+type IconPosition = 'leading' | 'trailing' | 'only';
 interface ButtonProps extends React__default.ButtonHTMLAttributes<HTMLButtonElement> {
-    /** Button visual variant */
     variant?: ButtonVariant;
-    /** Button size */
     size?: ButtonSize;
-    /** Icon name to display */
     icon?: IconName;
-    /** Position of the icon relative to text */
     iconPosition?: IconPosition;
-    /** Legacy prop for backwards compatibility */
-    showIcon?: boolean;
-    /** Whether this button is circular (for icon-only buttons) */
-    isCircular?: boolean;
+    children?: React__default.ReactNode;
 }
-declare const Button: React__default.ForwardRefExoticComponent<ButtonProps & React__default.RefAttributes<HTMLButtonElement>>;
+declare const Button: React__default.FC<ButtonProps>;
 
 interface CollapsibleProps {
     header: string;
