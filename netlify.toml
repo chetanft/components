@@ -12,32 +12,47 @@
   skip_processing = false
 
 [build.processing.css]
-  bundle = true
-  minify = true
+  bundle = false
+  minify = false
 
 [build.processing.js]
-  bundle = true
-  minify = true
+  bundle = false
+  minify = false
 
-# Redirect rules
+# Redirect rules - preserve assets and iframe
+[[redirects]]
+  from = "/iframe.html"
+  to = "/iframe.html"
+  status = 200
+
+[[redirects]]
+  from = "/assets/*"
+  to = "/assets/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/sb-*"
+  to = "/sb-*"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Headers for better caching
+# Headers for better caching - reduced cache time for JS modules
+[[headers]]
+  for = "/assets/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=300"
+
+[[headers]]
+  for = "/assets/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[headers]]
   for = "/static/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "*.css"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 

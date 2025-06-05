@@ -18,6 +18,21 @@ const config: StorybookConfig = {
       propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
     },
   },
+  viteFinal: async (config) => {
+    // Optimize for deployment
+    if (config.build) {
+      config.build.rollupOptions = {
+        ...config.build.rollupOptions,
+        output: {
+          ...config.build.rollupOptions?.output,
+          manualChunks: undefined, // Disable manual chunking that can cause issues
+        },
+      };
+      // Increase chunk size warning limit
+      config.build.chunkSizeWarningLimit = 1000;
+    }
+    return config;
+  },
 };
 
 export default config; 
