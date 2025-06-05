@@ -7,7 +7,7 @@ import { FileTypeIcon } from '../components/FileTypeIcon';
 import { ProgressBar } from '../components/ProgressBar';
 
 const meta: Meta = {
-  title: 'Upload & Files/Complete Upload Flow',
+  title: 'Upload & Files/Upload Flow',
   parameters: {
     layout: 'padded',
     docs: {
@@ -22,7 +22,7 @@ export default meta;
 type Story = StoryObj;
 
 // Upload Zone Demo
-export const UploadZoneDemo: Story = {
+export const UploadZone_Demo: Story = {
   render: () => {
     const [uploadedFiles, setUploadedFiles] = React.useState<string[]>([]);
     
@@ -50,7 +50,6 @@ export const UploadZoneDemo: Story = {
                 key={index}
                 fileName={fileName}
                 onDownload={() => alert(`Downloading ${fileName}`)}
-                onRemove={() => setUploadedFiles(prev => prev.filter((_, i) => i !== index))}
               />
             ))}
           </div>
@@ -96,7 +95,7 @@ export const FileTypeIcons: Story = {
 };
 
 // Complete File Processing Flow
-export const FileProcessingFlow: Story = {
+export const Complete_File_Processing_Flow: Story = {
   render: () => (
     <div className="max-w-4xl space-y-8">
       <h2 className="text-xl font-semibold">File Processing States</h2>
@@ -113,7 +112,6 @@ export const FileProcessingFlow: Story = {
         <FileThumbnail
           fileName="Add_order_upload.xlsx"
           onDownload={() => alert('Download')}
-          onRemove={() => alert('Remove')}
         />
       </div>
       
@@ -223,39 +221,8 @@ export const FileProcessingFlow: Story = {
   )
 };
 
-// Progress Bar Examples
-export const ProgressExamples: Story = {
-  render: () => (
-    <div className="space-y-6">
-      <h2 className="text-xl font-semibold mb-4">Progress Bar Examples</h2>
-      
-      <div className="space-y-4">
-        <div>
-          <h3 className="text-md font-medium mb-2">Upload Progress (23%)</h3>
-          <ProgressBar value={23} variant="primary" />
-        </div>
-        
-        <div>
-          <h3 className="text-md font-medium mb-2">Success (100%)</h3>
-          <ProgressBar value={100} variant="success" />
-        </div>
-        
-        <div>
-          <h3 className="text-md font-medium mb-2">Warning (67%)</h3>
-          <ProgressBar value={67} variant="warning" />
-        </div>
-        
-        <div>
-          <h3 className="text-md font-medium mb-2">Error (23%)</h3>
-          <ProgressBar value={23} variant="danger" />
-        </div>
-      </div>
-    </div>
-  )
-};
-
 // Interactive Upload Simulator
-export const InteractiveUploadSimulator: Story = {
+export const Interactive_Upload_Simulator: Story = {
   render: () => {
     const [files, setFiles] = React.useState<Array<{
       id: string;

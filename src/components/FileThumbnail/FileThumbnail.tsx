@@ -8,7 +8,6 @@ import { Icon } from '../Icons';
 export interface FileThumbnailProps extends React.HTMLAttributes<HTMLDivElement> {
   fileName: string;
   onDownload?: () => void;
-  onRemove?: () => void;
   variant?: 'uploaded' | 'downloading';
 }
 
@@ -17,7 +16,6 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
     className,
     fileName,
     onDownload,
-    onRemove,
     variant = 'uploaded',
     ...props 
   }, ref) => {
@@ -61,18 +59,6 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
             <span className="text-[16px] font-[500] leading-[1.4] text-[#434F64]">
               Download
             </span>
-          </Button>
-        )}
-        
-        {/* Remove button for any variant */}
-        {onRemove && (
-          <Button
-            variant="secondary"
-            size="md"
-            className="rounded-full w-[40px] h-[40px] ml-auto"
-            onClick={onRemove}
-          >
-            <Icon name="cross-icon" size={16} />
           </Button>
         )}
       </div>
