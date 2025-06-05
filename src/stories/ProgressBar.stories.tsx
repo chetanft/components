@@ -3,13 +3,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ProgressBar } from '../components/ProgressBar';
 
 const meta: Meta<typeof ProgressBar> = {
-  title: 'Upload & Files/Atoms/ProgressBar',
+  title: 'Components/ProgressBar',
   component: ProgressBar,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
-        component: 'A progress bar component for showing upload progress and other completion states. Based on the Figma upload file design specifications.'
+        component: 'A versatile progress bar component for showing completion states, upload progress, loading states, and other progress indicators. Supports multiple variants and animations.'
       }
     }
   },

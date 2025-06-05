@@ -4,6 +4,7 @@ export { designTokens, cssVariables } from './tokens/design-tokens';
 // Components
 export { Badge } from './components/Badge/Badge';
 export { Button } from './components/Button/Button';
+export { Collapsible } from './components/Collapsible/Collapsible';
 export { Checkbox } from './components/Checkbox/Checkbox';
 export { Chicklet } from './components/Chicklet/Chicklet';
 export { DatePicker, DatePickerField, Label } from './components/DatePicker/DatePicker';
@@ -37,6 +38,7 @@ export type {
   ChickletVariant,
   ChickletState
 } from './components/Chicklet/Chicklet';
+export type { CollapsibleProps } from './components/Collapsible/Collapsible';
 export { Typography, TypographyExample } from './components/Typography/Typography';
 
 // Colors

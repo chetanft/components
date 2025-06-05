@@ -3,13 +3,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { UploadZone } from '../components/UploadZone';
 
 const meta: Meta<typeof UploadZone> = {
-  title: 'Upload & Files/Atoms/UploadZone',
+  title: 'Components/UploadZone',
   component: UploadZone,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Drag and drop upload zone component based on Figma design specifications. Supports file selection, validation, and interactive states.'
+        component: 'Drag and drop upload zone component for file selection and upload. Supports file validation, multiple file selection, and interactive states with customizable file type restrictions.'
       }
     }
   },
@@ -47,7 +47,7 @@ export const Default: Story = {
 };
 
 // Multiple files allowed
-export const Multiple_Files: Story = {
+export const MultipleFiles: Story = {
   args: {
     acceptedFileTypes: ['Excel', 'CSV'],
     maxFileSize: 10,
@@ -67,7 +67,7 @@ export const Disabled: Story = {
 };
 
 // Different file types
-export const Different_File_Types: Story = {
+export const DifferentFileTypes: Story = {
   args: {
     acceptedFileTypes: ['PDF', 'DOC', 'DOCX'],
     maxFileSize: 25,
@@ -77,7 +77,7 @@ export const Different_File_Types: Story = {
 };
 
 // Interactive demo
-export const Interactive_Demo: Story = {
+export const InteractiveDemo: Story = {
   render: () => {
     const [selectedFiles, setSelectedFiles] = React.useState<string[]>([]);
     

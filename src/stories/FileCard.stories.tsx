@@ -3,13 +3,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { FileCard } from '../components/FileCard';
 
 const meta: Meta<typeof FileCard> = {
-  title: 'Upload & Files/Molecules/FileCard',
+  title: 'Components/FileCard',
   component: FileCard,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Complete file management card component with multiple states, progress tracking, and actions. Supports various file processing states with proper alignment and styling.'
+        component: 'Comprehensive file management card component for displaying file information, processing states, statistics, and actions. Supports various file processing workflows with progress tracking and error handling.'
       }
     }
   },
@@ -73,7 +73,7 @@ export const Validating: Story = {
 };
 
 // Fully processed with stats
-export const Fully_Processed: Story = {
+export const FullyProcessed: Story = {
   args: {
     fileName: 'File 178.xlsx',
     fileType: 'XLS',
@@ -88,7 +88,7 @@ export const Fully_Processed: Story = {
 };
 
 // Partially processed with stats
-export const Partially_Processed: Story = {
+export const PartiallyProcessed: Story = {
   args: {
     fileName: 'File 178.xlsx',
     fileType: 'XLS',
@@ -103,7 +103,7 @@ export const Partially_Processed: Story = {
 };
 
 // Error states
-export const Template_Mismatch: Story = {
+export const TemplateMismatch: Story = {
   args: {
     fileName: 'File 178.xlsx',
     fileType: 'XLS',
@@ -114,7 +114,7 @@ export const Template_Mismatch: Story = {
   }
 };
 
-export const Upload_Failed: Story = {
+export const UploadFailed: Story = {
   args: {
     fileName: 'File 178.xlsx',
     fileType: 'XLS',
@@ -126,7 +126,7 @@ export const Upload_Failed: Story = {
   }
 };
 
-export const Unsupported_Format: Story = {
+export const UnsupportedFormat: Story = {
   args: {
     fileName: 'File 178.txt',
     fileType: '!',
@@ -136,7 +136,7 @@ export const Unsupported_Format: Story = {
   }
 };
 
-export const File_Too_Large: Story = {
+export const FileTooLarge: Story = {
   args: {
     fileName: 'File 178.xlsx',
     fileType: 'XLS',
@@ -148,7 +148,7 @@ export const File_Too_Large: Story = {
 };
 
 // All states showcase
-export const All_States: Story = {
+export const AllStates: Story = {
   render: () => (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold mb-4">File Card States</h2>

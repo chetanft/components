@@ -3,13 +3,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { FileThumbnail } from '../components/FileThumbnail';
 
 const meta: Meta<typeof FileThumbnail> = {
-  title: 'Upload & Files/Molecules/FileThumbnail',
+  title: 'Components/FileThumbnail',
   component: FileThumbnail,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Compact file thumbnail component for displaying selected files with download action. Simplified version without cross button as per updated design.'
+        component: 'Compact file thumbnail component for displaying file information with optional actions. Ideal for file lists, selected file displays, and file management interfaces.'
       }
     }
   },
@@ -39,7 +39,7 @@ export const Default: Story = {
 };
 
 // Without download button
-export const Without_Download: Story = {
+export const WithoutDownload: Story = {
   args: {
     fileName: 'Add_order_upload.xlsx',
     variant: 'uploaded'
@@ -47,7 +47,7 @@ export const Without_Download: Story = {
 };
 
 // Different file names
-export const Different_Files: Story = {
+export const DifferentFiles: Story = {
   render: () => (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold mb-4">File Thumbnails</h2>

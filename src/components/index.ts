@@ -19,6 +19,8 @@ export type { DatePickerProps, DatePickerFieldProps } from './DatePicker/DatePic
 // UI components
 export { Badge } from './Badge/Badge';
 export type { BadgeProps } from './Badge/Badge';
+export { Collapsible } from './Collapsible/Collapsible';
+export type { CollapsibleProps } from './Collapsible/Collapsible';
 export { Steps, StepsItem } from './Steps/Steps';
 export type { StepsProps, StepsItemProps, Step } from './Steps/Steps';
 export { Tabs, TabItem } from './Tabs/Tabs';

@@ -3,13 +3,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { FileTypeIcon } from '../components/FileTypeIcon';
 
 const meta: Meta<typeof FileTypeIcon> = {
-  title: 'Upload & Files/Atoms/FileTypeIcon',
+  title: 'Components/FileTypeIcon',
   component: FileTypeIcon,
   parameters: {
     layout: 'padded',
     docs: {
       description: {
-        component: 'File type icon component with proper gradients and colors based on Figma design specifications.'
+        component: 'File type icon component for displaying file format indicators (XLS, CSV, PDF, DOC, etc.) with proper gradients, colors, and error states.'
       }
     }
   },
@@ -44,7 +44,7 @@ export const Default: Story = {
 };
 
 // All file types showcase
-export const All_File_Types: Story = {
+export const AllFileTypes: Story = {
   render: () => (
     <div className="space-y-6">
       <h2 className="text-xl font-semibold mb-4">File Type Icons</h2>
@@ -101,7 +101,7 @@ export const Sizes: Story = {
 };
 
 // Error variant
-export const Error_Variant: Story = {
+export const ErrorVariant: Story = {
   args: {
     fileType: '!',
     variant: 'error',

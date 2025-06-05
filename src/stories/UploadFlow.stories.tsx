@@ -7,7 +7,7 @@ import { FileTypeIcon } from '../components/FileTypeIcon';
 import { ProgressBar } from '../components/ProgressBar';
 
 const meta: Meta = {
-  title: 'Upload & Files/Upload Flow',
+  title: 'Patterns/Upload Flow',
   parameters: {
     layout: 'padded',
     docs: {
@@ -22,7 +22,7 @@ export default meta;
 type Story = StoryObj;
 
 // Upload Zone Demo
-export const UploadZone_Demo: Story = {
+export const UploadZoneDemo: Story = {
   render: () => {
     const [uploadedFiles, setUploadedFiles] = React.useState<string[]>([]);
     
@@ -95,7 +95,7 @@ export const FileTypeIcons: Story = {
 };
 
 // Complete File Processing Flow
-export const Complete_File_Processing_Flow: Story = {
+export const FileProcessingFlow: Story = {
   render: () => (
     <div className="max-w-4xl space-y-8">
       <h2 className="text-xl font-semibold">File Processing States</h2>
@@ -222,7 +222,7 @@ export const Complete_File_Processing_Flow: Story = {
 };
 
 // Interactive Upload Simulator
-export const Interactive_Upload_Simulator: Story = {
+export const InteractiveUploadSimulator: Story = {
   render: () => {
     const [files, setFiles] = React.useState<Array<{
       id: string;

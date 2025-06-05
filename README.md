@@ -128,7 +128,35 @@ npm run build
 
 # Run tests
 npm run test
+
+# Share with designers (local network)
+npm run share-storybook
+
+# Setup automatic deployment to Netlify
+npm run setup-deployment
 ```
+
+## 🌐 Deployment & Sharing
+
+### **For Designers**
+This project includes comprehensive designer collaboration tools:
+- 📖 See [`DESIGN_COLLABORATION.md`](DESIGN_COLLABORATION.md) for Storybook usage guide
+- 🎨 Interactive component playground with real-time controls
+- 📱 Responsive testing and design specifications
+
+### **Automatic Deployment**
+Deploy your Storybook automatically to Netlify:
+- ✅ **Auto-deploy** on every GitHub push
+- ✅ **Preview URLs** for pull requests  
+- ✅ **Global CDN** for fast worldwide access
+- ✅ **HTTPS** enabled by default
+
+```bash
+# One-command setup
+npm run setup-deployment
+```
+
+See [`DEPLOYMENT_GUIDE.md`](DEPLOYMENT_GUIDE.md) for detailed deployment instructions.
 
 ## 📚 Documentation
 
