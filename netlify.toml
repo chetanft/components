@@ -1,5 +1,5 @@
 [build]
-  # Command to build the site
+  # Command to build the site - Force rebuild to fix corrupted module
   command = "npm run build-storybook"
   
   # Directory to publish (contains the built static files)
