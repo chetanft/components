@@ -63,7 +63,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
     md: {
       radio: "w-[var(--radio-size)] h-[var(--radio-size)]", // 20px from Figma
       dot: "w-[10px] h-[10px]", // 10px inner dot from Figma
-      gap: "gap-[var(--radio-gap)]", // 7px from Figma
+      gap: "gap-[var(--radio-gap)]", // 8px spacing
       text: "text-[14px]", // 14px font size from Figma
       groupGap: "gap-[16px]"
     }

@@ -200,7 +200,7 @@
   
   --radio-size: 20px;
   --radio-border-width: 2px;
-  --radio-gap: 7px;
+  --radio-gap: 8px;
 
   /* Switch Component Variables - Based on design patterns */
   --switch-off-bg: #838c9d;
