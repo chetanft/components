@@ -1,0 +1,428 @@
+{
+  "designSystem": {
+    "name": "@chetanft/design_system",
+    "version": "1.0.0",
+    "description": "React design system components built from Figma designs",
+    "installation": {
+      "npm": "npm install @chetanft/design_system",
+      "githubPackages": {
+        "npmrc": "@chetanft:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN",
+        "install": "npm install @chetanft/design_system"
+      }
+    },
+    "components": {
+      "AppHeader": {
+        "description": "Application header with user profile, notifications, and company branding",
+        "import": "import { AppHeader } from '@chetanft/design_system';",
+        "props": {
+          "user": {
+            "type": "User",
+            "required": false,
+            "description": "User information object",
+            "properties": {
+              "name": "string",
+              "role": "string",
+              "location": "string",
+              "badge": "string"
+            }
+          },
+          "onNotificationClick": {
+            "type": "(type: 'rocket' | 'bell') => void",
+            "required": false,
+            "description": "Callback for notification icon clicks"
+          },
+          "onUserClick": {
+            "type": "() => void",
+            "required": false,
+            "description": "Callback for user profile clicks"
+          },
+          "onUserMenuItemClick": {
+            "type": "(item: string) => void",
+            "required": false,
+            "description": "Callback for user menu item clicks"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<AppHeader \n  user={{\n    name: 'John Doe',\n    role: 'Manager',\n    location: 'Mumbai',\n    badge: 'Admin'\n  }}\n/>"
+          },
+          {
+            "name": "With Event Handlers",
+            "code": "<AppHeader \n  user={{\n    name: 'Jane Smith',\n    role: 'Dispatch Manager',\n    location: 'Delhi',\n    badge: 'Supervisor'\n  }}\n  onNotificationClick={(type) => alert(`${type} clicked`)}\n  onUserMenuItemClick={(item) => console.log(item)}\n/>"
+          }
+        ]
+      },
+      "Button": {
+        "description": "Interactive button component with multiple variants and icon support",
+        "import": "import { Button } from '@chetanft/design_system';",
+        "props": {
+          "variant": {
+            "type": "'primary' | 'secondary' | 'text'",
+            "required": false,
+            "default": "primary",
+            "description": "Button visual style variant"
+          },
+          "size": {
+            "type": "'small' | 'medium' | 'large'",
+            "required": false,
+            "default": "medium",
+            "description": "Button size"
+          },
+          "iconPosition": {
+            "type": "'leading' | 'trailing' | 'only'",
+            "required": false,
+            "description": "Position of the icon relative to text"
+          },
+          "icon": {
+            "type": "React.ReactNode",
+            "required": false,
+            "description": "Icon element to display"
+          },
+          "disabled": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the button is disabled"
+          },
+          "onClick": {
+            "type": "(event: React.MouseEvent) => void",
+            "required": false,
+            "description": "Click event handler"
+          },
+          "children": {
+            "type": "React.ReactNode",
+            "required": false,
+            "description": "Button content (text)"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Primary Button",
+            "code": "<Button variant=\"primary\">Save Changes</Button>"
+          },
+          {
+            "name": "Secondary Button",
+            "code": "<Button variant=\"secondary\">Cancel</Button>"
+          },
+          {
+            "name": "Text Button",
+            "code": "<Button variant=\"text\">Learn More</Button>"
+          },
+          {
+            "name": "Button with Leading Icon",
+            "code": "<Button variant=\"primary\" iconPosition=\"leading\" icon={<PlusIcon />}>Add Item</Button>"
+          },
+          {
+            "name": "Button with Trailing Icon",
+            "code": "<Button variant=\"secondary\" iconPosition=\"trailing\" icon={<ArrowIcon />}>Next</Button>"
+          },
+          {
+            "name": "Icon Only Button",
+            "code": "<Button variant=\"primary\" iconPosition=\"only\" icon={<EditIcon />} />"
+          }
+        ]
+      },
+      "UserProfile": {
+        "description": "User profile component with dropdown menu",
+        "import": "import { UserProfile } from '@chetanft/design_system';",
+        "props": {
+          "userName": {
+            "type": "string",
+            "required": false,
+            "default": "Santosh Kumar",
+            "description": "User's display name"
+          },
+          "userRole": {
+            "type": "string",
+            "required": false,
+            "default": "Dispatch Manager",
+            "description": "User's role or job title"
+          },
+          "userLocation": {
+            "type": "string",
+            "required": false,
+            "default": "SPD-Santoshnagar",
+            "description": "User's location or office"
+          },
+          "userBadge": {
+            "type": "string",
+            "required": false,
+            "default": "Admin",
+            "description": "User's badge or permission level"
+          },
+          "isOpen": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether dropdown is open"
+          },
+          "onToggle": {
+            "type": "() => void",
+            "required": false,
+            "description": "Callback for dropdown toggle"
+          },
+          "onMenuItemClick": {
+            "type": "(item: string) => void",
+            "required": false,
+            "description": "Callback for menu item clicks"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<UserProfile \n  userName=\"John Doe\"\n  userRole=\"Manager\"\n  userLocation=\"Mumbai\"\n  userBadge=\"Admin\"\n/>"
+          },
+          {
+            "name": "With Event Handlers",
+            "code": "const [isOpen, setIsOpen] = useState(false);\n\n<UserProfile \n  userName=\"Jane Smith\"\n  userRole=\"Supervisor\"\n  userLocation=\"Delhi\"\n  userBadge=\"Manager\"\n  isOpen={isOpen}\n  onToggle={() => setIsOpen(!isOpen)}\n  onMenuItemClick={(item) => console.log(item)}\n/>"
+          }
+        ]
+      },
+      "Footer": {
+        "description": "Footer component with multiple layout variants",
+        "import": "import { Footer } from '@chetanft/design_system';",
+        "props": {
+          "variant": {
+            "type": "'minimal' | 'standard' | 'detailed' | 'corporate' | 'social'",
+            "required": false,
+            "default": "standard",
+            "description": "Footer layout variant"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Standard Footer",
+            "code": "<Footer variant=\"standard\" />"
+          },
+          {
+            "name": "Minimal Footer",
+            "code": "<Footer variant=\"minimal\" />"
+          },
+          {
+            "name": "Corporate Footer",
+            "code": "<Footer variant=\"corporate\" />"
+          }
+        ]
+      },
+      "Badge": {
+        "description": "Status and label badge component",
+        "import": "import { Badge } from '@chetanft/design_system';",
+        "props": {
+          "variant": {
+            "type": "'default' | 'secondary' | 'success' | 'warning' | 'error'",
+            "required": false,
+            "default": "default",
+            "description": "Badge color variant"
+          },
+          "size": {
+            "type": "'small' | 'medium' | 'large'",
+            "required": false,
+            "default": "medium",
+            "description": "Badge size"
+          },
+          "children": {
+            "type": "React.ReactNode",
+            "required": true,
+            "description": "Badge content"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Status Badges",
+            "code": "<Badge variant=\"success\">Active</Badge>\n<Badge variant=\"warning\">Pending</Badge>\n<Badge variant=\"error\">Failed</Badge>"
+          }
+        ]
+      },
+      "Checkbox": {
+        "description": "Form checkbox component",
+        "import": "import { Checkbox } from '@chetanft/design_system';",
+        "props": {
+          "checked": {
+            "type": "boolean",
+            "required": false,
+            "description": "Whether checkbox is checked"
+          },
+          "disabled": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether checkbox is disabled"
+          },
+          "onChange": {
+            "type": "(checked: boolean) => void",
+            "required": false,
+            "description": "Change event handler"
+          },
+          "label": {
+            "type": "string",
+            "required": false,
+            "description": "Checkbox label"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Checkbox",
+            "code": "<Checkbox label=\"Accept terms and conditions\" />"
+          },
+          {
+            "name": "Controlled Checkbox",
+            "code": "const [checked, setChecked] = useState(false);\n\n<Checkbox \n  checked={checked}\n  onChange={setChecked}\n  label=\"Subscribe to newsletter\"\n/>"
+          }
+        ]
+      },
+      "Input": {
+        "description": "Form input component",
+        "import": "import { Input } from '@chetanft/design_system';",
+        "props": {
+          "type": {
+            "type": "'text' | 'email' | 'password' | 'number'",
+            "required": false,
+            "default": "text",
+            "description": "Input type"
+          },
+          "placeholder": {
+            "type": "string",
+            "required": false,
+            "description": "Placeholder text"
+          },
+          "value": {
+            "type": "string",
+            "required": false,
+            "description": "Input value"
+          },
+          "onChange": {
+            "type": "(event: React.ChangeEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Change event handler"
+          },
+          "disabled": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether input is disabled"
+          },
+          "error": {
+            "type": "string",
+            "required": false,
+            "description": "Error message"
+          },
+          "label": {
+            "type": "string",
+            "required": false,
+            "description": "Input label"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Input",
+            "code": "<Input placeholder=\"Enter your name\" label=\"Full Name\" />"
+          },
+          {
+            "name": "Email Input",
+            "code": "<Input type=\"email\" placeholder=\"user@example.com\" label=\"Email Address\" />"
+          },
+          {
+            "name": "Input with Error",
+            "code": "<Input \n  placeholder=\"Enter password\"\n  label=\"Password\"\n  type=\"password\"\n  error=\"Password must be at least 8 characters\"\n/>"
+          }
+        ]
+      },
+      "Switch": {
+        "description": "Toggle switch component",
+        "import": "import { Switch } from '@chetanft/design_system';",
+        "props": {
+          "checked": {
+            "type": "boolean",
+            "required": false,
+            "description": "Whether switch is checked"
+          },
+          "disabled": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether switch is disabled"
+          },
+          "onChange": {
+            "type": "(checked: boolean) => void",
+            "required": false,
+            "description": "Change event handler"
+          },
+          "label": {
+            "type": "string",
+            "required": false,
+            "description": "Switch label"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Switch",
+            "code": "<Switch label=\"Enable notifications\" />"
+          },
+          {
+            "name": "Controlled Switch",
+            "code": "const [enabled, setEnabled] = useState(false);\n\n<Switch \n  checked={enabled}\n  onChange={setEnabled}\n  label=\"Dark mode\"\n/>"
+          }
+        ]
+      }
+    },
+    "usage": {
+      "setup": {
+        "dependencies": [
+          "react >= 16.8.0",
+          "react-dom >= 16.8.0"
+        ],
+        "installation": "npm install @chetanft/design_system",
+        "import": "import { ComponentName } from '@chetanft/design_system';"
+      },
+      "styling": {
+        "note": "Components include built-in styles and don't require additional CSS imports",
+        "customization": "Use className prop to add custom styles"
+      },
+      "examples": {
+        "appLayout": "// Complete app layout example\nimport { AppHeader, Footer, Button } from '@chetanft/design_system';\n\nfunction App() {\n  return (\n    <div className=\"min-h-screen flex flex-col\">\n      <AppHeader \n        user={{\n          name: 'John Doe',\n          role: 'Manager',\n          location: 'Mumbai',\n          badge: 'Admin'\n        }}\n      />\n      <main className=\"flex-1 p-6\">\n        <Button variant=\"primary\">Get Started</Button>\n      </main>\n      <Footer variant=\"standard\" />\n    </div>\n  );\n}",
+        "form": "// Form example\nimport { Input, Checkbox, Button, Switch } from '@chetanft/design_system';\n\nfunction ContactForm() {\n  const [formData, setFormData] = useState({\n    name: '',\n    email: '',\n    subscribe: false,\n    notifications: true\n  });\n\n  return (\n    <form className=\"space-y-4\">\n      <Input \n        label=\"Name\"\n        value={formData.name}\n        onChange={(e) => setFormData({...formData, name: e.target.value})}\n      />\n      <Input \n        type=\"email\"\n        label=\"Email\"\n        value={formData.email}\n        onChange={(e) => setFormData({...formData, email: e.target.value})}\n      />\n      <Checkbox \n        label=\"Subscribe to newsletter\"\n        checked={formData.subscribe}\n        onChange={(checked) => setFormData({...formData, subscribe: checked})}\n      />\n      <Switch \n        label=\"Enable notifications\"\n        checked={formData.notifications}\n        onChange={(checked) => setFormData({...formData, notifications: checked})}\n      />\n      <Button variant=\"primary\" type=\"submit\">Submit</Button>\n    </form>\n  );\n}"
+      }
+    }
+  }
+} 

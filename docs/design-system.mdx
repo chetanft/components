@@ -1,0 +1,587 @@
+# Design System Components
+
+A comprehensive React design system built from Figma designs with Code Connect integration.
+
+## Installation
+
+### GitHub Packages (Recommended)
+
+```bash
+# Add to your .npmrc file
+@chetanft:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+
+# Install the package
+npm install @chetanft/design_system
+```
+
+### Dependencies
+
+```bash
+# Peer dependencies (should already be in your React project)
+npm install react@>=16.8.0 react-dom@>=16.8.0
+```
+
+## Quick Start
+
+```jsx
+import { AppHeader, Button, UserProfile, Footer } from '@chetanft/design_system';
+
+function App() {
+  return (
+    <div className="min-h-screen flex flex-col">
+      <AppHeader 
+        user={{
+          name: 'John Doe',
+          role: 'Manager',
+          location: 'Mumbai',
+          badge: 'Admin'
+        }}
+      />
+      <main className="flex-1 p-6">
+        <Button variant="primary">Get Started</Button>
+      </main>
+      <Footer variant="standard" />
+    </div>
+  );
+}
+```
+
+## Components
+
+### AppHeader
+
+Application header with user profile, notifications, and company branding.
+
+```jsx
+import { AppHeader } from '@chetanft/design_system';
+
+// Basic usage
+<AppHeader 
+  user={{
+    name: 'John Doe',
+    role: 'Manager',
+    location: 'Mumbai',
+    badge: 'Admin'
+  }}
+/>
+
+// With event handlers
+<AppHeader 
+  user={{
+    name: 'Jane Smith',
+    role: 'Dispatch Manager',
+    location: 'Delhi',
+    badge: 'Supervisor'
+  }}
+  onNotificationClick={(type) => alert(`${type} clicked`)}
+  onUserMenuItemClick={(item) => console.log(item)}
+/>
+```
+
+**Props:**
+- `user` (User, optional): User information object
+- `onNotificationClick` (function, optional): Callback for notification icon clicks
+- `onUserClick` (function, optional): Callback for user profile clicks
+- `onUserMenuItemClick` (function, optional): Callback for user menu item clicks
+- `className` (string, optional): Additional CSS classes
+
+### Button
+
+Interactive button component with multiple variants and icon support.
+
+```jsx
+import { Button } from '@chetanft/design_system';
+
+// Basic buttons
+<Button variant="primary">Save Changes</Button>
+<Button variant="secondary">Cancel</Button>
+<Button variant="text">Learn More</Button>
+
+// Buttons with icons
+<Button variant="primary" iconPosition="leading" icon={<PlusIcon />}>
+  Add Item
+</Button>
+
+<Button variant="secondary" iconPosition="trailing" icon={<ArrowIcon />}>
+  Next
+</Button>
+
+<Button variant="primary" iconPosition="only" icon={<EditIcon />} />
+
+// Different sizes
+<Button size="small">Small</Button>
+<Button size="medium">Medium</Button>
+<Button size="large">Large</Button>
+```
+
+**Props:**
+- `variant` ('primary' | 'secondary' | 'text', default: 'primary'): Button visual style
+- `size` ('small' | 'medium' | 'large', default: 'medium'): Button size
+- `iconPosition` ('leading' | 'trailing' | 'only', optional): Icon position
+- `icon` (React.ReactNode, optional): Icon element
+- `disabled` (boolean, default: false): Whether button is disabled
+- `onClick` (function, optional): Click event handler
+- `children` (React.ReactNode, optional): Button content
+- `className` (string, optional): Additional CSS classes
+
+### UserProfile
+
+User profile component with dropdown menu functionality.
+
+```jsx
+import { UserProfile } from '@chetanft/design_system';
+import { useState } from 'react';
+
+// Basic usage
+<UserProfile 
+  userName="John Doe"
+  userRole="Manager"
+  userLocation="Mumbai"
+  userBadge="Admin"
+/>
+
+// Controlled dropdown
+function UserProfileExample() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <UserProfile 
+      userName="Jane Smith"
+      userRole="Supervisor"
+      userLocation="Delhi"
+      userBadge="Manager"
+      isOpen={isOpen}
+      onToggle={() => setIsOpen(!isOpen)}
+      onMenuItemClick={(item) => {
+        console.log('Menu item clicked:', item);
+        if (item === 'logout') {
+          // Handle logout
+          setIsOpen(false);
+        }
+      }}
+    />
+  );
+}
+```
+
+**Props:**
+- `userName` (string, default: 'Santosh Kumar'): User's display name
+- `userRole` (string, default: 'Dispatch Manager'): User's role
+- `userLocation` (string, default: 'SPD-Santoshnagar'): User's location
+- `userBadge` (string, default: 'Admin'): User's badge
+- `isOpen` (boolean, default: false): Whether dropdown is open
+- `onToggle` (function, optional): Callback for dropdown toggle
+- `onMenuItemClick` (function, optional): Callback for menu item clicks
+- `className` (string, optional): Additional CSS classes
+
+### Footer
+
+Footer component with multiple layout variants.
+
+```jsx
+import { Footer } from '@chetanft/design_system';
+
+// Different footer variants
+<Footer variant="minimal" />
+<Footer variant="standard" />
+<Footer variant="detailed" />
+<Footer variant="corporate" />
+<Footer variant="social" />
+```
+
+**Props:**
+- `variant` ('minimal' | 'standard' | 'detailed' | 'corporate' | 'social', default: 'standard'): Footer layout
+- `className` (string, optional): Additional CSS classes
+
+### Badge
+
+Status and label badge component.
+
+```jsx
+import { Badge } from '@chetanft/design_system';
+
+// Status badges
+<Badge variant="success">Active</Badge>
+<Badge variant="warning">Pending</Badge>
+<Badge variant="error">Failed</Badge>
+<Badge variant="default">Draft</Badge>
+<Badge variant="secondary">Archive</Badge>
+
+// Different sizes
+<Badge size="small">Small</Badge>
+<Badge size="medium">Medium</Badge>
+<Badge size="large">Large</Badge>
+```
+
+**Props:**
+- `variant` ('default' | 'secondary' | 'success' | 'warning' | 'error', default: 'default'): Badge color
+- `size` ('small' | 'medium' | 'large', default: 'medium'): Badge size
+- `children` (React.ReactNode, required): Badge content
+- `className` (string, optional): Additional CSS classes
+
+### Checkbox
+
+Form checkbox component with label support.
+
+```jsx
+import { Checkbox } from '@chetanft/design_system';
+import { useState } from 'react';
+
+// Basic checkbox
+<Checkbox label="Accept terms and conditions" />
+
+// Controlled checkbox
+function CheckboxExample() {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <Checkbox 
+      checked={checked}
+      onChange={setChecked}
+      label="Subscribe to newsletter"
+    />
+  );
+}
+
+// Disabled checkbox
+<Checkbox label="Disabled option" disabled />
+```
+
+**Props:**
+- `checked` (boolean, optional): Whether checkbox is checked
+- `disabled` (boolean, default: false): Whether checkbox is disabled
+- `onChange` (function, optional): Change event handler
+- `label` (string, optional): Checkbox label
+- `className` (string, optional): Additional CSS classes
+
+### Input
+
+Form input component with validation and error handling.
+
+```jsx
+import { Input } from '@chetanft/design_system';
+import { useState } from 'react';
+
+// Basic input
+<Input placeholder="Enter your name" label="Full Name" />
+
+// Different input types
+<Input type="email" placeholder="user@example.com" label="Email Address" />
+<Input type="password" placeholder="••••••••" label="Password" />
+<Input type="number" placeholder="123" label="Age" />
+
+// Input with error
+<Input 
+  placeholder="Enter password"
+  label="Password"
+  type="password"
+  error="Password must be at least 8 characters"
+/>
+
+// Controlled input
+function InputExample() {
+  const [value, setValue] = useState('');
+
+  return (
+    <Input 
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      placeholder="Type something..."
+      label="Message"
+    />
+  );
+}
+```
+
+**Props:**
+- `type` ('text' | 'email' | 'password' | 'number', default: 'text'): Input type
+- `placeholder` (string, optional): Placeholder text
+- `value` (string, optional): Input value
+- `onChange` (function, optional): Change event handler
+- `disabled` (boolean, default: false): Whether input is disabled
+- `error` (string, optional): Error message
+- `label` (string, optional): Input label
+- `className` (string, optional): Additional CSS classes
+
+### Switch
+
+Toggle switch component for boolean settings.
+
+```jsx
+import { Switch } from '@chetanft/design_system';
+import { useState } from 'react';
+
+// Basic switch
+<Switch label="Enable notifications" />
+
+// Controlled switch
+function SwitchExample() {
+  const [enabled, setEnabled] = useState(false);
+
+  return (
+    <Switch 
+      checked={enabled}
+      onChange={setEnabled}
+      label="Dark mode"
+    />
+  );
+}
+
+// Disabled switch
+<Switch label="Disabled feature" disabled />
+```
+
+**Props:**
+- `checked` (boolean, optional): Whether switch is checked
+- `disabled` (boolean, default: false): Whether switch is disabled
+- `onChange` (function, optional): Change event handler
+- `label` (string, optional): Switch label
+- `className` (string, optional): Additional CSS classes
+
+## Complete Examples
+
+### Dashboard Layout
+
+```jsx
+import { 
+  AppHeader, 
+  Footer, 
+  Button, 
+  Badge, 
+  UserProfile 
+} from '@chetanft/design_system';
+
+function Dashboard() {
+  const user = {
+    name: 'Sarah Wilson',
+    role: 'Fleet Manager',
+    location: 'Mumbai Central',
+    badge: 'Manager'
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <AppHeader 
+        user={user}
+        onNotificationClick={(type) => {
+          console.log(`${type} notification clicked`);
+        }}
+        onUserMenuItemClick={(item) => {
+          console.log(`User menu: ${item}`);
+        }}
+      />
+      
+      <main className="flex-1 p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+            <div className="mt-2 flex gap-2">
+              <Badge variant="success">Online</Badge>
+              <Badge variant="warning">3 Pending</Badge>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white p-6 rounded-lg shadow">
+              <h3 className="font-semibold mb-4">Quick Actions</h3>
+              <div className="space-y-2">
+                <Button variant="primary" className="w-full">
+                  Create New Order
+                </Button>
+                <Button variant="secondary" className="w-full">
+                  View Reports
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      
+      <Footer variant="minimal" />
+    </div>
+  );
+}
+```
+
+### Contact Form
+
+```jsx
+import { 
+  Input, 
+  Checkbox, 
+  Switch, 
+  Button 
+} from '@chetanft/design_system';
+import { useState } from 'react';
+
+function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+    subscribe: false,
+    notifications: true
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow">
+      <h2 className="text-xl font-bold mb-6">Contact Us</h2>
+      
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <Input 
+          label="Full Name"
+          value={formData.name}
+          onChange={(e) => setFormData({...formData, name: e.target.value})}
+          error={errors.name}
+          required
+        />
+        
+        <Input 
+          type="email"
+          label="Email Address"
+          value={formData.email}
+          onChange={(e) => setFormData({...formData, email: e.target.value})}
+          error={errors.email}
+          required
+        />
+        
+        <Input 
+          label="Message"
+          value={formData.message}
+          onChange={(e) => setFormData({...formData, message: e.target.value})}
+          placeholder="Tell us how we can help..."
+        />
+        
+        <Checkbox 
+          label="Subscribe to newsletter"
+          checked={formData.subscribe}
+          onChange={(checked) => setFormData({...formData, subscribe: checked})}
+        />
+        
+        <Switch 
+          label="Enable email notifications"
+          checked={formData.notifications}
+          onChange={(checked) => setFormData({...formData, notifications: checked})}
+        />
+        
+        <div className="flex gap-2 pt-4">
+          <Button variant="primary" type="submit" className="flex-1">
+            Send Message
+          </Button>
+          <Button variant="secondary" type="button">
+            Cancel
+          </Button>
+        </div>
+      </form>
+    </div>
+  );
+}
+```
+
+## Styling & Customization
+
+### Built-in Styles
+
+All components include built-in styles and don't require additional CSS imports. The components are designed to work out of the box.
+
+### Custom Styling
+
+Use the `className` prop to add custom styles:
+
+```jsx
+<Button 
+  variant="primary" 
+  className="w-full mt-4 bg-blue-600 hover:bg-blue-700"
+>
+  Custom Styled Button
+</Button>
+```
+
+### Responsive Design
+
+Components are built with responsive design in mind and work well with Tailwind CSS classes:
+
+```jsx
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <Button className="w-full">Mobile First</Button>
+  <Button className="hidden md:block">Tablet+</Button>
+  <Button className="hidden lg:block">Desktop+</Button>
+</div>
+```
+
+## TypeScript Support
+
+All components are built with TypeScript and include full type definitions:
+
+```tsx
+import type { AppHeaderProps, ButtonProps } from '@chetanft/design_system';
+
+interface MyComponentProps {
+  user: AppHeaderProps['user'];
+  onAction: ButtonProps['onClick'];
+}
+```
+
+## Best Practices
+
+### Component Organization
+
+```jsx
+// Group related imports
+import { 
+  AppHeader, 
+  Footer, 
+  Button, 
+  Input, 
+  Checkbox 
+} from '@chetanft/design_system';
+
+// Separate business logic
+import { useAuth, useNotifications } from './hooks';
+```
+
+### Event Handling
+
+```jsx
+// Use descriptive handler names
+const handleUserProfileClick = () => {
+  // Handle user profile interaction
+};
+
+const handleNotificationClick = (type: 'rocket' | 'bell') => {
+  // Handle notification based on type
+};
+```
+
+### Form Management
+
+```jsx
+// Use controlled components for forms
+const [formState, setFormState] = useState(initialState);
+
+const updateField = (field: string, value: any) => {
+  setFormState(prev => ({ ...prev, [field]: value }));
+};
+```
+
+## Resources
+
+- **GitHub Repository**: https://github.com/chetanft/components
+- **Storybook Documentation**: [Add your Storybook URL]
+- **Figma Design System**: [Add your Figma file URL]
+- **GitHub Packages**: https://github.com/chetanft/components/packages
+
+## Support
+
+For issues, feature requests, or questions:
+1. Check the GitHub repository issues
+2. Create a new issue with detailed description
+3. Include code examples and expected behavior 
