@@ -20,6 +20,16 @@ export { Tabs, TabItem } from './Tabs/Tabs';
 export type { TabsProps, TabItemProps, Tab } from './Tabs/Tabs';
 export { SegmentedTabs } from './SegmentedTabs/SegmentedTabs';
 export type { SegmentedTabsProps, SegmentedTabItem } from './SegmentedTabs/SegmentedTabs';
+export { ProgressBar } from './ProgressBar';
+export type { ProgressBarProps } from './ProgressBar';
+export { FileTypeIcon } from './FileTypeIcon';
+export type { FileTypeIconProps } from './FileTypeIcon';
+export { UploadZone } from './UploadZone';
+export type { UploadZoneProps } from './UploadZone';
+export { FileCard } from './FileCard';
+export type { FileCardProps, FileStats } from './FileCard';
+export { FileThumbnail } from './FileThumbnail';
+export type { FileThumbnailProps } from './FileThumbnail';
 export { Table, TableCellText, TableCellItem, TableCell, TableHeaderItem } from './Table';
 export type { TableProps, TableColumn, TableRow, SortDirection, ColumnType, TableCellTextProps, CellTextType, TableCellItemProps, TableCellProps, CellBackgroundColor, CellBorderStyle, TableHeaderItemProps, HeaderItemType, HeaderColorVariant } from './Table';
 //# sourceMappingURL=index.d.ts.map

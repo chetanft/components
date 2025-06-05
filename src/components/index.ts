@@ -26,6 +26,18 @@ export type { TabsProps, TabItemProps, Tab } from './Tabs/Tabs';
 export { SegmentedTabs } from './SegmentedTabs/SegmentedTabs';
 export type { SegmentedTabsProps, SegmentedTabItem } from './SegmentedTabs/SegmentedTabs';
 
+// Upload and File Management components
+export { ProgressBar } from './ProgressBar';
+export type { ProgressBarProps } from './ProgressBar';
+export { FileTypeIcon } from './FileTypeIcon';
+export type { FileTypeIconProps } from './FileTypeIcon';
+export { UploadZone } from './UploadZone';
+export type { UploadZoneProps } from './UploadZone';
+export { FileCard } from './FileCard';
+export type { FileCardProps, FileStats } from './FileCard';
+export { FileThumbnail } from './FileThumbnail';
+export type { FileThumbnailProps } from './FileThumbnail';
+
 // Table components
 export { 
   Table, 
