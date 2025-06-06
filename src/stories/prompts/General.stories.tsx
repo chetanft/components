@@ -319,17 +319,19 @@ function ContactForm() {
 }
 \`\`\`
 
-### Data Table with Badges
+### Data Table with Badges (Correct Usage)
 \`\`\`jsx
-import { Table, Badge } from 'ft-design-system';
+import { Table, Badge, Tabs } from 'ft-design-system';
 
+// ✅ Correct: Table data with 'id' property
 const data = [
-  { id: 1, name: 'John Doe', status: 'active', role: 'Admin' },
+  { id: 1, name: 'John Doe', status: 'active', role: 'Admin' },  // 'id' required
   { id: 2, name: 'Jane Smith', status: 'inactive', role: 'User' }
 ];
 
+// ✅ Correct: Columns with 'title' property  
 const columns = [
-  { key: 'name', title: 'Name' },
+  { key: 'name', title: 'Name' },        // 'title' not 'header'
   { key: 'role', title: 'Role' },
   { 
     key: 'status', 
@@ -342,7 +344,16 @@ const columns = [
   }
 ];
 
-<Table columns={columns} data={data} />
+// ✅ Correct: Tabs with tabs array
+const tabs = [
+  { label: 'Active Users' },
+  { label: 'Inactive Users', badge: true, badgeCount: 5 }
+];
+
+<div>
+  <Tabs tabs={tabs} onTabChange={(index) => console.log(index)} />
+  <Table columns={columns} data={data} />
+</div>
 \`\`\`
 
 ## TypeScript Support
@@ -363,6 +374,8 @@ const MyButton: React.FC<ButtonProps> = (props) => {
 - Icons: Pass string names, not React elements
 - Typography: Component is showcase only - use regular HTML tags with design token classes for content
 - Badge: Use variant="danger" not variant="error"
+- Table: Always provide data array (even if empty []) to prevent undefined .map() errors
+- Tabs: Never use children - always use tabs array prop
 - Tabs: Handle content rendering separately based on activeTab
 - Input: No icon prop available
 - ProgressBar: IS exported and available
@@ -418,12 +431,17 @@ BORDERS: radius 4px/8px/12px/16px, shadows 0 1px 2px to 0 20px 25px rgba(67,79,1
 
 COMPONENT SPECIFICATIONS:
 - Button: variant="primary|secondary|destructive|text|link" (NOT outline/ghost)
-- Table: columns with 'title' property (NOT header/label)
+- Table: columns with 'title' property (NOT header/label), data must have 'id' property (NOT 'key')
 - Icons: name="check" as string (NOT <CheckIcon /> elements)
 - Badge: variant="normal|neutral|warning|danger|success" (use "danger" NOT "error")
-- Tabs: No content property, handle content separately based on activeTab
+- Tabs: Uses tabs=[{label, badge?, icon?}] array (NO children prop)
 - Input: No icon prop available
 - Typography: Display component only - use regular HTML tags with design token classes for content
+
+CRITICAL DATA REQUIREMENTS:
+- Table data: Each row MUST have 'id' property: [{id: 1, name: "..."}, {id: 2, ...}]
+- Tabs: Pass tabs array, not children: <Tabs tabs={[{label: "Tab 1"}, {label: "Tab 2"}]} />
+- Always provide data array to Table (never undefined) to prevent .map() errors
 
 CUSTOM STYLING EXAMPLES (when extending components):
 - className="bg-[#1890ff] text-white rounded-lg px-5 py-3 shadow-sm" (button)
@@ -460,14 +478,31 @@ function waitForDesignSystem(callback, timeout = 5000) {
   check();
 }
 
-// Use components safely:
+// Use components safely with debugging:
 waitForDesignSystem((FTDesignSystem) => {
   if (!FTDesignSystem) {
     console.error('Design System not available, using fallbacks');
     return;
   }
-  const { Button, Input, Table, Badge, ProgressBar } = FTDesignSystem;
-  // Your app code here
+  
+  // Debug: Check what components are actually available
+  console.log('Available components:', Object.keys(FTDesignSystem));
+  
+  const { Button, Input, Table, Badge, Dropdown, ProgressBar } = FTDesignSystem;
+  
+  // Debug: Check if any components are undefined
+  const components = { Button, Input, Table, Badge, Dropdown, ProgressBar };
+  const undefined_components = Object.entries(components)
+    .filter(([name, component]) => !component)
+    .map(([name]) => name);
+  
+  if (undefined_components.length > 0) {
+    console.error('Undefined components:', undefined_components);
+    console.log('This will cause render errors. Check CDN loading or component names.');
+    return;
+  }
+  
+  // Your app code here - all components are verified as loaded
 });
 
 🎨 DESIGN TOKENS - Use these EXACT values for consistent styling:
@@ -506,11 +541,17 @@ SHADOWS (use rgba(67, 79, 100, opacity)):
 
 COMPONENT SPECIFICATIONS:
 - Button: variant="primary|secondary|destructive|text|link" (NOT outline/ghost)
-- Table: columns with 'title' property (NOT header/label)
+- Table: columns with 'title' property (NOT header/label), data must have 'id' property (NOT 'key')
 - Icons: name="check" as string (NOT <CheckIcon /> elements)
 - Badge: variant="normal|neutral|warning|danger|success" (use "danger" NOT "error")
+- Tabs: Uses tabs=[{label, badge?, icon?}] array (NO children prop)
 - ProgressBar: IS available and exported
 - Typography: Display component only - use regular HTML tags with design token classes for content
+
+CRITICAL DATA REQUIREMENTS:
+- Table data: Each row MUST have 'id' property: [{id: 1, name: "..."}, {id: 2, ...}]
+- Tabs: Pass tabs array, not children: <Tabs tabs={[{label: "Tab 1"}, {label: "Tab 2"}]} />
+- Always provide data array to Table (never undefined) to prevent .map() errors
 
 If CDN doesn't work, create similar components manually using EXACT design tokens above:
 - Primary buttons: bg-[#1890ff], rounded-lg (8px), px-5 py-3, shadow-sm
