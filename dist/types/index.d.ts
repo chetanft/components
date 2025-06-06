@@ -1,3 +1,4 @@
+import './styles/globals.css';
 export { designTokens, cssVariables } from './tokens/design-tokens';
 export { Badge } from './components/Badge/Badge';
 export { Button } from './components/Button/Button';

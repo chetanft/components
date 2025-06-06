@@ -1,4 +1,4 @@
-# Chetan FT Design System
+# FT Design System
 
 A comprehensive React component library built from Figma designs, featuring a modern design system with TypeScript and Tailwind CSS support.
 
@@ -15,21 +15,18 @@ A comprehensive React component library built from Figma designs, featuring a mo
 ## 📥 Installation
 
 ```bash
-# Install from GitHub
-npm install git+https://github.com/chetanft/components.git
-
-# OR install from NPM (once published)
-npm install @chetanft/design-system
+# Install from npm
+npm install ft-design-system
 ```
 
 ## 🔧 Usage
 
 ```tsx
 // Import components
-import { Table, Button, Badge, Checkbox } from '@chetanft/design-system';
+import { Table, Button, Badge, Checkbox } from 'ft-design-system';
 
 // Import styles in your main App.tsx or index.tsx
-import '@chetanft/design-system/dist/output.css';
+import 'ft-design-system/dist/styles.css';
 
 function App() {
   return (
@@ -108,7 +105,7 @@ The design system uses Tailwind CSS for styling. Make sure your project has Tail
 module.exports = {
   content: [
     './src/**/*.{js,jsx,ts,tsx}',
-    './node_modules/@chetanft/design-system/**/*.{js,jsx,ts,tsx}'
+    './node_modules/ft-design-system/**/*.{js,jsx,ts,tsx}'
   ],
   // ... rest of your config
 }
@@ -135,6 +132,55 @@ npm run share-storybook
 # Setup automatic deployment to Netlify
 npm run setup-deployment
 ```
+
+## 📦 Publishing
+
+### 🚀 Interactive CLI (Recommended)
+
+Use the interactive publishing CLI for a guided experience:
+
+```bash
+npm run publish
+```
+
+### Quick Publishing Commands
+
+```bash
+# Validate package before publishing
+npm run validate:package
+
+# Create local package for testing
+npm run publish:local
+
+# Test publishing without actually publishing
+npm run publish:dry-run
+
+# Publish different version types
+npm run publish:patch    # Bug fixes (1.0.1 → 1.0.2)
+npm run publish:minor    # New features (1.0.1 → 1.1.0)
+npm run publish:major    # Breaking changes (1.0.1 → 2.0.0)
+npm run publish:beta     # Beta version for testing
+
+# Publish to specific registries
+npm run publish:github   # GitHub Packages (default)
+npm run publish:npm      # Public npm registry
+```
+
+For detailed publishing instructions, see [📖 Publishing Guide](docs/PUBLISHING_GUIDE.md)
+
+## 💖 Lovable.dev Integration
+
+Your design system is **Lovable-ready**! Use it seamlessly in [Lovable.dev](https://lovable.dev) projects:
+
+```bash
+# In your Lovable project
+npm install ft-design-system
+
+# Generate templates (run in design system repo)
+npm run lovable:templates
+```
+
+See [📖 Lovable Integration Guide](docs/LOVABLE_INTEGRATION_GUIDE.md) for complete setup instructions and examples.
 
 ## 🌐 Deployment & Sharing
 

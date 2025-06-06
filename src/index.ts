@@ -1,3 +1,6 @@
+// Import global styles
+import './styles/globals.css';
+
 // Design tokens
 export { designTokens, cssVariables } from './tokens/design-tokens';
 
