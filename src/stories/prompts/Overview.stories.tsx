@@ -131,6 +131,13 @@ const PromptsOverview = () => {
             <li>4. Use the fallback prompt if components are missing</li>
           </ol>
         </div>
+
+        <div className="mt-4 p-4 bg-blue-100 rounded-lg">
+          <h4 className="font-medium text-blue-900 mb-2">📁 Bonus: Downloadable Documentation</h4>
+          <p className="text-blue-800 text-sm">
+            Visit the General section to download JSON/MDX documentation files that you can upload to AI tools for even better component generation results.
+          </p>
+        </div>
       </div>
     </div>
   );
