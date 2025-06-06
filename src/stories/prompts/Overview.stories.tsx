@@ -69,7 +69,7 @@ const PromptsOverview = () => {
           <div>
             <h3 className="font-semibold text-gray-900 mb-2">Form Controls</h3>
             <ul className="text-gray-600 space-y-1">
-              <li>• Button</li>
+              <li>• Button (5 variants)</li>
               <li>• Input</li>
               <li>• Checkbox</li>
               <li>• RadioGroup</li>
@@ -81,20 +81,20 @@ const PromptsOverview = () => {
           <div>
             <h3 className="font-semibold text-gray-900 mb-2">Data Display</h3>
             <ul className="text-gray-600 space-y-1">
-              <li>• Table</li>
-              <li>• Badge</li>
-              <li>• Typography</li>
-              <li>• ProgressBar</li>
+              <li>• Table (with pagination)</li>
+              <li>• Badge (5 variants)</li>
+              <li>• Typography (display only)</li>
+              <li>• ProgressBar ✅</li>
             </ul>
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 mb-2">Other</h3>
             <ul className="text-gray-600 space-y-1">
-              <li>• Tabs</li>
+              <li>• Tabs (3 types)</li>
               <li>• Collapsible</li>
               <li>• FileCard</li>
               <li>• UploadZone</li>
-              <li>• 190+ Icons</li>
+              <li>• 190+ Icons (string names)</li>
             </ul>
           </div>
         </div>

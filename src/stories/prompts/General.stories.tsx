@@ -27,13 +27,13 @@ const GeneralPrompts = () => {
         name: "Button",
         import: "import { Button } from 'ft-design-system';",
         usage: "<Button variant=\"primary\" size=\"md\">Click me</Button>",
-        props: "variant: 'primary' | 'secondary' | 'outline' | 'ghost'\nsize: 'sm' | 'md' | 'lg'"
+        props: "variant: 'primary' | 'secondary' | 'destructive' | 'text' | 'link'\nsize: 'sm' | 'md' | 'lg'\nicon?: IconName (string)\niconPosition?: 'leading' | 'trailing' | 'only'"
       },
       {
         name: "Input",
         import: "import { Input } from 'ft-design-system';",
         usage: "<Input placeholder=\"Enter text\" type=\"text\" />",
-        props: "type: 'text' | 'email' | 'password' | 'number'\nplaceholder: string\ndisabled?: boolean"
+        props: "type: 'text' | 'email' | 'password' | 'number'\nplaceholder: string\ndisabled?: boolean\nNote: No icon prop available"
       },
       {
         name: "Checkbox",
@@ -44,20 +44,38 @@ const GeneralPrompts = () => {
       {
         name: "Table",
         import: "import { Table } from 'ft-design-system';",
-        usage: "<Table data={tableData} columns={columns} />",
-        props: "data: any[]\ncolumns: Column[]\nsortable?: boolean\npagination?: boolean"
+        usage: "<Table columns={columns} data={data} />",
+        props: "columns: TableColumn[] (with 'title' not 'header')\ndata: TableRow[]\nselectable?: boolean\npagination?: { currentPage, totalPages, pageSize, totalItems, onPageChange }"
       },
       {
         name: "Badge",
         import: "import { Badge } from 'ft-design-system';",
-        usage: "<Badge variant=\"success\">Active</Badge>",
-        props: "variant: 'default' | 'success' | 'warning' | 'error'\nsize: 'sm' | 'md' | 'lg'"
+        usage: "<Badge variant=\"normal\">Active</Badge>",
+        props: "variant: 'normal' | 'neutral' | 'warning' | 'error' | 'success'\nsize: 'sm' | 'md' | 'lg'"
       },
       {
         name: "Tabs",
         import: "import { Tabs } from 'ft-design-system';",
-        usage: "<Tabs tabs={[{label: 'Tab 1', content: <div>Content</div>}]} />",
-        props: "tabs: {label: string, content: React.ReactNode}[]\ndefaultTab?: number"
+        usage: "<Tabs tabs={[{label: 'Tab 1'}, {label: 'Tab 2'}]} activeTab={0} />",
+        props: "tabs: {label: string, badge?: boolean, badgeCount?: string | number}[]\nactiveTab?: number\nonTabChange?: (index: number) => void\ntype?: 'primary' | 'secondary' | 'tertiary'"
+      },
+      {
+        name: "ProgressBar",
+        import: "import { ProgressBar } from 'ft-design-system';",
+        usage: "<ProgressBar value={75} variant=\"primary\" />",
+        props: "value?: number (0-100)\nvariant?: 'primary' | 'success' | 'warning' | 'danger'\nsize?: 'sm' | 'md' | 'lg'\nshowPercentage?: boolean"
+      },
+      {
+        name: "Typography",
+        import: "import { Typography } from 'ft-design-system';",
+        usage: "<Typography /> // This is a demo component, use regular HTML tags",
+        props: "This component is for display only. Use regular HTML tags with CSS classes for typography."
+      },
+      {
+        name: "Icon",
+        import: "import { Icon } from 'ft-design-system';",
+        usage: "<Icon name=\"check\" size={20} />",
+        props: "name: string (icon name)\nsize?: number\nclassName?: string\nNote: Icons are string names, not React elements"
       }
     ],
     setup: {
@@ -101,16 +119,20 @@ const data = [
 ];
 
 const columns = [
-  { key: 'name', label: 'Name' },
-  { key: 'role', label: 'Role' },
+  { key: 'name', title: 'Name' },
+  { key: 'role', title: 'Role' },
   { 
     key: 'status', 
-    label: 'Status',
-    render: (value) => <Badge variant={value === 'active' ? 'success' : 'warning'}>{value}</Badge>
+    title: 'Status',
+    render: (value) => (
+      <Badge variant={value === 'active' ? 'success' : 'warning'}>
+        {value}
+      </Badge>
+    )
   }
 ];
 
-<Table data={data} columns={columns} />`
+<Table columns={columns} data={data} />`
       }
     };
     
@@ -128,7 +150,7 @@ npm install ft-design-system
 
 \`\`\`javascript
 import 'ft-design-system/dist/styles.css';
-import { Button, Input, Table, Badge } from 'ft-design-system';
+import { Button, Input, Table, Badge, ProgressBar } from 'ft-design-system';
 \`\`\`
 
 ## CDN Usage
@@ -139,7 +161,7 @@ import { Button, Input, Table, Badge } from 'ft-design-system';
 \`\`\`
 
 \`\`\`javascript
-const { Button, Input, Table, Badge } = window.FTDesignSystem;
+const { Button, Input, Table, Badge, ProgressBar } = window.FTDesignSystem;
 \`\`\`
 
 ## Components
@@ -150,13 +172,21 @@ import { Button } from 'ft-design-system';
 
 <Button variant="primary" size="md">Click me</Button>
 <Button variant="secondary">Secondary</Button>
-<Button variant="outline">Outline</Button>
+<Button variant="destructive">Delete</Button>
+<Button variant="text">Text Button</Button>
+<Button variant="link">Link Button</Button>
+
+// With icons (icon names are strings)
+<Button variant="primary" icon="check" iconPosition="leading">
+  Save Changes
+</Button>
 \`\`\`
 
 **Props:**
-- \`variant\`: 'primary' | 'secondary' | 'outline' | 'ghost'
+- \`variant\`: 'primary' | 'secondary' | 'destructive' | 'text' | 'link'
 - \`size\`: 'sm' | 'md' | 'lg'
-- \`disabled\`: boolean
+- \`icon\`: string (icon name)
+- \`iconPosition\`: 'leading' | 'trailing' | 'only'
 
 ### Input
 \`\`\`jsx
@@ -171,6 +201,7 @@ import { Input } from 'ft-design-system';
 - \`type\`: 'text' | 'email' | 'password' | 'number'
 - \`placeholder\`: string
 - \`disabled\`: boolean
+- **Note:** No icon prop available
 
 ### Checkbox
 \`\`\`jsx
@@ -190,20 +221,33 @@ const data = [
 ];
 
 const columns = [
-  { key: 'name', label: 'Name' },
-  { key: 'role', label: 'Role' }
+  { key: 'name', title: 'Name' }, // Use 'title', not 'header'
+  { key: 'role', title: 'Role' }
 ];
 
-<Table data={data} columns={columns} sortable pagination />
+<Table columns={columns} data={data} selectable />
+
+// With pagination
+const pagination = {
+  currentPage: 1,
+  totalPages: 10,
+  pageSize: 20,
+  totalItems: 200,
+  onPageChange: (page) => console.log(page)
+};
+
+<Table columns={columns} data={data} pagination={pagination} />
 \`\`\`
 
 ### Badge
 \`\`\`jsx
 import { Badge } from 'ft-design-system';
 
-<Badge variant="success">Active</Badge>
-<Badge variant="warning">Pending</Badge>
+<Badge variant="normal">Default</Badge>
+<Badge variant="success">Success</Badge>
+<Badge variant="warning">Warning</Badge>
 <Badge variant="error">Error</Badge>
+<Badge variant="neutral">Neutral</Badge>
 \`\`\`
 
 ### Tabs
@@ -211,11 +255,43 @@ import { Badge } from 'ft-design-system';
 import { Tabs } from 'ft-design-system';
 
 const tabs = [
-  { label: 'Tab 1', content: <div>Content 1</div> },
-  { label: 'Tab 2', content: <div>Content 2</div> }
+  { label: 'Tab 1' },
+  { label: 'Tab 2', badge: true, badgeCount: '5' },
+  { label: 'Tab 3', notification: true }
 ];
 
-<Tabs tabs={tabs} defaultTab={0} />
+<Tabs tabs={tabs} activeTab={0} type="primary" />
+<Tabs tabs={tabs} activeTab={0} type="secondary" />
+<Tabs tabs={tabs} activeTab={0} type="tertiary" />
+\`\`\`
+
+**Note:** Tabs don't have content property, handle content separately based on activeTab.
+
+### ProgressBar
+\`\`\`jsx
+import { ProgressBar } from 'ft-design-system';
+
+<ProgressBar value={75} variant="primary" />
+<ProgressBar value={50} variant="success" size="lg" />
+<ProgressBar value={25} variant="warning" showPercentage={false} />
+\`\`\`
+
+### Icons
+\`\`\`jsx
+import { Icon } from 'ft-design-system';
+
+<Icon name="check" size={20} />
+<Icon name="user" size={24} className="text-blue-500" />
+\`\`\`
+
+**Note:** Icon names are strings, not React elements. Available icons: check, user, home, settings, etc.
+
+### Typography
+The Typography component is for display only. Use regular HTML tags with CSS classes:
+
+\`\`\`jsx
+<h1 className="text-xl font-semibold">Heading</h1>
+<p className="text-md">Body text</p>
 \`\`\`
 
 ## Complete Examples
@@ -247,11 +323,11 @@ const data = [
 ];
 
 const columns = [
-  { key: 'name', label: 'Name' },
-  { key: 'role', label: 'Role' },
+  { key: 'name', title: 'Name' },
+  { key: 'role', title: 'Role' },
   { 
     key: 'status', 
-    label: 'Status',
+    title: 'Status',
     render: (value) => (
       <Badge variant={value === 'active' ? 'success' : 'warning'}>
         {value}
@@ -260,18 +336,7 @@ const columns = [
   }
 ];
 
-<Table data={data} columns={columns} />
-\`\`\`
-
-## Icons
-
-190+ icons available:
-\`\`\`jsx
-import { HomeIcon, UserIcon, SettingsIcon } from 'ft-design-system/icons';
-
-<HomeIcon className="w-5 h-5" />
-<UserIcon className="w-6 h-6" />
-<SettingsIcon className="w-4 h-4" />
+<Table columns={columns} data={data} />
 \`\`\`
 
 ## TypeScript Support
@@ -284,6 +349,16 @@ const MyButton: React.FC<ButtonProps> = (props) => {
   return <Button {...props} />;
 };
 \`\`\`
+
+## Important Notes
+
+- Button variants: Use 'destructive', 'text', 'link' instead of 'outline', 'ghost'
+- Table columns: Use 'title' property, not 'header'
+- Icons: Pass string names, not React elements
+- Typography: Use regular HTML tags, not the Typography component for content
+- Tabs: Handle content rendering separately based on activeTab
+- Input: No icon prop available
+- ProgressBar: IS exported and available
 `;
   };
 
@@ -310,12 +385,21 @@ If the tool doesn't support external packages, recreate these components manuall
 Setup:
 // For npm:
 import 'ft-design-system/dist/styles.css';
-import { Button, Input, Table, Badge } from 'ft-design-system';
+import { Button, Input, Table, Badge, ProgressBar } from 'ft-design-system';
 
 // For CDN:
-const { Button, Input, Table, Badge } = window.FTDesignSystem;
+const { Button, Input, Table, Badge, ProgressBar } = window.FTDesignSystem;
 
 Available components: Button, Input, Checkbox, RadioGroup, Switch, DatePicker, Dropdown, Table, Badge, Typography, ProgressBar, Tabs, Collapsible, FileCard, UploadZone, and 190+ icons.
+
+IMPORTANT CORRECTIONS:
+- Button variants: 'primary' | 'secondary' | 'destructive' | 'text' | 'link' (NOT 'outline' or 'ghost')
+- Table columns: Use 'title' property, not 'header' or 'label'
+- Icons: Use string names like "check", not React elements like <CheckIcon />
+- Badge variants: 'normal' | 'neutral' | 'warning' | 'error' | 'success'
+- Tabs: No content property, handle content separately based on activeTab
+- Input: No icon prop available
+- Typography: Use for display only, use regular HTML tags for content
 
 Use TypeScript for type safety when possible. Follow modern React patterns with hooks and functional components.`
     },
@@ -330,10 +414,17 @@ Add these to your HTML head:
 <script src="https://unpkg.com/ft-design-system@latest/dist/index.umd.js"></script>
 
 Then use components like this:
-const { Button, Input, Table, Badge } = window.FTDesignSystem;
+const { Button, Input, Table, Badge, ProgressBar } = window.FTDesignSystem;
+
+IMPORTANT - Use correct props:
+- Button: variant="primary|secondary|destructive|text|link" (NOT outline/ghost)
+- Table: columns with 'title' property (NOT header/label)
+- Icons: name="check" as string (NOT <CheckIcon /> elements)
+- Badge: variant="normal|neutral|warning|error|success"
+- ProgressBar: IS available and exported
 
 If CDN doesn't work, create similar components manually with Tailwind CSS:
-- Use blue-600 for primary buttons
+- Use blue-600 for primary buttons (variant="primary")
 - Use gray-100 borders for inputs
 - Use consistent spacing (p-2, p-4, etc.)
 - Follow the same visual patterns as FT Design System

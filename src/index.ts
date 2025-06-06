@@ -14,6 +14,7 @@ export { DatePicker, DatePickerField, Label } from './components/DatePicker/Date
 export { Dropdown, DropdownField, Caption } from './components/Dropdown/Dropdown';
 export { Icon } from './components/Icons';
 export { Input } from './components/Input/Input';
+export { ProgressBar } from './components/ProgressBar/ProgressBar';
 export { RadioGroup, RadioGroupItem } from './components/RadioGroup/RadioGroup';
 export { Switch } from './components/Switch/Switch';
 export { Tabs } from './components/Tabs/Tabs';
