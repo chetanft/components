@@ -105,6 +105,41 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
+  /* Design Token System - 8-Point Grid */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* Border Radius Tokens */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Shadow Tokens */
+  --shadow-sm: 0 1px 2px 0 rgba(67, 79, 100, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(67, 79, 100, 0.1), 0 2px 4px -1px rgba(67, 79, 100, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(67, 79, 100, 0.1), 0 4px 6px -2px rgba(67, 79, 100, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(67, 79, 100, 0.1), 0 10px 10px -5px rgba(67, 79, 100, 0.04);
+
+  /* Opacity Tokens */
+  --opacity-disabled: 0.4;
+  --opacity-muted: 0.6;
+  --opacity-hover: 0.8;
+  --opacity-focus: 0.9;
+  --opacity-overlay: 0.5;
+
   /* COMPONENT-SPECIFIC CSS VARIABLES - EXACT FROM FIGMA */
 
   /* Badge Component Variables - Exact Figma Colors */
@@ -390,18 +425,109 @@
 }
 
 .dark {
-  --dark-100: #F9FAFB;
-  --dark-50: #E5E7EB;
-  --dark-25: #9CA3AF;
-  --box-border: #374151;
-  --divider: #4B5563;
-  --bg: #111827;
-  --dark-mode-white: #1F2937;
+  /* Base Colors - Dark Mode */
+  --dark-100: #e2e8f0;      /* Light text */
+  --dark-50: #94a3b8;       /* Muted text */
+  --dark-25: #64748b;       /* Subtle text */
+  --box-border: #334155;    /* Borders */
+  --divider: #1e293b;       /* Dividers */
+  --bg: #0f172a;           /* Background */
+  --white: #1e293b;        /* Cards/surfaces */
   
-  /* Adjust button colors for dark mode - keep primary text white */
-  --button-primary-bg: var(--dark-mode-white);
-  --button-secondary-text: var(--dark-100);
-  --button-text-text: var(--dark-100);
+  /* Semantic Colors - Dark Mode */
+  --critical-dark: #fca5a5;
+  --critical: #ef4444;
+  --critical-light: #7f1d1d;
+  
+  --warning-dark: #fbbf24;
+  --warning: #f59e0b;
+  --warning-light: #78350f;
+  
+  --positive-dark: #86efac;
+  --positive: #22c55e;
+  --positive-light: #14532d;
+  
+  --neutral-dark: #7dd3fc;
+  --neutral: #0ea5e9;
+  --neutral-light: #0c4a6e;
+
+  /* Component Dark Mode Variables */
+  --badge-normal-bg: #334155;
+  --badge-normal-text: #e2e8f0;
+  --badge-normal-border: #475569;
+  --badge-normal-hover-bg: #475569;
+  --badge-normal-hover-border: #64748b;
+  
+  --badge-danger-bg: #7f1d1d;
+  --badge-danger-text: #fca5a5;
+  --badge-danger-border: #ef4444;
+  --badge-danger-hover-bg: #991b1b;
+  --badge-danger-hover-border: #dc2626;
+  --badge-danger-hover-text: #fecaca;
+  
+  --badge-success-bg: #14532d;
+  --badge-success-text: #86efac;
+  --badge-success-border: #22c55e;
+  --badge-success-hover-bg: #166534;
+  
+  --badge-warning-bg: #78350f;
+  --badge-warning-text: #fbbf24;
+  --badge-warning-border: #f59e0b;
+  --badge-warning-hover-bg: #92400e;
+  
+  --badge-neutral-bg: #0c4a6e;
+  --badge-neutral-text: #7dd3fc;
+
+  /* Button Dark Mode */
+  --button-primary-bg: #475569;
+  --button-primary-hover: #334155;
+  --button-secondary-border: #475569;
+  --button-secondary-hover-bg: #334155;
+  --button-secondary-text: #e2e8f0;
+  --button-text-text: #e2e8f0;
+  
+  /* Input Dark Mode */
+  --input-bg: #1e293b;
+  --input-border: #475569;
+  --input-text-color: #94a3b8;
+  
+  /* Checkbox Dark Mode */
+  --checkbox-unselected-border: #64748b;
+  --checkbox-unselected-bg: transparent;
+  --checkbox-unselected-label: #94a3b8;
+  
+  --checkbox-selected-bg: #475569;
+  --checkbox-selected-checkmark: #ffffff;
+  --checkbox-selected-label: #e2e8f0;
+  
+  --checkbox-hover-unselected-bg: #334155;
+  --checkbox-hover-unselected-border: #64748b;
+  
+  --checkbox-hover-selected-bg: #334155;
+  --checkbox-hover-selected-border: #334155;
+  
+  --checkbox-disabled-bg: #374151;
+  --checkbox-disabled-border: #4b5563;
+  --checkbox-disabled-label: #6b7280;
+
+  /* Radio Dark Mode */
+  --radio-unselected-border: #64748b;
+  --radio-unselected-bg: transparent;
+  --radio-unselected-label: #e2e8f0;
+  
+  --radio-selected-bg: transparent;
+  --radio-selected-dot: #e2e8f0;
+  --radio-selected-label: #e2e8f0;
+  --radio-selected-border: #e2e8f0;
+  
+  --radio-hover-unselected-bg: #334155;
+  --radio-hover-unselected-border: #64748b;
+  --radio-hover-selected-bg: #334155;
+  --radio-hover-selected-border: #e2e8f0;
+  
+  --radio-disabled-bg: transparent;
+  --radio-disabled-border: #4b5563;
+  --radio-disabled-label: #6b7280;
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.145 0 0);

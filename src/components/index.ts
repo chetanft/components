@@ -1,67 +1,73 @@
-// Core components
-export { Button } from './Button/Button';
-export type { ButtonProps, ButtonVariant, ButtonSize } from './Button/Button';
-export { AppHeader } from './AppHeader/AppHeader';
-export type { AppHeaderProps, User } from './AppHeader/AppHeader';
-export { UserProfile } from './UserProfile/UserProfile';
-export type { UserProfileProps } from './UserProfile/UserProfile';
-export { Footer } from './Footer/Footer';
-export type { FooterProps } from './Footer/Footer';
-export { Typography, TypographyExample } from './Typography/Typography';
-export { Colors } from './Colors/Colors';
+// ======================
+// ATOMIC DESIGNS EXPORTS
+// ======================
 
-// Form components  
-export { Input } from './Input/Input';
-export { Checkbox } from './Checkbox/Checkbox';
-export { RadioGroup, RadioGroupItem } from './RadioGroup/RadioGroup';
-export { RadioSelector } from './RadioSelector/RadioSelector';
-export type { RadioSelectorProps } from './RadioSelector/RadioSelector';
-export { Switch } from './Switch/Switch';
-export { Dropdown, DropdownField, Label, Caption } from './Dropdown/Dropdown';
-export type { DropdownProps, DropdownFieldProps, LabelProps, CaptionProps } from './Dropdown/Dropdown';
-export { DatePicker, DatePickerField } from './DatePicker/DatePicker';
-export type { DatePickerProps, DatePickerFieldProps } from './DatePicker/DatePicker';
+// ATOMS - Basic building blocks
+export { Button } from './atoms/Button/Button';
+export type { ButtonProps, ButtonVariant, ButtonSize } from './atoms/Button/Button';
+export { Input } from './atoms/Input/Input';
+export type { InputProps } from './atoms/Input/Input';
+export { Badge } from './atoms/Badge/Badge';
+export type { BadgeProps } from './atoms/Badge/Badge';
+export { Icon } from './atoms/Icons';
+export type { IconName, IconProps } from './atoms/Icons';
+export { Typography, TypographyExample } from './atoms/Typography/Typography';
+export { Colors } from './atoms/Colors/Colors';
+export { Checkbox } from './atoms/Checkbox/Checkbox';
+export type { CheckboxProps } from './atoms/Checkbox/Checkbox';
+export { Switch } from './atoms/Switch/Switch';
+export type { SwitchProps } from './atoms/Switch/Switch';
+export { RadioGroup, RadioGroupItem } from './atoms/RadioGroup/RadioGroup';
+export type { RadioGroupProps, RadioOption } from './atoms/RadioGroup/RadioGroup';
 
-// UI components
-export { Badge } from './Badge/Badge';
-export type { BadgeProps } from './Badge/Badge';
-export { Collapsible } from './Collapsible/Collapsible';
-export type { CollapsibleProps } from './Collapsible/Collapsible';
-export { QuickFilters } from './QuickFilters/QuickFilters';
+// MOLECULES - Simple combinations of atoms
+export { RadioSelector } from './molecules/RadioSelector/RadioSelector';
+export type { RadioSelectorProps } from './molecules/RadioSelector/RadioSelector';
+export { DatePicker, DatePickerField } from './molecules/DatePicker/DatePicker';
+export type { DatePickerProps, DatePickerFieldProps } from './molecules/DatePicker/DatePicker';
+export { Dropdown, DropdownField, Label, Caption } from './molecules/Dropdown/Dropdown';
+export type { DropdownProps, DropdownFieldProps, LabelProps, CaptionProps } from './molecules/Dropdown/Dropdown';
+export { SegmentedTabs } from './molecules/SegmentedTabs/SegmentedTabs';
+export type { SegmentedTabsProps, SegmentedTabItem } from './molecules/SegmentedTabs/SegmentedTabs';
+export { ProgressBar } from './molecules/ProgressBar';
+export type { ProgressBarProps } from './molecules/ProgressBar';
+export { Steps, StepsItem } from './molecules/Steps/Steps';
+export type { StepsProps, StepsItemProps, Step } from './molecules/Steps/Steps';
+
+// ORGANISMS - Complex combinations and complete UI sections
+export { AppHeader } from './organisms/AppHeader/AppHeader';
+export type { AppHeaderProps, User } from './organisms/AppHeader/AppHeader';
+export { Footer } from './organisms/Footer/Footer';
+export type { FooterProps } from './organisms/Footer/Footer';
+export { UserProfile } from './organisms/UserProfile/UserProfile';
+export type { UserProfileProps } from './organisms/UserProfile/UserProfile';
+export { Collapsible } from './organisms/Collapsible/Collapsible';
+export type { CollapsibleProps } from './organisms/Collapsible/Collapsible';
+export { QuickFilters } from './organisms/QuickFilters/QuickFilters';
 export type { 
   QuickFiltersProps, 
   QuickFilter, 
   FilterOption, 
   FilterType, 
   FilterState 
-} from './QuickFilters/QuickFilters';
-export { Steps, StepsItem } from './Steps/Steps';
-export type { StepsProps, StepsItemProps, Step } from './Steps/Steps';
-export { Tabs, TabItem } from './Tabs/Tabs';
-export type { TabsProps, TabItemProps, Tab } from './Tabs/Tabs';
-export { SegmentedTabs } from './SegmentedTabs/SegmentedTabs';
-export type { SegmentedTabsProps, SegmentedTabItem } from './SegmentedTabs/SegmentedTabs';
-
-// Upload and File Management components
-export { ProgressBar } from './ProgressBar';
-export type { ProgressBarProps } from './ProgressBar';
-export { FileTypeIcon } from './FileTypeIcon';
-export type { FileTypeIconProps } from './FileTypeIcon';
-export { UploadZone } from './UploadZone';
-export type { UploadZoneProps } from './UploadZone';
-export { FileCard } from './FileCard';
-export type { FileCardProps, FileStats } from './FileCard';
-export { FileThumbnail } from './FileThumbnail';
-export type { FileThumbnailProps } from './FileThumbnail';
-
-// Table components
+} from './organisms/QuickFilters/QuickFilters';
+export { Tabs, TabItem } from './organisms/Tabs/Tabs';
+export type { TabsProps, TabItemProps, Tab } from './organisms/Tabs/Tabs';
+export { UploadZone } from './organisms/UploadZone';
+export type { UploadZoneProps } from './organisms/UploadZone';
+export { FileCard } from './organisms/FileCard';
+export type { FileCardProps, FileStats } from './organisms/FileCard';
+export { FileThumbnail } from './organisms/FileThumbnail';
+export type { FileThumbnailProps } from './organisms/FileThumbnail';
+export { FileTypeIcon } from './organisms/FileTypeIcon';
+export type { FileTypeIconProps } from './organisms/FileTypeIcon';
 export { 
   Table, 
   TableCellText, 
   TableCellItem, 
   TableCell, 
   TableHeaderItem 
-} from './Table';
+} from './organisms/Table';
 export type { 
   TableProps, 
   TableColumn, 
@@ -77,4 +83,21 @@ export type {
   TableHeaderItemProps,
   HeaderItemType,
   HeaderColorVariant
-} from './Table'; 
+} from './organisms/Table';
+
+// ======================
+// BACKWARD COMPATIBILITY
+// ======================
+// Keep original exports for backward compatibility
+// These will be deprecated in future versions
+
+// Core components (now atoms)
+export { Button as ButtonLegacy } from './atoms/Button/Button';
+export { Input as InputLegacy } from './atoms/Input/Input';
+export { Badge as BadgeLegacy } from './atoms/Badge/Badge';
+
+// ======================
+// UTILITY EXPORTS
+// ======================
+// Re-export commonly used utilities
+export { cn } from '../lib/utils'; 
