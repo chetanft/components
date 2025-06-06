@@ -70,7 +70,7 @@ const GeneralPrompts = () => {
       {
         name: "Typography",
         import: "import { Typography } from 'ft-design-system';",
-        usage: "<Typography /> // This is a demo component, use regular HTML tags",
+                    usage: "// Demo component only. Use: <h1 className=\"text-xl font-semibold\">Title</h1>",
         props: "This component is for display only. Use regular HTML tags with CSS classes for typography."
       },
       {
@@ -248,7 +248,7 @@ import { Badge } from 'ft-design-system';
 <Badge variant="normal">Default</Badge>
 <Badge variant="success">Success</Badge>
 <Badge variant="warning">Warning</Badge>
-<Badge variant="error">Error</Badge>
+        <Badge variant="danger">Error</Badge>
 <Badge variant="neutral">Neutral</Badge>
 \`\`\`
 
@@ -289,11 +289,15 @@ import { Icon } from 'ft-design-system';
 **Note:** Icon names are strings, not React elements. Available icons: check, user, home, settings, etc.
 
 ### Typography
-The Typography component is for display only. Use regular HTML tags with CSS classes:
+The Typography component is a showcase only. For actual content, use regular HTML tags with design tokens:
 
 \`\`\`jsx
-<h1 className="text-xl font-semibold">Heading</h1>
-<p className="text-md">Body text</p>
+// Typography component is for viewing the design system only:
+<Typography /> // Shows typography showcase
+
+// For actual content, use regular HTML tags with design token classes:
+<h1 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] text-[var(--color-dark-100)]">Title</h1>
+<p className="text-[var(--font-size-md)] text-[var(--color-dark-50)]">Body text</p>
 \`\`\`
 
 ## Complete Examples
@@ -357,7 +361,8 @@ const MyButton: React.FC<ButtonProps> = (props) => {
 - Button variants: Use 'destructive', 'text', 'link' instead of 'outline', 'ghost'
 - Table columns: Use 'title' property, not 'header'
 - Icons: Pass string names, not React elements
-- Typography: Use regular HTML tags, not the Typography component for content
+- Typography: Component is showcase only - use regular HTML tags with design token classes for content
+- Badge: Use variant="danger" not variant="error"
 - Tabs: Handle content rendering separately based on activeTab
 - Input: No icon prop available
 - ProgressBar: IS exported and available
@@ -415,10 +420,10 @@ COMPONENT SPECIFICATIONS:
 - Button: variant="primary|secondary|destructive|text|link" (NOT outline/ghost)
 - Table: columns with 'title' property (NOT header/label)
 - Icons: name="check" as string (NOT <CheckIcon /> elements)
-- Badge: variant="normal|neutral|warning|error|success"
+- Badge: variant="normal|neutral|warning|danger|success" (use "danger" NOT "error")
 - Tabs: No content property, handle content separately based on activeTab
 - Input: No icon prop available
-- Typography: Use for display only, use regular HTML tags for content
+- Typography: Display component only - use regular HTML tags with design token classes for content
 
 CUSTOM STYLING EXAMPLES (when extending components):
 - className="bg-[#1890ff] text-white rounded-lg px-5 py-3 shadow-sm" (button)
@@ -503,8 +508,9 @@ COMPONENT SPECIFICATIONS:
 - Button: variant="primary|secondary|destructive|text|link" (NOT outline/ghost)
 - Table: columns with 'title' property (NOT header/label)
 - Icons: name="check" as string (NOT <CheckIcon /> elements)
-- Badge: variant="normal|neutral|warning|error|success"
+- Badge: variant="normal|neutral|warning|danger|success" (use "danger" NOT "error")
 - ProgressBar: IS available and exported
+- Typography: Display component only - use regular HTML tags with design token classes for content
 
 If CDN doesn't work, create similar components manually using EXACT design tokens above:
 - Primary buttons: bg-[#1890ff], rounded-lg (8px), px-5 py-3, shadow-sm
@@ -540,7 +546,8 @@ FALLBACK EXAMPLES:
 - Button: bg-[#1890ff] hover:bg-[#006ed3] text-white rounded-lg px-5 py-3 shadow-sm
 - Input: border-[#ced1d7] rounded-lg px-3 py-2 focus:border-[#1890ff] focus:ring-2 focus:ring-[#ecf6ff]
 - Card: bg-white rounded-xl shadow-md p-6 border border-[#f0f1f7]
-- Badge: bg-[#ecf6ff] text-[#006ed3] px-3 py-1 rounded-full text-sm font-medium
+- Badge danger: bg-[#ffeaea] text-[#b80100] px-3 py-1 rounded text-sm font-medium
+- Typography: Use regular HTML tags with text-[#434f64] font-medium text-lg etc.
 
 For tools without npm support:
 - Use Headless UI CDN: https://unpkg.com/@headlessui/react@latest/dist/index.umd.js
