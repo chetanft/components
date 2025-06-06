@@ -21,7 +21,9 @@ const GeneralPrompts = () => {
   };
 
   const componentExamples = {
-    // Basic components with usage examples
+    // ⚠️ IMPORTANT: Update this list when adding/modifying components in src/index.ts
+    // This should match the actual exports from the design system
+    // Last updated: December 2024
     components: [
       {
         name: "Button",

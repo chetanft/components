@@ -133,6 +133,23 @@ npm run share-storybook
 npm run setup-deployment
 ```
 
+### 📋 Maintaining Documentation
+
+When adding or modifying components, always update the downloadable documentation:
+
+```bash
+# Check if docs are in sync with components
+npm run update-docs
+
+# After adding a new component:
+# 1. Add to src/index.ts exports
+# 2. Update src/stories/prompts/General.stories.tsx
+# 3. Run npm run update-docs to verify
+# 4. Test downloadable JSON/MDX files
+```
+
+**Important**: The downloadable AI integration files must stay in sync with actual component exports and props. This ensures developers get accurate information when using AI tools like Lovable.dev, ChatGPT, etc.
+
 ## 📦 Publishing
 
 ### 🚀 Interactive CLI (Recommended)

@@ -4,6 +4,11 @@ import './styles/globals.css';
 // Design tokens
 export { designTokens, cssVariables } from './tokens/design-tokens';
 
+// ⚠️ IMPORTANT: When adding/removing components below, also update:
+// 1. src/stories/prompts/General.stories.tsx (downloadable docs)
+// 2. Run: npm run update-docs (to check sync)
+// 3. Test downloadable JSON/MDX files work correctly
+
 // Components
 export { Badge } from './components/Badge/Badge';
 export { Button } from './components/Button/Button';
