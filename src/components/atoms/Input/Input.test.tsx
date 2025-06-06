@@ -50,16 +50,16 @@ describe('Input Component', () => {
 
   // Size variants
   describe('Size Variants', () => {
-    it('applies small size classes', () => {
+    it('applies small size correctly', () => {
       render(<Input size="sm" placeholder="Small input" />);
       const input = screen.getByPlaceholderText('Small input');
-      expect(input).toHaveClass('h-12', 'px-3', 'py-3', 'text-sm');
+      expect(input).toHaveClass('h-component-sm', 'px-3', 'py-2', 'text-[var(--component-font-size-sm)]');
     });
 
-    it('applies medium size classes (default)', () => {
+    it('applies medium size correctly (default)', () => {
       render(<Input placeholder="Medium input" />);
       const input = screen.getByPlaceholderText('Medium input');
-      expect(input).toHaveClass('h-input', 'px-4', 'py-input-y', 'text-base');
+      expect(input).toHaveClass('h-component-md', 'px-4', 'py-3', 'text-[var(--component-font-size-md)]');
     });
 
     it('applies large size classes', () => {

@@ -392,6 +392,32 @@
   --steps-gap: 16px;
   --steps-font-weight: 600;
   --steps-font-size: 20px;
+
+  /* COMPONENT SIZING SYSTEM - STANDARDIZED ACROSS ALL FORM COMPONENTS */
+  /* These ensure Button, Input, Dropdown, DatePicker all have matching heights & fonts */
+  
+  /* Component Heights - Standardized */
+  --component-height-sm: 36px;     /* h-9 equivalent */
+  --component-height-md: 44px;     /* h-11 equivalent */  
+  --component-height-lg: 52px;     /* h-13 equivalent */
+  --component-height-xl: 64px;     /* h-16 equivalent - for special cases */
+  
+  /* Component Font Sizes - Standardized */
+  --component-font-size-sm: 14px;  /* Small components */
+  --component-font-size-md: 16px;  /* Medium components */
+  --component-font-size-lg: 16px;  /* Large components - same as medium for readability */
+  
+  /* Component Padding - Standardized */
+  --component-padding-sm: 8px 12px;    /* Small components */
+  --component-padding-md: 12px 16px;   /* Medium components */
+  --component-padding-lg: 16px 20px;   /* Large components */
+  
+  /* Component Icon Sizes - Standardized */
+  --component-icon-size-sm: 16px;
+  --component-icon-size-md: 20px;
+  --component-icon-size-lg: 24px;
+
+  /* LEGACY VARIABLES - keeping for backward compatibility */
 }
 
 /* Responsive tablet adjustments */

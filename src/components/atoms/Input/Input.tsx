@@ -37,25 +37,25 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const helperId = helperText ? `${inputId}-helper` : undefined;
     const describedBy = [errorId, helperId, ariaDescribedBy].filter(Boolean).join(' ') || undefined;
 
-    // Size configuration using design tokens
+    // Size configuration using standardized component variables
     const sizeConfig = {
       sm: {
-        input: "h-12 px-3 py-3 text-sm",
-        icon: 16,
+        input: "h-component-sm px-3 py-2 text-[var(--component-font-size-sm)]", // 36px height, 14px font
+        icon: 16, // var(--component-icon-size-sm)
         iconOffset: "left-3 right-3",
-        iconPadding: { left: "pl-10", right: "pr-10" }
+        iconPadding: { left: "pl-9", right: "pr-9" }
       },
       md: {
-        input: "h-input px-4 py-input-y text-base",
-        icon: 20,
+        input: "h-component-md px-4 py-3 text-[var(--component-font-size-md)]", // 44px height, 16px font
+        icon: 20, // var(--component-icon-size-md)
         iconOffset: "left-4 right-4", 
-        iconPadding: { left: "pl-12", right: "pr-12" }
+        iconPadding: { left: "pl-11", right: "pr-11" }
       },
       lg: {
-        input: "h-18 px-5 py-6 text-lg",
-        icon: 24,
+        input: "h-component-lg px-5 py-4 text-[var(--component-font-size-lg)]", // 52px height, 16px font
+        icon: 24, // var(--component-icon-size-lg)
         iconOffset: "left-5 right-5",
-        iconPadding: { left: "pl-14", right: "pr-14" }
+        iconPadding: { left: "pl-12", right: "pr-12" }
       }
     };
 

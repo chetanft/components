@@ -166,6 +166,14 @@ export default {
         'ease-in-cubic': 'cubic-bezier(0.32, 0, 0.67, 0)',
         'ease-in-out-cubic': 'cubic-bezier(0.65, 0, 0.35, 1)',
       },
+      // Component-specific heights for consistency
+      height: {
+        // Standard component heights - ensures Button, Input, Dropdown, DatePicker match
+        'component-sm': 'var(--component-height-sm)',  // 36px
+        'component-md': 'var(--component-height-md)',  // 44px
+        'component-lg': 'var(--component-height-lg)',  // 52px
+        'component-xl': 'var(--component-height-xl)',  // 64px
+      },
     },
   },
   plugins: [],

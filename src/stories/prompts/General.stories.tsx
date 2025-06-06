@@ -369,6 +369,16 @@ const MyButton: React.FC<ButtonProps> = (props) => {
 
 ## Important Notes
 
+🚨 **CRITICAL: Primary Button Color**
+- Primary buttons should be #434f64 (dark gray), NOT blue!
+- If you see blue buttons, check CDN loading or CSS conflicts
+
+⚠️ **CRITICAL: CSS Specificity & Component Sizing**
+- FT Design System components override Tailwind height classes (h-12, h-10, etc.)
+- Use size props instead: size="sm|md|lg" for consistent 36px/44px/52px heights
+- Components control their own font sizes - don't override with text-xl, text-base
+- If Tailwind classes don't work, check DevTools for CSS specificity conflicts
+
 - Button variants: Use 'destructive', 'text', 'link' instead of 'outline', 'ghost'
 - Table columns: Use 'title' property, not 'header'
 - Icons: Pass string names, not React elements
@@ -379,7 +389,40 @@ const MyButton: React.FC<ButtonProps> = (props) => {
 - Tabs: Handle content rendering separately based on activeTab
 - Input: No icon prop available
 - ProgressBar: IS exported and available
-`;
+
+🚨 PRIMARY BUTTON COLOR DEBUGGING:
+If primary buttons show BLUE instead of dark gray #434f64, debug with:
+1. console.log(getComputedStyle(document.documentElement).getPropertyValue('--dark-100'))
+2. Check CDN CSS loaded: document.querySelector('link[href*="ft-design-system"]')
+3. Inspect element in DevTools to see what CSS is overriding
+
+⚠️ CRITICAL: CSS SPECIFICITY & COMPONENT SIZING ISSUES
+FT Design System components have pre-defined heights that override Tailwind classes:
+
+COMPONENT HEIGHT CONFLICTS:
+- DON'T use: h-12, h-10, h-16 (will be overridden by FT Design System CSS)
+- DO use: Let FT components control their own sizing with size="sm|md|lg" props
+- Button: size="sm" (36px), size="md" (44px), size="lg" (52px) 
+- Input: size="sm" (36px), size="md" (44px), size="lg" (52px)
+- Dropdown: size="m" (44px), size="l" (52px), size="xl" (64px)
+
+FONT SIZE CONFLICTS:
+- FT components use standardized font sizes: 14px (sm), 16px (md/lg)
+- DON'T override with text-xl, text-base classes
+- Components automatically apply correct font sizes based on size prop
+
+CSS SPECIFICITY DEBUGGING:
+If custom Tailwind classes don't work:
+1. Use browser DevTools to check which styles are overriding
+2. FT Design System uses CSS variables: var(--component-height-md) 
+3. Use !important sparingly: className="!h-12" (not recommended)
+4. Better: Use size props instead of height classes
+
+Always prioritize FT Design System components first, then fall back as needed.
+
+MAINTAIN VISUAL CONSISTENCY: Always use these exact color values, spacing units, border radius, and shadows. Never deviate from these tokens to ensure perfect brand alignment.
+
+Available components: Button, Input, Checkbox, RadioGroup, Switch, DatePicker, Dropdown, Table, Badge, Typography, ProgressBar, Tabs, Collapsible, FileCard, UploadZone, and 190+ icons.`;
   };
 
   const prompts = [
@@ -508,9 +551,11 @@ waitForDesignSystem((FTDesignSystem) => {
 🎨 DESIGN TOKENS - Use these EXACT values for consistent styling:
 
 COLORS (use these specific values):
-- Primary: #1890ff (buttons, links, focus states)
+🚨 CRITICAL: Primary buttons use #434f64 (dark gray), NOT blue!
+- Primary: #434f64 (PRIMARY BUTTONS - dark gray, not blue!)
+- Secondary/Accent: #1890ff (secondary elements, links, focus states)
 - Critical/Error: #ff3533 (errors, destructive actions)
-- Warning: #ff6c19 (warnings, alerts)
+- Warning: #ff6c19 (warnings, alerts)  
 - Success/Positive: #00c638 (success states, confirmations)
 - Dark Text: #434f64 (headings), #5f697b (body text), #838c9d (muted text)
 - Borders: #ced1d7 (default borders), #f0f1f7 (dividers)
@@ -553,11 +598,33 @@ CRITICAL DATA REQUIREMENTS:
 - Tabs: Pass tabs array, not children: <Tabs tabs={[{label: "Tab 1"}, {label: "Tab 2"}]} />
 - Always provide data array to Table (never undefined) to prevent .map() errors
 
-If CDN doesn't work, create similar components manually using EXACT design tokens above:
-- Primary buttons: bg-[#1890ff], rounded-lg (8px), px-5 py-3, shadow-sm
-- Input fields: border-[#ced1d7], rounded-lg, px-3 py-2, focus:border-[#1890ff]
-- Cards: bg-white, rounded-xl (12px), shadow-md, p-6
-- Text: text-[#434f64] (headings), text-[#5f697b] (body)
+🚨 PRIMARY BUTTON COLOR DEBUGGING:
+If primary buttons show BLUE instead of dark gray #434f64, debug with:
+1. console.log(getComputedStyle(document.documentElement).getPropertyValue('--dark-100'))
+2. Check CDN CSS loaded: document.querySelector('link[href*="ft-design-system"]')
+3. Inspect element in DevTools to see what CSS is overriding
+
+⚠️ CRITICAL: CSS SPECIFICITY & COMPONENT SIZING ISSUES
+FT Design System components have pre-defined heights that override Tailwind classes:
+
+COMPONENT HEIGHT CONFLICTS:
+- DON'T use: h-12, h-10, h-16 (will be overridden by FT Design System CSS)
+- DO use: Let FT components control their own sizing with size="sm|md|lg" props
+- Button: size="sm" (36px), size="md" (44px), size="lg" (52px) 
+- Input: size="sm" (36px), size="md" (44px), size="lg" (52px)
+- Dropdown: size="m" (44px), size="l" (52px), size="xl" (64px)
+
+FONT SIZE CONFLICTS:
+- FT components use standardized font sizes: 14px (sm), 16px (md/lg)
+- DON'T override with text-xl, text-base classes
+- Components automatically apply correct font sizes based on size prop
+
+CSS SPECIFICITY DEBUGGING:
+If custom Tailwind classes don't work:
+1. Use browser DevTools to check which styles are overriding
+2. FT Design System uses CSS variables: var(--component-height-md) 
+3. Use !important sparingly: className="!h-12" (not recommended)
+4. Better: Use size props instead of height classes
 
 MAINTAIN VISUAL CONSISTENCY: Always use these exact color values, spacing units, border radius, and shadows. Never deviate from these tokens to ensure perfect brand alignment.
 
@@ -577,14 +644,14 @@ Priority order:
 
 🎨 WHEN CREATING FALLBACK COMPONENTS, USE EXACT FT DESIGN TOKENS:
 
-COLORS: #1890ff (primary), #ff3533 (error), #ff6c19 (warning), #00c638 (success)
+COLORS: #434f64 (primary buttons), #1890ff (secondary/accent), #ff3533 (error), #ff6c19 (warning), #00c638 (success)
 TYPOGRAPHY: Inter font, weights 400/500/600, sizes 14px/16px/20px/24px/28px
 SPACING: 4px/8px/12px/16px/20px/24px/32px (8px base system)
 BORDERS: radius 4px/8px/12px/16px, color #ced1d7
 SHADOWS: 0 1px 2px rgba(67,79,100,0.05) to 0 20px 25px rgba(67,79,100,0.1)
 
 FALLBACK EXAMPLES:
-- Button: bg-[#1890ff] hover:bg-[#006ed3] text-white rounded-lg px-5 py-3 shadow-sm
+- Primary Button: bg-[#434f64] hover:bg-[#5f697b] text-white rounded-lg px-5 py-3 shadow-sm
 - Input: border-[#ced1d7] rounded-lg px-3 py-2 focus:border-[#1890ff] focus:ring-2 focus:ring-[#ecf6ff]
 - Card: bg-white rounded-xl shadow-md p-6 border border-[#f0f1f7]
 - Badge danger: bg-[#ffeaea] text-[#b80100] px-3 py-1 rounded text-sm font-medium

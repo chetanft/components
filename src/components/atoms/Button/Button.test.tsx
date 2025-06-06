@@ -76,19 +76,25 @@ describe('Button Component', () => {
     it('applies medium size by default', () => {
       render(<Button>Medium</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-11', 'px-5', 'text-xl');
+      expect(button).toHaveClass('h-component-md');
+      expect(button).toHaveClass('px-4');
+      expect(button).toHaveClass('font-medium');
     });
 
     it('applies small size styles', () => {
       render(<Button size="sm">Small</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-9', 'px-4', 'text-xl');
+      expect(button).toHaveClass('h-component-sm');
+      expect(button).toHaveClass('px-3');
+      expect(button).toHaveClass('font-medium');
     });
 
     it('applies large size styles', () => {
       render(<Button size="lg">Large</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-13', 'px-6', 'text-xl');
+      expect(button).toHaveClass('h-component-lg');
+      expect(button).toHaveClass('px-5');
+      expect(button).toHaveClass('font-medium');
     });
   });
 
@@ -136,7 +142,7 @@ describe('Button Component', () => {
       render(<Button icon="add" iconPosition="only" aria-label="Add item" />);
       const button = screen.getByRole('button', { name: 'Add item' });
       const icon = screen.getByTestId('icon-add');
-      expect(button).toHaveClass('w-11', 'px-0'); // Icon-only styling
+      expect(button).toHaveClass('w-component-md', 'px-0'); // Icon-only styling
       expect(icon).toBeInTheDocument();
       expect(screen.queryByText('Add item')).not.toBeInTheDocument(); // No text content
     });

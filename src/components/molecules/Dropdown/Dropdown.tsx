@@ -3,15 +3,15 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 
-// Dropdown field variants using design tokens
+// Dropdown field variants using standardized component sizing
 const dropdownFieldVariants = cva(
   "relative flex items-center gap-[var(--spacing-x1)] rounded-[var(--radius-md)] border transition-colors cursor-pointer",
   {
     variants: {
       size: {
-        xl: "h-16 px-[var(--spacing-x3)] text-[var(--font-size-md)]",
-        l: "h-13 px-[var(--spacing-x3)] text-[var(--font-size-md)]", 
-        m: "h-10 px-[var(--spacing-x3)] text-[var(--font-size-md)]"
+        xl: "h-component-xl px-[var(--spacing-x3)] text-[var(--component-font-size-lg)]", // 64px height, 16px font
+        l: "h-component-lg px-[var(--spacing-x3)] text-[var(--component-font-size-lg)]",  // 52px height, 16px font
+        m: "h-component-md px-[var(--spacing-x3)] text-[var(--component-font-size-md)]"  // 44px height, 16px font
       },
       state: {
         default: "",
