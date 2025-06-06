@@ -88,7 +88,7 @@ import { AppHeader } from '@chetanft/design_system';
 
 ### Button
 
-Interactive button component with multiple variants and icon support.
+Interactive button component with multiple variants and icon support. **Updated in v1.0.2** with improved typography matching Figma specifications (20px font, medium weight).
 
 ```jsx
 import { Button } from '@chetanft/design_system';
@@ -109,21 +109,28 @@ import { Button } from '@chetanft/design_system';
 
 <Button variant="primary" iconPosition="only" icon={<EditIcon />} />
 
-// Different sizes
-<Button size="small">Small</Button>
-<Button size="medium">Medium</Button>
-<Button size="large">Large</Button>
+// Different sizes (all use 20px font with proportional icons)
+<Button size="sm">Small</Button>  {/* 16px icons */}
+<Button size="md">Medium</Button> {/* 20px icons */}
+<Button size="lg">Large</Button>  {/* 24px icons */}
 ```
 
 **Props:**
-- `variant` ('primary' | 'secondary' | 'text', default: 'primary'): Button visual style
-- `size` ('small' | 'medium' | 'large', default: 'medium'): Button size
+- `variant` ('primary' | 'secondary' | 'destructive' | 'text' | 'link', default: 'primary'): Button visual style
+- `size` ('sm' | 'md' | 'lg', default: 'md'): Button size
 - `iconPosition` ('leading' | 'trailing' | 'only', optional): Icon position
-- `icon` (React.ReactNode, optional): Icon element
+- `icon` (IconName, optional): Icon name from the design system
+- `loading` (boolean, default: false): Whether button shows loading state
 - `disabled` (boolean, default: false): Whether button is disabled
 - `onClick` (function, optional): Click event handler
 - `children` (React.ReactNode, optional): Button content
 - `className` (string, optional): Additional CSS classes
+
+**Typography Specifications (v1.0.2):**
+- Font size: 20px (text-xl) for all sizes
+- Font weight: 500 (Medium)
+- Letter spacing: tracking-wide
+- Icon sizes: SM(16px), MD(20px), LG(24px)
 
 ### UserProfile
 

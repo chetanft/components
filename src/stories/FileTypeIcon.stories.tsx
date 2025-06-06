@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { FileTypeIcon } from '../components/FileTypeIcon';
+import { FileTypeIcon } from '../components/organisms/FileTypeIcon';
 
 const meta: Meta<typeof FileTypeIcon> = {
   title: 'Components/FileTypeIcon',

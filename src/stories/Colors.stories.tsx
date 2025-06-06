@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Colors } from '../components/Colors/Colors';
+import { Colors } from '../components/atoms/Colors/Colors';
 
 const meta: Meta<typeof Colors> = {
   title: 'Design System/Colors',

@@ -1,8 +1,8 @@
 import React from 'react';
-import { cn } from '../../lib/utils';
+import { cn } from '../../../lib/utils';
 import { TableCellText, CellTextType } from './TableCellText';
-import { Icon, IconName } from '../Icons';
-import { Badge } from '../Badge/Badge';
+import { Icon, IconName } from '../../atoms/Icons';
+import { Badge } from '../../atoms/Badge/Badge';
 
 export interface TableCellItemProps {
   text?: string;

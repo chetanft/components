@@ -76,19 +76,19 @@ describe('Button Component', () => {
     it('applies medium size by default', () => {
       render(<Button>Medium</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-11', 'px-5', 'text-base');
+      expect(button).toHaveClass('h-11', 'px-5', 'text-xl');
     });
 
     it('applies small size styles', () => {
       render(<Button size="sm">Small</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-9', 'px-4', 'text-sm');
+      expect(button).toHaveClass('h-9', 'px-4', 'text-xl');
     });
 
     it('applies large size styles', () => {
       render(<Button size="lg">Large</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-13', 'px-6', 'text-lg');
+      expect(button).toHaveClass('h-13', 'px-6', 'text-xl');
     });
   });
 

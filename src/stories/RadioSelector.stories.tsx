@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { RadioSelector } from '../components/RadioSelector';
-import { AlertInformationalFill } from '../components/Icons';
+import { RadioSelector } from '../components/molecules/RadioSelector';
+import { AlertInformationalFill } from '../components/atoms/Icons';
 
 const meta: Meta<typeof RadioSelector> = {
   title: 'Components/RadioSelector',

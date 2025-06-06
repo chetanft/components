@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
-import { UserProfile } from '../components/UserProfile';
+import { UserProfile } from '../components/organisms/UserProfile';
 
 const meta = {
   title: 'Components/UserProfile',

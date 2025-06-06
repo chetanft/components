@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { Collapsible } from '../components/Collapsible/Collapsible';
+import { Collapsible } from '../components/organisms/Collapsible/Collapsible';
 
 const meta: Meta<typeof Collapsible> = {
   title: 'Components/Collapsible',

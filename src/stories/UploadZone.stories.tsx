@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { UploadZone } from '../components/UploadZone';
+import { UploadZone } from '../components/organisms/UploadZone';
 
 const meta: Meta<typeof UploadZone> = {
   title: 'Components/UploadZone',

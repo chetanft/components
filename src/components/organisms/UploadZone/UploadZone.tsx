@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useCallback } from 'react';
-import { cn } from '../../lib/utils';
-import { Icon } from '../Icons';
+import { cn } from '../../../lib/utils';
+import { Icon } from '../../atoms/Icons';
 
 export interface UploadZoneProps extends React.HTMLAttributes<HTMLDivElement> {
   onFileSelect?: (files: FileList) => void;

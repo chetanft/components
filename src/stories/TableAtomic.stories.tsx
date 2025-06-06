@@ -5,8 +5,8 @@ import {
   TableCellItem, 
   TableCell, 
   TableHeaderItem 
-} from '../components/Table';
-import { Badge } from '../components/Badge/Badge';
+} from '../components/organisms/Table';
+import { Badge } from '../components/atoms/Badge/Badge';
 
 const meta: Meta = {
   title: 'UI Components/Table/Atomic Components',

@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useCallback } from 'react';
-import { cn } from '../../lib/utils';
-import { Checkbox } from '../Checkbox/Checkbox';
-import { Button } from '../Button/Button';
-import { Badge } from '../Badge/Badge';
-import { Icon, IconName } from '../Icons';
+import { cn } from '../../../lib/utils';
+import { Checkbox } from '../../atoms/Checkbox/Checkbox';
+import { Button } from '../../atoms/Button/Button';
+import { Badge } from '../../atoms/Badge/Badge';
+import { Icon, IconName } from '../../atoms/Icons';
 import { TableCellText } from './TableCellText';
 import { TableCellItem } from './TableCellItem';
 import { TableCell } from './TableCell';
@@ -318,7 +318,7 @@ const Pagination: React.FC<PaginationProps> = ({
                   variant={currentPage === page ? "primary" : "secondary"}
                   size="sm"
                   onClick={() => onPageChange(page as number)}
-                  className="rounded-full"
+                  className="rounded-full !w-8 !h-8 !p-0 !min-w-0"
                 >
                   {page}
                 </Button>

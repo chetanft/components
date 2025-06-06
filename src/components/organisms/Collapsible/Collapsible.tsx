@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button } from '../Button/Button';
-import { Badge } from '../Badge/Badge';
-import { Icon } from '../Icons';
-import { cn } from '../../lib/utils';
+import { Button } from '../../atoms/Button/Button';
+import { Badge } from '../../atoms/Badge/Badge';
+import { Icon } from '../../atoms/Icons';
+import { cn } from '../../../lib/utils';
 
 export interface CollapsibleProps {
   header: string;

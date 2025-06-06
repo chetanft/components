@@ -1,12 +1,12 @@
 "use client";
 
 import React from 'react';
-import { cn } from '../../lib/utils';
-import { Button } from '../Button/Button';
-import { Badge } from '../Badge';
+import { cn } from '../../../lib/utils';
+import { Button } from '../../atoms/Button/Button';
+import { Badge } from '../../atoms/Badge';
 import { FileTypeIcon } from '../FileTypeIcon';
-import { ProgressBar } from '../ProgressBar';
-import { Icon } from '../Icons';
+import { ProgressBar } from '../../molecules/ProgressBar';
+import { Icon } from '../../atoms/Icons';
 
 export interface FileStats {
   total?: number;
@@ -197,7 +197,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                 size="md"
                 icon="download"
                 iconPosition="only"
-                className="rounded-full w-[40px] h-[40px]"
+                className="rounded-full"
                 onClick={onDownload}
                 disabled={downloadDisabled}
               />
@@ -209,7 +209,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                 size="md"
                 icon="preview"
                 iconPosition="only"
-                className="rounded-full w-[40px] h-[40px]"
+                className="rounded-full"
                 onClick={onPreview}
               />
             )}
@@ -220,7 +220,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                 size="md"
                 icon="refresh"
                 iconPosition="only"
-                className="rounded-full w-[40px] h-[40px]"
+                className="rounded-full"
                 onClick={onRefresh}
               />
             )}
@@ -231,7 +231,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                 size="md"
                 icon="delete"
                 iconPosition="only"
-                className="rounded-full w-[40px] h-[40px]"
+                className="rounded-full"
                 onClick={onDelete}
               />
             )}
@@ -242,7 +242,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                 size="md"
                 icon="cross-icon"
                 iconPosition="only"
-                className="rounded-full w-[40px] h-[40px]"
+                className="rounded-full"
                 onClick={onClose}
               />
             )}

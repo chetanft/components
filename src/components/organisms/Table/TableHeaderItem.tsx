@@ -1,7 +1,7 @@
 import React from 'react';
-import { cn } from '../../lib/utils';
-import { Icon } from '../Icons';
-import { Checkbox } from '../Checkbox/Checkbox';
+import { cn } from '../../../lib/utils';
+import { Icon } from '../../atoms/Icons';
+import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 
 export type HeaderItemType = 'text' | 'checkbox';
 export type HeaderColorVariant = 'dark25' | 'bg' | 'white';

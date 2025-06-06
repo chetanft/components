@@ -1,10 +1,10 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { UploadZone } from '../components/UploadZone';
-import { FileCard } from '../components/FileCard';
-import { FileThumbnail } from '../components/FileThumbnail';
-import { FileTypeIcon } from '../components/FileTypeIcon';
-import { ProgressBar } from '../components/ProgressBar';
+import { UploadZone } from '../components/organisms/UploadZone';
+import { FileCard } from '../components/organisms/FileCard';
+import { FileThumbnail } from '../components/organisms/FileThumbnail';
+import { FileTypeIcon } from '../components/organisms/FileTypeIcon';
+import { ProgressBar } from '../components/molecules/ProgressBar';
 
 const meta: Meta = {
   title: 'Patterns/Upload Flow',

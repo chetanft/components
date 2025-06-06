@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { FileThumbnail } from '../components/FileThumbnail';
+import { FileThumbnail } from '../components/organisms/FileThumbnail';
 
 const meta: Meta<typeof FileThumbnail> = {
   title: 'Components/FileThumbnail',

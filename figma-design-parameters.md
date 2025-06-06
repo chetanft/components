@@ -183,16 +183,25 @@
   - Hover Text: `#1d2a38`
   - Border: `transparent`
 
-### Layout & Typography
-- Border Radius: `8px`
+### Typography
 - Font Weight: `500`
+- **Font Size**: `16px` (Updated from 20px to match Figma specifications)
 - Focus Ring: `#434f64`
 - Disabled Opacity: `0.5`
 
 ### Size Specifications
-- **Small**: Height `36px`, Padding `8px 16px`
-- **Medium**: Height `44px`, Padding `12px 24px`
-- **Large**: Height `52px`, Padding `16px 32px`
+- **Small**: Height `36px`, Padding `8px 16px`, Font Size `14px`
+- **Medium**: Height `44px`, Padding `12px 24px`, Font Size `14px` (Updated)
+- **Large**: Height `52px`, Padding `16px 32px`, Font Size `16px`
+
+### Circular Buttons
+- Use `rounded-full` class with explicit width/height for perfect circles
+- Small: `36×36px` (`!w-9 !h-9 !p-0`)
+- Medium: `44×44px` (`!w-11 !h-11 !p-0`) 
+- Large: `52×52px` (`!w-13 !h-13 !p-0`)
 
 ### Implementation Status
-✅ **COMPLETE** - All variants implemented with exact Figma specifications 
+✅ **COMPLETE** - All variants implemented with exact Figma specifications
+✅ **UPDATED** - Font sizes corrected to match Figma design
+✅ **FIXED** - Circular buttons now create perfect circles instead of ovals
+✅ **IMPROVED** - Border radius system updated for proper pill and circular shapes 

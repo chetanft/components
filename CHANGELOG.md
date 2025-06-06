@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2024-12-19
+
+### Changed
+- **Button Typography**: Updated Button component font size to 20px (text-xl) to match Figma design specifications
+- **Button Font Weight**: Updated Button component to use font-weight 500 (Medium) to match Figma design specifications
+- **Button Letter Spacing**: Added proper letter spacing (tracking-wide) to match Figma design specifications
+- **Icon Sizing**: Updated Button icon sizes to be proportional to new font size: SM(16px), MD(20px), LG(24px)
+
+### Fixed
+- **Typography Consistency**: Button component now perfectly matches Figma typography specifications (20px font, 500 weight)
+- **Design System Alignment**: All Button variants and sizes now use consistent 20px font size
+- **Component Tests**: Updated all Button component tests to reflect new font size expectations
+
+### Technical
+- **Automatic Propagation**: Font size changes automatically propagate to all molecules and organisms using Button atom
+- **Test Coverage**: Maintained 100% test coverage with updated font size expectations
+- **Figma Integration**: Used Figma MCP server to extract exact typography specifications from design files
+
+## [Previous Unreleased]
+
 ### Added
 - **MAJOR**: Atomic Design Structure - Reorganized components into atoms/, molecules/, organisms/, and templates/
 - **MAJOR**: Complete design token system using 8-point grid with 20px special unit
@@ -64,6 +84,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CSS variable-based theming
 - Tree-shaking support
 - NPM package ready
+
+## [Recent Updates] - 2024-12-XX
+
+### Fixed
+- **Tertiary Tabs**: Fixed oval shape issue by implementing proper pill shape (`rounded-pill` instead of `rounded-full`)
+- **Circular Buttons**: Fixed oval shape issue for icon-only buttons by ensuring perfect circles with equal width/height
+- **Button Font Sizes**: Corrected font sizes to match Figma specifications (16px base instead of 20px)
+- **Button Sizing**: Updated medium and large button font sizes for better visual hierarchy
+- **Icon Alignment**: Fixed icon cropping and misalignment issues in buttons and containers
+- **Icon Color Inheritance**: Fixed icons using hardcoded colors (CrossIcon, Edit) to use `currentColor` for proper theming
+- **FileCard Buttons**: Updated FileCard action buttons to use standard Button sizing (44px) instead of fixed 40px
+
+### Improved
+- **Design Tokens**: Enhanced border radius system with proper `pill` and `circle` radius tokens
+- **Component Documentation**: Updated Storybook examples to demonstrate correct circular button usage
+- **Molecules & Organisms**: Updated all molecules and organisms to use the latest atom implementations
+- **Icon Component**: Enhanced with better flexbox centering to prevent cropping and improve alignment
+- **Button Component**: Automatic circular button handling when `rounded-full` class is used
+- **Icon Stories**: Added comprehensive icon alignment test stories to verify proper centering
+
+### Technical Improvements
+- **Icon Container**: Changed from `inline-block` to `flex` layout for better centering
+- **Button Circular Logic**: Improved automatic width/height matching for circular buttons
+- **Icon Sizing**: Adjusted icon sizes per button size (sm: 14px, md: 16px, lg: 20px)
+- **Manual Overrides**: Removed manual sizing overrides from components in favor of automatic handling
+
+## [1.0.1] - 2024-12-18
+
+### Fixed
+- Minor bug fixes in component exports
+- Improved TypeScript definitions
+
+### Added
+- Initial Storybook documentation
+- Basic component structure
 
 ---
 

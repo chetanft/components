@@ -29,6 +29,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
 }, ref) => {
   const isIconOnly = iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
+  const isCircular = className?.includes('rounded-full');
 
   // Base styles using design tokens and Tailwind classes
   const baseStyles = cn(
@@ -38,27 +39,29 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     "border border-transparent rounded-button", // Using design token
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
     "disabled:cursor-not-allowed",
-    // Typography
-    "font-btn", // Using design token
+    // Typography - Updated to match Figma: 20px (text-xl) and font-weight 500
+    "text-xl font-medium tracking-wide", // 20px font size, medium weight, letter spacing
     // Accessibility
     "select-none whitespace-nowrap",
     // Interaction states
-    isDisabled ? "opacity-disabled" : "hover:shadow-button active:transform active:translate-y-px"
+    isDisabled ? "opacity-disabled" : "hover:shadow-button active:transform active:translate-y-px",
+    // Override border radius for circular buttons
+    isCircular && "!rounded-full"
   );
 
-  // Size configurations using design tokens
+  // Size configurations using design tokens - All sizes use 20px font (text-xl) from Figma
   const sizeStyles = {
     sm: cn(
-      "h-9 px-4 text-sm gap-2", // h-9 = 36px, px-4 = 16px, gap-2 = 8px
-      isIconOnly && "w-9 px-0" // w-9 = 36px for square icon buttons
+      "h-9 gap-2", // h-9 = 36px, gap-2 = 8px, font-size from baseStyles
+      isIconOnly && isCircular ? "w-9 p-0" : isIconOnly ? "w-9 px-0" : "px-4"
     ),
     md: cn(
-      "h-11 px-5 text-base gap-2", // h-11 = 44px, px-5 = 20px (special unit)
-      isIconOnly && "w-11 px-0" // w-11 = 44px for square icon buttons
+      "h-11 gap-2", // h-11 = 44px, gap-2 = 8px, font-size from baseStyles (20px)
+      isIconOnly && isCircular ? "w-11 p-0" : isIconOnly ? "w-11 px-0" : "px-5"
     ),
     lg: cn(
-      "h-13 px-6 text-lg gap-2", // h-13 = 52px, px-6 = 24px
-      isIconOnly && "w-13 px-0" // w-13 = 52px for square icon buttons
+      "h-13 gap-2", // h-13 = 52px, gap-2 = 8px, font-size from baseStyles
+      isIconOnly && isCircular ? "w-13 p-0" : isIconOnly ? "w-13 px-0" : "px-6"
     ),
   };
 
@@ -106,12 +109,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     ),
   };
 
-  // Icon size based on button size using design tokens
+  // Icon size based on button size - proportional to 20px font size
   const getIconSize = () => {
     switch (size) {
-      case 'sm': return 16;
-      case 'md': return 20;
-      case 'lg': return 24;
+      case 'sm': return 16; // Slightly smaller for small buttons
+      case 'md': return 20; // Matches 20px font size
+      case 'lg': return 24; // Larger for large buttons
       default: return 20;
     }
   };

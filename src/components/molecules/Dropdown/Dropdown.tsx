@@ -1,7 +1,7 @@
 import React, { forwardRef, useState } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../lib/utils';
-import { Icon } from '../Icons';
+import { cn } from '../../../lib/utils';
+import { Icon } from '../../atoms/Icons';
 
 // Dropdown field variants using design tokens
 const dropdownFieldVariants = cva(

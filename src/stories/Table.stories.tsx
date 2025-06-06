@@ -1,10 +1,12 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Table, TableColumn, TableRow, SortDirection, TableCellText, TableCellItem } from '../components/Table';
-import { Badge } from '../components/Badge/Badge';
-import { Button } from '../components/Button/Button';
-import { Icon } from '../components/Icons';
+import { Table, TableColumn, TableRow, SortDirection, TableCellText, TableCellItem } from '../components/organisms/Table';
+import { Badge } from '../components/atoms/Badge/Badge';
+import { Button } from '../components/atoms/Button/Button';
+import { Icon } from '../components/atoms/Icons';
+import { FileTypeIcon } from '../components/organisms/FileTypeIcon';
+import { Chicklet } from '../components/molecules/Chicklet';
 
 // Sample data interface
 interface User extends TableRow {

@@ -60,7 +60,7 @@
   
   /* Button styles */
   --font-family-btn: 'Inter', sans-serif;
-  --font-size-btn: 1.25rem; /* 20px */
+  --font-size-btn: 1rem; /* 16px - Updated from 20px to match Figma */
   --line-height-btn: 140%;
   --letter-spacing-btn: 0.0263923px;
   

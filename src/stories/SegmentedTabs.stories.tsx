@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { SegmentedTabs } from '../components/SegmentedTabs';
-import { Check, Copy } from '../components/Icons';
+import { SegmentedTabs } from '../components/molecules/SegmentedTabs';
+import { Check, Copy } from '../components/atoms/Icons';
 
 const meta: Meta<typeof SegmentedTabs> = {
   title: 'Components/SegmentedTabs',

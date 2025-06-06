@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
-import { QuickFilters, QuickFilter } from '../components/QuickFilters/QuickFilters';
+import { QuickFilters, QuickFilter } from '../components/organisms/QuickFilters/QuickFilters';
 
 const meta = {
   title: 'Components/QuickFilters',

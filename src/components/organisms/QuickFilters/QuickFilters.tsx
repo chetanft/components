@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { cn } from '../../lib/utils';
-import { Icon } from '../Icons';
+import { cn } from '../../../lib/utils';
+import { Icon } from '../../atoms/Icons';
 
 export type FilterType = 'normal' | 'alert';
 export type FilterState = 'default' | 'selected';

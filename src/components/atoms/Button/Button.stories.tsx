@@ -209,15 +209,9 @@ export const CircularButtons: Story = {
       <div>
         <h4 className="text-md font-medium mb-3">Sizes</h4>
         <div className="flex items-center gap-4">
-          <Button variant="secondary" size="sm" className="rounded-full">
-            <Icon name="edit" size={14} />
-          </Button>
-          <Button variant="secondary" size="md" className="rounded-full">
-            <Icon name="edit" size={16} />
-          </Button>
-          <Button variant="secondary" size="lg" className="rounded-full">
-            <Icon name="edit" size={20} />
-          </Button>
+          <Button variant="secondary" size="sm" className="rounded-full" icon="edit" iconPosition="only" />
+          <Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />
+          <Button variant="secondary" size="lg" className="rounded-full" icon="edit" iconPosition="only" />
         </div>
         <div className="text-xs text-gray-500 mt-2">
           Small: 36×36px | Medium: 44×44px | Large: 52×52px
@@ -228,15 +222,9 @@ export const CircularButtons: Story = {
       <div>
         <h4 className="text-md font-medium mb-3">Variants</h4>
         <div className="flex items-center gap-4">
-          <Button variant="primary" size="md" className="rounded-full">
-            <Icon name="add" size={16} />
-          </Button>
-          <Button variant="secondary" size="md" className="rounded-full">
-            <Icon name="edit" size={16} />
-          </Button>
-          <Button variant="destructive" size="md" className="rounded-full">
-            <Icon name="delete" size={16} />
-          </Button>
+          <Button variant="primary" size="md" className="rounded-full" icon="add" iconPosition="only" />
+          <Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />
+          <Button variant="destructive" size="md" className="rounded-full" icon="delete" iconPosition="only" />
         </div>
       </div>
       
@@ -244,15 +232,9 @@ export const CircularButtons: Story = {
       <div>
         <h4 className="text-md font-medium mb-3">Common Use Cases</h4>
         <div className="flex items-center gap-4">
-          <Button variant="secondary" size="sm" className="rounded-full">
-            <Icon name="more" size={14} />
-          </Button>
-          <Button variant="secondary" size="sm" className="rounded-full">
-            <Icon name="share" size={14} />
-          </Button>
-          <Button variant="secondary" size="sm" className="rounded-full">
-            <Icon name="copy" size={14} />
-          </Button>
+          <Button variant="secondary" size="sm" className="rounded-full" icon="more" iconPosition="only" />
+          <Button variant="secondary" size="sm" className="rounded-full" icon="share" iconPosition="only" />
+          <Button variant="secondary" size="sm" className="rounded-full" icon="copy" iconPosition="only" />
         </div>
         <div className="text-xs text-gray-500 mt-2">
           Perfect for table action buttons, toolbar icons, and floating action buttons
@@ -270,9 +252,7 @@ export const CircularButtons: Story = {
             <span className="text-xs text-gray-500">Regular Button</span>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <Button variant="secondary" size="md" className="rounded-full">
-              <Icon name="edit" size={16} />
-            </Button>
+            <Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />
             <span className="text-xs text-gray-500">Circular Button</span>
           </div>
         </div>

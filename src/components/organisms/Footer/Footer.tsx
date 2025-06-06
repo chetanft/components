@@ -1,6 +1,6 @@
 import React from 'react';
-import { cn } from '../../lib/utils';
-import { Button } from '../Button/Button';
+import { cn } from '../../../lib/utils';
+import { Button } from '../../atoms/Button/Button';
 
 export interface FooterProps {
   /** Number of buttons to display (1-4) */

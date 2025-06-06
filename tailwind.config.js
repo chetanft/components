@@ -75,13 +75,15 @@ export default {
         'md': '8px',      // Buttons, inputs, cards
         'lg': '12px',     // Large cards, modals
         'xl': '16px',     // Hero sections
-        'full': '50%',    // Circular elements
+        'full': '9999px', // Pills and proper rounded elements
+        'circle': '50%',  // Perfect circles
         // Component-specific
         'button': '8px',
         'input': '8px',
         'card': '12px',
         'badge': '4px',
         'modal': '12px',
+        'pill': '9999px', // For tertiary tabs and pill-shaped elements
       },
       // Shadow & Elevation System
       boxShadow: {

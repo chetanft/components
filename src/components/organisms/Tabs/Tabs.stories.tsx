@@ -204,7 +204,7 @@ export const FigmaVariants = () => (
       <ul className="text-sm text-gray-600 space-y-1">
         <li>• Primary: 32px horizontal padding, 12px vertical padding, bottom border for selection</li>
         <li>• Secondary: 16px horizontal padding, 8px vertical padding, 8px border radius</li>
-        <li>• Tertiary: 16px horizontal padding, 8px vertical padding, fully rounded (pill shape)</li>
+        <li>• Tertiary: 16px horizontal padding, 8px vertical padding, proper pill shape (rounded-pill)</li>
         <li>• Selected tabs have enhanced background colors and border styling</li>
         <li>• Hover states provide visual feedback with background color changes</li>
         <li>• Badges show count with white background and gray border</li>

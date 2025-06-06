@@ -1,7 +1,7 @@
 "use client";
 import React, { forwardRef, useState } from 'react';
-import { cn } from '../../lib/utils';
-import { Icon } from '../Icons';
+import { cn } from '../../../lib/utils';
+import { Icon } from '../../atoms/Icons';
 
 export type ChickletVariant = 'rounded' | 'rectangular';
 export type ChickletState = 'default' | 'hover';

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Icon, IconName, iconMap } from '../components/Icons';
+import { Icon, IconName, iconMap } from '../components/atoms/Icons';
 
 const meta: Meta<typeof Icon> = {
   title: 'UI/Icon',

@@ -30,13 +30,19 @@ export const Icon: React.FC<IconProps> = ({
     width: typeof size === 'number' ? `${size}px` : size,
     height: typeof size === 'number' ? `${size}px` : size,
     color: color,
-    display: 'inline-block',
-    verticalAlign: 'middle',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
     ...style,
   };
 
   return (
-    <span className={`icon ${className}`} style={iconStyle} {...props}>
+    <span 
+      className={`icon inline-flex items-center justify-center ${className}`} 
+      style={iconStyle} 
+      {...props}
+    >
       <IconComponent />
     </span>
   );

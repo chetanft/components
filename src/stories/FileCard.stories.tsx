@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { FileCard } from '../components/FileCard';
+import { FileCard } from '../components/organisms/FileCard';
 
 const meta: Meta<typeof FileCard> = {
   title: 'Components/FileCard',

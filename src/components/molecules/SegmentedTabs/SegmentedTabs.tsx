@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { cn } from '../../lib/utils';
+import { cn } from '../../../lib/utils';
 
 export interface SegmentedTabItem {
   label: string;
@@ -48,8 +48,8 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
         const tabStyles = cn(
           // Base styles using design tokens
           "flex items-center justify-center gap-[var(--spacing-x3)] px-[var(--spacing-x3)] py-[var(--spacing-x2)] h-8 rounded transition-all duration-200 cursor-pointer",
-          // Typography using design tokens
-          "font-inter font-medium text-[var(--font-size-sm)] leading-[1.4]",
+          // Typography using design tokens - updated font size
+          "font-inter font-medium text-sm leading-[1.4]", // Use text-sm instead of variable for consistency
           // Flex sizing
           "flex-1",
           // State-specific styles using design tokens

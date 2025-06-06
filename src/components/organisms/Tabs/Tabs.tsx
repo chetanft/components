@@ -1,8 +1,8 @@
 "use client";
 import React, { forwardRef, useState } from 'react';
-import { cn } from '../../lib/utils';
-import { Badge } from '../Badge/Badge';
-import { Icon } from '../Icons';
+import { cn } from '../../../lib/utils';
+import { Badge } from '../../atoms/Badge/Badge';
+import { Icon } from '../../atoms/Icons';
 
 export type TabType = 'primary' | 'secondary' | 'tertiary';
 export type TabState = 'unselected' | 'selected' | 'hover';
@@ -97,7 +97,7 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
       // Border radius based on type - exact from Figma
       type === 'primary' && "rounded-none", // No border radius
       type === 'secondary' && "rounded-lg", // 8px border radius
-      type === 'tertiary' && "rounded-full", // 100px border radius (full)
+      type === 'tertiary' && "rounded-pill", // Proper pill shape instead of rounded-full
       
       // Border styles based on state and type
       type === 'primary' && [

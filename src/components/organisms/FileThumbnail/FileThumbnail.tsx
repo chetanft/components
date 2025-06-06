@@ -1,9 +1,9 @@
 "use client";
 
 import React from 'react';
-import { cn } from '../../lib/utils';
-import { Button } from '../Button/Button';
-import { Icon } from '../Icons';
+import { cn } from '../../../lib/utils';
+import { Button } from '../../atoms/Button/Button';
+import { Icon } from '../../atoms/Icons';
 
 export interface FileThumbnailProps extends React.HTMLAttributes<HTMLDivElement> {
   fileName: string;
