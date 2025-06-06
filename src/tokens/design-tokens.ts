@@ -127,6 +127,14 @@ export const designTokens = {
     full: '100px',
   },
   
+  shadows: {
+    none: 'none',
+    sm: '0 1px 2px 0 rgba(67, 79, 100, 0.05)',
+    md: '0 4px 6px -1px rgba(67, 79, 100, 0.1), 0 2px 4px -1px rgba(67, 79, 100, 0.06)',
+    lg: '0 10px 15px -3px rgba(67, 79, 100, 0.1), 0 4px 6px -2px rgba(67, 79, 100, 0.05)',
+    xl: '0 20px 25px -5px rgba(67, 79, 100, 0.1), 0 10px 10px -5px rgba(67, 79, 100, 0.04)',
+  },
+  
   breakpoints: {
     desktop: {
       margins: '20px',
@@ -179,6 +187,13 @@ export const cssVariables = `
     --radius-md: ${designTokens.borderRadius.md};
     --radius-lg: ${designTokens.borderRadius.lg};
     --radius-full: ${designTokens.borderRadius.full};
+    
+    /* Shadows */
+    --shadow-none: ${designTokens.shadows.none};
+    --shadow-sm: ${designTokens.shadows.sm};
+    --shadow-md: ${designTokens.shadows.md};
+    --shadow-lg: ${designTokens.shadows.lg};
+    --shadow-xl: ${designTokens.shadows.xl};
     
     /* Spacing Desktop */
     --spacing-x0: ${designTokens.spacing.desktop.x0};

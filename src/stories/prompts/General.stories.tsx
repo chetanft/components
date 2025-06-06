@@ -398,14 +398,32 @@ waitForDesignSystem((FTDesignSystem) => {
 
 Available components: Button, Input, Checkbox, RadioGroup, Switch, DatePicker, Dropdown, Table, Badge, Typography, ProgressBar, Tabs, Collapsible, FileCard, UploadZone, and 190+ icons.
 
-IMPORTANT CORRECTIONS:
-- Button variants: 'primary' | 'secondary' | 'destructive' | 'text' | 'link' (NOT 'outline' or 'ghost')
-- Table columns: Use 'title' property, not 'header' or 'label'
-- Icons: Use string names like "check", not React elements like <CheckIcon />
-- Badge variants: 'normal' | 'neutral' | 'warning' | 'error' | 'success'
+🎨 FT DESIGN TOKENS - When using components or creating custom elements, follow these exact values:
+
+COLORS (brand-consistent values):
+- Primary: #1890ff, Secondary: #434f64, Error: #ff3533, Warning: #ff6c19, Success: #00c638
+- Text: #434f64 (headings), #5f697b (body), #838c9d (muted)
+- Borders: #ced1d7, Dividers: #f0f1f7, Backgrounds: #f8f8f9/#ffffff
+
+TYPOGRAPHY: Inter font, weights 400/500/600, sizes 14px/16px/20px/24px/28px
+
+SPACING: 4px/8px/12px/16px/20px/24px/32px (8px system), padding 12px/20px/32px
+
+BORDERS: radius 4px/8px/12px/16px, shadows 0 1px 2px to 0 20px 25px rgba(67,79,100,0.05-0.1)
+
+COMPONENT SPECIFICATIONS:
+- Button: variant="primary|secondary|destructive|text|link" (NOT outline/ghost)
+- Table: columns with 'title' property (NOT header/label)
+- Icons: name="check" as string (NOT <CheckIcon /> elements)
+- Badge: variant="normal|neutral|warning|error|success"
 - Tabs: No content property, handle content separately based on activeTab
 - Input: No icon prop available
 - Typography: Use for display only, use regular HTML tags for content
+
+CUSTOM STYLING EXAMPLES (when extending components):
+- className="bg-[#1890ff] text-white rounded-lg px-5 py-3 shadow-sm" (button)
+- className="border-[#ced1d7] rounded-lg focus:border-[#1890ff]" (input)
+- className="bg-white rounded-xl shadow-md p-6" (card)
 
 Use TypeScript for type safety when possible. Follow modern React patterns with hooks and functional components.`
     },
@@ -447,18 +465,54 @@ waitForDesignSystem((FTDesignSystem) => {
   // Your app code here
 });
 
-IMPORTANT - Use correct props:
+🎨 DESIGN TOKENS - Use these EXACT values for consistent styling:
+
+COLORS (use these specific values):
+- Primary: #1890ff (buttons, links, focus states)
+- Critical/Error: #ff3533 (errors, destructive actions)
+- Warning: #ff6c19 (warnings, alerts)
+- Success/Positive: #00c638 (success states, confirmations)
+- Dark Text: #434f64 (headings), #5f697b (body text), #838c9d (muted text)
+- Borders: #ced1d7 (default borders), #f0f1f7 (dividers)
+- Background: #f8f8f9 (page background), #ffffff (cards, panels)
+
+TYPOGRAPHY (Inter font family):
+- Font weights: 400 (regular), 500 (medium), 600 (semibold)
+- Font sizes: 14px (small), 16px (base), 20px (large), 24px (xl), 28px (xxl)
+- Line heights: Use 1.2-1.5 for optimal readability
+
+SPACING (8px base unit system):
+- 4px (xs), 8px (sm), 12px (md), 16px (lg), 20px (xl), 24px (2xl), 32px (3xl)
+- Component padding: 12px (compact), 20px (default), 32px (spacious)
+- Gaps between elements: 8px (tight), 16px (normal), 24px (loose)
+
+BORDER RADIUS:
+- 4px: Small elements (badges, checkboxes)
+- 8px: Default (buttons, inputs, cards)
+- 12px: Large cards, modals
+- 16px: Hero sections
+- 9999px: Pills and fully rounded elements
+
+SHADOWS (use rgba(67, 79, 100, opacity)):
+- Small: 0 1px 2px 0 rgba(67, 79, 100, 0.05)
+- Medium: 0 4px 6px -1px rgba(67, 79, 100, 0.1)
+- Large: 0 10px 15px -3px rgba(67, 79, 100, 0.1)
+- XL: 0 20px 25px -5px rgba(67, 79, 100, 0.1)
+
+COMPONENT SPECIFICATIONS:
 - Button: variant="primary|secondary|destructive|text|link" (NOT outline/ghost)
 - Table: columns with 'title' property (NOT header/label)
 - Icons: name="check" as string (NOT <CheckIcon /> elements)
 - Badge: variant="normal|neutral|warning|error|success"
 - ProgressBar: IS available and exported
 
-If CDN doesn't work, create similar components manually with Tailwind CSS:
-- Use blue-600 for primary buttons (variant="primary")
-- Use gray-100 borders for inputs
-- Use consistent spacing (p-2, p-4, etc.)
-- Follow the same visual patterns as FT Design System
+If CDN doesn't work, create similar components manually using EXACT design tokens above:
+- Primary buttons: bg-[#1890ff], rounded-lg (8px), px-5 py-3, shadow-sm
+- Input fields: border-[#ced1d7], rounded-lg, px-3 py-2, focus:border-[#1890ff]
+- Cards: bg-white, rounded-xl (12px), shadow-md, p-6
+- Text: text-[#434f64] (headings), text-[#5f697b] (body)
+
+MAINTAIN VISUAL CONSISTENCY: Always use these exact color values, spacing units, border radius, and shadows. Never deviate from these tokens to ensure perfect brand alignment.
 
 Available components: Button, Input, Checkbox, RadioGroup, Switch, DatePicker, Dropdown, Table, Badge, Typography, ProgressBar, Tabs, Collapsible, FileCard, UploadZone, and 190+ icons.`
     },
@@ -474,10 +528,26 @@ Priority order:
 3. Headless UI + Tailwind CSS (universal fallback)
 4. Manual Tailwind CSS components (for tools without package support)
 
+🎨 WHEN CREATING FALLBACK COMPONENTS, USE EXACT FT DESIGN TOKENS:
+
+COLORS: #1890ff (primary), #ff3533 (error), #ff6c19 (warning), #00c638 (success)
+TYPOGRAPHY: Inter font, weights 400/500/600, sizes 14px/16px/20px/24px/28px
+SPACING: 4px/8px/12px/16px/20px/24px/32px (8px base system)
+BORDERS: radius 4px/8px/12px/16px, color #ced1d7
+SHADOWS: 0 1px 2px rgba(67,79,100,0.05) to 0 20px 25px rgba(67,79,100,0.1)
+
+FALLBACK EXAMPLES:
+- Button: bg-[#1890ff] hover:bg-[#006ed3] text-white rounded-lg px-5 py-3 shadow-sm
+- Input: border-[#ced1d7] rounded-lg px-3 py-2 focus:border-[#1890ff] focus:ring-2 focus:ring-[#ecf6ff]
+- Card: bg-white rounded-xl shadow-md p-6 border border-[#f0f1f7]
+- Badge: bg-[#ecf6ff] text-[#006ed3] px-3 py-1 rounded-full text-sm font-medium
+
 For tools without npm support:
 - Use Headless UI CDN: https://unpkg.com/@headlessui/react@latest/dist/index.umd.js
-- Or create custom components with Tailwind CSS classes
-- Keep consistent styling that matches FT Design System aesthetic
+- Or create custom components with exact FT Design System tokens above
+- NEVER use generic Tailwind colors (blue-500, gray-200) - always use FT's exact hex values
+
+CRITICAL: Maintain perfect visual consistency by using ONLY the FT Design System tokens listed above. Any deviation will break brand consistency.
 
 Always prioritize FT Design System components first, then fall back as needed.`
     }

@@ -284,4 +284,111 @@ fetch('https://unpkg.com/ft-design-system@latest/package.json')
   .catch(e => console.error('CDN unavailable:', e));
 ```
 
+## 🎨 Design Tokens for Consistent Styling
+
+When using FT Design System components or creating fallbacks, use these EXACT design tokens:
+
+### Colors
+```css
+/* Primary colors */
+--ft-primary: #1890ff;
+--ft-primary-dark: #006ed3;
+--ft-primary-light: #ecf6ff;
+
+/* Status colors */
+--ft-error: #ff3533;
+--ft-warning: #ff6c19;
+--ft-success: #00c638;
+
+/* Text colors */
+--ft-text-heading: #434f64;
+--ft-text-body: #5f697b;
+--ft-text-muted: #838c9d;
+
+/* UI colors */
+--ft-border: #ced1d7;
+--ft-divider: #f0f1f7;
+--ft-background: #f8f8f9;
+--ft-surface: #ffffff;
+```
+
+### Typography
+```css
+--ft-font-family: Inter;
+--ft-font-weight-regular: 400;
+--ft-font-weight-medium: 500;
+--ft-font-weight-semibold: 600;
+
+/* Font sizes */
+--ft-text-sm: 14px;
+--ft-text-md: 16px;
+--ft-text-lg: 20px;
+--ft-text-xl: 24px;
+--ft-text-xxl: 28px;
+```
+
+### Spacing (8px base system)
+```css
+--ft-space-xs: 4px;
+--ft-space-sm: 8px;
+--ft-space-md: 12px;
+--ft-space-lg: 16px;
+--ft-space-xl: 20px;
+--ft-space-2xl: 24px;
+--ft-space-3xl: 32px;
+```
+
+### Border Radius
+```css
+--ft-radius-sm: 4px;    /* badges, checkboxes */
+--ft-radius-md: 8px;    /* buttons, inputs */
+--ft-radius-lg: 12px;   /* cards, modals */
+--ft-radius-xl: 16px;   /* hero sections */
+--ft-radius-pill: 9999px; /* fully rounded */
+```
+
+### Shadows
+```css
+--ft-shadow-sm: 0 1px 2px 0 rgba(67, 79, 100, 0.05);
+--ft-shadow-md: 0 4px 6px -1px rgba(67, 79, 100, 0.1);
+--ft-shadow-lg: 0 10px 15px -3px rgba(67, 79, 100, 0.1);
+--ft-shadow-xl: 0 20px 25px -5px rgba(67, 79, 100, 0.1);
+```
+
+### Fallback Component Examples
+```css
+/* Primary button */
+.ft-button-primary {
+  background: var(--ft-primary);
+  color: white;
+  border-radius: var(--ft-radius-md);
+  padding: 12px 20px;
+  box-shadow: var(--ft-shadow-sm);
+  font-weight: var(--ft-font-weight-medium);
+}
+
+/* Input field */
+.ft-input {
+  border: 1px solid var(--ft-border);
+  border-radius: var(--ft-radius-md);
+  padding: 8px 12px;
+  font-family: var(--ft-font-family);
+}
+
+.ft-input:focus {
+  border-color: var(--ft-primary);
+  box-shadow: 0 0 0 2px var(--ft-primary-light);
+}
+
+/* Card */
+.ft-card {
+  background: var(--ft-surface);
+  border-radius: var(--ft-radius-lg);
+  box-shadow: var(--ft-shadow-md);
+  padding: var(--ft-space-2xl);
+}
+```
+
+**CRITICAL:** Always use these exact values to maintain perfect brand consistency. Never use generic Tailwind colors or arbitrary values.
+
 This guide ensures your FT Design System integration is robust and handles all edge cases gracefully! 
