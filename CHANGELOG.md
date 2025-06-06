@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] - 2024-12-19
+
+### Added
+- **UMD Build**: Added UMD build for proper CDN support via rollup configuration
+- **CDN Integration Guide**: Comprehensive guide for solving `window.FTDesignSystem` undefined issues
+- **Robust CDN Loading**: Added timeout handling and fallback patterns for CDN integration
+- **Platform-Specific Solutions**: Dedicated solutions for Lovable.dev, Bolt.new, and other AI tools
+
+### Fixed
+- **CDN Loading Issues**: Fixed `window.FTDesignSystem` undefined errors with robust loading patterns
+- **Export Paths**: Fixed incorrect import paths in main index.ts (now uses atomic design structure)
+- **Build Process**: Successfully generates UMD, ESM, and CommonJS builds with proper externals
+
+### Changed
+- **CDN Documentation**: Updated all CDN usage examples to include proper error handling
+- **AI Tool Prompts**: Updated General.stories.tsx with robust CDN loading instructions
+- **Export Structure**: Simplified main index.ts to re-export from components/index.ts
+
+### Technical
+- **UMD Global**: CDN now properly exposes `window.FTDesignSystem` with all components
+- **Build Size**: UMD build is 485KB (includes all components and styles)
+- **External Dependencies**: React and ReactDOM properly externalized in UMD build
+
 ## [1.0.2] - 2024-12-19
 
 ### Changed

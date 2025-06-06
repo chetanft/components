@@ -21,6 +21,16 @@ export default [
         format: 'esm',
         sourcemap: true,
       },
+      {
+        file: 'dist/index.umd.js',
+        format: 'umd',
+        name: 'FTDesignSystem',
+        sourcemap: true,
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM',
+        },
+      },
     ],
     plugins: [
       resolve(),

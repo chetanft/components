@@ -389,8 +389,12 @@ Setup:
 import 'ft-design-system/dist/styles.css';
 import { Button, Input, Table, Badge, ProgressBar } from 'ft-design-system';
 
-// For CDN:
-const { Button, Input, Table, Badge, ProgressBar } = window.FTDesignSystem;
+// For CDN (with robust loading):
+waitForDesignSystem((FTDesignSystem) => {
+  if (!FTDesignSystem) return; // Handle loading failure
+  const { Button, Input, Table, Badge, ProgressBar } = FTDesignSystem;
+  // Your app code here
+});
 
 Available components: Button, Input, Checkbox, RadioGroup, Switch, DatePicker, Dropdown, Table, Badge, Typography, ProgressBar, Tabs, Collapsible, FileCard, UploadZone, and 190+ icons.
 
@@ -411,12 +415,37 @@ Use TypeScript for type safety when possible. Follow modern React patterns with 
       description: 'Use this for Bolt.new, CodeSandbox, Replit, and other online AI tools',
       prompt: `Use FT Design System via CDN since this tool doesn't support npm packages.
 
+⚠️ IMPORTANT: Use robust CDN loading to avoid window.FTDesignSystem undefined errors!
+
 Add these to your HTML head:
 <link rel="stylesheet" href="https://unpkg.com/ft-design-system@latest/dist/styles.css">
 <script src="https://unpkg.com/ft-design-system@latest/dist/index.umd.js"></script>
 
-Then use components like this:
-const { Button, Input, Table, Badge, ProgressBar } = window.FTDesignSystem;
+Use robust loading pattern (prevents undefined errors):
+function waitForDesignSystem(callback, timeout = 5000) {
+  const startTime = Date.now();
+  function check() {
+    if (window.FTDesignSystem) {
+      callback(window.FTDesignSystem);
+    } else if (Date.now() - startTime < timeout) {
+      setTimeout(check, 100);
+    } else {
+      console.error('FT Design System failed to load');
+      callback(null);
+    }
+  }
+  check();
+}
+
+// Use components safely:
+waitForDesignSystem((FTDesignSystem) => {
+  if (!FTDesignSystem) {
+    console.error('Design System not available, using fallbacks');
+    return;
+  }
+  const { Button, Input, Table, Badge, ProgressBar } = FTDesignSystem;
+  // Your app code here
+});
 
 IMPORTANT - Use correct props:
 - Button: variant="primary|secondary|destructive|text|link" (NOT outline/ghost)
