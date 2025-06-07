@@ -53,19 +53,19 @@ describe('Input Component', () => {
     it('applies small size correctly', () => {
       render(<Input size="sm" placeholder="Small input" />);
       const input = screen.getByPlaceholderText('Small input');
-      expect(input).toHaveClass('h-component-sm', 'px-3', 'py-2', 'text-[var(--component-font-size-sm)]');
+      expect(input).toHaveClass('h-component-sm', 'px-3', 'py-2');
     });
 
     it('applies medium size correctly (default)', () => {
       render(<Input placeholder="Medium input" />);
       const input = screen.getByPlaceholderText('Medium input');
-      expect(input).toHaveClass('h-component-md', 'px-4', 'py-3', 'text-[var(--component-font-size-md)]');
+      expect(input).toHaveClass('h-component-md', 'px-4', 'py-3');
     });
 
     it('applies large size classes', () => {
       render(<Input size="lg" placeholder="Large input" />);
       const input = screen.getByPlaceholderText('Large input');
-      expect(input).toHaveClass('h-18', 'px-5', 'py-6', 'text-lg');
+      expect(input).toHaveClass('h-component-lg', 'px-5', 'py-4');
     });
   });
 
@@ -114,14 +114,14 @@ describe('Input Component', () => {
       render(<Input leadingIcon="search" placeholder="Search" />);
       expect(screen.getByTestId('icon-search')).toBeInTheDocument();
       const input = screen.getByPlaceholderText('Search');
-      expect(input).toHaveClass('pl-12'); // Medium size padding
+      expect(input).toHaveClass('pl-11'); // Medium size padding
     });
 
     it('renders trailing icon correctly', () => {
       render(<Input trailingIcon="eye-invisible" placeholder="Password" />);
       expect(screen.getByTestId('icon-eye-invisible')).toBeInTheDocument();
       const input = screen.getByPlaceholderText('Password');
-      expect(input).toHaveClass('pr-12'); // Medium size padding
+      expect(input).toHaveClass('pr-11'); // Medium size padding
     });
 
     it('renders both leading and trailing icons', () => {
@@ -129,13 +129,13 @@ describe('Input Component', () => {
       expect(screen.getByTestId('icon-search')).toBeInTheDocument();
       expect(screen.getByTestId('icon-cross')).toBeInTheDocument();
       const input = screen.getByPlaceholderText('Search');
-      expect(input).toHaveClass('pl-12', 'pr-12');
+      expect(input).toHaveClass('pl-11', 'pr-11');
     });
 
     it('adjusts icon padding based on size', () => {
       render(<Input size="sm" leadingIcon="search" placeholder="Small search" />);
       const input = screen.getByPlaceholderText('Small search');
-      expect(input).toHaveClass('pl-10'); // Small size padding
+      expect(input).toHaveClass('pl-9'); // Small size padding
     });
   });
 

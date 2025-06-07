@@ -157,7 +157,27 @@ export function Colors() {
           />
         </ColorGroup>
         
-        <ColorGroup title="Neutral">
+        <ColorGroup title="Primary">
+          <ColorSwatch 
+            colorName="Primary Dark" 
+            colorVar="--primary-dark" 
+            colorValue="#1d2a38" 
+            textColor="text-white"
+          />
+          <ColorSwatch 
+            colorName="Primary" 
+            colorVar="--primary" 
+            colorValue="#434f64" 
+            textColor="text-white"
+          />
+          <ColorSwatch 
+            colorName="Primary Light" 
+            colorVar="--primary-light" 
+            colorValue="#ced1d7" 
+          />
+        </ColorGroup>
+        
+        <ColorGroup title="Neutral/Accent">
           <ColorSwatch 
             colorName="Neutral Dark" 
             colorVar="--neutral-dark" 

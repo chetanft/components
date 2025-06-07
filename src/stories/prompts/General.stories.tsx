@@ -439,8 +439,8 @@ npm install ft-design-system
 
 Option 2 - CDN (for tools without npm support):
 Add to your HTML head:
-<link rel="stylesheet" href="https://unpkg.com/ft-design-system@latest/dist/styles.css">
-<script src="https://unpkg.com/ft-design-system@latest/dist/index.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/ft-design-system@4.1.1/dist/styles.css">
+<script src="https://unpkg.com/ft-design-system@4.1.1/dist/index.umd.js"></script>
 
 Option 3 - Manual (copy components):
 If the tool doesn't support external packages, recreate these components manually using Tailwind CSS with similar styling.
@@ -462,7 +462,7 @@ Available components: Button, Input, Checkbox, RadioGroup, Switch, DatePicker, D
 🎨 FT DESIGN TOKENS - When using components or creating custom elements, follow these exact values:
 
 COLORS (brand-consistent values):
-- Primary: #1890ff, Secondary: #434f64, Error: #ff3533, Warning: #ff6c19, Success: #00c638
+- Primary: #434f64, Neutral/Accent: #1890ff, Error: #ff3533, Warning: #ff6c19, Success: #00c638
 - Text: #434f64 (headings), #5f697b (body), #838c9d (muted)
 - Borders: #ced1d7, Dividers: #f0f1f7, Backgrounds: #f8f8f9/#ffffff
 
@@ -502,8 +502,8 @@ Use TypeScript for type safety when possible. Follow modern React patterns with 
 ⚠️ IMPORTANT: Use robust CDN loading to avoid window.FTDesignSystem undefined errors!
 
 Add these to your HTML head:
-<link rel="stylesheet" href="https://unpkg.com/ft-design-system@latest/dist/styles.css">
-<script src="https://unpkg.com/ft-design-system@latest/dist/index.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/ft-design-system@4.1.1/dist/styles.css">
+<script src="https://unpkg.com/ft-design-system@4.1.1/dist/index.umd.js"></script>
 
 Use robust loading pattern (prevents undefined errors):
 function waitForDesignSystem(callback, timeout = 5000) {
@@ -644,7 +644,7 @@ Priority order:
 
 🎨 WHEN CREATING FALLBACK COMPONENTS, USE EXACT FT DESIGN TOKENS:
 
-COLORS: #434f64 (primary buttons), #1890ff (secondary/accent), #ff3533 (error), #ff6c19 (warning), #00c638 (success)
+COLORS: #434f64 (primary buttons), #1890ff (neutral/accent), #ff3533 (error), #ff6c19 (warning), #00c638 (success)
 TYPOGRAPHY: Inter font, weights 400/500/600, sizes 14px/16px/20px/24px/28px
 SPACING: 4px/8px/12px/16px/20px/24px/32px (8px base system)
 BORDERS: radius 4px/8px/12px/16px, color #ced1d7

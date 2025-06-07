@@ -33,7 +33,12 @@
   --positive: #00c638;
   --positive-light: #dfffe8;
   
-  /* Neutral */
+  /* Primary */
+  --primary-dark: #1d2a38;
+  --primary: #434f64;
+  --primary-light: #ced1d7;
+  
+  /* Neutral/Accent */
   --neutral-dark: #006ed3;
   --neutral: #1890ff;
   --neutral-light: #ecf6ff;
@@ -1195,11 +1200,14 @@ body {
 .text-dark-100 { color: var(--color-dark-100); }
 .text-dark-50 { color: var(--color-dark-50); }
 .text-dark-25 { color: var(--color-dark-25); }
+.text-primary { color: var(--primary); }
 .text-critical { color: var(--color-critical); }
 .text-warning { color: var(--color-warning); }
 .text-positive { color: var(--color-positive); }
 .text-neutral { color: var(--color-neutral); }
 
+.bg-primary { background-color: var(--primary); }
+.bg-primary-light { background-color: var(--primary-light); }
 .bg-critical { background-color: var(--color-critical); }
 .bg-critical-light { background-color: var(--color-critical-light); }
 .bg-warning { background-color: var(--color-warning); }
@@ -1209,7 +1217,7 @@ body {
 .bg-neutral { background-color: var(--color-neutral); }
 .bg-neutral-light { background-color: var(--color-neutral-light); }
 
-.border-primary { border-color: var(--color-border); }
+.border-primary { border-color: var(--primary); }
 .border-critical { border-color: var(--color-critical); }
 .border-warning { border-color: var(--color-warning); }
 .border-positive { border-color: var(--color-positive); }

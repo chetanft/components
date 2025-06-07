@@ -190,3 +190,20 @@ If custom Tailwind classes don't work:
 ✅ **DOCUMENTED** - AI prompts updated with debugging guidance
 
 This fix resolves the core sizing inconsistency issues that were causing integration problems with AI tools and ensures perfect visual consistency across the entire design system. 
+
+## Deployment Status
+
+### Version 4.1.1 Published Successfully ✅
+- **npm**: `ft-design-system@4.1.1` available
+- **CDN CSS**: https://unpkg.com/ft-design-system@4.1.1/dist/styles.css ✅
+- **CDN JS**: https://unpkg.com/ft-design-system@4.1.1/dist/index.umd.js ✅
+- **Git**: All changes committed with comprehensive message
+- **Documentation**: All CDN references updated to v4.1.1
+
+### CDN Integration (Ready to Use)
+```html
+<link rel="stylesheet" href="https://unpkg.com/ft-design-system@4.1.1/dist/styles.css">
+<script src="https://unpkg.com/ft-design-system@4.1.1/dist/index.umd.js"></script>
+```
+
+This fix resolves the core sizing inconsistency issues that were causing integration problems with AI tools like Lovable.dev and ensures perfect brand consistency across the entire FT Design System. The updated AI prompts now prevent these exact issues from occurring when AI tools integrate with the design system. 

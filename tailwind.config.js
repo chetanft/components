@@ -31,6 +31,11 @@ export default {
           'DEFAULT': 'var(--positive)',
           'light': 'var(--positive-light)',
         },
+        'primary': {
+          'dark': 'var(--primary-dark)',
+          'DEFAULT': 'var(--primary)',
+          'light': 'var(--primary-light)',
+        },
         'neutral': {
           'dark': 'var(--neutral-dark)',
           'DEFAULT': 'var(--neutral)',

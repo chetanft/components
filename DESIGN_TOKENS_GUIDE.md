@@ -29,7 +29,7 @@ import '@your-package/components/styles/globals.css';
 import { designTokens } from '@your-package/components';
 
 // Access tokens programmatically
-const primaryColor = designTokens.colors.neutral.default; // #1890ff
+const primaryColor = designTokens.colors.primary.default; // #434f64
 const mediumSpacing = designTokens.spacing.desktop.x6; // 24px
 ```
 

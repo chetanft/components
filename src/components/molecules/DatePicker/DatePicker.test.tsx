@@ -63,19 +63,19 @@ describe('DatePicker Components', () => {
     describe('Sizes', () => {
       it('applies extra large size by default', () => {
         const { container } = render(<DatePickerField />);
-        const field = container.querySelector('.h-16');
+        const field = container.querySelector('.h-component-xl');
         expect(field).toBeInTheDocument();
       });
 
       it('applies large size', () => {
         const { container } = render(<DatePickerField size="l" />);
-        const field = container.querySelector('.h-13');
+        const field = container.querySelector('.h-component-lg');
         expect(field).toBeInTheDocument();
       });
 
       it('applies medium size', () => {
         const { container } = render(<DatePickerField size="m" />);
-        const field = container.querySelector('.h-10');
+        const field = container.querySelector('.h-component-md');
         expect(field).toBeInTheDocument();
       });
     });
@@ -276,19 +276,19 @@ describe('DatePicker Components', () => {
     describe('Size Variations', () => {
       it('applies extra large size by default', () => {
         const { container } = render(<DatePicker />);
-        const field = container.querySelector('.h-16');
+        const field = container.querySelector('.h-component-xl');
         expect(field).toBeInTheDocument();
       });
 
       it('applies large size', () => {
         const { container } = render(<DatePicker size="l" />);
-        const field = container.querySelector('.h-13');
+        const field = container.querySelector('.h-component-lg');
         expect(field).toBeInTheDocument();
       });
 
       it('applies medium size', () => {
         const { container } = render(<DatePicker size="m" />);
-        const field = container.querySelector('.h-10');
+        const field = container.querySelector('.h-component-md');
         expect(field).toBeInTheDocument();
       });
     });

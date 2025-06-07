@@ -16,14 +16,14 @@ When using FT Design System via CDN, you may encounter issues where `window.FTDe
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://unpkg.com/ft-design-system@latest/dist/styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/ft-design-system@4.1.1/dist/styles.css">
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 </head>
 <body>
   <div id="root"></div>
   
-  <script src="https://unpkg.com/ft-design-system@latest/dist/index.umd.js"></script>
+  <script src="https://unpkg.com/ft-design-system@4.1.1/dist/index.umd.js"></script>
   
   <script>
     // Robust CDN loader with fallback
@@ -78,7 +78,7 @@ function loadDesignSystem() {
     }
     
     const script = document.createElement('script');
-    script.src = 'https://unpkg.com/ft-design-system@latest/dist/index.umd.js';
+    script.src = 'https://unpkg.com/ft-design-system@4.1.1/dist/index.umd.js';
     
     script.onload = () => {
       if (window.FTDesignSystem) {
@@ -278,7 +278,7 @@ window.initializeApp = async function() {
 
 Test CDN availability:
 ```javascript
-fetch('https://unpkg.com/ft-design-system@latest/package.json')
+    fetch('https://unpkg.com/ft-design-system@4.1.1/package.json')
   .then(r => r.json())
   .then(pkg => console.log('CDN Version:', pkg.version))
   .catch(e => console.error('CDN unavailable:', e));
@@ -291,7 +291,7 @@ When using FT Design System components or creating fallbacks, use these EXACT de
 ### Colors
 ```css
 /* Primary colors */
---ft-primary: #1890ff;
+--ft-primary: #434f64;
 --ft-primary-dark: #006ed3;
 --ft-primary-light: #ecf6ff;
 
