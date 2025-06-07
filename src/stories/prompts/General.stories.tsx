@@ -604,6 +604,14 @@ If primary buttons show BLUE instead of dark gray #434f64, debug with:
 2. Check CDN CSS loaded: document.querySelector('link[href*="ft-design-system"]')
 3. Inspect element in DevTools to see what CSS is overriding
 
+🚨 TABLE ERROR DEBUGGING:
+If you see "TableRowComponent" React errors:
+1. Check data has 'id' property: data.every(row => row.id !== undefined)
+2. Ensure columns use 'title' not 'header': {key: "name", title: "Name"}
+3. Validate data structure: console.log('Table data:', data)
+4. Missing 'id' will cause React crashes - always include it!
+5. Use defensive data: data?.filter(row => row.id) || []
+
 ⚠️ CRITICAL: CSS SPECIFICITY & COMPONENT SIZING ISSUES
 FT Design System components have pre-defined heights that override Tailwind classes:
 

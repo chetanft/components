@@ -167,31 +167,40 @@ const TableRowComponent = <T extends TableRow = TableRow>({
   }, [row.id, selected, onSelectionChange]);
 
   const renderCellContent = useCallback((column: TableColumn<T>, value: any) => {
-    if (column.render) {
-      return column.render(value, row, index);
-    }
+    try {
+      if (column.render) {
+        return column.render(value, row, index);
+      }
 
-    switch (column.type) {
-      case 'number':
-        return (
-          <TableCellText type="primary">
-            {typeof value === 'number' ? value.toLocaleString() : value}
-          </TableCellText>
-        );
-      
-      case 'date':
-        return (
-          <TableCellText type="primary">
-            {value instanceof Date ? value.toLocaleDateString() : value}
-          </TableCellText>
-        );
-      
-      default:
-        return (
-          <TableCellText type="primary">
-            {value}
-          </TableCellText>
-        );
+      switch (column.type) {
+        case 'number':
+          return (
+            <TableCellText type="primary">
+              {typeof value === 'number' ? value.toLocaleString() : (value ?? '')}
+            </TableCellText>
+          );
+        
+        case 'date':
+          return (
+            <TableCellText type="primary">
+              {value instanceof Date ? value.toLocaleDateString() : (value ?? '')}
+            </TableCellText>
+          );
+        
+        default:
+          return (
+            <TableCellText type="primary">
+              {value ?? ''}
+            </TableCellText>
+          );
+      }
+    } catch (error) {
+      console.warn('Table: Error rendering cell content:', error, { column, value, row });
+      return (
+        <TableCellText type="primary">
+          -
+        </TableCellText>
+      );
     }
   }, [row, index]);
 
@@ -358,7 +367,16 @@ export const Table = <T extends TableRow = TableRow>({
   emptyMessage,
   className
 }: TableProps<T>) => {
-  const allRowIds = data.map(row => row.id);
+  // Defensive programming: ensure all rows have valid IDs
+  const validatedData = data.filter(row => {
+    if (row.id === undefined || row.id === null) {
+      console.warn('Table: Row missing required "id" property:', row);
+      return false;
+    }
+    return true;
+  });
+
+  const allRowIds = validatedData.map(row => row.id);
 
   const handleRowSelectionChange = useCallback((rowId: string | number, selected: boolean) => {
     if (!onSelectionChange) return;
@@ -390,19 +408,19 @@ export const Table = <T extends TableRow = TableRow>({
             sortDirection={sortDirection}
           />
           <tbody>
-            {data.length === 0 ? (
+            {validatedData.length === 0 ? (
               <tr>
                 <td
                   colSpan={columns.length + (selectable ? 1 : 0)}
                   className="px-[var(--spacing-x3)] py-[var(--spacing-x8)] text-center"
                 >
                   <TableCellText type="secondary">
-                    {emptyMessage}
+                    {emptyMessage || "No data available"}
                   </TableCellText>
                 </td>
               </tr>
             ) : (
-              data.map((row, index) => (
+              validatedData.map((row, index) => (
                 <TableRowComponent
                   key={row.id}
                   row={row}
