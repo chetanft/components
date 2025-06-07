@@ -493,18 +493,8 @@ CUSTOM STYLING EXAMPLES (when extending components):
 
 Use TypeScript for type safety when possible. Follow modern React patterns with hooks and functional components.
 
-🛡️ VALIDATION HELPERS (v4.1.4+):
-Import validation utilities to prevent mistakes:
-import { validateTableData, validateComponent, debugComponent } from 'ft-design-system';
-
-// Validate before using
-const validation = validateTableData(myData);
-if (!validation.isValid) {
-  console.error('Table data issues:', validation.errors);
-}
-
-// Debug component usage
-debugComponent('Table', { data: myData, columns: myColumns });`
+🛡️ SELF-DEFENSIVE COMPONENTS (v4.1.5+):
+Components automatically prevent common mistakes - no validation needed!`
     },
     {
       id: 'no-npm',
@@ -641,22 +631,8 @@ If you see "TableRowComponent" React errors:
 4. Missing 'id' will cause React crashes - always include it!
 5. Use defensive data: data?.filter(row => row.id) || []
 
-❌ COMMON MISTAKES TO AVOID:
-DON'T manually override component sizing:
-- ❌ <Dropdown className="h-10" style={{height: '40px'}} />
-- ✅ <Dropdown size="m" />
-
-DON'T add inline styles for design tokens:
-- ❌ <Button style={{borderRadius: '8px', backgroundColor: '#434f64'}} />
-- ✅ <Button variant="primary" />
-
-DON'T use hardcoded Tailwind classes for FT colors:
-- ❌ className="bg-[#434f64] text-white border-[#ced1d7]"
-- ✅ Use component variants and let FT handle styling
-
-DON'T mix FT components with custom CSS:
-- ❌ <Input className="h-12 rounded-lg border-2" />
-- ✅ <Input size="lg" /> (FT handles all styling)
+🛡️ AUTOMATIC PROTECTION: FT components automatically filter out problematic classes and styles.
+You can use any className or style - the components will ignore overrides that break the design system.
 
 ⚠️ CRITICAL: CSS SPECIFICITY & COMPONENT SIZING ISSUES
 FT Design System components have pre-defined heights that override Tailwind classes:

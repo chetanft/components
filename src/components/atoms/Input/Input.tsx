@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { cn } from '../../../lib/utils';
+import { cn, filterAIClasses } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -13,6 +13,8 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   size?: 'sm' | 'md' | 'lg';
   variant?: 'default' | 'filled';
 }
+
+
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ 
@@ -30,6 +32,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     'aria-describedby': ariaDescribedBy,
     ...props 
   }, ref) => {
+    const safeClassName = filterAIClasses(className);
     
     // Generate IDs for accessibility
     const inputId = id || `input-${React.useId()}`;
@@ -81,7 +84,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         : "text-neutral-900 dark:text-neutral-100 focus:border-neutral-400 dark:focus:border-neutral-500 focus:ring-2 focus:ring-neutral-200 dark:focus:ring-neutral-700",
       // Focus styles
       "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900",
-      className
+      safeClassName
     );
 
     // Label styles with dark mode

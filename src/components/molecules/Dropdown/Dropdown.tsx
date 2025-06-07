@@ -1,6 +1,6 @@
 import React, { forwardRef, useState } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../../lib/utils';
+import { cn, filterAIClasses } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 
 // Dropdown field variants using standardized component sizing
@@ -254,6 +254,8 @@ export interface DropdownProps extends Omit<DropdownFieldProps, 'size'> {
   onSelect?: (value: string) => void;
 }
 
+
+
 export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   ({ 
     label, 
@@ -322,9 +324,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       );
     };
 
+         const safeClassName = filterAIClasses(className);
+
     if (labelPosition === "left") {
       return (
-        <div className={cn("flex items-start gap-4", className)}>
+        <div className={cn("flex items-start gap-4", safeClassName)}>
           {renderLabel()}
           <div className="flex flex-col gap-2 flex-1 relative">
             {renderField()}
@@ -336,7 +340,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     }
 
     return (
-      <div className={cn("flex flex-col gap-2 relative", className)}>
+      <div className={cn("flex flex-col gap-2 relative", safeClassName)}>
         {renderLabel()}
         {renderField()}
         {renderDropdownOptions()}

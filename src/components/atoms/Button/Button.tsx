@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn } from '../../../lib/utils';
+import { cn, filterAIClasses } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'text' | 'link';
@@ -15,6 +15,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   children?: React.ReactNode;
 }
 
+
+
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'primary',
   size = 'md',
@@ -27,6 +29,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   type = 'button',
   ...props
 }, ref) => {
+  const safeClassName = filterAIClasses(className);
   const isIconOnly = iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
   const isCircular = className?.includes('rounded-full');
@@ -131,7 +134,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         baseStyles,
         sizeStyles[size],
         variantStyles[variant],
-        className
+        safeClassName
       )}
       aria-label={accessibleName}
       aria-busy={loading}
