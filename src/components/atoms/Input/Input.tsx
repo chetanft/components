@@ -64,7 +64,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     // Input styles using design tokens and dark mode
     const inputStyles = cn(
       // Base styles
-      "w-full rounded-border-radius border-2 transition-all duration-200",
+      "w-full border-2 transition-all duration-200",
       "font-sans font-normal",
       "placeholder:text-neutral-400 dark:placeholder:text-neutral-500",
       // Size

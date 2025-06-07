@@ -5,7 +5,7 @@ import { Icon } from '../../atoms/Icons';
 
 // Date picker field variants using standardized component sizing
 const datePickerFieldVariants = cva(
-  "relative flex items-center gap-[var(--spacing-x1)] rounded-[var(--radius-md)] border transition-colors",
+  "relative flex items-center gap-[var(--spacing-x1)] border transition-colors",
   {
     variants: {
       size: {
@@ -126,7 +126,7 @@ const datePickerFieldVariants = cva(
       }
     ],
     defaultVariants: {
-      size: "xl",
+      size: "m",
       state: "default", 
       type: "normal"
     }

@@ -193,17 +193,38 @@ This fix resolves the core sizing inconsistency issues that were causing integra
 
 ## Deployment Status
 
-### Version 4.1.1 Published Successfully ✅
+### Version 4.1.2 - Color Fix Published ✅
+**CRITICAL COLOR CORRECTION:** Primary color changed from `#1890ff` to `#434f64`
+
+- **npm**: `ft-design-system@4.1.2` available
+- **CDN CSS**: https://unpkg.com/ft-design-system@4.1.2/dist/styles.css ✅
+- **CDN JS**: https://unpkg.com/ft-design-system@4.1.2/dist/index.umd.js ✅
+- **Git**: All changes committed with comprehensive message
+- **Documentation**: All CDN references updated to v4.1.2
+
+### Color System Correction
+**Problem:** The design system incorrectly used `#1890ff` (blue) as "primary" when `#434f64` (dark gray) is the true brand primary color.
+
+**Solution:**
+- ✅ **Primary Color**: `#434f64` (dark gray) - for buttons, headings, primary UI
+- ✅ **Neutral/Accent Color**: `#1890ff` (blue) - for secondary actions, links
+- ✅ **CSS Variables**: Added `--primary`, `--primary-dark`, `--primary-light`
+- ✅ **Tailwind Utilities**: Added `text-primary`, `bg-primary`, `border-primary`
+- ✅ **Colors Component**: Updated to show correct color hierarchy
+- ✅ **AI Prompts**: Updated with correct color information
+- ✅ **Tests**: All component tests updated and passing
+
+### Version 4.1.1 - Component Sizing Published ✅
 - **npm**: `ft-design-system@4.1.1` available
 - **CDN CSS**: https://unpkg.com/ft-design-system@4.1.1/dist/styles.css ✅
 - **CDN JS**: https://unpkg.com/ft-design-system@4.1.1/dist/index.umd.js ✅
 - **Git**: All changes committed with comprehensive message
 - **Documentation**: All CDN references updated to v4.1.1
 
-### CDN Integration (Ready to Use)
+### CDN Integration (Latest - Ready to Use)
 ```html
-<link rel="stylesheet" href="https://unpkg.com/ft-design-system@4.1.1/dist/styles.css">
-<script src="https://unpkg.com/ft-design-system@4.1.1/dist/index.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/ft-design-system@4.1.2/dist/styles.css">
+<script src="https://unpkg.com/ft-design-system@4.1.2/dist/index.umd.js"></script>
 ```
 
 This fix resolves the core sizing inconsistency issues that were causing integration problems with AI tools like Lovable.dev and ensures perfect brand consistency across the entire FT Design System. The updated AI prompts now prevent these exact issues from occurring when AI tools integrate with the design system. 

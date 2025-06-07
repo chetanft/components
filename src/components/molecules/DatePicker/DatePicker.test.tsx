@@ -61,9 +61,9 @@ describe('DatePicker Components', () => {
     });
 
     describe('Sizes', () => {
-      it('applies extra large size by default', () => {
+      it('applies medium size by default', () => {
         const { container } = render(<DatePickerField />);
-        const field = container.querySelector('.h-component-xl');
+        const field = container.querySelector('.h-component-md');
         expect(field).toBeInTheDocument();
       });
 

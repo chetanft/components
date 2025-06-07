@@ -5,7 +5,7 @@ import { Icon } from '../../atoms/Icons';
 
 // Dropdown field variants using standardized component sizing
 const dropdownFieldVariants = cva(
-  "relative flex items-center gap-[var(--spacing-x1)] rounded-[var(--radius-md)] border transition-colors cursor-pointer",
+  "relative flex items-center gap-[var(--spacing-x1)] border transition-colors cursor-pointer",
   {
     variants: {
       size: {
@@ -126,7 +126,7 @@ const dropdownFieldVariants = cva(
       }
     ],
     defaultVariants: {
-      size: "xl",
+      size: "m",
       state: "default", 
       type: "normal"
     }

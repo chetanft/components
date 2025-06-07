@@ -268,7 +268,7 @@ describe('Input Component', () => {
     it('merges custom className with component classes', () => {
       render(<Input className="custom-class" placeholder="Merged input" />);
       const input = screen.getByPlaceholderText('Merged input');
-      expect(input).toHaveClass('custom-class', 'w-full', 'rounded-border-radius');
+      expect(input).toHaveClass('custom-class', 'w-full', 'border-2');
     });
   });
 }); 
