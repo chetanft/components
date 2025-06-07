@@ -1,10 +1,5 @@
-export { 
-  Dropdown, 
-  DropdownField, 
-  Label, 
-  Caption,
+export {
+  Dropdown,
   type DropdownProps,
-  type DropdownFieldProps,
-  type LabelProps,
-  type CaptionProps
+  type DropdownOption
 } from './Dropdown'; 

@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { cn, filterAIClasses } from '../../../lib/utils';
+import { cn, getComponentStyles, filterAIClasses, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -10,11 +10,9 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   helperText?: string;
   leadingIcon?: IconName;
   trailingIcon?: IconName;
-  size?: 'sm' | 'md' | 'lg';
+  size?: ComponentSize; // Use unified sizing
   variant?: 'default' | 'filled';
 }
-
-
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ 
@@ -33,6 +31,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ...props 
   }, ref) => {
     const safeClassName = filterAIClasses(className);
+    const componentStyles = getComponentStyles(size);
     
     // Generate IDs for accessibility
     const inputId = id || `input-${React.useId()}`;
@@ -40,38 +39,35 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const helperId = helperText ? `${inputId}-helper` : undefined;
     const describedBy = [errorId, helperId, ariaDescribedBy].filter(Boolean).join(' ') || undefined;
 
-    // Size configuration using standardized component variables
-    const sizeConfig = {
-      sm: {
-        input: "h-component-sm px-3 py-2 text-[var(--component-font-size-sm)]", // 36px height, 14px font
-        icon: 16, // var(--component-icon-size-sm)
-        iconOffset: "left-3 right-3",
-        iconPadding: { left: "pl-9", right: "pr-9" }
-      },
-      md: {
-        input: "h-component-md px-4 py-3 text-[var(--component-font-size-md)]", // 44px height, 16px font
-        icon: 20, // var(--component-icon-size-md)
-        iconOffset: "left-4 right-4", 
-        iconPadding: { left: "pl-11", right: "pr-11" }
-      },
-      lg: {
-        input: "h-component-lg px-5 py-4 text-[var(--component-font-size-lg)]", // 52px height, 16px font
-        icon: 24, // var(--component-icon-size-lg)
-        iconOffset: "left-5 right-5",
-        iconPadding: { left: "pl-12", right: "pr-12" }
-      }
+    // Icon positioning based on unified sizing
+    const iconOffsetMap = {
+      sm: "left-3 right-3",
+      md: "left-4 right-4", 
+      lg: "left-5 right-5",
+      xl: "left-6 right-6"
+    };
+    
+    const iconPaddingMap = {
+      sm: { left: "pl-9", right: "pr-9" },
+      md: { left: "pl-11", right: "pr-11" },
+      lg: { left: "pl-12", right: "pr-12" },
+      xl: { left: "pl-14", right: "pr-14" }
     };
 
-    const currentSize = sizeConfig[size];
+    const currentIconOffset = iconOffsetMap[size];
+    const currentIconPadding = iconPaddingMap[size];
 
-    // Input styles using design tokens and dark mode
+    // Input styles using unified design system
     const inputStyles = cn(
       // Base styles
       "w-full border-2 transition-all duration-200",
       "font-sans font-normal",
       "placeholder:text-neutral-400 dark:placeholder:text-neutral-500",
-      // Size
-      currentSize.input,
+      // Unified component styles
+      componentStyles.height,
+      componentStyles.fontSize,
+      componentStyles.borderRadius,
+      componentStyles.padding,
       // Variant styles with dark mode
       variant === 'filled' 
         ? "bg-neutral-50 dark:bg-neutral-800 border-transparent focus:bg-white dark:focus:bg-neutral-900 focus:border-neutral-200 dark:focus:border-neutral-600"
@@ -105,12 +101,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         : "text-neutral-600 dark:text-neutral-400"
     );
 
-    // Icon color based on state and theme
-    const getIconColor = () => {
-      if (disabled) return "currentColor";
-      return "currentColor";
-    };
-
     return (
       <div className="w-full">
         {/* Label */}
@@ -127,10 +117,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div className="relative">
           {/* Leading Icon */}
           {leadingIcon && (
-            <div className={cn("absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none", currentSize.iconOffset.split(' ')[0])}>
+            <div className={cn("absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none", currentIconOffset.split(' ')[0])}>
               <Icon 
                 name={leadingIcon} 
-                size={currentSize.icon}
+                size={componentStyles.iconSize}
                 className={cn(
                   "transition-colors",
                   disabled 
@@ -150,22 +140,23 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             type={type}
             className={cn(
               inputStyles,
-              leadingIcon && currentSize.iconPadding.left,
-              trailingIcon && currentSize.iconPadding.right
+              leadingIcon && currentIconPadding.left,
+              trailingIcon && currentIconPadding.right
             )}
             ref={ref}
             disabled={disabled}
             aria-invalid={error ? 'true' : 'false'}
             aria-describedby={describedBy}
+            data-size={size}
             {...props}
           />
           
           {/* Trailing Icon */}
           {trailingIcon && (
-            <div className={cn("absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none", currentSize.iconOffset.split(' ')[1])}>
+            <div className={cn("absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none", currentIconOffset.split(' ')[1])}>
               <Icon 
                 name={trailingIcon} 
-                size={currentSize.icon}
+                size={componentStyles.iconSize}
                 className={cn(
                   "transition-colors",
                   disabled 

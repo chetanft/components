@@ -41,6 +41,17 @@ export default {
           'DEFAULT': 'var(--neutral)',
           'light': 'var(--neutral-light)',
         },
+        // Unified component colors
+        'component': {
+          'border': 'var(--component-border-color)',
+          'border-focus': 'var(--component-border-focus)',
+          'bg-default': 'var(--component-bg-default)',
+          'bg-hover': 'var(--component-bg-hover)',
+          'bg-disabled': 'var(--component-bg-disabled)',
+          'text-default': 'var(--component-text-default)',
+          'text-muted': 'var(--component-text-muted)',
+          'text-disabled': 'var(--component-text-disabled)',
+        }
       },
       // 8-Point Spacing System with 20px special unit
       spacing: {
@@ -89,6 +100,7 @@ export default {
         'badge': '4px',
         'modal': '12px',
         'pill': '9999px', // For tertiary tabs and pill-shaped elements
+        'component': 'var(--component-border-radius)',
       },
       // Shadow & Elevation System
       boxShadow: {
@@ -105,6 +117,8 @@ export default {
         'card': '0 4px 6px -1px rgba(67, 79, 100, 0.1), 0 2px 4px -1px rgba(67, 79, 100, 0.06)',
         'modal': '0 20px 25px -5px rgba(67, 79, 100, 0.1), 0 10px 10px -5px rgba(67, 79, 100, 0.04)',
         'dropdown': '0 10px 15px -3px rgba(67, 79, 100, 0.1), 0 4px 6px -2px rgba(67, 79, 100, 0.05)',
+        'component-focus': 'var(--component-shadow-focus)',
+        'component-hover': 'var(--component-shadow-hover)',
       },
       // Opacity System
       opacity: {
@@ -145,6 +159,9 @@ export default {
         'body-primary': 'var(--font-size-body-primary)',
         'body-secondary': 'var(--font-size-body-secondary)',
         'btn': 'var(--font-size-btn)',
+        'component-sm': ['var(--component-font-size-sm)', { fontWeight: 'var(--component-font-weight)' }],
+        'component-md': ['var(--component-font-size-md)', { fontWeight: 'var(--component-font-weight)' }],
+        'component-lg': ['var(--component-font-size-lg)', { fontWeight: 'var(--component-font-weight)' }],
       },
       lineHeight: {
         'title': 'var(--line-height-title)',
@@ -178,6 +195,29 @@ export default {
         'component-md': 'var(--component-height-md)',  // 44px
         'component-lg': 'var(--component-height-lg)',  // 52px
         'component-xl': 'var(--component-height-xl)',  // 64px
+      },
+      width: {
+        'component-sm': 'var(--component-height-sm)',  // 36px (for square components)
+        'component-md': 'var(--component-height-md)',  // 44px
+        'component-lg': 'var(--component-height-lg)',  // 52px
+        'component-xl': 'var(--component-height-xl)',  // 64px
+      },
+      padding: {
+        'component-sm': 'var(--component-padding-sm)',
+        'component-md': 'var(--component-padding-md)',
+        'component-lg': 'var(--component-padding-lg)',
+        'component-xl': 'var(--component-padding-xl)',
+      },
+      gap: {
+        'component-sm': 'var(--component-gap-sm)',
+        'component-md': 'var(--component-gap-md)',
+        'component-lg': 'var(--component-gap-lg)',
+      },
+      borderWidth: {
+        'component': 'var(--component-border-width)',
+      },
+      transitionProperty: {
+        'component': 'var(--component-transition)',
       },
     },
   },

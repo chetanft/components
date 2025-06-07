@@ -1,9 +1,9 @@
 import React from 'react';
-import { cn, filterAIClasses } from '../../../lib/utils';
+import { cn, getComponentStyles, filterAIClasses, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'text' | 'link';
-export type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonSize = ComponentSize; // Use unified sizing
 export type IconPosition = 'leading' | 'trailing' | 'only';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -14,8 +14,6 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   loading?: boolean;
   children?: React.ReactNode;
 }
-
-
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'primary',
@@ -30,16 +28,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   ...props
 }, ref) => {
   const safeClassName = filterAIClasses(className);
+  const componentStyles = getComponentStyles(size);
   const isIconOnly = iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
-  const isCircular = className?.includes('rounded-full');
+  const isCircular = safeClassName?.includes('rounded-full');
 
-  // Base styles using design tokens and Tailwind classes
+  // Base styles using unified design system
   const baseStyles = cn(
     // Layout and display
     "inline-flex items-center justify-center",
     "font-medium transition-all duration-200",
-    "border border-transparent rounded-button", // Using design token
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
     "disabled:cursor-not-allowed",
     // Accessibility
@@ -50,21 +48,17 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     isCircular && "!rounded-full"
   );
 
-  // Size configurations using standardized component variables
-  const sizeStyles = {
-    sm: cn(
-      "h-component-sm gap-2 text-[var(--component-font-size-sm)] font-medium", // 36px height, 14px font
-      isIconOnly && isCircular ? "w-component-sm p-0" : isIconOnly ? "w-component-sm px-0" : "px-3"
-    ),
-    md: cn(
-      "h-component-md gap-2 text-[var(--component-font-size-md)] font-medium", // 44px height, 16px font
-      isIconOnly && isCircular ? "w-component-md p-0" : isIconOnly ? "w-component-md px-0" : "px-4"
-    ),
-    lg: cn(
-      "h-component-lg gap-2 text-[var(--component-font-size-lg)] font-medium", // 52px height, 16px font
-      isIconOnly && isCircular ? "w-component-lg p-0" : isIconOnly ? "w-component-lg px-0" : "px-5"
-    ),
-  };
+  // Use unified component styles for consistent sizing
+  const sizeStyles = cn(
+    componentStyles.height,
+    componentStyles.fontSize,
+    componentStyles.gap,
+    componentStyles.borderRadius,
+    // Adjust padding for icon-only buttons
+    isIconOnly && isCircular ? `w-${componentStyles.height.replace('h-', '')} p-0` : 
+    isIconOnly ? `w-${componentStyles.height.replace('h-', '')} px-0` : 
+    componentStyles.padding
+  );
 
   // Variant styles with design tokens and dark mode support
   const variantStyles = {
@@ -110,16 +104,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     ),
   };
 
-  // Icon size based on button size - using standardized component variables
-  const getIconSize = () => {
-    switch (size) {
-      case 'sm': return 16; // var(--component-icon-size-sm)
-      case 'md': return 20; // var(--component-icon-size-md)
-      case 'lg': return 24; // var(--component-icon-size-lg)
-      default: return 20;
-    }
-  };
-
   // Determine accessible name
   const accessibleName = props['aria-label'] || 
     (typeof children === 'string' ? children : undefined) ||
@@ -132,18 +116,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       disabled={isDisabled}
       className={cn(
         baseStyles,
-        sizeStyles[size],
+        sizeStyles,
         variantStyles[variant],
         safeClassName
       )}
       aria-label={accessibleName}
       aria-busy={loading}
+      data-size={size}
       {...props}
     >
       {loading && (
         <Icon 
           name="loading" 
-          size={getIconSize()} 
+          size={componentStyles.iconSize} 
           className="animate-spin" 
           aria-hidden="true"
         />
@@ -152,7 +137,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       {!loading && isIconOnly && icon && (
         <Icon 
           name={icon} 
-          size={getIconSize()} 
+          size={componentStyles.iconSize} 
           aria-hidden="true"
         />
       )}
@@ -162,7 +147,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
           {icon && iconPosition === 'leading' && (
             <Icon 
               name={icon} 
-              size={getIconSize()} 
+              size={componentStyles.iconSize} 
               aria-hidden="true"
             />
           )}
@@ -172,7 +157,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
           {icon && iconPosition === 'trailing' && (
             <Icon 
               name={icon} 
-              size={getIconSize()} 
+              size={componentStyles.iconSize} 
               aria-hidden="true"
             />
           )}
