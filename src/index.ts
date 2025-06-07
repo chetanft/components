@@ -14,6 +14,7 @@ export * from './components';
 
 // Utilities
 export { cn } from './lib/utils';
+export * from './utils/component-validation';
 
 // Global styles - consumers should import this manually
 export const globalStyles = './styles/globals.css'; 

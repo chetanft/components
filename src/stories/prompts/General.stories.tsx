@@ -491,7 +491,20 @@ CUSTOM STYLING EXAMPLES (when extending components):
 - className="border-[#ced1d7] rounded-lg focus:border-[#1890ff]" (input)
 - className="bg-white rounded-xl shadow-md p-6" (card)
 
-Use TypeScript for type safety when possible. Follow modern React patterns with hooks and functional components.`
+Use TypeScript for type safety when possible. Follow modern React patterns with hooks and functional components.
+
+🛡️ VALIDATION HELPERS (v4.1.4+):
+Import validation utilities to prevent mistakes:
+import { validateTableData, validateComponent, debugComponent } from 'ft-design-system';
+
+// Validate before using
+const validation = validateTableData(myData);
+if (!validation.isValid) {
+  console.error('Table data issues:', validation.errors);
+}
+
+// Debug component usage
+debugComponent('Table', { data: myData, columns: myColumns });`
     },
     {
       id: 'no-npm',
@@ -501,9 +514,15 @@ Use TypeScript for type safety when possible. Follow modern React patterns with 
 
 ⚠️ IMPORTANT: Use robust CDN loading to avoid window.FTDesignSystem undefined errors!
 
-Add these to your HTML head:
-<link rel="stylesheet" href="https://unpkg.com/ft-design-system@4.1.1/dist/styles.css">
-<script src="https://unpkg.com/ft-design-system@4.1.1/dist/index.umd.js"></script>
+Add these to your HTML head (ALWAYS use latest version):
+<link rel="stylesheet" href="https://unpkg.com/ft-design-system@4.1.4/dist/styles.css">
+<script src="https://unpkg.com/ft-design-system@4.1.4/dist/index.umd.js"></script>
+
+🚨 VERSION CRITICAL: Use v4.1.4+ for these fixes:
+- v4.1.2: Fixed primary color (#434f64) and removed unwanted border radius
+- v4.1.3: Fixed component height consistency (Dropdown defaults to 44px)  
+- v4.1.4: Added Table error handling and defensive programming
+- Using older versions will require manual workarounds!
 
 Use robust loading pattern (prevents undefined errors):
 function waitForDesignSystem(callback, timeout = 5000) {
@@ -585,13 +604,23 @@ SHADOWS (use rgba(67, 79, 100, opacity)):
 - XL: 0 20px 25px -5px rgba(67, 79, 100, 0.1)
 
 COMPONENT SPECIFICATIONS:
-- Button: variant="primary|secondary|destructive|text|link" (NOT outline/ghost)
+- Button: variant="primary|secondary|destructive|text|link" size="sm|md|lg" (NOT outline/ghost)
+- Input: size="sm|md|lg" (36px/44px/52px) - DON'T use h-12, h-10 classes
+- Dropdown: size="m|l|xl" (44px/52px/64px) - DON'T add manual height/borderRadius
 - Table: columns with 'title' property (NOT header/label), data must have 'id' property (NOT 'key')
 - Icons: name="check" as string (NOT <CheckIcon /> elements)
 - Badge: variant="normal|neutral|warning|danger|success" (use "danger" NOT "error")
 - Tabs: Uses tabs=[{label, badge?, icon?}] array (NO children prop)
-- ProgressBar: IS available and exported
+- ProgressBar: variant="primary|secondary|success|warning|danger" (DON'T use custom colors)
 - Typography: Display component only - use regular HTML tags with design token classes for content
+
+✅ CORRECT COMPONENT USAGE EXAMPLES:
+<Button variant="primary" size="md">Save</Button>
+<Input size="md" placeholder="Enter text" />
+<Dropdown size="m" options={[{value: "1", label: "Option 1"}]} />
+<Table columns={[{key: "name", title: "Name"}]} data={[{id: 1, name: "Item"}]} />
+<Badge variant="success">Active</Badge>
+<ProgressBar variant="primary" value={75} />
 
 CRITICAL DATA REQUIREMENTS:
 - Table data: Each row MUST have 'id' property: [{id: 1, name: "..."}, {id: 2, ...}]
@@ -611,6 +640,23 @@ If you see "TableRowComponent" React errors:
 3. Validate data structure: console.log('Table data:', data)
 4. Missing 'id' will cause React crashes - always include it!
 5. Use defensive data: data?.filter(row => row.id) || []
+
+❌ COMMON MISTAKES TO AVOID:
+DON'T manually override component sizing:
+- ❌ <Dropdown className="h-10" style={{height: '40px'}} />
+- ✅ <Dropdown size="m" />
+
+DON'T add inline styles for design tokens:
+- ❌ <Button style={{borderRadius: '8px', backgroundColor: '#434f64'}} />
+- ✅ <Button variant="primary" />
+
+DON'T use hardcoded Tailwind classes for FT colors:
+- ❌ className="bg-[#434f64] text-white border-[#ced1d7]"
+- ✅ Use component variants and let FT handle styling
+
+DON'T mix FT components with custom CSS:
+- ❌ <Input className="h-12 rounded-lg border-2" />
+- ✅ <Input size="lg" /> (FT handles all styling)
 
 ⚠️ CRITICAL: CSS SPECIFICITY & COMPONENT SIZING ISSUES
 FT Design System components have pre-defined heights that override Tailwind classes:
