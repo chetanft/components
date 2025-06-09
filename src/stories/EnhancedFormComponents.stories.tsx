@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { Input } from '../components/atoms/Input/Input';
 import { Dropdown } from '../components/molecules/Dropdown/Dropdown';
-import { AlertInformational, User, Mail, Phone } from '../components/atoms/Icons';
+import { DatePicker } from '../components/molecules/DatePicker/DatePicker';
+import { AlertInformational, User, Mail, Phone, Calendar, Clock } from '../components/atoms/Icons';
 
 const meta: Meta = {
   title: 'Enhanced/Form Components with Labels',
@@ -134,6 +135,104 @@ export const InputVariations: Story = {
           labelOptional={true}
           labelSuffixIcon={true}
           labelIcon={<Phone />}
+        />
+      </div>
+    </div>
+  ),
+};
+
+// DatePicker component variations
+export const DatePickerVariations: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '30px', padding: '20px', minWidth: '400px' }}>
+      <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '10px' }}>
+        DatePicker with Enhanced Label Features
+      </h2>
+      
+      {/* Basic DatePicker */}
+      <div>
+        <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5F697B' }}>
+          Basic Label
+        </h3>
+        <DatePicker
+          label="Birth Date"
+          placeholder="Select birth date"
+        />
+      </div>
+
+      {/* Mandatory DatePicker */}
+      <div>
+        <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5F697B' }}>
+          Mandatory Field
+        </h3>
+        <DatePicker
+          label="Start Date"
+          placeholder="Select start date"
+          labelMandatory={true}
+        />
+      </div>
+
+      {/* Optional DatePicker */}
+      <div>
+        <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5F697B' }}>
+          Optional Field
+        </h3>
+        <DatePicker
+          label="End Date"
+          placeholder="Select end date"
+          labelOptional={true}
+        />
+      </div>
+
+      {/* DatePicker with Suffix Icon */}
+      <div>
+        <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5F697B' }}>
+          With Suffix Icon
+        </h3>
+        <DatePicker
+          label="Event Date"
+          placeholder="Select event date"
+          labelSuffixIcon={true}
+        />
+      </div>
+
+      {/* DatePicker with Custom Icon */}
+      <div>
+        <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5F697B' }}>
+          With Custom Icon
+        </h3>
+        <DatePicker
+          label="Meeting Date"
+          placeholder="Select meeting date"
+          labelSuffixIcon={true}
+          labelIcon={<Calendar />}
+        />
+      </div>
+
+      {/* DatePicker with Time */}
+      <div>
+        <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5F697B' }}>
+          With Time and Custom Icon
+        </h3>
+        <DatePicker
+          label="Appointment Time"
+          placeholder="Select appointment time"
+          showTime={true}
+          labelMandatory={true}
+          labelSuffixIcon={true}
+          labelIcon={<Clock />}
+        />
+      </div>
+
+      {/* Backward Compatibility - required prop */}
+      <div>
+        <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5F697B' }}>
+          Backward Compatibility (required prop)
+        </h3>
+        <DatePicker
+          label="Legacy Required Date"
+          placeholder="Select date"
+          required={true}
         />
       </div>
     </div>
@@ -277,24 +376,30 @@ export const DropdownVariations: Story = {
 // Complete form example
 export const CompleteForm: Story = {
   render: () => {
-    const [formData, setFormData] = React.useState({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      country: '',
-      department: '',
-      role: '',
-      bio: '',
-    });
+          const [formData, setFormData] = React.useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        country: '',
+        department: '',
+        role: '',
+        bio: '',
+        startDate: '',
+        meetingTime: '',
+      });
 
     const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormData(prev => ({ ...prev, [field]: e.target.value }));
     };
 
-    const handleDropdownChange = (field: string) => (value: string | number) => {
-      setFormData(prev => ({ ...prev, [field]: value }));
-    };
+            const handleDropdownChange = (field: string) => (value: string | number) => {
+          setFormData(prev => ({ ...prev, [field]: value }));
+        };
+
+        const handleDateChange = (field: string) => (value: string) => {
+          setFormData(prev => ({ ...prev, [field]: value }));
+        };
 
     return (
       <div style={{ maxWidth: '600px', padding: '20px' }}>
@@ -382,18 +487,41 @@ export const CompleteForm: Story = {
             labelOptional={true}
           />
 
-          {/* Bio - Optional with Icon - Full width */}
-          <div style={{ gridColumn: 'span 2' }}>
-            <Input
-              label="Bio"
-              placeholder="Tell us about yourself"
-              value={formData.bio}
-              onChange={handleInputChange('bio')}
+                      {/* Start Date - Mandatory with Icon */}
+            <DatePicker
+              label="Start Date"
+              placeholder="Select start date"
+              value={formData.startDate}
+              onChange={handleDateChange('startDate')}
+              labelMandatory={true}
+              labelSuffixIcon={true}
+              labelIcon={<Calendar />}
+            />
+
+            {/* Meeting Time - Optional with Time */}
+            <DatePicker
+              label="Meeting Time"
+              placeholder="Select meeting time"
+              value={formData.meetingTime}
+              onChange={handleDateChange('meetingTime')}
+              showTime={true}
               labelOptional={true}
               labelSuffixIcon={true}
-              labelIcon={<AlertInformational />}
+              labelIcon={<Clock />}
             />
-          </div>
+
+            {/* Bio - Optional with Icon - Full width */}
+            <div style={{ gridColumn: 'span 2' }}>
+              <Input
+                label="Bio"
+                placeholder="Tell us about yourself"
+                value={formData.bio}
+                onChange={handleInputChange('bio')}
+                labelOptional={true}
+                labelSuffixIcon={true}
+                labelIcon={<AlertInformational />}
+              />
+            </div>
         </div>
 
         {/* Form Data Display */}

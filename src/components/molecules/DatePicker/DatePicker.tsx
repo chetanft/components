@@ -1,17 +1,18 @@
 import React, { forwardRef } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '../../../lib/utils';
+import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
+import { Label } from '../../atoms/Label/Label';
 
-// Date picker field variants using standardized component sizing
+// Date picker field variants using unified design system
 const datePickerFieldVariants = cva(
-  "relative flex items-center gap-[var(--spacing-x1)] border transition-colors",
+  "relative flex items-center gap-2 border-2 transition-all duration-200 font-sans font-normal",
   {
     variants: {
       size: {
-        xl: "h-component-xl px-[var(--spacing-x3)] text-[var(--component-font-size-lg)]", // 64px height, 16px font
-        l: "h-component-lg px-[var(--spacing-x3)] text-[var(--component-font-size-lg)]",  // 52px height, 16px font
-        m: "h-component-md px-[var(--spacing-x3)] text-[var(--component-font-size-md)]"  // 44px height, 16px font
+        xl: "", // Applied via unified system
+        l: "",  // Applied via unified system
+        m: ""   // Applied via unified system
       },
       state: {
         default: "",
@@ -23,107 +24,29 @@ const datePickerFieldVariants = cva(
         typing: ""
       },
       type: {
-        normal: "border-[var(--color-border)] bg-[var(--color-white)]",
-        error: "border-[var(--color-critical)] bg-[var(--color-white)]",
-        warning: "border-[var(--color-warning)] bg-[var(--color-white)]", 
-        success: "border-[var(--color-positive)] bg-[var(--color-white)]"
+        normal: "bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700",
+        error: "border-critical bg-white dark:bg-neutral-900",
+        warning: "border-warning bg-white dark:bg-neutral-900", 
+        success: "border-positive bg-white dark:bg-neutral-900"
       }
     },
     compoundVariants: [
-      // Default state variations using design tokens
+      // Default state variations
       {
         state: "default",
         type: "normal",
-        className: "hover:border-[var(--color-dark-100)] focus-within:border-[var(--color-dark-100)] focus-within:shadow-[0_0_0_2px_var(--color-neutral-light)]"
+        className: "text-neutral-900 dark:text-neutral-100 focus-within:border-neutral-400 dark:focus-within:border-neutral-500 focus-within:ring-2 focus-within:ring-neutral-200 dark:focus-within:ring-neutral-700"
       },
       {
         state: "default", 
         type: "error",
-        className: "hover:border-[var(--color-critical)] focus-within:border-[var(--color-critical)] focus-within:shadow-[0_0_0_2px_var(--color-critical-light)]"
+        className: "text-neutral-900 dark:text-neutral-100 focus-within:border-critical focus-within:ring-2 focus-within:ring-critical/20"
       },
-      {
-        state: "default",
-        type: "warning", 
-        className: "hover:border-[var(--color-warning)] focus-within:border-[var(--color-warning)] focus-within:shadow-[0_0_0_2px_var(--color-warning-light)]"
-      },
-      {
-        state: "default",
-        type: "success",
-        className: "hover:border-[var(--color-positive)] focus-within:border-[var(--color-positive)] focus-within:shadow-[0_0_0_2px_var(--color-positive-light)]"
-      },
-      // Disabled state using design tokens
+      // Disabled state
       {
         state: "disabled",
-        className: "bg-[var(--color-background)] border-[var(--color-border)]"
+        className: "bg-neutral-50 dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 text-neutral-400 dark:text-neutral-500"
       },
-      // Pre-filled state using design tokens
-      {
-        state: "prefilled",
-        className: "bg-[var(--color-background)] border-[var(--color-border)]"
-      },
-      // Hover state using design tokens
-      {
-        state: "hover",
-        type: "normal",
-        className: "border-[var(--color-dark-100)]"
-      },
-      {
-        state: "hover",
-        type: "error", 
-        className: "border-[var(--color-critical)]"
-      },
-      {
-        state: "hover",
-        type: "warning",
-        className: "border-[var(--color-warning)]"
-      },
-      {
-        state: "hover", 
-        type: "success",
-        className: "border-[var(--color-positive)]"
-      },
-      // Focused state using design tokens
-      {
-        state: "focused",
-        type: "normal",
-        className: "border-[var(--color-dark-100)] shadow-[0_0_0_2px_var(--color-neutral-light)]"
-      },
-      {
-        state: "focused",
-        type: "error",
-        className: "border-[var(--color-critical)] shadow-[0_0_0_2px_var(--color-critical-light)]"
-      },
-      {
-        state: "focused",
-        type: "warning", 
-        className: "border-[var(--color-warning)] shadow-[0_0_0_2px_var(--color-warning-light)]"
-      },
-      {
-        state: "focused",
-        type: "success",
-        className: "border-[var(--color-positive)] shadow-[0_0_0_2px_var(--color-positive-light)]"
-      },
-      // Typing state (same as focused) using design tokens
-      {
-        state: "typing",
-        type: "normal",
-        className: "border-[var(--color-dark-100)] shadow-[0_0_0_2px_var(--color-neutral-light)]"
-      },
-      {
-        state: "typing",
-        type: "error",
-        className: "border-[var(--color-critical)] shadow-[0_0_0_2px_var(--color-critical-light)]"
-      },
-      {
-        state: "typing",
-        type: "warning",
-        className: "border-[var(--color-warning)] shadow-[0_0_0_2px_var(--color-warning-light)]"
-      },
-      {
-        state: "typing",
-        type: "success", 
-        className: "border-[var(--color-positive)] shadow-[0_0_0_2px_var(--color-positive-light)]"
-      }
     ],
     defaultVariants: {
       size: "m",
@@ -133,19 +56,19 @@ const datePickerFieldVariants = cva(
   }
 );
 
-// Text input variants using design tokens
+// Text input variants using unified design system
 const inputTextVariants = cva(
-  "flex-1 border-0 bg-transparent outline-none font-[var(--font-family-primary)]",
+  "flex-1 border-0 bg-transparent outline-none font-sans font-normal",
   {
     variants: {
       state: {
-        default: "text-[var(--color-dark-50)] placeholder:text-[var(--color-dark-50)]",
-        filled: "text-[var(--color-dark-100)]",
-        disabled: "text-[var(--color-dark-25)] cursor-not-allowed",
-        prefilled: "text-[var(--color-dark-100)]",
-        hover: "text-[var(--color-dark-50)]",
-        focused: "text-[var(--color-dark-50)]", 
-        typing: "text-[var(--color-dark-100)]"
+        default: "text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500",
+        filled: "text-neutral-900 dark:text-neutral-100",
+        disabled: "text-neutral-400 dark:text-neutral-500 cursor-not-allowed",
+        prefilled: "text-neutral-900 dark:text-neutral-100",
+        hover: "text-neutral-900 dark:text-neutral-100",
+        focused: "text-neutral-900 dark:text-neutral-100", 
+        typing: "text-neutral-900 dark:text-neutral-100"
       }
     },
     defaultVariants: {
@@ -154,15 +77,7 @@ const inputTextVariants = cva(
   }
 );
 
-// Calendar icon component
-const CalendarIcon = ({ className }: { className?: string }) => (
-  <Icon name="calendar" size={16} className={className} />
-);
-
-// Time icon component using our built icon
-const TimeIcon = ({ className }: { className?: string }) => (
-  <Icon name="clock" size={16} className={className} />
-);
+// Icons handled inline using unified Icon component
 
 export interface DatePickerFieldProps extends VariantProps<typeof datePickerFieldVariants>, Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'type' | 'onChange' | 'onFocus' | 'onBlur'> {
   value?: string;
@@ -176,11 +91,25 @@ export interface DatePickerFieldProps extends VariantProps<typeof datePickerFiel
 }
 
 export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps>(
-  ({ size, state, type, value, placeholder = "Value", disabled, showTime, className, onChange, onFocus, onBlur, ...props }, ref) => {
-    const iconColor = state === "disabled" ? "text-gray-400" : "text-gray-800";
+  ({ size = "m", state = "default", type = "normal", value, placeholder = "Value", disabled, showTime, className, onChange, onFocus, onBlur, ...props }, ref) => {
+    // Map DatePicker size to unified component styles
+    const componentSize = size === "m" ? "sm" : size === "l" ? "md" : "lg";
+    const componentStyles = getComponentStyles(componentSize);
+    
+    const iconColor = state === "disabled" 
+      ? "text-neutral-400 dark:text-neutral-500" 
+      : "text-neutral-500 dark:text-neutral-400";
     
     return (
-      <div className={cn(datePickerFieldVariants({ size, state, type, className }))}>
+      <div className={cn(
+        datePickerFieldVariants({ size, state, type }),
+        componentStyles.height,
+        componentStyles.fontSize,
+        componentStyles.borderRadius,
+        componentStyles.padding,
+        "focus-within:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900",
+        className
+      )}>
         <input
           ref={ref}
           type="text"
@@ -194,9 +123,17 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
           {...props}
         />
         {showTime ? (
-          <TimeIcon className={cn("w-4 h-4", iconColor)} />
+          <Icon 
+            name="clock" 
+            size={componentStyles.iconSize}
+            className={iconColor} 
+          />
         ) : (
-          <CalendarIcon className={cn("w-4 h-4", iconColor)} />
+          <Icon 
+            name="calendar" 
+            size={componentStyles.iconSize}
+            className={iconColor} 
+          />
         )}
       </div>
     );
@@ -205,41 +142,61 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
 
 DatePickerField.displayName = "DatePickerField";
 
-// Label component
-export interface LabelProps {
-  children: React.ReactNode;
-  required?: boolean;
-  className?: string;
-}
-
-export const Label: React.FC<LabelProps> = ({ children, required, className }) => (
-  <label className={cn("flex items-center gap-1 text-sm font-medium text-gray-700", className)}>
-    {required && <span className="text-red-500 text-xs">*</span>}
-    {children}
-  </label>
-);
+// Using unified Label component from atoms
 
 // Main DatePicker component
 export interface DatePickerProps extends Omit<DatePickerFieldProps, 'size'> {
   label?: string;
+  labelMandatory?: boolean;
+  labelOptional?: boolean;
+  labelSuffixIcon?: boolean;
+  labelIcon?: React.ReactNode;
   labelPosition?: "top" | "left" | "none";
-  required?: boolean;
-  size?: "xl" | "l" | "m";
+  required?: boolean; // Keep for backward compatibility
+  size?: ComponentSize;
   showTime?: boolean;
   className?: string;
 }
 
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
-  ({ label, labelPosition = "top", required, size = "xl", showTime, className, ...fieldProps }, ref) => {
+  ({ 
+    label, 
+    labelMandatory,
+    labelOptional, 
+    labelSuffixIcon,
+    labelIcon,
+    labelPosition = "top", 
+    required, 
+    size = "md", 
+    showTime, 
+    className, 
+    ...fieldProps 
+  }, ref) => {
+    // Map unified ComponentSize to DatePickerField size
+    const fieldSize = size === "sm" ? "m" : size === "md" ? "l" : "xl";
+    
+    // Determine if field is mandatory: either explicitly set or required for backward compatibility
+    const isMandatory = labelMandatory || (required && !labelOptional);
+    
     const renderLabel = () => {
       if (!label || labelPosition === "none") return null;
-      return <Label required={required}>{label}</Label>;
+      return (
+        <Label
+          mandatory={isMandatory}
+          optional={labelOptional}
+          suffixIcon={labelSuffixIcon}
+          icon={labelIcon}
+          className={labelPosition === "left" ? "mb-0" : "mb-2"}
+        >
+          {label}
+        </Label>
+      );
     };
 
     const renderField = () => (
       <DatePickerField
         ref={ref}
-        size={size}
+        size={fieldSize}
         showTime={showTime}
         {...fieldProps}
       />
