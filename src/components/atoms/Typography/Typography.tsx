@@ -35,20 +35,20 @@ export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const variantStyles = {
-  h1: "text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] leading-[1.4] text-[32px] font-normal",
-  h2: "text-[var(--font-size-xl)] font-[var(--font-weight-semibold)] leading-[1.4] text-[24px] font-semibold",
+  h1: "text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] leading-[1.4] text-[28px] font-normal", // Title Primary: 28px, Regular, 140%
+  h2: "text-[var(--font-size-xl)] font-[var(--font-weight-semibold)] leading-[1.4] text-[24px] font-semibold", // Title Secondary: 24px, Semibold, 140%
   h3: "text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] leading-[1.4] text-[20px] font-semibold",
   h4: "text-[var(--font-size-md)] font-[var(--font-weight-semibold)] leading-[1.4] text-[16px] font-semibold",
   h5: "text-[var(--font-size-sm)] font-[var(--font-weight-semibold)] leading-[1.4] text-[14px] font-semibold",
   h6: "text-[var(--font-size-xs)] font-[var(--font-weight-semibold)] leading-[1.4] text-[12px] font-semibold",
   p: "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4] text-[16px] font-normal",
   span: "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4] text-[16px] font-normal",
-  'display-bold': "text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] leading-[1.4] text-[20px] font-semibold",
-  'body-semibold': "text-[var(--font-size-md)] font-[var(--font-weight-semibold)] leading-[1.4] text-[16px] font-semibold",
-  'body-regular': "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4] text-[16px] font-normal",
-  'body-medium': "text-[var(--font-size-md)] font-[var(--font-weight-medium)] leading-[1.4] text-[16px] font-medium",
+  'display-bold': "text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] leading-[1.4] text-[20px] font-semibold", // Display Primary: 20px, Semibold, 140%
+  'body-semibold': "text-[var(--font-size-md)] font-[var(--font-weight-semibold)] leading-[1.4] text-[16px] font-semibold", // Body Primary Semibold: 16px, Semibold, 140%
+  'body-regular': "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4] text-[16px] font-normal", // Body Primary Regular: 16px, Regular, 140%
+  'body-medium': "text-[var(--font-size-sm)] font-[var(--font-weight-medium)] leading-[1.4] text-[14px] font-medium", // Body Secondary Medium: 14px, Medium, 140%
   caption: "text-[var(--font-size-sm)] font-[var(--font-weight-regular)] leading-[1.4] text-[14px] font-normal",
-  button: "text-[var(--font-size-lg)] font-[var(--font-weight-medium)] leading-[1.4] text-[20px] font-medium",
+  button: "text-[var(--font-size-lg)] font-[var(--font-weight-medium)] leading-[1.4] text-[20px] font-medium tracking-[0.00163rem]", // Button: 20px, Medium, 140%, Letter-spacing
 };
 
 const sizeStyles = {
