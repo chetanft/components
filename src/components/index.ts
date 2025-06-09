@@ -144,6 +144,8 @@ export { Switch } from './atoms/Switch/Switch';
 export type { SwitchProps } from './atoms/Switch/Switch';
 export { RadioGroup, RadioGroupItem } from './atoms/RadioGroup/RadioGroup';
 export type { RadioGroupProps, RadioOption } from './atoms/RadioGroup/RadioGroup';
+export { ReadOnly } from './atoms/ReadOnly/ReadOnly';
+export type { ReadOnlyProps } from './atoms/ReadOnly/ReadOnly';
 export { Logo, FTLogo, TataMotorsLogo } from './atoms/Logos';
 export type { LogoName } from './atoms/Logos';
 
