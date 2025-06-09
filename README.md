@@ -38,6 +38,71 @@ function App() {
 }
 ```
 
+## 🚨 Troubleshooting
+
+### CSS Styles Not Loading
+
+If you're getting errors like `"Cannot resolve 'ft-design-system/dist/styles.css'"`, try these solutions:
+
+1. **Clear Cache and Reinstall**:
+   ```bash
+   rm -rf node_modules package-lock.json
+   npm install ft-design-system@latest
+   ```
+
+2. **Verify Package Version**:
+   ```bash
+   npm list ft-design-system
+   # Should show version 4.2.3 or higher
+   ```
+
+3. **Alternative Import Methods**:
+   ```tsx
+   // Method 1: Direct path
+   import 'ft-design-system/dist/styles.css';
+   
+   // Method 2: If above fails, try importing from specific path
+   import 'ft-design-system/styles.css';
+   
+   // Method 3: For Next.js projects, import in _app.tsx or layout.tsx
+   import 'ft-design-system/dist/styles.css';
+   ```
+
+4. **For Vite Projects**, ensure your `vite.config.js` includes:
+   ```js
+   export default defineConfig({
+     optimizeDeps: {
+       include: ['ft-design-system']
+     }
+   });
+   ```
+
+5. **For Webpack Projects**, ensure CSS loader is configured:
+   ```js
+   module.exports = {
+     module: {
+       rules: [
+         {
+           test: /\.css$/,
+           use: ['style-loader', 'css-loader']
+         }
+       ]
+     }
+   };
+   ```
+
+### Icon Import Issues
+
+If icons are not working:
+```tsx
+// Import individual icons (recommended)
+import { ChevronLeft, Play, User } from 'ft-design-system';
+
+// Or use the generic Icon component
+import { Icon } from 'ft-design-system';
+<Icon name="chevron-left" />
+```
+
 ## 🧩 Components
 
 ### Table

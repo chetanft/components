@@ -1,6 +1,6 @@
 {
   "name": "ft-design-system",
-  "version": "4.2.3",
+  "version": "4.2.4",
   "type": "module",
   "description": "Design system built from Figma designs using Code Connect",
   "publishConfig": {
@@ -20,7 +20,8 @@
       "require": "./dist/ai/index.js",
       "types": "./dist/ai/index.d.ts"
     },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./dist/styles.css",
+    "./dist/styles.css": "./dist/styles.css"
   },
   "files": [
     "dist/**/*"
