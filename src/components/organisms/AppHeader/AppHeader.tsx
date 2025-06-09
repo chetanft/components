@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
 import { UserProfile } from '../UserProfile/UserProfile';
-import { Rocket, Bell, Tata, FtColour, GoogleColour, Vodafone, Airtel, Jio } from '../../atoms/Icons';
-
-export interface CompanyInfo {
-  name: string;
-  logoType: 'tata' | 'ft' | 'google' | 'vodafone' | 'airtel' | 'jio' | 'custom';
-  colors?: {
-    primary: string;
-    secondary: string;
-  };
-  customLogo?: React.ReactNode;
-}
+import { Rocket, Bell } from '../../atoms/Icons';
+import { Logo, type LogoName } from '../../atoms/Logos';
+import { CompanyInfo } from '../../../types/company';
 
 export interface User {
   name: string;
@@ -29,54 +21,20 @@ export interface AppHeaderProps {
   className?: string;
 }
 
-// Company configurations
-const companyConfigs: Record<string, CompanyInfo> = {
-  'tata': {
-    name: 'Tata Motors',
-    logoType: 'tata',
-    colors: { primary: '#FFBE07', secondary: '#211F1F' }
-  },
+// Available company configurations (only FT and Tata Motors)
+const companyConfigs: Record<LogoName, CompanyInfo> = {
   'ft': {
-    name: 'Freight Tiger',
-    logoType: 'ft',
-    colors: { primary: '#FFBE07', secondary: '#211F1F' }
+    name: 'ft',
+    displayName: 'FreightTiger'
   },
-  'google': {
-    name: 'Google',
-    logoType: 'google',
-    colors: { primary: '#4285F4', secondary: '#34A853' }
-  },
-  'vodafone': {
-    name: 'Vodafone',
-    logoType: 'vodafone',
-    colors: { primary: '#E60000', secondary: '#FFFFFF' }
-  },
-  'airtel': {
-    name: 'Airtel',
-    logoType: 'airtel',
-    colors: { primary: '#E60000', secondary: '#FFFFFF' }
-  },
-  'jio': {
-    name: 'Jio',
-    logoType: 'jio',
-    colors: { primary: '#0066CC', secondary: '#FFFFFF' }
-  }
-};
-
-const getCompanyLogo = (logoType: string) => {
-  switch (logoType) {
-    case 'tata': return <Tata />;
-    case 'ft': return <FtColour />;
-    case 'google': return <GoogleColour />;
-    case 'vodafone': return <Vodafone />;
-    case 'airtel': return <Airtel />;
-    case 'jio': return <Jio />;
-    default: return <Tata />;
+  'tata-motors': {
+    name: 'tata-motors',
+    displayName: 'Tata Motors'
   }
 };
 
 export const AppHeader: React.FC<AppHeaderProps> = ({
-  company = companyConfigs.tata,
+  company = companyConfigs['ft'], // Default to FT as shown in Figma
   user = {
     name: 'Santosh Kumar',
     role: 'Dispatch Manager',
@@ -130,42 +88,13 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </svg>
         </div>
 
-        {/* Company Logo Section */}
+        {/* Company Logo Section - Using Logo component */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
           gap: '12px',
         }}>
-          {/* Company Logo with Icon */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            backgroundColor: '#FFFFFF',
-            borderRadius: '8px',
-            padding: '8px 16px',
-            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-          }}>
-            {/* Company Icon */}
-            <div style={{ 
-              width: '24px', 
-              height: '24px',
-              color: company.colors?.primary || '#434F64'
-            }}>
-              {company.customLogo || getCompanyLogo(company.logoType)}
-            </div>
-            
-            {/* Company Name */}
-            <span style={{
-              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-              fontWeight: 600,
-              fontSize: '16px',
-              color: '#434F64',
-              whiteSpace: 'nowrap',
-            }}>
-              {company.name}
-            </span>
-          </div>
+          <Logo name={company.name} width={191} height={28} />
         </div>
       </div>
 
@@ -224,24 +153,20 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           userRole={user.role}
           userLocation={user.location}
           userBadge={user.badge}
+          userAvatar={user.avatar}
           isOpen={isUserProfileOpen}
           onToggle={() => {
             setIsUserProfileOpen(!isUserProfileOpen);
             onUserClick();
           }}
-          onMenuItemClick={(item) => {
-            onUserMenuItemClick(item);
-            if (item === 'logout') {
-              setIsUserProfileOpen(false);
-            }
-          }}
+          onMenuItemClick={onUserMenuItemClick}
         />
       </div>
     </header>
   );
 };
 
-// Export company configs for use in other components
-export { companyConfigs };
+AppHeader.displayName = 'AppHeader';
 
-AppHeader.displayName = 'AppHeader'; 
+// Export only available configurations
+export { companyConfigs }; 
