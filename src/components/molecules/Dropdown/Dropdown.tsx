@@ -2,6 +2,7 @@ import React, { forwardRef, useState } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
+import { Label } from '../../atoms/Label/Label';
 
 // Unified dropdown field variants using the design system
 const dropdownFieldVariants = cva(
@@ -50,10 +51,14 @@ export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants
   onChange?: (value: string | number) => void;
   onSearch?: (query: string) => void;
   label?: string;
+  labelMandatory?: boolean;
+  labelOptional?: boolean;
+  labelSuffixIcon?: boolean;
+  labelIcon?: React.ReactNode;
   labelPosition?: 'top' | 'left';
   error?: string;
   helperText?: string;
-  required?: boolean;
+  required?: boolean; // Keep for backward compatibility
   onSelect?: (value: string) => void;
 }
 
@@ -70,6 +75,10 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       onChange,
       onSearch,
       label,
+      labelMandatory,
+      labelOptional,
+      labelSuffixIcon,
+      labelIcon,
       labelPosition = "top",
       error,
       helperText,
@@ -195,17 +204,19 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     const renderLabel = () => {
       if (!label) return null;
       
+      // Determine if field is mandatory: either explicitly set or required for backward compatibility
+      const isMandatory = labelMandatory || (required && !labelOptional);
+      
       return (
-        <label className={cn(
-          "block font-medium leading-relaxed",
-          componentStyles.fontSize,
-          labelPosition === "left" ? "mb-0" : "mb-2",
-          state === "disabled" ? "text-neutral-400 dark:text-neutral-500" : 
-          error ? "text-critical" : "text-neutral-900 dark:text-neutral-100"
-        )}>
+        <Label
+          mandatory={isMandatory}
+          optional={labelOptional}
+          suffixIcon={labelSuffixIcon}
+          icon={labelIcon}
+          className={labelPosition === "left" ? "mb-0" : "mb-2"}
+        >
           {label}
-          {required && <span className="text-critical ml-1">*</span>}
-        </label>
+        </Label>
       );
     };
 

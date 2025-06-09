@@ -3,9 +3,14 @@
 import React from 'react';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
+import { Label } from '../Label/Label';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
+  labelMandatory?: boolean;
+  labelOptional?: boolean;
+  labelSuffixIcon?: boolean;
+  labelIcon?: React.ReactNode;
   error?: string;
   helperText?: string;
   leadingIcon?: IconName;
@@ -18,7 +23,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ 
     className, 
     type = 'text', 
-    label, 
+    label,
+    labelMandatory = false,
+    labelOptional = false,
+    labelSuffixIcon = false,
+    labelIcon,
     error, 
     helperText, 
     leadingIcon, 
@@ -83,15 +92,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       className
     );
 
-    // Label styles with dark mode
-    const labelStyles = cn(
-      "block text-base font-medium leading-relaxed mb-2",
-      disabled
-        ? "text-neutral-400 dark:text-neutral-500"
-        : error
-        ? "text-critical"
-        : "text-neutral-900 dark:text-neutral-100"
-    );
+    // No longer needed - using Label component
 
     // Helper/error text styles with dark mode
     const helperStyles = cn(
@@ -105,12 +106,15 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <div className="w-full">
         {/* Label */}
         {label && (
-          <label 
+          <Label 
             htmlFor={inputId}
-            className={labelStyles}
+            mandatory={labelMandatory}
+            optional={labelOptional}
+            suffixIcon={labelSuffixIcon}
+            icon={labelIcon}
           >
             {label}
-          </label>
+          </Label>
         )}
         
         {/* Input Container */}
