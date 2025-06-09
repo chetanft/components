@@ -16,5 +16,8 @@ export * from './components';
 export { cn } from './lib/utils';
 export * from './utils/component-validation';
 
+// AI utilities (optional - for advanced users)
+export * from './lib/ai-utils';
+
 // Global styles - consumers should import this manually
 export const globalStyles = './styles/globals.css'; 

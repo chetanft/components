@@ -8,6 +8,7 @@ import { readFileSync } from 'fs';
 const packageJson = JSON.parse(readFileSync('./package.json', 'utf8'));
 
 export default [
+  // Main package build
   {
     input: 'src/index.ts',
     output: [
@@ -51,9 +52,44 @@ export default [
     ],
     external: ['react', 'react-dom'],
   },
+  // AI layer build
+  {
+    input: 'src/ai/index.ts',
+    output: [
+      {
+        file: 'dist/ai/index.js',
+        format: 'cjs',
+        sourcemap: true,
+      },
+      {
+        file: 'dist/ai/index.esm.js',
+        format: 'esm',
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      resolve(),
+      commonjs(),
+      typescript({ 
+        tsconfig: './tsconfig.json',
+        declaration: true,
+        declarationDir: './dist/types',
+        outDir: './dist'
+      }),
+    ],
+    external: ['react', 'react-dom'],
+  },
+  // Type definitions for main package
   {
     input: 'dist/types/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
+    plugins: [dts()],
+    external: [/\.css$/],
+  },
+  // Type definitions for AI layer
+  {
+    input: 'dist/types/ai/index.d.ts',
+    output: [{ file: 'dist/ai/index.d.ts', format: 'esm' }],
     plugins: [dts()],
     external: [/\.css$/],
   },

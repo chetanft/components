@@ -80,6 +80,8 @@ import { PhoneAlt } from './PhoneAlt';
 import { Phone } from './Phone';
 import { PlantAlt } from './PlantAlt';
 import { Plant } from './Plant';
+import { Play } from './Play';
+import { PlayFill } from './PlayFill';
 import { PortableTracking } from './PortableTracking';
 import { PreviewFill } from './PreviewFill';
 import { Preview } from './Preview';
@@ -198,6 +200,8 @@ export const iconMap = {
   'phone': Phone,
   'plant-alt': PlantAlt,
   'plant': Plant,
+  'play-fill': PlayFill,
+  'play': Play,
   'portable-tracking': PortableTracking,
   'preview-fill': PreviewFill,
   'preview': Preview,
@@ -232,6 +236,12 @@ export const iconMap = {
   'vodafone': Vodafone,
   'warehouse': Warehouse,
   'weight': Weight,
+  
+  // Common aliases for better compatibility
+  'burger': HamburgerMenu,
+  'menu': HamburgerMenu,
+  'profile': User,
+  'avatar': User,
 };
 
 export type IconName = keyof typeof iconMap;

@@ -1,6 +1,6 @@
 import React, { forwardRef, useState } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn, getComponentStyles, filterAIClasses, type ComponentSize } from '../../../lib/utils';
+import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 
 // Unified dropdown field variants using the design system
@@ -83,7 +83,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedValue, setSelectedValue] = useState(value);
 
-    const safeClassName = filterAIClasses(className);
+    // Core component - no AI filtering (use ft-design-system/ai for AI protection)
     const componentStyles = getComponentStyles(size);
 
     // Filter options based on search query
@@ -116,7 +116,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         componentStyles.padding,
         "cursor-pointer flex items-center justify-between",
         state === "disabled" && "pointer-events-none",
-        safeClassName
+        className
       );
 
       return (
@@ -224,7 +224,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
     if (labelPosition === "left") {
       return (
-        <div className={cn("flex items-start gap-4", safeClassName)}>
+        <div className={cn("flex items-start gap-4", className)}>
           {renderLabel()}
           <div className="flex flex-col gap-2 flex-1 relative">
             {renderField()}
@@ -235,7 +235,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     }
 
     return (
-      <div className={cn("flex flex-col gap-2 relative", safeClassName)}>
+      <div className={cn("flex flex-col gap-2 relative", className)}>
         {renderLabel()}
         {renderField()}
         {renderHelperText()}

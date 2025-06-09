@@ -162,6 +162,7 @@ export default {
         'component-sm': ['var(--component-font-size-sm)', { fontWeight: 'var(--component-font-weight)' }],
         'component-md': ['var(--component-font-size-md)', { fontWeight: 'var(--component-font-weight)' }],
         'component-lg': ['var(--component-font-size-lg)', { fontWeight: 'var(--component-font-weight)' }],
+        'component-xl': ['var(--component-font-size-xl)', { fontWeight: 'var(--component-font-weight)' }],
       },
       lineHeight: {
         'title': 'var(--line-height-title)',

@@ -95,6 +95,19 @@ function App() {
 - Color inheritance
 - Size customization
 
+## 🎨 Design Guidelines
+
+For designers working with the FT Design System, please follow our comprehensive design guidelines to ensure consistency and proper integration:
+
+📋 **[Design Guidelines](DESIGN_GUIDELINES.md)** - Essential rules for creating components that match the FT Design System
+
+Key highlights:
+- **Unified Component Sizing**: All components follow standardized heights (36px, 44px, 52px, 64px)
+- **Color System**: Use #434f64 as primary brand color
+- **Consistent Spacing**: Standardized padding and margin ratios
+- **Accessibility**: WCAG AA compliance requirements
+- **Developer Handoff**: Proper specifications and naming conventions
+
 ## 🎨 Customization
 
 ### Tailwind Configuration

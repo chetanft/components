@@ -95,6 +95,8 @@ export {
   Phone,
   PlantAlt,
   Plant,
+  Play,
+  PlayFill,
   PortableTracking,
   PreviewFill,
   Preview,

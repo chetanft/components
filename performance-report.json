@@ -1,0 +1,16 @@
+{
+  "timestamp": "2025-06-07T05:36:00.499Z",
+  "bundleSizes": {
+    "Core Bundle (CJS)": 486,
+    "Core Bundle (ESM)": 484,
+    "Core Bundle (UMD)": 498,
+    "AI Bundle (CJS)": 451,
+    "AI Bundle (ESM)": 450,
+    "Styles": 67,
+    "Core Types": 28,
+    "AI Types": 20
+  },
+  "recommendations": [
+    "AI bundle overhead is acceptable"
+  ]
+}

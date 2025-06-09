@@ -4,6 +4,15 @@ This folder contains comprehensive documentation for the `@chetanft/design_syste
 
 ## Files Overview
 
+### 🎨 `../DESIGN_GUIDELINES.md`
+**Purpose**: Comprehensive design guidelines for designers
+- Unified component sizing system (36px, 44px, 52px, 64px)
+- Color system specifications (#434f64 primary brand color)
+- Figma design requirements and handoff specifications
+- Accessibility and responsive design guidelines
+
+**Best for**: Designers, design system consistency, Figma component creation
+
 ### 📋 `components.json`
 **Purpose**: Machine-readable component specifications
 - Complete prop definitions with types

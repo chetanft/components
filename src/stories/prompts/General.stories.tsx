@@ -439,16 +439,22 @@ npm install ft-design-system
 
 Option 2 - CDN (for tools without npm support):
 Add to your HTML head:
-<link rel="stylesheet" href="https://unpkg.com/ft-design-system@4.1.1/dist/styles.css">
-<script src="https://unpkg.com/ft-design-system@4.1.1/dist/index.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/ft-design-system@latest/dist/styles.css">
+<script src="https://unpkg.com/ft-design-system@latest/dist/index.umd.js"></script>
 
-Option 3 - Manual (copy components):
-If the tool doesn't support external packages, recreate these components manually using Tailwind CSS with similar styling.
+Setup Options:
 
-Setup:
-// For npm:
+// OPTION A: Standard components (recommended for most users)
 import 'ft-design-system/dist/styles.css';
 import { Button, Input, Table, Badge, ProgressBar } from 'ft-design-system';
+
+// OPTION B: AI-protected components (for AI tools that add problematic classes)
+import 'ft-design-system/dist/styles.css';
+import { Button, Input, Table, Badge, ProgressBar } from 'ft-design-system/ai';
+
+// OPTION C: Manual AI protection (advanced users)
+import { Button, filterAIClasses } from 'ft-design-system';
+<Button className={filterAIClasses(aiGeneratedClasses)} />
 
 // For CDN (with robust loading):
 waitForDesignSystem((FTDesignSystem) => {

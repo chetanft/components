@@ -81,6 +81,8 @@ export { PhoneAlt } from './PhoneAlt';
 export { Phone } from './Phone';
 export { PlantAlt } from './PlantAlt';
 export { Plant } from './Plant';
+export { Play } from './Play';
+export { PlayFill } from './PlayFill';
 export { PortableTracking } from './PortableTracking';
 export { PreviewFill } from './PreviewFill';
 export { Preview } from './Preview';

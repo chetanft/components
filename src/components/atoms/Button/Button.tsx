@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn, getComponentStyles, filterAIClasses, type ComponentSize } from '../../../lib/utils';
+import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'text' | 'link';
@@ -27,11 +27,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   type = 'button',
   ...props
 }, ref) => {
-  const safeClassName = filterAIClasses(className);
+  // Core component - no AI filtering (use ft-design-system/ai for AI protection)
   const componentStyles = getComponentStyles(size);
   const isIconOnly = iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
-  const isCircular = safeClassName?.includes('rounded-full');
+  const isCircular = className?.includes('rounded-full');
 
   // Base styles using unified design system
   const baseStyles = cn(
@@ -118,7 +118,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         baseStyles,
         sizeStyles,
         variantStyles[variant],
-        safeClassName
+        className
       )}
       aria-label={accessibleName}
       aria-busy={loading}

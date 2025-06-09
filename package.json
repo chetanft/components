@@ -1,6 +1,6 @@
 {
   "name": "ft-design-system",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "type": "module",
   "description": "Design system built from Figma designs using Code Connect",
   "publishConfig": {
@@ -9,6 +9,19 @@
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./ai": {
+      "import": "./dist/ai/index.esm.js",
+      "require": "./dist/ai/index.js",
+      "types": "./dist/ai/index.d.ts"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
   "files": [
     "dist/**/*"
   ],
@@ -55,7 +68,9 @@
     "clean": "rm -rf dist && rm -rf node_modules/.cache",
     "publish": "node scripts/publish-cli.js",
     "lovable:templates": "node scripts/lovable-templates.js",
-    "update-docs": "node scripts/update-docs.cjs"
+    "update-docs": "node scripts/update-docs.cjs",
+    "test:ai-architecture": "node test-ai-architecture.cjs",
+    "monitor:performance": "node scripts/monitor-ai-performance.cjs"
   },
   "dependencies": {
     "@figma/code-connect": "^1.3.3",

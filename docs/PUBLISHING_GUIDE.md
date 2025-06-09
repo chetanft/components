@@ -273,7 +273,7 @@ npm run publish:local
 
 # Test in another project
 cd ../test-project
-npm install ../design-system/chetanft-design-system-1.0.1.tgz
+npm install ../design-system/ft-design-system-*.tgz
 ```
 
 ## Support

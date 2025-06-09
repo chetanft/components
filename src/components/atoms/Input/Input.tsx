@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { cn, getComponentStyles, filterAIClasses, type ComponentSize } from '../../../lib/utils';
+import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -30,7 +30,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     'aria-describedby': ariaDescribedBy,
     ...props 
   }, ref) => {
-    const safeClassName = filterAIClasses(className);
+    // Core component - no AI filtering (use ft-design-system/ai for AI protection)
     const componentStyles = getComponentStyles(size);
     
     // Generate IDs for accessibility
@@ -80,7 +80,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         : "text-neutral-900 dark:text-neutral-100 focus:border-neutral-400 dark:focus:border-neutral-500 focus:ring-2 focus:ring-neutral-200 dark:focus:ring-neutral-700",
       // Focus styles
       "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900",
-      safeClassName
+      className
     );
 
     // Label styles with dark mode

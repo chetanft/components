@@ -412,8 +412,9 @@
   
   /* Component Font System - Unified typography */
   --component-font-size-sm: 14px;  /* Small components */
-  --component-font-size-md: 16px;  /* Medium components */
-  --component-font-size-lg: 16px;  /* Large components - same as medium for readability */
+  --component-font-size-md: 14px;  /* Medium components - matches Figma */
+  --component-font-size-lg: 16px;  /* Large components */
+  --component-font-size-xl: 18px;  /* Extra large components */
   --component-font-weight: 500;    /* Medium weight for all components */
   
   /* Component Padding System - Unified spacing */

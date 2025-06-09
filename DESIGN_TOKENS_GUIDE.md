@@ -1,6 +1,6 @@
 # Design Tokens Integration Guide
 
-This document outlines the design tokens that have been applied to the component library based on the `export12.json` Figma design tokens.
+This document outlines the design tokens that have been applied to the component library based on the Figma design system export.
 
 ## Overview
 
