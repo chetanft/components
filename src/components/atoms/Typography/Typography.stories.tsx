@@ -31,6 +31,23 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Debug story to test basic functionality
+export const Debug = () => (
+  <div style={{ border: '1px solid red', padding: '20px', backgroundColor: 'white' }}>
+    <h1>Debug Typography Test</h1>
+    <div style={{ border: '1px solid blue', margin: '10px 0' }}>
+      <Typography variant="h1">Test H1 - Should be visible</Typography>
+    </div>
+    <div style={{ border: '1px solid green', margin: '10px 0' }}>
+      <Typography variant="p">Test paragraph - Should be visible</Typography>
+    </div>
+    <div style={{ border: '1px solid purple', margin: '10px 0' }}>
+      <Typography variant="body-semibold">Test body semibold - Should be visible</Typography>
+    </div>
+    <p style={{ color: 'black', fontSize: '16px' }}>Regular HTML paragraph for comparison</p>
+  </div>
+);
+
 export const Default: Story = {
   args: {
     children: 'This is default typography text',

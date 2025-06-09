@@ -35,45 +35,45 @@ export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const variantStyles = {
-  h1: "text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] leading-[1.4]",
-  h2: "text-[var(--font-size-xl)] font-[var(--font-weight-semibold)] leading-[1.4]",
-  h3: "text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] leading-[1.4]",
-  h4: "text-[var(--font-size-md)] font-[var(--font-weight-semibold)] leading-[1.4]",
-  h5: "text-[var(--font-size-sm)] font-[var(--font-weight-semibold)] leading-[1.4]",
-  h6: "text-[var(--font-size-xs)] font-[var(--font-weight-semibold)] leading-[1.4]",
-  p: "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4]",
-  span: "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4]",
-  'display-bold': "text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] leading-[1.4]",
-  'body-semibold': "text-[var(--font-size-md)] font-[var(--font-weight-semibold)] leading-[1.4]",
-  'body-regular': "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4]",
-  'body-medium': "text-[var(--font-size-md)] font-[var(--font-weight-medium)] leading-[1.4]",
-  caption: "text-[var(--font-size-sm)] font-[var(--font-weight-regular)] leading-[1.4]",
-  button: "text-[var(--font-size-lg)] font-[var(--font-weight-medium)] leading-[1.4]",
+  h1: "text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] leading-[1.4] text-[32px] font-normal",
+  h2: "text-[var(--font-size-xl)] font-[var(--font-weight-semibold)] leading-[1.4] text-[24px] font-semibold",
+  h3: "text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] leading-[1.4] text-[20px] font-semibold",
+  h4: "text-[var(--font-size-md)] font-[var(--font-weight-semibold)] leading-[1.4] text-[16px] font-semibold",
+  h5: "text-[var(--font-size-sm)] font-[var(--font-weight-semibold)] leading-[1.4] text-[14px] font-semibold",
+  h6: "text-[var(--font-size-xs)] font-[var(--font-weight-semibold)] leading-[1.4] text-[12px] font-semibold",
+  p: "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4] text-[16px] font-normal",
+  span: "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4] text-[16px] font-normal",
+  'display-bold': "text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] leading-[1.4] text-[20px] font-semibold",
+  'body-semibold': "text-[var(--font-size-md)] font-[var(--font-weight-semibold)] leading-[1.4] text-[16px] font-semibold",
+  'body-regular': "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4] text-[16px] font-normal",
+  'body-medium': "text-[var(--font-size-md)] font-[var(--font-weight-medium)] leading-[1.4] text-[16px] font-medium",
+  caption: "text-[var(--font-size-sm)] font-[var(--font-weight-regular)] leading-[1.4] text-[14px] font-normal",
+  button: "text-[var(--font-size-lg)] font-[var(--font-weight-medium)] leading-[1.4] text-[20px] font-medium",
 };
 
 const sizeStyles = {
-  xs: "text-[var(--font-size-xs)]",
-  sm: "text-[var(--font-size-sm)]",
-  md: "text-[var(--font-size-md)]",
-  lg: "text-[var(--font-size-lg)]",
-  xl: "text-[var(--font-size-xl)]",
-  xxl: "text-[var(--font-size-xxl)]",
+  xs: "text-[var(--font-size-xs)] text-[12px]",
+  sm: "text-[var(--font-size-sm)] text-[14px]",
+  md: "text-[var(--font-size-md)] text-[16px]",
+  lg: "text-[var(--font-size-lg)] text-[20px]",
+  xl: "text-[var(--font-size-xl)] text-[24px]",
+  xxl: "text-[var(--font-size-xxl)] text-[32px]",
 };
 
 const weightStyles = {
-  regular: "font-[var(--font-weight-regular)]",
-  medium: "font-[var(--font-weight-medium)]",
-  semibold: "font-[var(--font-weight-semibold)]",
-  bold: "font-[var(--font-weight-bold)]",
+  regular: "font-[var(--font-weight-regular)] font-normal",
+  medium: "font-[var(--font-weight-medium)] font-medium",
+  semibold: "font-[var(--font-weight-semibold)] font-semibold",
+  bold: "font-[var(--font-weight-bold)] font-bold",
 };
 
 const colorStyles = {
-  primary: "text-[var(--color-dark-100)]",
-  secondary: "text-[var(--color-dark-50)]",
-  muted: "text-[var(--color-dark-25)]",
-  danger: "text-[var(--color-critical)]",
-  success: "text-[var(--color-success)]",
-  warning: "text-[var(--color-warning)]",
+  primary: "text-[var(--color-dark-100)] text-gray-900",
+  secondary: "text-[var(--color-dark-50)] text-gray-600",
+  muted: "text-[var(--color-dark-25)] text-gray-400",
+  danger: "text-[var(--color-critical)] text-red-600",
+  success: "text-[var(--color-success)] text-green-600",
+  warning: "text-[var(--color-warning)] text-yellow-600",
 };
 
 const variantToElement = {
@@ -108,8 +108,8 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
   
   // Build className based on props
   const classes = cn(
-    // Base styles
-    "font-[var(--font-family-primary)]",
+    // Base styles - include fallback font family
+    "font-[var(--font-family-primary)] font-sans",
     // Variant styles (default if no custom size/weight provided)
     !size && !weight && variantStyles[variant],
     // Custom size override
