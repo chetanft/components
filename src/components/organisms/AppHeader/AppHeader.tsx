@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { UserProfile } from '../UserProfile/UserProfile';
 import { Rocket, Bell } from '../../atoms/Icons';
-import { Logo, type LogoName } from '../../atoms/Logos';
+import { Logo } from '../../atoms/Logos';
 import { CompanyInfo } from '../../../types/company';
 
 export interface User {
@@ -13,33 +13,24 @@ export interface User {
 }
 
 export interface AppHeaderProps {
-  company?: CompanyInfo;
   user?: User;
+  userCompany?: CompanyInfo; // Only for UserProfile
   onNotificationClick?: (type: 'rocket' | 'bell') => void;
   onUserClick?: () => void;
   onUserMenuItemClick?: (item: string) => void;
   className?: string;
 }
 
-// Available company configurations (only FT and Tata Motors)
-const companyConfigs: Record<LogoName, CompanyInfo> = {
-  'ft': {
-    name: 'ft',
-    displayName: 'FreightTiger'
-  },
-  'tata-motors': {
-    name: 'tata-motors',
-    displayName: 'Tata Motors'
-  }
-};
-
 export const AppHeader: React.FC<AppHeaderProps> = ({
-  company = companyConfigs['ft'], // Default to FT as shown in Figma
   user = {
     name: 'Santosh Kumar',
     role: 'Dispatch Manager',
     location: 'SPD-Santoshnagar',
     badge: 'Admin',
+  },
+  userCompany = {
+    name: 'tata-motors',
+    displayName: 'Tata Motors'
   },
   onNotificationClick = () => {},
   onUserClick = () => {},
@@ -65,7 +56,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       }}
       className={className}
     >
-      {/* Logo Section */}
+      {/* Logo Section - Always FreightTiger */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
@@ -88,13 +79,13 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </svg>
         </div>
 
-        {/* Company Logo Section - Using Logo component */}
+        {/* FreightTiger Logo - Always displayed */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
           gap: '12px',
         }}>
-          <Logo name={company.name} width={191} height={28} />
+          <Logo name="ft" width={191} height={28} />
         </div>
       </div>
 
@@ -146,9 +137,9 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </div>
         </div>
 
-        {/* User Profile */}
+        {/* User Profile - Uses userCompany prop for company logo */}
         <UserProfile
-          company={company}
+          company={userCompany}
           userName={user.name}
           userRole={user.role}
           userLocation={user.location}
@@ -166,7 +157,4 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   );
 };
 
-AppHeader.displayName = 'AppHeader';
-
-// Export only available configurations
-export { companyConfigs }; 
+AppHeader.displayName = 'AppHeader'; 

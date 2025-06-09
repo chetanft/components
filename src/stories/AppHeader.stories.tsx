@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { AppHeader, companyConfigs } from '../components/organisms/AppHeader/AppHeader';
+import { AppHeader } from '../components/organisms/AppHeader/AppHeader';
 
 const meta: Meta<typeof AppHeader> = {
   title: 'Organisms/AppHeader',
@@ -9,14 +9,14 @@ const meta: Meta<typeof AppHeader> = {
     layout: 'fullscreen',
     docs: {
       description: {
-        component: 'Application header component with company logos, notifications, and user profile. Supports FT and Tata Motors branding.',
+        component: 'Application header component with FreightTiger logo on the left, notifications, and user profile. User profile shows company-specific logo (Tata Motors by default).',
       },
     },
   },
   argTypes: {
-    company: {
+    userCompany: {
       control: 'object',
-      description: 'Company information (FT or Tata Motors)',
+      description: 'Company information for user profile (FT or Tata Motors)',
     },
     user: {
       control: 'object',
@@ -31,41 +31,34 @@ const meta: Meta<typeof AppHeader> = {
 export default meta;
 type Story = StoryObj<typeof AppHeader>;
 
-// Default header (FT as shown in Figma)
+// Default header (FT logo on left, Tata Motors in user profile)
 export const Default: Story = {
   args: {
-    company: companyConfigs['ft'],
     user: {
       name: 'Santosh Kumar',
       role: 'Dispatch Manager',
       location: 'SPD-Santoshnagar',
       badge: 'Admin',
     },
+    userCompany: {
+      name: 'tata-motors',
+      displayName: 'Tata Motors'
+    },
   },
 };
 
-// FreightTiger variant
-export const FreightTiger: Story = {
+// User with FT company in profile
+export const UserWithFTCompany: Story = {
   args: {
-    company: companyConfigs['ft'],
     user: {
       name: 'Rahul Singh',
       role: 'Operations Manager',
       location: 'BLR-Tech Hub',
       badge: 'Senior',
     },
-  },
-};
-
-// Tata Motors variant
-export const TataMotors: Story = {
-  args: {
-    company: companyConfigs['tata-motors'],
-    user: {
-      name: 'Priya Sharma',
-      role: 'Fleet Manager',
-      location: 'HYD-Headquarters',
-      badge: 'Manager',
+    userCompany: {
+      name: 'ft',
+      displayName: 'FreightTiger'
     },
   },
 };
@@ -73,12 +66,15 @@ export const TataMotors: Story = {
 // Admin User
 export const AdminUser: Story = {
   args: {
-    company: companyConfigs['ft'],
     user: {
       name: 'John Doe',
       role: 'Administrator',
       location: 'MUM-Central',
       badge: 'Admin',
+    },
+    userCompany: {
+      name: 'tata-motors',
+      displayName: 'Tata Motors'
     },
   },
 };
@@ -86,25 +82,15 @@ export const AdminUser: Story = {
 // Manager User
 export const ManagerUser: Story = {
   args: {
-    company: companyConfigs['tata-motors'],
     user: {
       name: 'Jane Smith',
       role: 'Fleet Manager',
       location: 'DEL-North',
       badge: 'Manager',
     },
-  },
-};
-
-// Dispatch Manager
-export const DispatchManager: Story = {
-  args: {
-    company: companyConfigs['ft'],
-    user: {
-      name: 'Alex Johnson',
-      role: 'Dispatch Manager',
-      location: 'BLR-Whitefield',
-      badge: 'Supervisor',
+    userCompany: {
+      name: 'tata-motors',
+      displayName: 'Tata Motors'
     },
   },
 };
@@ -112,12 +98,15 @@ export const DispatchManager: Story = {
 // User with long name
 export const LongUserName: Story = {
   args: {
-    company: companyConfigs['tata-motors'],
     user: {
       name: 'Alexandrina Montgomery-Richardson',
       role: 'Senior Operations Manager',
       location: 'HYD-Headquarters',
       badge: 'Senior',
+    },
+    userCompany: {
+      name: 'tata-motors',
+      displayName: 'Tata Motors'
     },
   },
 };
@@ -125,13 +114,16 @@ export const LongUserName: Story = {
 // User with avatar
 export const UserWithAvatar: Story = {
   args: {
-    company: companyConfigs['ft'],
     user: {
       name: 'Sarah Wilson',
       role: 'Fleet Manager',
       location: 'BLR-Central',
       badge: 'Manager',
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612e120?w=64&h=64&fit=crop&crop=face',
+    },
+    userCompany: {
+      name: 'ft',
+      displayName: 'FreightTiger'
     },
   },
 };
@@ -153,12 +145,15 @@ export const Interactive: Story = {
 
     return (
       <AppHeader
-        company={companyConfigs['ft']}
         user={{
           name: 'Demo User',
           role: 'Test Manager',
           location: 'TEST-Lab',
           badge: 'Tester',
+        }}
+        userCompany={{
+          name: 'tata-motors',
+          displayName: 'Tata Motors'
         }}
         onNotificationClick={handleNotificationClick}
         onUserClick={handleUserClick}
@@ -168,46 +163,45 @@ export const Interactive: Story = {
   },
 };
 
-// Different user roles showcase
-export const UserRoles: Story = {
+// Different user company showcase
+export const UserCompanyVariations: Story = {
   render: () => (
     <div className="space-y-4">
-      <AppHeader
-        company={companyConfigs['ft']}
-        user={{
-          name: 'Sarah Wilson',
-          role: 'System Administrator',
-          location: 'HYD-Headquarters',
-          badge: 'Super Admin',
-        }}
-      />
-      <AppHeader
-        company={companyConfigs['tata-motors']}
-        user={{
-          name: 'Michael Chen',
-          role: 'Fleet Manager',
-          location: 'CHN-Central',
-          badge: 'Manager',
-        }}
-      />
-      <AppHeader
-        company={companyConfigs['ft']}
-        user={{
-          name: 'Emily Rodriguez',
-          role: 'Dispatch Supervisor',
-          location: 'KOL-East',
-          badge: 'Supervisor',
-        }}
-      />
-      <AppHeader
-        company={companyConfigs['tata-motors']}
-        user={{
-          name: 'Guest User',
-          role: 'Guest',
-          location: 'Remote',
-          badge: 'Guest',
-        }}
-      />
+      <div>
+        <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '10px' }}>
+          User with Tata Motors Company
+        </h3>
+        <AppHeader
+          user={{
+            name: 'Sarah Wilson',
+            role: 'System Administrator',
+            location: 'HYD-Headquarters',
+            badge: 'Super Admin',
+          }}
+          userCompany={{
+            name: 'tata-motors',
+            displayName: 'Tata Motors'
+          }}
+        />
+      </div>
+      
+      <div>
+        <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '10px' }}>
+          User with FreightTiger Company
+        </h3>
+        <AppHeader
+          user={{
+            name: 'Michael Chen',
+            role: 'Fleet Manager',
+            location: 'CHN-Central',
+            badge: 'Manager',
+          }}
+          userCompany={{
+            name: 'ft',
+            displayName: 'FreightTiger'
+          }}
+        />
+      </div>
     </div>
   ),
 };
@@ -220,53 +214,15 @@ export const MobileView: Story = {
     },
   },
   args: {
-    company: companyConfigs['ft'],
     user: {
       name: 'Mobile User',
       role: 'Field Manager',
       location: 'PUN-Mobile',
       badge: 'Field',
     },
+    userCompany: {
+      name: 'tata-motors',
+      displayName: 'Tata Motors'
+    },
   },
-};
-
-// Both companies showcase
-export const CompanyShowcase: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '20px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>
-        Available Company Logos
-      </h2>
-      
-      <div style={{ marginBottom: '20px' }}>
-        <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '10px' }}>
-          FreightTiger
-        </h3>
-        <AppHeader
-          company={companyConfigs['ft']}
-          user={{
-            name: 'John Doe',
-            role: 'Operations Manager',
-            location: 'BLR-Tech Hub',
-            badge: 'Admin',
-          }}
-        />
-      </div>
-      
-      <div style={{ marginBottom: '20px' }}>
-        <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '10px' }}>
-          Tata Motors
-        </h3>
-        <AppHeader
-          company={companyConfigs['tata-motors']}
-          user={{
-            name: 'Jane Smith',
-            role: 'Fleet Manager',
-            location: 'HYD-Headquarters',
-            badge: 'Manager',
-          }}
-        />
-      </div>
-    </div>
-  ),
 }; 
