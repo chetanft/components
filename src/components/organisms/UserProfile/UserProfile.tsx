@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { User, Settings, Refresh, Password, Logout } from '../../atoms/Icons';
-
-export interface CompanyInfo {
-  name: string;
-  logoType: 'tata' | 'ft' | 'google' | 'vodafone' | 'airtel' | 'jio' | 'custom';
-  colors?: {
-    primary: string;
-    secondary: string;
-  };
-  customLogo?: React.ReactNode;
-}
+import { Logo } from '../../atoms/Logos';
+import { CompanyInfo } from '../../../types/company';
 
 export interface UserProfileProps {
   company?: CompanyInfo;
@@ -17,6 +9,7 @@ export interface UserProfileProps {
   userRole?: string;
   userLocation?: string;
   userBadge?: string;
+  userAvatar?: string;
   isOpen?: boolean;
   onToggle?: () => void;
   onMenuItemClick?: (item: string) => void;
@@ -25,14 +18,14 @@ export interface UserProfileProps {
 
 export const UserProfile: React.FC<UserProfileProps> = ({
   company = {
-    name: 'Tata Motors',
-    logoType: 'tata',
-    colors: { primary: '#FFBE07', secondary: '#211F1F' }
+    name: 'tata-motors',
+    displayName: 'Tata Motors'
   },
   userName = 'Santosh Kumar',
   userRole = 'Dispatch Manager',
   userLocation = 'SPD-Santoshnagar',
   userBadge = 'Admin',
+  userAvatar,
   isOpen = false,
   onToggle = () => {},
   onMenuItemClick = () => {},
@@ -64,7 +57,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
         }}
         onClick={onToggle}
       >
-        {/* Company Logo/Background */}
+        {/* Company Logo */}
         <div style={{
           position: 'absolute',
           left: '19px',
@@ -73,18 +66,11 @@ export const UserProfile: React.FC<UserProfileProps> = ({
           height: '26px',
           display: 'flex',
           alignItems: 'center',
-          gap: '12px',
+          justifyContent: 'center',
           padding: '5px 20px',
-          borderRadius: '4px',
-          backgroundImage: company.colors 
-            ? `linear-gradient(90deg, ${company.colors.primary} 0%, ${company.colors.secondary} 100%)`
-            : 'linear-gradient(90deg, #FFBE07 0%, #211F1F 100%)',
-          color: 'white',
-          fontSize: '12px',
-          fontWeight: '600',
           boxSizing: 'border-box',
         }}>
-          {company.name}
+          <Logo name={company.name} width={155} height={26} />
         </div>
 
         {/* User Avatar */}
@@ -101,7 +87,19 @@ export const UserProfile: React.FC<UserProfileProps> = ({
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-          <User />
+          {userAvatar ? (
+            <img 
+              src={userAvatar} 
+              alt={userName} 
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover' 
+              }} 
+            />
+          ) : (
+            <User />
+          )}
         </div>
       </div>
 
@@ -147,10 +145,23 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,
+                overflow: 'hidden',
               }}>
-                <div style={{ width: '32px', height: '32px', color: '#434F64' }}>
-                <User />
-              </div>
+                {userAvatar ? (
+                  <img 
+                    src={userAvatar} 
+                    alt={userName} 
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      objectFit: 'cover' 
+                    }} 
+                  />
+                ) : (
+                  <div style={{ width: '32px', height: '32px', color: '#434F64' }}>
+                    <User />
+                  </div>
+                )}
               </div>
 
               {/* User Text Container */}

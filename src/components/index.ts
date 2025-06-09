@@ -160,7 +160,9 @@ export { Steps, StepsItem } from './molecules/Steps/Steps';
 export type { StepsProps, StepsItemProps, Step } from './molecules/Steps/Steps';
 
 // ORGANISMS - Complex combinations and complete UI sections
-export { AppHeader, type CompanyInfo, companyConfigs } from './organisms/AppHeader/AppHeader';
+export { AppHeader, companyConfigs } from './organisms/AppHeader/AppHeader';
+export type { CompanyInfo as LegacyCompanyInfo } from './organisms/AppHeader/AppHeader';
+export type { CompanyInfo } from '../types/company';
 export type { AppHeaderProps, User } from './organisms/AppHeader/AppHeader';
 export { Footer } from './organisms/Footer/Footer';
 export type { FooterProps } from './organisms/Footer/Footer';
