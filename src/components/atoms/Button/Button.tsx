@@ -63,7 +63,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   // Variant styles with design tokens and dark mode support
   const variantStyles = {
     primary: cn(
-      "bg-dark-100 text-white border-dark-100",
+      "bg-dark-100 text-white border border-dark-100",
       "hover:bg-dark-100/90 hover:border-dark-100/90",
       "focus-visible:ring-dark-100",
       "dark:bg-dark-100 dark:text-white dark:border-dark-100",
@@ -71,7 +71,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "disabled:bg-dark-25 disabled:border-dark-25 disabled:text-white"
     ),
     secondary: cn(
-      "bg-transparent text-dark-100 border-box-border",
+      "bg-transparent text-dark-100 border border-box-border",
       "hover:bg-divider hover:border-dark-25",
       "focus-visible:ring-dark-100",
       "dark:text-dark-100 dark:border-dark-25",
@@ -79,7 +79,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "disabled:text-dark-25 disabled:border-box-border"
     ),
     destructive: cn(
-      "bg-critical text-white border-critical",
+      "bg-critical text-white border border-critical",
       "hover:bg-critical-dark hover:border-critical-dark",
       "focus-visible:ring-critical",
       "dark:bg-critical dark:text-white dark:border-critical",
