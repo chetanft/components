@@ -104,12 +104,12 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
   ...props
 }, ref) => {
   // Determine the HTML element to render
-  const Element = (as || variantToElement[variant]) as any;
+  const Element = (as || variantToElement[variant]) as keyof JSX.IntrinsicElements;
   
   // Build className based on props
   const classes = cn(
     // Base styles - include fallback font family
-    "font-[var(--font-family-primary)] font-sans",
+    "font-[var(--font-family-primary)] font-sans text-black",
     // Variant styles (default if no custom size/weight provided)
     !size && !weight && variantStyles[variant],
     // Custom size override
@@ -122,15 +122,33 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
     className
   );
 
-  return React.createElement(
-    Element,
-    {
-      ref,
-      className: classes,
-      ...props
-    },
-    children
-  );
+  // Use a switch to properly handle JSX rendering
+  const commonProps = {
+    ref: ref as any,
+    className: classes,
+    ...props
+  };
+
+  switch (Element) {
+    case 'h1':
+      return <h1 {...commonProps}>{children}</h1>;
+    case 'h2':
+      return <h2 {...commonProps}>{children}</h2>;
+    case 'h3':
+      return <h3 {...commonProps}>{children}</h3>;
+    case 'h4':
+      return <h4 {...commonProps}>{children}</h4>;
+    case 'h5':
+      return <h5 {...commonProps}>{children}</h5>;
+    case 'h6':
+      return <h6 {...commonProps}>{children}</h6>;
+    case 'span':
+      return <span {...commonProps}>{children}</span>;
+    case 'div':
+      return <div {...commonProps}>{children}</div>;
+    default:
+      return <p {...commonProps}>{children}</p>;
+  }
 });
 
 Typography.displayName = 'Typography';
