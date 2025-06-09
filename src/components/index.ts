@@ -7,6 +7,8 @@ export { Button } from './atoms/Button/Button';
 export type { ButtonProps, ButtonVariant, ButtonSize } from './atoms/Button/Button';
 export { Input } from './atoms/Input/Input';
 export type { InputProps } from './atoms/Input/Input';
+export { Label } from './atoms/Label/Label';
+export type { LabelProps } from './atoms/Label/Label';
 export { Badge } from './atoms/Badge/Badge';
 export type { BadgeProps } from './atoms/Badge/Badge';
 export { Icon } from './atoms/Icons';
