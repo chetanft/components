@@ -133,7 +133,8 @@ export {
   Weight,
   iconMap
 } from './atoms/Icons';
-export { Typography, TypographyExample } from './atoms/Typography/Typography';
+export { Typography, TypographyExample, TypographyShowcase } from './atoms/Typography/Typography';
+export type { TypographyProps, TypographyVariant, TypographySize, TypographyWeight, TypographyColor } from './atoms/Typography/Typography';
 export { Colors } from './atoms/Colors/Colors';
 export { Checkbox } from './atoms/Checkbox/Checkbox';
 export type { CheckboxProps } from './atoms/Checkbox/Checkbox';

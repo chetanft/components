@@ -1,6 +1,144 @@
 import React from "react";
 import { cn } from "../../../lib/utils";
 
+// ======================
+// REUSABLE TYPOGRAPHY COMPONENT FOR AI TOOLS
+// ======================
+
+export type TypographyVariant = 
+  | 'h1' 
+  | 'h2' 
+  | 'h3' 
+  | 'h4' 
+  | 'h5' 
+  | 'h6' 
+  | 'p' 
+  | 'span'
+  | 'display-bold'
+  | 'body-semibold'
+  | 'body-regular'
+  | 'body-medium'
+  | 'caption'
+  | 'button';
+
+export type TypographySize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+export type TypographyWeight = 'regular' | 'medium' | 'semibold' | 'bold';
+export type TypographyColor = 'primary' | 'secondary' | 'muted' | 'danger' | 'success' | 'warning';
+
+export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
+  variant?: TypographyVariant;
+  size?: TypographySize;
+  weight?: TypographyWeight;
+  color?: TypographyColor;
+  as?: keyof JSX.IntrinsicElements;
+  children: React.ReactNode;
+}
+
+const variantStyles = {
+  h1: "text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] leading-[1.4]",
+  h2: "text-[var(--font-size-xl)] font-[var(--font-weight-semibold)] leading-[1.4]",
+  h3: "text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] leading-[1.4]",
+  h4: "text-[var(--font-size-md)] font-[var(--font-weight-semibold)] leading-[1.4]",
+  h5: "text-[var(--font-size-sm)] font-[var(--font-weight-semibold)] leading-[1.4]",
+  h6: "text-[var(--font-size-xs)] font-[var(--font-weight-semibold)] leading-[1.4]",
+  p: "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4]",
+  span: "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4]",
+  'display-bold': "text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] leading-[1.4]",
+  'body-semibold': "text-[var(--font-size-md)] font-[var(--font-weight-semibold)] leading-[1.4]",
+  'body-regular': "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4]",
+  'body-medium': "text-[var(--font-size-md)] font-[var(--font-weight-medium)] leading-[1.4]",
+  caption: "text-[var(--font-size-sm)] font-[var(--font-weight-regular)] leading-[1.4]",
+  button: "text-[var(--font-size-lg)] font-[var(--font-weight-medium)] leading-[1.4]",
+};
+
+const sizeStyles = {
+  xs: "text-[var(--font-size-xs)]",
+  sm: "text-[var(--font-size-sm)]",
+  md: "text-[var(--font-size-md)]",
+  lg: "text-[var(--font-size-lg)]",
+  xl: "text-[var(--font-size-xl)]",
+  xxl: "text-[var(--font-size-xxl)]",
+};
+
+const weightStyles = {
+  regular: "font-[var(--font-weight-regular)]",
+  medium: "font-[var(--font-weight-medium)]",
+  semibold: "font-[var(--font-weight-semibold)]",
+  bold: "font-[var(--font-weight-bold)]",
+};
+
+const colorStyles = {
+  primary: "text-[var(--color-dark-100)]",
+  secondary: "text-[var(--color-dark-50)]",
+  muted: "text-[var(--color-dark-25)]",
+  danger: "text-[var(--color-critical)]",
+  success: "text-[var(--color-success)]",
+  warning: "text-[var(--color-warning)]",
+};
+
+const variantToElement = {
+  h1: 'h1',
+  h2: 'h2', 
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+  p: 'p',
+  span: 'span',
+  'display-bold': 'div',
+  'body-semibold': 'p',
+  'body-regular': 'p',
+  'body-medium': 'p',
+  caption: 'span',
+  button: 'span',
+} as const;
+
+export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
+  variant = 'p',
+  size,
+  weight,
+  color = 'primary',
+  as,
+  className,
+  children,
+  ...props
+}, ref) => {
+  // Determine the HTML element to render
+  const Element = (as || variantToElement[variant]) as any;
+  
+  // Build className based on props
+  const classes = cn(
+    // Base styles
+    "font-[var(--font-family-primary)]",
+    // Variant styles (default if no custom size/weight provided)
+    !size && !weight && variantStyles[variant],
+    // Custom size override
+    size && sizeStyles[size],
+    // Custom weight override  
+    weight && weightStyles[weight],
+    // Color
+    colorStyles[color],
+    // Custom className
+    className
+  );
+
+  return React.createElement(
+    Element,
+    {
+      ref,
+      className: classes,
+      ...props
+    },
+    children
+  );
+});
+
+Typography.displayName = 'Typography';
+
+// ======================
+// DOCUMENTATION SHOWCASE COMPONENT
+// ======================
+
 interface TypographyExampleProps {
   title: string;
   details: React.ReactNode;
@@ -32,7 +170,7 @@ export function TypographyExample({ title, details, usage, token, className, chi
   );
 }
 
-export function Typography() {
+export function TypographyShowcase() {
   return (
     <div className="w-full space-y-[var(--spacing-x10)]">
       <h1 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x8)] text-[var(--color-dark-100)]">Typography</h1>
