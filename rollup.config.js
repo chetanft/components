@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
 import postcss from 'rollup-plugin-postcss';
+import url from '@rollup/plugin-url';
 import { readFileSync } from 'fs';
 
 const packageJson = JSON.parse(readFileSync('./package.json', 'utf8'));
@@ -36,6 +37,11 @@ export default [
     plugins: [
       resolve(),
       commonjs(),
+      url({
+        include: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif'],
+        limit: 8192, // 8kb limit for inlining, larger files will be copied
+        fileName: 'assets/[name][extname]'
+      }),
       postcss({
         extract: 'styles.css',
         minimize: true,
@@ -70,6 +76,11 @@ export default [
     plugins: [
       resolve(),
       commonjs(),
+      url({
+        include: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif'],
+        limit: 8192,
+        fileName: 'assets/[name][extname]'
+      }),
       typescript({ 
         tsconfig: './tsconfig.json',
         declaration: true,

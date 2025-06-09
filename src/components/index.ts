@@ -142,6 +142,8 @@ export { Switch } from './atoms/Switch/Switch';
 export type { SwitchProps } from './atoms/Switch/Switch';
 export { RadioGroup, RadioGroupItem } from './atoms/RadioGroup/RadioGroup';
 export type { RadioGroupProps, RadioOption } from './atoms/RadioGroup/RadioGroup';
+export { Logo, FTLogo, TataMotorsLogo } from './atoms/Logos';
+export type { LogoName } from './atoms/Logos';
 
 // MOLECULES - Simple combinations of atoms
 export { RadioSelector } from './molecules/RadioSelector/RadioSelector';
@@ -158,7 +160,7 @@ export { Steps, StepsItem } from './molecules/Steps/Steps';
 export type { StepsProps, StepsItemProps, Step } from './molecules/Steps/Steps';
 
 // ORGANISMS - Complex combinations and complete UI sections
-export { AppHeader } from './organisms/AppHeader/AppHeader';
+export { AppHeader, type CompanyInfo, companyConfigs } from './organisms/AppHeader/AppHeader';
 export type { AppHeaderProps, User } from './organisms/AppHeader/AppHeader';
 export { Footer } from './organisms/Footer/Footer';
 export type { FooterProps } from './organisms/Footer/Footer';

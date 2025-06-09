@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import { UserProfile } from '../UserProfile/UserProfile';
-import { Rocket, Bell } from '../../atoms/Icons';
+import { Rocket, Bell, Tata, FtColour, GoogleColour, Vodafone, Airtel, Jio } from '../../atoms/Icons';
+
+export interface CompanyInfo {
+  name: string;
+  logoType: 'tata' | 'ft' | 'google' | 'vodafone' | 'airtel' | 'jio' | 'custom';
+  colors?: {
+    primary: string;
+    secondary: string;
+  };
+  customLogo?: React.ReactNode;
+}
 
 export interface User {
   name: string;
@@ -11,6 +21,7 @@ export interface User {
 }
 
 export interface AppHeaderProps {
+  company?: CompanyInfo;
   user?: User;
   onNotificationClick?: (type: 'rocket' | 'bell') => void;
   onUserClick?: () => void;
@@ -18,7 +29,54 @@ export interface AppHeaderProps {
   className?: string;
 }
 
+// Company configurations
+const companyConfigs: Record<string, CompanyInfo> = {
+  'tata': {
+    name: 'Tata Motors',
+    logoType: 'tata',
+    colors: { primary: '#FFBE07', secondary: '#211F1F' }
+  },
+  'ft': {
+    name: 'Freight Tiger',
+    logoType: 'ft',
+    colors: { primary: '#FFBE07', secondary: '#211F1F' }
+  },
+  'google': {
+    name: 'Google',
+    logoType: 'google',
+    colors: { primary: '#4285F4', secondary: '#34A853' }
+  },
+  'vodafone': {
+    name: 'Vodafone',
+    logoType: 'vodafone',
+    colors: { primary: '#E60000', secondary: '#FFFFFF' }
+  },
+  'airtel': {
+    name: 'Airtel',
+    logoType: 'airtel',
+    colors: { primary: '#E60000', secondary: '#FFFFFF' }
+  },
+  'jio': {
+    name: 'Jio',
+    logoType: 'jio',
+    colors: { primary: '#0066CC', secondary: '#FFFFFF' }
+  }
+};
+
+const getCompanyLogo = (logoType: string) => {
+  switch (logoType) {
+    case 'tata': return <Tata />;
+    case 'ft': return <FtColour />;
+    case 'google': return <GoogleColour />;
+    case 'vodafone': return <Vodafone />;
+    case 'airtel': return <Airtel />;
+    case 'jio': return <Jio />;
+    default: return <Tata />;
+  }
+};
+
 export const AppHeader: React.FC<AppHeaderProps> = ({
+  company = companyConfigs.tata,
   user = {
     name: 'Santosh Kumar',
     role: 'Dispatch Manager',
@@ -72,42 +130,41 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </svg>
         </div>
 
-        {/* Company Name */}
+        {/* Company Logo Section */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
           gap: '12px',
         }}>
-          {/* Company Logo */}
+          {/* Company Logo with Icon */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
+            backgroundColor: '#FFFFFF',
+            borderRadius: '8px',
+            padding: '8px 16px',
+            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
           }}>
-            {/* Logo Icon */}
-            <svg width="31.24" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 15.7614L2.79299 18.8128L16.3478 4.00397L13.5548 0.952578L0 15.7614Z" fill="#FFBE07"/>
-              <path d="M6.48266 14.8089L9.27565 17.8602L22.8305 3.05139L20.0375 0L6.48266 14.8089Z" fill="#211F1F"/>
-              <path d="M8.41371 24.9486L11.2067 28L24.7615 13.1911L21.9685 10.1398L8.41371 24.9486Z" fill="#211F1F"/>
-              <path d="M7.43886 19.8689L10.2319 22.9203L23.7867 8.11147L20.9937 5.06007L7.43886 19.8689Z" fill="#FFBE07"/>
-              <path d="M14.8899 23.9777L17.6797 27.0256L31.242 12.2085L28.4246 9.16061L14.8899 23.9777Z" fill="#FFBE07"/>
-            </svg>
+            {/* Company Icon */}
+            <div style={{ 
+              width: '24px', 
+              height: '24px',
+              color: company.colors?.primary || '#434F64'
+            }}>
+              {company.customLogo || getCompanyLogo(company.logoType)}
+            </div>
             
-            {/* Company Text */}
-            <svg width="147" height="16" viewBox="0 0 147 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3.53676 3.64283V6.38761H8.87187V9.78591H3.53676V15.8636H0V0.244531H9.7111V3.64283H3.53676Z" fill="#211F1F"/>
-              <path d="M19.6016 15.8638L17.0839 10.0475H15.885V15.8638H12.3483V0.244694H18.043C19.5417 0.244694 20.7406 0.767509 21.6397 1.74779C22.479 2.72807 22.9585 3.9044 22.9585 5.27679C22.9585 6.25707 22.7188 7.10664 22.2991 7.76016C21.8196 8.47903 21.2801 9.00185 20.6207 9.32861L23.7378 15.8638H19.6016ZM17.8632 3.70834H15.885V6.84523H17.8632C18.3428 6.84523 18.7024 6.71453 19.0022 6.38777C19.3019 6.06101 19.4218 5.73425 19.4218 5.27679C19.4218 4.88468 19.3019 4.49257 19.0022 4.16581C18.7024 3.83905 18.3428 3.70834 17.8632 3.70834Z" fill="#211F1F"/>
-              <path d="M25.8959 15.8638V0.244694H35.607V3.64299H29.3727V6.25707H34.7078V9.65537H29.3727V12.4001H35.607V15.7984H25.8959V15.8638Z" fill="#211F1F"/>
-              <path d="M38.4847 15.8638V0.244694H42.0215V15.8638H38.4847Z" fill="#211F1F"/>
-              <path d="M54.4301 14.2303C53.8906 14.8838 53.2312 15.3413 52.5718 15.6027C51.9124 15.8641 51.1331 15.9948 50.2939 15.9948C48.7353 15.9948 47.4765 15.5374 46.6373 14.5571C45.7381 13.5768 45.2585 12.6619 45.1386 11.8123C45.0187 10.8974 44.8988 9.65568 44.8988 8.08724C44.8988 6.45344 44.9588 5.1464 45.1386 4.29683C45.2585 3.44726 45.6781 2.66303 46.2776 2.00951C46.877 1.35599 47.4765 0.898532 48.1359 0.571772C48.7953 0.245013 49.5146 0.114309 50.3539 0.114309C52.0323 0.114309 53.3511 0.637124 54.3102 1.6174C55.2094 2.59768 55.8089 3.83937 55.9887 5.27711H52.4519C52.332 4.68894 52.0923 4.23148 51.7925 3.97007C51.4928 3.70866 51.0132 3.57796 50.4138 3.57796C50.1141 3.57796 49.8143 3.64331 49.5746 3.77401C49.3348 3.90472 49.1549 4.10077 48.9751 4.29683C48.7953 4.55824 48.6754 4.885 48.6154 5.40781C48.5555 5.86528 48.4956 6.7802 48.4956 8.08724C48.4956 9.39428 48.5555 10.3092 48.6154 10.832C48.6754 11.3548 48.8552 11.7469 49.095 12.0737C49.3348 12.4005 49.7544 12.5965 50.4138 12.5965C51.1331 12.5965 51.6127 12.4658 51.8525 12.1391C52.0923 11.8123 52.2721 11.5509 52.392 11.2241C52.5119 10.8974 52.5119 10.636 52.5119 10.3092V10.0478H50.4138V6.84555H56.0486V9.00216C56.0486 10.3092 55.9287 11.3548 55.7489 12.1391C55.3892 12.9233 55.0296 13.6421 54.4301 14.2303Z" fill="#211F1F"/>
-              <path d="M65.9997 15.8638V9.65537H62.2831V15.8638H58.7463V0.244694H62.2831V6.25707H65.9997V0.244694H69.5365V15.8638H65.9997Z" fill="#211F1F"/>
-              <path d="M79.0077 3.64299V15.8638H75.471V3.64299H71.9342V0.244694H82.4845V3.64299H79.0077Z" fill="#211F1F"/>
-              <path d="M97.6654 3.52895V15.7498H94.1286V3.52895H90.5919V0.130656H101.142V3.52895H97.6654Z" fill="#211F1F"/>
-              <path d="M102.82 15.7496V0.130493H106.357V15.7496H102.82Z" fill="#211F1F"/>
-              <path d="M118.766 14.116C118.226 14.7695 117.567 15.227 116.908 15.4884C116.248 15.7498 115.469 15.8805 114.63 15.8805C113.071 15.8805 111.812 15.423 110.973 14.4428C110.074 13.4625 109.594 12.5476 109.474 11.698C109.355 10.7831 109.235 9.54138 109.235 7.97293C109.235 6.33913 109.295 5.0321 109.474 4.18252C109.594 3.33295 110.014 2.54872 110.613 1.8952C111.213 1.24169 111.812 0.784223 112.472 0.457463C113.131 0.130704 113.85 0 114.69 0C116.368 0 117.687 0.522815 118.646 1.50309C119.545 2.48337 120.145 3.72506 120.325 5.1628H116.788C116.668 4.57463 116.428 4.11717 116.128 3.85576C115.829 3.59435 115.349 3.46365 114.75 3.46365C114.45 3.46365 114.15 3.529 113.91 3.65971C113.671 3.79041 113.491 3.98646 113.311 4.18252C113.131 4.44393 113.011 4.77069 112.951 5.2935C112.891 5.75097 112.831 6.66589 112.831 7.97293C112.831 9.27997 112.891 10.1949 112.951 10.7177C113.011 11.2405 113.191 11.6326 113.431 11.9594C113.671 12.2862 114.09 12.4822 114.75 12.4822C115.469 12.4822 115.949 12.3515 116.188 12.0247C116.428 11.698 116.608 11.4366 116.728 11.1098C116.788 10.8484 116.848 10.5217 116.848 10.1949V9.99884H114.75V6.7966H120.384V8.95321C120.384 10.2602 120.265 11.3059 120.085 12.0901C119.905 12.8743 119.305 13.4625 118.766 14.116Z" fill="#211F1F"/>
-              <path d="M123.022 15.7496V0.130493H132.733V3.52879H126.499V6.14287H131.834V9.54117H126.499V12.2859H132.733V15.6842H123.022V15.7496Z" fill="#211F1F"/>
-              <path d="M142.864 15.7496L140.346 9.93328H139.147V15.7496H135.61V0.130493H141.305C142.804 0.130493 144.003 0.653309 144.902 1.63359C145.741 2.61387 146.221 3.7902 146.221 5.16259C146.221 6.14287 145.981 6.99244 145.561 7.64596C145.082 8.36483 144.542 8.88765 143.883 9.21441L147 15.7496H142.864ZM141.185 3.52879H139.207V6.66568H141.185C141.665 6.66568 142.025 6.53498 142.324 6.20822C142.624 5.88146 142.744 5.5547 142.744 5.09724C142.744 4.63977 142.624 4.31301 142.324 3.98625C142.025 3.72485 141.605 3.52879 141.185 3.52879Z" fill="#211F1F"/>
-            </svg>
+            {/* Company Name */}
+            <span style={{
+              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+              fontWeight: 600,
+              fontSize: '16px',
+              color: '#434F64',
+              whiteSpace: 'nowrap',
+            }}>
+              {company.name}
+            </span>
           </div>
         </div>
       </div>
@@ -162,6 +219,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 
         {/* User Profile */}
         <UserProfile
+          company={company}
           userName={user.name}
           userRole={user.role}
           userLocation={user.location}
@@ -182,5 +240,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     </header>
   );
 };
+
+// Export company configs for use in other components
+export { companyConfigs };
 
 AppHeader.displayName = 'AppHeader'; 

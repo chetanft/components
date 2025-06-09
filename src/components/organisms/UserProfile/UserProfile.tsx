@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 import { User, Settings, Refresh, Password, Logout } from '../../atoms/Icons';
 
+export interface CompanyInfo {
+  name: string;
+  logoType: 'tata' | 'ft' | 'google' | 'vodafone' | 'airtel' | 'jio' | 'custom';
+  colors?: {
+    primary: string;
+    secondary: string;
+  };
+  customLogo?: React.ReactNode;
+}
+
 export interface UserProfileProps {
+  company?: CompanyInfo;
   userName?: string;
   userRole?: string;
   userLocation?: string;
@@ -13,6 +24,11 @@ export interface UserProfileProps {
 }
 
 export const UserProfile: React.FC<UserProfileProps> = ({
+  company = {
+    name: 'Tata Motors',
+    logoType: 'tata',
+    colors: { primary: '#FFBE07', secondary: '#211F1F' }
+  },
   userName = 'Santosh Kumar',
   userRole = 'Dispatch Manager',
   userLocation = 'SPD-Santoshnagar',
@@ -60,13 +76,15 @@ export const UserProfile: React.FC<UserProfileProps> = ({
           gap: '12px',
           padding: '5px 20px',
           borderRadius: '4px',
-          backgroundImage: 'linear-gradient(90deg, #FFBE07 0%, #211F1F 100%)',
+          backgroundImage: company.colors 
+            ? `linear-gradient(90deg, ${company.colors.primary} 0%, ${company.colors.secondary} 100%)`
+            : 'linear-gradient(90deg, #FFBE07 0%, #211F1F 100%)',
           color: 'white',
           fontSize: '12px',
           fontWeight: '600',
           boxSizing: 'border-box',
         }}>
-          Tata Motors
+          {company.name}
         </div>
 
         {/* User Avatar */}
