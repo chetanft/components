@@ -24,10 +24,10 @@ const datePickerFieldVariants = cva(
         typing: ""
       },
       type: {
-        normal: "bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700",
-        error: "border-critical bg-white dark:bg-neutral-900",
-        warning: "border-warning bg-white dark:bg-neutral-900", 
-        success: "border-positive bg-white dark:bg-neutral-900"
+        normal: "bg-surface dark:bg-surface-dark border-border dark:border-border-dark",
+        error: "border-critical bg-surface dark:bg-surface-dark",
+        warning: "border-warning bg-surface dark:bg-surface-dark", 
+        success: "border-positive bg-surface dark:bg-surface-dark"
       }
     },
     compoundVariants: [
@@ -35,17 +35,17 @@ const datePickerFieldVariants = cva(
       {
         state: "default",
         type: "normal",
-        className: "text-neutral-900 dark:text-neutral-100 focus-within:border-neutral-400 dark:focus-within:border-neutral-500 focus-within:ring-2 focus-within:ring-neutral-200 dark:focus-within:ring-neutral-700"
+        className: "text-input dark:text-input-dark focus-within:border-focus dark:focus-within:border-focus-dark focus-within:ring-2 focus-within:ring-focus dark:focus-within:ring-focus-dark"
       },
       {
         state: "default", 
         type: "error",
-        className: "text-neutral-900 dark:text-neutral-100 focus-within:border-critical focus-within:ring-2 focus-within:ring-critical/20"
+        className: "text-input dark:text-input-dark focus-within:border-critical focus-within:ring-2 focus-within:ring-critical/20"
       },
       // Disabled state
       {
         state: "disabled",
-        className: "bg-neutral-50 dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 text-neutral-400 dark:text-neutral-500"
+        className: "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark"
       },
     ],
     defaultVariants: {
@@ -62,13 +62,13 @@ const inputTextVariants = cva(
   {
     variants: {
       state: {
-        default: "text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500",
-        filled: "text-neutral-900 dark:text-neutral-100",
-        disabled: "text-neutral-400 dark:text-neutral-500 cursor-not-allowed",
-        prefilled: "text-neutral-900 dark:text-neutral-100",
-        hover: "text-neutral-900 dark:text-neutral-100",
-        focused: "text-neutral-900 dark:text-neutral-100", 
-        typing: "text-neutral-900 dark:text-neutral-100"
+        default: "text-input dark:text-input-dark placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
+        filled: "text-input dark:text-input-dark",
+        disabled: "text-input-disabled dark:text-input-disabled-dark cursor-not-allowed",
+        prefilled: "text-input dark:text-input-dark",
+        hover: "text-input dark:text-input-dark",
+        focused: "text-input dark:text-input-dark", 
+        typing: "text-input dark:text-input-dark"
       }
     },
     defaultVariants: {
@@ -97,8 +97,8 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
     const componentStyles = getComponentStyles(componentSize);
     
     const iconColor = state === "disabled" 
-      ? "text-neutral-400 dark:text-neutral-500" 
-      : "text-neutral-500 dark:text-neutral-400";
+      ? "text-input-disabled dark:text-input-disabled-dark" 
+      : "text-icon dark:text-icon-dark";
     
     return (
       <div className={cn(
@@ -107,7 +107,7 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
         componentStyles.fontSize,
         componentStyles.borderRadius,
         componentStyles.padding,
-        "focus-within:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900",
+        "focus-within:outline-none focus-within:ring-2 focus-within:ring-focus-ring focus-within:border-dark-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900",
         className
       )}>
         <input

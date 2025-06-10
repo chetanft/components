@@ -1,31 +1,12 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Dropdown, DropdownField } from '../components/molecules/Dropdown/Dropdown';
+import { Dropdown } from '../components/molecules/Dropdown/Dropdown';
 
 const meta: Meta<typeof Dropdown> = {
   title: 'Components/Dropdown',
   component: Dropdown,
   parameters: {
     layout: 'padded',
-  },
-  tags: ['autodocs'],
-  argTypes: {
-    size: {
-      control: { type: 'select' },
-      options: ['xl', 'l', 'm'],
-    },
-    state: {
-      control: { type: 'select' },
-      options: ['default', 'filled', 'disabled', 'prefilled', 'hover', 'focused', 'typing'],
-    },
-    type: {
-      control: { type: 'select' },
-      options: ['normal', 'error', 'warning', 'success'],
-    },
-    labelPosition: {
-      control: { type: 'select' },
-      options: ['top', 'left', 'none'],
-    },
   },
 };
 
@@ -37,21 +18,6 @@ export const Default: Story = {
   args: {
     label: 'Label',
     placeholder: 'Select an option',
-    options: [
-      { value: 'option1', label: 'Option 1' },
-      { value: 'option2', label: 'Option 2' },
-      { value: 'option3', label: 'Option 3' },
-    ],
-  },
-};
-
-// With caption
-export const WithCaption: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Select an option',
-    showCaption: true,
-    caption: 'This is a helpful caption',
     options: [
       { value: 'option1', label: 'Option 1' },
       { value: 'option2', label: 'Option 2' },
@@ -88,70 +54,27 @@ export const Sizes: Story = {
         ]}
       />
       <Dropdown
-        label="Large (L)"
-        size="l"
-        placeholder="L Dropdown"
+        label="Large (LG)"
+        size="lg"
+        placeholder="LG Dropdown"
         options={[
           { value: 'option1', label: 'Option 1' },
           { value: 'option2', label: 'Option 2' },
         ]}
       />
       <Dropdown
-        label="Medium (M)"
-        size="m"
-        placeholder="M Dropdown"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-    </div>
-  ),
-};
-
-// Different types
-export const Types: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <Dropdown
-        label="Normal"
-        type="normal"
-        placeholder="Normal dropdown"
-        showCaption
-        caption="This is a normal dropdown"
+        label="Medium (MD)"
+        size="md"
+        placeholder="MD Dropdown"
         options={[
           { value: 'option1', label: 'Option 1' },
           { value: 'option2', label: 'Option 2' },
         ]}
       />
       <Dropdown
-        label="Error"
-        type="error"
-        placeholder="Error dropdown"
-        showCaption
-        caption="This is an error message"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Warning"
-        type="warning"
-        placeholder="Warning dropdown"
-        showCaption
-        caption="This is a warning message"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Success"
-        type="success"
-        placeholder="Success dropdown"
-        showCaption
-        caption="This is a success message"
+        label="Small (SM)"
+        size="sm"
+        placeholder="SM Dropdown"
         options={[
           { value: 'option1', label: 'Option 1' },
           { value: 'option2', label: 'Option 2' },
@@ -183,14 +106,6 @@ export const LabelPositions: Story = {
           { value: 'option2', label: 'Option 2' },
         ]}
       />
-      <Dropdown
-        labelPosition="none"
-        placeholder="No label"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
     </div>
   ),
 };
@@ -200,7 +115,7 @@ export const States: Story = {
   render: () => (
     <div className="space-y-4">
       <Dropdown
-        label="Default State"
+        label="Default"
         state="default"
         placeholder="Default state"
         options={[
@@ -209,46 +124,22 @@ export const States: Story = {
         ]}
       />
       <Dropdown
-        label="Filled State"
-        state="filled"
-        value="option1"
-        options={[
-          { value: 'option1', label: 'Selected Option' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Disabled State"
-        state="disabled"
-        disabled
-        placeholder="Disabled dropdown"
+        label="Error"
+        state="error"
+        placeholder="Error state"
         options={[
           { value: 'option1', label: 'Option 1' },
           { value: 'option2', label: 'Option 2' },
         ]}
       />
-    </div>
-  ),
-};
-
-// Dropdown Field only
-export const DropdownFieldOnly: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <DropdownField
-        size="xl"
-        placeholder="Just the field component"
-      />
-      <DropdownField
-        size="l"
-        type="error"
-        placeholder="Error field"
-      />
-      <DropdownField
-        size="m"
+      <Dropdown
+        label="Disabled"
         state="disabled"
-        disabled
-        placeholder="Disabled field"
+        placeholder="Disabled state"
+        options={[
+          { value: 'option1', label: 'Option 1' },
+          { value: 'option2', label: 'Option 2' },
+        ]}
       />
     </div>
   ),

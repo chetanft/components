@@ -71,7 +71,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       // Base styles
       "w-full border-2 transition-all duration-200",
       "font-sans font-normal",
-      "placeholder:text-neutral-400 dark:placeholder:text-neutral-500",
+      "placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
       // Unified component styles
       componentStyles.height,
       componentStyles.fontSize,
@@ -79,16 +79,16 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       componentStyles.padding,
       // Variant styles with dark mode
       variant === 'filled' 
-        ? "bg-neutral-50 dark:bg-neutral-800 border-transparent focus:bg-white dark:focus:bg-neutral-900 focus:border-neutral-200 dark:focus:border-neutral-600"
-        : "bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700",
+        ? "bg-surface-alt dark:bg-surface-alt-dark border-transparent focus:bg-surface dark:focus:bg-surface-dark focus:border-border-alt dark:focus:border-border-alt-dark"
+        : "bg-surface dark:bg-surface-dark border-border dark:border-border-dark",
       // State styles with dark mode support
       disabled
-        ? "bg-neutral-50 dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 text-neutral-400 dark:text-neutral-500 cursor-not-allowed"
+        ? "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"
         : error
-        ? "border-critical text-neutral-900 dark:text-neutral-100 focus:border-critical focus:ring-2 focus:ring-critical/20"
-        : "text-neutral-900 dark:text-neutral-100 focus:border-neutral-400 dark:focus:border-neutral-500 focus:ring-2 focus:ring-neutral-200 dark:focus:ring-neutral-700",
+        ? "border-critical text-input dark:text-input-dark focus:border-critical focus:ring-2 focus:ring-critical/20"
+        : "text-input dark:text-input-dark focus:border-focus dark:focus:border-focus-dark focus:ring-2 focus:ring-focus dark:focus:ring-focus-dark",
       // Focus styles
-      "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900",
+      "focus:outline-none focus:ring-2 focus:ring-focus-ring focus:border-dark-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-surface dark:focus-visible:ring-offset-surface-dark",
       className
     );
 
@@ -99,7 +99,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       "text-sm leading-relaxed mt-1.5",
       error
         ? "text-critical"
-        : "text-neutral-600 dark:text-neutral-400"
+        : "text-helper dark:text-helper-dark"
     );
 
     return (
@@ -128,10 +128,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 className={cn(
                   "transition-colors",
                   disabled 
-                    ? "text-neutral-400 dark:text-neutral-500" 
+                    ? "text-input-disabled dark:text-input-disabled-dark" 
                     : error
                     ? "text-critical"
-                    : "text-neutral-500 dark:text-neutral-400"
+                    : "text-icon dark:text-icon-dark"
                 )}
                 aria-hidden="true"
               />
@@ -164,10 +164,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 className={cn(
                   "transition-colors",
                   disabled 
-                    ? "text-neutral-400 dark:text-neutral-500" 
+                    ? "text-input-disabled dark:text-input-disabled-dark" 
                     : error
                     ? "text-critical"
-                    : "text-neutral-500 dark:text-neutral-400"
+                    : "text-icon dark:text-icon-dark"
                 )}
                 aria-hidden="true"
               />

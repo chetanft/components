@@ -51,7 +51,11 @@ export default {
           'text-default': 'var(--component-text-default)',
           'text-muted': 'var(--component-text-muted)',
           'text-disabled': 'var(--component-text-disabled)',
-        }
+        },
+        'focus-ring': '#CED1D7',
+      },
+      ringColor: {
+        'focus-ring': '#CED1D7',
       },
       // 8-Point Spacing System with 20px special unit
       spacing: {

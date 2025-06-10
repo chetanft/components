@@ -7,7 +7,7 @@ import { Label } from '../../atoms/Label/Label';
 // Unified dropdown field variants using the design system
 const dropdownFieldVariants = cva(
   // Base styles - unified across all components
-  "relative w-full border-2 transition-all duration-200 font-sans font-normal bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 focus-within:ring-2 focus-within:ring-neutral-200 dark:focus-within:ring-neutral-700",
+  "relative w-full border-2 transition-all duration-200 font-sans font-normal bg-surface dark:bg-surface-dark text-input dark:text-input-dark focus-within:ring-2 focus-within:ring-focus-ring focus-within:border-dark-100",
   {
     variants: {
       size: {
@@ -17,9 +17,9 @@ const dropdownFieldVariants = cva(
         xl: "", // Styles applied via unified system
       },
       state: {
-        default: "border-neutral-200 dark:border-neutral-700 focus-within:border-neutral-400 dark:focus-within:border-neutral-500",
+        default: "border-border dark:border-border-dark focus-within:border-focus dark:focus-within:border-focus-dark",
         error: "border-critical focus-within:border-critical focus-within:ring-critical/20",
-        disabled: "bg-neutral-50 dark:bg-neutral-800 border-neutral-100 dark:border-neutral-700 text-neutral-400 dark:text-neutral-500 cursor-not-allowed",
+        disabled: "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed",
       },
       type: {
         normal: "",
@@ -136,7 +136,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           data-size={size}
           {...props}
         >
-          <span className={selectedOption ? "text-neutral-900 dark:text-neutral-100" : "text-neutral-400 dark:text-neutral-500"}>
+          <span className={selectedOption ? "text-input dark:text-input-dark" : "text-placeholder dark:text-placeholder-dark"}>
             {selectedOption ? selectedOption.label : placeholder}
           </span>
           <Icon
@@ -145,28 +145,28 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             className={cn(
               "transition-transform duration-200",
               isOpen && "rotate-180",
-              state === "disabled" ? "text-neutral-400 dark:text-neutral-500" : "text-neutral-500 dark:text-neutral-400"
+              state === "disabled" ? "text-input-disabled dark:text-input-disabled-dark" : "text-icon dark:text-icon-dark"
             )}
           />
           
           {/* Dropdown Menu */}
           {isOpen && (
             <div className={cn(
-              "absolute top-full left-0 right-0 z-50 mt-1 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 shadow-lg max-h-60 overflow-auto",
+              "absolute top-full left-0 right-0 z-50 mt-1 bg-surface dark:bg-surface-dark border border-border dark:border-border-dark shadow-lg max-h-60 overflow-auto",
               componentStyles.borderRadius
             )}>
               {type === "search" && (
-                <div className="p-2 border-b border-neutral-200 dark:border-neutral-700">
+                <div className="p-2 border-b border-border dark:border-border-dark">
                   <input
                     type="text"
                     placeholder="Search..."
                     value={searchQuery}
                     onChange={handleSearchChange}
                     className={cn(
-                      "w-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100",
+                      "w-full border border-border dark:border-border-dark bg-surface dark:bg-surface-dark text-input dark:text-input-dark",
                       componentStyles.fontSize,
                       componentStyles.borderRadius,
-                      "px-3 py-2 focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:focus:ring-neutral-700"
+                      "px-3 py-2 focus:outline-none focus:ring-2 focus:ring-focus dark:focus:ring-focus-dark"
                     )}
                     autoFocus
                   />
@@ -174,7 +174,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               )}
               
               {filteredOptions.length === 0 ? (
-                <div className="p-3 text-neutral-500 dark:text-neutral-400 text-center">
+                <div className="p-3 text-placeholder dark:text-placeholder-dark text-center">
                   No options found
                 </div>
               ) : (
@@ -185,9 +185,9 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                       "px-3 py-2 cursor-pointer transition-colors",
                       componentStyles.fontSize,
                       option.disabled
-                        ? "text-neutral-400 dark:text-neutral-500 cursor-not-allowed"
-                        : "text-neutral-900 dark:text-neutral-100 hover:bg-neutral-50 dark:hover:bg-neutral-800",
-                      selectedValue === option.value && "bg-neutral-100 dark:bg-neutral-700"
+                        ? "text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"
+                        : "text-input dark:text-input-dark hover:bg-surface-alt dark:hover:bg-surface-alt-dark",
+                      selectedValue === option.value && "bg-surface-selected dark:bg-surface-selected-dark"
                     )}
                     onClick={() => !option.disabled && handleSelect(option.value)}
                   >
