@@ -21,7 +21,8 @@
       "types": "./dist/ai/index.d.ts"
     },
     "./styles.css": "./dist/styles.css",
-    "./dist/styles.css": "./dist/styles.css"
+    "./dist/styles.css": "./dist/styles.css",
+    "./dist/css/base.css": "./dist/styles.css"
   },
   "files": [
     "dist/**/*"

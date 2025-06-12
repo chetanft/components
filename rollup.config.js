@@ -43,7 +43,11 @@ export default [
         fileName: 'assets/[name][extname]'
       }),
       postcss({
-        extract: 'styles.css',
+        extract: true,
+        extract: [
+          'dist/styles.css',
+          'dist/css/base.css'
+        ],
         minimize: true,
         config: {
           path: './postcss.config.js',
