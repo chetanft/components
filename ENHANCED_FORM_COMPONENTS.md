@@ -216,12 +216,11 @@ const RegistrationForm = () => {
 
 ## Storybook Examples
 
-The enhanced components are demonstrated in the Storybook under "Enhanced/Form Components with Labels" with the following stories:
+The enhanced components are demonstrated in the Storybook under "Enhanced/Form" with the following stories:
 
 - **InputVariations**: Shows all Input label variations
 - **DropdownVariations**: Shows all Dropdown label variations  
 - **CompleteForm**: Interactive form with state management
-- **Comparison**: Before/after comparison
 
 ## Technical Details
 
