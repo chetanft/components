@@ -6,7 +6,7 @@ import { DatePicker } from '../components/molecules/DatePicker/DatePicker';
 import { AlertInformational, User, Mail, Phone, Calendar, Clock } from '../components/atoms/Icons';
 
 const meta: Meta = {
-  title: 'Enhanced/Form Components with Labels',
+  title: 'Enhanced/Form',
   parameters: {
     layout: 'centered',
     docs: {

@@ -1,6 +1,6 @@
 {
   "name": "ft-design-system",
-  "version": "4.8.0",
+  "version": "4.8.1",
   "type": "module",
   "description": "Design system built from Figma designs using Code Connect",
   "publishConfig": {
@@ -83,6 +83,7 @@
     "@radix-ui/react-switch": "^1.2.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.0.0",
+    "date-fns": "^4.1.0",
     "lucide-react": "^0.511.0",
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0",
