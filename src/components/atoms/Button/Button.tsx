@@ -64,14 +64,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const variantStyles = {
     primary: cn(
       "bg-dark-100 text-white border border-dark-100",
-      "hover:bg-dark-100/90 hover:border-dark-100/90",
+      "hover:bg-dark-50 hover:border-dark-50",
       "focus-visible:ring-dark-100",
       "dark:bg-dark-100 dark:text-white dark:border-dark-100",
       "dark:hover:bg-dark-50 dark:hover:border-dark-50",
       "disabled:bg-dark-25 disabled:border-dark-25 disabled:text-white"
     ),
     secondary: cn(
-      "bg-transparent text-dark-100 border border-box-border",
+      "bg-white text-dark-100 border border-box-border",
       "hover:bg-divider hover:border-dark-25",
       "focus-visible:ring-dark-100",
       "dark:text-dark-100 dark:border-dark-25",
@@ -88,10 +88,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     ),
     text: cn(
       "bg-transparent text-dark-100 border-transparent",
-      "hover:bg-dark-100/10",
+      "hover:bg-[#F8F8F9] hover:text-dark-50",
       "focus-visible:ring-dark-100",
       "dark:text-dark-100",
-      "dark:hover:bg-dark-100/10",
+      "dark:hover:bg-[#F8F8F9] dark:hover:text-dark-50",
       "disabled:text-dark-25"
     ),
     link: cn(

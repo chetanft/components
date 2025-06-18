@@ -406,7 +406,7 @@
   
   /* Component Size System - Unified across ALL components */
   --component-height-sm: 36px;     /* h-9 equivalent */
-  --component-height-md: 44px;     /* h-11 equivalent */
+  --component-height-md: 40px;     /* Updated from 44px to 40px as requested */
   --component-height-lg: 52px;     /* h-13 equivalent */
   --component-height-xl: 64px;     /* h-16 equivalent - for special cases */
   

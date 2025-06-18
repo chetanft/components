@@ -27,7 +27,7 @@ export function getComponentStyles(size: ComponentSize = 'md') {
 ```css
 /* All components inherit these exact values */
 --component-height-sm: 36px;     /* Small: 36px */
---component-height-md: 44px;     /* Medium: 44px */  
+--component-height-md: 40px;     /* Medium: 40px */  
 --component-height-lg: 52px;     /* Large: 52px */
 --component-height-xl: 64px;     /* Extra Large: 64px */
 
@@ -45,7 +45,7 @@ export function getComponentStyles(size: ComponentSize = 'md') {
 // tailwind.config.js - Unified utilities
 height: {
   'component-sm': 'var(--component-height-sm)',  // 36px
-  'component-md': 'var(--component-height-md)',  // 44px
+  'component-md': 'var(--component-height-md)',  // 40px
   'component-lg': 'var(--component-height-lg)',  // 52px
   'component-xl': 'var(--component-height-xl)',  // 64px
 },
@@ -69,9 +69,9 @@ fontSize: {
 ### **After (Perfectly Synced)**
 ```jsx
 // ALL components automatically match when using same size
-<Button size="md" />    // 44px height, 16px font, 12px 16px padding
-<Input size="md" />     // 44px height, 16px font, 12px 16px padding
-<Dropdown size="md" />  // 44px height, 16px font, 12px 16px padding
+<Button size="md" />    // 40px height, 16px font, 12px 16px padding
+<Input size="md" />     // 40px height, 16px font, 12px 16px padding
+<Dropdown size="md" />  // 40px height, 16px font, 12px 16px padding
 ```
 
 ## **🛡️ AI Tool Protection**
@@ -99,7 +99,7 @@ export function filterAIStyles(style?: React.CSSProperties) {
 | Size | Height | Font | Padding | Icon | Use Case |
 |------|--------|------|---------|------|----------|
 | `sm` | 36px | 14px | 8px 12px | 16px | Compact forms |
-| `md` | 44px | 16px | 12px 16px | 20px | **Default** |
+| `md` | 40px | 16px | 12px 16px | 18px | **Default** |
 | `lg` | 52px | 16px | 16px 20px | 24px | Prominent actions |
 | `xl` | 64px | 16px | 20px 24px | 28px | Hero sections |
 
@@ -136,7 +136,7 @@ export function filterAIStyles(style?: React.CSSProperties) {
 >
   Submit
 </Button>
-// Result: Perfect 44px height, 8px radius, proper padding
+// Result: Perfect 40px height, 8px radius, proper padding
 ```
 
 ## **🔄 Migration Guide**

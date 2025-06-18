@@ -74,13 +74,19 @@ describe('Input Component', () => {
     it('applies default variant styles', () => {
       render(<Input variant="default" placeholder="Default input" />);
       const input = screen.getByPlaceholderText('Default input');
-      expect(input).toHaveClass('bg-white', 'border-neutral-200');
+      expect(input).toHaveClass('bg-surface', 'border-2', 'border-border');
     });
 
     it('applies filled variant styles', () => {
       render(<Input variant="filled" placeholder="Filled input" />);
       const input = screen.getByPlaceholderText('Filled input');
-      expect(input).toHaveClass('bg-neutral-50', 'border-transparent');
+      expect(input).toHaveClass('bg-surface-alt', 'border-2', 'border-transparent');
+    });
+
+    it('applies outlined variant styles', () => {
+      render(<Input variant="outlined" placeholder="Outlined input" />);
+      const input = screen.getByPlaceholderText('Outlined input');
+      expect(input).toHaveClass('bg-transparent', 'border', 'border-border');
     });
   });
 

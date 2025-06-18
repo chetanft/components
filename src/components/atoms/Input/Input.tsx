@@ -16,7 +16,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   leadingIcon?: IconName;
   trailingIcon?: IconName;
   size?: ComponentSize; // Use unified sizing
-  variant?: 'default' | 'filled';
+  variant?: 'default' | 'filled' | 'outlined';
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -69,7 +69,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     // Input styles using unified design system
     const inputStyles = cn(
       // Base styles
-      "w-full border-2 transition-all duration-200",
+      "w-full transition-all duration-200",
       "font-sans font-normal",
       "placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
       // Unified component styles
@@ -79,8 +79,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       componentStyles.padding,
       // Variant styles with dark mode
       variant === 'filled' 
-        ? "bg-surface-alt dark:bg-surface-alt-dark border-transparent focus:bg-surface dark:focus:bg-surface-dark focus:border-border-alt dark:focus:border-border-alt-dark"
-        : "bg-surface dark:bg-surface-dark border-border dark:border-border-dark",
+        ? "bg-surface-alt dark:bg-surface-alt-dark border-2 border-transparent focus:bg-surface dark:focus:bg-surface-dark focus:border-border-alt dark:focus:border-border-alt-dark"
+        : variant === 'outlined'
+        ? "bg-transparent border border-border dark:border-border-dark hover:border-dark-50 focus:border-dark-100"
+        : "bg-surface dark:bg-surface-dark border-2 border-border dark:border-border-dark",
       // State styles with dark mode support
       disabled
         ? "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"
@@ -92,8 +94,6 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       className
     );
 
-    // No longer needed - using Label component
-
     // Helper/error text styles with dark mode
     const helperStyles = cn(
       "text-sm leading-relaxed mt-1.5",
@@ -103,18 +103,20 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
 
     return (
-      <div className="w-full">
+      <div className="w-full space-y-2">
         {/* Label */}
         {label && (
-          <Label 
-            htmlFor={inputId}
-            mandatory={labelMandatory}
-            optional={labelOptional}
-            suffixIcon={labelSuffixIcon}
-            icon={labelIcon}
-          >
-            {label}
-          </Label>
+          <div>
+            <Label 
+              htmlFor={inputId}
+              mandatory={labelMandatory}
+              optional={labelOptional}
+              suffixIcon={labelSuffixIcon}
+              icon={labelIcon}
+            >
+              {label}
+            </Label>
+          </div>
         )}
         
         {/* Input Container */}

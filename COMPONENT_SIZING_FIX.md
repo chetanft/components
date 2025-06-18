@@ -34,7 +34,7 @@ The FT Design System had **severe sizing inconsistency issues** that were causin
 ```css
 /* COMPONENT SIZING SYSTEM - STANDARDIZED ACROSS ALL FORM COMPONENTS */
 --component-height-sm: 36px;     /* h-9 equivalent */
---component-height-md: 44px;     /* h-11 equivalent */  
+--component-height-md: 40px;     /* Updated from 44px */  
 --component-height-lg: 52px;     /* h-13 equivalent */
 --component-height-xl: 64px;     /* h-16 equivalent - for special cases */
 
@@ -51,7 +51,7 @@ The FT Design System had **severe sizing inconsistency issues** that were causin
 ```js
 height: {
   'component-sm': 'var(--component-height-sm)',  // 36px
-  'component-md': 'var(--component-height-md)',  // 44px
+  'component-md': 'var(--component-height-md)',  // 40px
   'component-lg': 'var(--component-height-lg)',  // 52px
   'component-xl': 'var(--component-height-xl)',  // 64px
 },
@@ -67,7 +67,7 @@ height: {
 
 // AFTER: Standardized sizing
 "h-component-sm gap-2 text-[var(--component-font-size-sm)] font-medium", // 36px, 14px
-"h-component-md gap-2 text-[var(--component-font-size-md)] font-medium", // 44px, 16px
+"h-component-md gap-2 text-[var(--component-font-size-md)] font-medium", // 40px, 16px
 "h-component-lg gap-2 text-[var(--component-font-size-lg)] font-medium", // 52px, 16px
 ```
 
@@ -79,7 +79,7 @@ height: {
 
 // AFTER: Standardized sizing
 "h-component-sm px-3 py-2 text-[var(--component-font-size-sm)]", // 36px, 14px
-"h-component-md px-4 py-3 text-[var(--component-font-size-md)]", // 44px, 16px
+"h-component-md px-4 py-3 text-[var(--component-font-size-md)]", // 40px, 16px
 "h-component-lg px-5 py-4 text-[var(--component-font-size-lg)]", // 52px, 16px
 ```
 
@@ -93,7 +93,7 @@ height: {
 // AFTER: Standardized sizing  
 "h-component-xl px-[var(--spacing-x3)] text-[var(--component-font-size-lg)]", // 64px, 16px
 "h-component-lg px-[var(--spacing-x3)] text-[var(--component-font-size-lg)]",  // 52px, 16px
-"h-component-md px-[var(--spacing-x3)] text-[var(--component-font-size-md)]"   // 44px, 16px
+"h-component-md px-[var(--spacing-x3)] text-[var(--component-font-size-md)]"   // 40px, 16px
 ```
 
 ### ✅ DatePicker Component
@@ -117,9 +117,9 @@ FT Design System components have pre-defined heights that override Tailwind clas
 COMPONENT HEIGHT CONFLICTS:
 - DON'T use: h-12, h-10, h-16 (will be overridden by FT Design System CSS)
 - DO use: Let FT components control their own sizing with size="sm|md|lg" props
-- Button: size="sm" (36px), size="md" (44px), size="lg" (52px) 
-- Input: size="sm" (36px), size="md" (44px), size="lg" (52px)
-- Dropdown: size="m" (44px), size="l" (52px), size="xl" (64px)
+- Button: size="sm" (36px), size="md" (40px), size="lg" (52px) 
+- Input: size="sm" (36px), size="md" (40px), size="lg" (52px)
+- Dropdown: size="m" (40px), size="l" (52px), size="xl" (64px)
 
 CSS SPECIFICITY DEBUGGING:
 If custom Tailwind classes don't work:
@@ -132,7 +132,7 @@ If custom Tailwind classes don't work:
 ## Benefits
 
 ### 🎯 **Perfect Visual Consistency**
-- All form components now have matching heights: 36px, 44px, 52px
+- All form components now have matching heights: 36px, 40px, 52px
 - Consistent font sizes: 14px (sm), 16px (md/lg)
 - Unified icon sizes: 16px, 20px, 24px
 
@@ -156,7 +156,7 @@ If custom Tailwind classes don't work:
 | Size Prop | Height | Font Size | Use Case |
 |-----------|--------|-----------|----------|
 | `sm`      | 36px   | 14px      | Compact interfaces, mobile |
-| `md`      | 44px   | 16px      | Default size, most common |
+| `md`      | 40px   | 16px      | Default size, most common |
 | `lg`      | 52px   | 16px      | Prominent actions |
 | `xl`*     | 64px   | 16px      | Special cases (DatePicker only) |
 

@@ -197,13 +197,13 @@ export default {
       height: {
         // Standard component heights - ensures Button, Input, Dropdown, DatePicker match
         'component-sm': 'var(--component-height-sm)',  // 36px
-        'component-md': 'var(--component-height-md)',  // 44px
+        'component-md': 'var(--component-height-md)',  // 40px
         'component-lg': 'var(--component-height-lg)',  // 52px
         'component-xl': 'var(--component-height-xl)',  // 64px
       },
       width: {
         'component-sm': 'var(--component-height-sm)',  // 36px (for square components)
-        'component-md': 'var(--component-height-md)',  // 44px
+        'component-md': 'var(--component-height-md)',  // 40px
         'component-lg': 'var(--component-height-lg)',  // 52px
         'component-xl': 'var(--component-height-xl)',  // 64px
       },

@@ -9,6 +9,16 @@ const meta: Meta<typeof Input> = {
   parameters: {
     layout: 'padded',
   },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'filled', 'outlined'],
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['sm', 'md', 'lg', 'xl'],
+    },
+  },
 };
 
 export default meta;
@@ -93,6 +103,17 @@ export const Sizes: Story = {
       <Input label="Medium" size="md" placeholder="Medium input" />
       <Input label="Large" size="lg" placeholder="Large input" />
       <Input label="Extra Large" size="xl" placeholder="XL input" />
+    </div>
+  ),
+};
+
+// Variants
+export const Variants: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <Input label="Default" variant="default" placeholder="Default variant" />
+      <Input label="Filled" variant="filled" placeholder="Filled variant" />
+      <Input label="Outlined" variant="outlined" placeholder="Outlined variant" />
     </div>
   ),
 };
