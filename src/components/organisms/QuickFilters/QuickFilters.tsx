@@ -47,8 +47,14 @@ const FilterChip: React.FC<{
         "inline-flex items-center gap-2",
         isSubOption ? "px-2" : "px-3",
         isSubOption ? "h-7" : "h-9",
-        isSelected ? "bg-[#F0F1F7] border-0" : "bg-white border border-[#CED1D7]",
-        isSubOption && !isSelected ? "rounded-none" : "rounded-lg",
+        isSelected 
+          ? "bg-[#F0F1F7] border-0" 
+          : isSubOption 
+            ? "bg-white border-0" 
+            : "bg-white border border-[#CED1D7]",
+        isSubOption 
+          ? isSelected ? "rounded-lg" : "rounded-none" 
+          : "rounded-lg",
         "cursor-pointer transition-all duration-200",
         "font-sans text-sm font-semibold text-[#434F64]",
         "whitespace-nowrap"
@@ -114,7 +120,7 @@ const MultiOptionFilter: React.FC<{
   return (
     <div className="inline-flex items-center bg-white border border-[#CED1D7] rounded-lg overflow-hidden h-9">
       {/* Main filter section */}
-      <div className="bg-[#F0F1F7] rounded-l-lg h-full flex items-center gap-2 px-3">
+      <div className="bg-[#F0F1F7] h-full flex items-center gap-2 px-3">
         {filter.count !== undefined && (
           <span className={cn(
             "text-base font-semibold leading-[1.21]",
