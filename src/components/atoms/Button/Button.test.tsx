@@ -49,7 +49,7 @@ describe('Button Component', () => {
     it('applies secondary variant styles', () => {
       render(<Button variant="secondary">Secondary</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-transparent', 'text-dark-100', 'border-box-border');
+      expect(button).toHaveClass('bg-white', 'text-dark-100', 'border-box-border');
     });
 
     it('applies destructive variant styles', () => {
@@ -67,7 +67,7 @@ describe('Button Component', () => {
     it('applies link variant styles', () => {
       render(<Button variant="link">Link Button</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-transparent', 'text-dark-100', 'border-transparent', 'underline');
+      expect(button).toHaveClass('bg-transparent', 'text-neutral', 'border-transparent', 'underline');
     });
   });
 

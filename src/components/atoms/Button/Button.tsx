@@ -95,11 +95,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "disabled:text-dark-25"
     ),
     link: cn(
-      "bg-transparent text-dark-100 border-transparent underline",
-      "hover:text-dark-50 hover:no-underline",
-      "focus-visible:ring-dark-100",
-      "dark:text-dark-100",
-      "dark:hover:text-dark-50",
+      "bg-transparent text-neutral border-transparent underline",
+      "hover:text-neutral-dark hover:no-underline",
+      "focus-visible:ring-neutral",
+      "dark:text-neutral",
+      "dark:hover:text-neutral-dark",
       "disabled:text-dark-25 disabled:no-underline"
     ),
   };
