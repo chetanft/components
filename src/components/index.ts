@@ -209,7 +209,7 @@ export type {
   TableCellItemProps,
   TableCellProps,
   CellBackgroundColor,
-  CellBorderStyle,
+  CellLineVariant,
   TableHeaderItemProps,
   HeaderItemType,
   HeaderColorVariant
