@@ -41,80 +41,64 @@ const FilterChip: React.FC<{
   const displayCount = option?.count || filter.count;
   const displayType = option?.type || filter.type || 'normal';
   
-  // Color configurations based on Figma
-  const getColors = () => {
-    if (isSelected) {
-      return {
-        background: '#F0F1F7',
-        text: '#434F64',
-        count: displayType === 'alert' ? '#E43634' : '#434F64',
-      };
-    } else {
-      return {
-        background: '#FFFFFF',
-        text: '#434F64', 
-        count: displayType === 'alert' ? '#E43634' : '#434F64',
-        border: '#CED1D7',
-      };
-    }
-  };
-
-  const colors = getColors();
-  
-  const chipStyles: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px',
-    padding: isSubOption ? '0 8px' : '0 12px',
-    height: isSubOption ? '28px' : '36px',
-    backgroundColor: colors.background,
-    border: isSelected ? 'none' : (isSubOption ? 'none' : `1px solid ${colors.border}`),
-    borderRadius: isSubOption ? (isSelected ? '8px' : '0') : '8px',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease-in-out',
-    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    fontSize: '14px',
-    fontWeight: 600,
-    lineHeight: 1.4,
-    color: colors.text,
-    userSelect: 'none',
-    whiteSpace: 'nowrap',
-    minWidth: 'fit-content',
-  };
-
-  const countStyles: React.CSSProperties = {
-    fontSize: isSubOption ? '14px' : '16px',
-    fontWeight: 600,
-    color: colors.count,
-    lineHeight: isSubOption ? 1.21 : 1.21,
-    display: 'flex',
-    alignItems: 'center',
-  };
-
   return (
-    <div style={chipStyles} onClick={onSelect}>
-      {displayCount && (
-        <span style={countStyles}>{displayCount}</span>
+    <div 
+      className={cn(
+        "inline-flex items-center gap-2",
+        isSubOption ? "px-2" : "px-3",
+        isSubOption ? "h-7" : "h-9",
+        isSelected ? "bg-[#F0F1F7] border-0" : "bg-white border border-[#CED1D7]",
+        isSubOption && !isSelected ? "rounded-none" : "rounded-lg",
+        "cursor-pointer transition-all duration-200",
+        "font-sans text-sm font-semibold text-[#434F64]",
+        "whitespace-nowrap"
       )}
-      <span style={{ display: 'flex', alignItems: 'center' }}>{displayLabel}</span>
+      onClick={onSelect}
+      role="button"
+      tabIndex={0}
+      aria-pressed={isSelected}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
+    >
+      {displayCount !== undefined && (
+        <span 
+          className={cn(
+            "font-semibold",
+            isSubOption ? "text-sm" : "text-base",
+            displayType === 'alert' ? "text-[#FF3533]" : "text-[#434F64]",
+            "leading-[1.21]"
+          )}
+        >
+          {displayCount}
+        </span>
+      )}
+      <span className="flex items-center">{displayLabel}</span>
       {isSelected && onRemove && (
         <span
+          className="flex items-center justify-center cursor-pointer flex-shrink-0"
           onClick={(e) => {
             e.stopPropagation();
             onRemove();
           }}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            flexShrink: 0,
+          role="button"
+          tabIndex={0}
+          aria-label={`Remove ${displayLabel} filter`}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              e.stopPropagation();
+              onRemove();
+            }
           }}
         >
           <Icon
             name="close-filled"
             size={14}
-            color={colors.text}
+            className="text-[#434F64]"
           />
         </span>
       )}
@@ -127,76 +111,30 @@ const MultiOptionFilter: React.FC<{
   onFilterClick: (filterId: string, optionId?: string) => void;
   onFilterRemove: (filterId: string, optionId?: string) => void;
 }> = ({ filter, onFilterClick, onFilterRemove }) => {
-  const hasSelectedOption = filter.selectedOption;
-  
-  const containerStyles: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    border: '1px solid #CED1D7',
-    borderRadius: '8px',
-    overflow: 'hidden',
-    height: '36px',
-  };
-
-  const mainSectionStyles: React.CSSProperties = {
-    backgroundColor: '#F0F1F7',
-    borderRadius: '8px 0 0 8px',
-    padding: '0 12px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    height: '100%',
-    minWidth: 'fit-content',
-  };
-
-  const optionsSectionStyles: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0',
-    padding: '4px 8px 4px 12px',
-    height: '100%',
-  };
-
-  const separatorStyles: React.CSSProperties = {
-    width: '1px',
-    height: '26px',
-    backgroundColor: '#F0F1F7',
-  };
-
   return (
-    <div style={containerStyles}>
+    <div className="inline-flex items-center bg-white border border-[#CED1D7] rounded-lg overflow-hidden h-9">
       {/* Main filter section */}
-      <div style={mainSectionStyles}>
-        {filter.count && (
-          <span style={{
-            fontSize: '16px',
-            fontWeight: 600,
-            color: filter.type === 'alert' ? '#E43634' : '#434F64',
-            lineHeight: 1.21,
-            display: 'flex',
-            alignItems: 'center',
-          }}>
+      <div className="bg-[#F0F1F7] rounded-l-lg h-full flex items-center gap-2 px-3">
+        {filter.count !== undefined && (
+          <span className={cn(
+            "text-base font-semibold leading-[1.21]",
+            filter.type === 'alert' ? "text-[#FF3533]" : "text-[#434F64]"
+          )}>
             {filter.count}
           </span>
         )}
-        <span style={{
-          fontSize: '14px',
-          fontWeight: 600,
-          color: '#434F64',
-          lineHeight: 1.4,
-          display: 'flex',
-          alignItems: 'center',
-        }}>
+        <span className="text-sm font-semibold text-[#434F64]">
           {filter.label}
         </span>
       </div>
 
       {/* Options section */}
-      <div style={optionsSectionStyles}>
+      <div className="flex items-center px-3 py-1 h-full">
         {filter.options?.map((option, index) => (
           <React.Fragment key={option.id}>
-            {index > 0 && <div style={separatorStyles} />}
+            {index > 0 && (
+              <div className="w-px h-[26px] bg-[#F0F1F7] mx-1" aria-hidden="true" />
+            )}
             <FilterChip
               filter={filter}
               option={option}
@@ -221,7 +159,7 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
   className,
 }) => {
   return (
-    <div className={cn('flex flex-wrap gap-3', className)}>
+    <div className={cn('flex flex-wrap gap-3', className)} role="group" aria-label="Quick filters">
       {filters.map((filter) => {
         if (filter.options && filter.options.length > 0) {
           // Multi-option filter
