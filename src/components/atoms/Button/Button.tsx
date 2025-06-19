@@ -32,6 +32,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const isIconOnly = iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
   const isCircular = className?.includes('rounded-full');
+  const isLink = variant === 'link';
 
   // Base styles using unified design system
   const baseStyles = cn(
@@ -49,7 +50,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   );
 
   // Use unified component styles for consistent sizing
-  const sizeStyles = cn(
+  const sizeStyles = !isLink ? cn(
     componentStyles.height,
     componentStyles.fontSize,
     componentStyles.gap,
@@ -58,6 +59,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     isIconOnly && isCircular ? `w-${componentStyles.height.replace('h-', '')} p-0` : 
     isIconOnly ? `w-${componentStyles.height.replace('h-', '')} px-0` : 
     componentStyles.padding
+  ) : cn(
+    componentStyles.fontSize,
+    componentStyles.gap
   );
 
   // Variant styles with design tokens and dark mode support
@@ -95,8 +99,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "disabled:text-dark-25"
     ),
     link: cn(
-      "bg-transparent text-neutral border-transparent underline",
-      "hover:text-neutral-dark hover:no-underline",
+      "bg-transparent text-neutral border-0 underline p-0 h-auto",
+      "hover:text-neutral-dark hover:no-underline hover:shadow-none",
       "focus-visible:ring-neutral",
       "dark:text-neutral",
       "dark:hover:text-neutral-dark",
