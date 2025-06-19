@@ -44,7 +44,7 @@ const DesignGuidelinesPage = () => (
               </tr>
               <tr className="bg-green-50">
                 <td className="border border-blue-300 px-4 py-2 font-medium">md (Default)</td>
-                <td className="border border-blue-300 px-4 py-2 font-bold">44px</td>
+                <td className="border border-blue-300 px-4 py-2 font-bold">40px</td>
                 <td className="border border-blue-300 px-4 py-2">16px</td>
                 <td className="border border-blue-300 px-4 py-2">16px × 12px</td>
                 <td className="border border-blue-300 px-4 py-2">20px</td>
@@ -189,7 +189,7 @@ const DesignGuidelinesPage = () => (
             </div>
             <div>
               <p className="text-green-800 font-medium mb-1">✅ Correct:</p>
-              <p className="text-green-700 text-sm">All components 44px (md size)</p>
+              <p className="text-green-700 text-sm">All components 40px (md size)</p>
             </div>
           </div>
         </div>

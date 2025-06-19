@@ -12,11 +12,11 @@ All interactive components must follow our standardized size system:
 | Size | Height | Font Size | Padding (H×V) | Icon Size | Border Radius |
 |------|--------|-----------|---------------|-----------|---------------|
 | **sm** | 36px | 14px | 12px × 8px | 16px | 6px |
-| **md** | 44px | 16px | 16px × 12px | 20px | 8px |
+| **md** | 40px | 16px | 16px × 12px | 20px | 8px |
 | **lg** | 52px | 16px | 20px × 16px | 24px | 8px |
 | **xl** | 64px | 16px | 24px × 20px | 28px | 12px |
 
-**Default Size:** Medium (md) - 44px height
+**Default Size:** Medium (md) - 40px height
 
 ### 2. Visual Consistency Rules
 
@@ -56,7 +56,7 @@ All interactive components must follow our standardized size system:
 ## 📐 Component Specifications
 
 ### Buttons
-- **Heights:** 36px (sm), 44px (md), 52px (lg)
+- **Heights:** 36px (sm), 40px (md), 52px (lg)
 - **Font Weight:** Medium (500)
 - **Border Radius:** 6px (sm), 8px (md/lg)
 - **States:** Default, Hover, Active, Disabled, Loading
@@ -201,7 +201,7 @@ Before finalizing any component design:
 
 ### Size Inconsistencies
 ❌ **Wrong:** Button 40px, Input 36px, Dropdown 38px
-✅ **Correct:** All components 44px (md size)
+✅ **Correct:** All components 40px (md size)
 
 ### Custom Measurements
 ❌ **Wrong:** 42px height, 15px padding, 7px border radius
