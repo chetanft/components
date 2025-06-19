@@ -1,26 +1,233 @@
-import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
-import { 
-  TableCellText, 
-  TableCellItem, 
-  TableCell, 
-  TableHeaderItem 
-} from '../components/organisms/Table';
+import React, { useState } from 'react';
+import { Meta, StoryObj } from '@storybook/react';
+import { Table, TableColumn } from '../components/organisms/Table/Table';
+import { TableCell } from '../components/organisms/Table/TableCell';
+import { TableCellText } from '../components/organisms/Table/TableCellText';
+import { TableCellItem } from '../components/organisms/Table/TableCellItem';
 import { Badge } from '../components/atoms/Badge/Badge';
+import { TableHeaderItem } from '../components/organisms/Table/TableHeaderItem';
 
-const meta: Meta = {
-  title: 'UI Components/Table/Atomic Components',
+const meta: Meta<typeof Table> = {
+  title: 'Organisms/Table/Atomic Components',
+  component: Table,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
     docs: {
       description: {
-        component: 'Atomic table components based on exact Figma design specifications. These are the building blocks for complex table implementations.'
+        component: 'Individual atomic components that make up the Table component.'
       }
     }
   }
 };
 
 export default meta;
+type Story = StoryObj<typeof meta>;
+
+// Sample data for the stories
+const columns: TableColumn[] = [
+  { key: 'name', title: 'Name', sortable: true },
+  { key: 'age', title: 'Age', type: 'number' },
+  { key: 'location', title: 'Location' },
+];
+
+const data = [
+  { id: 1, name: 'John Doe', age: 30, location: 'New York' },
+  { id: 2, name: 'Jane Smith', age: 25, location: 'San Francisco' },
+  { id: 3, name: 'Bob Johnson', age: 40, location: 'Chicago' },
+];
+
+// Story for TableCell variants
+export const TableCellVariants: Story = {
+  render: () => {
+    return (
+      <div className="flex flex-col gap-8">
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Background Colors</h3>
+          <div className="flex gap-4">
+            <TableCell backgroundColor="white">
+              <TableCellText type="primary">White Background</TableCellText>
+            </TableCell>
+            <TableCell backgroundColor="bg">
+              <TableCellText type="primary">BG Background</TableCellText>
+            </TableCell>
+          </div>
+        </div>
+        
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Line Variants</h3>
+          <div className="flex gap-4">
+            <TableCell lineVariant="single">
+              <TableCellText type="primary">Single Line</TableCellText>
+            </TableCell>
+            <TableCell lineVariant="double">
+              <TableCellText type="primary">Double Line</TableCellText>
+              <TableCellText type="secondary">Second Line of Text</TableCellText>
+            </TableCell>
+          </div>
+        </div>
+        
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Sizes</h3>
+          <div className="flex gap-4">
+            <TableCell size="md">
+              <TableCellText type="primary">Medium Size</TableCellText>
+            </TableCell>
+            <TableCell size="lg">
+              <TableCellText type="primary">Large Size</TableCellText>
+            </TableCell>
+            <TableCell size="xl">
+              <TableCellText type="primary">Extra Large Size</TableCellText>
+            </TableCell>
+          </div>
+        </div>
+        
+        <div>
+          <h3 className="text-lg font-semibold mb-2">States</h3>
+          <div className="flex gap-4">
+            <TableCell state="default">
+              <TableCellText type="primary">Default State</TableCellText>
+            </TableCell>
+            <TableCell state="hover">
+              <TableCellText type="primary">Hover State</TableCellText>
+            </TableCell>
+            <TableCell state="selected">
+              <TableCellText type="primary">Selected State</TableCellText>
+            </TableCell>
+          </div>
+        </div>
+        
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Combined Variants (from Figma)</h3>
+          <div className="grid grid-cols-3 gap-4">
+            <TableCell backgroundColor="white" lineVariant="double" size="xl" state="default">
+              <TableCellText type="primary">White, Double, XL, Default</TableCellText>
+              <TableCellText type="secondary">Second line of text</TableCellText>
+            </TableCell>
+            <TableCell backgroundColor="white" lineVariant="double" size="xl" state="hover">
+              <TableCellText type="primary">White, Double, XL, Hover</TableCellText>
+              <TableCellText type="secondary">Second line of text</TableCellText>
+            </TableCell>
+            <TableCell backgroundColor="white" lineVariant="double" size="xl" state="selected">
+              <TableCellText type="primary">White, Double, XL, Selected</TableCellText>
+              <TableCellText type="secondary">Second line of text</TableCellText>
+            </TableCell>
+            
+            <TableCell backgroundColor="bg" lineVariant="single" size="lg" state="default">
+              <TableCellText type="primary">BG, Single, LG, Default</TableCellText>
+            </TableCell>
+            <TableCell backgroundColor="bg" lineVariant="single" size="lg" state="hover">
+              <TableCellText type="primary">BG, Single, LG, Hover</TableCellText>
+            </TableCell>
+            <TableCell backgroundColor="bg" lineVariant="single" size="lg" state="selected">
+              <TableCellText type="primary">BG, Single, LG, Selected</TableCellText>
+            </TableCell>
+            
+            <TableCell backgroundColor="white" lineVariant="single" size="md" state="default">
+              <TableCellText type="primary">White, Single, MD, Default</TableCellText>
+            </TableCell>
+            <TableCell backgroundColor="white" lineVariant="single" size="md" state="hover">
+              <TableCellText type="primary">White, Single, MD, Hover</TableCellText>
+            </TableCell>
+            <TableCell backgroundColor="white" lineVariant="single" size="md" state="selected">
+              <TableCellText type="primary">White, Single, MD, Selected</TableCellText>
+            </TableCell>
+          </div>
+        </div>
+      </div>
+    );
+  }
+};
+
+// Story for TableCellText variants
+export const TableCellTextVariants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <TableCell>
+        <TableCellText type="primary">Primary Text</TableCellText>
+      </TableCell>
+      <TableCell>
+        <TableCellText type="secondary">Secondary Text</TableCellText>
+      </TableCell>
+    </div>
+  )
+};
+
+// Story for TableCellItem variants
+export const TableCellItemVariants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <TableCell>
+        <TableCellItem text="Text Only" />
+      </TableCell>
+      <TableCell>
+        <TableCellItem prefixIcon="search" text="With Prefix Icon" />
+      </TableCell>
+      <TableCell>
+        <TableCellItem text="With Suffix Icon" suffixIcon="chevron-right" />
+      </TableCell>
+      <TableCell>
+        <TableCellItem prefixIcon="user" text="With Both Icons" suffixIcon="chevron-right" />
+      </TableCell>
+    </div>
+  )
+};
+
+// Story for TableHeaderItem variants
+export const TableHeaderItemVariants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <table className="w-full">
+        <thead>
+          <tr>
+            <TableHeaderItem>Default Header</TableHeaderItem>
+            <TableHeaderItem sortable>Sortable Header</TableHeaderItem>
+            <TableHeaderItem sortable sortDirection="asc">Sorted Ascending</TableHeaderItem>
+            <TableHeaderItem sortable sortDirection="desc">Sorted Descending</TableHeaderItem>
+          </tr>
+        </thead>
+      </table>
+      
+      <table className="w-full">
+        <thead>
+          <tr>
+            <TableHeaderItem size="md">Medium Size</TableHeaderItem>
+            <TableHeaderItem size="lg">Large Size</TableHeaderItem>
+            <TableHeaderItem size="xl">Extra Large Size</TableHeaderItem>
+          </tr>
+        </thead>
+      </table>
+      
+      <table className="w-full">
+        <thead>
+          <tr>
+            <TableHeaderItem colorVariant="dark25">Dark Header</TableHeaderItem>
+            <TableHeaderItem colorVariant="bg">BG Header</TableHeaderItem>
+            <TableHeaderItem colorVariant="white">White Header</TableHeaderItem>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  )
+};
+
+// Story for Responsive Table
+export const ResponsiveTableExample: Story = {
+  render: () => {
+    const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
+    
+    return (
+      <div className="w-full max-w-4xl">
+        <Table 
+          columns={columns}
+          data={data}
+          selectable
+          selectedRows={selectedRows}
+          onSelectionChange={setSelectedRows}
+        />
+      </div>
+    );
+  }
+};
 
 // TableCellText Stories
 export const CellTextPrimary: StoryObj<typeof TableCellText> = {
@@ -99,27 +306,27 @@ export const CellContainerVariants: StoryObj<typeof TableCell> = {
     <table className="border-collapse">
       <tbody>
         <tr>
-          <TableCell backgroundColor="white" borderStyle="single">
+          <TableCell backgroundColor="white" lineVariant="single">
             <TableCellItem text="White Background" />
-            <TableCellItem text="Single Border" textType="secondary" />
+            <TableCellItem text="Single Line" textType="secondary" />
           </TableCell>
         </tr>
         <tr>
-          <TableCell backgroundColor="bg" borderStyle="single">
+          <TableCell backgroundColor="bg" lineVariant="single">
             <TableCellItem text="Background Color" />
-            <TableCellItem text="Single Border" textType="secondary" />
+            <TableCellItem text="Single Line" textType="secondary" />
           </TableCell>
         </tr>
         <tr>
-          <TableCell backgroundColor="white" borderStyle="double">
+          <TableCell backgroundColor="white" lineVariant="double">
             <TableCellItem text="White Background" />
-            <TableCellItem text="Double Border" textType="secondary" />
+            <TableCellItem text="Double Line" textType="secondary" />
           </TableCell>
         </tr>
         <tr>
-          <TableCell backgroundColor="bg" borderStyle="double">
+          <TableCell backgroundColor="bg" lineVariant="double">
             <TableCellItem text="Background Color" />
-            <TableCellItem text="Double Border" textType="secondary" />
+            <TableCellItem text="Double Line" textType="secondary" />
           </TableCell>
         </tr>
       </tbody>
@@ -128,7 +335,7 @@ export const CellContainerVariants: StoryObj<typeof TableCell> = {
   parameters: {
     docs: {
       description: {
-        story: 'Table cell containers with different background colors and border styles. Includes proper padding and 8px vertical gaps.'
+        story: 'Table cell containers with different background colors and line variants. Includes proper padding and spacing between content lines.'
       }
     }
   }

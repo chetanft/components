@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 
 export type HeaderItemType = 'text' | 'checkbox';
 export type HeaderColorVariant = 'dark25' | 'bg' | 'white';
+export type HeaderSize = 'md' | 'lg' | 'xl';
 
 export interface TableHeaderItemProps {
   type?: HeaderItemType;
   colorVariant?: HeaderColorVariant;
+  size?: HeaderSize;
   sortable?: boolean;
   draggable?: boolean;
   sortDirection?: 'asc' | 'desc' | null;
@@ -25,6 +27,7 @@ export interface TableHeaderItemProps {
 export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
   type = 'text',
   colorVariant = 'dark25',
+  size = 'md',
   sortable = false,
   draggable = false,
   sortDirection = null,
@@ -33,6 +36,8 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
   onClick,
   className
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   // Color mappings from Figma - exact specifications
   const getBackgroundColor = () => {
     switch (colorVariant) {
@@ -65,13 +70,27 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
     return colorVariant === 'dark25' ? '#FFFFFF' : '#5F697B';
   };
 
+  // Size-based padding from Figma design
+  const getPadding = () => {
+    if (type === 'checkbox') {
+      return "py-[15px] px-[20px] pl-[8px]"; // Checkbox columns have consistent padding
+    }
+    
+    switch (size) {
+      case 'md': return "py-[15px] px-[20px] pl-[8px]";
+      case 'lg': return "py-[15px] px-[16px] pl-[8px]";
+      case 'xl': return "py-[15px] px-[20px] pl-[8px]";
+      default: return "py-[15px] px-[20px] pl-[8px]";
+    }
+  };
+
   return (
     <th
       className={cn(
-        // Base styles from Figma: consistent with data cells
-        "h-[50px] text-left", // Fixed height from Figma
-        // Match TableCell padding exactly for proper alignment
-        type === 'checkbox' ? "py-[32px] px-[20px] pl-[8px]" : "py-[15px] px-[20px] pl-[8px]",
+        // Base styles from Figma
+        "h-[50px] text-left transition-colors", // Fixed height from Figma
+        // Size-based padding
+        getPadding(),
         getBackgroundColor(),
         getBorderStyles(),
         // Cursor for interactive elements
@@ -79,6 +98,8 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
         className
       )}
       onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <div className={cn(
         "flex items-center h-full",
@@ -109,8 +130,9 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
           <div className="flex items-center gap-[6px]">
             <span
               className={cn(
-                // Typography from Figma: Inter 600 16px/19.36px
-                "text-[16px] font-semibold font-inter leading-[1.21]",
+                // Typography from Figma
+                size === 'md' ? "text-[14px]" : "text-[16px]",
+                "font-semibold font-inter leading-[1.21]",
                 getTextColor()
               )}
             >

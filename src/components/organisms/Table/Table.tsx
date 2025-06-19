@@ -63,6 +63,7 @@ interface TableHeaderProps<T extends TableRow = TableRow> {
   onSort?: (column: string, direction: SortDirection) => void;
   sortColumn?: string;
   sortDirection?: SortDirection;
+  cellSize?: 'md' | 'lg' | 'xl';
 }
 
 const TableHeader = <T extends TableRow = TableRow>({
@@ -74,7 +75,8 @@ const TableHeader = <T extends TableRow = TableRow>({
   onSelectionChange,
   onSort,
   sortColumn,
-  sortDirection
+  sortDirection,
+  cellSize = 'md'
 }: TableHeaderProps<T>) => {
   const isAllSelected = allRowIds.length > 0 && selectedRows.length === allRowIds.length;
   const isIndeterminate = selectedRows.length > 0 && selectedRows.length < allRowIds.length;
@@ -114,6 +116,7 @@ const TableHeader = <T extends TableRow = TableRow>({
           <TableHeaderItem
             type="checkbox"
             colorVariant={headerColorVariant}
+            size={cellSize}
             checkboxProps={{
               checked: isAllSelected,
               indeterminate: isIndeterminate,
@@ -126,6 +129,7 @@ const TableHeader = <T extends TableRow = TableRow>({
           <TableHeaderItem
             key={column.key}
             colorVariant={headerColorVariant}
+            size={cellSize}
             sortable={column.sortable}
             sortDirection={sortColumn === column.key ? sortDirection : null}
             onClick={() => column.sortable && handleSort(column)}
@@ -150,6 +154,7 @@ interface TableRowProps<T extends TableRow = TableRow> {
   selectable?: boolean;
   selected?: boolean;
   onSelectionChange?: (rowId: string | number, selected: boolean) => void;
+  cellSize?: 'md' | 'lg' | 'xl';
 }
 
 const TableRowComponent = <T extends TableRow = TableRow>({
@@ -159,8 +164,11 @@ const TableRowComponent = <T extends TableRow = TableRow>({
   variant = 'primary',
   selectable,
   selected = false,
-  onSelectionChange
+  onSelectionChange,
+  cellSize = 'md'
 }: TableRowProps<T>) => {
+  const [hoveredRowIndex, setHoveredRowIndex] = useState<boolean>(false);
+  
   const handleSelect = useCallback(() => {
     if (!onSelectionChange) return;
     onSelectionChange(row.id, !selected);
@@ -216,15 +224,18 @@ const TableRowComponent = <T extends TableRow = TableRow>({
   };
 
   return (
-    <tr className={cn(
-      "hover:bg-gray-50 transition-colors duration-200",
-      selected && "ring-2 ring-blue-500"
-    )}>
+    <tr 
+      onMouseEnter={() => setHoveredRowIndex(true)}
+      onMouseLeave={() => setHoveredRowIndex(false)}
+    >
       {selectable && (
         <TableCell 
           backgroundColor={getCellBackground(0)}
-          borderStyle="single"
+          lineVariant="single"
+          size={cellSize}
+          state={selected ? 'selected' : (hoveredRowIndex ? 'hover' : 'default')}
           className="w-[92px]" // Exact width from Figma
+          onClick={handleSelect}
         >
           <div className="flex items-center justify-center">
             <Checkbox
@@ -235,15 +246,23 @@ const TableRowComponent = <T extends TableRow = TableRow>({
           </div>
         </TableCell>
       )}
-      {columns.map((column, columnIndex) => (
-        <TableCell 
-          key={column.key} 
-          backgroundColor={getCellBackground(columnIndex + (selectable ? 1 : 0))}
-          borderStyle="single"
-        >
-          {renderCellContent(column, row[column.key])}
-        </TableCell>
-      ))}
+      {columns.map((column, columnIndex) => {
+        const cellIndex = columnIndex + (selectable ? 1 : 0);
+        // Determine if this cell should have multiple lines based on content
+        const hasSingleLine = !row[column.key] || String(row[column.key]).length < 20;
+        
+        return (
+          <TableCell 
+            key={column.key} 
+            backgroundColor={getCellBackground(cellIndex)}
+            lineVariant={hasSingleLine ? "single" : "double"}
+            size={cellSize}
+            state={selected ? 'selected' : (hoveredRowIndex ? 'hover' : 'default')}
+          >
+            {renderCellContent(column, row[column.key])}
+          </TableCell>
+        );
+      })}
     </tr>
   );
 };
@@ -378,14 +397,20 @@ export const Table = <T extends TableRow = TableRow>({
 
   const allRowIds = validatedData.map(row => row.id);
 
+  // Determine cell size based on data density
+  const cellSize = data.length > 20 ? 'md' : (data.length > 10 ? 'lg' : 'xl');
+
   const handleRowSelectionChange = useCallback((rowId: string | number, selected: boolean) => {
     if (!onSelectionChange) return;
     
+    let newSelectedRows: (string | number)[];
     if (selected) {
-      onSelectionChange([...selectedRows, rowId]);
+      newSelectedRows = [...selectedRows, rowId];
     } else {
-      onSelectionChange(selectedRows.filter(id => id !== rowId));
+      newSelectedRows = selectedRows.filter(id => id !== rowId);
     }
+    
+    onSelectionChange(newSelectedRows);
   }, [selectedRows, onSelectionChange]);
 
   if (loading) {
@@ -406,6 +431,7 @@ export const Table = <T extends TableRow = TableRow>({
             onSort={onSort}
             sortColumn={sortColumn}
             sortDirection={sortDirection}
+            cellSize={cellSize}
           />
           <tbody>
             {validatedData.length === 0 ? (
@@ -430,6 +456,7 @@ export const Table = <T extends TableRow = TableRow>({
                   selectable={selectable}
                   selected={selectedRows.includes(row.id)}
                   onSelectionChange={handleRowSelectionChange}
+                  cellSize={cellSize}
                 />
               ))
             )}

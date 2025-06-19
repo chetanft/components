@@ -1,268 +1,256 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import { Collapsible } from '../components/organisms/Collapsible/Collapsible';
 
 const meta: Meta<typeof Collapsible> = {
-  title: 'Components/Collapsible',
+  title: 'Organisms/Collapsible',
   component: Collapsible,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: `
-# Collapsible Component
-
-A flexible collapsible component with expandable content sections. Perfect for organizing information hierarchically.
-
-## Design Specifications
-- **Button**: 40×40px square with 8px border radius
-- **Spacing**: 20px gaps between elements, 32px gap in expanded layout
-- **Backgrounds**: Gray (#F8F8F9) or White variants
-- **States**: Open/Closed with smooth transitions
-- **Badges**: Optional loads, invoices, and materials counters
-
-## Usage Guidelines
-- Use for grouping related content that can be hidden/shown
-- Gray background for primary sections, white for nested/secondary
-- Submitted stage automatically shows badge counters
-- Keep headers concise and descriptive
-
-## Interactive Features
-- Click button or header area to toggle
-- Supports controlled and uncontrolled usage
-- Smooth expand/collapse animations
-        `,
-      },
-    },
+        component: 'Collapsible component with multiple variants for showing/hiding content.'
+      }
+    }
   },
   argTypes: {
-    header: {
-      description: 'Main header text displayed in the collapsible section',
-      control: { type: 'text' },
-    },
     background: {
-      description: 'Background color variant - gray for primary sections, white for secondary',
-      control: { type: 'select' },
-      options: ['gray', 'white'],
+      control: 'select',
+      options: ['bg', 'white'],
+      description: 'Background color of the collapsible',
+      defaultValue: 'bg'
     },
     stage: {
-      description: 'Component stage - submitted automatically shows badge counters',
-      control: { type: 'select' },
+      control: 'select',
       options: ['default', 'submitted'],
+      description: 'Stage of the collapsible',
+      defaultValue: 'default'
+    },
+    type: {
+      control: 'select',
+      options: ['form', 'text'],
+      description: 'Type of the collapsible',
+      defaultValue: 'form'
     },
     isExpanded: {
-      description: 'Controls expanded/collapsed state (for controlled usage)',
-      control: { type: 'boolean' },
-    },
-    badges: {
-      description: 'Custom badge values - overrides default submitted stage badges',
-      control: { type: 'object' },
-    },
-    children: {
-      description: 'Content to display when expanded',
-      control: false,
-    },
-    onToggle: {
-      description: 'Callback fired when expand/collapse state changes',
-      control: false,
-    },
-  },
+      control: 'boolean',
+      description: 'Whether the collapsible is expanded',
+      defaultValue: false
+    }
+  }
 };
 
 export default meta;
-type Story = StoryObj<typeof Collapsible>;
+type Story = StoryObj<typeof meta>;
 
+// Basic story with controls
 export const Default: Story = {
   args: {
     header: 'Collapsible header',
-    background: 'gray',
+    children: <div className="p-4">Collapsible content goes here</div>,
+    background: 'bg',
     stage: 'default',
-    isExpanded: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Basic collapsible in collapsed state with gray background.',
-      },
-    },
-  },
+    type: 'form',
+    isExpanded: false
+  }
 };
 
-export const BGGrayStateClosed: Story = {
-  args: {
-    header: 'Collapsible header',
-    background: 'gray',
-    stage: 'default',
-    isExpanded: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Gray background variant in closed state - ideal for primary content sections.',
-      },
-    },
-  },
-};
-
-export const BGGrayStateOpen: Story = {
-  args: {
-    header: 'Collapsible header',
-    background: 'gray',
-    stage: 'default',
-    isExpanded: true,
-    children: (
-      <div className="space-y-4">
-        <p>This is the content of the collapsible section.</p>
-        <p>You can put any content here when expanded.</p>
+// Controlled example with state
+export const Controlled: StoryObj<typeof Collapsible> = {
+  render: () => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    return (
+      <div className="w-[600px]">
+        <Collapsible 
+          header="Controlled Collapsible"
+          isExpanded={isExpanded}
+          onToggle={setIsExpanded}
+          background="white"
+        >
+          <div className="p-4">
+            <p>This collapsible is controlled by React state.</p>
+            <button 
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" 
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? 'Collapse' : 'Expand'} from outside
+            </button>
+          </div>
+        </Collapsible>
       </div>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Gray background variant in open state showing expanded content area with proper spacing.',
-      },
-    },
-  },
+    );
+  }
 };
 
-export const BGGrayStateClosedSubmitted: Story = {
-  args: {
-    header: 'Update header name with key value',
-    background: 'gray',
-    stage: 'submitted',
-    isExpanded: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Submitted stage automatically displays badge counters for loads, invoices, and materials.',
-      },
-    },
-  },
-};
-
-export const BGGrayStateOpenSubmitted: Story = {
-  args: {
-    header: 'Update header name with key value',
-    background: 'gray',
-    stage: 'submitted',
-    isExpanded: true,
-    children: (
-      <div className="space-y-4">
-        <p>This is the content of the collapsible section with submitted badges.</p>
-        <p>Shows loads, invoices, and materials badges.</p>
+// All variants showcase
+export const AllVariants: StoryObj<typeof Collapsible> = {
+  render: () => {
+    return (
+      <div className="flex flex-col gap-8 w-[800px]">
+        <h2 className="text-xl font-bold">Form Type Variants</h2>
+        
+        {/* BG, Default Stage */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">BG, Default Stage</h3>
+          <div className="flex flex-col gap-4">
+            <Collapsible 
+              header="BG, Open, Default, Form" 
+              type="form" 
+              background="bg" 
+              stage="default" 
+              isExpanded={true}
+            >
+              <div className="p-2">Content</div>
+            </Collapsible>
+            
+            <Collapsible 
+              header="BG, Closed, Default, Form" 
+              type="form" 
+              background="bg" 
+              stage="default" 
+              isExpanded={false}
+            />
+          </div>
+        </div>
+        
+        {/* BG, Submitted Stage */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">BG, Submitted Stage</h3>
+          <div className="flex flex-col gap-4">
+            <Collapsible 
+              header="Update header name with key value" 
+              type="form" 
+              background="bg" 
+              stage="submitted" 
+              isExpanded={true}
+            >
+              <div className="p-2">Content</div>
+            </Collapsible>
+            
+            <Collapsible 
+              header="Update header name with key value" 
+              type="form" 
+              background="bg" 
+              stage="submitted" 
+              isExpanded={false}
+            />
+          </div>
+        </div>
+        
+        {/* White, Default Stage */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">White, Default Stage</h3>
+          <div className="flex flex-col gap-4">
+            <Collapsible 
+              header="White, Open, Default, Form" 
+              type="form" 
+              background="white" 
+              stage="default" 
+              isExpanded={true}
+            >
+              <div className="p-2">Content</div>
+            </Collapsible>
+            
+            <Collapsible 
+              header="White, Closed, Default, Form" 
+              type="form" 
+              background="white" 
+              stage="default" 
+              isExpanded={false}
+            />
+          </div>
+        </div>
+        
+        {/* White, Submitted Stage */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">White, Submitted Stage</h3>
+          <div className="flex flex-col gap-4">
+            <Collapsible 
+              header="Update header name with key value" 
+              type="form" 
+              background="white" 
+              stage="submitted" 
+              isExpanded={true}
+            >
+              <div className="p-2">Content</div>
+            </Collapsible>
+            
+            <Collapsible 
+              header="Update header name with key value" 
+              type="form" 
+              background="white" 
+              stage="submitted" 
+              isExpanded={false}
+            />
+          </div>
+        </div>
+        
+        <h2 className="text-xl font-bold mt-8">Text Type Variants</h2>
+        
+        {/* BG, Default Stage */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">BG, Default Stage</h3>
+          <div className="flex flex-col gap-4">
+            <Collapsible 
+              header="BG, Open, Default, Text" 
+              type="text" 
+              background="bg" 
+              stage="default" 
+              isExpanded={true}
+            >
+              <div className="p-2">Content</div>
+            </Collapsible>
+            
+            <Collapsible 
+              header="BG, Closed, Default, Text" 
+              type="text" 
+              background="bg" 
+              stage="default" 
+              isExpanded={false}
+            />
+          </div>
+        </div>
+        
+        {/* White, Default Stage */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">White, Default Stage</h3>
+          <div className="flex flex-col gap-4">
+            <Collapsible 
+              header="White, Open, Default, Text" 
+              type="text" 
+              background="white" 
+              stage="default" 
+              isExpanded={true}
+            >
+              <div className="p-2">Content</div>
+            </Collapsible>
+            
+            <Collapsible 
+              header="White, Closed, Default, Text" 
+              type="text" 
+              background="white" 
+              stage="default" 
+              isExpanded={false}
+            />
+          </div>
+        </div>
+        
+        {/* Custom Badges */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Custom Badges</h3>
+          <Collapsible 
+            header="Collapsible with Custom Badges" 
+            type="form" 
+            background="white" 
+            badges={{
+              loads: 10,
+              invoices: 5,
+              materials: 3,
+              custom: 7
+            }}
+          />
+        </div>
       </div>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Expanded submitted stage showing both badge counters and content area.',
-      },
-    },
-  },
-};
-
-export const BGWhiteStateClosed: Story = {
-  args: {
-    header: 'Collapsible header',
-    background: 'white',
-    stage: 'default',
-    isExpanded: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'White background variant - perfect for nested or secondary content sections.',
-      },
-    },
-  },
-};
-
-export const BGWhiteStateOpen: Story = {
-  args: {
-    header: 'Collapsible header',
-    background: 'white',
-    stage: 'default',
-    isExpanded: true,
-    children: (
-      <div className="space-y-4">
-        <p>This is the content of the collapsible section with white background.</p>
-        <p>You can put any content here when expanded.</p>
-      </div>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'White background in expanded state with clean, minimal appearance.',
-      },
-    },
-  },
-};
-
-export const BGWhiteStateClosedSubmitted: Story = {
-  args: {
-    header: 'Update header name with key value',
-    background: 'white',
-    stage: 'submitted',
-    isExpanded: false,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'White background with submitted stage badges for secondary sections.',
-      },
-    },
-  },
-};
-
-export const BGWhiteStateOpenSubmitted: Story = {
-  args: {
-    header: 'Update header name with key value',
-    background: 'white',
-    stage: 'submitted',
-    isExpanded: true,
-    children: (
-      <div className="space-y-4">
-        <p>This is the content with white background and submitted badges.</p>
-        <p>Shows loads, invoices, and materials badges.</p>
-      </div>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Fully expanded white background variant with submitted stage features.',
-      },
-    },
-  },
-};
-
-export const CustomBadges: Story = {
-  args: {
-    header: 'Custom badge values',
-    background: 'gray',
-    stage: 'default',
-    badges: {
-      loads: 5,
-      invoices: 3,
-      materials: 12,
-    },
-    isExpanded: true,
-    children: (
-      <div className="space-y-4">
-        <p>This example shows custom badge values.</p>
-        <p>You can override the default submitted stage badges.</p>
-      </div>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Demonstrates custom badge values - override default counts for specific use cases.',
-      },
-    },
-  },
+    );
+  }
 }; 

@@ -1,39 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { cn } from '../../../lib/utils';
 
 export type CellBackgroundColor = 'white' | 'bg';
-export type CellBorderStyle = 'single' | 'double';
+export type CellLineVariant = 'single' | 'double';
+export type CellSize = 'md' | 'lg' | 'xl';
+export type CellState = 'default' | 'hover' | 'selected';
 
 export interface TableCellProps {
   backgroundColor?: CellBackgroundColor;
-  borderStyle?: CellBorderStyle;
+  lineVariant?: CellLineVariant;
+  size?: CellSize;
+  state?: CellState;
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }
 
 export const TableCell: React.FC<TableCellProps> = ({
   backgroundColor = 'white',
-  borderStyle = 'single',
+  lineVariant = 'single',
+  size = 'md',
+  state = 'default',
   children,
-  className
+  className,
+  onClick
 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Determine if the cell should show hover state
+  const showHoverState = state === 'hover' || (state === 'default' && isHovered);
+  
   return (
     <td
       className={cn(
-        // Base padding from Figma: 32px 20px 32px 8px for data cells
-        "py-[32px] px-[20px] pl-[8px]",
-        // Background colors from Figma - exact hex values
-        backgroundColor === 'white' && "bg-[#FFFFFF]", // White background
-        backgroundColor === 'bg' && "bg-[#F8F8F9]", // Light gray background
-        // Border styles from Figma: #CED1D7 border color
-        borderStyle === 'single' && "border-b border-[#CED1D7]",
-        borderStyle === 'double' && "border-b-2 border-[#CED1D7]",
+        // Base styles
+        "transition-colors duration-200 border-b border-[#CED1D7]",
+        
+        // Size variants from Figma
+        size === 'md' && "py-[20px] px-[20px] pl-[8px]",
+        size === 'lg' && "py-[20px] px-[16px] pl-[8px]",
+        size === 'xl' && "py-[32px] px-[20px] pl-[8px]",
+        
+        // Background colors based on state
+        (state === 'default' && !isHovered) && (
+          backgroundColor === 'white' ? "bg-[#FFFFFF]" : "bg-[#F8F8F9]"
+        ),
+        (showHoverState || state === 'selected') && "bg-[#F0F1F7]",
+        
+        // Selected state can have additional styling if needed
+        state === 'selected' && "relative",
+        
         // Vertical alignment
         "align-top",
         className
       )}
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex flex-col justify-center gap-[8px] min-h-[19px]">
+      <div className={cn(
+        "flex flex-col justify-center",
+        // Line variant affects the layout of child elements
+        lineVariant === 'single' && "gap-[4px]",
+        lineVariant === 'double' && "gap-[8px]",
+        // Size affects min-height
+        "min-h-[19px]"
+      )}>
         {children}
       </div>
     </td>
