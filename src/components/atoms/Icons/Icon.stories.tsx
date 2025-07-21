@@ -119,7 +119,15 @@ export const AllIcons = () => {
   const commonIcons = [
     'add', 'edit', 'delete', 'download', 'preview', 'refresh', 'cross-icon',
     'chevron-left', 'chevron-right', 'chevron-up', 'chevron-down',
-    'check', 'search', 'more', 'share', 'copy'
+    'check', 'search', 'more', 'share', 'copy',
+    'success', 'tata', 'temperature-cold', 'temperature-default', 'temperature-hot', 'three-dot-menu', 'time', 'tracker', 'train'
+  ];
+
+  const twoToneIcons = [
+    'dashboard', 'control-tower', 'my-trip', 'reports', 'indent',
+    'add-trip', 'bulk-trip', 'truck', 'settlement', 
+    'strength-high', 'strength-medium', 'strength-low', 'strength-no-tracking',
+    'planning', 'home'
   ];
 
   return (
@@ -136,6 +144,24 @@ export const AllIcons = () => {
           <div key={iconName} className="flex flex-col items-center gap-2">
             <div className="w-11 h-11 bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
               <Icon name={iconName as any} size={16} />
+            </div>
+            <span className="text-xs text-gray-500 text-center">{iconName}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-10">
+        <h3 className="text-lg font-semibold mb-4">Two-Tone Icons</h3>
+        <p className="text-sm text-gray-600 mb-6">
+          Icons with primary and secondary elements for visual hierarchy.
+        </p>
+      </div>
+      
+      <div className="grid grid-cols-8 gap-4">
+        {twoToneIcons.map((iconName) => (
+          <div key={iconName} className="flex flex-col items-center gap-2">
+            <div className="w-14 h-14 bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
+              <Icon name={iconName as any} size={24} />
             </div>
             <span className="text-xs text-gray-500 text-center">{iconName}</span>
           </div>

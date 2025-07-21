@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { DatePicker, DatePickerField, Label } from './DatePicker';
+import { DatePicker, DatePickerField } from './DatePicker';
+import { Label } from '../../atoms/Label/Label';
 
 describe('DatePicker Components', () => {
   describe('Label Component', () => {

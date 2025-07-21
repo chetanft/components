@@ -1,9 +1,9 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Dropdown } from '../components/molecules/Dropdown/Dropdown';
+import { Dropdown } from './Dropdown';
 
 const meta: Meta<typeof Dropdown> = {
-  title: 'Components/Dropdown',
+  title: 'Molecules/Dropdown',
   component: Dropdown,
   parameters: {
     layout: 'padded',
@@ -26,16 +26,39 @@ export const Default: Story = {
   },
 };
 
-// Required field
-export const Required: Story = {
+// Search dropdown
+export const Search: Story = {
   args: {
-    label: 'Required Field',
-    required: true,
-    placeholder: 'Please select an option',
+    label: 'Search Dropdown',
+    type: 'search',
+    placeholder: 'Search options',
     options: [
       { value: 'option1', label: 'Option 1' },
       { value: 'option2', label: 'Option 2' },
       { value: 'option3', label: 'Option 3' },
+      { value: 'option4', label: 'Option 4' },
+      { value: 'option5', label: 'Option 5' },
+    ],
+  },
+};
+
+// Search with Segmented Tabs
+export const SearchWithSegments: Story = {
+  args: {
+    label: 'Search with Segments',
+    type: 'search',
+    placeholder: 'Search groups',
+    segments: [
+      { label: 'Group', value: 'group' },
+      { label: 'Branch', value: 'branch' },
+    ],
+    selectedSegment: 'group',
+    options: [
+      { value: 'all', label: 'All Groups' },
+      { value: 'group1', label: 'Group 1' },
+      { value: 'group2', label: 'Group 2' },
+      { value: 'group3', label: 'Group 3' },
+      { value: 'group4', label: 'Group 4' },
     ],
   },
 };
@@ -84,32 +107,6 @@ export const Sizes: Story = {
   ),
 };
 
-// Label positions
-export const LabelPositions: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <Dropdown
-        label="Top Label"
-        labelPosition="top"
-        placeholder="Top label position"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Left Label"
-        labelPosition="left"
-        placeholder="Left label position"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-    </div>
-  ),
-};
-
 // States
 export const States: Story = {
   render: () => (
@@ -126,6 +123,7 @@ export const States: Story = {
       <Dropdown
         label="Error"
         state="error"
+        error="This field has an error"
         placeholder="Error state"
         options={[
           { value: 'option1', label: 'Option 1' },

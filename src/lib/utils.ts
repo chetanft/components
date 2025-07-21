@@ -50,7 +50,7 @@ export function getComponentStyles(size: ComponentSize = 'md') {
   // Size-specific icon sizes
   const iconSizeMap = {
     sm: 16,
-    md: 20,
+    md: 18,
     lg: 24,
     xl: 28
   };

@@ -1,5 +1,7 @@
 import React from 'react';
 import { CheckFill } from '../Icons';
+import { Label } from '../Label/Label';
+import { cn } from '../../../lib/utils';
 
 export interface ReadOnlyProps {
   /**
@@ -48,61 +50,25 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
   className = '',
 }) => {
   const defaultIcon = (
-    <div style={{ width: '16px', height: '16px', flexShrink: 0 }}>
+    <div className="w-4 h-4 flex-shrink-0">
       <CheckFill />
     </div>
   );
 
   const iconElement = icon || defaultIcon;
 
-  const labelStyles = {
-    fontFamily: 'Inter, sans-serif',
-    fontSize: '14px',
-    fontWeight: '500',
-    lineHeight: '1.4',
-    color: '#5F697B',
-  };
-
-  const valueStyles = {
-    fontFamily: 'Inter, sans-serif',
-    fontSize: '16px',
-    fontWeight: '400',
-    lineHeight: '1.4',
-    color: '#434F64',
-  };
-
-  const subtextStyles = {
-    fontFamily: 'Inter, sans-serif',
-    fontSize: '14px',
-    fontWeight: '500',
-    lineHeight: '1.4',
-    color: '#5F697B',
-  };
+  const valueStyles = "font-sans text-base font-normal leading-[1.4] text-[#434F64]";
+  const subtextStyles = "font-sans text-sm font-medium leading-[1.4] text-[#5F697B]";
 
   if (type === 'horizontal') {
     return (
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        }}
-        className={className}
-      >
-        {labelIcon && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '4px',
-          }}>
-            {iconElement}
-            <span style={labelStyles}>{label}:</span>
-          </div>
-        )}
-        {!labelIcon && (
-          <span style={labelStyles}>{label}:</span>
-        )}
-        <span style={valueStyles}>{value}</span>
+      <div className={cn("flex items-center gap-2", className)}>
+        <Label
+          icon={labelIcon ? iconElement : undefined}
+        >
+          {label}:
+        </Label>
+        <span className={valueStyles}>{value}</span>
       </div>
     );
   }
@@ -110,39 +76,20 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
   // Vertical layout
   if (labelIcon) {
     return (
-      <div
-        style={{
-          display: 'flex',
-          gap: subtext ? '4px' : '8px',
-        }}
-        className={className}
-      >
+      <div className={cn("flex gap-1", subtext ? "gap-1" : "gap-2", className)}>
         {iconElement}
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: subtext ? '4px' : '8px',
-          flex: 1,
-        }}>
+        <div className="flex flex-col gap-1 flex-1">
           {/* Label and Value */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px',
-          }}>
-            <span style={labelStyles}>{label}</span>
-            <span style={valueStyles}>{value}</span>
+          <div className="flex flex-col gap-2">
+            <Label>{label}</Label>
+            <span className={valueStyles}>{value}</span>
           </div>
           
           {/* Subtext if provided */}
           {subtext && (
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '4px',
-            }}>
+            <div className="flex items-center gap-1">
               {iconElement}
-              <span style={subtextStyles}>{subtext}</span>
+              <span className={subtextStyles}>{subtext}</span>
             </div>
           )}
         </div>
@@ -152,34 +99,18 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
 
   // Vertical without icon
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: subtext ? '4px' : '8px',
-        width: '183px', // Fixed width as in Figma
-      }}
-      className={className}
-    >
+    <div className={cn("flex flex-col gap-1", subtext ? "gap-1" : "gap-2", "w-[183px]", className)}>
       {/* Label and Value */}
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px',
-      }}>
-        <span style={labelStyles}>{label}</span>
-        <span style={valueStyles}>{value}</span>
+      <div className="flex flex-col gap-2">
+        <Label>{label}</Label>
+        <span className={valueStyles}>{value}</span>
       </div>
       
       {/* Subtext if provided */}
       {subtext && (
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '4px',
-        }}>
+        <div className="flex items-center gap-1">
           {iconElement}
-          <span style={subtextStyles}>{subtext}</span>
+          <span className={subtextStyles}>{subtext}</span>
         </div>
       )}
     </div>

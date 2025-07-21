@@ -3,21 +3,21 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
+import { SegmentedTabs, type SegmentedTabItem } from '../SegmentedTabs';
 
 // Unified dropdown field variants using the design system
 const dropdownFieldVariants = cva(
-  // Base styles - unified across all components
-  "relative w-full border-2 transition-all duration-200 font-sans font-normal bg-surface dark:bg-surface-dark text-input dark:text-input-dark focus-within:ring-2 focus-within:ring-focus-ring focus-within:border-dark-100",
+  "relative w-full border transition-all duration-200 font-sans font-normal bg-white dark:bg-surface-dark text-[#434F64] dark:text-input-dark focus-within:ring-2 focus-within:ring-focus-ring",
   {
     variants: {
       size: {
-        sm: "", // Styles applied via unified system
-        md: "", // Styles applied via unified system  
-        lg: "", // Styles applied via unified system
-        xl: "", // Styles applied via unified system
+        sm: "text-sm",
+        md: "text-base",
+        lg: "text-base",
+        xl: "text-base",
       },
       state: {
-        default: "border-border dark:border-border-dark focus-within:border-focus dark:focus-within:border-focus-dark",
+        default: "border-[#CED1D7] dark:border-border-dark focus-within:border-focus dark:focus-within:border-focus-dark",
         error: "border-critical focus-within:border-critical focus-within:ring-critical/20",
         disabled: "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed",
       },
@@ -34,6 +34,23 @@ const dropdownFieldVariants = cva(
   }
 );
 
+// Dropdown menu item variants
+const dropdownMenuItemVariants = cva(
+  "flex items-center px-3 py-2 cursor-pointer transition-colors rounded-lg text-[#434F64] text-base",
+  {
+    variants: {
+      state: {
+        default: "hover:bg-[#F0F1F7] focus:bg-[#CED1D7]",
+        selected: "bg-[#F8F8F9]",
+        disabled: "text-[#838C9D] cursor-not-allowed",
+      },
+    },
+    defaultVariants: {
+      state: "default",
+    },
+  }
+);
+
 export interface DropdownOption {
   value: string | number;
   label: string;
@@ -44,7 +61,7 @@ export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants
   options: DropdownOption[];
   value?: string | number;
   placeholder?: string;
-  size?: ComponentSize; // Use unified sizing
+  size?: ComponentSize;
   state?: 'default' | 'error' | 'disabled';
   type?: 'normal' | 'search';
   className?: string;
@@ -58,9 +75,51 @@ export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants
   labelPosition?: 'top' | 'left';
   error?: string;
   helperText?: string;
-  required?: boolean; // Keep for backward compatibility
+  required?: boolean;
   onSelect?: (value: string) => void;
+  segments?: SegmentedTabItem[];
+  selectedSegment?: string;
+  onSegmentChange?: (value: string) => void;
 }
+
+interface SizeStyles {
+  height: string;
+  fontSize: string;
+  borderRadius: string;
+  padding: string;
+  iconSize: number;
+}
+
+const sizeStylesMap: Record<ComponentSize, SizeStyles> = {
+  sm: {
+    height: "h-8",
+    fontSize: "text-sm",
+    borderRadius: "rounded-lg",
+    padding: "px-3",
+    iconSize: 16,
+  },
+  md: {
+    height: "h-10",
+    fontSize: "text-base",
+    borderRadius: "rounded-lg",
+    padding: "px-3 py-2",
+    iconSize: 16,
+  },
+  lg: {
+    height: "h-12",
+    fontSize: "text-base",
+    borderRadius: "rounded-lg",
+    padding: "px-4 py-2",
+    iconSize: 16,
+  },
+  xl: {
+    height: "h-16",
+    fontSize: "text-base",
+    borderRadius: "rounded-lg",
+    padding: "px-3 py-5",
+    iconSize: 16,
+  },
+};
 
 export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   (
@@ -84,6 +143,9 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       helperText,
       required = false,
       onSelect,
+      segments,
+      selectedSegment,
+      onSegmentChange,
       ...props
     },
     ref
@@ -92,8 +154,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedValue, setSelectedValue] = useState(value);
 
-    // Core component - no AI filtering (use ft-design-system/ai for AI protection)
     const componentStyles = getComponentStyles(size);
+    const sizeStyles = sizeStylesMap[size];
 
     // Filter options based on search query
     const filteredOptions = options.filter((option: DropdownOption) =>
@@ -119,10 +181,10 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     const renderField = () => {
       const fieldClasses = cn(
         dropdownFieldVariants({ size, state, type }),
-        componentStyles.height,
-        componentStyles.fontSize,
-        componentStyles.borderRadius,
-        componentStyles.padding,
+        sizeStyles.height,
+        sizeStyles.fontSize,
+        sizeStyles.borderRadius,
+        sizeStyles.padding,
         "cursor-pointer flex items-center justify-between",
         state === "disabled" && "pointer-events-none",
         className
@@ -136,65 +198,75 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           data-size={size}
           {...props}
         >
-          <span className={selectedOption ? "text-input dark:text-input-dark" : "text-placeholder dark:text-placeholder-dark"}>
+          <span className={cn(
+            selectedOption ? "text-[#434F64]" : "text-[#838C9D]",
+            "text-base"
+          )}>
             {selectedOption ? selectedOption.label : placeholder}
           </span>
           <Icon
             name="chevron-down"
-            size={componentStyles.iconSize}
+            size={sizeStyles.iconSize}
             className={cn(
               "transition-transform duration-200",
               isOpen && "rotate-180",
-              state === "disabled" ? "text-input-disabled dark:text-input-disabled-dark" : "text-icon dark:text-icon-dark"
+              state === "disabled" ? "text-input-disabled dark:text-input-disabled-dark" : "text-[#434F64]"
             )}
           />
           
           {/* Dropdown Menu */}
           {isOpen && (
             <div className={cn(
-              "absolute top-full left-0 right-0 z-50 mt-1 bg-surface dark:bg-surface-dark border border-border dark:border-border-dark shadow-lg max-h-60 overflow-auto",
-              componentStyles.borderRadius
+              "absolute top-full left-0 right-0 z-50 mt-1 bg-white dark:bg-surface-dark border border-[#CED1D7] dark:border-border-dark shadow-lg rounded-lg overflow-hidden",
+              "p-2 flex flex-col gap-1"
             )}>
-              {type === "search" && (
-                <div className="p-2 border-b border-border dark:border-border-dark">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    className={cn(
-                      "w-full border border-border dark:border-border-dark bg-surface dark:bg-surface-dark text-input dark:text-input-dark",
-                      componentStyles.fontSize,
-                      componentStyles.borderRadius,
-                      "px-3 py-2 focus:outline-none focus:ring-2 focus:ring-focus dark:focus:ring-focus-dark"
-                    )}
-                    autoFocus
+              {segments && (
+                <div className="mb-4">
+                  <SegmentedTabs
+                    items={segments}
+                    value={selectedSegment}
+                    onChange={onSegmentChange}
                   />
                 </div>
               )}
               
-              {filteredOptions.length === 0 ? (
-                <div className="p-3 text-placeholder dark:text-placeholder-dark text-center">
-                  No options found
+              {type === "search" && (
+                <div className="mb-2">
+                  <div className="relative">
+                    <Icon
+                      name="search"
+                      size={16}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#838C9D]"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      value={searchQuery}
+                      onChange={handleSearchChange}
+                      className="w-full pl-9 pr-3 py-2 border border-[#CED1D7] dark:border-border-dark rounded-lg text-base text-[#434F64] placeholder-[#838C9D] focus:outline-none focus:ring-2 focus:ring-focus-ring focus:border-focus"
+                    />
+                  </div>
                 </div>
-              ) : (
-                filteredOptions.map((option: DropdownOption) => (
+              )}
+              
+              <div className="max-h-60 overflow-y-auto">
+                {filteredOptions.map((option: DropdownOption) => (
                   <div
                     key={option.value}
                     className={cn(
-                      "px-3 py-2 cursor-pointer transition-colors",
-                      componentStyles.fontSize,
-                      option.disabled
-                        ? "text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"
-                        : "text-input dark:text-input-dark hover:bg-surface-alt dark:hover:bg-surface-alt-dark",
-                      selectedValue === option.value && "bg-surface-selected dark:bg-surface-selected-dark"
+                      dropdownMenuItemVariants({
+                        state: option.disabled ? "disabled" : selectedValue === option.value ? "selected" : "default",
+                      })
                     )}
                     onClick={() => !option.disabled && handleSelect(option.value)}
                   >
-                    {option.label}
+                    <span className="flex-1">{option.label}</span>
+                    {selectedValue === option.value && (
+                      <Icon name="check" size={16} className="text-[#434F64] ml-2" />
+                    )}
                   </div>
-                ))
-              )}
+                ))}
+              </div>
             </div>
           )}
         </div>
@@ -203,20 +275,21 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
     const renderLabel = () => {
       if (!label) return null;
-      
-      // Determine if field is mandatory: either explicitly set or required for backward compatibility
-      const isMandatory = labelMandatory || (required && !labelOptional);
-      
+
       return (
-        <Label
-          mandatory={isMandatory}
-          optional={labelOptional}
-          suffixIcon={labelSuffixIcon}
-          icon={labelIcon}
-          className={labelPosition === "left" ? "mb-0" : "mb-2"}
-        >
-          {label}
-        </Label>
+        <div className={cn(
+          "flex items-center",
+          labelPosition === "left" ? "mr-4" : "mb-2"
+        )}>
+          <Label
+            mandatory={labelMandatory}
+            optional={labelOptional}
+            suffixIcon={labelSuffixIcon}
+            icon={labelIcon}
+          >
+            {label}
+          </Label>
+        </div>
       );
     };
 
@@ -233,23 +306,30 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       );
     };
 
-    if (labelPosition === "left") {
-      return (
-        <div className={cn("flex items-start gap-4", className)}>
-          {renderLabel()}
-          <div className="flex flex-col gap-2 flex-1 relative">
-            {renderField()}
-            {renderHelperText()}
-          </div>
-        </div>
-      );
-    }
-
     return (
-      <div className={cn("flex flex-col gap-2 relative", className)}>
-        {renderLabel()}
-        {renderField()}
-        {renderHelperText()}
+      <div className="w-full space-y-2">
+        {/* Label */}
+        {label && (
+          <div className={cn(
+            "flex items-center",
+            labelPosition === "left" && "mb-0 mr-4"
+          )}>
+            <Label
+              mandatory={labelMandatory}
+              optional={labelOptional}
+              suffixIcon={labelSuffixIcon}
+              icon={labelIcon}
+            >
+              {label}
+            </Label>
+          </div>
+        )}
+
+        {/* Main Content */}
+        <div className="relative">
+          {renderField()}
+          {(error || helperText) && renderHelperText()}
+        </div>
       </div>
     );
   }
@@ -257,6 +337,6 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
 Dropdown.displayName = "Dropdown";
 
-export default Dropdown; 
+export default Dropdown;
 
 export { dropdownFieldVariants }; 

@@ -2,7 +2,7 @@ import React from 'react';
 
 export const TemperatureHot: React.FC = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g clip-path="url(#clip0_644_36)">
+    <g clipPath="url(#clip0_644_36)">
 <path d="M7.94 13C8.63036 13 9.19 12.4404 9.19 11.75C9.19 11.0596 8.63036 10.5 7.94 10.5C7.24965 10.5 6.69 11.0596 6.69 11.75C6.69 12.4404 7.24965 13 7.94 13Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
 <path d="M7.94 10.5V3" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
 <path d="M15.0187 3.07999C14.9026 3.19621 14.7648 3.28841 14.613 3.35131C14.4613 3.41422 14.2986 3.4466 14.1344 3.4466C13.9701 3.4466 13.8074 3.41422 13.6557 3.35131C13.5039 3.28841 13.3661 3.19621 13.25 3.07999C13.1339 2.96377 12.996 2.87157 12.8443 2.80866C12.6925 2.74576 12.5299 2.71338 12.3656 2.71338C12.2013 2.71338 12.0387 2.74576 11.8869 2.80866C11.7352 2.87157 11.5973 2.96377 11.4812 3.07999" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>

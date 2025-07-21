@@ -214,7 +214,7 @@ export const CircularButtons: Story = {
           <Button variant="secondary" size="lg" className="rounded-full" icon="edit" iconPosition="only" />
         </div>
         <div className="text-xs text-gray-500 mt-2">
-          Small: 36×36px | Medium: 44×44px | Large: 52×52px
+          Small: 36×36px | Medium: 40×40px | Large: 52×52px
         </div>
       </div>
       
@@ -249,21 +249,14 @@ export const CircularButtons: Story = {
             <Button variant="secondary" size="md">
               <Icon name="edit" size={16} />
             </Button>
-            <span className="text-xs text-gray-500">Regular Button</span>
+            <div className="text-xs text-gray-500">Standard</div>
           </div>
           <div className="flex flex-col items-center gap-2">
             <Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />
-            <span className="text-xs text-gray-500">Circular Button</span>
+            <div className="text-xs text-gray-500">Circular</div>
           </div>
         </div>
       </div>
     </div>
   ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Demonstrates the automatic circular button functionality. When `rounded-full` class is applied, the button width automatically equals the height for perfect circles, ideal for icon-only buttons.'
-      }
-    }
-  }
 }; 
