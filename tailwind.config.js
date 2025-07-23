@@ -83,6 +83,10 @@ module.exports = {
         'xl': 'var(--radius-xl)', // 16px
         // COMPONENT SYSTEM COMPATIBILITY
         'component': 'var(--component-border-radius)', // 8px - Used by getComponentStyles()
+        // SHAPE SYSTEM
+        'pill': '9999px', // Pill shape for tertiary tabs and buttons
+        'full': '9999px', // Full rounded (same as pill)
+        'circle': '50%', // Perfect circles
       },
       
       // SHADOW TOKENS
