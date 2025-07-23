@@ -213,31 +213,31 @@ describe('RadioGroup', () => {
   describe('Visual States', () => {
     it('applies correct border color for unselected state', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptions} />);
-      const radio = container.querySelector('.border-\\[\\#838c9d\\]');
+      const radio = container.querySelector('.border-\\[\\border-\[var\(--color-tertiary\)\]\\]');
       expect(radio).toBeInTheDocument();
     });
 
     it('applies correct border color for selected state', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptions} value="option1" onChange={() => {}} />);
-      const radio = container.querySelector('.border-\\[\\#434f64\\]');
+      const radio = container.querySelector('.border-\\[\\border-\[var\(--color-primary\)\]\\]');
       expect(radio).toBeInTheDocument();
     });
 
     it('applies correct border color for disabled state', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptionsWithDisabled} />);
-      const radios = container.querySelectorAll('.border-\\[\\#ced1d7\\]');
+      const radios = container.querySelectorAll('.border-\\[\\border-\[var\(--color-border-primary\)\]\\]');
       expect(radios.length).toBeGreaterThan(0);
     });
 
     it('shows dot for selected radio', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptions} value="option1" onChange={() => {}} />);
-      const dot = container.querySelector('.bg-\\[\\#434f64\\]');
+      const dot = container.querySelector('.bg-\[var\(--color-primary\)\][\\border-\[var\(--color-primary\)\]\\]');
       expect(dot).toBeInTheDocument();
     });
 
     it('does not show dot for unselected radio', () => {
       render(<RadioGroup name="test" options={mockOptions} />);
-      const dots = document.querySelectorAll('.bg-\\[\\#434f64\\]');
+      const dots = document.querySelectorAll('.bg-\[var\(--color-primary\)\][\\border-\[var\(--color-primary\)\]\\]');
       expect(dots.length).toBe(0);
     });
   });

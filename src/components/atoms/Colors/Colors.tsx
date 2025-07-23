@@ -56,40 +56,40 @@ export function Colors() {
         
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           <ColorSwatch 
-            colorName="White" 
-            colorVar="--white" 
+            colorName="BG/Primary" 
+            colorVar="--bg-primary" 
             colorValue="#ffffff" 
           />
           <ColorSwatch 
-            colorName="Dark 100" 
-            colorVar="--dark-100" 
+            colorName="Primary" 
+            colorVar="--primary" 
             colorValue="#434f64" 
             textColor="text-white"
           />
           <ColorSwatch 
-            colorName="Dark 50" 
-            colorVar="--dark-50" 
+            colorName="Secondary" 
+            colorVar="--secondary" 
             colorValue="#5f697b" 
             textColor="text-white"
           />
           <ColorSwatch 
-            colorName="Dark 25" 
-            colorVar="--dark-25" 
+            colorName="Tertiary" 
+            colorVar="--tertiary" 
             colorValue="#838c9d" 
           />
           <ColorSwatch 
-            colorName="Box Border" 
-            colorVar="--box-border" 
+            colorName="Border/Primary" 
+            colorVar="--border-primary" 
             colorValue="#ced1d7" 
           />
           <ColorSwatch 
-            colorName="Divider" 
-            colorVar="--divider" 
+            colorName="Border/Secondary" 
+            colorVar="--border-secondary" 
             colorValue="#f0f1f7" 
           />
           <ColorSwatch 
-            colorName="Background" 
-            colorVar="--bg" 
+            colorName="BG/Secondary" 
+            colorVar="--bg-secondary" 
             colorValue="#f8f8f9" 
           />
         </div>

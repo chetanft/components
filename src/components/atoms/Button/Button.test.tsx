@@ -43,13 +43,13 @@ describe('Button Component', () => {
     it('applies primary variant styles by default', () => {
       render(<Button>Primary</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-dark-100', 'text-white', 'border-dark-100');
+      expect(button).toHaveClass('bg-primary', 'text-white', 'border-primary');
     });
 
     it('applies secondary variant styles', () => {
       render(<Button variant="secondary">Secondary</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-white', 'text-dark-100', 'border-box-border');
+      expect(button).toHaveClass('bg-white', 'text-primary', 'border-border-primary');
     });
 
     it('applies destructive variant styles', () => {
@@ -61,7 +61,7 @@ describe('Button Component', () => {
     it('applies text variant styles', () => {
       render(<Button variant="text">Text Button</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-transparent', 'text-dark-100', 'border-transparent');
+      expect(button).toHaveClass('bg-transparent', 'text-primary', 'border-transparent');
     });
 
     it('applies link variant styles', () => {
