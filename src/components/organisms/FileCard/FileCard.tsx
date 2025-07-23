@@ -168,7 +168,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
             <div className="flex flex-col gap-[8px]">
               {/* File name and badge should be horizontally aligned */}
               <div className="flex items-center gap-[20px]">
-                <h3 className="text-[16px] font-[600] leading-[1.4] text-[#434F64]">
+                <h3 className="text-[16px] font-[600] leading-[1.4] text-[var(--primary)]">
                   {fileName}
                 </h3>
                 <Badge 
@@ -182,7 +182,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
               
               {/* File Date (for processed files) */}
               {fileDate && (
-                <p className="text-[14px] font-[400] leading-[1.4] text-[#5F697B]">
+                <p className="text-[14px] font-[400] leading-[1.4] text-[var(--secondary)]">
                   {fileDate}
                 </p>
               )}
@@ -272,20 +272,20 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
         {showStats && (
           <div className="flex items-stretch gap-[20px] pl-[64px]">
             {/* Total */}
-            <div className="flex-1 bg-[#F8F8F9] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
-              <span className="text-[14px] font-[500] leading-[1.4] text-[#5F697B]">Total</span>
-              <span className="text-[20px] font-[400] leading-[1.4] text-[#434F64]">{stats?.total || 0}</span>
+            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
+              <span className="text-[14px] font-[500] leading-[1.4] text-[var(--secondary)]">Total</span>
+              <span className="text-[20px] font-[400] leading-[1.4] text-[var(--primary)]">{stats?.total || 0}</span>
             </div>
             
             {/* Success */}
-            <div className="flex-1 bg-[#F8F8F9] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
-              <span className="text-[14px] font-[500] leading-[1.4] text-[#5F697B]">Success</span>
+            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
+              <span className="text-[14px] font-[500] leading-[1.4] text-[var(--secondary)]">Success</span>
               <span className="text-[20px] font-[400] leading-[1.4] text-[#00C638]">{stats?.success || 0}</span>
             </div>
             
             {/* Invalid */}
-            <div className="flex-1 bg-[#F8F8F9] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
-              <span className="text-[14px] font-[500] leading-[1.4] text-[#5F697B]">Invalid</span>
+            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
+              <span className="text-[14px] font-[500] leading-[1.4] text-[var(--secondary)]">Invalid</span>
               <span className="text-[20px] font-[400] leading-[1.4] text-[#FF3533]">{stats?.invalid || 0}</span>
             </div>
           </div>

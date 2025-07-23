@@ -24,7 +24,7 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
       <div
         className={cn(
           // Base styles from Figma
-          "bg-[#F8F8F9] rounded-[8px] p-[20px]",
+          "bg-[var(--bg-secondary)] rounded-[8px] p-[20px]",
           "flex items-center gap-[16px]",
           "w-full",
           className
@@ -38,11 +38,11 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
           <Icon 
             name="excel" 
             size={16} 
-            className="text-[#434F64] flex-shrink-0"
+            className="text-[var(--primary)] flex-shrink-0"
           />
           
           {/* File Name */}
-          <span className="text-[14px] font-[500] leading-[1.4] text-[#434F64] truncate">
+          <span className="text-[14px] font-[500] leading-[1.4] text-[var(--primary)] truncate">
             {fileName}
           </span>
         </div>
@@ -56,7 +56,7 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
             onClick={onDownload}
           >
             <Icon name="download" size={16} />
-            <span className="text-[16px] font-[500] leading-[1.4] text-[#434F64]">
+            <span className="text-[16px] font-[500] leading-[1.4] text-[var(--primary)]">
               Download
             </span>
           </Button>

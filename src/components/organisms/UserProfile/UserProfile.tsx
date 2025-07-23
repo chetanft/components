@@ -46,7 +46,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
       {/* User Profile Default State */}
       <div 
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--bg-primary)',
           borderRadius: '8px',
           width: '229px',
           height: '51px',
@@ -106,7 +106,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
       {/* User Info Dropdown - Only show when open */}
       {isOpen && (
         <div style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--bg-primary)',
           borderRadius: '8px',
           width: '400px',
           position: 'absolute',
@@ -158,7 +158,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                     }} 
                   />
                 ) : (
-                  <div style={{ width: '32px', height: '32px', color: '#434F64' }}>
+                  <div style={{ width: '32px', height: '32px', color: 'var(--primary)' }}>
                     <User />
                   </div>
                 )}
@@ -184,12 +184,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                     fontWeight: 600,
                     fontSize: '20px',
                     lineHeight: '1.4em',
-                    color: '#434F64',
+                    color: 'var(--primary)',
                   }}>
                     {userName}
                   </span>
                   <div style={{
-                    backgroundColor: '#F0F1F7',
+                    backgroundColor: 'var(--border-secondary)',
                     borderRadius: '4px',
                     display: 'flex',
                     justifyContent: 'center',
@@ -202,7 +202,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                       fontWeight: 600,
                       fontSize: '14px',
                       lineHeight: '1.4em',
-                      color: '#434F64',
+                      color: 'var(--primary)',
                     }}>
                       {userBadge}
                     </span>
@@ -222,7 +222,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                     fontWeight: 400,
                     fontSize: '16px',
                     lineHeight: '1.4em',
-                    color: '#434F64',
+                    color: 'var(--primary)',
                   }}>
                     {userRole}
                   </span>
@@ -231,7 +231,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                     fontWeight: 500,
                     fontSize: '14px',
                     lineHeight: '1.4em',
-                    color: '#838C9D',
+                    color: 'var(--tertiary)',
                   }}>
                     {userLocation}
                   </span>
@@ -244,7 +244,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
           <div style={{
             width: '100%',
             height: '1px',
-            backgroundColor: '#F0F1F7',
+            backgroundColor: 'var(--border-secondary)',
           }} />
 
           {/* Menu Items */}
@@ -267,13 +267,13 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               }}
               onClick={() => onMenuItemClick('view-profile')}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#F9FAFB';
+                e.currentTarget.style.backgroundColor = 'var(--border-secondary)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
               }}
             >
-              <div style={{ width: '16px', height: '16px', color: '#434343' }}>
+              <div style={{ width: '16px', height: '16px', color: 'var(--primary)' }}>
                 <User />
               </div>
               <span style={{
@@ -281,7 +281,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                 fontWeight: 400,
                 fontSize: '16px',
                 lineHeight: '1.4em',
-                color: '#434F64',
+                color: 'var(--primary)',
               }}>
                 View Profile
               </span>
@@ -300,13 +300,13 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               }}
               onClick={() => onMenuItemClick('settings')}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#F9FAFB';
+                e.currentTarget.style.backgroundColor = 'var(--border-secondary)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
               }}
             >
-              <div style={{ width: '16px', height: '16px', color: '#434343' }}>
+              <div style={{ width: '16px', height: '16px', color: 'var(--primary)' }}>
                 <Settings />
               </div>
               <span style={{
@@ -314,7 +314,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                 fontWeight: 400,
                 fontSize: '16px',
                 lineHeight: '1.4em',
-                color: '#434F64',
+                color: 'var(--primary)',
               }}>
                 Settings
               </span>
@@ -333,13 +333,13 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               }}
               onClick={() => onMenuItemClick('change-desk')}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#F9FAFB';
+                e.currentTarget.style.backgroundColor = 'var(--border-secondary)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
               }}
             >
-              <div style={{ width: '16px', height: '16px', color: '#434343' }}>
+              <div style={{ width: '16px', height: '16px', color: 'var(--primary)' }}>
                 <Refresh />
               </div>
               <span style={{
@@ -347,7 +347,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                 fontWeight: 400,
                 fontSize: '16px',
                 lineHeight: '1.4em',
-                color: '#434F64',
+                color: 'var(--primary)',
               }}>
                 Change Desk
               </span>
@@ -366,13 +366,13 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               }}
               onClick={() => onMenuItemClick('change-password')}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#F9FAFB';
+                e.currentTarget.style.backgroundColor = 'var(--border-secondary)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
               }}
             >
-              <div style={{ width: '16px', height: '16px', color: '#434F64' }}>
+              <div style={{ width: '16px', height: '16px', color: 'var(--primary)' }}>
                 <Password />
               </div>
               <span style={{
@@ -380,7 +380,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                 fontWeight: 400,
                 fontSize: '16px',
                 lineHeight: '1.4em',
-                color: '#434F64',
+                color: 'var(--primary)',
               }}>
                 Change Password
               </span>
@@ -390,7 +390,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             <div style={{
               width: '100%',
               height: '1px',
-              backgroundColor: '#F0F1F7',
+              backgroundColor: 'var(--border-secondary)',
               margin: '8px 0',
             }} />
 

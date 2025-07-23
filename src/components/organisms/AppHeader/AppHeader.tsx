@@ -42,8 +42,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   return (
     <header 
       style={{
-        backgroundColor: '#F8F8F9',
-        borderBottom: '1px solid #CED1D7',
+        backgroundColor: 'var(--bg-secondary)',
+        borderBottom: '1px solid var(--border-primary)',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -64,7 +64,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       }}>
         {/* Layout Grid Icon */}
         <div style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--bg-primary)',
           borderRadius: '100px',
           padding: '16px',
           display: 'flex',
@@ -75,7 +75,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           boxSizing: 'border-box',
         }}>
           <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="#434F64" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
 
@@ -114,7 +114,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             }}
             onClick={() => onNotificationClick('rocket')}
           >
-            <div style={{ width: '24px', height: '24px', color: '#434F64' }}>
+            <div style={{ width: '24px', height: '24px', color: 'var(--primary)' }}>
               <Rocket />
             </div>
           </div>

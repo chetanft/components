@@ -51,12 +51,12 @@ const FilterChip: React.FC<{
           ? "bg-[#F0F1F7] border-0" 
           : isSubOption 
             ? "bg-white border-0" 
-            : "bg-white border border-[#CED1D7]",
+            : "bg-white border border-[var(--border-primary)]",
         isSubOption 
           ? isSelected ? "rounded-lg" : "rounded-none" 
           : "rounded-lg",
         "cursor-pointer transition-all duration-200",
-        "font-sans text-sm font-semibold text-[#434F64]",
+        "font-sans text-sm font-semibold text-[var(--primary)]",
         "whitespace-nowrap"
       )}
       onClick={onSelect}
@@ -75,7 +75,7 @@ const FilterChip: React.FC<{
           className={cn(
             "font-semibold",
             isSubOption ? "text-sm" : "text-base",
-            displayType === 'alert' ? "text-[#FF3533]" : "text-[#434F64]",
+            displayType === 'alert' ? "text-[var(--critical)]" : "text-[var(--primary)]",
             "leading-[1.21]"
           )}
         >
@@ -104,7 +104,7 @@ const FilterChip: React.FC<{
           <Icon
             name="close-filled"
             size={14}
-            className="text-[#434F64]"
+            className="text-[var(--primary)]"
           />
         </span>
       )}
@@ -118,18 +118,18 @@ const MultiOptionFilter: React.FC<{
   onFilterRemove: (filterId: string, optionId?: string) => void;
 }> = ({ filter, onFilterClick, onFilterRemove }) => {
   return (
-    <div className="inline-flex items-center bg-white border border-[#CED1D7] rounded-lg overflow-hidden h-9">
+    <div className="inline-flex items-center bg-white border border-[var(--border-primary)] rounded-lg overflow-hidden h-9">
       {/* Main filter section */}
       <div className="bg-[#F0F1F7] h-full flex items-center gap-2 px-3">
         {filter.count !== undefined && (
           <span className={cn(
             "text-base font-semibold leading-[1.21]",
-            filter.type === 'alert' ? "text-[#FF3533]" : "text-[#434F64]"
+            filter.type === 'alert' ? "text-[var(--critical)]" : "text-[var(--primary)]"
           )}>
             {filter.count}
           </span>
         )}
-        <span className="text-sm font-semibold text-[#434F64]">
+        <span className="text-sm font-semibold text-[var(--primary)]">
           {filter.label}
         </span>
       </div>
