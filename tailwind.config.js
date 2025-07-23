@@ -43,6 +43,18 @@ module.exports = {
           DEFAULT: 'var(--neutral)', // #1890ff
           'light': 'var(--neutral-light)', // #ecf6ff
         },
+        
+        // COMPONENT SYSTEM COLORS (CRITICAL - DO NOT REMOVE)
+        'component': {
+          'border': 'var(--component-border-color)',
+          'border-focus': 'var(--component-border-focus)',
+          'bg-default': 'var(--component-bg-default)',
+          'bg-hover': 'var(--component-bg-hover)',
+          'bg-disabled': 'var(--component-bg-disabled)',
+          'text-default': 'var(--component-text-default)',
+          'text-muted': 'var(--component-text-muted)',
+          'text-disabled': 'var(--component-text-disabled)',
+        },
       },
       
       // SPACING SYSTEM (8-point grid)
@@ -69,6 +81,8 @@ module.exports = {
         'md': 'var(--radius-md)', // 8px
         'lg': 'var(--radius-lg)', // 12px
         'xl': 'var(--radius-xl)', // 16px
+        // COMPONENT SYSTEM COMPATIBILITY
+        'component': 'var(--component-border-radius)', // 8px - Used by getComponentStyles()
       },
       
       // SHADOW TOKENS
@@ -93,17 +107,67 @@ module.exports = {
         'lg': 'var(--font-size-lg)', // 20px
         'xl': 'var(--font-size-xl)', // 24px
         'xxl': 'var(--font-size-xxl)', // 28px
+        // COMPONENT SYSTEM FONTS (CRITICAL - DO NOT REMOVE)
+        'component-sm': ['var(--component-font-size-sm)', { fontWeight: 'var(--component-font-weight)' }],
+        'component-md': ['var(--component-font-size-md)', { fontWeight: 'var(--component-font-weight)' }],
+        'component-lg': ['var(--component-font-size-lg)', { fontWeight: 'var(--component-font-weight)' }],
+        'component-xl': ['var(--component-font-size-xl)', { fontWeight: 'var(--component-font-weight)' }],
       },
       
       fontWeight: {
         'regular': 'var(--font-weight-regular)', // 400
         'medium': 'var(--font-weight-medium)', // 500
         'semibold': 'var(--font-weight-semibold)', // 600
-        'bold': 'var(--font-weight-bold)', // 700
-      },
-    },
-  },
-  plugins: [],
+                 'bold': 'var(--font-weight-bold)', // 700
+       },
+       
+       // COMPONENT SYSTEM DIMENSIONS (CRITICAL - DO NOT REMOVE)
+       height: {
+         'component-sm': 'var(--component-height-sm)',  // 36px
+         'component-md': 'var(--component-height-md)',  // 40px
+         'component-lg': 'var(--component-height-lg)',  // 52px
+         'component-xl': 'var(--component-height-xl)',  // 64px
+       },
+       
+       width: {
+         'component-sm': 'var(--component-height-sm)',  // 36px (for square components)
+         'component-md': 'var(--component-height-md)',  // 40px
+         'component-lg': 'var(--component-height-lg)',  // 52px
+         'component-xl': 'var(--component-height-xl)',  // 64px
+       },
+       
+       padding: {
+         'component-sm': 'var(--component-padding-sm)',
+         'component-md': 'var(--component-padding-md)',
+         'component-lg': 'var(--component-padding-lg)',
+         'component-xl': 'var(--component-padding-xl)',
+       },
+       
+       gap: {
+         'component-sm': 'var(--component-gap-sm)',
+         'component-md': 'var(--component-gap-md)',
+         'component-lg': 'var(--component-gap-lg)',
+       },
+       
+       borderWidth: {
+         'component': 'var(--component-border-width)',
+       },
+       
+       transitionProperty: {
+         'component': 'var(--component-transition)',
+       },
+       
+       // OPACITY SYSTEM
+       opacity: {
+         'disabled': '0.4',
+         'muted': '0.6',
+         'hover': '0.8',
+         'focus': '0.9',
+         'overlay': '0.5',
+       },
+     },
+   },
+   plugins: [],
   // Enable JIT mode for better performance
   mode: 'jit',
   // Dark mode configuration
