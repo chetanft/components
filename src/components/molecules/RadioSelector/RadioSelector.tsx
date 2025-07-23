@@ -59,13 +59,13 @@ export const RadioSelector: React.FC<RadioSelectorProps> = ({
             : "flex flex-col items-center justify-center p-3 min-h-[109px]",
           // Background and border styles based on state
           isDisabled
-            ? "bg-[#F8F8F9] cursor-not-allowed"
+            ? "bg-[var(--bg-secondary)] cursor-not-allowed"
             : cn(
-                "bg-[#F8F8F9]",
-                isSelected && "border border-[#434F64]",
+                "bg-[var(--bg-secondary)]",
+                isSelected && "border border-[var(--primary)]",
                 !isSelected && [
-                  "hover:bg-[#F0F1F7] hover:shadow-[0px_0px_0px_2px_rgba(206,209,215,1)]",
-                  "focus-visible:bg-[#CED1D7] focus-visible:shadow-[0px_0px_0px_2px_rgba(0,0,0,0.25)]"
+                  "hover:bg-[var(--border-secondary)] hover:shadow-[0px_0px_0px_2px_rgba(206,209,215,1)]",
+                  "focus-visible:bg-[var(--border-primary)] focus-visible:shadow-[0px_0px_0px_2px_rgba(0,0,0,0.25)]"
                 ]
               )
         );
@@ -74,10 +74,10 @@ export const RadioSelector: React.FC<RadioSelectorProps> = ({
         const radioStyles = cn(
           "relative shrink-0 w-5 h-5 rounded-full border-2 transition-all duration-200",
           isDisabled
-            ? "border-[#838C9D]"
+            ? "border-[var(--tertiary)]"
             : isSelected
-            ? "border-[#434F64]"
-            : "border-[#838C9D]"
+            ? "border-[var(--primary)]"
+            : "border-[var(--tertiary)]"
         );
 
         const contentContainerStyles = cn(

@@ -61,3 +61,9 @@ export { Badge as BadgeLegacy } from './atoms/Badge/Badge';
 // ======================
 // Re-export commonly used utilities
 export { cn } from '../lib/utils'; 
+
+// Theme System
+export { ThemeProvider, useTheme } from '../contexts/ThemeContext';
+export { ThemeSwitch } from './molecules/ThemeSwitch';
+export type { Theme, ThemeContextType, ThemeProviderProps } from '../contexts/ThemeContext';
+export type { ThemeSwitchProps } from './molecules/ThemeSwitch'; 

@@ -31,7 +31,7 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
       }
     };
     
-    // Get file type specific colors
+    // Get file type specific colors - use CSS variables instead of hardcoded
     const getFileTypeColors = (type: string) => {
       const normalizedType = type.toUpperCase();
       
@@ -39,37 +39,37 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
         case 'XLS':
         case 'XLSX':
           return {
-            background: "linear-gradient(180deg, #F8F8F9 0%, #838C9D 100%)",
-            badge: "#CED1D7"
+            background: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--tertiary) 100%)",
+            badge: "var(--border-primary)"
           };
         case 'CSV':
           return {
-            background: "linear-gradient(180deg, #F8F8F9 0%, #00C638 100%)",
-            badge: "#00C638"
+            background: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--positive) 100%)",
+            badge: "var(--positive)"
           };
         case 'PDF':
           return {
-            background: "linear-gradient(180deg, #F8F8F9 0%, #FF3533 100%)",
-            badge: "#FF3533"
+            background: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--critical) 100%)",
+            badge: "var(--critical)"
           };
         case 'DOC':
         case 'DOCX':
           return {
-            background: "linear-gradient(180deg, #F8F8F9 0%, #1890FF 100%)",
-            badge: "#1890FF"
+            background: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--neutral) 100%)",
+            badge: "var(--neutral)"
           };
         default:
           return {
-            background: "linear-gradient(180deg, #F8F8F9 0%, #838C9D 100%)",
-            badge: "#CED1D7"
+            background: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--tertiary) 100%)",
+            badge: "var(--border-primary)"
           };
       }
     };
     
     // Error variant uses red gradient and exclamation
     const getErrorColors = () => ({
-      background: "linear-gradient(180deg, #F8F8F9 0%, #FFEAEA 100%)",
-      badge: "#FFEAEA"
+      background: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--critical-light) 100%)",
+      badge: "var(--critical-light)"
     });
     
     const colors = variant === 'error' ? getErrorColors() : getFileTypeColors(fileType);

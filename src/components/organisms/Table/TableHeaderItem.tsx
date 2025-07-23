@@ -38,36 +38,36 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Color mappings from Figma - exact specifications
+  // Color mappings from Figma - use CSS variables instead of hardcoded
   const getBackgroundColor = () => {
     switch (colorVariant) {
-      case 'dark25': return 'bg-[#838C9D]'; // Primary variant header
-      case 'bg': return 'bg-[#F8F8F9]'; // Secondary variant header  
-      case 'white': return 'bg-[#FFFFFF]';
-      default: return 'bg-[#838C9D]';
+      case 'dark25': return 'bg-[var(--tertiary)]'; // Primary variant header
+      case 'bg': return 'bg-[var(--bg-secondary)]'; // Secondary variant header  
+      case 'white': return 'bg-[var(--bg-primary)]';
+      default: return 'bg-[var(--tertiary)]';
     }
   };
 
   const getTextColor = () => {
     switch (colorVariant) {
-      case 'dark25': return 'text-[#FFFFFF]'; // White text on dark header
-      case 'bg': return 'text-[#5F697B]'; // Dark text on light header
-      case 'white': return 'text-[#5F697B]';
-      default: return 'text-[#FFFFFF]';
+      case 'dark25': return 'text-[var(--bg-primary)]'; // White text on dark header
+      case 'bg': return 'text-[var(--secondary)]'; // Dark text on light header
+      case 'white': return 'text-[var(--secondary)]';
+      default: return 'text-[var(--bg-primary)]';
     }
   };
 
   const getBorderStyles = () => {
     switch (colorVariant) {
       case 'dark25': return ''; // No border for primary dark header
-      case 'bg': return 'border border-[#F0F1F7]'; // Light border for secondary
-      case 'white': return 'border border-[#F0F1F7]';
+      case 'bg': return 'border border-[var(--border-secondary)]'; // Light border for secondary
+      case 'white': return 'border border-[var(--border-secondary)]';
       default: return '';
     }
   };
 
   const getIconColor = () => {
-    return colorVariant === 'dark25' ? '#FFFFFF' : '#5F697B';
+    return colorVariant === 'dark25' ? 'var(--bg-primary)' : 'var(--secondary)';
   };
 
   // Size-based padding from Figma design

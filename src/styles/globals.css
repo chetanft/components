@@ -499,34 +499,39 @@
 }
 
 .dark {
-  /* Base Colors - Dark Mode */
-      /* Updated to new naming scheme */
-    --primary: #e2e8f0;       /* Light text (was --dark-100) */
-    --secondary: #94a3b8;     /* Muted text (was --dark-50) */
-    --tertiary: #64748b;      /* Subtle text (was --dark-25) */
-    --border-primary: #334155; /* Borders (was --box-border) */
-    --border-secondary: #1e293b; /* Dividers (was --divider) */
-    --bg-secondary: #0f172a;  /* Background (was --bg) */
-    --bg-primary: #1e293b;    /* Cards/surfaces (was --white) */
-    
-    /* Backward compatibility removed - dark mode migration complete ✅ */
+  /* Base Colors - Dark Mode - Enhanced with your exact values */
+  --primary: #E2E8F0;        /* Light text for dark backgrounds */
+  --secondary: #94A3B8;      /* Muted text */
+  --tertiary: #64748B;       /* Subtle text */
+  --border-primary: #475569; /* Borders */
+  --border-secondary: #334155; /* Dividers */
+  --bg-secondary: #0F172A;   /* Page background */
+  --bg-primary: #1E293B;     /* Cards/surfaces */
   
-  /* Semantic Colors - Dark Mode */
-  --critical-dark: #fca5a5;
-  --critical: #ef4444;
-  --critical-light: #7f1d1d;
+  /* Status Colors - Dark Mode */
+  --critical-dark: #FF4D4F;
+  --critical: #FF4D4F;
+  --critical-light: #FF6666;
   
-  --warning-dark: #fbbf24;
-  --warning: #f59e0b;
-  --warning-light: #78350f;
+  --warning-dark: #FF7B33;
+  --warning: #FF7B33;
+  --warning-light: #FF8C4D;
   
-  --positive-dark: #86efac;
-  --positive: #22c55e;
-  --positive-light: #14532d;
+  --positive-dark: #00E64D;
+  --positive: #00E64D;
+  --positive-light: #33FF77;
   
-  --neutral-dark: #7dd3fc;
-  --neutral: #0ea5e9;
-  --neutral-light: #0c4a6e;
+  --primary-dark: #94A3B8;
+  --primary-light: #F0F0F0;
+  
+  --neutral-dark: #006ED3;
+  --neutral: #4DA6FF;
+  --neutral-light: #66B3FF;
+  
+  /* Additional Dark Mode Colors */
+  --white: #FFFFFF;
+  --black: #000000;
+  --neutral-light-variant: #ECF6FF;
 
   /* Component Dark Mode Variables */
   --badge-normal-bg: #334155;
@@ -639,6 +644,146 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+}
+
+/* NEW: Night Mode Theme */
+.night {
+  /* Base Colors - Night Mode - Your exact values */
+  --primary: #F0F0F0;        /* Light text for night backgrounds */
+  --secondary: #D0D0D0;      /* Muted text */
+  --tertiary: #A0A0A0;       /* Subtle text */
+  --border-primary: #404040; /* Borders */
+  --border-secondary: #202020; /* Dividers */
+  --bg-secondary: #1A1A1A;   /* Page background */
+  --bg-primary: #000000;     /* Cards/surfaces */
+  
+  /* Status Colors - Night Mode */
+  --critical-dark: #FF6666;
+  --critical: #FF6666;
+  --critical-light: #FF6666;
+  
+  --warning-dark: #FF8C4D;
+  --warning: #FF8C4D;
+  --warning-light: #FF8C4D;
+  
+  --positive-dark: #33FF77;
+  --positive: #33FF77;
+  --positive-light: #33FF77;
+  
+  --primary-dark: #D0D0D0;
+  --primary-light: #F0F0F0;
+  
+  --neutral-dark: #006ED3;
+  --neutral: #66B3FF;
+  --neutral-light: #66B3FF;
+  
+  /* Additional Night Mode Colors */
+  --white: #FFFFFF;
+  --black: #000000;
+  --neutral-light-variant: #ECF6FF;
+
+  /* Component Night Mode Variables */
+  --badge-normal-bg: #404040;
+  --badge-normal-text: #F0F0F0;
+  --badge-normal-border: #202020;
+  --badge-normal-hover-bg: #202020;
+  --badge-normal-hover-border: #A0A0A0;
+  
+  --badge-danger-bg: #1A1A1A;
+  --badge-danger-text: #FF6666;
+  --badge-danger-border: #FF6666;
+  --badge-danger-hover-bg: #000000;
+  --badge-danger-hover-border: #FF6666;
+  --badge-danger-hover-text: #FF6666;
+  
+  --badge-success-bg: #1A1A1A;
+  --badge-success-text: #33FF77;
+  --badge-success-border: #33FF77;
+  --badge-success-hover-bg: #000000;
+  
+  --badge-warning-bg: #1A1A1A;
+  --badge-warning-text: #FF8C4D;
+  --badge-warning-border: #FF8C4D;
+  --badge-warning-hover-bg: #000000;
+  
+  --badge-neutral-bg: #1A1A1A;
+  --badge-neutral-text: #66B3FF;
+
+  /* Button Night Mode */
+  --button-primary-bg: #404040;
+  --button-primary-hover: #202020;
+  --button-secondary-border: #404040;
+  --button-secondary-hover-bg: #202020;
+  --button-secondary-text: #F0F0F0;
+  --button-text-text: #F0F0F0;
+  
+  /* Input Night Mode */
+  --input-bg: #000000;
+  --input-border: #404040;
+  --input-text-color: #D0D0D0;
+  
+  /* Checkbox Night Mode */
+  --checkbox-unselected-border: #A0A0A0;
+  --checkbox-unselected-bg: transparent;
+  --checkbox-unselected-label: #D0D0D0;
+  
+  --checkbox-selected-bg: #404040;
+  --checkbox-selected-checkmark: #ffffff;
+  --checkbox-selected-label: #F0F0F0;
+  
+  --checkbox-hover-unselected-bg: #202020;
+  --checkbox-hover-unselected-border: #A0A0A0;
+  
+  --checkbox-hover-selected-bg: #202020;
+  --checkbox-hover-selected-border: #202020;
+  
+  --checkbox-disabled-bg: #1A1A1A;
+  --checkbox-disabled-border: #404040;
+  --checkbox-disabled-label: #A0A0A0;
+
+  /* Radio Night Mode */
+  --radio-unselected-border: #A0A0A0;
+  --radio-unselected-bg: transparent;
+  --radio-unselected-label: #F0F0F0;
+  
+  --radio-selected-bg: transparent;
+  --radio-selected-dot: #F0F0F0;
+  --radio-selected-label: #F0F0F0;
+  --radio-selected-border: #F0F0F0;
+  
+  --radio-hover-unselected-bg: #202020;
+  --radio-hover-unselected-border: #A0A0A0;
+  --radio-hover-selected-bg: #202020;
+  --radio-hover-selected-border: #F0F0F0;
+  
+  --radio-disabled-bg: transparent;
+  --radio-disabled-border: #404040;
+  --radio-disabled-label: #A0A0A0;
+  
+  /* Legacy variables for compatibility */
+  --background: #000000;
+  --foreground: #F0F0F0;
+  --card: #000000;
+  --card-foreground: #F0F0F0;
+  --popover: #000000;
+  --popover-foreground: #F0F0F0;
+  --muted: #202020;
+  --muted-foreground: #A0A0A0;
+  --accent: #202020;
+  --accent-foreground: #F0F0F0;
+  --destructive: #FF6666;
+  --destructive-foreground: #F0F0F0;
+  --border: #202020;
+  --input: #202020;
+  --ring: #404040;
+  --sidebar: #1A1A1A;
+  --sidebar-foreground: #F0F0F0;
+  --sidebar-primary: #66B3FF;
+  --sidebar-primary-foreground: #F0F0F0;
+  --sidebar-accent: #202020;
+  --sidebar-accent-foreground: #F0F0F0;
+  --sidebar-border: #202020;
+  --sidebar-ring: #404040;
 }
 
 @theme inline {

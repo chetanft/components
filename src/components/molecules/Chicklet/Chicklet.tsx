@@ -47,8 +47,8 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
       "px-[8px] py-[2px]",
       // Font styles from Figma: Inter 500 14px with 1.4 line height
       "text-[14px] font-medium font-inter leading-[1.4]",
-      // Text color from Figma: #434F64
-      "text-[#434F64]",
+      // Text color from Figma: use CSS variable instead of hardcoded
+      "text-[var(--primary)]",
       // Transitions
       "transition-all duration-200 cursor-pointer",
       // Disabled state
@@ -58,9 +58,9 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
       variant === 'rectangular' && "rounded-[4px]", // 4px border radius
       variant === 'rounded' && "rounded-[100px]", // 100px border radius (pill)
       
-      // Background colors based on state - exact from Figma
-      currentState === 'default' && "bg-[#F0F1F7]", // Default background
-      currentState === 'hover' && "bg-[#CED1D7]", // Hover background
+      // Background colors based on state - use CSS variables instead of hardcoded
+      currentState === 'default' && "bg-[var(--border-secondary)]", // Default background
+      currentState === 'hover' && "bg-[var(--border-primary)]", // Hover background
       
       className
     );

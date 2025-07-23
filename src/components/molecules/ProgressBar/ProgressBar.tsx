@@ -27,7 +27,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
     const clampedValue = Math.min(Math.max(numericValue, 0), 100);
     
     // Container styles based on Figma design
-    const containerStyles = "relative w-full bg-[#CED1D7] rounded-[8px] overflow-hidden";
+    const containerStyles = "relative w-full bg-[var(--border-primary)] rounded-[8px] overflow-hidden";
     
     // Size styles - exact from Figma
     const sizeStyles = {
@@ -36,12 +36,12 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
       lg: "h-[12px]"
     };
     
-    // Progress bar fill colors based on variant
+    // Progress bar fill colors based on variant - use CSS variables
     const variantStyles = {
-      primary: "bg-[#434F64]", // Default dark gray from Figma
-      success: "bg-[#00C638]", // Success green
-      warning: "bg-[#FF6C19]", // Warning orange
-      danger: "bg-[#FF3533]"   // Danger red
+      primary: "bg-[var(--primary)]", // Primary color from CSS variable
+      success: "bg-[var(--positive)]", // Success green from CSS variable
+      warning: "bg-[var(--warning)]", // Warning orange from CSS variable
+      danger: "bg-[var(--critical)]"   // Danger red from CSS variable
     };
     
     // Animation class for smooth transitions

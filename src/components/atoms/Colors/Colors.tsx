@@ -198,6 +198,48 @@ export function Colors() {
         </ColorGroup>
       </section>
       
+      {/* NEW: Theme Demonstration */}
+      <section>
+        <h2 className="text-[24px] font-semibold mb-6">Multi-Theme Support</h2>
+        <p className="mb-6">Our design system now supports Light, Dark, and Night modes. All colors automatically adapt based on the current theme.</p>
+        
+        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+          <h3 className="text-lg font-semibold mb-4">Theme-Aware Components</h3>
+          <p className="text-sm text-gray-600 mb-4">
+            All components automatically adapt their colors based on the active theme. 
+            Switch between Light, Dark, and Night modes to see the color system in action.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-lg">
+              <h4 className="font-medium text-[var(--primary)] mb-2">Light Theme</h4>
+              <p className="text-[var(--secondary)] text-sm">Clean, bright interface perfect for daytime use.</p>
+            </div>
+            
+            <div className="p-4 bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-lg">
+              <h4 className="font-medium text-[var(--primary)] mb-2">Dark Theme</h4>
+              <p className="text-[var(--secondary)] text-sm">Comfortable viewing for low-light environments.</p>
+            </div>
+            
+            <div className="p-4 bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-lg">
+              <h4 className="font-medium text-[var(--primary)] mb-2">Night Theme</h4>
+              <p className="text-[var(--secondary)] text-sm">Deep contrast for extended night-time use.</p>
+            </div>
+          </div>
+          
+          <div className="mt-6 p-4 bg-[var(--bg-secondary)] border border-[var(--border-secondary)] rounded-lg">
+            <h4 className="font-medium text-[var(--primary)] mb-2">CSS Variables in Action</h4>
+            <p className="text-[var(--secondary)] text-sm mb-3">These components use CSS variables that automatically update when themes change:</p>
+            <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+              <div><code>var(--primary)</code> - Main text</div>
+              <div><code>var(--secondary)</code> - Muted text</div>
+              <div><code>var(--bg-primary)</code> - Card backgrounds</div>
+              <div><code>var(--border-primary)</code> - Borders</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       <section>
         <h2 className="text-[24px] font-semibold mb-6">Button Colors</h2>
         <p className="mb-6">These are the specific colors used for button variants in different states.</p>

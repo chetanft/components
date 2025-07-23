@@ -34,18 +34,18 @@ export const TableCell: React.FC<TableCellProps> = ({
     <td
       className={cn(
         // Base styles
-        "transition-colors duration-200 border-b border-[#CED1D7]",
+        "transition-colors duration-200 border-b border-[var(--border-primary)]",
         
         // Size variants from Figma
         size === 'md' && "py-[20px] px-[20px] pl-[8px]",
         size === 'lg' && "py-[20px] px-[16px] pl-[8px]",
         size === 'xl' && "py-[32px] px-[20px] pl-[8px]",
         
-        // Background colors based on state
+        // Background colors based on state - use CSS variables
         (state === 'default' && !isHovered) && (
-          backgroundColor === 'white' ? "bg-[#FFFFFF]" : "bg-[#F8F8F9]"
+          backgroundColor === 'white' ? "bg-[var(--bg-primary)]" : "bg-[var(--bg-secondary)]"
         ),
-        (showHoverState || state === 'selected') && "bg-[#F0F1F7]",
+        (showHoverState || state === 'selected') && "bg-[var(--border-secondary)]",
         
         // Selected state can have additional styling if needed
         state === 'selected' && "relative",
