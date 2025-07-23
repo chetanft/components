@@ -296,8 +296,8 @@ The Typography component is a showcase only. For actual content, use regular HTM
 <Typography /> // Shows typography showcase
 
 // For actual content, use regular HTML tags with design token classes:
-<h1 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] text-[var(--color-dark-100)]">Title</h1>
-<p className="text-[var(--font-size-md)] text-[var(--color-dark-50)]">Body text</p>
+<h1 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] text-[var(--color-primary)]">Title</h1>
+<p className="text-[var(--font-size-md)] text-[var(--color-secondary)]">Body text</p>
 \`\`\`
 
 ## Complete Examples

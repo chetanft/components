@@ -88,7 +88,7 @@ describe('Switch', () => {
 
     it('applies disabled styles to label when disabled', () => {
       const { container } = render(<Switch disabled label="Disabled switch" />);
-      const label = container.querySelector('.text-\\[var\\(--color-dark-25\\)\\]');
+      const label = container.querySelector('.text-\\[var\\(--color-tertiary\\)\\]');
       expect(label).toBeInTheDocument();
     });
   });

@@ -81,7 +81,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       variant === 'filled' 
         ? "bg-surface-alt dark:bg-surface-alt-dark border-2 border-transparent focus:bg-surface dark:focus:bg-surface-dark focus:border-border-alt dark:focus:border-border-alt-dark"
         : variant === 'outlined'
-        ? "bg-transparent border border-border dark:border-border-dark hover:border-dark-50 focus:border-dark-100"
+        ? "bg-transparent border border-border dark:border-border-dark hover:border-secondary focus:border-primary"
         : "bg-surface dark:bg-surface-dark border-2 border-border dark:border-border-dark",
       // State styles with dark mode support
       disabled
@@ -90,7 +90,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         ? "border-critical text-input dark:text-input-dark focus:border-critical focus:ring-2 focus:ring-critical/20"
         : "text-input dark:text-input-dark focus:border-focus dark:focus:border-focus-dark focus:ring-2 focus:ring-focus dark:focus:ring-focus-dark",
       // Focus styles
-      "focus:outline-none focus:ring-2 focus:ring-focus-ring focus:border-dark-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-surface dark:focus-visible:ring-offset-surface-dark",
+      "focus:outline-none focus:ring-2 focus:ring-focus-ring focus:border-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-surface dark:focus-visible:ring-offset-surface-dark",
       className
     );
 

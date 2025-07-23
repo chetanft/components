@@ -123,7 +123,7 @@ describe('DatePicker Components', () => {
       it('applies filled state styling', () => {
         const { container } = render(<DatePickerField state="filled" />);
         const input = container.querySelector('input');
-        expect(input).toHaveClass('text-[var(--color-dark-100)]');
+        expect(input).toHaveClass('text-[var(--color-primary)]');
       });
 
       it('applies prefilled state styling', () => {

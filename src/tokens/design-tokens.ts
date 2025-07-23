@@ -172,14 +172,7 @@ export const cssVariables = `
     --color-bg-primary: ${designTokens.colors.bg.primary};
     --color-bg-secondary: ${designTokens.colors.bg.secondary};
     
-    /* Colors - BACKWARD COMPATIBILITY */
-    --color-dark-100: ${designTokens.colors.dark[100]};
-    --color-dark-50: ${designTokens.colors.dark[50]};
-    --color-dark-25: ${designTokens.colors.dark[25]};
-    --color-border: ${designTokens.colors.legacyBorder};
-    --color-divider: ${designTokens.colors.divider};
-    --color-background: ${designTokens.colors.background};
-    --color-white: ${designTokens.colors.white};
+    /* Backward compatibility removed - CSS generation migration complete ✅ */
     
     --color-critical: ${designTokens.colors.critical.default};
     --color-critical-dark: ${designTokens.colors.critical.dark};
@@ -299,13 +292,4 @@ export const colors = {
   neutral: designTokens.colors.neutral.default,
 } as const;
 
-// LEGACY EXPORTS - for backward compatibility
-export const legacyColors = {
-  dark100: designTokens.colors.dark[100],
-  dark50: designTokens.colors.dark[50],
-  dark25: designTokens.colors.dark[25],
-  border: designTokens.colors.legacyBorder,
-  divider: designTokens.colors.divider,
-  background: designTokens.colors.background,
-  white: designTokens.colors.white,
-} as const; 
+// Legacy exports removed - migration complete ✅ 

@@ -17,14 +17,7 @@
   --bg-secondary: #f8f8f9;   /* was --bg */
   --bg-primary: #ffffff;     /* was --white */
   
-  /* BACKWARD COMPATIBILITY - Remove after migration complete */
-  --dark-100: var(--primary);
-  --dark-50: var(--secondary);
-  --dark-25: var(--tertiary);
-  --box-border: var(--border-primary);
-  --divider: var(--border-secondary);
-  --bg: var(--bg-secondary);
-  --white: var(--bg-primary);
+  /* Backward compatibility removed - migration complete ✅ */
   
   /* Semantic colors - Updated to match exact Figma values */
   /* Critical */
@@ -267,14 +260,7 @@
   --color-bg-secondary: #f8f8f9;      /* was --color-background */
   --color-bg-primary: #ffffff;        /* was --color-white */
   
-  /* BACKWARD COMPATIBILITY */
-  --color-dark-100: var(--color-primary);
-  --color-dark-50: var(--color-secondary);
-  --color-dark-25: var(--color-tertiary);
-  --color-border: var(--color-border-primary);
-  --color-divider: var(--color-border-secondary);
-  --color-background: var(--color-bg-secondary);
-  --color-white: var(--color-bg-primary);
+  /* Backward compatibility removed - migration complete ✅ */
   
   --color-critical: #ff3533;
   --color-critical-dark: #b80100;
@@ -523,14 +509,7 @@
     --bg-secondary: #0f172a;  /* Background (was --bg) */
     --bg-primary: #1e293b;    /* Cards/surfaces (was --white) */
     
-    /* BACKWARD COMPATIBILITY for dark mode */
-    --dark-100: var(--primary);
-    --dark-50: var(--secondary);
-    --dark-25: var(--tertiary);
-    --box-border: var(--border-primary);
-    --divider: var(--border-secondary);
-    --bg: var(--bg-secondary);
-    --white: var(--bg-primary);
+    /* Backward compatibility removed - dark mode migration complete ✅ */
   
   /* Semantic Colors - Dark Mode */
   --critical-dark: #fca5a5;
@@ -1269,10 +1248,7 @@ body {
 .text-secondary { color: var(--color-secondary); }
 .text-tertiary { color: var(--color-tertiary); }
 
-/* BACKWARD COMPATIBILITY */
-.text-dark-100 { color: var(--color-primary); }
-.text-dark-50 { color: var(--color-secondary); }
-.text-dark-25 { color: var(--color-tertiary); }
+/* Backward compatibility removed - utility classes migration complete ✅ */
 .text-primary { color: var(--primary); }
 .text-critical { color: var(--color-critical); }
 .text-warning { color: var(--color-warning); }
