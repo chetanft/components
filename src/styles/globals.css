@@ -465,6 +465,14 @@
   --component-text-default: var(--primary);
   --component-text-muted: var(--tertiary);
   --component-text-disabled: var(--tertiary);
+  
+  /* Button Colors - Light Mode (from Figma) */
+  --button-primary-bg: #434F64;     /* Dark background */
+  --button-primary-text: #FFFFFF;   /* White text */
+  --button-secondary-bg: #FFFFFF;   /* White background */
+  --button-secondary-text: #434F64; /* Dark text */
+  --button-secondary-border: #CED1D7; /* Light border */
+  --button-text-color: #434F64;     /* Dark text for text buttons */
 }
 
 /* Responsive tablet adjustments */
@@ -499,19 +507,22 @@
 }
 
 .dark {
-  /* Base Colors - Dark Mode - CORRECTED VALUES */
-  --primary: #434F64;        /* Dark text for light button backgrounds - SAME AS LIGHT MODE */
-  --secondary: #5F697B;      /* Dark muted text for light backgrounds */
-  --tertiary: #838C9D;       /* Dark subtle text */
-  --border-primary: #475569; /* Borders */
+  /* Base Colors - Dark Mode - FROM FIGMA DESIGN */
+  --primary: #F0F0F0;        /* Light text/backgrounds for dark mode */
+  --secondary: #F0F0F0;      /* Light muted elements */
+  --tertiary: #F0F0F0;       /* Light subtle elements */
+  --border-primary: #404040; /* Dark borders */
   --border-secondary: #334155; /* Dividers */
   --bg-secondary: #0F172A;   /* Page background */
   --bg-primary: #1E293B;     /* Cards/surfaces */
   
-  /* Text Colors for Dark Backgrounds */
-  --text-on-dark: #E2E8F0;   /* Light text for dark page backgrounds */
-  --text-secondary-on-dark: #94A3B8; /* Muted light text */
-  --text-tertiary-on-dark: #64748B;  /* Subtle light text */
+  /* Button Colors - Dark Mode (from Figma) */
+  --button-primary-bg: #F0F0F0;     /* Light background */
+  --button-primary-text: #000000;   /* Black text */
+  --button-secondary-bg: #FFFFFF;   /* White background */
+  --button-secondary-text: #F0F0F0; /* Light text */
+  --button-secondary-border: #404040; /* Dark border */
+  --button-text-color: #F0F0F0;     /* Light text for text buttons */
   
   /* Status Colors - Dark Mode */
   --critical-dark: #FF4D4F;
@@ -653,19 +664,22 @@
 
 /* NEW: Night Mode Theme */
 .night {
-  /* Base Colors - Night Mode - CORRECTED VALUES */
-  --primary: #434F64;        /* Dark text for light button backgrounds - CONSISTENT */
-  --secondary: #5F697B;      /* Dark muted text for light backgrounds */
-  --tertiary: #838C9D;       /* Dark subtle text */
-  --border-primary: #404040; /* Borders */
+  /* Base Colors - Night Mode - FROM FIGMA DESIGN */
+  --primary: #E2E8F0;        /* Light text/backgrounds for night mode */
+  --secondary: #E2E8F0;      /* Light muted elements */
+  --tertiary: #E2E8F0;       /* Light subtle elements */
+  --border-primary: #475569; /* Borders */
   --border-secondary: #202020; /* Dividers */
   --bg-secondary: #000000;   /* Page background - TRUE BLACK */
   --bg-primary: #1A1A1A;     /* Cards/surfaces */
   
-  /* Text Colors for Night Backgrounds */
-  --text-on-dark: #F0F0F0;   /* Light text for dark page backgrounds */
-  --text-secondary-on-dark: #D0D0D0; /* Muted light text */
-  --text-tertiary-on-dark: #A0A0A0;  /* Subtle light text */
+  /* Button Colors - Night Mode (from Figma) */
+  --button-primary-bg: #434F64;     /* Dark background */
+  --button-primary-text: #FFFFFF;   /* White text */
+  --button-secondary-bg: #FFFFFF;   /* White background */
+  --button-secondary-text: #E2E8F0; /* Light text */
+  --button-secondary-border: #475569; /* Border */
+  --button-text-color: #E2E8F0;     /* Light text for text buttons */
   
   /* Status Colors - Night Mode */
   --critical-dark: #FF6666;

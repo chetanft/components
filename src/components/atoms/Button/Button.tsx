@@ -64,46 +64,36 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     componentStyles.gap
   );
 
-  // Variant styles with design tokens and dark mode support
+  // Variant styles with design tokens and exact Figma colors
   const variantStyles = {
     primary: cn(
-      "bg-primary text-white border border-primary",
-      "hover:bg-secondary hover:border-secondary",
+      "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] border border-[var(--button-primary-bg)]",
+      "hover:opacity-90",
       "focus-visible:ring-primary",
-      "dark:bg-primary dark:text-white dark:border-primary",
-      "dark:hover:bg-secondary dark:hover:border-secondary",
-      "disabled:bg-tertiary disabled:border-tertiary disabled:text-white"
+      "disabled:opacity-50 disabled:cursor-not-allowed"
     ),
     secondary: cn(
-      "bg-white text-primary border border-border-primary",
-      "hover:bg-border-secondary hover:border-tertiary",
+      "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-[var(--button-secondary-border)]",
+      "hover:opacity-90",
       "focus-visible:ring-primary",
-      "dark:text-primary dark:border-tertiary",
-      "dark:hover:bg-tertiary/20 dark:hover:border-secondary",
-      "disabled:text-tertiary disabled:border-border-primary"
+      "disabled:opacity-50 disabled:cursor-not-allowed"
     ),
     destructive: cn(
       "bg-critical text-white border border-critical",
       "hover:bg-critical-dark hover:border-critical-dark",
       "focus-visible:ring-critical",
-      "dark:bg-critical dark:text-white dark:border-critical",
-      "dark:hover:bg-critical-dark dark:hover:border-critical-dark",
       "disabled:bg-critical/50 disabled:border-critical/50 disabled:text-white"
     ),
     text: cn(
-      "bg-transparent text-primary border-transparent",
-      "hover:bg-[#F8F8F9] hover:text-secondary",
+      "bg-transparent text-[var(--button-text-color)] border-transparent",
+      "hover:opacity-80",
       "focus-visible:ring-primary",
-      "dark:text-primary",
-      "dark:hover:bg-[#F8F8F9] dark:hover:text-secondary",
-      "disabled:text-tertiary"
+      "disabled:opacity-50"
     ),
     link: cn(
       "bg-transparent text-neutral border-0 underline p-0 h-auto",
       "hover:text-neutral-dark hover:no-underline hover:shadow-none",
       "focus-visible:ring-neutral",
-      "dark:text-neutral",
-      "dark:hover:text-neutral-dark",
       "disabled:text-tertiary disabled:no-underline"
     ),
   };

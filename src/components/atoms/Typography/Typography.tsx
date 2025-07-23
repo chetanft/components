@@ -68,9 +68,9 @@ const weightStyles = {
 };
 
 const colorStyles = {
-  primary: "text-[var(--primary)] dark:text-[var(--text-on-dark)]",     // Light mode: dark text, Dark mode: light text
-  secondary: "text-[var(--secondary)] dark:text-[var(--text-secondary-on-dark)]", // Muted text colors
-  muted: "text-[var(--tertiary)] dark:text-[var(--text-tertiary-on-dark)]",     // Subtle text colors
+  primary: "text-[var(--primary)]",     // Uses CSS variable that adapts per theme
+  secondary: "text-[var(--secondary)]", // Uses CSS variable that adapts per theme
+  muted: "text-[var(--tertiary)]",      // Uses CSS variable that adapts per theme
   danger: "text-[var(--critical)]",
   success: "text-[var(--positive)]",
   warning: "text-[var(--warning)]",
