@@ -1,16 +1,29 @@
 export const designTokens = {
   colors: {
-    // Dark tones
-    dark: {
-      100: '#434f64',
-      50: '#5f697b',
-      25: '#838c9d',
+    // NEW NAMING SCHEME
+    primary: '#434f64',        // was dark[100]
+    secondary: '#5f697b',      // was dark[50]
+    tertiary: '#838c9d',       // was dark[25]
+    border: {
+      primary: '#ced1d7',      // was legacy border
+      secondary: '#f0f1f7',    // was divider
     },
-    // Neutrals
-    border: '#ced1d7',
-    divider: '#f0f1f7',
-    background: '#f8f8f9',
-    white: '#ffffff',
+    bg: {
+      primary: '#ffffff',      // was white
+      secondary: '#f8f8f9',    // was background
+    },
+    
+    // BACKWARD COMPATIBILITY - Dark tones
+    dark: {
+      100: '#434f64',          // → primary
+      50: '#5f697b',           // → secondary
+      25: '#838c9d',           // → tertiary
+    },
+    // Legacy neutrals  
+    legacyBorder: '#ced1d7',   // → border.primary (avoiding conflict)
+    divider: '#f0f1f7',        // → border.secondary
+    background: '#f8f8f9',     // → bg.secondary
+    white: '#ffffff',          // → bg.primary
     // Status colors
     critical: {
       default: '#ff3533',
@@ -150,11 +163,20 @@ export const designTokens = {
 // CSS Custom Properties for global usage
 export const cssVariables = `
   :root {
-    /* Colors */
+    /* Colors - NEW NAMING SCHEME */
+    --color-primary: ${designTokens.colors.primary};
+    --color-secondary: ${designTokens.colors.secondary};
+    --color-tertiary: ${designTokens.colors.tertiary};
+    --color-border-primary: ${designTokens.colors.border.primary};
+    --color-border-secondary: ${designTokens.colors.border.secondary};
+    --color-bg-primary: ${designTokens.colors.bg.primary};
+    --color-bg-secondary: ${designTokens.colors.bg.secondary};
+    
+    /* Colors - BACKWARD COMPATIBILITY */
     --color-dark-100: ${designTokens.colors.dark[100]};
     --color-dark-50: ${designTokens.colors.dark[50]};
     --color-dark-25: ${designTokens.colors.dark[25]};
-    --color-border: ${designTokens.colors.border};
+    --color-border: ${designTokens.colors.legacyBorder};
     --color-divider: ${designTokens.colors.divider};
     --color-background: ${designTokens.colors.background};
     --color-white: ${designTokens.colors.white};
@@ -253,4 +275,37 @@ export const cssVariables = `
   }
 `;
 
-export default designTokens; 
+export default designTokens;
+
+// NEW NAMING SCHEME HELPERS - for easier migration
+export const colors = {
+  // Primary text colors
+  primary: designTokens.colors.primary,
+  secondary: designTokens.colors.secondary,  
+  tertiary: designTokens.colors.tertiary,
+  
+  // Border colors
+  borderPrimary: designTokens.colors.border.primary,
+  borderSecondary: designTokens.colors.border.secondary,
+  
+  // Background colors
+  bgPrimary: designTokens.colors.bg.primary,
+  bgSecondary: designTokens.colors.bg.secondary,
+  
+  // Status colors (unchanged)
+  critical: designTokens.colors.critical.default,
+  warning: designTokens.colors.warning.default,
+  positive: designTokens.colors.positive.default,
+  neutral: designTokens.colors.neutral.default,
+} as const;
+
+// LEGACY EXPORTS - for backward compatibility
+export const legacyColors = {
+  dark100: designTokens.colors.dark[100],
+  dark50: designTokens.colors.dark[50],
+  dark25: designTokens.colors.dark[25],
+  border: designTokens.colors.legacyBorder,
+  divider: designTokens.colors.divider,
+  background: designTokens.colors.background,
+  white: designTokens.colors.white,
+} as const; 
