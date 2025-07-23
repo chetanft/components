@@ -52,7 +52,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const baseClasses = 'relative inline-flex flex-col';
   const tooltipClasses = cn(
     'rounded-[4px] p-2 min-w-[119px] max-w-[300px] relative',
-    color === 'white' ? 'bg-white text-[#434F64]' : 'bg-[#434F64] text-white'
+    color === 'white' ? 'bg-white text-[var(--primary)]' : 'bg-[var(--primary)] text-white'
   );
 
   // Tip base styles - using exact dimensions from Figma
@@ -63,22 +63,22 @@ export const Tooltip: React.FC<TooltipProps> = ({
     top: cn(
       tipBaseClasses,
       'bottom-[-6px] border-b-0',
-      color === 'white' ? 'border-t-white' : 'border-t-[#434F64]'
+      color === 'white' ? 'border-t-white' : 'border-t-[var(--primary)]'
     ),
     bottom: cn(
       tipBaseClasses,
       'top-[-6px] border-t-0',
-      color === 'white' ? 'border-b-white' : 'border-b-[#434F64]'
+      color === 'white' ? 'border-b-white' : 'border-b-[var(--primary)]'
     ),
     left: cn(
       tipBaseClasses,
       'right-[-6px] border-r-0',
-      color === 'white' ? 'border-l-white' : 'border-l-[#434F64]'
+      color === 'white' ? 'border-l-white' : 'border-l-[var(--primary)]'
     ),
     right: cn(
       tipBaseClasses,
       'left-[-6px] border-l-0',
-      color === 'white' ? 'border-r-white' : 'border-r-[#434F64]'
+      color === 'white' ? 'border-r-white' : 'border-r-[var(--primary)]'
     ),
   };
 
@@ -106,7 +106,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
                 className="p-1 hover:bg-gray-100 rounded-full"
                 aria-label="Close tooltip"
               >
-                <Icon name="cross" size={16} className={color === 'white' ? 'text-[#434F64]' : 'text-white'} />
+                <Icon name="cross" size={16} className={color === 'white' ? 'text-[var(--primary)]' : 'text-white'} />
               </button>
             )}
           </div>

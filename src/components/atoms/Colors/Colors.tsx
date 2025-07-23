@@ -66,26 +66,9 @@ export function Colors() {
         <h1 className="text-[40px] font-light">Colors</h1>
         <div className="flex items-center gap-4">
           <span className="text-sm font-medium">Current Theme: {theme}</span>
-          <div className="bg-gray-100 rounded-lg p-1">
-            <button 
-              onClick={() => document.documentElement.className = ''}
-              className="px-3 py-1 text-sm rounded bg-white shadow-sm"
-            >
-              Light
-            </button>
-            <button 
-              onClick={() => document.documentElement.className = 'dark'}
-              className="px-3 py-1 text-sm rounded ml-1"
-            >
-              Dark
-            </button>
-            <button 
-              onClick={() => document.documentElement.className = 'night'}
-              className="px-3 py-1 text-sm rounded ml-1"
-            >
-              Night
-            </button>
-          </div>
+          <p className="text-sm text-gray-500">
+            Use the Storybook toolbar (Theme button) to switch between Light, Dark, and Night modes
+          </p>
         </div>
       </div>
       

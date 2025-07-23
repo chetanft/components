@@ -120,7 +120,7 @@ const MultiOptionFilter: React.FC<{
   return (
     <div className="inline-flex items-center bg-white border border-[var(--border-primary)] rounded-lg overflow-hidden h-9">
       {/* Main filter section */}
-      <div className="bg-[#F0F1F7] h-full flex items-center gap-2 px-3">
+      <div className="bg-[var(--border-secondary)] h-full flex items-center gap-2 px-3">
         {filter.count !== undefined && (
           <span className={cn(
             "text-base font-semibold leading-[1.21]",
@@ -139,7 +139,7 @@ const MultiOptionFilter: React.FC<{
         {filter.options?.map((option, index) => (
           <React.Fragment key={option.id}>
             {index > 0 && (
-              <div className="w-px h-[26px] bg-[#F0F1F7] mx-1" aria-hidden="true" />
+              <div className="w-px h-[26px] bg-[var(--border-secondary)] mx-1" aria-hidden="true" />
             )}
             <FilterChip
               filter={filter}

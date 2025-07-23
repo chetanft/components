@@ -46,7 +46,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
       {/* User Profile Default State */}
       <div 
         style={{
-          backgroundColor: 'var(--bg-primary)',
+          backgroundColor: 'var(--border-primary)',
           borderRadius: '8px',
           width: '229px',
           height: '51px',
@@ -80,7 +80,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
           top: '10px',
           width: '30px',
           height: '30px',
-          backgroundColor: '#E5E7EB',
+          backgroundColor: 'var(--border-primary)',
           borderRadius: '50%',
           overflow: 'hidden',
           display: 'flex',
@@ -139,7 +139,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               <div style={{
                 width: '58px',
                 height: '58px',
-                backgroundColor: '#E5E7EB',
+                backgroundColor: 'var(--border-primary)',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
@@ -407,13 +407,13 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               }}
               onClick={() => onMenuItemClick('logout')}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#FEF2F2';
+                e.currentTarget.style.backgroundColor = 'var(--critical-light)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = 'transparent';
               }}
             >
-              <div style={{ width: '16px', height: '16px', color: '#FF3533' }}>
+              <div style={{ width: '16px', height: '16px', color: 'var(--critical)' }}>
                 <Logout />
               </div>
               <span style={{
@@ -421,7 +421,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                 fontWeight: 400,
                 fontSize: '16px',
                 lineHeight: '1.4em',
-                color: '#FF3533',
+                color: 'var(--critical)',
               }}>
                 Logout
               </span>

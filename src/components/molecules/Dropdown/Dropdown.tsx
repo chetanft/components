@@ -7,7 +7,7 @@ import { SegmentedTabs, type SegmentedTabItem } from '../SegmentedTabs';
 
 // Unified dropdown field variants using the design system
 const dropdownFieldVariants = cva(
-  "relative w-full border transition-all duration-200 font-sans font-normal bg-white dark:bg-surface-dark text-[#434F64] dark:text-input-dark focus-within:ring-2 focus-within:ring-focus-ring",
+  "relative w-full border transition-all duration-200 font-sans font-normal bg-white dark:bg-surface-dark text-[var(--primary)] dark:text-input-dark focus-within:ring-2 focus-within:ring-focus-ring",
   {
     variants: {
       size: {
@@ -17,7 +17,7 @@ const dropdownFieldVariants = cva(
         xl: "text-base",
       },
       state: {
-        default: "border-[#CED1D7] dark:border-border-dark focus-within:border-focus dark:focus-within:border-focus-dark",
+        default: "border-[var(--border-primary)] dark:border-border-dark focus-within:border-focus dark:focus-within:border-focus-dark",
         error: "border-critical focus-within:border-critical focus-within:ring-critical/20",
         disabled: "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed",
       },
@@ -36,13 +36,13 @@ const dropdownFieldVariants = cva(
 
 // Dropdown menu item variants
 const dropdownMenuItemVariants = cva(
-  "flex items-center px-3 py-2 cursor-pointer transition-colors rounded-lg text-[#434F64] text-base",
+  "flex items-center px-3 py-2 cursor-pointer transition-colors rounded-lg text-[var(--primary)] text-base",
   {
     variants: {
       state: {
-        default: "hover:bg-[#F0F1F7] focus:bg-[#CED1D7]",
-        selected: "bg-[#F8F8F9]",
-        disabled: "text-[#838C9D] cursor-not-allowed",
+        default: "hover:bg-[var(--border-secondary)] focus:bg-[var(--border-primary)]",
+        selected: "bg-[var(--bg-secondary)]",
+        disabled: "text-[var(--tertiary)] cursor-not-allowed",
       },
     },
     defaultVariants: {
@@ -199,7 +199,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           {...props}
         >
           <span className={cn(
-            selectedOption ? "text-[#434F64]" : "text-[#838C9D]",
+            selectedOption ? "text-[var(--primary)]" : "text-[var(--tertiary)]",
             "text-base"
           )}>
             {selectedOption ? selectedOption.label : placeholder}
@@ -210,14 +210,14 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             className={cn(
               "transition-transform duration-200",
               isOpen && "rotate-180",
-              state === "disabled" ? "text-input-disabled dark:text-input-disabled-dark" : "text-[#434F64]"
+              state === "disabled" ? "text-input-disabled dark:text-input-disabled-dark" : "text-[var(--primary)]"
             )}
           />
           
           {/* Dropdown Menu */}
           {isOpen && (
             <div className={cn(
-              "absolute top-full left-0 right-0 z-50 mt-1 bg-white dark:bg-surface-dark border border-[#CED1D7] dark:border-border-dark shadow-lg rounded-lg overflow-hidden",
+              "absolute top-full left-0 right-0 z-50 mt-1 bg-white dark:bg-surface-dark border border-[var(--border-primary)] dark:border-border-dark shadow-lg rounded-lg overflow-hidden",
               "p-2 flex flex-col gap-1"
             )}>
               {segments && (
@@ -236,14 +236,14 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                     <Icon
                       name="search"
                       size={16}
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#838C9D]"
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--tertiary)]"
                     />
                     <input
                       type="text"
                       placeholder="Search"
                       value={searchQuery}
                       onChange={handleSearchChange}
-                      className="w-full pl-9 pr-3 py-2 border border-[#CED1D7] dark:border-border-dark rounded-lg text-base text-[#434F64] placeholder-[#838C9D] focus:outline-none focus:ring-2 focus:ring-focus-ring focus:border-focus"
+                      className="w-full pl-9 pr-3 py-2 border border-[var(--border-primary)] dark:border-border-dark rounded-lg text-base text-[var(--primary)] placeholder-[var(--tertiary)] focus:outline-none focus:ring-2 focus:ring-focus-ring focus:border-focus"
                     />
                   </div>
                 </div>
@@ -262,7 +262,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                   >
                     <span className="flex-1">{option.label}</span>
                     {selectedValue === option.value && (
-                      <Icon name="check" size={16} className="text-[#434F64] ml-2" />
+                      <Icon name="check" size={16} className="text-[var(--primary)] ml-2" />
                     )}
                   </div>
                 ))}

@@ -43,31 +43,31 @@ describe('Button Component', () => {
     it('applies primary variant styles by default', () => {
       render(<Button>Primary</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-primary', 'text-white', 'border-primary');
+      expect(button).toHaveClass('bg-[var(--button-primary-bg)]', 'text-[var(--button-primary-text)]', 'border');
     });
 
     it('applies secondary variant styles', () => {
       render(<Button variant="secondary">Secondary</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-white', 'text-primary', 'border-border-primary');
+      expect(button).toHaveClass('bg-[var(--button-secondary-bg)]', 'text-[var(--button-secondary-text)]', 'border');
     });
 
     it('applies destructive variant styles', () => {
       render(<Button variant="destructive">Delete</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-critical', 'text-white', 'border-critical');
+      expect(button).toHaveClass('bg-[var(--button-destructive-bg)]', 'text-[var(--button-destructive-text)]', 'border');
     });
 
     it('applies text variant styles', () => {
       render(<Button variant="text">Text Button</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-transparent', 'text-primary', 'border-transparent');
+      expect(button).toHaveClass('bg-[var(--button-text-bg)]', 'text-[var(--button-text-text)]');
     });
 
     it('applies link variant styles', () => {
       render(<Button variant="link">Link Button</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-transparent', 'text-neutral', 'border-0', 'underline', 'p-0', 'h-auto');
+      expect(button).toHaveClass('bg-[var(--button-link-bg)]', 'text-[var(--button-link-text)]', 'border-0', 'underline', 'p-0', 'h-auto');
     });
   });
 

@@ -99,13 +99,13 @@ const dateButtonVariants = cva(
   {
     variants: {
       type: {
-        default: "bg-white text-[#434F64] hover:bg-surface-hover dark:hover:bg-surface-hover-dark",
-        selected: "bg-[#434F64] text-white hover:bg-[#434F64]/90",
-        disabled: "text-[#F0F1F7] cursor-not-allowed",
-        rangeSelected: "bg-[#CED1D7] text-[#434F64]"
+        default: "bg-white text-[var(--primary)] hover:bg-surface-hover dark:hover:bg-surface-hover-dark",
+        selected: "bg-[var(--primary)] text-white hover:bg-[var(--primary)]/90",
+        disabled: "text-[var(--border-secondary)] cursor-not-allowed",
+        rangeSelected: "bg-[var(--border-primary)] text-[var(--primary)]"
       },
       inRange: {
-        true: "bg-[#CED1D7]/50",
+        true: "bg-[var(--border-primary)]/50",
         false: ""
       }
     },
@@ -136,7 +136,7 @@ const quickSelectButtonVariants = cva(
   {
     variants: {
       selected: {
-        true: "bg-[#434F64] text-white",
+        true: "bg-[var(--primary)] text-white",
         false: "hover:bg-[#F5F6F8] dark:hover:bg-surface-hover-dark"
       }
     },
@@ -411,7 +411,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
 
       <div className={weekDayVariants({ range })}>
         {WEEKDAYS.map((day) => (
-          <div key={day} className="h-8 flex items-center justify-center text-xs text-[#838C9D]">
+          <div key={day} className="h-8 flex items-center justify-center text-xs text-[var(--tertiary)]">
             {day}
           </div>
         ))}

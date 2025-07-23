@@ -93,11 +93,11 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
           "border-[1.5px] border-dashed border-[var(--border-primary)] rounded-[8px]",
           "bg-white cursor-pointer transition-colors",
           // Interactive states
-          isDragActive && "border-[#1890FF] bg-[#F6FFED]",
-          isDragReject && "border-[#FF3533] bg-[#FFF2F0]",
+          isDragActive && "border-[var(--neutral)] bg-[var(--positive-light)]",
+          isDragReject && "border-[var(--critical)] bg-[var(--critical-light)]",
           disabled && "opacity-50 cursor-not-allowed",
           // Hover state
-          !disabled && "hover:border-[#1890FF] hover:bg-[#FAFBFC]",
+          !disabled && "hover:border-[var(--neutral)] hover:bg-[var(--bg-secondary)]",
           className
         )}
         onDragEnter={handleDragEnter}
@@ -115,8 +115,8 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
             size={33} 
             className={cn(
               "text-[var(--secondary)]",
-              isDragActive && "text-[#1890FF]",
-              isDragReject && "text-[#FF3533]"
+              isDragActive && "text-[var(--neutral)]",
+              isDragReject && "text-[var(--critical)]"
             )}
           />
         </div>
@@ -132,7 +132,7 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
           
           {/* File restrictions */}
           <div className="flex flex-col items-center gap-[10px] w-full">
-            <p className="text-[16px] font-[500] leading-[1.4] text-[#838C9D] text-center">
+            <p className="text-[16px] font-[500] leading-[1.4] text-[var(--tertiary)] text-center">
               Allowed file type: {acceptedFileTypes.join(' & ')} | Max Size: {maxFileSize} mb
             </p>
           </div>

@@ -144,7 +144,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
       <div
         className={cn(
           // Base styles from Figma
-          "bg-white border border-[#F0F1F7] rounded-[8px] p-[20px]",
+          "bg-white border border-[var(--border-secondary)] rounded-[8px] p-[20px]",
           "flex flex-col gap-[20px]",
           // Full width for expanded variants
           variant === 'expanded' || variant === 'with-stats' ? "w-full max-w-[930px]" : "w-full",
@@ -174,7 +174,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                 <Badge 
                   variant={statusConfig.badge.variant}
                   icon={statusConfig.badge.icon}
-                  size="md"
+
                 >
                   {statusConfig.badge.text}
                 </Badge>
@@ -280,13 +280,13 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
             {/* Success */}
             <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
               <span className="text-[14px] font-[500] leading-[1.4] text-[var(--secondary)]">Success</span>
-              <span className="text-[20px] font-[400] leading-[1.4] text-[#00C638]">{stats?.success || 0}</span>
+              <span className="text-[20px] font-[400] leading-[1.4] text-[var(--positive)]">{stats?.success || 0}</span>
             </div>
             
             {/* Invalid */}
             <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
               <span className="text-[14px] font-[500] leading-[1.4] text-[var(--secondary)]">Invalid</span>
-              <span className="text-[20px] font-[400] leading-[1.4] text-[#FF3533]">{stats?.invalid || 0}</span>
+              <span className="text-[20px] font-[400] leading-[1.4] text-[var(--critical)]">{stats?.invalid || 0}</span>
             </div>
           </div>
         )}

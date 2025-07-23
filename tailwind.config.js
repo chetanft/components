@@ -1,10 +1,121 @@
+import colors from 'tailwindcss/colors';
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './stories/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,jsx,ts,tsx}',
+    './src/stories/**/*.{js,jsx,ts,tsx}',
+  ],
+  
+  // CRITICAL: Safelist ensures all design system classes are included in dist/styles.css
+  safelist: [
+    // CSS Variable-based colors
+    'bg-[var(--primary)]',
+    'bg-[var(--secondary)]', 
+    'bg-[var(--tertiary)]',
+    'bg-[var(--border-primary)]',
+    'bg-[var(--border-secondary)]',
+    'bg-[var(--bg-primary)]',
+    'bg-[var(--bg-secondary)]',
+    'bg-[var(--critical)]',
+    'bg-[var(--warning)]',
+    'bg-[var(--positive)]',
+    'bg-[var(--neutral)]',
+    
+    'text-[var(--primary)]',
+    'text-[var(--secondary)]',
+    'text-[var(--tertiary)]',
+    'text-[var(--critical)]',
+    'text-[var(--warning)]',
+    'text-[var(--positive)]',
+    'text-[var(--neutral)]',
+    
+    'border-[var(--primary)]',
+    'border-[var(--secondary)]',
+    'border-[var(--tertiary)]',
+    'border-[var(--border-primary)]',
+    'border-[var(--border-secondary)]',
+    'border-[var(--critical)]',
+    
+    // Button-specific variables
+    'bg-[var(--button-primary-bg)]',
+    'bg-[var(--button-secondary-bg)]',
+    'bg-[var(--button-destructive-bg)]',
+    'bg-[var(--button-text-bg)]',
+    'bg-[var(--button-link-bg)]',
+    'text-[var(--button-primary-text)]',
+    'text-[var(--button-secondary-text)]',
+    'text-[var(--button-destructive-text)]',
+    'text-[var(--button-text-text)]',
+    'text-[var(--button-link-text)]',
+    
+    // Badge-specific variables (MISSING - this was the issue!)
+    'bg-[var(--badge-normal-bg)]',
+    'bg-[var(--badge-danger-bg)]',
+    'bg-[var(--badge-success-bg)]',
+    'bg-[var(--badge-warning-bg)]',
+    'bg-[var(--badge-neutral-bg)]',
+    'text-[var(--badge-normal-text)]',
+    'text-[var(--badge-danger-text)]',
+    'text-[var(--badge-success-text)]',
+    'text-[var(--badge-warning-text)]',
+    'text-[var(--badge-neutral-text)]',
+    'border-[var(--badge-normal-border)]',
+    'border-[var(--badge-danger-border)]',
+    'border-[var(--badge-success-border)]',
+    'border-[var(--badge-warning-border)]',
+    
+    // Component sizing
+    'w-[var(--radio-size)]',
+    'h-[var(--radio-size)]',
+    'gap-[var(--radio-gap)]',
+    'rounded-[var(--badge-border-radius)]',
+    'rounded-[var(--component-border-radius)]',
+    
+    // Form system variables
+    'bg-[var(--surface)]',
+    'bg-[var(--surface-alt)]',
+    'bg-[var(--input)]',
+    'text-[var(--input)]',
+    'border-[var(--border)]',
+    'border-[var(--focus)]',
+    
+    // Size variants
+    'h-component-sm',
+    'h-component-md', 
+    'h-component-lg',
+    'h-component-xl',
+    'w-component-sm',
+    'w-component-md',
+    'w-component-lg',
+    'w-component-xl',
+    
+    // Font sizes from design tokens
+    'text-[12px]',
+    'text-[14px]', 
+    'text-[16px]',
+    'text-[20px]',
+    'text-[24px]',
+    'text-[28px]',
+    
+    // Spacing tokens
+    'p-[6px]',
+    'p-[8px]',
+    'p-[12px]',
+    'p-[16px]',
+    'p-[20px]',
+    'px-[6px]',
+    'px-[8px]',
+    'py-[1px]',
+    'py-[2px]',
+    'gap-[6px]',
+    'gap-[8px]',
+    'gap-[12px]',
+    'gap-[16px]',
+    
+    // Responsive variants (ensure mobile support)
+    { pattern: /^(bg|text|border)-\[var\(--[\w-]+\)\]$/ },
+    { pattern: /^(h|w)-\[var\(--[\w-]+\)\]$/ },
   ],
   theme: {
     extend: {
@@ -55,6 +166,47 @@ module.exports = {
           'text-muted': 'var(--component-text-muted)',
           'text-disabled': 'var(--component-text-disabled)',
         },
+        
+        // FORM SYSTEM COLORS (MISSING - ADDED TO FIX DARK MODE)
+        'surface': {
+          DEFAULT: 'var(--surface)',
+          'dark': 'var(--surface-dark)',
+          'alt': 'var(--surface-alt)',
+          'alt-dark': 'var(--surface-alt-dark)',
+          'hover': 'var(--surface-hover)',
+          'hover-dark': 'var(--surface-hover-dark)',
+        },
+        'input': {
+          DEFAULT: 'var(--input)',
+          'dark': 'var(--input-dark)',
+          'muted': 'var(--input-muted)',
+          'muted-dark': 'var(--input-muted-dark)',
+          'disabled': 'var(--input-disabled)',
+          'disabled-dark': 'var(--input-disabled-dark)',
+        },
+        'border': {
+          DEFAULT: 'var(--border)',
+          'dark': 'var(--border-dark)',
+          'hover': 'var(--border-hover)',
+          'hover-dark': 'var(--border-hover-dark)',
+          'disabled': 'var(--border-disabled)',
+          'disabled-dark': 'var(--border-disabled-dark)',
+          'alt': 'var(--border-alt)',
+          'alt-dark': 'var(--border-alt-dark)',
+        },
+        'placeholder': {
+          DEFAULT: 'var(--placeholder)',
+          'dark': 'var(--placeholder-dark)',
+        },
+        'helper': {
+          DEFAULT: 'var(--helper)',
+          'dark': 'var(--helper-dark)',
+        },
+        'focus': {
+          DEFAULT: 'var(--focus)',
+          'dark': 'var(--focus-dark)',
+        },
+        'focus-ring': 'var(--focus-ring)',
       },
       
       // SPACING SYSTEM (8-point grid)
@@ -155,6 +307,10 @@ module.exports = {
        
        borderWidth: {
          'component': 'var(--component-border-width)',
+       },
+       
+       borderRadius: {
+         'component': 'var(--component-border-radius)',
        },
        
        transitionProperty: {

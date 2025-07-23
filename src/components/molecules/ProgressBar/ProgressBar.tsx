@@ -68,7 +68,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
         
         {/* Percentage Display */}
         {showPercentage && (
-          <span className="text-[14px] font-[500] leading-[1.4] text-[#838C9D] whitespace-nowrap">
+          <span className="text-[14px] font-[500] leading-[1.4] text-[var(--tertiary)] whitespace-nowrap">
             {Math.round(clampedValue)}%
           </span>
         )}

@@ -35,23 +35,23 @@ const TabContent = ({
         name="check" 
         size={16} 
         className={cn(
-          state === 'selected' ? 'text-[#434F64]' : 'text-[#434F64]'
+          state === 'selected' ? 'text-[var(--primary)]' : 'text-[var(--primary)]'
         )}
       />
     )}
     <span className={cn(
       "text-base leading-[22.4px]",
-      state === 'selected' ? 'font-semibold text-[#434F64]' : 'font-normal text-[#434F64]'
+      state === 'selected' ? 'font-semibold text-[var(--primary)]' : 'font-normal text-[var(--primary)]'
     )}>
       {label}
     </span>
     {badge && (
-      <Badge variant="normal" className="!text-[#5F697B] !bg-white border border-[#CED1D7] !text-sm !font-medium !px-1 !py-0.5 !h-6">
+      <Badge variant="normal" className="!text-[var(--secondary)] !bg-white border border-[var(--border-primary)] !text-sm !font-medium !px-1 !py-0.5 !h-6">
         {badgeCount}
       </Badge>
     )}
     {notification && (
-      <div className="w-1.5 h-1.5 bg-[#FF3533] rounded-full" />
+      <div className="w-1.5 h-1.5 bg-[var(--critical)] rounded-full" />
     )}
   </div>
 );
@@ -97,34 +97,34 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
       // Border radius based on type - exact from Figma
       type === 'primary' && "rounded-none", // No border radius
       type === 'secondary' && "rounded-lg", // 8px border radius
-      type === 'tertiary' && "rounded-pill", // Proper pill shape instead of rounded-full
+      type === 'tertiary' && "rounded-full", // Pill shape
       
       // Border styles based on state and type
       type === 'primary' && [
         "border-b",
         currentState === 'selected' 
-          ? "border-b-4 border-[#434F64]" 
+          ? "border-b-4 border-[var(--primary)]" 
           : currentState === 'hover'
-          ? "border-b border-[#838C9D]"
-          : "border-b border-[#CED1D7]"
+          ? "border-b border-[var(--tertiary)]"
+          : "border-b border-[var(--border-primary)]"
       ],
       
       (type === 'secondary' || type === 'tertiary') && [
         "border",
         currentState === 'selected' || currentState === 'hover'
-          ? "border-[#838C9D]"
-          : "border-[#838C9D]"
+          ? "border-[var(--tertiary)]"
+          : "border-[var(--tertiary)]"
       ],
       
       // Background colors based on state and type
       currentState === 'selected' && [
-        type === 'primary' && "bg-transparent",
-        (type === 'secondary' || type === 'tertiary') && "bg-[#F0F1F7]"
+        type === 'primary' && "bg-[var(--border-secondary)]",
+        (type === 'secondary' || type === 'tertiary') && "bg-[var(--bg-secondary)]"
       ],
       
       currentState === 'hover' && [
-        type === 'primary' && "bg-[#F0F1F7]",
-        (type === 'secondary' || type === 'tertiary') && "bg-[#F8F8F9]"
+        type === 'primary' && "bg-[var(--border-secondary)]",
+        (type === 'secondary' || type === 'tertiary') && "bg-[var(--bg-secondary)]"
       ],
       
       currentState === 'unselected' && "bg-transparent",
@@ -195,7 +195,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     const containerStyles = cn(
       "flex",
       // Only show underline for primary type when showLine is true
-      showLine && type === 'primary' && "border-b border-[#CED1D7]",
+      showLine && type === 'primary' && "border-b border-[var(--border-primary)]",
       // Spacing between tabs for secondary and tertiary
       (type === 'secondary' || type === 'tertiary') && "gap-2",
       className

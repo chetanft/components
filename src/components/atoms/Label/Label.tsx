@@ -68,7 +68,7 @@ export const Label: React.FC<LabelProps> = ({
     fontSize: '14px',
     fontWeight: '500',
     lineHeight: '1.4',
-    color: 'var(--secondary)',
+    color: 'var(--tertiary)',
     cursor: onClick ? 'pointer' : 'default',
   };
 

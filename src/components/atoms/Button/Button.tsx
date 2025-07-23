@@ -67,32 +67,32 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   // Variant styles using CSS variables that adapt to themes automatically
   const variantStyles = {
     primary: cn(
-      "bg-[var(--primary)] text-white border border-[var(--primary)]",
-      "hover:bg-[var(--secondary)] hover:border-[var(--secondary)]", 
+      "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] border border-[var(--button-primary-border)]",
+      "hover:bg-[var(--button-primary-hover-bg)] hover:border-[var(--button-primary-hover-bg)]", 
       "focus-visible:ring-[var(--primary)]",
-      "disabled:bg-[var(--tertiary)] disabled:border-[var(--tertiary)] disabled:text-white"
+      "disabled:bg-[var(--tertiary)] disabled:border-[var(--tertiary)] disabled:text-[var(--button-primary-text)] disabled:opacity-50"
     ),
     secondary: cn(
-      "bg-white text-[var(--primary)] border border-[var(--border-primary)]",
-      "hover:bg-[var(--border-secondary)] hover:border-[var(--tertiary)]",
+      "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-[var(--button-secondary-border)]",
+      "hover:bg-[var(--button-secondary-hover-bg)] hover:border-[var(--button-secondary-hover-border)]",
       "focus-visible:ring-[var(--primary)]", 
       "disabled:text-[var(--tertiary)] disabled:border-[var(--border-primary)]"
     ),
     destructive: cn(
-      "bg-[var(--critical)] text-white border border-[var(--critical)]",
-      "hover:bg-[var(--critical-dark)] hover:border-[var(--critical-dark)]",
+      "bg-[var(--button-destructive-bg)] text-[var(--button-destructive-text)] border border-[var(--button-destructive-border)]",
+      "hover:bg-[var(--button-destructive-hover-bg)] hover:border-[var(--button-destructive-hover-bg)]",
       "focus-visible:ring-[var(--critical)]",
-      "disabled:bg-[var(--critical)]/50 disabled:border-[var(--critical)]/50 disabled:text-white"
+      "disabled:bg-[var(--critical)]/50 disabled:border-[var(--critical)]/50 disabled:text-[var(--button-destructive-text)] disabled:opacity-50"
     ),
     text: cn(
-      "bg-transparent text-[var(--primary)] border-transparent",
-      "hover:bg-[var(--border-secondary)] hover:text-[var(--secondary)]",
+      "bg-[var(--button-text-bg)] text-[var(--button-text-text)] border-[var(--button-text-border)]",
+      "hover:bg-[var(--button-text-hover-bg)] hover:text-[var(--button-text-text)]",
       "focus-visible:ring-[var(--primary)]",
       "disabled:text-[var(--tertiary)]"
     ),
     link: cn(
-      "bg-transparent text-[var(--neutral)] border-0 underline p-0 h-auto",
-      "hover:text-[var(--neutral-dark)] hover:no-underline hover:shadow-none", 
+      "bg-[var(--button-link-bg)] text-[var(--button-link-text)] border-0 underline p-0 h-auto",
+      "hover:text-[var(--button-link-hover-text)] hover:no-underline hover:shadow-none", 
       "focus-visible:ring-[var(--neutral)]",
       "disabled:text-[var(--tertiary)] disabled:no-underline"
     ),

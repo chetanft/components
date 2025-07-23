@@ -24,12 +24,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   storageKey = 'ft-theme'
 }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
-    // Try to load theme from localStorage
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem(storageKey) as Theme;
-      if (stored && ['light', 'dark', 'night'].includes(stored)) {
-        return stored;
-      }
+      return stored || defaultTheme;
     }
     return defaultTheme;
   });
@@ -38,25 +35,19 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     setThemeState(newTheme);
     if (typeof window !== 'undefined') {
       localStorage.setItem(storageKey, newTheme);
+      // Remove all theme classes first, then add the new one
+      document.documentElement.classList.remove('light', 'dark', 'night');
+      document.documentElement.classList.add(newTheme);
     }
   };
 
   useEffect(() => {
-    const root = document.documentElement;
-    
-    // Remove all theme classes
-    root.classList.remove('light', 'dark', 'night');
-    
-    // Add current theme class
-    root.classList.add(theme);
-    
-    // For dark mode compatibility, also add 'dark' class when night mode is active
-    if (theme === 'night') {
-      root.classList.add('dark');
-    }
+    // Remove all theme classes first, then add the current one
+    document.documentElement.classList.remove('light', 'dark', 'night');
+    document.documentElement.classList.add(theme);
   }, [theme]);
 
-  const contextValue: ThemeContextType = {
+  const value = {
     theme,
     setTheme,
     isLight: theme === 'light',
@@ -65,7 +56,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   };
 
   return (
-    <ThemeContext.Provider value={contextValue}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );

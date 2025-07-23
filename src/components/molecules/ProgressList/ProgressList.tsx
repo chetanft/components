@@ -136,7 +136,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
             <Icon
               name={item.icon || 'arrow-down'}
               size={10}
-              color={isActive ? '#FFFFFF' : '#434F64'}
+              color={isActive ? '#FFFFFF' : 'var(--primary)'}
             />
           </div>
         );
@@ -234,7 +234,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
         {/* Icon */}
         {item.icon && (
           <div className="flex-shrink-0 w-4 h-4 mt-0.5">
-            <Icon name={item.icon} size={16} color="#838C9D" />
+            <Icon name={item.icon} size={16} color="var(--tertiary)" />
           </div>
         )}
 
@@ -252,7 +252,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
                   {item.title}
                 </Typography>
                 {item.showHeaderLine && (
-                  <div className="flex-1 h-0 border-b border-[#838C9D]" />
+                  <div className="flex-1 h-0 border-b border-[var(--tertiary)]" />
                 )}
               </>
             ) : (
@@ -286,8 +286,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
                   className={`
                     flex items-center gap-2 px-2 py-0.5 rounded text-[14px] font-semibold
                     ${badge.variant === 'danger' 
-                      ? 'bg-[#FFEAEA] text-[#FF3533]' 
-                      : 'bg-[#F0F1F7] text-[#434F64]'
+                      ? 'bg-[var(--critical-light)] text-[var(--critical)]' 
+                      : 'bg-[var(--border-secondary)] text-[var(--primary)]'
                     }
                   `}
                 >

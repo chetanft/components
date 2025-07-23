@@ -28,7 +28,7 @@ export const Divider: React.FC<DividerProps> = ({
   
   const typeStyles = {
     primary: 'border-t border-[var(--border-primary)]',
-    secondary: 'border-t border-[#F0F1F7]',
+    secondary: 'border-t border-[var(--border-secondary)]',
     'with-label': 'flex items-center justify-center',
   };
 

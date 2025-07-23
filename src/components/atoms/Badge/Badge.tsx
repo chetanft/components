@@ -6,50 +6,46 @@ import { Icon, IconName } from '../Icons';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'normal' | 'danger' | 'success' | 'warning' | 'neutral';
-  size?: 'sm' | 'md';
   icon?: IconName;
   children: React.ReactNode;
 }
 
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
-  ({ className, variant = 'normal', size = 'md', icon, children, ...props }, ref) => {
+  ({ className, variant = 'normal', icon, children, ...props }, ref) => {
     // Base styles using exact Figma specifications
-    const baseStyles = "inline-flex items-center justify-center font-[var(--badge-font-weight)] text-[var(--badge-font-size)] leading-[1.4] border border-transparent transition-colors";
+    const baseStyles = "inline-flex items-center justify-center font-semibold text-[14px] leading-[1.4] border border-transparent transition-colors";
     
-    // Size styles - using exact Figma specifications
-    const sizeStyles = {
-      sm: "px-[6px] py-[1px] gap-[6px] rounded-[3px] text-[12px]", // Smaller variant
-      md: "px-[8px] py-[2px] gap-[8px] rounded-[var(--badge-border-radius)] text-[var(--badge-font-size)]" // Exact Figma specs
-    };
+    // Fixed size from Figma - only one size exists in Figma design
+    const sizeStyles = "px-[8px] py-[2px] gap-[8px] rounded-[4px]"; // Exact Figma specs: 2px 8px padding, 4px border radius, 8px gap
     
-    // Variant styles using exact Figma colors
+    // Variant styles using exact Figma colors (not CSS variables)
     const variantStyles = {
-      normal: "bg-[var(--badge-normal-bg)] text-[var(--badge-normal-text)] hover:bg-[var(--badge-normal-hover-bg)]",
-      danger: "bg-[var(--badge-danger-bg)] text-[var(--badge-danger-text)] hover:bg-[var(--badge-danger-hover-bg)] hover:text-[var(--badge-danger-hover-text)]",
-      success: "bg-[var(--badge-success-bg)] text-[var(--badge-success-text)] hover:bg-[var(--badge-success-hover-bg)]",
-      warning: "bg-[var(--badge-warning-bg)] text-[var(--badge-warning-text)] hover:bg-[var(--badge-warning-hover-bg)]",
-      neutral: "bg-[var(--badge-neutral-bg)] text-[var(--badge-neutral-text)]"
+      normal: "bg-[#F0F1F7] text-[#434F64]",
+      danger: "bg-[#FFEAEA] text-[#FF3533]",  
+      success: "bg-[#DFFFE8] text-[#00763D]",
+      warning: "bg-[#FFEBDC] text-[#FF6C19]",
+      neutral: "bg-[#ECF6FF] text-[#1890FF]"
     };
 
-    // Interactive variant styles with borders (for interactive badges)
-    const interactiveStyles = {
-      normal: "border-[var(--badge-normal-border)] hover:border-[var(--badge-normal-hover-border)]",
-      danger: "border-[var(--badge-danger-border)] hover:border-[var(--badge-danger-hover-border)]",
-      success: "border-[var(--badge-success-border)]",
-      warning: "border-[var(--badge-warning-border)]",
-      neutral: "border-transparent"
+    // Interactive hover states (these exist in Figma for interactive badges)
+    const hoverStyles = {
+      normal: "hover:bg-[#CED1D7] hover:border-[#838C9D]",
+      danger: "hover:bg-[#FFAFAD] hover:text-[#B80100] hover:border-[#B80100]",
+      success: "hover:bg-[#99E8AF] hover:border-[#00763D]", 
+      warning: "hover:bg-[#FFC4A3] hover:border-[#FF6C19]",
+      neutral: "hover:bg-[#ECF6FF]"
     };
 
-    const iconSize = size === 'sm' ? 12 : 14; // Exact Figma icon sizes
+    const iconSize = 14; // Exact Figma icon size: 14x14px
 
     return (
       <div
         className={cn(
           baseStyles,
-          sizeStyles[size],
+          sizeStyles,
           variantStyles[variant],
-          // Apply interactive styles if badge has onClick or other interactive props
-          (props.onClick || props.onMouseEnter || props.onFocus) && interactiveStyles[variant],
+          // Apply hover styles if badge has interactive props
+          (props.onClick || props.onMouseEnter || props.onFocus) && hoverStyles[variant],
           className
         )}
         ref={ref}

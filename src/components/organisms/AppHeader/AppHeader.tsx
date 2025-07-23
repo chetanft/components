@@ -131,7 +131,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             }}
             onClick={() => onNotificationClick('bell')}
           >
-            <div style={{ width: '24px', height: '24px', color: '#434F64' }}>
+            <div style={{ width: '24px', height: '24px', color: 'var(--primary)' }}>
               <Bell />
             </div>
           </div>
