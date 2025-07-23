@@ -311,11 +311,21 @@
   --spacing-x16: 64px;
 
   /* Font Sizes Desktop */
+  --font-size-xs: 12px;
   --font-size-sm: 14px;
   --font-size-md: 16px;
   --font-size-lg: 20px;
   --font-size-xl: 24px;
   --font-size-xxl: 28px;
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Colors - Additional Success alias */
+  --color-success: #00c638; /* Alias for positive color */
 
   /* Button Component Variables - Exact Figma Colors */
   --button-primary-bg: #434f64;
@@ -476,6 +486,7 @@
     --spacing-x16: 60px;
     
     /* Tablet typography */
+    --font-size-xs: 11px;
     --font-size-sm: 12px;
     --font-size-md: 14px;
     --font-size-lg: 18px;
@@ -1192,6 +1203,7 @@ h2 {
     --spacing-x16: 60px;
     
     /* Tablet typography */
+    --font-size-xs: 11px;
     --font-size-sm: 12px;
     --font-size-md: 14px;
     --font-size-lg: 18px;
