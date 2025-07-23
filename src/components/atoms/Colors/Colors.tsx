@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "../../../lib/utils";
 import { ThemeSwitch } from "../../molecules/ThemeSwitch/ThemeSwitch";
-import { useTheme } from "../../../contexts/ThemeContext";
+
+// Optional theme hook that doesn't throw if no provider
+const useOptionalTheme = () => {
+  try {
+    const { useTheme } = require("../../../contexts/ThemeContext");
+    return useTheme();
+  } catch (error) {
+    // Fallback when ThemeProvider is not available (like in Storybook)
+    return { theme: 'light' };
+  }
+};
 
 interface ColorSwatchProps {
   colorName: string;
@@ -48,7 +58,7 @@ const ColorGroup: React.FC<ColorGroupProps> = ({ title, children }) => {
 };
 
 export function Colors() {
-  const { theme } = useTheme();
+  const { theme } = useOptionalTheme();
   
   return (
     <div className="w-full space-y-10">
@@ -56,7 +66,26 @@ export function Colors() {
         <h1 className="text-[40px] font-light">Colors</h1>
         <div className="flex items-center gap-4">
           <span className="text-sm font-medium">Current Theme: {theme}</span>
-          <ThemeSwitch />
+          <div className="bg-gray-100 rounded-lg p-1">
+            <button 
+              onClick={() => document.documentElement.className = ''}
+              className="px-3 py-1 text-sm rounded bg-white shadow-sm"
+            >
+              Light
+            </button>
+            <button 
+              onClick={() => document.documentElement.className = 'dark'}
+              className="px-3 py-1 text-sm rounded ml-1"
+            >
+              Dark
+            </button>
+            <button 
+              onClick={() => document.documentElement.className = 'night'}
+              className="px-3 py-1 text-sm rounded ml-1"
+            >
+              Night
+            </button>
+          </div>
         </div>
       </div>
       
