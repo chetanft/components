@@ -7,15 +7,24 @@
 :root {
   --font-size: 14px;
   
-  /* Color System from Figma - Updated to match exact Figma values */
-  /* Base colors */
-  --dark-100: #434f64;
-  --dark-50: #5f697b;
-  --dark-25: #838c9d;
-  --box-border: #ced1d7;
-  --divider: #f0f1f7;
-  --bg: #f8f8f9;
-  --white: #ffffff;
+  /* Color System from Figma - Updated to new naming scheme */
+  /* Base colors - NEW NAMES */
+  --primary: #434f64;        /* was --dark-100 */
+  --secondary: #5f697b;      /* was --dark-50 */
+  --tertiary: #838c9d;       /* was --dark-25 */
+  --border-primary: #ced1d7; /* was --box-border */
+  --border-secondary: #f0f1f7; /* was --divider */
+  --bg-secondary: #f8f8f9;   /* was --bg */
+  --bg-primary: #ffffff;     /* was --white */
+  
+  /* BACKWARD COMPATIBILITY - Remove after migration complete */
+  --dark-100: var(--primary);
+  --dark-50: var(--secondary);
+  --dark-25: var(--tertiary);
+  --box-border: var(--border-primary);
+  --divider: var(--border-secondary);
+  --bg: var(--bg-secondary);
+  --white: var(--bg-primary);
   
   /* Semantic colors - Updated to match exact Figma values */
   /* Critical */
@@ -69,17 +78,16 @@
   --line-height-btn: 140%;
   --letter-spacing-btn: 0.0263923px;
   
-  /* Legacy variables - keeping for backward compatibility */
-  --background: var(--white);
-  --foreground: var(--dark-100);
-  --card: var(--white);
-  --card-foreground: var(--dark-100);
-  --popover: var(--white);
-  --popover-foreground: var(--dark-100);
-  --primary: #030213;
-  --primary-foreground: var(--white);
-  --secondary: oklch(0.95 0.0058 264.53);
-  --secondary-foreground: #030213;
+  /* Legacy variables - UPDATED to use new color system */
+  --background: var(--bg-primary);
+  --foreground: var(--primary);
+  --card: var(--bg-primary);
+  --card-foreground: var(--primary);
+  --popover: var(--bg-primary);
+  --popover-foreground: var(--primary);
+  /* REMOVED CONFLICTING --primary and --secondary - now using our values */
+  --primary-foreground: var(--bg-primary);
+  --secondary-foreground: var(--primary);
   --muted: #ececf0;
   --muted-foreground: #717182;
   --accent: #e9ebef;
@@ -88,13 +96,13 @@
   --destructive-foreground: var(--white);
   --border: rgba(0, 0, 0, 0.1);
   --input: transparent;
-  --input-background: var(--bg);
+  --input-background: var(--bg-secondary);
   --switch-background: #cbced4;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
   --font-weight-semibold: 600;
   --font-weight-light: 300;
-  --ring: var(--dark-50);
+  --ring: var(--secondary);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -250,14 +258,23 @@
   --switch-disabled-bg: rgba(139, 139, 139, 0.2);
   --switch-disabled-thumb: #838c9d;
 
-  /* Colors */
-  --color-dark-100: #434f64;
-  --color-dark-50: #5f697b;
-  --color-dark-25: #838c9d;
-  --color-border: #ced1d7;
-  --color-divider: #f0f1f7;
-  --color-background: #f8f8f9;
-  --color-white: #ffffff;
+  /* Colors - UPDATED to new naming scheme */
+  --color-primary: #434f64;           /* was --color-dark-100 */
+  --color-secondary: #5f697b;         /* was --color-dark-50 */
+  --color-tertiary: #838c9d;          /* was --color-dark-25 */
+  --color-border-primary: #ced1d7;    /* was --color-border */
+  --color-border-secondary: #f0f1f7;  /* was --color-divider */
+  --color-bg-secondary: #f8f8f9;      /* was --color-background */
+  --color-bg-primary: #ffffff;        /* was --color-white */
+  
+  /* BACKWARD COMPATIBILITY */
+  --color-dark-100: var(--color-primary);
+  --color-dark-50: var(--color-secondary);
+  --color-dark-25: var(--color-tertiary);
+  --color-border: var(--color-border-primary);
+  --color-divider: var(--color-border-secondary);
+  --color-background: var(--color-bg-secondary);
+  --color-white: var(--color-bg-primary);
   
   --color-critical: #ff3533;
   --color-critical-dark: #b80100;
@@ -436,8 +453,8 @@
   /* Component Border System - Unified borders */
   --component-border-radius: 8px;      /* All components use same radius */
   --component-border-width: 2px;       /* All components use same border width */
-  --component-border-color: var(--box-border); /* Default border color */
-  --component-border-focus: var(--dark-100);   /* Focus border color */
+  --component-border-color: var(--border-primary); /* Default border color */
+  --component-border-focus: var(--primary);        /* Focus border color */
   
   /* Component Icon System - Unified icon sizing */
   --component-icon-size-sm: 16px;  /* Small component icons */
@@ -456,12 +473,12 @@
   --component-shadow-hover: 0 2px 4px rgba(67, 79, 100, 0.1);
   
   /* Component Color System - Unified semantic colors */
-  --component-bg-default: var(--white);
-  --component-bg-hover: var(--divider);
-  --component-bg-disabled: var(--divider);
-  --component-text-default: var(--dark-100);
-  --component-text-muted: var(--dark-25);
-  --component-text-disabled: var(--dark-25);
+  --component-bg-default: var(--bg-primary);
+  --component-bg-hover: var(--border-secondary);
+  --component-bg-disabled: var(--border-secondary);
+  --component-text-default: var(--primary);
+  --component-text-muted: var(--tertiary);
+  --component-text-disabled: var(--tertiary);
 }
 
 /* Responsive tablet adjustments */
@@ -497,13 +514,23 @@
 
 .dark {
   /* Base Colors - Dark Mode */
-  --dark-100: #e2e8f0;      /* Light text */
-  --dark-50: #94a3b8;       /* Muted text */
-  --dark-25: #64748b;       /* Subtle text */
-  --box-border: #334155;    /* Borders */
-  --divider: #1e293b;       /* Dividers */
-  --bg: #0f172a;           /* Background */
-  --white: #1e293b;        /* Cards/surfaces */
+      /* Updated to new naming scheme */
+    --primary: #e2e8f0;       /* Light text (was --dark-100) */
+    --secondary: #94a3b8;     /* Muted text (was --dark-50) */
+    --tertiary: #64748b;      /* Subtle text (was --dark-25) */
+    --border-primary: #334155; /* Borders (was --box-border) */
+    --border-secondary: #1e293b; /* Dividers (was --divider) */
+    --bg-secondary: #0f172a;  /* Background (was --bg) */
+    --bg-primary: #1e293b;    /* Cards/surfaces (was --white) */
+    
+    /* BACKWARD COMPATIBILITY for dark mode */
+    --dark-100: var(--primary);
+    --dark-50: var(--secondary);
+    --dark-25: var(--tertiary);
+    --box-border: var(--border-primary);
+    --divider: var(--border-secondary);
+    --bg: var(--bg-secondary);
+    --white: var(--bg-primary);
   
   /* Semantic Colors - Dark Mode */
   --critical-dark: #fca5a5;
@@ -683,8 +710,8 @@ html {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  background-color: var(--white);
-  color: var(--dark-100);
+  background-color: var(--bg-primary);
+  color: var(--primary);
 }
 
 /* Typography styles matching the Figma design */
@@ -1219,7 +1246,7 @@ h2 {
 
 body {
   font-family: var(--font-family-primary);
-  color: var(--color-dark-100);
+  color: var(--color-primary);
   background-color: var(--color-white);
   line-height: 1.4;
   -webkit-font-smoothing: antialiased;
@@ -1238,9 +1265,14 @@ body {
   font-family: var(--font-family-primary);
 }
 
-.text-dark-100 { color: var(--color-dark-100); }
-.text-dark-50 { color: var(--color-dark-50); }
-.text-dark-25 { color: var(--color-dark-25); }
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary); }
+.text-tertiary { color: var(--color-tertiary); }
+
+/* BACKWARD COMPATIBILITY */
+.text-dark-100 { color: var(--color-primary); }
+.text-dark-50 { color: var(--color-secondary); }
+.text-dark-25 { color: var(--color-tertiary); }
 .text-primary { color: var(--primary); }
 .text-critical { color: var(--color-critical); }
 .text-warning { color: var(--color-warning); }
