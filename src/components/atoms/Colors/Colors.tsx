@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { cn } from "../../../lib/utils";
+import { ThemeSwitch } from "../../molecules/ThemeSwitch/ThemeSwitch";
+import { useTheme } from "../../../contexts/ThemeContext";
 
 interface ColorSwatchProps {
   colorName: string;
@@ -46,9 +48,79 @@ const ColorGroup: React.FC<ColorGroupProps> = ({ title, children }) => {
 };
 
 export function Colors() {
+  const { theme } = useTheme();
+  
   return (
     <div className="w-full space-y-10">
-      <h1 className="text-[40px] font-light mb-8">Colors</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="text-[40px] font-light">Colors</h1>
+        <div className="flex items-center gap-4">
+          <span className="text-sm font-medium">Current Theme: {theme}</span>
+          <ThemeSwitch />
+        </div>
+      </div>
+      
+      <section>
+        <h2 className="text-[24px] font-semibold mb-6">Live Theme Colors</h2>
+        <p className="mb-6">These colors adapt automatically based on the selected theme above.</p>
+        
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="flex flex-col">
+            <div 
+              className="h-24 w-24 rounded-md mb-2 border border-gray-200 bg-[var(--primary)]"
+            ></div>
+            <div className="space-y-1">
+              <p className="font-semibold text-sm">Primary</p>
+              <p className="text-xs text-gray-600">var(--primary)</p>
+              <p className="text-xs font-medium">Adapts to theme</p>
+            </div>
+          </div>
+          
+          <div className="flex flex-col">
+            <div 
+              className="h-24 w-24 rounded-md mb-2 border border-gray-200 bg-[var(--secondary)]"
+            ></div>
+            <div className="space-y-1">
+              <p className="font-semibold text-sm">Secondary</p>
+              <p className="text-xs text-gray-600">var(--secondary)</p>
+              <p className="text-xs font-medium">Adapts to theme</p>
+            </div>
+          </div>
+          
+          <div className="flex flex-col">
+            <div 
+              className="h-24 w-24 rounded-md mb-2 border border-gray-200 bg-[var(--tertiary)]"
+            ></div>
+            <div className="space-y-1">
+              <p className="font-semibold text-sm">Tertiary</p>
+              <p className="text-xs text-gray-600">var(--tertiary)</p>
+              <p className="text-xs font-medium">Adapts to theme</p>
+            </div>
+          </div>
+          
+          <div className="flex flex-col">
+            <div 
+              className="h-24 w-24 rounded-md mb-2 border border-gray-200 bg-[var(--border-primary)]"
+            ></div>
+            <div className="space-y-1">
+              <p className="font-semibold text-sm">Border Primary</p>
+              <p className="text-xs text-gray-600">var(--border-primary)</p>
+              <p className="text-xs font-medium">Adapts to theme</p>
+            </div>
+          </div>
+          
+          <div className="flex flex-col">
+            <div 
+              className="h-24 w-24 rounded-md mb-2 border border-gray-200 bg-[var(--bg-secondary)]"
+            ></div>
+            <div className="space-y-1">
+              <p className="font-semibold text-sm">BG Secondary</p>
+              <p className="text-xs text-gray-600">var(--bg-secondary)</p>
+              <p className="text-xs font-medium">Adapts to theme</p>
+            </div>
+          </div>
+        </div>
+      </section>
       
       <section>
         <h2 className="text-[24px] font-semibold mb-6">Base Colors</h2>

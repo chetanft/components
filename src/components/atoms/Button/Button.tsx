@@ -64,43 +64,37 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     componentStyles.gap
   );
 
-  // Variant styles using semantic colors that adapt to themes
+  // Variant styles using CSS variables that adapt to themes automatically
   const variantStyles = {
     primary: cn(
-      "bg-primary text-white border border-primary",
-      "hover:bg-secondary hover:border-secondary",
-      "dark:bg-primary dark:text-black dark:border-primary",
-      "dark:hover:bg-secondary dark:hover:border-secondary",
-      "focus-visible:ring-primary",
-      "disabled:bg-tertiary disabled:border-tertiary disabled:text-white"
+      "bg-[var(--primary)] text-white border border-[var(--primary)]",
+      "hover:bg-[var(--secondary)] hover:border-[var(--secondary)]", 
+      "focus-visible:ring-[var(--primary)]",
+      "disabled:bg-[var(--tertiary)] disabled:border-[var(--tertiary)] disabled:text-white"
     ),
     secondary: cn(
-      "bg-white text-primary border border-border-primary",
-      "hover:bg-border-secondary hover:border-tertiary",
-      "dark:bg-white dark:text-primary dark:border-border-primary",
-      "dark:hover:bg-border-secondary dark:hover:border-tertiary",
-      "focus-visible:ring-primary",
-      "disabled:text-tertiary disabled:border-border-primary"
+      "bg-white text-[var(--primary)] border border-[var(--border-primary)]",
+      "hover:bg-[var(--border-secondary)] hover:border-[var(--tertiary)]",
+      "focus-visible:ring-[var(--primary)]", 
+      "disabled:text-[var(--tertiary)] disabled:border-[var(--border-primary)]"
     ),
     destructive: cn(
-      "bg-critical text-white border border-critical",
-      "hover:bg-critical-dark hover:border-critical-dark",
-      "focus-visible:ring-critical",
-      "disabled:bg-critical/50 disabled:border-critical/50 disabled:text-white"
+      "bg-[var(--critical)] text-white border border-[var(--critical)]",
+      "hover:bg-[var(--critical-dark)] hover:border-[var(--critical-dark)]",
+      "focus-visible:ring-[var(--critical)]",
+      "disabled:bg-[var(--critical)]/50 disabled:border-[var(--critical)]/50 disabled:text-white"
     ),
     text: cn(
-      "bg-transparent text-primary border-transparent",
-      "hover:bg-border-secondary hover:text-secondary",
-      "dark:text-primary",
-      "dark:hover:bg-border-secondary dark:hover:text-secondary",
-      "focus-visible:ring-primary",
-      "disabled:text-tertiary"
+      "bg-transparent text-[var(--primary)] border-transparent",
+      "hover:bg-[var(--border-secondary)] hover:text-[var(--secondary)]",
+      "focus-visible:ring-[var(--primary)]",
+      "disabled:text-[var(--tertiary)]"
     ),
     link: cn(
-      "bg-transparent text-neutral border-0 underline p-0 h-auto",
-      "hover:text-neutral-dark hover:no-underline hover:shadow-none",
-      "focus-visible:ring-neutral",
-      "disabled:text-tertiary disabled:no-underline"
+      "bg-transparent text-[var(--neutral)] border-0 underline p-0 h-auto",
+      "hover:text-[var(--neutral-dark)] hover:no-underline hover:shadow-none", 
+      "focus-visible:ring-[var(--neutral)]",
+      "disabled:text-[var(--tertiary)] disabled:no-underline"
     ),
   };
 
