@@ -68,12 +68,12 @@ const weightStyles = {
 };
 
 const colorStyles = {
-  primary: "text-[var(--color-primary)] text-gray-900",     // was --color-primary
-  secondary: "text-[var(--color-secondary)] text-gray-600", // was --color-secondary
-  muted: "text-[var(--color-tertiary)] text-gray-400",     // was --color-tertiary
-  danger: "text-[var(--color-critical)] text-red-600",
-  success: "text-[var(--color-success)] text-green-600",
-  warning: "text-[var(--color-warning)] text-yellow-600",
+  primary: "text-[var(--primary)] dark:text-[var(--text-on-dark)]",     // Light mode: dark text, Dark mode: light text
+  secondary: "text-[var(--secondary)] dark:text-[var(--text-secondary-on-dark)]", // Muted text colors
+  muted: "text-[var(--tertiary)] dark:text-[var(--text-tertiary-on-dark)]",     // Subtle text colors
+  danger: "text-[var(--critical)]",
+  success: "text-[var(--positive)]",
+  warning: "text-[var(--warning)]",
 };
 
 const variantToElement = {

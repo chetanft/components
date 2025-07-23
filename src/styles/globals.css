@@ -499,14 +499,19 @@
 }
 
 .dark {
-  /* Base Colors - Dark Mode - Enhanced with your exact values */
-  --primary: #E2E8F0;        /* Light text for dark backgrounds */
-  --secondary: #94A3B8;      /* Muted text */
-  --tertiary: #64748B;       /* Subtle text */
+  /* Base Colors - Dark Mode - CORRECTED VALUES */
+  --primary: #434F64;        /* Dark text for light button backgrounds - SAME AS LIGHT MODE */
+  --secondary: #5F697B;      /* Dark muted text for light backgrounds */
+  --tertiary: #838C9D;       /* Dark subtle text */
   --border-primary: #475569; /* Borders */
   --border-secondary: #334155; /* Dividers */
   --bg-secondary: #0F172A;   /* Page background */
   --bg-primary: #1E293B;     /* Cards/surfaces */
+  
+  /* Text Colors for Dark Backgrounds */
+  --text-on-dark: #E2E8F0;   /* Light text for dark page backgrounds */
+  --text-secondary-on-dark: #94A3B8; /* Muted light text */
+  --text-tertiary-on-dark: #64748B;  /* Subtle light text */
   
   /* Status Colors - Dark Mode */
   --critical-dark: #FF4D4F;
@@ -648,14 +653,19 @@
 
 /* NEW: Night Mode Theme */
 .night {
-  /* Base Colors - Night Mode - Your exact values */
-  --primary: #F0F0F0;        /* Light text for night backgrounds */
-  --secondary: #D0D0D0;      /* Muted text */
-  --tertiary: #A0A0A0;       /* Subtle text */
+  /* Base Colors - Night Mode - CORRECTED VALUES */
+  --primary: #434F64;        /* Dark text for light button backgrounds - CONSISTENT */
+  --secondary: #5F697B;      /* Dark muted text for light backgrounds */
+  --tertiary: #838C9D;       /* Dark subtle text */
   --border-primary: #404040; /* Borders */
   --border-secondary: #202020; /* Dividers */
-  --bg-secondary: #1A1A1A;   /* Page background */
-  --bg-primary: #000000;     /* Cards/surfaces */
+  --bg-secondary: #000000;   /* Page background - TRUE BLACK */
+  --bg-primary: #1A1A1A;     /* Cards/surfaces */
+  
+  /* Text Colors for Night Backgrounds */
+  --text-on-dark: #F0F0F0;   /* Light text for dark page backgrounds */
+  --text-secondary-on-dark: #D0D0D0; /* Muted light text */
+  --text-tertiary-on-dark: #A0A0A0;  /* Subtle light text */
   
   /* Status Colors - Night Mode */
   --critical-dark: #FF6666;
