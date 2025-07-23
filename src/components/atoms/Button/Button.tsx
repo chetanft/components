@@ -64,19 +64,23 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     componentStyles.gap
   );
 
-  // Variant styles with design tokens and exact Figma colors
+  // Variant styles using semantic colors that adapt to themes
   const variantStyles = {
     primary: cn(
-      "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] border border-[var(--button-primary-bg)]",
-      "hover:opacity-90",
+      "bg-primary text-white border border-primary",
+      "hover:bg-secondary hover:border-secondary",
+      "dark:bg-primary dark:text-black dark:border-primary",
+      "dark:hover:bg-secondary dark:hover:border-secondary",
       "focus-visible:ring-primary",
-      "disabled:opacity-50 disabled:cursor-not-allowed"
+      "disabled:bg-tertiary disabled:border-tertiary disabled:text-white"
     ),
     secondary: cn(
-      "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-[var(--button-secondary-border)]",
-      "hover:opacity-90",
+      "bg-white text-primary border border-border-primary",
+      "hover:bg-border-secondary hover:border-tertiary",
+      "dark:bg-white dark:text-primary dark:border-border-primary",
+      "dark:hover:bg-border-secondary dark:hover:border-tertiary",
       "focus-visible:ring-primary",
-      "disabled:opacity-50 disabled:cursor-not-allowed"
+      "disabled:text-tertiary disabled:border-border-primary"
     ),
     destructive: cn(
       "bg-critical text-white border border-critical",
@@ -85,10 +89,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "disabled:bg-critical/50 disabled:border-critical/50 disabled:text-white"
     ),
     text: cn(
-      "bg-transparent text-[var(--button-text-color)] border-transparent",
-      "hover:opacity-80",
+      "bg-transparent text-primary border-transparent",
+      "hover:bg-border-secondary hover:text-secondary",
+      "dark:text-primary",
+      "dark:hover:bg-border-secondary dark:hover:text-secondary",
       "focus-visible:ring-primary",
-      "disabled:opacity-50"
+      "disabled:text-tertiary"
     ),
     link: cn(
       "bg-transparent text-neutral border-0 underline p-0 h-auto",

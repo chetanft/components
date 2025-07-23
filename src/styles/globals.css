@@ -466,13 +466,7 @@
   --component-text-muted: var(--tertiary);
   --component-text-disabled: var(--tertiary);
   
-  /* Button Colors - Light Mode (from Figma) */
-  --button-primary-bg: #434F64;     /* Dark background */
-  --button-primary-text: #FFFFFF;   /* White text */
-  --button-secondary-bg: #FFFFFF;   /* White background */
-  --button-secondary-text: #434F64; /* Dark text */
-  --button-secondary-border: #CED1D7; /* Light border */
-  --button-text-color: #434F64;     /* Dark text for text buttons */
+
 }
 
 /* Responsive tablet adjustments */
@@ -507,22 +501,16 @@
 }
 
 .dark {
-  /* Base Colors - Dark Mode - FROM FIGMA DESIGN */
-  --primary: #F0F0F0;        /* Light text/backgrounds for dark mode */
-  --secondary: #F0F0F0;      /* Light muted elements */
-  --tertiary: #F0F0F0;       /* Light subtle elements */
+  /* Base Colors - Dark Mode - FIGMA ACCURATE */
+  --primary: #F0F0F0;        /* Light backgrounds for buttons in dark mode */
+  --secondary: #D0D0D0;      /* Light muted elements */
+  --tertiary: #A0A0A0;       /* Light subtle elements */
   --border-primary: #404040; /* Dark borders */
   --border-secondary: #334155; /* Dividers */
   --bg-secondary: #0F172A;   /* Page background */
   --bg-primary: #1E293B;     /* Cards/surfaces */
   
-  /* Button Colors - Dark Mode (from Figma) */
-  --button-primary-bg: #F0F0F0;     /* Light background */
-  --button-primary-text: #000000;   /* Black text */
-  --button-secondary-bg: #FFFFFF;   /* White background */
-  --button-secondary-text: #F0F0F0; /* Light text */
-  --button-secondary-border: #404040; /* Dark border */
-  --button-text-color: #F0F0F0;     /* Light text for text buttons */
+
   
   /* Status Colors - Dark Mode */
   --critical-dark: #FF4D4F;
@@ -673,13 +661,7 @@
   --bg-secondary: #000000;   /* Page background - TRUE BLACK */
   --bg-primary: #1A1A1A;     /* Cards/surfaces */
   
-  /* Button Colors - Night Mode (from Figma) */
-  --button-primary-bg: #434F64;     /* Dark background */
-  --button-primary-text: #FFFFFF;   /* White text */
-  --button-secondary-bg: #FFFFFF;   /* White background */
-  --button-secondary-text: #E2E8F0; /* Light text */
-  --button-secondary-border: #475569; /* Border */
-  --button-text-color: #E2E8F0;     /* Light text for text buttons */
+
   
   /* Status Colors - Night Mode */
   --critical-dark: #FF6666;
