@@ -20,8 +20,8 @@ export const TableCellText: React.FC<TableCellTextProps> = ({
         // Base styles from Figma
         "text-[16px] font-normal font-inter leading-[1.4]",
         // Type-specific colors from Figma
-        type === 'primary' && "text-[#434F64]", // --color-dark-100
-        type === 'secondary' && "text-[#5F697B]", // --color-dark-50
+        type === 'primary' && "text-[var(--color-primary)]", // --color-dark-100
+        type === 'secondary' && "text-[var(--color-secondary)]", // --color-dark-50
         className
       )}
     >

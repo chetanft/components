@@ -68,9 +68,9 @@ const weightStyles = {
 };
 
 const colorStyles = {
-  primary: "text-[var(--color-dark-100)] text-gray-900",
-  secondary: "text-[var(--color-dark-50)] text-gray-600",
-  muted: "text-[var(--color-dark-25)] text-gray-400",
+  primary: "text-[var(--color-primary)] text-gray-900",     // was --color-primary
+  secondary: "text-[var(--color-secondary)] text-gray-600", // was --color-secondary
+  muted: "text-[var(--color-tertiary)] text-gray-400",     // was --color-tertiary
   danger: "text-[var(--color-critical)] text-red-600",
   success: "text-[var(--color-success)] text-green-600",
   warning: "text-[var(--color-warning)] text-yellow-600",
@@ -169,16 +169,16 @@ interface TypographyExampleProps {
 export function TypographyExample({ title, details, usage, token, className, children }: TypographyExampleProps) {
   return (
     <div className={cn("grid grid-cols-1 md:grid-cols-4 gap-6 py-6 border-b border-[var(--color-border)]", className)}>
-      <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">
+      <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">
         {title}
       </div>
-      <div className="text-[var(--font-size-sm)] text-[var(--color-dark-50)]">
+      <div className="text-[var(--font-size-sm)] text-[var(--color-secondary)]">
         {details}
       </div>
-      <div className="text-[var(--font-size-sm)] text-[var(--color-dark-50)]">
+      <div className="text-[var(--font-size-sm)] text-[var(--color-secondary)]">
         {usage}
       </div>
-      <div className="text-[var(--font-size-sm)] text-[var(--color-dark-25)]">
+      <div className="text-[var(--font-size-sm)] text-[var(--color-tertiary)]">
         {token}
       </div>
       <div className="col-span-full mt-[var(--spacing-x2)]">
@@ -191,37 +191,37 @@ export function TypographyExample({ title, details, usage, token, className, chi
 export function TypographyShowcase() {
   return (
     <div className="w-full space-y-[var(--spacing-x10)]">
-      <h1 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x8)] text-[var(--color-dark-100)]">Typography</h1>
+      <h1 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x8)] text-[var(--color-primary)]">Typography</h1>
 
       <section>
-        <h2 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x6)] text-[var(--color-dark-100)]">Type Face: Inter</h2>
-        <p className="text-[var(--font-size-xxl)] mb-[var(--spacing-x6)] text-[var(--color-dark-100)]">
+        <h2 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x6)] text-[var(--color-primary)]">Type Face: Inter</h2>
+        <p className="text-[var(--font-size-xxl)] mb-[var(--spacing-x6)] text-[var(--color-primary)]">
           Freight Tiger is building logistics infrastructure to transform commerce in India.
         </p>
-        <p className="text-[var(--font-size-xl)] font-[var(--font-weight-semibold)] mb-[var(--spacing-x6)] text-[var(--color-dark-100)]">
+        <p className="text-[var(--font-size-xl)] font-[var(--font-weight-semibold)] mb-[var(--spacing-x6)] text-[var(--color-primary)]">
           Freight Tiger is building logistics infrastructure to transform commerce in India.
         </p>
-        <p className="text-[var(--font-size-lg)] font-[var(--font-weight-medium)] mb-[var(--spacing-x6)] text-[var(--color-dark-100)]">
+        <p className="text-[var(--font-size-lg)] font-[var(--font-weight-medium)] mb-[var(--spacing-x6)] text-[var(--color-primary)]">
           Freight Tiger is building logistics infrastructure to transform commerce in India.
         </p>
-        <p className="text-[var(--font-size-md)] mb-[var(--spacing-x6)] text-[var(--color-dark-100)]">
+        <p className="text-[var(--font-size-md)] mb-[var(--spacing-x6)] text-[var(--color-primary)]">
           Freight Tiger is building logistics infrastructure to transform commerce in India.
         </p>
-        <p className="text-[var(--font-size-md)] font-[var(--font-weight-semibold)] mb-[var(--spacing-x6)] text-[var(--color-dark-100)]">
+        <p className="text-[var(--font-size-md)] font-[var(--font-weight-semibold)] mb-[var(--spacing-x6)] text-[var(--color-primary)]">
           Freight Tiger is building logistics infrastructure to transform commerce in India.
         </p>
-        <p className="text-[var(--font-size-md)] font-[var(--font-weight-medium)] mb-[var(--spacing-x6)] text-[var(--color-dark-100)]">
+        <p className="text-[var(--font-size-md)] font-[var(--font-weight-medium)] mb-[var(--spacing-x6)] text-[var(--color-primary)]">
           Freight Tiger is building logistics infrastructure to transform commerce in India.
         </p>
       </section>
 
       <section>
-        <h2 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x6)] text-[var(--color-dark-100)]">Title</h2>
+        <h2 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x6)] text-[var(--color-primary)]">Title</h2>
         <div className="grid grid-cols-4 gap-4 mb-4 border-b border-[var(--color-border)] py-[var(--spacing-x2)]">
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Font</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Details</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Usage</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Token</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Font</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Details</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Usage</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Token</div>
         </div>
 
         <TypographyExample 
@@ -237,7 +237,7 @@ export function TypographyShowcase() {
           usage="Page Title"
           token="typography.fontSize.xxl"
         >
-          <p className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] text-[var(--color-dark-100)]">H1</p>
+          <p className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] text-[var(--color-primary)]">H1</p>
         </TypographyExample>
 
         <TypographyExample 
@@ -253,17 +253,17 @@ export function TypographyShowcase() {
           usage="Section Title"
           token="typography.fontSize.xl"
         >
-          <p className="text-[var(--font-size-xl)] font-[var(--font-weight-semibold)] text-[var(--color-dark-100)]">H2</p>
+          <p className="text-[var(--font-size-xl)] font-[var(--font-weight-semibold)] text-[var(--color-primary)]">H2</p>
         </TypographyExample>
       </section>
 
       <section>
-        <h2 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x6)] text-[var(--color-dark-100)]">Display</h2>
+        <h2 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x6)] text-[var(--color-primary)]">Display</h2>
         <div className="grid grid-cols-4 gap-4 mb-4 border-b border-[var(--color-border)] py-[var(--spacing-x2)]">
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Font</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Details</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Usage</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Token</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Font</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Details</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Usage</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Token</div>
         </div>
 
         <TypographyExample 
@@ -279,17 +279,17 @@ export function TypographyShowcase() {
           usage="High level data, summary, dashboard content"
           token="typography.fontSize.lg"
         >
-          <p className="text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] text-[var(--color-dark-100)]">Display-bold</p>
+          <p className="text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] text-[var(--color-primary)]">Display-bold</p>
         </TypographyExample>
       </section>
 
       <section>
-        <h2 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x6)] text-[var(--color-dark-100)]">Button</h2>
+        <h2 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x6)] text-[var(--color-primary)]">Button</h2>
         <div className="grid grid-cols-4 gap-4 mb-4 border-b border-[var(--color-border)] py-[var(--spacing-x2)]">
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Font</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Details</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Usage</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Token</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Font</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Details</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Usage</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Token</div>
         </div>
 
         <TypographyExample 
@@ -305,17 +305,17 @@ export function TypographyShowcase() {
           usage="Button Text"
           token="typography.fontSize.lg"
         >
-          <p className="text-[var(--font-size-lg)] font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Button</p>
+          <p className="text-[var(--font-size-lg)] font-[var(--font-weight-medium)] text-[var(--color-primary)]">Button</p>
         </TypographyExample>
       </section>
 
       <section>
-        <h2 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x6)] text-[var(--color-dark-100)]">Body</h2>
+        <h2 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] mb-[var(--spacing-x6)] text-[var(--color-primary)]">Body</h2>
         <div className="grid grid-cols-4 gap-4 mb-4 border-b border-[var(--color-border)] py-[var(--spacing-x2)]">
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Font</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Details</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Usage</div>
-          <div className="font-[var(--font-weight-medium)] text-[var(--color-dark-100)]">Token</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Font</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Details</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Usage</div>
+          <div className="font-[var(--font-weight-medium)] text-[var(--color-primary)]">Token</div>
         </div>
 
         <TypographyExample 
@@ -331,7 +331,7 @@ export function TypographyShowcase() {
           usage="Page content, display data and information"
           token="typography.fontSize.md"
         >
-          <p className="text-[var(--font-size-md)] font-[var(--font-weight-semibold)] text-[var(--color-dark-100)]">Primary-Semi-bold</p>
+          <p className="text-[var(--font-size-md)] font-[var(--font-weight-semibold)] text-[var(--color-primary)]">Primary-Semi-bold</p>
         </TypographyExample>
 
         <TypographyExample 
@@ -347,7 +347,7 @@ export function TypographyShowcase() {
           usage="Page content, display data and information"
           token="typography.fontSize.md"
         >
-          <p className="text-[var(--font-size-md)] font-[var(--font-weight-regular)] text-[var(--color-dark-100)]">Primary-Regular</p>
+          <p className="text-[var(--font-size-md)] font-[var(--font-weight-regular)] text-[var(--color-primary)]">Primary-Regular</p>
         </TypographyExample>
 
         <TypographyExample 
@@ -363,7 +363,7 @@ export function TypographyShowcase() {
           usage="Secondary information"
           token="typography.fontSize.sm"
         >
-          <p className="text-[var(--font-size-sm)] font-[var(--font-weight-semibold)] text-[var(--color-dark-100)]">Secondary-Semibold</p>
+          <p className="text-[var(--font-size-sm)] font-[var(--font-weight-semibold)] text-[var(--color-primary)]">Secondary-Semibold</p>
         </TypographyExample>
       </section>
     </div>

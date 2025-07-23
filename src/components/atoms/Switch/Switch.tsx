@@ -68,8 +68,8 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       "font-[var(--checkbox-font-weight)] leading-[1.4] cursor-pointer", // 500 weight
       currentSize.text,
       disabled
-        ? "text-[var(--color-dark-25)] cursor-not-allowed"
-        : "text-[var(--color-dark-100)]"
+        ? "text-[var(--color-tertiary)] cursor-not-allowed"
+        : "text-[var(--color-primary)]"
     );
 
     // Container styles

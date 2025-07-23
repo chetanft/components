@@ -67,20 +67,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   // Variant styles with design tokens and dark mode support
   const variantStyles = {
     primary: cn(
-      "bg-dark-100 text-white border border-dark-100",
-      "hover:bg-dark-50 hover:border-dark-50",
-      "focus-visible:ring-dark-100",
-      "dark:bg-dark-100 dark:text-white dark:border-dark-100",
-      "dark:hover:bg-dark-50 dark:hover:border-dark-50",
-      "disabled:bg-dark-25 disabled:border-dark-25 disabled:text-white"
+      "bg-primary text-white border border-primary",
+      "hover:bg-secondary hover:border-secondary",
+      "focus-visible:ring-primary",
+      "dark:bg-primary dark:text-white dark:border-primary",
+      "dark:hover:bg-secondary dark:hover:border-secondary",
+      "disabled:bg-tertiary disabled:border-tertiary disabled:text-white"
     ),
     secondary: cn(
-      "bg-white text-dark-100 border border-box-border",
-      "hover:bg-divider hover:border-dark-25",
-      "focus-visible:ring-dark-100",
-      "dark:text-dark-100 dark:border-dark-25",
-      "dark:hover:bg-dark-25/20 dark:hover:border-dark-50",
-      "disabled:text-dark-25 disabled:border-box-border"
+      "bg-white text-primary border border-border-primary",
+      "hover:bg-border-secondary hover:border-tertiary",
+      "focus-visible:ring-primary",
+      "dark:text-primary dark:border-tertiary",
+      "dark:hover:bg-tertiary/20 dark:hover:border-secondary",
+      "disabled:text-tertiary disabled:border-border-primary"
     ),
     destructive: cn(
       "bg-critical text-white border border-critical",
@@ -91,12 +91,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "disabled:bg-critical/50 disabled:border-critical/50 disabled:text-white"
     ),
     text: cn(
-      "bg-transparent text-dark-100 border-transparent",
-      "hover:bg-[#F8F8F9] hover:text-dark-50",
-      "focus-visible:ring-dark-100",
-      "dark:text-dark-100",
-      "dark:hover:bg-[#F8F8F9] dark:hover:text-dark-50",
-      "disabled:text-dark-25"
+      "bg-transparent text-primary border-transparent",
+      "hover:bg-[#F8F8F9] hover:text-secondary",
+      "focus-visible:ring-primary",
+      "dark:text-primary",
+      "dark:hover:bg-[#F8F8F9] dark:hover:text-secondary",
+      "disabled:text-tertiary"
     ),
     link: cn(
       "bg-transparent text-neutral border-0 underline p-0 h-auto",
@@ -104,7 +104,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "focus-visible:ring-neutral",
       "dark:text-neutral",
       "dark:hover:text-neutral-dark",
-      "disabled:text-dark-25 disabled:no-underline"
+      "disabled:text-tertiary disabled:no-underline"
     ),
   };
 

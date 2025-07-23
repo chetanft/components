@@ -34,7 +34,7 @@ export const TableCellItem: React.FC<TableCellItemProps> = ({
         <Icon 
           name={prefixIcon} 
           size={14} 
-          color="#434F64" // --color-dark-100 from Figma
+          color="var(--color-primary)" // --color-dark-100 from Figma
         />
       )}
       
@@ -53,7 +53,7 @@ export const TableCellItem: React.FC<TableCellItemProps> = ({
         <Icon 
           name={suffixIcon} 
           size={16} 
-          color="#434F64" // --color-dark-100 from Figma
+          color="var(--color-primary)" // --color-dark-100 from Figma
         />
       )}
     </div>

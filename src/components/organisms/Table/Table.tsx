@@ -315,7 +315,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const endItem = Math.min(currentPage * pageSize, totalItems);
 
   return (
-    <div className="flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x3)] border-t border-[var(--color-divider)] bg-[var(--color-background)]">
+    <div className="flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x3)] border-t border-[var(--color-border-secondary)] bg-[var(--color-background)]">
       <div className="flex items-center gap-[var(--spacing-x4)]">
         <TableCellText type="secondary">
           Showing {startItem}-{endItem} of {totalItems} results
