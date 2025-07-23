@@ -52,7 +52,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
 
   // Background colors based on variant
   const getBackgroundColor = () => {
-    return background === 'white' ? 'bg-white' : 'bg-[#F8F8F9]';
+    return background === 'white' ? 'bg-white' : 'bg-[var(--bg-secondary)]';
   };
 
   // Show badges for submitted stage or when explicitly provided
@@ -67,8 +67,8 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
       if (value === undefined) return null;
       const label = key.charAt(0).toUpperCase() + key.slice(1);
       return (
-        <Badge key={key} variant="neutral" className="px-2 py-[3px] bg-[#F0F1F7] rounded-[5px]">
-          <span className="text-sm font-semibold text-[#434F64]">{label}: {value}</span>
+        <Badge key={key} variant="neutral" className="px-2 py-[3px] bg-[var(--border-secondary)] rounded-[5px]">
+          <span className="text-sm font-semibold text-[var(--primary)]">{label}: {value}</span>
         </Badge>
       );
     });
@@ -87,7 +87,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
           )}
         >
           {/* Header section with border */}
-          <div className="flex items-center p-5 border-b border-[#CED1D7]">
+          <div className="flex items-center p-5 border-b border-[var(--border-primary)]">
             <div className="flex items-center flex-wrap gap-5">
               <Button
                 variant="secondary"
@@ -101,7 +101,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
                   getBackgroundColor()
                 )}
               />
-              <span className="text-xl font-semibold text-[#434F64]">{header}</span>
+              <span className="text-xl font-semibold text-[var(--primary)]">{header}</span>
               {renderBadges()}
             </div>
           </div>
@@ -138,7 +138,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
               getBackgroundColor()
             )}
           />
-          <span className="text-xl font-semibold text-[#434F64]">{header}</span>
+          <span className="text-xl font-semibold text-[var(--primary)]">{header}</span>
           {renderBadges()}
         </div>
       </div>
@@ -156,9 +156,9 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
         )}
       >
         {/* Header section with border */}
-        <div className="flex items-center justify-between p-5 border-b border-[#CED1D7]">
+        <div className="flex items-center justify-between p-5 border-b border-[var(--border-primary)]">
           <div className="flex items-center flex-wrap gap-5 flex-grow">
-            <span className="text-xl font-semibold text-[#434F64]">{header}</span>
+            <span className="text-xl font-semibold text-[var(--primary)]">{header}</span>
             {renderBadges()}
           </div>
           <div 
@@ -171,7 +171,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
             <Icon 
               name="chevron-up" 
               size={20}
-              className="text-[#434F64]"
+              className="text-[var(--primary)]"
             />
           </div>
         </div>
@@ -196,7 +196,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
       )}
     >
       <div className="flex items-center flex-wrap gap-5 flex-grow">
-        <span className="text-xl font-semibold text-[#434F64]">{header}</span>
+        <span className="text-xl font-semibold text-[var(--primary)]">{header}</span>
         {renderBadges()}
       </div>
       <div 
@@ -209,7 +209,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
         <Icon 
           name="chevron-down" 
           size={20}
-          className="text-[#434F64]"
+          className="text-[var(--primary)]"
         />
       </div>
     </div>

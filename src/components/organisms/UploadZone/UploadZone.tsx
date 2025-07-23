@@ -90,7 +90,7 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
         className={cn(
           // Base styles - exact from Figma
           "flex flex-col items-center justify-center gap-[20px] p-[20px_12px]",
-          "border-[1.5px] border-dashed border-[#CED1D7] rounded-[8px]",
+          "border-[1.5px] border-dashed border-[var(--border-primary)] rounded-[8px]",
           "bg-white cursor-pointer transition-colors",
           // Interactive states
           isDragActive && "border-[#1890FF] bg-[#F6FFED]",
@@ -114,7 +114,7 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
             name="file-upload" 
             size={33} 
             className={cn(
-              "text-[#5F697B]",
+              "text-[var(--secondary)]",
               isDragActive && "text-[#1890FF]",
               isDragReject && "text-[#FF3533]"
             )}
@@ -125,7 +125,7 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
         <div className="flex flex-col items-center gap-[16px] px-[20px]">
           {/* Main instruction */}
           <div className="flex flex-col items-center gap-[10px] w-full">
-            <p className="text-[20px] font-[600] leading-[1.4] text-[#434F64] text-center">
+            <p className="text-[20px] font-[600] leading-[1.4] text-[var(--primary)] text-center">
               Click or Drag and drop file here to upload or Choose files
             </p>
           </div>

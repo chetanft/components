@@ -68,7 +68,7 @@ export const Label: React.FC<LabelProps> = ({
     fontSize: '14px',
     fontWeight: '500',
     lineHeight: '1.4',
-    color: '#5F697B',
+    color: 'var(--secondary)',
     cursor: onClick ? 'pointer' : 'default',
   };
 
@@ -103,7 +103,7 @@ export const Label: React.FC<LabelProps> = ({
   );
 
   const suffixIconElement = icon || (
-    <div style={{ width: '16px', height: '16px', color: '#434F64', flexShrink: 0 }}>
+    <div style={{ width: '16px', height: '16px', color: 'var(--primary)', flexShrink: 0 }}>
       <AlertCritical />
     </div>
   );

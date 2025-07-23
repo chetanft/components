@@ -132,7 +132,7 @@ export const Footer: React.FC<FooterProps> = ({
   return (
     <footer
       className={cn(
-        "w-full border-t border-[#CED1D7] bg-white",
+        "w-full border-t border-[var(--border-primary)] bg-white",
         "px-5 py-4",
         getLayoutClasses(),
         "gap-[366px]", // Large gap as specified in Figma design

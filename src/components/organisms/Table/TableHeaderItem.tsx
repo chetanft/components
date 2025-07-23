@@ -109,9 +109,9 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
         {/* Drag Handle */}
         {draggable && (
           <div className="flex flex-col gap-[2px] w-[8px] h-[8px] mr-[10px]">
-            <div className={cn("w-full h-[1px]", colorVariant === 'dark25' ? "bg-[#FFFFFF]" : "bg-[#5F697B]")} />
-            <div className={cn("w-full h-[1px]", colorVariant === 'dark25' ? "bg-[#FFFFFF]" : "bg-[#5F697B]")} />
-            <div className={cn("w-full h-[1px]", colorVariant === 'dark25' ? "bg-[#FFFFFF]" : "bg-[#5F697B]")} />
+            <div className={cn("w-full h-[1px]", colorVariant === 'dark25' ? "bg-[var(--bg-primary)]" : "bg-[var(--secondary)]")} />
+            <div className={cn("w-full h-[1px]", colorVariant === 'dark25' ? "bg-[var(--bg-primary)]" : "bg-[var(--secondary)]")} />
+            <div className={cn("w-full h-[1px]", colorVariant === 'dark25' ? "bg-[var(--bg-primary)]" : "bg-[var(--secondary)]")} />
           </div>
         )}
 

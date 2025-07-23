@@ -57,8 +57,8 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
 
   const iconElement = icon || defaultIcon;
 
-  const valueStyles = "font-sans text-base font-normal leading-[1.4] text-[#434F64]";
-  const subtextStyles = "font-sans text-sm font-medium leading-[1.4] text-[#5F697B]";
+  const valueStyles = "font-sans text-base font-normal leading-[1.4] text-[var(--primary)]";
+  const subtextStyles = "font-sans text-sm font-medium leading-[1.4] text-[var(--secondary)]";
 
   if (type === 'horizontal') {
     return (

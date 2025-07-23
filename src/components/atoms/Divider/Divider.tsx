@@ -27,7 +27,7 @@ export const Divider: React.FC<DividerProps> = ({
   const baseStyles = 'w-full';
   
   const typeStyles = {
-    primary: 'border-t border-[#CED1D7]',
+    primary: 'border-t border-[var(--border-primary)]',
     secondary: 'border-t border-[#F0F1F7]',
     'with-label': 'flex items-center justify-center',
   };
@@ -35,13 +35,13 @@ export const Divider: React.FC<DividerProps> = ({
   if (type === 'with-label' && label) {
     return (
       <div className={`${baseStyles} ${typeStyles[type]} ${className}`}>
-        <div className="flex-grow border-t border-[#CED1D7]" style={{ width: '253px' }} />
+        <div className="flex-grow border-t border-[var(--border-primary)]" style={{ width: '253px' }} />
         <div className="mx-4 px-2 py-0.5 bg-white rounded-full shadow-[0px_2px_4px_0px_rgba(0,0,0,0.1)]">
           <Typography variant="body-medium" color="secondary">
             {label}
           </Typography>
         </div>
-        <div className="flex-grow border-t border-[#CED1D7]" style={{ width: '257px' }} />
+        <div className="flex-grow border-t border-[var(--border-primary)]" style={{ width: '257px' }} />
       </div>
     );
   }

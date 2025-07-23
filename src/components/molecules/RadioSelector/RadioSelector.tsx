@@ -108,7 +108,7 @@ export const RadioSelector: React.FC<RadioSelectorProps> = ({
                   <div className={radioStyles}>
                     {isSelected && (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-2.5 h-2.5 rounded-full bg-[#434F64]" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-[var(--primary)]" />
                       </div>
                     )}
                   </div>
@@ -120,7 +120,7 @@ export const RadioSelector: React.FC<RadioSelectorProps> = ({
                 showRadio ? "gap-3" : "items-center gap-3"
               )}>
                 {option.icon && (
-                  <div className="w-4 h-4 text-[#434F64]">
+                  <div className="w-4 h-4 text-[var(--primary)]">
                     {option.icon}
                   </div>
                 )}
@@ -128,7 +128,7 @@ export const RadioSelector: React.FC<RadioSelectorProps> = ({
                 <div className={textContainerStyles}>
                   <span 
                     className={cn(
-                      "text-base leading-[1.4] text-[#434F64]",
+                      "text-base leading-[1.4] text-[var(--primary)]",
                       option.description ? "font-semibold" : "font-normal",
                       !showRadio && "text-center"
                     )}
@@ -137,7 +137,7 @@ export const RadioSelector: React.FC<RadioSelectorProps> = ({
                   </span>
                   {option.description && (
                     <span className={cn(
-                      "text-sm font-medium leading-[1.4] text-[#434F64]",
+                      "text-sm font-medium leading-[1.4] text-[var(--primary)]",
                       !showRadio && "text-center"
                     )}>
                       {option.description}
