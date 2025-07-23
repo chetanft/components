@@ -68,8 +68,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
   const renderDivider = (item: DividerItem) => {
     return (
       <div key={item.id} className="flex justify-between items-center gap-[-36px] py-4 w-full">
-        <div className="w-[253px] h-0 border-b border-[#CED1D7]" />
-        <div className="flex items-center justify-center gap-2.5 px-2 py-0.5 bg-white border border-[#CED1D7] rounded-full shadow-sm">
+        <div className="w-[253px] h-0 border-b border-[var(--border-primary)]" />
+        <div className="flex items-center justify-center gap-2.5 px-2 py-0.5 bg-white border border-[var(--border-primary)] rounded-full shadow-sm">
           <Typography 
             variant="body-semibold" 
             color="secondary"
@@ -78,7 +78,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
             {item.label}
           </Typography>
         </div>
-        <div className="w-[257px] h-0 border-b border-[#CED1D7]" />
+        <div className="w-[257px] h-0 border-b border-[var(--border-primary)]" />
       </div>
     );
   };
@@ -94,7 +94,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
           {item.multiplePoints.map((point, idx) => (
             <div key={idx} className="flex items-center justify-center">
               {point.type === 'label' && (
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#434F64]">
+                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[var(--primary)]">
                   <span className="text-white text-[10px] font-medium leading-none text-center">
                     {point.label || 'OR'}
                   </span>
@@ -113,8 +113,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
           <button
             className={`
               flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200
-              ${isActive ? 'bg-white border-[#434F64]' : 'bg-white border-[#CED1D7]'}
-              ${item.collapsible ? 'cursor-pointer hover:border-[#5F697B] hover:scale-105' : ''}
+              ${isActive ? 'bg-white border-[var(--primary)]' : 'bg-white border-[var(--border-primary)]'}
+              ${item.collapsible ? 'cursor-pointer hover:border-[var(--secondary)] hover:scale-105' : ''}
             `}
             onClick={() => item.collapsible && toggleExpand(item.id)}
             disabled={!item.collapsible}
@@ -122,7 +122,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
             <Icon
               name={isExpanded ? "chevron-up" : "chevron-down"}
               size={14}
-              color={isActive ? '#434F64' : '#838C9D'}
+              color={isActive ? 'var(--primary)' : 'var(--tertiary)'}
             />
           </button>
         );
@@ -131,7 +131,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
         return (
           <div className={`
             flex items-center justify-center w-6 h-6 rounded-full p-[7px]
-            ${isActive ? 'bg-[#434F64]' : 'bg-[#CED1D7]'}
+            ${isActive ? 'bg-[var(--primary)]' : 'bg-[var(--border-primary)]'}
           `}>
             <Icon
               name={item.icon || 'arrow-down'}
@@ -146,7 +146,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
           <div className="flex items-center justify-center w-8 h-8">
             <div className={`
               w-3 h-3 rounded-full bg-white border-4
-              ${isActive ? 'border-[#434F64]' : 'border-[#CED1D7]'}
+              ${isActive ? 'border-[var(--primary)]' : 'border-[var(--border-primary)]'}
             `} />
           </div>
         );
@@ -155,11 +155,11 @@ export const ProgressList: React.FC<ProgressListProps> = ({
         return (
           <div className={`
             flex items-center justify-center w-6 h-6 rounded-full
-            ${isActive ? 'bg-[#434F64]' : 'bg-[#CED1D7]'}
+            ${isActive ? 'bg-[var(--primary)]' : 'bg-[var(--border-primary)]'}
           `}>
             <span className={`
               text-[10px] font-medium leading-none text-center
-              ${isActive ? 'text-white' : 'text-[#434F64]'}
+              ${isActive ? 'text-white' : 'text-[var(--primary)]'}
             `}>
               {item.pointLabel || 'OR'}
             </span>
@@ -174,7 +174,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
   const renderLine = (item: ProgressItem, isLast: boolean) => {
     if (isLast || item.lineType === 'none') return null;
 
-    const lineColor = item.state === 'completed' ? '#434F64' : '#CED1D7';
+    const lineColor = item.state === 'completed' ? 'var(--primary)' : 'var(--border-primary)';
     const isDashed = item.lineType === 'dashed' || item.state !== 'completed';
 
     const lineHeight = 60; // Default height, adjust based on content
@@ -295,7 +295,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
                     <Icon
                       name={badge.icon}
                       size={14}
-                      color={badge.variant === 'danger' ? '#FF3533' : '#434F64'}
+                      color={badge.variant === 'danger' ? 'var(--critical)' : 'var(--primary)'}
                     />
                   )}
                   <span>{badge.label}</span>

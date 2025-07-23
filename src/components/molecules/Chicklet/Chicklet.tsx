@@ -100,7 +100,7 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
               // Remove default button styles
               "border-0 bg-transparent p-0 m-0",
               // Hover and focus states
-              "hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[#434F64] focus:ring-offset-1 rounded-sm",
+              "hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-1 rounded-sm",
               // Disabled state
               disabled && "pointer-events-none"
             )}
@@ -110,7 +110,7 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
             <Icon 
               name="cross" 
               size={14} 
-              color="#434F64" // Same as text color from Figma
+              color="var(--primary)" // Same as text color from Figma
             />
           </button>
         )}
