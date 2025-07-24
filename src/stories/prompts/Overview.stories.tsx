@@ -82,7 +82,7 @@ const PromptsOverview = () => {
             <h3 className="font-semibold text-gray-900 mb-2">Data Display</h3>
             <ul className="text-gray-600 space-y-1">
               <li>• Table (with pagination)</li>
-              <li>• Badge (5 variants)</li>
+              <li>• Badge (5 variants, Figma-exact)</li>
               <li>• Typography (display only)</li>
               <li>• ProgressBar ✅</li>
             </ul>

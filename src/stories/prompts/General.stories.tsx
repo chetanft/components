@@ -52,8 +52,8 @@ const GeneralPrompts = () => {
       {
         name: "Badge",
         import: "import { Badge } from 'ft-design-system';",
-        usage: "<Badge variant=\"normal\">Active</Badge>",
-        props: "variant: 'normal' | 'neutral' | 'warning' | 'error' | 'success'\nsize: 'sm' | 'md' | 'lg'"
+        usage: "<Badge variant=\"normal\">Label</Badge>",
+        props: "variant: 'normal' | 'danger' | 'success' | 'warning' | 'neutral'\nicon?: IconName (14x14px)\nNote: Single size matching Figma (4px radius, 2px 8px padding)"
       },
       {
         name: "Tabs",

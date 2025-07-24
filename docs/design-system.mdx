@@ -203,29 +203,43 @@ import { Footer } from '@chetanft/design_system';
 
 ### Badge
 
-Status and label badge component.
+Status and label badge component with exact Figma specifications.
 
 ```jsx
 import { Badge } from '@chetanft/design_system';
 
-// Status badges
-<Badge variant="success">Active</Badge>
-<Badge variant="warning">Pending</Badge>
-<Badge variant="error">Failed</Badge>
-<Badge variant="default">Draft</Badge>
-<Badge variant="secondary">Archive</Badge>
+// Status badges with exact Figma colors
+<Badge variant="normal">Default</Badge>
+<Badge variant="danger">Error</Badge>
+<Badge variant="success">Success</Badge>
+<Badge variant="warning">Warning</Badge>
+<Badge variant="neutral">Neutral</Badge>
 
-// Different sizes
-<Badge size="small">Small</Badge>
-<Badge size="medium">Medium</Badge>
-<Badge size="large">Large</Badge>
+// With icons (14x14px)
+<Badge variant="success" icon="check">Active</Badge>
+
+// Interactive badges (with hover states)
+<Badge variant="normal" onClick={() => {}}>Clickable</Badge>
 ```
 
 **Props:**
-- `variant` ('default' | 'secondary' | 'success' | 'warning' | 'error', default: 'default'): Badge color
-- `size` ('small' | 'medium' | 'large', default: 'medium'): Badge size
+- `variant` ('normal' | 'danger' | 'success' | 'warning' | 'neutral', default: 'normal'): Badge color variant
+- `icon` (IconName, optional): Icon name from the design system (14x14px)
 - `children` (React.ReactNode, required): Badge content
 - `className` (string, optional): Additional CSS classes
+
+**Figma Specifications:**
+- Border radius: 4px (fixed)
+- Padding: 2px 8px
+- Gap: 8px between icon and text
+- Font: Inter, 600 weight, 14px size, 1.4 line height
+- Icon size: 14x14px consistently
+- Colors:
+  - Normal: #F0F1F7 bg, #434F64 text
+  - Danger: #FFEAEA bg, #FF3533 text
+  - Success: #DFFFE8 bg, #00763D text
+  - Warning: #FFEBDC bg, #FF6C19 text
+  - Neutral: #ECF6FF bg, #1890FF text
 
 ### Checkbox
 
