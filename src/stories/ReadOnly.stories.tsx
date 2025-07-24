@@ -259,33 +259,33 @@ export const AllVariations: Story = {
       </h2>
       
       <div>
-        <h3 style={{ fontSize: '16px', fontWeight: '500', marginBottom: '15px', color: '#434F64' }}>
+        <h3 style={{ fontSize: '16px', fontWeight: '500', marginBottom: '15px', color: '#434f64' }}>
           Vertical Layouts
         </h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
           <div>
-            <h4 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5F697B' }}>
+            <h4 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5e687a' }}>
               Basic
             </h4>
             <ReadOnly label="Label" value="Text" type="vertical" />
           </div>
           
           <div>
-            <h4 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5F697B' }}>
+            <h4 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5e687a' }}>
               With Icon
             </h4>
             <ReadOnly label="Label" value="Text" type="vertical" labelIcon={true} />
           </div>
           
           <div>
-            <h4 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5F697B' }}>
+            <h4 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5e687a' }}>
               With Subtext
             </h4>
             <ReadOnly label="Label" value="Text" subtext="Sub text" type="vertical" />
           </div>
           
           <div>
-            <h4 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5F697B' }}>
+            <h4 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#5e687a' }}>
               Icon + Subtext
             </h4>
             <ReadOnly label="Label" value="Text" subtext="Sub text" type="vertical" labelIcon={true} />

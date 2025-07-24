@@ -568,11 +568,11 @@ waitForDesignSystem((FTDesignSystem) => {
 COLORS (use these specific values):
 🚨 CRITICAL: Primary buttons use #434f64 (dark gray), NOT blue!
 - Primary: #434f64 (PRIMARY BUTTONS - dark gray, not blue!)
-- Secondary/Accent: #1890ff (secondary elements, links, focus states)
-- Critical/Error: #ff3533 (errors, destructive actions)
+- Secondary/Neutral: #1890ff (secondary elements, links, focus states)
+- Critical/Error: #ff3532 (errors, destructive actions)
 - Warning: #ff6c19 (warnings, alerts)  
-- Success/Positive: #00c638 (success states, confirmations)
-- Dark Text: #434f64 (headings), #5f697b (body text), #838c9d (muted text)
+- Success: #00c637 (success states, confirmations)
+- Dark Text: #434f64 (headings), #5e687a (body text), #838c9d (muted text)
 - Borders: #ced1d7 (default borders), #f0f1f7 (dividers)
 - Background: #f8f8f9 (page background), #ffffff (cards, panels)
 
@@ -680,7 +680,7 @@ Priority order:
 
 🎨 WHEN CREATING FALLBACK COMPONENTS, USE EXACT FT DESIGN TOKENS:
 
-COLORS: #434f64 (primary buttons), #1890ff (neutral/accent), #ff3533 (error), #ff6c19 (warning), #00c638 (success)
+COLORS: #434f64 (primary buttons), #1890ff (neutral/accent), #ff3532 (error), #ff6c19 (warning), #00c637 (success)
 TYPOGRAPHY: Inter font, weights 400/500/600, sizes 14px/16px/20px/24px/28px
 SPACING: 4px/8px/12px/16px/20px/24px/32px (8px base system)
 BORDERS: radius 4px/8px/12px/16px, color #ced1d7
@@ -690,7 +690,7 @@ FALLBACK EXAMPLES:
 - Primary Button: bg-[#434f64] hover:bg-[#5f697b] text-white rounded-lg px-5 py-3 shadow-sm
 - Input: border-[#ced1d7] rounded-lg px-3 py-2 focus:border-[#1890ff] focus:ring-2 focus:ring-[#ecf6ff]
 - Card: bg-white rounded-xl shadow-md p-6 border border-[#f0f1f7]
-- Badge danger: bg-[#ffeaea] text-[#b80100] px-3 py-1 rounded text-sm font-medium
+- Badge danger: bg-[#ffe9e9] text-[#b70100] px-3 py-1 rounded text-sm font-medium
 - Typography: Use regular HTML tags with text-[#434f64] font-medium text-lg etc.
 
 For tools without npm support:

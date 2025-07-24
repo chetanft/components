@@ -13,7 +13,7 @@
   
   /* Base Colors */
   --primary: #434f64;
-  --secondary: #5f697b;
+  --secondary: #5e687a;
   --tertiary: #838c9d;
   --border-primary: #ced1d7;
   --border-secondary: #f0f1f7;
@@ -32,10 +32,10 @@
   --button-secondary-border: #ced1d7;
   --button-secondary-hover-border: #838c9d;
   
-  --button-destructive-bg: #ff3533;
+  --button-destructive-bg: #ff3532;
   --button-destructive-text: #ffffff;
-  --button-destructive-hover-bg: #b80100;
-  --button-destructive-border: #ff3533;
+  --button-destructive-hover-bg: #b70100;
+  --button-destructive-border: #ff3532;
   
   --button-text-bg: transparent;
   --button-text-text: #434f64;
@@ -54,16 +54,16 @@
   --badge-normal-hover-bg: #ced1d7;
   --badge-normal-hover-border: #838c9d;
   
-  --badge-danger-bg: #ffeaea;
-  --badge-danger-text: #ff3533;
-  --badge-danger-border: #ff3533;
+  --badge-danger-bg: #ffe9e9;
+  --badge-danger-text: #ff3532;
+  --badge-danger-border: #ff3532;
   --badge-danger-hover-bg: #ffafad;
-  --badge-danger-hover-border: #b80100;
-  --badge-danger-hover-text: #b80100;
+  --badge-danger-hover-border: #b70100;
+  --badge-danger-hover-text: #b70100;
   
-  --badge-success-bg: #dfffe8;
-  --badge-success-text: #00763d;
-  --badge-success-border: #00763d;
+  --badge-success-bg: #deffe7;
+  --badge-success-text: #00753d;
+  --badge-success-border: #00753d;
   --badge-success-hover-bg: #99e8af;
   
   --badge-warning-bg: #ffebdc;
@@ -100,19 +100,19 @@
   --radio-gap: 8px;
 
   /* Semantic Colors */
-  --critical-dark: #b80100;
-  --critical: #ff3533;
-  --critical-light: #ffeaea;
+  --critical-dark: #b70100;
+  --critical: #ff3532;
+  --critical-light: #ffe9e9;
   
   --warning-dark: #dd6a00;
   --warning: #ff6c19;
   --warning-light: #ffebdc;
   
-  --positive-dark: #00763d;
-  --positive: #00c638;
-  --positive-light: #dfffe8;
+  --positive-dark: #00753d;
+  --positive: #00c637;
+  --positive-light: #deffe7;
   
-  --neutral-dark: #006ed3;
+  --neutral-dark: #006dd3;
   --neutral: #1890ff;
   --neutral-light: #ecf6ff;
   
@@ -166,25 +166,25 @@
    ===================================================== */
 .dark {
   /* Base Colors - CORRECTED FOR FIGMA */
-  --primary: #F0F0F0;        /* LIGHT button backgrounds */
-  --secondary: #D0D0D0;      /* Light muted elements */
-  --tertiary: #A0A0A0;       /* Light subtle elements */
-  --border-primary: #404040; /* Dark borders */
+  --primary: #e2e8f0;        /* LIGHT button backgrounds */
+  --secondary: #94a3b8;      /* Light muted elements */
+  --tertiary: #64748b;       /* Light subtle elements */
+  --border-primary: #475569; /* Dark borders */
   --border-secondary: #334155; /* Dividers */
-  --bg-secondary: #0F172A;   /* Page background */
-  --bg-primary: #1E293B;     /* Cards/surfaces */
+  --bg-secondary: #0f172a;   /* Page background */
+  --bg-primary: #1e293b;     /* Cards/surfaces */
   
   /* Button Colors - DARK MODE */
-  --button-primary-bg: #F0F0F0;    /* LIGHT background */
+  --button-primary-bg: #e2e8f0;    /* LIGHT background */
   --button-primary-text: #000000;  /* BLACK text on light bg */
-  --button-primary-hover-bg: #D0D0D0;
-  --button-primary-border: #F0F0F0;
+  --button-primary-hover-bg: #94a3b8;
+  --button-primary-border: #e2e8f0;
   
-  --button-secondary-bg: #1E293B;  /* Dark background */
-  --button-secondary-text: #F0F0F0; /* Light text */
+  --button-secondary-bg: #1e293b;  /* Dark background */
+  --button-secondary-text: #e2e8f0; /* Light text */
   --button-secondary-hover-bg: #334155;
-  --button-secondary-border: #404040;
-  --button-secondary-hover-border: #A0A0A0;
+  --button-secondary-border: #475569;
+  --button-secondary-hover-border: #64748b;
   
   --button-destructive-bg: #ff4d4f; /* Slightly lighter red */
   --button-destructive-text: #ffffff;
@@ -192,13 +192,13 @@
   --button-destructive-border: #ff4d4f;
   
   --button-text-bg: transparent;
-  --button-text-text: #F0F0F0;  /* Light text */
+  --button-text-text: #e2e8f0;  /* Light text */
   --button-text-hover-bg: #334155;
   --button-text-border: transparent;
   
   --button-link-bg: transparent;
-  --button-link-text: #F0F0F0;  /* Light text */
-  --button-link-hover-text: #D0D0D0;
+  --button-link-text: #e2e8f0;  /* Light text */
+  --button-link-hover-text: #94a3b8;
   --button-link-border: transparent;
   
   /* Badge Colors - DARK MODE */
@@ -263,21 +263,21 @@
   --focus-ring: #F0F0F0;
   
   /* Status Colors - DARK MODE */
-  --critical-dark: #FF4D4F;
-  --critical: #FF4D4F;
-  --critical-light: #FF6666;
+  --critical-dark: #b70100;
+  --critical: #ff4d4f;
+  --critical-light: #ffe9e9;
   
-  --warning-dark: #FF7B33;
-  --warning: #FF7B33;
-  --warning-light: #FF8C4D;
+  --warning-dark: #dd6a00;
+  --warning: #ff7b33;
+  --warning-light: #ffebdc;
   
-  --positive-dark: #00E64D;
-  --positive: #00E64D;
-  --positive-light: #33FF77;
+  --positive-dark: #00753d;
+  --positive: #00e64d;
+  --positive-light: #deffe7;
   
-  --neutral-dark: #006ED3;
-  --neutral: #4DA6FF;
-  --neutral-light: #66B3FF;
+  --neutral-dark: #006dd3;
+  --neutral: #4da6ff;
+  --neutral-light: #ecf6ff;
   
   /* Legacy Variables */
   --background: var(--bg-primary);
@@ -302,67 +302,67 @@
    ===================================================== */
 .night {
   /* Base Colors - NIGHT MODE */
-  --primary: #434F64;        /* DARK button backgrounds (same as light) */
-  --secondary: #5F697B;      /* Dark muted elements */
-  --tertiary: #838C9D;       /* Dark subtle elements */
-  --border-primary: #475569; /* Borders */
+  --primary: #f0f0f0;        /* LIGHT text/elements */
+  --secondary: #d0d0d0;      /* Light muted elements */
+  --tertiary: #a0a0a0;       /* Light subtle elements */
+  --border-primary: #404040; /* Borders */
   --border-secondary: #202020; /* Dividers */
   --bg-secondary: #000000;   /* TRUE BLACK background */
-  --bg-primary: #1A1A1A;     /* Cards/surfaces */
+  --bg-primary: #1a1a1a;     /* Cards/surfaces */
   
   /* Button Colors - NIGHT MODE */
-  --button-primary-bg: #434F64;    /* DARK background */
-  --button-primary-text: #ffffff;  /* WHITE text on dark bg */
-  --button-primary-hover-bg: #1d2a38;
-  --button-primary-border: #434F64;
+  --button-primary-bg: #f0f0f0;    /* LIGHT background */
+  --button-primary-text: #000000;  /* BLACK text on light bg */
+  --button-primary-hover-bg: #d0d0d0;
+  --button-primary-border: #f0f0f0;
   
-  --button-secondary-bg: #1A1A1A;  /* Very dark background */
-  --button-secondary-text: #F0F0F0; /* Light text */
+  --button-secondary-bg: #1a1a1a;  /* Very dark background */
+  --button-secondary-text: #f0f0f0; /* Light text */
   --button-secondary-hover-bg: #202020;
-  --button-secondary-border: #475569;
-  --button-secondary-hover-border: #838C9D;
+  --button-secondary-border: #404040;
+  --button-secondary-hover-border: #a0a0a0;
   
-  --button-destructive-bg: #FF6666; /* Night mode red */
+  --button-destructive-bg: #ff6666; /* Night mode red */
   --button-destructive-text: #ffffff;
-  --button-destructive-hover-bg: #FF4D4F;
-  --button-destructive-border: #FF6666;
+  --button-destructive-hover-bg: #ff4d4f;
+  --button-destructive-border: #ff6666;
   
   --button-text-bg: transparent;
-  --button-text-text: #F0F0F0;  /* Light text */
+  --button-text-text: #f0f0f0;  /* Light text */
   --button-text-hover-bg: #202020;
   --button-text-border: transparent;
   
   --button-link-bg: transparent;
-  --button-link-text: #F0F0F0;  /* Light text */
-  --button-link-hover-text: #D0D0D0;
+  --button-link-text: #f0f0f0;  /* Light text */
+  --button-link-hover-text: #d0d0d0;
   --button-link-border: transparent;
   
   /* Badge Colors - NIGHT MODE */
   --badge-normal-bg: #404040;
-  --badge-normal-text: #F0F0F0;
+  --badge-normal-text: #f0f0f0;
   --badge-normal-border: #202020;
   --badge-normal-hover-bg: #202020;
-  --badge-normal-hover-border: #A0A0A0;
+  --badge-normal-hover-border: #a0a0a0;
   
-  --badge-danger-bg: #1A1A1A;
-  --badge-danger-text: #FF6666;
-  --badge-danger-border: #FF6666;
+  --badge-danger-bg: #1a1a1a;
+  --badge-danger-text: #ff6666;
+  --badge-danger-border: #ff6666;
   --badge-danger-hover-bg: #000000;
-  --badge-danger-hover-border: #FF6666;
-  --badge-danger-hover-text: #FF6666;
+  --badge-danger-hover-border: #ff6666;
+  --badge-danger-hover-text: #ff6666;
   
-  --badge-success-bg: #1A1A1A;
-  --badge-success-text: #33FF77;
-  --badge-success-border: #33FF77;
+  --badge-success-bg: #1a1a1a;
+  --badge-success-text: #33ff77;
+  --badge-success-border: #33ff77;
   --badge-success-hover-bg: #000000;
   
-  --badge-warning-bg: #1A1A1A;
-  --badge-warning-text: #FF8C4D;
-  --badge-warning-border: #FF8C4D;
+  --badge-warning-bg: #1a1a1a;
+  --badge-warning-text: #ff8c4d;
+  --badge-warning-border: #ff8c4d;
   --badge-warning-hover-bg: #000000;
   
-  --badge-neutral-bg: #1A1A1A;
-  --badge-neutral-text: #66B3FF;
+  --badge-neutral-bg: #1a1a1a;
+  --badge-neutral-text: #66b3ff;
   
   /* Badge System Variables - Night Mode */
   --badge-border-radius: 4px;
@@ -370,50 +370,50 @@
   --badge-font-weight: 500;
   
   /* Missing Form System Variables - Night Mode */
-  --surface: #1A1A1A;
-  --surface-dark: #1A1A1A;
+  --surface: #1a1a1a;
+  --surface-dark: #1a1a1a;
   --surface-alt: #000000;
   --surface-alt-dark: #000000;
   --surface-hover: #202020;
   --surface-hover-dark: #202020;
-  --input: #E2E8F0;
-  --input-dark: #E2E8F0;
-  --input-muted: #A0A0A0;
-  --input-muted-dark: #A0A0A0;
-  --input-disabled: #475569;
-  --input-disabled-dark: #475569;
-  --placeholder: #A0A0A0;
-  --placeholder-dark: #A0A0A0;
-  --helper: #A0A0A0;
-  --helper-dark: #A0A0A0;
-  --border: #202020;
-  --border-dark: #202020;
-  --border-hover: #A0A0A0;
-  --border-hover-dark: #A0A0A0;
+  --input: #f0f0f0;
+  --input-dark: #f0f0f0;
+  --input-muted: #a0a0a0;
+  --input-muted-dark: #a0a0a0;
+  --input-disabled: #404040;
+  --input-disabled-dark: #404040;
+  --placeholder: #a0a0a0;
+  --placeholder-dark: #a0a0a0;
+  --helper: #a0a0a0;
+  --helper-dark: #a0a0a0;
+  --border: #404040;
+  --border-dark: #404040;
+  --border-hover: #a0a0a0;
+  --border-hover-dark: #a0a0a0;
   --border-disabled: #202020;
   --border-disabled-dark: #202020;
-  --border-alt: #202020;
-  --border-alt-dark: #202020;
-  --focus: #E2E8F0;
-  --focus-dark: #E2E8F0;
-  --focus-ring: #E2E8F0;
+  --border-alt: #404040;
+  --border-alt-dark: #404040;
+  --focus: #f0f0f0;
+  --focus-dark: #f0f0f0;
+  --focus-ring: #f0f0f0;
   
   /* Status Colors - NIGHT MODE */
-  --critical-dark: #FF6666;
-  --critical: #FF6666;
-  --critical-light: #FF6666;
+  --critical-dark: #b70100;
+  --critical: #ff6666;
+  --critical-light: #ffe9e9;
   
-  --warning-dark: #FF8C4D;
-  --warning: #FF8C4D;
-  --warning-light: #FF8C4D;
+  --warning-dark: #dd6a00;
+  --warning: #ff8c4d;
+  --warning-light: #ffebdc;
   
-  --positive-dark: #33FF77;
-  --positive: #33FF77;
-  --positive-light: #33FF77;
+  --positive-dark: #00753d;
+  --positive: #33ff77;
+  --positive-light: #deffe7;
   
-  --neutral-dark: #006ED3;
-  --neutral: #66B3FF;
-  --neutral-light: #66B3FF;
+  --neutral-dark: #006dd3;
+  --neutral: #66b3ff;
+  --neutral-light: #ecf6ff;
   
   /* Legacy Variables */
   --background: var(--bg-primary);

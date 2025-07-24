@@ -102,7 +102,7 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
           "absolute bottom-[6px] left-1/2 transform -translate-x-1/2",
           "font-[600] leading-[1.4] text-white",
           sizeStyles[size].text,
-          variant === 'error' && "text-[#FF3533]"
+          variant === 'error' && "text-[#ff3532]"
         )}>
           {displayText}
         </div>
