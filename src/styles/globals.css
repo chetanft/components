@@ -138,28 +138,19 @@
   --component-padding-md: 12px 16px;
   --component-padding-lg: 16px 20px;
   --component-padding-xl: 20px 24px;
-  
-  /* Legacy Variables for Compatibility */
-  --background: var(--bg-primary);
-  --foreground: var(--primary);
-  --card: var(--bg-primary);
-  --card-foreground: var(--primary);
-  --popover: var(--bg-primary);
-  --popover-foreground: var(--primary);
-  --primary-foreground: var(--bg-primary);
-  --secondary-foreground: var(--primary);
-  --muted: #ececf0;
-  --muted-foreground: #717182;
-  --accent: #e9ebef;
-  --accent-foreground: #030213;
-  --destructive: var(--critical);
-  --destructive-foreground: var(--bg-primary);
-  --border: rgba(0, 0, 0, 0.1);
-  --input: transparent;
-  --input-background: var(--bg-secondary);
-  --ring: var(--secondary);
-  --radius: 0.625rem;
 }
+
+/* =====================================================
+   FT DESIGN SYSTEM VARIABLES ONLY
+   ===================================================== */
+/* 
+   NAMING CONVENTION: --{component}-{property}-{variant}
+   Examples: --button-primary-bg, --badge-danger-text
+   
+   ❌ DO NOT ADD shadcn/ui compatibility variables
+   ❌ DO NOT ADD generic names like --background, --card
+   ✅ USE specific semantic names following our convention
+*/
 
 /* =====================================================
    DARK MODE COLORS
@@ -278,23 +269,6 @@
   --neutral-dark: #006dd3;
   --neutral: #4da6ff;
   --neutral-light: #ecf6ff;
-  
-  /* Legacy Variables */
-  --background: var(--bg-primary);
-  --foreground: var(--primary);
-  --card: var(--bg-primary);
-  --card-foreground: var(--primary);
-  --popover: var(--bg-primary);
-  --popover-foreground: var(--primary);
-  --muted: #334155;
-  --muted-foreground: #94a3b8;
-  --accent: #334155;
-  --accent-foreground: #f1f5f9;
-  --destructive: var(--critical);
-  --destructive-foreground: var(--bg-primary);
-  --border: var(--border-primary);
-  --input: var(--bg-primary);
-  --ring: var(--border-primary);
 }
 
 /* =====================================================
@@ -414,23 +388,6 @@
   --neutral-dark: #006dd3;
   --neutral: #66b3ff;
   --neutral-light: #ecf6ff;
-  
-  /* Legacy Variables */
-  --background: var(--bg-primary);
-  --foreground: var(--primary);
-  --card: var(--bg-primary);
-  --card-foreground: var(--primary);
-  --popover: var(--bg-primary);
-  --popover-foreground: var(--primary);
-  --muted: #202020;
-  --muted-foreground: #A0A0A0;
-  --accent: #202020;
-  --accent-foreground: #F0F0F0;
-  --destructive: var(--critical);
-  --destructive-foreground: var(--bg-primary);
-  --border: var(--border-primary);
-  --input: var(--bg-primary);
-  --ring: var(--border-primary);
 }
 
 /* =====================================================
