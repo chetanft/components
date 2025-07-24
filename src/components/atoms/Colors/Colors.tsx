@@ -136,21 +136,21 @@ export function Colors() {
             colorVar="--primary" 
             lightValue="#434f64"
             darkValue="#e2e8f0"
-            nightValue="#f1f5f9"
+            nightValue="#f0f0f0"
           />
           <ThemeColorSwatch 
             colorName="Secondary"
             colorVar="--secondary" 
-            lightValue="#5f697b"
+            lightValue="#5e687a"
             darkValue="#94a3b8"
-            nightValue="#cbd5e1"
+            nightValue="#d0d0d0"
           />
           <ThemeColorSwatch 
             colorName="Tertiary"
             colorVar="--tertiary" 
             lightValue="#838c9d"
             darkValue="#64748b"
-            nightValue="#94a3b8"
+            nightValue="#a0a0a0"
           />
         </ColorGroup>
         
@@ -160,14 +160,14 @@ export function Colors() {
             colorVar="--bg-primary" 
             lightValue="#ffffff"
             darkValue="#1e293b"
-            nightValue="#0f172a"
+            nightValue="#000000"
           />
           <ThemeColorSwatch 
             colorName="BG Secondary"
             colorVar="--bg-secondary" 
             lightValue="#f8f8f9"
-            darkValue="#334155"
-            nightValue="#1e293b"
+            darkValue="#0f172a"
+            nightValue="#1a1a1a"
           />
         </ColorGroup>
         
@@ -177,14 +177,14 @@ export function Colors() {
             colorVar="--border-primary" 
             lightValue="#ced1d7"
             darkValue="#475569"
-            nightValue="#334155"
+            nightValue="#404040"
           />
           <ThemeColorSwatch 
             colorName="Border Secondary"
             colorVar="--border-secondary" 
             lightValue="#f0f1f7"
-            darkValue="#374151"
-            nightValue="#1f2937"
+            darkValue="#334155"
+            nightValue="#202020"
           />
         </ColorGroup>
         
@@ -192,30 +192,89 @@ export function Colors() {
           <ThemeColorSwatch 
             colorName="Critical"
             colorVar="--critical" 
-            lightValue="#ff3533"
-            darkValue="#ef4444"
-            nightValue="#dc2626"
+            lightValue="#ff3532"
+            darkValue="#ff4d4f"
+            nightValue="#ff6666"
           />
           <ThemeColorSwatch 
             colorName="Warning"
             colorVar="--warning" 
             lightValue="#ff6c19"
-            darkValue="#f59e0b"
-            nightValue="#d97706"
+            darkValue="#ff7b33"
+            nightValue="#ff8c4d"
           />
           <ThemeColorSwatch 
             colorName="Positive"
             colorVar="--positive" 
-            lightValue="#00c638"
-            darkValue="#10b981"
-            nightValue="#059669"
+            lightValue="#00c637"
+            darkValue="#00e64d"
+            nightValue="#33ff77"
           />
           <ThemeColorSwatch 
             colorName="Neutral"
             colorVar="--neutral" 
             lightValue="#1890ff"
-            darkValue="#3b82f6"
-            nightValue="#2563eb"
+            darkValue="#4da6ff"
+            nightValue="#66b3ff"
+          />
+        </ColorGroup>
+        
+        <ColorGroup title="Semantic Color Variants">
+          <ThemeColorSwatch 
+            colorName="Critical Dark"
+            colorVar="--critical-dark" 
+            lightValue="#b70100"
+            darkValue="#b70100"
+            nightValue="#b70100"
+          />
+          <ThemeColorSwatch 
+            colorName="Critical Light"
+            colorVar="--critical-light" 
+            lightValue="#ffe9e9"
+            darkValue="#ffe9e9"
+            nightValue="#ffe9e9"
+          />
+          <ThemeColorSwatch 
+            colorName="Warning Dark"
+            colorVar="--warning-dark" 
+            lightValue="#dd6a00"
+            darkValue="#dd6a00"
+            nightValue="#dd6a00"
+          />
+          <ThemeColorSwatch 
+            colorName="Warning Light"
+            colorVar="--warning-light" 
+            lightValue="#ffebdc"
+            darkValue="#ffebdc"
+            nightValue="#ffebdc"
+          />
+          <ThemeColorSwatch 
+            colorName="Positive Dark"
+            colorVar="--positive-dark" 
+            lightValue="#00753d"
+            darkValue="#00753d"
+            nightValue="#00753d"
+          />
+          <ThemeColorSwatch 
+            colorName="Positive Light"
+            colorVar="--positive-light" 
+            lightValue="#deffe7"
+            darkValue="#deffe7"
+            nightValue="#deffe7"
+          />
+          <ThemeColorSwatch 
+            colorName="Neutral Dark"
+            colorVar="--neutral-dark" 
+            lightValue="#006dd3"
+            darkValue="#006dd3"
+            nightValue="#006dd3"
+          />
+          <ThemeColorSwatch 
+            colorName="Neutral Light"
+            colorVar="--neutral-light" 
+            lightValue="#ecf6ff"
+            darkValue="#ecf6ff"
+            nightValue="#ecf6ff"
           />
         </ColorGroup>
         
