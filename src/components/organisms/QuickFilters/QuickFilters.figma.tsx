@@ -1,60 +1,123 @@
 import { figma } from '@figma/code-connect';
 import { QuickFilters } from './QuickFilters';
 
+// Connect to the main Quick filters component set
 figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Components?node-id=2657-4544', {
   example: () => (
-    <div className="space-y-4">
-      <div>
-        <h4 className="text-sm font-medium mb-2">Single Filters</h4>
-        <QuickFilters filters={[
-          {
-            id: 'filter-1',
-            label: 'All',
-            count: 24,
-            type: 'normal',
-            selected: true,
-          },
-          {
-            id: 'filter-2', 
-            label: 'Active',
-            count: 12,
-            type: 'normal',
-            selected: false,
-          },
-          {
-            id: 'filter-3',
-            label: 'Alert',
-            count: 5,
-            type: 'alert',
-            selected: false,
-          }
-        ]} />
-      </div>
-      <div>
-        <h4 className="text-sm font-medium mb-2">Multi-option Filters</h4>
-        <QuickFilters filters={[
-          {
-            id: 'multi-1',
-            label: 'E Way bill',
-            type: 'normal',
-            options: [
-              { id: 'expiring', label: 'Expiring in 3 hrs', count: 28 },
-              { id: 'expired', label: 'Expired', count: 18 },
-            ],
-          },
-          {
-            id: 'multi-2',
-            label: 'Delayed',
-            count: 51,
-            type: 'alert',
-            options: [
-              { id: '0-6hrs', label: '0-6 hrs', count: 28, type: 'alert' },
-              { id: '6-12hrs', label: '6-12 hrs', count: 18, type: 'alert' },
-              { id: '12plus', label: '12+ hrs', count: 5, type: 'alert' },
-            ],
-          }
-        ]} />
-      </div>
-    </div>
+    <QuickFilters filters={[
+      {
+        id: 'filter-1',
+        label: 'Alert label',
+        selected: false,
+      },
+      {
+        id: 'filter-2', 
+        label: 'Alert label',
+        count: 19,
+        selected: false,
+      },
+      {
+        id: 'filter-3',
+        label: 'Alert label',
+        count: 19,
+        type: 'alert',
+        selected: false,
+      }
+    ]} />
+  )
+});
+
+// Connect to individual Quick filters element variants
+figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Components?node-id=2860-11561', {
+  variant: {
+    'Type': 'Normal',
+    'State': 'Default', 
+    'Count': 'False'
+  },
+  example: () => (
+    <QuickFilters filters={[
+      {
+        id: 'normal-default-no-count',
+        label: 'Alert label',
+        type: 'normal',
+        selected: false,
+      }
+    ]} />
+  )
+});
+
+figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Components?node-id=2860-11561', {
+  variant: {
+    'Type': 'Normal',
+    'State': 'Default',
+    'Count': 'True'
+  },
+  example: () => (
+    <QuickFilters filters={[
+      {
+        id: 'normal-default-with-count',
+        label: 'Alert label',
+        count: 19,
+        type: 'normal',
+        selected: false,
+      }
+    ]} />
+  )
+});
+
+figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Components?node-id=2860-11561', {
+  variant: {
+    'Type': 'Normal',
+    'State': 'Selected',
+    'Count': 'True'
+  },
+  example: () => (
+    <QuickFilters filters={[
+      {
+        id: 'normal-selected-with-count',
+        label: 'Alert label',
+        count: 19,
+        type: 'normal',
+        selected: true,
+      }
+    ]} />
+  )
+});
+
+figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Components?node-id=2860-11561', {
+  variant: {
+    'Type': 'Alert',
+    'State': 'Default',
+    'Count': 'True'
+  },
+  example: () => (
+    <QuickFilters filters={[
+      {
+        id: 'alert-default-with-count',
+        label: 'Alert label',
+        count: 19,
+        type: 'alert',
+        selected: false,
+      }
+    ]} />
+  )
+});
+
+figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Components?node-id=2860-11561', {
+  variant: {
+    'Type': 'Alert',
+    'State': 'Selected',
+    'Count': 'True'
+  },
+  example: () => (
+    <QuickFilters filters={[
+      {
+        id: 'alert-selected-with-count',
+        label: 'Alert label',
+        count: 19,
+        type: 'alert',
+        selected: true,
+      }
+    ]} />
   )
 }); 

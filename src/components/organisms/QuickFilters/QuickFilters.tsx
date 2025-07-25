@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 
@@ -33,10 +33,11 @@ const FilterChip: React.FC<{
   filter: QuickFilter;
   option?: FilterOption;
   isSelected: boolean;
-  isSubOption?: boolean;
   onSelect: () => void;
   onRemove?: () => void;
-}> = ({ filter, option, isSelected, isSubOption = false, onSelect, onRemove }) => {
+  showBorder?: boolean;
+  isMainLabel?: boolean;
+}> = ({ filter, option, isSelected, onSelect, onRemove, showBorder = true, isMainLabel = false }) => {
   const displayLabel = option?.label || filter.label;
   const displayCount = option?.count || filter.count;
   const displayType = option?.type || filter.type || 'normal';
@@ -44,70 +45,78 @@ const FilterChip: React.FC<{
   return (
     <div 
       className={cn(
-        "inline-flex items-center gap-2",
-        isSubOption ? "px-2" : "px-3",
-        isSubOption ? "h-7" : "h-9",
-        isSelected 
-          ? "bg-[#F0F1F7] border-0" 
-          : isSubOption 
-            ? "bg-white border-0" 
-            : "bg-white border border-[var(--border-primary)]",
-        isSubOption 
-          ? isSelected ? "rounded-lg" : "rounded-none" 
-          : "rounded-lg",
-        "cursor-pointer transition-all duration-200",
-        "font-sans text-sm font-semibold text-[var(--primary)]",
-        "whitespace-nowrap"
+        "inline-flex items-center gap-2 px-2 py-1 rounded-lg cursor-pointer transition-all duration-200",
+        "text-sm font-semibold font-inter",
+        // Background based on Figma design
+        isMainLabel 
+          ? "bg-[#F0F1F7]" // Main labels in multi-option always have gray background
+          : isSelected 
+            ? "bg-[#F0F1F7]" 
+            : "bg-white",
+        // Border for default state (not main labels)
+        showBorder && !isSelected && !isMainLabel ? "border border-[#CED1D7]" : ""
       )}
-      onClick={onSelect}
-      role="button"
-      tabIndex={0}
-      aria-pressed={isSelected}
-      onKeyDown={(e) => {
+      onClick={!isMainLabel ? onSelect : undefined}
+      role={!isMainLabel ? "button" : undefined}
+      tabIndex={!isMainLabel ? 0 : undefined}
+      aria-pressed={!isMainLabel ? isSelected : undefined}
+      onKeyDown={!isMainLabel ? (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           onSelect();
         }
-      }}
+      } : undefined}
     >
+      {/* Count badge - shows before label when present */}
       {displayCount !== undefined && (
         <span 
           className={cn(
-            "font-semibold",
-            isSubOption ? "text-sm" : "text-base",
-            displayType === 'alert' ? "text-[var(--critical)]" : "text-[var(--primary)]",
-            "leading-[1.21]"
+            "inline-flex items-center justify-center px-2 py-0.5 rounded-full text-sm font-semibold min-w-[24px] h-5",
+            // Count badge styling based on state and type
+            isSelected 
+              ? "bg-white text-[#434F64]" // White background for selected state
+              : displayType === 'alert' 
+                ? "bg-[#F0F1F7] text-[#FF3533]" // Red text for alert type
+                : "bg-[#F0F1F7] text-[#434F64]" // Normal gray background and text
           )}
         >
           {displayCount}
         </span>
       )}
-      <span className="flex items-center">{displayLabel}</span>
-      {isSelected && onRemove && (
-        <span
-          className="flex items-center justify-center cursor-pointer flex-shrink-0"
-          onClick={(e) => {
-            e.stopPropagation();
-            onRemove();
-          }}
-          role="button"
-          tabIndex={0}
-          aria-label={`Remove ${displayLabel} filter`}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
+      
+      {/* Label */}
+      <span className="text-[#434F64]">
+        {displayLabel}
+      </span>
+      
+      {/* Space for tick icon - always present to prevent layout shift */}
+      <div className="flex items-center justify-center w-[14px] h-[14px] ml-1">
+        {isSelected && onRemove && !isMainLabel && (
+          <div
+            className="cursor-pointer"
+            onClick={(e) => {
               e.stopPropagation();
               onRemove();
-            }
-          }}
-        >
-          <Icon
-            name="close-filled"
-            size={14}
-            className="text-[var(--primary)]"
-          />
-        </span>
-      )}
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={`Remove ${displayLabel} filter`}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.stopPropagation();
+                onRemove();
+              }
+            }}
+          >
+            <Icon
+              name="check-alt"
+              size={14}
+              className="text-[#434F64]"
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -118,42 +127,37 @@ const MultiOptionFilter: React.FC<{
   onFilterRemove: (filterId: string, optionId?: string) => void;
 }> = ({ filter, onFilterClick, onFilterRemove }) => {
   return (
-    <div className="inline-flex items-center bg-white border border-[var(--border-primary)] rounded-lg overflow-hidden h-9">
-      {/* Main filter section */}
-      <div className="bg-[var(--border-secondary)] h-full flex items-center gap-2 px-3">
-        {filter.count !== undefined && (
-          <span className={cn(
-            "text-base font-semibold leading-[1.21]",
-            filter.type === 'alert' ? "text-[var(--critical)]" : "text-[var(--primary)]"
-          )}>
-            {filter.count}
-          </span>
-        )}
-        <span className="text-sm font-semibold text-[var(--primary)]">
-          {filter.label}
-        </span>
+    <div className="inline-flex items-center bg-white border border-[#CED1D7] rounded-lg overflow-hidden">
+      {/* Main filter section - non-clickable label with gray background */}
+      <div className="bg-[#F0F1F7] px-2 py-1">
+        <FilterChip
+          filter={filter}
+          isSelected={false}
+          onSelect={() => {}}
+          onRemove={undefined}
+          showBorder={false}
+          isMainLabel={true}
+        />
       </div>
 
-      {/* Options section */}
-      <div className="flex items-center px-3 py-1 h-full">
-        {filter.options?.map((option, index) => (
-          <React.Fragment key={option.id}>
-            {index > 0 && (
-              <div className="w-px h-[26px] bg-[var(--border-secondary)] mx-1" aria-hidden="true" />
-            )}
+      {/* Options section with separators */}
+      {filter.options?.map((option, index) => (
+        <React.Fragment key={option.id}>
+          {index > 0 && <div className="w-[1px] h-6 bg-[#CED1D7]" />}
+          <div className="px-1">
             <FilterChip
               filter={filter}
               option={option}
               isSelected={filter.selectedOption === option.id}
-              isSubOption={true}
               onSelect={() => onFilterClick(filter.id, option.id)}
               onRemove={filter.selectedOption === option.id ? 
                 () => onFilterRemove(filter.id, option.id) : undefined
               }
+              showBorder={false}
             />
-          </React.Fragment>
-        ))}
-      </div>
+          </div>
+        </React.Fragment>
+      ))}
     </div>
   );
 };
@@ -165,7 +169,7 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
   className,
 }) => {
   return (
-    <div className={cn('flex flex-wrap gap-3', className)} role="group" aria-label="Quick filters">
+    <div className={cn('flex flex-wrap gap-2', className)} role="group" aria-label="Quick filters">
       {filters.map((filter) => {
         if (filter.options && filter.options.length > 0) {
           // Multi-option filter

@@ -9,6 +9,11 @@ const meta = {
     layout: 'padded',
   },
   tags: ['autodocs'],
+  argTypes: {
+    filters: { control: false },
+    onFilterClick: { action: 'filter clicked' },
+    onFilterRemove: { action: 'filter removed' },
+  },
 } satisfies Meta<typeof QuickFilters>;
 
 export default meta;
@@ -69,18 +74,124 @@ const InteractiveQuickFilters: React.FC<{ initialFilters: QuickFilter[] }> = ({ 
   );
 };
 
+// Figma Design - Single Element (matches node-id=2860-11561)
+export const FigmaDesignElements: Story = {
+  args: {
+    filters: []
+  },
+  render: () => (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Figma Design: Quick Filter Elements</h3>
+        <div className="space-y-4">
+          <div>
+            <h4 className="text-sm font-medium mb-2 text-gray-600">Type=Normal, State=Default, Count=False</h4>
+            <QuickFilters
+              filters={[
+                { id: '1', label: 'Alert label', type: 'normal', selected: false },
+              ]}
+            />
+          </div>
+          <div>
+            <h4 className="text-sm font-medium mb-2 text-gray-600">Type=Normal, State=Default, Count=True</h4>
+            <QuickFilters
+              filters={[
+                { id: '2', label: 'Alert label', count: 19, type: 'normal', selected: false },
+              ]}
+            />
+          </div>
+          <div>
+            <h4 className="text-sm font-medium mb-2 text-gray-600">Type=Normal, State=Selected, Count=True</h4>
+            <QuickFilters
+              filters={[
+                { id: '3', label: 'Alert label', count: 19, type: 'normal', selected: true },
+              ]}
+            />
+          </div>
+          <div>
+            <h4 className="text-sm font-medium mb-2 text-gray-600">Type=Alert, State=Default, Count=True</h4>
+            <QuickFilters
+              filters={[
+                { id: '4', label: 'Alert label', count: 19, type: 'alert', selected: false },
+              ]}
+            />
+          </div>
+          <div>
+            <h4 className="text-sm font-medium mb-2 text-gray-600">Type=Alert, State=Selected, Count=True</h4>
+            <QuickFilters
+              filters={[
+                { id: '5', label: 'Alert label', count: 19, type: 'alert', selected: true },
+              ]}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+// Figma Design - Container (matches node-id=2657-4544)
+export const FigmaDesignContainer: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Figma Design: Quick Filters Container</h3>
+        <div className="space-y-4">
+          <div>
+            <h4 className="text-sm font-medium mb-2 text-gray-600">Count=1, State=Default</h4>
+            <QuickFilters
+              filters={[
+                { id: '1', label: 'Alert label', type: 'normal', selected: false },
+              ]}
+            />
+          </div>
+          <div>
+            <h4 className="text-sm font-medium mb-2 text-gray-600">Count=1, State=Selected</h4>
+            <QuickFilters
+              filters={[
+                { id: '2', label: 'Alert label', count: 19, type: 'normal', selected: true },
+              ]}
+            />
+          </div>
+          <div>
+            <h4 className="text-sm font-medium mb-2 text-gray-600">Count=2, State=Default</h4>
+            <QuickFilters
+              filters={[
+                { id: '3', label: 'Alert label', type: 'normal', selected: false },
+                { id: '4', label: 'Alert label', count: 19, type: 'normal', selected: false },
+                { id: '5', label: 'Alert label', count: 19, type: 'alert', selected: false },
+              ]}
+            />
+          </div>
+          <div>
+            <h4 className="text-sm font-medium mb-2 text-gray-600">Count=3, State=Default</h4>
+            <QuickFilters
+              filters={[
+                { id: '6', label: 'Alert label', type: 'normal', selected: false },
+                { id: '7', label: 'Alert label', type: 'normal', selected: false },
+                { id: '8', label: 'Alert label', type: 'normal', selected: false },
+                { id: '9', label: 'Alert label', type: 'normal', selected: false },
+              ]}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
 // Default story with basic functionality
 export const Default: Story = {
   args: {
     filters: [
       {
         id: 'simple',
-        label: 'Long Stoppage',
+        label: 'Alert label',
         selected: false,
       },
       {
         id: 'with-count',
-        label: 'Long Stoppage',
+        label: 'Alert label',
         count: 19,
         selected: false,
       },
@@ -94,18 +205,18 @@ export const SingleOptions: Story = {
     const filters: QuickFilter[] = [
       {
         id: 'simple',
-        label: 'Long Stoppage',
+        label: 'Alert label',
         selected: false,
       },
       {
         id: 'with-count',
-        label: 'Long Stoppage',
+        label: 'Alert label',
         count: 19,
         selected: false,
       },
       {
         id: 'alert-type',
-        label: 'Long Stoppage',
+        label: 'Alert label',
         count: 19,
         type: 'alert',
         selected: false,
@@ -182,13 +293,13 @@ export const MixedFilters: Story = {
     const filters: QuickFilter[] = [
       {
         id: 'single-1',
-        label: 'Long Stoppage',
+        label: 'Alert label',
         count: 19,
         selected: true,
       },
       {
         id: 'single-2',
-        label: 'Short Delay',
+        label: 'Alert label',
         count: 5,
         type: 'alert',
         selected: false,
@@ -217,7 +328,7 @@ export const MixedFilters: Story = {
       },
       {
         id: 'single-3',
-        label: 'Route Issues',
+        label: 'Alert label',
         selected: false,
       },
     ];
@@ -237,9 +348,9 @@ export const AllStates: Story = {
             <h4 className="text-sm font-medium mb-2 text-gray-600">Default States</h4>
             <QuickFilters
               filters={[
-                { id: '1', label: 'Long Stoppage', selected: false },
-                { id: '2', label: 'Long Stoppage', count: 19, selected: false },
-                { id: '3', label: 'Long Stoppage', count: 19, type: 'alert', selected: false },
+                { id: '1', label: 'Alert label', selected: false },
+                { id: '2', label: 'Alert label', count: 19, selected: false },
+                { id: '3', label: 'Alert label', count: 19, type: 'alert', selected: false },
               ]}
             />
           </div>
@@ -247,9 +358,9 @@ export const AllStates: Story = {
             <h4 className="text-sm font-medium mb-2 text-gray-600">Selected States</h4>
             <QuickFilters
               filters={[
-                { id: '4', label: 'Long Stoppage', selected: true },
-                { id: '5', label: 'Long Stoppage', count: 19, selected: true },
-                { id: '6', label: 'Long Stoppage', count: 19, type: 'alert', selected: true },
+                { id: '4', label: 'Alert label', selected: true },
+                { id: '5', label: 'Alert label', count: 19, selected: true },
+                { id: '6', label: 'Alert label', count: 19, type: 'alert', selected: true },
               ]}
             />
           </div>
