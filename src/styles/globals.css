@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* =====================================================
+   FT DESIGN SYSTEM - COMPREHENSIVE GLOBAL CSS
+   ===================================================== */
+
 :root {
   --font-size: 14px;
   
