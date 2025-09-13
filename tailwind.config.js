@@ -9,6 +9,15 @@ export default {
   
   // CRITICAL: Safelist ensures all design system classes are included in dist/styles.css
   safelist: [
+    // BASE COLOR SCALES - All shades for all families
+    ...['primary', 'secondary', 'tertiary', 'neutral', 'positive', 'warning', 'danger'].flatMap(family => 
+      ['900', '800', '700', '600', '500', '400', '300', '200', '100', ...(family === 'tertiary' ? ['0'] : [])].flatMap(shade => [
+        `bg-${family}-${shade}`,
+        `text-${family}-${shade}`,
+        `border-${family}-${shade}`,
+      ])
+    ),
+    
     // CSS Variable-based colors
     'bg-[var(--primary)]',
     'bg-[var(--secondary)]', 
@@ -120,7 +129,93 @@ export default {
   theme: {
     extend: {
       colors: {
-        // NEW SEMANTIC COLOR SYSTEM
+        // BASE COLOR SCALES - Direct access to all shades
+        primary: {
+          900: 'var(--primary-900)',
+          800: 'var(--primary-800)',
+          700: 'var(--primary-700)',
+          600: 'var(--primary-600)',
+          500: 'var(--primary-500)',
+          400: 'var(--primary-400)',
+          300: 'var(--primary-300)',
+          200: 'var(--primary-200)',
+          100: 'var(--primary-100)',
+        },
+        
+        secondary: {
+          900: 'var(--secondary-900)',
+          800: 'var(--secondary-800)',
+          700: 'var(--secondary-700)',
+          600: 'var(--secondary-600)',
+          500: 'var(--secondary-500)',
+          400: 'var(--secondary-400)',
+          300: 'var(--secondary-300)',
+          200: 'var(--secondary-200)',
+          100: 'var(--secondary-100)',
+        },
+        
+        tertiary: {
+          900: 'var(--tertiary-900)',
+          800: 'var(--tertiary-800)',
+          700: 'var(--tertiary-700)',
+          600: 'var(--tertiary-600)',
+          500: 'var(--tertiary-500)',
+          400: 'var(--tertiary-400)',
+          300: 'var(--tertiary-300)',
+          200: 'var(--tertiary-200)',
+          100: 'var(--tertiary-100)',
+          0: 'var(--tertiary-0)',
+        },
+        
+        neutral: {
+          900: 'var(--neutral-900)',
+          800: 'var(--neutral-800)',
+          700: 'var(--neutral-700)',
+          600: 'var(--neutral-600)',
+          500: 'var(--neutral-500)',
+          400: 'var(--neutral-400)',
+          300: 'var(--neutral-300)',
+          200: 'var(--neutral-200)',
+          100: 'var(--neutral-100)',
+        },
+        
+        positive: {
+          900: 'var(--positive-900)',
+          800: 'var(--positive-800)',
+          700: 'var(--positive-700)',
+          600: 'var(--positive-600)',
+          500: 'var(--positive-500)',
+          400: 'var(--positive-400)',
+          300: 'var(--positive-300)',
+          200: 'var(--positive-200)',
+          100: 'var(--positive-100)',
+        },
+        
+        warning: {
+          900: 'var(--warning-900)',
+          800: 'var(--warning-800)',
+          700: 'var(--warning-700)',
+          600: 'var(--warning-600)',
+          500: 'var(--warning-500)',
+          400: 'var(--warning-400)',
+          300: 'var(--warning-300)',
+          200: 'var(--warning-200)',
+          100: 'var(--warning-100)',
+        },
+        
+        danger: {
+          900: 'var(--danger-900)',
+          800: 'var(--danger-800)',
+          700: 'var(--danger-700)',
+          600: 'var(--danger-600)',
+          500: 'var(--danger-500)',
+          400: 'var(--danger-400)',
+          300: 'var(--danger-300)',
+          200: 'var(--danger-200)',
+          100: 'var(--danger-100)',
+        },
+
+        // SEMANTIC COLOR SYSTEM
         'primary': 'var(--primary)', // #434f64 - Main text, primary actions
         'secondary': 'var(--secondary)', // #5f697b - Secondary text, muted content  
         'tertiary': 'var(--tertiary)', // #838c9d - Subtle text, disabled states

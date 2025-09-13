@@ -2,7 +2,7 @@
 import './styles/globals.css';
 
 // Design tokens
-export { designTokens, cssVariables } from './tokens/design-tokens';
+export { designTokens, cssVariables, resolveBaseColor, getThemeColor } from './tokens/design-tokens';
 
 // ⚠️ IMPORTANT: When adding/removing components below, also update:
 // 1. src/stories/prompts/General.stories.tsx (downloadable docs)

@@ -311,10 +311,98 @@ When adding new components:
 4. **Test both versions** work correctly
 5. **Run performance monitoring** to check bundle impact
 
+## Color System Architecture (v4.9.2+)
+
+The FT Design System now features a **hierarchical color architecture** that provides both flexibility and consistency:
+
+### Color System Structure
+
+```
+Design System/Colors/
+├── Base Colors/          # Foundation color scales (67 colors × 3 themes)
+│   ├── Light Mode       # Primary, Secondary, Tertiary, Neutral, Status scales
+│   ├── Dark Mode        # Adapted for dark theme
+│   └── Night Mode       # High contrast for accessibility
+│
+└── Color System/        # Selected colors from base scales
+    ├── Light Mode       # Primary, Secondary, Tertiary, Borders, Backgrounds, Semantic
+    ├── Dark Mode        # Theme-adapted selected colors
+    └── Night Mode       # High contrast selected colors
+```
+
+### Color Usage in AI Tools
+
+**✅ Recommended for AI Tools:**
+```typescript
+// Use semantic color variables (automatically adapt to themes)
+<Button className="bg-primary text-primary border-primary" />
+<div className="bg-secondary text-secondary" />
+<Alert className="bg-critical text-critical" />
+```
+
+**❌ Avoid in AI Tools:**
+```typescript
+// Don't use hardcoded colors or arbitrary values
+<Button className="bg-[#434f64] text-[#1a2330]" />
+<div className="bg-blue-500 text-gray-900" />
+```
+
+### AI-Safe Color Classes
+
+The AI protection automatically filters problematic color classes:
+
+```typescript
+import { filterAIClasses } from 'ft-design-system';
+
+// Input: "bg-[#123456] text-[#abcdef] bg-primary text-secondary"
+// Output: "bg-primary text-secondary"
+const safeClasses = filterAIClasses(aiGeneratedClasses);
+```
+
+**Filtered color patterns:**
+- Arbitrary color values: `bg-[#123456]`, `text-[rgb(255,0,0)]`
+- Hardcoded Tailwind colors: `bg-blue-500`, `text-red-600`
+- Border color overrides: `border-[#abcdef]`
+
+**Preserved semantic colors:**
+- Design system colors: `bg-primary`, `text-secondary`, `border-tertiary`
+- Status colors: `bg-critical`, `text-positive`, `border-warning`
+- Background colors: `bg-primary`, `bg-secondary`
+
+### Color System Integration
+
+```typescript
+// For AI tools - automatic color protection
+import { Button, Alert, Card } from 'ft-design-system/ai';
+
+function AIGeneratedComponent() {
+  return (
+    <div>
+      {/* AI can safely use semantic colors */}
+      <Button variant="primary" className="bg-primary text-primary">
+        Primary Action
+      </Button>
+      
+      {/* Status colors work across all themes */}
+      <Alert variant="critical" className="bg-critical text-critical">
+        Error message
+      </Alert>
+      
+      {/* Arbitrary colors are automatically filtered out */}
+      <Card className="bg-[#123456] bg-secondary text-secondary">
+        Safe card with design system colors
+      </Card>
+    </div>
+  );
+}
+```
+
 ## Future Roadmap
 
 - [ ] Build-time AI class filtering for even better performance
 - [ ] IDE extensions for better AI integration
 - [ ] Automated conflict detection in CI/CD
 - [ ] Real-time performance monitoring dashboard
-- [ ] AI-specific component variants 
+- [ ] AI-specific component variants
+- [ ] Automatic color theme detection and adaptation
+- [ ] AI-powered color accessibility validation 

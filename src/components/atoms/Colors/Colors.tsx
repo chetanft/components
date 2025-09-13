@@ -111,366 +111,150 @@ const ColorGroup: React.FC<ColorGroupProps> = ({ title, children }) => {
   );
 };
 
+// Horizontal color scale component like Base Colors
+interface HorizontalColorScaleProps {
+  title: string;
+  colors: { shade: string; hex: string; cssVar: string }[];
+  theme: 'light' | 'dark' | 'night';
+}
+
+const HorizontalColorScale: React.FC<HorizontalColorScaleProps> = ({ title, colors, theme }) => {
+  const themeStyles = {
+    light: 'bg-white',
+    dark: 'bg-slate-800',
+    night: 'bg-black'
+  };
+
+  const textStyles = {
+    light: 'text-gray-900',
+    dark: 'text-white',
+    night: 'text-white'
+  };
+
+  return (
+    <div className={`p-6 ${themeStyles[theme]} ${textStyles[theme]} rounded-lg border`}>
+      <h3 className="text-lg font-semibold mb-4">{title}</h3>
+      <div className="flex items-center gap-1">
+        {colors.map((color, index) => (
+          <div key={color.shade} className="flex flex-col items-center">
+            {/* Color swatch */}
+            <div 
+              className="w-12 h-12 border border-gray-300 flex items-center justify-center"
+              style={{ backgroundColor: color.hex }}
+              title={`${color.cssVar}: ${color.hex}`}
+            >
+              {/* Circle for certain shades like in Figma */}
+              {(index === 2 || index === 4 || index === 6) && (
+                <div 
+                  className="w-6 h-6 rounded-full border-2"
+                  style={{ 
+                    backgroundColor: theme === 'light' ? 'white' : 'transparent',
+                    borderColor: theme === 'light' ? color.hex : 'white'
+                  }}
+                />
+              )}
+            </div>
+            {/* Shade label and hex value */}
+            <div className="text-xs mt-1 text-center">
+              <div className="font-mono">{color.shade}</div>
+              <div className="font-mono text-[10px] opacity-70">{color.hex}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export function Colors() {
   const { theme } = useOptionalTheme();
   
   return (
     <div className="w-full space-y-10">
       <div className="flex justify-between items-center">
-        <h1 className="text-[40px] font-light">Colors</h1>
+        <h1 className="text-[40px] font-light">Color System</h1>
         <div className="flex items-center gap-4">
           <span className="text-sm font-medium">Current Theme: {theme}</span>
           <p className="text-sm text-gray-500">
-            All theme colors are shown below
+            Complete design system colors
           </p>
+        </div>
+      </div>
+
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+        <h2 className="text-xl font-semibold text-blue-900 mb-3">Color System Architecture</h2>
+        <div className="text-blue-800 space-y-2">
+          <p><strong>Base Colors</strong> → Foundation color scales (67 colors × 3 themes = 201 CSS variables)</p>
+          <p><strong>Semantic Colors</strong> → Component-friendly colors that reference base scales</p>
+          <p><strong>Component Usage</strong> → Components use semantic colors that adapt automatically</p>
+        </div>
+        <div className="mt-4 flex gap-4">
+          <a href="?path=/story/design-system-colors-base-colors--light-mode" className="text-blue-600 hover:text-blue-800 underline">
+            View Base Colors →
+          </a>
+          <a href="?path=/story/design-system-colors-color-system--light-mode" className="text-blue-600 hover:text-blue-800 underline">
+            View Color System →
+          </a>
         </div>
       </div>
       
       <section>
-        <h2 className="text-[24px] font-semibold mb-6">All Theme Colors</h2>
-        <p className="mb-6">Complete color palette showing Light, Dark, and Night mode variations for all color tokens.</p>
+        <h2 className="text-[24px] font-semibold mb-6">Primary Colors</h2>
+        <p className="mb-6">Main color scale used for primary UI elements and text</p>
         
-        <ColorGroup title="Base Colors">
-          <ThemeColorSwatch 
-            colorName="Primary"
-            colorVar="--primary" 
-            lightValue="#434f64"
-            darkValue="#e2e8f0"
-            nightValue="#f0f0f0"
-          />
-          <ThemeColorSwatch 
-            colorName="Secondary"
-            colorVar="--secondary" 
-            lightValue="#5e687a"
-            darkValue="#94a3b8"
-            nightValue="#d0d0d0"
-          />
-          <ThemeColorSwatch 
-            colorName="Tertiary"
-            colorVar="--tertiary" 
-            lightValue="#838c9d"
-            darkValue="#64748b"
-            nightValue="#a0a0a0"
-          />
-        </ColorGroup>
-        
-        <ColorGroup title="Background Colors">
-          <ThemeColorSwatch 
-            colorName="BG Primary"
-            colorVar="--bg-primary" 
-            lightValue="#ffffff"
-            darkValue="#1e293b"
-            nightValue="#000000"
-          />
-          <ThemeColorSwatch 
-            colorName="BG Secondary"
-            colorVar="--bg-secondary" 
-            lightValue="#f8f8f9"
-            darkValue="#0f172a"
-            nightValue="#1a1a1a"
-          />
-        </ColorGroup>
-        
-        <ColorGroup title="Border Colors">
-          <ThemeColorSwatch 
-            colorName="Border Primary"
-            colorVar="--border-primary" 
-            lightValue="#ced1d7"
-            darkValue="#475569"
-            nightValue="#404040"
-          />
-          <ThemeColorSwatch 
-            colorName="Border Secondary"
-            colorVar="--border-secondary" 
-            lightValue="#f0f1f7"
-            darkValue="#334155"
-            nightValue="#202020"
-          />
-        </ColorGroup>
-        
-        <ColorGroup title="Semantic Colors">
-          <ThemeColorSwatch 
-            colorName="Critical"
-            colorVar="--critical" 
-            lightValue="#ff3532"
-            darkValue="#ff4d4f"
-            nightValue="#ff6666"
-          />
-          <ThemeColorSwatch 
-            colorName="Warning"
-            colorVar="--warning" 
-            lightValue="#ff6c19"
-            darkValue="#ff7b33"
-            nightValue="#ff8c4d"
-          />
-          <ThemeColorSwatch 
-            colorName="Positive"
-            colorVar="--positive" 
-            lightValue="#00c637"
-            darkValue="#00e64d"
-            nightValue="#33ff77"
-          />
-          <ThemeColorSwatch 
-            colorName="Neutral"
-            colorVar="--neutral" 
-            lightValue="#1890ff"
-            darkValue="#4da6ff"
-            nightValue="#66b3ff"
-          />
-        </ColorGroup>
-        
-        <ColorGroup title="Semantic Color Variants">
-          <ThemeColorSwatch 
-            colorName="Critical Dark"
-            colorVar="--critical-dark" 
-            lightValue="#b70100"
-            darkValue="#b70100"
-            nightValue="#b70100"
-          />
-          <ThemeColorSwatch 
-            colorName="Critical Light"
-            colorVar="--critical-light" 
-            lightValue="#ffe9e9"
-            darkValue="#ffe9e9"
-            nightValue="#ffe9e9"
-          />
-          <ThemeColorSwatch 
-            colorName="Warning Dark"
-            colorVar="--warning-dark" 
-            lightValue="#dd6a00"
-            darkValue="#dd6a00"
-            nightValue="#dd6a00"
-          />
-          <ThemeColorSwatch 
-            colorName="Warning Light"
-            colorVar="--warning-light" 
-            lightValue="#ffebdc"
-            darkValue="#ffebdc"
-            nightValue="#ffebdc"
-          />
-          <ThemeColorSwatch 
-            colorName="Positive Dark"
-            colorVar="--positive-dark" 
-            lightValue="#00753d"
-            darkValue="#00753d"
-            nightValue="#00753d"
-          />
-          <ThemeColorSwatch 
-            colorName="Positive Light"
-            colorVar="--positive-light" 
-            lightValue="#deffe7"
-            darkValue="#deffe7"
-            nightValue="#deffe7"
-          />
-          <ThemeColorSwatch 
-            colorName="Neutral Dark"
-            colorVar="--neutral-dark" 
-            lightValue="#006dd3"
-            darkValue="#006dd3"
-            nightValue="#006dd3"
-          />
-          <ThemeColorSwatch 
-            colorName="Neutral Light"
-            colorVar="--neutral-light" 
-            lightValue="#ecf6ff"
-            darkValue="#ecf6ff"
-            nightValue="#ecf6ff"
-          />
-        </ColorGroup>
-        
-        <ColorGroup title="Badge Colors">
-          <ThemeColorSwatch 
-            colorName="Badge Normal"
-            colorVar="--badge-normal-bg" 
-            lightValue="#f0f1f7"
-            darkValue="#334155"
-            nightValue="#404040"
-          />
-          <ThemeColorSwatch 
-            colorName="Badge Danger"
-            colorVar="--badge-danger-bg" 
-            lightValue="#ffeaea"
-            darkValue="#7f1d1d"
-            nightValue="#991b1b"
-          />
-          <ThemeColorSwatch 
-            colorName="Badge Success"
-            colorVar="--badge-success-bg" 
-            lightValue="#dfffe8"
-            darkValue="#14532d"
-            nightValue="#166534"
-          />
-          <ThemeColorSwatch 
-            colorName="Badge Warning"
-            colorVar="--badge-warning-bg" 
-            lightValue="#ffebdc"
-            darkValue="#92400e"
-            nightValue="#a16207"
-          />
-          <ThemeColorSwatch 
-            colorName="Badge Neutral"
-            colorVar="--badge-neutral-bg" 
-            lightValue="#ecf6ff"
-            darkValue="#1e3a8a"
-            nightValue="#1e40af"
-          />
-        </ColorGroup>
-        
-        <ColorGroup title="Button Colors">
-          <ThemeColorSwatch 
-            colorName="Button Primary BG"
-            colorVar="--button-primary-bg" 
-            lightValue="#434f64"
-            darkValue="#475569"
-            nightValue="#334155"
-          />
-          <ThemeColorSwatch 
-            colorName="Button Secondary BG"
-            colorVar="--button-secondary-bg" 
-            lightValue="#f8f8f9"
-            darkValue="#374151"
-            nightValue="#1f2937"
-          />
-          <ThemeColorSwatch 
-            colorName="Button Destructive BG"
-            colorVar="--button-destructive-bg" 
-            lightValue="#ff3533"
-            darkValue="#dc2626"
-            nightValue="#b91c1c"
-          />
-        </ColorGroup>
-        
-        <ColorGroup title="Form Colors">
-          <ThemeColorSwatch 
-            colorName="Surface"
-            colorVar="--surface" 
-            lightValue="#ffffff"
-            darkValue="#334155"
-            nightValue="#1e293b"
-          />
-          <ThemeColorSwatch 
-            colorName="Input Text"
-            colorVar="--input" 
-            lightValue="#000000"
-            darkValue="#f1f5f9"
-            nightValue="#e2e8f0"
-          />
-          <ThemeColorSwatch 
-            colorName="Border"
-            colorVar="--border" 
-            lightValue="#d1d5db"
-            darkValue="#4b5563"
-            nightValue="#374151"
-          />
-          <ThemeColorSwatch 
-            colorName="Placeholder"
-            colorVar="--placeholder" 
-            lightValue="#9ca3af"
-            darkValue="#9ca3af"
-            nightValue="#6b7280"
-          />
-        </ColorGroup>
+        <HorizontalColorScale 
+          title="Primary Scale" 
+          colors={[
+            { shade: '900', hex: '#1a2330', cssVar: '--primary-900' },
+            { shade: '800', hex: '#2c3547', cssVar: '--primary-800' },
+            { shade: '700', hex: '#434f64', cssVar: '--primary-700' },
+            { shade: '600', hex: '#49556a', cssVar: '--primary-600' },
+            { shade: '500', hex: '#5f697b', cssVar: '--primary-500' },
+            { shade: '400', hex: '#6c7689', cssVar: '--primary-400' },
+            { shade: '300', hex: '#838c9d', cssVar: '--primary-300' },
+            { shade: '200', hex: '#9aa3b2', cssVar: '--primary-200' },
+            { shade: '100', hex: '#c5cad3', cssVar: '--primary-100' },
+          ]}
+          theme="light"
+        />
       </section>
       
       <section>
-        <h2 className="text-[24px] font-semibold mb-6">Live Theme Preview</h2>
-        <p className="mb-6">These components automatically adapt based on the current theme selected in the Storybook toolbar.</p>
+        <h2 className="text-[24px] font-semibold mb-6">Secondary Colors (Borders)</h2>
+        <p className="mb-6">Used for borders, dividers, and subtle UI elements</p>
         
-        <div className="bg-[var(--bg-primary)] p-6 rounded-lg shadow-sm border border-[var(--border-primary)]">
-          <h3 className="text-lg font-semibold mb-4 text-[var(--primary)]">Current Theme: {theme}</h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-            <div className="p-4 bg-[var(--bg-secondary)] border border-[var(--border-secondary)] rounded-lg">
-              <h4 className="font-medium text-[var(--primary)] mb-2">Primary Text</h4>
-              <p className="text-[var(--secondary)] text-sm">Secondary text color adapts to theme</p>
-              <p className="text-[var(--tertiary)] text-xs mt-1">Tertiary text for muted content</p>
-            </div>
-            
-            <div className="p-4 bg-[var(--bg-secondary)] border border-[var(--border-secondary)] rounded-lg">
-              <div className="flex gap-2 mb-3">
-                <div className="h-4 w-4 rounded bg-[var(--critical)]"></div>
-                <div className="h-4 w-4 rounded bg-[var(--warning)]"></div>
-                <div className="h-4 w-4 rounded bg-[var(--positive)]"></div>
-                <div className="h-4 w-4 rounded bg-[var(--neutral)]"></div>
-              </div>
-              <p className="text-[var(--secondary)] text-sm">Semantic colors</p>
-            </div>
-            
-            <div className="p-4 bg-[var(--bg-secondary)] border border-[var(--border-secondary)] rounded-lg">
-              <div className="space-y-2">
-                <div className="h-2 bg-[var(--border-primary)] rounded"></div>
-                <div className="h-2 bg-[var(--border-secondary)] rounded"></div>
-                <div className="h-2 bg-[var(--primary)] rounded w-2/3"></div>
-              </div>
-              <p className="text-[var(--secondary)] text-sm mt-2">Adaptive borders & backgrounds</p>
-            </div>
-          </div>
-          
-          <div className="bg-[var(--bg-secondary)] p-4 rounded-lg border border-[var(--border-secondary)]">
-            <h4 className="font-medium text-[var(--primary)] mb-2">CSS Variables in Use</h4>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs font-mono">
-              <div className="text-[var(--secondary)]">var(--primary)</div>
-              <div className="text-[var(--secondary)]">var(--secondary)</div>
-              <div className="text-[var(--secondary)]">var(--bg-primary)</div>
-              <div className="text-[var(--secondary)]">var(--border-primary)</div>
-            </div>
-          </div>
-        </div>
+        <HorizontalColorScale 
+          title="Secondary Scale" 
+          colors={[
+            { shade: '900', hex: '#1e1f22', cssVar: '--secondary-900' },
+            { shade: '800', hex: '#303236', cssVar: '--secondary-800' },
+            { shade: '700', hex: '#4a4d52', cssVar: '--secondary-700' },
+            { shade: '600', hex: '#6c6f75', cssVar: '--secondary-600' },
+            { shade: '500', hex: '#979ba2', cssVar: '--secondary-500' },
+            { shade: '400', hex: '#b6bac0', cssVar: '--secondary-400' },
+            { shade: '300', hex: '#ced1d7', cssVar: '--secondary-300' },
+            { shade: '200', hex: '#ebecef', cssVar: '--secondary-200' },
+            { shade: '100', hex: '#f0f1f7', cssVar: '--secondary-100' },
+          ]}
+          theme="light"
+        />
       </section>
       
       <section>
-        <h2 className="text-[24px] font-semibold mb-6">Static Color Reference</h2>
-        <p className="mb-6">These are the base colors that don't change between themes - used for brand identity and fixed design elements.</p>
+        <h2 className="text-[24px] font-semibold mb-6">Semantic Colors</h2>
+        <p className="mb-6">Status and interaction colors for components</p>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <ColorSwatch 
-            colorName="Brand Primary" 
-            colorVar="--ft-primary" 
-            colorValue="#434f64" 
-            textColor="text-white"
-          />
-          <ColorSwatch 
-            colorName="Brand Accent" 
-            colorVar="--ft-accent" 
-            colorValue="#1890ff" 
-            textColor="text-white"
-          />
-          <ColorSwatch 
-            colorName="Pure White" 
-            colorVar="--white" 
-            colorValue="#ffffff" 
-          />
-          <ColorSwatch 
-            colorName="Pure Black" 
-            colorVar="--black" 
-            colorValue="#000000" 
-            textColor="text-white"
-          />
-          <ColorSwatch 
-            colorName="Critical Base" 
-            colorVar="--critical-base" 
-            colorValue="#ff3533" 
-            textColor="text-white"
-          />
-          <ColorSwatch 
-            colorName="Warning Base" 
-            colorVar="--warning-base" 
-            colorValue="#ff6c19" 
-          />
-          <ColorSwatch 
-            colorName="Positive Base" 
-            colorVar="--positive-base" 
-            colorValue="#00c638" 
-            textColor="text-white"
-          />
-          <ColorSwatch 
-            colorName="Neutral Base" 
-            colorVar="--neutral-base" 
-            colorValue="#1890ff" 
-            textColor="text-white"
-          />
-        </div>
+        <HorizontalColorScale 
+          title="Status Colors" 
+          colors={[
+            { shade: 'Neutral', hex: '#1890ff', cssVar: '--neutral' },
+            { shade: 'Positive', hex: '#00c637', cssVar: '--positive' },
+            { shade: 'Warning', hex: '#ff6c19', cssVar: '--warning' },
+            { shade: 'Critical', hex: '#ff3532', cssVar: '--critical' },
+          ]}
+          theme="light"
+        />
       </section>
     </div>
   );
-} 
+};

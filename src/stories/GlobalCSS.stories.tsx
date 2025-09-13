@@ -87,37 +87,117 @@ p, h1, h2, h3, h4, h5, h6 {
    ===================================================== */
 
 :root {
-  /* ===== COLOR SYSTEM ===== */
+  /* ===== BASE COLOR SCALES - FOUNDATION ===== */
   
-  /* Base Colors - Primary text and UI elements */
-  --primary: #434f64;        /* Main text, primary actions */
-  --secondary: #5f697b;      /* Secondary text, muted content */
-  --tertiary: #838c9d;       /* Subtle text, disabled states */
+  /* Primary Scale (9 shades) */
+  --primary-900: #1a2330;
+  --primary-800: #2c3547;
+  --primary-700: #434f64;
+  --primary-600: #49556a;
+  --primary-500: #5f697b;
+  --primary-400: #6c7689;
+  --primary-300: #838c9d;
+  --primary-200: #9aa3b2;
+  --primary-100: #c5cad3;
   
-  /* Border Colors */
-  --border-primary: #ced1d7;    /* Primary borders, form elements */
-  --border-secondary: #f0f1f7;  /* Dividers, subtle separators */
+  /* Secondary Scale (9 shades) */
+  --secondary-900: #1e1f22;
+  --secondary-800: #303236;
+  --secondary-700: #4a4d52;
+  --secondary-600: #6c6f75;
+  --secondary-500: #979ba2;
+  --secondary-400: #b6bac0;
+  --secondary-300: #ced1d7;
+  --secondary-200: #ebecef;
+  --secondary-100: #f0f1f7;
   
-  /* Background Colors */
-  --bg-primary: #ffffff;        /* Cards, surfaces, main backgrounds */
-  --bg-secondary: #f8f8f9;      /* Page backgrounds, subtle fills */
+  /* Tertiary Scale (10 shades including 0) */
+  --tertiary-900: #121314;
+  --tertiary-800: #1c1d1f;
+  --tertiary-700: #2a2b2e;
+  --tertiary-600: #3a3c3f;
+  --tertiary-500: #57595d;
+  --tertiary-400: #a9aaae;
+  --tertiary-300: #e1e2e4;
+  --tertiary-200: #f4f4f6;
+  --tertiary-100: #f8f8f9;
+  --tertiary-0: #ffffff;
   
-  /* Status Colors */
-  --critical: #ff3533;
-  --critical-dark: #b80100;
-  --critical-light: #ffeaea;
+  /* Neutral Scale (9 shades) */
+  --neutral-900: #002966;
+  --neutral-800: #0040a0;
+  --neutral-700: #006dd3;
+  --neutral-600: #007fff;
+  --neutral-500: #1890ff;
+  --neutral-400: #4da6ff;
+  --neutral-300: #80c1ff;
+  --neutral-200: #b3d9ff;
+  --neutral-100: #ecf6ff;
   
-  --warning: #ff6c19;
-  --warning-dark: #dd6a00;
-  --warning-light: #ffebdc;
+  /* Positive Scale (9 shades) */
+  --positive-900: #004d26;
+  --positive-800: #006633;
+  --positive-700: #00753d;
+  --positive-600: #00994d;
+  --positive-500: #00c637;
+  --positive-400: #1aff66;
+  --positive-300: #4dff88;
+  --positive-200: #99ffcc;
+  --positive-100: #deffe7;
   
-  --positive: #00c638;
-  --positive-dark: #00763d;
-  --positive-light: #dfffe8;
+  /* Warning Scale (9 shades) */
+  --warning-900: #7a2f00;
+  --warning-800: #993d00;
+  --warning-700: #dd6a00;
+  --warning-600: #f57c00;
+  --warning-500: #ff6c19;
+  --warning-400: #ff944d;
+  --warning-300: #ffb366;
+  --warning-200: #ffcc99;
+  --warning-100: #ffedbc;
   
-  --neutral: #1890ff;
-  --neutral-dark: #006ed3;
-  --neutral-light: #ecf6ff;
+  /* Danger Scale (9 shades) */
+  --danger-900: #800000;
+  --danger-800: #990000;
+  --danger-700: #b70100;
+  --danger-600: #d11a1a;
+  --danger-500: #ff3532;
+  --danger-400: #ff6666;
+  --danger-300: #ff9999;
+  --danger-200: #ffcccc;
+  --danger-100: #ffeafa;
+  
+  /* ===== SEMANTIC COLORS - SELECTED FROM BASE COLORS ===== */
+  
+  /* Base Colors - Primary text and UI elements - Reference base color scales */
+  --primary: var(--primary-700);        /* #434f64 - Main text, primary actions */
+  --secondary: var(--primary-500);      /* #5f697b - Secondary text, muted content */
+  --tertiary: var(--primary-300);       /* #838c9d - Subtle text, disabled states */
+  
+  /* Border Colors - Reference secondary scale */
+  --border-primary: var(--secondary-300);    /* #ced1d7 - Primary borders, form elements */
+  --border-secondary: var(--secondary-100);  /* #f0f1f7 - Dividers, subtle separators */
+  
+  /* Background Colors - Reference tertiary scale */
+  --bg-primary: var(--tertiary-0);        /* #ffffff - Cards, surfaces, main backgrounds */
+  --bg-secondary: var(--tertiary-100);      /* #f8f8f9 - Page backgrounds, subtle fills */
+  
+  /* Status Colors - Reference base color scales */
+  --critical: var(--danger-500);         /* #ff3532 */
+  --critical-dark: var(--danger-700);    /* #b70100 */
+  --critical-light: var(--danger-100);   /* #ffeafa */
+  
+  --warning: var(--warning-500);         /* #ff6c19 */
+  --warning-dark: var(--warning-700);    /* #dd6a00 */
+  --warning-light: var(--warning-100);   /* #ffedbc */
+  
+  --positive: var(--positive-500);       /* #00c637 */
+  --positive-dark: var(--positive-700);  /* #00753d */
+  --positive-light: var(--positive-100); /* #deffe7 */
+  
+  --neutral: var(--neutral-500);         /* #1890ff */
+  --neutral-dark: var(--neutral-700);    /* #006dd3 */
+  --neutral-light: var(--neutral-100);   /* #ecf6ff */
   
   /* ===== BUTTON SYSTEM ===== */
   
