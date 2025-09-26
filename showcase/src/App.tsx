@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import 'ft-design-system/styles.css'
+import 'ft-design-system/index.css'
 
 // Import actual components from your ft-design-system
 import { 
