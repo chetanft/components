@@ -34,6 +34,7 @@ export * from './molecules/Tooltip';
 
 // ORGANISMS - Complex combinations and complete UI sections
 export * from './organisms/AppHeader';
+export * from './organisms/Card';
 export * from './organisms/Collapsible';
 export * from './organisms/FileCard';
 export * from './organisms/FileThumbnail';

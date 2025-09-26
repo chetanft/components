@@ -1,0 +1,6 @@
+---
+description: do not hallucinate and dont assume. if context is given go through it properly. if a figma link is given get the data and follow the figma data. do not assume and build it. if you dont have the data dont build and tell to me
+
+globs:
+alwaysApply: true
+---

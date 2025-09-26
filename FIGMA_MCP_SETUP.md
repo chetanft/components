@@ -1,58 +1,75 @@
-# Framelink Figma MCP Setup Guide
+# Official Figma MCP Server Setup Guide
 
 ## Overview
-This project now uses the **Framelink Figma MCP** server from [GLips/Figma-Context-MCP](https://github.com/GLips/Figma-Context-MCP) which provides superior Figma integration for Cursor and other AI coding tools.
+This project now uses the **Official Figma MCP Server** from [Figma's Developer Documentation](https://developers.figma.com/docs/figma-mcp-server/) which provides native Figma integration for Cursor and other AI coding tools.
+
+## Updated Setup (December 2024)
+We've upgraded to Figma's official MCP server which provides better performance, reliability, and direct integration with Figma's API.
 
 ## Features
-- ✅ Direct Figma API access
-- ✅ Simplified design data for AI models
-- ✅ Support for Figma files, frames, and groups
-- ✅ Optimized for Cursor agent mode
-- ✅ Better accuracy than screenshot-based approaches
+- ✅ **Generate code from selected frames** - Turn Figma designs into React components
+- ✅ **Extract design context** - Pull variables, components, and layout data directly
+- ✅ **Retrieve Make resources** - Gather code resources from Make files
+- ✅ **Design system consistency** - Keep generated code aligned with existing components
+- ✅ **Real-time integration** - Direct connection to Figma's hosted endpoint
+- ✅ **No desktop app required** - Works entirely through the cloud
 
-## Setup Instructions
+## Current Configuration
 
-### 1. Get Your Figma API Key
-1. Go to [Figma Developer Settings](https://www.figma.com/developers/api#authentication)
-2. Generate a new Personal Access Token
-3. Copy the token (it will look like `figd_...`)
-
-### 2. Configure the API Key
-Update the `mcp.json` file with your actual Figma API key:
+The official Figma MCP server is configured as a **remote server** connecting directly to Figma's hosted endpoint:
 
 ```json
 {
   "mcpServers": {
-    "Framelink Figma MCP": {
-      "command": "npx",
-      "args": ["-y", "figma-developer-mcp", "--stdio"],
+    "Official Figma MCP": {
+      "type": "http",
+      "url": "https://figma-mcp.figma.com",
       "env": {
-        "FIGMA_API_KEY": "figd_your_actual_api_key_here"
+        "FIGMA_ACCESS_TOKEN": "figd_XOy4gRvyyNg91Cfz2Xrc11pqKQqizAFz41XT0NjL"
       }
     }
   }
 }
 ```
 
-### 3. Restart Cursor
-After updating the configuration, restart Cursor to load the new MCP server.
+### Next Steps: Restart Cursor
+After updating the configuration, **restart Cursor** to load the official Figma MCP server.
 
-## Usage in Cursor
+## Usage with Official Figma MCP
 
-### Basic Usage
-1. Open Cursor's agent mode (Cmd/Ctrl + I)
-2. Paste a Figma link: `https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Components?node-id=2661-91`
-3. Ask Cursor to implement the design: "Implement this Figma design as a React component"
+### Enhanced Capabilities
+With the official Figma MCP server, you can now:
+
+1. **Generate React components directly from Figma frames**
+   - Select any frame in Figma
+   - Paste the Figma URL in Cursor
+   - Ask: "Generate a React component from this Figma frame"
+
+2. **Extract design tokens and variables**
+   - Pull colors, typography, spacing directly from Figma
+   - Ask: "Extract the design tokens from this Figma file"
+
+3. **Maintain design system consistency**
+   - Generate code that matches your existing components
+   - Ask: "Create this component using our existing design system patterns"
 
 ### Available MCP Tools
-The Framelink MCP provides these tools:
-- `get_figma_data` - Fetch layout and styling information
-- `download_figma_images` - Download images from Figma designs
+The official Figma MCP provides:
+- **Frame-to-code generation** - Convert Figma frames to React components
+- **Design token extraction** - Pull variables and styles
+- **Component analysis** - Understand Figma component structure
+- **Make resource integration** - Access prototype code
 
-### Example Prompts
-- "Create a React component based on this Figma design: [paste Figma URL]"
-- "Update the company logos to match this Figma specification: [paste Figma URL]"
-- "Generate TypeScript interfaces from this Figma component: [paste Figma URL]"
+### Example Workflow
+```
+1. Design in Figma → 2. Copy Figma URL → 3. Paste in Cursor → 4. Generate React component
+```
+
+Instead of manually recreating designs, the MCP server will:
+- ✅ Extract exact measurements and spacing
+- ✅ Pull colors and typography automatically  
+- ✅ Generate clean, production-ready React code
+- ✅ Use your existing Icon and component libraries
 
 ## Project Integration
 

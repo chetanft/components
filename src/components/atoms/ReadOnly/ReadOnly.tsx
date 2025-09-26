@@ -1,38 +1,17 @@
 import React from 'react';
-import { CheckFill } from '../Icons';
-import { Label } from '../Label/Label';
 import { cn } from '../../../lib/utils';
+import { Icon } from '../Icons/Icon';
 
 export interface ReadOnlyProps {
   /**
-   * The label text
+   * Layout type
    */
-  label: string;
+  type?: "Vertical" | "Horizontal";
   
   /**
-   * The main value text
+   * Whether to show label icon
    */
-  value: string;
-  
-  /**
-   * Optional subtext below the main value
-   */
-  subtext?: string;
-  
-  /**
-   * Layout orientation
-   */
-  type?: 'vertical' | 'horizontal';
-  
-  /**
-   * Whether to show an icon
-   */
-  labelIcon?: boolean;
-  
-  /**
-   * Custom icon to use instead of default check icon
-   */
-  icon?: React.ReactNode;
+  labelIcon?: "False" | "True";
   
   /**
    * Additional CSS classes
@@ -40,81 +19,115 @@ export interface ReadOnlyProps {
   className?: string;
 }
 
-export const ReadOnly: React.FC<ReadOnlyProps> = ({
-  label,
-  value,
-  subtext,
-  type = 'vertical',
-  labelIcon = false,
-  icon,
-  className = '',
+export const ReadOnly: React.FC<ReadOnlyProps> = ({ 
+  type = "Vertical",
+  labelIcon = "False", 
+  className = '' 
 }) => {
-  const defaultIcon = (
-    <div className="w-4 h-4 flex-shrink-0">
-      <CheckFill />
-    </div>
-  );
+  const textElement = <p className="leading-[1.4]">Text</p>;
 
-  const iconElement = icon || defaultIcon;
-
-  const valueStyles = "font-sans text-base font-normal leading-[1.4] text-[var(--primary)]";
-  const subtextStyles = "font-sans text-sm font-medium leading-[1.4] text-[var(--secondary)]";
-
-  if (type === 'horizontal') {
+  if (type === "Horizontal" && labelIcon === "False") {
     return (
-      <div className={cn("flex items-center gap-2", className)}>
-        <Label
-          icon={labelIcon ? iconElement : undefined}
-        >
-          {label}:
-        </Label>
-        <span className={valueStyles}>{value}</span>
-      </div>
-    );
-  }
-
-  // Vertical layout
-  if (labelIcon) {
-    return (
-      <div className={cn("flex gap-1", subtext ? "gap-1" : "gap-2", className)}>
-        {iconElement}
-        <div className="flex flex-col gap-1 flex-1">
-          {/* Label and Value */}
-          <div className="flex flex-col gap-2">
-            <Label>{label}</Label>
-            <span className={valueStyles}>{value}</span>
+      <div 
+        className={cn(
+          "content-stretch flex gap-[8px] items-center relative size-full", 
+          className
+        )}
+        data-name="Type=Horizontal, Label icon=False"
+      >
+        <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+          <div className="font-medium leading-[0] relative shrink-0 text-[14px] text-[#5f697b] whitespace-nowrap">
+            <p className="leading-[1.4]">Label:</p>
           </div>
-          
-          {/* Subtext if provided */}
-          {subtext && (
-            <div className="flex items-center gap-1">
-              {iconElement}
-              <span className={subtextStyles}>{subtext}</span>
-            </div>
-          )}
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+          <div className="font-normal leading-[0] relative shrink-0 text-[16px] text-[#434f64] whitespace-nowrap">
+            {textElement}
+          </div>
         </div>
       </div>
     );
   }
 
-  // Vertical without icon
-  return (
-    <div className={cn("flex flex-col gap-1", subtext ? "gap-1" : "gap-2", "w-[183px]", className)}>
-      {/* Label and Value */}
-      <div className="flex flex-col gap-2">
-        <Label>{label}</Label>
-        <span className={valueStyles}>{value}</span>
-      </div>
-      
-      {/* Subtext if provided */}
-      {subtext && (
-        <div className="flex items-center gap-1">
-          {iconElement}
-          <span className={subtextStyles}>{subtext}</span>
+  if (type === "Vertical" && labelIcon === "True") {
+    return (
+      <div 
+        className={cn(
+          "content-stretch flex gap-[8px] items-start relative size-full", 
+          className
+        )}
+        data-name="Type=Vertical, Label icon=True"
+      >
+        <div className="box-border content-stretch flex gap-[10px] items-center pb-0 pt-[2px] px-0 relative shrink-0">
+          <div className="relative shrink-0 size-[16px]">
+            <Icon name="check-fill" size={16} className="text-[#5f697b]" />
+          </div>
         </div>
+        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[8px] items-start min-h-px min-w-px relative shrink-0">
+          <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+            <div className="font-medium leading-[0] relative shrink-0 text-[14px] text-[#5f697b] whitespace-nowrap">
+              <p className="leading-[1.4]">Label</p>
+            </div>
+          </div>
+          <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+            <div className="font-normal leading-[0] relative shrink-0 text-[16px] text-[#434f64] whitespace-nowrap">
+              <p className="leading-[1.4]">Text</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "Horizontal" && labelIcon === "True") {
+    return (
+      <div 
+        className={cn(
+          "content-stretch flex gap-[8px] items-center relative size-full", 
+          className
+        )}
+        data-name="Type=Horizontal, Label icon=True"
+      >
+        <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+          <div className="relative shrink-0 size-[16px]">
+            <Icon name="check-fill" size={16} className="text-[#5f697b]" />
+          </div>
+          <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+            <div className="font-medium leading-[0] relative shrink-0 text-[14px] text-[#5f697b] whitespace-nowrap">
+              <p className="leading-[1.4]">Label:</p>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+          <div className="font-normal leading-[0] relative shrink-0 text-[16px] text-[#434f64] whitespace-nowrap">
+            {textElement}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Default: Vertical without label icon
+  return (
+    <div 
+      className={cn(
+        "content-stretch flex flex-col gap-[8px] items-start relative size-full", 
+        className
       )}
+      data-name="Type=Vertical, Label icon=False"
+    >
+      <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+        <div className="font-medium leading-[0] relative shrink-0 text-[14px] text-[#5f697b] whitespace-nowrap">
+          <p className="leading-[1.4]">Label</p>
+        </div>
+      </div>
+      <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-[183px]">
+        <div className="font-normal leading-[0] relative shrink-0 text-[16px] text-[#434f64] whitespace-nowrap">
+          {textElement}
+        </div>
+      </div>
     </div>
   );
 };
 
-ReadOnly.displayName = 'ReadOnly'; 
+ReadOnly.displayName = 'ReadOnly';
