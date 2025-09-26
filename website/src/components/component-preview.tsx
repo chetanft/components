@@ -114,8 +114,7 @@ export function CardDemo() {
           <div className="h-2 w-2 rounded-full bg-green-500" />
         </div>
         <Button
-          size="sm"
-          variant="ghost"
+          variant="secondary"
           className="h-6 w-6 p-0 opacity-0 transition-opacity group-hover:opacity-100"
           onClick={() => copyToClipboard(getComponentCode(name))}
         >
