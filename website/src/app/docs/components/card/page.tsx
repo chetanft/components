@@ -1,5 +1,4 @@
 import { ComponentPreview } from "@/components/component-preview"
-import { Card } from "ft-design-system"
 
 export default function CardPage() {
   return (
@@ -26,22 +25,23 @@ export default function CardPage() {
           </pre>
         </div>
 
-        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibent tracking-tight">
+        <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight">
           Usage
         </h2>
         
         <div className="my-6 w-full overflow-x-auto">
           <pre className="rounded-lg border bg-muted p-4">
-            <code>{`import { Card } from "ft-design-system"
+            <code>{`// Card component not yet available in published version
+// Use a styled div instead:
 
 export function CardDemo() {
   return (
-    <Card className="p-6">
+    <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
       <h3 className="text-lg font-semibold">Card Title</h3>
       <p className="text-sm text-muted-foreground">
         Card description goes here.
       </p>
-    </Card>
+    </div>
   )
 }`}</code>
           </pre>
@@ -55,21 +55,21 @@ export function CardDemo() {
           <div>
             <h3 className="text-lg font-semibold mb-2">Basic Card</h3>
             <div className="preview flex min-h-[200px] w-full justify-center p-10 items-center border rounded-lg">
-              <Card className="p-6 w-[300px]">
+              <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6 w-[300px]">
                 <h3 className="text-lg font-semibold">Card Title</h3>
                 <p className="text-sm text-muted-foreground">
                   Card description goes here.
                 </p>
-              </Card>
+              </div>
             </div>
             <div className="my-4 w-full overflow-x-auto">
               <pre className="rounded-lg border bg-muted p-4">
-                <code>{`<Card className="p-6">
+                <code>{`<div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
   <h3 className="text-lg font-semibold">Card Title</h3>
   <p className="text-sm text-muted-foreground">
     Card description goes here.
   </p>
-</Card>`}</code>
+</div>`}</code>
               </pre>
             </div>
           </div>
@@ -77,7 +77,7 @@ export function CardDemo() {
           <div>
             <h3 className="text-lg font-semibold mb-2">Card with Content</h3>
             <div className="preview flex min-h-[200px] w-full justify-center p-10 items-center border rounded-lg">
-              <Card className="p-6 w-[350px]">
+              <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6 w-[350px]">
                 <div className="space-y-4">
                   <div>
                     <h3 className="text-lg font-semibold">Project Alpha</h3>
@@ -94,7 +94,7 @@ export function CardDemo() {
                     </span>
                   </div>
                 </div>
-              </Card>
+              </div>
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { ComponentPreview } from "@/components/component-preview"
-import { Button } from "ft-design-system"
+import { Button } from "@/components/ui/button"
 import { Copy, Check } from "lucide-react"
 
 export default function ButtonPage() {

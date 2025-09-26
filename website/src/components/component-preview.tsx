@@ -1,13 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { Button } from "ft-design-system"
-import { Badge } from "ft-design-system"
-import { Input } from "ft-design-system"
-import { Card } from "ft-design-system"
-import { Checkbox } from "ft-design-system"
-import { Label } from "ft-design-system"
-import { Switch } from "ft-design-system"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { Check, Copy } from "lucide-react"
 
@@ -52,40 +48,23 @@ export function BadgeDemo() {
 export function InputDemo() {
   return <Input placeholder="Type something..." />
 }`,
-      card: `import { Card } from "ft-design-system"
+      card: `// Card component not yet available in published version
+// Use a styled div instead:
 
 export function CardDemo() {
   return (
-    <Card className="p-6">
+    <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
       <h3 className="text-lg font-semibold">Card Title</h3>
       <p className="text-sm text-muted-foreground">
         Card description goes here.
       </p>
-    </Card>
-  )
-}`,
-      checkbox: `import { Checkbox } from "ft-design-system"
-import { Label } from "ft-design-system"
-
-export function CheckboxDemo() {
-  return (
-    <div className="flex items-center space-x-2">
-      <Checkbox id="terms" />
-      <Label htmlFor="terms">Accept terms and conditions</Label>
     </div>
   )
 }`,
-      switch: `import { Switch } from "ft-design-system"
-import { Label } from "ft-design-system"
-
-export function SwitchDemo() {
-  return (
-    <div className="flex items-center space-x-2">
-      <Switch id="airplane-mode" />
-      <Label htmlFor="airplane-mode">Airplane Mode</Label>
-    </div>
-  )
-}`,
+      checkbox: `// Checkbox component from ft-design-system
+// Available in the full package`,
+      switch: `// Switch component from ft-design-system  
+// Available in the full package`,
     }
     return codeMap[name] || `// Component code for ${name}`
   }
@@ -100,25 +79,25 @@ export function SwitchDemo() {
         return <Input placeholder="Type something..." />
       case "card":
         return (
-          <Card className="p-6 w-[300px]">
+          <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6 w-[300px]">
             <h3 className="text-lg font-semibold">Card Title</h3>
             <p className="text-sm text-muted-foreground">
               Card description goes here.
             </p>
-          </Card>
+          </div>
         )
       case "checkbox":
         return (
           <div className="flex items-center space-x-2">
-            <Checkbox id="terms" />
-            <Label htmlFor="terms">Accept terms and conditions</Label>
+            <div className="h-4 w-4 rounded border border-input bg-background"></div>
+            <span className="text-sm">Accept terms and conditions</span>
           </div>
         )
       case "switch":
         return (
           <div className="flex items-center space-x-2">
-            <Switch id="airplane-mode" />
-            <Label htmlFor="airplane-mode">Airplane Mode</Label>
+            <div className="h-6 w-11 rounded-full border border-input bg-background"></div>
+            <span className="text-sm">Airplane Mode</span>
           </div>
         )
       default:

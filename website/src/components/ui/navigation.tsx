@@ -4,8 +4,8 @@ import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { Button } from "ft-design-system"
-import { GitHub, Menu, X } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Github, Menu, X } from "lucide-react"
 
 const navigation = [
   {
@@ -59,10 +59,9 @@ export function MobileNav() {
   return (
     <div className="md:hidden">
       <Button
-        variant="ghost"
-        size="sm"
+        variant="secondary"
         onClick={() => setIsOpen(!isOpen)}
-        className="px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+        className="px-0 text-base"
       >
         {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         <span className="sr-only">Toggle menu</span>
@@ -100,9 +99,9 @@ export function SiteHeader() {
         <MobileNav />
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <nav className="flex items-center">
-            <Button variant="ghost" size="sm" asChild>
+            <Button variant="secondary" asChild>
               <Link href="https://github.com/chetanft/components" target="_blank">
-                <GitHub className="h-4 w-4" />
+                <Github className="h-4 w-4" />
                 <span className="sr-only">GitHub</span>
               </Link>
             </Button>

@@ -1,5 +1,5 @@
 import { ComponentPreview } from "@/components/component-preview"
-import { Input } from "ft-design-system"
+import { Input } from "@/components/ui/input"
 
 export default function InputPage() {
   return (

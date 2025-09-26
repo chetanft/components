@@ -1,8 +1,7 @@
 import Link from "next/link"
-import { Button } from "ft-design-system"
-import { Badge } from "ft-design-system"
-import { Card } from "ft-design-system"
-import { ArrowRight, GitHub, Star } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { ArrowRight, Github, Star } from "lucide-react"
 
 export default function HomePage() {
   return (
@@ -34,7 +33,7 @@ export default function HomePage() {
           </Button>
           <Button variant="secondary" asChild>
             <Link href="https://github.com/chetanft/components" target="_blank">
-              <GitHub className="mr-2 h-4 w-4" />
+              <Github className="mr-2 h-4 w-4" />
               GitHub
             </Link>
           </Button>
@@ -97,7 +96,7 @@ export default function HomePage() {
         </p>
         
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <Card className="p-6">
+          <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
             <h3 className="font-semibold mb-2">Atoms</h3>
             <p className="text-sm text-muted-foreground mb-4">
               Basic building blocks like Button, Input, Badge
@@ -105,9 +104,9 @@ export default function HomePage() {
             <Button variant="secondary" size="sm" asChild>
               <Link href="/docs/components/button">View Atoms</Link>
             </Button>
-          </Card>
+          </div>
           
-          <Card className="p-6">
+          <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
             <h3 className="font-semibold mb-2">Molecules</h3>
             <p className="text-sm text-muted-foreground mb-4">
               Simple combinations like DatePicker, Dropdown, Tabs
@@ -115,17 +114,17 @@ export default function HomePage() {
             <Button variant="secondary" size="sm" asChild>
               <Link href="/docs/components/dropdown-menu">View Molecules</Link>
             </Button>
-          </Card>
+          </div>
           
-          <Card className="p-6">
+          <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
             <h3 className="font-semibold mb-2">Organisms</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Complex components like Table, Card, AppHeader
+              Complex components like Table, AppHeader, UserProfile
             </p>
             <Button variant="secondary" size="sm" asChild>
               <Link href="/docs/components/table">View Organisms</Link>
             </Button>
-          </Card>
+          </div>
         </div>
       </section>
     </div>
