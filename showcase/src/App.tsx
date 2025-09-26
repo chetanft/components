@@ -7,9 +7,10 @@ function App() {
       {/* Header */}
       <header style={{ borderBottom: '1px solid #e5e7eb', backgroundColor: '#ffffff' }}>
         <div style={{ 
-          maxWidth: '1200px', 
+          maxWidth: '1280px', 
           margin: '0 auto', 
-          padding: '1rem 2rem', 
+          padding: '0 1rem', 
+          height: '64px',
           display: 'flex', 
           alignItems: 'center', 
           justifyContent: 'space-between' 
@@ -29,12 +30,12 @@ function App() {
 
       {/* Hero Section */}
       <section style={{ 
-        maxWidth: '1200px', 
+        maxWidth: '1280px', 
         margin: '0 auto', 
-        padding: '6rem 2rem', 
+        padding: '4rem 1rem 6rem', 
         textAlign: 'center' 
       }}>
-        <div style={{ maxWidth: '48rem', margin: '0 auto' }}>
+        <div style={{ maxWidth: '42rem', margin: '0 auto' }}>
           <h1 style={{ 
             fontSize: '3rem', 
             fontWeight: '700', 
@@ -64,11 +65,11 @@ function App() {
 
       {/* Component Preview */}
       <section style={{ 
-        maxWidth: '1200px', 
+        maxWidth: '1280px', 
         margin: '0 auto', 
-        padding: '4rem 2rem' 
+        padding: '2rem 1rem 4rem' 
       }}>
-        <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
+        <div style={{ maxWidth: '56rem', margin: '0 auto' }}>
           <div style={{ 
             backgroundColor: '#ffffff', 
             border: '1px solid #e5e7eb', 
@@ -129,13 +130,13 @@ function App() {
       {/* Footer */}
       <footer style={{ 
         borderTop: '1px solid #e5e7eb', 
-        marginTop: '6rem',
+        marginTop: '4rem',
         backgroundColor: '#f9fafb'
       }}>
         <div style={{ 
-          maxWidth: '1200px', 
+          maxWidth: '1280px', 
           margin: '0 auto', 
-          padding: '2rem', 
+          padding: '1.5rem 1rem', 
           display: 'flex', 
           alignItems: 'center', 
           justifyContent: 'space-between',
