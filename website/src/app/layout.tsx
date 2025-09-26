@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import "./globals.css"
+import "./simple-globals.css"
 import { SiteHeader } from "@/components/ui/navigation"
 import { cn } from "@/lib/utils"
 

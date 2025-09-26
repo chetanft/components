@@ -7,9 +7,9 @@ export default function HomePage() {
   return (
     <div className="container relative">
       <section className="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-20">
-        <Badge className="mb-4">
+        <div className="badge mb-4">
           ✨ Built from Figma designs
-        </Badge>
+        </div>
         
         <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]">
           Build your component library with{" "}
@@ -24,19 +24,15 @@ export default function HomePage() {
           Copy and paste into your apps. Built with Tailwind CSS. Open source.
         </p>
         
-        <div className="flex w-full items-center justify-center space-x-4 py-4 md:pb-10">
-          <Button asChild>
-            <Link href="/docs">
-              Get Started
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-          <Button variant="secondary" asChild>
-            <Link href="https://github.com/chetanft/components" target="_blank">
-              <Github className="mr-2 h-4 w-4" />
-              GitHub
-            </Link>
-          </Button>
+        <div className="flex w-full items-center justify-center space-x-4 py-4">
+          <Link href="/docs" className="btn-primary">
+            Get Started
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+          <Link href="https://github.com/chetanft/components" target="_blank" className="btn-secondary">
+            <Github className="mr-2 h-4 w-4" />
+            GitHub
+          </Link>
         </div>
       </section>
 
@@ -96,34 +92,28 @@ export default function HomePage() {
         </p>
         
         <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
+          <div className="card p-6">
             <h3 className="font-semibold mb-2">Atoms</h3>
             <p className="text-sm text-muted-foreground mb-4">
               Basic building blocks like Button, Input, Badge
             </p>
-            <Button variant="secondary" size="sm" asChild>
-              <Link href="/docs/components/button">View Atoms</Link>
-            </Button>
+            <Link href="/docs/components/button" className="btn-secondary text-sm">View Atoms</Link>
           </div>
           
-          <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
+          <div className="card p-6">
             <h3 className="font-semibold mb-2">Molecules</h3>
             <p className="text-sm text-muted-foreground mb-4">
               Simple combinations like DatePicker, Dropdown, Tabs
             </p>
-            <Button variant="secondary" size="sm" asChild>
-              <Link href="/docs/components/dropdown-menu">View Molecules</Link>
-            </Button>
+            <Link href="/docs/components/dropdown-menu" className="btn-secondary text-sm">View Molecules</Link>
           </div>
           
-          <div className="rounded-lg border bg-card text-card-foreground shadow-sm p-6">
+          <div className="card p-6">
             <h3 className="font-semibold mb-2">Organisms</h3>
             <p className="text-sm text-muted-foreground mb-4">
               Complex components like Table, AppHeader, UserProfile
             </p>
-            <Button variant="secondary" size="sm" asChild>
-              <Link href="/docs/components/table">View Organisms</Link>
-            </Button>
+            <Link href="/docs/components/table" className="btn-secondary text-sm">View Organisms</Link>
           </div>
         </div>
       </section>

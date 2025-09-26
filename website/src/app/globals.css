@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ensure basic styling works */
+.bg-primary { background-color: #6366f1; }
+.text-primary-foreground { color: #f8fafc; }
+.bg-secondary { background-color: #f1f5f9; }
+.text-secondary-foreground { color: #0f172a; }
+.border { border-width: 1px; }
+.border-border { border-color: #e2e8f0; }
+.rounded-md { border-radius: 0.375rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.text-sm { font-size: 0.875rem; }
+.font-medium { font-weight: 500; }
+
 @layer base {
   :root {
     --background: 255 255 255;
@@ -51,16 +64,16 @@
 
 @layer base {
   * {
-    @apply border-gray-200;
+    @apply border-border;
   }
   body {
-    @apply bg-white text-gray-900;
+    @apply bg-background text-foreground;
   }
 }
 
 /* Custom styles for code blocks */
 pre {
-  @apply overflow-x-auto rounded-lg border bg-muted px-4 py-3;
+  @apply overflow-x-auto rounded-lg border border-border bg-muted px-4 py-3;
 }
 
 code {
