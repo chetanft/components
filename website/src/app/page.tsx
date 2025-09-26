@@ -6,12 +6,12 @@ import { ArrowRight, Github, Star } from "lucide-react"
 export default function HomePage() {
   return (
     <div className="container relative">
-      <section className="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-20">
+      <section className="mx-auto flex max-w-980px flex-col items-center gap-2 py-8 md:py-12 lg:py-24">
         <div className="badge mb-4">
           ✨ Built from Figma designs
         </div>
         
-        <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]">
+        <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl leading-1-1">
           Build your component library with{" "}
           <br className="hidden sm:inline" />
           <span className="bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
@@ -19,7 +19,7 @@ export default function HomePage() {
           </span>
         </h1>
         
-        <p className="max-w-[750px] text-center text-lg text-muted-foreground sm:text-xl">
+        <p className="max-w-750px text-center text-lg text-muted-foreground sm:text-xl">
           Beautifully designed components built from Figma designs using Code Connect.
           Copy and paste into your apps. Built with Tailwind CSS. Open source.
         </p>
@@ -36,18 +36,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto text-center md:max-w-[58rem]">
-        <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
+      <section className="mx-auto text-center md:max-w-58rem">
+        <h2 className="font-heading text-3xl leading-1-1 sm:text-3xl md:text-6xl">
           Features
         </h2>
-        <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+        <p className="max-w-85pct leading-normal text-muted-foreground sm:text-lg sm:leading-7">
           Everything you need to build modern React applications
         </p>
       </section>
 
-      <section className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
+      <section className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-64rem md:grid-cols-3">
         <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-          <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+          <div className="flex h-180px flex-col justify-between rounded-md p-6">
             <Star className="h-12 w-12" />
             <div className="space-y-2">
               <h3 className="font-bold">190+ Icons</h3>
@@ -59,7 +59,7 @@ export default function HomePage() {
         </div>
         
         <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-          <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+          <div className="flex h-180px flex-col justify-between rounded-md p-6">
             <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-red-500 to-orange-500" />
             <div className="space-y-2">
               <h3 className="font-bold">Figma-First</h3>
@@ -71,7 +71,7 @@ export default function HomePage() {
         </div>
         
         <div className="relative overflow-hidden rounded-lg border bg-background p-2">
-          <div className="flex h-[180px] flex-col justify-between rounded-md p-6">
+          <div className="flex h-180px flex-col justify-between rounded-md p-6">
             <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500" />
             <div className="space-y-2">
               <h3 className="font-bold">TypeScript</h3>
@@ -83,11 +83,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto text-center md:max-w-[58rem] py-8">
-        <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl">
+      <section className="mx-auto text-center md:max-w-58rem py-8">
+        <h2 className="font-heading text-3xl leading-1-1 sm:text-3xl md:text-6xl">
           Components
         </h2>
-        <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+        <p className="max-w-85pct leading-normal text-muted-foreground sm:text-lg sm:leading-7">
           Over 70 components organized by atomic design principles
         </p>
         
