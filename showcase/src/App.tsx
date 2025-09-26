@@ -3,86 +3,123 @@ import { Button, Badge, Input, Label } from 'ft-design-system'
 
 function App() {
   return (
-    <div className="min-h-screen bg-background">
+    <div style={{ minHeight: '100vh', backgroundColor: '#ffffff', fontFamily: 'Inter, system-ui, sans-serif' }}>
       {/* Header */}
-      <header className="border-b">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-bold">FT/ui</h1>
+      <header style={{ borderBottom: '1px solid #e5e7eb', backgroundColor: '#ffffff' }}>
+        <div style={{ 
+          maxWidth: '1200px', 
+          margin: '0 auto', 
+          padding: '1rem 2rem', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between' 
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <h1 style={{ fontSize: '1.5rem', fontWeight: '700', margin: 0, color: '#111827' }}>FT/ui</h1>
             <Badge variant="secondary">v4.10.1</Badge>
           </div>
-          <nav className="flex items-center gap-6">
-            <a href="#" className="text-sm font-medium hover:underline">Documentation</a>
-            <a href="#" className="text-sm font-medium hover:underline">Components</a>
-            <a href="#" className="text-sm font-medium hover:underline">Examples</a>
-            <a href="#" className="text-sm font-medium hover:underline">GitHub</a>
+          <nav style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+            <a href="#" style={{ fontSize: '0.875rem', fontWeight: '500', color: '#374151', textDecoration: 'none' }}>Documentation</a>
+            <a href="#" style={{ fontSize: '0.875rem', fontWeight: '500', color: '#374151', textDecoration: 'none' }}>Components</a>
+            <a href="#" style={{ fontSize: '0.875rem', fontWeight: '500', color: '#374151', textDecoration: 'none' }}>Examples</a>
+            <a href="#" style={{ fontSize: '0.875rem', fontWeight: '500', color: '#374151', textDecoration: 'none' }}>GitHub</a>
           </nav>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-24 text-center">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl font-bold tracking-tight mb-6">
+      <section style={{ 
+        maxWidth: '1200px', 
+        margin: '0 auto', 
+        padding: '6rem 2rem', 
+        textAlign: 'center' 
+      }}>
+        <div style={{ maxWidth: '48rem', margin: '0 auto' }}>
+          <h1 style={{ 
+            fontSize: '3rem', 
+            fontWeight: '700', 
+            letterSpacing: '-0.025em', 
+            marginBottom: '1.5rem',
+            lineHeight: '1.1',
+            color: '#111827'
+          }}>
             Build your component library with{' '}
-            <span className="text-primary">FT Design System</span>
+            <span style={{ color: '#434f64' }}>FT Design System</span>
           </h1>
-          <p className="text-xl text-muted-foreground mb-8">
+          <p style={{ 
+            fontSize: '1.25rem', 
+            color: '#6b7280', 
+            marginBottom: '2rem',
+            lineHeight: '1.75'
+          }}>
             Beautifully designed components that you can copy and paste into your apps.
             Accessible. Customizable. Open Source.
           </p>
-          <div className="flex items-center justify-center gap-4">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <Button size="lg">Get Started</Button>
-            <Button variant="outline" size="lg">Browse Components</Button>
+            <Button variant="secondary" size="lg">Browse Components</Button>
           </div>
         </div>
       </section>
 
       {/* Component Preview */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-card border rounded-lg p-8">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-semibold">Components</h2>
+      <section style={{ 
+        maxWidth: '1200px', 
+        margin: '0 auto', 
+        padding: '4rem 2rem' 
+      }}>
+        <div style={{ maxWidth: '64rem', margin: '0 auto' }}>
+          <div style={{ 
+            backgroundColor: '#ffffff', 
+            border: '1px solid #e5e7eb', 
+            borderRadius: '0.5rem', 
+            padding: '2rem',
+            boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+          }}>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-between', 
+              marginBottom: '1.5rem' 
+            }}>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', margin: 0, color: '#111827' }}>Components</h2>
               <Badge variant="outline">React</Badge>
             </div>
             
             {/* Button Examples */}
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-lg font-medium mb-4">Button</h3>
-                <div className="flex flex-wrap gap-4">
-                  <Button variant="primary">Primary</Button>
-                  <Button variant="secondary">Secondary</Button>
-                  <Button variant="destructive">Destructive</Button>
-                  <Button variant="outline">Outline</Button>
-                  <Button variant="ghost">Ghost</Button>
-                  <Button variant="link">Link</Button>
-                </div>
+            <div style={{ marginBottom: '2rem' }}>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: '500', marginBottom: '1rem', color: '#374151' }}>Button</h3>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                <Button variant="primary">Primary</Button>
+                <Button variant="secondary">Secondary</Button>
+                <Button variant="destructive">Destructive</Button>
+                <Button variant="text">Text</Button>
+                <Button variant="link">Link</Button>
               </div>
+            </div>
 
-              {/* Badge Examples */}
-              <div>
-                <h3 className="text-lg font-medium mb-4">Badge</h3>
-                <div className="flex flex-wrap gap-4 items-center">
-                  <Badge>Default</Badge>
-                  <Badge variant="secondary">Secondary</Badge>
-                  <Badge variant="destructive">Destructive</Badge>
-                  <Badge variant="outline">Outline</Badge>
-                </div>
+            {/* Badge Examples */}
+            <div style={{ marginBottom: '2rem' }}>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: '500', marginBottom: '1rem', color: '#374151' }}>Badge</h3>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
+                <Badge>Default</Badge>
+                <Badge variant="secondary">Secondary</Badge>
+                <Badge variant="destructive">Destructive</Badge>
+                <Badge variant="outline">Outline</Badge>
               </div>
+            </div>
 
-              {/* Input Examples */}
-              <div>
-                <h3 className="text-lg font-medium mb-4">Input</h3>
-                <div className="max-w-sm space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email"
-                  />
-                </div>
+            {/* Input Examples */}
+            <div>
+              <h3 style={{ fontSize: '1.125rem', fontWeight: '500', marginBottom: '1rem', color: '#374151' }}>Input</h3>
+              <div style={{ maxWidth: '24rem' }}>
+                <Label htmlFor="email" style={{ display: 'block', marginBottom: '0.5rem' }}>Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  style={{ width: '100%' }}
+                />
               </div>
             </div>
           </div>
@@ -90,18 +127,27 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t mt-24">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">
-              Built with FT Design System. The source code is available on GitHub.
-            </p>
-            <div className="flex items-center gap-4">
-              <Badge variant="outline" className="text-xs">
-                MIT License
-              </Badge>
-            </div>
-          </div>
+      <footer style={{ 
+        borderTop: '1px solid #e5e7eb', 
+        marginTop: '6rem',
+        backgroundColor: '#f9fafb'
+      }}>
+        <div style={{ 
+          maxWidth: '1200px', 
+          margin: '0 auto', 
+          padding: '2rem', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1rem'
+        }}>
+          <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: 0 }}>
+            Built with FT Design System. The source code is available on GitHub.
+          </p>
+          <Badge variant="outline" style={{ fontSize: '0.75rem' }}>
+            MIT License
+          </Badge>
         </div>
       </footer>
     </div>
