@@ -2,17 +2,19 @@
 @tailwind components; 
 @tailwind utilities;
 
-/* Basic styling to ensure the site looks good */
+/* Basic styling to ensure the site looks good - FT Design System Colors */
 :root {
-  --primary: #6366f1;
+  --primary: #434f64;  /* FT Design System primary700 */
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
+  --primary-hover: #1d2a38;  /* FT Design System darker shade */
+  --secondary: #f0f1f7;  /* FT Design System secondary100 */
+  --secondary-foreground: #434f64;  /* FT Design System primary700 */
+  --secondary-hover: #ced1d7;  /* FT Design System secondary300 */
   --background: #ffffff;
-  --foreground: #0f172a;
-  --border: #e2e8f0;
-  --muted: #f8fafc;
-  --muted-foreground: #64748b;
+  --foreground: #434f64;  /* FT Design System primary700 */
+  --border: #ced1d7;  /* FT Design System secondary300 */
+  --muted: #f8f8f9;  /* FT Design System tertiary100 */
+  --muted-foreground: #838c9d;  /* FT Design System primary300 */
 }
 
 body {
@@ -21,7 +23,7 @@ body {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
-/* Button styles */
+/* Button styles - FT Design System Match */
 .btn-primary {
   background-color: var(--primary);
   color: var(--primary-foreground);
@@ -29,17 +31,24 @@ body {
   border-radius: 0.375rem;
   font-weight: 500;
   font-size: 0.875rem;
-  border: none;
+  border: 1px solid var(--primary);
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s;
+  box-shadow: 0 1px 2px 0 rgba(67, 79, 100, 0.05);
 }
 
 .btn-primary:hover {
-  background-color: #5855eb;
+  background-color: var(--primary-hover);
+  box-shadow: 0 4px 6px -1px rgba(67, 79, 100, 0.1);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
 }
 
 .btn-secondary {
@@ -59,7 +68,8 @@ body {
 }
 
 .btn-secondary:hover {
-  background-color: #e2e8f0;
+  background-color: var(--secondary-hover);
+  border-color: var(--muted-foreground);
 }
 
 /* Card styles */
