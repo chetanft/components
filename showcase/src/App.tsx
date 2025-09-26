@@ -1,19 +1,17 @@
-import { useState } from 'react'
-import 'ft-design-system/styles.css'
-
-// Import actual components from your ft-design-system using ES modules
-import { 
-  Button,
-  Badge,
-  Input,
-  Label,
-  designTokens
-} from 'ft-design-system'
+import SimpleApp from './SimpleApp'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [inputValue, setInputValue] = useState('')
+  // Use the SimpleApp that doesn't import ft-design-system to avoid JSX runtime issues
+  return <SimpleApp />
+}
 
+function AppWithFTComponents() {
+  // This version tries to import ft-design-system components
+  // Currently disabled due to JSX runtime conflicts
+  return null // Disabled for now
+}
+
+function AppOriginal() {
   return (
     <div style={{ 
       padding: '2rem', 
