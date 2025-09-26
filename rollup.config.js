@@ -31,6 +31,7 @@ export default [
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
+          'react/jsx-runtime': 'ReactJSXRuntime',
         },
       },
     ],
@@ -57,10 +58,11 @@ export default [
         tsconfig: './tsconfig.json',
         declaration: true,
         declarationDir: './dist/types',
-        outDir: './dist'
+        outDir: './dist',
+        jsx: 'react-jsx'
       }),
     ],
-    external: ['react', 'react-dom'],
+    external: ['react', 'react-dom', 'react/jsx-runtime'],
   },
   // AI layer build
   {
@@ -89,10 +91,11 @@ export default [
         tsconfig: './tsconfig.json',
         declaration: true,
         declarationDir: './dist/types',
-        outDir: './dist'
+        outDir: './dist',
+        jsx: 'react-jsx'
       }),
     ],
-    external: ['react', 'react-dom'],
+    external: ['react', 'react-dom', 'react/jsx-runtime'],
   },
   // Type definitions for main package
   {
