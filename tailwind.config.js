@@ -90,14 +90,18 @@ export default {
     'border-[var(--focus)]',
     
     // Size variants
+    'h-component-xs',
     'h-component-sm',
     'h-component-md', 
     'h-component-lg',
     'h-component-xl',
+    'h-component-xxl',
+    'w-component-xs',
     'w-component-sm',
     'w-component-md',
     'w-component-lg',
     'w-component-xl',
+    'w-component-xxl',
     
     // Font sizes from design tokens
     'text-[12px]',
@@ -372,27 +376,33 @@ export default {
                  'bold': 'var(--font-weight-bold)', // 700
        },
        
-       // COMPONENT SYSTEM DIMENSIONS (CRITICAL - DO NOT REMOVE)
-       height: {
-         'component-sm': 'var(--component-height-sm)',  // 36px
-         'component-md': 'var(--component-height-md)',  // 40px
-         'component-lg': 'var(--component-height-lg)',  // 52px
-         'component-xl': 'var(--component-height-xl)',  // 64px
-       },
-       
-       width: {
-         'component-sm': 'var(--component-height-sm)',  // 36px (for square components)
-         'component-md': 'var(--component-height-md)',  // 40px
-         'component-lg': 'var(--component-height-lg)',  // 52px
-         'component-xl': 'var(--component-height-xl)',  // 64px
-       },
-       
-       padding: {
-         'component-sm': 'var(--component-padding-sm)',
-         'component-md': 'var(--component-padding-md)',
-         'component-lg': 'var(--component-padding-lg)',
-         'component-xl': 'var(--component-padding-xl)',
-       },
+      // COMPONENT SYSTEM DIMENSIONS (CRITICAL - DO NOT REMOVE)
+      height: {
+        'component-xs': 'var(--component-height-xs)',  // 24px
+        'component-sm': 'var(--component-height-sm)',  // 32px
+        'component-md': 'var(--component-height-md)',  // 40px
+        'component-lg': 'var(--component-height-lg)',  // 48px
+        'component-xl': 'var(--component-height-xl)',  // 56px
+        'component-xxl': 'var(--component-height-xxl)', // 64px
+      },
+      
+      width: {
+        'component-xs': 'var(--component-height-xs)',  // 24px (for square components)
+        'component-sm': 'var(--component-height-sm)',  // 32px
+        'component-md': 'var(--component-height-md)',  // 40px
+        'component-lg': 'var(--component-height-lg)',  // 48px
+        'component-xl': 'var(--component-height-xl)',  // 56px
+        'component-xxl': 'var(--component-height-xxl)', // 64px
+      },
+      
+      padding: {
+        'component-xs': 'var(--component-padding-xs)',
+        'component-sm': 'var(--component-padding-sm)',
+        'component-md': 'var(--component-padding-md)',
+        'component-lg': 'var(--component-padding-lg)',
+        'component-xl': 'var(--component-padding-xl)',
+        'component-xxl': 'var(--component-padding-xxl)',
+      },
        
        gap: {
          'component-sm': 'var(--component-gap-sm)',

@@ -50,17 +50,21 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     // Icon positioning based on unified sizing
     const iconOffsetMap = {
+      xs: "left-2 right-2",
       sm: "left-3 right-3",
       md: "left-4 right-4", 
       lg: "left-5 right-5",
-      xl: "left-6 right-6"
+      xl: "left-6 right-6",
+      xxl: "left-7 right-7"
     };
     
     const iconPaddingMap = {
+      xs: { left: "pl-7", right: "pr-7" },
       sm: { left: "pl-9", right: "pr-9" },
       md: { left: "pl-11", right: "pr-11" },
       lg: { left: "pl-12", right: "pr-12" },
-      xl: { left: "pl-14", right: "pr-14" }
+      xl: { left: "pl-14", right: "pr-14" },
+      xxl: { left: "pl-16", right: "pr-16" }
     };
 
     const currentIconOffset = iconOffsetMap[size];

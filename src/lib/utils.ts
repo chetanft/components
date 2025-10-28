@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
  * All components inherit from this system to ensure perfect consistency
  */
 
-export type ComponentSize = 'sm' | 'md' | 'lg' | 'xl';
+export type ComponentSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 /**
  * Gets unified component styles based on size
@@ -21,7 +21,7 @@ export function getComponentStyles(size: ComponentSize = 'md') {
     // Core layout
     height: `h-component-${size}`,
     fontSize: `text-component-${size}`,
-    gap: `gap-component-${size === 'xl' ? 'lg' : size}`,
+    gap: `gap-component-${size === 'xxl' ? 'xl' : size === 'xl' ? 'lg' : size}`,
     
     // Unified styling
     borderRadius: 'rounded-component',
@@ -41,18 +41,22 @@ export function getComponentStyles(size: ComponentSize = 'md') {
   
   // Size-specific padding
   const paddingMap = {
+    xs: 'px-2 py-1',
     sm: 'px-3 py-2',
     md: 'px-4 py-3', 
     lg: 'px-5 py-4',
-    xl: 'px-6 py-5'
+    xl: 'px-6 py-5',
+    xxl: 'px-7 py-6'
   };
   
   // Size-specific icon sizes
   const iconSizeMap = {
+    xs: 14,
     sm: 16,
     md: 18,
-    lg: 24,
-    xl: 28
+    lg: 20,
+    xl: 22,
+    xxl: 24
   };
   
   return {

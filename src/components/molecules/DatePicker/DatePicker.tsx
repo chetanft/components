@@ -35,9 +35,15 @@ const datePickerFieldVariants = cva(
   {
     variants: {
       size: {
-        xl: "h-16 text-base", // Applied via unified system
-        l: "h-14 text-base",  // Applied via unified system
-        m: "h-12 text-sm"   // Applied via unified system
+        xs: "h-component-xs text-xs",
+        sm: "h-component-sm text-sm",
+        md: "h-component-md text-sm",
+        lg: "h-component-lg text-base",
+        xl: "h-component-xl text-base",
+        xxl: "h-component-xxl text-lg",
+        // Legacy support - will be removed in future version
+        m: "h-component-md text-sm",
+        l: "h-component-lg text-base",
       },
       state: {
         default: "border-border dark:border-border-dark hover:border-border-hover dark:hover:border-border-hover-dark",
@@ -92,8 +98,12 @@ export interface DatePickerFieldProps extends VariantProps<typeof datePickerFiel
 
 export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps>(
   ({ size = "m", state = "default", value, placeholder = "Value", disabled, showTime, className, onChange, onFocus, onBlur, ...props }, ref) => {
-    // Map DatePicker size to unified component styles
-    const componentSize = size === "m" ? "sm" : size === "l" ? "md" : "lg";
+    // Map DatePicker legacy size to unified component styles
+    const componentSize: ComponentSize = 
+      size === "m" ? "md" : 
+      size === "l" ? "lg" : 
+      size === "xl" ? "xxl" : 
+      size as ComponentSize; // Allow direct ComponentSize values (xs, sm, md, lg, xl, xxl)
     const componentStyles = getComponentStyles(componentSize);
     
     const iconColor = state === "disabled" 

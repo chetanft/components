@@ -11,10 +11,12 @@ const dropdownFieldVariants = cva(
   {
     variants: {
       size: {
+        xs: "text-xs",
         sm: "text-sm",
         md: "text-base",
         lg: "text-base",
         xl: "text-base",
+        xxl: "text-lg",
       },
       state: {
         default: "border-[var(--border-primary)] dark:border-border-dark focus-within:border-focus dark:focus-within:border-focus-dark",
@@ -91,33 +93,47 @@ interface SizeStyles {
 }
 
 const sizeStylesMap: Record<ComponentSize, SizeStyles> = {
+  xs: {
+    height: "h-component-xs",
+    fontSize: "text-xs",
+    borderRadius: "rounded-lg",
+    padding: "px-2",
+    iconSize: 14,
+  },
   sm: {
-    height: "h-8",
+    height: "h-component-sm",
     fontSize: "text-sm",
     borderRadius: "rounded-lg",
     padding: "px-3",
     iconSize: 16,
   },
   md: {
-    height: "h-10",
+    height: "h-component-md",
     fontSize: "text-base",
     borderRadius: "rounded-lg",
     padding: "px-3 py-2",
-    iconSize: 16,
+    iconSize: 18,
   },
   lg: {
-    height: "h-12",
+    height: "h-component-lg",
     fontSize: "text-base",
     borderRadius: "rounded-lg",
     padding: "px-4 py-2",
-    iconSize: 16,
+    iconSize: 20,
   },
   xl: {
-    height: "h-16",
+    height: "h-component-xl",
     fontSize: "text-base",
     borderRadius: "rounded-lg",
-    padding: "px-3 py-5",
-    iconSize: 16,
+    padding: "px-5 py-3",
+    iconSize: 22,
+  },
+  xxl: {
+    height: "h-component-xxl",
+    fontSize: "text-lg",
+    borderRadius: "rounded-lg",
+    padding: "px-6 py-4",
+    iconSize: 24,
   },
 };
 
