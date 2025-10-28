@@ -68,27 +68,9 @@ export const Sizes: Story = {
   render: () => (
     <div className="space-y-4">
       <Dropdown
-        label="Extra Large (XL)"
-        size="xl"
-        placeholder="XL Dropdown"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Large (LG)"
-        size="lg"
-        placeholder="LG Dropdown"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Medium (MD)"
-        size="md"
-        placeholder="MD Dropdown"
+        label="Extra Small (XS)"
+        size="xs"
+        placeholder="24px height"
         options={[
           { value: 'option1', label: 'Option 1' },
           { value: 'option2', label: 'Option 2' },
@@ -97,7 +79,43 @@ export const Sizes: Story = {
       <Dropdown
         label="Small (SM)"
         size="sm"
-        placeholder="SM Dropdown"
+        placeholder="32px height"
+        options={[
+          { value: 'option1', label: 'Option 1' },
+          { value: 'option2', label: 'Option 2' },
+        ]}
+      />
+      <Dropdown
+        label="Medium (MD)"
+        size="md"
+        placeholder="40px height"
+        options={[
+          { value: 'option1', label: 'Option 1' },
+          { value: 'option2', label: 'Option 2' },
+        ]}
+      />
+      <Dropdown
+        label="Large (LG)"
+        size="lg"
+        placeholder="48px height"
+        options={[
+          { value: 'option1', label: 'Option 1' },
+          { value: 'option2', label: 'Option 2' },
+        ]}
+      />
+      <Dropdown
+        label="Extra Large (XL)"
+        size="xl"
+        placeholder="56px height"
+        options={[
+          { value: 'option1', label: 'Option 1' },
+          { value: 'option2', label: 'Option 2' },
+        ]}
+      />
+      <Dropdown
+        label="2X Large (XXL)"
+        size="xxl"
+        placeholder="64px height"
         options={[
           { value: 'option1', label: 'Option 1' },
           { value: 'option2', label: 'Option 2' },

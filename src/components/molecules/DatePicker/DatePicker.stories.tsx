@@ -45,12 +45,41 @@ export const WithError: Story = {
   },
 };
 
-export const WithTime: Story = {
-  args: {
-    label: 'Date & Time',
-    placeholder: 'MM/DD/YYYY HH:MM',
-    showTime: true,
-  },
+export const AllSizes: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <DatePicker
+        label="Extra Small (XS)"
+        placeholder="24px height"
+        size="xs"
+      />
+      <DatePicker
+        label="Small (SM)"
+        placeholder="32px height"
+        size="sm"
+      />
+      <DatePicker
+        label="Medium (MD)"
+        placeholder="40px height"
+        size="md"
+      />
+      <DatePicker
+        label="Large (LG)"
+        placeholder="48px height"
+        size="lg"
+      />
+      <DatePicker
+        label="Extra Large (XL)"
+        placeholder="56px height"
+        size="xl"
+      />
+      <DatePicker
+        label="2X Large (XXL)"
+        placeholder="64px height"
+        size="xxl"
+      />
+    </div>
+  ),
 };
 
 export const DateRange: Story = {

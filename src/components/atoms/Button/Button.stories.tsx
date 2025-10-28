@@ -17,7 +17,7 @@ const meta: Meta<typeof Button> = {
     },
     size: {
       control: { type: 'select' },
-      options: ['sm', 'md', 'lg'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
     },
     icon: {
       control: { type: 'select' },
@@ -85,11 +85,27 @@ export const Link: Story = {
 };
 
 // Different sizes
+export const ExtraSmall: Story = {
+  args: {
+    variant: 'primary',
+    size: 'xs',
+    children: 'Extra Small',
+  },
+};
+
 export const Small: Story = {
   args: {
     variant: 'primary',
     size: 'sm',
-    children: 'Button',
+    children: 'Small',
+  },
+};
+
+export const Medium: Story = {
+  args: {
+    variant: 'primary',
+    size: 'md',
+    children: 'Medium',
   },
 };
 
@@ -97,7 +113,23 @@ export const Large: Story = {
   args: {
     variant: 'primary',
     size: 'lg',
-    children: 'Button',
+    children: 'Large',
+  },
+};
+
+export const ExtraLarge: Story = {
+  args: {
+    variant: 'primary',
+    size: 'xl',
+    children: 'Extra Large',
+  },
+};
+
+export const ExtraExtraLarge: Story = {
+  args: {
+    variant: 'primary',
+    size: 'xxl',
+    children: '2X Large',
   },
 };
 
@@ -165,9 +197,12 @@ export const AllVariants: Story = {
       <div>
         <h3 className="text-lg font-semibold mb-4">Button Sizes</h3>
         <div className="flex items-center gap-4">
-          <Button variant="primary" size="sm">Small</Button>
-          <Button variant="primary" size="md">Medium</Button>
-          <Button variant="primary" size="lg">Large</Button>
+          <Button variant="primary" size="xs">XS (24px)</Button>
+          <Button variant="primary" size="sm">SM (32px)</Button>
+          <Button variant="primary" size="md">MD (40px)</Button>
+          <Button variant="primary" size="lg">LG (48px)</Button>
+          <Button variant="primary" size="xl">XL (56px)</Button>
+          <Button variant="primary" size="xxl">XXL (64px)</Button>
         </div>
       </div>
       

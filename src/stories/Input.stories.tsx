@@ -16,7 +16,7 @@ const meta: Meta<typeof Input> = {
     },
     size: {
       control: { type: 'select' },
-      options: ['sm', 'md', 'lg', 'xl'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
     },
   },
 };
@@ -99,10 +99,12 @@ export const OptionalWithIcon: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="space-y-4">
-      <Input label="Small" size="sm" placeholder="Small input" />
-      <Input label="Medium" size="md" placeholder="Medium input" />
-      <Input label="Large" size="lg" placeholder="Large input" />
-      <Input label="Extra Large" size="xl" placeholder="XL input" />
+      <Input label="Extra Small (XS)" size="xs" placeholder="24px height" />
+      <Input label="Small (SM)" size="sm" placeholder="32px height" />
+      <Input label="Medium (MD)" size="md" placeholder="40px height" />
+      <Input label="Large (LG)" size="lg" placeholder="48px height" />
+      <Input label="Extra Large (XL)" size="xl" placeholder="56px height" />
+      <Input label="2X Large (XXL)" size="xxl" placeholder="64px height" />
     </div>
   ),
 };
