@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { AppHeader } from '../components/organisms/AppHeader/AppHeader';
+import { AppHeader } from '../components/organisms/AppHeader';
 
 const meta: Meta<typeof AppHeader> = {
   title: 'Organisms/AppHeader',
@@ -13,7 +13,31 @@ const meta: Meta<typeof AppHeader> = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          minHeight: '100vh',
+          padding: '40px',
+          backgroundColor: 'var(--bg-secondary,#f8f8f9)',
+          boxSizing: 'border-box',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
+    size: {
+      control: 'select',
+      options: ['xl', 'lg', 'md', 'Default'],
+      description: 'Size variant of the header',
+    },
+    device: {
+      control: 'select',
+      options: ['Desktop', 'Mobile'],
+      description: 'Device type variant',
+    },
     userCompany: {
       control: 'object',
       description: 'Company information for user profile (FT or Tata Motors)',
@@ -39,6 +63,7 @@ export const Default: Story = {
       role: 'Dispatch Manager',
       location: 'SPD-Santoshnagar',
       badge: 'Admin',
+      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
     },
     userCompany: {
       name: 'tata-motors',
@@ -55,6 +80,7 @@ export const UserWithFTCompany: Story = {
       role: 'Operations Manager',
       location: 'BLR-Tech Hub',
       badge: 'Senior',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
     },
     userCompany: {
       name: 'ft',
@@ -71,6 +97,7 @@ export const AdminUser: Story = {
       role: 'Administrator',
       location: 'MUM-Central',
       badge: 'Admin',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
     },
     userCompany: {
       name: 'tata-motors',
@@ -87,6 +114,7 @@ export const ManagerUser: Story = {
       role: 'Fleet Manager',
       location: 'DEL-North',
       badge: 'Manager',
+      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612e120?w=100&h=100&fit=crop&crop=face',
     },
     userCompany: {
       name: 'tata-motors',
@@ -103,6 +131,7 @@ export const LongUserName: Story = {
       role: 'Senior Operations Manager',
       location: 'HYD-Headquarters',
       badge: 'Senior',
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
     },
     userCompany: {
       name: 'tata-motors',
@@ -131,7 +160,7 @@ export const UserWithAvatar: Story = {
 // Interactive example
 export const Interactive: Story = {
   render: () => {
-    const handleNotificationClick = (type: 'rocket' | 'bell') => {
+    const handleNotificationClick = (type: 'rocket' | 'bell' | 'menu') => {
       alert(`${type.charAt(0).toUpperCase() + type.slice(1)} notification clicked!`);
     };
 
@@ -214,6 +243,8 @@ export const MobileView: Story = {
     },
   },
   args: {
+    size: 'Default',
+    device: 'Mobile',
     user: {
       name: 'Mobile User',
       role: 'Field Manager',
@@ -224,5 +255,34 @@ export const MobileView: Story = {
       name: 'tata-motors',
       displayName: 'Tata Motors'
     },
+  },
+};
+
+// Size variants
+export const SizeXL: Story = {
+  args: {
+    size: 'xl',
+    device: 'Desktop',
+  },
+};
+
+export const SizeLG: Story = {
+  args: {
+    size: 'lg',
+    device: 'Desktop',
+  },
+};
+
+export const SizeMD: Story = {
+  args: {
+    size: 'md',
+    device: 'Desktop',
+  },
+};
+
+export const MobileDevice: Story = {
+  args: {
+    size: 'Default',
+    device: 'Mobile',
   },
 }; 

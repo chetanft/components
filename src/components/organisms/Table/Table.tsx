@@ -471,7 +471,7 @@ export const Table = <T extends TableRow = TableRow>({
   }
 
   return (
-    <div className={cn("border border-[var(--color-border)] rounded-[var(--spacing-x2)] overflow-hidden bg-[var(--color-white)]", className)}>
+    <div className={cn("border border-[var(--border-primary)] rounded-[var(--x2,8px)] overflow-hidden bg-[var(--bg-primary)]", className)}>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <TableHeader
@@ -493,7 +493,7 @@ export const Table = <T extends TableRow = TableRow>({
               <tr>
                 <td
                   colSpan={columns.length + (selectable ? 1 : 0)}
-                  className="px-[var(--spacing-x3)] py-[var(--spacing-x8)] text-center"
+                  className="px-[var(--x3,12px)] py-[var(--x8,32px)] text-center"
                 >
                   <TableCellText type="secondary">
                     {emptyMessage || "No data available"}

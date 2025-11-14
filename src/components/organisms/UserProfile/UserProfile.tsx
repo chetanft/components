@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { User, Settings, Refresh, Password, Logout } from '../../atoms/Icons';
 import { Logo } from '../../atoms/Logos';
+import { Avatar } from '../../atoms/Avatar';
 import { CompanyInfo } from '../../../types/company';
 
 export interface UserProfileProps {
@@ -10,6 +11,8 @@ export interface UserProfileProps {
   userLocation?: string;
   userBadge?: string;
   userAvatar?: string;
+  state?: 'Default' | 'Open';
+  companyName?: boolean;
   isOpen?: boolean;
   onToggle?: () => void;
   onMenuItemClick?: (item: string) => void;
@@ -26,411 +29,182 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   userLocation = 'SPD-Santoshnagar',
   userBadge = 'Admin',
   userAvatar,
-  isOpen = false,
+  state,
+  companyName = true,
+  isOpen,
   onToggle = () => {},
   onMenuItemClick = () => {},
   className,
 }) => {
-  return (
-    <div 
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-end',
-        gap: '20px',
-        position: 'relative',
-        width: isOpen ? '400px' : '229px',
-      }}
-      className={className}
-    >
-      {/* User Profile Default State */}
+  const currentState = state ?? (isOpen ? 'Open' : 'Default');
+
+  // State=Default, Company name=False
+  if (currentState === 'Default' && !companyName) {
+    return (
       <div 
-        style={{
-          backgroundColor: 'var(--border-primary)',
-          borderRadius: '8px',
-          width: '229px',
-          height: '51px',
-          position: 'relative',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-        }}
+        className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center justify-center overflow-clip p-[var(--x2,8px)] rounded-[var(--x2,8px)] cursor-pointer"
         onClick={onToggle}
       >
-        {/* Company Logo */}
-        <div style={{
-          position: 'absolute',
-          left: '19px',
-          top: '12px',
-          width: '155px',
-          height: '26px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '5px 20px',
-          boxSizing: 'border-box',
-        }}>
-          <Logo name={company.name} width={155} height={26} />
+        <Avatar 
+          src={userAvatar}
+          alt={userName}
+          size="md"
+          className="content-stretch flex gap-[12px] items-center justify-center relative shrink-0 size-[40px]"
+        />
+      </div>
+    );
+  }
+
+  // State=Open, Company name=True
+  if (currentState === 'Open' && companyName) {
+    return (
+      <div className="content-stretch flex flex-col gap-[var(--x5,20px)] items-end w-[400px]">
+        <div 
+          className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[15px] items-center overflow-clip p-[var(--x2,8px)] relative rounded-[var(--x2,8px)] shrink-0 cursor-pointer"
+          onClick={onToggle}
+        >
+          <div className="h-[26px] relative shrink-0 w-[155px]">
+            <Logo name={company.name} width={155} height={26} />
+          </div>
+          <Avatar 
+            src={userAvatar}
+            alt={userName}
+            size="md"
+            className="content-stretch flex gap-[12px] items-center justify-center relative shrink-0 size-[40px]"
+          />
         </div>
 
-        {/* User Avatar */}
-        <div style={{
-          position: 'absolute',
-          right: '10px',
-          top: '10px',
-          width: '30px',
-          height: '30px',
-          backgroundColor: 'var(--border-primary)',
-          borderRadius: '50%',
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          {userAvatar ? (
-            <img 
-              src={userAvatar} 
-              alt={userName} 
-              style={{ 
-                width: '100%', 
-                height: '100%', 
-                objectFit: 'cover' 
-              }} 
-            />
-          ) : (
-            <User />
-          )}
+        <div className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex flex-col gap-[var(--x0,0px)] items-center overflow-clip px-0 py-[20px] relative rounded-[var(--x2,8px)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] shrink-0 w-full">
+          
+          <div className="box-border content-stretch flex flex-col gap-[20px] items-start justify-center px-[var(--x5,20px)] py-0 relative shrink-0 w-full">
+            <div className="content-stretch flex gap-[var(--x5,20px)] items-center relative shrink-0 w-full">
+              <Avatar 
+                src={userAvatar}
+                alt={userName}
+                size="xl"
+                className="content-stretch flex gap-[12px] items-center justify-center relative shrink-0 size-[56px]"
+              />
+              <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--x2,8px)] items-start min-h-px min-w-px relative shrink-0">
+                <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+                  <p className="font-[family-name:var(--font/family/display-primary,'Inter:Semibold',sans-serif)] font-[var(--font/weight/semibold,normal)] leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/lg,20px)]">
+                    {userName}
+                  </p>
+                  <div className="bg-[var(--border_secondary,#f0f1f7)] box-border content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[2px] relative rounded-[var(--x1,4px)] shrink-0">
+                    <p className="font-[family-name:var(--font/family/body-secondary,'Inter:Semibold',sans-serif)] font-[var(--font/weight/semibold,normal)] leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/sm,14px)]">
+                      {userBadge}
+                    </p>
+                  </div>
+                </div>
+                <div className="content-stretch flex items-end justify-between leading-[1.4] relative shrink-0 w-full">
+                  <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/md,16px)]">
+                    {userRole}
+                  </p>
+                  <p className="font-[family-name:var(--font/family/body-secondary,'Inter:Medium',sans-serif)] font-[var(--font/weight/medium,normal)] font-medium relative shrink-0 text-[color:var(--tertiary,#838c9d)] text-[length:var(--font/sizes/sm,14px)]">
+                    {userLocation}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
+            <div className="flex-[1_0_0] h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
+              <div className="absolute inset-[-0.5px_-0.13%] border-t border-[var(--border-primary,#ced1d7)]" />
+            </div>
+          </div>
+
+          <div className="box-border content-stretch flex flex-col gap-[16px] items-start px-[var(--x5,20px)] py-0 relative shrink-0 w-full">
+            <div 
+              className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border_secondary,#f0f1f7)] transition-colors"
+              onClick={() => onMenuItemClick('view-profile')}
+            >
+              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
+                <User className="w-full h-full text-[color:var(--primary,#434f64)]" />
+              </div>
+              <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/md,16px)]">
+                View Profile
+              </p>
+            </div>
+
+            <div 
+              className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border_secondary,#f0f1f7)] transition-colors"
+              onClick={() => onMenuItemClick('settings')}
+            >
+              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
+                <Settings className="w-full h-full text-[color:var(--primary,#434f64)]" />
+              </div>
+              <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/md,16px)]">
+                Settings
+              </p>
+            </div>
+
+            <div 
+              className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border_secondary,#f0f1f7)] transition-colors"
+              onClick={() => onMenuItemClick('change-desk')}
+            >
+              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
+                <Refresh className="w-full h-full text-[color:var(--primary,#434f64)]" />
+              </div>
+              <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/md,16px)]">
+                Change Desk
+              </p>
+            </div>
+
+            <div 
+              className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border_secondary,#f0f1f7)] transition-colors"
+              onClick={() => onMenuItemClick('change-password')}
+            >
+              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip relative shrink-0 size-[16px]">
+                <Password className="w-full h-full text-[color:var(--primary,#434f64)]" />
+              </div>
+              <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/md,16px)]">
+                Change Password
+              </p>
+            </div>
+          </div>
+
+          <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
+            <div className="flex-[1_0_0] h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
+              <div className="absolute inset-[-0.5px_-0.13%] border-t border-[var(--border-primary,#ced1d7)]" />
+            </div>
+          </div>
+
+          <div 
+            className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center px-[32px] py-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--critical-light)] transition-colors"
+            onClick={() => onMenuItemClick('logout')}
+          >
+            <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip relative shrink-0 size-[16px]">
+              <Logout className="w-full h-full text-[color:var(--critical,#ff3533)]" />
+            </div>
+            <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--critical,#ff3533)] text-[length:var(--font/sizes/md,16px)]">
+              Logout
+            </p>
+          </div>
+
         </div>
       </div>
+    );
+  }
 
-      {/* User Info Dropdown - Only show when open */}
-      {isOpen && (
-        <div style={{
-          backgroundColor: 'var(--bg-primary)',
-          borderRadius: '8px',
-          width: '400px',
-          position: 'absolute',
-          top: '71px',
-          right: '0px',
-          zIndex: 1000,
-          boxShadow: '6px 6px 12px 0px rgba(0, 0, 0, 0.1), -6px -6px 12px 0px rgba(0, 0, 0, 0.1)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '16px',
-          padding: '20px',
-          boxSizing: 'border-box',
-        }}>
-          {/* User Details */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '20px',
-            width: '100%',
-          }}>
-            {/* User Container */}
-            <div style={{
-              display: 'flex',
-              gap: '20px',
-              width: '100%',
-            }}>
-              {/* Large User Avatar */}
-              <div style={{
-                width: '58px',
-                height: '58px',
-                backgroundColor: 'var(--border-primary)',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                overflow: 'hidden',
-              }}>
-                {userAvatar ? (
-                  <img 
-                    src={userAvatar} 
-                    alt={userName} 
-                    style={{ 
-                      width: '100%', 
-                      height: '100%', 
-                      objectFit: 'cover' 
-                    }} 
-                  />
-                ) : (
-                  <div style={{ width: '32px', height: '32px', color: 'var(--primary)' }}>
-                    <User />
-                  </div>
-                )}
-              </div>
-
-              {/* User Text Container */}
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '8px',
-                flex: 1,
-              }}>
-                {/* User Name and Badge */}
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  gap: '8px',
-                  width: '100%',
-                }}>
-                  <span style={{
-                    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                    fontWeight: 600,
-                    fontSize: '20px',
-                    lineHeight: '1.4em',
-                    color: 'var(--primary)',
-                  }}>
-                    {userName}
-                  </span>
-                  <div style={{
-                    backgroundColor: 'var(--border-secondary)',
-                    borderRadius: '4px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '2px 8px',
-                  }}>
-                    <span style={{
-                      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                      fontWeight: 600,
-                      fontSize: '14px',
-                      lineHeight: '1.4em',
-                      color: 'var(--primary)',
-                    }}>
-                      {userBadge}
-                    </span>
-                  </div>
-                </div>
-
-                {/* User Role and Location */}
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-end',
-                  gap: '8px',
-                  width: '100%',
-                }}>
-                  <span style={{
-                    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                    fontWeight: 400,
-                    fontSize: '16px',
-                    lineHeight: '1.4em',
-                    color: 'var(--primary)',
-                  }}>
-                    {userRole}
-                  </span>
-                  <span style={{
-                    fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                    fontWeight: 500,
-                    fontSize: '14px',
-                    lineHeight: '1.4em',
-                    color: 'var(--tertiary)',
-                  }}>
-                    {userLocation}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div style={{
-            width: '100%',
-            height: '1px',
-            backgroundColor: 'var(--border-secondary)',
-          }} />
-
-          {/* Menu Items */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            gap: '0px',
-          }}>
-            {/* View Profile */}
-            <div 
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '12px',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                transition: 'background-color 0.2s',
-              }}
-              onClick={() => onMenuItemClick('view-profile')}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--border-secondary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
-            >
-              <div style={{ width: '16px', height: '16px', color: 'var(--primary)' }}>
-                <User />
-              </div>
-              <span style={{
-                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                fontWeight: 400,
-                fontSize: '16px',
-                lineHeight: '1.4em',
-                color: 'var(--primary)',
-              }}>
-                View Profile
-              </span>
-            </div>
-
-            {/* Settings */}
-            <div 
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '12px',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                transition: 'background-color 0.2s',
-              }}
-              onClick={() => onMenuItemClick('settings')}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--border-secondary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
-            >
-              <div style={{ width: '16px', height: '16px', color: 'var(--primary)' }}>
-                <Settings />
-              </div>
-              <span style={{
-                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                fontWeight: 400,
-                fontSize: '16px',
-                lineHeight: '1.4em',
-                color: 'var(--primary)',
-              }}>
-                Settings
-              </span>
-            </div>
-
-            {/* Change Desk */}
-            <div 
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '12px',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                transition: 'background-color 0.2s',
-              }}
-              onClick={() => onMenuItemClick('change-desk')}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--border-secondary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
-            >
-              <div style={{ width: '16px', height: '16px', color: 'var(--primary)' }}>
-                <Refresh />
-              </div>
-              <span style={{
-                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                fontWeight: 400,
-                fontSize: '16px',
-                lineHeight: '1.4em',
-                color: 'var(--primary)',
-              }}>
-                Change Desk
-              </span>
-            </div>
-
-            {/* Change Password */}
-            <div 
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '12px',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                transition: 'background-color 0.2s',
-              }}
-              onClick={() => onMenuItemClick('change-password')}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--border-secondary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
-            >
-              <div style={{ width: '16px', height: '16px', color: 'var(--primary)' }}>
-                <Password />
-              </div>
-              <span style={{
-                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segma UI", Roboto, sans-serif',
-                fontWeight: 400,
-                fontSize: '16px',
-                lineHeight: '1.4em',
-                color: 'var(--primary)',
-              }}>
-                Change Password
-              </span>
-            </div>
-
-            {/* Divider */}
-            <div style={{
-              width: '100%',
-              height: '1px',
-              backgroundColor: 'var(--border-secondary)',
-              margin: '8px 0',
-            }} />
-
-            {/* Logout */}
-            <div 
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                padding: '12px',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                transition: 'background-color 0.2s',
-              }}
-              onClick={() => onMenuItemClick('logout')}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--critical-light)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-              }}
-            >
-              <div style={{ width: '16px', height: '16px', color: 'var(--critical)' }}>
-                <Logout />
-              </div>
-              <span style={{
-                fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                fontWeight: 400,
-                fontSize: '16px',
-                lineHeight: '1.4em',
-                color: 'var(--critical)',
-              }}>
-                Logout
-              </span>
-            </div>
-          </div>
+  // State=Default, Company name=True
+  return (
+    <div 
+      className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[15px] items-center p-[var(--x2,8px)] rounded-[var(--x2,8px)] cursor-pointer"
+      onClick={onToggle}
+    >
+      <div className="flex items-center self-stretch">
+        <div className="h-[26px] relative shrink-0 w-[155px]">
+          <Logo name={company.name} width={155} height={26} />
         </div>
-      )}
+      </div>
+      <Avatar 
+        src={userAvatar}
+        alt={userName}
+        size="md"
+        className="content-stretch flex gap-[12px] items-center justify-center relative shrink-0 size-[40px]"
+      />
     </div>
   );
 };
 
-UserProfile.displayName = 'UserProfile'; 
+UserProfile.displayName = 'UserProfile';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
+import { cn, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'text' | 'link';
@@ -28,11 +28,58 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   ...props
 }, ref) => {
   // Core component - no AI filtering (use ft-design-system/ai for AI protection)
-  const componentStyles = getComponentStyles(size);
   const isIconOnly = iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
   const isCircular = className?.includes('rounded-full');
   const isLink = variant === 'link';
+
+  // Button-specific sizing from Figma design
+  const buttonSizing = {
+    xs: {
+      padding: 'px-2 py-[2px]',
+      fontSize: 'text-sm', // 14px
+      iconSize: 12,
+      borderRadius: 'rounded-[4px]',
+      height: 'h-6', // 24px
+    },
+    sm: {
+      padding: 'p-3', // 12px all around
+      fontSize: 'text-base', // 16px
+      iconSize: 16,
+      borderRadius: 'rounded-[8px]',
+      height: 'h-8', // 32px
+    },
+    md: {
+      padding: 'px-4 py-3', // 16px horizontal, 12px vertical
+      fontSize: 'text-base', // 16px
+      iconSize: 16,
+      borderRadius: 'rounded-[8px]',
+      height: 'h-10', // 40px
+    },
+    lg: {
+      padding: 'px-6 py-3', // 24px horizontal, 12px vertical
+      fontSize: 'text-lg', // 20px
+      iconSize: 24,
+      borderRadius: 'rounded-[8px]',
+      height: 'h-12', // 48px
+    },
+    xl: {
+      padding: 'px-6 py-4', // 24px horizontal, 16px vertical
+      fontSize: 'text-xl', // 24px
+      iconSize: 24,
+      borderRadius: 'rounded-[8px]',
+      height: 'h-14', // 56px
+    },
+    xxl: {
+      padding: 'px-7 py-5', // 28px horizontal, 20px vertical
+      fontSize: 'text-xxl', // 28px
+      iconSize: 24,
+      borderRadius: 'rounded-[8px]',
+      height: 'h-16', // 64px
+    },
+  };
+
+  const buttonSize = buttonSizing[size];
 
   // Base styles using unified design system
   const baseStyles = cn(
@@ -49,19 +96,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     isCircular && "!rounded-full"
   );
 
-  // Use unified component styles for consistent sizing
+  // Use button-specific sizing from Figma design
   const sizeStyles = !isLink ? cn(
-    componentStyles.height,
-    componentStyles.fontSize,
-    componentStyles.gap,
-    componentStyles.borderRadius,
+    buttonSize.height,
+    buttonSize.fontSize,
+    "gap-2", // 8px gap consistent across all sizes
+    buttonSize.borderRadius,
     // Adjust padding for icon-only buttons
-    isIconOnly && isCircular ? `w-${componentStyles.height.replace('h-', '')} p-0` : 
-    isIconOnly ? `w-${componentStyles.height.replace('h-', '')} px-0` : 
-    componentStyles.padding
+    isIconOnly && isCircular ? `w-${buttonSize.height.replace('h-', '')} p-0` : 
+    isIconOnly ? `w-${buttonSize.height.replace('h-', '')} px-0` : 
+    buttonSize.padding
   ) : cn(
-    componentStyles.fontSize,
-    componentStyles.gap
+    buttonSize.fontSize,
+    "gap-2"
   );
 
   // Variant styles using CSS variables that adapt to themes automatically
@@ -122,7 +169,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       {loading && (
         <Icon 
           name="loading" 
-          size={componentStyles.iconSize} 
+          size={buttonSize.iconSize} 
           className="animate-spin" 
           aria-hidden="true"
         />
@@ -131,7 +178,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       {!loading && isIconOnly && icon && (
         <Icon 
           name={icon} 
-          size={componentStyles.iconSize} 
+          size={buttonSize.iconSize} 
           aria-hidden="true"
         />
       )}
@@ -141,7 +188,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
           {icon && iconPosition === 'leading' && (
             <Icon 
               name={icon} 
-              size={componentStyles.iconSize} 
+              size={buttonSize.iconSize} 
               aria-hidden="true"
             />
           )}
@@ -151,7 +198,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
           {icon && iconPosition === 'trailing' && (
             <Icon 
               name={icon} 
-              size={componentStyles.iconSize} 
+              size={buttonSize.iconSize} 
               aria-hidden="true"
             />
           )}

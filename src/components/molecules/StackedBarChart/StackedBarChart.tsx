@@ -58,10 +58,7 @@ const buildLegendFromData = (data: StackedBarData[]): StackedBarLegendItem[] => 
   }));
 };
 
-export const StackedBarChart = React.forwardRef<
-  HTMLDivElement,
-  StackedBarChartProps
->(
+export const StackedBarChart = React.forwardRef(
   (
     {
       data,
@@ -71,8 +68,8 @@ export const StackedBarChart = React.forwardRef<
       barHeight = 172,
       className,
       ...props
-    },
-    ref
+    }: StackedBarChartProps,
+    ref: React.Ref<HTMLDivElement>
   ) => {
     if (!data?.length) {
       return null;
@@ -162,4 +159,3 @@ export const StackedBarChart = React.forwardRef<
 StackedBarChart.displayName = 'StackedBarChart';
 
 export default StackedBarChart;
-

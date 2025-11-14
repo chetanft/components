@@ -30,6 +30,16 @@ export const TableCell: React.FC<TableCellProps> = ({
   // Determine if the cell should show hover state
   const showHoverState = state === 'hover' || (state === 'default' && isHovered);
   
+  // Determine background color based on state priority
+  const getBackgroundClass = () => {
+    if (state === 'selected' || showHoverState) {
+      return "bg-[var(--border-secondary)]";
+    }
+    return backgroundColor === 'white' 
+      ? "bg-[var(--bg-primary)]" 
+      : "bg-[var(--bg-secondary)]";
+  };
+
   return (
     <td
       className={cn(
@@ -41,11 +51,8 @@ export const TableCell: React.FC<TableCellProps> = ({
         size === 'lg' && "py-[20px] px-[16px] pl-[8px]",
         size === 'xl' && "py-[32px] px-[20px] pl-[8px]",
         
-        // Background colors based on state - use CSS variables
-        (state === 'default' && !isHovered) && (
-          backgroundColor === 'white' ? "bg-[var(--bg-primary)]" : "bg-[var(--bg-secondary)]"
-        ),
-        (showHoverState || state === 'selected') && "bg-[var(--border-secondary)]",
+        // Background color
+        getBackgroundClass(),
         
         // Selected state can have additional styling if needed
         state === 'selected' && "relative",
