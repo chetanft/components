@@ -43,13 +43,6 @@ export interface TableProps<T extends TableRow = TableRow> {
   rowAccessory?: (row: T, selected: boolean) => React.ReactNode;
   rowActions?: (row: T) => React.ReactNode;
   rowActionsLabel?: string;
-  pagination?: {
-    currentPage: number;
-    totalPages: number;
-    pageSize: number;
-    totalItems: number;
-    onPageChange: (page: number) => void;
-  };
   loading?: boolean;
   emptyMessage?: string;
   className?: string;
@@ -314,112 +307,6 @@ const TableRowComponent = <T extends TableRow = TableRow>({
   );
 };
 
-// Pagination Component
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  totalItems: number;
-  pageSize: number;
-  onPageChange: (page: number) => void;
-}
-
-const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
-  totalPages,
-  totalItems,
-  pageSize,
-  onPageChange
-}) => {
-  const getVisiblePages = () => {
-    const delta = 2;
-    const range = [];
-    const rangeWithDots = [];
-
-    for (let i = Math.max(2, currentPage - delta); 
-         i <= Math.min(totalPages - 1, currentPage + delta); 
-         i++) {
-      range.push(i);
-    }
-
-    if (currentPage - delta > 2) {
-      rangeWithDots.push(1, '...');
-    } else {
-      rangeWithDots.push(1);
-    }
-
-    rangeWithDots.push(...range);
-
-    if (currentPage + delta < totalPages - 1) {
-      rangeWithDots.push('...', totalPages);
-    } else if (totalPages > 1) {
-      rangeWithDots.push(totalPages);
-    }
-
-    return rangeWithDots;
-  };
-
-  const startItem = ((currentPage - 1) * pageSize) + 1;
-  const endItem = Math.min(currentPage * pageSize, totalItems);
-
-  return (
-    <div className="flex items-center justify-between border-t border-[var(--border_secondary,#f0f1f7)] bg-[var(--bg_primary,#ffffff)] px-[var(--x3,12px)] py-[var(--x3,12px)]">
-      <div className="flex items-center gap-[var(--x4,16px)]">
-        <TableCellText type="secondary">
-          Showing {startItem}-{endItem} of {totalItems} results
-        </TableCellText>
-      </div>
-
-      <div className="flex items-center gap-[var(--x1,4px)]">
-        <Button
-          variant="secondary"
-          size="sm"
-          disabled={currentPage === 1}
-          onClick={() => onPageChange(currentPage - 1)}
-          className="rounded-full"
-        >
-          <Icon name="chevron-left" size={16} />
-          Previous
-        </Button>
-
-        <div className="flex items-center gap-[var(--x1,4px)]">
-          {getVisiblePages().map((page, index) => (
-            <React.Fragment key={index}>
-              {page === '...' ? (
-                <TableCellText
-                  type="secondary"
-                  className="px-[var(--x2,8px)] py-[var(--x1,4px)]"
-                >
-                  ...
-                </TableCellText>
-              ) : (
-                <Button
-                  variant={currentPage === page ? "primary" : "secondary"}
-                  size="sm"
-                  onClick={() => onPageChange(page as number)}
-                  className="rounded-full !w-8 !h-8 !p-0 !min-w-0"
-                >
-                  {page}
-                </Button>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-
-        <Button
-          variant="secondary"
-          size="sm"
-          disabled={currentPage === totalPages}
-          onClick={() => onPageChange(currentPage + 1)}
-          className="rounded-full"
-        >
-          Next
-          <Icon name="chevron-right" size={16} />
-        </Button>
-      </div>
-    </div>
-  );
-};
-
 // Main Table Component
 export const Table = <T extends TableRow = TableRow>({
   columns,
@@ -434,7 +321,6 @@ export const Table = <T extends TableRow = TableRow>({
   rowAccessory,
   rowActions,
   rowActionsLabel = 'Actions',
-  pagination,
   loading = false,
   emptyMessage,
   className
@@ -520,10 +406,6 @@ export const Table = <T extends TableRow = TableRow>({
           </tbody>
         </table>
       </div>
-      
-      {pagination && (
-        <Pagination {...pagination} />
-      )}
     </div>
   );
 };

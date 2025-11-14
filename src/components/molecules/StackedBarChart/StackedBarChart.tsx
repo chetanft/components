@@ -77,12 +77,11 @@ export const StackedBarChart = React.forwardRef(
 
     const computedMax =
       maxValue ??
-      Math.max(
+      (Math.max(
         ...data.map((bar) =>
           bar.segments.reduce((sum, segment) => sum + (segment.value || 0), 0)
         )
-      ) ||
-      1;
+      ) || 1);
 
     const resolvedLegend = legend ?? buildLegendFromData(data);
 

@@ -358,25 +358,12 @@ export const WithAtomicComponents: Story = {
 export const WithAccessoryAndActions: Story = {
   render: (args) => {
     const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const data = args.data ?? extendedUsers;
-    const pageSize = 5;
-    const totalItems = data.length;
-    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
 
     return (
       <Table
         {...args}
-        data={data}
         selectedRows={selectedRows}
         onSelectionChange={setSelectedRows}
-        pagination={{
-          currentPage,
-          totalPages,
-          pageSize,
-          totalItems,
-          onPageChange: setCurrentPage,
-        }}
       />
     );
   },
