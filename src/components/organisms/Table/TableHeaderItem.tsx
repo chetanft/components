@@ -70,17 +70,17 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
     return colorVariant === 'dark25' ? 'var(--bg-primary)' : 'var(--secondary)';
   };
 
-  // Size-based padding from Figma design
+  // Size-based padding from Figma design - compact for better alignment
   const getPadding = () => {
     if (type === 'checkbox') {
-      return "py-[15px] px-[20px] pl-[8px]"; // Checkbox columns have consistent padding
+      return "py-[12px] px-[16px] pl-[8px]"; // Checkbox columns have consistent padding
     }
     
     switch (size) {
-      case 'md': return "py-[15px] px-[20px] pl-[8px]";
-      case 'lg': return "py-[15px] px-[16px] pl-[8px]";
-      case 'xl': return "py-[15px] px-[20px] pl-[8px]";
-      default: return "py-[15px] px-[20px] pl-[8px]";
+      case 'md': return "py-[12px] px-[16px] pl-[8px]";
+      case 'lg': return "py-[16px] px-[16px] pl-[8px]";
+      case 'xl': return "py-[20px] px-[20px] pl-[8px]";
+      default: return "py-[12px] px-[16px] pl-[8px]";
     }
   };
 

@@ -46,10 +46,10 @@ export const TableCell: React.FC<TableCellProps> = ({
         // Base styles
         "transition-colors duration-200 border-b border-[var(--border-primary)]",
         
-        // Size variants from Figma
-        size === 'md' && "py-[20px] px-[20px] pl-[8px]",
-        size === 'lg' && "py-[20px] px-[16px] pl-[8px]",
-        size === 'xl' && "py-[32px] px-[20px] pl-[8px]",
+        // Size variants from Figma - compact spacing
+        size === 'md' && "py-[12px] px-[16px] pl-[8px]",
+        size === 'lg' && "py-[16px] px-[16px] pl-[8px]",
+        size === 'xl' && "py-[20px] px-[20px] pl-[8px]",
         
         // Background color
         getBackgroundClass(),
