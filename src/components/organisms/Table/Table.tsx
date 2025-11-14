@@ -64,7 +64,8 @@ interface TableHeaderProps<T extends TableRow = TableRow> {
   cellSize?: 'md' | 'lg' | 'xl';
 }
 
-const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[132px]';
+const CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[72px]';
+const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[100px]';
 
 const TableHeader = <T extends TableRow = TableRow>({
   columns,
@@ -124,7 +125,7 @@ const TableHeader = <T extends TableRow = TableRow>({
               indeterminate: isIndeterminate,
               onChange: handleSelectAll
             }}
-            className="w-[92px]" // Exact width from Figma
+            className={CHECKBOX_COLUMN_WIDTH_CLASS}
           />
         )}
         {columns.map((column) => (
@@ -251,13 +252,13 @@ const TableRowComponent = <T extends TableRow = TableRow>({
           lineVariant="single"
           size={cellSize}
           state={selected ? 'selected' : (hoveredRowIndex ? 'hover' : 'default')}
-          className="w-[92px]" // Exact width from Figma
+          className={CHECKBOX_COLUMN_WIDTH_CLASS}
           onClick={handleSelect}
         >
           <div
             className={cn(
-              'flex w-full items-center justify-center',
-              rowAccessory && 'gap-[var(--x1,4px)]'
+              'flex w-full items-center justify-start',
+              rowAccessory ? 'gap-[var(--x2,8px)]' : 'justify-center'
             )}
           >
             <Checkbox
@@ -265,18 +266,16 @@ const TableRowComponent = <T extends TableRow = TableRow>({
               onChange={handleSelect}
               size="md"
             />
-            {rowAccessory && (
-              <div className="flex items-center justify-center">
-                {rowAccessory(row, selected)}
-              </div>
-            )}
+            {rowAccessory && rowAccessory(row, selected)}
           </div>
         </TableCell>
       )}
       {columns.map((column, columnIndex) => {
         const cellIndex = columnIndex + (selectable ? 1 : 0);
         // Determine if this cell should have multiple lines based on content
-        const hasSingleLine = !row[column.key] || String(row[column.key]).length < 20;
+        const cellValue = row[column.key];
+        const hasNewlines = typeof cellValue === 'string' && cellValue.includes('\n');
+        const hasSingleLine = !cellValue || (!hasNewlines && String(cellValue).length < 20);
         
         return (
           <TableCell 
@@ -286,7 +285,7 @@ const TableRowComponent = <T extends TableRow = TableRow>({
             size={cellSize}
             state={selected ? 'selected' : (hoveredRowIndex ? 'hover' : 'default')}
           >
-            {renderCellContent(column, row[column.key])}
+            {renderCellContent(column, cellValue)}
           </TableCell>
         );
       })}

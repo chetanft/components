@@ -19,12 +19,12 @@ interface User extends TableRow {
   orders: number;
 }
 
-// Sample data
+// Sample data with multi-line content
 const sampleUsers: User[] = [
   {
     id: '1',
-    name: 'John Doe',
-    email: 'john.doe@example.com',
+    name: 'John Doe\n1234567890',
+    email: 'john.doe@example.com\nAdditional info',
     role: 'Admin',
     status: 'Active',
     createdAt: new Date('2023-01-15'),
@@ -32,8 +32,8 @@ const sampleUsers: User[] = [
   },
   {
     id: '2',
-    name: 'Jane Smith',
-    email: 'jane.smith@example.com',
+    name: 'Jane Smith\n0987654321',
+    email: 'jane.smith@example.com\nSecondary contact',
     role: 'User',
     status: 'Active',
     createdAt: new Date('2023-02-20'),
@@ -41,8 +41,8 @@ const sampleUsers: User[] = [
   },
   {
     id: '3',
-    name: 'Bob Johnson',
-    email: 'bob.johnson@example.com',
+    name: 'Bob Johnson\n5551234567',
+    email: 'bob.johnson@example.com\nWork email',
     role: 'Editor',
     status: 'Inactive',
     createdAt: new Date('2023-01-10'),
@@ -50,8 +50,8 @@ const sampleUsers: User[] = [
   },
   {
     id: '4',
-    name: 'Alice Brown',
-    email: 'alice.brown@example.com',
+    name: 'Alice Brown\n9998887777',
+    email: 'alice.brown@example.com\nPersonal email',
     role: 'User',
     status: 'Pending',
     createdAt: new Date('2023-03-05'),
@@ -59,8 +59,8 @@ const sampleUsers: User[] = [
   },
   {
     id: '5',
-    name: 'Charlie Wilson',
-    email: 'charlie.wilson@example.com',
+    name: 'Charlie Wilson\n3334445555',
+    email: 'charlie.wilson@example.com\nBusiness contact',
     role: 'Admin',
     status: 'Active',
     createdAt: new Date('2023-02-14'),
@@ -225,13 +225,13 @@ const starAccessoryButton = (_row: User, selected: boolean) => (
   <button
     type="button"
     aria-label="Toggle favorite"
-    className={`inline-flex size-8 items-center justify-center rounded-full border border-[var(--border_primary,#ced1d7)] bg-[var(--bg_primary,#ffffff)] transition-colors ${
+    className={`inline-flex items-center justify-center transition-colors ${
       selected
-        ? 'text-[var(--primary,#434f64)]'
+        ? 'text-[var(--warning,#ff9800)]'
         : 'text-[var(--tertiary,#838c9d)]'
     }`}
   >
-    <Icon name="star" size={14} />
+    <Icon name="star" size={16} />
   </button>
 );
 
@@ -240,19 +240,19 @@ const rowActionButtons = () => (
     <Button
       variant="secondary"
       size="sm"
-      className="size-8 rounded-full !p-0"
+      icon="more"
+      iconPosition="only"
+      className="!size-8 !min-w-0 !p-0 rounded-full"
       aria-label="More options"
-    >
-      <Icon name="more" size={14} />
-    </Button>
+    />
     <Button
       variant="secondary"
       size="sm"
-      className="size-8 rounded-full !p-0"
+      icon="chevron-right"
+      iconPosition="only"
+      className="!size-8 !min-w-0 !p-0 rounded-full"
       aria-label="Go to details"
-    >
-      <Icon name="chevron-right" size={14} />
-    </Button>
+    />
   </>
 );
 
