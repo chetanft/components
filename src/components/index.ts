@@ -3,6 +3,7 @@
 // ======================
 
 // ATOMS - Basic building blocks
+export * from './atoms/Avatar';
 export * from './atoms/Badge';
 export * from './atoms/Button/Button';
 export * from './atoms/Checkbox';
@@ -23,7 +24,10 @@ export * from './atoms/Typography';
 
 // MOLECULES - Simple combinations of atoms
 export * from './molecules/Chicklet';
+export * from './molecules/ButtonGroup';
 export * from './molecules/DatePicker';
+export * from './molecules/StackedBarChart';
+export * from './molecules/SimpleColumnLayout';
 export * from './molecules/Dropdown';
 export * from './molecules/ProgressBar';
 export * from './molecules/ProgressList';

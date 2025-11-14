@@ -212,6 +212,50 @@ const atomicColumns: TableColumn<User>[] = [
   }
 ];
 
+const extendedUsers: User[] = Array.from({ length: 12 }, (_, index) => {
+  const template = sampleUsers[index % sampleUsers.length];
+  return {
+    ...template,
+    id: `${index + 1}`,
+    name: `${template.name} ${index + 1}`,
+  };
+});
+
+const starAccessoryButton = (_row: User, selected: boolean) => (
+  <button
+    type="button"
+    aria-label="Toggle favorite"
+    className={`inline-flex size-8 items-center justify-center rounded-full border border-[var(--border_primary,#ced1d7)] bg-[var(--bg_primary,#ffffff)] transition-colors ${
+      selected
+        ? 'text-[var(--primary,#434f64)]'
+        : 'text-[var(--tertiary,#838c9d)]'
+    }`}
+  >
+    <Icon name="star" size={14} />
+  </button>
+);
+
+const rowActionButtons = () => (
+  <>
+    <Button
+      variant="secondary"
+      size="sm"
+      className="size-8 rounded-full !p-0"
+      aria-label="More options"
+    >
+      <Icon name="more" size={14} />
+    </Button>
+    <Button
+      variant="secondary"
+      size="sm"
+      className="size-8 rounded-full !p-0"
+      aria-label="Go to details"
+    >
+      <Icon name="chevron-right" size={14} />
+    </Button>
+  </>
+);
+
 // Basic table story
 export const Default: Story = {
   args: {
@@ -309,6 +353,41 @@ export const WithAtomicComponents: Story = {
       }
     }
   }
+};
+
+export const WithAccessoryAndActions: Story = {
+  render: (args) => {
+    const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const data = args.data ?? extendedUsers;
+    const pageSize = 5;
+    const totalItems = data.length;
+    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+
+    return (
+      <Table
+        {...args}
+        data={data}
+        selectedRows={selectedRows}
+        onSelectionChange={setSelectedRows}
+        pagination={{
+          currentPage,
+          totalPages,
+          pageSize,
+          totalItems,
+          onPageChange: setCurrentPage,
+        }}
+      />
+    );
+  },
+  args: {
+    columns: basicColumns,
+    data: extendedUsers,
+    selectable: true,
+    rowAccessory: starAccessoryButton,
+    rowActions: rowActionButtons,
+    rowActionsLabel: 'Actions',
+  },
 };
 
 export const FigmaVariants: Story = {

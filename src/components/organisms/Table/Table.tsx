@@ -40,6 +40,9 @@ export interface TableProps<T extends TableRow = TableRow> {
   onSort?: (column: string, direction: SortDirection) => void;
   sortColumn?: string;
   sortDirection?: SortDirection;
+  rowAccessory?: (row: T, selected: boolean) => React.ReactNode;
+  rowActions?: (row: T) => React.ReactNode;
+  rowActionsLabel?: string;
   pagination?: {
     currentPage: number;
     totalPages: number;
@@ -63,8 +66,12 @@ interface TableHeaderProps<T extends TableRow = TableRow> {
   onSort?: (column: string, direction: SortDirection) => void;
   sortColumn?: string;
   sortDirection?: SortDirection;
+  hasRowActions?: boolean;
+  rowActionsLabel?: string;
   cellSize?: 'md' | 'lg' | 'xl';
 }
+
+const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[132px]';
 
 const TableHeader = <T extends TableRow = TableRow>({
   columns,
@@ -76,6 +83,8 @@ const TableHeader = <T extends TableRow = TableRow>({
   onSort,
   sortColumn,
   sortDirection,
+  hasRowActions = false,
+  rowActionsLabel,
   cellSize = 'md'
 }: TableHeaderProps<T>) => {
   const isAllSelected = allRowIds.length > 0 && selectedRows.length === allRowIds.length;
@@ -140,6 +149,15 @@ const TableHeader = <T extends TableRow = TableRow>({
             {column.title}
           </TableHeaderItem>
         ))}
+        {hasRowActions && (
+          <TableHeaderItem
+            colorVariant={headerColorVariant}
+            size={cellSize}
+            className={cn('text-right', ACTIONS_COLUMN_WIDTH_CLASS)}
+          >
+            {rowActionsLabel || ''}
+          </TableHeaderItem>
+        )}
       </tr>
     </thead>
   );
@@ -154,6 +172,8 @@ interface TableRowProps<T extends TableRow = TableRow> {
   selectable?: boolean;
   selected?: boolean;
   onSelectionChange?: (rowId: string | number, selected: boolean) => void;
+  rowAccessory?: (row: T, selected: boolean) => React.ReactNode;
+  rowActions?: (row: T) => React.ReactNode;
   cellSize?: 'md' | 'lg' | 'xl';
 }
 
@@ -165,6 +185,8 @@ const TableRowComponent = <T extends TableRow = TableRow>({
   selectable,
   selected = false,
   onSelectionChange,
+  rowAccessory,
+  rowActions,
   cellSize = 'md'
 }: TableRowProps<T>) => {
   const [hoveredRowIndex, setHoveredRowIndex] = useState<boolean>(false);
@@ -222,6 +244,8 @@ const TableRowComponent = <T extends TableRow = TableRow>({
     // Even rows (0, 2, 4...) = white, Odd rows (1, 3, 5...) = bg
     return index % 2 === 0 ? 'white' : 'bg';
   };
+  
+  const actionCellIndex = columns.length + (selectable ? 1 : 0);
 
   return (
     <tr 
@@ -237,12 +261,22 @@ const TableRowComponent = <T extends TableRow = TableRow>({
           className="w-[92px]" // Exact width from Figma
           onClick={handleSelect}
         >
-          <div className="flex items-center justify-center">
+          <div
+            className={cn(
+              'flex w-full items-center justify-center',
+              rowAccessory && 'gap-[var(--x1,4px)]'
+            )}
+          >
             <Checkbox
               checked={selected}
               onChange={handleSelect}
               size="md"
             />
+            {rowAccessory && (
+              <div className="flex items-center justify-center">
+                {rowAccessory(row, selected)}
+              </div>
+            )}
           </div>
         </TableCell>
       )}
@@ -263,6 +297,19 @@ const TableRowComponent = <T extends TableRow = TableRow>({
           </TableCell>
         );
       })}
+      {rowActions && (
+        <TableCell
+          backgroundColor={getCellBackground(actionCellIndex)}
+          lineVariant="single"
+          size={cellSize}
+          state={selected ? 'selected' : (hoveredRowIndex ? 'hover' : 'default')}
+          className={ACTIONS_COLUMN_WIDTH_CLASS}
+        >
+          <div className="flex items-center justify-end gap-[var(--x1,4px)]">
+            {rowActions(row)}
+          </div>
+        </TableCell>
+      )}
     </tr>
   );
 };
@@ -315,14 +362,14 @@ const Pagination: React.FC<PaginationProps> = ({
   const endItem = Math.min(currentPage * pageSize, totalItems);
 
   return (
-    <div className="flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x3)] border-t border-[var(--color-border-secondary)] bg-[var(--color-background)]">
-      <div className="flex items-center gap-[var(--spacing-x4)]">
+    <div className="flex items-center justify-between border-t border-[var(--border_secondary,#f0f1f7)] bg-[var(--bg_primary,#ffffff)] px-[var(--x3,12px)] py-[var(--x3,12px)]">
+      <div className="flex items-center gap-[var(--x4,16px)]">
         <TableCellText type="secondary">
           Showing {startItem}-{endItem} of {totalItems} results
         </TableCellText>
       </div>
 
-      <div className="flex items-center gap-[var(--spacing-x1)]">
+      <div className="flex items-center gap-[var(--x1,4px)]">
         <Button
           variant="secondary"
           size="sm"
@@ -334,11 +381,14 @@ const Pagination: React.FC<PaginationProps> = ({
           Previous
         </Button>
 
-        <div className="flex items-center gap-[var(--spacing-x1)]">
+        <div className="flex items-center gap-[var(--x1,4px)]">
           {getVisiblePages().map((page, index) => (
             <React.Fragment key={index}>
               {page === '...' ? (
-                <TableCellText type="secondary" className="px-[var(--spacing-x2)] py-[var(--spacing-x1)]">
+                <TableCellText
+                  type="secondary"
+                  className="px-[var(--x2,8px)] py-[var(--x1,4px)]"
+                >
                   ...
                 </TableCellText>
               ) : (
@@ -381,6 +431,9 @@ export const Table = <T extends TableRow = TableRow>({
   onSort,
   sortColumn,
   sortDirection,
+  rowAccessory,
+  rowActions,
+  rowActionsLabel = 'Actions',
   pagination,
   loading = false,
   emptyMessage,
@@ -431,6 +484,8 @@ export const Table = <T extends TableRow = TableRow>({
             onSort={onSort}
             sortColumn={sortColumn}
             sortDirection={sortDirection}
+            hasRowActions={Boolean(rowActions)}
+            rowActionsLabel={rowActions ? rowActionsLabel : undefined}
             cellSize={cellSize}
           />
           <tbody>
@@ -456,6 +511,8 @@ export const Table = <T extends TableRow = TableRow>({
                   selectable={selectable}
                   selected={selectedRows.includes(row.id)}
                   onSelectionChange={handleRowSelectionChange}
+                  rowAccessory={rowAccessory}
+                  rowActions={rowActions}
                   cellSize={cellSize}
                 />
               ))
