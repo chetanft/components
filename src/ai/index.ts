@@ -18,6 +18,9 @@ import { Checkbox as CoreCheckbox } from '../components/atoms/Checkbox/Checkbox'
 import { Switch as CoreSwitch } from '../components/atoms/Switch/Switch';
 import { RadioGroup as CoreRadioGroup, RadioGroupItem as CoreRadioGroupItem } from '../components/atoms/RadioGroup/RadioGroup';
 import { Typography as CoreTypography } from '../components/atoms/Typography/Typography';
+import { Statistic as CoreStatistic } from '../components/atoms/Statistic/Statistic';
+import { Text as CoreText } from '../components/atoms/Text/Text';
+import { SubText as CoreSubText } from '../components/atoms/SubText/SubText';
 
 // Molecules
 import { DatePicker as CoreDatePicker } from '../components/molecules/DatePicker/DatePicker';
@@ -39,6 +42,9 @@ import { UploadZone as CoreUploadZone } from '../components/organisms/UploadZone
 import { FileCard as CoreFileCard } from '../components/organisms/FileCard/FileCard';
 import { FileThumbnail as CoreFileThumbnail } from '../components/organisms/FileThumbnail/FileThumbnail';
 import { FileTypeIcon as CoreFileTypeIcon } from '../components/organisms/FileTypeIcon/FileTypeIcon';
+import { Card as CoreCard } from '../components/organisms/Card/Card';
+import { DisplayBlock as CoreDisplayBlock } from '../components/organisms/DisplayBlock/DisplayBlock';
+import { NavigationMenu as CoreNavigationMenu } from '../components/organisms/NavigationMenu/NavigationMenu';
 
 // ======================
 // AI-PROTECTED ATOMS
@@ -52,6 +58,9 @@ export const Switch = withAIProtection(CoreSwitch);
 export const RadioGroup = withAIProtection(CoreRadioGroup);
 export const RadioGroupItem = withAIProtection(CoreRadioGroupItem);
 export const Typography = withAIProtection(CoreTypography);
+export const Statistic = withAIProtection(CoreStatistic);
+export const Text = withAIProtection(CoreText);
+export const SubText = withAIProtection(CoreSubText);
 
 // ======================
 // AI-PROTECTED MOLECULES
@@ -79,6 +88,9 @@ export const UploadZone = withAIProtection(CoreUploadZone);
 export const FileCard = withAIProtection(CoreFileCard);
 export const FileThumbnail = withAIProtection(CoreFileThumbnail);
 export const FileTypeIcon = withAIProtection(CoreFileTypeIcon);
+export const Card = withAIProtection(CoreCard);
+export const DisplayBlock = withAIProtection(CoreDisplayBlock);
+export const NavigationMenu = withAIProtection(CoreNavigationMenu);
 
 // ======================
 // AI UTILITIES
@@ -106,6 +118,9 @@ export type { BadgeProps } from '../components/atoms/Badge/Badge';
 export type { CheckboxProps } from '../components/atoms/Checkbox/Checkbox';
 export type { SwitchProps } from '../components/atoms/Switch/Switch';
 export type { RadioGroupProps, RadioOption } from '../components/atoms/RadioGroup/RadioGroup';
+export type { StatisticProps } from '../components/atoms/Statistic/Statistic';
+export type { TextProps } from '../components/atoms/Text/Text';
+export type { SubTextProps } from '../components/atoms/SubText/SubText';
 
 export type { DatePickerProps } from '../components/molecules/DatePicker/DatePicker';
 export type { DropdownProps, DropdownOption } from '../components/molecules/Dropdown/Dropdown';
@@ -124,4 +139,7 @@ export type { QuickFiltersProps, QuickFilter } from '../components/organisms/Qui
 export type { UploadZoneProps } from '../components/organisms/UploadZone/UploadZone';
 export type { FileCardProps } from '../components/organisms/FileCard/FileCard';
 export type { FileThumbnailProps } from '../components/organisms/FileThumbnail/FileThumbnail';
-export type { FileTypeIconProps } from '../components/organisms/FileTypeIcon/FileTypeIcon'; 
+export type { FileTypeIconProps } from '../components/organisms/FileTypeIcon/FileTypeIcon';
+export type { CardProps } from '../components/organisms/Card/Card';
+export type { DisplayBlockProps } from '../components/organisms/DisplayBlock/DisplayBlock';
+export type { NavigationMenuProps } from '../components/organisms/NavigationMenu/NavigationMenu'; 

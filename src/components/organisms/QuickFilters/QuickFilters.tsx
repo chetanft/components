@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 
-export type FilterType = 'normal' | 'alert';
+export type FilterType = 'normal' | 'alert' | 'warning' | 'success' | 'neutral';
 export type FilterState = 'default' | 'selected';
 
 export interface FilterOption {
@@ -74,10 +74,22 @@ const FilterChip: React.FC<{
             "inline-flex items-center justify-center px-2 py-0.5 rounded-full text-sm font-semibold min-w-[24px] h-5",
             // Count badge styling based on state and type
             isSelected 
-              ? "bg-white text-[#434F64]" // White background for selected state
-              : displayType === 'alert' 
-                ? "bg-[#F0F1F7] text-[#FF3533]" // Red text for alert type
-                : "bg-[#F0F1F7] text-[#434F64]" // Normal gray background and text
+              ? cn(
+                  "bg-white",
+                  displayType === 'alert' ? "text-[#FF3533]" :
+                  displayType === 'warning' ? "text-[#FF6C19]" :
+                  displayType === 'success' ? "text-[#00C638]" :
+                  displayType === 'neutral' ? "text-[#1890FF]" :
+                  "text-[#434F64]"
+                )
+              : cn(
+                  "bg-[#F0F1F7]",
+                  displayType === 'alert' ? "text-[#FF3533]" :
+                  displayType === 'warning' ? "text-[#FF6C19]" :
+                  displayType === 'success' ? "text-[#00C638]" :
+                  displayType === 'neutral' ? "text-[#1890FF]" :
+                  "text-[#434F64]"
+                )
           )}
         >
           {displayCount}
