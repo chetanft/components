@@ -18,21 +18,21 @@ export const PrimarySet: Story = {
     buttons: [
       {
         id: 'ghost',
-        label: '+ Button',
+        label: 'Button',
         variant: 'text',
         icon: 'add',
         iconPosition: 'leading',
       },
       {
         id: 'outline',
-        label: '+ Button',
+        label: 'Button',
         variant: 'secondary',
         icon: 'add',
         iconPosition: 'leading',
       },
       {
         id: 'filled',
-        label: '+ Button',
+        label: 'Button',
         variant: 'primary',
         icon: 'add',
         iconPosition: 'leading',
@@ -48,21 +48,21 @@ export const EqualWidth: Story = {
     buttons: [
       {
         id: 'ghost',
-        label: '+ Button',
+        label: 'Button',
         variant: 'text',
         icon: 'add',
         iconPosition: 'leading',
       },
       {
         id: 'outline',
-        label: '+ Button',
+        label: 'Button',
         variant: 'secondary',
         icon: 'add',
         iconPosition: 'leading',
       },
       {
         id: 'filled',
-        label: '+ Button',
+        label: 'Button',
         variant: 'primary',
         icon: 'add',
         iconPosition: 'leading',

@@ -2,6 +2,7 @@ import React from 'react';
 import { User, Settings, Refresh, Password, Logout } from '../../atoms/Icons';
 import { Logo } from '../../atoms/Logos';
 import { Avatar } from '../../atoms/Avatar';
+import { Typography } from '../../atoms/Typography';
 import { CompanyInfo } from '../../../types/company';
 
 export interface UserProfileProps {
@@ -86,22 +87,22 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               />
               <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--x2,8px)] items-start min-h-px min-w-px relative shrink-0">
                 <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
-                  <p className="font-[family-name:var(--font/family/display-primary,'Inter:Semibold',sans-serif)] font-[var(--font/weight/semibold,normal)] leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/lg,20px)]">
+                  <Typography variant="display-primary" color="primary" className="relative shrink-0">
                     {userName}
-                  </p>
+                  </Typography>
                   <div className="bg-[var(--border_secondary,#f0f1f7)] box-border content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[2px] relative rounded-[var(--x1,4px)] shrink-0">
-                    <p className="font-[family-name:var(--font/family/body-secondary,'Inter:Semibold',sans-serif)] font-[var(--font/weight/semibold,normal)] leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/sm,14px)]">
+                    <Typography variant="body-secondary-semibold" color="primary" className="relative shrink-0">
                       {userBadge}
-                    </p>
+                    </Typography>
                   </div>
                 </div>
-                <div className="content-stretch flex items-end justify-between leading-[1.4] relative shrink-0 w-full">
-                  <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/md,16px)]">
+                <div className="content-stretch flex items-end justify-between relative shrink-0 w-full">
+                  <Typography variant="body-primary-regular" color="primary" className="relative shrink-0">
                     {userRole}
-                  </p>
-                  <p className="font-[family-name:var(--font/family/body-secondary,'Inter:Medium',sans-serif)] font-[var(--font/weight/medium,normal)] font-medium relative shrink-0 text-[color:var(--tertiary,#838c9d)] text-[length:var(--font/sizes/sm,14px)]">
+                  </Typography>
+                  <Typography variant="body-secondary-medium" color="muted" className="relative shrink-0">
                     {userLocation}
-                  </p>
+                  </Typography>
                 </div>
               </div>
             </div>
@@ -121,9 +122,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
                 <User className="w-full h-full text-[color:var(--primary,#434f64)]" />
               </div>
-              <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/md,16px)]">
+              <Typography variant="body-primary-regular" color="primary" className="relative shrink-0">
                 View Profile
-              </p>
+              </Typography>
             </div>
 
             <div 
@@ -133,9 +134,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
                 <Settings className="w-full h-full text-[color:var(--primary,#434f64)]" />
               </div>
-              <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/md,16px)]">
+              <Typography variant="body-primary-regular" color="primary" className="relative shrink-0">
                 Settings
-              </p>
+              </Typography>
             </div>
 
             <div 
@@ -145,9 +146,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
                 <Refresh className="w-full h-full text-[color:var(--primary,#434f64)]" />
               </div>
-              <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/md,16px)]">
+              <Typography variant="body-primary-regular" color="primary" className="relative shrink-0">
                 Change Desk
-              </p>
+              </Typography>
             </div>
 
             <div 
@@ -157,9 +158,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip relative shrink-0 size-[16px]">
                 <Password className="w-full h-full text-[color:var(--primary,#434f64)]" />
               </div>
-              <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary,#434f64)] text-[length:var(--font/sizes/md,16px)]">
+              <Typography variant="body-primary-regular" color="primary" className="relative shrink-0">
                 Change Password
-              </p>
+              </Typography>
             </div>
           </div>
 
@@ -176,9 +177,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip relative shrink-0 size-[16px]">
               <Logout className="w-full h-full text-[color:var(--critical,#ff3533)]" />
             </div>
-            <p className="font-[family-name:var(--font/family/body-primary,'Inter:Regular',sans-serif)] font-[var(--font/weight/regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--critical,#ff3533)] text-[length:var(--font/sizes/md,16px)]">
+            <Typography variant="body-primary-regular" color="danger" className="relative shrink-0">
               Logout
-            </p>
+            </Typography>
           </div>
 
         </div>

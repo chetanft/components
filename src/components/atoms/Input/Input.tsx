@@ -50,6 +50,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     // Icon positioning based on unified sizing
     const iconOffsetMap = {
+      xxs: "left-1.5 right-1.5",
       xs: "left-2 right-2",
       sm: "left-3 right-3",
       md: "left-4 right-4", 
@@ -59,6 +60,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
     
     const iconPaddingMap = {
+      xxs: { left: "pl-6", right: "pr-6" },
       xs: { left: "pl-7", right: "pr-7" },
       sm: { left: "pl-9", right: "pr-9" },
       md: { left: "pl-11", right: "pr-11" },
@@ -85,8 +87,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       variant === 'filled' 
         ? "bg-surface-alt dark:bg-surface-alt-dark border-2 border-transparent focus:bg-surface dark:focus:bg-surface-dark focus:border-border-alt dark:focus:border-border-alt-dark"
         : variant === 'outlined'
-        ? "bg-transparent border border-border dark:border-border-dark hover:border-secondary focus:border-primary"
-        : "bg-surface dark:bg-surface-dark border-2 border-border dark:border-border-dark",
+        ? "bg-transparent border border-border dark:border-border-dark hover:border-border-hover dark:hover:border-border-hover-dark focus:border-primary"
+        : "bg-surface dark:bg-surface-dark border-2 border-border dark:border-border-dark hover:border-border-hover dark:hover:border-border-hover-dark",
       // State styles with dark mode support
       disabled
         ? "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"

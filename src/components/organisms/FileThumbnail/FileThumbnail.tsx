@@ -4,6 +4,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Button } from '../../atoms/Button/Button';
 import { Icon } from '../../atoms/Icons';
+import { Typography } from '../../atoms/Typography';
 
 export interface FileThumbnailProps extends React.HTMLAttributes<HTMLDivElement> {
   fileName: string;
@@ -42,9 +43,13 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
           />
           
           {/* File Name */}
-          <span className="text-[14px] font-[500] leading-[1.4] text-[var(--primary)] truncate">
+          <Typography 
+            variant="body-secondary-medium"
+            as="span"
+            className="text-[var(--primary)] truncate"
+          >
             {fileName}
-          </span>
+          </Typography>
         </div>
         
         {/* Action Button */}
@@ -56,9 +61,13 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
             onClick={onDownload}
           >
             <Icon name="download" size={16} />
-            <span className="text-[16px] font-[500] leading-[1.4] text-[var(--primary)]">
+            <Typography 
+              variant="body-primary-medium"
+              as="span"
+              className="text-[var(--primary)]"
+            >
               Download
-            </span>
+            </Typography>
           </Button>
         )}
       </div>

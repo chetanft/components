@@ -11,6 +11,7 @@ const dropdownFieldVariants = cva(
   {
     variants: {
       size: {
+        xxs: "text-xs",
         xs: "text-xs",
         sm: "text-sm",
         md: "text-base",
@@ -19,7 +20,7 @@ const dropdownFieldVariants = cva(
         xxl: "text-lg",
       },
       state: {
-        default: "border-[var(--border-primary)] dark:border-border-dark focus-within:border-focus dark:focus-within:border-focus-dark",
+        default: "border-[var(--border-primary)] dark:border-border-dark hover:border-border-hover dark:hover:border-border-hover-dark focus-within:border-focus dark:focus-within:border-focus-dark",
         error: "border-critical focus-within:border-critical focus-within:ring-critical/20",
         disabled: "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed",
       },
@@ -93,6 +94,13 @@ interface SizeStyles {
 }
 
 const sizeStylesMap: Record<ComponentSize, SizeStyles> = {
+  xxs: {
+    height: "h-component-xxs",
+    fontSize: "text-xs",
+    borderRadius: "rounded-lg",
+    padding: "px-1.5",
+    iconSize: 12,
+  },
   xs: {
     height: "h-component-xs",
     fontSize: "text-xs",

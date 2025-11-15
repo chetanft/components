@@ -16,18 +16,23 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 'display-bold', 'body-semibold', 'body-regular', 'body-medium', 'caption', 'button'],
-      description: 'Typography variant based on Figma design system'
-    },
-    size: {
-      control: 'select',
-      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
-      description: 'Override the default size of the variant'
-    },
-    weight: {
-      control: 'select',
-      options: ['regular', 'medium', 'semibold', 'bold'],
-      description: 'Override the default weight of the variant'
+      options: [
+        'title-primary',
+        'title-secondary',
+        'display-primary',
+        'button',
+        'body-primary-semibold',
+        'body-primary-medium',
+        'body-primary-italic',
+        'body-primary-regular',
+        'body-secondary-semibold',
+        'body-secondary-medium',
+        'body-secondary-regular',
+        // Legacy
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 
+        'display-bold', 'body-semibold', 'body-regular', 'body-medium', 'caption'
+      ],
+      description: 'Typography variant based on Figma design system (28/140 = 28px font, 140% line-height)'
     },
     color: {
       control: 'select',
@@ -48,109 +53,151 @@ export const Default: Story = {
   },
 };
 
-// Quick test for developers
+// Quick test for developers - All Figma variants
 export const QuickTest = () => (
   <div style={{ border: '1px solid #e5e7eb', padding: '20px', backgroundColor: 'white', borderRadius: '8px' }}>
-    <h3 style={{ color: '#374151', marginBottom: '16px', marginTop: 0 }}>🚀 Quick Typography Test</h3>
+    <h3 style={{ color: '#374151', marginBottom: '16px', marginTop: 0 }}>🚀 All Figma Typography Variants</h3>
     <div style={{ display: 'grid', gap: '12px' }}>
-      <Typography variant="h1">H1: Main Page Title</Typography>
-      <Typography variant="h2">H2: Section Heading</Typography>
-      <Typography variant="display-bold">Display: Key Information</Typography>
-      <Typography variant="body-semibold">Body Semibold: Important Text</Typography>
-      <Typography variant="body-regular">Body Regular: Standard Text Content</Typography>
-      <Typography variant="button">Button Text</Typography>
+      <div><strong>Title:</strong></div>
+      <Typography variant="title-primary">Title Primary: 28/140</Typography>
+      <Typography variant="title-secondary">Title Secondary: 24/140</Typography>
+      
+      <div style={{ marginTop: '12px' }}><strong>Display:</strong></div>
+      <Typography variant="display-primary">Display Primary: 20/140</Typography>
+      
+      <div style={{ marginTop: '12px' }}><strong>Button:</strong></div>
+      <Typography variant="button">Button: 20/140</Typography>
+      
+      <div style={{ marginTop: '12px' }}><strong>Body Primary (16px):</strong></div>
+      <Typography variant="body-primary-semibold">Body Primary Semibold: 16/140</Typography>
+      <Typography variant="body-primary-medium">Body Primary Medium: 16/140</Typography>
+      <Typography variant="body-primary-italic">Body Primary Italic: 16/140</Typography>
+      <Typography variant="body-primary-regular">Body Primary Regular: 16/140</Typography>
+      
+      <div style={{ marginTop: '12px' }}><strong>Body Secondary (14px):</strong></div>
+      <Typography variant="body-secondary-semibold">Body Secondary Semibold: 14/140</Typography>
+      <Typography variant="body-secondary-medium">Body Secondary Medium: 14/140</Typography>
+      <Typography variant="body-secondary-regular">Body Secondary Regular: 14/140</Typography>
+      
+      <div style={{ marginTop: '12px' }}><strong>Colors:</strong></div>
       <Typography color="danger">Error: Something went wrong</Typography>
       <Typography color="success">Success: Operation completed</Typography>
     </div>
   </div>
 );
 
-// Figma design system showcase
+// Figma design system showcase - Complete with all variants
 export const FigmaDesignSystem = () => (
   <div className="space-y-8 p-6">
     <div className="border-l-4 border-blue-500 pl-4">
       <h2 className="text-xl font-bold mb-2">📋 Figma Typography System</h2>
-      <p className="text-gray-600">Exact specifications from the design system. Use these variants for consistent UI.</p>
+      <p className="text-gray-600">Complete specifications from Figma (Format: Size/LineHeight)</p>
     </div>
     
     {/* Title Styles */}
     <section>
-      <h3 className="text-lg font-semibold mb-4 text-blue-600 border-b border-blue-200 pb-2">📖 Title Styles</h3>
+      <h3 className="text-lg font-semibold mb-4 text-blue-600 border-b border-blue-200 pb-2">📖 Title</h3>
       <div className="space-y-6">
         <div className="bg-blue-50 p-4 rounded-lg">
           <div className="flex justify-between items-center mb-2">
-            <code className="text-xs bg-white px-2 py-1 rounded">variant="h1"</code>
-            <small className="text-xs text-gray-500">28px, Regular, 140% line-height</small>
+            <code className="text-xs bg-white px-2 py-1 rounded">variant="title-primary"</code>
+            <small className="text-xs text-gray-500">Primary · 28/140</small>
           </div>
-          <Typography variant="h1">Page Title - Freight Tiger Logistics</Typography>
+          <Typography variant="title-primary">Title Primary - Page Title</Typography>
         </div>
         <div className="bg-blue-50 p-4 rounded-lg">
           <div className="flex justify-between items-center mb-2">
-            <code className="text-xs bg-white px-2 py-1 rounded">variant="h2"</code>
-            <small className="text-xs text-gray-500">24px, Semibold, 140% line-height</small>
+            <code className="text-xs bg-white px-2 py-1 rounded">variant="title-secondary"</code>
+            <small className="text-xs text-gray-500">Secondary · 24/140</small>
           </div>
-          <Typography variant="h2">Section Title - Dashboard Overview</Typography>
+          <Typography variant="title-secondary">Title Secondary - Section Heading</Typography>
         </div>
       </div>
     </section>
 
     {/* Display Styles */}
     <section>
-      <h3 className="text-lg font-semibold mb-4 text-green-600 border-b border-green-200 pb-2">🎯 Display Styles</h3>
+      <h3 className="text-lg font-semibold mb-4 text-green-600 border-b border-green-200 pb-2">🎯 Display</h3>
       <div className="bg-green-50 p-4 rounded-lg">
         <div className="flex justify-between items-center mb-2">
-          <code className="text-xs bg-white px-2 py-1 rounded">variant="display-bold"</code>
-          <small className="text-xs text-gray-500">20px, Semibold, 140% line-height</small>
+          <code className="text-xs bg-white px-2 py-1 rounded">variant="display-primary"</code>
+          <small className="text-xs text-gray-500">Primary · 20/140</small>
         </div>
-        <Typography variant="display-bold">Key Metrics and Dashboard Data</Typography>
+        <Typography variant="display-primary">Display Primary - Dashboard Data</Typography>
       </div>
     </section>
 
-    {/* Body Styles */}
+    {/* Button Styles */}
     <section>
-      <h3 className="text-lg font-semibold mb-4 text-purple-600 border-b border-purple-200 pb-2">📝 Body Styles</h3>
+      <h3 className="text-lg font-semibold mb-4 text-orange-600 border-b border-orange-200 pb-2">🔘 Button</h3>
+      <div className="bg-orange-50 p-4 rounded-lg">
+        <div className="flex justify-between items-center mb-2">
+          <code className="text-xs bg-white px-2 py-1 rounded">variant="button"</code>
+          <small className="text-xs text-gray-500">Btn · 20/140</small>
+        </div>
+        <Typography variant="button">Button Text</Typography>
+      </div>
+    </section>
+
+    {/* Body Primary Styles */}
+    <section>
+      <h3 className="text-lg font-semibold mb-4 text-purple-600 border-b border-purple-200 pb-2">📝 Body Primary (16px)</h3>
       <div className="space-y-4">
         <div className="bg-purple-50 p-4 rounded-lg">
           <div className="flex justify-between items-center mb-2">
-            <code className="text-xs bg-white px-2 py-1 rounded">variant="body-semibold"</code>
-            <small className="text-xs text-gray-500">16px, Semibold, 140% line-height</small>
+            <code className="text-xs bg-white px-2 py-1 rounded">variant="body-primary-semibold"</code>
+            <small className="text-xs text-gray-500">Primary - Semibold · 16/140</small>
           </div>
-          <Typography variant="body-semibold">Important body text for emphasis and key information</Typography>
+          <Typography variant="body-primary-semibold">Body Primary Semibold - Important text</Typography>
         </div>
         <div className="bg-purple-50 p-4 rounded-lg">
           <div className="flex justify-between items-center mb-2">
-            <code className="text-xs bg-white px-2 py-1 rounded">variant="body-regular"</code>
-            <small className="text-xs text-gray-500">16px, Regular, 140% line-height</small>
+            <code className="text-xs bg-white px-2 py-1 rounded">variant="body-primary-medium"</code>
+            <small className="text-xs text-gray-500">Primary - Medium · 16/140</small>
           </div>
-          <Typography variant="body-regular">Standard body text for regular content and descriptions</Typography>
+          <Typography variant="body-primary-medium">Body Primary Medium - Highlighted content</Typography>
         </div>
         <div className="bg-purple-50 p-4 rounded-lg">
           <div className="flex justify-between items-center mb-2">
-            <code className="text-xs bg-white px-2 py-1 rounded">variant="body-medium"</code>
-            <small className="text-xs text-gray-500">14px, Medium, 140% line-height</small>
+            <code className="text-xs bg-white px-2 py-1 rounded">variant="body-primary-italic"</code>
+            <small className="text-xs text-gray-500">Primary - Italic · 16/140</small>
           </div>
-          <Typography variant="body-medium">Secondary body text for supporting information</Typography>
+          <Typography variant="body-primary-italic">Body Primary Italic - Emphasized text</Typography>
+        </div>
+        <div className="bg-purple-50 p-4 rounded-lg">
+          <div className="flex justify-between items-center mb-2">
+            <code className="text-xs bg-white px-2 py-1 rounded">variant="body-primary-regular"</code>
+            <small className="text-xs text-gray-500">Primary - Regular · 16/140</small>
+          </div>
+          <Typography variant="body-primary-regular">Body Primary Regular - Standard content</Typography>
         </div>
       </div>
     </section>
 
-    {/* Special Styles */}
+    {/* Body Secondary Styles */}
     <section>
-      <h3 className="text-lg font-semibold mb-4 text-orange-600 border-b border-orange-200 pb-2">⚡ Special Styles</h3>
+      <h3 className="text-lg font-semibold mb-4 text-indigo-600 border-b border-indigo-200 pb-2">📄 Body Secondary (14px)</h3>
       <div className="space-y-4">
-        <div className="bg-orange-50 p-4 rounded-lg">
+        <div className="bg-indigo-50 p-4 rounded-lg">
           <div className="flex justify-between items-center mb-2">
-            <code className="text-xs bg-white px-2 py-1 rounded">variant="button"</code>
-            <small className="text-xs text-gray-500">20px, Medium, 140% line-height, letter-spacing</small>
+            <code className="text-xs bg-white px-2 py-1 rounded">variant="body-secondary-semibold"</code>
+            <small className="text-xs text-gray-500">Secondary - Semibold · 14/140</small>
           </div>
-          <Typography variant="button">Call to Action Button</Typography>
+          <Typography variant="body-secondary-semibold">Body Secondary Semibold - Small important text</Typography>
         </div>
-        <div className="bg-orange-50 p-4 rounded-lg">
+        <div className="bg-indigo-50 p-4 rounded-lg">
           <div className="flex justify-between items-center mb-2">
-            <code className="text-xs bg-white px-2 py-1 rounded">variant="caption"</code>
-            <small className="text-xs text-gray-500">14px, Regular, 140% line-height</small>
+            <code className="text-xs bg-white px-2 py-1 rounded">variant="body-secondary-medium"</code>
+            <small className="text-xs text-gray-500">Secondary - Medium · 14/140</small>
           </div>
-          <Typography variant="caption">Caption text for small supporting details</Typography>
+          <Typography variant="body-secondary-medium">Body Secondary Medium - Small highlighted text</Typography>
+        </div>
+        <div className="bg-indigo-50 p-4 rounded-lg">
+          <div className="flex justify-between items-center mb-2">
+            <code className="text-xs bg-white px-2 py-1 rounded">variant="body-secondary-regular"</code>
+            <small className="text-xs text-gray-500">Secondary - Regular · 14/140</small>
+          </div>
+          <Typography variant="body-secondary-regular">Body Secondary Regular - Small supporting text</Typography>
         </div>
       </div>
     </section>
@@ -180,7 +227,7 @@ export const FigmaDesignSystem = () => (
   </div>
 );
 
-// AI Tools Usage Guide
+// AI Tools Usage Guide - Updated with new variants
 export const AIToolsGuide = () => (
   <div className="space-y-6 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
     <div className="text-center">
@@ -192,9 +239,9 @@ export const AIToolsGuide = () => (
       <div className="bg-white p-4 rounded-lg shadow-sm">
         <h3 className="font-semibold mb-3 text-gray-800">📄 Page Structure</h3>
         <div className="space-y-2 text-sm">
-          <div><code>{'<Typography variant="h1">Page Title</Typography>'}</code></div>
-          <div><code>{'<Typography variant="h2">Section</Typography>'}</code></div>
-          <div><code>{'<Typography variant="body-regular">Content</Typography>'}</code></div>
+          <div><code>{'<Typography variant="title-primary">Page Title</Typography>'}</code></div>
+          <div><code>{'<Typography variant="title-secondary">Section</Typography>'}</code></div>
+          <div><code>{'<Typography variant="body-primary-regular">Content</Typography>'}</code></div>
         </div>
       </div>
       
@@ -202,73 +249,154 @@ export const AIToolsGuide = () => (
         <h3 className="font-semibold mb-3 text-gray-800">🎯 Interactive Elements</h3>
         <div className="space-y-2 text-sm">
           <div><code>{'<Typography variant="button">Call to Action</Typography>'}</code></div>
+          <div><code>{'<Typography variant="display-primary">Stats</Typography>'}</code></div>
           <div><code>{'<Typography color="danger">Error</Typography>'}</code></div>
-          <div><code>{'<Typography color="success">Success</Typography>'}</code></div>
         </div>
       </div>
       
       <div className="bg-white p-4 rounded-lg shadow-sm">
-        <h3 className="font-semibold mb-3 text-gray-800">⚙️ Custom Styling</h3>
+        <h3 className="font-semibold mb-3 text-gray-800">📝 Body Text Variants</h3>
         <div className="space-y-2 text-sm">
-          <div><code>{'<Typography size="xl" weight="bold">Custom</Typography>'}</code></div>
-          <div><code>{'<Typography as="span">Inline text</Typography>'}</code></div>
+          <div><code>{'<Typography variant="body-primary-semibold">Important</Typography>'}</code></div>
+          <div><code>{'<Typography variant="body-primary-medium">Highlighted</Typography>'}</code></div>
+          <div><code>{'<Typography variant="body-primary-italic">Emphasized</Typography>'}</code></div>
         </div>
       </div>
       
       <div className="bg-white p-4 rounded-lg shadow-sm">
-        <h3 className="font-semibold mb-3 text-gray-800">📱 Common Patterns</h3>
+        <h3 className="font-semibold mb-3 text-gray-800">🔤 Small Text (14px)</h3>
         <div className="space-y-2 text-sm">
-          <div><code>{'<Typography variant="display-bold">Dashboard</Typography>'}</code></div>
-          <div><code>{'<Typography variant="body-semibold">Key Info</Typography>'}</code></div>
+          <div><code>{'<Typography variant="body-secondary-semibold">Label</Typography>'}</code></div>
+          <div><code>{'<Typography variant="body-secondary-medium">Caption</Typography>'}</code></div>
+          <div><code>{'<Typography variant="body-secondary-regular">Info</Typography>'}</code></div>
         </div>
       </div>
     </div>
   </div>
 );
 
-// Individual variant stories for testing
+// Individual variant stories - Figma Design System
+export const TitlePrimary: Story = {
+  args: {
+    children: 'Page Title - 28/140',
+    variant: 'title-primary',
+  },
+};
+
+export const TitleSecondary: Story = {
+  args: {
+    children: 'Section Heading - 24/140',
+    variant: 'title-secondary',
+  },
+};
+
+export const DisplayPrimary: Story = {
+  args: {
+    children: 'Display Primary - 20/140',
+    variant: 'display-primary',
+  },
+};
+
+export const ButtonVariant: Story = {
+  args: {
+    children: 'Button Text - 20/140',
+    variant: 'button',
+  },
+};
+
+export const BodyPrimarySemibold: Story = {
+  args: {
+    children: 'Body Primary Semibold - 16/140',
+    variant: 'body-primary-semibold',
+  },
+};
+
+export const BodyPrimaryMedium: Story = {
+  args: {
+    children: 'Body Primary Medium - 16/140',
+    variant: 'body-primary-medium',
+  },
+};
+
+export const BodyPrimaryItalic: Story = {
+  args: {
+    children: 'Body Primary Italic - 16/140',
+    variant: 'body-primary-italic',
+  },
+};
+
+export const BodyPrimaryRegular: Story = {
+  args: {
+    children: 'Body Primary Regular - 16/140',
+    variant: 'body-primary-regular',
+  },
+};
+
+export const BodySecondarySemibold: Story = {
+  args: {
+    children: 'Body Secondary Semibold - 14/140',
+    variant: 'body-secondary-semibold',
+  },
+};
+
+export const BodySecondaryMedium: Story = {
+  args: {
+    children: 'Body Secondary Medium - 14/140',
+    variant: 'body-secondary-medium',
+  },
+};
+
+export const BodySecondaryRegular: Story = {
+  args: {
+    children: 'Body Secondary Regular - 14/140',
+    variant: 'body-secondary-regular',
+  },
+};
+
+// Legacy variant stories (backward compatibility)
 export const H1Title: Story = {
   args: {
-    children: 'Page Title Heading',
+    children: 'H1 (Legacy) - Page Title',
     variant: 'h1',
   },
 };
 
 export const H2Section: Story = {
   args: {
-    children: 'Section Heading',
+    children: 'H2 (Legacy) - Section',
     variant: 'h2',
   },
 };
 
 export const DisplayBold: Story = {
   args: {
-    children: 'Key Dashboard Information',
+    children: 'Display Bold (Legacy)',
     variant: 'display-bold',
   },
 };
 
 export const BodySemibold: Story = {
   args: {
-    children: 'Important body text content',
+    children: 'Body Semibold (Legacy)',
     variant: 'body-semibold',
   },
 };
 
 export const BodyRegular: Story = {
   args: {
-    children: 'Standard body text for regular content',
+    children: 'Body Regular (Legacy)',
     variant: 'body-regular',
   },
 };
 
-export const ButtonText: Story = {
+export const BodyMedium: Story = {
   args: {
-    children: 'Call to Action',
-    variant: 'button',
+    children: 'Body Medium (Legacy)',
+    variant: 'body-medium',
   },
 };
 
+// Color variants
 export const ErrorMessage: Story = {
   args: {
     children: 'Error message text',

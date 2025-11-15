@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Text } from '../Text/Text';
+import { Typography } from '../Typography';
 
 export interface StatisticProps {
   /**
@@ -32,17 +32,17 @@ export const Statistic: React.FC<StatisticProps> = ({
 }) => {
   const renderLabel = () => (
     <div className="content-stretch flex gap-[4px] items-center justify-start relative shrink-0" data-name="Label">
-      <div className="font-['Inter:Medium',_sans-serif] font-medium leading-[0] not-italic relative shrink-0 text-[#5f697b] text-[14px] text-nowrap">
-        <p className="leading-[1.4] whitespace-pre">{label}</p>
-      </div>
+      <Typography variant="body-secondary-medium" color="secondary" className="relative shrink-0 text-nowrap whitespace-pre">
+        {label}
+      </Typography>
     </div>
   );
 
   const renderValue = () => (
     <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-[57px]" data-name="Text">
-      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[#434f64] text-[16px] text-nowrap">
-        <p className="leading-[1.4] whitespace-pre">{value}</p>
-      </div>
+      <Typography variant="body-primary-regular" color="primary" className="relative shrink-0 text-nowrap whitespace-pre">
+        {value}
+      </Typography>
     </div>
   );
 

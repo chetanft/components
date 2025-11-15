@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Typography } from '../../atoms/Typography';
 
 export type CellTextType = 'primary' | 'secondary';
 
@@ -25,10 +26,9 @@ export const TableCellText: React.FC<TableCellTextProps> = ({
   };
 
   return (
-    <div
+    <Typography
+      variant="body-primary-regular"
       className={cn(
-        // Base styles from Figma
-        "text-[16px] font-normal font-inter leading-[1.4]",
         // Type-specific colors from Figma
         type === 'primary' && "text-[var(--primary)]",
         type === 'secondary' && "text-[var(--secondary)]",
@@ -36,6 +36,6 @@ export const TableCellText: React.FC<TableCellTextProps> = ({
       )}
     >
       {renderContent()}
-    </div>
+    </Typography>
   );
 }; 

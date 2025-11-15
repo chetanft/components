@@ -2,12 +2,18 @@
 
 import React, { useState, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
-import { Icon } from '../../atoms/Icons';
+import { CloudUpload } from '../../atoms/Icons/CloudUpload';
+import { Typography } from '../../atoms/Typography';
+
+export type UploadZoneType = 'drag-drop' | 'button' | 'thumbnail';
+export type UploadZoneState = 'default' | 'hover' | 'disabled';
 
 export interface UploadZoneProps extends React.HTMLAttributes<HTMLDivElement> {
+  type?: UploadZoneType;
+  state?: UploadZoneState;
   onFileSelect?: (files: FileList) => void;
   acceptedFileTypes?: string[];
-  maxFileSize?: number; // in MB
+  maxFileSize?: number;
   disabled?: boolean;
   multiple?: boolean;
 }
@@ -15,6 +21,8 @@ export interface UploadZoneProps extends React.HTMLAttributes<HTMLDivElement> {
 export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
   ({ 
     className, 
+    type = 'drag-drop',
+    state = 'default',
     onFileSelect,
     acceptedFileTypes = ['Excel', 'CSV'],
     maxFileSize = 10,
@@ -24,23 +32,25 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
   }, ref) => {
     
     const [isDragActive, setIsDragActive] = useState(false);
-    const [isDragReject, setIsDragReject] = useState(false);
+    const isDisabled = disabled || state === 'disabled';
+    const isHover = state === 'hover' || isDragActive;
     
     // Handle drag events
     const handleDragEnter = useCallback((e: React.DragEvent) => {
       e.preventDefault();
       e.stopPropagation();
-      if (!disabled) {
+      if (!isDisabled && type === 'drag-drop') {
         setIsDragActive(true);
       }
-    }, [disabled]);
+    }, [isDisabled, type]);
     
     const handleDragLeave = useCallback((e: React.DragEvent) => {
       e.preventDefault();
       e.stopPropagation();
-      setIsDragActive(false);
-      setIsDragReject(false);
-    }, []);
+      if (type === 'drag-drop') {
+        setIsDragActive(false);
+      }
+    }, [type]);
     
     const handleDragOver = useCallback((e: React.DragEvent) => {
       e.preventDefault();
@@ -51,23 +61,22 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
       e.preventDefault();
       e.stopPropagation();
       setIsDragActive(false);
-      setIsDragReject(false);
       
-      if (!disabled && onFileSelect && e.dataTransfer.files.length > 0) {
+      if (!isDisabled && onFileSelect && e.dataTransfer.files.length > 0) {
         onFileSelect(e.dataTransfer.files);
       }
-    }, [disabled, onFileSelect]);
+    }, [isDisabled, onFileSelect]);
     
     // Handle file input change
     const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-      if (!disabled && onFileSelect && e.target.files && e.target.files.length > 0) {
+      if (!isDisabled && onFileSelect && e.target.files && e.target.files.length > 0) {
         onFileSelect(e.target.files);
       }
-    }, [disabled, onFileSelect]);
+    }, [isDisabled, onFileSelect]);
     
     // Handle click to open file dialog
     const handleClick = useCallback(() => {
-      if (!disabled) {
+      if (!isDisabled) {
         const input = document.createElement('input');
         input.type = 'file';
         input.multiple = multiple;
@@ -83,63 +92,87 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
         };
         input.click();
       }
-    }, [disabled, multiple, acceptedFileTypes, handleFileChange]);
+    }, [isDisabled, multiple, acceptedFileTypes, handleFileChange]);
     
-    return (
-      <div
-        className={cn(
-          // Base styles - exact from Figma
-          "flex flex-col items-center justify-center gap-[20px] p-[20px_12px]",
-          "border-[1.5px] border-dashed border-[var(--border-primary)] rounded-[8px]",
-          "bg-white cursor-pointer transition-colors",
-          // Interactive states
-          isDragActive && "border-[var(--neutral)] bg-[var(--positive-light)]",
-          isDragReject && "border-[var(--critical)] bg-[var(--critical-light)]",
-          disabled && "opacity-50 cursor-not-allowed",
-          // Hover state
-          !disabled && "hover:border-[var(--neutral)] hover:bg-[var(--bg-secondary)]",
-          className
-        )}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-        onClick={handleClick}
-        ref={ref}
-        {...props}
-      >
-        {/* Upload Icon */}
-        <div className="flex flex-col items-center justify-center gap-[8px] p-[16px] rounded-[8px]">
-          <Icon 
-            name="file-upload" 
-            size={33} 
-            className={cn(
-              "text-[var(--secondary)]",
-              isDragActive && "text-[var(--neutral)]",
-              isDragReject && "text-[var(--critical)]"
-            )}
-          />
-        </div>
-        
-        {/* Upload Instructions */}
-        <div className="flex flex-col items-center gap-[16px] px-[20px]">
-          {/* Main instruction */}
-          <div className="flex flex-col items-center gap-[10px] w-full">
-            <p className="text-[20px] font-[600] leading-[1.4] text-[var(--primary)] text-center">
-              Click or Drag and drop file here to upload or Choose files
-            </p>
+    // Only drag-drop type uses the full upload zone
+    if (type === 'drag-drop') {
+      return (
+        <div
+          className={cn(
+            // Base styles from Figma
+            "flex flex-col items-center justify-center gap-[20px] p-[20px_12px]",
+            "border-[1.5px] border-dashed rounded-[8px]",
+            "cursor-pointer transition-all duration-200",
+            "bg-[var(--bg-secondary)]",
+            // Default state
+            "border-[var(--border-primary)]",
+            // Hover/Active state
+            isHover && !isDisabled && "border-[var(--primary)]",
+            // Disabled state
+            isDisabled && "border-[var(--border-primary)] opacity-50 cursor-not-allowed",
+            className
+          )}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          onClick={handleClick}
+          ref={ref}
+          {...props}
+        >
+          {/* Upload Icon */}
+          <div className="flex items-center justify-center w-[65px] h-[62px]">
+            <CloudUpload 
+              size={65}
+              className={cn(
+                "transition-colors",
+                isDisabled ? "text-[var(--bg-secondary)]" : "text-[var(--primary)]"
+              )}
+            />
           </div>
           
-          {/* File restrictions */}
-          <div className="flex flex-col items-center gap-[10px] w-full">
-            <p className="text-[16px] font-[500] leading-[1.4] text-[var(--tertiary)] text-center">
-              Allowed file type: {acceptedFileTypes.join(' & ')} | Max Size: {maxFileSize} mb
-            </p>
+          {/* Upload Instructions */}
+          <div className="flex flex-col items-center gap-[16px] px-[20px] w-full">
+            {/* Main instruction */}
+            <div className="flex items-center justify-center w-full">
+              <Typography 
+                variant="display-primary"
+                className={cn(
+                  "text-center",
+                  isDisabled ? "text-[var(--border-primary)]" : "text-[var(--primary)]"
+                )}
+              >
+                Click or Drag and drop file here to upload or{' '}
+                <span className={cn(
+                  "underline decoration-solid",
+                  isDisabled ? "text-[var(--border-primary)]" : "text-[var(--neutral)]"
+                )}>
+                  Choose files
+                </span>
+              </Typography>
+            </div>
+            
+            {/* File restrictions */}
+            <div className="flex items-center justify-center w-full">
+              <Typography 
+                variant="body-primary-medium"
+                className={cn(
+                  "text-center",
+                  isDisabled ? "text-[var(--border-primary)]" : "text-[var(--tertiary)]"
+                )}
+              >
+                Allowed file type: {acceptedFileTypes.join(' & ')} | Max Size: {maxFileSize} mb
+              </Typography>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    
+    // For button and thumbnail types, these are handled by their respective components
+    // This component only provides the drag-drop zone
+    return null;
   }
 );
 
-UploadZone.displayName = 'UploadZone'; 
+UploadZone.displayName = 'UploadZone';

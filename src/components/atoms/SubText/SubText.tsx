@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../Icons/Icon';
+import { Typography } from '../Typography';
 
 export interface SubTextProps {
   /**
@@ -30,9 +31,13 @@ export const SubText: React.FC<SubTextProps> = ({
         <div className="relative shrink-0 size-[16px]">
           <Icon name="check-fill" size={16} className="text-[#5f697b]" />
         </div>
-        <div className="flex-[1_0_0] font-normal leading-[0] min-h-px min-w-px relative shrink-0 text-[14px] text-[#5f697b]">
-          <p className="leading-[1.4] whitespace-pre-wrap">Sub text</p>
-        </div>
+        <Typography 
+          variant="body-secondary-regular" 
+          color="secondary"
+          className="flex-[1_0_0] min-h-px min-w-px relative shrink-0 whitespace-pre-wrap"
+        >
+          Sub text
+        </Typography>
       </div>
     );
   }
@@ -45,9 +50,13 @@ export const SubText: React.FC<SubTextProps> = ({
       )}
       data-name="Icon=No"
     >
-      <div className="flex-[1_0_0] font-normal leading-[0] min-h-px min-w-px relative shrink-0 text-[14px] text-[#5f697b]">
-        <p className="leading-[1.4] whitespace-pre-wrap">Sub text</p>
-      </div>
+      <Typography 
+        variant="body-secondary-regular" 
+        color="secondary"
+        className="flex-[1_0_0] min-h-px min-w-px relative shrink-0 whitespace-pre-wrap"
+      >
+        Sub text
+      </Typography>
     </div>
   );
 };

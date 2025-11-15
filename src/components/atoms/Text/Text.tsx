@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../Icons/Icon';
+import { Typography, TypographyVariant } from '../Typography';
 
 export interface TextProps {
   /**
@@ -36,25 +37,26 @@ export const Text: React.FC<TextProps> = ({
   size = "sm",
   className = '' 
 }) => {
-  const textElement = <p className="leading-[1.4]">Text</p>;
-  
-  // Get font classes based on size
-  const getFontClasses = () => {
+  // Map size to Typography variant
+  const getVariant = (): TypographyVariant => {
     switch (size) {
       case "sm":
-        return "font-normal text-[14px] text-[#434f64]";
+        return "body-secondary-regular"; // 14px, Regular
       case "md":
-        return "font-normal text-[16px] text-[#434f64]";
+        return "body-primary-regular";   // 16px, Regular
       case "lg":
-        return "font-semibold text-[16px] text-[#434f64]";
+        return "body-primary-semibold";  // 16px, Semibold
       case "xl":
-        return "font-semibold text-[20px] text-[#434f64]";
+        return "display-primary";        // 20px, Semibold
       case "xx":
-        return "font-semibold text-[24px] text-[#434f64]";
+        return "title-secondary";        // 24px, Semibold
       default:
-        return "font-normal text-[14px] text-[#434f64]";
+        return "body-secondary-regular";
     }
   };
+  
+  const variant = getVariant();
+  const textElement = <Typography variant={variant} color="primary">Text</Typography>;
 
   if (subText === "False" && leadingIcon === "False" && trailingIcon === "False" && size === "md") {
     return (
@@ -65,7 +67,7 @@ export const Text: React.FC<TextProps> = ({
         )}
         data-name="Sub text=False, Leading Icon=False, Trailing Icon=False, Size=md"
       >
-        <div className={cn("leading-[0] relative shrink-0 whitespace-nowrap", getFontClasses())}>
+        <div className="relative shrink-0 whitespace-nowrap">
           {textElement}
         </div>
       </div>
@@ -82,17 +84,17 @@ export const Text: React.FC<TextProps> = ({
         data-name="Sub text=True, Leading Icon=False, Trailing Icon=True, Size=md"
       >
         <div className="content-stretch flex gap-[8px] h-[22px] items-center relative shrink-0">
-          <div className={cn("leading-[0] relative shrink-0 whitespace-nowrap", getFontClasses())}>
-            <p className="leading-[1.4]">Text</p>
+          <div className="relative shrink-0 whitespace-nowrap">
+            <Typography variant={variant} color="primary">Text</Typography>
           </div>
           <div className="relative shrink-0 size-[16px]">
             <Icon name="check-fill" size={16} className="text-[#5f697b]" />
           </div>
         </div>
         <div className="content-stretch flex gap-[10px] items-center justify-center relative shrink-0">
-          <div className="font-normal leading-[0] relative shrink-0 text-[14px] text-[#5f697b] w-[56px]">
-            <p className="leading-[1.4] whitespace-pre-wrap">Sub text</p>
-          </div>
+          <Typography variant="body-secondary-regular" color="secondary" className="relative shrink-0 w-[56px] whitespace-pre-wrap">
+            Sub text
+          </Typography>
         </div>
       </div>
     );
@@ -111,14 +113,14 @@ export const Text: React.FC<TextProps> = ({
           <div className="relative shrink-0 size-[16px]">
             <Icon name="check-fill" size={16} className="text-[#5f697b]" />
           </div>
-          <div className={cn("leading-[0] relative shrink-0 whitespace-nowrap", getFontClasses())}>
-            <p className="leading-[1.4]">Text</p>
+          <div className="relative shrink-0 whitespace-nowrap">
+            <Typography variant={variant} color="primary">Text</Typography>
           </div>
         </div>
         <div className="content-stretch flex gap-[10px] items-center justify-center relative shrink-0">
-          <div className="font-normal leading-[0] relative shrink-0 text-[14px] text-[#5f697b] w-[56px]">
-            <p className="leading-[1.4] whitespace-pre-wrap">Sub text</p>
-          </div>
+          <Typography variant="body-secondary-regular" color="secondary" className="relative shrink-0 w-[56px] whitespace-pre-wrap">
+            Sub text
+          </Typography>
         </div>
       </div>
     );
@@ -133,13 +135,13 @@ export const Text: React.FC<TextProps> = ({
         )}
         data-name="Sub text=True, Leading Icon=False, Trailing Icon=False, Size=md"
       >
-        <div className={cn("leading-[0] relative shrink-0 whitespace-nowrap", getFontClasses())}>
+        <div className="relative shrink-0 whitespace-nowrap">
           {textElement}
         </div>
         <div className="content-stretch flex gap-[10px] items-center justify-center relative shrink-0">
-          <div className="font-normal leading-[0] relative shrink-0 text-[14px] text-[#5f697b] w-[56px]">
-            <p className="leading-[1.4] whitespace-pre-wrap">Sub text</p>
-          </div>
+          <Typography variant="body-secondary-regular" color="secondary" className="relative shrink-0 w-[56px] whitespace-pre-wrap">
+            Sub text
+          </Typography>
         </div>
       </div>
     );
@@ -155,8 +157,8 @@ export const Text: React.FC<TextProps> = ({
         data-name="Sub text=False, Leading Icon=False, Trailing Icon=True, Size=md"
       >
         <div className="content-stretch flex gap-[8px] h-[22px] items-center relative shrink-0">
-          <div className={cn("leading-[0] relative shrink-0 whitespace-nowrap", getFontClasses())}>
-            <p className="leading-[1.4]">Text</p>
+          <div className="relative shrink-0 whitespace-nowrap">
+            <Typography variant={variant} color="primary">Text</Typography>
           </div>
           <div className="relative shrink-0 size-[16px]">
             <Icon name="check-fill" size={16} className="text-[#5f697b]" />
@@ -179,8 +181,8 @@ export const Text: React.FC<TextProps> = ({
           <div className="relative shrink-0 size-[16px]">
             <Icon name="check-fill" size={16} className="text-[#5f697b]" />
           </div>
-          <div className={cn("leading-[0] relative shrink-0 whitespace-nowrap", getFontClasses())}>
-            <p className="leading-[1.4]">Text</p>
+          <div className="relative shrink-0 whitespace-nowrap">
+            <Typography variant={variant} color="primary">Text</Typography>
           </div>
         </div>
       </div>
@@ -196,7 +198,7 @@ export const Text: React.FC<TextProps> = ({
       )}
       data-name="Sub text=False, Leading Icon=False, Trailing Icon=False, Size=sm"
     >
-      <div className={cn("leading-[0] relative shrink-0 whitespace-nowrap", getFontClasses())}>
+      <div className="relative shrink-0 whitespace-nowrap">
         {textElement}
       </div>
     </div>

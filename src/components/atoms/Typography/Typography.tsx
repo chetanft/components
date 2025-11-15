@@ -6,6 +6,19 @@ import { cn } from "../../../lib/utils";
 // ======================
 
 export type TypographyVariant = 
+  // Figma Design System Variants
+  | 'title-primary'             // 28px, Regular, 140%
+  | 'title-secondary'            // 24px, Semibold, 140%
+  | 'display-primary'            // 20px, Semibold, 140%
+  | 'button'                     // 20px, Medium, 140%
+  | 'body-primary-semibold'      // 16px, Semibold, 140%
+  | 'body-primary-medium'        // 16px, Medium, 140%
+  | 'body-primary-italic'        // 16px, Italic, 140%
+  | 'body-primary-regular'       // 16px, Regular, 140%
+  | 'body-secondary-semibold'    // 14px, Semibold, 140%
+  | 'body-secondary-medium'      // 14px, Medium, 140%
+  | 'body-secondary-regular'     // 14px, Regular, 140%
+  // Legacy variants (backward compatibility)
   | 'h1' 
   | 'h2' 
   | 'h3' 
@@ -18,53 +31,45 @@ export type TypographyVariant =
   | 'body-semibold'
   | 'body-regular'
   | 'body-medium'
-  | 'caption'
-  | 'button';
+  | 'caption';
 
-export type TypographySize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
-export type TypographyWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 export type TypographyColor = 'primary' | 'secondary' | 'muted' | 'danger' | 'success' | 'warning';
 
 export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   variant?: TypographyVariant;
-  size?: TypographySize;
-  weight?: TypographyWeight;
   color?: TypographyColor;
   as?: keyof JSX.IntrinsicElements;
   children: React.ReactNode;
 }
 
 const variantStyles = {
-  h1: "text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] leading-[1.4] text-[28px] font-normal", // Title Primary: 28px, Regular, 140%
-  h2: "text-[var(--font-size-xl)] font-[var(--font-weight-semibold)] leading-[1.4] text-[24px] font-semibold", // Title Secondary: 24px, Semibold, 140%
-  h3: "text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] leading-[1.4] text-[20px] font-semibold",
-  h4: "text-[var(--font-size-md)] font-[var(--font-weight-semibold)] leading-[1.4] text-[16px] font-semibold",
-  h5: "text-[var(--font-size-sm)] font-[var(--font-weight-semibold)] leading-[1.4] text-[14px] font-semibold",
-  h6: "text-[var(--font-size-xs)] font-[var(--font-weight-semibold)] leading-[1.4] text-[12px] font-semibold",
-  p: "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4] text-[16px] font-normal",
-  span: "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4] text-[16px] font-normal",
-  'display-bold': "text-[var(--font-size-lg)] font-[var(--font-weight-semibold)] leading-[1.4] text-[20px] font-semibold", // Display Primary: 20px, Semibold, 140%
-  'body-semibold': "text-[var(--font-size-md)] font-[var(--font-weight-semibold)] leading-[1.4] text-[16px] font-semibold", // Body Primary Semibold: 16px, Semibold, 140%
-  'body-regular': "text-[var(--font-size-md)] font-[var(--font-weight-regular)] leading-[1.4] text-[16px] font-normal", // Body Primary Regular: 16px, Regular, 140%
-  'body-medium': "text-[var(--font-size-sm)] font-[var(--font-weight-medium)] leading-[1.4] text-[14px] font-medium", // Body Secondary Medium: 14px, Medium, 140%
-  caption: "text-[var(--font-size-sm)] font-[var(--font-weight-regular)] leading-[1.4] text-[14px] font-normal",
-  button: "text-[var(--font-size-lg)] font-[var(--font-weight-medium)] leading-[1.4] text-[20px] font-medium tracking-[0.00163rem]", // Button: 20px, Medium, 140%, Letter-spacing
-};
-
-const sizeStyles = {
-  xs: "text-[var(--font-size-xs)] text-[12px]",
-  sm: "text-[var(--font-size-sm)] text-[14px]",
-  md: "text-[var(--font-size-md)] text-[16px]",
-  lg: "text-[var(--font-size-lg)] text-[20px]",
-  xl: "text-[var(--font-size-xl)] text-[24px]",
-  xxl: "text-[var(--font-size-xxl)] text-[32px]",
-};
-
-const weightStyles = {
-  regular: "font-[var(--font-weight-regular)] font-normal",
-  medium: "font-[var(--font-weight-medium)] font-medium",
-  semibold: "font-[var(--font-weight-semibold)] font-semibold",
-  bold: "font-[var(--font-weight-bold)] font-bold",
+  // Figma Design System - Direct pixel values
+  'title-primary': "text-[28px] font-normal leading-[1.4]",                    // Title Primary: 28/140
+  'title-secondary': "text-[24px] font-semibold leading-[1.4]",                // Title Secondary: 24/140
+  'display-primary': "text-[20px] font-semibold leading-[1.4]",                // Display Primary: 20/140
+  'button': "text-[20px] font-medium leading-[1.4] tracking-[0.0264px]",       // Btn: 20/140
+  'body-primary-semibold': "text-[16px] font-semibold leading-[1.4]",          // Body Primary Semibold: 16/140
+  'body-primary-medium': "text-[16px] font-medium leading-[1.4]",              // Body Primary Medium: 16/140
+  'body-primary-italic': "text-[16px] font-normal italic leading-[1.4]",       // Body Primary Italic: 16/140
+  'body-primary-regular': "text-[16px] font-normal leading-[1.4]",             // Body Primary Regular: 16/140
+  'body-secondary-semibold': "text-[14px] font-semibold leading-[1.4]",        // Body Secondary Semibold: 14/140
+  'body-secondary-medium': "text-[14px] font-medium leading-[1.4]",            // Body Secondary Medium: 14/140
+  'body-secondary-regular': "text-[14px] font-normal leading-[1.4]",           // Body Secondary Regular: 14/140
+  
+  // Legacy variants (backward compatibility)
+  h1: "text-[28px] font-normal leading-[1.4]",
+  h2: "text-[24px] font-semibold leading-[1.4]",
+  h3: "text-[20px] font-semibold leading-[1.4]",
+  h4: "text-[16px] font-semibold leading-[1.4]",
+  h5: "text-[14px] font-semibold leading-[1.4]",
+  h6: "text-[12px] font-semibold leading-[1.4]",
+  p: "text-[16px] font-normal leading-[1.4]",
+  span: "text-[16px] font-normal leading-[1.4]",
+  'display-bold': "text-[20px] font-semibold leading-[1.4]",
+  'body-semibold': "text-[16px] font-semibold leading-[1.4]",
+  'body-regular': "text-[16px] font-normal leading-[1.4]",
+  'body-medium': "text-[14px] font-medium leading-[1.4]",
+  caption: "text-[14px] font-normal leading-[1.4]",
 };
 
 const colorStyles = {
@@ -77,6 +82,20 @@ const colorStyles = {
 };
 
 const variantToElement = {
+  // Figma variants
+  'title-primary': 'h1',
+  'title-secondary': 'h2',
+  'display-primary': 'div',
+  'button': 'span',
+  'body-primary-semibold': 'p',
+  'body-primary-medium': 'p',
+  'body-primary-italic': 'p',
+  'body-primary-regular': 'p',
+  'body-secondary-semibold': 'p',
+  'body-secondary-medium': 'p',
+  'body-secondary-regular': 'p',
+  
+  // Legacy variants
   h1: 'h1',
   h2: 'h2', 
   h3: 'h3',
@@ -90,13 +109,10 @@ const variantToElement = {
   'body-regular': 'p',
   'body-medium': 'p',
   caption: 'span',
-  button: 'span',
 } as const;
 
 export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
   variant = 'p',
-  size,
-  weight,
   color = 'primary',
   as,
   className,
@@ -110,12 +126,8 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
   const classes = cn(
     // Base styles - include fallback font family
     "font-[var(--font-family-primary)] font-sans text-black",
-    // Variant styles (default if no custom size/weight provided)
-    !size && !weight && variantStyles[variant],
-    // Custom size override
-    size && sizeStyles[size],
-    // Custom weight override  
-    weight && weightStyles[weight],
+    // Variant styles
+    variantStyles[variant],
     // Color
     colorStyles[color],
     // Custom className

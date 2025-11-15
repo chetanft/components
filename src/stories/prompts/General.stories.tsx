@@ -401,10 +401,10 @@ FT Design System components have pre-defined heights that override Tailwind clas
 
 COMPONENT HEIGHT CONFLICTS:
 - DON'T use: h-12, h-10, h-16 (will be overridden by FT Design System CSS)
-- DO use: Let FT components control their own sizing with size="sm|md|lg" props
-- Button: size="sm" (36px), size="md" (44px), size="lg" (52px) 
-- Input: size="sm" (36px), size="md" (44px), size="lg" (52px)
-- Dropdown: size="m" (44px), size="l" (52px), size="xl" (64px)
+- DO use: Let FT components control their own sizing with size="xxs|xs|sm|md|lg|xl|xxl" props
+- Button: size="xxs" (16px), size="xs" (24px), size="sm" (32px), size="md" (40px), size="lg" (48px), size="xl" (56px), size="xxl" (64px)
+- Input: size="xxs" (16px), size="xs" (24px), size="sm" (32px), size="md" (40px), size="lg" (48px), size="xl" (56px), size="xxl" (64px)
+- Dropdown: size="xxs" (16px), size="xs" (24px), size="sm" (32px), size="md" (40px), size="lg" (48px), size="xl" (56px), size="xxl" (64px)
 
 FONT SIZE CONFLICTS:
 - FT components use standardized font sizes: 14px (sm), 16px (md/lg)
@@ -578,12 +578,12 @@ COLORS (use these specific values):
 
 TYPOGRAPHY (Inter font family):
 - Font weights: 400 (regular), 500 (medium), 600 (semibold)
-- Font sizes: 14px (small), 16px (base), 20px (large), 24px (xl), 28px (xxl)
+- Font sizes: 10px (xxs), 12px (xs), 14px (sm), 16px (md), 20px (lg), 24px (xl), 28px (xxl)
 - Line heights: Use 1.2-1.5 for optimal readability
 
 SPACING (8px base unit system):
-- 4px (xs), 8px (sm), 12px (md), 16px (lg), 20px (xl), 24px (2xl), 32px (3xl)
-- Component padding: 12px (compact), 20px (default), 32px (spacious)
+- 2px (xxs), 4px (xs), 8px (sm), 12px (md), 16px (lg), 20px (xl), 24px (2xl), 32px (3xl)
+- Component padding: 6px (xxs), 8px (xs), 12px (sm), 16px (md), 20px (lg), 24px (xl)
 - Gaps between elements: 8px (tight), 16px (normal), 24px (loose)
 
 BORDER RADIUS:
@@ -600,9 +600,9 @@ SHADOWS (use rgba(67, 79, 100, opacity)):
 - XL: 0 20px 25px -5px rgba(67, 79, 100, 0.1)
 
 COMPONENT SPECIFICATIONS:
-- Button: variant="primary|secondary|destructive|text|link" size="sm|md|lg" (NOT outline/ghost)
-- Input: size="sm|md|lg" (36px/44px/52px) - DON'T use h-12, h-10 classes
-- Dropdown: size="m|l|xl" (44px/52px/64px) - DON'T add manual height/borderRadius
+- Button: variant="primary|secondary|destructive|text|link" size="xxs|xs|sm|md|lg|xl|xxl" (NOT outline/ghost)
+- Input: size="xxs|xs|sm|md|lg|xl|xxl" (16px/24px/32px/40px/48px/56px/64px) - DON'T use h-12, h-10 classes
+- Dropdown: size="xxs|xs|sm|md|lg|xl|xxl" (16px/24px/32px/40px/48px/56px/64px) - DON'T add manual height/borderRadius
 - Table: columns with 'title' property (NOT header/label), data must have 'id' property (NOT 'key')
 - Icons: name="check" as string (NOT <CheckIcon /> elements)
 - Badge: variant="normal|neutral|warning|danger|success" (use "danger" NOT "error")
@@ -645,10 +645,10 @@ FT Design System components have pre-defined heights that override Tailwind clas
 
 COMPONENT HEIGHT CONFLICTS:
 - DON'T use: h-12, h-10, h-16 (will be overridden by FT Design System CSS)
-- DO use: Let FT components control their own sizing with size="sm|md|lg" props
-- Button: size="sm" (36px), size="md" (44px), size="lg" (52px) 
-- Input: size="sm" (36px), size="md" (44px), size="lg" (52px)
-- Dropdown: size="m" (44px), size="l" (52px), size="xl" (64px)
+- DO use: Let FT components control their own sizing with size="xxs|xs|sm|md|lg|xl|xxl" props
+- Button: size="xxs" (16px), size="xs" (24px), size="sm" (32px), size="md" (40px), size="lg" (48px), size="xl" (56px), size="xxl" (64px)
+- Input: size="xxs" (16px), size="xs" (24px), size="sm" (32px), size="md" (40px), size="lg" (48px), size="xl" (56px), size="xxl" (64px)
+- Dropdown: size="xxs" (16px), size="xs" (24px), size="sm" (32px), size="md" (40px), size="lg" (48px), size="xl" (56px), size="xxl" (64px)
 
 FONT SIZE CONFLICTS:
 - FT components use standardized font sizes: 14px (sm), 16px (md/lg)

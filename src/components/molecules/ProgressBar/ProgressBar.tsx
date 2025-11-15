@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Typography } from '../../atoms/Typography';
 
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: number; // Progress value 0-100
@@ -68,9 +69,13 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
         
         {/* Percentage Display */}
         {showPercentage && (
-          <span className="text-[14px] font-[500] leading-[1.4] text-[var(--tertiary)] whitespace-nowrap">
+          <Typography 
+            variant="body-secondary-medium" 
+            as="span"
+            className="text-[var(--tertiary)] whitespace-nowrap"
+          >
             {Math.round(clampedValue)}%
-          </span>
+          </Typography>
         )}
       </div>
     );

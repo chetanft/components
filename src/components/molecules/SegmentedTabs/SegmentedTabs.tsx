@@ -36,7 +36,7 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
 
   const containerStyles = cn(
     // Container styles using design tokens
-    "flex gap-[var(--spacing-x1)] p-[var(--spacing-x2)] bg-[var(--color-bg-secondary)] rounded-lg",
+    "flex gap-[var(--x1,4px)] p-[var(--x2,8px)] bg-[var(--bg_secondary,#f8f8f9)] rounded-[var(--x2,8px)]",
     className
   );
 
@@ -47,21 +47,19 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
 
         const tabStyles = cn(
           // Base styles using design tokens
-          "flex items-center justify-center gap-[var(--spacing-x3)] px-[var(--spacing-x3)] py-[var(--spacing-x2)] h-8 rounded transition-all duration-200 cursor-pointer",
-          // Typography using design tokens - updated font size
-          "font-inter font-medium text-sm leading-[1.4]", // Use text-sm instead of variable for consistency
-          // Flex sizing
-          "flex-1",
+          "flex items-center justify-center gap-[var(--x2,8px)] px-[var(--x4,16px)] py-[var(--x2,8px)] h-[32px] rounded-[var(--x1,4px)] transition-all duration-200 cursor-pointer",
+          // Typography - 14px medium from Figma
+          "text-[14px] font-medium leading-[1.4]",
           // State-specific styles using design tokens
           isSelected
             ? [
                 // Selected state using design tokens
-                "bg-white text-[var(--color-dark-100)]",
+                "bg-[var(--bg_primary,#ffffff)] text-[color:var(--primary,#434f64)]",
                 "shadow-[0px_4px_4px_0px_rgba(0,0,0,0.08)]"
               ]
             : [
                 // Unselected state using design tokens  
-                "bg-[var(--color-bg-secondary)] text-[var(--color-dark-50)]",
+                "bg-[var(--bg_secondary,#f8f8f9)] text-[color:var(--secondary,#5f697b)]",
                 "hover:bg-[var(--color-divider)]"
               ]
         );
@@ -74,8 +72,10 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
             type="button"
           >
             {item.icon && (
-              <span className="w-4 h-4">
-                {item.icon}
+              <span className="flex items-center justify-center shrink-0 w-[24px] h-[24px]">
+                <span className="w-[16px] h-[16px]">
+                  {item.icon}
+                </span>
               </span>
             )}
             <span>{item.label}</span>

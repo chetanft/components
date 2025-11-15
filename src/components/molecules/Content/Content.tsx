@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Typography } from '../../atoms/Typography';
 
 export interface ContentProps {
   /**
@@ -26,9 +27,9 @@ export const Content: React.FC<ContentProps> = ({
       data-name="Type=Text"
     >
       <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
-        <div className="font-normal leading-[0] relative shrink-0 text-[16px] text-[#434f64] whitespace-nowrap">
-          <p className="leading-[1.4]">Text</p>
-        </div>
+        <Typography variant="body-primary-regular" color="primary" className="relative shrink-0 whitespace-nowrap">
+          Text
+        </Typography>
       </div>
     </div>
   );

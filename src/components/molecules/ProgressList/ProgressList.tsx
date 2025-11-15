@@ -71,9 +71,9 @@ export const ProgressList: React.FC<ProgressListProps> = ({
         <div className="w-[253px] h-0 border-b border-[var(--border-primary)]" />
         <div className="flex items-center justify-center gap-2.5 px-2 py-0.5 bg-white border border-[var(--border-primary)] rounded-full shadow-sm">
           <Typography 
-            variant="body-semibold" 
+            variant="body-secondary-medium" 
             color="secondary"
-            style={{ fontSize: '14px', fontWeight: 500, textAlign: 'right' }}
+            className="text-right"
           >
             {item.label}
           </Typography>
@@ -206,18 +206,16 @@ export const ProgressList: React.FC<ProgressListProps> = ({
       <div className="flex flex-col gap-2 pt-1.5 min-w-[80px]">
         {item.timeLabel && (
           <Typography 
-            variant="body-semibold" 
+            variant="body-secondary-medium" 
             color="secondary"
-            style={{ fontSize: '14px', fontWeight: 500 }}
           >
             {item.timeLabel}
           </Typography>
         )}
         {item.startTime && (
           <Typography 
-            variant="body-semibold" 
+            variant="body-secondary-medium" 
             color="primary"
-            style={{ fontSize: '14px', fontWeight: 500 }}
           >
             {item.startTime}
           </Typography>
@@ -245,9 +243,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
             {item.headerType === 'primary' ? (
               <>
                 <Typography 
-                  variant="body-semibold" 
+                  variant="body-secondary-semibold" 
                   color="secondary"
-                  style={{ fontSize: '14px', fontWeight: 600 }}
                 >
                   {item.title}
                 </Typography>
@@ -257,9 +254,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
               </>
             ) : (
               <Typography 
-                variant="body-regular" 
+                variant="body-secondary-medium" 
                 color={item.state === 'upcoming' ? 'secondary' : 'primary'}
-                style={{ fontSize: '14px', fontWeight: 500 }}
               >
                 {item.title}
               </Typography>
@@ -269,9 +265,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
           {/* Description */}
           {item.description && (
             <Typography 
-              variant="body-regular" 
+              variant="body-primary-regular" 
               color="primary"
-              style={{ fontSize: '16px', fontWeight: 400 }}
             >
               {item.description}
             </Typography>
@@ -316,16 +311,14 @@ export const ProgressList: React.FC<ProgressListProps> = ({
         {showTime && item.endTime && (
           <div className="flex flex-col gap-2 items-end min-w-[80px]">
             <Typography 
-              variant="body-semibold" 
+              variant="body-secondary-medium" 
               color="secondary"
-              style={{ fontSize: '14px', fontWeight: 500 }}
             >
               End time
             </Typography>
             <Typography 
-              variant="body-semibold" 
+              variant="body-secondary-medium" 
               color="primary"
-              style={{ fontSize: '14px', fontWeight: 500 }}
             >
               {item.endTime}
             </Typography>

@@ -35,12 +35,28 @@ const DesignGuidelinesPage = () => (
             </thead>
             <tbody>
               <tr>
+                <td className="border border-blue-300 px-4 py-2 font-medium">xxs</td>
+                <td className="border border-blue-300 px-4 py-2">16px</td>
+                <td className="border border-blue-300 px-4 py-2">12px</td>
+                <td className="border border-blue-300 px-4 py-2">6px × 2px</td>
+                <td className="border border-blue-300 px-4 py-2">12px</td>
+                <td className="border border-blue-300 px-4 py-2">4px</td>
+              </tr>
+              <tr>
+                <td className="border border-blue-300 px-4 py-2 font-medium">xs</td>
+                <td className="border border-blue-300 px-4 py-2">24px</td>
+                <td className="border border-blue-300 px-4 py-2">12px</td>
+                <td className="border border-blue-300 px-4 py-2">8px × 2px</td>
+                <td className="border border-blue-300 px-4 py-2">12px</td>
+                <td className="border border-blue-300 px-4 py-2">4px</td>
+              </tr>
+              <tr>
                 <td className="border border-blue-300 px-4 py-2 font-medium">sm</td>
-                <td className="border border-blue-300 px-4 py-2">36px</td>
+                <td className="border border-blue-300 px-4 py-2">32px</td>
                 <td className="border border-blue-300 px-4 py-2">14px</td>
                 <td className="border border-blue-300 px-4 py-2">12px × 8px</td>
                 <td className="border border-blue-300 px-4 py-2">16px</td>
-                <td className="border border-blue-300 px-4 py-2">6px</td>
+                <td className="border border-blue-300 px-4 py-2">8px</td>
               </tr>
               <tr className="bg-green-50">
                 <td className="border border-blue-300 px-4 py-2 font-medium">md (Default)</td>
@@ -52,19 +68,27 @@ const DesignGuidelinesPage = () => (
               </tr>
               <tr>
                 <td className="border border-blue-300 px-4 py-2 font-medium">lg</td>
-                <td className="border border-blue-300 px-4 py-2">52px</td>
-                <td className="border border-blue-300 px-4 py-2">16px</td>
-                <td className="border border-blue-300 px-4 py-2">20px × 16px</td>
+                <td className="border border-blue-300 px-4 py-2">48px</td>
+                <td className="border border-blue-300 px-4 py-2">20px</td>
+                <td className="border border-blue-300 px-4 py-2">20px × 12px</td>
                 <td className="border border-blue-300 px-4 py-2">24px</td>
                 <td className="border border-blue-300 px-4 py-2">8px</td>
               </tr>
               <tr>
                 <td className="border border-blue-300 px-4 py-2 font-medium">xl</td>
+                <td className="border border-blue-300 px-4 py-2">56px</td>
+                <td className="border border-blue-300 px-4 py-2">24px</td>
+                <td className="border border-blue-300 px-4 py-2">24px × 16px</td>
+                <td className="border border-blue-300 px-4 py-2">24px</td>
+                <td className="border border-blue-300 px-4 py-2">8px</td>
+              </tr>
+              <tr>
+                <td className="border border-blue-300 px-4 py-2 font-medium">xxl</td>
                 <td className="border border-blue-300 px-4 py-2">64px</td>
-                <td className="border border-blue-300 px-4 py-2">16px</td>
-                <td className="border border-blue-300 px-4 py-2">24px × 20px</td>
                 <td className="border border-blue-300 px-4 py-2">28px</td>
-                <td className="border border-blue-300 px-4 py-2">12px</td>
+                <td className="border border-blue-300 px-4 py-2">28px × 20px</td>
+                <td className="border border-blue-300 px-4 py-2">24px</td>
+                <td className="border border-blue-300 px-4 py-2">8px</td>
               </tr>
             </tbody>
           </table>

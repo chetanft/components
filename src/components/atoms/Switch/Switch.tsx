@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Typography } from '../Typography';
 
 export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
@@ -16,13 +17,13 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
         track: "w-[30px] h-[16px]",
         thumb: "w-[14px] h-[14px]",
         gap: "gap-[6px]",
-        text: "text-[12px]"
+        variant: "body-secondary-regular" as const // 12px → closest is 14px
       },
       md: {
         track: "w-[34px] h-[14px]", // Exact Figma dimensions from switch track
         thumb: "w-[20px] h-[20px]", // Exact Figma dimensions from thumb (Ellipse 1347)
         gap: "gap-[8px]",
-        text: "text-[14px]"
+        variant: "body-secondary-medium" as const // 14px, medium weight
       }
     };
 
@@ -63,14 +64,11 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
         : "bg-[var(--switch-thumb-off)]" // #FFFFFF when off from Figma
     );
 
-    // Label styles using exact Figma specifications (similar to checkbox)
-    const labelStyles = cn(
-      "font-[var(--checkbox-font-weight)] leading-[1.4] cursor-pointer", // 500 weight
-      currentSize.text,
-      disabled
-        ? "text-[var(--color-tertiary)] cursor-not-allowed"
-        : "text-[var(--color-primary)]"
-    );
+    // Get color for label based on disabled state
+    const getLabelColor = () => {
+      if (disabled) return 'muted';
+      return 'primary';
+    };
 
     // Container styles
     const containerStyles = cn(
@@ -90,7 +88,16 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           />
           <div className={thumbStyles} />
         </div>
-        {label && <span className={labelStyles}>{label}</span>}
+        {label && (
+          <Typography 
+            variant={currentSize.variant} 
+            color={getLabelColor()}
+            as="span"
+            className={disabled ? "cursor-not-allowed" : "cursor-pointer"}
+          >
+            {label}
+          </Typography>
+        )}
       </label>
     );
   }

@@ -2,6 +2,7 @@
 import React, { forwardRef, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
+import { Typography } from '../../atoms/Typography';
 
 export type ChickletVariant = 'rounded' | 'rectangular';
 export type ChickletState = 'default' | 'hover';
@@ -45,10 +46,6 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
       "inline-flex items-center justify-center gap-[8px]",
       // Padding from Figma: 2px 8px
       "px-[8px] py-[2px]",
-      // Font styles from Figma: Inter 500 14px with 1.4 line height
-      "text-[14px] font-medium font-inter leading-[1.4]",
-      // Text color from Figma: use CSS variable instead of hardcoded
-      "text-[var(--primary)]",
       // Transitions
       "transition-all duration-200 cursor-pointer",
       // Disabled state
@@ -86,9 +83,13 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
         {...props}
       >
         {/* Label Text */}
-        <span className="leading-[1.4]">
+        <Typography 
+          variant="body-secondary-medium" 
+          as="span"
+          style={{ color: 'var(--primary)' }}
+        >
           {label}
-        </span>
+        </Typography>
         
         {/* Close Icon - Using Cross icon from Figma */}
         {showClose && (

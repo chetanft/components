@@ -90,12 +90,14 @@ export default {
     'border-[var(--focus)]',
     
     // Size variants
+    'h-component-xxs',
     'h-component-xs',
     'h-component-sm',
     'h-component-md', 
     'h-component-lg',
     'h-component-xl',
     'h-component-xxl',
+    'w-component-xxs',
     'w-component-xs',
     'w-component-sm',
     'w-component-md',
@@ -378,6 +380,7 @@ export default {
        
       // COMPONENT SYSTEM DIMENSIONS (CRITICAL - DO NOT REMOVE)
       height: {
+        'component-xxs': 'var(--component-height-xxs)',  // 16px
         'component-xs': 'var(--component-height-xs)',  // 24px
         'component-sm': 'var(--component-height-sm)',  // 32px
         'component-md': 'var(--component-height-md)',  // 40px
@@ -387,6 +390,7 @@ export default {
       },
       
       width: {
+        'component-xxs': 'var(--component-height-xxs)',  // 16px (for square components)
         'component-xs': 'var(--component-height-xs)',  // 24px (for square components)
         'component-sm': 'var(--component-height-sm)',  // 32px
         'component-md': 'var(--component-height-md)',  // 40px
@@ -396,6 +400,7 @@ export default {
       },
       
       padding: {
+        'component-xxs': 'var(--component-padding-xxs)',
         'component-xs': 'var(--component-padding-xs)',
         'component-sm': 'var(--component-padding-sm)',
         'component-md': 'var(--component-padding-md)',

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Typography } from '../../atoms/Typography';
 
 export interface FileTypeIconProps extends React.HTMLAttributes<HTMLDivElement> {
   fileType: string; // e.g., 'XLS', 'CSV', 'PDF', 'DOC'
@@ -98,13 +99,18 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
         />
         
         {/* File Type Text */}
-        <div className={cn(
-          "absolute bottom-[6px] left-1/2 transform -translate-x-1/2",
-          "font-[600] leading-[1.4] text-white",
-          sizeStyles[size].text,
-          variant === 'error' && "text-[#ff3532]"
-        )}>
-          {displayText}
+        <div className="absolute bottom-[6px] left-1/2 transform -translate-x-1/2">
+          <Typography 
+            variant="body-secondary-semibold"
+            as="span"
+            className={cn(
+              "text-white",
+              sizeStyles[size].text,
+              variant === 'error' && "text-[#ff3532]"
+            )}
+          >
+            {displayText}
+          </Typography>
         </div>
       </div>
     );

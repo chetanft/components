@@ -37,7 +37,7 @@ export const Divider: React.FC<DividerProps> = ({
       <div className={`${baseStyles} ${typeStyles[type]} ${className}`}>
         <div className="flex-grow border-t border-[var(--border-primary)]" style={{ width: '253px' }} />
         <div className="mx-4 px-2 py-0.5 bg-white rounded-full shadow-[0px_2px_4px_0px_rgba(0,0,0,0.1)]">
-          <Typography variant="body-medium" color="secondary">
+          <Typography variant="body-secondary-medium" color="secondary">
             {label}
           </Typography>
         </div>

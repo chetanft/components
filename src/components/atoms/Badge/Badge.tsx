@@ -3,6 +3,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
+import { Typography } from '../Typography';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'normal' | 'danger' | 'success' | 'warning' | 'neutral';
@@ -13,7 +14,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
   ({ className, variant = 'normal', icon, children, ...props }, ref) => {
     // Base styles using exact Figma specifications
-    const baseStyles = "inline-flex items-center justify-center font-semibold text-[14px] leading-[1.4] border border-transparent transition-colors";
+    const baseStyles = "inline-flex items-center justify-center border border-transparent transition-colors";
     
     // Fixed size from Figma - only one size exists in Figma design
     const sizeStyles = "px-[8px] py-[2px] gap-[8px] rounded-[4px]"; // Exact Figma specs: 2px 8px padding, 4px border radius, 8px gap
@@ -38,6 +39,17 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
 
     const iconSize = 14; // Exact Figma icon size: 14x14px
 
+    // Get text color for Typography component
+    const getTextColor = () => {
+      switch (variant) {
+        case 'danger': return '#FF3533';
+        case 'success': return '#00763D';
+        case 'warning': return '#FF6C19';
+        case 'neutral': return '#1890FF';
+        default: return '#434F64';
+      }
+    };
+
     return (
       <div
         className={cn(
@@ -52,7 +64,13 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         {...props}
       >
         {icon && <Icon name={icon} size={iconSize} />}
-        {children}
+        <Typography 
+          variant="body-secondary-semibold" 
+          as="span"
+          style={{ color: getTextColor() }}
+        >
+          {children}
+        </Typography>
       </div>
     );
   }

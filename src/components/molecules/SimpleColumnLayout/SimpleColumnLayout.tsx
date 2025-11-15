@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Typography } from '../../atoms/Typography';
 
 export interface SimpleColumnCell {
   title: React.ReactNode;
@@ -41,13 +42,21 @@ const ColumnCell = ({
       align === 'end' && 'items-end text-right'
     )}
   >
-    <span className="text-[14px] font-normal leading-[1.4] text-[var(--primary,#434f64)]">
+    <Typography 
+      variant="body-secondary-regular" 
+      as="span"
+      className="text-[var(--primary,#434f64)]"
+    >
       {title}
-    </span>
+    </Typography>
     {subtitle && (
-      <span className="text-[12px] font-normal leading-[1.4] text-[var(--tertiary,#838c9d)]">
+      <Typography 
+        variant="body-secondary-regular" 
+        as="span"
+        className="text-[var(--tertiary,#838c9d)] text-[12px]"
+      >
         {subtitle}
-      </span>
+      </Typography>
     )}
   </div>
 );
@@ -77,9 +86,13 @@ export const SimpleColumnLayout = React.forwardRef<
         className={cn('flex w-full flex-col gap-[var(--x2,8px)]', className)}
         {...props}
       >
-        <div className="grid grid-cols-2 gap-4 rounded-[8px] bg-[var(--primary,#434f64)] px-4 py-3 text-[14px] font-medium leading-[1.4] text-[var(--bg_primary,#ffffff)]">
-          <span>{headerLeft}</span>
-          <span className="text-right">{headerRight}</span>
+        <div className="grid grid-cols-2 gap-4 rounded-[8px] bg-[var(--primary,#434f64)] px-4 py-3">
+          <Typography variant="body-secondary-medium" className="text-[var(--bg_primary,#ffffff)]">
+            {headerLeft}
+          </Typography>
+          <Typography variant="body-secondary-medium" className="text-[var(--bg_primary,#ffffff)] text-right">
+            {headerRight}
+          </Typography>
         </div>
 
         <div className="flex flex-col">

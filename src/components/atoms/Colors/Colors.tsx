@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "../../../lib/utils";
+import { Typography } from "../Typography";
 
 // Optional theme hook that doesn't throw if no provider
 const useOptionalTheme = () => {
@@ -32,9 +33,9 @@ const ColorSwatch: React.FC<ColorSwatchProps> = ({
         style={{ backgroundColor: colorValue }}
       ></div>
       <div className="space-y-1">
-        <p className="font-medium text-sm">{colorName}</p>
-        <p className="text-xs text-gray-600">{colorVar}</p>
-        <p className="text-xs font-mono">{colorValue}</p>
+        <Typography variant="body-secondary-medium">{colorName}</Typography>
+        <Typography variant="body-secondary-regular" className="text-gray-600">{colorVar}</Typography>
+        <Typography variant="body-secondary-regular" className="font-mono">{colorValue}</Typography>
       </div>
     </div>
   );
@@ -57,8 +58,8 @@ const ThemeColorSwatch: React.FC<ThemeColorSwatchProps> = ({
 }) => {
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <h4 className="font-semibold text-sm mb-3">{colorName}</h4>
-      <p className="text-xs text-gray-600 mb-3 font-mono">{colorVar}</p>
+      <Typography variant="body-secondary-semibold" className="mb-3">{colorName}</Typography>
+      <Typography variant="body-secondary-regular" className="text-gray-600 mb-3 font-mono">{colorVar}</Typography>
       
       <div className="grid grid-cols-3 gap-3">
         {/* Light Mode */}
@@ -67,8 +68,8 @@ const ThemeColorSwatch: React.FC<ThemeColorSwatchProps> = ({
             className="h-16 w-16 rounded-md mb-2 border border-gray-200 mx-auto"
             style={{ backgroundColor: lightValue }}
           ></div>
-          <p className="text-xs font-medium text-gray-700">Light</p>
-          <p className="text-xs font-mono text-gray-500">{lightValue}</p>
+          <Typography variant="body-secondary-medium" className="text-gray-700">Light</Typography>
+          <Typography variant="body-secondary-regular" className="font-mono text-gray-500">{lightValue}</Typography>
         </div>
         
         {/* Dark Mode */}
@@ -77,8 +78,8 @@ const ThemeColorSwatch: React.FC<ThemeColorSwatchProps> = ({
             className="h-16 w-16 rounded-md mb-2 border border-gray-200 mx-auto"
             style={{ backgroundColor: darkValue }}
           ></div>
-          <p className="text-xs font-medium text-gray-700">Dark</p>
-          <p className="text-xs font-mono text-gray-500">{darkValue}</p>
+          <Typography variant="body-secondary-medium" className="text-gray-700">Dark</Typography>
+          <Typography variant="body-secondary-regular" className="font-mono text-gray-500">{darkValue}</Typography>
         </div>
         
         {/* Night Mode */}
@@ -87,8 +88,8 @@ const ThemeColorSwatch: React.FC<ThemeColorSwatchProps> = ({
             className="h-16 w-16 rounded-md mb-2 border border-gray-200 mx-auto"
             style={{ backgroundColor: nightValue }}
           ></div>
-          <p className="text-xs font-medium text-gray-700">Night</p>
-          <p className="text-xs font-mono text-gray-500">{nightValue}</p>
+          <Typography variant="body-secondary-medium" className="text-gray-700">Night</Typography>
+          <Typography variant="body-secondary-regular" className="font-mono text-gray-500">{nightValue}</Typography>
         </div>
       </div>
     </div>
@@ -103,7 +104,7 @@ interface ColorGroupProps {
 const ColorGroup: React.FC<ColorGroupProps> = ({ title, children }) => {
   return (
     <div className="mb-8">
-      <h3 className="text-xl font-semibold mb-4">{title}</h3>
+      <Typography variant="display-primary" className="mb-4">{title}</Typography>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {children}
       </div>
@@ -133,7 +134,7 @@ const HorizontalColorScale: React.FC<HorizontalColorScaleProps> = ({ title, colo
 
   return (
     <div className={`p-6 ${themeStyles[theme]} ${textStyles[theme]} rounded-lg border`}>
-      <h3 className="text-lg font-semibold mb-4">{title}</h3>
+      <Typography variant="display-primary" className="mb-4">{title}</Typography>
       <div className="flex items-center gap-1">
         {colors.map((color, index) => (
           <div key={color.shade} className="flex flex-col items-center">
@@ -155,9 +156,9 @@ const HorizontalColorScale: React.FC<HorizontalColorScaleProps> = ({ title, colo
               )}
             </div>
             {/* Shade label and hex value */}
-            <div className="text-xs mt-1 text-center">
-              <div className="font-mono">{color.shade}</div>
-              <div className="font-mono text-[10px] opacity-70">{color.hex}</div>
+            <div className="mt-1 text-center">
+              <Typography variant="body-secondary-regular" className="font-mono">{color.shade}</Typography>
+              <Typography variant="body-secondary-regular" className="font-mono text-[10px] opacity-70">{color.hex}</Typography>
             </div>
           </div>
         ))}
@@ -172,21 +173,21 @@ export function Colors() {
   return (
     <div className="w-full space-y-10">
       <div className="flex justify-between items-center">
-        <h1 className="text-[40px] font-light">Color System</h1>
+        <Typography variant="title-primary" className="text-[40px]">Color System</Typography>
         <div className="flex items-center gap-4">
-          <span className="text-sm font-medium">Current Theme: {theme}</span>
-          <p className="text-sm text-gray-500">
+          <Typography variant="body-secondary-medium">Current Theme: {theme}</Typography>
+          <Typography variant="body-secondary-regular" className="text-gray-500">
             Complete design system colors
-          </p>
+          </Typography>
         </div>
       </div>
 
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-        <h2 className="text-xl font-semibold text-blue-900 mb-3">Color System Architecture</h2>
+        <Typography variant="display-primary" className="text-blue-900 mb-3">Color System Architecture</Typography>
         <div className="text-blue-800 space-y-2">
-          <p><strong>Base Colors</strong> → Foundation color scales (67 colors × 3 themes = 201 CSS variables)</p>
-          <p><strong>Semantic Colors</strong> → Component-friendly colors that reference base scales</p>
-          <p><strong>Component Usage</strong> → Components use semantic colors that adapt automatically</p>
+          <Typography variant="body-primary-regular"><strong>Base Colors</strong> → Foundation color scales (67 colors × 3 themes = 201 CSS variables)</Typography>
+          <Typography variant="body-primary-regular"><strong>Semantic Colors</strong> → Component-friendly colors that reference base scales</Typography>
+          <Typography variant="body-primary-regular"><strong>Component Usage</strong> → Components use semantic colors that adapt automatically</Typography>
         </div>
         <div className="mt-4 flex gap-4">
           <a href="?path=/story/design-system-colors-base-colors--light-mode" className="text-blue-600 hover:text-blue-800 underline">
@@ -199,8 +200,8 @@ export function Colors() {
       </div>
       
       <section>
-        <h2 className="text-[24px] font-semibold mb-6">Primary Colors</h2>
-        <p className="mb-6">Main color scale used for primary UI elements and text</p>
+        <Typography variant="title-secondary" className="mb-6">Primary Colors</Typography>
+        <Typography variant="body-primary-regular" className="mb-6">Main color scale used for primary UI elements and text</Typography>
         
         <HorizontalColorScale 
           title="Primary Scale" 
@@ -220,8 +221,8 @@ export function Colors() {
       </section>
       
       <section>
-        <h2 className="text-[24px] font-semibold mb-6">Secondary Colors (Borders)</h2>
-        <p className="mb-6">Used for borders, dividers, and subtle UI elements</p>
+        <Typography variant="title-secondary" className="mb-6">Secondary Colors (Borders)</Typography>
+        <Typography variant="body-primary-regular" className="mb-6">Used for borders, dividers, and subtle UI elements</Typography>
         
         <HorizontalColorScale 
           title="Secondary Scale" 
@@ -241,8 +242,8 @@ export function Colors() {
       </section>
       
       <section>
-        <h2 className="text-[24px] font-semibold mb-6">Semantic Colors</h2>
-        <p className="mb-6">Status and interaction colors for components</p>
+        <Typography variant="title-secondary" className="mb-6">Semantic Colors</Typography>
+        <Typography variant="body-primary-regular" className="mb-6">Status and interaction colors for components</Typography>
         
         <HorizontalColorScale 
           title="Status Colors" 

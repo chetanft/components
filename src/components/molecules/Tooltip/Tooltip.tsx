@@ -96,7 +96,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         {(heading || showClose) && (
           <div className="flex justify-between items-center mb-1">
             {heading && (
-              <Typography variant="h6" className="font-semibold">
+              <Typography variant="body-secondary-semibold">
                 {heading}
               </Typography>
             )}

@@ -130,9 +130,9 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
           <div className="flex items-center gap-[6px]">
             <span
               className={cn(
-                // Typography from Figma
+                // Typography from Figma - 14px/16px semibold
                 size === 'md' ? "text-[14px]" : "text-[16px]",
-                "font-semibold font-inter leading-[1.21]",
+                "font-semibold leading-[1.4]",
                 getTextColor()
               )}
             >

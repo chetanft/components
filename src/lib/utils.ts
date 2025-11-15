@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
  * All components inherit from this system to ensure perfect consistency
  */
 
-export type ComponentSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+export type ComponentSize = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 /**
  * Gets unified component styles based on size
@@ -41,6 +41,7 @@ export function getComponentStyles(size: ComponentSize = 'md') {
   
   // Size-specific padding
   const paddingMap = {
+    xxs: 'px-1.5 py-0.5',
     xs: 'px-2 py-1',
     sm: 'px-3 py-2',
     md: 'px-4 py-3', 
@@ -51,6 +52,7 @@ export function getComponentStyles(size: ComponentSize = 'md') {
   
   // Size-specific icon sizes
   const iconSizeMap = {
+    xxs: 12,
     xs: 14,
     sm: 16,
     md: 18,

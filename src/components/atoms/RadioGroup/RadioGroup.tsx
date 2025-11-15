@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Typography } from '../Typography';
 
 export interface RadioOption {
   value: string;
@@ -57,14 +58,14 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       radio: "w-[16px] h-[16px]",
       dot: "w-[6px] h-[6px]",
       gap: "gap-[6px]",
-      text: "text-[12px]",
+      variant: "body-secondary-regular" as const, // 12px → 14px closest
       groupGap: "gap-[12px]"
     },
     md: {
       radio: "w-[var(--radio-size)] h-[var(--radio-size)]", // 20px from Figma
       dot: "w-[10px] h-[10px]", // 10px inner dot from Figma
       gap: "gap-[var(--radio-gap)]", // 8px spacing
-      text: "text-[14px]", // 14px font size from Figma
+      variant: "body-secondary-medium" as const, // 14px font size from Figma
       groupGap: "gap-[16px]"
     }
   };
@@ -78,15 +79,10 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
     className
   );
 
-  // Font styling for consistent design system
-  const getLabelColor = (isSelected: boolean, isDisabled: boolean) => {
-    if (isDisabled) return "var(--border-primary)"; // Use CSS variable instead of hardcoded
-    return isSelected ? "var(--primary)" : "var(--primary)"; // Use CSS variables
-  };
-
-  const labelStyle = {
-    fontWeight: "500", // Medium weight matching checkbox pattern
-    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif",
+  // Get Typography color variant based on state
+  const getLabelColor = (isDisabled: boolean) => {
+    if (isDisabled) return 'muted';
+    return 'primary';
   };
 
   return (
@@ -111,26 +107,11 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
           "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--primary)] focus-within:ring-offset-2"
         );
 
-        // Label styles using exact Figma specifications
-        const labelStyles = cn(
-          "leading-[1.4] cursor-pointer", // Remove font-weight from class, use inline style
-          currentSize.text,
-          isDisabled
-            ? "cursor-not-allowed"
-            : ""
-        );
-
         // Container styles for each radio option
         const optionStyles = cn(
           "inline-flex items-center",
           currentSize.gap
         );
-
-        // Individual label style with proper color
-        const individualLabelStyle = {
-          ...labelStyle,
-          color: getLabelColor(isSelected, !!isDisabled),
-        };
 
         return (
           <label key={option.value} className={optionStyles}>
@@ -159,9 +140,14 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
               </div>
             </div>
             {option.label && (
-              <span className={labelStyles} style={individualLabelStyle}>
+              <Typography
+                variant={currentSize.variant}
+                color={getLabelColor(!!isDisabled)}
+                as="span"
+                className={isDisabled ? "cursor-not-allowed" : "cursor-pointer"}
+              >
                 {option.label}
-              </span>
+              </Typography>
             )}
           </label>
         );

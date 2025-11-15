@@ -7,6 +7,7 @@ import { Badge } from '../../atoms/Badge';
 import { FileTypeIcon } from '../FileTypeIcon';
 import { ProgressBar } from '../../molecules/ProgressBar';
 import { Icon } from '../../atoms/Icons';
+import { Typography } from '../../atoms/Typography';
 
 export interface FileStats {
   total?: number;
@@ -168,9 +169,13 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
             <div className="flex flex-col gap-[8px]">
               {/* File name and badge should be horizontally aligned */}
               <div className="flex items-center gap-[20px]">
-                <h3 className="text-[16px] font-[600] leading-[1.4] text-[var(--primary)]">
+                <Typography 
+                  variant="body-primary-semibold"
+                  as="h3"
+                  className="text-[var(--primary)]"
+                >
                   {fileName}
-                </h3>
+                </Typography>
                 <Badge 
                   variant={statusConfig.badge.variant}
                   icon={statusConfig.badge.icon}
@@ -182,9 +187,12 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
               
               {/* File Date (for processed files) */}
               {fileDate && (
-                <p className="text-[14px] font-[400] leading-[1.4] text-[var(--secondary)]">
+                <Typography 
+                  variant="body-secondary-regular"
+                  className="text-[var(--secondary)]"
+                >
                   {fileDate}
-                </p>
+                </Typography>
               )}
             </div>
           </div>
@@ -262,9 +270,12 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
         {/* Error Message */}
         {errorMessage && (
           <div className="flex items-center justify-center px-[54px]">
-            <p className="text-[14px] font-[400] leading-[1.4] text-[#FF3533]">
+            <Typography 
+              variant="body-secondary-regular"
+              className="text-[#FF3533]"
+            >
               {errorMessage}
-            </p>
+            </Typography>
           </div>
         )}
         
@@ -273,20 +284,20 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
           <div className="flex items-stretch gap-[20px] pl-[64px]">
             {/* Total */}
             <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
-              <span className="text-[14px] font-[500] leading-[1.4] text-[var(--secondary)]">Total</span>
-              <span className="text-[20px] font-[400] leading-[1.4] text-[var(--primary)]">{stats?.total || 0}</span>
+              <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Total</Typography>
+              <Typography variant="display-primary" className="text-[var(--primary)]">{stats?.total || 0}</Typography>
             </div>
             
             {/* Success */}
             <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
-              <span className="text-[14px] font-[500] leading-[1.4] text-[var(--secondary)]">Success</span>
-              <span className="text-[20px] font-[400] leading-[1.4] text-[var(--positive)]">{stats?.success || 0}</span>
+              <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Success</Typography>
+              <Typography variant="display-primary" className="text-[var(--positive)]">{stats?.success || 0}</Typography>
             </div>
             
             {/* Invalid */}
             <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
-              <span className="text-[14px] font-[500] leading-[1.4] text-[var(--secondary)]">Invalid</span>
-              <span className="text-[20px] font-[400] leading-[1.4] text-[var(--critical)]">{stats?.invalid || 0}</span>
+              <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Invalid</Typography>
+              <Typography variant="display-primary" className="text-[var(--critical)]">{stats?.invalid || 0}</Typography>
             </div>
           </div>
         )}

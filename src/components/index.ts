@@ -29,12 +29,16 @@ export * from './molecules/DatePicker';
 export * from './molecules/StackedBarChart';
 export * from './molecules/SimpleColumnLayout';
 export * from './molecules/Dropdown';
+export * from './molecules/FileValidationCard';
 export * from './molecules/ProgressBar';
 export * from './molecules/ProgressList';
 export * from './molecules/RadioSelector';
 export * from './molecules/SegmentedTabs';
 export * from './molecules/Steps';
 export * from './molecules/Tooltip';
+export * from './molecules/UploadButton';
+export * from './molecules/UploadItem';
+export * from './molecules/UploadThumbnail';
 
 // ORGANISMS - Complex combinations and complete UI sections
 export * from './organisms/AppHeader';
@@ -47,6 +51,7 @@ export * from './organisms/Footer';
 export * from './organisms/QuickFilters';
 export * from './organisms/Table';
 export * from './organisms/Tabs';
+export * from './organisms/Upload';
 export * from './organisms/UploadZone';
 export * from './organisms/UserProfile';
 

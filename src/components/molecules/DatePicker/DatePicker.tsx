@@ -35,6 +35,7 @@ const datePickerFieldVariants = cva(
   {
     variants: {
       size: {
+        xxs: "h-component-xxs text-xs",
         xs: "h-component-xs text-xs",
         sm: "h-component-sm text-sm",
         md: "h-component-md text-sm",

@@ -35,6 +35,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
 
   // Button-specific sizing from Figma design
   const buttonSizing = {
+    xxs: {
+      padding: 'px-1.5 py-0.5',
+      fontSize: 'text-xs', // 12px
+      iconSize: 12,
+      borderRadius: 'rounded-[4px]',
+      height: 'h-4', // 16px
+    },
     xs: {
       padding: 'px-2 py-[2px]',
       fontSize: 'text-sm', // 14px
