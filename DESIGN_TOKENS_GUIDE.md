@@ -40,7 +40,7 @@ All design tokens are available as CSS custom properties:
 ```css
 .my-component {
   color: var(--color-neutral);
-  font-size: var(--font-size-md);
+  font-size: 16px;
   padding: var(--spacing-x4);
   border-radius: var(--radius-md);
 }
@@ -70,26 +70,13 @@ All design tokens are available as CSS custom properties:
 **Font Family:**
 - `--font-family-primary`: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif
 
-**Font Weights:**
-- `--font-weight-regular`: 400
-- `--font-weight-medium`: 500  
-- `--font-weight-semibold`: 600
-
-**Font Sizes (Responsive):**
-
-Desktop (>1440px):
-- `--font-size-sm`: 14px
-- `--font-size-md`: 16px
-- `--font-size-lg`: 20px
-- `--font-size-xl`: 24px
-- `--font-size-xxl`: 28px
-
-Tablet (≤1440px):
-- `--font-size-sm`: 12px
-- `--font-size-md`: 14px
-- `--font-size-lg`: 18px
-- `--font-size-xl`: 21px
-- `--font-size-xxl`: 26px
+**Typography Variants (Figma Spec)**
+- Title Primary: 28px / 140%, regular weight
+- Title Secondary: 24px / 140%, semibold
+- Display Primary: 20px / 140%, semibold
+- Button: 20px / 140%, medium with 0.0264px tracking
+- Body Primary: 16px / 140% (semibold, medium, italic, regular)
+- Body Secondary: 14px / 140% (semibold, medium, regular)
 
 ### Spacing (Responsive)
 
@@ -132,7 +119,7 @@ Desktop spacing uses 4px base unit:
 
 ### Badge Component  
 - ✅ Uses semantic color tokens for all variants
-- ✅ Uses `--font-size-sm` and proper font weights
+- ✅ Uses 14px body-secondary typography with proper weights
 - ✅ Uses `--spacing-x2` for consistent padding
 - ✅ Uses `--radius-sm` for border radius
 
@@ -162,10 +149,9 @@ Desktop spacing uses 4px base unit:
 - ✅ Uses `--radius-sm` for consistent rounding
 
 ### Typography Component
-- ✅ All examples use CSS custom properties
-- ✅ Responsive font sizing applied
-- ✅ Proper token names documented
-- ✅ Consistent color usage
+- ✅ Documents the eleven Figma-aligned variants (`title-primary`, `body-secondary-medium`, etc.)
+- ✅ Uses direct pixel values (28px, 24px, 20px, 16px, 14px) with 140% line-height
+- ✅ Shows semantic color usage through the `color` prop
 
 ## Icon System Integration
 
@@ -185,14 +171,14 @@ The design token system automatically handles responsive typography and spacing:
 ```css
 /* Desktop by default */
 .component {
-  font-size: var(--font-size-md); /* 16px */
+  font-size: 16px;
   padding: var(--spacing-x4); /* 16px */
 }
 
 /* Automatically adjusts on tablet */
 @media (max-width: 1440px) {
   .component {
-    font-size: var(--font-size-md); /* 14px */
+    font-size: 14px;
     padding: var(--spacing-x4); /* 12px */
   }
 }
@@ -223,7 +209,7 @@ If you have existing components using hardcoded values, update them as follows:
 /* After */  
 .new-component {
   color: var(--color-dark-100);
-  font-size: var(--font-size-md);
+  font-size: 16px;
   padding: var(--spacing-x4);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);

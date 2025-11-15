@@ -30,14 +30,14 @@ const ThemeDemo: React.FC = () => {
   return (
     <div className="space-y-8">
       <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-lg p-6">
-        <Typography variant="h3" color="primary" className="mb-4">
+        <Typography variant="display-primary" color="primary" className="mb-4">
           Current Theme: {theme.charAt(0).toUpperCase() + theme.slice(1)} Mode
         </Typography>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Buttons Section */}
           <div className="space-y-3">
-            <Typography variant="h4" color="primary" className="mb-3">Buttons</Typography>
+            <Typography variant="body-primary-semibold" color="primary" className="mb-3">Buttons</Typography>
             <div className="space-y-2">
               <Button variant="primary" size="md">Primary Action</Button>
               <Button variant="secondary" size="md">Secondary Action</Button>
@@ -47,7 +47,7 @@ const ThemeDemo: React.FC = () => {
           
           {/* Badges Section */}
           <div className="space-y-3">
-            <Typography variant="h4" color="primary" className="mb-3">Badges</Typography>
+            <Typography variant="body-primary-semibold" color="primary" className="mb-3">Badges</Typography>
             <div className="flex flex-wrap gap-2">
               <Badge variant="normal">Normal</Badge>
               <Badge variant="success">Success</Badge>
@@ -58,7 +58,7 @@ const ThemeDemo: React.FC = () => {
           
           {/* Progress Bars Section */}
           <div className="space-y-3">
-            <Typography variant="h4" color="primary" className="mb-3">Progress</Typography>
+            <Typography variant="body-primary-semibold" color="primary" className="mb-3">Progress</Typography>
             <div className="space-y-3">
               <ProgressBar variant="primary" value={75} />
               <ProgressBar variant="success" value={90} />
@@ -70,7 +70,7 @@ const ThemeDemo: React.FC = () => {
         
         {/* Radio Group Section */}
         <div className="mt-6">
-          <Typography variant="h4" color="primary" className="mb-3">Form Controls</Typography>
+          <Typography variant="body-primary-semibold" color="primary" className="mb-3">Form Controls</Typography>
           <RadioGroup
             name="demo-options"
             options={[
@@ -84,14 +84,14 @@ const ThemeDemo: React.FC = () => {
         
         {/* Typography Section */}
         <div className="mt-6">
-          <Typography variant="h4" color="primary" className="mb-3">Typography</Typography>
+          <Typography variant="body-primary-semibold" color="primary" className="mb-3">Typography</Typography>
           <div className="space-y-2">
-            <Typography variant="h1" color="primary">Heading 1 - Primary Color</Typography>
-            <Typography variant="h2" color="secondary">Heading 2 - Secondary Color</Typography>
-            <Typography variant="p" color="primary">
+            <Typography variant="title-primary" color="primary">Heading 1 - Primary Color</Typography>
+            <Typography variant="title-secondary" color="secondary">Heading 2 - Secondary Color</Typography>
+            <Typography variant="body-primary-regular" color="primary">
               This is body text using the primary color. It automatically adapts to the current theme.
             </Typography>
-            <Typography variant="p" color="secondary">
+            <Typography variant="body-primary-regular" color="secondary">
               This is muted text using the secondary color for less prominent information.
             </Typography>
           </div>
@@ -110,7 +110,7 @@ const ThemeWrapper: React.FC<{ children: React.ReactNode; defaultTheme?: 'light'
     <div className="min-h-screen bg-[var(--bg-secondary)] p-4 transition-colors duration-200">
       <div className="max-w-6xl mx-auto space-y-6">
         <div className="flex justify-between items-center">
-          <Typography variant="h2" color="primary">FT Design System - Multi-Theme Demo</Typography>
+          <Typography variant="title-secondary" color="primary">FT Design System - Multi-Theme Demo</Typography>
           <ThemeSwitch />
         </div>
         {children}
@@ -181,7 +181,7 @@ export const NightTheme: Story = {
 
 export const ThemeComparison = () => (
   <div className="space-y-8">
-    <Typography variant="h2" className="text-center mb-8">Theme Comparison</Typography>
+    <Typography variant="title-secondary" className="text-center mb-8">Theme Comparison</Typography>
     
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* Light Theme */}
@@ -191,7 +191,7 @@ export const ThemeComparison = () => (
           <div className="p-4 space-y-4">
             <Button variant="primary" size="sm">Primary Button</Button>
             <Badge variant="success">Success Badge</Badge>
-            <Typography variant="p" color="primary">Sample text content</Typography>
+            <Typography variant="body-primary-regular" color="primary">Sample text content</Typography>
             <ProgressBar variant="primary" value={60} />
           </div>
         </ThemeWrapper>
@@ -204,7 +204,7 @@ export const ThemeComparison = () => (
           <div className="p-4 space-y-4">
             <Button variant="primary" size="sm">Primary Button</Button>
             <Badge variant="success">Success Badge</Badge>
-            <Typography variant="p" color="primary">Sample text content</Typography>
+            <Typography variant="body-primary-regular" color="primary">Sample text content</Typography>
             <ProgressBar variant="primary" value={60} />
           </div>
         </ThemeWrapper>
@@ -217,7 +217,7 @@ export const ThemeComparison = () => (
           <div className="p-4 space-y-4">
             <Button variant="primary" size="sm">Primary Button</Button>
             <Badge variant="success">Success Badge</Badge>
-            <Typography variant="p" color="primary">Sample text content</Typography>
+            <Typography variant="body-primary-regular" color="primary">Sample text content</Typography>
             <ProgressBar variant="primary" value={60} />
           </div>
         </ThemeWrapper>
@@ -225,10 +225,10 @@ export const ThemeComparison = () => (
     </div>
     
     <div className="bg-gray-50 p-6 rounded-lg">
-      <Typography variant="h3" className="mb-4">Implementation Guide</Typography>
+      <Typography variant="display-primary" className="mb-4">Implementation Guide</Typography>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <Typography variant="h4" className="mb-2">Setup</Typography>
+          <Typography variant="body-primary-semibold" className="mb-2">Setup</Typography>
           <pre className="bg-white p-3 rounded text-sm overflow-x-auto">
 {`import { ThemeProvider } from 'ft-design-system';
 
@@ -243,7 +243,7 @@ function App() {
         </div>
         
         <div>
-          <Typography variant="h4" className="mb-2">Usage</Typography>
+          <Typography variant="body-primary-semibold" className="mb-2">Usage</Typography>
           <pre className="bg-white p-3 rounded text-sm overflow-x-auto">
 {`import { useTheme, ThemeSwitch } from 'ft-design-system';
 

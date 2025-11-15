@@ -87,7 +87,7 @@ export const TwoToneIcons = () => {
 
       <div className="mt-8 grid md:grid-cols-2 gap-8">
         <div>
-          <h4 className="text-md font-medium mb-3">Design Principles</h4>
+          <h4 className="text-base font-medium mb-3">Design Principles</h4>
           <ul className="list-disc pl-5 text-sm text-gray-600 space-y-2">
             <li>Primary elements use full opacity (1.0) for main actions</li>
             <li>Secondary elements use 0.4 opacity for contextual information</li>
@@ -97,7 +97,7 @@ export const TwoToneIcons = () => {
         </div>
         
         <div>
-          <h4 className="text-md font-medium mb-3">Icon Categories</h4>
+          <h4 className="text-base font-medium mb-3">Icon Categories</h4>
           <ul className="list-disc pl-5 text-sm text-gray-600 space-y-2">
             <li><strong>Navigation:</strong> dashboard, home, planning, reports</li>
             <li><strong>Transport:</strong> truck, my-trip, add-trip, bulk-trip</li>

@@ -34,7 +34,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         )}
         {...props}
       >
-        <div className="bg-[var(--bg_primary,#ffffff)] h-full w-full overflow-hidden rounded-full shrink-0">
+        <div className="bg-[var(--bg-primary,#ffffff)] h-full w-full overflow-hidden rounded-full shrink-0">
           {src ? (
             <img
               className="w-full h-full object-cover pointer-events-none"

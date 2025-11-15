@@ -5,7 +5,7 @@ import { Button, type ButtonProps } from '../../atoms/Button/Button';
 import { cn } from '../../../lib/utils';
 
 export interface ButtonGroupItem
-  extends Omit<ButtonProps, 'children'> {
+  extends Omit<ButtonProps, 'children' | 'id'> {
   /**
    * Unique identifier for list rendering
    */

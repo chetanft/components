@@ -63,7 +63,7 @@ fontSize: {
 // Different heights, fonts, padding everywhere
 <Button className="h-9 text-xl px-4" />      // 36px, 20px font
 <Input className="h-12 text-base px-4" />    // 48px, 16px font  
-<Dropdown className="h-10 text-md px-3" />   // 40px, 16px font
+<Dropdown className="h-10 text-base px-3" />   // 40px, 16px font
 ```
 
 ### **After (Perfectly Synced)**

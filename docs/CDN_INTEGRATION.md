@@ -313,19 +313,12 @@ When using FT Design System components or creating fallbacks, use these EXACT de
 ```
 
 ### Typography
-```css
---ft-font-family: Inter;
---ft-font-weight-regular: 400;
---ft-font-weight-medium: 500;
---ft-font-weight-semibold: 600;
-
-/* Font sizes */
---ft-text-sm: 14px;
---ft-text-md: 16px;
---ft-text-lg: 20px;
---ft-text-xl: 24px;
---ft-text-xxl: 28px;
-```
+- Primary Typeface: Inter
+- Title Primary: 28px / 140%
+- Title Secondary: 24px / 140%
+- Display Primary & Buttons: 20px / 140%
+- Body Primary (Semibold/Medium/Italic/Regular): 16px / 140%
+- Body Secondary (Semibold/Medium/Regular): 14px / 140%
 
 ### Spacing (8px base system)
 ```css
@@ -364,7 +357,7 @@ When using FT Design System components or creating fallbacks, use these EXACT de
   border-radius: var(--ft-radius-md);
   padding: 12px 20px;
   box-shadow: var(--ft-shadow-sm);
-  font-weight: var(--ft-font-weight-medium);
+  font-weight: 500;
 }
 
 /* Input field */
@@ -372,7 +365,7 @@ When using FT Design System components or creating fallbacks, use these EXACT de
   border: 1px solid var(--ft-border);
   border-radius: var(--ft-radius-md);
   padding: 8px 12px;
-  font-family: var(--ft-font-family);
+  font-family: Inter, sans-serif;
 }
 
 .ft-input:focus {

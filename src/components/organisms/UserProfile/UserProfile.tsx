@@ -43,7 +43,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   if (currentState === 'Default' && !companyName) {
     return (
       <div 
-        className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center justify-center overflow-clip p-[var(--x2,8px)] rounded-[var(--x2,8px)] cursor-pointer"
+        className="bg-[var(--bg-primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center justify-center overflow-clip p-[var(--x2,8px)] rounded-[var(--x2,8px)] cursor-pointer"
         onClick={onToggle}
       >
         <Avatar 
@@ -61,7 +61,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
     return (
       <div className="content-stretch flex flex-col gap-[var(--x5,20px)] items-end w-[400px]">
         <div 
-          className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[15px] items-center overflow-clip p-[var(--x2,8px)] relative rounded-[var(--x2,8px)] shrink-0 cursor-pointer"
+          className="bg-[var(--bg-primary,#ffffff)] box-border content-stretch flex gap-[15px] items-center overflow-clip p-[var(--x2,8px)] relative rounded-[var(--x2,8px)] shrink-0 cursor-pointer"
           onClick={onToggle}
         >
           <div className="h-[26px] relative shrink-0 w-[155px]">
@@ -75,7 +75,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
           />
         </div>
 
-        <div className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex flex-col gap-[var(--x0,0px)] items-center overflow-clip px-0 py-[20px] relative rounded-[var(--x2,8px)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] shrink-0 w-full">
+        <div className="bg-[var(--bg-primary,#ffffff)] box-border content-stretch flex flex-col gap-[var(--x0,0px)] items-center overflow-clip px-0 py-[20px] relative rounded-[var(--x2,8px)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] shrink-0 w-full">
           
           <div className="box-border content-stretch flex flex-col gap-[20px] items-start justify-center px-[var(--x5,20px)] py-0 relative shrink-0 w-full">
             <div className="content-stretch flex gap-[var(--x5,20px)] items-center relative shrink-0 w-full">
@@ -90,7 +90,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                   <Typography variant="display-primary" color="primary" className="relative shrink-0">
                     {userName}
                   </Typography>
-                  <div className="bg-[var(--border_secondary,#f0f1f7)] box-border content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[2px] relative rounded-[var(--x1,4px)] shrink-0">
+                  <div className="bg-[var(--border-secondary,#f0f1f7)] box-border content-stretch flex gap-[8px] items-center justify-center px-[8px] py-[2px] relative rounded-[var(--x1,4px)] shrink-0">
                     <Typography variant="body-secondary-semibold" color="primary" className="relative shrink-0">
                       {userBadge}
                     </Typography>
@@ -116,11 +116,11 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 
           <div className="box-border content-stretch flex flex-col gap-[16px] items-start px-[var(--x5,20px)] py-0 relative shrink-0 w-full">
             <div 
-              className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border_secondary,#f0f1f7)] transition-colors"
+              className="bg-[var(--bg-primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border-secondary,#f0f1f7)] transition-colors"
               onClick={() => onMenuItemClick('view-profile')}
             >
-              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
-                <User className="w-full h-full text-[color:var(--primary,#434f64)]" />
+              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px] w-full h-full text-[color:var(--primary,#434f64)]">
+                <User />
               </div>
               <Typography variant="body-primary-regular" color="primary" className="relative shrink-0">
                 View Profile
@@ -128,11 +128,11 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             </div>
 
             <div 
-              className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border_secondary,#f0f1f7)] transition-colors"
+              className="bg-[var(--bg-primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border-secondary,#f0f1f7)] transition-colors"
               onClick={() => onMenuItemClick('settings')}
             >
-              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
-                <Settings className="w-full h-full text-[color:var(--primary,#434f64)]" />
+              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px] w-full h-full text-[color:var(--primary,#434f64)]">
+                <Settings />
               </div>
               <Typography variant="body-primary-regular" color="primary" className="relative shrink-0">
                 Settings
@@ -140,11 +140,11 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             </div>
 
             <div 
-              className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border_secondary,#f0f1f7)] transition-colors"
+              className="bg-[var(--bg-primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border-secondary,#f0f1f7)] transition-colors"
               onClick={() => onMenuItemClick('change-desk')}
             >
-              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
-                <Refresh className="w-full h-full text-[color:var(--primary,#434f64)]" />
+              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px] w-full h-full text-[color:var(--primary,#434f64)]">
+                <Refresh />
               </div>
               <Typography variant="body-primary-regular" color="primary" className="relative shrink-0">
                 Change Desk
@@ -152,11 +152,11 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             </div>
 
             <div 
-              className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border_secondary,#f0f1f7)] transition-colors"
+              className="bg-[var(--bg-primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--border-secondary,#f0f1f7)] transition-colors"
               onClick={() => onMenuItemClick('change-password')}
             >
-              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip relative shrink-0 size-[16px]">
-                <Password className="w-full h-full text-[color:var(--primary,#434f64)]" />
+              <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip relative shrink-0 size-[16px] w-full h-full text-[color:var(--primary,#434f64)]">
+                <Password />
               </div>
               <Typography variant="body-primary-regular" color="primary" className="relative shrink-0">
                 Change Password
@@ -171,11 +171,11 @@ export const UserProfile: React.FC<UserProfileProps> = ({
           </div>
 
           <div 
-            className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center px-[32px] py-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--critical-light)] transition-colors"
+            className="bg-[var(--bg-primary,#ffffff)] box-border content-stretch flex gap-[10px] items-center px-[32px] py-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full cursor-pointer hover:bg-[var(--critical-light)] transition-colors"
             onClick={() => onMenuItemClick('logout')}
           >
-            <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip relative shrink-0 size-[16px]">
-              <Logout className="w-full h-full text-[color:var(--critical,#ff3533)]" />
+            <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip relative shrink-0 size-[16px] w-full h-full text-[color:var(--critical,#ff3533)]">
+              <Logout />
             </div>
             <Typography variant="body-primary-regular" color="danger" className="relative shrink-0">
               Logout
@@ -190,7 +190,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   // State=Default, Company name=True
   return (
     <div 
-      className="bg-[var(--bg_primary,#ffffff)] box-border content-stretch flex gap-[15px] items-center p-[var(--x2,8px)] rounded-[var(--x2,8px)] cursor-pointer"
+      className="bg-[var(--bg-primary,#ffffff)] box-border content-stretch flex gap-[15px] items-center p-[var(--x2,8px)] rounded-[var(--x2,8px)] cursor-pointer"
       onClick={onToggle}
     >
       <div className="flex items-center self-stretch">

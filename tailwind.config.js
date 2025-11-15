@@ -51,12 +51,10 @@ export default {
     'bg-[var(--button-secondary-bg)]',
     'bg-[var(--button-destructive-bg)]',
     'bg-[var(--button-text-bg)]',
-    'bg-[var(--button-link-bg)]',
     'text-[var(--button-primary-text)]',
     'text-[var(--button-secondary-text)]',
     'text-[var(--button-destructive-text)]',
     'text-[var(--button-text-text)]',
-    'text-[var(--button-link-text)]',
     
     // Badge-specific variables (MISSING - this was the issue!)
     'bg-[var(--badge-normal-bg)]',
@@ -358,24 +356,24 @@ export default {
       },
       
       fontSize: {
-        'xs': 'var(--font-size-xs)', // 12px
-        'sm': 'var(--font-size-sm)', // 14px
-        'md': 'var(--font-size-md)', // 16px
-        'lg': 'var(--font-size-lg)', // 20px
-        'xl': 'var(--font-size-xl)', // 24px
-        'xxl': 'var(--font-size-xxl)', // 28px
+        'xs': '12px',
+        'sm': '14px',
+        'md': '16px',
+        'lg': '20px',
+        'xl': '24px',
+        'xxl': '28px',
         // COMPONENT SYSTEM FONTS (CRITICAL - DO NOT REMOVE)
-        'component-sm': ['var(--component-font-size-sm)', { fontWeight: 'var(--component-font-weight)' }],
-        'component-md': ['var(--component-font-size-md)', { fontWeight: 'var(--component-font-weight)' }],
-        'component-lg': ['var(--component-font-size-lg)', { fontWeight: 'var(--component-font-weight)' }],
-        'component-xl': ['var(--component-font-size-xl)', { fontWeight: 'var(--component-font-weight)' }],
+        'component-sm': ['14px', { fontWeight: '500' }],
+        'component-md': ['14px', { fontWeight: '500' }],
+        'component-lg': ['16px', { fontWeight: '500' }],
+        'component-xl': ['18px', { fontWeight: '500' }],
       },
       
       fontWeight: {
-        'regular': 'var(--font-weight-regular)', // 400
-        'medium': 'var(--font-weight-medium)', // 500
-        'semibold': 'var(--font-weight-semibold)', // 600
-                 'bold': 'var(--font-weight-bold)', // 700
+        'regular': '400',
+        'medium': '500',
+        'semibold': '600',
+        'bold': '700',
        },
        
       // COMPONENT SYSTEM DIMENSIONS (CRITICAL - DO NOT REMOVE)

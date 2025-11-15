@@ -242,7 +242,7 @@ export const CircularButtons: Story = {
       
       {/* Circular button sizes */}
       <div>
-        <h4 className="text-md font-medium mb-3">Sizes</h4>
+        <h4 className="text-base font-medium mb-3">Sizes</h4>
         <div className="flex items-center gap-4">
           <Button variant="secondary" size="sm" className="rounded-full" icon="edit" iconPosition="only" />
           <Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />
@@ -255,7 +255,7 @@ export const CircularButtons: Story = {
       
       {/* Circular button variants */}
       <div>
-        <h4 className="text-md font-medium mb-3">Variants</h4>
+        <h4 className="text-base font-medium mb-3">Variants</h4>
         <div className="flex items-center gap-4">
           <Button variant="primary" size="md" className="rounded-full" icon="add" iconPosition="only" />
           <Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />
@@ -265,7 +265,7 @@ export const CircularButtons: Story = {
       
       {/* Common use cases */}
       <div>
-        <h4 className="text-md font-medium mb-3">Common Use Cases</h4>
+        <h4 className="text-base font-medium mb-3">Common Use Cases</h4>
         <div className="flex items-center gap-4">
           <Button variant="secondary" size="sm" className="rounded-full" icon="more" iconPosition="only" />
           <Button variant="secondary" size="sm" className="rounded-full" icon="share" iconPosition="only" />
@@ -278,7 +278,7 @@ export const CircularButtons: Story = {
       
       {/* Comparison */}
       <div>
-        <h4 className="text-md font-medium mb-3">Comparison</h4>
+        <h4 className="text-base font-medium mb-3">Comparison</h4>
         <div className="flex items-center gap-6">
           <div className="flex flex-col items-center gap-2">
             <Button variant="secondary" size="md">

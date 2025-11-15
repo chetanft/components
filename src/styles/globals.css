@@ -9,8 +9,6 @@
    ===================================================== */
 
 :root {
-  --font-size: 14px;
-  
   /* =====================================================
      BASE COLOR SCALES - LIGHT MODE (FOUNDATION)
      ===================================================== */
@@ -128,11 +126,6 @@
   --button-text-hover-bg: #f0f1f7;
   --button-text-border: transparent;
   
-  --button-link-bg: transparent;
-  --button-link-text: #434f64;
-  --button-link-hover-text: #1d2a38;
-  --button-link-border: transparent;
-  
   /* Badge Colors */
   --badge-normal-bg: #f0f1f7;
   --badge-normal-text: #434f64;
@@ -184,6 +177,15 @@
   /* Radio Component Variables */
   --radio-size: 20px;
   --radio-gap: 8px;
+
+  /* Switch Component Variables */
+  --switch-off-bg: var(--tertiary);              /* #838C9D - Track when off */
+  --switch-on-bg: var(--border-primary);        /* #CED1D7 - Track when on */
+  --switch-disabled-bg: rgba(139, 139, 139, 0.2); /* Disabled track */
+  --switch-thumb-off: #ffffff;                  /* White thumb when off */
+  --switch-thumb-on: var(--primary);             /* #434F64 - Thumb when on */
+  --switch-disabled-thumb: var(--bg-secondary);  /* #F8F8F9 - Disabled thumb (off state) */
+  --switch-disabled-thumb-on: var(--border-primary); /* #CED1D7 - Disabled thumb (on state) */
 
   /* Semantic Colors - Reference base color scales */
   --critical-dark: var(--danger-700);    /* #b70100 */
@@ -361,11 +363,6 @@
   --button-text-hover-bg: #334155;
   --button-text-border: transparent;
   
-  --button-link-bg: transparent;
-  --button-link-text: #e2e8f0;  /* Light text */
-  --button-link-hover-text: #94a3b8;
-  --button-link-border: transparent;
-  
   /* Badge Colors - DARK MODE */
   --badge-normal-bg: #334155;
   --badge-normal-text: #e2e8f0;
@@ -426,6 +423,15 @@
   --focus: #F0F0F0;
   --focus-dark: #F0F0F0;
   --focus-ring: #F0F0F0;
+  
+  /* Switch Component Variables - Dark Mode */
+  --switch-off-bg: var(--tertiary);              /* #64748b - Track when off */
+  --switch-on-bg: var(--border-primary);        /* #475569 - Track when on */
+  --switch-disabled-bg: rgba(139, 139, 139, 0.2); /* Disabled track */
+  --switch-thumb-off: #ffffff;                  /* White thumb when off */
+  --switch-thumb-on: var(--primary);             /* #f8fafc - Thumb when on */
+  --switch-disabled-thumb: var(--bg-secondary);  /* #0f172a - Disabled thumb (off state) */
+  --switch-disabled-thumb-on: var(--border-primary); /* #475569 - Disabled thumb (on state) */
   
   /* Status Colors - Reference base color scales */
   --critical-dark: var(--danger-700);    /* #ffbfbf */
@@ -566,11 +572,6 @@
   --button-text-hover-bg: #202020;
   --button-text-border: transparent;
   
-  --button-link-bg: transparent;
-  --button-link-text: #f0f0f0;  /* Light text */
-  --button-link-hover-text: #d0d0d0;
-  --button-link-border: transparent;
-  
   /* Badge Colors - NIGHT MODE */
   --badge-normal-bg: #404040;
   --badge-normal-text: #f0f0f0;
@@ -632,6 +633,15 @@
   --focus-dark: #f0f0f0;
   --focus-ring: #f0f0f0;
   
+  /* Switch Component Variables - Night Mode */
+  --switch-off-bg: var(--tertiary);              /* #a0a0a0 - Track when off */
+  --switch-on-bg: var(--border-primary);        /* #404040 - Track when on */
+  --switch-disabled-bg: rgba(139, 139, 139, 0.2); /* Disabled track */
+  --switch-thumb-off: #ffffff;                  /* White thumb when off */
+  --switch-thumb-on: var(--primary);             /* #ffffff - Thumb when on */
+  --switch-disabled-thumb: var(--bg-secondary);  /* #1a1a1a - Disabled thumb (off state) */
+  --switch-disabled-thumb-on: var(--border-primary); /* #404040 - Disabled thumb (on state) */
+  
   /* Status Colors - Reference base color scales */
   --critical-dark: var(--danger-700);    /* #ffc4c4 */
   --critical: var(--danger-500);         /* #ffa0a0 */
@@ -654,7 +664,7 @@
    BASE STYLES
    ===================================================== */
 html {
-  font-size: var(--font-size);
+  font-size: 14px;
 }
 
 body {

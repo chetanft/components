@@ -79,7 +79,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     },
     xxl: {
       padding: 'px-7 py-5', // 28px horizontal, 20px vertical
-      fontSize: 'text-xxl', // 28px
+      fontSize: 'text-[28px]', // 28px
       iconSize: 24,
       borderRadius: 'rounded-[8px]',
       height: 'h-16', // 64px
@@ -89,16 +89,24 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const buttonSize = buttonSizing[size];
 
   // Base styles using unified design system
+  const focusRingClass = isLink
+    ? "focus-visible:ring-0 focus-visible:ring-offset-0"
+    : "focus-visible:ring-2 focus-visible:ring-offset-2";
+
+  const interactiveClass = "hover:shadow-button active:transform active:translate-y-px";
+
   const baseStyles = cn(
     // Layout and display
     "inline-flex items-center justify-center",
     "font-medium transition-all duration-200",
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+    "focus-visible:outline-none",
+    focusRingClass,
     "disabled:cursor-not-allowed",
     // Accessibility
     "select-none whitespace-nowrap",
     // Interaction states
-    isDisabled ? "opacity-disabled" : "hover:shadow-button active:transform active:translate-y-px",
+    !isLink && !isDisabled && interactiveClass,
+    isDisabled && "opacity-disabled",
     // Override border radius for circular buttons
     isCircular && "!rounded-full"
   );
@@ -145,10 +153,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "disabled:text-[var(--tertiary)]"
     ),
     link: cn(
-      "bg-[var(--button-link-bg)] text-[var(--button-link-text)] border-0 underline p-0 h-auto",
-      "hover:text-[var(--button-link-hover-text)] hover:no-underline hover:shadow-none", 
-      "focus-visible:ring-[var(--neutral)]",
-      "disabled:text-[var(--tertiary)] disabled:no-underline"
+      "bg-transparent text-[var(--neutral)] border-0 h-auto p-0 no-underline underline-offset-2",
+      "justify-start gap-2 items-center",
+      "hover:text-[var(--neutral-dark)] hover:underline hover:shadow-none",
+      "focus-visible:text-[var(--neutral-dark)] focus-visible:underline focus-visible:shadow-none",
+      "active:underline active:translate-y-0 active:shadow-none",
+      "disabled:text-[var(--border-primary)] disabled:no-underline disabled:pointer-events-none"
     ),
   };
 

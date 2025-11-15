@@ -20,7 +20,7 @@ The FT Design System had **severe sizing inconsistency issues** that were causin
 ❌ BEFORE:
 - Button:   text-xl (20px)
 - Input:    text-base (16px)
-- Dropdown: text-md (16px)
+- Dropdown: text-base (16px)
 ```
 
 ### 3. CSS Specificity Conflicts
@@ -37,10 +37,6 @@ The FT Design System had **severe sizing inconsistency issues** that were causin
 --component-height-md: 40px;     /* Updated from 44px */  
 --component-height-lg: 52px;     /* h-13 equivalent */
 --component-height-xl: 64px;     /* h-16 equivalent - for special cases */
-
---component-font-size-sm: 14px;  /* Small components */
---component-font-size-md: 16px;  /* Medium components */
---component-font-size-lg: 16px;  /* Large components - same as medium for readability */
 
 --component-icon-size-sm: 16px;
 --component-icon-size-md: 20px;
@@ -66,9 +62,9 @@ height: {
 "text-xl font-medium" // Fixed 20px font
 
 // AFTER: Standardized sizing
-"h-component-sm gap-2 text-[var(--component-font-size-sm)] font-medium", // 36px, 14px
-"h-component-md gap-2 text-[var(--component-font-size-md)] font-medium", // 40px, 16px
-"h-component-lg gap-2 text-[var(--component-font-size-lg)] font-medium", // 52px, 16px
+"h-component-sm gap-2 text-[14px] font-medium", // 36px component, 14px text
+"h-component-md gap-2 text-[16px] font-medium", // 40px component, 16px text
+"h-component-lg gap-2 text-[16px] font-medium", // 52px component, 16px text
 ```
 
 ### ✅ Input Component
@@ -78,22 +74,22 @@ height: {
 "h-input px-4 py-input-y text-base"  // CSS variable height
 
 // AFTER: Standardized sizing
-"h-component-sm px-3 py-2 text-[var(--component-font-size-sm)]", // 36px, 14px
-"h-component-md px-4 py-3 text-[var(--component-font-size-md)]", // 40px, 16px
-"h-component-lg px-5 py-4 text-[var(--component-font-size-lg)]", // 52px, 16px
+"h-component-sm px-3 py-2 text-[14px]", // 36px, 14px
+"h-component-md px-4 py-3 text-[16px]", // 40px, 16px
+"h-component-lg px-5 py-4 text-[16px]", // 52px, 16px
 ```
 
 ### ✅ Dropdown Component
 ```typescript
 // BEFORE: Mismatched sizing
-"h-16 px-[var(--spacing-x3)] text-[var(--font-size-md)]", // 64px
-"h-13 px-[var(--spacing-x3)] text-[var(--font-size-md)]", // 52px
-"h-10 px-[var(--spacing-x3)] text-[var(--font-size-md)]"  // 40px
+"h-16 px-[var(--spacing-x3)] text-[16px]", // 64px
+"h-13 px-[var(--spacing-x3)] text-[16px]", // 52px
+"h-10 px-[var(--spacing-x3)] text-[16px]"  // 40px
 
 // AFTER: Standardized sizing  
-"h-component-xl px-[var(--spacing-x3)] text-[var(--component-font-size-lg)]", // 64px, 16px
-"h-component-lg px-[var(--spacing-x3)] text-[var(--component-font-size-lg)]",  // 52px, 16px
-"h-component-md px-[var(--spacing-x3)] text-[var(--component-font-size-md)]"   // 40px, 16px
+"h-component-xl px-[var(--spacing-x3)] text-[16px]", // 64px, 16px
+"h-component-lg px-[var(--spacing-x3)] text-[16px]",  // 52px, 16px
+"h-component-md px-[var(--spacing-x3)] text-[16px]"   // 40px, 16px
 ```
 
 ### ✅ DatePicker Component

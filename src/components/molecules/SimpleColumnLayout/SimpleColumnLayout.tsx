@@ -87,10 +87,10 @@ export const SimpleColumnLayout = React.forwardRef<
         {...props}
       >
         <div className="grid grid-cols-2 gap-4 rounded-[8px] bg-[var(--primary,#434f64)] px-4 py-3">
-          <Typography variant="body-secondary-medium" className="text-[var(--bg_primary,#ffffff)]">
+          <Typography variant="body-secondary-medium" className="text-[var(--bg-primary,#ffffff)]">
             {headerLeft}
           </Typography>
-          <Typography variant="body-secondary-medium" className="text-[var(--bg_primary,#ffffff)] text-right">
+          <Typography variant="body-secondary-medium" className="text-[var(--bg-primary,#ffffff)] text-right">
             {headerRight}
           </Typography>
         </div>
@@ -105,7 +105,7 @@ export const SimpleColumnLayout = React.forwardRef<
                 className={cn(
                   'grid grid-cols-2 gap-4 px-4 py-3',
                   (applyStripe || row.accent) &&
-                    'bg-[var(--border_secondary,#f0f1f7)]'
+                    'bg-[var(--border-secondary,#f0f1f7)]'
                 )}
               >
                 <ColumnCell {...row.left} />

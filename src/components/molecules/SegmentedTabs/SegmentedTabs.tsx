@@ -36,7 +36,7 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
 
   const containerStyles = cn(
     // Container styles using design tokens
-    "flex gap-[var(--x1,4px)] p-[var(--x2,8px)] bg-[var(--bg_secondary,#f8f8f9)] rounded-[var(--x2,8px)]",
+    "flex gap-[var(--x1,4px)] p-[var(--x2,8px)] bg-[var(--bg-secondary,#f8f8f9)] rounded-[var(--x2,8px)]",
     className
   );
 
@@ -54,12 +54,12 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
           isSelected
             ? [
                 // Selected state using design tokens
-                "bg-[var(--bg_primary,#ffffff)] text-[color:var(--primary,#434f64)]",
+                "bg-[var(--bg-primary,#ffffff)] text-[color:var(--primary,#434f64)]",
                 "shadow-[0px_4px_4px_0px_rgba(0,0,0,0.08)]"
               ]
             : [
                 // Unselected state using design tokens  
-                "bg-[var(--bg_secondary,#f8f8f9)] text-[color:var(--secondary,#5f697b)]",
+                "bg-[var(--bg-secondary,#f8f8f9)] text-[color:var(--secondary,#5f697b)]",
                 "hover:bg-[var(--color-divider)]"
               ]
         );

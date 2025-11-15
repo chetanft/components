@@ -12,25 +12,25 @@ export const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
   ({ state, device, label = "Step", className, ...props }, ref) => {
     // Base styles using exact Figma specifications
     const containerStyles = cn(
-      "flex flex-col gap-[var(--steps-gap)]", // 16px gap from Figma
+      "flex flex-col gap-4", // 16px gap from Figma
       device === "desktop" ? "w-[292.67px]" : "flex-1", // Exact width from Figma
       className
     );
 
     // Progress bar styles using exact Figma specifications
     const progressBarStyles = cn(
-      "w-full h-[var(--steps-bar-height)] rounded-[var(--steps-bar-radius)] transition-colors", // 8px height, 8px radius from Figma
+      "w-full h-2 rounded-[8px] transition-colors", // 8px height, 8px radius from Figma
       state === "selected" 
-        ? "bg-[var(--steps-selected-bar)]" // #434F64 from Figma
-        : "bg-[var(--steps-unselected-bar)]" // #F0F1F7 from Figma
+        ? "bg-[var(--primary)]" // #434F64 from Figma
+        : "bg-[var(--border-secondary)]" // #F0F1F7 from Figma
     );
 
     // Label styles using exact Figma specifications  
     const labelStyles = cn(
-      "font-[Inter] font-[var(--steps-font-weight)] text-[var(--steps-font-size)] leading-[1.4] transition-colors", // Inter 600, 20px from Figma
+      "font-primary font-semibold text-[20px] leading-[1.4] transition-colors", // Inter 600, 20px from Figma
       state === "selected"
-        ? "text-[var(--steps-selected-text)]" // #434F64 from Figma
-        : "text-[var(--steps-unselected-text)]", // #CED1D7 from Figma
+        ? "text-[var(--primary)]" // #434F64 from Figma
+        : "text-[var(--border-primary)]", // #CED1D7 from Figma
       device === "mobile" && "sr-only" // Hide labels on mobile per Figma specs
     );
 

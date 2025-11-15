@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Typography, TypographyShowcase } from './Typography';
+import { Typography } from './Typography';
 
 const meta = {
   title: 'Atoms/Typography',
@@ -27,10 +27,7 @@ const meta = {
         'body-primary-regular',
         'body-secondary-semibold',
         'body-secondary-medium',
-        'body-secondary-regular',
-        // Legacy
-        'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span', 
-        'display-bold', 'body-semibold', 'body-regular', 'body-medium', 'caption'
+        'body-secondary-regular'
       ],
       description: 'Typography variant based on Figma design system (28/140 = 28px font, 140% line-height)'
     },
@@ -49,7 +46,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: 'Interactive Typography Component',
-    variant: 'p',
+    variant: 'body-primary-regular',
   },
 };
 
@@ -353,49 +350,6 @@ export const BodySecondaryRegular: Story = {
   },
 };
 
-// Legacy variant stories (backward compatibility)
-export const H1Title: Story = {
-  args: {
-    children: 'H1 (Legacy) - Page Title',
-    variant: 'h1',
-  },
-};
-
-export const H2Section: Story = {
-  args: {
-    children: 'H2 (Legacy) - Section',
-    variant: 'h2',
-  },
-};
-
-export const DisplayBold: Story = {
-  args: {
-    children: 'Display Bold (Legacy)',
-    variant: 'display-bold',
-  },
-};
-
-export const BodySemibold: Story = {
-  args: {
-    children: 'Body Semibold (Legacy)',
-    variant: 'body-semibold',
-  },
-};
-
-export const BodyRegular: Story = {
-  args: {
-    children: 'Body Regular (Legacy)',
-    variant: 'body-regular',
-  },
-};
-
-export const BodyMedium: Story = {
-  args: {
-    children: 'Body Medium (Legacy)',
-    variant: 'body-medium',
-  },
-};
-
 // Color variants
 export const ErrorMessage: Story = {
   args: {
@@ -410,20 +364,3 @@ export const SuccessMessage: Story = {
     color: 'success',
   },
 };
-
-// Legacy documentation showcase (hidden by default)
-export const CompleteLegacyDocumentation = () => (
-  <div>
-    <div style={{ 
-      background: '#fef3c7', 
-      border: '1px solid #f59e0b', 
-      borderRadius: '8px', 
-      padding: '16px', 
-      marginBottom: '24px',
-      color: '#92400e'
-    }}>
-      <strong>📚 Legacy Documentation:</strong> This is the original design system showcase for reference only.
-    </div>
-    <TypographyShowcase />
-  </div>
-); 

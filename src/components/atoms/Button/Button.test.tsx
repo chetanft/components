@@ -67,7 +67,15 @@ describe('Button Component', () => {
     it('applies link variant styles', () => {
       render(<Button variant="link">Link Button</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-[var(--button-link-bg)]', 'text-[var(--button-link-text)]', 'border-0', 'underline', 'p-0', 'h-auto');
+      expect(button).toHaveClass(
+        'bg-transparent',
+        'text-[var(--neutral)]',
+        'border-0',
+        'no-underline',
+        'p-0',
+        'h-auto',
+        'justify-start'
+      );
     });
   });
 

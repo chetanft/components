@@ -9,6 +9,7 @@ export * from './atoms/Button/Button';
 export * from './atoms/Checkbox';
 export * from './atoms/Colors';
 export * from './atoms/Divider';
+export * from './atoms/Illustration';
 // Import and re-export Icon component and IconName type explicitly
 import { Icon } from './atoms/Icons/Icon';
 import type { IconName } from './atoms/Icons/types';
@@ -48,6 +49,8 @@ export * from './organisms/FileCard';
 export * from './organisms/FileThumbnail';
 export * from './organisms/FileTypeIcon';
 export * from './organisms/Footer';
+export * from './organisms/NavigationPopover';
+export * from './organisms/NavigationPopover/NavigationLauncher';
 export * from './organisms/QuickFilters';
 export * from './organisms/Table';
 export * from './organisms/Tabs';

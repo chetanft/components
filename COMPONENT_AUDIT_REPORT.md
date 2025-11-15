@@ -120,22 +120,6 @@
 --tab-notification-dot: #ff3533;
 --tab-padding: 12px 32px;
 --tab-gap: 8px;
---tab-font-weight-normal: 400;
---tab-font-weight-selected: 600;
---tab-font-size: 16px;
-
-/* Steps Variables - Exact Figma Colors */
---steps-unselected-bar: #f0f1f7;
---steps-unselected-text: #ced1d7;
-
---steps-selected-bar: #434f64;
---steps-selected-text: #434f64;
-
---steps-bar-height: 8px;
---steps-bar-radius: 8px;
---steps-gap: 16px;
---steps-font-weight: 600;
---steps-font-size: 20px;
 
 /* Previously created variables for other components */
 --badge-normal-bg: #f0f1f7;

@@ -24,6 +24,7 @@ export interface AppHeaderProps {
   onUserClick?: () => void;
   onUserMenuItemClick?: (item: string) => void;
   className?: string;
+  leftAddon?: () => React.ReactNode;
 }
 
 export const AppHeader: React.FC<AppHeaderProps> = ({
@@ -43,6 +44,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   onUserClick = () => {},
   onUserMenuItemClick = () => {},
   className,
+  leftAddon,
 }) => {
   const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
 
@@ -70,7 +72,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           alignItems: 'center',
           gap: '20px',
         }}>
-          {/* Layout Grid Icon */}
+          {/* Layout Grid Icon / Custom Addon */}
+          {leftAddon ? (
+            leftAddon()
+          ) : (
           <div style={{
             backgroundColor: 'var(--bg-primary)',
             borderRadius: '100px',
@@ -86,6 +91,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
+          )}
 
           {/* FreightTiger Logo */}
           <div style={{
@@ -187,6 +193,9 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           gap: '20px',
         }}>
           {/* Layout Grid Icon */}
+          {leftAddon ? (
+            leftAddon()
+          ) : (
           <div style={{
             backgroundColor: 'var(--bg-primary)',
             borderRadius: '100px',
@@ -202,6 +211,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
+          )}
 
           {/* FreightTiger Logo */}
           <div style={{
@@ -303,6 +313,9 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           gap: '20px',
         }}>
           {/* Layout Grid Icon */}
+          {leftAddon ? (
+            leftAddon()
+          ) : (
           <div style={{
             backgroundColor: 'var(--bg-primary)',
             borderRadius: '100px',
@@ -318,6 +331,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
+          )}
 
           {/* FreightTiger Logo */}
           <div style={{

@@ -495,9 +495,6 @@ export const cssVariables = `
     
     /* Typography */
     --font-family-primary: ${designTokens.typography.fontFamily.primary};
-    --font-weight-regular: ${designTokens.typography.fontWeight.regular};
-    --font-weight-medium: ${designTokens.typography.fontWeight.medium};
-    --font-weight-semibold: ${designTokens.typography.fontWeight.semibold};
     
     /* Border Radius */
     --radius-none: ${designTokens.borderRadius.none};

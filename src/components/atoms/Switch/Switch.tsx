@@ -58,7 +58,9 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
         : "translate-x-[-3px]", // When off: thumb position (offset to align properly)
       // Colors using exact Figma specifications
       disabled
-        ? "bg-[var(--switch-disabled-thumb)]" // #838C9D for disabled state
+        ? props.checked
+          ? "bg-[var(--switch-disabled-thumb-on)]" // #CED1D7 - Disabled thumb when on
+          : "bg-[var(--switch-disabled-thumb)]" // #F8F8F9 - Disabled thumb when off
         : props.checked
         ? "bg-[var(--switch-thumb-on)]" // #434F64 when on from Figma
         : "bg-[var(--switch-thumb-off)]" // #FFFFFF when off from Figma

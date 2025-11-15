@@ -289,15 +289,15 @@ import { Icon } from 'ft-design-system';
 **Note:** Icon names are strings, not React elements. Available icons: check, user, home, settings, etc.
 
 ### Typography
-The Typography component is a showcase only. For actual content, use regular HTML tags with design tokens:
+Use the `<Typography>` component directly with Figma-aligned variants:
 
 \`\`\`jsx
-// Typography component is for viewing the design system only:
-<Typography /> // Shows typography showcase
+import { Typography } from 'ft-design-system';
 
-// For actual content, use regular HTML tags with design token classes:
-<h1 className="text-[var(--font-size-xxl)] font-[var(--font-weight-regular)] text-[var(--color-primary)]">Title</h1>
-<p className="text-[var(--font-size-md)] text-[var(--color-secondary)]">Body text</p>
+<Typography variant="title-primary">Title</Typography>
+<Typography variant="body-primary-regular" color="secondary">
+  Body text
+</Typography>
 \`\`\`
 
 ## Complete Examples

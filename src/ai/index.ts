@@ -29,6 +29,7 @@ import { ProgressBar as CoreProgressBar } from '../components/molecules/Progress
 import { SegmentedTabs as CoreSegmentedTabs } from '../components/molecules/SegmentedTabs/SegmentedTabs';
 import { Steps as CoreSteps } from '../components/molecules/Steps/Steps';
 import { RadioSelector as CoreRadioSelector } from '../components/molecules/RadioSelector/RadioSelector';
+import { ButtonGroup as CoreButtonGroup } from '../components/molecules/ButtonGroup/ButtonGroup';
 
 // Organisms
 import { Table as CoreTable } from '../components/organisms/Table/Table';
@@ -72,6 +73,7 @@ export const ProgressBar = withAIProtection(CoreProgressBar);
 export const SegmentedTabs = withAIProtection(CoreSegmentedTabs);
 export const Steps = withAIProtection(CoreSteps);
 export const RadioSelector = withAIProtection(CoreRadioSelector);
+export const ButtonGroup = withAIProtection(CoreButtonGroup);
 
 // ======================
 // AI-PROTECTED ORGANISMS
@@ -128,6 +130,7 @@ export type { ProgressBarProps } from '../components/molecules/ProgressBar/Progr
 export type { SegmentedTabsProps, SegmentedTabItem } from '../components/molecules/SegmentedTabs/SegmentedTabs';
 export type { StepsProps, Step } from '../components/molecules/Steps/Steps';
 export type { RadioSelectorProps } from '../components/molecules/RadioSelector/RadioSelector';
+export type { ButtonGroupProps, ButtonGroupItem } from '../components/molecules/ButtonGroup/ButtonGroup';
 
 export type { TableProps, TableColumn, TableRow } from '../components/organisms/Table/Table';
 export type { TabsProps, Tab } from '../components/organisms/Tabs/Tabs';

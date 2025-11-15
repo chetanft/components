@@ -52,7 +52,7 @@ export const IconAlignment = () => (
     
     {/* Size variations */}
     <div>
-      <h4 className="text-md font-medium mb-3">Size Variations</h4>
+      <h4 className="text-base font-medium mb-3">Size Variations</h4>
       <div className="flex items-center gap-4">
         <div className="w-8 h-8 bg-gray-100 border border-gray-300 flex items-center justify-center">
           <Icon name="edit" size={14} />
@@ -71,7 +71,7 @@ export const IconAlignment = () => (
     
     {/* Commonly used icons */}
     <div>
-      <h4 className="text-md font-medium mb-3">FileCard Icons</h4>
+      <h4 className="text-base font-medium mb-3">FileCard Icons</h4>
       <div className="flex items-center gap-4">
         <div className="w-11 h-11 bg-gray-100 border border-gray-300 rounded-full flex items-center justify-center">
           <Icon name="download" size={16} />
@@ -96,7 +96,7 @@ export const IconAlignment = () => (
     
     {/* Color inheritance test */}
     <div>
-      <h4 className="text-md font-medium mb-3">Color Inheritance</h4>
+      <h4 className="text-base font-medium mb-3">Color Inheritance</h4>
       <div className="flex items-center gap-4">
         <div className="text-blue-500">
           <Icon name="add" size={20} />
