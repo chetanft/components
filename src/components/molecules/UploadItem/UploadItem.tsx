@@ -199,7 +199,7 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
                   <ProgressBar 
                     value={file.uploadProgress || 0}
                     className="flex-1"
-                    showLabel={true}
+                    showPercentage={true}
                   />
                 </div>
               </div>

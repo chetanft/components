@@ -1,2 +1,2 @@
 export { Typography, TypographyExample, TypographyShowcase } from './Typography';
-export type { TypographyProps, TypographyVariant, TypographySize, TypographyWeight, TypographyColor } from './Typography'; 
+export type { TypographyProps, TypographyVariant, TypographyColor } from './Typography'; 
