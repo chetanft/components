@@ -297,7 +297,7 @@ export const DisplayPrimary: Story = {
   },
 };
 
-export const ButtonVariant: Story = {
+export const ButtonText: Story = {
   args: {
     children: 'Button Text - 20/140',
     variant: 'button',
