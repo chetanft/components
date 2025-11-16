@@ -10,6 +10,7 @@ export * from './atoms/Checkbox';
 export * from './atoms/Colors';
 export * from './atoms/Divider';
 export * from './atoms/Illustration';
+export * from './atoms/Spacer';
 // Import and re-export Icon component and IconName type explicitly
 import { Icon } from './atoms/Icons/Icon';
 import type { IconName } from './atoms/Icons/types';
@@ -57,6 +58,9 @@ export * from './organisms/Tabs';
 export * from './organisms/Upload';
 export * from './organisms/UploadZone';
 export * from './organisms/UserProfile';
+
+// TEMPLATES - Page level scaffolds
+export * from './templates';
 
 // ======================
 // BACKWARD COMPATIBILITY

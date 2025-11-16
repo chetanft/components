@@ -6,6 +6,8 @@ import { Typography } from '../../atoms/Typography';
 import { Button } from '../../atoms/Button/Button';
 import { Badge } from '../../atoms/Badge';
 import { Illustration, type IllustrationVariant } from '../../atoms/Illustration';
+import { Divider } from '../../atoms/Divider';
+import { Spacer } from '../../atoms/Spacer';
 
 type BadgeVariant = 'normal' | 'danger' | 'success' | 'warning' | 'neutral';
 
@@ -549,7 +551,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
                   </button>
                 );
               })}
-              <div className="h-[20px]" aria-hidden="true" />
+              <Spacer size="x5" aria-hidden="true" />
             </nav>
           </div>
 
@@ -583,8 +585,11 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
             )}
           </div>
         </div>
-        <div className="bg-[var(--bg-secondary,#f8f8f9)] border-t border-[var(--border-primary,#ced1d7)] px-[var(--x5,20px)] py-[var(--x3,12px)] flex items-center justify-between gap-[var(--x2,8px)] flex-wrap rounded-b-[inherit]">
-          {footerContent}
+        <div className="bg-[var(--bg-secondary,#f8f8f9)] rounded-b-[inherit]">
+          <Divider type="primary" className="w-full" />
+          <div className="px-[var(--x5,20px)] py-[var(--x3,12px)] flex items-center justify-between gap-[var(--x2,8px)] flex-wrap">
+            {footerContent}
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons/Icon';
+import { Divider } from '../../atoms/Divider';
+import { Spacer } from '../../atoms/Spacer';
 
 export interface CardProps {
   /**
@@ -28,10 +30,6 @@ export interface CardProps {
    */
   className?: string;
 }
-
-const Spacer: React.FC = () => (
-  <div className="bg-[#ffffff] h-[20px] shrink-0 w-full" />
-);
 
 const CardElements: React.FC<{ type?: 'Eyebrow' | 'Header' | 'Body' }> = ({ type = 'Eyebrow' }) => {
   if (type === 'Header') {
@@ -120,18 +118,15 @@ const CardElements: React.FC<{ type?: 'Eyebrow' | 'Header' | 'Body' }> = ({ type
 
 const CardFooter: React.FC<{ padding?: boolean }> = ({ padding = true }) => {
   return (
-    <div className="box-border content-stretch flex flex-col items-start pb-0 pt-[0px] px-[0px] relative shrink-0 w-full">
-      {/* Divider */}
-      <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[0px] relative shrink-0 w-full">
-        <div className="flex-[1_0_0] h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
-          <div className="absolute inset-[-0.5px_-0.09%] border-t border-[#ced1d7]" />
-        </div>
-      </div>
-      <Spacer />
-      <div className={cn(
-        "box-border content-stretch flex gap-[16px] items-center py-0 relative shrink-0 w-full",
-        padding ? "px-[20px]" : "px-0"
-      )}>
+    <div className="box-border content-stretch flex flex-col items-start pb-0 pt-0 px-0 relative shrink-0 w-full">
+      <Divider type="primary" className="w-full" />
+      <Spacer size="x5" />
+      <div
+        className={cn(
+          "box-border content-stretch flex gap-[16px] items-center py-0 relative shrink-0 w-full",
+          padding ? "px-[20px]" : "px-0"
+        )}
+      >
         <div className="box-border content-stretch flex flex-[1_0_0] gap-[20px] items-center justify-center min-h-px min-w-px px-[0px] py-0 relative shrink-0">
           <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-center justify-center min-h-px min-w-px relative shrink-0">
             <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
@@ -178,28 +173,28 @@ export const Card: React.FC<CardProps> = ({
             </div>
           </div>
           
-          <Spacer />
+          <Spacer size="x5" />
           
           {showEyebrow && (
             <>
               <CardElements type="Eyebrow" />
-              <Spacer />
+              <Spacer size="x5" />
             </>
           )}
           
           <CardElements type="Header" />
-          <Spacer />
+          <Spacer size="x5" />
           
           <CardElements type="Body" />
-          <Spacer />
+          <Spacer size="x5" />
           
           <CardElements type="Body" />
-          <Spacer />
+          <Spacer size="x5" />
           
           {showFooter && (
             <>
               <CardFooter padding={true} />
-              <Spacer />
+              <Spacer size="x5" />
             </>
           )}
         </div>
@@ -212,28 +207,28 @@ export const Card: React.FC<CardProps> = ({
   return (
     <div className={cn("bg-[#ffffff] relative rounded-[8px] size-full", className)}>
       <div className="box-border content-stretch flex flex-col gap-[0px] items-start justify-end overflow-clip p-[0px] relative size-full">
-        <Spacer />
+        <Spacer size="x5" />
         
         {showEyebrow && (
           <>
             <CardElements type="Eyebrow" />
-            <Spacer />
+            <Spacer size="x5" />
           </>
         )}
         
         <CardElements type="Header" />
-        <Spacer />
+        <Spacer size="x5" />
         
         <CardElements type="Body" />
-        <Spacer />
+        <Spacer size="x5" />
         
         <CardElements type="Body" />
-        <Spacer />
+        <Spacer size="x5" />
         
         {showFooter && (
           <>
             <CardFooter padding={true} />
-            <Spacer />
+            <Spacer size="x5" />
           </>
         )}
       </div>

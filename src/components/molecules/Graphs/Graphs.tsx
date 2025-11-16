@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Spacer } from '../../atoms/Spacer';
 
 export interface GraphsProps {
   /**
@@ -17,7 +18,7 @@ export const Graphs: React.FC<GraphsProps> = ({ className = '' }) => {
       </div>
       
       {/* Spacer 1 - 12px after title */}
-      <div className="h-[12px] shrink-0 w-full" data-name="Spacer" data-node-id="4337:17057" />
+      <Spacer size="x3" className="w-full shrink-0" data-name="Spacer" data-node-id="4337:17057" />
       
       {/* Bar Chart */}
       <div className="content-stretch flex flex-[1_0_0] gap-[20px] items-end min-h-px min-w-px relative shrink-0 w-full" data-name="Bar" data-node-id="4026:14362">
@@ -39,7 +40,7 @@ export const Graphs: React.FC<GraphsProps> = ({ className = '' }) => {
       </div>
       
       {/* Spacer 2 - 12px after bar chart */}
-      <div className="h-[12px] shrink-0 w-full" data-name="Spacer" data-node-id="4337:17142" />
+      <Spacer size="x3" className="w-full shrink-0" data-name="Spacer" data-node-id="4337:17142" />
       
       {/* X-axis Labels */}
       <div className="content-stretch flex font-normal gap-[20px] items-start leading-[0] relative shrink-0 text-[10px] text-[#434f64] text-center w-full" data-name="Time Label" data-node-id="4026:14375">
@@ -55,7 +56,7 @@ export const Graphs: React.FC<GraphsProps> = ({ className = '' }) => {
       </div>
       
       {/* Spacer 3 - 20px after x-axis labels */}
-      <div className="h-[20px] shrink-0 w-full" data-name="Spacer" data-node-id="4337:16993" />
+      <Spacer size="x5" className="w-full shrink-0" data-name="Spacer" data-node-id="4337:16993" />
       
       {/* Legend */}
       <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full" data-name="Container" data-node-id="4026:14379">

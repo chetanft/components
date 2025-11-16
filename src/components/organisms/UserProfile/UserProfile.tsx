@@ -3,6 +3,7 @@ import { User, Settings, Refresh, Password, Logout } from '../../atoms/Icons';
 import { Logo } from '../../atoms/Logos';
 import { Avatar } from '../../atoms/Avatar';
 import { Typography } from '../../atoms/Typography';
+import { Divider } from '../../atoms/Divider';
 import { CompanyInfo } from '../../../types/company';
 
 export interface UserProfileProps {
@@ -108,10 +109,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             </div>
           </div>
 
-          <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
-            <div className="flex-[1_0_0] h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
-              <div className="absolute inset-[-0.5px_-0.13%] border-t border-[var(--border-primary,#ced1d7)]" />
-            </div>
+          <div className="w-full py-[var(--x5,20px)]">
+            <Divider type="primary" className="w-full" />
           </div>
 
           <div className="box-border content-stretch flex flex-col gap-[16px] items-start px-[var(--x5,20px)] py-0 relative shrink-0 w-full">
@@ -164,10 +163,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({
             </div>
           </div>
 
-          <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
-            <div className="flex-[1_0_0] h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
-              <div className="absolute inset-[-0.5px_-0.13%] border-t border-[var(--border-primary,#ced1d7)]" />
-            </div>
+          <div className="w-full py-[var(--x5,20px)]">
+            <Divider type="primary" className="w-full" />
           </div>
 
           <div 

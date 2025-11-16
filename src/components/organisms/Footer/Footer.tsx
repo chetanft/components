@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Button } from '../../atoms/Button/Button';
+import { Divider } from '../../atoms/Divider';
 
 export interface FooterProps {
   /** Number of buttons to display (1-4) */
@@ -130,16 +131,16 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer
-      className={cn(
-        "w-full border-t border-[var(--border-primary)] bg-white",
-        "px-5 py-4",
-        getLayoutClasses(),
-        "gap-[366px]", // Large gap as specified in Figma design
-        className
-      )}
-    >
-      {renderButtons()}
+    <footer className={cn("w-full bg-white", className)}>
+      <Divider type="primary" className="w-full" />
+      <div
+        className={cn(
+          "px-5 py-4 gap-[366px]", // Large gap as specified in Figma design
+          getLayoutClasses()
+        )}
+      >
+        {renderButtons()}
+      </div>
     </footer>
   );
 };

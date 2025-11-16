@@ -9,7 +9,7 @@ const meta: Meta<typeof Divider> = {
   argTypes: {
     type: {
       control: 'select',
-      options: ['primary', 'secondary', 'with-label'],
+      options: ['primary', 'secondary', 'tertiary', 'with-label'],
       description: 'The type of divider to display',
     },
     label: {
@@ -35,6 +35,12 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     type: 'secondary',
+  },
+};
+
+export const Tertiary: Story = {
+  args: {
+    type: 'tertiary',
   },
 };
 

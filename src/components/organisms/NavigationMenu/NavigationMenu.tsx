@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons/Icon';
 import { FTLogo } from '../../atoms/Logos/FTLogo';
+import { Spacer } from '../../atoms/Spacer';
 
 export interface NavigationMenuProps {
   /**
@@ -206,7 +207,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   </div>
 
                   {/* Spacer */}
-                  <div className="bg-white h-[20px] shrink-0 w-full" />
+                  <Spacer size="x5" className="bg-white" />
                 </div>
               </div>
 

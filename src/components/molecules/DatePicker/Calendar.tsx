@@ -3,6 +3,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
+import { Divider } from '../../atoms/Divider';
 import {
   startOfToday,
   startOfWeek,
@@ -514,17 +515,20 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
         </div>
       </div>
       {range && (onCancel || onApply) && (
-        <div className="flex justify-end gap-3 px-6 py-4 border-t border-border dark:border-border-dark">
-          {onCancel && (
-            <Button variant="text" onClick={onCancel}>
-              Cancel
-            </Button>
-          )}
-          {onApply && (
-            <Button variant="primary" onClick={onApply}>
-              Apply
-            </Button>
-          )}
+        <div className="w-full">
+          <Divider type="secondary" className="w-full" />
+          <div className="flex justify-end gap-3 px-6 py-4">
+            {onCancel && (
+              <Button variant="text" onClick={onCancel}>
+                Cancel
+              </Button>
+            )}
+            {onApply && (
+              <Button variant="primary" onClick={onApply}>
+                Apply
+              </Button>
+            )}
+          </div>
         </div>
       )}
     </div>

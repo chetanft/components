@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Content } from '../../molecules/Content/Content';
+import { Spacer } from '../../atoms/Spacer';
 
 export interface DisplayBlockProps {
   /**
@@ -23,10 +24,6 @@ export interface DisplayBlockProps {
    */
   className?: string;
 }
-
-const Spacer = () => (
-  <div className="bg-[#ffffff] h-[20px] shrink-0 w-full" />
-);
 
 export const DisplayBlock: React.FC<DisplayBlockProps> = ({ 
   layout = "Horizontal",
@@ -102,9 +99,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <div className="bg-[#ffffff] h-[20px] shrink-0 w-full">
-          <Spacer />
-        </div>
+        <Spacer size="x5" className="bg-[#ffffff]" />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
@@ -124,9 +119,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <div className="bg-[#ffffff] h-[20px] shrink-0 w-full">
-          <Spacer />
-        </div>
+        <Spacer size="x5" className="bg-[#ffffff]" />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
@@ -190,15 +183,11 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <div className="bg-[#ffffff] h-[20px] shrink-0 w-full">
-          <Spacer />
-        </div>
+        <Spacer size="x5" className="bg-[#ffffff]" />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
-        <div className="bg-[#ffffff] h-[20px] shrink-0 w-full">
-          <Spacer />
-        </div>
+        <Spacer size="x5" className="bg-[#ffffff]" />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
@@ -218,15 +207,11 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <div className="bg-[#ffffff] h-[20px] shrink-0 w-full">
-          <Spacer />
-        </div>
+        <Spacer size="x5" className="bg-[#ffffff]" />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
-        <div className="bg-[#ffffff] h-[20px] shrink-0 w-full">
-          <Spacer />
-        </div>
+        <Spacer size="x5" className="bg-[#ffffff]" />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
