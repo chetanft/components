@@ -19,7 +19,14 @@ export type TypographyVariant =
   | 'body-secondary-medium'     // 14px, Medium, 140%
   | 'body-secondary-regular';   // 14px, Regular, 140%
 
-export type TypographyColor = 'primary' | 'secondary' | 'muted' | 'danger' | 'success' | 'warning';
+export type TypographyColor =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'muted'
+  | 'danger'
+  | 'success'
+  | 'warning';
 
 export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
   variant?: TypographyVariant;
@@ -45,8 +52,9 @@ const variantStyles = {
 
 const colorStyles = {
   primary: "text-[var(--primary)]",     // Uses CSS variable that adapts per theme
-  secondary: "text-[var(--secondary)]", // Uses CSS variable that adapts per theme
-  muted: "text-[var(--tertiary)]",      // Uses CSS variable that adapts per theme
+  secondary: "text-[var(--secondary)]",
+  tertiary: "text-[var(--tertiary)]",
+  muted: "text-[var(--tertiary)]",
   danger: "text-[var(--critical)]",
   success: "text-[var(--positive)]",
   warning: "text-[var(--warning)]",

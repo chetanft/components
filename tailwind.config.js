@@ -125,10 +125,6 @@ export default {
     'gap-[8px]',
     'gap-[12px]',
     'gap-[16px]',
-    
-    // Responsive variants (ensure mobile support)
-    { pattern: /^(bg|text|border)-\[var\(--[\w-]+\)\]$/ },
-    { pattern: /^(h|w)-\[var\(--[\w-]+\)\]$/ },
   ],
   theme: {
     extend: {

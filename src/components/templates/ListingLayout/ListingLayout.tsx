@@ -26,7 +26,7 @@ export type ListingLayoutSectionProps = Partial<
 >;
 
 export interface ListingLayoutProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'content'> {
   appHeader?: React.ReactNode;
   hero?: React.ReactNode;
   pageHeader?: React.ReactNode;
