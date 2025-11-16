@@ -21,6 +21,8 @@ import { Typography as CoreTypography } from '../components/atoms/Typography/Typ
 import { Statistic as CoreStatistic } from '../components/atoms/Statistic/Statistic';
 import { Text as CoreText } from '../components/atoms/Text/Text';
 import { SubText as CoreSubText } from '../components/atoms/SubText/SubText';
+import { Spacer as CoreSpacer } from '../components/atoms/Spacer/Spacer';
+import { Divider as CoreDivider } from '../components/atoms/Divider/Divider';
 
 // Molecules
 import { DatePicker as CoreDatePicker } from '../components/molecules/DatePicker/DatePicker';
@@ -47,6 +49,9 @@ import { Card as CoreCard } from '../components/organisms/Card/Card';
 import { DisplayBlock as CoreDisplayBlock } from '../components/organisms/DisplayBlock/DisplayBlock';
 import { NavigationMenu as CoreNavigationMenu } from '../components/organisms/NavigationMenu/NavigationMenu';
 
+// Templates
+import { ListingLayout as CoreListingLayout } from '../components/templates/ListingLayout/ListingLayout';
+
 // ======================
 // AI-PROTECTED ATOMS
 // ======================
@@ -62,6 +67,8 @@ export const Typography = withAIProtection(CoreTypography);
 export const Statistic = withAIProtection(CoreStatistic);
 export const Text = withAIProtection(CoreText);
 export const SubText = withAIProtection(CoreSubText);
+export const Spacer = withAIProtection(CoreSpacer);
+export const Divider = withAIProtection(CoreDivider);
 
 // ======================
 // AI-PROTECTED MOLECULES
@@ -95,6 +102,12 @@ export const DisplayBlock = withAIProtection(CoreDisplayBlock);
 export const NavigationMenu = withAIProtection(CoreNavigationMenu);
 
 // ======================
+// AI-PROTECTED TEMPLATES
+// ======================
+
+export const ListingLayout = withAIProtection(CoreListingLayout);
+
+// ======================
 // AI UTILITIES
 // ======================
 
@@ -123,6 +136,8 @@ export type { RadioGroupProps, RadioOption } from '../components/atoms/RadioGrou
 export type { StatisticProps } from '../components/atoms/Statistic/Statistic';
 export type { TextProps } from '../components/atoms/Text/Text';
 export type { SubTextProps } from '../components/atoms/SubText/SubText';
+export type { SpacerProps, SpacerSize } from '../components/atoms/Spacer/Spacer';
+export type { DividerProps, DividerType } from '../components/atoms/Divider/Divider';
 
 export type { DatePickerProps } from '../components/molecules/DatePicker/DatePicker';
 export type { DropdownProps, DropdownOption } from '../components/molecules/Dropdown/Dropdown';
@@ -145,4 +160,6 @@ export type { FileThumbnailProps } from '../components/organisms/FileThumbnail/F
 export type { FileTypeIconProps } from '../components/organisms/FileTypeIcon/FileTypeIcon';
 export type { CardProps } from '../components/organisms/Card/Card';
 export type { DisplayBlockProps } from '../components/organisms/DisplayBlock/DisplayBlock';
-export type { NavigationMenuProps } from '../components/organisms/NavigationMenu/NavigationMenu'; 
+export type { NavigationMenuProps } from '../components/organisms/NavigationMenu/NavigationMenu';
+
+export type { ListingLayoutProps, ListingLayoutVariant, ListingLayoutLayout, ListingLayoutSection, ListingLayoutSectionProps } from '../components/templates/ListingLayout/ListingLayout'; 
