@@ -99,4 +99,16 @@ export const Controlled: Story = {
       </div>
     );
   },
+};
+
+// Icon-only variant
+export const IconOnly: Story = {
+  args: {
+    items: [
+      { label: 'Copy', value: 'copy', icon: <Copy /> },
+      { label: 'Check', value: 'check', icon: <Check /> },
+    ],
+    variant: 'icon-only',
+    defaultValue: 'check',
+  },
 }; 

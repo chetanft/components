@@ -15,6 +15,7 @@ export interface SegmentedTabsProps {
   defaultValue?: string;
   onChange?: (value: string) => void;
   className?: string;
+  variant?: 'default' | 'icon-only';
 }
 
 export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
@@ -23,6 +24,7 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
   defaultValue,
   onChange,
   className,
+  variant = 'default',
 }) => {
   const [internalValue, setInternalValue] = React.useState(defaultValue || items[0]?.value || '');
   const currentValue = value !== undefined ? value : internalValue;
@@ -47,9 +49,13 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
 
         const tabStyles = cn(
           // Base styles using design tokens
-          "flex items-center justify-center gap-[var(--x2,8px)] px-[var(--x4,16px)] py-[var(--x2,8px)] h-[32px] rounded-[var(--x1,4px)] transition-all duration-200 cursor-pointer",
-          // Typography - 14px medium from Figma
-          "text-[14px] font-medium leading-[1.4]",
+          "flex items-center justify-center gap-[var(--x2,8px)] py-[var(--x2,8px)] h-[32px] rounded-[var(--x1,4px)] transition-all duration-200 cursor-pointer",
+          // Padding based on variant
+          variant === 'icon-only' 
+            ? "px-[var(--x2,8px)]"
+            : "px-[var(--x4,16px)]",
+          // Typography - 14px medium from Figma (only when not icon-only)
+          variant === 'default' && "text-[14px] font-medium leading-[1.4]",
           // State-specific styles using design tokens
           isSelected
             ? [
@@ -70,6 +76,7 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
             className={tabStyles}
             onClick={() => handleTabChange(item.value)}
             type="button"
+            aria-label={variant === 'icon-only' ? item.label : undefined}
           >
             {item.icon && (
               <span className="flex items-center justify-center shrink-0 w-[24px] h-[24px]">
@@ -78,7 +85,7 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
                 </span>
               </span>
             )}
-            <span>{item.label}</span>
+            {variant === 'default' && <span>{item.label}</span>}
           </button>
         );
       })}
