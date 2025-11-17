@@ -93,10 +93,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       disabled
         ? "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"
         : error
-        ? "border-critical text-input dark:text-input-dark focus:border-critical focus:ring-2 focus:ring-critical/20"
-        : "text-input dark:text-input-dark focus:border-focus dark:focus:border-focus-dark focus:ring-2 focus:ring-focus dark:focus:ring-focus-dark",
+        ? "border-critical text-input dark:text-input-dark focus:border-critical"
+        : "text-input dark:text-input-dark focus:border-primary dark:focus:border-primary-dark",
       // Focus styles
-      "focus:outline-none focus:ring-2 focus:ring-focus-ring focus:border-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-surface dark:focus-visible:ring-offset-surface-dark",
+      "focus:outline-none",
       className
     );
 

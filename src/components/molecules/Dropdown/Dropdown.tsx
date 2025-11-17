@@ -7,7 +7,7 @@ import { SegmentedTabs, type SegmentedTabItem } from '../SegmentedTabs';
 
 // Unified dropdown field variants using the design system
 const dropdownFieldVariants = cva(
-  "relative w-full border transition-all duration-200 font-sans font-normal bg-white dark:bg-surface-dark text-[var(--primary)] dark:text-input-dark focus-within:ring-2 focus-within:ring-focus-ring",
+  "relative w-full border transition-all duration-200 font-sans font-normal bg-white dark:bg-surface-dark text-[var(--primary)] dark:text-input-dark",
   {
     variants: {
       size: {
@@ -20,8 +20,8 @@ const dropdownFieldVariants = cva(
         xxl: "text-lg",
       },
       state: {
-        default: "border-[var(--border-primary)] dark:border-border-dark hover:border-border-hover dark:hover:border-border-hover-dark focus-within:border-focus dark:focus-within:border-focus-dark",
-        error: "border-critical focus-within:border-critical focus-within:ring-critical/20",
+        default: "border-[var(--border-primary)] dark:border-border-dark hover:border-border-hover dark:hover:border-border-hover-dark focus-within:border-primary dark:focus-within:border-primary-dark",
+        error: "border-critical focus-within:border-critical",
         disabled: "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed",
       },
       type: {
@@ -267,7 +267,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                       placeholder="Search"
                       value={searchQuery}
                       onChange={handleSearchChange}
-                      className="w-full pl-9 pr-3 py-2 border border-[var(--border-primary)] dark:border-border-dark rounded-lg text-base text-[var(--primary)] placeholder-[var(--tertiary)] focus:outline-none focus:ring-2 focus:ring-focus-ring focus:border-focus"
+                      className="w-full pl-9 pr-3 py-2 border border-[var(--border-primary)] dark:border-border-dark rounded-lg text-base text-[var(--primary)] placeholder-[var(--tertiary)] focus:outline-none focus:border-primary dark:focus:border-primary-dark"
                     />
                   </div>
                 </div>

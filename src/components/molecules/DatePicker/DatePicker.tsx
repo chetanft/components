@@ -349,7 +349,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     };
   }, [isOpen]);
 
-  const fieldState = disabled ? 'disabled' : error ? 'focused' : 'default';
+  const fieldState = disabled ? 'disabled' : error || isOpen ? 'focused' : 'default';
 
   // Format display value based on selected dropdown or date range
   const getDisplayValue = () => {
