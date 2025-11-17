@@ -111,15 +111,16 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
       
       (type === 'secondary' || type === 'tertiary') && [
         "border",
-        currentState === 'selected' || currentState === 'hover'
+        currentState === 'selected'
           ? "border-[var(--tertiary)]"
+          : currentState === 'hover'
+          ? "border-[var(--primary)]"
           : "border-[var(--tertiary)]"
       ],
       
       // Background colors based on state and type
       currentState === 'selected' && [
-        type === 'primary' && "bg-[var(--border-secondary)]",
-        (type === 'secondary' || type === 'tertiary') && "bg-[var(--bg-secondary)]"
+        (type === 'secondary' || type === 'tertiary') && "bg-[var(--border-secondary)]"
       ],
       
       currentState === 'hover' && [
