@@ -1,6 +1,6 @@
 {
   "name": "ft-design-system",
-  "version": "4.13.3",
+  "version": "4.13.4",
   "type": "module",
   "description": "Design system built from Figma designs using Code Connect",
   "publishConfig": {
