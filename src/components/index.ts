@@ -58,6 +58,7 @@ export * from './organisms/Tabs';
 export * from './organisms/Upload';
 export * from './organisms/UploadZone';
 export * from './organisms/UserProfile';
+export * from './organisms/UserProfileDropdown';
 
 // TEMPLATES - Page level scaffolds
 export * from './templates';

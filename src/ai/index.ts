@@ -48,6 +48,7 @@ import { FileTypeIcon as CoreFileTypeIcon } from '../components/organisms/FileTy
 import { Card as CoreCard } from '../components/organisms/Card/Card';
 import { DisplayBlock as CoreDisplayBlock } from '../components/organisms/DisplayBlock/DisplayBlock';
 import { NavigationMenu as CoreNavigationMenu } from '../components/organisms/NavigationMenu/NavigationMenu';
+import { UserProfileDropdown as CoreUserProfileDropdown } from '../components/organisms/UserProfileDropdown/UserProfileDropdown';
 
 // Templates
 import { ListingLayout as CoreListingLayout } from '../components/templates/ListingLayout/ListingLayout';
@@ -91,6 +92,7 @@ export const Tabs = withAIProtection(CoreTabs);
 export const AppHeader = withAIProtection(CoreAppHeader);
 export const Footer = withAIProtection(CoreFooter);
 export const UserProfile = withAIProtection(CoreUserProfile);
+export const UserProfileDropdown = withAIProtection(CoreUserProfileDropdown);
 export const Collapsible = withAIProtection(CoreCollapsible);
 export const QuickFilters = withAIProtection(CoreQuickFilters);
 export const UploadZone = withAIProtection(CoreUploadZone);
@@ -152,6 +154,7 @@ export type { TabsProps, Tab } from '../components/organisms/Tabs/Tabs';
 export type { AppHeaderProps, User } from '../components/organisms/AppHeader/AppHeader';
 export type { FooterProps } from '../components/organisms/Footer/Footer';
 export type { UserProfileProps } from '../components/organisms/UserProfile/UserProfile';
+export type { UserProfileDropdownProps } from '../components/organisms/UserProfileDropdown/UserProfileDropdown';
 export type { CollapsibleProps } from '../components/organisms/Collapsible/Collapsible';
 export type { QuickFiltersProps, QuickFilter } from '../components/organisms/QuickFilters/QuickFilters';
 export type { UploadZoneProps } from '../components/organisms/UploadZone/UploadZone';

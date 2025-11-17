@@ -1,29 +1,4 @@
 import type { StorybookConfig } from '@storybook/react-vite';
-import type { Indexer } from '@storybook/types';
-import { loadCsf } from '@storybook/csf-tools';
-import { readFile } from 'node:fs/promises';
-import path from 'node:path';
-import { transform } from 'esbuild';
-
-// Custom TypeScript indexer for Storybook 8
-const tsxIndexer: Indexer = {
-  test: /(stories|story)\.(ts|tsx)$/,
-  async load(filePath) {
-    const source = await readFile(filePath, 'utf8');
-    const loader = path.extname(filePath) === '.ts' ? 'ts' : 'tsx';
-    const { code } = await transform(source, {
-      loader,
-      format: 'esm',
-      target: 'es2019',
-      sourcemap: false,
-    });
-
-    return loadCsf(code, {
-      fileName: filePath,
-      makeTitle: (userTitle) => userTitle,
-    });
-  },
-};
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
@@ -43,8 +18,32 @@ const config: StorybookConfig = {
       propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
     },
   },
-  indexers: async (existing = []) => [tsxIndexer, ...existing],
   viteFinal: async (config) => {
+    // Fix dynamic import issues
+    config.resolve = config.resolve || {};
+    config.resolve.alias = {
+      ...config.resolve.alias,
+    };
+    
+    // Ensure proper handling of .tsx and .ts files
+    config.optimizeDeps = {
+      ...config.optimizeDeps,
+      include: [
+        ...(config.optimizeDeps?.include || []),
+        'react',
+        'react-dom',
+      ],
+    };
+
+    // Fix for dynamic imports
+    config.server = {
+      ...config.server,
+      fs: {
+        ...config.server?.fs,
+        allow: ['..'],
+      },
+    };
+
     // Optimize for deployment
     if (config.build) {
       config.build.rollupOptions = {

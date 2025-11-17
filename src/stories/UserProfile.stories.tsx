@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { UserProfile } from '../components/organisms/UserProfile';
+import { UserProfileDropdown } from '../components/organisms/UserProfileDropdown';
 
 const meta = {
   title: 'Components/UserProfile',
@@ -9,7 +10,7 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A user profile component with dropdown menu functionality, showing user details and action items.',
+        component: 'A user profile trigger component that pairs with the `UserProfileDropdown` for expanded actions.',
       },
     },
   },
@@ -31,17 +32,13 @@ const meta = {
       control: 'text',
       description: 'Badge or status of the user',
     },
-    isOpen: {
+    companyName: {
       control: 'boolean',
-      description: 'Whether the dropdown menu is open',
+      description: 'Show company logo alongside avatar',
     },
-    onToggle: {
-      action: 'toggled',
-      description: 'Callback fired when profile is clicked to toggle dropdown',
-    },
-    onMenuItemClick: {
-      action: 'menu-item-clicked',
-      description: 'Callback fired when a menu item is clicked',
+    onClick: {
+      action: 'clicked',
+      description: 'Triggered when the profile trigger is clicked',
     },
   },
 } satisfies Meta<typeof UserProfile>;
@@ -52,18 +49,59 @@ type Story = StoryObj<typeof meta>;
 // Interactive example with state management
 const InteractiveUserProfile = (args: any) => {
   const [isOpen, setIsOpen] = useState(false);
+  const userProfileRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userProfileRef.current && !userProfileRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    // Also close on Escape key
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen]);
 
   return (
     <div style={{ padding: '40px', backgroundColor: '#F8F8F9', minHeight: '500px' }}>
+      <div ref={userProfileRef} style={{ position: 'relative', display: 'inline-flex', width: 'fit-content' }}>
       <UserProfile
         {...args}
-        isOpen={isOpen}
-        onToggle={() => setIsOpen(!isOpen)}
-        onMenuItemClick={(item) => {
-          console.log('Menu item clicked:', item);
-          args.onMenuItemClick(item);
-        }}
-      />
+          onClick={() => {
+            setIsOpen(!isOpen);
+            if (args.onClick) {
+              args.onClick();
+            }
+          }}
+        />
+        <UserProfileDropdown
+          userName={args.userName}
+          userRole={args.userRole}
+          userLocation={args.userLocation}
+          userBadge={args.userBadge}
+          userAvatar={args.userAvatar}
+          isOpen={isOpen}
+          onMenuItemClick={(item: string) => {
+            console.log('Menu item clicked:', item);
+            setIsOpen(false);
+          }}
+        />
+      </div>
     </div>
   );
 };
@@ -74,17 +112,6 @@ export const Default: Story = {
     userRole: 'Dispatch Manager',
     userLocation: 'SPD-Santoshnagar',
     userBadge: 'Admin',
-    isOpen: false,
-  },
-};
-
-export const Open: Story = {
-  args: {
-    userName: 'Santosh Kumar',
-    userRole: 'Dispatch Manager', 
-    userLocation: 'SPD-Santoshnagar',
-    userBadge: 'Admin',
-    isOpen: true,
   },
 };
 
@@ -104,7 +131,6 @@ export const DifferentUser: Story = {
     userRole: 'Fleet Manager',
     userLocation: 'HYD-Headquarters',
     userBadge: 'Manager',
-    isOpen: true,
   },
 };
 
@@ -114,6 +140,15 @@ export const SuperAdmin: Story = {
     userRole: 'System Administrator',
     userLocation: 'MUM-Central',
     userBadge: 'Super Admin',
-    isOpen: true,
+  },
+};
+
+export const AvatarOnly: Story = {
+  args: {
+    userName: 'Mobile User',
+    userRole: 'Ops',
+    userLocation: 'Remote',
+    userBadge: 'Viewer',
+    companyName: false,
   },
 }; 

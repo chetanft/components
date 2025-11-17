@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { UserProfile } from '../UserProfile/UserProfile';
+import { UserProfileDropdown } from '../UserProfileDropdown/UserProfileDropdown';
 import { Rocket, Bell, ThreeDotMenu } from '../../atoms/Icons';
 import { Logo } from '../../atoms/Logos';
 import { CompanyInfo } from '../../../types/company';
@@ -47,6 +48,77 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   leftAddon,
 }) => {
   const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
+  const userProfileRef = useRef<HTMLDivElement>(null);
+
+  const handleUserProfileClick = () => {
+    setIsUserProfileOpen((prev) => !prev);
+    onUserClick();
+  };
+
+  const handleUserMenuItemClick = (item: string) => {
+    onUserMenuItemClick(item);
+    setIsUserProfileOpen(false);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    if (!isUserProfileOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (userProfileRef.current && !userProfileRef.current.contains(event.target as Node)) {
+        setIsUserProfileOpen(false);
+      }
+    };
+
+    // Also close on Escape key
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsUserProfileOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isUserProfileOpen]);
+
+  type UserProfileSectionOptions = {
+    companyName?: boolean;
+    triggerClassName?: string;
+  };
+
+  const renderUserProfileSection = (options?: UserProfileSectionOptions) => {
+    const { companyName = true, triggerClassName } = options ?? {};
+
+    return (
+      <div ref={userProfileRef} style={{ position: 'relative', display: 'inline-flex', width: 'fit-content' }}>
+        <UserProfile
+          company={userCompany}
+          userName={user.name}
+          userRole={user.role}
+          userLocation={user.location}
+          userBadge={user.badge}
+          userAvatar={user.avatar}
+          companyName={companyName}
+          onClick={handleUserProfileClick}
+          className={triggerClassName}
+        />
+        <UserProfileDropdown
+          isOpen={isUserProfileOpen}
+          userName={user.name}
+          userRole={user.role}
+          userLocation={user.location}
+          userBadge={user.badge}
+          userAvatar={user.avatar}
+          onMenuItemClick={handleUserMenuItemClick}
+        />
+      </div>
+    );
+  };
 
   // Size xl, Device Desktop (default)
   if (size === 'xl' && device === 'Desktop') {
@@ -148,21 +220,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </div>
 
           {/* User Profile */}
-          <UserProfile
-            company={userCompany}
-            userName={user.name}
-            userRole={user.role}
-            userLocation={user.location}
-            userBadge={user.badge}
-            userAvatar={user.avatar}
-            companyName={true}
-            isOpen={isUserProfileOpen}
-            onToggle={() => {
-              setIsUserProfileOpen(!isUserProfileOpen);
-              onUserClick();
-            }}
-            onMenuItemClick={onUserMenuItemClick}
-          />
+          {renderUserProfileSection()}
         </div>
       </header>
     );
@@ -268,21 +326,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </div>
 
           {/* User Profile */}
-          <UserProfile
-            company={userCompany}
-            userName={user.name}
-            userRole={user.role}
-            userLocation={user.location}
-            userBadge={user.badge}
-            userAvatar={user.avatar}
-            companyName={true}
-            isOpen={isUserProfileOpen}
-            onToggle={() => {
-              setIsUserProfileOpen(!isUserProfileOpen);
-              onUserClick();
-            }}
-            onMenuItemClick={onUserMenuItemClick}
-          />
+          {renderUserProfileSection()}
         </div>
       </header>
     );
@@ -388,22 +432,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </div>
 
           {/* User Profile */}
-          <UserProfile
-            company={userCompany}
-            userName={user.name}
-            userRole={user.role}
-            userLocation={user.location}
-            userBadge={user.badge}
-            userAvatar={user.avatar}
-            companyName={true}
-            isOpen={isUserProfileOpen}
-            onToggle={() => {
-              setIsUserProfileOpen(!isUserProfileOpen);
-              onUserClick();
-            }}
-            onMenuItemClick={onUserMenuItemClick}
-            className="h-[36px]"
-          />
+          {renderUserProfileSection({ triggerClassName: 'h-[36px]' })}
         </div>
       </header>
     );
@@ -488,22 +517,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </div>
 
           {/* User Profile - Mobile version */}
-          <UserProfile
-            company={userCompany}
-            userName={user.name}
-            userRole={user.role}
-            userLocation={user.location}
-            userBadge={user.badge}
-            userAvatar={user.avatar}
-            state="Default"
-            companyName={false}
-            isOpen={isUserProfileOpen}
-            onToggle={() => {
-              setIsUserProfileOpen(!isUserProfileOpen);
-              onUserClick();
-            }}
-            onMenuItemClick={onUserMenuItemClick}
-          />
+          {renderUserProfileSection({ companyName: false })}
         </div>
       </header>
     );
@@ -604,22 +618,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
         </div>
 
         {/* User Profile */}
-        <UserProfile
-          company={userCompany}
-          userName={user.name}
-          userRole={user.role}
-          userLocation={user.location}
-          userBadge={user.badge}
-          userAvatar={user.avatar}
-          state="Default"
-          companyName={true}
-          isOpen={isUserProfileOpen}
-          onToggle={() => {
-            setIsUserProfileOpen(!isUserProfileOpen);
-            onUserClick();
-          }}
-          onMenuItemClick={onUserMenuItemClick}
-        />
+        {renderUserProfileSection()}
       </div>
     </header>
   );
