@@ -320,14 +320,11 @@ const SubCategoryPanel = ({ categories }: { categories?: NavigationSectionSubCat
   if (!categories?.length) return null;
   return (
     <div className="flex flex-col gap-[var(--x4,16px)]">
-      <Typography variant="title-secondary" color="primary">
-        Explore more
-      </Typography>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-[var(--x3,12px)]">
         {categories.map((category, index) => (
           <div
             key={`${category.title ?? 'category'}-${index}`}
-            className="bg-[var(--bg-primary,#ffffff)] rounded-[var(--x2,8px)] border border-[var(--border-secondary,#f0f1f7)] p-[var(--x3,12px)] flex flex-col gap-[var(--x3,12px)]"
+            className="bg-[var(--bg-primary,#ffffff)] rounded-[var(--x2,8px)] p-[var(--x3,12px)] flex flex-col gap-[var(--x3,12px)]"
           >
             {category.title && (
               <Typography variant="body-secondary-semibold" color="muted">
@@ -508,7 +505,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
   return (
     <div
       className={cn(
-        'bg-[var(--bg-primary,#ffffff)] border border-[var(--border-primary,#ced1d7)] rounded-[var(--x5,20px)] p-[var(--x2,8px)] shadow-lg',
+        'bg-[var(--bg-secondary,#f8f8f9)] border border-[var(--border-primary,#ced1d7)] rounded-[var(--x5,20px)] p-[var(--x2,8px)] shadow-lg',
         className
       )}
       role="dialog"
