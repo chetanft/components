@@ -19,7 +19,7 @@ export interface SegmentedTabsProps {
 }
 
 export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
-  items,
+  items = [],
   value,
   defaultValue,
   onChange,
@@ -39,6 +39,8 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
   const containerStyles = cn(
     // Container styles using design tokens
     "flex gap-[var(--x1,4px)] p-[var(--x2,8px)] bg-[var(--bg-secondary,#f8f8f9)] rounded-[var(--x2,8px)]",
+    // Width: full for default, fit for icon-only
+    variant === 'icon-only' ? "w-fit" : "w-full",
     className
   );
 
@@ -49,7 +51,9 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
 
         const tabStyles = cn(
           // Base styles using design tokens
-          "flex items-center justify-center gap-[var(--x2,8px)] py-[var(--x2,8px)] h-[32px] rounded-[var(--x1,4px)] transition-all duration-200 cursor-pointer",
+          "flex items-center justify-center gap-[var(--x2,8px)] py-[var(--x2,8px)] h-[32px] rounded-[var(--x1,4px)] transition-all duration-200 cursor-pointer relative z-10",
+          // Flex: flex-1 for default (fill space), auto for icon-only (hug content)
+          variant === 'icon-only' ? "flex-none" : "flex-1",
           // Padding based on variant
           variant === 'icon-only' 
             ? "px-[var(--x2,8px)]"
@@ -74,9 +78,13 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
           <button
             key={item.value}
             className={tabStyles}
-            onClick={() => handleTabChange(item.value)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleTabChange(item.value);
+            }}
             type="button"
             aria-label={variant === 'icon-only' ? item.label : undefined}
+            style={{ pointerEvents: 'auto' }}
           >
             {item.icon && (
               <span className="flex items-center justify-center shrink-0 w-[24px] h-[24px]">

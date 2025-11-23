@@ -13,7 +13,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'destructive', 'text', 'link'],
+      options: ['primary', 'secondary', 'tertiary', 'destructive', 'text', 'link'],
     },
     size: {
       control: { type: 'select' },
@@ -187,6 +187,7 @@ export const AllVariants: Story = {
         <div className="flex gap-4">
           <Button variant="primary" size="md">Primary</Button>
           <Button variant="secondary" size="md">Secondary</Button>
+          <Button variant="tertiary" size="md">Tertiary</Button>
           <Button variant="destructive" size="md">Destructive</Button>
           <Button variant="text" size="md">Text</Button>
           <Button variant="link" size="md">Link</Button>
@@ -255,11 +256,37 @@ export const CircularButtons: Story = {
       
       {/* Circular button variants */}
       <div>
-        <h4 className="text-base font-medium mb-3">Variants</h4>
+        <h4 className="text-base font-medium mb-3">Circular Variants</h4>
         <div className="flex items-center gap-4">
           <Button variant="primary" size="md" className="rounded-full" icon="add" iconPosition="only" />
           <Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />
           <Button variant="destructive" size="md" className="rounded-full" icon="delete" iconPosition="only" />
+        </div>
+      </div>
+      
+      {/* Square icon-only buttons (tertiary variant) */}
+      <div>
+        <h4 className="text-base font-medium mb-3">Square Icon-Only Buttons</h4>
+        <p className="text-sm text-gray-600 mb-3">
+          Tertiary variant icon-only buttons are square by default.
+        </p>
+        <div className="flex items-center gap-4">
+          <Button variant="tertiary" size="sm" icon="star" iconPosition="only" />
+          <Button variant="tertiary" size="md" icon="download" iconPosition="only" />
+          <Button variant="tertiary" size="lg" icon="filter" iconPosition="only" />
+        </div>
+      </div>
+      
+      {/* Circular icon-only buttons (text variant uses secondary styling) */}
+      <div>
+        <h4 className="text-base font-medium mb-3">Circular Icon-Only Buttons</h4>
+        <p className="text-sm text-gray-600 mb-3">
+          Text variant icon-only buttons are circular and use secondary styling.
+        </p>
+        <div className="flex items-center gap-4">
+          <Button variant="text" size="sm" icon="more" iconPosition="only" />
+          <Button variant="text" size="md" icon="more" iconPosition="only" />
+          <Button variant="text" size="lg" icon="more" iconPosition="only" />
         </div>
       </div>
       

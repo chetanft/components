@@ -116,6 +116,12 @@
   --button-secondary-border: #ced1d7;
   --button-secondary-hover-border: #838c9d;
   
+  --button-tertiary-bg: #f8f8f9;
+  --button-tertiary-text: #434f64;
+  --button-tertiary-hover-bg: #f0f1f7;
+  --button-tertiary-border: #ced1d7;
+  --button-tertiary-hover-border: #ced1d7;
+  
   --button-destructive-bg: #ff3532;
   --button-destructive-text: #ffffff;
   --button-destructive-hover-bg: #b70100;
@@ -221,7 +227,7 @@
   --component-height-xxs: 16px;
   --component-height-sm: 36px;
   --component-height-md: 40px;
-  --component-height-lg: 52px;
+  --component-height-lg: 48px;
   --component-height-xl: 64px;
   --component-padding-xxs: 2px 6px;
   --component-padding-sm: 8px 12px;
@@ -366,6 +372,12 @@
   --button-secondary-hover-bg: #334155;
   --button-secondary-border: #475569;
   --button-secondary-hover-border: #64748b;
+  
+  --button-tertiary-bg: #334155;
+  --button-tertiary-text: #e2e8f0;
+  --button-tertiary-hover-bg: #475569;
+  --button-tertiary-border: #475569;
+  --button-tertiary-hover-border: #64748b;
   
   --button-destructive-bg: #ff4d4f; /* Slightly lighter red */
   --button-destructive-text: #ffffff;
@@ -575,6 +587,12 @@
   --button-secondary-hover-bg: #202020;
   --button-secondary-border: #404040;
   --button-secondary-hover-border: #a0a0a0;
+  
+  --button-tertiary-bg: #202020;
+  --button-tertiary-text: #f0f0f0;
+  --button-tertiary-hover-bg: #303030;
+  --button-tertiary-border: #404040;
+  --button-tertiary-hover-border: #404040;
   
   --button-destructive-bg: #ff6666; /* Night mode red */
   --button-destructive-text: #ffffff;

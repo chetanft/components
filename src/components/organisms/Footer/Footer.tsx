@@ -131,11 +131,11 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className={cn("w-full bg-white", className)}>
+    <footer className={cn("w-full bg-white max-w-full", className)}>
       <Divider type="primary" className="w-full" />
       <div
         className={cn(
-          "px-5 py-4 gap-[366px]", // Large gap as specified in Figma design
+          "px-5 py-4 gap-[366px] max-w-full overflow-x-auto", // Large gap as specified in Figma design
           getLayoutClasses()
         )}
       >

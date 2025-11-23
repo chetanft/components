@@ -1,0 +1,10 @@
+{
+  "missingExports": [],
+  "missingInRegistry": [
+    "ThemeSystem",
+    "Colors",
+    "ColorSystem"
+  ],
+  "invalidCodeExamples": [],
+  "syntaxErrors": []
+}

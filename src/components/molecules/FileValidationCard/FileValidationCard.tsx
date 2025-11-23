@@ -125,12 +125,16 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
                   
                   {/* Validation badge */}
                   <div className="flex items-center gap-[8px]">
-                    <Badge variant={badgeConfig.variant}>
-                      {badgeConfig.showSpinner && (
+                    {badgeConfig.showSpinner ? (
+                      <div className="inline-flex items-center gap-1 px-[8px] py-[2px] rounded-[4px] bg-[#F0F1F7]">
                         <LoadingSpinner size={14} color="var(--neutral)" />
-                      )}
-                      {badgeConfig.text}
-                    </Badge>
+                        <span className="text-[#434F64] text-sm font-semibold">{badgeConfig.text}</span>
+                      </div>
+                    ) : (
+                      <Badge variant={badgeConfig.variant}>
+                        {badgeConfig.text}
+                      </Badge>
+                    )}
                   </div>
                 </div>
                 

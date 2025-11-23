@@ -29,8 +29,16 @@ import { ChevronLeft } from './ChevronLeft';
 import { ChevronRight } from './ChevronRight';
 import { ChevronUp } from './ChevronUp';
 import { Clock } from './Clock';
+import { ClockAlert } from './ClockAlert';
+import { ClockCross } from './ClockCross';
+import { ClockTick } from './ClockTick';
+import { ClockWarning } from './ClockWarning';
 import { CloseFilled } from './CloseFilled';
 import { Comment } from './Comment';
+import { Compress } from './Compress';
+import { ConsentAvailable } from './ConsentAvailable';
+import { ConsentPending } from './ConsentPending';
+import { ConsentRejected } from './ConsentRejected';
 import { ControlTower } from './ControlTower';
 import { Copy } from './Copy';
 import { CrossIcon } from './CrossIcon';
@@ -40,6 +48,7 @@ import { Dashboard } from './Dashboard';
 import { DataStack } from './DataStack';
 import { DefaultIcon } from './DefaultIcon';
 import { Delete } from './Delete';
+import { DetentionAtDestination } from './DetentionAtDestination';
 import { DetentionAtOrigin } from './DetentionAtOrigin';
 import { Diversion } from './Diversion';
 import { Division } from './Division';
@@ -59,37 +68,54 @@ import { FileUploader } from './FileUploader';
 import { File } from './File';
 import { FillDetails } from './FillDetails';
 import { Filter } from './Filter';
+import { Flame } from './Flame';
 import { Forward } from './Forward';
 import { FtColour } from './FtColour';
 import { FtGray } from './FtGray';
 import { GoogleColour } from './GoogleColour';
+import { GoogleDrive } from './GoogleDrive';
 import { GoogleGray } from './GoogleGray';
+import { GmailLogo } from './GmailLogo';
 import { Gps } from './Gps';
+import { Gst } from './Gst';
 import { HamburgerMenu } from './HamburgerMenu';
+import { Hand } from './Hand';
 import { Home } from './Home';
+import { Image } from './Image';
 import { Inbound } from './Inbound';
 import { Indent } from './Indent';
 import { Jio } from './Jio';
 import { LightBulb } from './LightBulb';
 import { Link } from './Link';
 import { Loading } from './Loading';
+import { Locate } from './Locate';
 import { Location } from './Location';
 import { Lock } from './Lock';
 import { Logout } from './Logout';
 import { LongStoppage } from './LongStoppage';
 import { Mail } from './Mail';
 import { Map } from './Map';
+import { Megaphone } from './Megaphone';
 import { More } from './More';
+import { MoreOptions } from './MoreOptions';
 import { Mtnl } from './Mtnl';
 import { MultipleLocation } from './MultipleLocation';
 import { MultipleTime } from './MultipleTime';
 import { MultipleWeight } from './MultipleWeight';
 import { MyTrip } from './MyTrip';
+import { NoSignal } from './NoSignal';
+import { Noted } from './Noted';
+import { OctagonAlertFilled } from './OctagonAlertFilled';
+import { OneDrive } from './OneDrive';
+import { Streetview } from './Streetview';
 import { Navigator } from './Navigator';
 import { Notification } from './Notification';
 import { Organisation } from './Organisation';
 import { Outbound } from './Outbound';
+import { ParcelCheck } from './ParcelCheck';
 import { Password } from './Password';
+import { Pause } from './Pause';
+import { PauseFilled } from './PauseFilled';
 import { Pen } from './Pen';
 import { PhoneAlt } from './PhoneAlt';
 import { Phone } from './Phone';
@@ -110,6 +136,7 @@ import { Rocket } from './Rocket';
 import { RouteDeviation } from './RouteDeviation';
 import { RoundTrip } from './RoundTrip';
 import { RupeeCoin } from './RupeeCoin';
+import { Satellite } from './Satellite';
 import { Save } from './Save';
 import { Search } from './Search';
 import { Send } from './Send';
@@ -117,10 +144,13 @@ import { Settlement } from './Settlement';
 import { Settings } from './Settings';
 import { ShakeHand } from './ShakeHand';
 import { Share } from './Share';
+import { ShieldAlert } from './ShieldAlert';
 import { Ship } from './Ship';
 import { Sim } from './Sim';
+import { SmallTruck } from './SmallTruck';
 import { Sort } from './Sort';
 import { Star } from './Star';
+import { Stop } from './Stop';
 import { StrengthHigh } from './StrengthHigh';
 import { StrengthLow } from './StrengthLow';
 import { StrengthMedium } from './StrengthMedium';
@@ -133,10 +163,13 @@ import { TemperatureDefault } from './TemperatureDefault';
 import { TemperatureHot } from './TemperatureHot';
 import { ThreeDotMenu } from './ThreeDotMenu';
 import { Time } from './Time';
+import { Timer } from './Timer';
 import { Tracker } from './Tracker';
 import { TrackingInterrupted } from './TrackingInterrupted';
 import { Train } from './Train';
 import { TransitDelay } from './TransitDelay';
+import { TriangleAlert } from './TriangleAlert';
+import { Trolley } from './Trolley';
 import { Truck } from './Truck';
 import { User } from './User';
 import { Untracked } from './Untracked';
@@ -144,6 +177,7 @@ import { Vehicle } from './Vehicle';
 import { Vodafone } from './Vodafone';
 import { Warehouse } from './Warehouse';
 import { Weight } from './Weight';
+import { Whatsapp } from './Whatsapp';
 import { ContractedBill } from './ContractedBill';
 import { UploadDocument } from './UploadDocument';
 import { PartTruckLoad } from './PartTruckLoad';
@@ -181,8 +215,16 @@ export const iconMap = {
   'chevron-right': ChevronRight,
   'chevron-up': ChevronUp,
   'clock': Clock,
+  'clock-alert': ClockAlert,
+  'clock-cross': ClockCross,
+  'clock-tick': ClockTick,
+  'clock-warning': ClockWarning,
   'close-filled': CloseFilled,
   'comment': Comment,
+  'compress': Compress,
+  'consent-available': ConsentAvailable,
+  'consent-pending': ConsentPending,
+  'consent-rejected': ConsentRejected,
   'control-tower': ControlTower,
   'copy': Copy,
   'cross-icon': CrossIcon,
@@ -192,6 +234,7 @@ export const iconMap = {
   'data-stack': DataStack,
   'default-icon': DefaultIcon,
   'delete': Delete,
+  'detention-at-destination': DetentionAtDestination,
   'detention-at-origin': DetentionAtOrigin,
   'diversion': Diversion,
   'division': Division,
@@ -216,32 +259,47 @@ export const iconMap = {
   'ft-gray': FtGray,
   'google-colour': GoogleColour,
   'google-gray': GoogleGray,
+  'gmail-logo': GmailLogo,
+  'google-drive': GoogleDrive,
   'gps': Gps,
+  'gst': Gst,
   'hamburger-menu': HamburgerMenu,
+  'hand': Hand,
   'home': Home,
+  'image': Image,
   'inbound': Inbound,
   'indent': Indent,
   'jio': Jio,
   'light-bulb': LightBulb,
   'link': Link,
   'loading': Loading,
+  'locate': Locate,
   'location': Location,
   'lock': Lock,
   'logout': Logout,
   'long-stoppage': LongStoppage,
   'mail': Mail,
   'map': Map,
+  'megaphone': Megaphone,
   'more': More,
+  'more-options': MoreOptions,
   'mtnl': Mtnl,
   'multiple-location': MultipleLocation,
   'multiple-time': MultipleTime,
   'multiple-weight': MultipleWeight,
   'my-trip': MyTrip,
   'navigator': Navigator,
+  'no-signal': NoSignal,
+  'noted': Noted,
+  'octagon-alert-filled': OctagonAlertFilled,
+  'one-drive': OneDrive,
   'notification': Notification,
   'organisation': Organisation,
   'outbound': Outbound,
+  'parcel-check': ParcelCheck,
   'password': Password,
+  'pause': Pause,
+  'pause-filled': PauseFilled,
   'pen': Pen,
   'phone-alt': PhoneAlt,
   'phone': Phone,
@@ -262,6 +320,7 @@ export const iconMap = {
   'route-deviation': RouteDeviation,
   'round-trip': RoundTrip,
   'rupee-coin': RupeeCoin,
+  'satellite': Satellite,
   'save': Save,
   'search': Search,
   'send': Send,
@@ -269,10 +328,14 @@ export const iconMap = {
   'settings': Settings,
   'shake-hand': ShakeHand,
   'share': Share,
+  'shield-alert': ShieldAlert,
   'ship': Ship,
   'sim': Sim,
+  'small-truck': SmallTruck,
   'sort': Sort,
   'star': Star,
+  'stop': Stop,
+  'streetview': Streetview,
   'strength-high': StrengthHigh,
   'strength-low': StrengthLow,
   'strength-medium': StrengthMedium,
@@ -285,10 +348,13 @@ export const iconMap = {
   'temperature-hot': TemperatureHot,
   'three-dot-menu': ThreeDotMenu,
   'time': Time,
+  'timer': Timer,
   'tracker': Tracker,
   'tracking-interrupted': TrackingInterrupted,
   'train': Train,
   'transit-delay': TransitDelay,
+  'triangle-alert': TriangleAlert,
+  'trolley': Trolley,
   'truck': Truck,
   'untracked': Untracked,
   'user': User,
@@ -296,6 +362,7 @@ export const iconMap = {
   'vodafone': Vodafone,
   'warehouse': Warehouse,
   'weight': Weight,
+  'whatsapp': Whatsapp,
   'contracted-bill': ContractedBill,
   'upload-document': UploadDocument,
   'part-truck-load': PartTruckLoad,

@@ -2,7 +2,7 @@ import React from 'react';
 import { cn, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'text' | 'link';
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'text' | 'link';
 export type ButtonSize = ComponentSize; // Use unified sizing
 export type IconPosition = 'leading' | 'trailing' | 'only';
 
@@ -30,8 +30,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   // Core component - no AI filtering (use ft-design-system/ai for AI protection)
   const isIconOnly = iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
-  const isCircular = className?.includes('rounded-full');
+  // Icon-only buttons: circular for primary/secondary/destructive/text variants
+  // Tertiary variant icon-only buttons are square
+  const shouldBeCircular = className?.includes('rounded-full') || 
+    (isIconOnly && variant !== 'tertiary' && variant !== 'link');
   const isLink = variant === 'link';
+  // Text variant icon-only buttons should use secondary variant styling
+  const effectiveVariant = (isIconOnly && variant === 'text') ? 'secondary' : variant;
 
   // Button-specific sizing from Figma design
   const buttonSizing = {
@@ -41,6 +46,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       iconSize: 12,
       borderRadius: 'rounded-[4px]',
       height: 'h-4', // 16px
+      width: 'w-4', // 16px for icon-only
     },
     xs: {
       padding: 'px-2 py-[2px]',
@@ -48,6 +54,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       iconSize: 12,
       borderRadius: 'rounded-[4px]',
       height: 'h-6', // 24px
+      width: 'w-6', // 24px for icon-only
     },
     sm: {
       padding: 'p-3', // 12px all around
@@ -55,6 +62,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       iconSize: 16,
       borderRadius: 'rounded-[8px]',
       height: 'h-8', // 32px
+      width: 'w-8', // 32px for icon-only
     },
     md: {
       padding: 'px-4 py-3', // 16px horizontal, 12px vertical
@@ -62,6 +70,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       iconSize: 16,
       borderRadius: 'rounded-[8px]',
       height: 'h-10', // 40px
+      width: 'w-10', // 40px for icon-only
     },
     lg: {
       padding: 'px-6 py-3', // 24px horizontal, 12px vertical
@@ -69,6 +78,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       iconSize: 24,
       borderRadius: 'rounded-[8px]',
       height: 'h-12', // 48px
+      width: 'w-12', // 48px for icon-only
     },
     xl: {
       padding: 'px-6 py-4', // 24px horizontal, 16px vertical
@@ -76,6 +86,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       iconSize: 24,
       borderRadius: 'rounded-[8px]',
       height: 'h-14', // 56px
+      width: 'w-14', // 56px for icon-only
     },
     xxl: {
       padding: 'px-7 py-5', // 28px horizontal, 20px vertical
@@ -83,6 +94,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       iconSize: 24,
       borderRadius: 'rounded-[8px]',
       height: 'h-16', // 64px
+      width: 'w-16', // 64px for icon-only
     },
   };
 
@@ -107,8 +119,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     // Interaction states
     !isLink && !isDisabled && interactiveClass,
     isDisabled && "opacity-disabled",
-    // Override border radius for circular buttons
-    isCircular && "!rounded-full"
+    // Icon-only buttons: circular only if shouldBeCircular is true
+    isIconOnly && shouldBeCircular && "!rounded-full"
   );
 
   // Use button-specific sizing from Figma design
@@ -116,11 +128,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     buttonSize.height,
     buttonSize.fontSize,
     "gap-2", // 8px gap consistent across all sizes
-    buttonSize.borderRadius,
-    // Adjust padding for icon-only buttons
-    isIconOnly && isCircular ? `w-${buttonSize.height.replace('h-', '')} p-0` : 
-    isIconOnly ? `w-${buttonSize.height.replace('h-', '')} px-0` : 
-    buttonSize.padding
+    // Apply border radius based on button type
+    !isIconOnly && buttonSize.borderRadius,
+    // Icon-only buttons: square dimensions with no padding
+    isIconOnly && buttonSize.width,
+    isIconOnly && "p-0 aspect-square",
+    // Icon-only buttons: apply border radius (square for tertiary, rounded for others)
+    isIconOnly && !shouldBeCircular && buttonSize.borderRadius,
+    // Regular buttons: use padding
+    !isIconOnly && buttonSize.padding
   ) : cn(
     buttonSize.fontSize,
     "gap-2"
@@ -139,6 +155,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "hover:bg-[var(--button-secondary-hover-bg)] hover:border-[var(--button-secondary-hover-border)]",
       "focus-visible:ring-[var(--primary)]", 
       "disabled:text-[var(--tertiary)] disabled:border-[var(--border-primary)]"
+    ),
+    tertiary: cn(
+      "bg-[var(--button-tertiary-bg)] text-[var(--button-tertiary-text)] border border-[var(--button-tertiary-border)]",
+      "hover:bg-[var(--button-tertiary-hover-bg)] hover:border-[var(--button-tertiary-hover-border)]",
+      "focus-visible:ring-[var(--primary)]",
+      "disabled:text-[var(--tertiary)] disabled:border-[var(--border-primary)] disabled:opacity-50"
     ),
     destructive: cn(
       "bg-[var(--button-destructive-bg)] text-[var(--button-destructive-text)] border border-[var(--button-destructive-border)]",
@@ -167,6 +189,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     (typeof children === 'string' ? children : undefined) ||
     (isIconOnly ? 'Button' : undefined);
 
+  // Remove conflicting border-radius classes from className for icon-only circular buttons
+  const cleanedClassName = isIconOnly && shouldBeCircular && className 
+    ? className.replace(/\brounded-\[?[^\s\]]+\]?|\brounded-(none|sm|md|lg|xl|2xl|3xl|full)\b/g, '').trim()
+    : className;
+
   return (
     <button
       ref={ref}
@@ -175,8 +202,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       className={cn(
         baseStyles,
         sizeStyles,
-        variantStyles[variant],
-        className
+        variantStyles[effectiveVariant],
+        cleanedClassName,
+        // Ensure rounded-full is always last for circular icon-only buttons
+        isIconOnly && shouldBeCircular && "!rounded-full"
       )}
       aria-label={accessibleName}
       aria-busy={loading}

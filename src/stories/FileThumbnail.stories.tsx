@@ -9,7 +9,7 @@ const meta: Meta<typeof FileThumbnail> = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Compact file thumbnail component for displaying file information with optional actions. Ideal for file lists, selected file displays, and file management interfaces.'
+        component: 'Compact file thumbnail component for displaying file previews or file type icons. Supports hover states with action icons for preview and download. Based on Figma design specifications.'
       }
     }
   },
@@ -18,10 +18,21 @@ const meta: Meta<typeof FileThumbnail> = {
       control: 'text',
       description: 'Name of the file'
     },
-    variant: {
-      control: 'radio',
-      options: ['uploaded', 'downloading'],
-      description: 'Visual variant of the file thumbnail'
+    imageUrl: {
+      control: 'text',
+      description: 'Optional image preview URL. If not provided, shows file type icon.'
+    },
+    showFileName: {
+      control: 'boolean',
+      description: 'Whether to display the filename below the thumbnail'
+    },
+    onPreview: {
+      action: 'preview',
+      description: 'Callback when preview/view action is triggered'
+    },
+    onDownload: {
+      action: 'download',
+      description: 'Callback when download action is triggered'
     }
   }
 };
@@ -29,60 +40,117 @@ const meta: Meta<typeof FileThumbnail> = {
 export default meta;
 type Story = StoryObj<typeof FileThumbnail>;
 
-// Default file thumbnail
-export const Default: Story = {
+// Sample image URL for previews (using a placeholder)
+const sampleImageUrl = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop';
+
+// Image preview without filename
+export const ImagePreview: Story = {
   args: {
-    fileName: 'Add_order_upload.xlsx',
-    variant: 'uploaded',
+    fileName: 'Image2.png',
+    imageUrl: sampleImageUrl,
+    showFileName: false
+  }
+};
+
+// File type icon without filename
+export const FileTypeIcon: Story = {
+  args: {
+    fileName: 'document.pdf',
+    showFileName: false
+  }
+};
+
+// Image preview with filename
+export const WithFileName: Story = {
+  args: {
+    fileName: 'Image2.png',
+    imageUrl: sampleImageUrl,
+    showFileName: true
+  }
+};
+
+// Image preview with filename and actions
+export const WithActions: Story = {
+  args: {
+    fileName: 'Image2.png',
+    imageUrl: sampleImageUrl,
+    showFileName: true,
+    onPreview: () => alert('Preview file'),
     onDownload: () => alert('Download file')
   }
 };
 
-// Without download button
-export const WithoutDownload: Story = {
-  args: {
-    fileName: 'Add_order_upload.xlsx',
-    variant: 'uploaded'
-  }
-};
-
-// Different file names
-export const DifferentFiles: Story = {
+// Different file types
+export const DifferentFileTypes: Story = {
   render: () => (
-    <div className="space-y-4">
-      <h2 className="text-xl font-semibold mb-4">File Thumbnails</h2>
-      
-      <FileThumbnail
-        fileName="Product_inventory.xlsx"
-        variant="uploaded"
-        onDownload={() => alert('Download Product_inventory.xlsx')}
-      />
-      
-      <FileThumbnail
-        fileName="Customer_data_export.xlsx"
-        variant="uploaded"
-        onDownload={() => alert('Download Customer_data_export.xlsx')}
-      />
-      
-      <FileThumbnail
-        fileName="Financial_report_Q1_2024.xlsx"
-        variant="uploaded"
-        onDownload={() => alert('Download Financial_report_Q1_2024.xlsx')}
-      />
-      
-      <FileThumbnail
-        fileName="Very_long_filename_that_should_truncate_properly.xlsx"
-        variant="uploaded"
-        onDownload={() => alert('Download long file')}
-      />
+    <div className="space-y-6">
+      <h2 className="text-xl font-semibold mb-4">File Thumbnails - Different Types</h2>
+      <div className="flex flex-wrap gap-4">
+        <FileThumbnail
+          fileName="document.pdf"
+          showFileName={true}
+        />
+        <FileThumbnail
+          fileName="spreadsheet.xlsx"
+          showFileName={true}
+        />
+        <FileThumbnail
+          fileName="image.png"
+          imageUrl={sampleImageUrl}
+          showFileName={true}
+          onPreview={() => alert('Preview image')}
+          onDownload={() => alert('Download image')}
+        />
+        <FileThumbnail
+          fileName="photo.jpg"
+          imageUrl={sampleImageUrl}
+          showFileName={false}
+        />
+      </div>
     </div>
   )
 };
 
-// Downloading state
-export const Downloading: Story = {
-  args: {
-    fileName: 'Add_order_upload.xlsx',
-    variant: 'downloading'
-  }
-}; 
+// Grid layout showing all variants
+export const AllVariants: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <h2 className="text-xl font-semibold mb-4">File Thumbnail Variants</h2>
+      <div className="grid grid-cols-3 gap-6 max-w-md">
+        <div className="space-y-2">
+          <p className="text-sm text-gray-600">Image Preview</p>
+          <FileThumbnail
+            fileName="Image2.png"
+            imageUrl={sampleImageUrl}
+            showFileName={false}
+          />
+        </div>
+        <div className="space-y-2">
+          <p className="text-sm text-gray-600">File Type Icon</p>
+          <FileThumbnail
+            fileName="document.pdf"
+            showFileName={false}
+          />
+        </div>
+        <div className="space-y-2">
+          <p className="text-sm text-gray-600">With Filename</p>
+          <FileThumbnail
+            fileName="Image2.png"
+            imageUrl={sampleImageUrl}
+            showFileName={true}
+          />
+        </div>
+        <div className="space-y-2">
+          <p className="text-sm text-gray-600">Hover State</p>
+          <FileThumbnail
+            fileName="Image2.png"
+            imageUrl={sampleImageUrl}
+            showFileName={true}
+            onPreview={() => alert('Preview')}
+            onDownload={() => alert('Download')}
+          />
+        </div>
+      </div>
+    </div>
+  )
+};

@@ -7,13 +7,13 @@ interface TataMotorsLogoProps {
   className?: string;
 }
 
-export const TataMotorsLogo: React.FC<TataMotorsLogoProps> = ({ 
-  width = 155, 
-  height = 26, 
-  className 
+export const TataMotorsLogo: React.FC<TataMotorsLogoProps> = ({
+  width = 155,
+  height = 26,
+  className
 }) => (
-  <img 
-    src={tataMotorstLogoImg}
+  <img
+    src={(tataMotorstLogoImg as any).src || tataMotorstLogoImg}
     alt="Tata Motors Logo"
     width={width}
     height={height}

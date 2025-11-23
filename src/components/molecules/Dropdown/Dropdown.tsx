@@ -1,4 +1,5 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useEffect, useRef, useCallback } from 'react';
+import ReactDOM from 'react-dom';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
@@ -148,7 +149,7 @@ const sizeStylesMap: Record<ComponentSize, SizeStyles> = {
 export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   (
     {
-      options,
+      options = [],
       value,
       placeholder = "Select an option",
       size = "md",
@@ -177,16 +178,79 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     const [isOpen, setIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedValue, setSelectedValue] = useState(value);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
+    const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0, width: 0 });
+    const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
     const componentStyles = getComponentStyles(size);
     const sizeStyles = sizeStylesMap[size];
+
+    // Create portal container on mount
+    useEffect(() => {
+      const container = document.createElement('div');
+      document.body.appendChild(container);
+      setPortalContainer(container);
+      return () => {
+        document.body.removeChild(container);
+      };
+    }, []);
+
+    // Calculate menu position when it opens or window scrolls/resizes
+    const updateMenuPosition = useCallback(() => {
+      if (isOpen && dropdownRef.current) {
+        const rect = dropdownRef.current.getBoundingClientRect();
+        // For fixed positioning, use viewport coordinates directly
+        const top = rect.bottom + 4;
+        const left = rect.left;
+        const width = rect.width;
+        setMenuPosition({ top, left, width });
+      }
+    }, [isOpen]);
+
+    useEffect(() => {
+      updateMenuPosition();
+      
+      if (isOpen) {
+        window.addEventListener('scroll', updateMenuPosition, true);
+        window.addEventListener('resize', updateMenuPosition);
+      }
+
+      return () => {
+        window.removeEventListener('scroll', updateMenuPosition, true);
+        window.removeEventListener('resize', updateMenuPosition);
+      };
+    }, [isOpen, updateMenuPosition]);
+
+    // Close dropdown when clicking outside
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          dropdownRef.current && 
+          !dropdownRef.current.contains(event.target as Node) &&
+          menuRef.current &&
+          !menuRef.current.contains(event.target as Node)
+        ) {
+          setIsOpen(false);
+          setSearchQuery("");
+        }
+      };
+
+      if (isOpen) {
+        document.addEventListener('mousedown', handleClickOutside);
+      }
+
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [isOpen]);
 
     // Filter options based on search query
     const filteredOptions = options.filter((option: DropdownOption) =>
       option.label.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const selectedOption = options.find((option: DropdownOption) => option.value === selectedValue);
+    const selectedOption = (options || []).find((option: DropdownOption) => option.value === selectedValue);
 
     const handleSelect = (optionValue: string | number) => {
       setSelectedValue(optionValue);
@@ -216,9 +280,21 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
       return (
         <div
-          ref={ref}
+          ref={(node) => {
+            dropdownRef.current = node;
+            if (typeof ref === 'function') {
+              ref(node);
+            } else if (ref) {
+              ref.current = node;
+            }
+          }}
           className={fieldClasses}
-          onClick={() => !state || state === "default" ? setIsOpen(!isOpen) : undefined}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (state !== "disabled") {
+              setIsOpen(!isOpen);
+            }
+          }}
           data-size={size}
           {...props}
         >
@@ -237,63 +313,88 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               state === "disabled" ? "text-input-disabled dark:text-input-disabled-dark" : "text-[var(--primary)]"
             )}
           />
+        </div>
+      );
+    };
+
+    const renderMenu = () => {
+      if (!isOpen || !portalContainer) return null;
+
+      const hasSegments = Array.isArray(segments) && segments.length > 0;
+      const segmentsArray = hasSegments ? segments : [];
+
+      return ReactDOM.createPortal(
+        <div
+          ref={menuRef}
+          className={cn(
+            "fixed z-[9999] bg-white dark:bg-surface-dark border border-[var(--border-primary)] dark:border-border-dark shadow-lg rounded-lg",
+            "p-2 flex flex-col gap-1"
+          )}
+          style={{
+            top: menuPosition.top,
+            left: menuPosition.left,
+            width: menuPosition.width,
+          }}
+        >
+          {hasSegments && (
+            <div 
+              className="mb-4 w-full flex-shrink-0"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <SegmentedTabs
+                items={segmentsArray}
+                value={selectedSegment}
+                onChange={(value) => {
+                  onSegmentChange?.(value);
+                }}
+              />
+            </div>
+          )}
           
-          {/* Dropdown Menu */}
-          {isOpen && (
-            <div className={cn(
-              "absolute top-full left-0 right-0 z-50 mt-1 bg-white dark:bg-surface-dark border border-[var(--border-primary)] dark:border-border-dark shadow-lg rounded-lg overflow-hidden",
-              "p-2 flex flex-col gap-1"
-            )}>
-              {segments && (
-                <div className="mb-4">
-                  <SegmentedTabs
-                    items={segments}
-                    value={selectedSegment}
-                    onChange={onSegmentChange}
-                  />
-                </div>
-              )}
-              
-              {type === "search" && (
-                <div className="mb-2">
-                  <div className="relative">
-                    <Icon
-                      name="search"
-                      size={16}
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--tertiary)]"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Search"
-                      value={searchQuery}
-                      onChange={handleSearchChange}
-                      className="w-full pl-9 pr-3 py-2 border border-[var(--border-primary)] dark:border-border-dark rounded-lg text-base text-[var(--primary)] placeholder-[var(--tertiary)] focus:outline-none focus:border-primary dark:focus:border-primary-dark"
-                    />
-                  </div>
-                </div>
-              )}
-              
-              <div className="max-h-60 overflow-y-auto">
-                {filteredOptions.map((option: DropdownOption) => (
-                  <div
-                    key={option.value}
-                    className={cn(
-                      dropdownMenuItemVariants({
-                        state: option.disabled ? "disabled" : selectedValue === option.value ? "selected" : "default",
-                      })
-                    )}
-                    onClick={() => !option.disabled && handleSelect(option.value)}
-                  >
-                    <span className="flex-1">{option.label}</span>
-                    {selectedValue === option.value && (
-                      <Icon name="check" size={16} className="text-[var(--primary)] ml-2" />
-                    )}
-                  </div>
-                ))}
+          {type === "search" && (
+            <div className="mb-2">
+              <div className="relative">
+                <Icon
+                  name="search"
+                  size={16}
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--tertiary)]"
+                />
+                <input
+                  type="text"
+                  placeholder="Search"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  className="w-full pl-9 pr-3 py-2 border border-[var(--border-primary)] dark:border-border-dark rounded-lg text-base text-[var(--primary)] placeholder-[var(--tertiary)] focus:outline-none focus:border-primary dark:focus:border-primary-dark"
+                />
               </div>
             </div>
           )}
-        </div>
+          
+          <div className="max-h-60 overflow-y-auto">
+            {filteredOptions.map((option: DropdownOption) => (
+              <div
+                key={option.value}
+                className={cn(
+                  dropdownMenuItemVariants({
+                    state: option.disabled ? "disabled" : selectedValue === option.value ? "selected" : "default",
+                  })
+                )}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!option.disabled) {
+                    handleSelect(option.value);
+                  }
+                }}
+              >
+                <span className="flex-1">{option.label}</span>
+                {selectedValue === option.value && (
+                  <Icon name="check" size={16} className="text-[var(--primary)] ml-2" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>,
+        portalContainer
       );
     };
 
@@ -352,6 +453,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         {/* Main Content */}
         <div className="relative">
           {renderField()}
+          {renderMenu()}
           {(error || helperText) && renderHelperText()}
         </div>
       </div>

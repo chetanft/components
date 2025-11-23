@@ -1,0 +1,760 @@
+{
+  "designSystem": {
+    "name": "@chetanft/design_system",
+    "version": "1.0.0",
+    "description": "React design system components",
+    "installation": {
+      "npm": "npm install @chetanft/design_system"
+    },
+    "components": {
+      "Avatar": {
+        "description": "Avatar component",
+        "import": "import { Avatar } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Avatar />"
+          }
+        ]
+      },
+      "Badge": {
+        "description": "Badge component",
+        "import": "import { Badge } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Badge />"
+          }
+        ]
+      },
+      "Button": {
+        "description": "Button component",
+        "import": "import { Button } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Button />"
+          }
+        ]
+      },
+      "Checkbox": {
+        "description": "Checkbox component",
+        "import": "import { Checkbox } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Checkbox />"
+          }
+        ]
+      },
+      "Divider": {
+        "description": "Divider component",
+        "import": "import { Divider } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Divider />"
+          }
+        ]
+      },
+      "Spacer": {
+        "description": "Spacer component",
+        "import": "import { Spacer } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Spacer />"
+          }
+        ]
+      },
+      "Icon": {
+        "description": "Icon component",
+        "import": "import { Icon } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Icon />"
+          }
+        ]
+      },
+      "Input": {
+        "description": "Input component",
+        "import": "import { Input } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Input />"
+          }
+        ]
+      },
+      "Label": {
+        "description": "Label component",
+        "import": "import { Label } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Label />"
+          }
+        ]
+      },
+      "RadioGroup": {
+        "description": "RadioGroup component",
+        "import": "import { RadioGroup } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<RadioGroup />"
+          }
+        ]
+      },
+      "ReadOnly": {
+        "description": "ReadOnly component",
+        "import": "import { ReadOnly } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<ReadOnly />"
+          }
+        ]
+      },
+      "Switch": {
+        "description": "Switch component",
+        "import": "import { Switch } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Switch />"
+          }
+        ]
+      },
+      "Chicklet": {
+        "description": "Chicklet component",
+        "import": "import { Chicklet } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Chicklet />"
+          }
+        ]
+      },
+      "ButtonGroup": {
+        "description": "ButtonGroup component",
+        "import": "import { ButtonGroup } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<ButtonGroup />"
+          }
+        ]
+      },
+      "DatePicker": {
+        "description": "DatePicker component",
+        "import": "import { DatePicker } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<DatePicker />"
+          }
+        ]
+      },
+      "StackedBarChart": {
+        "description": "StackedBarChart component",
+        "import": "import { StackedBarChart } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<StackedBarChart />"
+          }
+        ]
+      },
+      "SimpleColumnLayout": {
+        "description": "SimpleColumnLayout component",
+        "import": "import { SimpleColumnLayout } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<SimpleColumnLayout />"
+          }
+        ]
+      },
+      "Dropdown": {
+        "description": "Dropdown component",
+        "import": "import { Dropdown } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Dropdown />"
+          }
+        ]
+      },
+      "FileValidationCard": {
+        "description": "FileValidationCard component",
+        "import": "import { FileValidationCard } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<FileValidationCard />"
+          }
+        ]
+      },
+      "ProgressBar": {
+        "description": "ProgressBar component",
+        "import": "import { ProgressBar } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<ProgressBar />"
+          }
+        ]
+      },
+      "ProgressList": {
+        "description": "ProgressList component",
+        "import": "import { ProgressList } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<ProgressList />"
+          }
+        ]
+      },
+      "RadioSelector": {
+        "description": "RadioSelector component",
+        "import": "import { RadioSelector } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<RadioSelector />"
+          }
+        ]
+      },
+      "SegmentedTabs": {
+        "description": "SegmentedTabs component",
+        "import": "import { SegmentedTabs } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<SegmentedTabs />"
+          }
+        ]
+      },
+      "Steps": {
+        "description": "Steps component",
+        "import": "import { Steps } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Steps />"
+          }
+        ]
+      },
+      "Tooltip": {
+        "description": "Tooltip component",
+        "import": "import { Tooltip } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Tooltip />"
+          }
+        ]
+      },
+      "UploadButton": {
+        "description": "UploadButton component",
+        "import": "import { UploadButton } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<UploadButton />"
+          }
+        ]
+      },
+      "UploadItem": {
+        "description": "UploadItem component",
+        "import": "import { UploadItem } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<UploadItem />"
+          }
+        ]
+      },
+      "UploadThumbnail": {
+        "description": "UploadThumbnail component",
+        "import": "import { UploadThumbnail } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<UploadThumbnail />"
+          }
+        ]
+      },
+      "AppHeader": {
+        "description": "AppHeader component",
+        "import": "import { AppHeader } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<AppHeader />"
+          }
+        ]
+      },
+      "Card": {
+        "description": "Card component",
+        "import": "import { Card } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Card />"
+          }
+        ]
+      },
+      "Collapsible": {
+        "description": "Collapsible component",
+        "import": "import { Collapsible } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Collapsible />"
+          }
+        ]
+      },
+      "FileCard": {
+        "description": "FileCard component",
+        "import": "import { FileCard } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<FileCard />"
+          }
+        ]
+      },
+      "FileThumbnail": {
+        "description": "FileThumbnail component",
+        "import": "import { FileThumbnail } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<FileThumbnail />"
+          }
+        ]
+      },
+      "FileTypeIcon": {
+        "description": "FileTypeIcon component",
+        "import": "import { FileTypeIcon } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<FileTypeIcon />"
+          }
+        ]
+      },
+      "Footer": {
+        "description": "Footer component",
+        "import": "import { Footer } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Footer />"
+          }
+        ]
+      },
+      "NavigationPopover": {
+        "description": "NavigationPopover component",
+        "import": "import { NavigationPopover } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<NavigationPopover />"
+          }
+        ]
+      },
+      "NavigationLauncher": {
+        "description": "NavigationLauncher component",
+        "import": "import { NavigationLauncher } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<NavigationLauncher />"
+          }
+        ]
+      },
+      "QuickFilters": {
+        "description": "QuickFilters component",
+        "import": "import { QuickFilters } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<QuickFilters />"
+          }
+        ]
+      },
+      "Table": {
+        "description": "Table component",
+        "import": "import { Table } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Table />"
+          }
+        ]
+      },
+      "Tabs": {
+        "description": "Tabs component",
+        "import": "import { Tabs } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Tabs />"
+          }
+        ]
+      },
+      "Upload": {
+        "description": "Upload component",
+        "import": "import { Upload } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<Upload />"
+          }
+        ]
+      },
+      "UploadZone": {
+        "description": "UploadZone component",
+        "import": "import { UploadZone } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<UploadZone />"
+          }
+        ]
+      },
+      "UserProfile": {
+        "description": "UserProfile component",
+        "import": "import { UserProfile } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<UserProfile />"
+          }
+        ]
+      },
+      "UserProfileDropdown": {
+        "description": "UserProfileDropdown component",
+        "import": "import { UserProfileDropdown } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic Usage",
+            "code": "<UserProfileDropdown />"
+          }
+        ]
+      }
+    }
+  }
+}

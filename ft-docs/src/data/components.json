@@ -1,0 +1,3579 @@
+{
+  "designSystem": {
+    "components": {
+      "Dropdown": {
+        "description": "A dropdown select component with search functionality, segmented tabs support, and various sizes and states.",
+        "import": "import { Dropdown } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "label": {
+            "type": "string",
+            "required": false,
+            "description": "Label text for the dropdown"
+          },
+          "placeholder": {
+            "type": "string",
+            "required": false,
+            "default": "Select an option",
+            "description": "Placeholder text"
+          },
+          "type": {
+            "type": "union of 'default', 'search'",
+            "required": false,
+            "default": "default",
+            "description": "Type of dropdown - default or search"
+          },
+          "size": {
+            "type": "union of 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'",
+            "required": false,
+            "default": "md",
+            "description": "Size of the dropdown"
+          },
+          "state": {
+            "type": "union of 'default', 'error', 'disabled'",
+            "required": false,
+            "default": "default",
+            "description": "Visual state of the dropdown"
+          },
+          "options": {
+            "type": "array",
+            "required": true,
+            "description": "Array of options with value and label properties"
+          },
+          "segments": {
+            "type": "array",
+            "required": false,
+            "description": "Array of segment tabs for filtering (used with search type)"
+          },
+          "selectedSegment": {
+            "type": "string",
+            "required": false,
+            "description": "Currently selected segment value"
+          },
+          "error": {
+            "type": "string",
+            "required": false,
+            "description": "Error message to display"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Dropdown label=\"Label\" placeholder=\"Select an option\" options={[{value: \"1\", label: \"Option 1\"}, {value: \"2\", label: \"Option 2\"}, {value: \"3\", label: \"Option 3\"}]} />"
+          },
+          {
+            "name": "Search",
+            "code": "<Dropdown label=\"Search Dropdown\" type=\"search\" placeholder=\"Search options\" options={[{value: \"1\", label: \"Option 1\"}, {value: \"2\", label: \"Option 2\"}, {value: \"3\", label: \"Option 3\"}]} />"
+          },
+          {
+            "name": "Search With Segments",
+            "code": "<Dropdown label=\"Search with Segments\" type=\"search\" placeholder=\"Search groups\" segments={[{label: \"Group\", value: \"group\"}, {label: \"Branch\", value: \"branch\"}]} selectedSegment=\"group\" options={[{value: \"1\", label: \"Option 1\"}, {value: \"2\", label: \"Option 2\"}]} />"
+          }
+        ]
+      },
+      "Tooltip": {
+        "description": "A tooltip component for displaying contextual information with various placements and styles.",
+        "import": "import { Tooltip } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "children": {
+            "type": "ReactNode",
+            "required": true,
+            "description": "Tooltip content text"
+          },
+          "heading": {
+            "type": "string",
+            "required": false,
+            "description": "Optional heading text for the tooltip"
+          },
+          "placement": {
+            "type": "union of 'top', 'bottom', 'left', 'right'",
+            "required": false,
+            "default": "top",
+            "description": "Placement of the tooltip relative to trigger"
+          },
+          "align": {
+            "type": "union of 'start', 'center', 'end'",
+            "required": false,
+            "default": "center",
+            "description": "Alignment of the tooltip"
+          },
+          "color": {
+            "type": "union of 'white', 'dark'",
+            "required": false,
+            "default": "white",
+            "description": "Color theme of the tooltip"
+          },
+          "showClose": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether to show close button"
+          },
+          "primaryActionText": {
+            "type": "string",
+            "required": false,
+            "description": "Text for primary action button"
+          },
+          "secondaryActionText": {
+            "type": "string",
+            "required": false,
+            "description": "Text for secondary action button"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Tooltip placement=\"top\" align=\"center\" color=\"white\">This is a basic tooltip</Tooltip>"
+          },
+          {
+            "name": "Bottom",
+            "code": "<Tooltip placement=\"bottom\" align=\"center\" color=\"white\">Bottom tooltip</Tooltip>"
+          },
+          {
+            "name": "Dark Theme",
+            "code": "<Tooltip heading=\"Dark Tooltip\" showClose={true} primaryActionText=\"Learn more\" secondaryActionText=\"Skip\" placement=\"top\" align=\"center\" color=\"dark\">This is a tooltip with dark theme</Tooltip>"
+          },
+          {
+            "name": "Left",
+            "code": "<Tooltip placement=\"left\" align=\"center\" color=\"white\">Left tooltip</Tooltip>"
+          },
+          {
+            "name": "Right",
+            "code": "<Tooltip placement=\"right\" align=\"center\" color=\"white\">Right tooltip</Tooltip>"
+          },
+          {
+            "name": "Top Left",
+            "code": "<Tooltip placement=\"top\" align=\"start\" color=\"white\">Top left tooltip</Tooltip>"
+          },
+          {
+            "name": "Top Right",
+            "code": "<Tooltip placement=\"top\" align=\"end\" color=\"white\">Top right tooltip</Tooltip>"
+          },
+          {
+            "name": "With Actions",
+            "code": "<Tooltip heading=\"Tooltip Heading\" primaryActionText=\"Learn more\" secondaryActionText=\"Skip\" placement=\"top\" align=\"center\" color=\"white\">This is a tooltip with action buttons</Tooltip>"
+          },
+          {
+            "name": "With Close Button",
+            "code": "<Tooltip heading=\"Tooltip Heading\" showClose={true} placement=\"top\" align=\"center\" color=\"white\">This is a tooltip with a close button</Tooltip>"
+          },
+          {
+            "name": "With Heading",
+            "code": "<Tooltip heading=\"Tooltip Heading\" placement=\"top\" align=\"center\" color=\"white\">This is a tooltip with a heading</Tooltip>"
+          }
+        ]
+      },
+      "ButtonGroup": {
+        "description": "A group of buttons displayed together with consistent spacing and styling.",
+        "import": "import { ButtonGroup } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "buttons": {
+            "type": "array",
+            "required": true,
+            "description": "Array of button configurations with id, label, variant, icon, and iconPosition"
+          },
+          "equalWidth": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether all buttons should have equal width"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<ButtonGroup buttons={[{id: \"1\", label: \"Button\", variant: \"text\"}, {id: \"2\", label: \"Button\", variant: \"secondary\"}, {id: \"3\", label: \"Button\", variant: \"primary\"}]} />"
+          }
+        ]
+      },
+      "DatePicker": {
+        "description": "A date picker component for selecting single dates or date ranges with various sizes and states.",
+        "import": "import { DatePicker } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "label": {
+            "type": "string",
+            "required": false,
+            "description": "Label text for the date picker"
+          },
+          "placeholder": {
+            "type": "string",
+            "required": false,
+            "default": "MM/DD/YYYY",
+            "description": "Placeholder text"
+          },
+          "size": {
+            "type": "union of 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'",
+            "required": false,
+            "default": "md",
+            "description": "Size of the date picker"
+          },
+          "value": {
+            "type": "string",
+            "required": false,
+            "description": "Selected date value"
+          },
+          "range": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether to enable date range selection"
+          },
+          "startValue": {
+            "type": "string",
+            "required": false,
+            "description": "Start date value (for range mode)"
+          },
+          "endValue": {
+            "type": "string",
+            "required": false,
+            "description": "End date value (for range mode)"
+          },
+          "disabled": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the date picker is disabled"
+          },
+          "error": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the date picker is in error state"
+          },
+          "onChange": {
+            "type": "function",
+            "required": false,
+            "description": "Callback when date value changes"
+          },
+          "onStartChange": {
+            "type": "function",
+            "required": false,
+            "description": "Callback when start date changes (for range mode)"
+          },
+          "onEndChange": {
+            "type": "function",
+            "required": false,
+            "description": "Callback when end date changes (for range mode)"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<DatePicker label=\"Select Date\" placeholder=\"MM/DD/YYYY\\\" />"
+          },
+          {
+            "name": "Date Range",
+            "code": "<DatePicker label=\"Date Range\" placeholder=\"Start date → End date\" range={true} />"
+          },
+          {
+            "name": "Date Range With Values",
+            "code": "<DatePicker label=\"Date Range\" range={true} startValue=\"new Date().toLocaleDateString()\" endValue=\"new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()\" />"
+          },
+          {
+            "name": "Disabled",
+            "code": "<DatePicker label=\"Disabled Date\" placeholder=\"MM/DD/YYYY\\\" disabled={true} />"
+          },
+          {
+            "name": "LG",
+            "code": "<DatePicker label=\"Large (LG)\" placeholder=\"48px height\" size=\"lg\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<DatePicker label=\"Medium (MD)\" placeholder=\"40px height\" size=\"md\" />"
+          },
+          {
+            "name": "SM",
+            "code": "<DatePicker label=\"Small (SM)\" placeholder=\"32px height\" size=\"sm\" />"
+          },
+          {
+            "name": "With Error",
+            "code": "<DatePicker label=\"Date with Error\" placeholder=\"MM/DD/YYYY\\\" error={true} />"
+          },
+          {
+            "name": "With Value",
+            "code": "<DatePicker label=\"Date\" placeholder=\"MM/DD/YYYY\" value=\"new Date().toLocaleDateString()\\\" />"
+          },
+          {
+            "name": "XL",
+            "code": "<DatePicker label=\"Extra Large (XL)\" placeholder=\"56px height\" size=\"xl\" />"
+          },
+          {
+            "name": "XS",
+            "code": "<DatePicker label=\"Extra Small (XS)\" placeholder=\"24px height\" size=\"xs\" />"
+          },
+          {
+            "name": "XXL",
+            "code": "<DatePicker label=\"2X Large (XXL)\" placeholder=\"64px height\" size=\"xxl\" />"
+          }
+        ]
+      },
+      "StackedBarChart": {
+        "description": "A stacked bar chart component for displaying segmented data with customizable heights and legends.",
+        "import": "import { StackedBarChart } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "title": {
+            "type": "string",
+            "required": false,
+            "description": "Chart title"
+          },
+          "data": {
+            "type": "array",
+            "required": true,
+            "description": "Array of data items, each with a label and segments array"
+          },
+          "legend": {
+            "type": "array",
+            "required": false,
+            "description": "Array of legend items with label and color"
+          },
+          "barHeight": {
+            "type": "number",
+            "required": false,
+            "description": "Custom height for bars in pixels"
+          }
+        },
+        "examples": [
+          {
+            "name": "Custom Heights",
+            "code": "<StackedBarChart barHeight={220} data={[{label: \"Category 1\", segments: [{value: 30, color: \"#3b82f6\"}, {value: 20, color: \"#10b981\"}]}]} />"
+          }
+        ]
+      },
+      "SimpleColumnLayout": {
+        "description": "A simple two-column layout component for displaying rows of left and right content with optional striping.",
+        "import": "import { SimpleColumnLayout } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "rows": {
+            "type": "array",
+            "required": true,
+            "description": "Array of row objects with left and right properties containing title, subtitle, and optional align"
+          },
+          "striped": {
+            "type": "boolean",
+            "required": false,
+            "default": true,
+            "description": "Whether to apply alternating row background colors"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<SimpleColumnLayout rows={[{left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}]} />"
+          },
+          {
+            "name": "No Stripes",
+            "code": "<SimpleColumnLayout striped={false} rows={[{left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}]} />"
+          }
+        ]
+      },
+      "Chicklet": {
+        "description": "Chicklet component built from Figma specifications. A small tag-like element with two variants (rectangular and pill-shaped) and interactive states.",
+        "import": "import { Chicklet } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "label": {
+            "type": "string",
+            "required": true,
+            "description": "The text content displayed in the chicklet"
+          },
+          "variant": {
+            "type": "union of 'rectangular', 'rounded'",
+            "required": false,
+            "default": "rectangular",
+            "description": "Shape variant - rectangular (4px radius) or rounded (pill-shaped)"
+          },
+          "showClose": {
+            "type": "boolean",
+            "required": false,
+            "default": true,
+            "description": "Whether to show the close icon"
+          },
+          "disabled": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the chicklet is disabled"
+          },
+          "onClose": {
+            "type": "function",
+            "required": false,
+            "description": "Callback when close icon is clicked"
+          },
+          "onClick": {
+            "type": "function",
+            "required": false,
+            "description": "Callback when chicklet is clicked"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Chicklet label=\"Label\" variant=\"rectangular\" showClose={true} />"
+          },
+          {
+            "name": "Disabled",
+            "code": "<Chicklet label=\"Disabled\" variant=\"rectangular\" showClose={true} disabled={true} />"
+          },
+          {
+            "name": "Long Text",
+            "code": "<Chicklet label=\"This is a longer label text\" variant=\"rectangular\" showClose={true} />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Default\" variant=\"rectangular\" />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Without Close\" variant=\"rectangular\" showClose={false} />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Disabled\" variant=\"rectangular\" disabled />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Longer Text Example\" variant=\"rectangular\" />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Tag 1\" variant=\"rectangular\" />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Category\" variant=\"rectangular\" />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Filter Applied\" variant=\"rectangular\" />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Selected Item\" variant=\"rectangular\" />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Read Only\" variant=\"rectangular\" showClose={false} />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Status\" variant=\"rectangular\" showClose={false} />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Information\" variant=\"rectangular\" showClose={false} />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Unavailable\" variant=\"rectangular\" disabled />"
+          },
+          {
+            "name": "Rectangular",
+            "code": "<Chicklet label=\"Locked\" variant=\"rectangular\" disabled />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Label\" variant=\"rounded\" showClose={true} />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Default\" variant=\"rounded\" />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Without Close\" variant=\"rounded\" showClose={false} />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Disabled\" variant=\"rounded\" disabled />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Longer Text Example\" variant=\"rounded\" />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Skill\" variant=\"rounded\" />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Technology\" variant=\"rounded\" />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Department\" variant=\"rounded\" />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Team Member\" variant=\"rounded\" />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Badge\" variant=\"rounded\" showClose={false} />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Achievement\" variant=\"rounded\" showClose={false} />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Level\" variant=\"rounded\" showClose={false} />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Expired\" variant=\"rounded\" disabled />"
+          },
+          {
+            "name": "Rounded",
+            "code": "<Chicklet label=\"Pending\" variant=\"rounded\" disabled />"
+          },
+          {
+            "name": "Without Close",
+            "code": "<Chicklet label=\"No Close Icon\" variant=\"rectangular\" showClose={false} />"
+          }
+        ]
+      },
+      "RadioGroup": {
+        "description": "A radio button group component with support for horizontal and vertical layouts, different sizes, and disabled options.",
+        "import": "import { RadioGroup } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "name": {
+            "type": "string",
+            "required": true,
+            "description": "Name attribute for the radio group"
+          },
+          "size": {
+            "type": "union of 'sm', 'md'",
+            "required": false,
+            "default": "md",
+            "description": "Size of the radio buttons"
+          },
+          "orientation": {
+            "type": "union of 'horizontal', 'vertical'",
+            "required": false,
+            "default": "vertical",
+            "description": "Layout orientation"
+          },
+          "options": {
+            "type": "array",
+            "required": true,
+            "description": "Array of radio options with value, label, and optional disabled property"
+          },
+          "value": {
+            "type": "string",
+            "required": false,
+            "description": "Controlled value"
+          },
+          "defaultValue": {
+            "type": "string",
+            "required": false,
+            "description": "Default selected value"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<RadioGroup />"
+          }
+        ]
+      },
+      "Checkbox": {
+        "description": "A flexible checkbox component with support for labels, descriptions, error states, and indeterminate state.",
+        "import": "import { Checkbox } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "label": {
+            "type": "string",
+            "required": false,
+            "description": "Label text for the checkbox"
+          },
+          "size": {
+            "type": "union of 'sm', 'md'",
+            "required": false,
+            "default": "md",
+            "description": "Size of the checkbox"
+          },
+          "disabled": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the checkbox is disabled"
+          },
+          "error": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the checkbox is in error state"
+          },
+          "indeterminate": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the checkbox is in indeterminate state"
+          },
+          "description": {
+            "type": "string",
+            "required": false,
+            "description": "Additional description text below the checkbox"
+          },
+          "checked": {
+            "type": "boolean",
+            "required": false,
+            "description": "Whether the checkbox is checked"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Checkbox label=\"Accept terms and conditions\" size=\"md\" />"
+          },
+          {
+            "name": "Small",
+            "code": "<Checkbox label=\"Small checkbox\" size=\"sm\" />"
+          },
+          {
+            "name": "Checked",
+            "code": "<Checkbox label=\"Checked checkbox\" checked={true} size=\"md\" />"
+          },
+          {
+            "name": "Disabled",
+            "code": "<Checkbox label=\"Disabled checkbox\" disabled={true} size=\"md\" />"
+          },
+          {
+            "name": "Disabled Checked",
+            "code": "<Checkbox label=\"Disabled checked checkbox\" disabled={true} checked={true} size=\"md\" />"
+          },
+          {
+            "name": "Error",
+            "code": "<Checkbox label=\"Checkbox with error\" error={true} description=\"This field is required\" size=\"md\" />"
+          },
+          {
+            "name": "Indeterminate",
+            "code": "<Checkbox label=\"Indeterminate checkbox\" indeterminate={true} size=\"md\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<Checkbox label=\"Medium checkbox\" size=\"md\" />"
+          },
+          {
+            "name": "SM",
+            "code": "<Checkbox label=\"Small checkbox\" size=\"sm\" />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<Checkbox label=\"Unchecked\" />"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<Checkbox label=\"Checked\" checked />"
+          },
+          {
+            "name": "Variant 3",
+            "code": "<Checkbox label=\"Indeterminate\" indeterminate />"
+          },
+          {
+            "name": "Variant 4",
+            "code": "<Checkbox label=\"Newsletter subscription\" description=\"Receive weekly updates about new features and products\" />"
+          },
+          {
+            "name": "Variant 5",
+            "code": "<Checkbox label=\"Marketing emails\" description=\"Get promotional offers and special discounts\" checked />"
+          },
+          {
+            "name": "Variant 6",
+            "code": "<Checkbox label=\"Required field\" error description=\"This field must be checked to continue\" />"
+          },
+          {
+            "name": "Variant 7",
+            "code": "<Checkbox label=\"Disabled unchecked\" disabled />"
+          },
+          {
+            "name": "Variant 8",
+            "code": "<Checkbox label=\"Disabled checked\" disabled checked />"
+          },
+          {
+            "name": "With Description",
+            "code": "<Checkbox label=\"Checkbox with description\" description=\"This is additional information about the checkbox option\" size=\"md\" />"
+          }
+        ]
+      },
+      "Logo": {
+        "description": "Component",
+        "import": "import { Logo } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "F T",
+            "code": "<Logo name=\"ft\" />"
+          },
+          {
+            "name": "Responsive",
+            "code": "<Logo name=\"ft\" width={100} height={50} />"
+          },
+          {
+            "name": "Tata Motors",
+            "code": "<Logo name=\"tata-motors\" />"
+          }
+        ]
+      },
+      "Spacer": {
+        "description": "A spacing component for creating consistent vertical or horizontal spacing between elements.",
+        "import": "import { Spacer } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "size": {
+            "type": "union of 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12'",
+            "required": false,
+            "default": "x4",
+            "description": "Size of the spacer (x1: 4px, x2: 8px, x3: 12px, x4: 16px, x5: 20px, x6: 24px, x7: 28px, x8: 32px, x9: 36px, x10: 40px, x11: 44px, x12: 48px)"
+          },
+          "horizontal": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the spacer is horizontal (width) or vertical (height)"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Spacer size=\"x4\" />"
+          },
+          {
+            "name": "Horizontal",
+            "code": "<Spacer size=\"x4\" horizontal={true} />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<Spacer size={size} />"
+          }
+        ]
+      },
+      "Button": {
+        "description": "A versatile button component with multiple variants, sizes, and icon support. Built with consistent theming and proper spacing.",
+        "import": "import { Button } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "variant": {
+            "type": "union of 'primary', 'secondary', 'destructive', 'text', 'link'",
+            "required": false,
+            "default": "primary",
+            "description": "Visual style variant of the button"
+          },
+          "size": {
+            "type": "union of 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'",
+            "required": false,
+            "default": "md",
+            "description": "Size of the button (xxs: 16px, xs: 24px, sm: 32px, md: 40px, lg: 48px, xl: 56px, xxl: 64px)"
+          },
+          "icon": {
+            "type": "string",
+            "required": false,
+            "description": "Icon name to display (e.g., 'add', 'search', 'copy', 'send', 'document', 'download', 'edit')"
+          },
+          "iconPosition": {
+            "type": "union of 'leading', 'trailing', 'only'",
+            "required": false,
+            "default": "leading",
+            "description": "Position of the icon relative to text"
+          },
+          "loading": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the button is in loading state"
+          },
+          "disabled": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the button is disabled"
+          },
+          "children": {
+            "type": "ReactNode",
+            "required": false,
+            "description": "Button label text"
+          }
+        },
+        "examples": [
+          {
+            "name": "Primary",
+            "code": "<Button variant=\"primary\" size=\"md\">Button</Button>"
+          },
+          {
+            "name": "Secondary",
+            "code": "<Button variant=\"secondary\" size=\"md\">Button</Button>"
+          },
+          {
+            "name": "Destructive",
+            "code": "<Button variant=\"destructive\" size=\"md\">Button</Button>"
+          },
+          {
+            "name": "Text",
+            "code": "<Button variant=\"text\" size=\"md\">Button</Button>"
+          },
+          {
+            "name": "Link",
+            "code": "<Button variant=\"link\" size=\"md\">Button</Button>"
+          },
+          {
+            "name": "Extra Small",
+            "code": "<Button variant=\"primary\" size=\"xs\">Extra Small</Button>"
+          },
+          {
+            "name": "Small",
+            "code": "<Button variant=\"primary\" size=\"sm\">Small</Button>"
+          },
+          {
+            "name": "Medium",
+            "code": "<Button variant=\"primary\" size=\"md\">Medium</Button>"
+          },
+          {
+            "name": "Large",
+            "code": "<Button variant=\"primary\" size=\"lg\">Large</Button>"
+          },
+          {
+            "name": "Extra Large",
+            "code": "<Button variant=\"primary\" size=\"xl\">Extra Large</Button>"
+          },
+          {
+            "name": "Extra Extra Large",
+            "code": "<Button variant=\"primary\" size=\"xxl\">2X Large</Button>"
+          },
+          {
+            "name": "With Leading Icon",
+            "code": "<Button variant=\"primary\" size=\"md\" icon=\"add\" iconPosition=\"leading\">Button</Button>"
+          },
+          {
+            "name": "With Trailing Icon",
+            "code": "<Button variant=\"primary\" size=\"md\" icon=\"send\" iconPosition=\"trailing\">Button</Button>"
+          },
+          {
+            "name": "Icon Only",
+            "code": "<Button variant=\"secondary\" size=\"md\" icon=\"edit\" iconPosition=\"only\" />"
+          },
+          {
+            "name": "Disabled",
+            "code": "<Button variant=\"primary\" size=\"md\" disabled>Disabled</Button>"
+          },
+          {
+            "name": "All Variants",
+            "code": "<div className=\"flex flex-wrap gap-4 items-center\"><Button variant=\"primary\" size=\"md\">Primary</Button><Button variant=\"secondary\" size=\"md\">Secondary</Button><Button variant=\"destructive\" size=\"md\">Destructive</Button><Button variant=\"text\" size=\"md\">Text</Button><Button variant=\"link\" size=\"md\">Link</Button></div>"
+          },
+          {
+            "name": "All Sizes",
+            "code": "<div className=\"flex flex-wrap gap-4 items-center\"><Button variant=\"primary\" size=\"xxs\">XXS</Button><Button variant=\"primary\" size=\"xs\">XS</Button><Button variant=\"primary\" size=\"sm\">SM</Button><Button variant=\"primary\" size=\"md\">MD</Button><Button variant=\"primary\" size=\"lg\">LG</Button><Button variant=\"primary\" size=\"xl\">XL</Button><Button variant=\"primary\" size=\"xxl\">XXL</Button></div>"
+          },
+          {
+            "name": "Circular Buttons",
+            "code": "<Button variant=\"secondary\" size=\"sm\" className=\"rounded-full\" icon=\"edit\" iconPosition=\"only\" />"
+          }
+        ]
+      },
+      "Divider": {
+        "description": "A divider component for separating content sections with different visual styles.",
+        "import": "import { Divider } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes to apply"
+          },
+          "type": {
+            "type": "union of 'primary', 'secondary', 'tertiary', 'with-label'",
+            "required": false,
+            "default": "primary",
+            "description": "The type of divider to display"
+          },
+          "label": {
+            "type": "string",
+            "required": false,
+            "description": "Label to display in the middle of the divider (only for type=\"with-label\")"
+          }
+        },
+        "examples": [
+          {
+            "name": "Primary",
+            "code": "<Divider type=\"primary\" />"
+          },
+          {
+            "name": "Secondary",
+            "code": "<Divider type=\"secondary\" />"
+          },
+          {
+            "name": "Tertiary",
+            "code": "<Divider type=\"tertiary\" />"
+          },
+          {
+            "name": "With Label",
+            "code": "<Divider type=\"with-label\" label=\"14 March 2023\" />"
+          }
+        ]
+      },
+      "Icon": {
+        "description": "Component",
+        "import": "import { Icon } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Icon name=\"check\" size={16} color=\"currentColor\" />"
+          },
+          {
+            "name": "ActionIcons",
+            "code": "<Icon name=\"add\" size={24} />"
+          },
+          {
+            "name": "ActionIcons",
+            "code": "<Icon name=\"subtract\" size={24} />"
+          },
+          {
+            "name": "ActionIcons",
+            "code": "<Icon name=\"edit\" size={24} />"
+          },
+          {
+            "name": "ActionIcons",
+            "code": "<Icon name=\"delete\" size={24} />"
+          },
+          {
+            "name": "ActionIcons",
+            "code": "<Icon name=\"save\" size={24} />"
+          },
+          {
+            "name": "ActionIcons",
+            "code": "<Icon name=\"copy\" size={24} />"
+          },
+          {
+            "name": "ActionIcons",
+            "code": "<Icon name=\"share\" size={24} />"
+          },
+          {
+            "name": "ActionIcons",
+            "code": "<Icon name=\"download\" size={24} />"
+          },
+          {
+            "name": "BrandIcons",
+            "code": "<Icon name=\"google-colour\" size={32} />"
+          },
+          {
+            "name": "BrandIcons",
+            "code": "<Icon name=\"airtel\" size={32} />"
+          },
+          {
+            "name": "BrandIcons",
+            "code": "<Icon name=\"jio\" size={32} />"
+          },
+          {
+            "name": "BrandIcons",
+            "code": "<Icon name=\"vodafone\" size={32} />"
+          },
+          {
+            "name": "BrandIcons",
+            "code": "<Icon name=\"bsnl\" size={32} />"
+          },
+          {
+            "name": "BrandIcons",
+            "code": "<Icon name=\"ft-colour\" size={32} />"
+          },
+          {
+            "name": "Colors",
+            "code": "<Icon name=\"check\" color=\"#22c55e\" size={24} />"
+          },
+          {
+            "name": "Colors",
+            "code": "<Icon name=\"cross\" color=\"#ef4444\" size={24} />"
+          },
+          {
+            "name": "Colors",
+            "code": "<Icon name=\"star\" color=\"#f59e0b\" size={24} />"
+          },
+          {
+            "name": "Colors",
+            "code": "<Icon name=\"bell\" color=\"#3b82f6\" size={24} />"
+          },
+          {
+            "name": "Colors",
+            "code": "<Icon name=\"search\" color=\"#8b5cf6\" size={24} />"
+          },
+          {
+            "name": "NavigationIcons",
+            "code": "<Icon name=\"chevron-up\" size={24} />"
+          },
+          {
+            "name": "NavigationIcons",
+            "code": "<Icon name=\"chevron-down\" size={24} />"
+          },
+          {
+            "name": "NavigationIcons",
+            "code": "<Icon name=\"chevron-left\" size={24} />"
+          },
+          {
+            "name": "NavigationIcons",
+            "code": "<Icon name=\"chevron-right\" size={24} />"
+          },
+          {
+            "name": "NavigationIcons",
+            "code": "<Icon name=\"arrow-up\" size={24} />"
+          },
+          {
+            "name": "NavigationIcons",
+            "code": "<Icon name=\"arrow-down\" size={24} />"
+          },
+          {
+            "name": "NavigationIcons",
+            "code": "<Icon name=\"arrow-top-left\" size={24} />"
+          },
+          {
+            "name": "NavigationIcons",
+            "code": "<Icon name=\"arrow-top-right\" size={24} />"
+          },
+          {
+            "name": "Sizes",
+            "code": "<Icon name=\"star\" size={12} />"
+          },
+          {
+            "name": "Sizes",
+            "code": "<Icon name=\"star\" size={16} />"
+          },
+          {
+            "name": "Sizes",
+            "code": "<Icon name=\"star\" size={20} />"
+          },
+          {
+            "name": "Sizes",
+            "code": "<Icon name=\"star\" size={24} />"
+          },
+          {
+            "name": "Sizes",
+            "code": "<Icon name=\"star\" size={32} />"
+          },
+          {
+            "name": "Sizes",
+            "code": "<Icon name=\"star\" size={48} />"
+          },
+          {
+            "name": "StatusIcons",
+            "code": "<Icon name=\"check\" size={24} color=\"#22c55e\" />"
+          },
+          {
+            "name": "StatusIcons",
+            "code": "<Icon name=\"cross\" size={24} color=\"#ef4444\" />"
+          },
+          {
+            "name": "StatusIcons",
+            "code": "<Icon name=\"alert-critical\" size={24} color=\"#ef4444\" />"
+          },
+          {
+            "name": "StatusIcons",
+            "code": "<Icon name=\"alert-informational\" size={24} color=\"#3b82f6\" />"
+          },
+          {
+            "name": "StatusIcons",
+            "code": "<Icon name=\"success\" size={24} color=\"#22c55e\" />"
+          },
+          {
+            "name": "StatusIcons",
+            "code": "<Icon name=\"loading\" size={24} />"
+          },
+          {
+            "name": "StatusIcons",
+            "code": "<Icon name=\"bell\" size={24} />"
+          },
+          {
+            "name": "StatusIcons",
+            "code": "<Icon name=\"notification\" size={24} />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<Icon name={iconName as IconName} size={24} />"
+          }
+        ]
+      },
+      "Avatar": {
+        "description": "Avatar component with multiple size options matching Figma specifications.",
+        "import": "import { Avatar } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes to apply"
+          },
+          "size": {
+            "type": "union of 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'",
+            "required": false,
+            "default": "md",
+            "description": "The size of the avatar"
+          },
+          "src": {
+            "type": "string",
+            "required": false,
+            "description": "Image source URL for the avatar"
+          },
+          "alt": {
+            "type": "string",
+            "required": false,
+            "description": "Alt text for the avatar image"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Avatar size=\"md\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"User Avatar\\\" />"
+          },
+          {
+            "name": "LG",
+            "code": "<Avatar size=\"lg\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"LG Avatar\\\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<Avatar size=\"md\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"MD Avatar\\\" />"
+          },
+          {
+            "name": "Placeholder",
+            "code": "<Avatar size=\"md\" />"
+          },
+          {
+            "name": "SM",
+            "code": "<Avatar size=\"sm\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"SM Avatar\\\" />"
+          },
+          {
+            "name": "XL",
+            "code": "<Avatar size=\"xl\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XL Avatar\\\" />"
+          },
+          {
+            "name": "XS",
+            "code": "<Avatar size=\"xs\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XS Avatar\\\" />"
+          },
+          {
+            "name": "XXL",
+            "code": "<Avatar size=\"xxl\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XXL Avatar\\\" />"
+          },
+          {
+            "name": "XXS",
+            "code": "<Avatar size=\"xxs\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XXS Avatar\\\" />"
+          }
+        ]
+      },
+      "Typography": {
+        "description": "🎨 **Typography Component** - Reusable text component with exact Figma specifications. Perfect for AI tools, development, and design documentation. Use this for all text rendering needs.",
+        "import": "import { Typography } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Typography variant=\"body-primary-regular\">Interactive Typography Component</Typography>"
+          },
+          {
+            "name": "AIToolsGuide",
+            "code": "<Typography color=\"danger\">Error</Typography>"
+          },
+          {
+            "name": "Body Primary Italic",
+            "code": "<Typography variant=\"body-primary-italic\">Body Primary Italic - 16/140</Typography>"
+          },
+          {
+            "name": "Body Primary Medium",
+            "code": "<Typography variant=\"body-primary-medium\">Body Primary Medium - 16/140</Typography>"
+          },
+          {
+            "name": "Body Primary Regular",
+            "code": "<Typography variant=\"body-primary-regular\">Body Primary Regular - 16/140</Typography>"
+          },
+          {
+            "name": "Body Primary Semibold",
+            "code": "<Typography variant=\"body-primary-semibold\">Body Primary Semibold - 16/140</Typography>"
+          },
+          {
+            "name": "Body Secondary Medium",
+            "code": "<Typography variant=\"body-secondary-medium\">Body Secondary Medium - 14/140</Typography>"
+          },
+          {
+            "name": "Body Secondary Regular",
+            "code": "<Typography variant=\"body-secondary-regular\">Body Secondary Regular - 14/140</Typography>"
+          },
+          {
+            "name": "Body Secondary Semibold",
+            "code": "<Typography variant=\"body-secondary-semibold\">Body Secondary Semibold - 14/140</Typography>"
+          },
+          {
+            "name": "Body-primary-italic",
+            "code": "<Typography variant=\"body-primary-italic\">Body Primary Italic: 16/140</Typography>"
+          },
+          {
+            "name": "Body-primary-italic",
+            "code": "<Typography variant=\"body-primary-italic\">Body Primary Italic - Emphasized text</Typography>"
+          },
+          {
+            "name": "Body-primary-italic",
+            "code": "<Typography variant=\"body-primary-italic\">Emphasized</Typography>"
+          },
+          {
+            "name": "Body-primary-medium",
+            "code": "<Typography variant=\"body-primary-medium\">Body Primary Medium: 16/140</Typography>"
+          },
+          {
+            "name": "Body-primary-medium",
+            "code": "<Typography variant=\"body-primary-medium\">Body Primary Medium - Highlighted content</Typography>"
+          },
+          {
+            "name": "Body-primary-medium",
+            "code": "<Typography variant=\"body-primary-medium\">Highlighted</Typography>"
+          },
+          {
+            "name": "Body-primary-regular",
+            "code": "<Typography variant=\"body-primary-regular\">Body Primary Regular: 16/140</Typography>"
+          },
+          {
+            "name": "Body-primary-regular",
+            "code": "<Typography variant=\"body-primary-regular\">Body Primary Regular - Standard content</Typography>"
+          },
+          {
+            "name": "Body-primary-regular",
+            "code": "<Typography variant=\"body-primary-regular\">Content</Typography>"
+          },
+          {
+            "name": "Body-primary-semibold",
+            "code": "<Typography variant=\"body-primary-semibold\">Body Primary Semibold: 16/140</Typography>"
+          },
+          {
+            "name": "Body-primary-semibold",
+            "code": "<Typography variant=\"body-primary-semibold\">Body Primary Semibold - Important text</Typography>"
+          },
+          {
+            "name": "Body-primary-semibold",
+            "code": "<Typography variant=\"body-primary-semibold\">Important</Typography>"
+          },
+          {
+            "name": "Body-secondary-medium",
+            "code": "<Typography variant=\"body-secondary-medium\">Body Secondary Medium: 14/140</Typography>"
+          },
+          {
+            "name": "Body-secondary-medium",
+            "code": "<Typography variant=\"body-secondary-medium\">Body Secondary Medium - Small highlighted text</Typography>"
+          },
+          {
+            "name": "Body-secondary-medium",
+            "code": "<Typography variant=\"body-secondary-medium\">Caption</Typography>"
+          },
+          {
+            "name": "Body-secondary-regular",
+            "code": "<Typography variant=\"body-secondary-regular\">Body Secondary Regular: 14/140</Typography>"
+          },
+          {
+            "name": "Body-secondary-regular",
+            "code": "<Typography variant=\"body-secondary-regular\">Body Secondary Regular - Small supporting text</Typography>"
+          },
+          {
+            "name": "Body-secondary-regular",
+            "code": "<Typography variant=\"body-secondary-regular\">Info</Typography>"
+          },
+          {
+            "name": "Body-secondary-semibold",
+            "code": "<Typography variant=\"body-secondary-semibold\">Body Secondary Semibold: 14/140</Typography>"
+          },
+          {
+            "name": "Body-secondary-semibold",
+            "code": "<Typography variant=\"body-secondary-semibold\">Body Secondary Semibold - Small important text</Typography>"
+          },
+          {
+            "name": "Body-secondary-semibold",
+            "code": "<Typography variant=\"body-secondary-semibold\">Label</Typography>"
+          },
+          {
+            "name": "Button",
+            "code": "<Typography variant=\"button\">Button: 20/140</Typography>"
+          },
+          {
+            "name": "Button",
+            "code": "<Typography variant=\"button\">Button Text</Typography>"
+          },
+          {
+            "name": "Button",
+            "code": "<Typography variant=\"button\">Call to Action</Typography>"
+          },
+          {
+            "name": "Button Text",
+            "code": "<Typography variant=\"button\">Button Text - 20/140</Typography>"
+          },
+          {
+            "name": "Display Primary",
+            "code": "<Typography variant=\"display-primary\">Display Primary - 20/140</Typography>"
+          },
+          {
+            "name": "Display-primary",
+            "code": "<Typography variant=\"display-primary\">Display Primary: 20/140</Typography>"
+          },
+          {
+            "name": "Display-primary",
+            "code": "<Typography variant=\"display-primary\">Display Primary - Dashboard Data</Typography>"
+          },
+          {
+            "name": "Display-primary",
+            "code": "<Typography variant=\"display-primary\">Stats</Typography>"
+          },
+          {
+            "name": "Error Message",
+            "code": "<Typography color=\"danger\">Error message text</Typography>"
+          },
+          {
+            "name": "FigmaDesignSystem",
+            "code": "<Typography color=\"primary\">Primary text color</Typography>"
+          },
+          {
+            "name": "FigmaDesignSystem",
+            "code": "<Typography color=\"secondary\">Secondary text color</Typography>"
+          },
+          {
+            "name": "FigmaDesignSystem",
+            "code": "<Typography color=\"danger\">Error messages</Typography>"
+          },
+          {
+            "name": "FigmaDesignSystem",
+            "code": "<Typography color=\"success\">Success messages</Typography>"
+          },
+          {
+            "name": "QuickTest",
+            "code": "<Typography color=\"danger\">Error: Something went wrong</Typography>"
+          },
+          {
+            "name": "QuickTest",
+            "code": "<Typography color=\"success\">Success: Operation completed</Typography>"
+          },
+          {
+            "name": "Success Message",
+            "code": "<Typography color=\"success\">Success confirmation message</Typography>"
+          },
+          {
+            "name": "Title Primary",
+            "code": "<Typography variant=\"title-primary\">Page Title - 28/140</Typography>"
+          },
+          {
+            "name": "Title Secondary",
+            "code": "<Typography variant=\"title-secondary\">Section Heading - 24/140</Typography>"
+          },
+          {
+            "name": "Title-primary",
+            "code": "<Typography variant=\"title-primary\">Title Primary: 28/140</Typography>"
+          },
+          {
+            "name": "Title-primary",
+            "code": "<Typography variant=\"title-primary\">Title Primary - Page Title</Typography>"
+          },
+          {
+            "name": "Title-primary",
+            "code": "<Typography variant=\"title-primary\">Page Title</Typography>"
+          },
+          {
+            "name": "Title-secondary",
+            "code": "<Typography variant=\"title-secondary\">Title Secondary: 24/140</Typography>"
+          },
+          {
+            "name": "Title-secondary",
+            "code": "<Typography variant=\"title-secondary\">Title Secondary - Section Heading</Typography>"
+          },
+          {
+            "name": "Title-secondary",
+            "code": "<Typography variant=\"title-secondary\">Section</Typography>"
+          }
+        ]
+      },
+      "Switch": {
+        "description": "A toggle switch component with exact Figma specifications. Supports different sizes and states.",
+        "import": "import { Switch } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "label": {
+            "type": "string",
+            "required": false,
+            "description": "Label text for the switch"
+          },
+          "size": {
+            "type": "union of 'sm', 'md'",
+            "required": false,
+            "default": "md",
+            "description": "Size of the switch"
+          },
+          "disabled": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the switch is disabled"
+          },
+          "checked": {
+            "type": "boolean",
+            "required": false,
+            "description": "Whether the switch is checked"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Switch label=\"Enable notifications\" size=\"md\" />"
+          },
+          {
+            "name": "Small",
+            "code": "<Switch label=\"Small switch\" size=\"sm\" />"
+          },
+          {
+            "name": "Checked",
+            "code": "<Switch label=\"Enabled feature\" checked={true} size=\"md\" />"
+          },
+          {
+            "name": "Disabled",
+            "code": "<Switch label=\"Disabled switch\" disabled={true} size=\"md\" />"
+          },
+          {
+            "name": "Disabled Checked",
+            "code": "<Switch label=\"Disabled checked switch\" disabled={true} checked={true} size=\"md\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<Switch label=\"Medium switch\" size=\"md\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<Switch size=\"md\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<Switch size=\"md\" checked />"
+          },
+          {
+            "name": "SM",
+            "code": "<Switch label=\"Small switch\" size=\"sm\" />"
+          },
+          {
+            "name": "SM",
+            "code": "<Switch size=\"sm\" />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<Switch label=\"Off state\" />"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<Switch label=\"On state\" checked />"
+          },
+          {
+            "name": "Variant 3",
+            "code": "<Switch label=\"Disabled off\" disabled />"
+          },
+          {
+            "name": "Variant 4",
+            "code": "<Switch label=\"Disabled on\" disabled checked />"
+          },
+          {
+            "name": "Variant 5",
+            "code": "<Switch label=\"Dark mode\" />"
+          },
+          {
+            "name": "Variant 6",
+            "code": "<Switch label=\"Email notifications\" checked />"
+          },
+          {
+            "name": "Variant 7",
+            "code": "<Switch label=\"Push notifications\" />"
+          },
+          {
+            "name": "Variant 8",
+            "code": "<Switch label=\"Auto-save\" checked />"
+          },
+          {
+            "name": "Without Label",
+            "code": "<Switch size=\"md\" />"
+          }
+        ]
+      },
+      "SubText": {
+        "description": "A sub-text component for displaying secondary information. Can optionally include a check icon.",
+        "import": "import { SubText } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "icon": {
+            "type": "union of 'Yes', 'No'",
+            "required": false,
+            "default": "No",
+            "description": "Whether to show the check icon"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<SubText icon=\"No\" />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<SubText icon=\"No\" />"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<SubText icon=\"Yes\" />"
+          },
+          {
+            "name": "With Icon",
+            "code": "<SubText icon=\"Yes\" />"
+          }
+        ]
+      },
+      "Text": {
+        "description": "A flexible text component with configurable icons and sub-text. Supports various sizes and icon positions.",
+        "import": "import { Text } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "size": {
+            "type": "union of 'sm', 'md', 'lg', 'xl', 'xx'",
+            "required": false,
+            "default": "sm",
+            "description": "Text size variant"
+          },
+          "subText": {
+            "type": "union of 'True', 'False'",
+            "required": false,
+            "default": "False",
+            "description": "Whether to show sub text"
+          },
+          "leadingIcon": {
+            "type": "union of 'True', 'False'",
+            "required": false,
+            "default": "False",
+            "description": "Whether to show leading icon"
+          },
+          "trailingIcon": {
+            "type": "union of 'True', 'False'",
+            "required": false,
+            "default": "False",
+            "description": "Whether to show trailing icon"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Text size=\"md\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+          },
+          {
+            "name": "Small",
+            "code": "<Text size=\"sm\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+          },
+          {
+            "name": "Large",
+            "code": "<Text size=\"lg\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+          },
+          {
+            "name": "Extra Large",
+            "code": "<Text size=\"xl\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+          },
+          {
+            "name": "LG",
+            "code": "<Text size=\"lg\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<Text size=\"md\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<Text size=\"md\" subText=\"True\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<Text size=\"md\" leadingIcon=\"True\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<Text size=\"md\" trailingIcon=\"True\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<Text size=\"md\" subText=\"True\" leadingIcon=\"True\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<Text size=\"md\" subText=\"True\" trailingIcon=\"True\" />"
+          },
+          {
+            "name": "SM",
+            "code": "<Text size=\"sm\" />"
+          },
+          {
+            "name": "With Leading Icon",
+            "code": "<Text size=\"md\" subText=\"False\" leadingIcon=\"True\" trailingIcon=\"False\" />"
+          },
+          {
+            "name": "With Sub Text",
+            "code": "<Text size=\"md\" subText=\"True\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+          },
+          {
+            "name": "With Sub Text And Leading Icon",
+            "code": "<Text size=\"md\" subText=\"True\" leadingIcon=\"True\" trailingIcon=\"False\" />"
+          },
+          {
+            "name": "With Sub Text And Trailing Icon",
+            "code": "<Text size=\"md\" subText=\"True\" leadingIcon=\"False\" trailingIcon=\"True\" />"
+          },
+          {
+            "name": "With Trailing Icon",
+            "code": "<Text size=\"md\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"True\" />"
+          },
+          {
+            "name": "X X Large",
+            "code": "<Text size=\"xx\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+          },
+          {
+            "name": "XL",
+            "code": "<Text size=\"xl\" />"
+          },
+          {
+            "name": "XX",
+            "code": "<Text size=\"xx\" />"
+          }
+        ]
+      },
+      "Statistic": {
+        "description": "A statistic component for displaying numerical values with labels. Supports different label placements.",
+        "import": "import { Statistic } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "label": {
+            "type": "string",
+            "required": false,
+            "default": "Label",
+            "description": "The label text for the statistic"
+          },
+          "value": {
+            "type": "string",
+            "required": false,
+            "default": "Text",
+            "description": "The statistic value to display"
+          },
+          "labelPlacement": {
+            "type": "union of 'Below', 'Top'",
+            "required": false,
+            "default": "Below",
+            "description": "Label placement relative to value"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Statistic label=\"Total Users\" value=\"1,234\" labelPlacement=\"Below\" />"
+          },
+          {
+            "name": "Currency",
+            "code": "<Statistic label=\"Monthly Revenue\" value=\"$12,345\" labelPlacement=\"Top\" />"
+          },
+          {
+            "name": "DashboardExample",
+            "code": "<Statistic label=\"Total Users\" value=\"12,345\" labelPlacement=\"Below\" />"
+          },
+          {
+            "name": "DashboardExample",
+            "code": "<Statistic label=\"Monthly Revenue\" value=\"$98,765\" labelPlacement=\"Below\" />"
+          },
+          {
+            "name": "DashboardExample",
+            "code": "<Statistic label=\"Active Sessions\" value=\"1,234\" labelPlacement=\"Below\" />"
+          },
+          {
+            "name": "DashboardExample",
+            "code": "<Statistic label=\"Conversion Rate\" value=\"4.2%\" labelPlacement=\"Below\" />"
+          },
+          {
+            "name": "DashboardExample",
+            "code": "<Statistic label=\"Page Views\" value=\"456,789\" labelPlacement=\"Top\" />"
+          },
+          {
+            "name": "DashboardExample",
+            "code": "<Statistic label=\"Avg. Session Duration\" value=\"3m 45s\" labelPlacement=\"Top\" />"
+          },
+          {
+            "name": "DashboardExample",
+            "code": "<Statistic label=\"New Customers\" value=\"234\" labelPlacement=\"Top\" />"
+          },
+          {
+            "name": "DashboardExample",
+            "code": "<Statistic label=\"Support Tickets\" value=\"12\" labelPlacement=\"Top\" />"
+          },
+          {
+            "name": "Duration",
+            "code": "<Statistic label=\"Average Session\" value=\"4m 32s\" labelPlacement=\"Below\" />"
+          },
+          {
+            "name": "Label On Top",
+            "code": "<Statistic label=\"Revenue\" value=\"$45,678\" labelPlacement=\"Top\" />"
+          },
+          {
+            "name": "Large Number",
+            "code": "<Statistic label=\"Page Views\" value=\"2,456,789\" labelPlacement=\"Below\" />"
+          },
+          {
+            "name": "Percentage",
+            "code": "<Statistic label=\"Growth Rate\" value=\"23.5%\" labelPlacement=\"Below\" />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<Statistic label=\"Active Users\" value=\"1,234\" labelPlacement=\"Below\" />"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<Statistic label=\"Revenue\" value=\"$45,678\" labelPlacement=\"Below\" />"
+          },
+          {
+            "name": "Variant 3",
+            "code": "<Statistic label=\"Conversion Rate\" value=\"3.2%\" labelPlacement=\"Below\" />"
+          },
+          {
+            "name": "Variant 4",
+            "code": "<Statistic label=\"New Signups\" value=\"89\" labelPlacement=\"Top\" />"
+          },
+          {
+            "name": "Variant 5",
+            "code": "<Statistic label=\"Total Orders\" value=\"456\" labelPlacement=\"Top\" />"
+          },
+          {
+            "name": "Variant 6",
+            "code": "<Statistic label=\"Bounce Rate\" value=\"12.3%\" labelPlacement=\"Top\" />"
+          }
+        ]
+      },
+      "Badge": {
+        "description": "A versatile badge component matching exact Figma specifications. Built with consistent theming and proper spacing.",
+        "import": "import { Badge } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes to apply"
+          },
+          "variant": {
+            "type": "union of 'normal', 'danger', 'success', 'warning', 'neutral'",
+            "required": false,
+            "default": "normal",
+            "description": "The visual style variant of the badge"
+          },
+          "icon": {
+            "type": "string",
+            "required": false,
+            "description": "Optional icon name to display in the badge"
+          },
+          "onClick": {
+            "type": "function",
+            "required": false,
+            "description": "Makes the badge interactive when provided"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Badge variant=\"normal\">Label</Badge>"
+          },
+          {
+            "name": "Normal",
+            "code": "<Badge variant=\"normal\">Normal</Badge>"
+          },
+          {
+            "name": "Danger",
+            "code": "<Badge variant=\"danger\">Error</Badge>"
+          },
+          {
+            "name": "Success",
+            "code": "<Badge variant=\"success\">Success</Badge>"
+          },
+          {
+            "name": "Warning",
+            "code": "<Badge variant=\"warning\">Warning</Badge>"
+          },
+          {
+            "name": "Neutral",
+            "code": "<Badge variant=\"neutral\">Info</Badge>"
+          },
+          {
+            "name": "All Variants",
+            "code": "<Badge variant=\"normal\" />"
+          },
+          {
+            "name": "With Icons",
+            "code": "<Badge variant=\"normal\" icon=\"add\" />"
+          },
+          {
+            "name": "Interactive",
+            "code": "<Badge />"
+          }
+        ]
+      },
+      "Tabs": {
+        "description": "Tab component with three variants (Primary, Secondary, Tertiary) built from Figma specifications. Supports badges, icons, and notifications.",
+        "import": "import { Tabs } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "type": {
+            "type": "union of 'primary', 'secondary', 'tertiary'",
+            "required": false,
+            "default": "primary",
+            "description": "Tab variant type"
+          },
+          "tabs": {
+            "type": "array",
+            "required": true,
+            "description": "Array of tab objects with label, optional badge, badgeCount, icon, and notification properties"
+          },
+          "activeTab": {
+            "type": "number",
+            "required": false,
+            "description": "Index of the active tab"
+          },
+          "onTabChange": {
+            "type": "function",
+            "required": false,
+            "description": "Callback when tab changes, receives tab index"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Tabs tabs={[]} />"
+          }
+        ]
+      },
+      "Card": {
+        "description": "Flexible card component with configurable content sections. Supports basic and advanced layouts with eyebrow, header, body, and footer sections.",
+        "import": "import { Card } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={true} showFooter={true}>Content</Card>"
+          },
+          {
+            "name": "Advanced",
+            "code": "<Card content=\"Advanced\" state=\"Default\" showEyebrow={true} showFooter={true}>Content</Card>"
+          },
+          {
+            "name": "Minimal",
+            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={false} showFooter={false}>Content</Card>"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={true} showFooter={true}>Content</Card>"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<Card content=\"Advanced\" state=\"Default\" showEyebrow={true} showFooter={true}>Content</Card>"
+          },
+          {
+            "name": "Variant 3",
+            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={false} showFooter={false}>Content</Card>"
+          },
+          {
+            "name": "Without Eyebrow",
+            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={false} showFooter={true}>Content</Card>"
+          },
+          {
+            "name": "Without Footer",
+            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={true} showFooter={false}>Content</Card>"
+          }
+        ]
+      },
+      "Input": {
+        "description": "Input component with multiple variants, sizes, and states. Supports labels, placeholders, icons, and validation.",
+        "import": "import { Input } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "label": {
+            "type": "string",
+            "required": false,
+            "description": "Label text for the input"
+          },
+          "placeholder": {
+            "type": "string",
+            "required": false,
+            "description": "Placeholder text"
+          },
+          "variant": {
+            "type": "union of 'default', 'filled', 'outlined'",
+            "required": false,
+            "default": "default",
+            "description": "Visual variant of the input"
+          },
+          "size": {
+            "type": "union of 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'",
+            "required": false,
+            "default": "md",
+            "description": "Size of the input"
+          },
+          "type": {
+            "type": "string",
+            "required": false,
+            "description": "Input type (text, email, password, tel, etc.)"
+          },
+          "labelMandatory": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Show mandatory indicator on label"
+          },
+          "labelOptional": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Show optional indicator on label"
+          },
+          "labelSuffixIcon": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Show suffix icon on label"
+          },
+          "error": {
+            "type": "string",
+            "required": false,
+            "description": "Error message to display"
+          },
+          "disabled": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the input is disabled"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Input label=\"Full Name\" placeholder=\"Enter your full name\" />"
+          },
+          {
+            "name": "Mandatory",
+            "code": "<Input label=\"Email Address\" placeholder=\"Enter your email\" type=\"email\" labelMandatory />"
+          },
+          {
+            "name": "Optional",
+            "code": "<Input label=\"Middle Name\" placeholder=\"Enter your middle name\" labelOptional />"
+          },
+          {
+            "name": "With Suffix Icon",
+            "code": "<Input label=\"Phone Number\" placeholder=\"Enter your phone number\" type=\"tel\" labelSuffixIcon />"
+          },
+          {
+            "name": "Error State",
+            "code": "<Input label=\"Email\" placeholder=\"Enter email\" error=\"This field is required\" />"
+          },
+          {
+            "name": "Disabled",
+            "code": "<Input label=\"Disabled\" placeholder=\"Disabled state\" disabled />"
+          },
+          {
+            "name": "All Sizes",
+            "code": "<Input label=\"Extra Small\" size=\"xs\" placeholder=\"24px height\" />"
+          },
+          {
+            "name": "Variants",
+            "code": "<Input label=\"Default\" variant=\"default\" placeholder=\"Default variant\" />"
+          },
+          {
+            "name": "States",
+            "code": "<Input label=\"Default\" placeholder=\"Default state\" />"
+          }
+        ]
+      },
+      "Upload": {
+        "description": "A comprehensive upload component supporting drag-and-drop, button, and thumbnail upload types with progress tracking and validation.",
+        "import": "import { Upload } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Button Upload",
+            "code": "<Upload type=\"button\" maxFiles={5} maxFileSize={10} multiple={true} autoUpload={true} onUpload={() => {}} />"
+          },
+          {
+            "name": "Drag And Drop",
+            "code": "<Upload type=\"drag-drop\" maxFiles={10} maxFileSize={10} multiple={true} autoUpload={true} onUpload={() => {}} />"
+          },
+          {
+            "name": "Single File",
+            "code": "<Upload type=\"drag-drop\" maxFiles={1} maxFileSize={10} multiple={false} autoUpload={true} onUpload={() => {}} />"
+          },
+          {
+            "name": "Thumbnail Upload",
+            "code": "<Upload type=\"thumbnail\" maxFiles={4} maxFileSize={5} multiple={true} autoUpload={true} onUpload={() => {}} />"
+          }
+        ]
+      },
+      "NavigationPopover": {
+        "description": "Highly configurable navigation popover that can mix hero illustrations, metric summaries, and deep sub-menus—similar to launchers in modern design systems.",
+        "import": "import { NavigationPopover } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Hero Top Placement",
+            "code": "<NavigationPopover open={true} initialSectionId=\"overview\" heroPlacement=\"top\" items={[]} />"
+          },
+          {
+            "name": "Insights",
+            "code": "<NavigationPopover open={true} initialSectionId=\"insights\" items={[]} />"
+          },
+          {
+            "name": "Metrics Without Hero",
+            "code": "<NavigationPopover open={true} sections=\"noHeroSections\" initialSectionId=\"metrics-only\" items={[]} />"
+          },
+          {
+            "name": "Overview",
+            "code": "<NavigationPopover open={true} initialSectionId=\"overview\" items={[]} />"
+          },
+          {
+            "name": "Reports",
+            "code": "<NavigationPopover open={true} initialSectionId=\"reports\" items={[]} />"
+          },
+          {
+            "name": "Service Health",
+            "code": "<NavigationPopover open={true} initialSectionId=\"health\" items={[]} />"
+          },
+          {
+            "name": "Sub Menu Variant",
+            "code": "<NavigationPopover open={true} sections=\"noHeroSections\" initialSectionId=\"sub-menu\" items={[]} />"
+          },
+          {
+            "name": "Workspace",
+            "code": "<NavigationPopover open={true} initialSectionId=\"workspace\" items={[]} />"
+          }
+        ]
+      },
+      "UploadZone": {
+        "description": "Drag and drop upload zone component for file selection and upload. Supports file validation, multiple file selection, and interactive states with customizable file type restrictions.",
+        "import": "import { UploadZone } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<UploadZone maxFileSize={10} disabled={false} multiple={false} />"
+          },
+          {
+            "name": "Different File Types",
+            "code": "<UploadZone maxFileSize={25} disabled={false} multiple={true} />"
+          },
+          {
+            "name": "Disabled",
+            "code": "<UploadZone maxFileSize={10} disabled={true} multiple={false} />"
+          },
+          {
+            "name": "Multiple Files",
+            "code": "<UploadZone maxFileSize={10} disabled={false} multiple={true} />"
+          }
+        ]
+      },
+      "AppHeader": {
+        "description": "Application header component with FreightTiger logo on the left, notifications, and user profile. User profile shows company-specific logo (Tata Motors by default).",
+        "import": "import { AppHeader } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<AppHeader name=\"Santosh Kumar\" role=\"Dispatch Manager\" location=\"SPD-Santoshnagar\" badge=\"Admin\" avatar=\"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face\" name=\"tata-motors\" displayName=\"Tata Motors\\\" />"
+          },
+          {
+            "name": "Admin User",
+            "code": "<AppHeader name=\"John Doe\" role=\"Administrator\" location=\"MUM-Central\" badge=\"Admin\" avatar=\"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face\" name=\"tata-motors\" displayName=\"Tata Motors\\\" />"
+          },
+          {
+            "name": "Long User Name",
+            "code": "<AppHeader name=\"Alexandrina Montgomery-Richardson\" role=\"Senior Operations Manager\" location=\"HYD-Headquarters\" badge=\"Senior\" avatar=\"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face\" name=\"tata-motors\" displayName=\"Tata Motors\\\" />"
+          },
+          {
+            "name": "Manager User",
+            "code": "<AppHeader name=\"Jane Smith\" role=\"Fleet Manager\" location=\"DEL-North\" badge=\"Manager\" avatar=\"https://images.unsplash.com/photo-1494790108755-2616b612e120?w=100&h=100&fit=crop&crop=face\" name=\"tata-motors\" displayName=\"Tata Motors\\\" />"
+          },
+          {
+            "name": "Mobile Device",
+            "code": "<AppHeader size=\"Default\" device=\"Mobile\" />"
+          },
+          {
+            "name": "Mobile View",
+            "code": "<AppHeader size=\"Default\" device=\"Mobile\" name=\"Mobile User\" role=\"Field Manager\" location=\"PUN-Mobile\" badge=\"Field\" name=\"tata-motors\" displayName=\"Tata Motors\" />"
+          },
+          {
+            "name": "Size L G",
+            "code": "<AppHeader size=\"lg\" device=\"Desktop\" />"
+          },
+          {
+            "name": "Size M D",
+            "code": "<AppHeader size=\"md\" device=\"Desktop\" />"
+          },
+          {
+            "name": "Size X L",
+            "code": "<AppHeader size=\"xl\" device=\"Desktop\" />"
+          },
+          {
+            "name": "User With Avatar",
+            "code": "<AppHeader name=\"Sarah Wilson\" role=\"Fleet Manager\" location=\"BLR-Central\" badge=\"Manager\" avatar=\"https://images.unsplash.com/photo-1494790108755-2616b612e120?w=64&h=64&fit=crop&crop=face\" name=\"ft\" displayName=\"FreightTiger\\\" />"
+          },
+          {
+            "name": "User With F T Company",
+            "code": "<AppHeader name=\"Rahul Singh\" role=\"Operations Manager\" location=\"BLR-Tech Hub\" badge=\"Senior\" avatar=\"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face\" name=\"ft\" displayName=\"FreightTiger\\\" />"
+          },
+          {
+            "name": "UserCompanyVariations",
+            "code": "<AppHeader user={{ name: 'Sarah Wilson', role: 'System Administrator', location: 'HYD-Headquarters', badge: 'Super Admin', }} userCompany={{ name: 'tata-motors', displayName: 'Tata Motors' }} />"
+          },
+          {
+            "name": "UserCompanyVariations",
+            "code": "<AppHeader user={{ name: 'Michael Chen', role: 'Fleet Manager', location: 'CHN-Central', badge: 'Manager', }} userCompany={{ name: 'ft', displayName: 'FreightTiger' }} />"
+          }
+        ]
+      },
+      "UploadButton": {
+        "description": "A button component for file uploads with different states.",
+        "import": "import { UploadButton } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Disabled",
+            "code": "<UploadButton disabled={true} onUpload={() => {}} />"
+          },
+          {
+            "name": "Hover",
+            "code": "<UploadButton state=\"hover\" onUpload={() => {}} />"
+          }
+        ]
+      },
+      "ThemeSystem": {
+        "description": "Complete theme system supporting Light, Dark, and Night modes with automatic component adaptation.",
+        "import": "import { ThemeSystem } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Theme Provider",
+            "code": "import { ThemeProvider } from '@chetanft/design_system'; function App() { return ( <ThemeProvider> {/* Your app components */} </ThemeProvider> ); }"
+          },
+          {
+            "name": "Use Theme Hook",
+            "code": "<button />"
+          }
+        ]
+      },
+      "FileValidationCard": {
+        "description": "A card component displaying file validation status and statistics.",
+        "import": "import { FileValidationCard } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "C S V File",
+            "code": "<FileValidationCard fileName=\"data-export.csv\" fileType=\"csv\" validationStatus=\"success\" validationStats={{total: 1250, success: 1250, invalid: 0}} />"
+          },
+          {
+            "name": "Failed",
+            "code": "<FileValidationCard fileName=\"File 178.xlsx\" fileType=\"excel\" validationStatus=\"failed\" validationStats={{total: 850, success: 0, invalid: 850}} />"
+          },
+          {
+            "name": "Partially Processed",
+            "code": "<FileValidationCard fileName=\"File 178.xlsx\" fileType=\"excel\" validationStatus=\"partial\" validationStats={{total: 850, success: 595, invalid: 255}} />"
+          },
+          {
+            "name": "Success",
+            "code": "<FileValidationCard fileName=\"File 178.xlsx\" fileType=\"excel\" validationStatus=\"success\" validationStats={{total: 850, success: 850, invalid: 0}} />"
+          },
+          {
+            "name": "Validating",
+            "code": "<FileValidationCard fileName=\"File 178.xlsx\" fileType=\"excel\" validationStatus=\"validating\"  />"
+          }
+        ]
+      },
+      "FileCard": {
+        "description": "Comprehensive file management card component for displaying file information, processing states, statistics, and actions. Supports various file processing workflows with progress tracking and error handling.",
+        "import": "import { FileCard } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"processed\" fileDate=\"12 April 2024, 5:30 PM\" variant=\"compact\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "File Too Large",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"too-large\" progress={23} variant=\"with-progress\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "Fully Processed",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"processed\" fileDate=\"12 April 2024, 5:30 PM\" variant=\"with-stats\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "Template Mismatch",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"template-mismatch\" fileDate=\"12 April 2024, 5:30 PM\" errorMessage=\"Missing required column: Origin. Please use the sample template\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "Unsupported Format",
+            "code": "<FileCard fileName=\"File 178.txt\" fileType=\"txt\" status=\"unsupported\" fileDate=\"12 April 2024, 5:30 PM\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "Upload Failed",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"upload-failed\" progress={23} variant=\"with-progress\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "Uploading",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"uploading\" progress={23} variant=\"with-progress\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "Validating",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"validating\" fileDate=\"12 April 2024, 5:30 PM\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"validating\" fileDate=\"12 April 2024, 5:30 PM\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"template-mismatch\" fileDate=\"12 April 2024, 5:30 PM\" errorMessage=\"Missing required column: Origin. Please use the sample template\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "Variant 3",
+            "code": "<FileCard fileName=\"File 178.txt\" fileType=\"!\" status=\"unsupported\" fileDate=\"12 April 2024, 5:30 PM\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "With-progress",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"uploading\" progress={23} variant=\"with-progress\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "With-progress",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"upload-failed\" progress={23} variant=\"with-progress\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "With-stats",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"processed\" fileDate=\"12 April 2024, 5:30 PM\" variant=\"with-stats\" stats={{ total: 100, success: 100, invalid: 0 }} file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          },
+          {
+            "name": "With-stats",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"partially-processed\" fileDate=\"12 April 2024, 5:30 PM\" variant=\"with-stats\" stats={{ total: 100, success: 60, invalid: 40 }} file={{name: \"test.txt\", type: \"text/plain\"}} />"
+          }
+        ]
+      },
+      "NavigationLauncher": {
+        "description": "Component",
+        "import": "import { NavigationLauncher } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<NavigationLauncher />"
+          }
+        ]
+      },
+      "SegmentedTabs": {
+        "description": "Component",
+        "import": "import { SegmentedTabs } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Two Tabs",
+            "code": "<SegmentedTabs items={[{label: \"Tab\", value: \"tab1\"}, {label: \"Tab\", value: \"tab2\"}]} defaultValue=\"tab2\" />"
+          },
+          {
+            "name": "Three Tabs",
+            "code": "<SegmentedTabs items={[{label: \"Tab\", value: \"tab1\"}, {label: \"Tab\", value: \"tab2\"}, {label: \"Tab\", value: \"tab3\"}]} defaultValue=\"tab3\" />"
+          },
+          {
+            "name": "Four Tabs",
+            "code": "<SegmentedTabs items={[{label: \"Tab\", value: \"tab1\"}, {label: \"Tab\", value: \"tab2\"}, {label: \"Tab\", value: \"tab3\"}, {label: \"Tab\", value: \"tab4\"}]} defaultValue=\"tab4\" />"
+          },
+          {
+            "name": "View Modes",
+            "code": "<SegmentedTabs items={[{label: \"List\", value: \"list\"}, {label: \"Grid\", value: \"grid\"}, {label: \"Card\", value: \"card\"}]} defaultValue=\"grid\" />"
+          },
+          {
+            "name": "Controlled",
+            "code": "<SegmentedTabs items={[{label: \"Overview\", value: \"overview\"}, {label: \"Details\", value: \"details\"}, {label: \"Settings\", value: \"settings\"}]} />"
+          },
+          {
+            "name": "Icon Only",
+            "code": "<SegmentedTabs variant=\"icon-only\" items={[{label: \"Copy\", value: \"copy\", icon: <Icon name=\"copy\" />}, {label: \"Check\", value: \"check\", icon: <Icon name=\"check\" />}]} defaultValue=\"check\" />"
+          }
+        ]
+      },
+      "FileThumbnail": {
+        "description": "Compact file thumbnail component for displaying file previews or file type icons. Supports hover states with action icons for preview and download. Based on Figma design specifications.",
+        "import": "import { FileThumbnail } from '@chetanft/design_system';",
+        "props": {
+          "fileName": {
+            "type": "string",
+            "required": true,
+            "description": "Name of the file"
+          },
+          "imageUrl": {
+            "type": "string",
+            "required": false,
+            "description": "Optional image preview URL. If not provided, shows file type icon."
+          },
+          "showFileName": {
+            "type": "boolean",
+            "required": false,
+            "description": "Whether to display the filename below the thumbnail"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Image Preview",
+            "code": "<FileThumbnail fileName=\"Image2.png\" imageUrl=\"https://example.com/image.png\" showFileName={false} />"
+          },
+          {
+            "name": "File Type Icon",
+            "code": "<FileThumbnail fileName=\"document.pdf\" showFileName={false} />"
+          },
+          {
+            "name": "With Filename",
+            "code": "<FileThumbnail fileName=\"Image2.png\" imageUrl=\"https://example.com/image.png\" showFileName={true} />"
+          }
+        ]
+      },
+      "ReadOnly": {
+        "description": "A read-only field display component for showing label-value pairs in different layouts. Based on Figma design specifications.",
+        "import": "import { ReadOnly } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Custom Icon",
+            "code": "<ReadOnly label=\"User Info\" value=\"John Doe\" type=\"vertical\" labelIcon={true} icon=\"<User />\" />"
+          },
+          {
+            "name": "FormSummary",
+            "code": "<ReadOnly label=\"Order ID\" value=\"#ORD-2024-001\" type=\"horizontal\" labelIcon={true} />"
+          },
+          {
+            "name": "FormSummary",
+            "code": "<ReadOnly label=\"Delivery Date\" value=\"March 15, 2024\" type=\"horizontal\" labelIcon={false} />"
+          },
+          {
+            "name": "FormSummary",
+            "code": "<ReadOnly label=\"Total Amount\" value=\"$1,250.00\" subtext=\"Including taxes\" type=\"vertical\" labelIcon={true} />"
+          },
+          {
+            "name": "Horizontal Basic",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"horizontal\" labelIcon={false} />"
+          },
+          {
+            "name": "Horizontal With Icon",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"horizontal\" labelIcon={true} />"
+          },
+          {
+            "name": "Long Content",
+            "code": "<ReadOnly label=\"Description\" value=\"This is a very long text value that demonstrates how the component handles longer content and text wrapping within the layout constraints.\" subtext=\"Additional information that provides context\" type=\"vertical\" labelIcon={true} />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<ReadOnly label=\"Status\" value=\"Active\" type=\"horizontal\" labelIcon={false} />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"vertical\" />"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<ReadOnly label=\"Priority\" value=\"High\" type=\"horizontal\" labelIcon={true} />"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"vertical\" labelIcon={true} />"
+          },
+          {
+            "name": "Variant 3",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" subtext=\"Sub text\" type=\"vertical\" />"
+          },
+          {
+            "name": "Variant 4",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" subtext=\"Sub text\" type=\"vertical\" labelIcon={true} />"
+          },
+          {
+            "name": "Variant 5",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"horizontal\" />"
+          },
+          {
+            "name": "Variant 6",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"horizontal\" labelIcon={true} />"
+          },
+          {
+            "name": "Vertical Basic",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"vertical\" labelIcon={false} />"
+          },
+          {
+            "name": "Vertical With Icon",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"vertical\" labelIcon={true} />"
+          },
+          {
+            "name": "Vertical With Icon And Subtext",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" subtext=\"Sub text\" type=\"vertical\" labelIcon={true} />"
+          },
+          {
+            "name": "Vertical With Subtext",
+            "code": "<ReadOnly label=\"Label\" value=\"Text\" subtext=\"Sub text\" type=\"vertical\" labelIcon={false} />"
+          }
+        ]
+      },
+      "Colors": {
+        "description": "Color palette and theme system showcase with live theme switching capabilities.",
+        "import": "import { Colors } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Color Palette",
+            "code": "<Colors />"
+          }
+        ]
+      },
+      "ColorSystem": {
+        "description": "Complete color system showing primary, secondary, and semantic colors organized by theme mode.",
+        "import": "import { ColorSystem } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Color System",
+            "code": "// Access design tokens: const { designTokens } = require('@chetanft/design_system'); // Use colors: const primaryColor = designTokens.colors.primary; const secondaryColor = designTokens.colors.secondary;"
+          }
+        ]
+      },
+      "Label": {
+        "description": "Form label component with support for mandatory indicators, optional text, and suffix icons. Based on Figma design specifications.",
+        "import": "import { Label } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Label>Label</Label>"
+          },
+          {
+            "name": "Custom Icon",
+            "code": "<Label suffixIcon={true} icon=\"<AlertInformational />\">Custom Icon Label</Label>"
+          },
+          {
+            "name": "Form Field",
+            "code": "<Label htmlFor=\"email\" mandatory>Email Address </Label>"
+          },
+          {
+            "name": "FormExample",
+            "code": "<Label htmlFor=\"name\" mandatory>Full Name </Label>"
+          },
+          {
+            "name": "FormExample",
+            "code": "<Label htmlFor=\"phone\" suffixIcon>Phone Number </Label>"
+          },
+          {
+            "name": "FormExample",
+            "code": "<Label htmlFor=\"company\" optional>Company Name </Label>"
+          },
+          {
+            "name": "FormExample",
+            "code": "<Label htmlFor=\"bio\" optional suffixIcon>Bio </Label>"
+          },
+          {
+            "name": "Long Text",
+            "code": "<Label mandatory={true} suffixIcon={true}>This is a very long label text that might wrap to multiple lines</Label>"
+          },
+          {
+            "name": "Mandatory",
+            "code": "<Label mandatory={true}>Label</Label>"
+          },
+          {
+            "name": "Mandatory With Icon",
+            "code": "<Label mandatory={true} suffixIcon={true}>Label</Label>"
+          },
+          {
+            "name": "Optional",
+            "code": "<Label optional={true}>Label</Label>"
+          },
+          {
+            "name": "Optional With Icon",
+            "code": "<Label optional={true} suffixIcon={true}>Label</Label>"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<Label suffixIcon>Label</Label>"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<Label optional>Label</Label>"
+          },
+          {
+            "name": "Variant 3",
+            "code": "<Label optional suffixIcon>Label</Label>"
+          },
+          {
+            "name": "Variant 4",
+            "code": "<Label mandatory>Label</Label>"
+          },
+          {
+            "name": "Variant 5",
+            "code": "<Label mandatory suffixIcon>Label</Label>"
+          },
+          {
+            "name": "With Suffix Icon",
+            "code": "<Label suffixIcon={true}>Label</Label>"
+          }
+        ]
+      },
+      "Collapsible": {
+        "description": "Collapsible component with multiple variants for showing/hiding content.",
+        "import": "import { Collapsible } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Collapsible header=\"Collapsible header\" background=\"bg\" stage=\"default\" type=\"form\" isExpanded={false}>p-4</Collapsible>"
+          }
+        ]
+      },
+      "ProgressList": {
+        "description": "A progress list component that matches the exact Figma timeline design with proper 3-column layout (Time | Path | Content), point types, and badge system.",
+        "import": "import { ProgressList } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<ProgressList items={[{id: \"1\", title: \"Step 1\", description: \"First step\", state: \"completed\", pointType: \"primary\"}, {id: \"2\", title: \"Step 2\", description: \"Current step\", state: \"current\", pointType: \"primary\"}, {id: \"3\", title: \"Step 3\", description: \"Upcoming step\", state: \"upcoming\", pointType: \"primary\"}]} />"
+          }
+        ]
+      },
+      "Steps": {
+        "description": "Component",
+        "import": "import { Steps } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<Steps currentStep={1} device=\"desktop\" steps={[{label: \"Step 1\"}, {label: \"Step 2\"}, {label: \"Step 3\"}]} />"
+          },
+          {
+            "name": "Steps Item Only",
+            "code": "<StepsItem state=\"selected\" device=\"desktop\" label=\"Step 1\" />"
+          },
+          {
+            "name": "With Completed Steps",
+            "code": "<div className=\"w-full max-w-4xl overflow-x-auto\"><Steps currentStep={3} device=\"desktop\" steps={[{label: \"Step 1\", completed: true}, {label: \"Step 2\", completed: true}, {label: \"Step 3\"}]} /></div>"
+          }
+        ]
+      },
+      "Table": {
+        "description": "A comprehensive table component built with atomic components, featuring sorting, selection, pagination, and custom cell rendering capabilities based on exact Figma specifications.",
+        "import": "import { Table } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Table columns={[]} data={[]} />"
+          }
+        ]
+      },
+      "RadioSelector": {
+        "description": "Component",
+        "import": "import { RadioSelector } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic With Radio",
+            "code": "<RadioSelector name=\"demo\" options={[{value: \"1\", header: \"Radio selector header\"}, {value: \"2\", header: \"Radio selector header\"}]} />"
+          },
+          {
+            "name": "With Description",
+            "code": "<RadioSelector name=\"demo2\" options={[{value: \"1\", header: \"Radio selector header\", description: \"Radio selector description\"}, {value: \"2\", header: \"Radio selector header\", description: \"Radio selector description\"}]} />"
+          },
+          {
+            "name": "States",
+            "code": "<RadioSelector name=\"demo3\" defaultValue=\"selected\" options={[{value: \"default\", header: \"Default state\"}, {value: \"selected\", header: \"Selected state\"}, {value: \"disabled\", header: \"Disabled state\", disabled: true}]} />"
+          }
+        ]
+      },
+      "UserProfile": {
+        "description": "A user profile trigger component that pairs with the `UserProfileDropdown` for expanded actions.",
+        "import": "import { UserProfile } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<UserProfile userName=\"Santosh Kumar\" userRole=\"Dispatch Manager\" userLocation=\"SPD-Santoshnagar\" userBadge=\"Admin\" user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+          },
+          {
+            "name": "Avatar Only",
+            "code": "<UserProfile userName=\"Mobile User\" userRole=\"Ops\" userLocation=\"Remote\" userBadge=\"Viewer\" companyName={false} user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+          },
+          {
+            "name": "Different User",
+            "code": "<UserProfile userName=\"Priya Sharma\" userRole=\"Fleet Manager\" userLocation=\"HYD-Headquarters\" userBadge=\"Manager\" user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+          },
+          {
+            "name": "Super Admin",
+            "code": "<UserProfile userName=\"Rajesh Gupta\" userRole=\"System Administrator\" userLocation=\"MUM-Central\" userBadge=\"Super Admin\" user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+          }
+        ]
+      },
+      "Footer": {
+        "description": "Component",
+        "import": "import { Footer } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Four Buttons With Left Side",
+            "code": "<Footer buttonCount={4} leftSideButton={true} links={[]} />"
+          },
+          {
+            "name": "Single Button",
+            "code": "<Footer buttonCount={1} leftSideButton={false} links={[]} />"
+          },
+          {
+            "name": "Three Buttons",
+            "code": "<Footer buttonCount={3} leftSideButton={false} links={[]} />"
+          },
+          {
+            "name": "Three Buttons With Left Side",
+            "code": "<Footer buttonCount={3} leftSideButton={true} links={[]} />"
+          },
+          {
+            "name": "Two Buttons",
+            "code": "<Footer buttonCount={2} leftSideButton={false} links={[]} />"
+          }
+        ]
+      },
+      "UserProfileDropdown": {
+        "description": "Expanded dropdown panel paired with `UserProfile`, exposing user metadata and actions.",
+        "import": "import { UserProfileDropdown } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Hidden",
+            "code": "<UserProfileDropdown isOpen={false} user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+          },
+          {
+            "name": "With Long Details",
+            "code": "<UserProfileDropdown userName=\"Alexandria Catherine Johnson\" userRole=\"National Operations Program Lead\" userLocation=\"Bengaluru-Whitefield Hub\" userBadge=\"Super Admin\" user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+          }
+        ]
+      },
+      "QuickFilters": {
+        "description": "Component",
+        "import": "import { QuickFilters } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<QuickFilters filters={[{id: \"1\", label: \"Alert label\", selected: false}, {id: \"2\", label: \"Alert label\", count: 19, selected: false}]} />"
+          },
+          {
+            "name": "With Count",
+            "code": "<QuickFilters filters={[{id: \"1\", label: \"Alert label\", count: 19, type: \"normal\", selected: false}, {id: \"2\", label: \"Alert label\", count: 5, type: \"alert\", selected: false}]} />"
+          },
+          {
+            "name": "Selected State",
+            "code": "<QuickFilters filters={[{id: \"1\", label: \"Alert label\", count: 19, selected: true}, {id: \"2\", label: \"Alert label\", count: 5, type: \"alert\", selected: false}]} />"
+          },
+          {
+            "name": "Multi Option",
+            "code": "<QuickFilters filters={[{id: \"1\", label: \"E Way bill\", type: \"normal\", options: [{id: \"expiring\", label: \"Expiring in 3 hrs\", count: 28}, {id: \"expired\", label: \"Expired\", count: 18}]}]} />"
+          }
+        ]
+      },
+      "UploadItem": {
+        "description": "UploadItem component",
+        "import": "import { UploadItem } from '@chetanft/design_system';",
+        "props": {
+          "type": {
+            "type": "UploadItemType",
+            "required": false,
+            "description": ""
+          },
+          "state": {
+            "type": "UploadItemState",
+            "required": false,
+            "description": ""
+          },
+          "file": {
+            "type": "UploadFile",
+            "required": true,
+            "description": ""
+          },
+          "onDelete": {
+            "type": "() => void",
+            "required": false,
+            "description": ""
+          },
+          "onRetry": {
+            "type": "() => void",
+            "required": false,
+            "description": ""
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Card (Default)",
+            "code": "<UploadItem file={{id: \"1\", name: \"test.txt\", type: \"text/plain\", size: 1024}} type=\"card\" />"
+          },
+          {
+            "name": "Text Variant",
+            "code": "<UploadItem file={{id: \"2\", name: \"document.pdf\", type: \"application/pdf\", size: 2048}} type=\"text\" state=\"uploaded\" />"
+          },
+          {
+            "name": "Uploading",
+            "code": "<UploadItem file={{id: \"4\", name: \"file.xlsx\", type: \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\", size: 2048, uploadProgress: 50}} state=\"uploading\" />"
+          },
+          {
+            "name": "Uploaded",
+            "code": "<UploadItem file={{id: \"5\", name: \"image.jpg\", type: \"image/jpeg\", size: 5120, uploadedAt: new Date()}} state=\"uploaded\" />"
+          },
+          {
+            "name": "Saved",
+            "code": "<UploadItem file={{id: \"6\", name: \"file.xlsx\", type: \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\", size: 10240}} state=\"saved\" />"
+          },
+          {
+            "name": "Error",
+            "code": "<UploadItem file={{id: \"7\", name: \"failed.txt\", type: \"text/plain\", size: 512}} state=\"error\" />"
+          }
+        ]
+      },
+      "ProgressBar": {
+        "description": "ProgressBar component",
+        "import": "import { ProgressBar } from '@chetanft/design_system';",
+        "props": {
+          "value": {
+            "type": "number",
+            "required": false,
+            "description": ""
+          },
+          "variant": {
+            "type": "'primary' | 'success' | 'warning' | 'danger'",
+            "required": false,
+            "description": ""
+          },
+          "size": {
+            "type": "'sm' | 'md' | 'lg'",
+            "required": false,
+            "description": ""
+          },
+          "showPercentage": {
+            "type": "boolean",
+            "required": false,
+            "description": ""
+          },
+          "animated": {
+            "type": "boolean",
+            "required": false,
+            "description": ""
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Primary",
+            "code": "<ProgressBar value={50} variant=\"primary\" />"
+          },
+          {
+            "name": "Success",
+            "code": "<ProgressBar value={75} variant=\"success\" />"
+          },
+          {
+            "name": "Warning",
+            "code": "<ProgressBar value={60} variant=\"warning\" />"
+          },
+          {
+            "name": "Danger",
+            "code": "<ProgressBar value={30} variant=\"danger\" />"
+          },
+          {
+            "name": "Small",
+            "code": "<ProgressBar value={50} size=\"sm\" />"
+          },
+          {
+            "name": "Medium",
+            "code": "<ProgressBar value={50} size=\"md\" />"
+          },
+          {
+            "name": "Large",
+            "code": "<ProgressBar value={50} size=\"lg\" />"
+          },
+          {
+            "name": "With Percentage",
+            "code": "<ProgressBar value={50} showPercentage={true} />"
+          }
+        ]
+      },
+      "Illustration": {
+        "description": "Illustration component",
+        "import": "import { Illustration } from '@chetanft/design_system';",
+        "props": {
+          "variant": {
+            "type": "IllustrationVariant",
+            "required": false,
+            "description": ""
+          },
+          "src": {
+            "type": "string",
+            "required": false,
+            "description": ""
+          },
+          "alt": {
+            "type": "string",
+            "required": false,
+            "description": ""
+          },
+          "size": {
+            "type": "IllustrationSize",
+            "required": false,
+            "description": ""
+          },
+          "rounded": {
+            "type": "'none' | 'sm' | 'md' | 'lg'",
+            "required": false,
+            "description": ""
+          },
+          "background": {
+            "type": "'transparent' | 'subtle'",
+            "required": false,
+            "description": ""
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": ""
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Illustration />"
+          }
+        ]
+      },
+      "UploadThumbnail": {
+        "description": "UploadThumbnail component",
+        "import": "import { UploadThumbnail } from '@chetanft/design_system';",
+        "props": {
+          "preview": {
+            "type": "string | null",
+            "required": false,
+            "description": ""
+          },
+          "fileName": {
+            "type": "string",
+            "required": false,
+            "description": ""
+          },
+          "state": {
+            "type": "'default' | 'hover' | 'disabled'",
+            "required": false,
+            "description": ""
+          },
+          "onFileSelect": {
+            "type": "(files: FileList) => void",
+            "required": false,
+            "description": ""
+          },
+          "onDelete": {
+            "type": "() => void",
+            "required": false,
+            "description": ""
+          },
+          "acceptedFileTypes": {
+            "type": "string[]",
+            "required": false,
+            "description": ""
+          },
+          "multiple": {
+            "type": "boolean",
+            "required": false,
+            "description": ""
+          },
+          "disabled": {
+            "type": "boolean",
+            "required": false,
+            "description": ""
+          },
+          "showFileName": {
+            "type": "boolean",
+            "required": false,
+            "description": ""
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<UploadThumbnail />"
+          }
+        ]
+      },
+      "Logos": {
+        "description": "Logos component",
+        "import": "import { Logos } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Logos />"
+          }
+        ]
+      },
+      "Textarea": {
+        "description": "Multi-line text input component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Textarea } from '@chetanft/design_system';",
+        "props": {
+          "label": {
+            "type": "string",
+            "required": false,
+            "description": "Label text for the textarea"
+          },
+          "labelMandatory": {
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Show mandatory indicator"
+          },
+          "labelOptional": {
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Show optional indicator"
+          },
+          "error": {
+            "type": "string",
+            "required": false,
+            "description": "Error message to display"
+          },
+          "helperText": {
+            "type": "string",
+            "required": false,
+            "description": "Helper text to display below the textarea"
+          },
+          "size": {
+            "type": "union of 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'",
+            "required": false,
+            "default": "md",
+            "description": "Size of the textarea"
+          },
+          "rows": {
+            "type": "number",
+            "required": false,
+            "default": "4",
+            "description": "Number of rows"
+          },
+          "showFigmaBadge": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show Figma design not available badge"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Textarea label=\"Description\" placeholder=\"Enter description\" showFigmaBadge={false} />"
+          },
+          {
+            "name": "With Error",
+            "code": "<Textarea label=\"Description\" error=\"This field is required\" showFigmaBadge={false} />"
+          }
+        ]
+      },
+      "Skeleton": {
+        "description": "Loading skeleton component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Skeleton } from '@chetanft/design_system';",
+        "props": {
+          "variant": {
+            "type": "union of 'text', 'circular', 'rectangular'",
+            "required": false,
+            "default": "rectangular",
+            "description": "Variant of the skeleton"
+          },
+          "width": {
+            "type": "string | number",
+            "required": false,
+            "description": "Width of the skeleton"
+          },
+          "height": {
+            "type": "string | number",
+            "required": false,
+            "description": "Height of the skeleton"
+          },
+          "animation": {
+            "type": "union of 'pulse', 'wave', 'none'",
+            "required": false,
+            "default": "pulse",
+            "description": "Animation type"
+          },
+          "showFigmaBadge": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show Figma design not available badge"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Text",
+            "code": "<Skeleton variant=\"text\" width=\"100%\" showFigmaBadge={false} />"
+          },
+          {
+            "name": "Circular",
+            "code": "<Skeleton variant=\"circular\" width={40} height={40} showFigmaBadge={false} />"
+          }
+        ]
+      },
+      "Alert": {
+        "description": "Alert component for displaying important messages built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Alert } from '@chetanft/design_system';",
+        "props": {
+          "variant": {
+            "type": "union of 'info', 'success', 'warning', 'danger'",
+            "required": false,
+            "default": "info",
+            "description": "Alert variant"
+          },
+          "title": {
+            "type": "string",
+            "required": false,
+            "description": "Alert title"
+          },
+          "message": {
+            "type": "ReactNode",
+            "required": false,
+            "description": "Alert message content"
+          },
+          "icon": {
+            "type": "IconName",
+            "required": false,
+            "description": "Custom icon name"
+          },
+          "closable": {
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Show close button"
+          },
+          "onClose": {
+            "type": "() => void",
+            "required": false,
+            "description": "Close handler"
+          },
+          "showFigmaBadge": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show Figma design not available badge"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Success",
+            "code": "<Alert variant=\"success\" title=\"Success!\" message=\"Your changes have been saved.\" showFigmaBadge={false} />"
+          },
+          {
+            "name": "Warning",
+            "code": "<Alert variant=\"warning\" title=\"Warning\" message=\"Please review your input.\" closable showFigmaBadge={false} />"
+          }
+        ]
+      },
+      "Breadcrumb": {
+        "description": "Breadcrumb navigation component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Breadcrumb } from '@chetanft/design_system';",
+        "props": {
+          "items": {
+            "type": "BreadcrumbItem[]",
+            "required": true,
+            "description": "Array of breadcrumb items"
+          },
+          "separator": {
+            "type": "IconName | ReactNode",
+            "required": false,
+            "description": "Custom separator"
+          },
+          "showFigmaBadge": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show Figma design not available badge"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Breadcrumb items={[{label: 'Home', href: '/'}, {label: 'Products', href: '/products'}, {label: 'Current Page'}]} showFigmaBadge={false} />"
+          }
+        ]
+      },
+      "Pagination": {
+        "description": "Pagination component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Pagination } from '@chetanft/design_system';",
+        "props": {
+          "current": {
+            "type": "number",
+            "required": true,
+            "description": "Current page number"
+          },
+          "total": {
+            "type": "number",
+            "required": true,
+            "description": "Total number of items"
+          },
+          "pageSize": {
+            "type": "number",
+            "required": false,
+            "default": "10",
+            "description": "Items per page"
+          },
+          "showSizeChanger": {
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Show page size changer"
+          },
+          "showQuickJumper": {
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Show quick page jumper"
+          },
+          "onChange": {
+            "type": "(page: number, pageSize?: number) => void",
+            "required": false,
+            "description": "Page change handler"
+          },
+          "onShowSizeChange": {
+            "type": "(current: number, size: number) => void",
+            "required": false,
+            "description": "Page size change handler"
+          },
+          "showFigmaBadge": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show Figma design not available badge"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Pagination current={1} total={100} pageSize={10} showFigmaBadge={false} />"
+          }
+        ]
+      },
+      "Notification": {
+        "description": "Notification/Toast system built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { NotificationProvider, useNotification } from '@chetanft/design_system';",
+        "props": {},
+        "examples": [
+          {
+            "name": "Usage",
+            "code": "const notification = useNotification();\nnotification.addNotification({ message: 'Success!', type: 'success' });"
+          }
+        ]
+      },
+      "Modal": {
+        "description": "Modal dialog component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Modal } from '@chetanft/design_system';",
+        "props": {
+          "open": {
+            "type": "boolean",
+            "required": true,
+            "description": "Whether modal is open"
+          },
+          "onClose": {
+            "type": "() => void",
+            "required": false,
+            "description": "Close handler"
+          },
+          "title": {
+            "type": "string",
+            "required": false,
+            "description": "Modal title"
+          },
+          "footer": {
+            "type": "ReactNode",
+            "required": false,
+            "description": "Footer content"
+          },
+          "closable": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show close button"
+          },
+          "maskClosable": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Close on mask click"
+          },
+          "width": {
+            "type": "string | number",
+            "required": false,
+            "default": "520",
+            "description": "Modal width"
+          },
+          "centered": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Center modal vertically"
+          },
+          "showFigmaBadge": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show Figma design not available badge"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Modal open={true} onClose={() => {}} title=\"Confirm\" showFigmaBadge={false} >Content</Modal>"
+          }
+        ]
+      },
+      "Drawer": {
+        "description": "Side drawer component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Drawer } from '@chetanft/design_system';",
+        "props": {
+          "open": {
+            "type": "boolean",
+            "required": true,
+            "description": "Whether drawer is open"
+          },
+          "onClose": {
+            "type": "() => void",
+            "required": false,
+            "description": "Close handler"
+          },
+          "title": {
+            "type": "string",
+            "required": false,
+            "description": "Drawer title"
+          },
+          "placement": {
+            "type": "union of 'left', 'right', 'top', 'bottom'",
+            "required": false,
+            "default": "right",
+            "description": "Drawer placement"
+          },
+          "width": {
+            "type": "string | number",
+            "required": false,
+            "default": "400",
+            "description": "Drawer width (for left/right)"
+          },
+          "height": {
+            "type": "string | number",
+            "required": false,
+            "default": "100%",
+            "description": "Drawer height (for top/bottom)"
+          },
+          "closable": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show close button"
+          },
+          "maskClosable": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Close on mask click"
+          },
+          "showFigmaBadge": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show Figma design not available badge"
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Right Drawer",
+            "code": "<Drawer open={true} onClose={() => {}} title=\"Settings\" placement=\"right\" showFigmaBadge={false} >Content</Drawer>"
+          }
+        ]
+      }
+    }
+  }
+}

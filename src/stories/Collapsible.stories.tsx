@@ -14,23 +14,22 @@ const meta: Meta<typeof Collapsible> = {
     }
   },
   argTypes: {
-    background: {
+    bg: {
       control: 'select',
-      options: ['bg', 'white'],
-      description: 'Background color of the collapsible',
-      defaultValue: 'bg'
-    },
-    stage: {
-      control: 'select',
-      options: ['default', 'submitted'],
-      description: 'Stage of the collapsible',
-      defaultValue: 'default'
+      options: ['Primary', 'Secondary'],
+      description: 'Background variant of the collapsible',
+      defaultValue: 'Secondary'
     },
     type: {
       control: 'select',
-      options: ['form', 'text'],
-      description: 'Type of the collapsible',
-      defaultValue: 'form'
+      options: ['Primary', 'Secondary', 'Tertiary'],
+      description: 'Type variant of the collapsible',
+      defaultValue: 'Primary'
+    },
+    badges: {
+      control: 'boolean',
+      description: 'Whether to show badges',
+      defaultValue: false
     },
     isExpanded: {
       control: 'boolean',
@@ -48,9 +47,9 @@ export const Default: Story = {
   args: {
     header: 'Collapsible header',
     children: <div className="p-4">Collapsible content goes here</div>,
-    background: 'bg',
-    stage: 'default',
-    type: 'form',
+    bg: 'Secondary',
+    type: 'Primary',
+    badges: false,
     isExpanded: false
   }
 };
@@ -65,7 +64,8 @@ export const Controlled: StoryObj<typeof Collapsible> = {
           header="Controlled Collapsible"
           isExpanded={isExpanded}
           onToggle={setIsExpanded}
-          background="white"
+          bg="Primary"
+          type="Primary"
         >
           <div className="p-4">
             <p>This collapsible is controlled by React state.</p>
@@ -87,168 +87,166 @@ export const AllVariants: StoryObj<typeof Collapsible> = {
   render: () => {
     return (
       <div className="flex flex-col gap-8 w-[800px]">
-        <h2 className="text-xl font-bold">Form Type Variants</h2>
+        <h2 className="text-xl font-bold">Primary Type Variants</h2>
         
-        {/* BG, Default Stage */}
+        {/* Primary, Secondary BG */}
         <div>
-          <h3 className="text-lg font-semibold mb-2">BG, Default Stage</h3>
+          <h3 className="text-lg font-semibold mb-2">Primary Type, Secondary BG</h3>
           <div className="flex flex-col gap-4">
             <Collapsible 
-              header="BG, Open, Default, Form" 
-              type="form" 
-              background="bg" 
-              stage="default" 
+              header="Primary, Expanded, Secondary BG" 
+              type="Primary" 
+              bg="Secondary" 
               isExpanded={true}
             >
               <div className="p-2">Content</div>
             </Collapsible>
             
             <Collapsible 
-              header="BG, Closed, Default, Form" 
-              type="form" 
-              background="bg" 
-              stage="default" 
+              header="Primary, Collapsed, Secondary BG" 
+              type="Primary" 
+              bg="Secondary" 
               isExpanded={false}
             />
           </div>
         </div>
         
-        {/* BG, Submitted Stage */}
+        {/* Primary, Primary BG */}
         <div>
-          <h3 className="text-lg font-semibold mb-2">BG, Submitted Stage</h3>
+          <h3 className="text-lg font-semibold mb-2">Primary Type, Primary BG</h3>
           <div className="flex flex-col gap-4">
             <Collapsible 
-              header="Update header name with key value" 
-              type="form" 
-              background="bg" 
-              stage="submitted" 
+              header="Primary, Expanded, Primary BG" 
+              type="Primary" 
+              bg="Primary" 
               isExpanded={true}
             >
               <div className="p-2">Content</div>
             </Collapsible>
             
             <Collapsible 
-              header="Update header name with key value" 
-              type="form" 
-              background="bg" 
-              stage="submitted" 
+              header="Primary, Collapsed, Primary BG" 
+              type="Primary" 
+              bg="Primary" 
               isExpanded={false}
             />
           </div>
         </div>
         
-        {/* White, Default Stage */}
+        <h2 className="text-xl font-bold mt-8">Secondary Type Variants</h2>
+        
+        {/* Secondary, Secondary BG */}
         <div>
-          <h3 className="text-lg font-semibold mb-2">White, Default Stage</h3>
+          <h3 className="text-lg font-semibold mb-2">Secondary Type, Secondary BG</h3>
           <div className="flex flex-col gap-4">
             <Collapsible 
-              header="White, Open, Default, Form" 
-              type="form" 
-              background="white" 
-              stage="default" 
+              header="Secondary, Expanded, Secondary BG" 
+              type="Secondary" 
+              bg="Secondary" 
               isExpanded={true}
             >
               <div className="p-2">Content</div>
             </Collapsible>
             
             <Collapsible 
-              header="White, Closed, Default, Form" 
-              type="form" 
-              background="white" 
-              stage="default" 
+              header="Secondary, Collapsed, Secondary BG" 
+              type="Secondary" 
+              bg="Secondary" 
               isExpanded={false}
             />
           </div>
         </div>
         
-        {/* White, Submitted Stage */}
+        {/* Secondary, Primary BG */}
         <div>
-          <h3 className="text-lg font-semibold mb-2">White, Submitted Stage</h3>
+          <h3 className="text-lg font-semibold mb-2">Secondary Type, Primary BG</h3>
           <div className="flex flex-col gap-4">
             <Collapsible 
-              header="Update header name with key value" 
-              type="form" 
-              background="white" 
-              stage="submitted" 
+              header="Secondary, Expanded, Primary BG" 
+              type="Secondary" 
+              bg="Primary" 
               isExpanded={true}
             >
               <div className="p-2">Content</div>
             </Collapsible>
             
             <Collapsible 
-              header="Update header name with key value" 
-              type="form" 
-              background="white" 
-              stage="submitted" 
+              header="Secondary, Collapsed, Primary BG" 
+              type="Secondary" 
+              bg="Primary" 
               isExpanded={false}
             />
           </div>
         </div>
         
-        <h2 className="text-xl font-bold mt-8">Text Type Variants</h2>
+        <h2 className="text-xl font-bold mt-8">Tertiary Type Variants</h2>
         
-        {/* BG, Default Stage */}
+        {/* Tertiary, Secondary BG */}
         <div>
-          <h3 className="text-lg font-semibold mb-2">BG, Default Stage</h3>
+          <h3 className="text-lg font-semibold mb-2">Tertiary Type, Secondary BG</h3>
           <div className="flex flex-col gap-4">
             <Collapsible 
-              header="BG, Open, Default, Text" 
-              type="text" 
-              background="bg" 
-              stage="default" 
+              header="Tertiary, Expanded, Secondary BG" 
+              type="Tertiary" 
+              bg="Secondary" 
               isExpanded={true}
             >
               <div className="p-2">Content</div>
             </Collapsible>
             
             <Collapsible 
-              header="BG, Closed, Default, Text" 
-              type="text" 
-              background="bg" 
-              stage="default" 
+              header="Tertiary, Collapsed, Secondary BG" 
+              type="Tertiary" 
+              bg="Secondary" 
               isExpanded={false}
             />
           </div>
         </div>
         
-        {/* White, Default Stage */}
+        {/* Tertiary, Primary BG */}
         <div>
-          <h3 className="text-lg font-semibold mb-2">White, Default Stage</h3>
+          <h3 className="text-lg font-semibold mb-2">Tertiary Type, Primary BG</h3>
           <div className="flex flex-col gap-4">
             <Collapsible 
-              header="White, Open, Default, Text" 
-              type="text" 
-              background="white" 
-              stage="default" 
+              header="Tertiary, Expanded, Primary BG" 
+              type="Tertiary" 
+              bg="Primary" 
               isExpanded={true}
             >
               <div className="p-2">Content</div>
             </Collapsible>
             
             <Collapsible 
-              header="White, Closed, Default, Text" 
-              type="text" 
-              background="white" 
-              stage="default" 
+              header="Tertiary, Collapsed, Primary BG" 
+              type="Tertiary" 
+              bg="Primary" 
               isExpanded={false}
             />
           </div>
         </div>
         
-        {/* Custom Badges */}
+        {/* With Badges */}
         <div>
-          <h3 className="text-lg font-semibold mb-2">Custom Badges</h3>
-          <Collapsible 
-            header="Collapsible with Custom Badges" 
-            type="form" 
-            background="white" 
-            badges={{
-              loads: 10,
-              invoices: 5,
-              materials: 3,
-              custom: 7
-            }}
-          />
+          <h3 className="text-lg font-semibold mb-2">With Badges</h3>
+          <div className="flex flex-col gap-4">
+            <Collapsible 
+              header="Collapsible with Badges" 
+              type="Primary" 
+              bg="Secondary" 
+              badges={true}
+              isExpanded={true}
+            >
+              <div className="p-2">Content</div>
+            </Collapsible>
+            
+            <Collapsible 
+              header="Collapsible with Badges" 
+              type="Primary" 
+              bg="Secondary" 
+              badges={true}
+              isExpanded={false}
+            />
+          </div>
         </div>
       </div>
     );

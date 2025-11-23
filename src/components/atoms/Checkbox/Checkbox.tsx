@@ -104,16 +104,16 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         : "text-neutral-600 dark:text-neutral-400"
     );
 
-    // Container styles
+    // Container styles - use items-center for perfect middle alignment
     const containerStyles = cn(
-      "inline-flex items-start",
+      "inline-flex items-center",
       currentSize.gap
     );
 
     return (
       <div className="flex flex-col">
         <label className={containerStyles}>
-          <div className="relative">
+          <div className="relative flex items-center">
             <input
               id={checkboxId}
               type="checkbox"
@@ -137,9 +137,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             </div>
           </div>
           {label && (
-            <div className="flex flex-col">
-              <span className={labelStyles}>{label}</span>
-            </div>
+            <span className={labelStyles}>{label}</span>
           )}
         </label>
         {description && (

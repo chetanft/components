@@ -52,7 +52,7 @@ export interface ProgressListProps {
 }
 
 export const ProgressList: React.FC<ProgressListProps> = ({
-  items,
+  items = [],
   showTime = false,
   className = '',
 }) => {
@@ -348,6 +348,14 @@ export const ProgressList: React.FC<ProgressListProps> = ({
       </div>
     );
   };
+
+  if (!items || items.length === 0) {
+    return (
+      <div className={`progress-list flex flex-col ${className}`}>
+        <div className="text-sm text-gray-500 p-4 text-center">No items to display</div>
+      </div>
+    );
+  }
 
   return (
     <div className={`progress-list flex flex-col ${className}`}>

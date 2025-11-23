@@ -38,22 +38,22 @@ const ColumnCell = ({
 }: SimpleColumnCell) => (
   <div
     className={cn(
-      'flex flex-col gap-[var(--x1,4px)]',
+      'flex flex-col gap-[var(--x1,4px)] items-start justify-center',
       align === 'end' && 'items-end text-right'
     )}
   >
     <Typography 
-      variant="body-secondary-regular" 
-      as="span"
-      className="text-[var(--primary,#434f64)]"
+      variant="body-primary-regular" 
+      as="p"
+      className="whitespace-pre-wrap"
     >
       {title}
     </Typography>
     {subtitle && (
       <Typography 
-        variant="body-secondary-regular" 
-        as="span"
-        className="text-[var(--tertiary,#838c9d)] text-[12px]"
+        variant="body-primary-regular" 
+        as="p"
+        className="whitespace-pre-wrap"
       >
         {subtitle}
       </Typography>
@@ -83,33 +83,57 @@ export const SimpleColumnLayout = React.forwardRef<
     return (
       <div
         ref={ref}
-        className={cn('flex w-full flex-col gap-[var(--x2,8px)]', className)}
+        className={cn('flex w-full flex-col', className)}
         {...props}
       >
-        <div className="grid grid-cols-2 gap-4 rounded-[8px] bg-[var(--primary,#434f64)] px-4 py-3">
-          <Typography variant="body-secondary-medium" className="text-[var(--bg-primary,#ffffff)]">
-            {headerLeft}
-          </Typography>
-          <Typography variant="body-secondary-medium" className="text-[var(--bg-primary,#ffffff)] text-right">
-            {headerRight}
-          </Typography>
+        {/* Header - matches Figma: bg-[var(--tertiary,#838c9d)], h-[48px], px-[var(--x2,8px)] py-[15px] */}
+        <div className="bg-[var(--tertiary,#838c9d)] flex flex-col gap-[10px] h-[48px] items-start justify-center px-[var(--x2,8px)] py-[15px] w-full">
+          <div className="flex gap-[var(--x1,4px)] h-[19px] items-center w-full">
+            <Typography 
+              variant="body-primary-semibold"
+              className="text-white"
+            >
+              {headerLeft}
+            </Typography>
+            <Typography 
+              variant="body-primary-semibold"
+              className="ml-auto text-right text-white"
+            >
+              {headerRight}
+            </Typography>
+          </div>
         </div>
 
+        {/* Rows - matches Figma: h-[96px], px-0 py-[var(--x5,20px)], alternating bg */}
         <div className="flex flex-col">
           {rows.map((row, index) => {
-            const applyStripe = striped && index % 2 === 0;
+            // Alternating pattern: even indices (0, 2, 4...) = white, odd indices (1, 3, 5...) = gray
+            const isEvenIndex = index % 2 === 0;
+            const bgColor = striped 
+              ? (isEvenIndex 
+                  ? 'bg-[var(--bg-primary,#ffffff)]' 
+                  : 'bg-[var(--bg-secondary,#f8f8f9)]')
+              : (row.accent 
+                  ? 'bg-[var(--bg-secondary,#f8f8f9)]' 
+                  : 'bg-[var(--bg-primary,#ffffff)]');
 
             return (
               <div
                 key={row.id ?? index}
                 className={cn(
-                  'grid grid-cols-2 gap-4 px-4 py-3',
-                  (applyStripe || row.accent) &&
-                    'bg-[var(--border-secondary,#f0f1f7)]'
+                  'border-[var(--border-primary,#ced1d7)] border-b border-l-0 border-r-0 border-solid border-t-0',
+                  'flex flex-col gap-[var(--x2,8px)] h-[96px] items-start justify-center px-0 py-[var(--x5,20px)] w-full',
+                  bgColor
                 )}
               >
-                <ColumnCell {...row.left} />
-                <ColumnCell {...row.right} />
+                <div className="flex gap-[var(--x2,8px)] items-center px-[var(--x2,8px)] py-0 w-full">
+                  <div className="flex flex-[1_0_0] flex-col gap-[var(--x1,4px)] items-start justify-center min-h-px min-w-px">
+                    <ColumnCell {...row.left} />
+                  </div>
+                  <div className="flex flex-[1_0_0] flex-col gap-[var(--x1,4px)] items-start justify-center min-h-px min-w-px">
+                    <ColumnCell {...row.right} />
+                  </div>
+                </div>
               </div>
             );
           })}

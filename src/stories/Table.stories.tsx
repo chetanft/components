@@ -242,7 +242,6 @@ const rowActionButtons = () => (
       size="sm"
       icon="more"
       iconPosition="only"
-      className="!size-8 !min-w-0 !p-0 rounded-full"
       aria-label="More options"
     />
     <Button
@@ -250,7 +249,6 @@ const rowActionButtons = () => (
       size="sm"
       icon="chevron-right"
       iconPosition="only"
-      className="!size-8 !min-w-0 !p-0 rounded-full"
       aria-label="Go to details"
     />
   </>
