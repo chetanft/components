@@ -281,7 +281,9 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       return (
         <div
           ref={(node) => {
-            dropdownRef.current = node;
+            if (dropdownRef) {
+              (dropdownRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+            }
             if (typeof ref === 'function') {
               ref(node);
             } else if (ref) {

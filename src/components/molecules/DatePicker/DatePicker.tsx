@@ -733,17 +733,25 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
                 className="flex-1 bg-transparent border-none outline-none text-base font-normal leading-[1.4] text-input dark:text-input-dark placeholder:text-placeholder dark:placeholder:text-placeholder-dark"
               />
             )}
-            <Icon 
-              name={includeDropdown ? "chevron-down" : "calendar"} 
-              size={16} 
+            <button
+              type="button"
+              onClick={() => !disabled && setIsOpen(true)}
               className={cn(
                 "flex-shrink-0 cursor-pointer",
-                disabled 
-                  ? "text-input-disabled dark:text-input-disabled-dark" 
-                  : "text-icon dark:text-icon-dark"
+                disabled && "cursor-not-allowed"
               )}
-              onClick={() => !disabled && setIsOpen(true)}
-            />
+              disabled={disabled}
+            >
+              <Icon 
+                name={includeDropdown ? "chevron-down" : "calendar"} 
+                size={16} 
+                className={cn(
+                  disabled 
+                    ? "text-input-disabled dark:text-input-disabled-dark" 
+                    : "text-icon dark:text-icon-dark"
+                )}
+              />
+            </button>
           </div>
         </div>
         {inputError && (

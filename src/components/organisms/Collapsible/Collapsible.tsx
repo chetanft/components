@@ -231,7 +231,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
                 aria-label="Collapse"
               >
                 <Icon 
-                  name="more-vertical" 
+                  name="more-options" 
                   size={16}
                   className="text-[var(--primary,#434f64)]"
                 />
@@ -319,7 +319,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
             aria-label="Expand"
           >
             <Icon 
-              name="more-vertical" 
+              name="more-options" 
               size={16}
               className="text-[var(--primary,#434f64)]"
             />

@@ -6,7 +6,7 @@ import { Icon, IconName } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
 
-export interface PaginationProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   current: number;
   total: number;
   pageSize?: number;
