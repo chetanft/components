@@ -21,7 +21,7 @@ const dropdownFieldVariants = cva(
         xxl: "text-lg",
       },
       state: {
-        default: "border-[var(--border-primary)] dark:border-border-dark hover:border-border-hover dark:hover:border-border-hover-dark focus-within:border-primary dark:focus-within:border-primary-dark",
+        default: "border-[var(--border-primary)] dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)] focus-within:border-primary dark:focus-within:border-primary-dark",
         error: "border-critical focus-within:border-critical",
         disabled: "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed",
       },

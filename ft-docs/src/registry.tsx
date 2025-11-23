@@ -66,7 +66,8 @@ import {
 import { Plus as PlusIcon, ArrowRight as ArrowRightIcon, Pencil as PencilIcon } from "lucide-react"
 
 
-export const registry: Record<string, React.ComponentType<any>> = {
+export const registry: Record<string, React.ComponentType<any> | any> = {
+    React,
     AppHeader,
     Avatar,
     Badge,

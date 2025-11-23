@@ -61,7 +61,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     // Checkbox styles using design tokens and dark mode
     const checkboxStyles = cn(
       // Base styles
-      "relative shrink-0 rounded-sm border-2 transition-all duration-200 cursor-pointer",
+      "relative shrink-0 rounded border-2 transition-all duration-200 cursor-pointer",
       "flex items-center justify-center",
       // Size
       currentSize.checkbox,
@@ -91,7 +91,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         ? "text-neutral-400 dark:text-neutral-500 cursor-not-allowed"
         : error
         ? "text-critical"
-        : "text-neutral-900 dark:text-neutral-100"
+        : "text-primary"
     );
 
     // Description styles

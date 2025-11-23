@@ -1,8 +1,10 @@
-import { Badge, Icon } from 'ft-design-system';
+import { Badge, Icon, Input } from 'ft-design-system';
 import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Header() {
   const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState('');
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -41,6 +43,15 @@ export default function Header() {
           <h1 style={{ fontSize: '1.5rem', fontWeight: '700', margin: 0, color: '#111827' }}>FT/ui</h1>
           <Badge variant="neutral">v4.10.1</Badge>
         </Link>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', margin: '0 2rem' }}>
+          <Input
+            placeholder="Search components, icons, charts..."
+            leadingIcon="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ maxWidth: '400px', width: '100%' }}
+          />
+        </div>
         <nav style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
           <Link to="/" style={linkStyle('/')}>
             <Icon name="home" size={16} />

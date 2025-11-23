@@ -87,8 +87,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       variant === 'filled' 
         ? "bg-surface-alt dark:bg-surface-alt-dark border-2 border-transparent focus:bg-surface dark:focus:bg-surface-dark focus:border-border-alt dark:focus:border-border-alt-dark"
         : variant === 'outlined'
-        ? "bg-transparent border border-border dark:border-border-dark hover:border-border-hover dark:hover:border-border-hover-dark focus:border-primary"
-        : "bg-surface dark:bg-surface-dark border-2 border-border dark:border-border-dark hover:border-border-hover dark:hover:border-border-hover-dark",
+        ? "bg-transparent border border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)] focus:border-primary"
+        : "bg-surface dark:bg-surface-dark border-2 border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)]",
       // State styles with dark mode support
       disabled
         ? "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"

@@ -55,7 +55,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
         className={cn(baseStyles, className)}
         {...props}
       >
-        <div className={cn('flex-[1_0_0] h-0 min-h-px min-w-px border-t', borderColor)} />
+        <div className={cn('flex-[1_0_0] h-0 min-h-px min-w-px border-t', borderColor, type === 'tertiary' && 'border-dashed')} />
       </div>
     );
   }

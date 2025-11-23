@@ -7,17 +7,17 @@ export interface TextProps {
   /**
    * Whether to show sub text
    */
-  subText?: "False" | "True";
+  subText?: boolean;
   
   /**
    * Whether to show leading icon
    */
-  leadingIcon?: "True" | "False";
+  leadingIcon?: boolean;
   
   /**
    * Whether to show trailing icon
    */
-  trailingIcon?: "True" | "False";
+  trailingIcon?: boolean;
   
   /**
    * Text size variant
@@ -31,13 +31,13 @@ export interface TextProps {
 }
 
 export const Text: React.FC<TextProps> = ({ 
-  subText = "False",
-  leadingIcon = "False", 
-  trailingIcon = "False",
+  subText = false,
+  leadingIcon = false, 
+  trailingIcon = false,
   size = "sm",
   className = '' 
 }) => {
-  // Map size to Typography variant
+  // Map size to Typography variant for main text
   const getVariant = (): TypographyVariant => {
     switch (size) {
       case "sm":
@@ -56,151 +56,93 @@ export const Text: React.FC<TextProps> = ({
   };
   
   const variant = getVariant();
-  const textElement = <Typography variant={variant} color="primary">Text</Typography>;
+  const hasSubText = subText === true;
+  const hasLeadingIcon = leadingIcon === true;
+  const hasTrailingIcon = trailingIcon === true;
 
-  if (subText === "False" && leadingIcon === "False" && trailingIcon === "False" && size === "md") {
-    return (
-      <div 
-        className={cn(
-          "content-stretch flex flex-col gap-[4px] items-start justify-center relative size-full", 
-          className
-        )}
-        data-name="Sub text=False, Leading Icon=False, Trailing Icon=False, Size=md"
+  // Main text element - using Typography component but matching Figma structure
+  const mainText = (
+    <Typography variant={variant} color="primary" className="leading-[1.4] relative shrink-0">
+      Text
+    </Typography>
+  );
+
+  // Icon element matching Figma structure
+  const iconElement = (
+    <div className="relative shrink-0 size-[16px]" data-name="Check- fill">
+      <Icon name="check-fill" size={16} color="#434f64" />
+    </div>
+  );
+
+  // Determine subtext width based on size and icon configuration
+  const getSubTextWidth = (): string => {
+    if (hasSubText && hasTrailingIcon && !hasLeadingIcon) {
+      if (size === "xl") return "w-[68px]";
+      if (size === "xx") return "w-[75px]";
+      return "w-[56px]";
+    }
+    return "w-[56px]";
+  };
+
+  // Subtext element
+  const subTextElement = hasSubText ? (
+    <div className="content-stretch flex gap-[10px] items-center justify-center relative shrink-0" data-name="Sub text">
+      <Typography 
+        variant="body-secondary-regular" 
+        color="secondary" 
+        className={cn("relative shrink-0 whitespace-pre-wrap", getSubTextWidth())}
       >
-        <div className="relative shrink-0 whitespace-nowrap">
-          {textElement}
-        </div>
+        Sub text
+      </Typography>
+    </div>
+  ) : null;
+
+  // Build the main content row
+  const buildMainRow = () => {
+    if (!hasLeadingIcon && !hasTrailingIcon) {
+      return mainText;
+    }
+
+    // Row with icons - matching Figma structure
+    const rowContent = [];
+    
+    if (hasLeadingIcon) {
+      rowContent.push(iconElement);
+    }
+    
+    rowContent.push(
+      <div key="text" className="relative shrink-0 whitespace-nowrap">
+        {mainText}
       </div>
     );
-  }
+    
+    if (hasTrailingIcon) {
+      rowContent.push(iconElement);
+    }
 
-  if (subText === "True" && leadingIcon === "False" && trailingIcon === "True" && size === "md") {
     return (
-      <div 
-        className={cn(
-          "content-stretch flex flex-col gap-[4px] items-start justify-center relative size-full", 
-          className
-        )}
-        data-name="Sub text=True, Leading Icon=False, Trailing Icon=True, Size=md"
-      >
-        <div className="content-stretch flex gap-[8px] h-[22px] items-center relative shrink-0">
-          <div className="relative shrink-0 whitespace-nowrap">
-            <Typography variant={variant} color="primary">Text</Typography>
-          </div>
-          <div className="relative shrink-0 size-[16px]">
-            <Icon name="check-fill" size={16} className="text-[#5f697b]" />
-          </div>
-        </div>
-        <div className="content-stretch flex gap-[10px] items-center justify-center relative shrink-0">
-          <Typography variant="body-secondary-regular" color="secondary" className="relative shrink-0 w-[56px] whitespace-pre-wrap">
-            Sub text
-          </Typography>
-        </div>
+      <div className="content-stretch flex gap-[var(--x2,8px)] h-[22px] items-center relative shrink-0" data-name="Text">
+        {rowContent}
       </div>
     );
-  }
+  };
 
-  if (subText === "True" && leadingIcon === "True" && trailingIcon === "False" && size === "md") {
-    return (
-      <div 
-        className={cn(
-          "content-stretch flex flex-col gap-[4px] items-start justify-center relative size-full", 
-          className
-        )}
-        data-name="Sub text=True, Leading Icon=True, Trailing Icon=False, Size=md"
-      >
-        <div className="content-stretch flex gap-[8px] h-[22px] items-center relative shrink-0">
-          <div className="relative shrink-0 size-[16px]">
-            <Icon name="check-fill" size={16} className="text-[#5f697b]" />
-          </div>
-          <div className="relative shrink-0 whitespace-nowrap">
-            <Typography variant={variant} color="primary">Text</Typography>
-          </div>
-        </div>
-        <div className="content-stretch flex gap-[10px] items-center justify-center relative shrink-0">
-          <Typography variant="body-secondary-regular" color="secondary" className="relative shrink-0 w-[56px] whitespace-pre-wrap">
-            Sub text
-          </Typography>
-        </div>
-      </div>
-    );
-  }
+  // Generate data-name attribute matching Figma format
+  const dataName = `Sub text=${hasSubText ? "True" : "False"}, Leading Icon=${hasLeadingIcon ? "True" : "False"}, Trailing Icon=${hasTrailingIcon ? "True" : "False"}, Size=${size}`;
 
-  if (subText === "True" && leadingIcon === "False" && trailingIcon === "False" && size === "md") {
-    return (
-      <div 
-        className={cn(
-          "content-stretch flex flex-col gap-[4px] items-start justify-center relative size-full", 
-          className
-        )}
-        data-name="Sub text=True, Leading Icon=False, Trailing Icon=False, Size=md"
-      >
-        <div className="relative shrink-0 whitespace-nowrap">
-          {textElement}
-        </div>
-        <div className="content-stretch flex gap-[10px] items-center justify-center relative shrink-0">
-          <Typography variant="body-secondary-regular" color="secondary" className="relative shrink-0 w-[56px] whitespace-pre-wrap">
-            Sub text
-          </Typography>
-        </div>
-      </div>
-    );
-  }
+  // Container class matching Figma structure
+  const containerClass = cn(
+    "content-stretch flex flex-col gap-[var(--x1,4px)] items-start justify-center relative size-full",
+    className
+  );
 
-  if (subText === "False" && leadingIcon === "False" && trailingIcon === "True" && size === "md") {
-    return (
-      <div 
-        className={cn(
-          "content-stretch flex flex-col gap-[4px] items-start justify-center relative size-full", 
-          className
-        )}
-        data-name="Sub text=False, Leading Icon=False, Trailing Icon=True, Size=md"
-      >
-        <div className="content-stretch flex gap-[8px] h-[22px] items-center relative shrink-0">
-          <div className="relative shrink-0 whitespace-nowrap">
-            <Typography variant={variant} color="primary">Text</Typography>
-          </div>
-          <div className="relative shrink-0 size-[16px]">
-            <Icon name="check-fill" size={16} className="text-[#5f697b]" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (subText === "False" && leadingIcon === "True" && trailingIcon === "False" && size === "md") {
-    return (
-      <div 
-        className={cn(
-          "content-stretch flex flex-col gap-[4px] items-start justify-center relative size-full", 
-          className
-        )}
-        data-name="Sub text=False, Leading Icon=True, Trailing Icon=False, Size=md"
-      >
-        <div className="content-stretch flex gap-[8px] h-[22px] items-center relative shrink-0">
-          <div className="relative shrink-0 size-[16px]">
-            <Icon name="check-fill" size={16} className="text-[#5f697b]" />
-          </div>
-          <div className="relative shrink-0 whitespace-nowrap">
-            <Typography variant={variant} color="primary">Text</Typography>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Default case - small size without subtext, icons
   return (
     <div 
-      className={cn(
-        "content-stretch flex flex-col gap-[4px] items-start justify-center relative size-full", 
-        className
-      )}
-      data-name="Sub text=False, Leading Icon=False, Trailing Icon=False, Size=sm"
+      className={containerClass}
+      data-name={dataName}
     >
-      <div className="relative shrink-0 whitespace-nowrap">
-        {textElement}
-      </div>
+      {buildMainRow()}
+      {subTextElement}
     </div>
   );
 };

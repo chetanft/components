@@ -63,15 +63,27 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Dropdown label=\"Label\" placeholder=\"Select an option\" options={[{value: \"1\", label: \"Option 1\"}, {value: \"2\", label: \"Option 2\"}, {value: \"3\", label: \"Option 3\"}]} />"
+            "code": "<Dropdown label='Label' placeholder='Select an option' />"
           },
           {
             "name": "Search",
-            "code": "<Dropdown label=\"Search Dropdown\" type=\"search\" placeholder=\"Search options\" options={[{value: \"1\", label: \"Option 1\"}, {value: \"2\", label: \"Option 2\"}, {value: \"3\", label: \"Option 3\"}]} />"
+            "code": "<Dropdown label='Search Dropdown' type='search' placeholder='Search options' />"
           },
           {
             "name": "Search With Segments",
-            "code": "<Dropdown label=\"Search with Segments\" type=\"search\" placeholder=\"Search groups\" segments={[{label: \"Group\", value: \"group\"}, {label: \"Branch\", value: \"branch\"}]} selectedSegment=\"group\" options={[{value: \"1\", label: \"Option 1\"}, {value: \"2\", label: \"Option 2\"}]} />"
+            "code": "<Dropdown label='Search with Segments' type='search' placeholder='Search groups' selectedSegment='group' />"
+          },
+          {
+            "name": "States",
+            "code": "<Dropdown label=\"Default\" state=\"default\" placeholder=\"Default state\" options={[ { value: 'option1', label: 'Option 1' }, { value: 'option2', label: 'Option 2' }, ]} />"
+          },
+          {
+            "name": "States",
+            "code": "<Dropdown label=\"Error\" state=\"error\" error=\"This field has an error\" placeholder=\"Error state\" options={[ { value: 'option1', label: 'Option 1' }, { value: 'option2', label: 'Option 2' }, ]} />"
+          },
+          {
+            "name": "States",
+            "code": "<Dropdown label=\"Disabled\" state=\"disabled\" placeholder=\"Disabled state\" options={[ { value: 'option1', label: 'Option 1' }, { value: 'option2', label: 'Option 2' }, ]} />"
           }
         ]
       },
@@ -132,43 +144,43 @@
         "examples": [
           {
             "name": "Basic",
-            "code": "<Tooltip placement=\"top\" align=\"center\" color=\"white\">This is a basic tooltip</Tooltip>"
+            "code": "<Tooltip placement='top' align='center' color='white'>This is a basic tooltip</Tooltip>"
           },
           {
             "name": "Bottom",
-            "code": "<Tooltip placement=\"bottom\" align=\"center\" color=\"white\">Bottom tooltip</Tooltip>"
+            "code": "<Tooltip placement='bottom' align='center' color='white'>Bottom tooltip</Tooltip>"
           },
           {
             "name": "Dark Theme",
-            "code": "<Tooltip heading=\"Dark Tooltip\" showClose={true} primaryActionText=\"Learn more\" secondaryActionText=\"Skip\" placement=\"top\" align=\"center\" color=\"dark\">This is a tooltip with dark theme</Tooltip>"
+            "code": "<Tooltip heading='Dark Tooltip' showClose=true primaryActionText='Learn more' secondaryActionText='Skip' placement='top' align='center' color='dark'>This is a tooltip with dark theme</Tooltip>"
           },
           {
             "name": "Left",
-            "code": "<Tooltip placement=\"left\" align=\"center\" color=\"white\">Left tooltip</Tooltip>"
+            "code": "<Tooltip placement='left' align='center' color='white'>Left tooltip</Tooltip>"
           },
           {
             "name": "Right",
-            "code": "<Tooltip placement=\"right\" align=\"center\" color=\"white\">Right tooltip</Tooltip>"
+            "code": "<Tooltip placement='right' align='center' color='white'>Right tooltip</Tooltip>"
           },
           {
             "name": "Top Left",
-            "code": "<Tooltip placement=\"top\" align=\"start\" color=\"white\">Top left tooltip</Tooltip>"
+            "code": "<Tooltip placement='top' align='start' color='white'>Top left tooltip</Tooltip>"
           },
           {
             "name": "Top Right",
-            "code": "<Tooltip placement=\"top\" align=\"end\" color=\"white\">Top right tooltip</Tooltip>"
+            "code": "<Tooltip placement='top' align='end' color='white'>Top right tooltip</Tooltip>"
           },
           {
             "name": "With Actions",
-            "code": "<Tooltip heading=\"Tooltip Heading\" primaryActionText=\"Learn more\" secondaryActionText=\"Skip\" placement=\"top\" align=\"center\" color=\"white\">This is a tooltip with action buttons</Tooltip>"
+            "code": "<Tooltip heading='Tooltip Heading' primaryActionText='Learn more' secondaryActionText='Skip' placement='top' align='center' color='white'>This is a tooltip with action buttons</Tooltip>"
           },
           {
             "name": "With Close Button",
-            "code": "<Tooltip heading=\"Tooltip Heading\" showClose={true} placement=\"top\" align=\"center\" color=\"white\">This is a tooltip with a close button</Tooltip>"
+            "code": "<Tooltip heading='Tooltip Heading' showClose=true placement='top' align='center' color='white'>This is a tooltip with a close button</Tooltip>"
           },
           {
             "name": "With Heading",
-            "code": "<Tooltip heading=\"Tooltip Heading\" placement=\"top\" align=\"center\" color=\"white\">This is a tooltip with a heading</Tooltip>"
+            "code": "<Tooltip heading='Tooltip Heading' placement='top' align='center' color='white'>This is a tooltip with a heading</Tooltip>"
           }
         ]
       },
@@ -195,8 +207,12 @@
         },
         "examples": [
           {
-            "name": "Basic",
-            "code": "<ButtonGroup buttons={[{id: \"1\", label: \"Button\", variant: \"text\"}, {id: \"2\", label: \"Button\", variant: \"secondary\"}, {id: \"3\", label: \"Button\", variant: \"primary\"}]} />"
+            "name": "Equal Width",
+            "code": "<ButtonGroup equalWidth={true} buttons={[{ id: 'ghost', label: 'Button', variant: 'text', icon: 'add', iconPosition: 'leading' }, { id: 'outline', label: 'Button', variant: 'secondary', icon: 'add', iconPosition: 'leading' }, { id: 'filled', label: 'Button', variant: 'primary', icon: 'add', iconPosition: 'leading' }]} />"
+          },
+          {
+            "name": "Primary Set",
+            "code": "<ButtonGroup buttons={[{ id: 'ghost', label: 'Button', variant: 'text', icon: 'add', iconPosition: 'leading' }, { id: 'outline', label: 'Button', variant: 'secondary', icon: 'add', iconPosition: 'leading' }, { id: 'filled', label: 'Button', variant: 'primary', icon: 'add', iconPosition: 'leading' }]} />"
           }
         ]
       },
@@ -278,19 +294,19 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<DatePicker label=\"Select Date\" placeholder=\"MM/DD/YYYY\\\" />"
+            "code": "<DatePicker label='Select Date' placeholder='MM/DD/YYYY' />"
           },
           {
             "name": "Date Range",
-            "code": "<DatePicker label=\"Date Range\" placeholder=\"Start date → End date\" range={true} />"
+            "code": "<DatePicker label='Date Range' placeholder='Start date → End date' range=true />"
           },
           {
             "name": "Date Range With Values",
-            "code": "<DatePicker label=\"Date Range\" range={true} startValue=\"new Date().toLocaleDateString()\" endValue=\"new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()\" />"
+            "code": "<DatePicker label='Date Range' range=true startValue=\"new Date().toLocaleDateString()\" endValue=\"new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()\" />"
           },
           {
             "name": "Disabled",
-            "code": "<DatePicker label=\"Disabled Date\" placeholder=\"MM/DD/YYYY\\\" disabled={true} />"
+            "code": "<DatePicker label='Disabled Date' placeholder='MM/DD/YYYY' disabled=true />"
           },
           {
             "name": "LG",
@@ -306,11 +322,11 @@
           },
           {
             "name": "With Error",
-            "code": "<DatePicker label=\"Date with Error\" placeholder=\"MM/DD/YYYY\\\" error={true} />"
+            "code": "<DatePicker label='Date with Error' placeholder='MM/DD/YYYY' error=true />"
           },
           {
             "name": "With Value",
-            "code": "<DatePicker label=\"Date\" placeholder=\"MM/DD/YYYY\" value=\"new Date().toLocaleDateString()\\\" />"
+            "code": "<DatePicker label='Date' placeholder='MM/DD/YYYY' value=\"new Date().toLocaleDateString()\" />"
           },
           {
             "name": "XL",
@@ -358,8 +374,12 @@
         },
         "examples": [
           {
+            "name": "Default",
+            "code": "<StackedBarChart title='Ageing' data=\"sampleData\" />"
+          },
+          {
             "name": "Custom Heights",
-            "code": "<StackedBarChart barHeight={220} data={[{label: \"Category 1\", segments: [{value: 30, color: \"#3b82f6\"}, {value: 20, color: \"#10b981\"}]}]} />"
+            "code": "<StackedBarChart barHeight=220 />"
           }
         ]
       },
@@ -387,11 +407,11 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<SimpleColumnLayout rows={[{left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}]} />"
+            "code": "<SimpleColumnLayout />"
           },
           {
             "name": "No Stripes",
-            "code": "<SimpleColumnLayout striped={false} rows={[{left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}, {left: {title: \"Text\", subtitle: \"Text\"}, right: {title: \"Text\", subtitle: \"Text\", align: \"end\"}}]} />"
+            "code": "<SimpleColumnLayout striped=false />"
           }
         ]
       },
@@ -441,127 +461,23 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Chicklet label=\"Label\" variant=\"rectangular\" showClose={true} />"
-          },
-          {
-            "name": "Disabled",
-            "code": "<Chicklet label=\"Disabled\" variant=\"rectangular\" showClose={true} disabled={true} />"
-          },
-          {
-            "name": "Long Text",
-            "code": "<Chicklet label=\"This is a longer label text\" variant=\"rectangular\" showClose={true} />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Default\" variant=\"rectangular\" />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Without Close\" variant=\"rectangular\" showClose={false} />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Disabled\" variant=\"rectangular\" disabled />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Longer Text Example\" variant=\"rectangular\" />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Tag 1\" variant=\"rectangular\" />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Category\" variant=\"rectangular\" />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Filter Applied\" variant=\"rectangular\" />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Selected Item\" variant=\"rectangular\" />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Read Only\" variant=\"rectangular\" showClose={false} />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Status\" variant=\"rectangular\" showClose={false} />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Information\" variant=\"rectangular\" showClose={false} />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Unavailable\" variant=\"rectangular\" disabled />"
-          },
-          {
-            "name": "Rectangular",
-            "code": "<Chicklet label=\"Locked\" variant=\"rectangular\" disabled />"
+            "code": "<Chicklet label=\"Label\" variant=\"rectangular\" />"
           },
           {
             "name": "Rounded",
-            "code": "<Chicklet label=\"Label\" variant=\"rounded\" showClose={true} />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Default\" variant=\"rounded\" />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Without Close\" variant=\"rounded\" showClose={false} />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Disabled\" variant=\"rounded\" disabled />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Longer Text Example\" variant=\"rounded\" />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Skill\" variant=\"rounded\" />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Technology\" variant=\"rounded\" />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Department\" variant=\"rounded\" />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Team Member\" variant=\"rounded\" />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Badge\" variant=\"rounded\" showClose={false} />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Achievement\" variant=\"rounded\" showClose={false} />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Level\" variant=\"rounded\" showClose={false} />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Expired\" variant=\"rounded\" disabled />"
-          },
-          {
-            "name": "Rounded",
-            "code": "<Chicklet label=\"Pending\" variant=\"rounded\" disabled />"
+            "code": "<Chicklet label=\"Label\" variant=\"rounded\" />"
           },
           {
             "name": "Without Close",
             "code": "<Chicklet label=\"No Close Icon\" variant=\"rectangular\" showClose={false} />"
+          },
+          {
+            "name": "Disabled",
+            "code": "<Chicklet label=\"Disabled\" variant=\"rectangular\" disabled />"
+          },
+          {
+            "name": "Long Text",
+            "code": "<Chicklet label=\"This is a longer label text\" variant=\"rectangular\" />"
           }
         ]
       },
@@ -609,8 +525,24 @@
         },
         "examples": [
           {
-            "name": "Basic",
-            "code": "<RadioGroup />"
+            "name": "Default",
+            "code": "<RadioGroup name=\"default-radio\" options={[ { value: 'option1', label: 'Option 1' }, { value: 'option2', label: 'Option 2' }, { value: 'option3', label: 'Option 3' }, ]} defaultValue=\"option1\" size=\"md\" orientation=\"vertical\" />"
+          },
+          {
+            "name": "Small",
+            "code": "<RadioGroup name=\"small-radio\" options={[ { value: 'option1', label: 'Option 1' }, { value: 'option2', label: 'Option 2' }, { value: 'option3', label: 'Option 3' }, ]} size=\"sm\" orientation=\"vertical\" />"
+          },
+          {
+            "name": "Controlled",
+            "code": "<RadioGroup name=\"controlled-radio\" options={[ { value: 'option1', label: 'Option 1' }, { value: 'option2', label: 'Option 2' }, { value: 'option3', label: 'Option 3' }, ]} value=\"option2\" size=\"md\" orientation=\"vertical\" />"
+          },
+          {
+            "name": "Horizontal",
+            "code": "<RadioGroup name=\"horizontal-radio\" options={[ { value: 'option1', label: 'Option 1' }, { value: 'option2', label: 'Option 2' }, { value: 'option3', label: 'Option 3' }, ]} orientation=\"horizontal\" size=\"md\" />"
+          },
+          {
+            "name": "With Disabled",
+            "code": "<RadioGroup name=\"disabled-radio\" options={[ { value: 'small', label: 'Small' }, { value: 'medium', label: 'Medium' }, { value: 'large', label: 'Large' }, { value: 'xlarge', label: 'Extra Large', disabled: true }, ]} defaultValue=\"medium\" size=\"md\" orientation=\"vertical\" />"
           }
         ]
       },
@@ -666,75 +598,75 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Checkbox label=\"Accept terms and conditions\" size=\"md\" />"
+            "code": "<Checkbox label='Accept terms and conditions' size='md' />"
           },
           {
             "name": "Small",
-            "code": "<Checkbox label=\"Small checkbox\" size=\"sm\" />"
+            "code": "<Checkbox label='Small checkbox' size='sm' />"
           },
           {
             "name": "Checked",
-            "code": "<Checkbox label=\"Checked checkbox\" checked={true} size=\"md\" />"
+            "code": "<Checkbox label='Checked checkbox' checked=true size='md' />"
+          },
+          {
+            "name": "Checked",
+            "code": "<Checkbox label=\"Checked\" checked />"
+          },
+          {
+            "name": "Checked",
+            "code": "<Checkbox label=\"Marketing emails\" description=\"Get promotional offers and special discounts\" checked />"
+          },
+          {
+            "name": "Checked",
+            "code": "<Checkbox label=\"Required field\" error description=\"This field must be checked to continue\" />"
           },
           {
             "name": "Disabled",
-            "code": "<Checkbox label=\"Disabled checkbox\" disabled={true} size=\"md\" />"
+            "code": "<Checkbox label='Disabled checkbox' disabled=true size='md' />"
+          },
+          {
+            "name": "Disabled",
+            "code": "<Checkbox label=\"Disabled unchecked\" disabled />"
           },
           {
             "name": "Disabled Checked",
-            "code": "<Checkbox label=\"Disabled checked checkbox\" disabled={true} checked={true} size=\"md\" />"
+            "code": "<Checkbox label='Disabled checked checkbox' disabled=true checked=true size='md' />"
+          },
+          {
+            "name": "Disabled Checked",
+            "code": "<Checkbox label=\"Disabled checked\" disabled checked />"
           },
           {
             "name": "Error",
-            "code": "<Checkbox label=\"Checkbox with error\" error={true} description=\"This field is required\" size=\"md\" />"
+            "code": "<Checkbox label='Checkbox with error' error=true description='This field is required' size='md' />"
           },
           {
             "name": "Indeterminate",
-            "code": "<Checkbox label=\"Indeterminate checkbox\" indeterminate={true} size=\"md\" />"
+            "code": "<Checkbox label='Indeterminate checkbox' indeterminate=true size='md' />"
+          },
+          {
+            "name": "Indeterminate",
+            "code": "<Checkbox label=\"Indeterminate\" indeterminate />"
           },
           {
             "name": "MD",
             "code": "<Checkbox label=\"Medium checkbox\" size=\"md\" />"
           },
           {
+            "name": "Newsletter Subscription",
+            "code": "<Checkbox label=\"Newsletter subscription\" description=\"Receive weekly updates about new features and products\" />"
+          },
+          {
             "name": "SM",
             "code": "<Checkbox label=\"Small checkbox\" size=\"sm\" />"
           },
           {
-            "name": "Variant 1",
+            "name": "Unchecked",
             "code": "<Checkbox label=\"Unchecked\" />"
           },
           {
-            "name": "Variant 2",
-            "code": "<Checkbox label=\"Checked\" checked />"
-          },
-          {
-            "name": "Variant 3",
-            "code": "<Checkbox label=\"Indeterminate\" indeterminate />"
-          },
-          {
-            "name": "Variant 4",
-            "code": "<Checkbox label=\"Newsletter subscription\" description=\"Receive weekly updates about new features and products\" />"
-          },
-          {
-            "name": "Variant 5",
-            "code": "<Checkbox label=\"Marketing emails\" description=\"Get promotional offers and special discounts\" checked />"
-          },
-          {
-            "name": "Variant 6",
-            "code": "<Checkbox label=\"Required field\" error description=\"This field must be checked to continue\" />"
-          },
-          {
-            "name": "Variant 7",
-            "code": "<Checkbox label=\"Disabled unchecked\" disabled />"
-          },
-          {
-            "name": "Variant 8",
-            "code": "<Checkbox label=\"Disabled checked\" disabled checked />"
-          },
-          {
             "name": "With Description",
-            "code": "<Checkbox label=\"Checkbox with description\" description=\"This is additional information about the checkbox option\" size=\"md\" />"
+            "code": "<Checkbox label='Checkbox with description' description='This is additional information about the checkbox option' size='md' />"
           }
         ]
       },
@@ -751,15 +683,15 @@
         "examples": [
           {
             "name": "F T",
-            "code": "<Logo name=\"ft\" />"
+            "code": "<Logo name='ft' />"
           },
           {
             "name": "Responsive",
-            "code": "<Logo name=\"ft\" width={100} height={50} />"
+            "code": "<Logo name='ft' width=100 height=50 />"
           },
           {
             "name": "Tata Motors",
-            "code": "<Logo name=\"tata-motors\" />"
+            "code": "<Logo name='tata-motors' />"
           }
         ]
       },
@@ -788,11 +720,11 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Spacer size=\"x4\" />"
+            "code": "<Spacer size='x4' />"
           },
           {
             "name": "Horizontal",
-            "code": "<Spacer size=\"x4\" horizontal={true} />"
+            "code": "<Spacer size='x4' horizontal=true />"
           },
           {
             "name": "Variant 1",
@@ -949,19 +881,19 @@
         "examples": [
           {
             "name": "Primary",
-            "code": "<Divider type=\"primary\" />"
+            "code": "<Divider type='primary' />"
           },
           {
             "name": "Secondary",
-            "code": "<Divider type=\"secondary\" />"
+            "code": "<Divider type='secondary' />"
           },
           {
             "name": "Tertiary",
-            "code": "<Divider type=\"tertiary\" />"
+            "code": "<Divider type='tertiary' />"
           },
           {
             "name": "With Label",
-            "code": "<Divider type=\"with-label\" label=\"14 March 2023\" />"
+            "code": "<Divider type='with-label' label='14 March 2023' />"
           }
         ]
       },
@@ -978,7 +910,7 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Icon name=\"check\" size={16} color=\"currentColor\" />"
+            "code": "<Icon name='check' size=16 color='currentColor' />"
           },
           {
             "name": "ActionIcons",
@@ -1179,39 +1111,39 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Avatar size=\"md\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"User Avatar\\\" />"
+            "code": "<Avatar size='md' src='https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33' alt='User Avatar' />"
           },
           {
             "name": "LG",
-            "code": "<Avatar size=\"lg\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"LG Avatar\\\" />"
+            "code": "<Avatar size=\"lg\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"LG Avatar\" />"
           },
           {
             "name": "MD",
-            "code": "<Avatar size=\"md\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"MD Avatar\\\" />"
+            "code": "<Avatar size=\"md\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"MD Avatar\" />"
           },
           {
             "name": "Placeholder",
-            "code": "<Avatar size=\"md\" />"
+            "code": "<Avatar size='md' />"
           },
           {
             "name": "SM",
-            "code": "<Avatar size=\"sm\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"SM Avatar\\\" />"
+            "code": "<Avatar size=\"sm\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"SM Avatar\" />"
           },
           {
             "name": "XL",
-            "code": "<Avatar size=\"xl\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XL Avatar\\\" />"
+            "code": "<Avatar size=\"xl\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XL Avatar\" />"
           },
           {
             "name": "XS",
-            "code": "<Avatar size=\"xs\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XS Avatar\\\" />"
+            "code": "<Avatar size=\"xs\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XS Avatar\" />"
           },
           {
             "name": "XXL",
-            "code": "<Avatar size=\"xxl\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XXL Avatar\\\" />"
+            "code": "<Avatar size=\"xxl\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XXL Avatar\" />"
           },
           {
             "name": "XXS",
-            "code": "<Avatar size=\"xxs\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XXS Avatar\\\" />"
+            "code": "<Avatar size=\"xxs\" src=\"https://www.figma.com/api/mcp/asset/e8b29616-8d2c-4163-926e-ba963bf1fb33\" alt=\"XXS Avatar\" />"
           }
         ]
       },
@@ -1228,7 +1160,7 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Typography variant=\"body-primary-regular\">Interactive Typography Component</Typography>"
+            "code": "<Typography variant='body-primary-regular'>Interactive Typography Component</Typography>"
           },
           {
             "name": "AIToolsGuide",
@@ -1236,31 +1168,31 @@
           },
           {
             "name": "Body Primary Italic",
-            "code": "<Typography variant=\"body-primary-italic\">Body Primary Italic - 16/140</Typography>"
+            "code": "<Typography variant='body-primary-italic'>Body Primary Italic - 16/140</Typography>"
           },
           {
             "name": "Body Primary Medium",
-            "code": "<Typography variant=\"body-primary-medium\">Body Primary Medium - 16/140</Typography>"
+            "code": "<Typography variant='body-primary-medium'>Body Primary Medium - 16/140</Typography>"
           },
           {
             "name": "Body Primary Regular",
-            "code": "<Typography variant=\"body-primary-regular\">Body Primary Regular - 16/140</Typography>"
+            "code": "<Typography variant='body-primary-regular'>Body Primary Regular - 16/140</Typography>"
           },
           {
             "name": "Body Primary Semibold",
-            "code": "<Typography variant=\"body-primary-semibold\">Body Primary Semibold - 16/140</Typography>"
+            "code": "<Typography variant='body-primary-semibold'>Body Primary Semibold - 16/140</Typography>"
           },
           {
             "name": "Body Secondary Medium",
-            "code": "<Typography variant=\"body-secondary-medium\">Body Secondary Medium - 14/140</Typography>"
+            "code": "<Typography variant='body-secondary-medium'>Body Secondary Medium - 14/140</Typography>"
           },
           {
             "name": "Body Secondary Regular",
-            "code": "<Typography variant=\"body-secondary-regular\">Body Secondary Regular - 14/140</Typography>"
+            "code": "<Typography variant='body-secondary-regular'>Body Secondary Regular - 14/140</Typography>"
           },
           {
             "name": "Body Secondary Semibold",
-            "code": "<Typography variant=\"body-secondary-semibold\">Body Secondary Semibold - 14/140</Typography>"
+            "code": "<Typography variant='body-secondary-semibold'>Body Secondary Semibold - 14/140</Typography>"
           },
           {
             "name": "Body-primary-italic",
@@ -1360,11 +1292,11 @@
           },
           {
             "name": "Button Text",
-            "code": "<Typography variant=\"button\">Button Text - 20/140</Typography>"
+            "code": "<Typography variant='button'>Button Text - 20/140</Typography>"
           },
           {
             "name": "Display Primary",
-            "code": "<Typography variant=\"display-primary\">Display Primary - 20/140</Typography>"
+            "code": "<Typography variant='display-primary'>Display Primary - 20/140</Typography>"
           },
           {
             "name": "Display-primary",
@@ -1380,7 +1312,7 @@
           },
           {
             "name": "Error Message",
-            "code": "<Typography color=\"danger\">Error message text</Typography>"
+            "code": "<Typography color='danger'>Error message text</Typography>"
           },
           {
             "name": "FigmaDesignSystem",
@@ -1408,15 +1340,15 @@
           },
           {
             "name": "Success Message",
-            "code": "<Typography color=\"success\">Success confirmation message</Typography>"
+            "code": "<Typography color='success'>Success confirmation message</Typography>"
           },
           {
             "name": "Title Primary",
-            "code": "<Typography variant=\"title-primary\">Page Title - 28/140</Typography>"
+            "code": "<Typography variant='title-primary'>Page Title - 28/140</Typography>"
           },
           {
             "name": "Title Secondary",
-            "code": "<Typography variant=\"title-secondary\">Section Heading - 24/140</Typography>"
+            "code": "<Typography variant='title-secondary'>Section Heading - 24/140</Typography>"
           },
           {
             "name": "Title-primary",
@@ -1479,23 +1411,47 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Switch label=\"Enable notifications\" size=\"md\" />"
+            "code": "<Switch label='Enable notifications' size='md' />"
           },
           {
             "name": "Small",
-            "code": "<Switch label=\"Small switch\" size=\"sm\" />"
+            "code": "<Switch label='Small switch' size='sm' />"
           },
           {
             "name": "Checked",
-            "code": "<Switch label=\"Enabled feature\" checked={true} size=\"md\" />"
+            "code": "<Switch label='Enabled feature' checked=true size='md' />"
+          },
+          {
+            "name": "Checked",
+            "code": "<Switch label=\"On state\" checked />"
+          },
+          {
+            "name": "Checked",
+            "code": "<Switch label=\"Email notifications\" checked />"
+          },
+          {
+            "name": "Checked",
+            "code": "<Switch label=\"Auto-save\" checked />"
+          },
+          {
+            "name": "Dark Mode",
+            "code": "<Switch label=\"Dark mode\" />"
           },
           {
             "name": "Disabled",
-            "code": "<Switch label=\"Disabled switch\" disabled={true} size=\"md\" />"
+            "code": "<Switch label='Disabled switch' disabled=true size='md' />"
+          },
+          {
+            "name": "Disabled",
+            "code": "<Switch label=\"Disabled off\" disabled />"
           },
           {
             "name": "Disabled Checked",
-            "code": "<Switch label=\"Disabled checked switch\" disabled={true} checked={true} size=\"md\" />"
+            "code": "<Switch label='Disabled checked switch' disabled=true checked=true size='md' />"
+          },
+          {
+            "name": "Disabled Checked",
+            "code": "<Switch label=\"Disabled on\" disabled checked />"
           },
           {
             "name": "MD",
@@ -1510,6 +1466,14 @@
             "code": "<Switch size=\"md\" checked />"
           },
           {
+            "name": "Off State",
+            "code": "<Switch label=\"Off state\" />"
+          },
+          {
+            "name": "Push Notifications",
+            "code": "<Switch label=\"Push notifications\" />"
+          },
+          {
             "name": "SM",
             "code": "<Switch label=\"Small switch\" size=\"sm\" />"
           },
@@ -1518,40 +1482,8 @@
             "code": "<Switch size=\"sm\" />"
           },
           {
-            "name": "Variant 1",
-            "code": "<Switch label=\"Off state\" />"
-          },
-          {
-            "name": "Variant 2",
-            "code": "<Switch label=\"On state\" checked />"
-          },
-          {
-            "name": "Variant 3",
-            "code": "<Switch label=\"Disabled off\" disabled />"
-          },
-          {
-            "name": "Variant 4",
-            "code": "<Switch label=\"Disabled on\" disabled checked />"
-          },
-          {
-            "name": "Variant 5",
-            "code": "<Switch label=\"Dark mode\" />"
-          },
-          {
-            "name": "Variant 6",
-            "code": "<Switch label=\"Email notifications\" checked />"
-          },
-          {
-            "name": "Variant 7",
-            "code": "<Switch label=\"Push notifications\" />"
-          },
-          {
-            "name": "Variant 8",
-            "code": "<Switch label=\"Auto-save\" checked />"
-          },
-          {
             "name": "Without Label",
-            "code": "<Switch size=\"md\" />"
+            "code": "<Switch size='md' />"
           }
         ]
       },
@@ -1574,19 +1506,15 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<SubText icon=\"No\" />"
-          },
-          {
-            "name": "Variant 1",
-            "code": "<SubText icon=\"No\" />"
-          },
-          {
-            "name": "Variant 2",
-            "code": "<SubText icon=\"Yes\" />"
+            "code": "<SubText icon='No' />"
           },
           {
             "name": "With Icon",
-            "code": "<SubText icon=\"Yes\" />"
+            "code": "<SubText icon='Yes' />"
+          },
+          {
+            "name": "Without Icon",
+            "code": "<SubText icon=\"No\" />"
           }
         ]
       },
@@ -1627,19 +1555,19 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Text size=\"md\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+            "code": "<Text size='md' />"
           },
           {
             "name": "Small",
-            "code": "<Text size=\"sm\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+            "code": "<Text size='sm' />"
           },
           {
             "name": "Large",
-            "code": "<Text size=\"lg\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+            "code": "<Text size='lg' />"
           },
           {
             "name": "Extra Large",
-            "code": "<Text size=\"xl\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+            "code": "<Text size='xl' />"
           },
           {
             "name": "LG",
@@ -1651,23 +1579,23 @@
           },
           {
             "name": "MD",
-            "code": "<Text size=\"md\" subText=\"True\" />"
+            "code": "<Text size=\"md\" subText={true} />"
           },
           {
             "name": "MD",
-            "code": "<Text size=\"md\" leadingIcon=\"True\" />"
+            "code": "<Text size=\"md\" leadingIcon={true} />"
           },
           {
             "name": "MD",
-            "code": "<Text size=\"md\" trailingIcon=\"True\" />"
+            "code": "<Text size=\"md\" trailingIcon={true} />"
           },
           {
             "name": "MD",
-            "code": "<Text size=\"md\" subText=\"True\" leadingIcon=\"True\" />"
+            "code": "<Text size=\"md\" subText={true} leadingIcon={true} />"
           },
           {
             "name": "MD",
-            "code": "<Text size=\"md\" subText=\"True\" trailingIcon=\"True\" />"
+            "code": "<Text size=\"md\" subText={true} trailingIcon={true} />"
           },
           {
             "name": "SM",
@@ -1675,27 +1603,27 @@
           },
           {
             "name": "With Leading Icon",
-            "code": "<Text size=\"md\" subText=\"False\" leadingIcon=\"True\" trailingIcon=\"False\" />"
+            "code": "<Text size='md' leadingIcon={true} />"
           },
           {
             "name": "With Sub Text",
-            "code": "<Text size=\"md\" subText=\"True\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+            "code": "<Text size='md' subText={true} />"
           },
           {
             "name": "With Sub Text And Leading Icon",
-            "code": "<Text size=\"md\" subText=\"True\" leadingIcon=\"True\" trailingIcon=\"False\" />"
+            "code": "<Text size='md' subText={true} leadingIcon={true} />"
           },
           {
             "name": "With Sub Text And Trailing Icon",
-            "code": "<Text size=\"md\" subText=\"True\" leadingIcon=\"False\" trailingIcon=\"True\" />"
+            "code": "<Text size='md' subText={true} trailingIcon={true} />"
           },
           {
             "name": "With Trailing Icon",
-            "code": "<Text size=\"md\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"True\" />"
+            "code": "<Text size='md' trailingIcon={true} />"
           },
           {
             "name": "X X Large",
-            "code": "<Text size=\"xx\" subText=\"False\" leadingIcon=\"False\" trailingIcon=\"False\" />"
+            "code": "<Text size='xx' />"
           },
           {
             "name": "XL",
@@ -1738,11 +1666,11 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Statistic label=\"Total Users\" value=\"1,234\" labelPlacement=\"Below\" />"
+            "code": "<Statistic label='Total Users' value='1,234' labelPlacement='Below' />"
           },
           {
             "name": "Currency",
-            "code": "<Statistic label=\"Monthly Revenue\" value=\"$12,345\" labelPlacement=\"Top\" />"
+            "code": "<Statistic label='Monthly Revenue' value='$12,345' labelPlacement='Top' />"
           },
           {
             "name": "DashboardExample",
@@ -1778,43 +1706,43 @@
           },
           {
             "name": "Duration",
-            "code": "<Statistic label=\"Average Session\" value=\"4m 32s\" labelPlacement=\"Below\" />"
+            "code": "<Statistic label='Average Session' value='4m 32s' labelPlacement='Below' />"
           },
           {
-            "name": "Label On Top",
-            "code": "<Statistic label=\"Revenue\" value=\"$45,678\" labelPlacement=\"Top\" />"
-          },
-          {
-            "name": "Large Number",
-            "code": "<Statistic label=\"Page Views\" value=\"2,456,789\" labelPlacement=\"Below\" />"
-          },
-          {
-            "name": "Percentage",
-            "code": "<Statistic label=\"Growth Rate\" value=\"23.5%\" labelPlacement=\"Below\" />"
-          },
-          {
-            "name": "Variant 1",
+            "name": "Label Below",
             "code": "<Statistic label=\"Active Users\" value=\"1,234\" labelPlacement=\"Below\" />"
           },
           {
-            "name": "Variant 2",
+            "name": "Label Below",
             "code": "<Statistic label=\"Revenue\" value=\"$45,678\" labelPlacement=\"Below\" />"
           },
           {
-            "name": "Variant 3",
+            "name": "Label Below",
             "code": "<Statistic label=\"Conversion Rate\" value=\"3.2%\" labelPlacement=\"Below\" />"
           },
           {
-            "name": "Variant 4",
+            "name": "Label On Top",
+            "code": "<Statistic label='Revenue' value='$45,678' labelPlacement='Top' />"
+          },
+          {
+            "name": "Label Top",
             "code": "<Statistic label=\"New Signups\" value=\"89\" labelPlacement=\"Top\" />"
           },
           {
-            "name": "Variant 5",
+            "name": "Label Top",
             "code": "<Statistic label=\"Total Orders\" value=\"456\" labelPlacement=\"Top\" />"
           },
           {
-            "name": "Variant 6",
+            "name": "Label Top",
             "code": "<Statistic label=\"Bounce Rate\" value=\"12.3%\" labelPlacement=\"Top\" />"
+          },
+          {
+            "name": "Large Number",
+            "code": "<Statistic label='Page Views' value='2,456,789' labelPlacement='Below' />"
+          },
+          {
+            "name": "Percentage",
+            "code": "<Statistic label='Growth Rate' value='23.5%' labelPlacement='Below' />"
           }
         ]
       },
@@ -1871,15 +1799,15 @@
           },
           {
             "name": "All Variants",
-            "code": "<Badge variant=\"normal\" />"
+            "code": "<div className=\"flex gap-2 flex-wrap\"><Badge variant=\"normal\">Normal</Badge><Badge variant=\"danger\">Danger</Badge><Badge variant=\"success\">Success</Badge><Badge variant=\"warning\">Warning</Badge><Badge variant=\"neutral\">Neutral</Badge></div>"
           },
           {
             "name": "With Icons",
-            "code": "<Badge variant=\"normal\" icon=\"add\" />"
+            "code": "<Badge variant=\"normal\" icon=\"add\">Label</Badge>"
           },
           {
             "name": "Interactive",
-            "code": "<Badge />"
+            "code": "function Preview() { const [isHovered, setIsHovered] = React.useState(false); const handleEnter = function() { setIsHovered(true); }; const handleLeave = function() { setIsHovered(false); }; return (<div className=\"relative inline-block\" onMouseEnter={handleEnter} onMouseLeave={handleLeave}><Badge variant=\"normal\" onMouseEnter={handleEnter}>Hover me</Badge>{isHovered && (<div className=\"absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-10\"><Tooltip placement=\"top\">This is a tooltip</Tooltip></div>)}</div>); }"
           }
         ]
       },
@@ -1916,8 +1844,64 @@
         },
         "examples": [
           {
-            "name": "Basic",
-            "code": "<Tabs tabs={[]} />"
+            "name": "Primary",
+            "code": "<Tabs type='primary' tabs=\"sampleTabs\" activeTab=0 showLine=true />"
+          },
+          {
+            "name": "Primary",
+            "code": "<Tabs type=\"primary\" tabs={sampleTabs} activeTab={0} showLine={true} />"
+          },
+          {
+            "name": "Primary",
+            "code": "<Tabs type=\"primary\" tabs={tabsWithFeatures} activeTab={2} showLine={true} />"
+          },
+          {
+            "name": "Secondary",
+            "code": "<Tabs type='secondary' tabs=\"sampleTabs\" activeTab=0 showLine=false />"
+          },
+          {
+            "name": "Secondary",
+            "code": "<Tabs type=\"secondary\" tabs={sampleTabs} activeTab={1} showLine={false} />"
+          },
+          {
+            "name": "FigmaVariants",
+            "code": "<Tabs type=\"primary\" tabs={[ { label: 'Unselected' }, { label: 'Selected' }, { label: 'Another Tab' } ]} activeTab={1} showLine={true} />"
+          },
+          {
+            "name": "FigmaVariants",
+            "code": "<Tabs type=\"primary\" tabs={[ { label: 'Dashboard', badge: true, badgeCount: '8' }, { label: 'Messages', badge: true, badgeCount: '56' }, { label: 'Settings', badge: true, badgeCount: '2' } ]} activeTab={0} showLine={true} />"
+          },
+          {
+            "name": "FigmaVariants",
+            "code": "<Tabs type=\"primary\" tabs={[ { label: 'Home', icon: true }, { label: 'Alerts', notification: true }, { label: 'Profile', icon: true, badge: true, badgeCount: '3' } ]} activeTab={1} showLine={true} />"
+          },
+          {
+            "name": "FigmaVariants",
+            "code": "<Tabs type=\"secondary\" tabs={[ { label: 'Overview' }, { label: 'Analytics' }, { label: 'Reports' } ]} activeTab={1} showLine={false} />"
+          },
+          {
+            "name": "FigmaVariants",
+            "code": "<Tabs type=\"secondary\" tabs={[ { label: 'Active', badge: true, badgeCount: '12' }, { label: 'Pending', icon: true, notification: true }, { label: 'Completed', icon: true } ]} activeTab={0} showLine={false} />"
+          },
+          {
+            "name": "FigmaVariants",
+            "code": "<Tabs type=\"tertiary\" tabs={[ { label: 'All' }, { label: 'Active' }, { label: 'Inactive' } ]} activeTab={0} showLine={false} />"
+          },
+          {
+            "name": "FigmaVariants",
+            "code": "<Tabs type=\"tertiary\" tabs={[ { label: 'Draft', badge: true, badgeCount: '4' }, { label: 'Review', notification: true }, { label: 'Published', icon: true } ]} activeTab={1} showLine={false} />"
+          },
+          {
+            "name": "Tertiary",
+            "code": "<Tabs type='tertiary' tabs=\"sampleTabs\" activeTab=0 showLine=false />"
+          },
+          {
+            "name": "Tertiary",
+            "code": "<Tabs type=\"tertiary\" tabs={sampleTabs} activeTab={2} showLine={false} />"
+          },
+          {
+            "name": "With Features",
+            "code": "<Tabs type='primary' tabs=\"tabsWithFeatures\" activeTab=0 showLine=true />"
           }
         ]
       },
@@ -1934,35 +1918,35 @@
         "examples": [
           {
             "name": "Basic",
-            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={true} showFooter={true}>Content</Card>"
+            "code": "<Card content='Basic' state='Default' showEyebrow=true showFooter=true />"
           },
           {
             "name": "Advanced",
-            "code": "<Card content=\"Advanced\" state=\"Default\" showEyebrow={true} showFooter={true}>Content</Card>"
+            "code": "<Card content='Advanced' state='Default' showEyebrow=true showFooter=true />"
           },
           {
             "name": "Minimal",
-            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={false} showFooter={false}>Content</Card>"
+            "code": "<Card content='Basic' state='Default' showEyebrow=false showFooter=false />"
           },
           {
-            "name": "Variant 1",
-            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={true} showFooter={true}>Content</Card>"
+            "name": "Basic",
+            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={true} showFooter={true} />"
           },
           {
-            "name": "Variant 2",
-            "code": "<Card content=\"Advanced\" state=\"Default\" showEyebrow={true} showFooter={true}>Content</Card>"
+            "name": "Advanced",
+            "code": "<Card content=\"Advanced\" state=\"Default\" showEyebrow={true} showFooter={true} />"
           },
           {
-            "name": "Variant 3",
-            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={false} showFooter={false}>Content</Card>"
+            "name": "Minimal",
+            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={false} showFooter={false} />"
           },
           {
             "name": "Without Eyebrow",
-            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={false} showFooter={true}>Content</Card>"
+            "code": "<Card content='Basic' state='Default' showEyebrow=false showFooter=true />"
           },
           {
             "name": "Without Footer",
-            "code": "<Card content=\"Basic\" state=\"Default\" showEyebrow={true} showFooter={false}>Content</Card>"
+            "code": "<Card content='Basic' state='Default' showEyebrow=true showFooter=false />"
           }
         ]
       },
@@ -2084,19 +2068,19 @@
         "examples": [
           {
             "name": "Button Upload",
-            "code": "<Upload type=\"button\" maxFiles={5} maxFileSize={10} multiple={true} autoUpload={true} onUpload={() => {}} />"
+            "code": "<Upload type='button' maxFiles=5 maxFileSize=10 multiple=true autoUpload=true />"
           },
           {
             "name": "Drag And Drop",
-            "code": "<Upload type=\"drag-drop\" maxFiles={10} maxFileSize={10} multiple={true} autoUpload={true} onUpload={() => {}} />"
+            "code": "<Upload type='drag-drop' maxFiles=10 maxFileSize=10 multiple=true autoUpload=true />"
           },
           {
             "name": "Single File",
-            "code": "<Upload type=\"drag-drop\" maxFiles={1} maxFileSize={10} multiple={false} autoUpload={true} onUpload={() => {}} />"
+            "code": "<Upload type='drag-drop' maxFiles=1 maxFileSize=10 multiple=false autoUpload=true />"
           },
           {
             "name": "Thumbnail Upload",
-            "code": "<Upload type=\"thumbnail\" maxFiles={4} maxFileSize={5} multiple={true} autoUpload={true} onUpload={() => {}} />"
+            "code": "<Upload type='thumbnail' maxFiles=4 maxFileSize=5 multiple=true autoUpload=true />"
           }
         ]
       },
@@ -2113,35 +2097,35 @@
         "examples": [
           {
             "name": "Hero Top Placement",
-            "code": "<NavigationPopover open={true} initialSectionId=\"overview\" heroPlacement=\"top\" items={[]} />"
+            "code": "<NavigationPopover open=true sections=\"DEFAULT_NAVIGATION_SECTIONS\" initialSectionId='overview' heroPlacement='top' />"
           },
           {
             "name": "Insights",
-            "code": "<NavigationPopover open={true} initialSectionId=\"insights\" items={[]} />"
+            "code": "<NavigationPopover open=true sections=\"DEFAULT_NAVIGATION_SECTIONS\" initialSectionId='insights' />"
           },
           {
             "name": "Metrics Without Hero",
-            "code": "<NavigationPopover open={true} sections=\"noHeroSections\" initialSectionId=\"metrics-only\" items={[]} />"
+            "code": "<NavigationPopover open=true sections=\"noHeroSections\" initialSectionId='metrics-only' />"
           },
           {
             "name": "Overview",
-            "code": "<NavigationPopover open={true} initialSectionId=\"overview\" items={[]} />"
+            "code": "<NavigationPopover open=true sections=\"DEFAULT_NAVIGATION_SECTIONS\" initialSectionId='overview' />"
           },
           {
             "name": "Reports",
-            "code": "<NavigationPopover open={true} initialSectionId=\"reports\" items={[]} />"
+            "code": "<NavigationPopover open=true sections=\"DEFAULT_NAVIGATION_SECTIONS\" initialSectionId='reports' />"
           },
           {
             "name": "Service Health",
-            "code": "<NavigationPopover open={true} initialSectionId=\"health\" items={[]} />"
+            "code": "<NavigationPopover open=true sections=\"DEFAULT_NAVIGATION_SECTIONS\" initialSectionId='health' />"
           },
           {
             "name": "Sub Menu Variant",
-            "code": "<NavigationPopover open={true} sections=\"noHeroSections\" initialSectionId=\"sub-menu\" items={[]} />"
+            "code": "<NavigationPopover open=true sections=\"noHeroSections\" initialSectionId='sub-menu' />"
           },
           {
             "name": "Workspace",
-            "code": "<NavigationPopover open={true} initialSectionId=\"workspace\" items={[]} />"
+            "code": "<NavigationPopover open=true sections=\"DEFAULT_NAVIGATION_SECTIONS\" initialSectionId='workspace' />"
           }
         ]
       },
@@ -2158,19 +2142,136 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<UploadZone maxFileSize={10} disabled={false} multiple={false} />"
+            "code": "<UploadZone maxFileSize=10 disabled=false multiple=false />"
           },
           {
             "name": "Different File Types",
-            "code": "<UploadZone maxFileSize={25} disabled={false} multiple={true} />"
+            "code": "<UploadZone maxFileSize=25 disabled=false multiple=true />"
           },
           {
             "name": "Disabled",
-            "code": "<UploadZone maxFileSize={10} disabled={true} multiple={false} />"
+            "code": "<UploadZone maxFileSize=10 disabled=true multiple=false />"
           },
           {
             "name": "Multiple Files",
-            "code": "<UploadZone maxFileSize={10} disabled={false} multiple={true} />"
+            "code": "<UploadZone maxFileSize=10 disabled=false multiple=true />"
+          }
+        ]
+      },
+      "FileTypeIcon": {
+        "description": "File type icon component for displaying file format indicators (XLS, XLSX, CSV, PDF, DOC, DOCX, PNG, JPEG, JPG) with proper gradients, colors, and error states.",
+        "import": "import { FileTypeIcon } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Default",
+            "code": "<FileTypeIcon fileType='XLS' variant='default' size='md' />"
+          },
+          {
+            "name": "D O C",
+            "code": "<FileTypeIcon fileType='DOC' variant='default' size='md' />"
+          },
+          {
+            "name": "D O C X",
+            "code": "<FileTypeIcon fileType='DOCX' variant='default' size='md' />"
+          },
+          {
+            "name": "Error",
+            "code": "<FileTypeIcon fileType=\"!\" variant=\"error\" />"
+          },
+          {
+            "name": "Error Variant",
+            "code": "<FileTypeIcon fileType='!' variant='error' size='md' />"
+          },
+          {
+            "name": "J P E G",
+            "code": "<FileTypeIcon fileType='JPEG' variant='default' size='md' />"
+          },
+          {
+            "name": "J P G",
+            "code": "<FileTypeIcon fileType='JPG' variant='default' size='md' />"
+          },
+          {
+            "name": "LG",
+            "code": "<FileTypeIcon fileType=\"XLS\" size=\"lg\" />"
+          },
+          {
+            "name": "MD",
+            "code": "<FileTypeIcon fileType=\"XLS\" size=\"md\" />"
+          },
+          {
+            "name": "P N G",
+            "code": "<FileTypeIcon fileType='PNG' variant='default' size='md' />"
+          },
+          {
+            "name": "SM",
+            "code": "<FileTypeIcon fileType=\"XLS\" size=\"sm\" />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<FileTypeIcon fileType=\"XLS\" />"
+          },
+          {
+            "name": "Variant 10",
+            "code": "<FileTypeIcon fileType=\"TXT\" />"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<FileTypeIcon fileType=\"XLSX\" />"
+          },
+          {
+            "name": "Variant 3",
+            "code": "<FileTypeIcon fileType=\"PDF\" />"
+          },
+          {
+            "name": "Variant 4",
+            "code": "<FileTypeIcon fileType=\"DOC\" />"
+          },
+          {
+            "name": "Variant 5",
+            "code": "<FileTypeIcon fileType=\"DOCX\" />"
+          },
+          {
+            "name": "Variant 6",
+            "code": "<FileTypeIcon fileType=\"PNG\" />"
+          },
+          {
+            "name": "Variant 7",
+            "code": "<FileTypeIcon fileType=\"JPEG\" />"
+          },
+          {
+            "name": "Variant 8",
+            "code": "<FileTypeIcon fileType=\"JPG\" />"
+          },
+          {
+            "name": "Variant 9",
+            "code": "<FileTypeIcon fileType=\"CSV\" />"
+          },
+          {
+            "name": "X L S X",
+            "code": "<FileTypeIcon fileType='XLSX' variant='default' size='md' />"
+          },
+          {
+            "name": "XL",
+            "code": "<FileTypeIcon fileType=\"XLS\" size=\"xl\" />"
+          },
+          {
+            "name": "XS",
+            "code": "<FileTypeIcon fileType=\"XLS\" size=\"xs\" />"
+          },
+          {
+            "name": "XXL",
+            "code": "<FileTypeIcon fileType=\"XLS\" size=\"xxl\" />"
+          },
+          {
+            "name": "XXS",
+            "code": "<FileTypeIcon fileType=\"XLS\" size=\"xxs\" />"
           }
         ]
       },
@@ -2187,47 +2288,47 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<AppHeader name=\"Santosh Kumar\" role=\"Dispatch Manager\" location=\"SPD-Santoshnagar\" badge=\"Admin\" avatar=\"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face\" name=\"tata-motors\" displayName=\"Tata Motors\\\" />"
+            "code": "<AppHeader name='Santosh Kumar' role='Dispatch Manager' location='SPD-Santoshnagar' badge='Admin' avatar='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face' name='tata-motors' displayName='Tata Motors' />"
           },
           {
             "name": "Admin User",
-            "code": "<AppHeader name=\"John Doe\" role=\"Administrator\" location=\"MUM-Central\" badge=\"Admin\" avatar=\"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face\" name=\"tata-motors\" displayName=\"Tata Motors\\\" />"
+            "code": "<AppHeader name='John Doe' role='Administrator' location='MUM-Central' badge='Admin' avatar='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face' name='tata-motors' displayName='Tata Motors' />"
           },
           {
             "name": "Long User Name",
-            "code": "<AppHeader name=\"Alexandrina Montgomery-Richardson\" role=\"Senior Operations Manager\" location=\"HYD-Headquarters\" badge=\"Senior\" avatar=\"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face\" name=\"tata-motors\" displayName=\"Tata Motors\\\" />"
+            "code": "<AppHeader name='Alexandrina Montgomery-Richardson' role='Senior Operations Manager' location='HYD-Headquarters' badge='Senior' avatar='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face' name='tata-motors' displayName='Tata Motors' />"
           },
           {
             "name": "Manager User",
-            "code": "<AppHeader name=\"Jane Smith\" role=\"Fleet Manager\" location=\"DEL-North\" badge=\"Manager\" avatar=\"https://images.unsplash.com/photo-1494790108755-2616b612e120?w=100&h=100&fit=crop&crop=face\" name=\"tata-motors\" displayName=\"Tata Motors\\\" />"
+            "code": "<AppHeader name='Jane Smith' role='Fleet Manager' location='DEL-North' badge='Manager' avatar='https://images.unsplash.com/photo-1494790108755-2616b612e120?w=100&h=100&fit=crop&crop=face' name='tata-motors' displayName='Tata Motors' />"
           },
           {
             "name": "Mobile Device",
-            "code": "<AppHeader size=\"Default\" device=\"Mobile\" />"
+            "code": "<AppHeader size='Default' device='Mobile' />"
           },
           {
             "name": "Mobile View",
-            "code": "<AppHeader size=\"Default\" device=\"Mobile\" name=\"Mobile User\" role=\"Field Manager\" location=\"PUN-Mobile\" badge=\"Field\" name=\"tata-motors\" displayName=\"Tata Motors\" />"
+            "code": "<AppHeader size='Default' device='Mobile' name='Mobile User' role='Field Manager' location='PUN-Mobile' badge='Field' name='tata-motors' displayName='Tata Motors' />"
           },
           {
             "name": "Size L G",
-            "code": "<AppHeader size=\"lg\" device=\"Desktop\" />"
+            "code": "<AppHeader size='lg' device='Desktop' />"
           },
           {
             "name": "Size M D",
-            "code": "<AppHeader size=\"md\" device=\"Desktop\" />"
+            "code": "<AppHeader size='md' device='Desktop' />"
           },
           {
             "name": "Size X L",
-            "code": "<AppHeader size=\"xl\" device=\"Desktop\" />"
+            "code": "<AppHeader size='xl' device='Desktop' />"
           },
           {
             "name": "User With Avatar",
-            "code": "<AppHeader name=\"Sarah Wilson\" role=\"Fleet Manager\" location=\"BLR-Central\" badge=\"Manager\" avatar=\"https://images.unsplash.com/photo-1494790108755-2616b612e120?w=64&h=64&fit=crop&crop=face\" name=\"ft\" displayName=\"FreightTiger\\\" />"
+            "code": "<AppHeader name='Sarah Wilson' role='Fleet Manager' location='BLR-Central' badge='Manager' avatar='https://images.unsplash.com/photo-1494790108755-2616b612e120?w=64&h=64&fit=crop&crop=face' name='ft' displayName='FreightTiger' />"
           },
           {
             "name": "User With F T Company",
-            "code": "<AppHeader name=\"Rahul Singh\" role=\"Operations Manager\" location=\"BLR-Tech Hub\" badge=\"Senior\" avatar=\"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face\" name=\"ft\" displayName=\"FreightTiger\\\" />"
+            "code": "<AppHeader name='Rahul Singh' role='Operations Manager' location='BLR-Tech Hub' badge='Senior' avatar='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face' name='ft' displayName='FreightTiger' />"
           },
           {
             "name": "UserCompanyVariations",
@@ -2252,11 +2353,11 @@
         "examples": [
           {
             "name": "Disabled",
-            "code": "<UploadButton disabled={true} onUpload={() => {}} />"
+            "code": "<UploadButton disabled=true />"
           },
           {
             "name": "Hover",
-            "code": "<UploadButton state=\"hover\" onUpload={() => {}} />"
+            "code": "<UploadButton state='hover' />"
           }
         ]
       },
@@ -2294,23 +2395,23 @@
         "examples": [
           {
             "name": "C S V File",
-            "code": "<FileValidationCard fileName=\"data-export.csv\" fileType=\"csv\" validationStatus=\"success\" validationStats={{total: 1250, success: 1250, invalid: 0}} />"
+            "code": "<FileValidationCard fileName='data-export.csv' fileType='csv' uploadedAt={new Date()} validationStatus='success' validationStats={{total: 1250, success: 1250, invalid: 0}} onDelete={() => console.log('Delete clicked')} onDownload={() => console.log('Download clicked')} />"
           },
           {
             "name": "Failed",
-            "code": "<FileValidationCard fileName=\"File 178.xlsx\" fileType=\"excel\" validationStatus=\"failed\" validationStats={{total: 850, success: 0, invalid: 850}} />"
+            "code": "<FileValidationCard fileName='File 178.xlsx' fileType='excel' uploadedAt={new Date()} validationStatus='failed' validationStats={{total: 850, success: 0, invalid: 850}} onDelete={() => console.log('Delete clicked')} onDownload={() => console.log('Download clicked')} onViewDetails={() => console.log('View details clicked')} />"
           },
           {
             "name": "Partially Processed",
-            "code": "<FileValidationCard fileName=\"File 178.xlsx\" fileType=\"excel\" validationStatus=\"partial\" validationStats={{total: 850, success: 595, invalid: 255}} />"
+            "code": "<FileValidationCard fileName='File 178.xlsx' fileType='excel' uploadedAt={new Date()} validationStatus='partial' validationStats={{total: 850, success: 595, invalid: 255}} onDelete={() => console.log('Delete clicked')} onDownload={() => console.log('Download clicked')} onViewDetails={() => console.log('View details clicked')} />"
           },
           {
             "name": "Success",
-            "code": "<FileValidationCard fileName=\"File 178.xlsx\" fileType=\"excel\" validationStatus=\"success\" validationStats={{total: 850, success: 850, invalid: 0}} />"
+            "code": "<FileValidationCard fileName='File 178.xlsx' fileType='excel' uploadedAt={new Date()} validationStatus='success' validationStats={{total: 850, success: 850, invalid: 0}} onDelete={() => console.log('Delete clicked')} onDownload={() => console.log('Download clicked')} onViewDetails={() => console.log('View details clicked')} />"
           },
           {
             "name": "Validating",
-            "code": "<FileValidationCard fileName=\"File 178.xlsx\" fileType=\"excel\" validationStatus=\"validating\"  />"
+            "code": "<FileValidationCard fileName='File 178.xlsx' fileType='excel' uploadedAt={new Date()} validationStatus='validating' onDelete={() => console.log('Delete clicked')} />"
           }
         ]
       },
@@ -2327,63 +2428,63 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"processed\" fileDate=\"12 April 2024, 5:30 PM\" variant=\"compact\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName='File 178.xlsx' fileType='XLS' status='processed' fileDate='12 April 2024, 5:30 PM' variant='compact' />"
           },
           {
             "name": "File Too Large",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"too-large\" progress={23} variant=\"with-progress\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName='File 178.xlsx' fileType='XLS' status='too-large' progress=23 variant='with-progress' onClose=\"() => alert('Cancel')\" />"
           },
           {
             "name": "Fully Processed",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"processed\" fileDate=\"12 April 2024, 5:30 PM\" variant=\"with-stats\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName='File 178.xlsx' fileType='XLS' status='processed' fileDate='12 April 2024, 5:30 PM' variant='with-stats' onDownload=\"() => alert('Download')\" onPreview=\"() => alert('Preview')\" onDelete=\"() => alert('Delete')\" />"
           },
           {
             "name": "Template Mismatch",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"template-mismatch\" fileDate=\"12 April 2024, 5:30 PM\" errorMessage=\"Missing required column: Origin. Please use the sample template\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName='File 178.xlsx' fileType='XLS' status='template-mismatch' fileDate='12 April 2024, 5:30 PM' errorMessage='Missing required column: Origin. Please use the sample template' onDelete=\"() => alert('Delete')\" />"
+          },
+          {
+            "name": "Template Mismatch",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"XLS\" status=\"template-mismatch\" fileDate=\"12 April 2024, 5:30 PM\" errorMessage=\"Missing required column: Origin. Please use the sample template\" />"
+          },
+          {
+            "name": "Unsupported",
+            "code": "<FileCard fileName=\"File 178.txt\" fileType=\"!\" status=\"unsupported\" fileDate=\"12 April 2024, 5:30 PM\" />"
           },
           {
             "name": "Unsupported Format",
-            "code": "<FileCard fileName=\"File 178.txt\" fileType=\"txt\" status=\"unsupported\" fileDate=\"12 April 2024, 5:30 PM\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName='File 178.txt' fileType='!' status='unsupported' fileDate='12 April 2024, 5:30 PM' onDelete=\"() => alert('Delete')\" />"
           },
           {
             "name": "Upload Failed",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"upload-failed\" progress={23} variant=\"with-progress\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName='File 178.xlsx' fileType='XLS' status='upload-failed' progress=23 variant='with-progress' onRefresh=\"() => alert('Retry')\" onDelete=\"() => alert('Delete')\" />"
           },
           {
             "name": "Uploading",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"uploading\" progress={23} variant=\"with-progress\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName='File 178.xlsx' fileType='XLS' status='uploading' progress=23 variant='with-progress' onClose=\"() => alert('Cancel upload')\" />"
           },
           {
             "name": "Validating",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"validating\" fileDate=\"12 April 2024, 5:30 PM\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName='File 178.xlsx' fileType='XLS' status='validating' fileDate='12 April 2024, 5:30 PM' onClose=\"() => alert('Cancel')\" />"
           },
           {
-            "name": "Variant 1",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"validating\" fileDate=\"12 April 2024, 5:30 PM\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
-          },
-          {
-            "name": "Variant 2",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"template-mismatch\" fileDate=\"12 April 2024, 5:30 PM\" errorMessage=\"Missing required column: Origin. Please use the sample template\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
-          },
-          {
-            "name": "Variant 3",
-            "code": "<FileCard fileName=\"File 178.txt\" fileType=\"!\" status=\"unsupported\" fileDate=\"12 April 2024, 5:30 PM\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "name": "Validating",
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"XLS\" status=\"validating\" fileDate=\"12 April 2024, 5:30 PM\" />"
           },
           {
             "name": "With-progress",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"uploading\" progress={23} variant=\"with-progress\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"XLS\" status=\"uploading\" progress={23} variant=\"with-progress\" />"
           },
           {
             "name": "With-progress",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"upload-failed\" progress={23} variant=\"with-progress\" file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"XLS\" status=\"upload-failed\" progress={23} variant=\"with-progress\" />"
           },
           {
             "name": "With-stats",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"processed\" fileDate=\"12 April 2024, 5:30 PM\" variant=\"with-stats\" stats={{ total: 100, success: 100, invalid: 0 }} file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"XLS\" status=\"processed\" fileDate=\"12 April 2024, 5:30 PM\" variant=\"with-stats\" stats={{ total: 100, success: 100, invalid: 0 }} />"
           },
           {
             "name": "With-stats",
-            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"xlsx\" status=\"partially-processed\" fileDate=\"12 April 2024, 5:30 PM\" variant=\"with-stats\" stats={{ total: 100, success: 60, invalid: 40 }} file={{name: \"test.txt\", type: \"text/plain\"}} />"
+            "code": "<FileCard fileName=\"File 178.xlsx\" fileType=\"XLS\" status=\"partially-processed\" fileDate=\"12 April 2024, 5:30 PM\" variant=\"with-stats\" stats={{ total: 100, success: 60, invalid: 40 }} />"
           }
         ]
       },
@@ -2416,28 +2517,32 @@
         },
         "examples": [
           {
-            "name": "Two Tabs",
-            "code": "<SegmentedTabs items={[{label: \"Tab\", value: \"tab1\"}, {label: \"Tab\", value: \"tab2\"}]} defaultValue=\"tab2\" />"
-          },
-          {
-            "name": "Three Tabs",
-            "code": "<SegmentedTabs items={[{label: \"Tab\", value: \"tab1\"}, {label: \"Tab\", value: \"tab2\"}, {label: \"Tab\", value: \"tab3\"}]} defaultValue=\"tab3\" />"
+            "name": "Controlled",
+            "code": "<SegmentedTabs />"
           },
           {
             "name": "Four Tabs",
-            "code": "<SegmentedTabs items={[{label: \"Tab\", value: \"tab1\"}, {label: \"Tab\", value: \"tab2\"}, {label: \"Tab\", value: \"tab3\"}, {label: \"Tab\", value: \"tab4\"}]} defaultValue=\"tab4\" />"
-          },
-          {
-            "name": "View Modes",
-            "code": "<SegmentedTabs items={[{label: \"List\", value: \"list\"}, {label: \"Grid\", value: \"grid\"}, {label: \"Card\", value: \"card\"}]} defaultValue=\"grid\" />"
-          },
-          {
-            "name": "Controlled",
-            "code": "<SegmentedTabs items={[{label: \"Overview\", value: \"overview\"}, {label: \"Details\", value: \"details\"}, {label: \"Settings\", value: \"settings\"}]} />"
+            "code": "<SegmentedTabs defaultValue='tab4' />"
           },
           {
             "name": "Icon Only",
-            "code": "<SegmentedTabs variant=\"icon-only\" items={[{label: \"Copy\", value: \"copy\", icon: <Icon name=\"copy\" />}, {label: \"Check\", value: \"check\", icon: <Icon name=\"check\" />}]} defaultValue=\"check\" />"
+            "code": "<SegmentedTabs variant='icon-only' defaultValue='check' />"
+          },
+          {
+            "name": "Three Tabs",
+            "code": "<SegmentedTabs defaultValue='tab3' />"
+          },
+          {
+            "name": "Two Tabs",
+            "code": "<SegmentedTabs defaultValue='tab2' />"
+          },
+          {
+            "name": "View Modes",
+            "code": "<SegmentedTabs defaultValue='grid' />"
+          },
+          {
+            "name": "With Icons",
+            "code": "<SegmentedTabs defaultValue='check' />"
           }
         ]
       },
@@ -2445,6 +2550,11 @@
         "description": "Compact file thumbnail component for displaying file previews or file type icons. Supports hover states with action icons for preview and download. Based on Figma design specifications.",
         "import": "import { FileThumbnail } from '@chetanft/design_system';",
         "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
           "fileName": {
             "type": "string",
             "required": true,
@@ -2459,25 +2569,44 @@
             "type": "boolean",
             "required": false,
             "description": "Whether to display the filename below the thumbnail"
-          },
-          "className": {
-            "type": "string",
-            "required": false,
-            "description": "Additional CSS classes"
           }
         },
         "examples": [
           {
-            "name": "Image Preview",
-            "code": "<FileThumbnail fileName=\"Image2.png\" imageUrl=\"https://example.com/image.png\" showFileName={false} />"
+            "name": "DifferentFileTypes",
+            "code": "<FileThumbnail fileName=\"document.pdf\" showFileName={true} />"
+          },
+          {
+            "name": "DifferentFileTypes",
+            "code": "<FileThumbnail fileName=\"spreadsheet.xlsx\" showFileName={true} />"
           },
           {
             "name": "File Type Icon",
+            "code": "<FileThumbnail fileName='document.pdf' showFileName=false />"
+          },
+          {
+            "name": "Image Preview",
+            "code": "<FileThumbnail fileName='Image2.png' imageUrl=\"sampleImageUrl\" showFileName=false />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<FileThumbnail fileName=\"Image2.png\" imageUrl={sampleImageUrl} showFileName={false} />"
+          },
+          {
+            "name": "Variant 2",
             "code": "<FileThumbnail fileName=\"document.pdf\" showFileName={false} />"
           },
           {
-            "name": "With Filename",
-            "code": "<FileThumbnail fileName=\"Image2.png\" imageUrl=\"https://example.com/image.png\" showFileName={true} />"
+            "name": "Variant 3",
+            "code": "<FileThumbnail fileName=\"Image2.png\" imageUrl={sampleImageUrl} showFileName={true} />"
+          },
+          {
+            "name": "With Actions",
+            "code": "<FileThumbnail fileName='Image2.png' imageUrl=\"sampleImageUrl\" showFileName=true onPreview=\"() => alert('Preview file')\" onDownload=\"() => alert('Download file')\" />"
+          },
+          {
+            "name": "With File Name",
+            "code": "<FileThumbnail fileName='Image2.png' imageUrl=\"sampleImageUrl\" showFileName=true />"
           }
         ]
       },
@@ -2493,80 +2622,20 @@
         },
         "examples": [
           {
-            "name": "Custom Icon",
-            "code": "<ReadOnly label=\"User Info\" value=\"John Doe\" type=\"vertical\" labelIcon={true} icon=\"<User />\" />"
-          },
-          {
-            "name": "FormSummary",
-            "code": "<ReadOnly label=\"Order ID\" value=\"#ORD-2024-001\" type=\"horizontal\" labelIcon={true} />"
-          },
-          {
-            "name": "FormSummary",
-            "code": "<ReadOnly label=\"Delivery Date\" value=\"March 15, 2024\" type=\"horizontal\" labelIcon={false} />"
-          },
-          {
-            "name": "FormSummary",
-            "code": "<ReadOnly label=\"Total Amount\" value=\"$1,250.00\" subtext=\"Including taxes\" type=\"vertical\" labelIcon={true} />"
-          },
-          {
-            "name": "Horizontal Basic",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"horizontal\" labelIcon={false} />"
-          },
-          {
-            "name": "Horizontal With Icon",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"horizontal\" labelIcon={true} />"
-          },
-          {
-            "name": "Long Content",
-            "code": "<ReadOnly label=\"Description\" value=\"This is a very long text value that demonstrates how the component handles longer content and text wrapping within the layout constraints.\" subtext=\"Additional information that provides context\" type=\"vertical\" labelIcon={true} />"
-          },
-          {
-            "name": "Variant 1",
-            "code": "<ReadOnly label=\"Status\" value=\"Active\" type=\"horizontal\" labelIcon={false} />"
-          },
-          {
-            "name": "Variant 1",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"vertical\" />"
-          },
-          {
-            "name": "Variant 2",
-            "code": "<ReadOnly label=\"Priority\" value=\"High\" type=\"horizontal\" labelIcon={true} />"
-          },
-          {
-            "name": "Variant 2",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"vertical\" labelIcon={true} />"
-          },
-          {
-            "name": "Variant 3",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" subtext=\"Sub text\" type=\"vertical\" />"
-          },
-          {
-            "name": "Variant 4",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" subtext=\"Sub text\" type=\"vertical\" labelIcon={true} />"
-          },
-          {
-            "name": "Variant 5",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"horizontal\" />"
-          },
-          {
-            "name": "Variant 6",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"horizontal\" labelIcon={true} />"
-          },
-          {
             "name": "Vertical Basic",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"vertical\" labelIcon={false} />"
+            "code": "<ReadOnly type=\"Vertical\" labelIcon=\"False\" />"
           },
           {
             "name": "Vertical With Icon",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" type=\"vertical\" labelIcon={true} />"
+            "code": "<ReadOnly type=\"Vertical\" labelIcon=\"True\" />"
           },
           {
-            "name": "Vertical With Icon And Subtext",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" subtext=\"Sub text\" type=\"vertical\" labelIcon={true} />"
+            "name": "Horizontal Basic",
+            "code": "<ReadOnly type=\"Horizontal\" labelIcon=\"False\" />"
           },
           {
-            "name": "Vertical With Subtext",
-            "code": "<ReadOnly label=\"Label\" value=\"Text\" subtext=\"Sub text\" type=\"vertical\" labelIcon={false} />"
+            "name": "Horizontal With Icon",
+            "code": "<ReadOnly type=\"Horizontal\" labelIcon=\"True\" />"
           }
         ]
       },
@@ -2621,7 +2690,7 @@
           },
           {
             "name": "Custom Icon",
-            "code": "<Label suffixIcon={true} icon=\"<AlertInformational />\">Custom Icon Label</Label>"
+            "code": "<Label suffixIcon=true icon=\"<AlertInformational />\">Custom Icon Label</Label>"
           },
           {
             "name": "Form Field",
@@ -2645,47 +2714,47 @@
           },
           {
             "name": "Long Text",
-            "code": "<Label mandatory={true} suffixIcon={true}>This is a very long label text that might wrap to multiple lines</Label>"
+            "code": "<Label mandatory=true suffixIcon=true>This is a very long label text that might wrap to multiple lines</Label>"
           },
           {
             "name": "Mandatory",
-            "code": "<Label mandatory={true}>Label</Label>"
+            "code": "<Label mandatory=true>Label</Label>"
           },
           {
-            "name": "Mandatory With Icon",
-            "code": "<Label mandatory={true} suffixIcon={true}>Label</Label>"
-          },
-          {
-            "name": "Optional",
-            "code": "<Label optional={true}>Label</Label>"
-          },
-          {
-            "name": "Optional With Icon",
-            "code": "<Label optional={true} suffixIcon={true}>Label</Label>"
-          },
-          {
-            "name": "Variant 1",
-            "code": "<Label suffixIcon>Label</Label>"
-          },
-          {
-            "name": "Variant 2",
-            "code": "<Label optional>Label</Label>"
-          },
-          {
-            "name": "Variant 3",
-            "code": "<Label optional suffixIcon>Label</Label>"
-          },
-          {
-            "name": "Variant 4",
+            "name": "Mandatory",
             "code": "<Label mandatory>Label</Label>"
           },
           {
-            "name": "Variant 5",
+            "name": "Mandatory",
             "code": "<Label mandatory suffixIcon>Label</Label>"
           },
           {
+            "name": "Mandatory With Icon",
+            "code": "<Label mandatory=true suffixIcon=true>Label</Label>"
+          },
+          {
+            "name": "Optional",
+            "code": "<Label optional=true>Label</Label>"
+          },
+          {
+            "name": "Optional",
+            "code": "<Label optional>Label</Label>"
+          },
+          {
+            "name": "Optional",
+            "code": "<Label optional suffixIcon>Label</Label>"
+          },
+          {
+            "name": "Optional With Icon",
+            "code": "<Label optional=true suffixIcon=true>Label</Label>"
+          },
+          {
             "name": "With Suffix Icon",
-            "code": "<Label suffixIcon={true}>Label</Label>"
+            "code": "<Label suffixIcon=true>Label</Label>"
+          },
+          {
+            "name": "With Suffix Icon",
+            "code": "<Label suffixIcon>Label</Label>"
           }
         ]
       },
@@ -2702,7 +2771,7 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Collapsible header=\"Collapsible header\" background=\"bg\" stage=\"default\" type=\"form\" isExpanded={false}>p-4</Collapsible>"
+            "code": "<Collapsible header='Collapsible header' bg='Secondary' type='Primary' badges=false isExpanded=false>p-4</Collapsible>"
           }
         ]
       },
@@ -2718,8 +2787,20 @@
         },
         "examples": [
           {
-            "name": "Basic",
-            "code": "<ProgressList items={[{id: \"1\", title: \"Step 1\", description: \"First step\", state: \"completed\", pointType: \"primary\"}, {id: \"2\", title: \"Step 2\", description: \"Current step\", state: \"current\", pointType: \"primary\"}, {id: \"3\", title: \"Step 3\", description: \"Upcoming step\", state: \"upcoming\", pointType: \"primary\"}]} />"
+            "name": "Badge Variants",
+            "code": "<ProgressList id='1' title='Normal Badges' description='Standard information badges' state='completed' pointType='icon' lineType='solid' icon='check' label='TAT: 3 hrs' variant='normal' label='Run time: 2 hr 30 min' variant='normal' id='2' title='Danger Badges' description='Warning and error badges' state='current' pointType='primary' lineType='solid' label='30 min' icon='clock' variant='danger' label='Detained' variant='danger' label='Long Stoppage' variant='danger' />"
+          },
+          {
+            "name": "Figma Timeline No Time",
+            "code": "<ProgressList showTime=false id='1' title='Order Information' state='completed' pointType='parent' lineType='solid' headerType='primary' showHeaderLine=true collapsible=true id='2' title='Processing Started' description='Your order is being processed' state='completed' pointType='icon' lineType='solid' icon='check' headerType='secondary' label='Completed' variant='success' id='3' title='Quality Check' description='Items under quality inspection' state='current' pointType='primary' lineType='solid' icon='loading' headerType='secondary' label='In Progress' variant='warning' id='4' title='Ready for Shipment' description='Package ready to be shipped' state='upcoming' pointType='label' lineType='dashed' pointLabel='OR' icon='vehicle' headerType='secondary' />"
+          },
+          {
+            "name": "Figma Timeline With Time",
+            "code": "<ProgressList showTime=true type='divider' id='div1' label='13 March 2023' id='1' title='En Route to Loading' description='Distance travelled: 1242 km' state='completed' pointType='parent' lineType='solid' timeLabel='Start time' startTime='09:34 AM' endTime='09:34 AM' icon='arrow-down' headerType='primary' showHeaderLine=true collapsible=true id='2' title='In Transit by Road' description='Distance travelled: 122 km' state='completed' pointType='icon' lineType='solid' icon='road' headerType='secondary' label='Run time: 2 hr 30 min' variant='normal' id='3' title='Forward Trip' description='Distance travelled: 1242 km' state='completed' pointType='parent' lineType='solid' timeLabel='Start time' startTime='09:34 AM' endTime='-' icon='arrow-down' headerType='primary' showHeaderLine=true collapsible=true id='4' title='Origin' description='Distance travelled: 1242 km' state='completed' pointType='label' lineType='solid' timeLabel='Gate In' startTime='09:34 AM' endTime='09:34 AM' pointLabel='OR' icon='plant' headerType='secondary' label='TAT: 3 hrs' variant='normal' label='30 min' icon='clock' variant='danger' label='Detained' variant='danger' type='divider' id='div2' label='14 March 2023' id='5' title='In Transit by Road' description='Distance travelled: 122 km' state='completed' pointType='icon' lineType='solid' icon='road' headerType='secondary' label='Run time: 2 hr 30 min' variant='normal' label='30 min' icon='clock' variant='danger' label='Long Stoppage' variant='danger' id='6' title='Waypoint' description='Chandigarh' state='completed' pointType='primary' lineType='solid' timeLabel='Passed at' startTime='09:34 AM' icon='location' id='7' title='Drop 1 & Pickup 1' description='Sai Traders, Delhi' state='completed' pointType='label' lineType='solid' timeLabel='Gate In' startTime='09:34 AM' endTime='09:34 AM' icon='plant' headerType='secondary' label='TAT: 2 hrs' variant='normal' label='30 min' icon='clock' variant='danger' label='Detained' variant='danger' id='8' title='Pickup 2' description='Sai Traders, Delhi' state='completed' pointType='label' lineType='solid' timeLabel='Gate In' startTime='09:34 AM' endTime='09:34 AM' pointLabel='P2' icon='plant' headerType='secondary' label='TAT: 2 hrs' variant='normal' label='30 min' icon='clock' variant='danger' id='9' title='In Transit by Road' description='Ambala, Madhya Pradesh.' state='current' pointType='icon' lineType='dashed' icon='tracker' headerType='secondary' label='Run time: 2 hr 30 min' variant='normal' label='30 min' icon='clock' variant='danger' label='Long Stoppage, +2' variant='danger' label='+1 Closed' variant='danger' type='divider' id='div3' label='15 March 2023' id='10' title='Waypoint' description='Chandigarh' state='upcoming' pointType='primary' lineType='dashed' timeLabel='ETA' startTime='09:34 AM' icon='location' id='11' title='Pickup 2' description='Jai shri ram, Ahmedabad, Gujarat' state='upcoming' pointType='label' lineType='dashed' timeLabel='ETA' startTime='09:34 AM' pointLabel='P2' icon='plant' headerType='secondary' label='30 min' icon='clock' variant='danger' id='12' title='Drop 2' description='Jai shri ram, Ahmedabad, Gujarat' state='upcoming' pointType='label' lineType='dashed' timeLabel='ETA' startTime='09:34 AM' pointLabel='D2' icon='warehouse' headerType='secondary' label='30 min' icon='clock' variant='danger' id='13' title='Origin' description='MDC Labs Ltd, Amritsar, Punjab' state='upcoming' pointType='label' lineType='none' timeLabel='ETA' startTime='09:34 AM' pointLabel='OR' icon='plant' headerType='secondary' label='30 min' icon='clock' variant='danger' />"
+          },
+          {
+            "name": "Multiple Points",
+            "code": "<ProgressList id='1' title='Single Point' description='Regular single point' state='completed' pointType='label' lineType='solid' pointLabel='P1' id='2' title='Multiple Points' description='Drop and Pickup at same location' state='completed' pointType='label' lineType='solid' label='Combined operation' variant='normal' id='3' title='Final Point' description='End of journey' state='upcoming' pointType='label' lineType='none' pointLabel='END' />"
           }
         ]
       },
@@ -2736,15 +2817,55 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<Steps currentStep={1} device=\"desktop\" steps={[{label: \"Step 1\"}, {label: \"Step 2\"}, {label: \"Step 3\"}]} />"
+            "code": "<Steps currentStep=1 device='desktop' />"
+          },
+          {
+            "name": "DeviceVariants",
+            "code": "<Steps device=\"desktop\" currentStep={2} steps={[ { label: 'Personal Info' }, { label: 'Address' }, { label: 'Payment' }, { label: 'Confirmation' }, ]} />"
+          },
+          {
+            "name": "DeviceVariants",
+            "code": "<Steps device=\"mobile\" currentStep={2} steps={[ { label: 'Personal Info' }, { label: 'Address' }, { label: 'Payment' }, { label: 'Confirmation' }, ]} />"
+          },
+          {
+            "name": "ProgressStates",
+            "code": "<Steps currentStep={1} steps={[ { label: 'Getting Started' }, { label: 'Configuration' }, { label: 'Testing' }, { label: 'Deployment' }, ]} />"
+          },
+          {
+            "name": "ProgressStates",
+            "code": "<Steps currentStep={2} steps={[ { label: 'Getting Started' }, { label: 'Configuration' }, { label: 'Testing' }, { label: 'Deployment' }, ]} />"
+          },
+          {
+            "name": "ProgressStates",
+            "code": "<Steps currentStep={3} steps={[ { label: 'Getting Started' }, { label: 'Configuration' }, { label: 'Testing' }, { label: 'Deployment' }, ]} />"
+          },
+          {
+            "name": "ProgressStates",
+            "code": "<Steps currentStep={5} steps={[ { label: 'Getting Started' }, { label: 'Configuration' }, { label: 'Testing' }, { label: 'Deployment' }, ]} />"
+          },
+          {
+            "name": "StepCounts",
+            "code": "<Steps currentStep={1} steps={[ { label: 'Setup' }, { label: 'Complete' }, ]} />"
+          },
+          {
+            "name": "StepCounts",
+            "code": "<Steps currentStep={2} steps={[ { label: 'Start' }, { label: 'Progress' }, { label: 'Finish' }, ]} />"
+          },
+          {
+            "name": "StepCounts",
+            "code": "<Steps currentStep={3} steps={[ { label: 'Info' }, { label: 'Details' }, { label: 'Review' }, { label: 'Submit' }, ]} />"
+          },
+          {
+            "name": "StepCounts",
+            "code": "<Steps currentStep={3} steps={[ { label: 'Basic' }, { label: 'Advanced' }, { label: 'Settings' }, { label: 'Review' }, { label: 'Deploy' }, ]} />"
           },
           {
             "name": "Steps Item Only",
-            "code": "<StepsItem state=\"selected\" device=\"desktop\" label=\"Step 1\" />"
+            "code": "<div className=\"space-y-4\"><div className=\"flex gap-4\"><StepsItem state=\"unselected\" label=\"Unselected Step\" device=\"desktop\" /><StepsItem state=\"selected\" label=\"Selected Step\" device=\"desktop\" /></div>"
           },
           {
             "name": "With Completed Steps",
-            "code": "<div className=\"w-full max-w-4xl overflow-x-auto\"><Steps currentStep={3} device=\"desktop\" steps={[{label: \"Step 1\", completed: true}, {label: \"Step 2\", completed: true}, {label: \"Step 3\"}]} /></div>"
+            "code": "<Steps currentStep=3 device='desktop' />"
           }
         ]
       },
@@ -2760,8 +2881,20 @@
         },
         "examples": [
           {
-            "name": "Basic",
-            "code": "<Table columns={[]} data={[]} />"
+            "name": "Default",
+            "code": "<Table columns=\"basicColumns\" data=\"sampleUsers\" />"
+          },
+          {
+            "name": "With Accessory And Actions",
+            "code": "<Table columns=\"basicColumns\" data=\"extendedUsers\" selectable=true rowAccessory=\"starAccessoryButton\" rowActions=\"rowActionButtons\" rowActionsLabel='Actions' />"
+          },
+          {
+            "name": "With Atomic Components",
+            "code": "<Table columns=\"atomicColumns\" data=\"sampleUsers\" selectable=true />"
+          },
+          {
+            "name": "With Selection",
+            "code": "<Table columns=\"basicColumns\" data=\"sampleUsers\" selectable=true />"
           }
         ]
       },
@@ -2778,15 +2911,23 @@
         "examples": [
           {
             "name": "Basic With Radio",
-            "code": "<RadioSelector name=\"demo\" options={[{value: \"1\", header: \"Radio selector header\"}, {value: \"2\", header: \"Radio selector header\"}]} />"
-          },
-          {
-            "name": "With Description",
-            "code": "<RadioSelector name=\"demo2\" options={[{value: \"1\", header: \"Radio selector header\", description: \"Radio selector description\"}, {value: \"2\", header: \"Radio selector header\", description: \"Radio selector description\"}]} />"
+            "code": "<RadioSelector name='basic-radio' options=\"baseOptions.map(({ description, ...option }) => option)\" />"
           },
           {
             "name": "States",
-            "code": "<RadioSelector name=\"demo3\" defaultValue=\"selected\" options={[{value: \"default\", header: \"Default state\"}, {value: \"selected\", header: \"Selected state\"}, {value: \"disabled\", header: \"Disabled state\", disabled: true}]} />"
+            "code": "<RadioSelector name='states-demo' defaultValue='selected' value='default' header='Default state' description='Radio selector description' value='selected' header='Selected state' description='Radio selector description' value='disabled' header='Disabled state' description='Radio selector description' disabled=true />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<RadioSelector name=\"variant-1\" options={[{ value: '1', header: 'Radio selector header', }]} />"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<RadioSelector name=\"variant-2\" options={[{ value: '1', header: 'Radio selector header', description: 'Radio selector description', }]} />"
+          },
+          {
+            "name": "With Radio And Description",
+            "code": "<RadioSelector name='radio-description' options=\"baseOptions\" />"
           }
         ]
       },
@@ -2803,19 +2944,19 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<UserProfile userName=\"Santosh Kumar\" userRole=\"Dispatch Manager\" userLocation=\"SPD-Santoshnagar\" userBadge=\"Admin\" user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+            "code": "<UserProfile userName='Santosh Kumar' userRole='Dispatch Manager' userLocation='SPD-Santoshnagar' userBadge='Admin' />"
           },
           {
             "name": "Avatar Only",
-            "code": "<UserProfile userName=\"Mobile User\" userRole=\"Ops\" userLocation=\"Remote\" userBadge=\"Viewer\" companyName={false} user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+            "code": "<UserProfile userName='Mobile User' userRole='Ops' userLocation='Remote' userBadge='Viewer' companyName=false />"
           },
           {
             "name": "Different User",
-            "code": "<UserProfile userName=\"Priya Sharma\" userRole=\"Fleet Manager\" userLocation=\"HYD-Headquarters\" userBadge=\"Manager\" user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+            "code": "<UserProfile userName='Priya Sharma' userRole='Fleet Manager' userLocation='HYD-Headquarters' userBadge='Manager' />"
           },
           {
             "name": "Super Admin",
-            "code": "<UserProfile userName=\"Rajesh Gupta\" userRole=\"System Administrator\" userLocation=\"MUM-Central\" userBadge=\"Super Admin\" user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+            "code": "<UserProfile userName='Rajesh Gupta' userRole='System Administrator' userLocation='MUM-Central' userBadge='Super Admin' />"
           }
         ]
       },
@@ -2832,23 +2973,23 @@
         "examples": [
           {
             "name": "Four Buttons With Left Side",
-            "code": "<Footer buttonCount={4} leftSideButton={true} links={[]} />"
+            "code": "<Footer buttonCount=4 leftSideButton=true />"
           },
           {
             "name": "Single Button",
-            "code": "<Footer buttonCount={1} leftSideButton={false} links={[]} />"
+            "code": "<Footer buttonCount=1 leftSideButton=false />"
           },
           {
             "name": "Three Buttons",
-            "code": "<Footer buttonCount={3} leftSideButton={false} links={[]} />"
+            "code": "<Footer buttonCount=3 leftSideButton=false />"
           },
           {
             "name": "Three Buttons With Left Side",
-            "code": "<Footer buttonCount={3} leftSideButton={true} links={[]} />"
+            "code": "<Footer buttonCount=3 leftSideButton=true />"
           },
           {
             "name": "Two Buttons",
-            "code": "<Footer buttonCount={2} leftSideButton={false} links={[]} />"
+            "code": "<Footer buttonCount=2 leftSideButton=false />"
           }
         ]
       },
@@ -2865,11 +3006,11 @@
         "examples": [
           {
             "name": "Hidden",
-            "code": "<UserProfileDropdown isOpen={false} user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+            "code": "<UserProfileDropdown isOpen=false />"
           },
           {
             "name": "With Long Details",
-            "code": "<UserProfileDropdown userName=\"Alexandria Catherine Johnson\" userRole=\"National Operations Program Lead\" userLocation=\"Bengaluru-Whitefield Hub\" userBadge=\"Super Admin\" user={{name: \"John Doe\", email: \"john@example.com\"}} />"
+            "code": "<UserProfileDropdown userName='Alexandria Catherine Johnson' userRole='National Operations Program Lead' userLocation='Bengaluru-Whitefield Hub' userBadge='Super Admin' />"
           }
         ]
       },
@@ -2886,50 +3027,129 @@
         "examples": [
           {
             "name": "Default",
-            "code": "<QuickFilters filters={[{id: \"1\", label: \"Alert label\", selected: false}, {id: \"2\", label: \"Alert label\", count: 19, selected: false}]} />"
+            "code": "<QuickFilters id='simple' label='Alert label' selected=false id='with-count' label='Alert label' count=19 selected=false />"
           },
           {
-            "name": "With Count",
-            "code": "<QuickFilters filters={[{id: \"1\", label: \"Alert label\", count: 19, type: \"normal\", selected: false}, {id: \"2\", label: \"Alert label\", count: 5, type: \"alert\", selected: false}]} />"
+            "name": "Figma Design Elements",
+            "code": "<QuickFilters />"
           },
           {
-            "name": "Selected State",
-            "code": "<QuickFilters filters={[{id: \"1\", label: \"Alert label\", count: 19, selected: true}, {id: \"2\", label: \"Alert label\", count: 5, type: \"alert\", selected: false}]} />"
+            "name": "FigmaDesignContainer",
+            "code": "<QuickFilters filters={[ { id: '1', label: 'Alert label', type: 'normal', selected: false }, ]} />"
           },
           {
-            "name": "Multi Option",
-            "code": "<QuickFilters filters={[{id: \"1\", label: \"E Way bill\", type: \"normal\", options: [{id: \"expiring\", label: \"Expiring in 3 hrs\", count: 28}, {id: \"expired\", label: \"Expired\", count: 18}]}]} />"
+            "name": "FigmaDesignContainer",
+            "code": "<QuickFilters filters={[ { id: '2', label: 'Alert label', count: 19, type: 'normal', selected: true }, ]} />"
+          },
+          {
+            "name": "FigmaDesignContainer",
+            "code": "<QuickFilters filters={[ { id: '3', label: 'Alert label', type: 'normal', selected: false }, { id: '4', label: 'Alert label', count: 19, type: 'normal', selected: false }, { id: '5', label: 'Alert label', count: 19, type: 'alert', selected: false }, ]} />"
+          },
+          {
+            "name": "FigmaDesignContainer",
+            "code": "<QuickFilters filters={[ { id: '6', label: 'Alert label', type: 'normal', selected: false }, { id: '7', label: 'Alert label', type: 'normal', selected: false }, { id: '8', label: 'Alert label', type: 'normal', selected: false }, { id: '9', label: 'Alert label', type: 'normal', selected: false }, ]} />"
+          },
+          {
+            "name": "Variant 1",
+            "code": "<QuickFilters filters={[ { id: '1', label: 'Alert label', selected: false }, { id: '2', label: 'Alert label', count: 19, selected: false }, { id: '3', label: 'Alert label', count: 19, type: 'alert', selected: false }, ]} />"
+          },
+          {
+            "name": "Variant 2",
+            "code": "<QuickFilters filters={[ { id: '4', label: 'Alert label', selected: true }, { id: '5', label: 'Alert label', count: 19, selected: true }, { id: '6', label: 'Alert label', count: 19, type: 'alert', selected: true }, ]} />"
+          },
+          {
+            "name": "Variant 3",
+            "code": "<QuickFilters filters={[ { id: '7', label: 'E Way bill', type: 'normal', options: [ { id: 'exp1', label: 'Expiring in 3 hrs', count: 28 }, { id: 'exp2', label: 'Expired', count: 18 }, ], }, { id: '8', label: 'E Way bill', type: 'normal', selectedOption: 'exp3', options: [ { id: 'exp3', label: 'Expiring in 3 hrs', count: 28 }, { id: 'exp4', label: 'Expired', count: 18 }, ], }, ]} />"
+          },
+          {
+            "name": "Variant 4",
+            "code": "<QuickFilters filters={[ { id: '7a', label: 'E Way bill', type: 'alert', options: [ { id: 'exp1a', label: 'Expiring in 3 hrs', count: 28, type: 'alert' }, { id: 'exp2a', label: 'Expired', count: 18, type: 'alert' }, ], }, { id: '8a', label: 'E Way bill', type: 'alert', selectedOption: 'exp3a', options: [ { id: 'exp3a', label: 'Expiring in 3 hrs', count: 28, type: 'alert' }, { id: 'exp4a', label: 'Expired', count: 18, type: 'alert' }, ], }, ]} />"
+          },
+          {
+            "name": "Variant 5",
+            "code": "<QuickFilters filters={[ { id: '9', label: 'Delayed', count: 51, type: 'normal', options: [ { id: 'del1', label: '0-6 hrs', count: 28 }, { id: 'del2', label: '6-12 hrs', count: 18 }, { id: 'del3', label: '12+ hrs', count: 5 }, ], }, { id: '10', label: 'Delayed', count: 51, type: 'normal', selectedOption: 'del5', options: [ { id: 'del4', label: '0-6 hrs', count: 28 }, { id: 'del5', label: '6-12 hrs', count: 18 }, { id: 'del6', label: '12+ hrs', count: 5 }, ], }, ]} />"
+          },
+          {
+            "name": "Variant 6",
+            "code": "<QuickFilters filters={[ { id: '9a', label: 'Delayed', count: 51, type: 'alert', options: [ { id: 'del1a', label: '0-6 hrs', count: 28, type: 'alert' }, { id: 'del2a', label: '6-12 hrs', count: 18, type: 'alert' }, { id: 'del3a', label: '12+ hrs', count: 5, type: 'alert' }, ], }, { id: '10a', label: 'Delayed', count: 51, type: 'alert', selectedOption: 'del5a', options: [ { id: 'del4a', label: '0-6 hrs', count: 28, type: 'alert' }, { id: 'del5a', label: '6-12 hrs', count: 18, type: 'alert' }, { id: 'del6a', label: '12+ hrs', count: 5, type: 'alert' }, ], }, ]} />"
           }
         ]
       },
-      "UploadItem": {
-        "description": "UploadItem component",
-        "import": "import { UploadItem } from '@chetanft/design_system';",
+      "Logos": {
+        "description": "Logos component",
+        "import": "import { Logos } from '@chetanft/design_system';",
         "props": {
-          "type": {
-            "type": "UploadItemType",
+          "className": {
+            "type": "string",
             "required": false,
-            "description": ""
-          },
-          "state": {
-            "type": "UploadItemState",
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Logos />"
+          }
+        ]
+      },
+      "Charts": {
+        "description": "Charts component",
+        "import": "import { Charts } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
             "required": false,
-            "description": ""
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Charts />"
+          }
+        ]
+      },
+      "Alert": {
+        "description": "Alert component for displaying important messages built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Alert } from '@chetanft/design_system';",
+        "props": {
+          "variant": {
+            "type": "union of 'info', 'success', 'warning', 'danger'",
+            "required": false,
+            "default": "info",
+            "description": "Alert variant"
           },
-          "file": {
-            "type": "UploadFile",
-            "required": true,
-            "description": ""
+          "title": {
+            "type": "string",
+            "required": false,
+            "description": "Alert title"
           },
-          "onDelete": {
+          "message": {
+            "type": "ReactNode",
+            "required": false,
+            "description": "Alert message content"
+          },
+          "icon": {
+            "type": "IconName",
+            "required": false,
+            "description": "Custom icon name"
+          },
+          "closable": {
+            "type": "boolean",
+            "required": false,
+            "default": "false",
+            "description": "Show close button"
+          },
+          "onClose": {
             "type": "() => void",
             "required": false,
-            "description": ""
+            "description": "Close handler"
           },
-          "onRetry": {
-            "type": "() => void",
+          "showFigmaBadge": {
+            "type": "boolean",
             "required": false,
-            "description": ""
+            "default": "true",
+            "description": "Show Figma design not available badge"
           },
           "className": {
             "type": "string",
@@ -2939,135 +3159,15 @@
         },
         "examples": [
           {
-            "name": "Card (Default)",
-            "code": "<UploadItem file={{id: \"1\", name: \"test.txt\", type: \"text/plain\", size: 1024}} type=\"card\" />"
-          },
-          {
-            "name": "Text Variant",
-            "code": "<UploadItem file={{id: \"2\", name: \"document.pdf\", type: \"application/pdf\", size: 2048}} type=\"text\" state=\"uploaded\" />"
-          },
-          {
-            "name": "Uploading",
-            "code": "<UploadItem file={{id: \"4\", name: \"file.xlsx\", type: \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\", size: 2048, uploadProgress: 50}} state=\"uploading\" />"
-          },
-          {
-            "name": "Uploaded",
-            "code": "<UploadItem file={{id: \"5\", name: \"image.jpg\", type: \"image/jpeg\", size: 5120, uploadedAt: new Date()}} state=\"uploaded\" />"
-          },
-          {
-            "name": "Saved",
-            "code": "<UploadItem file={{id: \"6\", name: \"file.xlsx\", type: \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\", size: 10240}} state=\"saved\" />"
-          },
-          {
-            "name": "Error",
-            "code": "<UploadItem file={{id: \"7\", name: \"failed.txt\", type: \"text/plain\", size: 512}} state=\"error\" />"
+            "name": "Basic",
+            "code": "<Alert />"
           }
         ]
       },
-      "ProgressBar": {
-        "description": "ProgressBar component",
-        "import": "import { ProgressBar } from '@chetanft/design_system';",
+      "FigmaBadge": {
+        "description": "FigmaBadge component",
+        "import": "import { FigmaBadge } from '@chetanft/design_system';",
         "props": {
-          "value": {
-            "type": "number",
-            "required": false,
-            "description": ""
-          },
-          "variant": {
-            "type": "'primary' | 'success' | 'warning' | 'danger'",
-            "required": false,
-            "description": ""
-          },
-          "size": {
-            "type": "'sm' | 'md' | 'lg'",
-            "required": false,
-            "description": ""
-          },
-          "showPercentage": {
-            "type": "boolean",
-            "required": false,
-            "description": ""
-          },
-          "animated": {
-            "type": "boolean",
-            "required": false,
-            "description": ""
-          },
-          "className": {
-            "type": "string",
-            "required": false,
-            "description": "Additional CSS classes"
-          }
-        },
-        "examples": [
-          {
-            "name": "Primary",
-            "code": "<ProgressBar value={50} variant=\"primary\" />"
-          },
-          {
-            "name": "Success",
-            "code": "<ProgressBar value={75} variant=\"success\" />"
-          },
-          {
-            "name": "Warning",
-            "code": "<ProgressBar value={60} variant=\"warning\" />"
-          },
-          {
-            "name": "Danger",
-            "code": "<ProgressBar value={30} variant=\"danger\" />"
-          },
-          {
-            "name": "Small",
-            "code": "<ProgressBar value={50} size=\"sm\" />"
-          },
-          {
-            "name": "Medium",
-            "code": "<ProgressBar value={50} size=\"md\" />"
-          },
-          {
-            "name": "Large",
-            "code": "<ProgressBar value={50} size=\"lg\" />"
-          },
-          {
-            "name": "With Percentage",
-            "code": "<ProgressBar value={50} showPercentage={true} />"
-          }
-        ]
-      },
-      "Illustration": {
-        "description": "Illustration component",
-        "import": "import { Illustration } from '@chetanft/design_system';",
-        "props": {
-          "variant": {
-            "type": "IllustrationVariant",
-            "required": false,
-            "description": ""
-          },
-          "src": {
-            "type": "string",
-            "required": false,
-            "description": ""
-          },
-          "alt": {
-            "type": "string",
-            "required": false,
-            "description": ""
-          },
-          "size": {
-            "type": "IllustrationSize",
-            "required": false,
-            "description": ""
-          },
-          "rounded": {
-            "type": "'none' | 'sm' | 'md' | 'lg'",
-            "required": false,
-            "description": ""
-          },
-          "background": {
-            "type": "'transparent' | 'subtle'",
-            "required": false,
-            "description": ""
-          },
           "className": {
             "type": "string",
             "required": false,
@@ -3077,7 +3177,7 @@
         "examples": [
           {
             "name": "Basic",
-            "code": "<Illustration />"
+            "code": "<FigmaBadge />"
           }
         ]
       },
@@ -3143,65 +3243,19 @@
           }
         ]
       },
-      "Logos": {
-        "description": "Logos component",
-        "import": "import { Logos } from '@chetanft/design_system';",
+      "Breadcrumb": {
+        "description": "Breadcrumb navigation component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Breadcrumb } from '@chetanft/design_system';",
         "props": {
-          "className": {
-            "type": "string",
-            "required": false,
-            "description": "Additional CSS classes"
-          }
-        },
-        "examples": [
-          {
-            "name": "Basic",
-            "code": "<Logos />"
-          }
-        ]
-      },
-      "Textarea": {
-        "description": "Multi-line text input component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
-        "import": "import { Textarea } from '@chetanft/design_system';",
-        "props": {
-          "label": {
-            "type": "string",
-            "required": false,
-            "description": "Label text for the textarea"
+          "items": {
+            "type": "BreadcrumbItem[]",
+            "required": true,
+            "description": "Array of breadcrumb items"
           },
-          "labelMandatory": {
-            "type": "boolean",
+          "separator": {
+            "type": "IconName | ReactNode",
             "required": false,
-            "default": "false",
-            "description": "Show mandatory indicator"
-          },
-          "labelOptional": {
-            "type": "boolean",
-            "required": false,
-            "default": "false",
-            "description": "Show optional indicator"
-          },
-          "error": {
-            "type": "string",
-            "required": false,
-            "description": "Error message to display"
-          },
-          "helperText": {
-            "type": "string",
-            "required": false,
-            "description": "Helper text to display below the textarea"
-          },
-          "size": {
-            "type": "union of 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'",
-            "required": false,
-            "default": "md",
-            "description": "Size of the textarea"
-          },
-          "rows": {
-            "type": "number",
-            "required": false,
-            "default": "4",
-            "description": "Number of rows"
+            "description": "Custom separator"
           },
           "showFigmaBadge": {
             "type": "boolean",
@@ -3218,11 +3272,258 @@
         "examples": [
           {
             "name": "Basic",
-            "code": "<Textarea label=\"Description\" placeholder=\"Enter description\" showFigmaBadge={false} />"
-          },
+            "code": "<Breadcrumb />"
+          }
+        ]
+      },
+      "iconMap": {
+        "description": "iconMap component",
+        "import": "import { iconMap } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
           {
-            "name": "With Error",
-            "code": "<Textarea label=\"Description\" error=\"This field is required\" showFigmaBadge={false} />"
+            "name": "Basic",
+            "code": "<iconMap />"
+          }
+        ]
+      },
+      "Modal": {
+        "description": "Modal dialog component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Modal } from '@chetanft/design_system';",
+        "props": {
+          "open": {
+            "type": "boolean",
+            "required": true,
+            "description": "Whether modal is open"
+          },
+          "onClose": {
+            "type": "() => void",
+            "required": false,
+            "description": "Close handler"
+          },
+          "title": {
+            "type": "string",
+            "required": false,
+            "description": "Modal title"
+          },
+          "footer": {
+            "type": "ReactNode",
+            "required": false,
+            "description": "Footer content"
+          },
+          "closable": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show close button"
+          },
+          "maskClosable": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Close on mask click"
+          },
+          "width": {
+            "type": "string | number",
+            "required": false,
+            "default": "520",
+            "description": "Modal width"
+          },
+          "centered": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Center modal vertically"
+          },
+          "showFigmaBadge": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show Figma design not available badge"
+          },
+          "children": {
+            "type": "React.ReactNode",
+            "required": true,
+            "description": ""
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Modal />"
+          }
+        ]
+      },
+      "UploadItem": {
+        "description": "UploadItem component",
+        "import": "import { UploadItem } from '@chetanft/design_system';",
+        "props": {
+          "type": {
+            "type": "UploadItemType",
+            "required": false,
+            "description": ""
+          },
+          "state": {
+            "type": "UploadItemState",
+            "required": false,
+            "description": ""
+          },
+          "file": {
+            "type": "UploadFile",
+            "required": true,
+            "description": ""
+          },
+          "onDelete": {
+            "type": "() => void",
+            "required": false,
+            "description": ""
+          },
+          "onRetry": {
+            "type": "() => void",
+            "required": false,
+            "description": ""
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<UploadItem />"
+          }
+        ]
+      },
+      "Drawer": {
+        "description": "Side drawer component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Drawer } from '@chetanft/design_system';",
+        "props": {
+          "open": {
+            "type": "boolean",
+            "required": true,
+            "description": "Whether drawer is open"
+          },
+          "onClose": {
+            "type": "() => void",
+            "required": false,
+            "description": "Close handler"
+          },
+          "title": {
+            "type": "string",
+            "required": false,
+            "description": "Drawer title"
+          },
+          "placement": {
+            "type": "union of 'left', 'right', 'top', 'bottom'",
+            "required": false,
+            "default": "right",
+            "description": "Drawer placement"
+          },
+          "width": {
+            "type": "string | number",
+            "required": false,
+            "default": "400",
+            "description": "Drawer width (for left/right)"
+          },
+          "height": {
+            "type": "string | number",
+            "required": false,
+            "default": "100%",
+            "description": "Drawer height (for top/bottom)"
+          },
+          "closable": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show close button"
+          },
+          "maskClosable": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Close on mask click"
+          },
+          "showFigmaBadge": {
+            "type": "boolean",
+            "required": false,
+            "default": "true",
+            "description": "Show Figma design not available badge"
+          },
+          "children": {
+            "type": "React.ReactNode",
+            "required": true,
+            "description": ""
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Drawer />"
+          }
+        ]
+      },
+      "Illustration": {
+        "description": "Illustration component",
+        "import": "import { Illustration } from '@chetanft/design_system';",
+        "props": {
+          "variant": {
+            "type": "IllustrationVariant",
+            "required": false,
+            "description": ""
+          },
+          "src": {
+            "type": "string",
+            "required": false,
+            "description": ""
+          },
+          "alt": {
+            "type": "string",
+            "required": false,
+            "description": ""
+          },
+          "size": {
+            "type": "IllustrationSize",
+            "required": false,
+            "description": ""
+          },
+          "rounded": {
+            "type": "'none' | 'sm' | 'md' | 'lg'",
+            "required": false,
+            "description": ""
+          },
+          "background": {
+            "type": "'transparent' | 'subtle'",
+            "required": false,
+            "description": ""
+          },
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": ""
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Illustration />"
           }
         ]
       },
@@ -3266,50 +3567,47 @@
         },
         "examples": [
           {
-            "name": "Text",
-            "code": "<Skeleton variant=\"text\" width=\"100%\" showFigmaBadge={false} />"
-          },
-          {
-            "name": "Circular",
-            "code": "<Skeleton variant=\"circular\" width={40} height={40} showFigmaBadge={false} />"
+            "name": "Basic",
+            "code": "<Skeleton />"
           }
         ]
       },
-      "Alert": {
-        "description": "Alert component for displaying important messages built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
-        "import": "import { Alert } from '@chetanft/design_system';",
+      "Textarea": {
+        "description": "Multi-line text input component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Textarea } from '@chetanft/design_system';",
         "props": {
-          "variant": {
-            "type": "union of 'info', 'success', 'warning', 'danger'",
-            "required": false,
-            "default": "info",
-            "description": "Alert variant"
-          },
-          "title": {
+          "label": {
             "type": "string",
             "required": false,
-            "description": "Alert title"
+            "description": "Label text for the textarea"
           },
-          "message": {
-            "type": "ReactNode",
-            "required": false,
-            "description": "Alert message content"
-          },
-          "icon": {
-            "type": "IconName",
-            "required": false,
-            "description": "Custom icon name"
-          },
-          "closable": {
+          "labelMandatory": {
             "type": "boolean",
             "required": false,
             "default": "false",
-            "description": "Show close button"
+            "description": "Show mandatory indicator"
           },
-          "onClose": {
-            "type": "() => void",
+          "labelOptional": {
+            "type": "boolean",
             "required": false,
-            "description": "Close handler"
+            "default": "false",
+            "description": "Show optional indicator"
+          },
+          "error": {
+            "type": "string",
+            "required": false,
+            "description": "Error message to display"
+          },
+          "helperText": {
+            "type": "string",
+            "required": false,
+            "description": "Helper text to display below the textarea"
+          },
+          "size": {
+            "type": "union of 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'",
+            "required": false,
+            "default": "md",
+            "description": "Size of the textarea"
           },
           "showFigmaBadge": {
             "type": "boolean",
@@ -3321,38 +3619,49 @@
             "type": "string",
             "required": false,
             "description": "Additional CSS classes"
+          },
+          "rows": {
+            "type": "number",
+            "required": false,
+            "default": "4",
+            "description": "Number of rows"
           }
         },
         "examples": [
           {
-            "name": "Success",
-            "code": "<Alert variant=\"success\" title=\"Success!\" message=\"Your changes have been saved.\" showFigmaBadge={false} />"
-          },
-          {
-            "name": "Warning",
-            "code": "<Alert variant=\"warning\" title=\"Warning\" message=\"Please review your input.\" closable showFigmaBadge={false} />"
+            "name": "Basic",
+            "code": "<Textarea />"
           }
         ]
       },
-      "Breadcrumb": {
-        "description": "Breadcrumb navigation component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
-        "import": "import { Breadcrumb } from '@chetanft/design_system';",
+      "ProgressBar": {
+        "description": "ProgressBar component",
+        "import": "import { ProgressBar } from '@chetanft/design_system';",
         "props": {
-          "items": {
-            "type": "BreadcrumbItem[]",
-            "required": true,
-            "description": "Array of breadcrumb items"
-          },
-          "separator": {
-            "type": "IconName | ReactNode",
+          "value": {
+            "type": "number",
             "required": false,
-            "description": "Custom separator"
+            "description": ""
           },
-          "showFigmaBadge": {
+          "variant": {
+            "type": "'primary' | 'success' | 'warning' | 'danger'",
+            "required": false,
+            "description": ""
+          },
+          "size": {
+            "type": "'sm' | 'md' | 'lg'",
+            "required": false,
+            "description": ""
+          },
+          "showPercentage": {
             "type": "boolean",
             "required": false,
-            "default": "true",
-            "description": "Show Figma design not available badge"
+            "description": ""
+          },
+          "animated": {
+            "type": "boolean",
+            "required": false,
+            "description": ""
           },
           "className": {
             "type": "string",
@@ -3363,7 +3672,24 @@
         "examples": [
           {
             "name": "Basic",
-            "code": "<Breadcrumb items={[{label: 'Home', href: '/'}, {label: 'Products', href: '/products'}, {label: 'Current Page'}]} showFigmaBadge={false} />"
+            "code": "<ProgressBar />"
+          }
+        ]
+      },
+      "Notification": {
+        "description": "Notification/Toast system built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
+        "import": "import { Notification } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          }
+        },
+        "examples": [
+          {
+            "name": "Basic",
+            "code": "<Notification />"
           }
         ]
       },
@@ -3424,153 +3750,7 @@
         "examples": [
           {
             "name": "Basic",
-            "code": "<Pagination current={1} total={100} pageSize={10} showFigmaBadge={false} />"
-          }
-        ]
-      },
-      "Notification": {
-        "description": "Notification/Toast system built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
-        "import": "import { NotificationProvider, useNotification } from '@chetanft/design_system';",
-        "props": {},
-        "examples": [
-          {
-            "name": "Usage",
-            "code": "const notification = useNotification();\nnotification.addNotification({ message: 'Success!', type: 'success' });"
-          }
-        ]
-      },
-      "Modal": {
-        "description": "Modal dialog component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
-        "import": "import { Modal } from '@chetanft/design_system';",
-        "props": {
-          "open": {
-            "type": "boolean",
-            "required": true,
-            "description": "Whether modal is open"
-          },
-          "onClose": {
-            "type": "() => void",
-            "required": false,
-            "description": "Close handler"
-          },
-          "title": {
-            "type": "string",
-            "required": false,
-            "description": "Modal title"
-          },
-          "footer": {
-            "type": "ReactNode",
-            "required": false,
-            "description": "Footer content"
-          },
-          "closable": {
-            "type": "boolean",
-            "required": false,
-            "default": "true",
-            "description": "Show close button"
-          },
-          "maskClosable": {
-            "type": "boolean",
-            "required": false,
-            "default": "true",
-            "description": "Close on mask click"
-          },
-          "width": {
-            "type": "string | number",
-            "required": false,
-            "default": "520",
-            "description": "Modal width"
-          },
-          "centered": {
-            "type": "boolean",
-            "required": false,
-            "default": "true",
-            "description": "Center modal vertically"
-          },
-          "showFigmaBadge": {
-            "type": "boolean",
-            "required": false,
-            "default": "true",
-            "description": "Show Figma design not available badge"
-          },
-          "className": {
-            "type": "string",
-            "required": false,
-            "description": "Additional CSS classes"
-          }
-        },
-        "examples": [
-          {
-            "name": "Basic",
-            "code": "<Modal open={true} onClose={() => {}} title=\"Confirm\" showFigmaBadge={false} >Content</Modal>"
-          }
-        ]
-      },
-      "Drawer": {
-        "description": "Side drawer component built using FT Design System tokens. Figma design not available - component created based on design system specifications.",
-        "import": "import { Drawer } from '@chetanft/design_system';",
-        "props": {
-          "open": {
-            "type": "boolean",
-            "required": true,
-            "description": "Whether drawer is open"
-          },
-          "onClose": {
-            "type": "() => void",
-            "required": false,
-            "description": "Close handler"
-          },
-          "title": {
-            "type": "string",
-            "required": false,
-            "description": "Drawer title"
-          },
-          "placement": {
-            "type": "union of 'left', 'right', 'top', 'bottom'",
-            "required": false,
-            "default": "right",
-            "description": "Drawer placement"
-          },
-          "width": {
-            "type": "string | number",
-            "required": false,
-            "default": "400",
-            "description": "Drawer width (for left/right)"
-          },
-          "height": {
-            "type": "string | number",
-            "required": false,
-            "default": "100%",
-            "description": "Drawer height (for top/bottom)"
-          },
-          "closable": {
-            "type": "boolean",
-            "required": false,
-            "default": "true",
-            "description": "Show close button"
-          },
-          "maskClosable": {
-            "type": "boolean",
-            "required": false,
-            "default": "true",
-            "description": "Close on mask click"
-          },
-          "showFigmaBadge": {
-            "type": "boolean",
-            "required": false,
-            "default": "true",
-            "description": "Show Figma design not available badge"
-          },
-          "className": {
-            "type": "string",
-            "required": false,
-            "description": "Additional CSS classes"
-          }
-        },
-        "examples": [
-          {
-            "name": "Right Drawer",
-            "code": "<Drawer open={true} onClose={() => {}} title=\"Settings\" placement=\"right\" showFigmaBadge={false} >Content</Drawer>"
+            "code": "<Pagination />"
           }
         ]
       }

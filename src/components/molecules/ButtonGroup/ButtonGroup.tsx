@@ -4,31 +4,24 @@ import React from 'react';
 import { Button, type ButtonProps } from '../../atoms/Button/Button';
 import { cn } from '../../../lib/utils';
 
-export interface ButtonGroupItem
-  extends Omit<ButtonProps, 'children' | 'id'> {
-  /**
-   * Unique identifier for list rendering
-   */
-  id?: string | number;
-  /**
-   * Button label/content from Figma
-   */
+export interface ButtonGroupItem {
+  id?: string;
   label: React.ReactNode;
+  variant?: ButtonProps['variant'];
+  size?: ButtonProps['size'];
+  icon?: ButtonProps['icon'];
+  iconPosition?: ButtonProps['iconPosition'];
+  loading?: ButtonProps['loading'];
+  disabled?: ButtonProps['disabled'];
+  className?: string;
+  onClick?: ButtonProps['onClick'];
+  type?: ButtonProps['type'];
+  'aria-label'?: string;
 }
 
-export interface ButtonGroupProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * Collection of buttons to render from left ➝ right
-   */
+export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   buttons: ButtonGroupItem[];
-  /**
-   * Stretch buttons to equal widths (matches stacked button rows in Figma)
-   */
   equalWidth?: boolean;
-  /**
-   * Allow wrapping when ButtonGroup is wider than container
-   */
   wrap?: boolean;
 }
 
@@ -58,8 +51,9 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
         )}
         {...props}
       >
-        {buttons.map(
-          ({ id, label, className: buttonClassName, ...buttonProps }, index) => (
+        {buttons.map((button, index) => {
+          const { id, label, className: buttonClassName, ...buttonProps } = button;
+          return (
             <Button
               key={id ?? index}
               className={cn(equalWidth && 'flex-1', buttonClassName)}
@@ -67,8 +61,8 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
             >
               {label}
             </Button>
-          )
-        )}
+          );
+        })}
       </div>
     );
   }
@@ -77,4 +71,3 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
 ButtonGroup.displayName = 'ButtonGroup';
 
 export default ButtonGroup;
-

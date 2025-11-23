@@ -1,5 +1,4 @@
 import { MainNavItem, SidebarNavItem } from "@/types/nav"
-import { BookOpen, Package, Blocks, Palette, BookMarked, Github, Star, BarChart } from "lucide-react"
 
 interface DocsConfig {
   mainNav: MainNavItem[]
@@ -11,44 +10,32 @@ export const docsConfig: DocsConfig = {
     {
       title: "Documentation",
       href: "/docs",
-      icon: BookOpen,
     },
     {
       title: "Components",
       href: "/docs/components/button",
-      icon: Package,
-    },
-    {
-      title: "Blocks",
-      href: "/blocks",
-      icon: Blocks,
-    },
-    {
-      title: "Colors",
-      href: "/colors",
-      icon: Palette,
-    },
-    {
-      title: "Icons",
-      href: "/icons",
-      icon: Star,
     },
     {
       title: "Charts",
       href: "/charts",
-      icon: BarChart,
+    },
+    {
+      title: "Icons",
+      href: "/icons",
+    },
+    {
+      title: "Colors",
+      href: "/colors",
     },
     {
       title: "Storybook",
       href: "http://localhost:6006",
       external: true,
-      icon: BookMarked,
     },
     {
       title: "GitHub",
       href: "https://github.com/chetanft/components",
       external: true,
-      icon: Github,
     },
   ],
   sidebarNav: [
@@ -83,6 +70,11 @@ export const docsConfig: DocsConfig = {
         {
           title: "Checkbox",
           href: "/docs/components/checkbox",
+          items: [],
+        },
+        {
+          title: "Colors",
+          href: "/docs/components/colors",
           items: [],
         },
         {
@@ -126,12 +118,6 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "Skeleton",
-          href: "/docs/components/skeleton",
-          items: [],
-          badge: "Figma not available",
-        },
-        {
           title: "Spacer",
           href: "/docs/components/spacer",
           items: [],
@@ -157,12 +143,6 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "Textarea",
-          href: "/docs/components/textarea",
-          items: [],
-          badge: "Figma not available",
-        },
-        {
           title: "Typography",
           href: "/docs/components/typography",
           items: [],
@@ -172,18 +152,6 @@ export const docsConfig: DocsConfig = {
     {
       title: "Molecules",
       items: [
-        {
-          title: "Alert",
-          href: "/docs/components/alert",
-          items: [],
-          badge: "Figma not available",
-        },
-        {
-          title: "Breadcrumb",
-          href: "/docs/components/breadcrumb",
-          items: [],
-          badge: "Figma not available",
-        },
         {
           title: "ButtonGroup",
           href: "/docs/components/button-group",
@@ -263,19 +231,7 @@ export const docsConfig: DocsConfig = {
           title: "UploadThumbnail",
           href: "/docs/components/upload-thumbnail",
           items: [],
-        },
-        {
-          title: "Notification",
-          href: "/docs/components/notification",
-          items: [],
-          badge: "Figma not available",
-        },
-        {
-          title: "Pagination",
-          href: "/docs/components/pagination",
-          items: [],
-          badge: "Figma not available",
-        },
+        }
       ],
     },
     {
@@ -302,26 +258,19 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "Drawer",
-          href: "/docs/components/drawer",
-          items: [],
-          badge: "Figma not available",
-        },
-        {
           title: "FileThumbnail",
           href: "/docs/components/file-thumbnail",
+          items: [],
+        },
+        {
+          title: "FileTypeIcon",
+          href: "/docs/components/file-type-icon",
           items: [],
         },
         {
           title: "Footer",
           href: "/docs/components/footer",
           items: [],
-        },
-        {
-          title: "Modal",
-          href: "/docs/components/modal",
-          items: [],
-          badge: "Figma not available",
         },
         {
           title: "NavigationLauncher",
@@ -366,6 +315,26 @@ export const docsConfig: DocsConfig = {
         {
           title: "UserProfileDropdown",
           href: "/docs/components/user-profile-dropdown",
+          items: [],
+        }
+      ],
+    },
+    {
+      title: "Design System",
+      items: [
+        {
+          title: "ColorSystem",
+          href: "/docs/components/color-system",
+          items: [],
+        },
+        {
+          title: "Colors",
+          href: "/docs/components/colors",
+          items: [],
+        },
+        {
+          title: "ThemeSystem",
+          href: "/docs/components/theme-system",
           items: [],
         }
       ],

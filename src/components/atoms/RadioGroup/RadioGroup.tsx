@@ -43,13 +43,21 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
     onChange?.(optionValue);
   };
 
+  // Ensure options is always an array
+  const optionsArray = Array.isArray(options) ? options : [];
+
   // If using legacy children pattern, render children instead
-  if (children && (!options || options.length === 0)) {
+  if (children && (!optionsArray || optionsArray.length === 0)) {
     return (
       <div className={cn("flex flex-col gap-4", className)} role="radiogroup">
         {children}
       </div>
     );
+  }
+
+  // If no options provided and no children, render empty state
+  if (!optionsArray || optionsArray.length === 0) {
+    return null;
   }
 
   // Size styles - exact Figma specifications
@@ -87,7 +95,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 
   return (
     <div className={groupStyles} role="radiogroup">
-      {options.map((option) => {
+      {optionsArray.map((option) => {
         const isSelected = currentValue === option.value;
         const isDisabled = option.disabled;
 

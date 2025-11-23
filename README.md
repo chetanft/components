@@ -191,11 +191,32 @@ module.exports = {
 
 ## 🛠️ Development
 
+### Docs-First Architecture
+
+This project follows a **docs-first architecture** where the documentation site (`ft-docs`) is the primary development interface. See [DOCS_FIRST_ARCHITECTURE.md](./DOCS_FIRST_ARCHITECTURE.md) for details.
+
+**Quick Start:**
+```bash
+# Develop components in docs (primary interface)
+cd ft-docs && npm run dev
+
+# Validate components are exported
+npm run validate:docs
+
+# Sync docs changes to npm package
+npm run sync:docs-to-package
+
+# Build package (includes validation)
+npm run build
+```
+
+### Traditional Development
+
 ```bash
 # Install dependencies
 npm install
 
-# Run Storybook
+# Run Storybook (optional)
 npm run storybook
 
 # Build package

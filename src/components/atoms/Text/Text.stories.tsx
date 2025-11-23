@@ -21,18 +21,15 @@ const meta = {
       description: 'Text size variant'
     },
     subText: {
-      control: { type: 'select' },
-      options: ['False', 'True'],
+      control: { type: 'boolean' },
       description: 'Whether to show sub text'
     },
     leadingIcon: {
-      control: { type: 'select' },
-      options: ['False', 'True'],
+      control: { type: 'boolean' },
       description: 'Whether to show leading icon'
     },
     trailingIcon: {
-      control: { type: 'select' },
-      options: ['False', 'True'],
+      control: { type: 'boolean' },
       description: 'Whether to show trailing icon'
     },
     className: {
@@ -49,9 +46,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     size: 'md',
-    subText: 'False',
-    leadingIcon: 'False',
-    trailingIcon: 'False',
+    subText: false,
+    leadingIcon: false,
+    trailingIcon: false,
   },
 };
 
@@ -59,9 +56,9 @@ export const Default: Story = {
 export const Small: Story = {
   args: {
     size: 'sm',
-    subText: 'False',
-    leadingIcon: 'False',
-    trailingIcon: 'False',
+    subText: false,
+    leadingIcon: false,
+    trailingIcon: false,
   },
 };
 
@@ -69,9 +66,9 @@ export const Small: Story = {
 export const Large: Story = {
   args: {
     size: 'lg',
-    subText: 'False',
-    leadingIcon: 'False',
-    trailingIcon: 'False',
+    subText: false,
+    leadingIcon: false,
+    trailingIcon: false,
   },
 };
 
@@ -79,9 +76,9 @@ export const Large: Story = {
 export const ExtraLarge: Story = {
   args: {
     size: 'xl',
-    subText: 'False',
-    leadingIcon: 'False',
-    trailingIcon: 'False',
+    subText: false,
+    leadingIcon: false,
+    trailingIcon: false,
   },
 };
 
@@ -89,9 +86,9 @@ export const ExtraLarge: Story = {
 export const XXLarge: Story = {
   args: {
     size: 'xx',
-    subText: 'False',
-    leadingIcon: 'False',
-    trailingIcon: 'False',
+    subText: false,
+    leadingIcon: false,
+    trailingIcon: false,
   },
 };
 
@@ -99,9 +96,9 @@ export const XXLarge: Story = {
 export const WithSubText: Story = {
   args: {
     size: 'md',
-    subText: 'True',
-    leadingIcon: 'False',
-    trailingIcon: 'False',
+    subText: true,
+    leadingIcon: false,
+    trailingIcon: false,
   },
 };
 
@@ -109,9 +106,9 @@ export const WithSubText: Story = {
 export const WithLeadingIcon: Story = {
   args: {
     size: 'md',
-    subText: 'False',
-    leadingIcon: 'True',
-    trailingIcon: 'False',
+    subText: false,
+    leadingIcon: true,
+    trailingIcon: false,
   },
 };
 
@@ -119,9 +116,9 @@ export const WithLeadingIcon: Story = {
 export const WithTrailingIcon: Story = {
   args: {
     size: 'md',
-    subText: 'False',
-    leadingIcon: 'False',
-    trailingIcon: 'True',
+    subText: false,
+    leadingIcon: false,
+    trailingIcon: true,
   },
 };
 
@@ -129,9 +126,9 @@ export const WithTrailingIcon: Story = {
 export const WithSubTextAndTrailingIcon: Story = {
   args: {
     size: 'md',
-    subText: 'True',
-    leadingIcon: 'False',
-    trailingIcon: 'True',
+    subText: true,
+    leadingIcon: false,
+    trailingIcon: true,
   },
 };
 
@@ -139,9 +136,9 @@ export const WithSubTextAndTrailingIcon: Story = {
 export const WithSubTextAndLeadingIcon: Story = {
   args: {
     size: 'md',
-    subText: 'True',
-    leadingIcon: 'True',
-    trailingIcon: 'False',
+    subText: true,
+    leadingIcon: true,
+    trailingIcon: false,
   },
 };
 
@@ -189,7 +186,7 @@ export const AllVariants: Story = {
       
       <div>
         <h3 className="font-semibold mb-4">With Sub Text</h3>
-        <Text size="md" subText="True" />
+        <Text size="md" subText={true} />
       </div>
       
       <div>
@@ -197,11 +194,11 @@ export const AllVariants: Story = {
         <div className="space-y-3">
           <div>
             <span className="text-sm text-gray-500 mb-2 block">Leading Icon:</span>
-            <Text size="md" leadingIcon="True" />
+            <Text size="md" leadingIcon={true} />
           </div>
           <div>
             <span className="text-sm text-gray-500 mb-2 block">Trailing Icon:</span>
-            <Text size="md" trailingIcon="True" />
+            <Text size="md" trailingIcon={true} />
           </div>
         </div>
       </div>
@@ -211,11 +208,11 @@ export const AllVariants: Story = {
         <div className="space-y-3">
           <div>
             <span className="text-sm text-gray-500 mb-2 block">Sub Text + Leading Icon:</span>
-            <Text size="md" subText="True" leadingIcon="True" />
+            <Text size="md" subText={true} leadingIcon={true} />
           </div>
           <div>
             <span className="text-sm text-gray-500 mb-2 block">Sub Text + Trailing Icon:</span>
-            <Text size="md" subText="True" trailingIcon="True" />
+            <Text size="md" subText={true} trailingIcon={true} />
           </div>
         </div>
       </div>

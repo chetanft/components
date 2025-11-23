@@ -82,7 +82,7 @@ export const RadioSelector: React.FC<RadioSelectorProps> = ({
 
         const contentContainerStyles = cn(
           "flex",
-          showRadio ? "flex-row items-center gap-3 flex-1" : "flex-col items-center gap-3"
+          showRadio ? "flex-row items-start gap-3 flex-1" : "flex-col items-center gap-3"
         );
 
         const textContainerStyles = cn(
@@ -104,7 +104,7 @@ export const RadioSelector: React.FC<RadioSelectorProps> = ({
             
             <div className={contentContainerStyles}>
               {showRadio && (
-                <div className="relative shrink-0">
+                <div className="relative shrink-0 mt-0.5">
                   <div className={radioStyles}>
                     {isSelected && (
                       <div className="absolute inset-0 flex items-center justify-center">

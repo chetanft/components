@@ -69,6 +69,105 @@ def extract_description_from_story(content: str) -> str:
     # Fallback: use title or component name
     return "Component"
 
+def generate_variant_name_from_props(code: str) -> str:
+    """Generate a meaningful variant name from component props"""
+    # Normalize whitespace for easier matching
+    normalized_code = re.sub(r'\s+', ' ', code.strip())
+    
+    # Check for common boolean props that indicate state
+    # Simple check: if word appears as a standalone prop (not part of prop assignment)
+    # Check for patterns: " checked ", " checked/>", " checked>", or ends with " checked"
+    has_checked = ' checked ' in normalized_code or ' checked/>' in normalized_code or ' checked>' in normalized_code or normalized_code.rstrip().endswith(' checked')
+    has_disabled = ' disabled ' in normalized_code or ' disabled/>' in normalized_code or ' disabled>' in normalized_code or normalized_code.rstrip().endswith(' disabled')
+    has_indeterminate = ' indeterminate ' in normalized_code or ' indeterminate/>' in normalized_code or ' indeterminate>' in normalized_code or normalized_code.rstrip().endswith(' indeterminate')
+    has_error = ' error ' in normalized_code or ' error/>' in normalized_code or ' error>' in normalized_code or normalized_code.rstrip().endswith(' error')
+    
+    # But exclude if it's a prop assignment like checked= or checked =
+    if has_checked and ('checked=' in normalized_code or 'checked =' in normalized_code):
+        has_checked = False
+    if has_disabled and ('disabled=' in normalized_code or 'disabled =' in normalized_code):
+        has_disabled = False
+    if has_indeterminate and ('indeterminate=' in normalized_code or 'indeterminate =' in normalized_code):
+        has_indeterminate = False
+    if has_error and ('error=' in normalized_code or 'error =' in normalized_code):
+        has_error = False
+    
+    # Check if both checked and disabled are present
+    if has_checked and has_disabled:
+        return "Disabled Checked"
+    elif has_checked:
+        return "Checked"
+    
+    if has_disabled:
+        return "Disabled"
+    
+    if has_indeterminate:
+        return "Indeterminate"
+    
+    if has_error:
+        return "Error"
+    
+    # Check for icon prop
+    icon_match = re.search(r'icon=["\']([^"\']+)["\']', normalized_code)
+    if icon_match:
+        icon_value = icon_match.group(1)
+        if icon_value == "Yes":
+            return "With Icon"
+        elif icon_value == "No":
+            return "Without Icon"
+        else:
+            return f"With {icon_value.capitalize()} Icon"
+    
+    # Check for labelPlacement
+    placement_match = re.search(r'labelPlacement=["\']([^"\']+)["\']', normalized_code)
+    if placement_match:
+        placement = placement_match.group(1)
+        return f"Label {placement.capitalize()}"
+    
+    # Check for type prop
+    type_match = re.search(r'type=["\']([^"\']+)["\']', normalized_code)
+    if type_match:
+        type_value = type_match.group(1)
+        return type_value.capitalize()
+    
+    # Check for status prop
+    status_match = re.search(r'status=["\']([^"\']+)["\']', normalized_code)
+    if status_match:
+        status = status_match.group(1)
+        return status.replace('-', ' ').title()
+    
+    # Check for optional prop (boolean)
+    if re.search(r'\boptional(?!\s*=)', normalized_code):
+        return "Optional"
+    
+    # Check for mandatory prop (boolean)
+    if re.search(r'\bmandatory(?!\s*=)', normalized_code):
+        return "Mandatory"
+    
+    # Check for suffixIcon (boolean or prop)
+    if re.search(r'suffixIcon\s*(?:\/>|>|=)', normalized_code):
+        return "With Suffix Icon"
+    
+    # Check for labelIcon (boolean prop)
+    if re.search(r'labelIcon\s*=\s*true', normalized_code) or re.search(r'labelIcon\s*(?:\/>|>)', normalized_code):
+        return "With Label Icon"
+    
+    # Check for subText (boolean or prop)
+    if re.search(r'subtext=["\']', normalized_code) or re.search(r'subText\s*=\s*true', normalized_code) or re.search(r'subText\s*(?:\/>|>)', normalized_code):
+        return "With Subtext"
+    
+    # Check for label text as fallback (extract meaningful part)
+    # Only use if we haven't found a better name yet
+    label_match = re.search(r'label=["\']([^"\']+)["\']', normalized_code)
+    if label_match:
+        label_text = label_match.group(1)
+        # Use label text if it's descriptive (not too long and not generic)
+        if len(label_text) < 30 and label_text.lower() not in ['label', 'text', 'value']:
+            # Capitalize first letter of each word
+            return label_text.title()
+    
+    return None
+
 def extract_variant_types_from_component(component_path: Path, component_name: str) -> List[str]:
     """Extract variant type definitions from component TypeScript file"""
     variants = []
@@ -232,8 +331,8 @@ def extract_examples_from_story(content: str, component_name: str) -> List[Dict[
         
         story_content = content[start_pos:actual_end]
         
-        # Check if this is an "AllVariants" story - extract individual components
-        if 'AllVariants' in story_name or 'all' in story_name.lower():
+        # Check if this is an "AllVariants" or "AllStates" story - extract individual components
+        if 'AllVariants' in story_name or 'AllStates' in story_name or 'all' in story_name.lower():
             # Extract all individual component instances from render function
             component_pattern = rf'<{component_name}(?:\s+[^>]*)?(?:>.*?</{component_name}>|/>)'
             component_matches = re.finditer(component_pattern, story_content, re.DOTALL)
@@ -263,8 +362,13 @@ def extract_examples_from_story(content: str, component_name: str) -> List[Dict[
                 elif size_match:
                     display_name = size_match.group(1).upper()
                 else:
-                    variant_count += 1
-                    display_name = f"Variant {variant_count}"
+                    # Try to generate meaningful name from props
+                    generated_name = generate_variant_name_from_props(code)
+                    if generated_name:
+                        display_name = generated_name
+                    else:
+                        variant_count += 1
+                        display_name = f"Variant {variant_count}"
                 
                 examples.append({
                     "name": display_name,

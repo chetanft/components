@@ -49,12 +49,12 @@ const datePickerFieldVariants = cva(
         l: "h-component-lg text-base",
       },
       state: {
-        default: "border-border dark:border-border-dark hover:border-border-hover dark:hover:border-border-hover-dark",
+        default: "border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)]",
         filled: "border-border dark:border-border-dark",
         disabled: "border-border-disabled dark:border-border-disabled-dark bg-surface-disabled dark:bg-surface-disabled-dark cursor-not-allowed",
         focused: "border-primary dark:border-primary-dark",
         prefilled: "border-border dark:border-border-dark",
-        hover: "border-border dark:border-border-dark",
+        hover: "border-[var(--primary)] dark:border-[var(--primary)]",
         typing: "border-border dark:border-border-dark"
       }
     },
@@ -249,6 +249,28 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     }
   }, []);
 
+  // Format date consistently
+  const formatDateForDisplay = (date: Date | null): string => {
+    if (!date) return '';
+    try {
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+    } catch {
+      // Fallback to manual formatting if locale formatting fails
+      try {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${month}/${day}/${year}`;
+      } catch {
+        return '';
+      }
+    }
+  };
+
   // Parse date from various formats (MM/DD/YYYY, DD/MM/YYYY, YYYY-MM-DD, etc.)
   const parseDateInput = (input: string): Date | null => {
     if (!input || input.trim() === '') return null;
@@ -300,7 +322,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
         const date = new Date(value);
         if (!isNaN(date.getTime())) {
           setStartDate(date);
-          setInputValue(date.toLocaleDateString());
+          setInputValue(formatDateForDisplay(date));
         }
       } catch {
         // Invalid date, ignore
@@ -316,7 +338,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
           const date = new Date(startValue);
           if (!isNaN(date.getTime())) {
             setStartDate(date);
-            setStartInputValue(date.toLocaleDateString());
+            setStartInputValue(formatDateForDisplay(date));
           }
         } catch {
           // Invalid date, ignore
@@ -329,7 +351,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
           const date = new Date(endValue);
           if (!isNaN(date.getTime())) {
             setEndDate(date);
-            setEndInputValue(date.toLocaleDateString());
+            setEndInputValue(formatDateForDisplay(date));
           }
         } catch {
           // Invalid date, ignore
@@ -393,8 +415,8 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       // Handle range selection
       setStartDate(date[0]);
       setEndDate(date[1]);
-      setStartInputValue(date[0].toLocaleDateString());
-      setEndInputValue(date[1].toLocaleDateString());
+      setStartInputValue(formatDateForDisplay(date[0]));
+      setEndInputValue(formatDateForDisplay(date[1]));
       setIsTyping(false);
       
       if (onStartChange) {
@@ -438,7 +460,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     } else {
       // Handle single date selection
       setStartDate(date);
-      setInputValue(date.toLocaleDateString());
+      setInputValue(formatDateForDisplay(date));
       setIsTyping(false);
       
       if (onChange) {
@@ -536,13 +558,13 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     
     const parsedDate = parseDateInput(inputValue);
     if (parsedDate) {
-      setInputValue(parsedDate.toLocaleDateString());
+      setInputValue(formatDateForDisplay(parsedDate));
       setInputError(null);
     } else {
       setInputError('Invalid date format');
       // Revert to last valid date
       if (startDate) {
-        setInputValue(startDate.toLocaleDateString());
+        setInputValue(formatDateForDisplay(startDate));
       } else {
         setInputValue('');
       }
@@ -587,12 +609,12 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     
     const parsedDate = parseDateInput(startInputValue);
     if (parsedDate) {
-      setStartInputValue(parsedDate.toLocaleDateString());
+      setStartInputValue(formatDateForDisplay(parsedDate));
       setInputError(null);
     } else {
       setInputError('Invalid start date format');
       if (startDate) {
-        setStartInputValue(startDate.toLocaleDateString());
+        setStartInputValue(formatDateForDisplay(startDate));
       } else {
         setStartInputValue('');
       }
@@ -637,12 +659,12 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     
     const parsedDate = parseDateInput(endInputValue);
     if (parsedDate) {
-      setEndInputValue(parsedDate.toLocaleDateString());
+      setEndInputValue(formatDateForDisplay(parsedDate));
       setInputError(null);
     } else {
       setInputError('Invalid end date format');
       if (endDate) {
-        setEndInputValue(endDate.toLocaleDateString());
+        setEndInputValue(formatDateForDisplay(endDate));
       } else {
         setEndInputValue('');
       }
@@ -650,6 +672,25 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   };
 
   const fieldState = disabled ? 'disabled' : error || inputError || isOpen ? 'focused' : 'default';
+
+  // Compute input values
+  const getStartInputDisplayValue = () => {
+    if (isTyping) return startInputValue;
+    if (startDate) return formatDateForDisplay(startDate);
+    return startInputValue;
+  };
+
+  const getEndInputDisplayValue = () => {
+    if (isTyping) return endInputValue;
+    if (endDate) return formatDateForDisplay(endDate);
+    return endInputValue;
+  };
+
+  const getSingleInputDisplayValue = () => {
+    if (isTyping) return inputValue;
+    if (startDate) return formatDateForDisplay(startDate);
+    return inputValue;
+  };
 
   return (
     <div className={cn(
@@ -677,7 +718,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
               <>
                 <input
                   type="text"
-                  value={isTyping ? startInputValue : (startDate ? startDate.toLocaleDateString() : startInputValue)}
+                  value={getStartInputDisplayValue()}
                   placeholder="MM/DD/YYYY"
                   disabled={disabled}
                   onChange={handleStartInputChange}
@@ -697,7 +738,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
                 </span>
                 <input
                   type="text"
-                  value={isTyping ? endInputValue : (endDate ? endDate.toLocaleDateString() : endInputValue)}
+                  value={getEndInputDisplayValue()}
                   placeholder="MM/DD/YYYY"
                   disabled={disabled}
                   onChange={handleEndInputChange}
@@ -717,7 +758,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
               <input
                 ref={ref}
                 type="text"
-                value={isTyping ? inputValue : (startDate ? startDate.toLocaleDateString() : inputValue)}
+                value={getSingleInputDisplayValue()}
                 placeholder={placeholder?.replace(/\\$/, '') || "MM/DD/YYYY"}
                 disabled={disabled}
                 onChange={handleInputChange}
