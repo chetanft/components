@@ -61,10 +61,39 @@ import {
     NotificationProvider,
     Modal,
     Drawer,
+    AreaChart,
+    LineChart,
+    BarChart,
+    PieChart,
+    DoughnutChart,
+    RadarChart,
+    PolarAreaChart,
+    ScatterChart,
+    BubbleChart,
+    RadialChart,
 } from "../../src"
 
 import { Plus as PlusIcon, ArrowRight as ArrowRightIcon, Pencil as PencilIcon } from "lucide-react"
 
+// Sample data for component examples
+const sampleOptions = [
+  { value: 'option1', label: 'Option 1' },
+  { value: 'option2', label: 'Option 2' },
+  { value: 'option3', label: 'Option 3' },
+];
+
+const sampleOptionsWithDisabled = [
+  { value: 'small', label: 'Small' },
+  { value: 'medium', label: 'Medium' },
+  { value: 'large', label: 'Large' },
+  { value: 'xlarge', label: 'Extra Large', disabled: true },
+];
+
+const sampleButtons = [
+  { id: 'ghost', label: 'Button', variant: 'text', icon: 'add', iconPosition: 'leading' },
+  { id: 'outline', label: 'Button', variant: 'secondary', icon: 'add', iconPosition: 'leading' },
+  { id: 'filled', label: 'Button', variant: 'primary', icon: 'add', iconPosition: 'leading' },
+];
 
 export const registry: Record<string, React.ComponentType<any> | any> = {
     React,
@@ -128,8 +157,21 @@ export const registry: Record<string, React.ComponentType<any> | any> = {
     NotificationProvider,
     Modal,
     Drawer,
+    AreaChart,
+    LineChart,
+    BarChart,
+    PieChart,
+    DoughnutChart,
+    RadarChart,
+    PolarAreaChart,
+    ScatterChart,
+    BubbleChart,
+    RadialChart,
     PlusIcon,
     ArrowRightIcon,
     PencilIcon,
+    sampleOptions,
+    sampleOptionsWithDisabled,
+    sampleButtons,
 }
 

@@ -260,7 +260,7 @@
         ]
       },
       "Checkbox": {
-        "description": "Form checkbox component",
+        "description": "A flexible checkbox component with support for labels, descriptions, error states, and indeterminate state.",
         "import": "import { Checkbox } from '@chetanft/design_system';",
         "props": {
           "checked": {
@@ -274,15 +274,36 @@
             "default": false,
             "description": "Whether checkbox is disabled"
           },
-          "onChange": {
-            "type": "(checked: boolean) => void",
+          "indeterminate": {
+            "type": "boolean",
             "required": false,
-            "description": "Change event handler"
+            "description": "Whether checkbox is in indeterminate state"
+          },
+          "error": {
+            "type": "boolean",
+            "required": false,
+            "description": "Whether checkbox is in error state"
+          },
+          "size": {
+            "type": "'sm' | 'md'",
+            "required": false,
+            "default": "md",
+            "description": "Size of the checkbox"
           },
           "label": {
             "type": "string",
             "required": false,
-            "description": "Checkbox label"
+            "description": "Label text for the checkbox"
+          },
+          "description": {
+            "type": "string",
+            "required": false,
+            "description": "Additional description text below the checkbox"
+          },
+          "onChange": {
+            "type": "(event: React.ChangeEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Change event handler"
           },
           "className": {
             "type": "string",
@@ -292,12 +313,36 @@
         },
         "examples": [
           {
-            "name": "Basic Checkbox",
+            "name": "Default",
             "code": "<Checkbox label=\"Accept terms and conditions\" />"
           },
           {
-            "name": "Controlled Checkbox",
-            "code": "const [checked, setChecked] = useState(false);\n\n<Checkbox \n  checked={checked}\n  onChange={setChecked}\n  label=\"Subscribe to newsletter\"\n/>"
+            "name": "Small",
+            "code": "<Checkbox label=\"Small checkbox\" size=\"sm\" />"
+          },
+          {
+            "name": "Checked",
+            "code": "<Checkbox label=\"Checked checkbox\" checked />"
+          },
+          {
+            "name": "Indeterminate",
+            "code": "<Checkbox label=\"Indeterminate checkbox\" indeterminate />"
+          },
+          {
+            "name": "With Description",
+            "code": "<Checkbox \n  label=\"Checkbox with description\"\n  description=\"This is additional information about the checkbox option\"\n/>"
+          },
+          {
+            "name": "Error",
+            "code": "<Checkbox \n  label=\"Checkbox with error\"\n  error\n  description=\"This field is required\"\n/>"
+          },
+          {
+            "name": "Disabled",
+            "code": "<Checkbox label=\"Disabled checkbox\" disabled />"
+          },
+          {
+            "name": "Disabled Checked",
+            "code": "<Checkbox label=\"Disabled checked checkbox\" disabled checked />"
           }
         ]
       },
@@ -402,6 +447,47 @@
           {
             "name": "Controlled Switch",
             "code": "const [enabled, setEnabled] = useState(false);\n\n<Switch \n  checked={enabled}\n  onChange={setEnabled}\n  label=\"Dark mode\"\n/>"
+          }
+        ]
+      },
+      "Spacer": {
+        "description": "A spacing component for creating consistent vertical or horizontal spacing between elements.",
+        "import": "import { Spacer } from '@chetanft/design_system';",
+        "props": {
+          "className": {
+            "type": "string",
+            "required": false,
+            "description": "Additional CSS classes"
+          },
+          "size": {
+            "type": "union of 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12'",
+            "required": false,
+            "default": "x1",
+            "description": "Size of the spacer (x1: 4px, x2: 8px, x3: 12px, x4: 16px, x5: 20px, x6: 24px, x7: 28px, x8: 32px, x9: 36px, x10: 40px, x11: 44px, x12: 48px)"
+          },
+          "horizontal": {
+            "type": "boolean",
+            "required": false,
+            "default": false,
+            "description": "Whether the spacer is horizontal (width) or vertical (height)"
+          }
+        },
+        "examples": [
+          {
+            "name": "X1",
+            "code": "<Spacer size='x1' />"
+          },
+          {
+            "name": "X4",
+            "code": "<Spacer size='x4' />"
+          },
+          {
+            "name": "X12",
+            "code": "<Spacer size='x12' />"
+          },
+          {
+            "name": "Horizontal",
+            "code": "<Spacer size='x4' horizontal />"
           }
         ]
       }

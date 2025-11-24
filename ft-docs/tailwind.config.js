@@ -1,71 +1,67 @@
-import colors from 'tailwindcss/colors';
+import rootConfig from '../tailwind.config.js';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+    ...rootConfig,
     content: [
         './src/**/*.{js,jsx,ts,tsx}',
         '../src/**/*.{js,jsx,ts,tsx}', // Include component library source
     ],
-
-    // CRITICAL: Safelist ensures all design system classes are included
-    safelist: [
-        // CSS Variable-based colors
-        'bg-[var(--button-primary-bg)]',
-        'bg-[var(--button-secondary-bg)]',
-        'bg-[var(--button-destructive-bg)]',
-        'bg-[var(--button-text-bg)]',
-        'text-[var(--button-primary-text)]',
-        'text-[var(--button-secondary-text)]',
-        'text-[var(--button-destructive-text)]',
-        'text-[var(--button-text-text)]',
-        'border-[var(--button-primary-border)]',
-        'border-[var(--button-secondary-border)]',
-        'border-[var(--button-destructive-border)]',
-        'border-[var(--button-text-border)]',
-        'hover:bg-[var(--button-primary-hover-bg)]',
-        'hover:bg-[var(--button-secondary-hover-bg)]',
-        'hover:bg-[var(--button-destructive-hover-bg)]',
-        'hover:bg-[var(--button-text-hover-bg)]',
-        'hover:border-[var(--button-secondary-hover-border)]',
-
-        // Badge colors
-        'bg-[var(--badge-normal-bg)]',
-        'bg-[var(--badge-danger-bg)]',
-        'bg-[var(--badge-success-bg)]',
-        'bg-[var(--badge-warning-bg)]',
-        'bg-[var(--badge-neutral-bg)]',
-        'text-[var(--badge-normal-text)]',
-        'text-[var(--badge-danger-text)]',
-        'text-[var(--badge-success-text)]',
-        'text-[var(--badge-warning-text)]',
-        'text-[var(--badge-neutral-text)]',
-        'border-[var(--badge-normal-border)]',
-        'border-[var(--badge-danger-border)]',
-        'border-[var(--badge-success-border)]',
-        'border-[var(--badge-warning-border)]',
-
-        // Component sizing
-        'rounded-[var(--component-border-radius)]',
-        'rounded-[8px]',
-        'rounded-md',
-        'rounded-lg',
-
-        // Spacing
-        'px-[12px]',
-        'px-[16px]',
-        'py-[8px]',
-        'py-[10px]',
-        'gap-[8px]',
-    ],
-
     theme: {
+        ...rootConfig.theme,
         extend: {
+            ...rootConfig.theme.extend,
+            colors: {
+                ...rootConfig.theme.extend.colors,
+                // Map docs-specific tokens
+                background: 'hsl(var(--docs-background))',
+                foreground: 'hsl(var(--docs-foreground))',
+                card: {
+                    DEFAULT: 'hsl(var(--docs-card))',
+                    foreground: 'hsl(var(--docs-card-foreground))',
+                },
+                popover: {
+                    DEFAULT: 'hsl(var(--docs-popover))',
+                    foreground: 'hsl(var(--docs-popover-foreground))',
+                },
+                primary: {
+                    ...rootConfig.theme.extend.colors.primary,
+                    DEFAULT: 'hsl(var(--docs-primary))',
+                    foreground: 'hsl(var(--docs-primary-foreground))',
+                },
+                secondary: {
+                    ...rootConfig.theme.extend.colors.secondary,
+                    DEFAULT: 'hsl(var(--docs-secondary))',
+                    foreground: 'hsl(var(--docs-secondary-foreground))',
+                },
+                muted: {
+                    DEFAULT: 'hsl(var(--docs-muted))',
+                    foreground: 'hsl(var(--docs-muted-foreground))',
+                },
+                accent: {
+                    DEFAULT: 'hsl(var(--docs-accent))',
+                    foreground: 'hsl(var(--docs-accent-foreground))',
+                },
+                destructive: {
+                    ...rootConfig.theme.extend.colors.destructive, // Keep FT destructive if exists, or override
+                    DEFAULT: 'hsl(var(--docs-destructive))',
+                    foreground: 'hsl(var(--docs-destructive-foreground))',
+                },
+                border: 'hsl(var(--docs-border))',
+                input: 'hsl(var(--docs-input))',
+                ring: 'hsl(var(--docs-ring))',
+            },
             borderRadius: {
-                'component': '8px',
+                ...rootConfig.theme.extend.borderRadius,
+                lg: 'var(--docs-radius)',
+                md: 'calc(var(--docs-radius) - 2px)',
+                sm: 'calc(var(--docs-radius) - 4px)',
             },
         },
     },
-
-    plugins: [],
+    plugins: [
+        ...rootConfig.plugins || [],
+        require("tailwindcss-animate")
+    ],
     darkMode: 'class',
 }

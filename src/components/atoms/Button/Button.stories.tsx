@@ -177,8 +177,8 @@ export const Disabled: Story = {
   },
 };
 
-// All variants showcase
-export const AllVariants: Story = {
+// Figma variants showcase
+export const FigmaVariants: Story = {
   render: () => (
     <div className="flex flex-col gap-6 p-6">
       {/* Button Variants */}

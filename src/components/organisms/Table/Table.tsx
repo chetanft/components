@@ -18,7 +18,8 @@ export type TableVariant = 'primary' | 'secondary';
 
 export interface TableColumn<T = any> {
   key: string;
-  title: string;
+  title?: string;
+  label?: string; // Alias for title
   type?: ColumnType;
   sortable?: boolean;
   width?: string;
@@ -86,7 +87,7 @@ const TableHeader = <T extends TableRow = TableRow>({
 
   const handleSelectAll = useCallback(() => {
     if (!onSelectionChange) return;
-    
+
     if (isAllSelected) {
       onSelectionChange([]);
     } else {
@@ -96,7 +97,7 @@ const TableHeader = <T extends TableRow = TableRow>({
 
   const handleSort = useCallback((column: TableColumn<T>) => {
     if (!column.sortable || !onSort) return;
-    
+
     let newDirection: SortDirection = 'asc';
     if (sortColumn === column.key) {
       if (sortDirection === 'asc') {
@@ -105,7 +106,7 @@ const TableHeader = <T extends TableRow = TableRow>({
         newDirection = null;
       }
     }
-    
+
     onSort(column.key, newDirection);
   }, [sortColumn, sortDirection, onSort]);
 
@@ -140,7 +141,7 @@ const TableHeader = <T extends TableRow = TableRow>({
               column.width && `w-[${column.width}]`
             )}
           >
-            {column.title}
+            {column.title || column.label}
           </TableHeaderItem>
         ))}
         {hasRowActions && (
@@ -184,7 +185,7 @@ const TableRowComponent = <T extends TableRow = TableRow>({
   cellSize = 'md'
 }: TableRowProps<T>) => {
   const [hoveredRowIndex, setHoveredRowIndex] = useState<boolean>(false);
-  
+
   const handleSelect = useCallback(() => {
     if (!onSelectionChange) return;
     onSelectionChange(row.id, !selected);
@@ -203,14 +204,14 @@ const TableRowComponent = <T extends TableRow = TableRow>({
               {typeof value === 'number' ? value.toLocaleString() : (value ?? '')}
             </TableCellText>
           );
-        
+
         case 'date':
           return (
             <TableCellText type="primary">
               {value instanceof Date ? value.toLocaleDateString() : (value ?? '')}
             </TableCellText>
           );
-        
+
         default:
           return (
             <TableCellText type="primary">
@@ -233,21 +234,21 @@ const TableRowComponent = <T extends TableRow = TableRow>({
     if (variant === 'secondary') {
       return 'white'; // Secondary variant: all white
     }
-    
+
     // Primary variant: alternating pattern based on row index
     // Even rows (0, 2, 4...) = white, Odd rows (1, 3, 5...) = bg
     return index % 2 === 0 ? 'white' : 'bg';
   };
-  
+
   const actionCellIndex = columns.length + (selectable ? 1 : 0);
 
   return (
-    <tr 
+    <tr
       onMouseEnter={() => setHoveredRowIndex(true)}
       onMouseLeave={() => setHoveredRowIndex(false)}
     >
       {selectable && (
-        <TableCell 
+        <TableCell
           backgroundColor={getCellBackground(0)}
           lineVariant="single"
           size={cellSize}
@@ -276,10 +277,10 @@ const TableRowComponent = <T extends TableRow = TableRow>({
         const cellValue = row[column.key];
         const hasNewlines = typeof cellValue === 'string' && cellValue.includes('\n');
         const hasSingleLine = !cellValue || (!hasNewlines && String(cellValue).length < 20);
-        
+
         return (
-          <TableCell 
-            key={column.key} 
+          <TableCell
+            key={column.key}
             backgroundColor={getCellBackground(cellIndex)}
             lineVariant={hasSingleLine ? "single" : "double"}
             size={cellSize}
@@ -340,14 +341,14 @@ export const Table = <T extends TableRow = TableRow>({
 
   const handleRowSelectionChange = useCallback((rowId: string | number, selected: boolean) => {
     if (!onSelectionChange) return;
-    
+
     let newSelectedRows: (string | number)[];
     if (selected) {
       newSelectedRows = [...selectedRows, rowId];
     } else {
       newSelectedRows = selectedRows.filter(id => id !== rowId);
     }
-    
+
     onSelectionChange(newSelectedRows);
   }, [selectedRows, onSelectionChange]);
 

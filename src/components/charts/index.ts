@@ -25,5 +25,11 @@ export type { ScatterChartProps } from './ScatterChart';
 export { BubbleChart } from './BubbleChart';
 export type { BubbleChartProps } from './BubbleChart';
 
+export { AreaChart } from './AreaChart';
+export type { AreaChartProps } from './AreaChart';
+
+export { RadialChart } from './RadialChart';
+export type { RadialChartProps } from './RadialChart';
+
 export { chartColors, defaultColors, extendedColors, defaultChartOptions, ftChartColors } from './chartConfig';
 

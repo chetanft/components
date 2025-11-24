@@ -1,57 +1,82 @@
-import { Copy } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 
 export default function AIPromptsPage() {
     const systemPrompt = `You are an expert frontend developer using the FT Design System.
-This design system is built with React, Tailwind CSS, and Radix UI.
 
-Key Principles:
-1. Use the provided components from "@chetanft/design_system" whenever possible.
-2. Use Tailwind CSS utility classes for layout and spacing.
-3. Follow the component props definitions strictly.
+## Installation
+\`\`\`bash
+npm install ft-design-system
+\`\`\`
 
-Available Components:
-- Button (variants: primary, secondary, text)
-- Input (types: text, email, password, number)
-- Checkbox
-- Switch
-- Badge (variants: default, secondary, success, warning, error)
-- AppHeader
-- Footer
-- UserProfile
+## Setup
+\`\`\`tsx
+import 'ft-design-system/dist/styles.css';
+import { Button, Input, Table } from 'ft-design-system/ai';
+\`\`\`
 
-Example Usage:
-import { Button, Input } from "@chetanft/design_system"
+## Core Rules
 
-export function LoginForm() {
-  return (
-    <form className="space-y-4">
-      <Input label="Email" type="email" />
-      <Input label="Password" type="password" />
-      <Button variant="primary">Login</Button>
-    </form>
-  )
-}`
+1. **Use semantic color tokens** - NEVER arbitrary colors
+   ✅ bg-primary, text-secondary, border-border
+   ❌ bg-[#123456], bg-blue-500
+
+2. **Component specifications**
+   - Table: data needs 'id', columns use 'title' (NOT 'header')
+   - Badge: variant="danger" (NOT "error")
+   - Tabs: use tabs array (NOT children)
+   - Button: variants 'primary' | 'secondary' | 'destructive' | 'text' | 'link'
+   - Icons: pass string names, NOT React elements
+
+3. **Never override heights** - use size props (sm|md|lg)
+
+## Available Components
+Atoms: Button, Badge, Checkbox, Switch, Icon, Input, Label, Avatar, Divider
+Molecules: DatePicker, Dropdown, Steps, Tooltip, ProgressBar, Upload components
+Organisms: Table, Tabs, AppHeader, Card, Upload, UserProfile, Footer
+
+## Quick Examples
+\`\`\`tsx
+<Button variant="primary">Save</Button>
+<Input label="Email" type="email" />
+<Table columns={[{key: 'name', title: 'Name'}]} data={[{id: 1}]} />
+<Badge variant="danger">Error</Badge>
+\`\`\``
 
     return (
         <div className="space-y-6">
-            <div className="space-y-2">
-                <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-                    AI Prompts
-                </h1>
-                <p className="text-lg text-muted-foreground">
-                    Copy these prompts into your AI coding assistant (Cursor, Windsurf, GitHub Copilot) to help it understand the FT Design System.
+            <div>
+                <h1 className="text-4xl font-bold mb-2">AI Prompts</h1>
+                <p className="text-muted-foreground">
+                    System prompt for AI coding assistants (Cursor, Windsurf, GitHub Copilot, ChatGPT, etc.)
                 </p>
             </div>
 
-            <div className="space-y-4">
-                <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-                    System Prompt
-                </h2>
-                <div className="relative rounded-md border bg-muted p-4">
-                    <pre className="overflow-x-auto whitespace-pre-wrap font-mono text-sm">
+            <div className="space-y-2">
+                <h2 className="text-2xl font-semibold">System Prompt</h2>
+                <p className="text-sm text-muted-foreground">
+                    Copy this into your AI assistant's rules (.cursor/rules, .windsurf/rules)
+                </p>
+                <div className="rounded-lg border bg-muted p-4">
+                    <pre className="text-xs overflow-x-auto whitespace-pre-wrap font-mono">
                         {systemPrompt}
                     </pre>
                 </div>
+            </div>
+
+            <div className="rounded-lg border bg-surface p-4">
+                <h3 className="font-semibold mb-2">Additional Resources</h3>
+                <ul className="space-y-1 text-sm">
+                    <li>
+                        <a href="/docs/storybook" className="text-primary hover:underline">
+                            Storybook - Component playground
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/docs/npm-package" className="text-primary hover:underline">
+                            NPM Package - Installation guide
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     )

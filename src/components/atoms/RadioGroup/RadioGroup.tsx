@@ -44,7 +44,14 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   };
 
   // Ensure options is always an array
-  const optionsArray = Array.isArray(options) ? options : [];
+  // Handle edge cases: undefined, null, or non-array values
+  let optionsArray: RadioOption[] = [];
+  if (Array.isArray(options)) {
+    optionsArray = options;
+  } else if (options && typeof options === 'object' && 'length' in options) {
+    // Handle array-like objects
+    optionsArray = Array.from(options as any);
+  }
 
   // If using legacy children pattern, render children instead
   if (children && (!optionsArray || optionsArray.length === 0)) {
@@ -105,14 +112,14 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
           "relative shrink-0 rounded-full border-2 transition-all duration-200 cursor-pointer",
           // Size
           currentSize.radio,
-          // State styles using CSS variables instead of hardcoded colors
+          // State styles with explicit colors for visibility
           isDisabled
-            ? "bg-transparent border-[var(--border-primary)] cursor-not-allowed"
+            ? "bg-transparent border-[#ced1d7] cursor-not-allowed opacity-50"
             : isSelected
-            ? "bg-transparent border-[var(--primary)] hover:bg-[var(--border-primary)] hover:border-[var(--primary)]"
-            : "bg-transparent border-[var(--tertiary)] hover:bg-[var(--border-primary)] hover:border-[var(--tertiary)]",
+            ? "bg-transparent border-[#434f64] hover:bg-[#f0f1f7] hover:border-[#434f64]"
+            : "bg-transparent border-[#838c9d] hover:border-[#434f64]",
           // Focus styles
-          "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--primary)] focus-within:ring-offset-2"
+          "focus-within:outline-none focus-within:ring-2 focus-within:ring-[#434f64] focus-within:ring-offset-2"
         );
 
         // Container styles for each radio option
@@ -134,12 +141,12 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
                 className="sr-only"
               />
               <div className={radioStyles}>
-                {/* Radio dot - use CSS variable instead of hardcoded color */}
+                {/* Radio dot */}
                 {isSelected && !isDisabled && (
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div 
                       className={cn(
-                        "rounded-full bg-[var(--primary)]", // Use CSS variable
+                        "rounded-full bg-[#434f64]", // --primary
                         currentSize.dot
                       )}
                     />

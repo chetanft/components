@@ -123,8 +123,8 @@ function ListingPreview() {
                   value === "Active"
                     ? "success"
                     : value === "Completed"
-                    ? "default"
-                    : "warning"
+                      ? "neutral"
+                      : "warning"
                 }
               >
                 {value}

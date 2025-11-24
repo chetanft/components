@@ -8,6 +8,13 @@ export interface LineChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'line'>;
   options?: ChartOptions<'line'>;
   fill?: boolean;
+  stepped?: boolean;
+  tension?: number;
+  showDots?: boolean;
+  dotRadius?: number;
+  dotColors?: string[];
+  showLabel?: boolean;
+  labelFormatter?: (value: number) => string;
 }
 
 export const LineChart: React.FC<LineChartProps> = ({
@@ -17,21 +24,39 @@ export const LineChart: React.FC<LineChartProps> = ({
   className,
   options,
   fill = false,
+  stepped = false,
+  tension = 0.4,
+  showDots = false,
+  dotRadius = 4,
+  dotColors,
+  showLabel = false,
+  labelFormatter,
   ...props
 }) => {
   // Apply default colors to datasets if not provided
   const processedData: ChartData<'line'> = {
     ...data,
-    datasets: data.datasets.map((dataset, index) => ({
-      ...dataset,
-      backgroundColor: fill
-        ? dataset.backgroundColor || `${defaultColors[index % defaultColors.length]}80`
-        : dataset.backgroundColor,
-      borderColor: dataset.borderColor || defaultColors[index % defaultColors.length],
-      borderWidth: dataset.borderWidth || 2,
-      fill: fill,
-      tension: dataset.tension ?? 0.4,
-    })),
+    datasets: data.datasets.map((dataset, index) => {
+      const baseColor = defaultColors[index % defaultColors.length];
+      const dotColor = dotColors?.[index] || baseColor;
+      
+      return {
+        ...dataset,
+        backgroundColor: fill
+          ? dataset.backgroundColor || `${baseColor}80`
+          : dataset.backgroundColor,
+        borderColor: dataset.borderColor || baseColor,
+        borderWidth: dataset.borderWidth || 2,
+        fill: fill,
+        stepped: stepped ? 'after' : false,
+        tension: stepped ? 0 : (dataset.tension ?? tension),
+        pointRadius: showDots ? (dataset.pointRadius ?? dotRadius) : 0,
+        pointHoverRadius: showDots ? (dataset.pointHoverRadius ?? dotRadius + 2) : 0,
+        pointBackgroundColor: dataset.pointBackgroundColor || dotColor,
+        pointBorderColor: dataset.pointBorderColor || '#ffffff',
+        pointBorderWidth: dataset.pointBorderWidth ?? 2,
+      };
+    }),
   };
 
   const chartOptions: ChartOptions<'line'> = {

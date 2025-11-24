@@ -7,6 +7,11 @@ import { defaultColors, defaultChartOptions } from './chartConfig';
 export interface RadarChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'radar'>;
   options?: ChartOptions<'radar'>;
+  showDots?: boolean;
+  linesOnly?: boolean;
+  labelFormatter?: (label: string) => string;
+  gridType?: 'default' | 'circle' | 'none' | 'filled';
+  showLegend?: boolean;
 }
 
 export const RadarChart: React.FC<RadarChartProps> = ({
@@ -15,31 +20,64 @@ export const RadarChart: React.FC<RadarChartProps> = ({
   height = 400,
   className,
   options,
+  showDots = true,
+  linesOnly = false,
+  labelFormatter,
+  gridType = 'default',
+  showLegend = true,
   ...props
 }) => {
   // Apply default colors to datasets if not provided
   const processedData: ChartData<'radar'> = {
     ...data,
-    datasets: data.datasets.map((dataset, index) => ({
-      ...dataset,
-      backgroundColor: dataset.backgroundColor || `${defaultColors[index % defaultColors.length]}40`,
-      borderColor: dataset.borderColor || defaultColors[index % defaultColors.length],
-      borderWidth: dataset.borderWidth || 2,
-      pointBackgroundColor: dataset.pointBackgroundColor || defaultColors[index % defaultColors.length],
-      pointBorderColor: dataset.pointBorderColor || '#ffffff',
-      pointHoverBackgroundColor: dataset.pointHoverBackgroundColor || defaultColors[index % defaultColors.length],
-      pointHoverBorderColor: dataset.pointHoverBorderColor || '#ffffff',
-    })),
+    datasets: data.datasets.map((dataset, index) => {
+      const baseColor = defaultColors[index % defaultColors.length];
+      const bgOpacity = gridType === 'filled' ? '80' : '40';
+      
+      return {
+        ...dataset,
+        backgroundColor: dataset.backgroundColor || (linesOnly ? 'transparent' : `${baseColor}${bgOpacity}`),
+        borderColor: dataset.borderColor || baseColor,
+        borderWidth: dataset.borderWidth || 2,
+        pointRadius: showDots ? (dataset.pointRadius ?? 4) : 0,
+        pointHoverRadius: showDots ? (dataset.pointHoverRadius ?? 6) : 0,
+        pointBackgroundColor: dataset.pointBackgroundColor || baseColor,
+        pointBorderColor: dataset.pointBorderColor || '#ffffff',
+        pointHoverBackgroundColor: dataset.pointHoverBackgroundColor || baseColor,
+        pointHoverBorderColor: dataset.pointHoverBorderColor || '#ffffff',
+      };
+    }),
+  };
+
+  const getGridConfig = () => {
+    switch (gridType) {
+      case 'none':
+        return {
+          display: false,
+        };
+      case 'circle':
+        return {
+          circular: true,
+          color: '#e1e2e4',
+        };
+      case 'filled':
+        return {
+          color: '#e1e2e4',
+        };
+      default:
+        return {
+          color: '#e1e2e4',
+        };
+    }
   };
 
   const chartOptions: ChartOptions<'radar'> = {
     ...defaultChartOptions,
     scales: {
       r: {
-        grid: {
-          color: '#e1e2e4',
-        },
+        grid: getGridConfig(),
         ticks: {
+          display: gridType !== 'none',
           color: '#5f697b',
           font: {
             family: 'Inter, system-ui, sans-serif',
@@ -53,7 +91,19 @@ export const RadarChart: React.FC<RadarChartProps> = ({
             size: 12,
             weight: 500,
           },
+          callback: labelFormatter
+            ? (label) => labelFormatter(label)
+            : undefined,
         },
+      },
+    },
+    plugins: {
+      ...defaultChartOptions.plugins,
+      ...options?.plugins,
+      legend: {
+        ...defaultChartOptions.plugins?.legend,
+        display: showLegend,
+        ...options?.plugins?.legend,
       },
     },
     ...options,

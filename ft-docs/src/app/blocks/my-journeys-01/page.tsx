@@ -230,7 +230,7 @@ function MyJourneysPreview() {
   // Filter journeys based on selected tab
   const getFilteredJourneysByTab = () => {
     const status = statusMap[selectedTab]
-    
+
     // For demo: show all journeys for "In Transit" tab (index 3), filter others by status
     // In production, this would filter by actual journey status
     let filtered: typeof mockJourneys
@@ -242,7 +242,7 @@ function MyJourneysPreview() {
     } else {
       filtered = mockJourneys
     }
-    
+
     return filtered.map((journey) => ({
       ...journey,
       id: journey.journey_id,
@@ -379,7 +379,7 @@ function MyJourneysPreview() {
         <div className="flex flex-col gap-1 min-w-0">
           <div className="flex items-center gap-1 min-w-0">
             <span className="text-sm font-medium truncate">{journey.vehicle_id}</span>
-            <Icon name="question" style={{ width: "14px", height: "14px" }} className="flex-shrink-0" />
+            <Icon name={"help-circle" as any} style={{ width: "14px", height: "14px" }} className="flex-shrink-0" />
           </div>
           <span className="text-xs text-muted-foreground truncate">
             {journey.transporter} &gt;
@@ -409,12 +409,12 @@ function MyJourneysPreview() {
       render: (_: any, journey: any) => (
         <div className="flex flex-col gap-1 min-w-0">
           <div className="flex items-center gap-2 min-w-0">
-            <Icon 
-              name="truck" 
-              style={{ 
-                width: "16px", 
-                height: "16px", 
-                color: journey.sla_status === "delayed" ? "#ef4444" : "var(--primary)" 
+            <Icon
+              name="truck"
+              style={{
+                width: "16px",
+                height: "16px",
+                color: journey.sla_status === "delayed" ? "#ef4444" : "var(--primary)"
               }}
               className="flex-shrink-0"
             />
@@ -482,12 +482,12 @@ function MyJourneysPreview() {
   const filteredJourneys =
     activeFilters.size > 0
       ? journeys.filter((journey) => {
-          return Array.from(activeFilters).some((filter) => {
-            if (filter === "stoppage") return journey.alert_type === "long_stoppage"
-            if (filter === "deviation") return journey.alert_type === "route_deviation"
-            return true
-          })
+        return Array.from(activeFilters).some((filter) => {
+          if (filter === "stoppage") return journey.alert_type === "long_stoppage"
+          if (filter === "deviation") return journey.alert_type === "route_deviation"
+          return true
         })
+      })
       : journeys
 
   const tableData = filteredJourneys.map((journey) => ({
@@ -830,8 +830,8 @@ function MyJourneysPreview() {
                   { value: "all", label: "All Companies" },
                 ]}
                 placeholder="Select company"
-                defaultValue="mdc-labs"
-                style={{ height: "var(--component-height-md)" }}
+
+
               />
 
               <DatePicker
@@ -841,14 +841,6 @@ function MyJourneysPreview() {
                 onStartChange={(value: string) => setDateRangeStart(value)}
                 onEndChange={(value: string) => setDateRangeEnd(value)}
                 placeholder="12 Aug, 2024 → 12 Sep 2024"
-                style={{
-                  width: "fit-content",
-                  minWidth: "fit-content",
-                  flexShrink: 0,
-                  height: "var(--component-height-md)",
-                  border: "none",
-                  boxShadow: "none",
-                }}
               />
 
               <Dropdown
@@ -857,8 +849,7 @@ function MyJourneysPreview() {
                   { value: "inbound", label: "Inbound" },
                 ]}
                 placeholder="Direction"
-                defaultValue="outbound"
-                style={{ height: "var(--component-height-md)", width: "200px" }}
+
               />
 
               <Input
@@ -1077,9 +1068,9 @@ function MyJourneysPreview() {
 
         {/* Quick Filters - Desktop Only */}
         {!isMobile && (
-          <div 
-            className="quick-filter-scroll" 
-            style={{ 
+          <div
+            className="quick-filter-scroll"
+            style={{
               marginBottom: "20px",
               overflowX: "auto",
               overflowY: "hidden",

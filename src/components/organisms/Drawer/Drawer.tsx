@@ -106,11 +106,11 @@ export const Drawer: React.FC<DrawerProps> = ({
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-overlay backdrop-blur-sm transition-opacity"
         onClick={handleMaskClick}
         aria-hidden="true"
       />
-      
+
       {/* Drawer Content */}
       <div
         className={cn(
@@ -132,7 +132,7 @@ export const Drawer: React.FC<DrawerProps> = ({
             <FigmaBadge />
           </div>
         )}
-        
+
         {/* Header */}
         {(title || closable) && (
           <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border-secondary)] flex-shrink-0">

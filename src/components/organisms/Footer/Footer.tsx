@@ -28,11 +28,11 @@ export const Footer: React.FC<FooterProps> = ({
 }) => {
   // Generate default button texts if not provided
   const defaultTexts = Array.from({ length: buttonCount }, (_, i) => buttonTexts[i] || 'Button');
-  
+
   // Generate default button variants based on Figma design patterns
   const getDefaultVariants = () => {
     const variants: Array<'primary' | 'secondary' | 'text' | 'link'> = [];
-    
+
     if (buttonCount === 1) {
       variants.push('primary');
     } else if (buttonCount === 2) {
@@ -46,7 +46,7 @@ export const Footer: React.FC<FooterProps> = ({
     } else if (buttonCount === 4) {
       variants.push('text', 'text', 'secondary', 'primary');
     }
-    
+
     return variants;
   };
 
@@ -122,16 +122,16 @@ export const Footer: React.FC<FooterProps> = ({
     if (buttonCount === 1) {
       return "flex justify-end items-center";
     }
-    
+
     if (buttonCount >= 3 && leftSideButton) {
       return "flex justify-between items-center";
     }
-    
+
     return "flex justify-end items-center";
   };
 
   return (
-    <footer className={cn("w-full bg-white max-w-full", className)}>
+    <footer className={cn("w-full bg-surface max-w-full", className)}>
       <Divider type="primary" className="w-full" />
       <div
         className={cn(

@@ -35,68 +35,61 @@ describe('Badge Component', () => {
     it('applies normal variant by default', () => {
       render(<Badge>Normal</Badge>);
       const badge = screen.getByText('Normal');
-      expect(badge).toHaveClass('bg-[var(--badge-normal-bg)]', 'text-[var(--badge-normal-text)]');
+      expect(badge).toHaveClass('bg-[#F0F1F7]', 'text-[#434F64]');
     });
 
     it('applies danger variant styles', () => {
       render(<Badge variant="danger">Error</Badge>);
       const badge = screen.getByText('Error');
-      expect(badge).toHaveClass('bg-[var(--badge-danger-bg)]', 'text-[var(--badge-danger-text)]');
+      expect(badge).toHaveClass('bg-[#FFEAEA]', 'text-[#FF3533]');
     });
 
     it('applies success variant styles', () => {
       render(<Badge variant="success">Success</Badge>);
       const badge = screen.getByText('Success');
-      expect(badge).toHaveClass('bg-[var(--badge-success-bg)]', 'text-[var(--badge-success-text)]');
+      expect(badge).toHaveClass('bg-[#DFFFE8]', 'text-[#00763D]');
     });
 
     it('applies warning variant styles', () => {
       render(<Badge variant="warning">Warning</Badge>);
       const badge = screen.getByText('Warning');
-      expect(badge).toHaveClass('bg-[var(--badge-warning-bg)]', 'text-[var(--badge-warning-text)]');
+      expect(badge).toHaveClass('bg-[#FFEBDC]', 'text-[#FF6C19]');
     });
 
     it('applies neutral variant styles', () => {
       render(<Badge variant="neutral">Info</Badge>);
       const badge = screen.getByText('Info');
-      expect(badge).toHaveClass('bg-[var(--badge-neutral-bg)]', 'text-[var(--badge-neutral-text)]');
-    });
-  });
-
-  describe('Sizes', () => {
-    it('applies medium size by default', () => {
-      render(<Badge>Medium</Badge>);
-      const badge = screen.getByText('Medium');
-      expect(badge).toHaveClass('px-[8px]', 'py-[2px]', 'gap-[8px]');
-    });
-
-    it('applies small size styles', () => {
-      render(<Badge size="sm">Small</Badge>);
-      const badge = screen.getByText('Small');
-      expect(badge).toHaveClass('px-[6px]', 'py-[1px]', 'gap-[6px]', 'text-[12px]');
+      expect(badge).toHaveClass('bg-[#ECF6FF]', 'text-[#1890FF]');
     });
   });
 
   describe('Icons', () => {
-    it('renders icon when provided', () => {
-      render(<Badge icon="check">With Icon</Badge>);
-      expect(screen.getByTestId('icon-check')).toBeInTheDocument();
+    it('renders leading icon when provided', () => {
+      render(<Badge leadingIcon="add">With Icon</Badge>);
+      expect(screen.getByTestId('icon-add')).toBeInTheDocument();
       expect(screen.getByText('With Icon')).toBeInTheDocument();
     });
 
-    it('sizes icon correctly for medium badge', () => {
-      render(<Badge icon="check" size="md">Medium Badge</Badge>);
-      const icon = screen.getByTestId('icon-check');
+    it('renders trailing icon when provided', () => {
+      render(<Badge trailingIcon="chevron-right">With Icon</Badge>);
+      expect(screen.getByTestId('icon-chevron-right')).toBeInTheDocument();
+      expect(screen.getByText('With Icon')).toBeInTheDocument();
+    });
+
+    it('renders both leading and trailing icons', () => {
+      render(<Badge leadingIcon="add" trailingIcon="chevron-right">Label</Badge>);
+      expect(screen.getByTestId('icon-add')).toBeInTheDocument();
+      expect(screen.getByTestId('icon-chevron-right')).toBeInTheDocument();
+      expect(screen.getByText('Label')).toBeInTheDocument();
+    });
+
+    it('sizes icon correctly', () => {
+      render(<Badge leadingIcon="add">Badge</Badge>);
+      const icon = screen.getByTestId('icon-add');
       expect(icon).toHaveAttribute('data-size', '14');
     });
 
-    it('sizes icon correctly for small badge', () => {
-      render(<Badge icon="check" size="sm">Small Badge</Badge>);
-      const icon = screen.getByTestId('icon-check');
-      expect(icon).toHaveAttribute('data-size', '12');
-    });
-
-    it('renders without icon when not provided', () => {
+    it('renders without icons when not provided', () => {
       render(<Badge>No Icon</Badge>);
       expect(screen.queryByTestId(/icon-/)).not.toBeInTheDocument();
       expect(screen.getByText('No Icon')).toBeInTheDocument();
@@ -104,31 +97,43 @@ describe('Badge Component', () => {
   });
 
   describe('Interactive States', () => {
+    it('applies interactive styles when interaction prop is true', () => {
+      render(<Badge interaction>Interactive</Badge>);
+      const badge = screen.getByText('Interactive');
+      expect(badge).toHaveClass('border', 'border-[#CED1D7]');
+    });
+
     it('applies interactive styles when onClick is provided', () => {
       const handleClick = jest.fn();
       render(<Badge onClick={handleClick}>Clickable</Badge>);
       const badge = screen.getByText('Clickable');
-      expect(badge).toHaveClass('border-[var(--badge-normal-border)]');
+      expect(badge).toHaveClass('border', 'border-[#CED1D7]');
     });
 
     it('applies interactive styles when onMouseEnter is provided', () => {
       const handleMouseEnter = jest.fn();
       render(<Badge onMouseEnter={handleMouseEnter}>Hoverable</Badge>);
       const badge = screen.getByText('Hoverable');
-      expect(badge).toHaveClass('border-[var(--badge-normal-border)]');
+      expect(badge).toHaveClass('border', 'border-[#CED1D7]');
     });
 
     it('applies interactive styles when onFocus is provided', () => {
       const handleFocus = jest.fn();
       render(<Badge onFocus={handleFocus}>Focusable</Badge>);
       const badge = screen.getByText('Focusable');
-      expect(badge).toHaveClass('border-[var(--badge-normal-border)]');
+      expect(badge).toHaveClass('border', 'border-[#CED1D7]');
+    });
+
+    it('applies correct border color for danger variant when interactive', () => {
+      render(<Badge variant="danger" interaction>Danger</Badge>);
+      const badge = screen.getByText('Danger');
+      expect(badge).toHaveClass('border', 'border-[#FF3533]');
     });
 
     it('does not apply interactive styles by default', () => {
       render(<Badge>Static</Badge>);
       const badge = screen.getByText('Static');
-      expect(badge).not.toHaveClass('border-[var(--badge-normal-border)]');
+      expect(badge).not.toHaveClass('border');
     });
   });
 
@@ -199,8 +204,9 @@ describe('Badge Component', () => {
       render(
         <Badge 
           variant="success" 
-          size="sm" 
-          icon="check"
+          leadingIcon="add"
+          trailingIcon="chevron-right"
+          interaction
           onClick={handleClick}
           className="custom-class"
         >
@@ -210,22 +216,24 @@ describe('Badge Component', () => {
       
       const badge = screen.getByText('Complete');
       expect(badge).toHaveClass(
-        'bg-[var(--badge-success-bg)]',
-        'text-[var(--badge-success-text)]',
-        'px-[6px]',
-        'py-[1px]',
-        'text-[12px]',
+        'bg-[#DFFFE8]',
+        'text-[#00763D]',
+        'px-[8px]',
+        'py-[2px]',
+        'border',
+        'border-[#00763D]',
         'custom-class'
       );
-      expect(screen.getByTestId('icon-check')).toBeInTheDocument();
+      expect(screen.getByTestId('icon-add')).toBeInTheDocument();
+      expect(screen.getByTestId('icon-chevron-right')).toBeInTheDocument();
       
       fireEvent.click(badge);
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
 
-    it('renders correctly with only icon and no text', () => {
-      render(<Badge icon="check"> </Badge>);
-      expect(screen.getByTestId('icon-check')).toBeInTheDocument();
+    it('renders correctly with only leading icon and minimal text', () => {
+      render(<Badge leadingIcon="add"> </Badge>);
+      expect(screen.getByTestId('icon-add')).toBeInTheDocument();
       // Badge should still render even with minimal content
     });
 
@@ -241,23 +249,22 @@ describe('Badge Component', () => {
     });
   });
 
-  describe('CSS Variables', () => {
-    it('uses CSS variables for styling', () => {
+  describe('Styling', () => {
+    it('uses exact Figma colors for styling', () => {
       render(<Badge variant="danger">Error Badge</Badge>);
       const badge = screen.getByText('Error Badge');
       
-      // Check that CSS variable classes are applied
-      expect(badge.className).toContain('bg-[var(--badge-danger-bg)]');
-      expect(badge.className).toContain('text-[var(--badge-danger-text)]');
+      // Check that exact Figma color classes are applied
+      expect(badge.className).toContain('bg-[#FFEAEA]');
+      expect(badge.className).toContain('text-[#FF3533]');
     });
 
-    it('uses design token classes for base styling', () => {
-      render(<Badge>Token Badge</Badge>);
-      const badge = screen.getByText('Token Badge');
+    it('applies correct base styling from Figma', () => {
+      render(<Badge>Badge</Badge>);
+      const badge = screen.getByText('Badge');
       
-      expect(badge.className).toContain('font-[var(--badge-font-weight)]');
-      // Font size is applied via the size-specific styles, not the base styles
-      expect(badge).toHaveClass('px-[8px]', 'py-[2px]'); // Medium size styles are applied
+      // Check base styles from Figma design
+      expect(badge).toHaveClass('px-[8px]', 'py-[2px]', 'gap-[8px]', 'rounded-[4px]');
     });
   });
 }); 

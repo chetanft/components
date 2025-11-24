@@ -58,6 +58,17 @@ src/
 
 ## Development Workflow
 
+### Component Source-First Architecture
+
+This project follows a **component source-first architecture** where:
+
+- Component source code (`src/components/`) is the single source of truth
+- Changes automatically flow to docs, Storybook, and npm package
+- Versions are synchronized across all artifacts
+- Pre-commit hooks ensure consistency
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed information.
+
 ### Branch Naming
 
 - `feature/component-name` - New components or features
@@ -80,6 +91,61 @@ refactor(tokens): organize spacing system
 test(badge): add unit tests
 chore(deps): update dependencies
 ```
+
+### Component Update Workflow
+
+1. **Update Component Source**
+   ```bash
+   # Edit component files in src/components/
+   # Component changes are the source of truth
+   ```
+
+2. **Automatic Sync** (via pre-commit hook)
+   - Versions are automatically synchronized
+   - Component exports are validated
+   - Changes are staged if needed
+
+3. **Commit Changes**
+   ```bash
+   git add src/components/
+   git commit -m "feat(button): add new variant"
+   # Pre-commit hook runs automatically
+   ```
+
+4. **Build & Test**
+   ```bash
+   npm run build        # Auto-syncs versions and validates
+   npm run test
+   npm run storybook    # Test in Storybook
+   ```
+
+5. **Sync Source to Docs and NPM** (after component updates)
+   ```bash
+   npm run sync:source-to-docs    # Sync component source → docs → npm
+   ```
+
+6. **Sync Everything** (if needed)
+   ```bash
+   npm run sync:all     # Complete sync workflow
+   ```
+
+### Version Management
+
+**Important**: Never manually edit versions in `ft-docs/package.json` or other locations.
+
+**Always update version in root `package.json`** (single source of truth):
+
+```bash
+# Use npm version commands (auto-syncs)
+npm version patch   # 4.13.9 → 4.13.10
+npm version minor   # 4.13.9 → 4.14.0
+npm version major   # 4.13.9 → 5.0.0
+
+# Or manually edit root package.json, then:
+npm run sync:version
+```
+
+The pre-commit hook ensures versions stay synchronized automatically.
 
 ## Design System Standards
 
@@ -342,16 +408,21 @@ Each component needs a README.md with:
 
 1. **Create feature branch** from `main`
 2. **Implement changes** following guidelines
+   - Update component source (`src/components/`)
+   - Versions sync automatically via pre-commit hook
 3. **Add/update tests** with good coverage
 4. **Update documentation** (Storybook, README)
 5. **Run quality checks**:
    ```bash
+   npm run sync:version    # Ensure versions are synced
    npm run type-check
    npm run lint
    npm run test
-   npm run build
+   npm run build           # Auto-syncs versions and validates
    ```
 6. **Submit pull request** with clear description
+
+**Note**: The pre-commit hook automatically syncs versions and validates exports. If versions are out of sync, the hook will fix them automatically.
 
 ### PR Template
 
@@ -400,13 +471,50 @@ PRs are reviewed for:
 
 ### Release Checklist
 
-1. Update version in `package.json`
-2. Update `CHANGELOG.md`
-3. Run full test suite
-4. Build and verify package
-5. Create git tag
-6. Publish to NPM
-7. Update GitHub release
+1. **Update version** in root `package.json` (single source of truth)
+   ```bash
+   npm version patch   # or minor/major
+   # This auto-syncs versions across all packages
+   ```
+
+2. **Update `CHANGELOG.md`** with release notes
+
+3. **Run full test suite**
+   ```bash
+   npm run test
+   npm run type-check
+   npm run lint
+   ```
+
+4. **Build and verify package**
+   ```bash
+   npm run build        # Auto-syncs versions and validates
+   npm run validate:package
+   ```
+
+5. **Sync everything** (if needed)
+   ```bash
+   npm run sync:all     # Complete sync workflow
+   ```
+
+6. **Publish to NPM**
+   ```bash
+   npm run publish      # Interactive CLI
+   # Or use specific commands:
+   npm run publish:patch
+   npm run publish:minor
+   npm run publish:major
+   ```
+
+7. **Create git tag** (if not done by npm version)
+   ```bash
+   git tag v4.13.10
+   git push --tags
+   ```
+
+8. **Update GitHub release**
+
+**Note**: Version synchronization happens automatically. The publish commands ensure versions are synced before publishing.
 
 ## Getting Help
 
@@ -417,9 +525,40 @@ PRs are reviewed for:
 
 ## Resources
 
+- [Architecture Documentation](./ARCHITECTURE.md) - Component source-first architecture
 - [Design System Documentation](./docs/)
 - [Storybook](https://your-storybook-url.com)
 - [Figma Design Files](https://figma.com/your-design-files)
 - [Accessibility Guide](./docs/ACCESSIBILITY.md)
+
+## Quick Reference
+
+### Common Commands
+
+```bash
+# Sync versions across all packages
+npm run sync:version
+
+# Complete sync workflow (versions + docs + storybook + build)
+npm run sync:all
+
+# Build with version sync and validation
+npm run build
+
+# Publish (interactive CLI with version sync)
+npm run publish
+```
+
+### Version Management
+
+```bash
+# Update version (auto-syncs)
+npm version patch   # 4.13.9 → 4.13.10
+npm version minor   # 4.13.9 → 4.14.0
+npm version major   # 4.13.9 → 5.0.0
+
+# Manual version sync
+npm run sync:version
+```
 
 Thank you for contributing to make our design system better! 🎉 

@@ -24,9 +24,20 @@ const meta = {
       },
     },
  
-    icon: {
+    leadingIcon: {
       control: { type: 'text' },
-      description: 'Optional icon name to display in the badge',
+      description: 'Optional icon name to display before the label',
+    },
+    trailingIcon: {
+      control: { type: 'text' },
+      description: 'Optional icon name to display after the label',
+    },
+    interaction: {
+      control: { type: 'boolean' },
+      description: 'Enables interactive state with border and hover effects',
+      table: {
+        defaultValue: { summary: 'false' },
+      },
     },
     onClick: {
       control: false,
@@ -47,85 +58,6 @@ export const Default: Story = {
   args: {
     variant: 'normal',
     children: 'Label',
-  },
-};
-
-// All variants showcase (exactly matching Figma)
-export const AllVariants: Story = {
-  args: {
-    children: 'Label',
-  },
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Badge variant="normal">Label</Badge>
-      <Badge variant="danger">Label</Badge>
-      <Badge variant="success">Label</Badge>
-      <Badge variant="warning">Label</Badge>
-      <Badge variant="neutral">Label</Badge>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'All available badge variants displayed together, exactly matching Figma design.',
-      },
-    },
-  },
-};
-
-// With icons (exactly matching Figma)
-export const WithIcons: Story = {
-  args: {
-    children: 'Label',
-  },
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Badge variant="normal" icon="add">Label</Badge>
-      <Badge variant="danger" icon="add">Label</Badge>
-      <Badge variant="success" icon="add">Label</Badge>
-      <Badge variant="warning" icon="add">Label</Badge>
-      <Badge variant="neutral" icon="add">Label</Badge>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Badges with leading icons, matching Figma interactive badge variants.',
-      },
-    },
-  },
-};
-
-// Interactive badges with hover states
-export const Interactive: Story = {
-  args: {
-    children: 'Interactive',
-  },
-  render: () => (
-    <div className="flex flex-wrap gap-3">
-      <Badge variant="normal" onClick={() => alert('Normal clicked!')}>
-        Interactive
-      </Badge>
-      <Badge variant="danger" onClick={() => alert('Danger clicked!')}>
-        Interactive
-      </Badge>
-      <Badge variant="success" onClick={() => alert('Success clicked!')}>
-        Interactive
-      </Badge>
-      <Badge variant="warning" onClick={() => alert('Warning clicked!')}>
-        Interactive
-      </Badge>
-      <Badge variant="neutral" onClick={() => alert('Neutral clicked!')}>
-        Interactive
-      </Badge>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Interactive badges with hover states and click handlers, matching Figma interactive badge designs.',
-      },
-    },
   },
 };
 
@@ -162,5 +94,42 @@ export const Neutral: Story = {
   args: {
     children: 'Info',
     variant: 'neutral',
+  },
+};
+
+// With leading icon
+export const WithLeadingIcon: Story = {
+  args: {
+    children: 'Label',
+    variant: 'normal',
+    leadingIcon: 'add',
+  },
+};
+
+// With trailing icon
+export const WithTrailingIcon: Story = {
+  args: {
+    children: 'Label',
+    variant: 'normal',
+    trailingIcon: 'chevron-right',
+  },
+};
+
+// With both icons
+export const WithBothIcons: Story = {
+  args: {
+    children: 'Label',
+    variant: 'normal',
+    leadingIcon: 'add',
+    trailingIcon: 'chevron-right',
+  },
+};
+
+// Interactive badge
+export const Interactive: Story = {
+  args: {
+    children: 'Label',
+    variant: 'normal',
+    interaction: true,
   },
 }; 

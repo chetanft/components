@@ -254,6 +254,7 @@ export const iconMap = {
   'file': File,
   'fill-details': FillDetails,
   'filter': Filter,
+  'flame': Flame,
   'forward': Forward,
   'ft-colour': FtColour,
   'ft-gray': FtGray,
@@ -367,10 +368,11 @@ export const iconMap = {
   'upload-document': UploadDocument,
   'part-truck-load': PartTruckLoad,
   'reconciliation': Reconciliation,
-  
+
   // Common aliases for better compatibility
   'burger': HamburgerMenu,
   'menu': HamburgerMenu,
+  'help-circle': AlertInformational,
 };
 
 export type IconName = keyof typeof iconMap;

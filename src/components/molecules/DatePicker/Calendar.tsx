@@ -40,7 +40,7 @@ interface CalendarProps {
 }
 
 const calendarVariants = cva(
-  "bg-white dark:bg-surface-dark rounded-lg shadow-[0px_6px_6px_0px_rgba(0,0,0,0.16)] flex flex-col overflow-hidden",
+  "bg-surface dark:bg-surface-dark rounded-lg shadow-[0px_6px_6px_0px_rgba(0,0,0,0.16)] flex flex-col overflow-hidden",
   {
     variants: {
       range: {
@@ -110,10 +110,10 @@ const dateButtonVariants = cva(
   {
     variants: {
       type: {
-        default: "bg-white dark:bg-surface-dark text-[var(--primary)] dark:text-primary-dark hover:bg-[var(--border-primary)] dark:hover:bg-[var(--border-primary)]",
+        default: "bg-surface dark:bg-surface-dark text-[var(--primary)] dark:text-primary-dark hover:bg-[var(--border-primary)] dark:hover:bg-[var(--border-primary)]",
         selected: "bg-[var(--border-secondary)] dark:bg-[var(--border-secondary)] text-[var(--primary)] dark:text-primary-dark",
         hover: "bg-[var(--border-primary)] dark:bg-[var(--border-primary)] text-[var(--primary)] dark:text-primary-dark",
-        disabled: "bg-white dark:bg-surface-dark text-[var(--border-secondary)] dark:text-[var(--border-secondary)] cursor-not-allowed",
+        disabled: "bg-surface dark:bg-surface-dark text-[var(--border-secondary)] dark:text-[var(--border-secondary)] cursor-not-allowed",
         rangeSelected: "bg-[var(--border-primary)] dark:bg-[var(--border-primary)] text-[var(--primary)] dark:text-primary-dark",
         rangeStart: "bg-[var(--border-secondary)] dark:bg-[var(--border-secondary)] text-[var(--primary)] dark:text-primary-dark",
         rangeEnd: "bg-[var(--border-secondary)] dark:bg-[var(--border-secondary)] text-[var(--primary)] dark:text-primary-dark"
@@ -150,8 +150,8 @@ const quickSelectButtonVariants = cva(
   {
     variants: {
       selected: {
-        true: "bg-white dark:bg-surface-dark",
-        false: "bg-white dark:bg-surface-dark hover:bg-surface-hover dark:hover:bg-surface-hover-dark"
+        true: "bg-surface dark:bg-surface-dark",
+        false: "bg-surface dark:bg-surface-dark hover:bg-surface-hover dark:hover:bg-surface-hover-dark"
       }
     },
     defaultVariants: {
@@ -161,7 +161,7 @@ const quickSelectButtonVariants = cva(
 );
 
 const dropdownVariants = cva(
-  "flex items-center justify-between w-full h-10 min-h-[40px] px-3 border border-border dark:border-border-dark rounded-lg cursor-pointer bg-white dark:bg-surface-dark",
+  "flex items-center justify-between w-full h-10 min-h-[40px] px-3 border border-border dark:border-border-dark rounded-lg cursor-pointer bg-surface dark:bg-surface-dark",
   {
     variants: {
       open: {
@@ -176,7 +176,7 @@ const dropdownVariants = cva(
 );
 
 const dropdownMenuVariants = cva(
-  "absolute z-[10000] w-full mt-1 bg-white dark:bg-surface-dark border border-border dark:border-border-dark rounded-lg shadow-lg overflow-hidden",
+  "absolute z-[10000] w-full mt-1 bg-surface dark:bg-surface-dark border border-border dark:border-border-dark rounded-lg shadow-lg overflow-hidden",
   {
     variants: {
       open: {
@@ -246,12 +246,12 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   const validateRange = (start: Date, end: Date): string | null => {
     const normalizedStart = startOfDay(start);
     const normalizedEnd = startOfDay(end);
-    
+
     // Check if end is before start
     if (isBefore(normalizedEnd, normalizedStart)) {
       return 'End date must be after start date';
     }
-    
+
     // Check max range limit
     if (maxRangeDays) {
       const daysDiff = differenceInDays(normalizedEnd, normalizedStart);
@@ -259,7 +259,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
         return `Maximum range allowed: ${maxRangeDays} days`;
       }
     }
-    
+
     return null;
   };
 
@@ -271,7 +271,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
     }
 
     const rangeValue = value as [Date, Date] | undefined | null;
-    
+
     // If no range exists, start a new range
     if (!rangeValue || !Array.isArray(rangeValue) || rangeValue.length !== 2) {
       onChange?.([date, date]);
@@ -283,29 +283,29 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
     const normalizedStart = startOfDay(start);
     const normalizedEnd = startOfDay(end);
     const normalizedDate = startOfDay(date);
-    
+
     // If both dates are the same, clicking any date starts a new range
     if (isSameDay(start, end)) {
       onChange?.([date, date]);
       setRangeError(null);
       return;
     }
-    
+
     // Determine the actual start and end (in case they're reversed)
     const actualStart = isAfter(normalizedStart, normalizedEnd) ? end : start;
     const actualEnd = isAfter(normalizedStart, normalizedEnd) ? start : end;
     const normalizedActualStart = startOfDay(actualStart);
     const normalizedActualEnd = startOfDay(actualEnd);
-    
+
     let newStart: Date;
     let newEnd: Date;
-    
+
     // Always allow updating the start date by clicking any date
     // If clicked date is before or equal to the current start, make it the new start
     if (isBefore(normalizedDate, normalizedActualStart) || isSameDay(normalizedDate, normalizedActualStart)) {
       newStart = date;
       newEnd = actualEnd;
-    } 
+    }
     // If clicked date is after the current end, make it the new end
     else if (isAfter(normalizedDate, normalizedActualEnd)) {
       newStart = actualStart;
@@ -316,11 +316,11 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
       newStart = date;
       newEnd = actualEnd;
     }
-    
+
     // Validate the new range
     const error = validateRange(newStart, newEnd);
     setRangeError(error);
-    
+
     if (!error) {
       onChange?.([newStart, newEnd]);
     }
@@ -330,11 +330,11 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
     setActiveQuickSelect(option);
     setRangeError(null);
     const today = startOfToday();
-    
+
     let start: Date;
     let end: Date;
-    
-    switch(option) {
+
+    switch (option) {
       case 'today': {
         start = today;
         end = today;
@@ -409,11 +409,11 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
       default:
         return;
     }
-    
+
     // Validate preset range
     const error = validateRange(start, end);
     setRangeError(error);
-    
+
     if (!error) {
       onChange?.([start, end]);
     }
@@ -426,15 +426,15 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
 
   const isQuickSelectActive = (option: string) => {
     if (activeQuickSelect === option) return true;
-    
+
     if (!value || !Array.isArray(value) || value.length !== 2) return false;
-    
+
     const [start, end] = value;
     const today = startOfToday();
     const normalizedStart = startOfDay(start);
     const normalizedEnd = startOfDay(end);
-    
-    switch(option) {
+
+    switch (option) {
       case 'today': {
         return isSameDay(start, today) && isSameDay(end, today);
       }
@@ -608,12 +608,12 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
 
               const isRangeValue = value && Array.isArray(value) && value.length === 2;
               const [rangeStart, rangeEnd] = isRangeValue ? value : [null, null];
-              
+
               // Normalize dates to start of day for comparison
               const normalizedDay = startOfDay(day);
               const normalizedStart = rangeStart ? startOfDay(rangeStart) : null;
               const normalizedEnd = rangeEnd ? startOfDay(rangeEnd) : null;
-              
+
               // Determine which date is actually the start and which is the end
               // (in case they were passed in reverse order)
               const actualStartDate = isRangeValue && normalizedStart && normalizedEnd
@@ -622,10 +622,10 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               const actualEndDate = isRangeValue && normalizedStart && normalizedEnd
                 ? (isAfter(normalizedStart, normalizedEnd) ? rangeStart : rangeEnd)
                 : rangeEnd;
-              
+
               const actualStart = actualStartDate ? startOfDay(actualStartDate) : null;
               const actualEnd = actualEndDate ? startOfDay(actualEndDate) : null;
-              
+
               const isStartDate = isRangeValue && actualStartDate && isSameDay(day, actualStartDate);
               const isEndDate = isRangeValue && actualEndDate && isSameDay(day, actualEndDate);
               const isSelected = value
@@ -636,10 +636,10 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
 
               // Check if date is in range (between start and end, excluding start and end)
               // Ensure we have valid start and end dates that are different
-              const hasValidRange = isRangeValue && actualStart && actualEnd && 
-                                    actualStartDate && actualEndDate &&
-                                    !isSameDay(actualStartDate, actualEndDate);
-              
+              const hasValidRange = isRangeValue && actualStart && actualEnd &&
+                actualStartDate && actualEndDate &&
+                !isSameDay(actualStartDate, actualEndDate);
+
               const isInRange = hasValidRange && !isStartDate && !isEndDate
                 ? (isAfter(normalizedDay, actualStart) && isBefore(normalizedDay, actualEnd))
                 : false;
@@ -686,8 +686,8 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
                 >
                   <span className={cn(
                     "text-sm leading-[1.4]",
-                    (isStartDate || isEndDate || (isSelected && !isRangeValue)) 
-                      ? "font-medium" 
+                    (isStartDate || isEndDate || (isSelected && !isRangeValue))
+                      ? "font-medium"
                       : "font-normal"
                   )}>
                     {format(day, 'd')}
@@ -706,7 +706,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
       {range && (
         <div className="flex flex-col gap-2.5">
           <div className="relative w-[257px]">
-            <div 
+            <div
               className={dropdownVariants({ open: isDropdownOpen })}
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
@@ -717,7 +717,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
             </div>
             <div className={dropdownMenuVariants({ open: isDropdownOpen })}>
               {["Created Date", "Modified Date", "Due Date"].map((option) => (
-                <div 
+                <div
                   key={option}
                   className="px-3 py-3 text-base font-normal leading-[1.4] text-primary dark:text-primary-dark hover:bg-surface-hover dark:hover:bg-surface-hover-dark cursor-pointer rounded-lg"
                   onClick={() => handleDateRangeSelect(option)}
@@ -791,23 +791,23 @@ function getDaysInMonth(date: Date) {
   const lastDay = new Date(year, month + 1, 0);
   const daysInMonth = lastDay.getDate();
   const startingDay = firstDay.getDay();
-  
+
   const calendar: (Date | null)[][] = [];
   let week: (Date | null)[] = Array(startingDay).fill(null);
-  
+
   for (let day = 1; day <= daysInMonth; day++) {
     week.push(new Date(year, month, day));
-    
+
     if (week.length === 7) {
       calendar.push(week);
       week = [];
     }
   }
-  
+
   if (week.length > 0) {
     calendar.push([...week, ...Array(7 - week.length).fill(null)]);
   }
-  
+
   return calendar;
 }
 

@@ -121,7 +121,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
               className={cn(
                 "flex-shrink-0 ml-2",
                 "p-1 rounded-[var(--radius-sm)]",
-                "hover:bg-black/5",
+                "hover:bg-surface-alt",
                 "transition-colors duration-[var(--transition-fast)]",
                 "focus:outline-none focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20"
               )}

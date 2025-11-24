@@ -122,8 +122,8 @@ export const DisabledChecked: Story = {
   },
 };
 
-// All states showcase
-export const AllStates: Story = {
+// Figma variants showcase
+export const FigmaVariants: Story = {
   render: () => (
     <div className="space-y-4">
       <div className="space-y-2">

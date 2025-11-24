@@ -76,7 +76,7 @@ const inputTextVariants = cva(
         disabled: "text-input-disabled dark:text-input-disabled-dark cursor-not-allowed",
         prefilled: "text-input dark:text-input-dark",
         hover: "text-input dark:text-input-dark",
-        focused: "text-input dark:text-input-dark", 
+        focused: "text-input dark:text-input-dark",
         typing: "text-input dark:text-input-dark"
       }
     },
@@ -102,17 +102,17 @@ export interface DatePickerFieldProps extends VariantProps<typeof datePickerFiel
 export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps>(
   ({ size = "m", state = "default", value, placeholder = "Value", disabled, showTime, className, onChange, onFocus, onBlur, ...props }, ref) => {
     // Map DatePicker legacy size to unified component styles
-    const componentSize: ComponentSize = 
-      size === "m" ? "md" : 
-      size === "l" ? "lg" : 
-      size === "xl" ? "xxl" : 
-      size as ComponentSize; // Allow direct ComponentSize values (xs, sm, md, lg, xl, xxl)
+    const componentSize: ComponentSize =
+      size === "m" ? "md" :
+        size === "l" ? "lg" :
+          size === "xl" ? "xxl" :
+            size as ComponentSize; // Allow direct ComponentSize values (xs, sm, md, lg, xl, xxl)
     const componentStyles = getComponentStyles(componentSize);
-    
-    const iconColor = state === "disabled" 
-      ? "text-input-disabled dark:text-input-disabled-dark" 
+
+    const iconColor = state === "disabled"
+      ? "text-input-disabled dark:text-input-disabled-dark"
       : "text-icon dark:text-icon-dark";
-    
+
     return (
       <div className={cn(
         datePickerFieldVariants({ size, state }),
@@ -133,16 +133,16 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
           {...props}
         />
         {showTime ? (
-          <Icon 
-            name="clock" 
+          <Icon
+            name="clock"
             size={16}
-            className={cn(iconColor, "flex-shrink-0")} 
+            className={cn(iconColor, "flex-shrink-0")}
           />
         ) : (
-          <Icon 
-            name="calendar" 
+          <Icon
+            name="calendar"
             size={16}
-            className={cn(iconColor, "flex-shrink-0")} 
+            className={cn(iconColor, "flex-shrink-0")}
           />
         )}
       </div>
@@ -192,13 +192,13 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   includeDropdown = false
 }, ref) => {
   // Map DatePicker legacy size to unified component styles
-  const componentSize: ComponentSize = 
-    size === "m" ? "md" : 
-    size === "l" ? "lg" : 
-    size === "xl" ? "xxl" : 
-    size as ComponentSize;
+  const componentSize: ComponentSize =
+    size === "m" ? "md" :
+      size === "l" ? "lg" :
+        size === "xl" ? "xxl" :
+          size as ComponentSize;
   const componentStyles = getComponentStyles(componentSize);
-  
+
   // Size-specific vertical padding for inner content
   const verticalPaddingMap: Record<ComponentSize, string> = {
     xxs: "py-0.5",
@@ -235,7 +235,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
         document.body.appendChild(container);
       }
       setPortalContainer(container);
-      
+
       // Cleanup on unmount
       return () => {
         try {
@@ -274,9 +274,9 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   // Parse date from various formats (MM/DD/YYYY, DD/MM/YYYY, YYYY-MM-DD, etc.)
   const parseDateInput = (input: string): Date | null => {
     if (!input || input.trim() === '') return null;
-    
+
     const trimmed = input.trim();
-    
+
     // Try common formats
     const formats = [
       'MM/dd/yyyy',
@@ -290,7 +290,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       'M/d/yy',
       'd/M/yy'
     ];
-    
+
     for (const fmt of formats) {
       try {
         const parsed = parse(trimmed, fmt, new Date());
@@ -301,7 +301,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
         continue;
       }
     }
-    
+
     // Fallback to native Date parsing
     try {
       const nativeDate = new Date(trimmed);
@@ -311,7 +311,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     } catch {
       // Invalid date
     }
-    
+
     return null;
   };
 
@@ -363,7 +363,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   }, [startValue, endValue, range, isTyping]);
 
   // Create a value array for the Calendar component when in range mode
-  const calendarValue = range && startDate 
+  const calendarValue = range && startDate
     ? (endDate ? [startDate, endDate] as [Date, Date] : [startDate, startDate] as [Date, Date])
     : startDate;
 
@@ -373,37 +373,37 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       if (isOpen && containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
         const spaceBelow = window.innerHeight - rect.bottom;
-        
+
         // Position calendar below the input field (using viewport coordinates for fixed positioning)
         const top = rect.bottom + 8;
-        
+
         // Check if we have enough space to the right for the calendar
         // For range picker, we need more space
         // Single calendar: 314px (282px content + 32px padding)
         const calendarWidth = range ? 814 : 314;
         let left = rect.left;
-        
+
         // If not enough space to the right, align to the right edge of the screen with some padding
         if (left + calendarWidth > window.innerWidth) {
           left = Math.max(10, window.innerWidth - calendarWidth - 10);
         }
-        
+
         // If not enough space below, position above
         const calendarHeight = range ? 400 : 350;
-        const finalTop = spaceBelow < calendarHeight 
+        const finalTop = spaceBelow < calendarHeight
           ? rect.top - calendarHeight - 8
           : top;
-        
+
         setCalendarPosition({ top: finalTop, left });
       }
     };
 
     updateCalendarPosition();
-    
+
     // Recalculate on scroll and resize
     window.addEventListener('scroll', updateCalendarPosition, true);
     window.addEventListener('resize', updateCalendarPosition);
-    
+
     return () => {
       window.removeEventListener('scroll', updateCalendarPosition, true);
       window.removeEventListener('resize', updateCalendarPosition);
@@ -418,15 +418,15 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       setStartInputValue(formatDateForDisplay(date[0]));
       setEndInputValue(formatDateForDisplay(date[1]));
       setIsTyping(false);
-      
+
       if (onStartChange) {
         onStartChange(date[0].toISOString());
       }
-      
+
       if (onEndChange) {
         onEndChange(date[1].toISOString());
       }
-      
+
       // Update dropdown selection if applicable
       const today = new Date();
       const weekStart = startOfWeek(today);
@@ -441,7 +441,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       const nextMonthEnd = endOfMonth(nextMonthStart);
       const lastMonthStart = startOfMonth(subMonths(today, 1));
       const lastMonthEnd = endOfMonth(lastMonthStart);
-      
+
       if (isSameDay(date[0], lastWeekStart) && isSameDay(date[1], lastWeekEnd)) {
         setSelectedDropdownValue('Last week');
       } else if (isSameDay(date[0], weekStart) && isSameDay(date[1], weekEnd)) {
@@ -462,11 +462,11 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       setStartDate(date);
       setInputValue(formatDateForDisplay(date));
       setIsTyping(false);
-      
+
       if (onChange) {
         onChange(date.toISOString());
       }
-      
+
       // Close the calendar when a single date is selected
       if (!range) {
         setIsOpen(false);
@@ -502,14 +502,14 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
 
     const handleClickOutside = (event: MouseEvent) => {
       // Check if the click was inside the input container
-      const isClickInsideContainer = containerRef.current && 
+      const isClickInsideContainer = containerRef.current &&
         containerRef.current.contains(event.target as Node);
-      
+
       // Check if the click was inside the calendar
       const portalElement = document.getElementById('datepicker-portal-container');
-      const isClickInsidePortal = portalElement && 
+      const isClickInsidePortal = portalElement &&
         portalElement.contains(event.target as Node);
-      
+
       // Close only if click was outside both the input and calendar
       if (!isClickInsideContainer && !isClickInsidePortal) {
         setIsOpen(false);
@@ -528,7 +528,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     setInputValue(newValue);
     setIsTyping(true);
     setInputError(null);
-    
+
     if (newValue.trim() === '') {
       setStartDate(null);
       if (onChange) {
@@ -536,7 +536,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       }
       return;
     }
-    
+
     const parsedDate = parseDateInput(newValue);
     if (parsedDate) {
       setStartDate(parsedDate);
@@ -555,7 +555,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       setInputError(null);
       return;
     }
-    
+
     const parsedDate = parseDateInput(inputValue);
     if (parsedDate) {
       setInputValue(formatDateForDisplay(parsedDate));
@@ -577,7 +577,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     setStartInputValue(newValue);
     setIsTyping(true);
     setInputError(null);
-    
+
     if (newValue.trim() === '') {
       setStartDate(null);
       if (onStartChange) {
@@ -585,7 +585,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       }
       return;
     }
-    
+
     const parsedDate = parseDateInput(newValue);
     if (parsedDate) {
       setStartDate(parsedDate);
@@ -606,7 +606,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       setInputError(null);
       return;
     }
-    
+
     const parsedDate = parseDateInput(startInputValue);
     if (parsedDate) {
       setStartInputValue(formatDateForDisplay(parsedDate));
@@ -627,7 +627,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     setEndInputValue(newValue);
     setIsTyping(true);
     setInputError(null);
-    
+
     if (newValue.trim() === '') {
       setEndDate(null);
       if (onEndChange) {
@@ -635,7 +635,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       }
       return;
     }
-    
+
     const parsedDate = parseDateInput(newValue);
     if (parsedDate) {
       setEndDate(parsedDate);
@@ -656,7 +656,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       setInputError(null);
       return;
     }
-    
+
     const parsedDate = parseDateInput(endInputValue);
     if (parsedDate) {
       setEndInputValue(formatDateForDisplay(parsedDate));
@@ -728,7 +728,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
                   className={cn(
                     "flex-1 bg-transparent border-none outline-none text-base font-normal leading-[1.4]",
                     startDate || startInputValue
-                      ? "text-input dark:text-input-dark" 
+                      ? "text-input dark:text-input-dark"
                       : "text-placeholder dark:text-placeholder-dark",
                     "placeholder:text-placeholder dark:placeholder:text-placeholder-dark"
                   )}
@@ -748,7 +748,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
                   className={cn(
                     "flex-1 bg-transparent border-none outline-none text-base font-normal leading-[1.4]",
                     endDate || endInputValue
-                      ? "text-input dark:text-input-dark" 
+                      ? "text-input dark:text-input-dark"
                       : "text-placeholder dark:text-placeholder-dark",
                     "placeholder:text-placeholder dark:placeholder:text-placeholder-dark"
                   )}
@@ -783,12 +783,12 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
               )}
               disabled={disabled}
             >
-              <Icon 
-                name={includeDropdown ? "chevron-down" : "calendar"} 
-                size={16} 
+              <Icon
+                name={includeDropdown ? "chevron-down" : "calendar"}
+                size={16}
                 className={cn(
-                  disabled 
-                    ? "text-input-disabled dark:text-input-disabled-dark" 
+                  disabled
+                    ? "text-input-disabled dark:text-input-disabled-dark"
                     : "text-icon dark:text-icon-dark"
                 )}
               />
@@ -803,17 +803,17 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
         {isOpen && !disabled && portalContainer && ReactDOM.createPortal(
           <>
             {/* Semi-transparent backdrop */}
-            <div 
-              className="fixed inset-0 bg-black/5 z-[9998]" 
+            <div
+              className="fixed inset-0 bg-overlay z-[9998]"
               onClick={() => setIsOpen(false)}
             />
-            
+
             {/* Calendar */}
-            <div 
-              className="fixed z-[9999]" 
-              style={{ 
-                top: calendarPosition.top, 
-                left: calendarPosition.left 
+            <div
+              className="fixed z-[9999]"
+              style={{
+                top: calendarPosition.top,
+                left: calendarPosition.left
               }}
             >
               <Calendar

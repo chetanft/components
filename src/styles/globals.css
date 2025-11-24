@@ -150,14 +150,19 @@
   --badge-success-text: #00753d;
   --badge-success-border: #00753d;
   --badge-success-hover-bg: #99e8af;
+  --badge-success-hover-border: #00753d;
   
   --badge-warning-bg: #ffebdc;
   --badge-warning-text: #ff6c19;
   --badge-warning-border: #ff6c19;
   --badge-warning-hover-bg: #ffc4a3;
+  --badge-warning-hover-border: #ff6c19;
   
   --badge-neutral-bg: #ecf6ff;
   --badge-neutral-text: #1890ff;
+  --badge-neutral-border: #1890ff;
+  --badge-neutral-hover-bg: #ecf6ff;
+  --badge-neutral-hover-border: #1890ff;
   
   /* Badge System Variables */
   --badge-border-radius: 4px;

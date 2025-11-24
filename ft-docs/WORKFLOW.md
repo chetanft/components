@@ -1,27 +1,28 @@
-# Docs-First Development Workflow
+# Single Source of Truth Development Workflow
 
 ## Overview
-Docs is the primary interface. All component development happens here, then syncs to npm package.
+Component source code (`src/components/`) is the single source of truth. Docs, Storybook, and npm package all import directly from source - no intermediate files or generation needed.
 
 ## Development Flow
 
-### 1. Update Components in Docs
+### 1. Update Component Source
 - Edit components in `src/components/`
+- Update Storybook stories in `src/components/*/Component.stories.tsx`
 - Test in docs: `cd ft-docs && npm run dev`
-- Components auto-update via HMR
+- Components auto-update via HMR (direct imports from source)
 
-### 2. Sync to NPM Package
-After making changes in docs:
+### 2. Build NPM Package
+After making changes:
 
 ```bash
 # From root directory
-npm run sync:docs-to-package
+npm run build
 ```
 
 This will:
-- ✅ Validate all docs components are exported
-- ✅ Update components.json from Storybook
-- ✅ Build npm package
+- ✅ Sync versions across packages
+- ✅ Validate component exports match source
+- ✅ Build npm package from source
 
 ### 3. Publish NPM Package
 ```bash
@@ -38,10 +39,14 @@ components/
 ```
 
 ## Key Points
+- ✅ **Single Source of Truth**: `src/components/` drives everything
 - ✅ Docs imports directly from `../../src` (source)
+- ✅ Storybook imports directly from `./Component` (source)
 - ✅ npm package builds from same `src/` directory
+- ✅ Component metadata generated on-demand from TypeScript and stories
+- ✅ No components.json file - eliminated duplication
 - ✅ Always validate before building: `npm run validate:docs`
-- ✅ Components in docs = Components in npm package
+- ✅ Components in docs = Components in Storybook = Components in npm package
 
 ## Commands Reference
 
@@ -53,8 +58,8 @@ cd ft-docs && npm run dev
 # Validate docs components are exported
 npm run validate:docs
 
-# Sync docs changes to npm package
-npm run sync:docs-to-package
+# Build npm package (includes validation)
+npm run build
 ```
 
 ### Building & Publishing

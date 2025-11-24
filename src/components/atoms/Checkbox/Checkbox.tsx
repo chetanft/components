@@ -13,20 +13,20 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
 }
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ 
-    className, 
-    label, 
-    indeterminate, 
-    size = 'md', 
-    disabled, 
+  ({
+    className,
+    label,
+    indeterminate,
+    size = 'md',
+    disabled,
     error,
     description,
     id,
     'aria-describedby': ariaDescribedBy,
-    ...props 
+    ...props
   }, ref) => {
     const checkboxRef = React.useRef<HTMLInputElement>(null);
-    
+
     React.useImperativeHandle(ref, () => checkboxRef.current as HTMLInputElement);
 
     React.useEffect(() => {
@@ -67,19 +67,19 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       currentSize.checkbox,
       // State styles with dark mode support
       disabled
-        ? "bg-neutral-100 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 cursor-not-allowed"
+        ? "bg-surface-alt border-border-secondary cursor-not-allowed"
         : error
-        ? props.checked || indeterminate
-          ? "bg-critical border-critical text-white hover:bg-critical/90 hover:border-critical/90"
-          : "border-critical bg-white dark:bg-neutral-900 text-critical hover:bg-critical/5 dark:hover:bg-critical/10"
-        : props.checked || indeterminate
-        ? "bg-primary border-primary text-white hover:bg-primary/90 hover:border-primary/90"
-        : "border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-900 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-500",
+          ? props.checked || indeterminate
+            ? "bg-critical border-critical text-white hover:bg-critical/90 hover:border-critical/90"
+            : "border-critical bg-surface text-critical hover:bg-critical/5"
+          : props.checked || indeterminate
+            ? "bg-[var(--primary)] border-[var(--primary)] text-white hover:bg-[var(--primary)]/90 hover:border-[var(--primary)]/90"
+            : "border-border bg-surface hover:bg-surface-alt hover:border-border-hover",
       // Focus styles
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900",
-      error 
-        ? "focus-visible:ring-critical/50" 
-        : "focus-visible:ring-primary/50",
+      error
+        ? "focus-visible:ring-critical/50"
+        : "focus-visible:ring-[var(--primary)]/50",
       className
     );
 
@@ -88,20 +88,20 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       "font-medium leading-relaxed cursor-pointer select-none",
       currentSize.text,
       disabled
-        ? "text-neutral-400 dark:text-neutral-500 cursor-not-allowed"
+        ? "text-[var(--secondary)] cursor-not-allowed"
         : error
-        ? "text-critical"
-        : "text-primary"
+          ? "text-critical"
+          : "text-[var(--primary)]"
     );
 
     // Description styles
     const descriptionStyles = cn(
       "text-sm leading-relaxed mt-1",
       disabled
-        ? "text-neutral-400 dark:text-neutral-500"
+        ? "text-[var(--secondary)]"
         : error
-        ? "text-critical"
-        : "text-neutral-600 dark:text-neutral-400"
+          ? "text-critical"
+          : "text-[var(--secondary)]"
     );
 
     // Container styles - use items-center for perfect middle alignment
@@ -127,8 +127,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             <div className={checkboxStyles} tabIndex={disabled ? -1 : 0}>
               {/* Checkmark icon */}
               {(props.checked || indeterminate) && (
-                <Icon 
-                  name={indeterminate ? "subtract" : "check-alt"} 
+                <Icon
+                  name={indeterminate ? "subtract" : "check-alt"}
                   size={currentSize.icon}
                   className="transition-opacity"
                   aria-hidden="true"
@@ -141,7 +141,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           )}
         </label>
         {description && (
-          <p 
+          <p
             id={descriptionId}
             className={descriptionStyles}
             style={{ marginLeft: `calc(${currentSize.checkbox.split(' ')[0].replace('w-', '')} * 0.25rem + ${currentSize.gap.replace('gap-', '').replace('[', '').replace(']', '')} * 0.25rem)` }}

@@ -74,6 +74,36 @@ export const Text: React.FC<TextProps> = ({
     </div>
   );
 
+  /**
+   * Determine container width based on configuration (matching Figma design)
+   * Width constraints ensure consistent layout across different configurations:
+   * - Leading icons: no width constraint (content-based)
+   * - Subtext + trailing icon: varies by size (xl: 68px, xx: 75px, others: 57px)
+   * - Subtext only: 58px
+   * - No subtext: 57px
+   */
+  const getContainerWidth = (): string => {
+    // Cases with leading icon: no width constraint
+    if (hasLeadingIcon) {
+      return "";
+    }
+    
+    // Subtext + trailing icon: width varies by size
+    if (hasSubText && hasTrailingIcon) {
+      if (size === "xl") return "w-[68px]";
+      if (size === "xx") return "w-[75px]";
+      return "w-[57px]";
+    }
+    
+    // Subtext without icons
+    if (hasSubText && !hasTrailingIcon) {
+      return "w-[58px]";
+    }
+    
+    // No subtext cases (with or without trailing icon)
+    return "w-[57px]";
+  };
+
   // Determine subtext width based on size and icon configuration
   const getSubTextWidth = (): string => {
     if (hasSubText && hasTrailingIcon && !hasLeadingIcon) {
@@ -131,8 +161,10 @@ export const Text: React.FC<TextProps> = ({
   const dataName = `Sub text=${hasSubText ? "True" : "False"}, Leading Icon=${hasLeadingIcon ? "True" : "False"}, Trailing Icon=${hasTrailingIcon ? "True" : "False"}, Size=${size}`;
 
   // Container class matching Figma structure
+  const containerWidth = getContainerWidth();
   const containerClass = cn(
-    "content-stretch flex flex-col gap-[var(--x1,4px)] items-start justify-center relative size-full",
+    "content-stretch flex flex-col gap-[var(--x1,4px)] items-start justify-center relative",
+    containerWidth || "size-full",
     className
   );
 

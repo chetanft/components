@@ -6,6 +6,9 @@ export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'destructive'
 export type ButtonSize = ComponentSize; // Use unified sizing
 export type IconPosition = 'leading' | 'trailing' | 'only';
 
+/**
+ * Complete theme system supporting Light, Dark, and Night modes with automatic component adaptation.
+ */
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -32,7 +35,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const isDisabled = disabled || loading;
   // Icon-only buttons: circular for primary/secondary/destructive/text variants
   // Tertiary variant icon-only buttons are square
-  const shouldBeCircular = className?.includes('rounded-full') || 
+  const shouldBeCircular = className?.includes('rounded-full') ||
     (isIconOnly && variant !== 'tertiary' && variant !== 'link');
   const isLink = variant === 'link';
   // Text variant icon-only buttons should use secondary variant styling
@@ -44,7 +47,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       padding: 'px-1.5 py-0.5',
       fontSize: 'text-xs', // 12px
       iconSize: 12,
-      borderRadius: 'rounded-[4px]',
+      borderRadius: 'rounded-component',
       height: 'h-4', // 16px
       width: 'w-4', // 16px for icon-only
     },
@@ -52,7 +55,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       padding: 'px-2 py-[2px]',
       fontSize: 'text-sm', // 14px
       iconSize: 12,
-      borderRadius: 'rounded-[4px]',
+      borderRadius: 'rounded-component',
       height: 'h-6', // 24px
       width: 'w-6', // 24px for icon-only
     },
@@ -60,7 +63,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       padding: 'p-3', // 12px all around
       fontSize: 'text-base', // 16px
       iconSize: 16,
-      borderRadius: 'rounded-[8px]',
+      borderRadius: 'rounded-component',
       height: 'h-8', // 32px
       width: 'w-8', // 32px for icon-only
     },
@@ -68,7 +71,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       padding: 'px-4 py-3', // 16px horizontal, 12px vertical
       fontSize: 'text-base', // 16px
       iconSize: 16,
-      borderRadius: 'rounded-[8px]',
+      borderRadius: 'rounded-component',
       height: 'h-10', // 40px
       width: 'w-10', // 40px for icon-only
     },
@@ -76,7 +79,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       padding: 'px-6 py-3', // 24px horizontal, 12px vertical
       fontSize: 'text-lg', // 20px
       iconSize: 24,
-      borderRadius: 'rounded-[8px]',
+      borderRadius: 'rounded-component',
       height: 'h-12', // 48px
       width: 'w-12', // 48px for icon-only
     },
@@ -84,7 +87,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       padding: 'px-6 py-4', // 24px horizontal, 16px vertical
       fontSize: 'text-xl', // 24px
       iconSize: 24,
-      borderRadius: 'rounded-[8px]',
+      borderRadius: 'rounded-component',
       height: 'h-14', // 56px
       width: 'w-14', // 56px for icon-only
     },
@@ -92,7 +95,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       padding: 'px-7 py-5', // 28px horizontal, 20px vertical
       fontSize: 'text-[28px]', // 28px
       iconSize: 24,
-      borderRadius: 'rounded-[8px]',
+      borderRadius: 'rounded-component',
       height: 'h-16', // 64px
       width: 'w-16', // 64px for icon-only
     },
@@ -146,14 +149,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const variantStyles = {
     primary: cn(
       "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] border border-[var(--button-primary-border)]",
-      "hover:bg-[var(--button-primary-hover-bg)] hover:border-[var(--button-primary-hover-bg)]", 
+      "hover:bg-[var(--button-primary-hover-bg)] hover:border-[var(--button-primary-hover-bg)]",
       "focus-visible:ring-[var(--primary)]",
       "disabled:bg-[var(--tertiary)] disabled:border-[var(--tertiary)] disabled:text-[var(--button-primary-text)] disabled:opacity-50"
     ),
     secondary: cn(
       "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-[var(--button-secondary-border)]",
       "hover:bg-[var(--button-secondary-hover-bg)] hover:border-[var(--button-secondary-hover-border)]",
-      "focus-visible:ring-[var(--primary)]", 
+      "focus-visible:ring-[var(--primary)]",
       "disabled:text-[var(--tertiary)] disabled:border-[var(--border-primary)]"
     ),
     tertiary: cn(
@@ -185,12 +188,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   };
 
   // Determine accessible name
-  const accessibleName = props['aria-label'] || 
+  const accessibleName = props['aria-label'] ||
     (typeof children === 'string' ? children : undefined) ||
     (isIconOnly ? 'Button' : undefined);
 
   // Remove conflicting border-radius classes from className for icon-only circular buttons
-  const cleanedClassName = isIconOnly && shouldBeCircular && className 
+  const cleanedClassName = isIconOnly && shouldBeCircular && className
     ? className.replace(/\brounded-\[?[^\s\]]+\]?|\brounded-(none|sm|md|lg|xl|2xl|3xl|full)\b/g, '').trim()
     : className;
 
@@ -213,38 +216,38 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       {...props}
     >
       {loading && (
-        <Icon 
-          name="loading" 
-          size={buttonSize.iconSize} 
-          className="animate-spin" 
+        <Icon
+          name="loading"
+          size={buttonSize.iconSize}
+          className="animate-spin"
           aria-hidden="true"
         />
       )}
-      
+
       {!loading && isIconOnly && icon && (
-        <Icon 
-          name={icon} 
-          size={buttonSize.iconSize} 
+        <Icon
+          name={icon}
+          size={buttonSize.iconSize}
           aria-hidden="true"
         />
       )}
-      
+
       {!loading && !isIconOnly && (
         <>
           {icon && iconPosition === 'leading' && (
-            <Icon 
-              name={icon} 
-              size={buttonSize.iconSize} 
+            <Icon
+              name={icon}
+              size={buttonSize.iconSize}
               aria-hidden="true"
             />
           )}
-          
+
           {children}
-          
+
           {icon && iconPosition === 'trailing' && (
-            <Icon 
-              name={icon} 
-              size={buttonSize.iconSize} 
+            <Icon
+              name={icon}
+              size={buttonSize.iconSize}
               aria-hidden="true"
             />
           )}

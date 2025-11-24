@@ -99,7 +99,7 @@ function hexToRgb(hex: string): string {
 function hexToHsl(hex: string): string {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
   if (!result) return "0, 0%, 0%"
-  
+
   let r = parseInt(result[1], 16) / 255
   let g = parseInt(result[2], 16) / 255
   let b = parseInt(result[3], 16) / 255
@@ -137,21 +137,58 @@ function hexToHsl(hex: string): string {
   return `${h}, ${s}%, ${l}%`
 }
 
+function hexToOklch(hex: string): string {
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+
+  const linear = [r, g, b].map((c) =>
+    c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
+  );
+  const [lr, lg, lb] = linear;
+
+  // Convert to XYZ (D65)
+  const X = 0.4122214708 * lr + 0.5363325363 * lg + 0.0514459929 * lb;
+  const Y = 0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb;
+  const Z = 0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb;
+
+  // Convert to Oklab
+  const l = Math.cbrt(0.8189330101 * X + 0.3618667424 * Y - 0.1288597137 * Z);
+  const m = Math.cbrt(0.0329845436 * X + 0.9293118715 * Y + 0.0361456387 * Z);
+  const s = Math.cbrt(0.0482003018 * X + 0.2643662691 * Y + 0.6338517070 * Z);
+
+  const L = 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s;
+  const a = 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s;
+  const bOklab = 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s;
+
+  // Convert to LCH
+  const C = Math.sqrt(a * a + bOklab * bOklab);
+  const H = (Math.atan2(bOklab, a) * 180) / Math.PI;
+  const hue = (H + 360) % 360;
+
+  const Lperc = Math.round(L * 100);
+  const Cperc = Math.round(C * 100);
+  const Hdeg = Math.round(hue);
+
+  return `${Lperc}% ${Cperc}% ${Hdeg}deg`;
+}
+
 interface ColorSwatch {
   name: string
   hex: string
   rgb: string
   hsl: string
+  oklch?: string
   cssVar?: string
   tailwindClass?: string
 }
 
 function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'lightMode') {
   const colors: { [key: string]: ColorSwatch[] } = {}
-  
+
   // Extract base color scales from selected mode
   const baseColors = designTokens.baseColors[mode]
-  
+
   // Primary scale
   colors.primary = Object.entries(baseColors)
     .filter(([key]) => key.startsWith('primary'))
@@ -162,6 +199,7 @@ function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'ligh
         hex: value as string,
         rgb: hexToRgb(value as string),
         hsl: hexToHsl(value as string),
+        oklch: hexToOklch(value as string),
         cssVar: `--primary-${shade}`,
         tailwindClass: `bg-primary-${shade}`,
       }
@@ -182,6 +220,7 @@ function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'ligh
         hex: value as string,
         rgb: hexToRgb(value as string),
         hsl: hexToHsl(value as string),
+        oklch: hexToOklch(value as string),
         cssVar: `--secondary-${shade}`,
         tailwindClass: `bg-secondary-${shade}`,
       }
@@ -202,6 +241,7 @@ function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'ligh
         hex: value as string,
         rgb: hexToRgb(value as string),
         hsl: hexToHsl(value as string),
+        oklch: hexToOklch(value as string),
         cssVar: `--tertiary-${shade}`,
         tailwindClass: `bg-tertiary-${shade}`,
       }
@@ -222,6 +262,7 @@ function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'ligh
         hex: value as string,
         rgb: hexToRgb(value as string),
         hsl: hexToHsl(value as string),
+        oklch: hexToOklch(value as string),
         cssVar: `--neutral-${shade}`,
         tailwindClass: `bg-neutral-${shade}`,
       }
@@ -242,6 +283,7 @@ function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'ligh
         hex: value as string,
         rgb: hexToRgb(value as string),
         hsl: hexToHsl(value as string),
+        oklch: hexToOklch(value as string),
         cssVar: `--positive-${shade}`,
         tailwindClass: `bg-positive-${shade}`,
       }
@@ -262,6 +304,7 @@ function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'ligh
         hex: value as string,
         rgb: hexToRgb(value as string),
         hsl: hexToHsl(value as string),
+        oklch: hexToOklch(value as string),
         cssVar: `--warning-${shade}`,
         tailwindClass: `bg-warning-${shade}`,
       }
@@ -282,6 +325,7 @@ function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'ligh
         hex: value as string,
         rgb: hexToRgb(value as string),
         hsl: hexToHsl(value as string),
+        oklch: hexToOklch(value as string),
         cssVar: `--danger-${shade}`,
         tailwindClass: `bg-danger-${shade}`,
       }
@@ -300,6 +344,7 @@ function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'ligh
         hex: hex as string,
         rgb: hexToRgb(hex as string),
         hsl: hexToHsl(hex as string),
+        oklch: hexToOklch(hex as string),
         cssVar: `--${colorName}-${shade}`,
         tailwindClass: `bg-${colorName}-${shade}`,
       }))
@@ -330,10 +375,10 @@ const colorFamilies = [
 ]
 
 export default function ColorsPage() {
-  const [selectedFormat, setSelectedFormat] = useState<'hex' | 'rgb' | 'hsl' | 'css' | 'tailwind'>('hex')
+  const [selectedFormat, setSelectedFormat] = useState<'hex' | 'rgb' | 'hsl' | 'css' | 'tailwind' | 'oklch'>('hex')
   const [selectedMode, setSelectedMode] = useState<'lightMode' | 'darkMode' | 'nightMode'>('lightMode')
   const [copiedValue, setCopiedValue] = useState<string | null>(null)
-  
+
   const colorScales = extractColorScales(selectedMode)
 
   const copyToClipboard = (value: string) => {
@@ -354,6 +399,8 @@ export default function ColorsPage() {
         return swatch.cssVar || ''
       case 'tailwind':
         return swatch.tailwindClass || ''
+      case 'oklch':
+        return swatch.oklch || ''
       default:
         return swatch.hex
     }
@@ -390,11 +437,10 @@ export default function ColorsPage() {
                   <button
                     key={mode}
                     onClick={() => setSelectedMode(mode)}
-                    className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                      selectedMode === mode
-                        ? 'text-white'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
+                    className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${selectedMode === mode
+                      ? 'text-white'
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                      }`}
                     style={selectedMode === mode ? { backgroundColor: '#434f64' } : undefined}
                   >
                     {mode === 'lightMode' ? 'Light' : mode === 'darkMode' ? 'Dark' : 'Night'}
@@ -402,20 +448,19 @@ export default function ColorsPage() {
                 ))}
               </div>
             </div>
-            
+
             {/* Format Selector */}
             <div className="flex flex-wrap items-center gap-3">
               <label className="text-sm font-semibold text-foreground">Format:</label>
               <div className="flex flex-wrap gap-2">
-                {(['hex', 'rgb', 'hsl', 'css', 'tailwind'] as const).map((format) => (
+                {(['hex', 'rgb', 'hsl', 'css', 'tailwind', 'oklch'] as const).map((format) => (
                   <button
                     key={format}
                     onClick={() => setSelectedFormat(format)}
-                    className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                      selectedFormat === format
-                        ? 'text-white'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
+                    className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${selectedFormat === format
+                      ? 'text-white'
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                      }`}
                     style={selectedFormat === format ? { backgroundColor: '#434f64' } : undefined}
                   >
                     {format.toUpperCase()}

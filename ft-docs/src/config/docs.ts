@@ -16,21 +16,16 @@ export const docsConfig: DocsConfig = {
       href: "/docs/components/button",
     },
     {
+      title: "Colors",
+      href: "/colors",
+    },
+    {
       title: "Charts",
       href: "/charts",
     },
     {
       title: "Icons",
       href: "/icons",
-    },
-    {
-      title: "Colors",
-      href: "/colors",
-    },
-    {
-      title: "Storybook",
-      href: "http://localhost:6006",
-      external: true,
     },
     {
       title: "GitHub",
@@ -45,6 +40,21 @@ export const docsConfig: DocsConfig = {
         {
           title: "Introduction",
           href: "/docs",
+          items: [],
+        },
+        {
+          title: "AI Prompts",
+          href: "/docs/ai-prompts",
+          items: [],
+        },
+        {
+          title: "Storybook",
+          href: "/docs/storybook",
+          items: [],
+        },
+        {
+          title: "NPM Package",
+          href: "/docs/npm-package",
           items: [],
         },
       ],
@@ -73,18 +83,8 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "Colors",
-          href: "/docs/components/colors",
-          items: [],
-        },
-        {
           title: "Divider",
           href: "/docs/components/divider",
-          items: [],
-        },
-        {
-          title: "Icon",
-          href: "/docs/components/icon",
           items: [],
         },
         {
@@ -200,11 +200,6 @@ export const docsConfig: DocsConfig = {
         {
           title: "SimpleColumnLayout",
           href: "/docs/components/simple-column-layout",
-          items: [],
-        },
-        {
-          title: "StackedBarChart",
-          href: "/docs/components/stacked-bar-chart",
           items: [],
         },
         {
@@ -325,11 +320,6 @@ export const docsConfig: DocsConfig = {
         {
           title: "ColorSystem",
           href: "/docs/components/color-system",
-          items: [],
-        },
-        {
-          title: "Colors",
-          href: "/docs/components/colors",
           items: [],
         },
         {

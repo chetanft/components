@@ -5,7 +5,7 @@ import { cn } from "../../../lib/utils";
 // REUSABLE TYPOGRAPHY COMPONENT FOR AI TOOLS
 // ======================
 
-export type TypographyVariant = 
+export type TypographyVariant =
   // Figma Design System Variants
   | 'title-primary'             // 28px, Regular, 140%
   | 'title-secondary'           // 24px, Semibold, 140%
@@ -84,11 +84,11 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
 }, ref) => {
   // Determine the HTML element to render
   const Element = (as || variantToElement[variant]) as keyof JSX.IntrinsicElements;
-  
+
   // Build className based on props
   const classes = cn(
     // Base styles - include fallback font family
-    "font-[var(--font-family-primary)] font-sans text-black",
+    "font-[var(--font-family-primary)] font-sans",
     // Variant styles
     variantStyles[variant],
     // Color

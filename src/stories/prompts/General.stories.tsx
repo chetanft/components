@@ -70,7 +70,7 @@ const GeneralPrompts = () => {
       {
         name: "Typography",
         import: "import { Typography } from 'ft-design-system';",
-                    usage: "// Demo component only. Use: <h1 className=\"text-xl font-semibold\">Title</h1>",
+        usage: "// Demo component only. Use: <h1 className=\"text-xl font-semibold\">Title</h1>",
         props: "This component is for display only. Use regular HTML tags with CSS classes for typography."
       },
       {
@@ -137,7 +137,7 @@ const columns = [
 <Table columns={columns} data={data} />`
       }
     };
-    
+
     return JSON.stringify(docs, null, 2);
   };
 
@@ -456,27 +456,40 @@ import { Button, Input, Table, Badge, ProgressBar } from 'ft-design-system/ai';
 import { Button, filterAIClasses } from 'ft-design-system';
 <Button className={filterAIClasses(aiGeneratedClasses)} />
 
-// For CDN (with robust loading):
-waitForDesignSystem((FTDesignSystem) => {
-  if (!FTDesignSystem) return; // Handle loading failure
-  const { Button, Input, Table, Badge, ProgressBar } = FTDesignSystem;
-  // Your app code here
-});
-
 Available components: Button, Input, Checkbox, RadioGroup, Switch, DatePicker, Dropdown, Table, Badge, Typography, ProgressBar, Tabs, Collapsible, FileCard, UploadZone, and 190+ icons.
 
-🎨 FT DESIGN TOKENS - When using components or creating custom elements, follow these exact values:
+## COLOR SYSTEM (CRITICAL - USE SEMANTIC TOKENS)
 
-COLORS (brand-consistent values):
-- Primary: #434f64, Neutral/Accent: #1890ff, Error: #ff3533, Warning: #ff6c19, Success: #00c638
-- Text: #434f64 (headings), #5f697b (body), #838c9d (muted)
-- Borders: #ced1d7, Dividers: #f0f1f7, Backgrounds: #f8f8f9/#ffffff
+**✅ ALWAYS USE Semantic Color Tokens:**
+These automatically adapt to theme (light/dark/night mode):
+- Primary: bg-primary, text-primary, border-primary
+- Secondary: bg-secondary, text-secondary, border-secondary
+- Tertiary: bg-tertiary, text-tertiary, border-tertiary
+- Status: bg-critical, bg-positive, bg-warning, bg-informative
+- Text: text-foreground, text-muted-foreground
+- Surfaces: bg-surface, bg-surface-secondary
+- Borders: border-border, border-border-secondary
+
+**❌ NEVER USE:**
+- Arbitrary colors: bg-[#434f64], text-[#123456]
+- Hardcoded Tailwind colors: bg-blue-500, text-gray-900
+- Direct hex values in any form
+
+**Examples:**
+✅ <Button className="bg-primary text-primary border-border" />
+✅ <div className="bg-secondary text-secondary" />
+✅ <Alert className="bg-critical text-critical" />
+✅ <Card className="bg-surface border-border" />
+
+❌ <Button className="bg-[#434f64]" />
+❌ <div className="bg-blue-500" />
+❌ <Alert className="text-[#1a2330]" />
 
 TYPOGRAPHY: Inter font, weights 400/500/600, sizes 14px/16px/20px/24px/28px
 
 SPACING: 4px/8px/12px/16px/20px/24px/32px (8px system), padding 12px/20px/32px
 
-BORDERS: radius 4px/8px/12px/16px, shadows 0 1px 2px to 0 20px 25px rgba(67,79,100,0.05-0.1)
+BORDERS: radius 4px/8px/12px/16px
 
 COMPONENT SPECIFICATIONS:
 - Button: variant="primary|secondary|destructive|text|link" (NOT outline/ghost)
@@ -492,10 +505,11 @@ CRITICAL DATA REQUIREMENTS:
 - Tabs: Pass tabs array, not children: <Tabs tabs={[{label: "Tab 1"}, {label: "Tab 2"}]} />
 - Always provide data array to Table (never undefined) to prevent .map() errors
 
-CUSTOM STYLING EXAMPLES (when extending components):
-- className="bg-[#1890ff] text-white rounded-lg px-5 py-3 shadow-sm" (button)
-- className="border-[#ced1d7] rounded-lg focus:border-[#1890ff]" (input)
-- className="bg-white rounded-xl shadow-md p-6" (card)
+CRITICAL HEIGHT RULES:
+- NEVER override component heights with h-12, h-10, h-16 classes
+- Components have standardized heights (36px, 44px, 52px, 64px)
+- Use size props instead: size="sm|md|lg"
+- Let components control their own sizing
 
 Use TypeScript for type safety when possible. Follow modern React patterns with hooks and functional components.
 
@@ -730,7 +744,7 @@ Always prioritize FT Design System components first, then fall back as needed.`
                 {copiedPrompt === item.id ? '✓ Copied!' : 'Copy Prompt'}
               </button>
             </div>
-            
+
             <div className="bg-gray-50 rounded-lg p-4">
               <pre className="text-sm text-gray-800 whitespace-pre-wrap font-mono">
                 {item.prompt}
@@ -756,7 +770,7 @@ Always prioritize FT Design System components first, then fall back as needed.`
         <p className="text-green-800 text-sm mb-4">
           Download component documentation files to upload to your AI tool or reference in your project.
         </p>
-        
+
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-white rounded-lg p-4 border border-green-200">
             <h4 className="font-medium text-gray-900 mb-2">📄 JSON Documentation</h4>

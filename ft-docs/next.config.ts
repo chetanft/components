@@ -1,8 +1,19 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
+  
+  // Configure Turbopack for Next.js 16
+  turbopack: {
+    resolveAlias: {
+      // Add parent directory to module resolution
+      '@components': path.resolve(__dirname, '../src'),
+    },
+  },
+  
+  // Enable experimental features for better parent directory support
+  serverExternalPackages: [],
 };
 
 export default nextConfig;

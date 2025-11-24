@@ -17,7 +17,7 @@ const iconNames: IconName[] = [
   'detention-at-destination', 'detention-at-origin', 'diversion', 'division', 'document-reuse', 'document', 'download',
   'drag', 'edit', 'eway-bill-expired', 'excel', 'expand', 'export-file', 'eye-invisible',
   'file-alt', 'file-upload', 'file-uploader', 'file', 'fill-details', 'filter', 'flame', 'forward',
-  'ft-colour', 'ft-gray', 'gmail-logo', 'google-colour', 'google-drive', 'google-gray', 'gps', 'gst', 'hamburger-menu', 'hand', 'home',
+  'ft-colour', 'ft-gray', 'gmail-logo', 'google-colour', 'google-drive', 'google-gray', 'gps', 'gst', 'hamburger-menu', 'hand', 'help-circle', 'home',
   'image', 'inbound', 'indent', 'jio', 'light-bulb', 'link', 'loading', 'locate', 'location', 'lock', 'logout',
   'long-stoppage', 'mail', 'map', 'megaphone', 'more', 'more-options', 'mtnl', 'multiple-location', 'multiple-time',
   'multiple-weight', 'my-trip', 'navigator', 'no-signal', 'notification', 'noted', 'octagon-alert-filled', 'one-drive', 'organisation', 'outbound',
@@ -35,17 +35,17 @@ const iconNames: IconName[] = [
 // Icon style categories
 const iconStyleCategories = {
   'All': iconNames,
-  'Single Tone': iconNames.filter(name => 
-    !name.includes('-fill') && 
-    !name.includes('filled') && 
-    !name.includes('colour') && 
-    !name.includes('gray') && 
+  'Single Tone': iconNames.filter(name =>
+    !name.includes('-fill') &&
+    !name.includes('filled') &&
+    !name.includes('colour') &&
+    !name.includes('gray') &&
     !name.includes('logo') &&
     !['dashboard', 'control-tower', 'my-trip', 'reports', 'indent', 'detention-at-origin', 'detention-at-destination', 'settlement', 'reconciliation', 'contracted-bill', 'part-truck-load', 'planning', 'upload-document'].includes(name)
   ),
   'Double Tone': ['dashboard', 'control-tower', 'my-trip', 'reports', 'indent', 'detention-at-origin', 'detention-at-destination', 'settlement', 'reconciliation', 'contracted-bill', 'part-truck-load', 'planning', 'upload-document'],
-  'Filled': iconNames.filter(name => 
-    name.includes('-fill') || 
+  'Filled': iconNames.filter(name =>
+    name.includes('-fill') ||
     name.includes('filled') ||
     name === 'close-filled' ||
     name === 'pause-filled' ||
@@ -119,24 +119,24 @@ export default function IconsPage() {
 
   const downloadSVG = () => {
     if (!selectedIcon) return
-    
+
     // Find the rendered icon SVG in the preview area
     const previewContainer = document.querySelector('[data-icon-preview]')
     const svgElement = previewContainer?.querySelector('svg')
-    
+
     if (svgElement) {
       // Clone the SVG element
       const svgClone = svgElement.cloneNode(true) as SVGElement
-      
+
       // Update attributes for standalone SVG
       svgClone.setAttribute('width', String(iconSize))
       svgClone.setAttribute('height', String(iconSize))
       svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
-      
+
       // Serialize to string
       const serializer = new XMLSerializer()
       const svgString = serializer.serializeToString(svgClone)
-      
+
       // Create blob and download
       const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' })
       const url = URL.createObjectURL(blob)
@@ -168,25 +168,25 @@ export default function IconsPage() {
 
   const downloadPNG = () => {
     if (!selectedIcon) return
-    
+
     // Find the rendered icon SVG in the preview area
     const previewContainer = document.querySelector('[data-icon-preview]')
     const svgElement = previewContainer?.querySelector('svg')
-    
+
     if (svgElement) {
       // Clone the SVG element
       const svgClone = svgElement.cloneNode(true) as SVGElement
       svgClone.setAttribute('width', String(iconSize))
       svgClone.setAttribute('height', String(iconSize))
-      
+
       // Serialize to string
       const serializer = new XMLSerializer()
       const svgString = serializer.serializeToString(svgClone)
-      
+
       // Create blob URL from SVG
       const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' })
       const svgUrl = URL.createObjectURL(svgBlob)
-      
+
       // Create image from SVG
       const img = new Image()
       img.onload = () => {
@@ -195,14 +195,14 @@ export default function IconsPage() {
         canvas.width = iconSize * 2 // Higher resolution
         canvas.height = iconSize * 2
         const ctx = canvas.getContext('2d')
-        
+
         if (ctx) {
           // Clear canvas
           ctx.clearRect(0, 0, canvas.width, canvas.height)
-          
+
           // Draw image scaled up for better quality
           ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-          
+
           // Convert to PNG and download
           canvas.toBlob((blob) => {
             if (blob) {
@@ -219,13 +219,13 @@ export default function IconsPage() {
           }, 'image/png')
         }
       }
-      
+
       img.onerror = () => {
         console.error('Failed to load SVG for PNG conversion')
         URL.revokeObjectURL(svgUrl)
         alert('Failed to convert icon to PNG. Please try again.')
       }
-      
+
       img.src = svgUrl
     } else {
       alert('Icon preview not found. Please try again.')
@@ -234,18 +234,18 @@ export default function IconsPage() {
 
   const filteredIcons = useMemo(() => {
     let icons: IconName[] = []
-    
+
     if (viewMode === "styles") {
       const styleCategoryIcons = iconStyleCategories[selectedStyleCategory]
       if (Array.isArray(styleCategoryIcons)) {
-        icons = styleCategoryIcons.filter((iconName): iconName is IconName => 
+        icons = styleCategoryIcons.filter((iconName): iconName is IconName =>
           iconNames.includes(iconName as IconName)
         ) as IconName[]
       }
     } else if (viewMode === "categories") {
       const categoryIcons = iconCategories[selectedCategory]
       if (Array.isArray(categoryIcons)) {
-        icons = categoryIcons.filter((iconName): iconName is IconName => 
+        icons = categoryIcons.filter((iconName): iconName is IconName =>
           iconNames.includes(iconName as IconName)
         ) as IconName[]
       }
@@ -269,9 +269,9 @@ export default function IconsPage() {
       if (cat === 'All') {
         counts[cat] = iconNames.length
       } else {
-        const categoryIcons = categoriesToCount[cat as CategoryName | StyleCategoryName]
+        const categoryIcons = (categoriesToCount as any)[cat]
         if (Array.isArray(categoryIcons)) {
-          counts[cat] = categoryIcons.filter((iconName) => 
+          counts[cat] = categoryIcons.filter((iconName) =>
             iconNames.includes(iconName as IconName)
           ).length
         } else {
@@ -306,7 +306,7 @@ export default function IconsPage() {
     window.addEventListener("keydown", handleEscape)
     return () => window.removeEventListener("keydown", handleEscape)
   }, [bottomSheetOpen, selectedIcon, filteredIcons])
-  
+
   // Prevent body scroll when bottom sheet is open
   useEffect(() => {
     if (bottomSheetOpen) {
@@ -333,9 +333,8 @@ export default function IconsPage() {
           )}
 
           {/* Sidebar Customizer */}
-          <aside className={`fixed lg:static inset-y-0 left-0 z-50 lg:z-auto w-64 border-r bg-background lg:bg-muted/30 p-6 overflow-y-auto transform transition-transform ${
-            sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-          }`}>
+          <aside className={`fixed lg:static inset-y-0 left-0 z-50 lg:z-auto w-64 border-r bg-background lg:bg-muted/30 p-6 overflow-y-auto transform transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+            }`}>
             <div className="space-y-6">
               {/* Mobile Close Button */}
               <div className="flex items-center justify-between lg:hidden mb-4">
@@ -365,11 +364,11 @@ export default function IconsPage() {
                     title="Reset to defaults"
                   >
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M1 8a7 7 0 0 1 7-7v2M15 8a7 7 0 0 1-7 7v-2M8 1v6m0 2v6" strokeLinecap="round"/>
+                      <path d="M1 8a7 7 0 0 1 7-7v2M15 8a7 7 0 0 1-7 7v-2M8 1v6m0 2v6" strokeLinecap="round" />
                     </svg>
                   </button>
                 </div>
-                
+
                 {/* Color */}
                 <div className="space-y-2 mb-4">
                   <label className="text-xs font-medium text-muted-foreground">Color</label>
@@ -428,17 +427,15 @@ export default function IconsPage() {
                   <label className="text-xs font-medium text-muted-foreground">Absolute Stroke width</label>
                   <button
                     onClick={() => setAbsoluteStrokeWidth(!absoluteStrokeWidth)}
-                    className={`relative w-11 h-6 rounded-full transition-colors ${
-                      absoluteStrokeWidth ? "bg-primary" : "bg-muted"
-                    }`}
+                    className={`relative w-11 h-6 rounded-full transition-colors ${absoluteStrokeWidth ? "bg-primary" : "bg-muted"
+                      }`}
                     type="button"
                     role="switch"
                     aria-checked={absoluteStrokeWidth}
                   >
                     <span
-                      className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${
-                        absoluteStrokeWidth ? "translate-x-5" : "translate-x-0"
-                      }`}
+                      className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${absoluteStrokeWidth ? "translate-x-5" : "translate-x-0"
+                        }`}
                     />
                   </button>
                 </div>
@@ -454,11 +451,10 @@ export default function IconsPage() {
                       setSelectedCategory("All")
                       setSelectedStyleCategory("All")
                     }}
-                    className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
-                      viewMode === "all"
-                        ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
-                        : "bg-background border hover:bg-muted"
-                    }`}
+                    className={`px-3 py-1.5 text-xs rounded-md transition-colors ${viewMode === "all"
+                      ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+                      : "bg-background border hover:bg-muted"
+                      }`}
                   >
                     All
                   </button>
@@ -467,11 +463,10 @@ export default function IconsPage() {
                       setViewMode("styles")
                       setSelectedStyleCategory("All")
                     }}
-                    className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
-                      viewMode === "styles"
-                        ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
-                        : "bg-background border hover:bg-muted"
-                    }`}
+                    className={`px-3 py-1.5 text-xs rounded-md transition-colors ${viewMode === "styles"
+                      ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+                      : "bg-background border hover:bg-muted"
+                      }`}
                   >
                     Styles
                   </button>
@@ -480,11 +475,10 @@ export default function IconsPage() {
                       setViewMode("categories")
                       setSelectedCategory("All")
                     }}
-                    className={`px-3 py-1.5 text-xs rounded-md transition-colors ${
-                      viewMode === "categories"
-                        ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
-                        : "bg-background border hover:bg-muted"
-                    }`}
+                    className={`px-3 py-1.5 text-xs rounded-md transition-colors ${viewMode === "categories"
+                      ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+                      : "bg-background border hover:bg-muted"
+                      }`}
                   >
                     Categories
                   </button>
@@ -500,11 +494,10 @@ export default function IconsPage() {
                       <button
                         key={category}
                         onClick={() => setSelectedStyleCategory(category as StyleCategoryName)}
-                        className={`w-full text-left px-3 py-2 text-xs rounded-md transition-colors ${
-                          selectedStyleCategory === category
-                            ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
-                            : "hover:bg-muted"
-                        }`}
+                        className={`w-full text-left px-3 py-2 text-xs rounded-md transition-colors ${selectedStyleCategory === category
+                          ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+                          : "hover:bg-muted"
+                          }`}
                       >
                         <div className="flex items-center justify-between">
                           <span>{category}</span>
@@ -527,11 +520,10 @@ export default function IconsPage() {
                       <button
                         key={category}
                         onClick={() => setSelectedCategory(category as CategoryName)}
-                        className={`w-full text-left px-3 py-2 text-xs rounded-md transition-colors ${
-                          selectedCategory === category
-                            ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
-                            : "hover:bg-muted"
-                        }`}
+                        className={`w-full text-left px-3 py-2 text-xs rounded-md transition-colors ${selectedCategory === category
+                          ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+                          : "hover:bg-muted"
+                          }`}
                       >
                         <div className="flex items-center justify-between">
                           <span>{category}</span>
@@ -597,49 +589,46 @@ export default function IconsPage() {
             {/* Icons Grid */}
             <div className="flex-1 overflow-y-auto p-6">
               {filteredIcons.length > 0 ? (
-                  <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
-                    {filteredIcons.map((iconName) => {
-                      const isCopied = copiedIcon === iconName
-                      return (
-                        <div
-                          key={iconName}
-                          onClick={() => handleIconClick(iconName)}
-                          className={`group flex cursor-pointer flex-col items-center gap-2 rounded-lg border bg-card p-4 transition-all hover:border-primary hover:shadow-md ${
-                            selectedIcon === iconName ? "border-primary ring-2 ring-primary/20" : ""
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
+                  {filteredIcons.map((iconName) => {
+                    const isCopied = copiedIcon === iconName
+                    return (
+                      <div
+                        key={iconName}
+                        onClick={() => handleIconClick(iconName)}
+                        className={`group flex cursor-pointer flex-col items-center gap-2 rounded-lg border bg-card p-4 transition-all hover:border-primary hover:shadow-md ${selectedIcon === iconName ? "border-primary ring-2 ring-primary/20" : ""
                           }`}
-                          title={`Click to view: ${iconName}`}
-                        >
-                          <div className="flex h-16 w-16 items-center justify-center rounded-md bg-muted/50 group-hover:bg-muted transition-colors">
-                            <Icon 
-                              name={iconName} 
-                              size={iconSize} 
-                              color={iconColor}
-                              strokeWidth={strokeWidth}
-                              absoluteStrokeWidth={absoluteStrokeWidth}
-                            />
-                          </div>
-                          <div className="w-full space-y-1 text-center">
-                            <div className="text-xs font-medium leading-tight break-words">
-                              {iconName}
-                            </div>
-                            {isCopied && (
-                              <div className="text-xs text-primary font-medium">Copied!</div>
-                            )}
-                          </div>
+                        title={`Click to view: ${iconName}`}
+                      >
+                        <div className="flex h-16 w-16 items-center justify-center rounded-md bg-muted/50 group-hover:bg-muted transition-colors">
+                          <Icon
+                            name={iconName}
+                            size={iconSize}
+                            color={iconColor}
+                          />
                         </div>
-                      )
-                    })}
+                        <div className="w-full space-y-1 text-center">
+                          <div className="text-xs font-medium leading-tight break-words">
+                            {iconName}
+                          </div>
+                          {isCopied && (
+                            <div className="text-xs text-primary font-medium">Copied!</div>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <div className="mb-4 text-muted-foreground">
+                    <Icon name="search" size={48} color="currentColor" />
                   </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div className="mb-4 text-muted-foreground">
-                      <Icon name="search" size={48} color="currentColor" />
-                    </div>
-                    <p className="text-muted-foreground">
-                      No icons found matching "{searchQuery}"
-                    </p>
-                  </div>
-                )}
+                  <p className="text-muted-foreground">
+                    No icons found matching "{searchQuery}"
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -656,198 +645,198 @@ export default function IconsPage() {
               setBottomSheetOpen(false)
             }}
           />
-          
+
           {/* Bottom Sheet */}
-          <div 
-            className="fixed inset-x-0 bottom-0 z-[10000] border-t border-border rounded-t-2xl shadow-2xl max-h-[90vh] flex flex-col transform transition-transform duration-300 ease-out" 
-            style={{ 
+          <div
+            className="fixed inset-x-0 bottom-0 z-[10000] border-t border-border rounded-t-2xl shadow-2xl max-h-[90vh] flex flex-col transform transition-transform duration-300 ease-out"
+            style={{
               backgroundColor: '#ffffff',
               opacity: 1
             }}
           >
-              {/* Handle */}
-              <div className="flex justify-center pt-3 pb-2 cursor-grab active:cursor-grabbing" onMouseDown={(e) => {
-                const startY = e.clientY
-                const startHeight = window.innerHeight * 0.9
-                const handleMove = (moveEvent: MouseEvent) => {
-                  const deltaY = moveEvent.clientY - startY
-                  const newHeight = Math.max(200, Math.min(window.innerHeight * 0.9, startHeight - deltaY))
-                  // Could implement drag to close here
-                }
-                const handleUp = () => {
-                  document.removeEventListener('mousemove', handleMove)
-                  document.removeEventListener('mouseup', handleUp)
-                }
-                document.addEventListener('mousemove', handleMove)
-                document.addEventListener('mouseup', handleUp)
-              }}>
-                <div className="w-12 h-1.5 bg-muted rounded-full" />
-              </div>
+            {/* Handle */}
+            <div className="flex justify-center pt-3 pb-2 cursor-grab active:cursor-grabbing" onMouseDown={(e) => {
+              const startY = e.clientY
+              const startHeight = window.innerHeight * 0.9
+              const handleMove = (moveEvent: MouseEvent) => {
+                const deltaY = moveEvent.clientY - startY
+                const newHeight = Math.max(200, Math.min(window.innerHeight * 0.9, startHeight - deltaY))
+                // Could implement drag to close here
+              }
+              const handleUp = () => {
+                document.removeEventListener('mousemove', handleMove)
+                document.removeEventListener('mouseup', handleUp)
+              }
+              document.addEventListener('mousemove', handleMove)
+              document.addEventListener('mouseup', handleUp)
+            }}>
+              <div className="w-12 h-1.5 bg-muted rounded-full" />
+            </div>
 
-              {/* Content */}
-              <div 
-                className="flex-1 overflow-y-auto"
-                style={{ backgroundColor: '#ffffff' }}
-              >
-                <div className="max-w-7xl mx-auto px-6 py-8">
-                  <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12">
-                    {/* Left: Large Icon Preview */}
-                    <div className="flex flex-col items-center justify-center">
-                      <div 
-                        data-icon-preview
-                        className="w-full max-w-md aspect-square flex items-center justify-center bg-muted/30 rounded-2xl mb-6 border border-border"
-                      >
-                        <Icon 
-                          name={selectedIcon} 
-                          size={200} 
-                          color={iconColor}
-                          style={absoluteStrokeWidth ? { strokeWidth: `${strokeWidth}px` } : undefined}
-                        />
-                      </div>
-                      <div className="text-center w-full">
-                        <h2 className="text-3xl font-bold mb-2">{selectedIcon}</h2>
-                        <p className="text-sm text-muted-foreground">
-                          {viewMode === "categories" && selectedCategory !== "All" 
-                            ? `Category: ${selectedCategory}` 
-                            : "Icon from design system"}
-                        </p>
-                      </div>
+            {/* Content */}
+            <div
+              className="flex-1 overflow-y-auto"
+              style={{ backgroundColor: '#ffffff' }}
+            >
+              <div className="max-w-7xl mx-auto px-6 py-8">
+                <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12">
+                  {/* Left: Large Icon Preview */}
+                  <div className="flex flex-col items-center justify-center">
+                    <div
+                      data-icon-preview
+                      className="w-full max-w-md aspect-square flex items-center justify-center bg-muted/30 rounded-2xl mb-6 border border-border"
+                    >
+                      <Icon
+                        name={selectedIcon}
+                        size={200}
+                        color={iconColor}
+                        style={absoluteStrokeWidth ? { strokeWidth: `${strokeWidth}px` } : undefined}
+                      />
                     </div>
+                    <div className="text-center w-full">
+                      <h2 className="text-3xl font-bold mb-2">{selectedIcon}</h2>
+                      <p className="text-sm text-muted-foreground">
+                        {viewMode === "categories" && selectedCategory !== "All"
+                          ? `Category: ${selectedCategory}`
+                          : "Icon from design system"}
+                      </p>
+                    </div>
+                  </div>
 
-                    {/* Right: Code & Actions */}
-                    <div className="space-y-6">
-                      {/* Header with Close */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => {
-                              const currentIndex = filteredIcons.indexOf(selectedIcon)
-                              if (currentIndex > 0) {
-                                setSelectedIcon(filteredIcons[currentIndex - 1])
-                              }
-                            }}
-                            disabled={filteredIcons.indexOf(selectedIcon) === 0}
-                            className="p-2 hover:bg-muted rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                            type="button"
-                          >
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                              <path d="M12 15l-5-5 5-5" />
-                            </svg>
-                          </button>
-                          <button
-                            onClick={() => {
-                              const currentIndex = filteredIcons.indexOf(selectedIcon)
-                              if (currentIndex < filteredIcons.length - 1) {
-                                setSelectedIcon(filteredIcons[currentIndex + 1])
-                              }
-                            }}
-                            disabled={filteredIcons.indexOf(selectedIcon) === filteredIcons.length - 1}
-                            className="p-2 hover:bg-muted rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-                            type="button"
-                          >
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                              <path d="M8 5l5 5-5 5" />
-                            </svg>
-                          </button>
-                        </div>
+                  {/* Right: Code & Actions */}
+                  <div className="space-y-6">
+                    {/* Header with Close */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
                         <button
-                          onClick={() => setBottomSheetOpen(false)}
-                          className="p-2 hover:bg-muted rounded-md transition-colors"
+                          onClick={() => {
+                            const currentIndex = filteredIcons.indexOf(selectedIcon)
+                            if (currentIndex > 0) {
+                              setSelectedIcon(filteredIcons[currentIndex - 1])
+                            }
+                          }}
+                          disabled={filteredIcons.indexOf(selectedIcon) === 0}
+                          className="p-2 hover:bg-muted rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                           type="button"
                         >
                           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M15 5L5 15M5 5l10 10" />
+                            <path d="M12 15l-5-5 5-5" />
                           </svg>
-                        </button>
-                      </div>
-
-                      {/* Usage Tab */}
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-lg font-semibold">Usage</h3>
-                          <button
-                            onClick={() => copyToClipboard(getIconImport(selectedIcon), "jsx")}
-                            className="px-3 py-1.5 text-sm border border-border rounded-md hover:bg-muted transition-colors"
-                          >
-                            Copy
-                          </button>
-                        </div>
-                        <div className="p-4 bg-muted/50 rounded-lg border border-border">
-                          <pre className="text-sm font-mono overflow-x-auto">
-                            <code>{getIconImport(selectedIcon)}</code>
-                          </pre>
-                        </div>
-                      </div>
-
-                      {/* Copy Buttons */}
-                      <div className="flex flex-col sm:flex-row gap-3">
-                        <button
-                          onClick={() => copyToClipboard(getIconJSX(selectedIcon), "jsx")}
-                          className="flex-1 px-4 py-3 border border-border rounded-md font-medium hover:bg-muted transition-colors flex items-center justify-center gap-2"
-                        >
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M5 2h6v2h2v10H5V2zM3 4h10v10H3V4z" />
-                          </svg>
-                          <span>Copy JSX</span>
                         </button>
                         <button
                           onClick={() => {
-                            copyToClipboard(selectedIcon, "name")
+                            const currentIndex = filteredIcons.indexOf(selectedIcon)
+                            if (currentIndex < filteredIcons.length - 1) {
+                              setSelectedIcon(filteredIcons[currentIndex + 1])
+                            }
                           }}
-                          className="flex-1 px-4 py-3 bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 rounded-md font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+                          disabled={filteredIcons.indexOf(selectedIcon) === filteredIcons.length - 1}
+                          className="p-2 hover:bg-muted rounded-md transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                          type="button"
                         >
-                          <span>Copy Name</span>
-                          {copiedIcon === selectedIcon && (
-                            <span className="text-xs">✓</span>
-                          )}
+                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M8 5l5 5-5 5" />
+                          </svg>
                         </button>
                       </div>
+                      <button
+                        onClick={() => setBottomSheetOpen(false)}
+                        className="p-2 hover:bg-muted rounded-md transition-colors"
+                        type="button"
+                      >
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M15 5L5 15M5 5l10 10" />
+                        </svg>
+                      </button>
+                    </div>
 
-                      {/* Download Buttons */}
-                      <div className="flex flex-col sm:flex-row gap-3">
+                    {/* Usage Tab */}
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-semibold">Usage</h3>
                         <button
-                          onClick={downloadSVG}
-                          className="flex-1 px-4 py-3 border border-border rounded-md font-medium hover:bg-muted transition-colors flex items-center justify-center gap-2"
+                          onClick={() => copyToClipboard(getIconImport(selectedIcon), "jsx")}
+                          className="px-3 py-1.5 text-sm border border-border rounded-md hover:bg-muted transition-colors"
                         >
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M8.21314 14L14.2435 7.96968C14.444 7.76916 14.4422 7.44227 14.2395 7.23956C14.0368 7.03686 13.7099 7.03509 13.5094 7.23562L8.57661 12.1684L8.52022 1.73294C8.51867 1.44781 8.28628 1.21542 8.00115 1.21387C7.71603 1.21233 7.48613 1.44223 7.48767 1.72736L7.54407 12.1628L2.55766 7.17643C2.35495 6.97373 2.02807 6.97196 1.82754 7.17249C1.62701 7.37301 1.62878 7.6999 1.83149 7.90261L7.92891 14H1.5C1.22386 14 1 14.2239 1 14.5C1 14.7762 1.22386 15 1.5 15H14.5C14.7761 15 15 14.7762 15 14.5C15 14.2239 14.7761 14 14.5 14H8.21314Z" fill="currentColor"/>
-                          </svg>
-                          <span>Download SVG</span>
-                        </button>
-                        <button
-                          onClick={downloadPNG}
-                          className="flex-1 px-4 py-3 border border-border rounded-md font-medium hover:bg-muted transition-colors flex items-center justify-center gap-2"
-                        >
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M8.21314 14L14.2435 7.96968C14.444 7.76916 14.4422 7.44227 14.2395 7.23956C14.0368 7.03686 13.7099 7.03509 13.5094 7.23562L8.57661 12.1684L8.52022 1.73294C8.51867 1.44781 8.28628 1.21542 8.00115 1.21387C7.71603 1.21233 7.48613 1.44223 7.48767 1.72736L7.54407 12.1628L2.55766 7.17643C2.35495 6.97373 2.02807 6.97196 1.82754 7.17249C1.62701 7.37301 1.62878 7.6999 1.83149 7.90261L7.92891 14H1.5C1.22386 14 1 14.2239 1 14.5C1 14.7762 1.22386 15 1.5 15H14.5C14.7761 15 15 14.7762 15 14.5C15 14.2239 14.7761 14 14.5 14H8.21314Z" fill="currentColor"/>
-                          </svg>
-                          <span>Download PNG</span>
+                          Copy
                         </button>
                       </div>
+                      <div className="p-4 bg-muted/50 rounded-lg border border-border">
+                        <pre className="text-sm font-mono overflow-x-auto">
+                          <code>{getIconImport(selectedIcon)}</code>
+                        </pre>
+                      </div>
+                    </div>
 
-                      {/* Properties */}
-                      <div className="pt-4 border-t border-border">
-                        <div className="grid grid-cols-2 gap-4 text-sm">
-                          <div>
-                            <span className="text-muted-foreground">Size:</span>
-                            <span className="ml-2 font-medium">{iconSize}px</span>
-                          </div>
-                          <div>
-                            <span className="text-muted-foreground">Color:</span>
-                            <span className="ml-2 font-medium font-mono text-xs">{iconColor}</span>
-                          </div>
+                    {/* Copy Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <button
+                        onClick={() => copyToClipboard(getIconJSX(selectedIcon), "jsx")}
+                        className="flex-1 px-4 py-3 border border-border rounded-md font-medium hover:bg-muted transition-colors flex items-center justify-center gap-2"
+                      >
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M5 2h6v2h2v10H5V2zM3 4h10v10H3V4z" />
+                        </svg>
+                        <span>Copy JSX</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          copyToClipboard(selectedIcon, "name")
+                        }}
+                        className="flex-1 px-4 py-3 bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 rounded-md font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+                      >
+                        <span>Copy Name</span>
+                        {copiedIcon === selectedIcon && (
+                          <span className="text-xs">✓</span>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Download Buttons */}
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <button
+                        onClick={downloadSVG}
+                        className="flex-1 px-4 py-3 border border-border rounded-md font-medium hover:bg-muted transition-colors flex items-center justify-center gap-2"
+                      >
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M8.21314 14L14.2435 7.96968C14.444 7.76916 14.4422 7.44227 14.2395 7.23956C14.0368 7.03686 13.7099 7.03509 13.5094 7.23562L8.57661 12.1684L8.52022 1.73294C8.51867 1.44781 8.28628 1.21542 8.00115 1.21387C7.71603 1.21233 7.48613 1.44223 7.48767 1.72736L7.54407 12.1628L2.55766 7.17643C2.35495 6.97373 2.02807 6.97196 1.82754 7.17249C1.62701 7.37301 1.62878 7.6999 1.83149 7.90261L7.92891 14H1.5C1.22386 14 1 14.2239 1 14.5C1 14.7762 1.22386 15 1.5 15H14.5C14.7761 15 15 14.7762 15 14.5C15 14.2239 14.7761 14 14.5 14H8.21314Z" fill="currentColor" />
+                        </svg>
+                        <span>Download SVG</span>
+                      </button>
+                      <button
+                        onClick={downloadPNG}
+                        className="flex-1 px-4 py-3 border border-border rounded-md font-medium hover:bg-muted transition-colors flex items-center justify-center gap-2"
+                      >
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M8.21314 14L14.2435 7.96968C14.444 7.76916 14.4422 7.44227 14.2395 7.23956C14.0368 7.03686 13.7099 7.03509 13.5094 7.23562L8.57661 12.1684L8.52022 1.73294C8.51867 1.44781 8.28628 1.21542 8.00115 1.21387C7.71603 1.21233 7.48613 1.44223 7.48767 1.72736L7.54407 12.1628L2.55766 7.17643C2.35495 6.97373 2.02807 6.97196 1.82754 7.17249C1.62701 7.37301 1.62878 7.6999 1.83149 7.90261L7.92891 14H1.5C1.22386 14 1 14.2239 1 14.5C1 14.7762 1.22386 15 1.5 15H14.5C14.7761 15 15 14.7762 15 14.5C15 14.2239 14.7761 14 14.5 14H8.21314Z" fill="currentColor" />
+                        </svg>
+                        <span>Download PNG</span>
+                      </button>
+                    </div>
+
+                    {/* Properties */}
+                    <div className="pt-4 border-t border-border">
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="text-muted-foreground">Size:</span>
+                          <span className="ml-2 font-medium">{iconSize}px</span>
                         </div>
-                        <div className="mt-4 text-xs text-muted-foreground">
-                          Press <kbd className="px-1.5 py-0.5 bg-muted rounded text-xs">ESC</kbd> to close
+                        <div>
+                          <span className="text-muted-foreground">Color:</span>
+                          <span className="ml-2 font-medium font-mono text-xs">{iconColor}</span>
                         </div>
+                      </div>
+                      <div className="mt-4 text-xs text-muted-foreground">
+                        Press <kbd className="px-1.5 py-0.5 bg-muted rounded text-xs">ESC</kbd> to close
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </>
-        )}
+          </div>
+        </>
+      )}
     </div>
   )
 }

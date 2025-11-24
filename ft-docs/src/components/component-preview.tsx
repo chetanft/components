@@ -147,19 +147,133 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
     // react-live expects code that returns a React element
     // Wrap raw JSX in a function component that react-live can execute
     const wrappedCode = React.useMemo(() => {
-        const trimmed = code.trim()
+        let trimmed = code.trim()
         
-        // If code already looks like a function/component, use as-is
-        if (trimmed.startsWith('function') || trimmed.startsWith('const') || trimmed.startsWith('()') || trimmed.startsWith('() =>')) {
-            return code
+        // Strip import statements (components are available via registry scope)
+        trimmed = trimmed.replace(/^import\s+.*?from\s+["'][^"']+["'];?\s*\n?/gm, '')
+        
+        // Extract const declarations and move them before return statement
+        const constDeclarations: string[] = []
+        const lines = trimmed.split('\n')
+        const jsxLines: string[] = []
+        let i = 0
+        
+        while (i < lines.length) {
+            const line = lines[i]
+            const trimmedLine = line.trim()
+            
+            if (trimmedLine.startsWith('const ')) {
+                // Found a const declaration - extract it completely
+                let braceDepth = 0
+                let bracketDepth = 0
+                let inString = false
+                let stringChar = ''
+                let constLines: string[] = []
+                let foundStart = false
+                let startIdx = i
+                
+                // Process lines until we find the end of the const declaration
+                for (let j = i; j < lines.length; j++) {
+                    const currentLine = lines[j]
+                    const currentTrimmed = currentLine.trim()
+                    constLines.push(currentLine)
+                    
+                    // Track braces/brackets to find end
+                    for (let k = 0; k < currentLine.length; k++) {
+                        const char = currentLine[k]
+                        const prevChar = k > 0 ? currentLine[k - 1] : ''
+                        
+                        if ((char === '"' || char === "'" || char === '`') && prevChar !== '\\') {
+                            if (!inString) {
+                                inString = true
+                                stringChar = char
+                            } else if (char === stringChar) {
+                                inString = false
+                                stringChar = ''
+                            }
+                        }
+                        
+                        if (!inString) {
+                            if (char === '{') {
+                                braceDepth++
+                                foundStart = true
+                            }
+                            if (char === '}') braceDepth--
+                            if (char === '[') bracketDepth++
+                            if (char === ']') bracketDepth--
+                        }
+                    }
+                    
+                    // Check if const declaration is complete
+                    const endsWithSemicolon = currentTrimmed.endsWith(';')
+                    // Look ahead for JSX (skip blank lines)
+                    let nextNonEmptyIdx = j + 1
+                    while (nextNonEmptyIdx < lines.length && lines[nextNonEmptyIdx].trim() === '') {
+                        nextNonEmptyIdx++
+                    }
+                    const nextLineIsJSX = nextNonEmptyIdx < lines.length && lines[nextNonEmptyIdx].trim().startsWith('<')
+                    
+                    if (foundStart && braceDepth === 0 && bracketDepth === 0 && (endsWithSemicolon || nextLineIsJSX)) {
+                        // Complete const declaration found
+                        let declaration = constLines.join('\n').trim()
+                        // Remove trailing blank lines
+                        while (declaration.endsWith('\n') || declaration.split('\n').pop()?.trim() === '') {
+                            declaration = declaration.trimEnd()
+                        }
+                        if (!declaration.endsWith(';')) {
+                            declaration += ';'
+                        }
+                        constDeclarations.push(declaration)
+                        i = nextNonEmptyIdx // Skip to JSX
+                        break
+                    }
+                }
+                
+                // If we didn't find the end, skip this const (malformed)
+                if (i === startIdx) {
+                    i++
+                }
+            } else if (trimmedLine.startsWith('<')) {
+                // JSX starts here - add all remaining lines
+                jsxLines.push(...lines.slice(i))
+                break
+            } else {
+                // Skip blank lines between const and JSX
+                i++
+            }
         }
         
-        // Format the JSX code
-        const formattedJSX = formatJSX(trimmed)
+        trimmed = jsxLines.join('\n').trim()
+        
+        // Transform string prop references to variable references for react-live
+        // Handle both double and single quotes: options="sampleOptions" or options='sampleOptions' -> options={sampleOptions}
+        trimmed = trimmed.replace(/options=["']sampleOptions["']/g, 'options={sampleOptions}')
+        // Handle buttons prop: buttons="sampleButtons" -> buttons={sampleButtons}
+        trimmed = trimmed.replace(/buttons=["']sampleButtons["']/g, 'buttons={sampleButtons}')
+        
+        // If code already looks like a function/component, use as-is
+        if (trimmed.startsWith('function') || (trimmed.startsWith('const') && !trimmed.includes('<')) || trimmed.startsWith('()') || trimmed.startsWith('() =>')) {
+            return trimmed
+        }
+        
+        // Format the JSX code (this might reformat, so we need to re-apply transformation after)
+        let formattedJSX = formatJSX(trimmed.trim())
+        
+        // Re-apply transformation after formatting in case formatJSX changed it
+        formattedJSX = formattedJSX.replace(/options=["']sampleOptions["']/g, 'options={sampleOptions}')
+        formattedJSX = formattedJSX.replace(/buttons=["']sampleButtons["']/g, 'buttons={sampleButtons}')
         
         // react-live needs executable code that returns JSX
         // Use function declaration format with proper indentation
-        return `function Preview() {\n  return (\n    ${formattedJSX}\n  )\n}`
+        // Include const declarations before return if they exist
+        const constsBlock = constDeclarations.length > 0 
+            ? constDeclarations.map(c => {
+                // Indent each line of the const declaration with 2 spaces
+                return c.split('\n').map(line => `  ${line}`).join('\n')
+              }).join('\n') + '\n'
+            : ''
+        
+        return `function Preview() {\n${constsBlock}  return (\n    ${formattedJSX}\n  )\n}`
     }, [code, formatJSX])
 
 

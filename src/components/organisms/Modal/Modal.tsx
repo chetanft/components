@@ -80,11 +80,11 @@ export const Modal: React.FC<ModalProps> = ({
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-overlay backdrop-blur-sm"
         onClick={handleMaskClick}
         aria-hidden="true"
       />
-      
+
       {/* Modal Content */}
       <div
         className={cn(
@@ -105,7 +105,7 @@ export const Modal: React.FC<ModalProps> = ({
             <FigmaBadge />
           </div>
         )}
-        
+
         {/* Header */}
         {(title || closable) && (
           <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border-secondary)]">

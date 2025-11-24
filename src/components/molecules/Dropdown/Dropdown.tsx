@@ -8,7 +8,7 @@ import { SegmentedTabs, type SegmentedTabItem } from '../SegmentedTabs';
 
 // Unified dropdown field variants using the design system
 const dropdownFieldVariants = cva(
-  "relative w-full border transition-all duration-200 font-sans font-normal bg-white dark:bg-surface-dark text-[var(--primary)] dark:text-input-dark",
+  "relative w-full border transition-all duration-200 font-sans font-normal bg-surface text-[var(--primary)]",
   {
     variants: {
       size: {
@@ -210,7 +210,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
     useEffect(() => {
       updateMenuPosition();
-      
+
       if (isOpen) {
         window.addEventListener('scroll', updateMenuPosition, true);
         window.addEventListener('resize', updateMenuPosition);
@@ -226,7 +226,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
         if (
-          dropdownRef.current && 
+          dropdownRef.current &&
           !dropdownRef.current.contains(event.target as Node) &&
           menuRef.current &&
           !menuRef.current.contains(event.target as Node)
@@ -329,7 +329,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         <div
           ref={menuRef}
           className={cn(
-            "fixed z-[9999] bg-white dark:bg-surface-dark border border-[var(--border-primary)] dark:border-border-dark shadow-lg rounded-lg",
+            "fixed z-[9999] bg-surface border border-border shadow-lg rounded-lg",
             "p-2 flex flex-col gap-1"
           )}
           style={{
@@ -339,7 +339,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           }}
         >
           {hasSegments && (
-            <div 
+            <div
               className="mb-4 w-full flex-shrink-0"
               onClick={(e) => e.stopPropagation()}
             >
@@ -352,7 +352,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               />
             </div>
           )}
-          
+
           {type === "search" && (
             <div className="mb-2">
               <div className="relative">
@@ -371,7 +371,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               </div>
             </div>
           )}
-          
+
           <div className="max-h-60 overflow-y-auto">
             {filteredOptions.map((option: DropdownOption) => (
               <div
@@ -422,11 +422,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
     const renderHelperText = () => {
       if (!helperText && !error) return null;
-      
+
       return (
         <p className={cn(
           "text-sm leading-relaxed mt-1.5",
-          error ? "text-critical" : "text-neutral-600 dark:text-neutral-400"
+          error ? "text-critical" : "text-secondary"
         )}>
           {error || helperText}
         </p>

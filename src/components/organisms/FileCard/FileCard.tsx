@@ -20,33 +20,33 @@ export interface FileCardProps extends React.HTMLAttributes<HTMLDivElement> {
   fileName: string;
   fileType: string;
   fileDate?: string;
-  
+
   // Status and Progress
   status: 'uploading' | 'validating' | 'processed' | 'partially-processed' | 'failed' | 'template-mismatch' | 'upload-failed' | 'unsupported' | 'empty' | 'too-large';
   progress?: number; // 0-100 for uploading status
-  
+
   // File Statistics (for processed files)
   stats?: FileStats;
-  
+
   // Error Messages
   errorMessage?: string;
-  
+
   // Actions
   onDownload?: () => void;
   onPreview?: () => void;
   onDelete?: () => void;
   onRefresh?: () => void;
   onClose?: () => void;
-  
+
   // Variants
   variant?: 'compact' | 'expanded' | 'with-progress' | 'with-stats';
-  
+
   // States
   downloadDisabled?: boolean;
 }
 
 export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
-  ({ 
+  ({
     className,
     fileName,
     fileType,
@@ -62,9 +62,9 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
     onClose,
     variant = 'compact',
     downloadDisabled = false,
-    ...props 
+    ...props
   }, ref) => {
-    
+
     // Get status-specific configurations
     const getStatusConfig = () => {
       switch (status) {
@@ -136,16 +136,16 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
           };
       }
     };
-    
+
     const statusConfig = getStatusConfig();
     const isError = ['failed', 'template-mismatch', 'upload-failed', 'unsupported', 'empty', 'too-large'].includes(status);
     const showStats = variant === 'with-stats' && stats;
-    
+
     return (
       <div
         className={cn(
           // Base styles from Figma
-          "bg-white border border-[var(--border-secondary)] rounded-[8px] p-[20px]",
+          "bg-surface border border-border-secondary rounded-component p-[20px]",
           "flex flex-col gap-[20px]",
           // Full width for expanded variants
           variant === 'expanded' || variant === 'with-stats' ? "w-full max-w-[930px]" : "w-full",
@@ -159,24 +159,24 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
           {/* File Info Section */}
           <div className="flex items-center gap-[20px]">
             {/* File Type Icon */}
-            <FileTypeIcon 
-              fileType={fileType} 
+            <FileTypeIcon
+              fileType={fileType}
               variant={isError && (status === 'unsupported') ? 'error' : 'default'}
-              size="md" 
+              size="md"
             />
-            
+
             {/* File Details */}
             <div className="flex flex-col gap-[8px]">
               {/* File name and badge should be horizontally aligned */}
               <div className="flex items-center gap-[20px]">
-                <Typography 
+                <Typography
                   variant="body-primary-semibold"
                   as="h3"
                   className="text-[var(--primary)]"
                 >
                   {fileName}
                 </Typography>
-                <Badge 
+                <Badge
                   variant={statusConfig.badge.variant}
                   icon={statusConfig.badge.icon}
 
@@ -184,10 +184,10 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                   {statusConfig.badge.text}
                 </Badge>
               </div>
-              
+
               {/* File Date (for processed files) */}
               {fileDate && (
-                <Typography 
+                <Typography
                   variant="body-secondary-regular"
                   className="text-[var(--secondary)]"
                 >
@@ -196,7 +196,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
               )}
             </div>
           </div>
-          
+
           {/* Action Buttons */}
           <div className="flex items-center gap-[12px]">
             {onDownload && (
@@ -210,7 +210,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                 disabled={downloadDisabled}
               />
             )}
-            
+
             {onPreview && (
               <Button
                 variant="secondary"
@@ -221,7 +221,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                 onClick={onPreview}
               />
             )}
-            
+
             {onRefresh && (
               <Button
                 variant="secondary"
@@ -232,7 +232,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                 onClick={onRefresh}
               />
             )}
-            
+
             {onDelete && (
               <Button
                 variant="secondary"
@@ -243,7 +243,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                 onClick={onDelete}
               />
             )}
-            
+
             {onClose && (
               <Button
                 variant="secondary"
@@ -256,7 +256,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
             )}
           </div>
         </div>
-        
+
         {/* Progress Bar (for uploading files) */}
         {(statusConfig.showProgress || variant === 'with-progress') && (
           <ProgressBar
@@ -266,11 +266,11 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
             animated={status === 'uploading'}
           />
         )}
-        
+
         {/* Error Message */}
         {errorMessage && (
           <div className="flex items-center justify-center px-[54px]">
-            <Typography 
+            <Typography
               variant="body-secondary-regular"
               className="text-[#FF3533]"
             >
@@ -278,7 +278,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
             </Typography>
           </div>
         )}
-        
+
         {/* Statistics Section */}
         {showStats && (
           <div className="flex items-stretch gap-[20px] pl-[64px]">
@@ -287,13 +287,13 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Total</Typography>
               <Typography variant="display-primary" className="text-[var(--primary)]">{stats?.total || 0}</Typography>
             </div>
-            
+
             {/* Success */}
             <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Success</Typography>
               <Typography variant="display-primary" className="text-[var(--positive)]">{stats?.success || 0}</Typography>
             </div>
-            
+
             {/* Invalid */}
             <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Invalid</Typography>

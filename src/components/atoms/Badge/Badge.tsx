@@ -7,48 +7,62 @@ import { Typography } from '../Typography';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'normal' | 'danger' | 'success' | 'warning' | 'neutral';
-  icon?: IconName;
+  leadingIcon?: IconName;
+  trailingIcon?: IconName;
+  interaction?: boolean;
   children: React.ReactNode;
 }
 
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
-  ({ className, variant = 'normal', icon, children, ...props }, ref) => {
-    // Base styles using exact Figma specifications
-    const baseStyles = "inline-flex items-center justify-center border border-transparent transition-colors";
+  ({ className, variant = 'normal', leadingIcon, trailingIcon, interaction = false, children, ...props }, ref) => {
+    // Base styles using design tokens
+    const baseStyles = "inline-flex items-center justify-center transition-colors";
     
-    // Fixed size from Figma - only one size exists in Figma design
-    const sizeStyles = "px-[8px] py-[2px] gap-[8px] rounded-[4px]"; // Exact Figma specs: 2px 8px padding, 4px border radius, 8px gap
+    // Fixed size from Figma - using design tokens
+    const sizeStyles = "px-[var(--x2)] py-[2px] gap-[var(--x2)] rounded-[var(--badge-border-radius)]";
     
-    // Variant styles using exact Figma colors (not CSS variables)
+    // Variant background and text colors (non-interactive) - using CSS variables
     const variantStyles = {
-      normal: "bg-[#F0F1F7] text-[#434F64]",
-      danger: "bg-[#FFEAEA] text-[#FF3533]",  
-      success: "bg-[#DFFFE8] text-[#00763D]",
-      warning: "bg-[#FFEBDC] text-[#FF6C19]",
-      neutral: "bg-[#ECF6FF] text-[#1890FF]"
+      normal: "bg-[var(--badge-normal-bg)] text-[var(--badge-normal-text)]",
+      danger: "bg-[var(--badge-danger-bg)] text-[var(--badge-danger-text)]",  
+      success: "bg-[var(--badge-success-bg)] text-[var(--badge-success-text)]",
+      warning: "bg-[var(--badge-warning-bg)] text-[var(--badge-warning-text)]",
+      neutral: "bg-[var(--badge-neutral-bg)] text-[var(--badge-neutral-text)]"
     };
 
-    // Interactive hover states (these exist in Figma for interactive badges)
+    // Border styles for interactive badges - using CSS variables
+    const interactiveBorderStyles = {
+      normal: "border border-[var(--badge-normal-border)]",
+      danger: "border border-[var(--badge-danger-border)]",
+      success: "border border-[var(--badge-success-border)]",
+      warning: "border border-[var(--badge-warning-border)]",
+      neutral: "border border-[var(--badge-neutral-border)]"
+    };
+
+    // Interactive hover states - using CSS variables
     const hoverStyles = {
-      normal: "hover:bg-[#CED1D7] hover:border-[#838C9D]",
-      danger: "hover:bg-[#FFAFAD] hover:text-[#B80100] hover:border-[#B80100]",
-      success: "hover:bg-[#99E8AF] hover:border-[#00763D]", 
-      warning: "hover:bg-[#FFC4A3] hover:border-[#FF6C19]",
-      neutral: "hover:bg-[#ECF6FF]"
+      normal: "hover:bg-[var(--badge-normal-hover-bg)] hover:border-[var(--badge-normal-hover-border)]",
+      danger: "hover:bg-[var(--badge-danger-hover-bg)] hover:border-[var(--badge-danger-hover-border)] hover:text-[var(--badge-danger-hover-text)]",
+      success: "hover:bg-[var(--badge-success-hover-bg)] hover:border-[var(--badge-success-hover-border)]", 
+      warning: "hover:bg-[var(--badge-warning-hover-bg)] hover:border-[var(--badge-warning-hover-border)]",
+      neutral: "hover:bg-[var(--badge-neutral-hover-bg)] hover:border-[var(--badge-neutral-hover-border)]"
     };
 
     const iconSize = 14; // Exact Figma icon size: 14x14px
 
-    // Get text color for Typography component
+    // Get text color for Typography component - using CSS variables
     const getTextColor = () => {
       switch (variant) {
-        case 'danger': return '#FF3533';
-        case 'success': return '#00763D';
-        case 'warning': return '#FF6C19';
-        case 'neutral': return '#1890FF';
-        default: return '#434F64';
+        case 'danger': return 'var(--badge-danger-text)';
+        case 'success': return 'var(--badge-success-text)';
+        case 'warning': return 'var(--badge-warning-text)';
+        case 'neutral': return 'var(--badge-neutral-text)';
+        default: return 'var(--badge-normal-text)';
       }
     };
+
+    // Determine if badge is interactive (has interaction prop or event handlers)
+    const isInteractive = interaction || props.onClick || props.onMouseEnter || props.onFocus;
 
     return (
       <div
@@ -56,14 +70,16 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
           baseStyles,
           sizeStyles,
           variantStyles[variant],
-          // Apply hover styles if badge has interactive props
-          (props.onClick || props.onMouseEnter || props.onFocus) && hoverStyles[variant],
+          // Apply border styles if interactive
+          isInteractive && interactiveBorderStyles[variant],
+          // Apply hover styles if interactive
+          isInteractive && hoverStyles[variant],
           className
         )}
         ref={ref}
         {...props}
       >
-        {icon && <Icon name={icon} size={iconSize} />}
+        {leadingIcon && <Icon name={leadingIcon} size={iconSize} />}
         <Typography 
           variant="body-secondary-semibold" 
           as="span"
@@ -71,6 +87,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         >
           {children}
         </Typography>
+        {trailingIcon && <Icon name={trailingIcon} size={iconSize} />}
       </div>
     );
   }

@@ -12,6 +12,8 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   labelSuffixIcon?: boolean;
   labelIcon?: React.ReactNode;
   error?: string;
+  warning?: string;
+  success?: string;
   helperText?: string;
   leadingIcon?: IconName;
   trailingIcon?: IconName;
@@ -29,6 +31,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     labelSuffixIcon = false,
     labelIcon,
     error, 
+    warning,
+    success,
     helperText, 
     leadingIcon, 
     trailingIcon, 
@@ -42,11 +46,16 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     // Core component - no AI filtering (use ft-design-system/ai for AI protection)
     const componentStyles = getComponentStyles(size);
     
+    // Determine input type state (Normal, Error, Warning, Success)
+    const inputType = error ? 'error' : warning ? 'warning' : success ? 'success' : 'normal';
+    
     // Generate IDs for accessibility
     const inputId = id || `input-${React.useId()}`;
     const errorId = error ? `${inputId}-error` : undefined;
+    const warningId = warning ? `${inputId}-warning` : undefined;
+    const successId = success ? `${inputId}-success` : undefined;
     const helperId = helperText ? `${inputId}-helper` : undefined;
-    const describedBy = [errorId, helperId, ariaDescribedBy].filter(Boolean).join(' ') || undefined;
+    const describedBy = [errorId, warningId, successId, helperId, ariaDescribedBy].filter(Boolean).join(' ') || undefined;
 
     // Icon positioning based on unified sizing
     const iconOffsetMap = {
@@ -92,19 +101,27 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       // State styles with dark mode support
       disabled
         ? "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"
-        : error
+        : inputType === 'error'
         ? "border-critical text-input dark:text-input-dark focus:border-critical"
+        : inputType === 'warning'
+        ? "border-warning text-input dark:text-input-dark focus:border-warning"
+        : inputType === 'success'
+        ? "border-positive text-input dark:text-input-dark focus:border-positive"
         : "text-input dark:text-input-dark focus:border-primary dark:focus:border-primary-dark",
       // Focus styles
       "focus:outline-none",
       className
     );
 
-    // Helper/error text styles with dark mode
+    // Helper/error/warning/success text styles with dark mode
     const helperStyles = cn(
       "text-sm leading-relaxed mt-1.5",
       error
         ? "text-critical"
+        : warning
+        ? "text-warning"
+        : success
+        ? "text-positive"
         : "text-helper dark:text-helper-dark"
     );
 
@@ -137,8 +154,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                   "transition-colors",
                   disabled 
                     ? "text-input-disabled dark:text-input-disabled-dark" 
-                    : error
+                    : inputType === 'error'
                     ? "text-critical"
+                    : inputType === 'warning'
+                    ? "text-warning"
+                    : inputType === 'success'
+                    ? "text-positive"
                     : "text-icon dark:text-icon-dark"
                 )}
                 aria-hidden="true"
@@ -160,6 +181,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             aria-invalid={error ? 'true' : 'false'}
             aria-describedby={describedBy}
             data-size={size}
+            data-type={inputType}
             {...props}
           />
           
@@ -173,8 +195,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                   "transition-colors",
                   disabled 
                     ? "text-input-disabled dark:text-input-disabled-dark" 
-                    : error
+                    : inputType === 'error'
                     ? "text-critical"
+                    : inputType === 'warning'
+                    ? "text-warning"
+                    : inputType === 'success'
+                    ? "text-positive"
                     : "text-icon dark:text-icon-dark"
                 )}
                 aria-hidden="true"
@@ -183,14 +209,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
         
-        {/* Helper Text or Error */}
-        {(helperText || error) && (
+        {/* Helper Text, Error, Warning, or Success */}
+        {(helperText || error || warning || success) && (
           <p 
-            id={error ? errorId : helperId}
+            id={error ? errorId : warning ? warningId : success ? successId : helperId}
             className={helperStyles}
-            role={error ? 'alert' : undefined}
+            role={(error || warning || success) ? 'alert' : undefined}
           >
-            {error || helperText}
+            {error || warning || success || helperText}
           </p>
         )}
       </div>

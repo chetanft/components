@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Spacer } from './Spacer';
+import { Spacer, type SpacerSize } from './Spacer';
 
 const meta: Meta<typeof Spacer> = {
   title: 'Atoms/Spacer',
@@ -36,21 +36,39 @@ export const Default: Story = {
 };
 
 export const AllSizes: Story = {
-  render: () => (
-    <div className="space-y-4">
-      {(['x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12'] as const).map((size) => (
-        <div key={size} className="flex flex-col">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="w-20 text-sm text-gray-600">{size}</span>
-            <span className="text-xs text-gray-500">({size === 'x1' ? '4px' : size === 'x2' ? '8px' : size === 'x3' ? '12px' : size === 'x4' ? '16px' : size === 'x5' ? '20px' : size === 'x6' ? '24px' : size === 'x7' ? '28px' : size === 'x8' ? '32px' : size === 'x9' ? '36px' : size === 'x10' ? '40px' : size === 'x11' ? '44px' : '48px'})</span>
+  render: () => {
+    const sizes: SpacerSize[] = ['x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9', 'x10', 'x11', 'x12'];
+    const sizeMap: Record<SpacerSize, string> = {
+      x1: '4px',
+      x2: '8px',
+      x3: '12px',
+      x4: '16px',
+      x5: '20px',
+      x6: '24px',
+      x7: '28px',
+      x8: '32px',
+      x9: '36px',
+      x10: '40px',
+      x11: '44px',
+      x12: '48px',
+    };
+
+    return (
+      <div className="space-y-4">
+        {sizes.map((size) => (
+          <div key={size} className="flex flex-col">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-20 text-sm text-gray-600">{size}</span>
+              <span className="text-xs text-gray-500">({sizeMap[size]})</span>
+            </div>
+            <div className="bg-blue-200 p-2">Above</div>
+            <Spacer size={size} />
+            <div className="bg-blue-200 p-2">Below</div>
           </div>
-          <div className="bg-blue-200 p-2">Above</div>
-          <Spacer size={size} />
-          <div className="bg-blue-200 p-2">Below</div>
-        </div>
-      ))}
-    </div>
-  ),
+        ))}
+      </div>
+    );
+  },
 };
 
 export const Horizontal: Story = {
