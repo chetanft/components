@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { ButtonGroup } from './ButtonGroup';
 
@@ -7,221 +8,81 @@ const meta: Meta<typeof ButtonGroup> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
+    docs: {
+      description: {
+        component: 'Button group component for grouping related actions together.',
+      },
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof ButtonGroup>;
 
-export const PrimarySet: Story = {
+export const Default: Story = {
   args: {
     buttons: [
-      {
-        id: 'text',
-        label: 'Text',
-        variant: 'text',
-        icon: 'add',
-        iconPosition: 'leading',
-      },
-      {
-        id: 'secondary',
-        label: 'Secondary',
-        variant: 'secondary',
-        icon: 'add',
-        iconPosition: 'leading',
-      },
-      {
-        id: 'primary',
-        label: 'Primary',
-        variant: 'primary',
-        icon: 'add',
-        iconPosition: 'leading',
-      },
+      { id: 'text', label: 'Text', variant: 'text' },
+      { id: 'secondary', label: 'Secondary', variant: 'secondary' },
+      { id: 'primary', label: 'Primary', variant: 'primary' },
     ],
   },
 };
 
-export const AllVariants: Story = {
-  args: {
-    buttons: [
-      {
-        id: 'primary',
-        label: 'Primary',
-        variant: 'primary',
-      },
-      {
-        id: 'secondary',
-        label: 'Secondary',
-        variant: 'secondary',
-      },
-      {
-        id: 'tertiary',
-        label: 'Tertiary',
-        variant: 'tertiary',
-      },
-      {
-        id: 'destructive',
-        label: 'Destructive',
-        variant: 'destructive',
-      },
-      {
-        id: 'text',
-        label: 'Text',
-        variant: 'text',
-      },
-      {
-        id: 'link',
-        label: 'Link',
-        variant: 'link',
-      },
-    ],
-  },
-};
-
-export const WithIcons: Story = {
-  args: {
-    buttons: [
-      {
-        id: 'add',
-        label: 'Add',
-        variant: 'primary',
-        icon: 'add',
-        iconPosition: 'leading',
-      },
-      {
-        id: 'edit',
-        label: 'Edit',
-        variant: 'secondary',
-        icon: 'edit',
-        iconPosition: 'leading',
-      },
-      {
-        id: 'delete',
-        label: 'Delete',
-        variant: 'destructive',
-        icon: 'delete',
-        iconPosition: 'leading',
-      },
-    ],
-  },
-};
-
-export const EqualWidth: Story = {
-  args: {
-    equalWidth: true,
-    style: { width: 320 },
-    buttons: [
-      {
-        id: 'text',
-        label: 'Text',
-        variant: 'text',
-        icon: 'add',
-        iconPosition: 'leading',
-      },
-      {
-        id: 'secondary',
-        label: 'Secondary',
-        variant: 'secondary',
-        icon: 'add',
-        iconPosition: 'leading',
-      },
-      {
-        id: 'primary',
-        label: 'Primary',
-        variant: 'primary',
-        icon: 'add',
-        iconPosition: 'leading',
-      },
-    ],
-  },
-};
-
-export const WithDisabled: Story = {
-  args: {
-    buttons: [
-      {
-        id: 'enabled',
-        label: 'Enabled',
-        variant: 'primary',
-      },
-      {
-        id: 'disabled',
-        label: 'Disabled',
-        variant: 'secondary',
-        disabled: true,
-      },
-      {
-        id: 'enabled2',
-        label: 'Enabled',
-        variant: 'tertiary',
-      },
-    ],
-  },
-};
-
-export const DifferentSizes: Story = {
-  render: () => (
-    <div className="flex flex-col gap-6">
+// All Variants showcase
+export function AllVariants() {
+  return (
+    <div className="space-y-4 p-6">
       <div>
-        <h3 className="text-sm font-medium mb-2">Small</h3>
+        <p className="text-sm font-medium mb-2">Primary Buttons</p>
         <ButtonGroup
           buttons={[
-            { id: 'sm1', label: 'Small', variant: 'primary', size: 'sm' },
-            { id: 'sm2', label: 'Small', variant: 'secondary', size: 'sm' },
-            { id: 'sm3', label: 'Small', variant: 'tertiary', size: 'sm' },
+            { id: 'p1', label: 'Action 1', variant: 'primary' },
+            { id: 'p2', label: 'Action 2', variant: 'primary' },
           ]}
         />
       </div>
       <div>
-        <h3 className="text-sm font-medium mb-2">Medium (Default)</h3>
+        <p className="text-sm font-medium mb-2">Secondary Buttons</p>
         <ButtonGroup
           buttons={[
-            { id: 'md1', label: 'Medium', variant: 'primary', size: 'md' },
-            { id: 'md2', label: 'Medium', variant: 'secondary', size: 'md' },
-            { id: 'md3', label: 'Medium', variant: 'tertiary', size: 'md' },
+            { id: 's1', label: 'Action 1', variant: 'secondary' },
+            { id: 's2', label: 'Action 2', variant: 'secondary' },
           ]}
         />
       </div>
       <div>
-        <h3 className="text-sm font-medium mb-2">Large</h3>
+        <p className="text-sm font-medium mb-2">Mixed Variants</p>
         <ButtonGroup
           buttons={[
-            { id: 'lg1', label: 'Large', variant: 'primary', size: 'lg' },
-            { id: 'lg2', label: 'Large', variant: 'secondary', size: 'lg' },
-            { id: 'lg3', label: 'Large', variant: 'tertiary', size: 'lg' },
+            { id: 'm1', label: 'Cancel', variant: 'text' },
+            { id: 'm2', label: 'Save', variant: 'secondary' },
+            { id: 'm3', label: 'Submit', variant: 'primary' },
           ]}
         />
       </div>
     </div>
-  ),
-};
+  );
+}
 
-export const Wrapped: Story = {
+// With Icons - uses sampleButtons from registry
+export const WithIcons: Story = {
   args: {
-    wrap: true,
-    style: { width: 200 },
     buttons: [
-      {
-        id: 'btn1',
-        label: 'Button One',
-        variant: 'primary',
-      },
-      {
-        id: 'btn2',
-        label: 'Button Two',
-        variant: 'secondary',
-      },
-      {
-        id: 'btn3',
-        label: 'Button Three',
-        variant: 'tertiary',
-      },
-      {
-        id: 'btn4',
-        label: 'Button Four',
-        variant: 'text',
-      },
+      { id: 'add', label: 'Add', variant: 'primary', icon: 'add', iconPosition: 'leading' },
+      { id: 'edit', label: 'Edit', variant: 'secondary', icon: 'edit', iconPosition: 'leading' },
+      { id: 'delete', label: 'Delete', variant: 'destructive', icon: 'delete', iconPosition: 'leading' },
     ],
   },
 };
 
+// With Disabled - uses story args format
+export const WithDisabled: Story = {
+  args: {
+    buttons: [
+      { id: 'enabled', label: 'Enabled', variant: 'primary' },
+      { id: 'disabled', label: 'Disabled', variant: 'secondary', disabled: true },
+      { id: 'enabled2', label: 'Enabled', variant: 'tertiary' },
+    ],
+  },
+};

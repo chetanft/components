@@ -110,6 +110,18 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       currentSize.gap
     );
 
+    // Handle controlled/uncontrolled checkbox
+    const isControlled = props.checked !== undefined;
+    const hasOnChange = props.onChange !== undefined;
+    const inputProps = { ...props };
+    
+    // If checked is provided without onChange, use defaultChecked for uncontrolled
+    if (isControlled && !hasOnChange) {
+      const { checked, ...rest } = inputProps;
+      inputProps.defaultChecked = checked;
+      delete inputProps.checked;
+    }
+
     return (
       <div className="flex flex-col">
         <label className={containerStyles}>
@@ -122,7 +134,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               disabled={disabled}
               aria-invalid={error ? 'true' : 'false'}
               aria-describedby={describedBy}
-              {...props}
+              {...inputProps}
             />
             <div className={checkboxStyles} tabIndex={disabled ? -1 : 0}>
               {/* Checkmark icon */}

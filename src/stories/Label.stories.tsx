@@ -57,6 +57,86 @@ export const Default: Story = {
   },
 };
 
+// Interactive Demo - changeable props (per plan)
+export function InteractiveDemo() {
+  const [formData, setFormData] = React.useState({
+    email: '',
+    password: '',
+    newsletter: false,
+  });
+
+  return (
+    <div style={{ maxWidth: '400px', padding: '20px' }}>
+      <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '20px' }}>
+        Interactive Form
+      </h3>
+      
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div>
+          <Label htmlFor="email-input" mandatory>
+            Email Address
+          </Label>
+          <input
+            id="email-input"
+            type="email"
+            value={formData.email}
+            onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+            placeholder="Enter your email"
+            style={{
+              width: '100%',
+              padding: '8px 12px',
+              border: '1px solid #CED1D7',
+              borderRadius: '4px',
+              fontSize: '14px',
+              marginTop: '4px',
+            }}
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="password-input" mandatory suffixIcon>
+            Password
+          </Label>
+          <input
+            id="password-input"
+            type="password"
+            value={formData.password}
+            onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+            placeholder="Enter your password"
+            style={{
+              width: '100%',
+              padding: '8px 12px',
+              border: '1px solid #CED1D7',
+              borderRadius: '4px',
+              fontSize: '14px',
+              marginTop: '4px',
+            }}
+          />
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <input
+            id="newsletter-input"
+            type="checkbox"
+            checked={formData.newsletter}
+            onChange={(e) => setFormData(prev => ({ ...prev, newsletter: e.target.checked }))}
+          />
+          <Label htmlFor="newsletter-input" optional as="span">
+            Subscribe to newsletter
+          </Label>
+        </div>
+      </div>
+
+      <div style={{ marginTop: '20px', padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
+        <strong>Form Data:</strong>
+        <pre style={{ fontSize: '12px', marginTop: '8px' }}>
+          {JSON.stringify(formData, null, 2)}
+        </pre>
+      </div>
+    </div>
+  );
+}
+
 // Label with suffix icon (Mandatory=False, Suffix icon=True, Optional=False)
 export const WithSuffixIcon: Story = {
   args: {
@@ -270,87 +350,6 @@ export const AllVariations: Story = {
   ),
 };
 
-// Interactive example
-export const Interactive: Story = {
-  render: () => {
-    const [formData, setFormData] = React.useState({
-      email: '',
-      password: '',
-      newsletter: false,
-    });
-
-    return (
-      <div style={{ maxWidth: '400px', padding: '20px' }}>
-        <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '20px' }}>
-          Interactive Form
-        </h3>
-        
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div>
-            <Label htmlFor="email-input" mandatory>
-              Email Address
-            </Label>
-            <input
-              id="email-input"
-              type="email"
-              value={formData.email}
-              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-              placeholder="Enter your email"
-              style={{
-                width: '100%',
-                padding: '8px 12px',
-                border: '1px solid #CED1D7',
-                borderRadius: '4px',
-                fontSize: '14px',
-                marginTop: '4px',
-              }}
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="password-input" mandatory suffixIcon>
-              Password
-            </Label>
-            <input
-              id="password-input"
-              type="password"
-              value={formData.password}
-              onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-              placeholder="Enter your password"
-              style={{
-                width: '100%',
-                padding: '8px 12px',
-                border: '1px solid #CED1D7',
-                borderRadius: '4px',
-                fontSize: '14px',
-                marginTop: '4px',
-              }}
-            />
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <input
-              id="newsletter-input"
-              type="checkbox"
-              checked={formData.newsletter}
-              onChange={(e) => setFormData(prev => ({ ...prev, newsletter: e.target.checked }))}
-            />
-            <Label htmlFor="newsletter-input" optional as="span">
-              Subscribe to newsletter
-            </Label>
-          </div>
-        </div>
-
-        <div style={{ marginTop: '20px', padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
-          <strong>Form Data:</strong>
-          <pre style={{ fontSize: '12px', marginTop: '8px' }}>
-            {JSON.stringify(formData, null, 2)}
-          </pre>
-        </div>
-      </div>
-    );
-  },
-};
 
 // Different HTML elements
 export const AsElements: Story = {

@@ -14,6 +14,17 @@ const nextConfig: NextConfig = {
   
   // Enable experimental features for better parent directory support
   serverExternalPackages: [],
+  
+  // Webpack config for raw source imports (fallback when not using Turbopack)
+  webpack: (config) => {
+    // Add rule for raw file imports (?raw suffix)
+    config.module.rules.push({
+      resourceQuery: /raw/,
+      type: 'asset/source',
+    });
+    
+    return config;
+  },
 };
 
 export default nextConfig;

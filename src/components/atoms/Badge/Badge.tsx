@@ -7,22 +7,141 @@ import { Typography } from '../Typography';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'normal' | 'danger' | 'success' | 'warning' | 'neutral';
+  count?: number | React.ReactNode;
+  showZero?: boolean;
+  overflowCount?: number;
+  dot?: boolean;
+  offset?: [number, number];
+  status?: 'success' | 'processing' | 'default' | 'error' | 'warning';
+  text?: React.ReactNode;
+  size?: 'default' | 'small';
+  color?: string;
+  // Legacy props
   leadingIcon?: IconName;
   trailingIcon?: IconName;
   interaction?: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
+export interface BadgeRibbonProps {
+  className?: string;
+  text?: React.ReactNode;
+  placement?: 'start' | 'end';
+  color?: string;
+  children?: React.ReactNode;
+}
+
+const Ribbon: React.FC<BadgeRibbonProps> = ({ 
+    className, 
+    text, 
+    placement = 'end', 
+    color, 
+    children 
+}) => {
+    return (
+        <div className="relative inline-block w-full">
+            {children}
+            <div 
+                className={cn(
+                    "absolute top-2 px-2 py-1 text-white text-xs whitespace-nowrap z-10",
+                    placement === 'end' ? "right-0 rounded-l-md" : "left-0 rounded-r-md",
+                    "bg-[var(--primary)] shadow-sm", // Default color
+                    className
+                )}
+                style={{ backgroundColor: color }}
+            >
+                {text}
+                {/* Optional corner triangle for ribbon effect could be added here */}
+            </div>
+        </div>
+    );
+};
+
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
-  ({ className, variant = 'normal', leadingIcon, trailingIcon, interaction = false, children, ...props }, ref) => {
-    // Base styles using design tokens
-    const baseStyles = "inline-flex items-center justify-center transition-colors";
+  ({ 
+    className, 
+    variant = 'normal', 
+    count, 
+    showZero = false, 
+    overflowCount = 99, 
+    dot = false, 
+    offset, 
+    status, 
+    text, 
+    size = 'default',
+    color,
+    leadingIcon, 
+    trailingIcon, 
+    interaction = false, 
+    children, 
+    ...props 
+  }, ref) => {
     
-    // Fixed size from Figma - using design tokens
+    // CASE 1: Status Badge (Dot + Text)
+    if (status || (color && !children && !count && !dot)) {
+       const statusColorMap: Record<string, string> = {
+          success: 'bg-[var(--success)]',
+          processing: 'bg-[var(--primary)]',
+          default: 'bg-[var(--neutral-400)]',
+          error: 'bg-[var(--danger)]',
+          warning: 'bg-[var(--warning)]'
+       };
+       const dotClass = status ? statusColorMap[status] : '';
+       
+       return (
+          <span className={cn("inline-flex items-center gap-2", className)} ref={ref} {...props}>
+             <span 
+                className={cn(
+                    "w-1.5 h-1.5 rounded-full relative",
+                    dotClass,
+                    status === 'processing' && "animate-pulse" // Simple processing effect
+                )}
+                style={{ backgroundColor: color }}
+             />
+             {text && <span className="text-sm">{text}</span>}
+          </span>
+       );
+    }
+
+    // CASE 2: Notification Badge (Wrapper around children)
+    if (children && (count !== undefined || dot)) {
+       // Logic for rendering sup
+       let displayCount: React.ReactNode = count;
+       if (typeof count === 'number' && count > overflowCount) {
+           displayCount = `${overflowCount}+`;
+       }
+       
+       const isHidden = (count === 0 || count === null) && !showZero && !dot;
+       
+       return (
+          <span className={cn("relative inline-block", className)} ref={ref} {...props}>
+             {children}
+             {!isHidden && (
+                 <sup 
+                    className={cn(
+                        "absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2",
+                        "flex items-center justify-center text-xs font-normal text-white bg-[var(--danger)] border border-white",
+                        dot ? "w-2 h-2 p-0 rounded-full min-w-0" : "h-5 px-1.5 rounded-full min-w-[20px]",
+                        size === 'small' && !dot && "h-4 min-w-[16px] px-1 text-[10px]"
+                    )}
+                    style={{ 
+                        backgroundColor: color,
+                        ...(offset ? { right: -offset[0], marginTop: offset[1] } : {}) 
+                    }}
+                 >
+                    {!dot && displayCount}
+                 </sup>
+             )}
+          </span>
+       );
+    }
+
+    // CASE 3: Standard Tag-like Badge (Legacy FT Design)
+    // Keep existing implementation
+    const baseStyles = "inline-flex items-center justify-center transition-colors";
     const sizeStyles = "px-[var(--x2)] py-[2px] gap-[var(--x2)] rounded-[var(--badge-border-radius)]";
     
-    // Variant background and text colors (non-interactive) - using CSS variables
-    const variantStyles = {
+    const variantStyles: Record<string, string> = {
       normal: "bg-[var(--badge-normal-bg)] text-[var(--badge-normal-text)]",
       danger: "bg-[var(--badge-danger-bg)] text-[var(--badge-danger-text)]",  
       success: "bg-[var(--badge-success-bg)] text-[var(--badge-success-text)]",
@@ -30,8 +149,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       neutral: "bg-[var(--badge-neutral-bg)] text-[var(--badge-neutral-text)]"
     };
 
-    // Border styles for interactive badges - using CSS variables
-    const interactiveBorderStyles = {
+    const interactiveBorderStyles: Record<string, string> = {
       normal: "border border-[var(--badge-normal-border)]",
       danger: "border border-[var(--badge-danger-border)]",
       success: "border border-[var(--badge-success-border)]",
@@ -39,8 +157,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       neutral: "border border-[var(--badge-neutral-border)]"
     };
 
-    // Interactive hover states - using CSS variables
-    const hoverStyles = {
+    const hoverStyles: Record<string, string> = {
       normal: "hover:bg-[var(--badge-normal-hover-bg)] hover:border-[var(--badge-normal-hover-border)]",
       danger: "hover:bg-[var(--badge-danger-hover-bg)] hover:border-[var(--badge-danger-hover-border)] hover:text-[var(--badge-danger-hover-text)]",
       success: "hover:bg-[var(--badge-success-hover-bg)] hover:border-[var(--badge-success-hover-border)]", 
@@ -48,9 +165,8 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       neutral: "hover:bg-[var(--badge-neutral-hover-bg)] hover:border-[var(--badge-neutral-hover-border)]"
     };
 
-    const iconSize = 14; // Exact Figma icon size: 14x14px
+    const iconSize = 14; 
 
-    // Get text color for Typography component - using CSS variables
     const getTextColor = () => {
       switch (variant) {
         case 'danger': return 'var(--badge-danger-text)';
@@ -61,18 +177,21 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       }
     };
 
-    // Determine if badge is interactive (has interaction prop or event handlers)
     const isInteractive = interaction || props.onClick || props.onMouseEnter || props.onFocus;
 
+    // If count is provided but no children, it renders as a standalone badge (capsule)
+    // But here we fallback to Legacy style if not strictly matching notification pattern
+    // Actually if someone passes `count` to a standalone badge, it usually means notification bubble without children.
+    // But FT Badge is a Label.
+
+    // Let's stick to legacy rendering if no 'status' or 'dot' or 'children+count'
     return (
       <div
         className={cn(
           baseStyles,
           sizeStyles,
           variantStyles[variant],
-          // Apply border styles if interactive
           isInteractive && interactiveBorderStyles[variant],
-          // Apply hover styles if interactive
           isInteractive && hoverStyles[variant],
           className
         )}
@@ -85,7 +204,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
           as="span"
           style={{ color: getTextColor() }}
         >
-          {children}
+          {children || count}
         </Typography>
         {trailingIcon && <Icon name={trailingIcon} size={iconSize} />}
       </div>
@@ -93,4 +212,8 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
   }
 );
 
-Badge.displayName = 'Badge'; 
+Badge.displayName = 'Badge';
+
+// Attach Ribbon
+(Badge as any).Ribbon = Ribbon;
+export { Ribbon };

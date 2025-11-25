@@ -37,6 +37,9 @@ export const RadioSelector: React.FC<RadioSelectorProps> = ({
     onChange?.(optionValue);
   };
 
+  // Validate options is an array
+  const validOptions = Array.isArray(options) ? options : [];
+
   return (
     <div 
       className={cn(
@@ -45,7 +48,7 @@ export const RadioSelector: React.FC<RadioSelectorProps> = ({
       )} 
       role="radiogroup"
     >
-      {options.map((option) => {
+      {validOptions.map((option) => {
         const isSelected = currentValue === option.value;
         const isDisabled = option.disabled;
         const showRadio = !option.hideRadio;

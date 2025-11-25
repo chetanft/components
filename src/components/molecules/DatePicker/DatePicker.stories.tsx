@@ -1,15 +1,35 @@
+import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { DatePicker } from './DatePicker';
-import React, { useState } from 'react';
 
-const meta = {
+const meta: Meta<typeof DatePicker> = {
   title: 'Molecules/DatePicker',
   component: DatePicker,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: 'Date picker component for selecting single dates or date ranges.',
+      },
+    },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof DatePicker>;
+  argTypes: {
+    size: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      description: 'Size of the date picker',
+    },
+    error: {
+      control: 'boolean',
+      description: 'Error state',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disabled state',
+    },
+  },
+};
 
 export default meta;
 type Story = StoryObj<typeof DatePicker>;
@@ -23,21 +43,13 @@ export const Default: Story = {
 
 export const WithValue: Story = {
   args: {
-    label: 'Date',
+    label: 'Date with Value',
     placeholder: 'MM/DD/YYYY',
-    value: new Date().toLocaleDateString(),
+    value: '01/15/2024',
   },
 };
 
-export const Disabled: Story = {
-  args: {
-    label: 'Disabled Date',
-    placeholder: 'MM/DD/YYYY',
-    disabled: true,
-  },
-};
-
-export const WithError: Story = {
+export const ErrorState: Story = {
   args: {
     label: 'Date with Error',
     placeholder: 'MM/DD/YYYY',
@@ -45,98 +57,49 @@ export const WithError: Story = {
   },
 };
 
-export const AllSizes: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <DatePicker
-        label="Extra Small (XS)"
-        placeholder="24px height"
-        size="xs"
-      />
-      <DatePicker
-        label="Small (SM)"
-        placeholder="32px height"
-        size="sm"
-      />
-      <DatePicker
-        label="Medium (MD)"
-        placeholder="40px height"
-        size="md"
-      />
-      <DatePicker
-        label="Large (LG)"
-        placeholder="48px height"
-        size="lg"
-      />
-      <DatePicker
-        label="Extra Large (XL)"
-        placeholder="56px height"
-        size="xl"
-      />
-      <DatePicker
-        label="2X Large (XXL)"
-        placeholder="64px height"
-        size="xxl"
-      />
-    </div>
-  ),
+export const Disabled: Story = {
+  args: {
+    label: 'Disabled DatePicker',
+    placeholder: 'MM/DD/YYYY',
+    disabled: true,
+  },
 };
 
 export const DateRange: Story = {
   args: {
     label: 'Date Range',
-    placeholder: 'Start date → End date',
     range: true,
   },
 };
 
-export const DateRangeWithValues: Story = {
+export const SizeXS: Story = {
   args: {
-    label: 'Date Range',
-    range: true,
-    startValue: new Date().toLocaleDateString(),
-    endValue: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString(),
+    label: 'Extra Small (XS)',
+    placeholder: '24px height',
+    size: 'xs',
   },
 };
 
-export const Interactive = () => {
-  const [value, setValue] = useState<string>('');
-  
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      <h3>Single Date Selection</h3>
-      <DatePicker 
-        label="Select Date"
-        placeholder="MM/DD/YYYY"
-        value={value}
-        onChange={(newValue) => setValue(newValue)}
-      />
-      <div>Selected date: {value || 'None'}</div>
-      
-      <h3 style={{ marginTop: '20px' }}>Date Range Selection</h3>
-      <DateRangeInteractive />
-    </div>
-  );
+export const SizeSM: Story = {
+  args: {
+    label: 'Small (SM)',
+    placeholder: '32px height',
+    size: 'sm',
+  },
 };
 
-const DateRangeInteractive = () => {
-  const [startDate, setStartDate] = useState<string>('');
-  const [endDate, setEndDate] = useState<string>('');
-  
-  return (
-    <div>
-      <DatePicker 
-        label="Select Date Range"
-        range={true}
-        startValue={startDate}
-        endValue={endDate}
-        onStartChange={setStartDate}
-        onEndChange={setEndDate}
-      />
-      <div style={{ marginTop: '10px' }}>
-        Start date: {startDate || 'None'} <br />
-        End date: {endDate || 'None'}
-      </div>
-    </div>
-  );
-}; 
+export const SizeLG: Story = {
+  args: {
+    label: 'Large (LG)',
+    placeholder: '48px height',
+    size: 'lg',
+  },
+};
+
+export const SizeXL: Story = {
+  args: {
+    label: 'Extra Large (XL)',
+    placeholder: '56px height',
+    size: 'xl',
+  },
+};

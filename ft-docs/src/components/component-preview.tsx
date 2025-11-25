@@ -24,123 +24,32 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
     // Format JSX code with proper indentation
     const formatJSX = React.useCallback((jsxCode: string): string => {
         let formatted = jsxCode.trim()
-        
-        // Format arrays in props - find prop={[...]} and format array items
-        // Use manual parsing to handle nested structures
-        let searchPos = 0
-        while (true) {
-            const arrayStart = formatted.indexOf('={[', searchPos)
-            if (arrayStart === -1) break
-            
-            // Find prop name - look backwards from ={[
-            let propEnd = arrayStart
-            let propStart = propEnd
-            // Find the = before {[
-            while (propStart > 0 && formatted[propStart] !== '=') {
-                propStart--
-            }
-            if (propStart === 0) {
-                searchPos = arrayStart + 3
-                continue
-            }
-            // Extract prop name (word characters before =)
-            const propMatch = formatted.substring(0, propStart).match(/(\w+)\s*$/)
-            if (!propMatch) {
-                searchPos = arrayStart + 3
-                continue
-            }
-            const propName = propMatch[1]
-            
-            // Parse array content manually to handle nested structures
-            let bracketDepth = 1 // Start inside [
-            let braceDepth = 1 // Start inside {
-            let inString = false
-            let stringChar = ''
-            let i = arrayStart + 3
-            const items: string[] = []
-            let currentItem = ''
-            
-            while (i < formatted.length) {
-                const char = formatted[i]
-                const prevChar = i > 0 ? formatted[i - 1] : ''
-                
-                // Track strings
-                if ((char === '"' || char === "'") && prevChar !== '\\') {
-                    if (!inString) {
-                        inString = true
-                        stringChar = char
-                    } else if (char === stringChar) {
-                        inString = false
-                        stringChar = ''
-                    }
-                }
-                
-                if (!inString) {
-                    if (char === '[') bracketDepth++
-                    if (char === ']') bracketDepth--
-                    if (char === '{') braceDepth++
-                    if (char === '}') braceDepth--
-                    
-                    // Check if we've reached the end: ]}
-                    if (bracketDepth === 0 && braceDepth === 0) {
-                        // We've hit ]}, process the last item if exists
-                        const lastItem = currentItem.trim()
-                        if (lastItem) items.push(lastItem)
-                        i++ // Skip past the }
-                        break
-                    }
-                    
-                    currentItem += char
-                    
-                    // When we're at the array level (bracketDepth=1) and object level (braceDepth=1)
-                    // and hit a comma, we have an item boundary
-                    if (bracketDepth === 1 && braceDepth === 1 && char === ',') {
-                        const item = currentItem.slice(0, -1).trim() // Remove comma
-                        if (item) items.push(item)
-                        currentItem = ''
-                    }
-                } else {
-                    currentItem += char
-                }
-                
-                i++
-            }
-            
-            // Format if multiple items
-            if (items.length > 1) {
-                const formattedItems = items.map((item, idx) => {
-                    return `    ${item}${idx < items.length - 1 ? ',' : ''}`
-                }).join('\n')
-                const replacement = `${propName}={[\n${formattedItems}\n  ]}`
-                formatted = formatted.substring(0, propStart) + replacement + formatted.substring(i)
-                searchPos = propStart + replacement.length
-            } else {
-                searchPos = arrayStart + 3
-            }
-        }
-        
+
+        // Skip array formatting - it causes parsing issues with react-live
+        // Arrays are already formatted as single lines from component-metadata.ts
+
         // Format component props - break into multiple lines if many props
         formatted = formatted.replace(/<(\w+)([^>]+)\/>/g, (match, tagName, props) => {
             // Extract individual props (handling quoted strings and expressions)
             const propRegex = /(\w+)=(?:"[^"]*"|'[^']*'|\{[^}]+\}|\w+)/g
             const propMatches: string[] = []
             let lastIndex = 0
-            
+
             let m
             while ((m = propRegex.exec(props)) !== null) {
                 propMatches.push(m[0])
                 lastIndex = propRegex.lastIndex
             }
-            
+
             // If we have 4+ props, format them on separate lines
             if (propMatches.length >= 4) {
                 const formattedProps = propMatches.map(prop => `\n    ${prop}`).join('')
                 return `<${tagName}${formattedProps}\n  />`
             }
-            
+
             return match
         })
-        
+
         return formatted
     }, [])
 
@@ -148,20 +57,26 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
     // Wrap raw JSX in a function component that react-live can execute
     const wrappedCode = React.useMemo(() => {
         let trimmed = code.trim()
-        
+
         // Strip import statements (components are available via registry scope)
         trimmed = trimmed.replace(/^import\s+.*?from\s+["'][^"']+["'];?\s*\n?/gm, '')
-        
+
+        // Check if code is already a function/component/IIFE - use as-is BEFORE const extraction
+        // This prevents const extraction from breaking IIFE patterns
+        if (trimmed.startsWith('function') || (trimmed.startsWith('const') && !trimmed.includes('<')) || trimmed.startsWith('()') || trimmed.startsWith('() =>') || trimmed.startsWith('(() =>')) {
+            return trimmed
+        }
+
         // Extract const declarations and move them before return statement
         const constDeclarations: string[] = []
         const lines = trimmed.split('\n')
         const jsxLines: string[] = []
         let i = 0
-        
+
         while (i < lines.length) {
             const line = lines[i]
             const trimmedLine = line.trim()
-            
+
             if (trimmedLine.startsWith('const ')) {
                 // Found a const declaration - extract it completely
                 let braceDepth = 0
@@ -171,18 +86,18 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                 let constLines: string[] = []
                 let foundStart = false
                 let startIdx = i
-                
+
                 // Process lines until we find the end of the const declaration
                 for (let j = i; j < lines.length; j++) {
                     const currentLine = lines[j]
                     const currentTrimmed = currentLine.trim()
                     constLines.push(currentLine)
-                    
+
                     // Track braces/brackets to find end
                     for (let k = 0; k < currentLine.length; k++) {
                         const char = currentLine[k]
                         const prevChar = k > 0 ? currentLine[k - 1] : ''
-                        
+
                         if ((char === '"' || char === "'" || char === '`') && prevChar !== '\\') {
                             if (!inString) {
                                 inString = true
@@ -192,7 +107,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                                 stringChar = ''
                             }
                         }
-                        
+
                         if (!inString) {
                             if (char === '{') {
                                 braceDepth++
@@ -203,7 +118,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                             if (char === ']') bracketDepth--
                         }
                     }
-                    
+
                     // Check if const declaration is complete
                     const endsWithSemicolon = currentTrimmed.endsWith(';')
                     // Look ahead for JSX (skip blank lines)
@@ -212,7 +127,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                         nextNonEmptyIdx++
                     }
                     const nextLineIsJSX = nextNonEmptyIdx < lines.length && lines[nextNonEmptyIdx].trim().startsWith('<')
-                    
+
                     if (foundStart && braceDepth === 0 && bracketDepth === 0 && (endsWithSemicolon || nextLineIsJSX)) {
                         // Complete const declaration found
                         let declaration = constLines.join('\n').trim()
@@ -228,7 +143,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                         break
                     }
                 }
-                
+
                 // If we didn't find the end, skip this const (malformed)
                 if (i === startIdx) {
                     i++
@@ -242,45 +157,49 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                 i++
             }
         }
-        
+
         trimmed = jsxLines.join('\n').trim()
-        
+
         // Transform string prop references to variable references for react-live
         // Handle both double and single quotes: options="sampleOptions" or options='sampleOptions' -> options={sampleOptions}
         trimmed = trimmed.replace(/options=["']sampleOptions["']/g, 'options={sampleOptions}')
         // Handle buttons prop: buttons="sampleButtons" -> buttons={sampleButtons}
         trimmed = trimmed.replace(/buttons=["']sampleButtons["']/g, 'buttons={sampleButtons}')
-        
-        // If code already looks like a function/component, use as-is
-        if (trimmed.startsWith('function') || (trimmed.startsWith('const') && !trimmed.includes('<')) || trimmed.startsWith('()') || trimmed.startsWith('() =>')) {
-            return trimmed
-        }
-        
+        // Handle baseOptions references - transform to baseOptions (for RadioSelector)
+        trimmed = trimmed.replace(/options=["']baseOptions["']/g, 'options={baseOptions}')
+        // Handle variable references without quotes
+        trimmed = trimmed.replace(/options=\{baseOptions\}/g, 'options={baseOptions}')
+        trimmed = trimmed.replace(/options=\{sampleOptions\}/g, 'options={sampleOptions}')
+
+        // Pattern check already done above before const extraction
+        // This check is now redundant but kept for safety
+
         // Format the JSX code (this might reformat, so we need to re-apply transformation after)
         let formattedJSX = formatJSX(trimmed.trim())
-        
+
         // Re-apply transformation after formatting in case formatJSX changed it
         formattedJSX = formattedJSX.replace(/options=["']sampleOptions["']/g, 'options={sampleOptions}')
         formattedJSX = formattedJSX.replace(/buttons=["']sampleButtons["']/g, 'buttons={sampleButtons}')
-        
+        formattedJSX = formattedJSX.replace(/options=["']baseOptions["']/g, 'options={sampleOptions}')
+
         // react-live needs executable code that returns JSX
         // Use function declaration format with proper indentation
         // Include const declarations before return if they exist
-        const constsBlock = constDeclarations.length > 0 
+        const constsBlock = constDeclarations.length > 0
             ? constDeclarations.map(c => {
                 // Indent each line of the const declaration with 2 spaces
                 return c.split('\n').map(line => `  ${line}`).join('\n')
-              }).join('\n') + '\n'
+            }).join('\n') + '\n'
             : ''
-        
+
         return `function Preview() {\n${constsBlock}  return (\n    ${formattedJSX}\n  )\n}`
     }, [code, formatJSX])
 
 
     return (
         <div className={cn("group relative my-4 flex flex-col space-y-2", className)}>
-            <LiveProvider 
-                code={wrappedCode} 
+            <LiveProvider
+                code={wrappedCode}
                 scope={registry}
             >
                 <div className="relative rounded-lg border bg-background shadow-sm overflow-hidden">

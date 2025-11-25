@@ -50,7 +50,84 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Default checkbox
+// Interactive Demo - all variants shown together and interactable (FIRST per plan)
+export function InteractiveDemo() {
+  const [checked1, setChecked1] = React.useState(false);
+  const [checked2, setChecked2] = React.useState(true);
+  const [checked3, setChecked3] = React.useState(false);
+  const [checked4, setChecked4] = React.useState(true);
+  const [indeterminate, setIndeterminate] = React.useState(false);
+  const [errorChecked, setErrorChecked] = React.useState(false);
+
+  return (
+    <div className="p-6 space-y-4">
+      <div className="space-y-3">
+        <h3 className="text-lg font-semibold mb-4">All Checkbox Variants - Interactive</h3>
+
+        {/* Normal States */}
+        <div className="space-y-3">
+          <Checkbox
+            label="Unchecked"
+            checked={checked1}
+            onChange={(e) => setChecked1(e.target.checked)}
+          />
+          <Checkbox
+            label="Checked"
+            checked={checked2}
+            onChange={(e) => setChecked2(e.target.checked)}
+          />
+          <Checkbox
+            label="Indeterminate"
+            indeterminate={indeterminate}
+            checked={indeterminate}
+            onChange={(e) => setIndeterminate(e.target.checked)}
+          />
+        </div>
+
+        {/* With Descriptions */}
+        <div className="space-y-3">
+          <Checkbox
+            label="Accept terms and conditions"
+            description="By clicking this checkbox, you agree to the terms and conditions."
+            checked={checked3}
+            onChange={(e) => setChecked3(e.target.checked)}
+          />
+          <Checkbox
+            label="Enable notifications"
+            description="You can enable or disable notifications at any time."
+            checked={checked4}
+            onChange={(e) => setChecked4(e.target.checked)}
+          />
+        </div>
+
+        {/* Error State */}
+        <div className="space-y-3">
+          <Checkbox
+            label="Required field"
+            error
+            description="This field must be checked to continue"
+            checked={errorChecked}
+            onChange={(e) => setErrorChecked(e.target.checked)}
+          />
+        </div>
+
+        {/* Disabled States */}
+        <div className="space-y-3">
+          <Checkbox label="Disabled unchecked" disabled />
+          <Checkbox label="Disabled checked" disabled defaultChecked />
+        </div>
+
+        {/* Sizes */}
+        <div className="space-y-3">
+          <Checkbox label="Small checkbox" size="sm" />
+          <Checkbox label="Medium checkbox" size="md" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Default checkbox (unchecked state)
 export const Default: Story = {
   args: {
     label: 'Accept terms and conditions',
@@ -58,114 +135,121 @@ export const Default: Story = {
   },
 };
 
-// Small size
-export const Small: Story = {
-  args: {
-    label: 'Small checkbox',
-    size: 'sm',
-  },
-};
-
 // Checked state
 export const Checked: Story = {
   args: {
-    label: 'Checked checkbox',
-    checked: true,
+    label: 'Agreed to terms',
     size: 'md',
+    checked: true,
   },
 };
 
 // Indeterminate state
 export const Indeterminate: Story = {
   args: {
-    label: 'Indeterminate checkbox',
-    indeterminate: true,
+    label: 'Select all items',
     size: 'md',
+    indeterminate: true,
   },
 };
 
 // With description
 export const WithDescription: Story = {
   args: {
-    label: 'Checkbox with description',
-    description: 'This is additional information about the checkbox option',
+    label: 'Newsletter subscription',
     size: 'md',
+    description: 'Receive weekly updates about new features and products',
   },
 };
 
 // Error state
 export const Error: Story = {
   args: {
-    label: 'Checkbox with error',
-    error: true,
-    description: 'This field is required',
+    label: 'Required field',
     size: 'md',
+    error: true,
+    description: 'This field must be checked to continue',
   },
 };
 
 // Disabled state
 export const Disabled: Story = {
   args: {
-    label: 'Disabled checkbox',
-    disabled: true,
+    label: 'Disabled option',
     size: 'md',
+    disabled: true,
   },
 };
 
-// Disabled and checked
+// Disabled checked state
 export const DisabledChecked: Story = {
   args: {
-    label: 'Disabled checked checkbox',
+    label: 'Permanently enabled',
+    size: 'md',
     disabled: true,
     checked: true,
-    size: 'md',
   },
 };
 
-// Figma variants showcase
-export const FigmaVariants: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <h3 className="font-semibold">Normal States</h3>
-        <Checkbox label="Unchecked" />
-        <Checkbox label="Checked" checked />
-        <Checkbox label="Indeterminate" indeterminate />
-      </div>
-      
-      <div className="space-y-2">
-        <h3 className="font-semibold">With Descriptions</h3>
-        <Checkbox 
-          label="Newsletter subscription" 
-          description="Receive weekly updates about new features and products"
-        />
-        <Checkbox 
-          label="Marketing emails" 
-          description="Get promotional offers and special discounts"
-          checked
-        />
-      </div>
-      
-      <div className="space-y-2">
-        <h3 className="font-semibold">Error State</h3>
-        <Checkbox 
-          label="Required field" 
-          error
-          description="This field must be checked to continue"
-        />
-      </div>
-      
-      <div className="space-y-2">
-        <h3 className="font-semibold">Disabled States</h3>
-        <Checkbox label="Disabled unchecked" disabled />
-        <Checkbox label="Disabled checked" disabled checked />
-      </div>
-      
-      <div className="space-y-2">
-        <h3 className="font-semibold">Sizes</h3>
-        <Checkbox label="Small checkbox" size="sm" />
-        <Checkbox label="Medium checkbox" size="md" />
-      </div>
+// Normal States story - separate preview for normal states
+export function NormalStates() {
+  return (
+    <div className="p-6 space-y-2">
+      <Checkbox label="Unchecked" />
+      <Checkbox label="Checked" defaultChecked />
+      <Checkbox label="Indeterminate" indeterminate />
     </div>
-  ),
-};
+  );
+}
+
+// With Descriptions story - separate preview for descriptions
+export function WithDescriptions() {
+  return (
+    <div className="p-6 space-y-2">
+      <Checkbox
+        label="Newsletter subscription"
+        description="Receive weekly updates about new features and products"
+      />
+      <Checkbox
+        label="Marketing emails"
+        description="Get promotional offers and special discounts"
+        defaultChecked
+      />
+    </div>
+  );
+}
+
+// Error State story - separate preview for error state
+export function ErrorState() {
+  return (
+    <div className="p-6">
+      <Checkbox
+        label="Required field"
+        error
+        description="This field must be checked to continue"
+      />
+    </div>
+  );
+}
+
+// Disabled States story - separate preview for disabled states
+export function DisabledStates() {
+  return (
+    <div className="p-6 space-y-2">
+      <Checkbox label="Disabled unchecked" disabled />
+      <Checkbox label="Disabled checked" disabled defaultChecked />
+    </div>
+  );
+}
+
+// Sizes story - separate preview for sizes
+export function Sizes() {
+  return (
+    <div className="p-6 space-y-2">
+      <Checkbox label="Small checkbox" size="sm" />
+      <Checkbox label="Medium checkbox" size="md" />
+    </div>
+  );
+}
+
+

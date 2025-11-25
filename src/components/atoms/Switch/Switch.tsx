@@ -78,6 +78,18 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       currentSize.gap
     );
 
+    // Handle controlled/uncontrolled switch
+    const isControlled = props.checked !== undefined;
+    const hasOnChange = props.onChange !== undefined;
+    const inputProps = { ...props };
+    
+    // If checked is provided without onChange, use defaultChecked for uncontrolled
+    if (isControlled && !hasOnChange) {
+      const { checked, ...rest } = inputProps;
+      inputProps.defaultChecked = checked;
+      delete inputProps.checked;
+    }
+
     return (
       <label className={containerStyles}>
         <div className={trackStyles}>
@@ -86,7 +98,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
             className="sr-only"
             ref={ref}
             disabled={disabled}
-            {...props}
+            {...inputProps}
           />
           <div className={thumbStyles} />
         </div>

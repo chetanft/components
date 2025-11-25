@@ -18,14 +18,14 @@ export interface SegmentedTabsProps {
   variant?: 'default' | 'icon-only';
 }
 
-export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
+export const SegmentedTabs = ({
   items = [],
   value,
   defaultValue,
   onChange,
   className,
   variant = 'default',
-}) => {
+}: SegmentedTabsProps) => {
   const [internalValue, setInternalValue] = React.useState(defaultValue || items[0]?.value || '');
   const currentValue = value !== undefined ? value : internalValue;
 

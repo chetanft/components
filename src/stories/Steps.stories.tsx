@@ -3,29 +3,33 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Steps, StepsItem } from '../components/molecules/Steps/Steps';
 
 const meta: Meta<typeof Steps> = {
-  title: 'Components/Steps',
+  title: 'Molecules/Steps',
   component: Steps,
   parameters: {
     layout: 'padded',
+    docs: {
+      description: {
+        component: 'Steps component for showing progress through a multi-step process.',
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
     device: {
-      control: { type: 'select' },
+      control: 'select',
       options: ['desktop', 'mobile'],
+      description: 'Device type variant',
     },
     currentStep: {
-      control: { type: 'number' },
-      min: 1,
-      max: 5,
+      control: { type: 'number', min: 1, max: 5 },
+      description: 'Current active step',
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Steps>;
 
-// Default steps
 export const Default: Story = {
   args: {
     steps: [
@@ -38,176 +42,80 @@ export const Default: Story = {
   },
 };
 
-// Desktop vs Mobile
-export const DeviceVariants: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <div>
-        <h3 className="mb-4 text-lg font-semibold">Desktop</h3>
-        <Steps
-          device="desktop"
-          currentStep={2}
-          steps={[
-            { label: 'Personal Info' },
-            { label: 'Address' },
-            { label: 'Payment' },
-            { label: 'Confirmation' },
-          ]}
-        />
-      </div>
-      <div>
-        <h3 className="mb-4 text-lg font-semibold">Mobile</h3>
-        <Steps
-          device="mobile"
-          currentStep={2}
-          steps={[
-            { label: 'Personal Info' },
-            { label: 'Address' },
-            { label: 'Payment' },
-            { label: 'Confirmation' },
-          ]}
-        />
-      </div>
-    </div>
-  ),
-};
-
-// Different step counts
-export const StepCounts: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <div>
-        <h3 className="mb-4 text-lg font-semibold">2 Steps</h3>
-        <Steps
-          currentStep={1}
-          steps={[
-            { label: 'Setup' },
-            { label: 'Complete' },
-          ]}
-        />
-      </div>
-      <div>
-        <h3 className="mb-4 text-lg font-semibold">3 Steps</h3>
-        <Steps
-          currentStep={2}
-          steps={[
-            { label: 'Start' },
-            { label: 'Progress' },
-            { label: 'Finish' },
-          ]}
-        />
-      </div>
-      <div>
-        <h3 className="mb-4 text-lg font-semibold">4 Steps</h3>
-        <Steps
-          currentStep={3}
-          steps={[
-            { label: 'Info' },
-            { label: 'Details' },
-            { label: 'Review' },
-            { label: 'Submit' },
-          ]}
-        />
-      </div>
-      <div>
-        <h3 className="mb-4 text-lg font-semibold">5 Steps</h3>
-        <Steps
-          currentStep={3}
-          steps={[
-            { label: 'Basic' },
-            { label: 'Advanced' },
-            { label: 'Settings' },
-            { label: 'Review' },
-            { label: 'Deploy' },
-          ]}
-        />
-      </div>
-    </div>
-  ),
-};
-
-// Progress states
-export const ProgressStates: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <div>
-        <h3 className="mb-4 text-lg font-semibold">Step 1 Active</h3>
-        <Steps
-          currentStep={1}
-          steps={[
-            { label: 'Getting Started' },
-            { label: 'Configuration' },
-            { label: 'Testing' },
-            { label: 'Deployment' },
-          ]}
-        />
-      </div>
-      <div>
-        <h3 className="mb-4 text-lg font-semibold">Step 2 Active</h3>
-        <Steps
-          currentStep={2}
-          steps={[
-            { label: 'Getting Started' },
-            { label: 'Configuration' },
-            { label: 'Testing' },
-            { label: 'Deployment' },
-          ]}
-        />
-      </div>
-      <div>
-        <h3 className="mb-4 text-lg font-semibold">Step 3 Active</h3>
-        <Steps
-          currentStep={3}
-          steps={[
-            { label: 'Getting Started' },
-            { label: 'Configuration' },
-            { label: 'Testing' },
-            { label: 'Deployment' },
-          ]}
-        />
-      </div>
-      <div>
-        <h3 className="mb-4 text-lg font-semibold">All Complete</h3>
-        <Steps
-          currentStep={5}
-          steps={[
-            { label: 'Getting Started' },
-            { label: 'Configuration' },
-            { label: 'Testing' },
-            { label: 'Deployment' },
-          ]}
-        />
-      </div>
-    </div>
-  ),
-};
-
-// Individual StepsItem component
-export const StepsItemOnly: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <div className="flex gap-4">
-        <StepsItem state="unselected" label="Unselected Step" device="desktop" />
-        <StepsItem state="selected" label="Selected Step" device="desktop" />
-      </div>
-      <div className="flex gap-4">
-        <StepsItem state="unselected" device="mobile" />
-        <StepsItem state="selected" device="mobile" />
-      </div>
-    </div>
-  ),
-};
-
-// With completed steps
-export const WithCompletedSteps: Story = {
+export const TwoSteps: Story = {
   args: {
     steps: [
-      { label: 'Account Setup', completed: true },
-      { label: 'Profile Information', completed: true },
-      { label: 'Preferences' },
-      { label: 'Verification' },
+      { label: 'Start' },
+      { label: 'Finish' },
     ],
-    currentStep: 3,
+    currentStep: 1,
     device: 'desktop',
   },
-}; 
+};
+
+export const FourSteps: Story = {
+  args: {
+    steps: [
+      { label: 'Info' },
+      { label: 'Details' },
+      { label: 'Review' },
+      { label: 'Submit' },
+    ],
+    currentStep: 2,
+    device: 'desktop',
+  },
+};
+
+export const Mobile: Story = {
+  args: {
+    steps: [
+      { label: 'Step 1' },
+      { label: 'Step 2' },
+      { label: 'Step 3' },
+    ],
+    currentStep: 2,
+    device: 'mobile',
+  },
+};
+
+// Step 1 Active
+export const Step1Active: Story = {
+  args: {
+    steps: [
+      { label: 'Getting Started' },
+      { label: 'Configuration' },
+      { label: 'Testing' },
+      { label: 'Deployment' },
+    ],
+    currentStep: 1,
+    device: 'desktop',
+  },
+};
+
+// Step 2 Active  
+export const Step2Active: Story = {
+  args: {
+    steps: [
+      { label: 'Getting Started' },
+      { label: 'Configuration' },
+      { label: 'Testing' },
+      { label: 'Deployment' },
+    ],
+    currentStep: 2,
+    device: 'desktop',
+  },
+};
+
+// All Complete
+export const AllComplete: Story = {
+  args: {
+    steps: [
+      { label: 'Getting Started' },
+      { label: 'Configuration' },
+      { label: 'Testing' },
+      { label: 'Deployment' },
+    ],
+    currentStep: 5,
+    device: 'desktop',
+  },
+};

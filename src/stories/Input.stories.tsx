@@ -23,665 +23,178 @@ const meta: Meta<typeof Input> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Figma Variants: Organized by Size × State × Type
-// Based on Figma node 787:2762 "Input body"
-
-// ========== SIZE: SM ==========
-export const SizeSmDefaultNormal: Story = {
+// Default input (empty, MD size)
+export const Default: Story = {
   args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'default',
-  },
-};
-
-export const SizeSmDefaultError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'default',
-    error: 'Error message',
-  },
-};
-
-export const SizeSmDefaultWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'default',
-    warning: 'Warning message',
-  },
-};
-
-export const SizeSmDefaultSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'default',
-    success: 'Success message',
-  },
-};
-
-export const SizeSmFilledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'filled',
-  },
-};
-
-export const SizeSmFilledError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'filled',
-    error: 'Error message',
-  },
-};
-
-export const SizeSmFilledWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'filled',
-    warning: 'Warning message',
-  },
-};
-
-export const SizeSmFilledSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'filled',
-    success: 'Success message',
-  },
-};
-
-export const SizeSmDisabledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'default',
-    disabled: true,
-  },
-};
-
-export const SizeSmDisabledError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'default',
-    disabled: true,
-    error: 'Error message',
-  },
-};
-
-export const SizeSmDisabledWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'default',
-    disabled: true,
-    warning: 'Warning message',
-  },
-};
-
-export const SizeSmDisabledSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'default',
-    disabled: true,
-    success: 'Success message',
-  },
-};
-
-export const SizeSmPrefilledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'sm',
-    variant: 'filled',
-    defaultValue: 'Pre-filled value',
-  },
-};
-
-// ========== SIZE: MD ==========
-export const SizeMdDefaultNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
+    label: 'Input Label',
+    placeholder: 'Enter value',
     size: 'md',
     variant: 'default',
   },
 };
 
-export const SizeMdDefaultError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'md',
-    variant: 'default',
-    error: 'Error message',
-  },
-};
+// Interactive Demo - typeable input with controls (per plan)
+export function InteractiveDemo() {
+  const [normalValue, setNormalValue] = React.useState('');
+  const [errorValue, setErrorValue] = React.useState('');
+  const [warningValue, setWarningValue] = React.useState('');
+  const [successValue, setSuccessValue] = React.useState('');
 
-export const SizeMdDefaultWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'md',
-    variant: 'default',
-    warning: 'Warning message',
-  },
-};
+  return (
+    <div className="p-6 space-y-4">
+      <h3 className="text-lg font-semibold mb-4">All Input Variants - Interactive</h3>
+      
+      <div className="space-y-4">
+        <Input 
+          label="Normal Input" 
+          placeholder="Type here..."
+          size="md" 
+          variant="default"
+          value={normalValue}
+          onChange={(e) => setNormalValue(e.target.value)}
+        />
+        
+        <Input 
+          label="Error State" 
+          placeholder="Type here..."
+          size="md" 
+          variant="default"
+          error="This field has an error"
+          value={errorValue}
+          onChange={(e) => setErrorValue(e.target.value)}
+        />
+        
+        <Input 
+          label="Warning State" 
+          placeholder="Type here..."
+          size="md" 
+          variant="default"
+          warning="Please review your input"
+          value={warningValue}
+          onChange={(e) => setWarningValue(e.target.value)}
+        />
+        
+        <Input 
+          label="Success State" 
+          placeholder="Type here..."
+          size="md" 
+          variant="default"
+          success="Input is valid"
+          value={successValue}
+          onChange={(e) => setSuccessValue(e.target.value)}
+        />
+        
+        <Input 
+          label="Disabled Input" 
+          placeholder="Cannot type here"
+          size="md" 
+          variant="default"
+          disabled
+        />
+        
+        <Input 
+          label="Filled Variant" 
+          placeholder="Type here..."
+          size="md" 
+          variant="filled"
+          value={normalValue}
+          onChange={(e) => setNormalValue(e.target.value)}
+        />
+        
+        <Input 
+          label="Outlined Variant" 
+          placeholder="Type here..."
+          size="md" 
+          variant="outlined"
+          value={normalValue}
+          onChange={(e) => setNormalValue(e.target.value)}
+        />
+      </div>
+    </div>
+  );
+}
 
-export const SizeMdDefaultSuccess: Story = {
+// Filled variant (with value)
+export const Filled: Story = {
   args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'md',
-    variant: 'default',
-    success: 'Success message',
-  },
-};
-
-export const SizeMdFilledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'md',
-    variant: 'filled',
-  },
-};
-
-export const SizeMdFilledError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'md',
-    variant: 'filled',
-    error: 'Error message',
-  },
-};
-
-export const SizeMdFilledWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'md',
-    variant: 'filled',
-    warning: 'Warning message',
-  },
-};
-
-export const SizeMdFilledSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'md',
-    variant: 'filled',
-    success: 'Success message',
-  },
-};
-
-export const SizeMdDisabledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'md',
-    variant: 'default',
-    disabled: true,
-  },
-};
-
-export const SizeMdDisabledError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'md',
-    variant: 'default',
-    disabled: true,
-    error: 'Error message',
-  },
-};
-
-export const SizeMdDisabledWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'md',
-    variant: 'default',
-    disabled: true,
-    warning: 'Warning message',
-  },
-};
-
-export const SizeMdDisabledSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'md',
-    variant: 'default',
-    disabled: true,
-    success: 'Success message',
-  },
-};
-
-export const SizeMdPrefilledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
+    label: 'Filled Input',
+    placeholder: 'Enter value',
     size: 'md',
     variant: 'filled',
     defaultValue: 'Pre-filled value',
   },
 };
 
-// ========== SIZE: LG ==========
-export const SizeLgDefaultNormal: Story = {
+// Error state
+export const Error: Story = {
   args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
+    label: 'Input with Error',
+    placeholder: 'Enter value',
+    size: 'md',
     variant: 'default',
+    error: 'This field has an error',
   },
 };
 
-export const SizeLgDefaultError: Story = {
+// Warning state
+export const Warning: Story = {
   args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
+    label: 'Input with Warning',
+    placeholder: 'Enter value',
+    size: 'md',
     variant: 'default',
-    error: 'Error message',
+    warning: 'Please review your input',
   },
 };
 
-export const SizeLgDefaultWarning: Story = {
+// Success state
+export const Success: Story = {
   args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
+    label: 'Input with Success',
+    placeholder: 'Enter value',
+    size: 'md',
     variant: 'default',
-    warning: 'Warning message',
+    success: 'Input is valid',
   },
 };
 
-export const SizeLgDefaultSuccess: Story = {
+// Disabled state
+export const Disabled: Story = {
   args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
-    variant: 'default',
-    success: 'Success message',
-  },
-};
-
-export const SizeLgFilledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
-    variant: 'filled',
-  },
-};
-
-export const SizeLgFilledError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
-    variant: 'filled',
-    error: 'Error message',
-  },
-};
-
-export const SizeLgFilledWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
-    variant: 'filled',
-    warning: 'Warning message',
-  },
-};
-
-export const SizeLgFilledSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
-    variant: 'filled',
-    success: 'Success message',
-  },
-};
-
-export const SizeLgDisabledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
+    label: 'Disabled Input',
+    placeholder: 'Cannot type here',
+    size: 'md',
     variant: 'default',
     disabled: true,
   },
 };
 
-export const SizeLgDisabledError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
-    variant: 'default',
-    disabled: true,
-    error: 'Error message',
-  },
-};
+// Sizes story - separate preview for all sizes
+export function Sizes() {
+  const sizes: Array<'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'> = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
+  
+  return (
+    <div className="p-6 space-y-4">
+      {sizes.map(size => (
+        <div key={size}>
+          <Input label={`Size: ${size.toUpperCase()}`} placeholder="Value" size={size} variant="default" />
+        </div>
+      ))}
+    </div>
+  );
+}
 
-export const SizeLgDisabledWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
-    variant: 'default',
-    disabled: true,
-    warning: 'Warning message',
-  },
-};
+// States story - separate preview for all states
+export function States() {
+  return (
+    <div className="p-6 space-y-3">
+      <Input label="Normal" placeholder="Value" size="md" variant="default" />
+      <Input label="Error" placeholder="Value" size="md" variant="default" error="Error message" />
+      <Input label="Warning" placeholder="Value" size="md" variant="default" warning="Warning message" />
+      <Input label="Success" placeholder="Value" size="md" variant="default" success="Success message" />
+      <Input label="Disabled" placeholder="Value" size="md" variant="default" disabled />
+      <Input label="Prefilled" placeholder="Value" size="md" variant="default" defaultValue="Pre-filled value" />
+    </div>
+  );
+}
 
-export const SizeLgDisabledSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
-    variant: 'default',
-    disabled: true,
-    success: 'Success message',
-  },
-};
-
-export const SizeLgPrefilledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'lg',
-    variant: 'filled',
-    defaultValue: 'Pre-filled value',
-  },
-};
-
-// ========== SIZE: XL ==========
-export const SizeXlDefaultNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'default',
-  },
-};
-
-export const SizeXlDefaultError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'default',
-    error: 'Error message',
-  },
-};
-
-export const SizeXlDefaultWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'default',
-    warning: 'Warning message',
-  },
-};
-
-export const SizeXlDefaultSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'default',
-    success: 'Success message',
-  },
-};
-
-export const SizeXlFilledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'filled',
-  },
-};
-
-export const SizeXlFilledError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'filled',
-    error: 'Error message',
-  },
-};
-
-export const SizeXlFilledWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'filled',
-    warning: 'Warning message',
-  },
-};
-
-export const SizeXlFilledSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'filled',
-    success: 'Success message',
-  },
-};
-
-export const SizeXlDisabledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'default',
-    disabled: true,
-  },
-};
-
-export const SizeXlDisabledError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'default',
-    disabled: true,
-    error: 'Error message',
-  },
-};
-
-export const SizeXlDisabledWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'default',
-    disabled: true,
-    warning: 'Warning message',
-  },
-};
-
-export const SizeXlDisabledSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'default',
-    disabled: true,
-    success: 'Success message',
-  },
-};
-
-export const SizeXlPrefilledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xl',
-    variant: 'filled',
-    defaultValue: 'Pre-filled value',
-  },
-};
-
-// ========== SIZE: XXL ==========
-export const SizeXxlDefaultNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'default',
-  },
-};
-
-export const SizeXxlDefaultError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'default',
-    error: 'Error message',
-  },
-};
-
-export const SizeXxlDefaultWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'default',
-    warning: 'Warning message',
-  },
-};
-
-export const SizeXxlDefaultSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'default',
-    success: 'Success message',
-  },
-};
-
-export const SizeXxlFilledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'filled',
-  },
-};
-
-export const SizeXxlFilledError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'filled',
-    error: 'Error message',
-  },
-};
-
-export const SizeXxlFilledWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'filled',
-    warning: 'Warning message',
-  },
-};
-
-export const SizeXxlFilledSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'filled',
-    success: 'Success message',
-  },
-};
-
-export const SizeXxlDisabledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'default',
-    disabled: true,
-  },
-};
-
-export const SizeXxlDisabledError: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'default',
-    disabled: true,
-    error: 'Error message',
-  },
-};
-
-export const SizeXxlDisabledWarning: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'default',
-    disabled: true,
-    warning: 'Warning message',
-  },
-};
-
-export const SizeXxlDisabledSuccess: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'default',
-    disabled: true,
-    success: 'Success message',
-  },
-};
-
-export const SizeXxlPrefilledNormal: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Value',
-    size: 'xxl',
-    variant: 'filled',
-    defaultValue: 'Pre-filled value',
-  },
-};

@@ -11,3 +11,7 @@ export const SmallTruck: React.FC = () => (
 
 export default SmallTruck;
 
+
+
+
+

@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Divider } from './Divider';
 
@@ -8,17 +7,15 @@ const meta: Meta<typeof Divider> = {
   tags: ['autodocs'],
   argTypes: {
     type: {
-      control: 'select',
+      control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary', 'with-label'],
-      description: 'The type of divider to display',
     },
-    label: {
-      control: 'text',
-      description: 'Label to display in the middle of the divider (only for type="with-label")',
+    direction: {
+      control: { type: 'select' },
+      options: ['horizontal', 'vertical'],
     },
-    className: {
-      control: 'text',
-      description: 'Additional CSS classes to apply',
+    dashed: {
+      control: 'boolean',
     },
   },
 };
@@ -26,27 +23,43 @@ const meta: Meta<typeof Divider> = {
 export default meta;
 type Story = StoryObj<typeof Divider>;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
     type: 'primary',
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    type: 'secondary',
-  },
-};
-
-export const Tertiary: Story = {
-  args: {
-    type: 'tertiary',
   },
 };
 
 export const WithLabel: Story = {
   args: {
     type: 'with-label',
-    label: '14 March 2023',
+    label: 'Label',
   },
-}; 
+};
+
+export const Dashed: Story = {
+  args: {
+    dashed: true,
+  },
+};
+
+export const Vertical: Story = {
+  render: () => (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      Text
+      <Divider direction="vertical" />
+      Link
+      <Divider direction="vertical" />
+      Action
+    </div>
+  ),
+};
+
+export const TextPositions: Story = {
+  render: () => (
+    <>
+      <Divider orientation="left">Left Text</Divider>
+      <Divider orientation="center">Center Text</Divider>
+      <Divider orientation="right">Right Text</Divider>
+    </>
+  ),
+};

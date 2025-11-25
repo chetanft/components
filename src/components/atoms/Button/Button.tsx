@@ -2,7 +2,7 @@ import React from 'react';
 import { cn, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'text' | 'link';
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'text' | 'link' | 'ghost' | 'dashed';
 export type ButtonSize = ComponentSize; // Use unified sizing
 export type IconPosition = 'leading' | 'trailing' | 'only';
 
@@ -146,7 +146,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   );
 
   // Variant styles using CSS variables that adapt to themes automatically
-  const variantStyles = {
+  const variantStyles: Record<ButtonVariant, string> = {
     primary: cn(
       "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] border border-[var(--button-primary-border)]",
       "hover:bg-[var(--button-primary-hover-bg)] hover:border-[var(--button-primary-hover-bg)]",
@@ -184,6 +184,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "focus-visible:text-[var(--neutral-dark)] focus-visible:underline focus-visible:shadow-none",
       "active:underline active:translate-y-0 active:shadow-none",
       "disabled:text-[var(--border-primary)] disabled:no-underline disabled:pointer-events-none"
+    ),
+    // 🆕 NEW: Ghost variant - transparent with border, fills on hover
+    ghost: cn(
+      "bg-transparent text-[var(--button-primary-bg)] border border-[var(--button-primary-bg)]",
+      "hover:bg-[var(--button-primary-bg)] hover:text-[var(--button-primary-text)]",
+      "focus-visible:ring-[var(--primary)]",
+      "disabled:text-[var(--tertiary)] disabled:border-[var(--tertiary)] disabled:opacity-50"
+    ),
+    // 🆕 NEW: Dashed variant - dashed border style
+    dashed: cn(
+      "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-dashed border-[var(--button-secondary-border)]",
+      "hover:border-[var(--primary)] hover:text-[var(--primary)]",
+      "focus-visible:ring-[var(--primary)]",
+      "disabled:text-[var(--tertiary)] disabled:border-[var(--border-primary)] disabled:opacity-50"
     ),
   };
 

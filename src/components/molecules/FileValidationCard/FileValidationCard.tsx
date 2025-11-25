@@ -44,6 +44,9 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
     // Format date
     const formatDate = (date?: Date) => {
       if (!date) return '';
+      // Validate date is valid
+      const dateObj = date instanceof Date ? date : new Date(date);
+      if (isNaN(dateObj.getTime())) return '';
       return new Intl.DateTimeFormat('en-GB', {
         day: 'numeric',
         month: 'long',
@@ -51,7 +54,7 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
         hour: 'numeric',
         minute: '2-digit',
         hour12: true
-      }).format(date);
+      }).format(dateObj);
     };
     
     // Get badge config based on validation status

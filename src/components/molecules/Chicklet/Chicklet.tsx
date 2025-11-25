@@ -9,36 +9,47 @@ export type ChickletState = 'default' | 'hover';
 
 export interface ChickletProps {
   /** The text content of the chicklet */
-  label: string;
+  label?: React.ReactNode;
   /** Whether the chicklet has rounded corners (pill) or rectangular corners */
   variant?: ChickletVariant;
   /** Whether to show the close (cross) icon */
   showClose?: boolean;
+  closable?: boolean; // Alias for showClose
+  /** Whether to show border */
+  bordered?: boolean;
   /** Callback when the close icon is clicked */
-  onClose?: () => void;
+  onClose?: (e?: React.MouseEvent) => void;
   /** Callback when the chicklet is clicked */
   onClick?: () => void;
   /** Whether the chicklet is disabled */
   disabled?: boolean;
   /** Additional CSS classes */
   className?: string;
+  children?: React.ReactNode;
+  color?: string; // Custom color support
 }
 
 export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
   ({ 
     label,
     variant = 'rectangular',
-    showClose = true,
+    showClose,
+    closable,
+    bordered = false,
     onClose,
     onClick,
     disabled = false,
     className,
+    children,
+    color,
     ...props 
   }, ref) => {
     const [isHovered, setIsHovered] = useState(false);
+    const [visible, setVisible] = useState(true);
     
     // Get current state
     const currentState: ChickletState = isHovered ? 'hover' : 'default';
+    const isClosable = closable || showClose;
     
     // Base styles using exact Figma specifications
     const baseStyles = cn(
@@ -59,6 +70,8 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
       currentState === 'default' && "bg-[var(--border-secondary)]", // Default background
       currentState === 'hover' && "bg-[var(--border-primary)]", // Hover background
       
+      bordered && "border border-[var(--border-primary)] bg-transparent",
+
       className
     );
     
@@ -70,8 +83,13 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
     const handleCloseClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (disabled) return;
       e.stopPropagation(); // Prevent triggering parent onClick
-      onClose?.();
+      onClose?.(e);
+      if (!onClose) {
+          setVisible(false);
+      }
     };
+
+    if (!visible) return null;
     
     return (
       <div
@@ -80,19 +98,20 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
         onMouseEnter={() => !disabled && setIsHovered(true)}
         onMouseLeave={() => !disabled && setIsHovered(false)}
         onClick={handleClick}
+        style={{ color: color, borderColor: color }}
         {...props}
       >
         {/* Label Text */}
         <Typography 
           variant="body-secondary-medium" 
           as="span"
-          style={{ color: 'var(--primary)' }}
+          style={{ color: color || 'var(--primary)' }}
         >
-          {label}
+          {children || label}
         </Typography>
         
         {/* Close Icon - Using Cross icon from Figma */}
-        {showClose && (
+        {isClosable && (
           <button
             type="button"
             className={cn(
@@ -111,7 +130,7 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
             <Icon 
               name="cross" 
               size={14} 
-              color="var(--primary)" // Same as text color from Figma
+              color={color || "var(--primary)"} 
             />
           </button>
         )}
@@ -122,4 +141,4 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
 
 Chicklet.displayName = "Chicklet";
 
-export default Chicklet; 
+export default Chicklet;

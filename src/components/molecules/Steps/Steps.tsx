@@ -1,37 +1,68 @@
+"use client";
+
 import React, { forwardRef } from 'react';
 import { cn } from '../../../lib/utils';
+import { Icon } from '../../atoms/Icons';
 
 export interface StepsItemProps {
-  label?: string;
-  state: 'selected' | 'unselected';
+  label?: React.ReactNode;
+  description?: React.ReactNode;
+  state: 'selected' | 'unselected' | 'completed' | 'error';
   device: 'desktop' | 'mobile';
   className?: string;
+  direction?: 'horizontal' | 'vertical';
+  type?: 'default' | 'dot' | 'navigation';
+  index?: number;
 }
 
 export const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
-  ({ state, device, label = "Step", className, ...props }, ref) => {
-    // Base styles using exact Figma specifications
+  ({ state, device, label = "Step", description, className, direction = 'horizontal', type = 'default', index = 0, ...props }, ref) => {
+    
+    // Dot Style
+    if (type === 'dot') {
+        return (
+            <div ref={ref} className={cn("flex items-center group", direction === 'vertical' ? "flex-col items-start gap-1" : "flex-row gap-2", className)} {...props}>
+                 <div className="relative flex items-center justify-center">
+                     <div className={cn(
+                         "rounded-full transition-all duration-300",
+                         state === 'selected' ? "w-2.5 h-2.5 bg-[var(--primary)]" : "w-2 h-2 bg-[var(--border-secondary)] group-hover:bg-[var(--primary)]",
+                         state === 'completed' && "bg-[var(--primary)]"
+                     )} />
+                 </div>
+                 <div className="flex flex-col">
+                     <div className={cn("text-sm transition-colors", state === 'selected' ? "font-semibold text-[var(--text-primary)]" : "text-[var(--text-secondary)]")}>
+                         {label}
+                     </div>
+                     {description && <div className="text-xs text-[var(--text-tertiary)]">{description}</div>}
+                 </div>
+            </div>
+        );
+    }
+
+    // Default Bar Style (Original FT Design)
+    // Updated to support vertical
+    
     const containerStyles = cn(
-      "flex flex-col gap-4", // 16px gap from Figma
-      device === "desktop" ? "w-[292.67px]" : "flex-1", // Exact width from Figma
+      "flex gap-4",
+      direction === 'vertical' ? "flex-row w-full h-full min-h-[64px]" : "flex-col",
+      device === "desktop" && direction === 'horizontal' ? "w-[292.67px]" : "flex-1",
       className
     );
 
-    // Progress bar styles using exact Figma specifications
     const progressBarStyles = cn(
-      "w-full h-2 rounded-[8px] transition-colors", // 8px height, 8px radius from Figma
-      state === "selected" 
-        ? "bg-[var(--primary)]" // #434F64 from Figma
-        : "bg-[var(--border-secondary)]" // #F0F1F7 from Figma
+      "rounded-[8px] transition-colors",
+      direction === 'vertical' ? "w-1 h-full min-h-[32px]" : "w-full h-2",
+      state === "selected" || state === "completed"
+        ? "bg-[var(--primary)]" 
+        : "bg-[var(--border-secondary)]"
     );
 
-    // Label styles using exact Figma specifications  
     const labelStyles = cn(
-      "font-primary font-semibold text-[20px] leading-[1.4] transition-colors", // Inter 600, 20px from Figma
-      state === "selected"
-        ? "text-[var(--primary)]" // #434F64 from Figma
-        : "text-[var(--border-primary)]", // #CED1D7 from Figma
-      device === "mobile" && "sr-only" // Hide labels on mobile per Figma specs
+      "font-primary font-semibold text-[20px] leading-[1.4] transition-colors",
+      state === "selected" || state === "completed"
+        ? "text-[var(--primary)]" 
+        : "text-[var(--border-primary)]",
+      device === "mobile" && "sr-only" 
     );
 
     return (
@@ -52,41 +83,35 @@ export const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
 StepsItem.displayName = "StepsItem";
 
 export interface Step {
-  label: string;
+  label: React.ReactNode;
+  description?: React.ReactNode;
   completed?: boolean;
+  status?: 'wait' | 'process' | 'finish' | 'error';
+  disabled?: boolean;
 }
 
 export interface StepsProps {
   steps: Step[];
-  currentStep?: number;
+  currentStep?: number; // 1-based index usually
   device?: 'desktop' | 'mobile';
   className?: string;
+  direction?: 'horizontal' | 'vertical';
+  type?: 'default' | 'dot' | 'navigation';
+  onChange?: (current: number) => void;
 }
 
 export const Steps = forwardRef<HTMLDivElement, StepsProps>(
-  ({ device = "desktop", steps, currentStep = 1, className, ...props }, ref) => {
-    // Determine count from steps array (2-5 steps per Figma specs)
-    const stepCount = Math.min(Math.max(steps.length, 2), 5);
+  ({ device = "desktop", steps, currentStep = 1, className, direction = 'horizontal', type = 'default', onChange, ...props }, ref) => {
     
-    // Ensure we have the right number of steps
-    const normalizedSteps = steps.slice(0, stepCount).map((step, index) => ({
-      ...step,
-      label: step.label || `Step ${index + 1}`
-    }));
-
-    // Fill in missing steps if needed
-    while (normalizedSteps.length < stepCount) {
-      normalizedSteps.push({
-        label: `Step ${normalizedSteps.length + 1}`
-      });
-    }
-
-    // Container styles using exact Figma specifications
+    // Normalize steps logic
+    const stepCount = steps.length;
+    
+    // Container styles
     const containerStyles = cn(
-      "flex items-center",
-      device === "desktop" 
-        ? "gap-[12px]" // Desktop gap from Figma
-        : "gap-[8px] w-80", // Mobile gap and width from Figma
+      "flex",
+      direction === 'vertical' ? "flex-col" : "flex-row items-center",
+      direction === 'horizontal' && device === "desktop" ? "gap-[12px]" : "gap-[8px]",
+      direction === 'vertical' && "gap-0",
       className
     );
 
@@ -96,18 +121,30 @@ export const Steps = forwardRef<HTMLDivElement, StepsProps>(
         className={containerStyles}
         {...props}
       >
-        {normalizedSteps.map((step, index) => {
+        {steps.map((step, index) => {
           const stepNumber = index + 1;
           const isSelected = stepNumber === currentStep;
-          const isCompleted = step.completed || stepNumber < currentStep;
+          const isCompleted = stepNumber < currentStep || step.status === 'finish';
+          const isError = step.status === 'error';
           
+          let state: 'selected' | 'unselected' | 'completed' | 'error' = 'unselected';
+          if (isError) state = 'error';
+          else if (isSelected) state = 'selected';
+          else if (isCompleted) state = 'completed';
+
           return (
-            <StepsItem
-              key={index}
-              state={isSelected || isCompleted ? "selected" : "unselected"}
-              device={device}
-              label={step.label}
-            />
+            <div key={index} className={cn("flex-1", direction === 'vertical' ? "w-full" : "")} onClick={() => !step.disabled && onChange?.(stepNumber)}>
+                 <StepsItem
+                    index={index}
+                    state={state}
+                    device={device}
+                    label={step.label}
+                    description={step.description}
+                    direction={direction}
+                    type={type}
+                    className={cn(!step.disabled && "cursor-pointer")}
+                />
+            </div>
           );
         })}
       </div>
@@ -117,4 +154,4 @@ export const Steps = forwardRef<HTMLDivElement, StepsProps>(
 
 Steps.displayName = "Steps";
 
-export default Steps; 
+export default Steps;

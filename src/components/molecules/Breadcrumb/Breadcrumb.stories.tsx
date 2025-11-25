@@ -43,37 +43,43 @@ export const Default: Story = {
   },
 };
 
-// Simple breadcrumb
-export const Simple: Story = {
-  args: {
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'Current Page' },
-    ],
-  },
-};
+// Simple story - separate preview for simple breadcrumb
+export function Simple() {
+  return (
+    <div className="p-6">
+      <Breadcrumb items={[
+        { label: 'Home', href: '/' },
+        { label: 'Current Page' },
+      ]} />
+    </div>
+  );
+}
 
-// With icons
-export const WithIcons: Story = {
-  args: {
-    items: [
-      { label: 'Home', href: '/', icon: 'home' },
-      { label: 'Settings', href: '/settings', icon: 'settings' },
-      { label: 'Profile' },
-    ],
-  },
-};
+// With Icons story - separate preview for breadcrumb with icons
+export function WithIcons() {
+  return (
+    <div className="p-6">
+      <Breadcrumb items={[
+        { label: 'Home', href: '/', icon: 'home' },
+        { label: 'Settings', href: '/settings', icon: 'settings' },
+        { label: 'Profile' },
+      ]} />
+    </div>
+  );
+}
 
-// Long breadcrumb
-export const Long: Story = {
-  args: {
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'Category', href: '/category' },
-      { label: 'Subcategory', href: '/category/subcategory' },
-      { label: 'Item', href: '/category/subcategory/item' },
-      { label: 'Details' },
-    ],
-  },
-};
+// Long Breadcrumb story - separate preview for long breadcrumb
+export function LongBreadcrumb() {
+  return (
+    <div className="p-6">
+      <Breadcrumb items={[
+        { label: 'Home', href: '/' },
+        { label: 'Category', href: '/category' },
+        { label: 'Subcategory', href: '/category/subcategory' },
+        { label: 'Item', href: '/category/subcategory/item' },
+        { label: 'Details' },
+      ]} />
+    </div>
+  );
+}
 

@@ -1,94 +1,48 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 import { Alert } from './Alert';
+import { Button } from '../../atoms/Button/Button';
 
-const meta = {
+const meta: Meta<typeof Alert> = {
   title: 'Molecules/Alert',
   component: Alert,
-  parameters: {
-    layout: 'centered',
-    docs: {
-      description: {
-        component: 'An alert component for displaying important messages to users. Supports different variants and can be closable.',
-      },
-    },
-  },
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: { type: 'select' },
-      options: ['info', 'success', 'warning', 'danger'],
-      description: 'The visual style variant of the alert',
-    },
-    title: {
-      control: { type: 'text' },
-      description: 'Optional title text',
-    },
-    message: {
-      control: { type: 'text' },
-      description: 'The alert message content',
-    },
-    closable: {
-      control: { type: 'boolean' },
-      description: 'Whether the alert can be closed',
-    },
+        control: { type: 'select' },
+        options: ['info', 'success', 'warning', 'danger'],
+    }
   },
-} satisfies Meta<typeof Alert>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Alert>;
 
-// Default info alert
 export const Default: Story = {
   args: {
+    message: 'This is an alert message',
     variant: 'info',
-    message: 'This is an informational alert message.',
   },
 };
 
-// Success variant
-export const Success: Story = {
-  args: {
-    variant: 'success',
-    title: 'Success',
-    message: 'Your changes have been saved successfully.',
-  },
+export const Banner: Story = {
+    args: {
+        message: 'This is a banner alert',
+        banner: true,
+        variant: 'warning',
+    }
 };
 
-// Warning variant
-export const Warning: Story = {
-  args: {
-    variant: 'warning',
-    title: 'Warning',
-    message: 'Please review your input before proceeding.',
-  },
+export const WithAction: Story = {
+    render: () => (
+        <Alert 
+            message="Error Text" 
+            description="Error Description Error Description Error Description Error Description"
+            type="error"
+            action={
+                <Button size="sm" variant="destructive">
+                    Detail
+                </Button>
+            }
+        />
+    )
 };
-
-// Danger variant
-export const Danger: Story = {
-  args: {
-    variant: 'danger',
-    title: 'Error',
-    message: 'Something went wrong. Please try again.',
-  },
-};
-
-// With title
-export const WithTitle: Story = {
-  args: {
-    variant: 'info',
-    title: 'Information',
-    message: 'This alert includes a title for better context.',
-  },
-};
-
-// Closable alert
-export const Closable: Story = {
-  args: {
-    variant: 'info',
-    title: 'Dismissible Alert',
-    message: 'You can close this alert by clicking the X button.',
-    closable: true,
-  },
-};
-

@@ -275,7 +275,7 @@ export const CellItemVariants: StoryObj<typeof TableCellItem> = {
         <h3 className="text-sm font-semibold mb-2">With Badge</h3>
         <TableCellItem 
           text="Amritsar, PB" 
-          badge={<Badge variant="success" size="sm">On time</Badge>}
+          badge={<Badge variant="success" >On time</Badge>}
         />
       </div>
       
@@ -286,7 +286,7 @@ export const CellItemVariants: StoryObj<typeof TableCellItem> = {
           textType="secondary"
           prefixIcon="aeroplane"
           suffixIcon="link"
-          badge={<Badge variant="warning" size="sm">+1 P</Badge>}
+          badge={<Badge variant="warning" >+1 P</Badge>}
         />
       </div>
     </div>
@@ -465,7 +465,7 @@ export const AtomicTableExample: StoryObj = {
             </TableCell>
             <TableCell backgroundColor="white">
               <TableCellItem 
-                badge={<Badge variant="success" size="sm">On time</Badge>}
+                badge={<Badge variant="success" >On time</Badge>}
               />
             </TableCell>
             <TableCell backgroundColor="white">
@@ -487,7 +487,7 @@ export const AtomicTableExample: StoryObj = {
             </TableCell>
             <TableCell backgroundColor="bg">
               <TableCellItem 
-                badge={<Badge variant="warning" size="sm">Delayed</Badge>}
+                badge={<Badge variant="warning" >Delayed</Badge>}
               />
             </TableCell>
             <TableCell backgroundColor="bg">

@@ -2,7 +2,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { FileValidationCard } from '../components/molecules/FileValidationCard';
 
-const meta = {
+const meta: Meta<typeof FileValidationCard> = {
   title: 'Molecules/FileValidationCard',
   component: FileValidationCard,
   parameters: {
@@ -26,18 +26,17 @@ const meta = {
       description: 'The file type icon to display',
     },
   },
-} satisfies Meta<typeof FileValidationCard>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof FileValidationCard>;
 
-export const Validating: Story = {
+export const Default: Story = {
   args: {
     fileName: 'File 178.xlsx',
     fileType: 'excel',
     uploadedAt: new Date(),
     validationStatus: 'validating',
-    onDelete: () => console.log('Delete clicked'),
   },
 };
 
@@ -52,9 +51,6 @@ export const Success: Story = {
       success: 850,
       invalid: 0,
     },
-    onDelete: () => console.log('Delete clicked'),
-    onDownload: () => console.log('Download clicked'),
-    onViewDetails: () => console.log('View details clicked'),
   },
 };
 
@@ -69,13 +65,10 @@ export const Failed: Story = {
       success: 0,
       invalid: 850,
     },
-    onDelete: () => console.log('Delete clicked'),
-    onDownload: () => console.log('Download clicked'),
-    onViewDetails: () => console.log('View details clicked'),
   },
 };
 
-export const PartiallyProcessed: Story = {
+export const Partial: Story = {
   args: {
     fileName: 'File 178.xlsx',
     fileType: 'excel',
@@ -86,25 +79,19 @@ export const PartiallyProcessed: Story = {
       success: 595,
       invalid: 255,
     },
-    onDelete: () => console.log('Delete clicked'),
-    onDownload: () => console.log('Download clicked'),
-    onViewDetails: () => console.log('View details clicked'),
   },
 };
 
-export const CSVFile: Story = {
+export const CSV: Story = {
   args: {
-    fileName: 'data-export.csv',
+    fileName: 'data_export.csv',
     fileType: 'csv',
     uploadedAt: new Date(),
     validationStatus: 'success',
     validationStats: {
-      total: 1250,
-      success: 1250,
+      total: 1200,
+      success: 1200,
       invalid: 0,
     },
-    onDelete: () => console.log('Delete clicked'),
-    onDownload: () => console.log('Download clicked'),
   },
 };
-

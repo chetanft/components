@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { transform } from '@babel/standalone';
 
 // Cache for metadata
 const metadataCache = new Map<string, ComponentDoc>();
@@ -87,6 +88,22 @@ function extractVariantKey(code: string, componentName: string): string {
   if (hasError) keyParts.push('error');
 
   return keyParts.join('|');
+}
+
+function formatArrayLiteral(arrayLiteral: string): string {
+  try {
+    // eslint-disable-next-line no-new-func
+    const parsed = new Function(`return (${arrayLiteral});`)();
+    if (!Array.isArray(parsed)) {
+      return arrayLiteral;
+    }
+    // Format as single line for react-live compatibility
+    return JSON.stringify(parsed)
+      .replace(/"([^"]+)":/g, '$1:')
+      .replace(/"([^"]*)"/g, "'$1'");
+  } catch {
+    return arrayLiteral;
+  }
 }
 
 /**
@@ -179,18 +196,26 @@ function isFigmaVariantName(name: string, componentName: string): boolean {
  * Find component file path
  */
 function findComponentFile(componentName: string): string | null {
-  const possiblePaths = [
-    path.join(srcComponentsDir, 'atoms', componentName, `${componentName}.tsx`),
-    path.join(srcComponentsDir, 'atoms', componentName, `${componentName}.ts`),
-    path.join(srcComponentsDir, 'molecules', componentName, `${componentName}.tsx`),
-    path.join(srcComponentsDir, 'molecules', componentName, `${componentName}.ts`),
-    path.join(srcComponentsDir, 'organisms', componentName, `${componentName}.tsx`),
-    path.join(srcComponentsDir, 'organisms', componentName, `${componentName}.ts`),
-  ];
+  // Handle special folder naming cases (e.g., Logo component is in Logos folder)
+  const folderVariants = [componentName];
+  if (componentName === 'Logo') {
+    folderVariants.push('Logos');
+  }
 
-  for (const filePath of possiblePaths) {
-    if (fs.existsSync(filePath)) {
-      return filePath;
+  for (const folder of folderVariants) {
+    const possiblePaths = [
+      path.join(srcComponentsDir, 'atoms', folder, `${componentName}.tsx`),
+      path.join(srcComponentsDir, 'atoms', folder, `${componentName}.ts`),
+      path.join(srcComponentsDir, 'molecules', folder, `${componentName}.tsx`),
+      path.join(srcComponentsDir, 'molecules', folder, `${componentName}.ts`),
+      path.join(srcComponentsDir, 'organisms', folder, `${componentName}.tsx`),
+      path.join(srcComponentsDir, 'organisms', folder, `${componentName}.ts`),
+    ];
+
+    for (const filePath of possiblePaths) {
+      if (fs.existsSync(filePath)) {
+        return filePath;
+      }
     }
   }
 
@@ -201,16 +226,24 @@ function findComponentFile(componentName: string): string | null {
  * Find story file path
  */
 function findStoryFile(componentName: string): string | null {
-  // Check in component directory first
-  const componentStoryPaths = [
-    path.join(srcComponentsDir, 'atoms', componentName, `${componentName}.stories.tsx`),
-    path.join(srcComponentsDir, 'molecules', componentName, `${componentName}.stories.tsx`),
-    path.join(srcComponentsDir, 'organisms', componentName, `${componentName}.stories.tsx`),
-  ];
+  // Handle special folder naming cases (e.g., Logo component is in Logos folder)
+  const folderVariants = [componentName];
+  if (componentName === 'Logo') {
+    folderVariants.push('Logos');
+  }
 
-  for (const storyPath of componentStoryPaths) {
-    if (fs.existsSync(storyPath)) {
-      return storyPath;
+  // Check in component directory first
+  for (const folder of folderVariants) {
+    const componentStoryPaths = [
+      path.join(srcComponentsDir, 'atoms', folder, `${componentName}.stories.tsx`),
+      path.join(srcComponentsDir, 'molecules', folder, `${componentName}.stories.tsx`),
+      path.join(srcComponentsDir, 'organisms', folder, `${componentName}.stories.tsx`),
+    ];
+
+    for (const storyPath of componentStoryPaths) {
+      if (fs.existsSync(storyPath)) {
+        return storyPath;
+      }
     }
   }
 
@@ -341,6 +374,124 @@ function extractPropsFromStory(content: string): Record<string, any> {
 }
 
 /**
+ * Extract complete function body from function-based story export
+ */
+function extractFunctionBody(content: string, matchArray: RegExpMatchArray, startPos: number): string | null {
+  const isFunctionDeclaration = matchArray[2] !== undefined; // match[2] is set for export function
+  
+  if (isFunctionDeclaration) {
+    // For: export function StoryName() { ... }
+    // The opening brace is already included in the regex match, so function body starts at startPos
+    let braceCount = 1; // We're already inside the opening brace
+    let pos = startPos;
+    
+    while (pos < content.length && braceCount > 0) {
+      if (content[pos] === '{') braceCount++;
+      else if (content[pos] === '}') {
+        braceCount--;
+        if (braceCount === 0) {
+          return content.substring(startPos, pos).trim();
+        }
+      }
+      pos++;
+    }
+  } else {
+    // For: export const StoryName = () => { ... } OR export const StoryName = () => ( ... )
+    // Find the arrow function start
+    const arrowMatch = content.substring(matchArray.index!, startPos + 200).match(/=\s*\([^)]*\)\s*=>\s*([({])/);
+    if (!arrowMatch) return null;
+    
+    const arrowStartPos = (matchArray.index! || 0) + arrowMatch.index! + arrowMatch[0].length;
+    const isParens = arrowMatch[1] === '(';
+    const isBrace = arrowMatch[1] === '{';
+    
+    if (isParens) {
+      // () => ( ... )
+      let parenCount = 1;
+      let pos = arrowStartPos;
+      
+      while (pos < content.length && parenCount > 0) {
+        if (content[pos] === '(') parenCount++;
+        else if (content[pos] === ')') {
+          parenCount--;
+          if (parenCount === 0) {
+            return content.substring(arrowStartPos, pos).trim();
+          }
+        }
+        pos++;
+      }
+    } else if (isBrace) {
+      // () => { ... }
+      // Extract the complete function body (including hooks, variables, return statement)
+      let braceCount = 1;
+      let pos = arrowStartPos;
+      
+      while (pos < content.length && braceCount > 0) {
+        if (content[pos] === '{') braceCount++;
+        else if (content[pos] === '}') {
+          braceCount--;
+          if (braceCount === 0) {
+            // Return the complete body content (hooks, variables, return statement)
+            return content.substring(arrowStartPos, pos).trim();
+          }
+        }
+        pos++;
+      }
+    }
+  }
+  
+  return null;
+}
+
+/**
+ * Transpile TypeScript function code to JavaScript
+ * Strips type annotations while preserving logic and JSX
+ */
+function transpileTypeScript(tsCode: string): string {
+  // Use regex-based type stripping to preserve JSX
+  // This is simpler and more reliable than Babel for our use case
+  // since react-live needs JSX, not React.createElement calls
+  
+  let jsCode = tsCode;
+  
+  // Strip TypeScript type annotations while preserving JSX
+  // IMPORTANT: Don't remove object property values like `disabled: true`
+  // Only remove type annotations (capitalized words like Type, String, Number)
+  // NOT values (true, false, 123, 'string')
+  jsCode = jsCode
+    // Remove array type annotations: Array<'xs' | 'sm' | ...>
+    .replace(/:\s*Array<[^>]+>/g, '')
+    // Remove union type annotations: 'xs' | 'sm' | 'md'
+    .replace(/:\s*['"][^'"]+['"](\s*\|\s*['"][^'"]+['"])+/g, '')
+    // Remove generic type annotations: React.FC<Props>
+    .replace(/:\s*\w+<[^>]+>/g, '')
+    // Remove React type annotations: : React.ReactNode, : React.FC
+    .replace(/:\s*React\.\w+/g, '')
+    // Remove function return type annotations: ): Type => or ): Type {
+    // Only match capitalized type names, not values
+    .replace(/\)\s*:\s*([A-Z]\w*)/g, ')')
+    // Remove type annotations in variable declarations: const x: Type = ...
+    // Match capitalized type names only (Type, String, Number, etc.)
+    // NOT values (true, false, 123)
+    .replace(/(const|let|var)\s+(\w+)\s*:\s*([A-Z]\w*)\s*=/g, '$1 $2 =')
+    // Remove type annotations after function parameters: (x: Type) => ...
+    // Only match capitalized type names, preserve values
+    .replace(/\(([^)]+)\)/g, (match, params) => {
+      // Only remove type annotations (capitalized words), not values
+      return '(' + params.replace(/:\s*([A-Z]\w*)/g, '') + ')';
+    })
+    // Fix JSX attribute spacing: className = "..." -> className="..."
+    .replace(/(\w+)\s*=\s*(["'])/g, '$1=$2')
+    // Fix JSX expression spacing: prop = {value} -> prop={value}
+    .replace(/(\w+)\s*=\s*(\{)/g, '$1=$2')
+    // Clean up any double spaces (but preserve single spaces in JSX)
+    .replace(/[ \t]{2,}/g, ' ')
+    .trim();
+  
+  return jsCode;
+}
+
+/**
  * Extract examples from Storybook story file
  */
 function extractExamplesFromStory(storyPath: string, componentName: string): Array<{ name: string; code: string }> {
@@ -349,36 +500,161 @@ function extractExamplesFromStory(storyPath: string, componentName: string): Arr
   const seenCodes = new Set<string>();
   const seenVariantKeys = new Set<string>();
 
-  // Find all story exports
-  const storyExports = Array.from(content.matchAll(/export\s+const\s+(\w+)\s*:\s*Story\s*=\s*\{/g));
+  // Find all story exports (both Story type and function exports)
+  // Matches: export const StoryName = () => {...} OR export function StoryName() {...} OR export const StoryName: Story = {...}
+  const storyExports = Array.from(content.matchAll(/export\s+(?:const\s+(\w+)\s*(?::\s*Story\s*=\s*\{|=.*\(\)\s*=>)|function\s+(\w+)\s*\([^)]*\)\s*\{)/g));
 
-  // Separate Figma stories from regular stories
+  // Separate Figma stories from regular stories, and function exports from args-based
   const figmaStories: RegExpMatchArray[] = [];
   const regularStories: RegExpMatchArray[] = [];
+  const functionStories: RegExpMatchArray[] = [];
 
   for (const match of storyExports) {
-    const storyName = match[1];
+    const matchArray = match as RegExpMatchArray;
+    // For export const: match[1] has the name, match[2] is undefined
+    // For export function: match[1] is undefined, match[2] has the name
+    const storyName = (matchArray[1] || matchArray[2]) as string;
+    if (!storyName) continue; // Skip if we can't extract the name
+    
+    // Check if this is a function export
+    const isFunctionDeclaration = matchArray[2] !== undefined; // match[2] is set for export function
+    const matchText = content.substring(matchArray.index!, matchArray.index! + matchArray[0].length + 100);
+    const isArrowFunction = matchText.includes('= () =>') || matchText.includes('=()=>');
+    const isFunctionExport = isFunctionDeclaration || isArrowFunction;
+    
     // Skip AllVariants/AllStates stories that aren't Figma (they create duplicates)
     if ((/AllVariants|AllStates/i.test(storyName) || /^all$/i.test(storyName)) && !/Figma|figma/i.test(storyName)) {
       continue;
     }
-    if (/Figma|figma/i.test(storyName)) {
-      figmaStories.push(match);
+    
+    if (isFunctionExport) {
+      // Function-based stories (Sizes, States, InteractiveDemo, etc.)
+      functionStories.push(matchArray);
+    } else if (/Figma|figma/i.test(storyName)) {
+      figmaStories.push(matchArray);
     } else {
-      // Include ALL regular stories - we'll filter based on extracted props later
-      // Don't skip Default - it might be needed for components without other variants
-      regularStories.push(match);
+      // Args-based stories
+      regularStories.push(matchArray);
     }
   }
 
-  // Process regular stories first, then Figma stories only if no regular stories
-  // This ensures individual variants are shown, and FigmaVariants only if no individual variants exist
-  const storiesToProcess = regularStories.length > 0 ? regularStories : figmaStories;
+  // Process function stories first (they're often consolidated views), then regular stories, then Figma stories
+  // This ensures consolidated views are shown, individual variants are shown, and FigmaVariants only if no others exist
+  const storiesToProcess = functionStories.length > 0 
+    ? [...functionStories, ...regularStories, ...figmaStories]
+    : regularStories.length > 0 
+      ? regularStories 
+      : figmaStories;
 
   for (const match of storiesToProcess) {
-    const storyName = match[1];
-    const startPos = match.index! + match[0].length;
+    const matchArray = match as RegExpMatchArray;
+    // For export const: match[1] has the name, match[2] is undefined
+    // For export function: match[1] is undefined, match[2] has the name
+    const storyName = (matchArray[1] || matchArray[2]) as string;
+    if (!storyName) continue; // Skip if we can't extract the name
+    const startPos = matchArray.index! + matchArray[0].length;
 
+    // Check if this is a function export
+    const isFunctionDeclaration = matchArray[2] !== undefined; // match[2] is set for export function
+    const matchText = content.substring(matchArray.index!, startPos + 100);
+    const isArrowFunction = matchText.includes('= () =>') || matchText.includes('=()=>');
+    const isFunctionExport = isFunctionDeclaration || isArrowFunction;
+
+    // Handle function-based stories
+    if (isFunctionExport) {
+      const functionBody = extractFunctionBody(content, matchArray, startPos);
+      if (!functionBody) {
+        console.warn(`[${componentName}] Failed to extract function body for ${storyName}`);
+        continue;
+      }
+
+      // Transpile TypeScript to JavaScript
+      // The function body should include hooks, variables, and return statement
+      let jsCode = transpileTypeScript(functionBody);
+      
+      // ComponentPreview checks if code starts with 'function' and uses it as-is
+      // However, react-live executes code and expects a React element
+      // For functions, react-live won't automatically call them
+      // Solution: Extract JSX for simple functions, use IIFE for hooks
+      
+      const hasHooks = jsCode.includes('useState') || jsCode.includes('useEffect') || jsCode.includes('useRef');
+      const hasReturn = jsCode.includes('return');
+      const hasVariables = /(const|let|var)\s+\w+\s*=/.test(jsCode);
+      
+      if (hasHooks || (hasVariables && hasReturn)) {
+        // Functions with hooks OR variables must stay as functions
+        // CRITICAL: React hooks can only be called inside React function components
+        // Variables need to be in scope for the JSX
+        // Format: (() => { const Component = () => { vars/hooks; return jsx; }; return <Component />; })()
+        // This ensures hooks/variables are inside a React component context
+        
+        if (jsCode.trim().startsWith('function')) {
+          // Extract function body and wrap in component inside IIFE
+          const bodyMatch = jsCode.match(/function\s+\w+\s*\([^)]*\)\s*\{([\s\S]*)\}/);
+          if (bodyMatch) {
+            const functionBody = bodyMatch[1].trim();
+            // Wrap function body in a component function, then IIFE
+            const indentedBody = functionBody.split('\n').map(line => {
+              const originalIndent = line.match(/^(\s*)/)?.[1] || '';
+              return '    ' + originalIndent + line.trim();
+            }).join('\n');
+            // IIFE with component wrapper - hooks/variables are inside Component function
+            jsCode = `(() => {\n  const ${storyName} = () => {\n${indentedBody}\n  };\n  return <${storyName} />;\n})()`;
+          } else {
+            const indentedCode = jsCode.split('\n').map(line => `    ${line}`).join('\n');
+            jsCode = `(() => {\n  const ${storyName} = () => {\n${indentedCode}\n  };\n  return <${storyName} />;\n})()`;
+          }
+        } else {
+          // Function body - wrap in component function, then IIFE
+          const indentedBody = jsCode.split('\n').map(line => {
+            const originalIndent = line.match(/^(\s*)/)?.[1] || '';
+            return '    ' + originalIndent + line.trim();
+          }).join('\n');
+          // IIFE with component wrapper - hooks/variables are inside Component function
+          jsCode = `(() => {\n  const ${storyName} = () => {\n${indentedBody}\n  };\n  return <${storyName} />;\n})()`;
+        }
+      } else if (hasReturn) {
+        // Simple function - extract just the JSX return value
+        // ComponentPreview will wrap it in function Preview() { return (...) }
+        const returnMatch = jsCode.match(/return\s*\(([\s\S]*?)\)\s*;?\s*$/);
+        if (returnMatch) {
+          jsCode = returnMatch[1].trim();
+        } else {
+          // Fallback: try to extract JSX after return
+          const returnIndex = jsCode.indexOf('return');
+          if (returnIndex !== -1) {
+            let afterReturn = jsCode.substring(returnIndex + 6).trim();
+            // Remove leading ( and trailing ); if present
+            afterReturn = afterReturn.replace(/^\(/, '').replace(/\);?\s*$/, '').trim();
+            jsCode = afterReturn;
+          }
+        }
+      }
+      // If no return/hooks, it's already JSX - use as-is
+      
+      // Generate display name from story name
+      let displayName = storyName.replace(/([A-Z])/g, ' $1').trim();
+      if (storyName === 'InteractiveDemo') {
+        displayName = 'Interactive Demo';
+      } else if (storyName === 'Sizes') {
+        displayName = 'Sizes';
+      } else if (storyName === 'States') {
+        displayName = 'States';
+      }
+
+      // Check for duplicates
+      const codeKey = jsCode.replace(/\s+/g, '');
+      const duplicateKey = `${storyName}|${codeKey}`;
+      if (seenCodes.has(duplicateKey)) {
+        continue;
+      }
+
+      seenCodes.add(duplicateKey);
+      examples.push({ name: displayName, code: jsCode });
+      continue; // Skip args extraction for function exports
+    }
+
+    // Handle args-based stories (existing logic)
     // Find the matching closing brace
     let braceCount = 1;
     let pos = startPos;
@@ -446,6 +722,62 @@ function extractExamplesFromStory(storyPath: string, componentName: string): Arr
           const key = keyMatch[1];
           let value = keyMatch[2].trim().replace(/,$/, '');
 
+          // Handle RadioGroup's options array - use registry's sampleOptions
+          if (componentName === 'RadioGroup' && key === 'options' && value === 'sampleOptions') {
+            // Use sampleOptions from registry
+            propsList.push(`${key}={sampleOptions}`);
+            i++;
+            continue;
+          }
+
+          // Handle Dropdown's options array - use registry's sampleOptions
+          if (componentName === 'Dropdown' && key === 'options' && value === 'sampleOptions') {
+            // Use sampleOptions from registry
+            propsList.push(`${key}={sampleOptions}`);
+            i++;
+            continue;
+          }
+
+          // Handle RadioSelector's options array - use registry's baseOptions variable
+          if (componentName === 'RadioSelector' && key === 'options') {
+            if (value === 'baseOptions' || value.includes('baseOptions')) {
+              // Use baseOptions from registry
+              propsList.push(`${key}={baseOptions}`);
+              i++;
+              continue;
+            } else if (value === 'sampleOptions') {
+              // Use baseOptions for RadioSelector (which expects header/description format)
+              propsList.push(`${key}={baseOptions}`);
+              i++;
+              continue;
+            }
+          }
+
+          // Handle SegmentedTabs's items array - extract actual items inline
+          if (componentName === 'SegmentedTabs' && key === 'items' && value.startsWith('[')) {
+            const arrayLines: string[] = [value];
+            let bracketDepth = 0;
+            for (const char of value) {
+              if (char === '[') bracketDepth++;
+              if (char === ']') bracketDepth--;
+            }
+            let tempI = i + 1;
+            while (tempI < lines.length && bracketDepth > 0) {
+              const currentLine = lines[tempI].trim();
+              arrayLines.push(currentLine);
+              for (const char of currentLine) {
+                if (char === '[') bracketDepth++;
+                if (char === ']') bracketDepth--;
+              }
+              tempI++;
+            }
+            i = tempI - 1;
+            const arrayLiteral = arrayLines.join(' ').replace(/,\s*$/, '').trim();
+            const formattedArray = formatArrayLiteral(arrayLiteral);
+            propsList.push(`${key}={${formattedArray}}`);
+            continue;
+          }
+
           // Handle ButtonGroup's buttons array - detect start and skip to end
           if (componentName === 'ButtonGroup' && key === 'buttons' && value.startsWith('[')) {
             // Use sampleButtons variable
@@ -481,8 +813,9 @@ function extractExamplesFromStory(storyPath: string, componentName: string): Arr
               propsList.push(key);
             } else if (value === 'false') {
               // Skip false values
-            } else if (/^\d+$/.test(value.replace(/[.-]/g, ''))) {
-              propsList.push(`${key}=${value}`);
+            } else if (/^-?\d+\.?\d*$/.test(value)) {
+              // Number props need curly braces in JSX
+              propsList.push(`${key}={${value}}`);
             } else if (value.startsWith('[') || value.startsWith('{')) {
               // For complex objects/arrays, include as placeholder to preserve context
               if (value.startsWith('[')) {

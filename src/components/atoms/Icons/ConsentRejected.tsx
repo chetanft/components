@@ -8,3 +8,7 @@ export const ConsentRejected: React.FC = () => (
 
 export default ConsentRejected;
 
+
+
+
+

@@ -157,8 +157,7 @@ const atomicColumns: TableColumn<User>[] = [
       <TableCellItem
         badge={
           <Badge 
-            variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'} 
-            size="sm"
+            variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'}
           >
             {value}
           </Badge>
@@ -173,7 +172,7 @@ const atomicColumns: TableColumn<User>[] = [
       const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
       return (
         <TableCellItem
-          badge={<Badge variant={variant} size="sm">{value}</Badge>}
+          badge={<Badge variant={variant}>{value}</Badge>}
         />
       );
     }
@@ -375,10 +374,9 @@ export const WithAccessoryAndActions: Story = {
   },
 };
 
-export const FigmaVariants: Story = {
-  render: () => {
-    const [selectedRowsPrimary, setSelectedRowsPrimary] = useState<(string | number)[]>(['2', '4']);
-    const [selectedRowsSecondary, setSelectedRowsSecondary] = useState<(string | number)[]>(['1']);
+// VariantsPrimary story - separate preview for primary variant
+export function VariantsPrimary() {
+  const [selectedRowsPrimary, setSelectedRowsPrimary] = useState<(string | number)[]>(['2', '4']);
 
     const figmaColumns: TableColumn<User>[] = [
       {
@@ -411,8 +409,7 @@ export const FigmaVariants: Story = {
           <TableCellItem
             badge={
               <Badge 
-                variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'} 
-                size="sm"
+                variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'}
               >
                 {value}
               </Badge>
@@ -427,7 +424,7 @@ export const FigmaVariants: Story = {
           const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
           return (
             <TableCellItem
-              badge={<Badge variant={variant} size="sm">{value}</Badge>}
+              badge={<Badge variant={variant}>{value}</Badge>}
             />
           );
         }
@@ -435,16 +432,7 @@ export const FigmaVariants: Story = {
     ];
 
     return (
-      <div className="p-8 bg-white space-y-12">
-        <div>
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Table Variants - Exact Figma Implementation</h2>
-          <p className="text-gray-600 mb-8">
-            Primary and Secondary table variants matching the exact Figma specifications with proper alternating row colors, 
-            header styles, and atomic cell components.
-          </p>
-        </div>
-
-        {/* Primary Variant */}
+      <div className="p-8 bg-white">
         <div className="space-y-4">
           <div>
             <h3 className="text-xl font-semibold text-gray-800">Primary Variant</h3>
@@ -465,8 +453,69 @@ export const FigmaVariants: Story = {
             Selected rows: {selectedRowsPrimary.length} of {sampleUsers.slice(0, 6).length}
           </div>
         </div>
+      </div>
+    );
+}
 
-        {/* Secondary Variant */}
+// VariantsSecondary story - separate preview for secondary variant
+export function VariantsSecondary() {
+  const [selectedRowsSecondary, setSelectedRowsSecondary] = useState<(string | number)[]>(['1']);
+
+    const figmaColumns: TableColumn<User>[] = [
+      {
+        key: 'name',
+        title: 'Name',
+        type: 'text',
+        sortable: true,
+        render: (value) => (
+          <TableCellText type="primary">
+            {value}
+          </TableCellText>
+        )
+      },
+      {
+        key: 'email',
+        title: 'Email',
+        type: 'text',
+        sortable: true,
+        render: (value) => (
+          <TableCellText type="secondary">
+            {value}
+          </TableCellText>
+        )
+      },
+      {
+        key: 'role',
+        title: 'Role',
+        type: 'text',
+        render: (value) => (
+          <TableCellItem
+            badge={
+              <Badge 
+                variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'}
+              >
+                {value}
+              </Badge>
+            }
+          />
+        )
+      },
+      {
+        key: 'status',
+        title: 'Status',
+        render: (value) => {
+          const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
+          return (
+            <TableCellItem
+              badge={<Badge variant={variant}>{value}</Badge>}
+            />
+          );
+        }
+      }
+    ];
+
+    return (
+      <div className="p-8 bg-white">
         <div className="space-y-4">
           <div>
             <h3 className="text-xl font-semibold text-gray-800">Secondary Variant</h3>
@@ -487,32 +536,6 @@ export const FigmaVariants: Story = {
             Selected rows: {selectedRowsSecondary.length} of {sampleUsers.slice(0, 6).length}
           </div>
         </div>
-
-        {/* Design Specifications */}
-        <div className="bg-gray-50 p-6 rounded-lg">
-          <h4 className="font-semibold text-gray-800 mb-4">Figma Design Specifications</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
-            <div>
-              <h5 className="font-medium text-gray-700 mb-2">Primary Variant</h5>
-              <ul className="space-y-1 text-gray-600">
-                <li>• Header: Dark background (#838C9D) with white text</li>
-                <li>• Row pattern: White (#FFFFFF) → Gray (#F8F8F9) alternating</li>
-                <li>• Cell padding: 32px vertical, 20px right, 8px left</li>
-                <li>• Border: Single line (#CED1D7) between rows</li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-medium text-gray-700 mb-2">Secondary Variant</h5>
-              <ul className="space-y-1 text-gray-600">
-                <li>• Header: Light background (#F8F8F9) with dark text</li>
-                <li>• Row pattern: All white (#FFFFFF) backgrounds</li>
-                <li>• Cell padding: 32px vertical, 20px right, 8px left</li>
-                <li>• Border: Single line (#CED1D7) between rows</li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
     );
-  }
-}; 
+} 

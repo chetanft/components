@@ -67,9 +67,9 @@ export const Text: React.FC<TextProps> = ({
     </Typography>
   );
 
-  // Icon element matching Figma structure
-  const iconElement = (
-    <div className="relative shrink-0 size-[16px]" data-name="Check- fill">
+  // Icon element factory matching Figma structure
+  const createIconElement = (key: string) => (
+    <div key={key} className="relative shrink-0 size-[16px]" data-name="Check- fill">
       <Icon name="check-fill" size={16} color="#434f64" />
     </div>
   );
@@ -137,7 +137,7 @@ export const Text: React.FC<TextProps> = ({
     const rowContent = [];
     
     if (hasLeadingIcon) {
-      rowContent.push(iconElement);
+      rowContent.push(createIconElement("leading-icon"));
     }
     
     rowContent.push(
@@ -147,7 +147,7 @@ export const Text: React.FC<TextProps> = ({
     );
     
     if (hasTrailingIcon) {
-      rowContent.push(iconElement);
+      rowContent.push(createIconElement("trailing-icon"));
     }
 
     return (

@@ -30,6 +30,7 @@ export * from './atoms/Typography';
 export * from './atoms/Textarea';
 export * from './atoms/Skeleton';
 export * from './atoms/FigmaBadge';
+export * from './atoms/Spin'; // 🆕 NEW
 
 // MOLECULES - Simple combinations of atoms
 export * from './molecules/Chicklet';
@@ -52,6 +53,32 @@ export * from './molecules/Alert';
 export * from './molecules/Breadcrumb';
 export * from './molecules/Pagination';
 export * from './molecules/Notification';
+// 🆕 NEW Components (Phase 1)
+export * from './molecules/Empty';
+export * from './molecules/InputNumber';
+export * from './molecules/Slider';
+export * from './molecules/Rate';
+export * from './molecules/Message';
+export * from './molecules/TimePicker';
+// 🆕 NEW Components (Phase 2)
+export * from './molecules/Timeline';
+export * from './molecules/Tree';
+export * from './molecules/TreeSelect';
+export * from './molecules/Cascader';
+export * from './molecules/Carousel';
+export * from './molecules/Image';
+export * from './molecules/Calendar';
+// 🆕 NEW Components (Phase 3)
+export * from './molecules/Anchor';
+export * from './molecules/Affix';
+export * from './molecules/BackTop';
+export * from './molecules/FloatButton';
+export * from './molecules/Tour';
+export * from './molecules/Watermark';
+export * from './molecules/Mentions';
+export * from './molecules/Transfer';
+export * from './molecules/ColorPicker';
+
 
 // CHARTS - Chart.js components with FT Design System styling
 export * from './charts';
@@ -75,6 +102,10 @@ export * from './organisms/UserProfile';
 export * from './organisms/UserProfileDropdown';
 export * from './organisms/Modal';
 export * from './organisms/Drawer';
+// 🆕 NEW Components
+export * from './organisms/Result';
+export * from './organisms/Grid';
+export * from './organisms/Form';
 
 // TEMPLATES - Page level scaffolds
 export * from './templates';

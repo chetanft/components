@@ -4,6 +4,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
+import { Button } from '../../atoms/Button/Button';
 
 export type AlertVariant = 'info' | 'success' | 'warning' | 'danger';
 
@@ -13,14 +14,12 @@ export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
   message?: React.ReactNode;
   icon?: IconName;
   closable?: boolean;
+  banner?: boolean;
+  action?: React.ReactNode;
   onClose?: () => void;
   showFigmaBadge?: boolean;
 }
 
-/**
- * Alert component built using FT Design System tokens.
- * Figma design not available - component created based on design system specifications.
- */
 export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
   ({
     variant = 'info',
@@ -28,8 +27,10 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     message,
     icon,
     closable = false,
+    banner = false,
+    action,
     onClose,
-    showFigmaBadge = true,
+    showFigmaBadge = false, // Changed default to false for cleaner usage
     className,
     children,
     ...props
@@ -79,8 +80,9 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         <div
           className={cn(
             // Base styles using FT Design System tokens
-            "relative flex gap-3 p-4 rounded-[var(--radius-md)]",
-            "border border-solid",
+            "relative flex gap-3 p-4",
+            !banner && "rounded-[var(--radius-md)] border border-solid",
+            banner && "border-b rounded-none",
             "font-[var(--font-family-primary)]",
             styles.bg,
             styles.border,
@@ -114,14 +116,19 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
               </div>
             )}
           </div>
+          {action && (
+              <div className="flex-shrink-0 ml-4 flex items-center">
+                  {action}
+              </div>
+          )}
           {closable && (
             <button
               type="button"
               onClick={onClose}
               className={cn(
-                "flex-shrink-0 ml-2",
+                "flex-shrink-0 ml-2 h-fit",
                 "p-1 rounded-[var(--radius-sm)]",
-                "hover:bg-surface-alt",
+                "hover:bg-black/5",
                 "transition-colors duration-[var(--transition-fast)]",
                 "focus:outline-none focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20"
               )}
@@ -137,4 +144,3 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
 );
 
 Alert.displayName = 'Alert';
-

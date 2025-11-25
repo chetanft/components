@@ -7,13 +7,34 @@ const meta: Meta<typeof Dropdown> = {
   component: Dropdown,
   parameters: {
     layout: 'padded',
+    docs: {
+      description: {
+        component: 'Dropdown component for selecting from a list of options with support for search and segments.',
+      },
+    },
+  },
+  argTypes: {
+    type: {
+      control: 'select',
+      options: ['default', 'search'],
+      description: 'Dropdown type',
+    },
+    state: {
+      control: 'select',
+      options: ['default', 'error', 'disabled'],
+      description: 'Dropdown state',
+    },
+    size: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      description: 'Dropdown size',
+    },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Dropdown>;
 
-// Basic dropdown
 export const Default: Story = {
   args: {
     label: 'Label',
@@ -26,137 +47,108 @@ export const Default: Story = {
   },
 };
 
-// Search dropdown
-export const Search: Story = {
+export const WithValue: Story = {
   args: {
-    label: 'Search Dropdown',
-    type: 'search',
-    placeholder: 'Search options',
+    label: 'Dropdown with Value',
+    placeholder: 'Select an option',
+    value: 'option1',
     options: [
       { value: 'option1', label: 'Option 1' },
       { value: 'option2', label: 'Option 2' },
       { value: 'option3', label: 'Option 3' },
-      { value: 'option4', label: 'Option 4' },
-      { value: 'option5', label: 'Option 5' },
     ],
   },
 };
 
-// Search with Segmented Tabs
+export const Error: Story = {
+  args: {
+    label: 'Dropdown with Error',
+    placeholder: 'Select an option',
+    state: 'error',
+    error: 'This field has an error',
+    options: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+    ],
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    label: 'Disabled Dropdown',
+    placeholder: 'Cannot select',
+    state: 'disabled',
+    options: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+    ],
+  },
+};
+
 export const SearchWithSegments: Story = {
   args: {
     label: 'Search with Segments',
     type: 'search',
-    placeholder: 'Search groups',
+    placeholder: 'Search...',
     segments: [
       { label: 'Group', value: 'group' },
       { label: 'Branch', value: 'branch' },
     ],
     selectedSegment: 'group',
     options: [
-      { value: 'all', label: 'All Groups' },
-      { value: 'group1', label: 'Group 1' },
-      { value: 'group2', label: 'Group 2' },
-      { value: 'group3', label: 'Group 3' },
-      { value: 'group4', label: 'Group 4' },
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
     ],
   },
 };
 
-// Different sizes
-export const Sizes: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <Dropdown
-        label="Extra Small (XS)"
-        size="xs"
-        placeholder="24px height"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Small (SM)"
-        size="sm"
-        placeholder="32px height"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Medium (MD)"
-        size="md"
-        placeholder="40px height"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Large (LG)"
-        size="lg"
-        placeholder="48px height"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Extra Large (XL)"
-        size="xl"
-        placeholder="56px height"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="2X Large (XXL)"
-        size="xxl"
-        placeholder="64px height"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-    </div>
-  ),
+export const SizeXS: Story = {
+  args: {
+    label: 'Extra Small (XS)',
+    size: 'xs',
+    placeholder: '24px height',
+    options: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+    ],
+  },
 };
 
-// States
-export const States: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <Dropdown
-        label="Default"
-        state="default"
-        placeholder="Default state"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Error"
-        state="error"
-        error="This field has an error"
-        placeholder="Error state"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-      <Dropdown
-        label="Disabled"
-        state="disabled"
-        placeholder="Disabled state"
-        options={[
-          { value: 'option1', label: 'Option 1' },
-          { value: 'option2', label: 'Option 2' },
-        ]}
-      />
-    </div>
-  ),
-}; 
+export const SizeSM: Story = {
+  args: {
+    label: 'Small (SM)',
+    size: 'sm',
+    placeholder: '32px height',
+    options: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+    ],
+  },
+};
+
+export const SizeMD: Story = {
+  args: {
+    label: 'Medium (MD)',
+    size: 'md',
+    placeholder: '40px height',
+    options: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+    ],
+  },
+};
+
+export const SizeLG: Story = {
+  args: {
+    label: 'Large (LG)',
+    size: 'lg',
+    placeholder: '48px height',
+    options: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+    ],
+  },
+};

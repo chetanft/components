@@ -82,55 +82,55 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
           };
         case 'processed':
           return {
-            badge: { variant: 'success' as const, text: 'Fully processed', icon: undefined },
+            badge: { variant: 'success' as const, text: 'Fully processed' },
             showProgress: false,
             progressVariant: 'success' as const
           };
         case 'partially-processed':
           return {
-            badge: { variant: 'warning' as const, text: 'Partially processed', icon: undefined },
+            badge: { variant: 'warning' as const, text: 'Partially processed' },
             showProgress: false,
             progressVariant: 'warning' as const
           };
         case 'failed':
           return {
-            badge: { variant: 'danger' as const, text: 'All rows failed', icon: undefined },
+            badge: { variant: 'danger' as const, text: 'All rows failed' },
             showProgress: false,
             progressVariant: 'danger' as const
           };
         case 'template-mismatch':
           return {
-            badge: { variant: 'danger' as const, text: 'Template Mismatch', icon: undefined },
+            badge: { variant: 'danger' as const, text: 'Template Mismatch' },
             showProgress: false,
             progressVariant: 'danger' as const
           };
         case 'upload-failed':
           return {
-            badge: { variant: 'danger' as const, text: 'Upload failed', icon: undefined },
+            badge: { variant: 'danger' as const, text: 'Upload failed' },
             showProgress: true,
             progressVariant: 'danger' as const
           };
         case 'unsupported':
           return {
-            badge: { variant: 'danger' as const, text: 'Unsupported file format', icon: undefined },
+            badge: { variant: 'danger' as const, text: 'Unsupported file format' },
             showProgress: false,
             progressVariant: 'danger' as const
           };
         case 'empty':
           return {
-            badge: { variant: 'danger' as const, text: 'Empty file', icon: undefined },
+            badge: { variant: 'danger' as const, text: 'Empty file' },
             showProgress: false,
             progressVariant: 'danger' as const
           };
         case 'too-large':
           return {
-            badge: { variant: 'danger' as const, text: 'File size too large', icon: undefined },
+            badge: { variant: 'danger' as const, text: 'File size too large' },
             showProgress: true,
             progressVariant: 'danger' as const
           };
         default:
           return {
-            badge: { variant: 'neutral' as const, text: 'Processing', icon: undefined },
+            badge: { variant: 'neutral' as const, text: 'Processing' },
             showProgress: false,
             progressVariant: 'primary' as const
           };
@@ -178,8 +178,6 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
                 </Typography>
                 <Badge
                   variant={statusConfig.badge.variant}
-                  icon={statusConfig.badge.icon}
-
                 >
                   {statusConfig.badge.text}
                 </Badge>

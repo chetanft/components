@@ -9,3 +9,7 @@ export const Satellite: React.FC = () => (
 
 export default Satellite;
 
+
+
+
+

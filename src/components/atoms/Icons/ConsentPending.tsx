@@ -8,3 +8,7 @@ export const ConsentPending: React.FC = () => (
 
 export default ConsentPending;
 
+
+
+
+

@@ -57,6 +57,15 @@ export const Secondary: Story = {
   },
 };
 
+// Tertiary variant
+export const Tertiary: Story = {
+  args: {
+    variant: 'tertiary',
+    size: 'md',
+    children: 'Button',
+  },
+};
+
 // Destructive variant
 export const Destructive: Story = {
   args: {
@@ -81,55 +90,6 @@ export const Link: Story = {
     variant: 'link',
     size: 'md',
     children: 'Button',
-  },
-};
-
-// Different sizes
-export const ExtraSmall: Story = {
-  args: {
-    variant: 'primary',
-    size: 'xs',
-    children: 'Extra Small',
-  },
-};
-
-export const Small: Story = {
-  args: {
-    variant: 'primary',
-    size: 'sm',
-    children: 'Small',
-  },
-};
-
-export const Medium: Story = {
-  args: {
-    variant: 'primary',
-    size: 'md',
-    children: 'Medium',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    variant: 'primary',
-    size: 'lg',
-    children: 'Large',
-  },
-};
-
-export const ExtraLarge: Story = {
-  args: {
-    variant: 'primary',
-    size: 'xl',
-    children: 'Extra Large',
-  },
-};
-
-export const ExtraExtraLarge: Story = {
-  args: {
-    variant: 'primary',
-    size: 'xxl',
-    children: '2X Large',
   },
 };
 
@@ -177,61 +137,50 @@ export const Disabled: Story = {
   },
 };
 
-// Figma variants showcase
-export const FigmaVariants: Story = {
-  render: () => (
-    <div className="flex flex-col gap-6 p-6">
-      {/* Button Variants */}
-      <div>
-        <h3 className="text-lg font-semibold mb-4">Button Variants</h3>
-        <div className="flex gap-4">
-          <Button variant="primary" size="md">Primary</Button>
-          <Button variant="secondary" size="md">Secondary</Button>
-          <Button variant="tertiary" size="md">Tertiary</Button>
-          <Button variant="destructive" size="md">Destructive</Button>
-          <Button variant="text" size="md">Text</Button>
-          <Button variant="link" size="md">Link</Button>
-        </div>
-      </div>
-      
-      {/* Button Sizes */}
-      <div>
-        <h3 className="text-lg font-semibold mb-4">Button Sizes</h3>
-        <div className="flex items-center gap-4">
-          <Button variant="primary" size="xs">XS (24px)</Button>
-          <Button variant="primary" size="sm">SM (32px)</Button>
-          <Button variant="primary" size="md">MD (40px)</Button>
-          <Button variant="primary" size="lg">LG (48px)</Button>
-          <Button variant="primary" size="xl">XL (56px)</Button>
-          <Button variant="primary" size="xxl">XXL (64px)</Button>
-        </div>
-      </div>
-      
-      {/* Button States */}
-      <div>
-        <h3 className="text-lg font-semibold mb-4">Button States</h3>
-        <div className="flex gap-4">
-          <Button variant="primary" size="md">Normal</Button>
-          <Button variant="primary" size="md" disabled>Disabled</Button>
-        </div>
-      </div>
-      
-      {/* Icon Positions */}
-      <div>
-        <h3 className="text-lg font-semibold mb-4">Icon Positions</h3>
-        <div className="flex gap-4">
-          <Button variant="primary" size="md" icon="add" iconPosition="leading">Leading Icon</Button>
-          <Button variant="primary" size="md" icon="send" iconPosition="trailing">Trailing Icon</Button>
-          <Button variant="secondary" size="md" icon="edit" iconPosition="only" />
-        </div>
+// Sizes story - all sizes in one preview
+export function Sizes() {
+  return (
+    <div className="p-6">
+      <div className="flex flex-col gap-4">
+        <Button variant="primary" size="xs">XS (24px)</Button>
+        <Button variant="primary" size="sm">SM (32px)</Button>
+        <Button variant="primary" size="md">MD (40px)</Button>
+        <Button variant="primary" size="lg">LG (48px)</Button>
+        <Button variant="primary" size="xl">XL (56px)</Button>
+        <Button variant="primary" size="xxl">XXL (64px)</Button>
       </div>
     </div>
-  ),
-};
+  );
+}
 
-// Circular buttons showcase
-export const CircularButtons: Story = {
-  render: () => (
+// States story - separate preview for states
+export function States() {
+  return (
+    <div className="p-6">
+      <div className="flex gap-4">
+        <Button variant="primary" size="md">Normal</Button>
+        <Button variant="primary" size="md" disabled>Disabled</Button>
+      </div>
+    </div>
+  );
+}
+
+// Icon Positions story - separate preview for icon positions
+export function IconPositions() {
+  return (
+    <div className="p-6">
+      <div className="flex gap-4">
+        <Button variant="primary" size="md" icon="add" iconPosition="leading">Leading Icon</Button>
+        <Button variant="primary" size="md" icon="send" iconPosition="trailing">Trailing Icon</Button>
+        <Button variant="secondary" size="md" icon="edit" iconPosition="only" />
+      </div>
+    </div>
+  );
+}
+
+// Circular buttons showcase - special showcase story
+export function CircularButtons() {
+  return (
     <div className="flex flex-col gap-6 p-6">
       <div>
         <h3 className="text-lg font-semibold mb-4">Circular Buttons</h3>
@@ -320,5 +269,5 @@ export const CircularButtons: Story = {
         </div>
       </div>
     </div>
-  ),
-}; 
+  );
+} 
