@@ -10,6 +10,7 @@ export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   size?: 'sm' | 'md';
   error?: boolean;
   description?: string;
+  children?: React.ReactNode;
 }
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
@@ -23,6 +24,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     description,
     id,
     'aria-describedby': ariaDescribedBy,
+    children,
     ...props
   }, ref) => {
     const checkboxRef = React.useRef<HTMLInputElement>(null);
@@ -113,6 +115,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     // Handle controlled/uncontrolled checkbox
     const isControlled = props.checked !== undefined;
     const hasOnChange = props.onChange !== undefined;
+    // Children is already extracted, so props won't contain it
     const inputProps = { ...props };
     
     // If checked is provided without onChange, use defaultChecked for uncontrolled
@@ -148,9 +151,11 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               )}
             </div>
           </div>
-          {label && (
+          {children ? (
+            <span className={labelStyles}>{children}</span>
+          ) : label ? (
             <span className={labelStyles}>{label}</span>
-          )}
+          ) : null}
         </label>
         {description && (
           <p
