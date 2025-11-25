@@ -7,7 +7,7 @@ import { StoryPreview } from "@/components/story-preview";
 import { PropsTable } from "@/components/props-table";
 import type { LoadedStoryModule, StoryDefinition } from "@/lib/story-loader";
 import { cn } from "@/lib/utils";
-import { Copy, Check, ChevronDown, ChevronUp, Filter } from "lucide-react";
+import { Copy, Check, ChevronDown, ChevronUp, Filter, ExternalLink, BookOpen } from "lucide-react";
 
 interface StoryComponentPageProps {
   componentName: string;
@@ -140,8 +140,24 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
     <div className="space-y-12">
       {/* Header */}
       <div className="space-y-4">
-        <h1 className="text-5xl font-bold tracking-tight">{componentName}</h1>
-        <p className="text-xl text-zinc-600 dark:text-zinc-400">{description}</p>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-5xl font-bold tracking-tight">{componentName}</h1>
+            <p className="text-xl text-zinc-600 dark:text-zinc-400 mt-2">{description}</p>
+          </div>
+          
+          {/* Open in Storybook button */}
+          <a
+            href={`http://localhost:6006/?path=/docs/${storyModule.meta.title?.toLowerCase().replace(/\s*\/\s*/g, "-").replace(/\s+/g, "-") || componentName.toLowerCase()}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border bg-background hover:bg-muted transition-colors shrink-0"
+          >
+            <BookOpen className="h-4 w-4" />
+            Open in Storybook
+            <ExternalLink className="h-3 w-3" />
+          </a>
+        </div>
         
         {/* Story count and tags */}
         <div className="flex flex-wrap items-center gap-4 text-sm">

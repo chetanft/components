@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Copy, Check, Terminal, Play, Eye } from "lucide-react";
+import { Copy, Check, Terminal, Eye, ExternalLink } from "lucide-react";
 import type { StoryDefinition, StoryMeta } from "@/lib/story-loader";
 import { formatStoryName } from "@/lib/story-loader";
+import { Highlight, themes } from "prism-react-renderer";
 
 interface StoryPreviewProps {
   /** The story definition to render */
@@ -39,52 +40,65 @@ export function StoryPreview({
     };
   }, [meta.args, story.args]);
 
-  // Generate the code representation
+  // Generate clean JSX code representation
   const codeString = useMemo(() => {
-    if (story.component) {
-      // Function component - show the function source if available
-      return `// Function Story: ${story.name}\n${story.component.toString()}`;
-    }
-
-    if (story.render) {
-      return `// Render Function\nrender: (args) => ${story.render.toString()}`;
-    }
-
-    // Args-based story - generate JSX
     const Component = meta.component;
     const componentName = Component?.displayName || Component?.name || "Component";
-    const propsString = Object.entries(mergedArgs)
-      .map(([key, value]) => {
-        if (typeof value === "string") {
-          return `${key}="${value}"`;
-        }
-        if (typeof value === "boolean" && value) {
-          return key;
-        }
-        if (typeof value === "boolean" && !value) {
-          return null;
-        }
-        return `${key}={${JSON.stringify(value)}}`;
-      })
-      .filter(Boolean)
-      .join("\n  ");
 
-    const hasChildren = "children" in mergedArgs;
-    if (hasChildren) {
-      const { children, ...rest } = mergedArgs;
-      const restProps = Object.entries(rest)
-        .map(([key, value]) => {
-          if (typeof value === "string") return `${key}="${value}"`;
-          if (typeof value === "boolean" && value) return key;
-          if (typeof value === "boolean" && !value) return null;
-          return `${key}={${JSON.stringify(value)}}`;
-        })
-        .filter(Boolean)
-        .join(" ");
-      return `<${componentName}${restProps ? " " + restProps : ""}>${children}</${componentName}>`;
+    // Helper to format prop value
+    const formatProp = (key: string, value: unknown): string | null => {
+      if (value === undefined || value === null) return null;
+      if (typeof value === "string") return `${key}="${value}"`;
+      if (typeof value === "boolean") return value ? key : null;
+      if (typeof value === "number") return `${key}={${value}}`;
+      if (typeof value === "function") return `${key}={/* function */}`;
+      if (React.isValidElement(value)) return `${key}={/* React Element */}`;
+      return `${key}={${JSON.stringify(value, null, 2)}}`;
+    };
+
+    // For function stories, generate usage example instead of function source
+    if (story.component || story.render) {
+      // Show a simplified usage example
+      const props = Object.entries(mergedArgs)
+        .map(([k, v]) => formatProp(k, v))
+        .filter(Boolean);
+      
+      if (props.length === 0) {
+        return `<${componentName} />`;
+      }
+      
+      if (props.length <= 3) {
+        return `<${componentName} ${props.join(" ")} />`;
+      }
+      
+      return `<${componentName}\n  ${props.join("\n  ")}\n/>`;
     }
 
-    return `<${componentName}\n  ${propsString}\n/>`;
+    // Args-based story - generate clean JSX
+    const hasChildren = "children" in mergedArgs;
+    const { children, ...restArgs } = mergedArgs as { children?: React.ReactNode; [key: string]: unknown };
+    
+    const props = Object.entries(restArgs)
+      .map(([k, v]) => formatProp(k, v))
+      .filter(Boolean);
+
+    if (hasChildren) {
+      const childrenStr = typeof children === "string" ? children : "{/* children */}";
+      if (props.length === 0) {
+        return `<${componentName}>${childrenStr}</${componentName}>`;
+      }
+      return `<${componentName} ${props.join(" ")}>\n  ${childrenStr}\n</${componentName}>`;
+    }
+
+    if (props.length === 0) {
+      return `<${componentName} />`;
+    }
+    
+    if (props.length <= 3) {
+      return `<${componentName} ${props.join(" ")} />`;
+    }
+
+    return `<${componentName}\n  ${props.join("\n  ")}\n/>`;
   }, [story, meta, mergedArgs]);
 
   const onCopy = () => {
@@ -170,10 +184,26 @@ export function StoryPreview({
         )}
 
         {view === "code" && (
-          <div className="relative bg-muted/50 p-4 overflow-x-auto">
-            <pre className="font-mono text-sm whitespace-pre-wrap">
-              <code>{codeString}</code>
-            </pre>
+          <div className="relative overflow-x-auto">
+            <Highlight theme={themes.nightOwl} code={codeString} language="tsx">
+              {({ className, style, tokens, getLineProps, getTokenProps }) => (
+                <pre
+                  className={cn(className, "p-4 text-sm font-mono overflow-x-auto")}
+                  style={{ ...style, margin: 0, borderRadius: 0 }}
+                >
+                  {tokens.map((line, i) => (
+                    <div key={i} {...getLineProps({ line })}>
+                      <span className="select-none text-gray-500 w-8 inline-block text-right mr-4 text-xs">
+                        {i + 1}
+                      </span>
+                      {line.map((token, key) => (
+                        <span key={key} {...getTokenProps({ token })} />
+                      ))}
+                    </div>
+                  ))}
+                </pre>
+              )}
+            </Highlight>
           </div>
         )}
       </div>
