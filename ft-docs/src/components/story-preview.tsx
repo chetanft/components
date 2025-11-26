@@ -107,27 +107,32 @@ export function StoryPreview({
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // Render the actual story
-  const renderStory = () => {
-    // Case 1: Function component story (like `Sizes`, `InteractiveDemo`)
-    if (story.component) {
-      const StoryComponent = story.component;
-      return <StoryComponent />;
-    }
+  // Render the actual story - ensure consistent rendering to prevent hook order issues
+  const renderedStory = React.useMemo(() => {
+    try {
+      // Case 1: Function component story (like `Sizes`, `InteractiveDemo`)
+      if (story.component) {
+        const StoryComponent = story.component;
+        return <StoryComponent />;
+      }
 
-    // Case 2: Render function story
-    if (story.render) {
-      return story.render(mergedArgs);
-    }
+      // Case 2: Render function story
+      if (story.render) {
+        return story.render(mergedArgs);
+      }
 
-    // Case 3: Args-based story - render the component with args
-    if (meta.component) {
-      const Component = meta.component;
-      return <Component {...mergedArgs} />;
-    }
+      // Case 3: Args-based story - render the component with args
+      if (meta.component) {
+        const Component = meta.component;
+        return <Component {...mergedArgs} />;
+      }
 
-    return <div className="text-muted-foreground">Unable to render story</div>;
-  };
+      return <div className="text-muted-foreground">Unable to render story</div>;
+    } catch (error) {
+      console.error('Error rendering story:', error);
+      return <div className="text-destructive">Error rendering story: {String(error)}</div>;
+    }
+  }, [story.component, story.render, meta.component, mergedArgs]);
 
   return (
     <div className={cn("group relative flex flex-col space-y-2", className)}>
@@ -179,7 +184,7 @@ export function StoryPreview({
         {/* Content */}
         {view === "preview" && (
           <div className="p-8 min-h-[200px] flex items-center justify-center bg-background">
-            <div className="w-full flex justify-center">{renderStory()}</div>
+            <div className="w-full flex justify-center">{renderedStory}</div>
           </div>
         )}
 
@@ -255,11 +260,16 @@ interface StoryTabsProps {
  * Renders stories with a tab selector
  */
 export function StoryTabs({ stories, meta, className }: StoryTabsProps) {
+  // Always call hooks first, before any conditional returns
   const [activeStory, setActiveStory] = useState(stories[0]?.name || "");
+  
+  // Find current story, fallback to first story if not found
+  const currentStory = stories.find((s) => s.name === activeStory) || stories[0];
 
-  const currentStory = stories.find((s) => s.name === activeStory);
-
-  if (!currentStory) return null;
+  // Render empty state if no stories, but AFTER all hooks are called
+  if (!currentStory || stories.length === 0) {
+    return <div className={cn("space-y-4", className)}>No stories available.</div>;
+  }
 
   return (
     <div className={cn("space-y-4", className)}>
