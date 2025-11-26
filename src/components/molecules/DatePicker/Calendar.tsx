@@ -474,7 +474,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
 
       <div className={weekDayVariants({ range })}>
         {WEEKDAYS.map((day) => (
-          <div key={day} className="w-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[8px] text-[14px] text-[var(--tertiary)] font-normal">
+          <div key={day} className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[8px] text-[14px] text-[var(--tertiary)] font-normal">
             {day}
           </div>
         ))}
@@ -567,7 +567,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
                   disabled={isDisabled}
                 >
                   <span className={cn(
-                    "text-[14px] leading-[1.4]",
+                    "text-[14px] leading-[normal]",
                     (isStartDate || isEndDate || (isSelected && !isRangeValue))
                       ? "font-medium"
                       : "font-normal"
