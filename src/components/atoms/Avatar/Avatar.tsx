@@ -53,7 +53,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
           "inline-flex items-center justify-center overflow-hidden shrink-0",
           sizeClass,
           shape === "circle" ? "rounded-full" : "rounded-md",
-          "bg-[var(--bg-secondary,#f0f1f7)] text-[var(--text-secondary,#667085)]", // Default placeholder styling
+          "bg-[var(--bg-secondary)] text-[var(--secondary)]", // Default placeholder styling
           className
         )}
         style={{ ...sizeStyle, ...style }}

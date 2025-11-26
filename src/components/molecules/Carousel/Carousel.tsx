@@ -86,17 +86,6 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     const touchStartX = useRef<number>(0);
     const touchEndX = useRef<number>(0);
 
-    // Auto play
-    useEffect(() => {
-      if (!autoplay || isPaused || totalSlides <= 1) return;
-
-      const interval = setInterval(() => {
-        goToNext();
-      }, autoplaySpeed);
-
-      return () => clearInterval(interval);
-    }, [autoplay, autoplaySpeed, isPaused, currentSlide, totalSlides]);
-
     const goToSlide = useCallback((index: number) => {
       if (isTransitioning) return;
 
@@ -125,6 +114,17 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     const goToNext = useCallback(() => {
       goToSlide(currentSlide + slidesToScroll);
     }, [currentSlide, slidesToScroll, goToSlide]);
+
+    // Auto play
+    useEffect(() => {
+      if (!autoplay || isPaused || totalSlides <= 1) return;
+
+      const interval = setInterval(() => {
+        goToNext();
+      }, autoplaySpeed);
+
+      return () => clearInterval(interval);
+    }, [autoplay, autoplaySpeed, isPaused, totalSlides, goToNext]);
 
     const goToPrev = useCallback(() => {
       goToSlide(currentSlide - slidesToScroll);

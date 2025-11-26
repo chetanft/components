@@ -1,24 +1,17 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
-import { Divider } from '../../atoms/Divider';
 import {
   startOfToday,
   startOfWeek,
   endOfWeek,
   startOfMonth,
   endOfMonth,
-  startOfYear,
-  endOfYear,
   isSameDay,
   addWeeks,
   addMonths,
-  subWeeks,
-  subMonths,
-  subDays,
-  addDays,
   format,
   startOfDay,
   isAfter,
@@ -40,12 +33,12 @@ interface CalendarProps {
 }
 
 const calendarVariants = cva(
-  "bg-surface dark:bg-surface-dark rounded-lg shadow-[0px_6px_6px_0px_rgba(0,0,0,0.16)] flex flex-col overflow-hidden",
+  "bg-[var(--bg-primary)] rounded-[8px] shadow-[0px_6px_6px_0px_rgba(0,0,0,0.16)] flex flex-col",
   {
     variants: {
       range: {
-        true: "w-[814px] p-4 gap-4",
-        false: "w-[314px] p-4 gap-4"
+        true: "w-[814px] p-[16px] gap-[16px]",
+        false: "w-[282px] p-[16px] gap-[16px]"
       }
     },
     defaultVariants: {
@@ -55,7 +48,7 @@ const calendarVariants = cva(
 );
 
 const monthHeaderVariants = cva(
-  "flex items-center justify-between px-0 py-3 border-b border-border dark:border-border-dark",
+  "flex items-center justify-between px-0 py-[12px] border-b border-[var(--border-primary)]",
   {
     variants: {
       range: {
@@ -67,11 +60,11 @@ const monthHeaderVariants = cva(
 );
 
 const navigationButtonVariants = cva(
-  "p-2 hover:bg-surface-hover dark:hover:bg-surface-hover-dark rounded-full",
+  "p-0 hover:opacity-70 transition-opacity",
   {
     variants: {
       year: {
-        true: "mx-1",
+        true: "",
         false: ""
       }
     },
@@ -82,7 +75,7 @@ const navigationButtonVariants = cva(
 );
 
 const weekDayVariants = cva(
-  "flex gap-3 px-0 pt-0 pb-3",
+  "flex gap-[12px] px-0 pt-0 pb-0",
   {
     variants: {
       range: {
@@ -94,7 +87,7 @@ const weekDayVariants = cva(
 );
 
 const dateGridVariants = cva(
-  "flex flex-col gap-3 px-0 pb-0",
+  "flex flex-col gap-[12px] px-0 pb-0",
   {
     variants: {
       range: {
@@ -106,20 +99,20 @@ const dateGridVariants = cva(
 );
 
 const dateButtonVariants = cva(
-  "w-[30px] h-[30px] flex-shrink-0 flex items-center justify-center rounded-[4px] transition-colors",
+  "w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[8px] rounded-[4px] transition-colors",
   {
     variants: {
       type: {
-        default: "bg-surface dark:bg-surface-dark text-[var(--primary)] dark:text-primary-dark hover:bg-[var(--border-primary)] dark:hover:bg-[var(--border-primary)]",
-        selected: "bg-[var(--border-secondary)] dark:bg-[var(--border-secondary)] text-[var(--primary)] dark:text-primary-dark",
-        hover: "bg-[var(--border-primary)] dark:bg-[var(--border-primary)] text-[var(--primary)] dark:text-primary-dark",
-        disabled: "bg-surface dark:bg-surface-dark text-[var(--border-secondary)] dark:text-[var(--border-secondary)] cursor-not-allowed",
-        rangeSelected: "bg-[var(--border-primary)] dark:bg-[var(--border-primary)] text-[var(--primary)] dark:text-primary-dark",
-        rangeStart: "bg-[var(--border-secondary)] dark:bg-[var(--border-secondary)] text-[var(--primary)] dark:text-primary-dark",
-        rangeEnd: "bg-[var(--border-secondary)] dark:bg-[var(--border-secondary)] text-[var(--primary)] dark:text-primary-dark"
+        default: "bg-[var(--bg-primary)] text-[var(--primary)] hover:bg-[var(--border-primary)]",
+        selected: "bg-[var(--border-secondary)] text-[var(--primary)]",
+        hover: "bg-[var(--border-primary)] text-[var(--primary)]",
+        disabled: "bg-[var(--bg-primary)] text-[var(--border-secondary)] cursor-not-allowed",
+        rangeSelected: "bg-[var(--border-primary)] text-[var(--primary)]",
+        rangeStart: "bg-[var(--border-secondary)] text-[var(--primary)]",
+        rangeEnd: "bg-[var(--border-secondary)] text-[var(--primary)]"
       },
       inRange: {
-        true: "bg-[var(--border-primary)] dark:bg-[var(--border-primary)]",
+        true: "bg-[var(--border-primary)]",
         false: ""
       }
     },
@@ -131,7 +124,7 @@ const dateButtonVariants = cva(
 );
 
 const quickSelectVariants = cva(
-  "flex flex-col border-r border-border dark:border-border-dark py-0 overflow-y-auto",
+  "flex flex-col border-r border-[var(--border-primary)] py-0 overflow-y-auto gap-[8px]",
   {
     variants: {
       range: {
@@ -146,12 +139,12 @@ const quickSelectVariants = cva(
 );
 
 const quickSelectButtonVariants = cva(
-  "text-left px-3 py-3 text-base text-primary dark:text-primary-dark transition-colors rounded-lg",
+  "text-left px-[12px] py-[12px] text-[16px] font-normal leading-[1.4] text-[var(--primary)] transition-colors rounded-[8px]",
   {
     variants: {
       selected: {
-        true: "bg-surface dark:bg-surface-dark",
-        false: "bg-surface dark:bg-surface-dark hover:bg-surface-hover dark:hover:bg-surface-hover-dark"
+        true: "bg-[var(--bg-primary)]",
+        false: "bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)]"
       }
     },
     defaultVariants: {
@@ -161,12 +154,12 @@ const quickSelectButtonVariants = cva(
 );
 
 const dropdownVariants = cva(
-  "flex items-center justify-between w-full h-10 min-h-[40px] px-3 border border-border dark:border-border-dark rounded-lg cursor-pointer bg-surface dark:bg-surface-dark",
+  "flex items-center justify-between w-full h-[40px] min-h-[40px] px-[12px] py-[20px] border border-[var(--border-primary)] rounded-[8px] cursor-pointer bg-[var(--bg-primary)]",
   {
     variants: {
       open: {
-        true: "border-primary dark:border-primary-dark",
-        false: "hover:border-border-hover dark:hover:border-border-hover-dark"
+        true: "border-[var(--primary)]",
+        false: "hover:border-[var(--primary)]"
       }
     },
     defaultVariants: {
@@ -176,7 +169,7 @@ const dropdownVariants = cva(
 );
 
 const dropdownMenuVariants = cva(
-  "absolute z-[10000] w-full mt-1 bg-surface dark:bg-surface-dark border border-border dark:border-border-dark rounded-lg shadow-lg overflow-hidden",
+  "absolute z-[10000] w-full mt-[4px] bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[8px] shadow-lg overflow-hidden",
   {
     variants: {
       open: {
@@ -192,31 +185,11 @@ const dropdownMenuVariants = cva(
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-// Helper function to get quarter start and end dates
-const getQuarterStart = (date: Date): Date => {
-  const quarter = Math.floor(date.getMonth() / 3);
-  return new Date(date.getFullYear(), quarter * 3, 1);
-};
-
-const getQuarterEnd = (date: Date): Date => {
-  const quarter = Math.floor(date.getMonth() / 3);
-  return new Date(date.getFullYear(), (quarter + 1) * 3, 0);
-};
-
 const QUICK_SELECT_OPTIONS = [
-  { label: 'Today', value: 'today' },
-  { label: 'Yesterday', value: 'yesterday' },
-  { label: 'Last 7 days', value: 'last-7-days' },
-  { label: 'Last 14 days', value: 'last-14-days' },
-  { label: 'Last 30 days', value: 'last-30-days' },
   { label: 'This week', value: 'this-week' },
-  { label: 'Previous week', value: 'previous-week' },
+  { label: 'Next week', value: 'next-week' },
   { label: 'This month', value: 'this-month' },
-  { label: 'Previous month', value: 'previous-month' },
-  { label: 'This quarter', value: 'this-quarter' },
-  { label: 'Previous quarter', value: 'previous-quarter' },
-  { label: 'This year', value: 'this-year' },
-  { label: 'Previous year', value: 'previous-year' }
+  { label: 'Next month', value: 'next-month' }
 ];
 
 const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
@@ -335,41 +308,15 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
     let end: Date;
 
     switch (option) {
-      case 'today': {
-        start = today;
-        end = today;
-        break;
-      }
-      case 'yesterday': {
-        const yesterday = subDays(today, 1);
-        start = yesterday;
-        end = yesterday;
-        break;
-      }
-      case 'last-7-days': {
-        start = subDays(today, 6);
-        end = today;
-        break;
-      }
-      case 'last-14-days': {
-        start = subDays(today, 13);
-        end = today;
-        break;
-      }
-      case 'last-30-days': {
-        start = subDays(today, 29);
-        end = today;
-        break;
-      }
       case 'this-week': {
         start = startOfWeek(today);
         end = endOfWeek(today);
         break;
       }
-      case 'previous-week': {
-        const lastWeekStart = subWeeks(startOfWeek(today), 1);
-        start = lastWeekStart;
-        end = endOfWeek(lastWeekStart);
+      case 'next-week': {
+        const nextWeekStart = addWeeks(startOfWeek(today), 1);
+        start = nextWeekStart;
+        end = endOfWeek(nextWeekStart);
         break;
       }
       case 'this-month': {
@@ -377,33 +324,10 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
         end = endOfMonth(today);
         break;
       }
-      case 'previous-month': {
-        const lastMonthStart = startOfMonth(subMonths(today, 1));
-        start = lastMonthStart;
-        end = endOfMonth(lastMonthStart);
-        break;
-      }
-      case 'this-quarter': {
-        start = getQuarterStart(today);
-        end = today;
-        break;
-      }
-      case 'previous-quarter': {
-        const currentQuarterStart = getQuarterStart(today);
-        const previousQuarterEnd = subDays(currentQuarterStart, 1);
-        start = getQuarterStart(previousQuarterEnd);
-        end = getQuarterEnd(previousQuarterEnd);
-        break;
-      }
-      case 'this-year': {
-        start = startOfYear(today);
-        end = today;
-        break;
-      }
-      case 'previous-year': {
-        const lastYear = subMonths(today, 12);
-        start = startOfYear(lastYear);
-        end = endOfYear(lastYear);
+      case 'next-month': {
+        const nextMonthStart = startOfMonth(addMonths(today, 1));
+        start = nextMonthStart;
+        end = endOfMonth(nextMonthStart);
         break;
       }
       default:
@@ -431,69 +355,27 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
 
     const [start, end] = value;
     const today = startOfToday();
-    const normalizedStart = startOfDay(start);
-    const normalizedEnd = startOfDay(end);
 
     switch (option) {
-      case 'today': {
-        return isSameDay(start, today) && isSameDay(end, today);
-      }
-      case 'yesterday': {
-        const yesterday = subDays(today, 1);
-        return isSameDay(start, yesterday) && isSameDay(end, yesterday);
-      }
-      case 'last-7-days': {
-        const last7Start = subDays(today, 6);
-        return isSameDay(normalizedStart, startOfDay(last7Start)) && isSameDay(normalizedEnd, today);
-      }
-      case 'last-14-days': {
-        const last14Start = subDays(today, 13);
-        return isSameDay(normalizedStart, startOfDay(last14Start)) && isSameDay(normalizedEnd, today);
-      }
-      case 'last-30-days': {
-        const last30Start = subDays(today, 29);
-        return isSameDay(normalizedStart, startOfDay(last30Start)) && isSameDay(normalizedEnd, today);
-      }
       case 'this-week': {
         const weekStart = startOfWeek(today);
         const weekEnd = endOfWeek(today);
         return isSameDay(start, weekStart) && isSameDay(end, weekEnd);
       }
-      case 'previous-week': {
-        const lastWeekStart = subWeeks(startOfWeek(today), 1);
-        const lastWeekEnd = endOfWeek(lastWeekStart);
-        return isSameDay(start, lastWeekStart) && isSameDay(end, lastWeekEnd);
+      case 'next-week': {
+        const nextWeekStart = addWeeks(startOfWeek(today), 1);
+        const nextWeekEnd = endOfWeek(nextWeekStart);
+        return isSameDay(start, nextWeekStart) && isSameDay(end, nextWeekEnd);
       }
       case 'this-month': {
         const monthStart = startOfMonth(today);
         const monthEnd = endOfMonth(today);
         return isSameDay(start, monthStart) && isSameDay(end, monthEnd);
       }
-      case 'previous-month': {
-        const lastMonthStart = startOfMonth(subMonths(today, 1));
-        const lastMonthEnd = endOfMonth(lastMonthStart);
-        return isSameDay(start, lastMonthStart) && isSameDay(end, lastMonthEnd);
-      }
-      case 'this-quarter': {
-        const quarterStart = getQuarterStart(today);
-        return isSameDay(start, quarterStart) && isSameDay(end, today);
-      }
-      case 'previous-quarter': {
-        const currentQuarterStart = getQuarterStart(today);
-        const previousQuarterEnd = subDays(currentQuarterStart, 1);
-        const prevQuarterStart = getQuarterStart(previousQuarterEnd);
-        const prevQuarterEnd = getQuarterEnd(previousQuarterEnd);
-        return isSameDay(start, prevQuarterStart) && isSameDay(end, prevQuarterEnd);
-      }
-      case 'this-year': {
-        const yearStart = startOfYear(today);
-        return isSameDay(start, yearStart) && isSameDay(end, today);
-      }
-      case 'previous-year': {
-        const lastYear = subMonths(today, 12);
-        const yearStart = startOfYear(lastYear);
-        const yearEnd = endOfYear(lastYear);
-        return isSameDay(start, yearStart) && isSameDay(end, yearEnd);
+      case 'next-month': {
+        const nextMonthStart = startOfMonth(addMonths(today, 1));
+        const nextMonthEnd = endOfMonth(nextMonthStart);
+        return isSameDay(start, nextMonthStart) && isSameDay(end, nextMonthEnd);
       }
       default:
         return false;
@@ -501,9 +383,9 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   };
 
   const renderMonth = (date: Date) => (
-    <div className={cn("flex-1 flex flex-col gap-2", range ? "w-[282px] flex-shrink-0" : "w-full")}>
+    <div className={cn("flex-1 flex flex-col gap-[8px]", range ? "w-[282px] flex-shrink-0" : "w-full")}>
       <div className={monthHeaderVariants({ range })}>
-        <div className="flex items-center">
+        <div className="flex items-center gap-[8px]">
           <button
             className={navigationButtonVariants({ year: true })}
             onClick={() => {
@@ -523,7 +405,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               }
             }}
           >
-            <Icon name="backward" className="w-4 h-4" />
+            <Icon name="backward" className="w-4 h-4 text-[var(--primary)]" />
           </button>
           <button
             className={navigationButtonVariants()}
@@ -544,11 +426,11 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               }
             }}
           >
-            <Icon name="chevron-left" className="w-4 h-4" />
+            <Icon name="chevron-left" className="w-4 h-4 text-[var(--primary)]" />
           </button>
         </div>
-        <span className="text-sm font-medium text-primary dark:text-primary-dark">{format(date, 'MMM yyyy')}</span>
-        <div className="flex items-center">
+        <span className="text-[14px] font-medium text-[var(--primary)]">{format(date, 'MMM yyyy')}</span>
+        <div className="flex items-center gap-[8px]">
           <button
             className={navigationButtonVariants()}
             onClick={() => {
@@ -566,7 +448,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               }
             }}
           >
-            <Icon name="chevron-right" className="w-4 h-4" />
+            <Icon name="chevron-right" className="w-4 h-4 text-[var(--primary)]" />
           </button>
           <button
             className={navigationButtonVariants({ year: true })}
@@ -585,14 +467,14 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               }
             }}
           >
-            <Icon name="forward" className="w-4 h-4" />
+            <Icon name="forward" className="w-4 h-4 text-[var(--primary)] rotate-180" />
           </button>
         </div>
       </div>
 
       <div className={weekDayVariants({ range })}>
         {WEEKDAYS.map((day) => (
-          <div key={day} className="w-[30px] flex-shrink-0 flex items-center justify-center text-sm text-tertiary dark:text-tertiary-dark font-normal">
+          <div key={day} className="w-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[8px] text-[14px] text-[var(--tertiary)] font-normal">
             {day}
           </div>
         ))}
@@ -600,7 +482,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
 
       <div className={dateGridVariants({ range })}>
         {getDaysInMonth(date).map((week, weekIndex) => (
-          <div key={weekIndex} className="flex gap-3 items-center">
+          <div key={weekIndex} className="flex gap-[12px] items-center">
             {week.map((day, dayIndex) => {
               if (!day) {
                 return <div key={`${weekIndex}-${dayIndex}`} className="w-[30px] h-[30px] flex-shrink-0" />;
@@ -685,7 +567,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
                   disabled={isDisabled}
                 >
                   <span className={cn(
-                    "text-sm leading-[1.4]",
+                    "text-[14px] leading-[1.4]",
                     (isStartDate || isEndDate || (isSelected && !isRangeValue))
                       ? "font-medium"
                       : "font-normal"
@@ -704,22 +586,22 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   return (
     <div className={cn(calendarVariants({ range }), className)} ref={ref}>
       {range && (
-        <div className="flex flex-col gap-2.5">
+        <div className="flex flex-col gap-[10px]">
           <div className="relative w-[257px]">
             <div
               className={dropdownVariants({ open: isDropdownOpen })}
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              <div className="flex flex-1 items-center gap-1 w-full py-3">
-                <span className="flex-1 text-base font-normal leading-[1.4] text-placeholder dark:text-placeholder-dark overflow-ellipsis overflow-hidden whitespace-nowrap">{selectedDateRange}</span>
-                <Icon name="chevron-down" size={16} className="text-icon dark:text-icon-dark flex-shrink-0" />
+              <div className="flex flex-1 items-center gap-[4px] w-full">
+                <span className="flex-1 text-[16px] font-normal leading-[1.4] text-[var(--tertiary)] overflow-ellipsis overflow-hidden whitespace-nowrap">{selectedDateRange}</span>
+                <Icon name="chevron-down" size={16} className="text-[var(--primary)] flex-shrink-0" />
               </div>
             </div>
             <div className={dropdownMenuVariants({ open: isDropdownOpen })}>
               {["Created Date", "Modified Date", "Due Date"].map((option) => (
                 <div
                   key={option}
-                  className="px-3 py-3 text-base font-normal leading-[1.4] text-primary dark:text-primary-dark hover:bg-surface-hover dark:hover:bg-surface-hover-dark cursor-pointer rounded-lg"
+                  className="px-[12px] py-[12px] text-[16px] font-normal leading-[1.4] text-[var(--primary)] hover:bg-[var(--border-secondary)] cursor-pointer rounded-[8px]"
                   onClick={() => handleDateRangeSelect(option)}
                 >
                   {option}
@@ -747,7 +629,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
             ))}
           </div>
         )}
-        <div className={cn("flex-1", range && "flex gap-8 h-[331px]")}>
+        <div className={cn("flex-1", range && "flex gap-[32px] h-[331px]")}>
           {renderMonth(currentMonth)}
           {range && renderMonth(secondMonth)}
         </div>
@@ -758,24 +640,17 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
         </div>
       )}
       {range && (onCancel || onApply || onClear) && (
-        <div className="w-full flex justify-between items-center gap-5">
-          {onClear && (
-            <Button variant="text" onClick={onClear} className="h-10 px-4 py-3 text-base font-medium text-primary dark:text-primary-dark">
-              Clear
+        <div className="w-full flex justify-end items-center gap-[20px]">
+          {onCancel && (
+            <Button variant="text" onClick={onCancel} className="h-[40px] px-[16px] py-[12px] text-[16px] font-medium text-[var(--primary)]">
+              Cancel
             </Button>
           )}
-          <div className="flex gap-5 ml-auto">
-            {onCancel && (
-              <Button variant="text" onClick={onCancel} className="h-10 px-4 py-3 text-base font-medium">
-                Cancel
-              </Button>
-            )}
-            {onApply && (
-              <Button variant="primary" onClick={onApply} className="h-10 px-4 py-3 text-base font-medium" disabled={!!rangeError}>
-                Apply
-              </Button>
-            )}
-          </div>
+          {onApply && (
+            <Button variant="primary" onClick={onApply} className="h-[40px] px-[16px] py-[12px] text-[16px] font-medium bg-[var(--primary)] text-[var(--bg-primary)]" disabled={!!rangeError}>
+              Apply
+            </Button>
+          )}
         </div>
       )}
     </div>

@@ -241,7 +241,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
       if (isOpen) {
         setActiveValues(selectedValues);
       }
-    }, [isOpen]);
+    }, [isOpen, selectedValues]);
 
     // Close on outside click
     useEffect(() => {

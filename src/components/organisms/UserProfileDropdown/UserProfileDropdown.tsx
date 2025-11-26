@@ -49,7 +49,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
 
   return (
     <div
-      className={`bg-[var(--bg-primary,#ffffff)] flex flex-col items-center overflow-hidden px-0 py-[20px] rounded-[var(--x2,8px)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] w-[400px] ${className}`}
+      className={`bg-[var(--bg-primary)] flex flex-col items-center overflow-hidden px-0 py-[20px] rounded-[var(--x2,8px)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] w-[400px] ${className}`}
       style={baseStyles}
     >
       {/* User Info Section */}
@@ -66,7 +66,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
               <Typography variant="display-primary" color="primary">
                 {userName}
               </Typography>
-              <div className="bg-[var(--border-secondary,#f0f1f7)] flex gap-[8px] items-center justify-center px-[8px] py-[2px] rounded-[var(--x1,4px)] shrink-0">
+              <div className="bg-[var(--border-secondary)] flex gap-[8px] items-center justify-center px-[8px] py-[2px] rounded-[var(--x1,4px)] shrink-0">
                 <Typography variant="body-secondary-semibold" color="primary">
                   {userBadge}
                 </Typography>
@@ -94,10 +94,10 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
         {menuItems.map(({ id, label, icon: Icon }) => (
           <div 
             key={id}
-            className="bg-[var(--bg-primary,#ffffff)] flex gap-[10px] items-center p-[var(--x3,12px)] rounded-[var(--x2,8px)] w-full cursor-pointer hover:bg-[var(--border-secondary,#f0f1f7)] transition-colors"
+            className="bg-[var(--bg-primary)] flex gap-[10px] items-center p-[var(--x3,12px)] rounded-[var(--x2,8px)] w-full cursor-pointer hover:bg-[var(--border-secondary)] transition-colors"
             onClick={() => onMenuItemClick(id)}
           >
-            <div className="size-[16px] shrink-0 text-[color:var(--primary,#434f64)]">
+            <div className="size-[16px] shrink-0 text-[var(--primary)]">
               <Icon />
             </div>
             <Typography variant="body-primary-regular" color="primary">
@@ -114,10 +114,10 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
 
       {/* Logout */}
       <div 
-        className="bg-[var(--bg-primary,#ffffff)] flex gap-[10px] items-center px-[32px] py-[var(--x3,12px)] rounded-[var(--x2,8px)] w-full cursor-pointer hover:bg-[var(--critical-light)] transition-colors"
+        className="bg-[var(--bg-primary)] flex gap-[10px] items-center px-[32px] py-[var(--x3,12px)] rounded-[var(--x2,8px)] w-full cursor-pointer hover:bg-[var(--critical-light)] transition-colors"
         onClick={() => onMenuItemClick('logout')}
       >
-        <div className="size-[16px] shrink-0 overflow-hidden text-[color:var(--critical,#ff3533)]">
+        <div className="size-[16px] shrink-0 overflow-hidden text-[var(--critical)]">
           <Logout />
         </div>
         <Typography variant="body-primary-regular" color="danger">

@@ -226,8 +226,8 @@ const starAccessoryButton = (_row: User, selected: boolean) => (
     aria-label="Toggle favorite"
     className={`inline-flex items-center justify-center transition-colors ${
       selected
-        ? 'text-[var(--warning,#ff9800)]'
-        : 'text-[var(--tertiary,#838c9d)]'
+        ? 'text-[var(--warning)]'
+        : 'text-[var(--tertiary)]'
     }`}
   >
     <Icon name="star" size={16} />

@@ -60,14 +60,14 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
     const baseStyles = [];
     
     if (bg === 'Primary') {
-      baseStyles.push('bg-[var(--bg-primary,#ffffff)]');
+      baseStyles.push('bg-[var(--bg-primary)]');
       if (type === 'Tertiary') {
-        baseStyles.push('border border-[var(--border-primary,#ced1d7)]');
+        baseStyles.push('border border-[var(--border-primary)]');
       }
     } else {
-      baseStyles.push('bg-[var(--bg-secondary,#f8f8f9)]');
+      baseStyles.push('bg-[var(--bg-secondary)]');
       if (type === 'Tertiary') {
-        baseStyles.push('border border-[var(--border-secondary,#f0f1f7)]');
+        baseStyles.push('border border-[var(--border-secondary)]');
       }
     }
     
@@ -91,7 +91,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
          <div 
             className={cn(
                 "flex items-center gap-[8px] px-0 py-[var(--x5,20px)] w-full cursor-pointer",
-                isExpanded ? "border-b border-[var(--border-primary,#ced1d7)]" : "",
+                isExpanded ? "border-b border-[var(--border-primary)]" : "",
             )}
             onClick={handleToggle}
          >

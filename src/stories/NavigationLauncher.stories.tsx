@@ -20,7 +20,7 @@ type Story = StoryObj<typeof NavigationLauncher>;
 
 export const DefaultLauncher: Story = {
   render: () => (
-    <div className="h-[600px] bg-[var(--bg-secondary,#f8f8f9)] flex items-center justify-center">
+    <div className="h-[600px] bg-[var(--bg-secondary)] flex items-center justify-center">
       <NavigationLauncher sections={DEFAULT_NAVIGATION_SECTIONS} />
     </div>
   ),
@@ -28,14 +28,14 @@ export const DefaultLauncher: Story = {
 
 export const CustomTrigger: Story = {
   render: () => (
-    <div className="h-[600px] bg-[var(--bg-secondary,#f8f8f9)] flex items-center justify-center">
+    <div className="h-[600px] bg-[var(--bg-secondary)] flex items-center justify-center">
       <NavigationLauncher
         sections={DEFAULT_NAVIGATION_SECTIONS}
         trigger={({ toggle }) => (
           <button
             type="button"
             onClick={toggle}
-            className="px-4 py-2 rounded-full bg-[var(--neutral,#1890ff)] text-white"
+            className="px-4 py-2 rounded-full bg-[var(--neutral)] text-white"
           >
             Open Hub
           </button>
@@ -47,7 +47,7 @@ export const CustomTrigger: Story = {
 
 export const AppHeaderIntegration: Story = {
   render: () => (
-    <div style={{ minHeight: '400px', backgroundColor: 'var(--bg-secondary,#f8f8f9)' }}>
+    <div style={{ minHeight: '400px', backgroundColor: 'var(--bg-secondary)' }}>
       <AppHeader
         leftAddon={() => (
           <NavigationLauncher
@@ -68,7 +68,7 @@ export const AppHeaderIntegration: Story = {
                 <svg width="20" height="20" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z"
-                    stroke="var(--primary,#434f64)"
+                    stroke="var(--primary)"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"

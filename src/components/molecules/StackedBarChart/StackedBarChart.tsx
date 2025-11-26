@@ -95,7 +95,7 @@ export const StackedBarChart = React.forwardRef(
         {...props}
       >
         {title && (
-          <span className="text-[12px] font-semibold tracking-[0.08em] text-[var(--secondary,#5f697b)]">
+          <span className="text-[12px] font-semibold tracking-[0.08em] text-[var(--secondary)]">
             {title}
           </span>
         )}
@@ -129,7 +129,7 @@ export const StackedBarChart = React.forwardRef(
                   );
                 })}
               </div>
-              <span className="text-center text-[10px] font-normal leading-[1.4] text-[var(--primary,#434f64)]">
+              <span className="text-center text-[10px] font-normal leading-[1.4] text-[var(--primary)]">
                 {bar.label}
               </span>
             </div>
@@ -137,7 +137,7 @@ export const StackedBarChart = React.forwardRef(
         </div>
 
         {!!resolvedLegend.length && (
-          <div className="flex flex-wrap gap-4 text-[10px] text-[var(--primary,#434f64)]">
+          <div className="flex flex-wrap gap-4 text-[10px] text-[var(--primary)]">
             {resolvedLegend.map((item) => (
               <div key={item.label} className="flex items-center gap-2">
                 <span

@@ -62,8 +62,8 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
     const isDashed = dashed || type === 'tertiary'; // Map legacy tertiary to dashed
 
     const baseColorClass = type === 'secondary' 
-      ? 'border-[var(--border-secondary,#f0f1f7)]' 
-      : 'border-[var(--border-primary,#ced1d7)]';
+      ? 'border-[var(--border-secondary)]' 
+      : 'border-[var(--border-primary)]';
 
     if (isVertical) {
       return (
@@ -109,7 +109,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
              plain ? "font-normal" : "font-medium"
           )}>
              {typeof content === 'string' ? (
-                <div className="bg-[var(--bg-primary,#ffffff)] border border-[var(--border-primary,#ced1d7)] rounded-full px-[8px] py-[2px] mx-0 shrink-0">
+                <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-full px-[8px] py-[2px] mx-0 shrink-0">
                     <Typography variant="body-secondary-medium" color="tertiary">
                     {content}
                     </Typography>

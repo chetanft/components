@@ -86,8 +86,8 @@ export const SimpleColumnLayout = React.forwardRef<
         className={cn('flex w-full flex-col', className)}
         {...props}
       >
-        {/* Header - matches Figma: bg-[var(--tertiary,#838c9d)], h-[48px], px-[var(--x2,8px)] py-[15px] */}
-        <div className="bg-[var(--tertiary,#838c9d)] flex flex-col gap-[10px] h-[48px] items-start justify-center px-[var(--x2,8px)] py-[15px] w-full">
+        {/* Header - matches Figma: bg-[var(--tertiary)], h-[48px], px-[var(--x2,8px)] py-[15px] */}
+        <div className="bg-[var(--tertiary)] flex flex-col gap-[10px] h-[48px] items-start justify-center px-[var(--x2,8px)] py-[15px] w-full">
           <div className="flex gap-[var(--x1,4px)] h-[19px] items-center w-full">
             <Typography 
               variant="body-primary-semibold"
@@ -111,17 +111,17 @@ export const SimpleColumnLayout = React.forwardRef<
             const isEvenIndex = index % 2 === 0;
             const bgColor = striped 
               ? (isEvenIndex 
-                  ? 'bg-[var(--bg-primary,#ffffff)]' 
-                  : 'bg-[var(--bg-secondary,#f8f8f9)]')
+                  ? 'bg-[var(--bg-primary)]' 
+                  : 'bg-[var(--bg-secondary)]')
               : (row.accent 
-                  ? 'bg-[var(--bg-secondary,#f8f8f9)]' 
-                  : 'bg-[var(--bg-primary,#ffffff)]');
+                  ? 'bg-[var(--bg-secondary)]' 
+                  : 'bg-[var(--bg-primary)]');
 
             return (
               <div
                 key={row.id ?? index}
                 className={cn(
-                  'border-[var(--border-primary,#ced1d7)] border-b border-l-0 border-r-0 border-solid border-t-0',
+                  'border-[var(--border-primary)] border-b border-l-0 border-r-0 border-solid border-t-0',
                   'flex flex-col gap-[var(--x2,8px)] h-[96px] items-start justify-center px-0 py-[var(--x5,20px)] w-full',
                   bgColor
                 )}

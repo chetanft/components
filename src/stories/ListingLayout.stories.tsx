@@ -329,7 +329,7 @@ const heroNode = (
     {heroStats.map((stat) => (
       <div
         key={stat.label}
-        className="rounded-[24px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] p-5"
+        className="rounded-[24px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-5"
       >
         <Typography variant="body-secondary-medium" color="secondary">
           {stat.label}
@@ -429,7 +429,7 @@ const journeyCards = (
     {journeyRows.map((journey) => (
       <div
         key={journey.id}
-        className="flex flex-col gap-3 rounded-[20px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] p-4 shadow-[0px_1px_2px_rgba(15,23,42,0.08)]"
+        className="flex flex-col gap-3 rounded-[20px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-4 shadow-[0px_1px_2px_rgba(15,23,42,0.08)]"
       >
         <div className="flex items-center justify-between gap-3">
           <Typography variant="body-primary-semibold">{journey.from.city}</Typography>
@@ -440,7 +440,7 @@ const journeyCards = (
         <Typography variant="body-secondary-regular" color="secondary">
           {journey.to.city}
         </Typography>
-        <div className="flex flex-wrap items-center gap-3 text-sm text-[var(--secondary,#5f6b7a)]">
+        <div className="flex flex-wrap items-center gap-3 text-sm text-[var(--secondary)]">
           <span>{journey.vehicle}</span>
           <span aria-hidden="true">•</span>
           <span>{journey.tripId}</span>
@@ -466,7 +466,7 @@ const journeyCards = (
 
 const analyticsGrid = (
   <div className="grid gap-4 lg:grid-cols-3">
-    <div className="rounded-[20px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] p-5">
+    <div className="rounded-[20px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-5">
       <Typography variant="body-primary-semibold">Live Alerts</Typography>
       <Typography variant="display-primary" className="mt-2">
         19
@@ -475,11 +475,11 @@ const analyticsGrid = (
         Escalations needing attention within the next hour.
       </Typography>
     </div>
-    <div className="rounded-[20px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] p-5">
+    <div className="rounded-[20px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-5">
       <Typography variant="body-primary-semibold">Route Heatmap</Typography>
       <div className="mt-4 h-36 rounded-[16px] bg-gradient-to-r from-[#1e64e6]/10 via-[#ffd400]/20 to-[#ff6c19]/20" />
     </div>
-    <div className="rounded-[20px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] p-5">
+    <div className="rounded-[20px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-5">
       <Typography variant="body-primary-semibold">Capacity Utilisation</Typography>
       <Typography variant="display-primary" className="mt-2">
         84%
@@ -496,7 +496,7 @@ const journeyRail = (
     {journeyRows.map((journey) => (
       <div
         key={journey.id}
-        className="rounded-[20px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] p-4"
+        className="rounded-[20px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-4"
       >
         <div className="flex items-center justify-between gap-2">
           <div className="flex flex-col">
@@ -509,14 +509,14 @@ const journeyRail = (
             {journey.status}
           </Badge>
         </div>
-        <div className="mt-3 flex flex-col gap-1 text-sm text-[var(--secondary,#5f6b7a)]">
+        <div className="mt-3 flex flex-col gap-1 text-sm text-[var(--secondary)]">
           <span>Driver · Raju Srasti</span>
-          <span className="font-semibold text-[var(--primary,#1e64e6)]">
+          <span className="font-semibold text-[var(--primary)]">
             {journey.tripId}
           </span>
         </div>
         <Divider type="secondary" className="py-2" />
-        <div className="mt-4 flex items-center justify-between rounded-[12px] bg-[var(--bg-secondary,#f5f6fa)] px-3 py-2 text-sm text-[var(--secondary,#5f6b7a)]">
+        <div className="mt-4 flex items-center justify-between rounded-[12px] bg-[var(--bg-secondary)] px-3 py-2 text-sm text-[var(--secondary)]">
           <span>ETA</span>
           <span>{journey.eta}</span>
         </div>
@@ -526,17 +526,17 @@ const journeyRail = (
 );
 
 const journeyMap = (
-  <div className="flex h-[520px] flex-col gap-3 rounded-[32px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] p-4">
+  <div className="flex h-[520px] flex-col gap-3 rounded-[32px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-4">
     <div className="flex flex-wrap items-center gap-2">
       <Typography variant="body-primary-semibold">PB 12 HH7890</Typography>
       <Badge variant="warning">Delayed by 2 hrs</Badge>
     </div>
-    <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--secondary,#5f6b7a)]">
+    <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--secondary)]">
       <span>Distance left: 234 kms</span>
       <span>Current location: Ambala</span>
     </div>
     <Divider type="secondary" className="py-0" />
-    <div className="flex-1 rounded-[24px] bg-[var(--bg-secondary,#f5f6fa)]" />
+    <div className="flex-1 rounded-[24px] bg-[var(--bg-secondary)]" />
   </div>
 );
 
@@ -545,7 +545,7 @@ const loadsList = (
     {loadEntries.map((load) => (
       <div
         key={load.id}
-        className="rounded-[20px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] p-4"
+        className="rounded-[20px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-4"
       >
         <div className="flex items-center justify-between gap-2">
           <Typography variant="body-primary-semibold">{load.id}</Typography>
@@ -553,7 +553,7 @@ const loadsList = (
             {load.status}
           </Badge>
         </div>
-        <div className="mt-2 flex flex-col gap-1 text-sm text-[var(--secondary,#5f6b7a)]">
+        <div className="mt-2 flex flex-col gap-1 text-sm text-[var(--secondary)]">
           <span>{load.consignor}</span>
           <span>{load.consignee}</span>
         </div>
@@ -566,9 +566,9 @@ const loadsList = (
 );
 
 const loadsDetailPanel = (
-  <div className="flex flex-col gap-4 rounded-[32px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] p-5">
+  <div className="flex flex-col gap-4 rounded-[32px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-5">
     <Typography variant="body-primary-semibold">LRN: 457283924</Typography>
-    <div className="grid gap-3 text-sm text-[var(--secondary,#5f6b7a)] sm:grid-cols-2">
+    <div className="grid gap-3 text-sm text-[var(--secondary)] sm:grid-cols-2">
       <div>
         <Typography variant="body-secondary-medium" color="secondary">
           STA
@@ -595,16 +595,16 @@ const loadsDetailPanel = (
       </div>
     </div>
     <Divider type="secondary" className="py-0" />
-    <div className="rounded-[24px] bg-[var(--bg-secondary,#f5f6fa)] p-4">
+    <div className="rounded-[24px] bg-[var(--bg-secondary)] p-4">
       <Typography variant="body-secondary-medium" color="secondary">
         Summary
       </Typography>
-      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--secondary,#5f6b7a)]">
+      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--secondary)]">
         <li>Pick up at MDC Labs Pvt Ltd, Amritsar · Delayed by 30 mins</li>
         <li>Drop at Sai Traders, Delhi · Delivered on time</li>
       </ul>
     </div>
-    <div className="h-[240px] rounded-[24px] bg-[var(--bg-secondary,#f5f6fa)]" />
+    <div className="h-[240px] rounded-[24px] bg-[var(--bg-secondary)]" />
   </div>
 );
 
@@ -613,7 +613,7 @@ const reportsGrid = (
     {reportCards.map((report) => (
       <div
         key={report.id}
-        className="flex flex-col gap-4 rounded-[24px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] p-5"
+        className="flex flex-col gap-4 rounded-[24px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-5"
       >
         <div className="flex items-start justify-between gap-3">
           <div>
@@ -624,7 +624,7 @@ const reportsGrid = (
           </div>
           <Badge variant="neutral">{report.tag}</Badge>
         </div>
-        <div className="flex flex-wrap items-center gap-3 text-sm text-[var(--secondary,#5f6b7a)]">
+        <div className="flex flex-wrap items-center gap-3 text-sm text-[var(--secondary)]">
           <span>Owner · {report.owner}</span>
           <span>Cadence · {report.cadence}</span>
         </div>

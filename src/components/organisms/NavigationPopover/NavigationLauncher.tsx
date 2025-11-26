@@ -54,12 +54,12 @@ export const NavigationLauncher: React.FC<NavigationLauncherProps> = ({
         type="button"
         onClick={toggle}
         aria-label="Open navigation"
-        className="rounded-full border border-[var(--border-primary,#ced1d7)] p-[10px] bg-[var(--bg-primary,#ffffff)] hover:bg-[var(--border-secondary,#f0f1f7)] transition"
+        className="rounded-full border border-[var(--border-primary)] p-[10px] bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)] transition"
       >
         <svg width="20" height="20" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z"
-            stroke="var(--primary,#434f64)"
+            stroke="var(--primary)"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -77,7 +77,7 @@ export const NavigationLauncher: React.FC<NavigationLauncherProps> = ({
     <div
       className={cn(
         'fixed inset-0 z-[1000]',
-        showBackdrop ? 'bg-[var(--bg-secondary,#f8f8f9)]' : 'bg-transparent',
+        showBackdrop ? 'bg-[var(--bg-secondary)]' : 'bg-transparent',
         portalClassName
       )}
       onClick={close}

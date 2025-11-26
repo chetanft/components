@@ -60,22 +60,22 @@ const baseSectionClasses: Record<
   appHeader: cn(horizontalInset, 'pt-6'),
   hero: cn(
     horizontalInset,
-    'grid gap-[var(--x3,12px)] rounded-[28px] bg-[var(--bg-primary,#ffffff)] py-[var(--x4,16px)] sm:grid-cols-2 lg:grid-cols-4'
+    'grid gap-[var(--x3,12px)] rounded-[28px] bg-[var(--bg-primary)] py-[var(--x4,16px)] sm:grid-cols-2 lg:grid-cols-4'
   ),
   pageHeader: cn(horizontalInset, 'flex flex-col gap-[var(--x2,8px)]'),
   toolbar: cn(
     horizontalInset,
-    'flex flex-wrap items-center justify-between gap-[var(--x3,12px)] rounded-[24px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] py-[var(--x3,12px)]'
+    'flex flex-wrap items-center justify-between gap-[var(--x3,12px)] rounded-[24px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x3,12px)]'
   ),
   tabs: cn(horizontalInset, 'flex flex-col gap-[var(--x1,4px)]'),
   subTabs: cn(horizontalInset, 'flex flex-wrap gap-[var(--x1,4px)]'),
   quickFilters: cn(
     horizontalInset,
-    'flex flex-wrap gap-[var(--x2,8px)] rounded-[24px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] py-[var(--x3,12px)]'
+    'flex flex-wrap gap-[var(--x2,8px)] rounded-[24px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x3,12px)]'
   ),
   actionBar: cn(
     horizontalInset,
-    'flex flex-wrap items-center justify-between gap-[var(--x3,12px)] rounded-[28px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] py-[var(--x4,16px)]'
+    'flex flex-wrap items-center justify-between gap-[var(--x3,12px)] rounded-[28px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x4,16px)]'
   ),
   footer: cn(horizontalInset, 'pt-[var(--x4,16px)] pb-[var(--x8,32px)]'),
 };
@@ -94,7 +94,7 @@ const contentLayoutClasses: Record<ListingLayoutLayout, string> = {
 
 const variantSurfaceClasses: Record<ListingLayoutVariant, string> = {
   table:
-    'flex flex-col gap-[var(--x2,8px)] rounded-[24px] border border-[var(--border-secondary,#e3e5ed)] bg-[var(--bg-primary,#ffffff)] p-[var(--x4,16px)] shadow-[0px_1px_3px_rgba(15,23,42,0.08)]',
+    'flex flex-col gap-[var(--x2,8px)] rounded-[24px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-[var(--x4,16px)] shadow-[0px_1px_3px_rgba(15,23,42,0.08)]',
   card: 'flex flex-col gap-[var(--x3,12px)]',
   custom: 'flex flex-col gap-[var(--x3,12px)]',
 };

@@ -16,7 +16,7 @@ export interface UserProfileProps {
   className?: string;
 }
 
-const baseContainer = 'bg-[var(--bg-primary,#ffffff)] box-border content-stretch flex rounded-[var(--x2,8px)] cursor-pointer';
+const baseContainer = 'bg-[var(--bg-primary)] box-border content-stretch flex rounded-[var(--x2,8px)] cursor-pointer';
 const avatarClass = 'content-stretch flex gap-[12px] items-center justify-center relative shrink-0 size-[40px]';
 
 export const UserProfile: React.FC<UserProfileProps> = ({

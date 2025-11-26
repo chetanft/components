@@ -50,8 +50,8 @@ export const Illustration: React.FC<IllustrationProps> = ({
   return (
     <figure
       className={cn(
-        'overflow-hidden border border-[var(--border-primary,#ced1d7)] flex items-center justify-center',
-        background === 'subtle' ? 'bg-[var(--bg-secondary,#f8f8f9)]' : 'bg-transparent',
+        'overflow-hidden border border-[var(--border-primary)] flex items-center justify-center',
+        background === 'subtle' ? 'bg-[var(--bg-secondary)]' : 'bg-transparent',
         sizeClasses[size],
         roundedClasses[rounded],
         className
@@ -61,7 +61,7 @@ export const Illustration: React.FC<IllustrationProps> = ({
       {resolvedSrc ? (
         <img src={resolvedSrc} alt={alt} className="w-full h-full object-cover" />
       ) : (
-        <div className="text-[var(--tertiary,#838c9d)] text-sm">No illustration</div>
+        <div className="text-[var(--tertiary)] text-sm">No illustration</div>
       )}
     </figure>
   );
