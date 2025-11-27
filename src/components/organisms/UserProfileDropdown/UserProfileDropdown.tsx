@@ -21,6 +21,7 @@ const menuItems = [
   { id: 'settings', label: 'Settings', iconName: 'settings' as const },
   { id: 'change-desk', label: 'Change Desk', iconName: 'refresh' as const },
   { id: 'change-password', label: 'Change Password', iconName: 'password' as const },
+  { id: 'logout', label: 'Logout', iconName: 'logout' as const },
 ];
 
 export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
@@ -101,26 +102,6 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
             state: 'default' as const,
           }))}
           onSelect={(value) => onMenuItemClick(value)}
-        />
-      </div>
-
-      {/* Divider */}
-      <div className="w-full py-[var(--x5,20px)]">
-        <Divider type="primary" className="w-full" />
-      </div>
-
-      {/* Logout */}
-      <div className="px-[var(--x5,20px)] py-0 w-full">
-        <DropdownMenu
-          property="default"
-          options={[{
-            value: 'logout',
-            label: 'Logout',
-            prefix: 'icon' as const,
-            iconName: 'logout' as const,
-            state: 'default' as const,
-          }]}
-          onSelect={() => onMenuItemClick('logout')}
         />
       </div>
     </div>

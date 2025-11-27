@@ -1,12 +1,19 @@
 [build]
-  # Command to build the site - Force rebuild to fix corrupted module
-  command = "npm run build-storybook"
+  # Base directory for the Next.js app
+  base = "ft-docs"
   
-  # Directory to publish (contains the built static files)
-  publish = "storybook-static"
+  # Command to build the Next.js docs app (runs from base directory)
+  command = "npm install && npm run build"
+  
+  # Next.js plugin handles publish directory automatically
+  # No need to specify publish directory when using Next.js plugin
   
   # Node.js version
   environment = { NODE_VERSION = "18" }
+
+# Next.js plugin configuration
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [build.processing]
   skip_processing = false
@@ -19,26 +26,7 @@
   bundle = false
   minify = false
 
-# Redirect rules - preserve assets and iframe
-[[redirects]]
-  from = "/iframe.html"
-  to = "/iframe.html"
-  status = 200
-
-[[redirects]]
-  from = "/assets/*"
-  to = "/assets/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/sb-*"
-  to = "/sb-*"
-  status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Next.js handles routing automatically, no redirects needed
 
 # Headers for better caching - reduced cache time for JS modules
 [[headers]]
@@ -56,7 +44,7 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Security headers (optimized for Storybook)
+# Security headers
 [[headers]]
   for = "/*"
   [headers.values]
@@ -64,4 +52,4 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Content-Security-Policy = "frame-ancestors 'self' https://*.netlify.app https://*.chromatic.com" 
+    Content-Security-Policy = "frame-ancestors 'self' https://*.netlify.app" 

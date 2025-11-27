@@ -2,11 +2,29 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { UserProfileDropdown } from '../components/organisms/UserProfileDropdown';
 
+// Wrapper component to provide positioning context for the absolutely positioned dropdown
+const DropdownWrapper = (Story: any) => {
+  return (
+    <div style={{ 
+      padding: '40px', 
+      backgroundColor: '#F8F8F9', 
+      minHeight: '500px',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'flex-start'
+    }}>
+      <div style={{ position: 'relative', display: 'inline-flex', width: 'fit-content' }}>
+        <Story />
+      </div>
+    </div>
+  );
+};
+
 const meta = {
   title: 'Components/UserProfile/Dropdown',
   component: UserProfileDropdown,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
     docs: {
       description: {
         component: 'Expanded dropdown panel paired with `UserProfile`, exposing user metadata and actions.',
@@ -43,6 +61,13 @@ const meta = {
     userBadge: 'Admin',
     isOpen: true,
   },
+  decorators: [
+    (Story) => (
+      <DropdownWrapper>
+        <Story />
+      </DropdownWrapper>
+    ),
+  ],
 } satisfies Meta<typeof UserProfileDropdown>;
 
 export default meta;

@@ -1,3 +1,8 @@
+---
+description: FT Design System token enforcement rules - use exact token names, avoid Tailwind arbitrary values, never use forward slashes in CSS variables
+alwaysApply: true
+---
+
 # FT DESIGN SYSTEM TOKEN ENFORCEMENT RULES
 
 ## 1. Use exact design tokens from ft-design-system/global.css
@@ -111,7 +116,3 @@ CSS custom property names CANNOT contain forward slashes. This breaks CSS parsin
 - Use direct pixel values: `fontSize: '16px'`, `fontWeight: '400'`
 - Or standard Tailwind: `text-base`, `font-semibold`
 - NEVER: `var(--font/sizes/md)` or `var(--font/weight/regular)`
-
----
-alwaysApply: true
----
