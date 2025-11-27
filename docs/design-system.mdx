@@ -360,6 +360,111 @@ function SwitchExample() {
 - `label` (string, optional): Switch label
 - `className` (string, optional): Additional CSS classes
 
+### Empty
+
+Empty state component for displaying no data, search results, or error states. Built entirely with FT Design System tokens and components.
+
+```jsx
+import { Empty, EmptyPresets } from '@chetanft/design_system';
+import { Button } from '@chetanft/design_system';
+
+// Basic empty state
+<Empty description="No data available" />
+
+// With different image variants
+<Empty image="simple" description="No results found" />
+<Empty image="no-data" description="Start by adding some data" />
+<Empty image="error" description="Something went wrong" />
+
+// With actions
+<Empty description="No items in your cart">
+  <Button variant="primary">Start Shopping</Button>
+</Empty>
+
+// Using presets
+<Empty {...EmptyPresets.noResults}>
+  <Button variant="secondary">Clear Filters</Button>
+</Empty>
+
+// Custom image
+<Empty
+  image={
+    <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
+      <span className="text-2xl">📭</span>
+    </div>
+  }
+  description="Your inbox is empty"
+/>
+
+// Complex example with filters (JourneysEmptyState pattern)
+import { Typography, Dropdown, DatePicker, Button } from '@chetanft/design_system';
+
+<div className="flex flex-col items-center justify-center gap-[var(--x6,24px)]">
+  <div className="flex flex-col gap-[var(--x5,20px)] items-center text-center">
+    <Typography variant="title-secondary" color="primary">
+      No journeys found for 12 Aug – 13 Aug, 2024
+    </Typography>
+    <Typography variant="body-primary-regular" color="primary">
+      There are no{' '}
+      <Typography variant="body-primary-semibold" color="primary" as="span">
+        outbound journeys
+      </Typography>
+      {' '}created from{' '}
+      <Typography variant="body-primary-semibold" color="primary" as="span">
+        MDC Labs, Amritsar
+      </Typography>
+      {' '}during this time period.
+    </Typography>
+  </div>
+
+  <div className="flex gap-[var(--x3,12px)] items-center">
+    <Dropdown
+      options={[{ value: 'location', label: 'MDC Labs, Amritsar' }]}
+      value="location"
+      size="md"
+    />
+    <DatePicker range startValue="2024-08-12" endValue="2024-08-13" size="m" />
+    <Dropdown
+      options={[{ value: 'type', label: 'Outbound - Source' }]}
+      value="type"
+      size="md"
+    />
+  </div>
+
+  <Typography variant="body-secondary-regular" color="tertiary">
+    Or
+  </Typography>
+
+  <Button variant="primary" icon="add" iconPosition="leading" size="md">
+    Add Journey
+  </Button>
+</div>
+```
+
+**Props:**
+- `description` (React.ReactNode, optional): Description text or React node
+- `image` ('default' | 'simple' | 'no-data' | 'error' | React.ReactNode, default: 'default'): Image variant type or custom React node
+- `imageStyle` (CSSProperties, optional): Custom image styles
+- `children` (React.ReactNode, optional): Action buttons or content below description
+- `className` (string, optional): Additional CSS classes
+
+**Image Variants:**
+- `default`: Generic empty state illustration
+- `simple`: Minimal illustration for search results
+- `no-data`: Illustration for data entry scenarios
+- `error`: Error state illustration
+
+**Presets:**
+- `EmptyPresets.noResults`: For search result empty states
+- `EmptyPresets.noData`: For data entry scenarios
+- `EmptyPresets.error`: For error states
+- `EmptyPresets.emptyList`: For empty lists/inboxes
+
+**Design Tokens Used:**
+- Colors: `var(--tertiary)`, `var(--border-primary)`, `var(--border-secondary)`, `var(--primary)`
+- Spacing: `var(--x3)`, `var(--x4)`, `var(--x5)`, `var(--x6)`, `var(--x8)`
+- Typography: Uses Typography component variants
+
 ## Complete Examples
 
 ### Dashboard Layout

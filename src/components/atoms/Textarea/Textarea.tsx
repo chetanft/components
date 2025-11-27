@@ -58,8 +58,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         minHeight: 'min-h-[48px]',
       },
       md: {
-        padding: 'px-4 py-3',
-        fontSize: 'text-base',
+        padding: 'px-3 py-2',
+        fontSize: 'text-sm',
         minHeight: 'min-h-[56px]',
       },
       lg: {
@@ -109,11 +109,11 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             className={cn(
               // Base styles using FT Design System tokens
               "w-full resize-y",
-              "font-[var(--font-family-primary)] font-normal",
+              "font-normal",
               "text-[var(--color-primary)]",
               "bg-[var(--color-bg-primary)]",
               "border border-[var(--color-border-primary)]",
-              "rounded-[var(--radius-md)]",
+              "rounded-sm",
               "placeholder:text-[#838c9d]",
               "transition-all duration-[var(--transition-normal)]",
               
@@ -142,6 +142,10 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
               
               className
             )}
+            style={{
+              fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
+              ...props.style,
+            }}
             {...props}
           />
         </div>

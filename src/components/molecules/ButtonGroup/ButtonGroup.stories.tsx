@@ -82,7 +82,7 @@ export const WithDisabled: Story = {
     buttons: [
       { id: 'enabled', label: 'Enabled', variant: 'primary' },
       { id: 'disabled', label: 'Disabled', variant: 'secondary', disabled: true },
-      { id: 'enabled2', label: 'Enabled', variant: 'tertiary' },
+      { id: 'enabled2', label: 'Enabled', variant: 'secondary' },
     ],
   },
 };

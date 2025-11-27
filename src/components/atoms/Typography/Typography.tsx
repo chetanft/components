@@ -87,8 +87,8 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
 
   // Build className based on props
   const classes = cn(
-    // Base styles - include fallback font family
-    "font-[var(--font-family-primary)] font-sans",
+    // Base styles - use standard Tailwind font class, font-family set via inline style
+    "font-sans",
     // Variant styles
     variantStyles[variant],
     // Color
@@ -96,11 +96,17 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
     // Custom className
     className
   );
+  
+  // Font family via inline style to avoid Tailwind arbitrary value issues
+  const fontFamilyStyle = {
+    fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
+  };
 
   // Use a switch to properly handle JSX rendering
   const commonProps = {
     ref: ref as any,
     className: classes,
+    style: { ...fontFamilyStyle, ...props.style },
     ...props
   };
 

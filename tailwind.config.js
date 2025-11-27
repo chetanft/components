@@ -9,6 +9,10 @@ export default {
   
   // CRITICAL: Safelist ensures all design system classes are included in dist/styles.css
   safelist: [
+    // Animation utilities (CRITICAL for Spin component)
+    'animate-spin',
+    'animate-pulse',
+    
     // BASE COLOR SCALES - All shades for all families
     ...['primary', 'secondary', 'tertiary', 'neutral', 'positive', 'warning', 'danger'].flatMap(family => 
       ['900', '800', '700', '600', '500', '400', '300', '200', '100', ...(family === 'tertiary' ? ['0'] : [])].flatMap(shade => [

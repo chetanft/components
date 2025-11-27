@@ -16,8 +16,8 @@ export interface UserProfileProps {
   className?: string;
 }
 
-const baseContainer = 'bg-[var(--bg-primary)] box-border content-stretch flex rounded-[var(--x2,8px)] cursor-pointer';
-const avatarClass = 'content-stretch flex gap-[12px] items-center justify-center relative shrink-0 size-[40px]';
+const baseContainer = 'bg-[var(--bg-primary)] box-border content-stretch flex rounded-[var(--x2,8px)]';
+const avatarClass = 'content-stretch flex gap-[12px] items-center justify-center relative shrink-0 size-[40px] cursor-pointer';
 
 export const UserProfile: React.FC<UserProfileProps> = ({
   company = {
@@ -35,23 +35,27 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 }) => {
   const containerClassName = `${baseContainer} ${companyName ? 'gap-[15px] items-center p-[var(--x2,8px)]' : 'gap-[10px] items-center justify-center overflow-clip p-[var(--x2,8px)]'}${className ? ` ${className}` : ''}`;
 
+  const handleAvatarClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onClick();
+  };
+
+  const handleAvatarKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      e.stopPropagation();
+      onClick();
+    }
+  };
+
   return (
     <div 
       className={containerClassName}
-      onClick={onClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          onClick();
-        }
-      }}
     >
       {companyName ? (
         <>
-      <div className="flex items-center self-stretch">
-        <div className="h-[26px] relative shrink-0 w-[155px]">
+      <div className="flex items-center">
+        <div className="h-[26px] relative shrink-0 w-[155px] flex items-center">
           <Logo name={company.name} width={155} height={26} />
         </div>
       </div>
@@ -59,8 +63,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({
         src={userAvatar}
         alt={userName}
         size="md"
-            className={avatarClass}
-          />
+        className={avatarClass}
+        onClick={handleAvatarClick}
+        onKeyDown={handleAvatarKeyDown}
+        role="button"
+        tabIndex={0}
+      />
         </>
       ) : (
         <Avatar 
@@ -68,6 +76,10 @@ export const UserProfile: React.FC<UserProfileProps> = ({
           alt={userName}
           size="md"
           className={avatarClass}
+          onClick={handleAvatarClick}
+          onKeyDown={handleAvatarKeyDown}
+          role="button"
+          tabIndex={0}
         />
       )}
     </div>

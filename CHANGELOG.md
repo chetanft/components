@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- **Cascader Padding Alignment**: Fixed padding mismatch between Cascader trigger and dropdown items
+  - Changed trigger padding from `pl-[var(--spacing-x3)] pr-[var(--spacing-x8)]` to `px-[var(--spacing-x3)]` to match dropdown items
+  - Refactored layout from absolute positioning to flexbox with `justify-between` for proper icon positioning
+  - Ensures consistent visual alignment where trigger text and dropdown items share the same horizontal padding
+
+### Improved
+- **Cascader Layout**: Improved Cascader component layout consistency
+  - Switched to flexbox layout pattern matching other dropdown components (Dropdown, TreeSelect)
+  - Better icon positioning without affecting text content padding
+  - Enhanced visual consistency across all dropdown-style components
+
 ## [1.0.3] - 2024-12-19
 
 ### Added

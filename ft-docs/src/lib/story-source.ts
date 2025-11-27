@@ -40,6 +40,7 @@ const storySourceMap: Record<string, () => Promise<string>> = {
   'Anchor': () => import('../../../src/components/molecules/Anchor/Anchor.stories.tsx?raw').then(m => m.default),
   'DatePicker': () => import('../../../src/components/molecules/DatePicker/DatePicker.stories.tsx?raw').then(m => m.default),
   'Dropdown': () => import('../../../src/components/molecules/Dropdown/Dropdown.stories.tsx?raw').then(m => m.default),
+  'DropdownMenu': () => import('../../../src/components/molecules/DropdownMenu/DropdownMenu.stories.tsx?raw').then(m => m.default),
   'UploadThumbnail': () => import('../../../src/components/molecules/UploadThumbnail/UploadThumbnail.stories.tsx?raw').then(m => m.default),
   'UploadItem': () => import('../../../src/components/molecules/UploadItem/UploadItem.stories.tsx?raw').then(m => m.default),
   'ButtonGroup': () => import('../../../src/components/molecules/ButtonGroup/ButtonGroup.stories.tsx?raw').then(m => m.default),

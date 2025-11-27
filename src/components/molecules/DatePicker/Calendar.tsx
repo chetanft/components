@@ -3,6 +3,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
+import { DropdownMenu } from '../DropdownMenu';
 import {
   startOfToday,
   startOfWeek,
@@ -37,8 +38,8 @@ const calendarVariants = cva(
   {
     variants: {
       range: {
-        true: "w-[814px] p-[16px] gap-[16px]",
-        false: "w-[282px] p-[16px] gap-[16px]"
+        true: "w-fit p-[16px] gap-[16px]",
+        false: "w-fit p-[16px] gap-[16px]"
       }
     },
     defaultVariants: {
@@ -60,7 +61,7 @@ const monthHeaderVariants = cva(
 );
 
 const navigationButtonVariants = cva(
-  "p-0 hover:opacity-70 transition-opacity",
+  "min-w-[30px] min-h-[30px] w-fit h-fit flex items-center justify-center rounded-[4px] text-[var(--tertiary)] transition-colors hover:bg-[var(--border-secondary)] focus:outline-none",
   {
     variants: {
       year: {
@@ -128,7 +129,7 @@ const quickSelectVariants = cva(
   {
     variants: {
       range: {
-        true: "w-[170px] h-[331px]",
+        true: "w-fit h-[331px]",
         false: "hidden"
       }
     },
@@ -139,12 +140,12 @@ const quickSelectVariants = cva(
 );
 
 const quickSelectButtonVariants = cva(
-  "text-left px-[12px] py-[12px] text-[16px] font-normal leading-[1.4] text-[var(--primary)] transition-colors rounded-[8px]",
+  "text-left px-[12px] py-[12px] text-[16px] leading-[1.4] transition-colors rounded-[8px]",
   {
     variants: {
       selected: {
-        true: "bg-[var(--bg-primary)]",
-        false: "bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)]"
+        true: "bg-[var(--border-secondary)] text-[var(--primary)] font-medium",
+        false: "bg-[var(--bg-primary)] text-[var(--primary)] hover:bg-[var(--border-secondary)]"
       }
     },
     defaultVariants: {
@@ -168,20 +169,7 @@ const dropdownVariants = cva(
   }
 );
 
-const dropdownMenuVariants = cva(
-  "absolute z-[10000] w-full mt-[4px] bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[8px] shadow-lg overflow-hidden",
-  {
-    variants: {
-      open: {
-        true: "block",
-        false: "hidden"
-      }
-    },
-    defaultVariants: {
-      open: false
-    }
-  }
-);
+// Dropdown menu variants removed - using DropdownMenu component instead
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -383,7 +371,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   };
 
   const renderMonth = (date: Date) => (
-    <div className={cn("flex-1 flex flex-col gap-[8px]", range ? "w-[282px] flex-shrink-0" : "w-full")}>
+    <div className={cn("flex-1 flex flex-col gap-[8px]", range ? "w-fit flex-shrink-0" : "w-full")}>
       <div className={monthHeaderVariants({ range })}>
         <div className="flex items-center gap-[8px]">
           <button
@@ -405,7 +393,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               }
             }}
           >
-            <Icon name="backward" className="w-4 h-4 text-[var(--primary)]" />
+            <Icon name="backward" size={16} />
           </button>
           <button
             className={navigationButtonVariants()}
@@ -426,7 +414,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               }
             }}
           >
-            <Icon name="chevron-left" className="w-4 h-4 text-[var(--primary)]" />
+            <Icon name="chevron-left" size={16} />
           </button>
         </div>
         <span className="text-[14px] font-medium text-[var(--primary)]">{format(date, 'MMM yyyy')}</span>
@@ -448,7 +436,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               }
             }}
           >
-            <Icon name="chevron-right" className="w-4 h-4 text-[var(--primary)]" />
+            <Icon name="chevron-right" size={16} />
           </button>
           <button
             className={navigationButtonVariants({ year: true })}
@@ -467,7 +455,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               }
             }}
           >
-            <Icon name="forward" className="w-4 h-4 text-[var(--primary)] rotate-180" />
+            <Icon name="forward" size={16} />
           </button>
         </div>
       </div>
@@ -587,7 +575,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
     <div className={cn(calendarVariants({ range }), className)} ref={ref}>
       {range && (
         <div className="flex flex-col gap-[10px]">
-          <div className="relative w-[257px]">
+          <div className="relative w-fit">
             <div
               className={dropdownVariants({ open: isDropdownOpen })}
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -597,17 +585,21 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
                 <Icon name="chevron-down" size={16} className="text-[var(--primary)] flex-shrink-0" />
               </div>
             </div>
-            <div className={dropdownMenuVariants({ open: isDropdownOpen })}>
-              {["Created Date", "Modified Date", "Due Date"].map((option) => (
-                <div
-                  key={option}
-                  className="px-[12px] py-[12px] text-[16px] font-normal leading-[1.4] text-[var(--primary)] hover:bg-[var(--border-secondary)] cursor-pointer rounded-[8px]"
-                  onClick={() => handleDateRangeSelect(option)}
-                >
-                  {option}
-                </div>
-              ))}
-            </div>
+            {isDropdownOpen && (
+              <div className="absolute z-[10000] w-full mt-[4px]">
+                <DropdownMenu
+                  property="default"
+                  options={["Created Date", "Modified Date", "Due Date"].map((option) => ({
+                    value: option,
+                    label: option,
+                    prefix: 'none' as const,
+                    state: selectedDateRange === option ? 'selected' : 'default' as const,
+                    showCheckmark: true,
+                  }))}
+                  onSelect={(value) => handleDateRangeSelect(value)}
+                />
+              </div>
+            )}
           </div>
         </div>
       )}

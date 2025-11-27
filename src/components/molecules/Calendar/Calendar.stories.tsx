@@ -36,22 +36,24 @@ export const Default: Story = {
 };
 
 // Controlled Calendar
+const ControlledComponent = (args: any) => {
+  const [date, setDate] = useState(new Date());
+  return (
+    <div className="space-y-4">
+      <Calendar
+        {...args}
+        value={date}
+        onSelect={setDate}
+      />
+      <p className="text-sm text-[var(--color-tertiary)]">
+        Selected: {date.toLocaleDateString()}
+      </p>
+    </div>
+  );
+};
+
 export const Controlled: Story = {
-  render: (args) => {
-    const [date, setDate] = useState(new Date());
-    return (
-      <div className="space-y-4">
-        <Calendar
-          {...args}
-          value={date}
-          onSelect={setDate}
-        />
-        <p className="text-sm text-[var(--color-tertiary)]">
-          Selected: {date.toLocaleDateString()}
-        </p>
-      </div>
-    );
-  },
+  render: (args) => <ControlledComponent {...args} />,
 };
 
 // Year Mode
@@ -251,37 +253,39 @@ export const MonthSelectionWithSummary: Story = {
 };
 
 // Panel Change Callback
-export const PanelChangeCallback: Story = {
-  render: (args) => {
-    const [log, setLog] = useState<string[]>([]);
+const PanelChangeCallbackComponent = (args: any) => {
+  const [log, setLog] = useState<string[]>([]);
 
-    return (
-      <div className="space-y-4">
-        <Calendar
-          {...args}
-          onPanelChange={(date, mode) => {
-            setLog(prev => [
-              `Changed to ${mode} view: ${date.toLocaleDateString()}`,
-              ...prev.slice(0, 4),
-            ]);
-          }}
-        />
-        <div className="p-4 bg-[var(--color-bg-secondary)] rounded-lg">
-          <h4 className="font-medium mb-2">Panel Change Log:</h4>
-          {log.length > 0 ? (
-            <ul className="text-sm text-[var(--color-tertiary)] space-y-1">
-              {log.map((entry, i) => (
-                <li key={i}>{entry}</li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-sm text-[var(--color-tertiary)]">
-              Navigate the calendar to see panel changes
-            </p>
-          )}
-        </div>
+  return (
+    <div className="space-y-4">
+      <Calendar
+        {...args}
+        onPanelChange={(date, mode) => {
+          setLog(prev => [
+            `Changed to ${mode} view: ${date.toLocaleDateString()}`,
+            ...prev.slice(0, 4),
+          ]);
+        }}
+      />
+      <div className="p-4 bg-[var(--color-bg-secondary)] rounded-lg">
+        <h4 className="font-medium mb-2">Panel Change Log:</h4>
+        {log.length > 0 ? (
+          <ul className="text-sm text-[var(--color-tertiary)] space-y-1">
+            {log.map((entry, i) => (
+              <li key={i}>{entry}</li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-[var(--color-tertiary)]">
+            Navigate the calendar to see panel changes
+          </p>
+        )}
       </div>
-    );
-  },
+    </div>
+  );
+};
+
+export const PanelChangeCallback: Story = {
+  render: (args) => <PanelChangeCallbackComponent {...args} />,
 };
 

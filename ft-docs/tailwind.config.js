@@ -6,6 +6,8 @@ export default {
     content: [
         './src/**/*.{js,jsx,ts,tsx}',
         '../src/**/*.{js,jsx,ts,tsx}', // Include component library source
+        // Exclude DropdownMenu files that have problematic CSS variable patterns
+        '!../src/components/molecules/DropdownMenu/**/*',
     ],
     theme: {
         ...rootConfig.theme,

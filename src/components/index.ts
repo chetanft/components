@@ -39,6 +39,7 @@ export * from './molecules/DatePicker';
 export * from './molecules/StackedBarChart';
 export * from './molecules/SimpleColumnLayout';
 export * from './molecules/Dropdown';
+export * from './molecules/DropdownMenu';
 export * from './molecules/FileValidationCard';
 export * from './molecules/ProgressBar';
 export * from './molecules/ProgressList';
@@ -102,6 +103,7 @@ export * from './organisms/UserProfile';
 export * from './organisms/UserProfileDropdown';
 export * from './organisms/Modal';
 export * from './organisms/Drawer';
+export * from './organisms/PageHeader';
 // 🆕 NEW Components
 export * from './organisms/Result';
 export * from './organisms/Grid';

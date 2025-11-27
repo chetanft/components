@@ -299,10 +299,6 @@ export const FormExample: Story = {
 export const AllVariations: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '20px' }}>
-      <h2 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '10px' }}>
-        Label Variations (Based on Figma Design)
-      </h2>
-      
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
         <div>
           <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#434F64' }}>

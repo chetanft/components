@@ -5,6 +5,7 @@ import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import { SegmentedTabs, type SegmentedTabItem } from '../SegmentedTabs';
+import { DropdownMenu, type DropdownMenuOption } from '../DropdownMenu';
 
 // Unified dropdown field variants using the design system
 const dropdownFieldVariants = cva(
@@ -38,22 +39,6 @@ const dropdownFieldVariants = cva(
   }
 );
 
-// Dropdown menu item variants
-const dropdownMenuItemVariants = cva(
-  "flex items-center px-3 py-2 cursor-pointer transition-colors rounded-lg text-[var(--primary)] text-base",
-  {
-    variants: {
-      state: {
-        default: "hover:bg-[var(--border-secondary)] focus:bg-[var(--border-primary)]",
-        selected: "bg-[var(--bg-secondary)]",
-        disabled: "text-[var(--tertiary)] cursor-not-allowed",
-      },
-    },
-    defaultVariants: {
-      state: "default",
-    },
-  }
-);
 
 export interface DropdownOption {
   value: string | number;
@@ -325,76 +310,50 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       const hasSegments = Array.isArray(segments) && segments.length > 0;
       const segmentsArray = hasSegments ? segments : [];
 
+      // Convert DropdownOption to DropdownMenuOption
+      const menuOptions: DropdownMenuOption[] = filteredOptions.map((option) => ({
+        value: String(option.value),
+        label: option.label,
+        state: option.disabled ? 'disabled' : selectedValue === option.value ? 'selected' : 'default',
+        prefix: 'none' as const,
+        suffix: false,
+        showCheckmark: true,
+      }));
+
+      // Determine property type for DropdownMenu
+      let property: 'default' | 'search' | 'search-segmented' = 'default';
+      if (type === 'search' && hasSegments) {
+        property = 'search-segmented';
+      } else if (type === 'search') {
+        property = 'search';
+      }
+
       return ReactDOM.createPortal(
         <div
           ref={menuRef}
-          className={cn(
-            "fixed z-[9999] bg-surface border border-border shadow-lg rounded-lg",
-            "p-2 flex flex-col gap-1"
-          )}
           style={{
+            position: 'fixed',
             top: menuPosition.top,
             left: menuPosition.left,
             width: menuPosition.width,
+            zIndex: 9999,
           }}
+          onClick={(e) => e.stopPropagation()}
         >
-          {hasSegments && (
-            <div
-              className="mb-4 w-full flex-shrink-0"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <SegmentedTabs
-                items={segmentsArray}
-                value={selectedSegment}
-                onChange={(value) => {
-                  onSegmentChange?.(value);
-                }}
-              />
-            </div>
-          )}
-
-          {type === "search" && (
-            <div className="mb-2">
-              <div className="relative">
-                <Icon
-                  name="search"
-                  size={16}
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--tertiary)]"
-                />
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                  className="w-full pl-9 pr-3 py-2 border border-[var(--border-primary)] dark:border-border-dark rounded-lg text-base text-[var(--primary)] placeholder-[var(--tertiary)] focus:outline-none focus:border-primary dark:focus:border-primary-dark"
-                />
-              </div>
-            </div>
-          )}
-
-          <div className="max-h-60 overflow-y-auto">
-            {filteredOptions.map((option: DropdownOption) => (
-              <div
-                key={option.value}
-                className={cn(
-                  dropdownMenuItemVariants({
-                    state: option.disabled ? "disabled" : selectedValue === option.value ? "selected" : "default",
-                  })
-                )}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (!option.disabled) {
-                    handleSelect(option.value);
-                  }
-                }}
-              >
-                <span className="flex-1">{option.label}</span>
-                {selectedValue === option.value && (
-                  <Icon name="check" size={16} className="text-[var(--primary)] ml-2" />
-                )}
-              </div>
-            ))}
-          </div>
+          <DropdownMenu
+            property={property}
+            options={menuOptions}
+            segments={segmentsArray}
+            selectedSegment={selectedSegment}
+            onSegmentChange={onSegmentChange}
+            onSelect={(value) => {
+              const option = options.find((opt) => String(opt.value) === value);
+              if (option && !option.disabled) {
+                handleSelect(option.value);
+              }
+            }}
+            className="w-full"
+          />
         </div>,
         portalContainer
       );

@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar } from '../../atoms/Avatar';
 import { Typography } from '../../atoms/Typography';
 import { Divider } from '../../atoms/Divider';
-import { User, Settings, Refresh, Password, Logout } from '../../atoms/Icons';
+import { DropdownMenu } from '../../molecules/DropdownMenu';
 
 export interface UserProfileDropdownProps {
   userName?: string;
@@ -17,10 +17,10 @@ export interface UserProfileDropdownProps {
 }
 
 const menuItems = [
-  { id: 'view-profile', label: 'View Profile', icon: User },
-  { id: 'settings', label: 'Settings', icon: Settings },
-  { id: 'change-desk', label: 'Change Desk', icon: Refresh },
-  { id: 'change-password', label: 'Change Password', icon: Password },
+  { id: 'view-profile', label: 'View Profile', iconName: 'user' as const },
+  { id: 'settings', label: 'Settings', iconName: 'settings' as const },
+  { id: 'change-desk', label: 'Change Desk', iconName: 'refresh' as const },
+  { id: 'change-password', label: 'Change Password', iconName: 'password' as const },
 ];
 
 export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
@@ -43,7 +43,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
     top: 'calc(100% + 12px)',
     right: 0,
     left: 'auto',
-    zIndex: 10,
+    zIndex: 1000,
     ...style,
   };
 
@@ -90,21 +90,18 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
       </div>
 
       {/* Menu Items */}
-      <div className="flex flex-col gap-[16px] items-start px-[var(--x5,20px)] py-0 w-full">
-        {menuItems.map(({ id, label, icon: Icon }) => (
-          <div 
-            key={id}
-            className="bg-[var(--bg-primary)] flex gap-[10px] items-center p-[var(--x3,12px)] rounded-[var(--x2,8px)] w-full cursor-pointer hover:bg-[var(--border-secondary)] transition-colors"
-            onClick={() => onMenuItemClick(id)}
-          >
-            <div className="size-[16px] shrink-0 text-[var(--primary)]">
-              <Icon />
-            </div>
-            <Typography variant="body-primary-regular" color="primary">
-              {label}
-            </Typography>
-          </div>
-        ))}
+      <div className="px-[var(--x5,20px)] py-0 w-full">
+        <DropdownMenu
+          property="default"
+          options={menuItems.map(({ id, label, iconName }) => ({
+            value: id,
+            label,
+            prefix: 'icon' as const,
+            iconName,
+            state: 'default' as const,
+          }))}
+          onSelect={(value) => onMenuItemClick(value)}
+        />
       </div>
 
       {/* Divider */}
@@ -113,16 +110,18 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
       </div>
 
       {/* Logout */}
-      <div 
-        className="bg-[var(--bg-primary)] flex gap-[10px] items-center px-[32px] py-[var(--x3,12px)] rounded-[var(--x2,8px)] w-full cursor-pointer hover:bg-[var(--critical-light)] transition-colors"
-        onClick={() => onMenuItemClick('logout')}
-      >
-        <div className="size-[16px] shrink-0 overflow-hidden text-[var(--critical)]">
-          <Logout />
-        </div>
-        <Typography variant="body-primary-regular" color="danger">
-          Logout
-        </Typography>
+      <div className="px-[var(--x5,20px)] py-0 w-full">
+        <DropdownMenu
+          property="default"
+          options={[{
+            value: 'logout',
+            label: 'Logout',
+            prefix: 'icon' as const,
+            iconName: 'logout' as const,
+            state: 'default' as const,
+          }]}
+          onSelect={() => onMenuItemClick('logout')}
+        />
       </div>
     </div>
   );

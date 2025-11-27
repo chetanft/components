@@ -73,7 +73,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
             children
         ) : (
              // Default placeholder (Initials or Icon)
-             <span className="font-medium">
+             <span className="flex items-center justify-center font-medium">
                  {/* Fallback to generic icon if needed, or just nothing */}
                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-1/2 h-1/2">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>

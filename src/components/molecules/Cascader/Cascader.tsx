@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo, useId } from 'react';
 import ReactDOM from 'react-dom';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
@@ -109,7 +109,7 @@ const CascaderColumn: React.FC<CascaderColumnProps> = ({
   expandTrigger,
 }) => {
   return (
-    <div className="min-w-[160px] max-h-[256px] overflow-y-auto border-r border-[var(--color-border-secondary)] last:border-r-0">
+    <div className="min-w-[160px] max-h-[256px] overflow-y-auto border-r border-solid border-[var(--border-primary)] last:border-r-0">
       {options.map((option) => {
         const isSelected = option.value === selectedValue;
         const hasChildren = option.children && option.children.length > 0;
@@ -118,18 +118,27 @@ const CascaderColumn: React.FC<CascaderColumnProps> = ({
           <div
             key={option.value}
             className={cn(
-              "flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x2)]",
-              "cursor-pointer transition-colors",
-              isSelected && "bg-[var(--color-primary-light)] text-[var(--color-primary)]",
-              !isSelected && !option.disabled && "hover:bg-[var(--color-bg-secondary)]",
-              option.disabled && "opacity-50 cursor-not-allowed"
+              "box-border flex items-center relative transition-colors duration-200",
+              "gap-[10px] p-[var(--x3,12px)] rounded-[var(--x2,8px)]",
+              isSelected && "bg-[var(--bg-secondary)]",
+              !isSelected && !option.disabled && "hover:bg-[var(--border-secondary)] cursor-pointer",
+              option.disabled && "bg-[var(--bg-primary)] cursor-not-allowed opacity-60"
             )}
             onClick={() => !option.disabled && onSelect(option)}
             onMouseEnter={() => expandTrigger === 'hover' && !option.disabled && onHover?.(option)}
           >
-            <span className="truncate">{option.label}</span>
+            <span className={cn(
+              "truncate font-normal leading-[1.4] relative shrink-0",
+              isSelected ? "text-[var(--primary)]" : option.disabled ? "text-[var(--tertiary)]" : "text-[var(--primary)]"
+            )} style={{
+              fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
+              fontWeight: '400',
+              fontSize: '16px',
+            }}>
+              {option.label}
+            </span>
             {hasChildren && (
-              <Icon name="chevron-right" size={14} className="text-[var(--color-tertiary)] ml-2" />
+              <Icon name="chevron-right" size={14} className="text-[var(--tertiary)] ml-2 flex-shrink-0" />
             )}
           </div>
         );
@@ -151,7 +160,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
     error,
     helperText,
     size = 'md',
-    options,
+    options = [],
     value: controlledValue,
     defaultValue,
     onChange,
@@ -165,18 +174,20 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
     id,
     ...props
   }, ref) => {
-    const componentStyles = getComponentStyles(size);
+    // All hooks must be called first, before any other logic
+    const cascaderId = useId();
     const [isOpen, setIsOpen] = useState(false);
     const [searchValue, setSearchValue] = useState('');
     const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
-
-    // Handle value state
     const [internalValue, setInternalValue] = useState<string[]>(
       controlledValue ?? defaultValue ?? []
     );
     const [activeValues, setActiveValues] = useState<string[]>([]);
+    
+    // Then call non-hook functions
+    const componentStyles = getComponentStyles(size);
 
     const selectedValues = controlledValue !== undefined ? controlledValue : internalValue;
     const selectedOptions = useMemo(() => 
@@ -311,7 +322,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
       onChange?.([], []);
     }, [controlledValue, onChange]);
 
-    const inputId = id || `cascader-${React.useId()}`;
+    const inputId = id || `cascader-${cascaderId}`;
 
     const inputStyles = cn(
       "w-full transition-all duration-200 cursor-pointer",
@@ -319,7 +330,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
       componentStyles.height,
       componentStyles.fontSize,
       componentStyles.borderRadius,
-      "px-[var(--spacing-x3)] pr-[var(--spacing-x8)]",
+      "px-[var(--spacing-x2)] py-[var(--spacing-x2)]",
       "bg-surface dark:bg-surface-dark border-2 border-border dark:border-border-dark",
       "hover:border-[var(--primary)] dark:hover:border-[var(--primary)]",
       disabled
@@ -328,7 +339,8 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
         ? "border-critical"
         : "",
       isOpen && "border-primary dark:border-primary-dark",
-      "focus:outline-none"
+      "focus:outline-none",
+      "flex items-center justify-between"
     );
 
     // Display value
@@ -360,38 +372,39 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
             className={inputStyles}
             onClick={() => !disabled && setIsOpen(true)}
           >
-            {showSearch && isOpen ? (
-              <input
-                ref={ref}
-                type="text"
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
-                placeholder={placeholder}
-                className="w-full bg-transparent border-none outline-none"
-                autoFocus
+            <div className="flex-1 min-w-0">
+              {showSearch && isOpen ? (
+                <input
+                  ref={ref}
+                  type="text"
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  placeholder={placeholder}
+                  className="w-full bg-transparent border-none outline-none"
+                  autoFocus
+                />
+              ) : (
+                <span className={cn(!displayValue && "text-placeholder dark:text-placeholder-dark")}>
+                  {displayValue || placeholder}
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-[var(--spacing-x1)] flex-shrink-0">
+              {allowClear && selectedValues.length > 0 && !disabled && (
+                <button
+                  type="button"
+                  onClick={handleClear}
+                  className="text-[var(--color-tertiary)] hover:text-[var(--color-primary)] transition-colors"
+                >
+                  <Icon name="cross" size={componentStyles.iconSize - 4} />
+                </button>
+              )}
+              <Icon
+                name={isOpen ? 'chevron-up' : 'chevron-down'}
+                size={componentStyles.iconSize}
+                className="text-[var(--color-tertiary)]"
               />
-            ) : (
-              <span className={cn(!displayValue && "text-placeholder dark:text-placeholder-dark")}>
-                {displayValue || placeholder}
-              </span>
-            )}
-          </div>
-
-          <div className="absolute right-0 top-0 h-full flex items-center pr-[var(--spacing-x3)] gap-[var(--spacing-x1)]">
-            {allowClear && selectedValues.length > 0 && !disabled && (
-              <button
-                type="button"
-                onClick={handleClear}
-                className="text-[var(--color-tertiary)] hover:text-[var(--color-primary)] transition-colors"
-              >
-                <Icon name="cross" size={componentStyles.iconSize - 4} />
-              </button>
-            )}
-            <Icon
-              name={isOpen ? 'chevron-up' : 'chevron-down'}
-              size={componentStyles.iconSize}
-              className="text-[var(--color-tertiary)]"
-            />
+            </div>
           </div>
         </div>
 
@@ -416,9 +429,9 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
             />
             <div
               className={cn(
-                "fixed z-[9999] bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]",
-                "shadow-[var(--shadow-lg)] border border-[var(--color-border-secondary)]",
-                "overflow-hidden"
+                "fixed z-[9999] bg-[var(--bg-primary)] border border-solid border-[var(--border-primary)]",
+                "box-border flex flex-col items-start overflow-clip p-[var(--x2,8px)]",
+                "rounded-[var(--x2,8px)] shadow-lg"
               )}
               style={{
                 top: dropdownPosition.top,
@@ -427,30 +440,40 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
             >
               {showSearch && searchValue ? (
                 // Search results
-                <div className="max-h-[256px] overflow-y-auto min-w-[200px]">
+                <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-h-px min-w-px relative shrink-0 max-h-[256px] overflow-y-auto min-w-[200px]">
                   {searchResults.length > 0 ? (
                     searchResults.map(({ path }, index) => (
                       <div
                         key={index}
                         className={cn(
-                          "px-[var(--spacing-x3)] py-[var(--spacing-x2)]",
-                          "cursor-pointer transition-colors",
-                          "hover:bg-[var(--color-bg-secondary)]"
+                          "box-border flex items-center relative transition-colors duration-200",
+                          "gap-[10px] p-[var(--x3,12px)] rounded-[var(--x2,8px)]",
+                          "hover:bg-[var(--border-secondary)] cursor-pointer"
                         )}
                         onClick={() => handleSearchSelect(path)}
                       >
-                        {path.map(opt => opt.label).join(' / ')}
+                        <span className="font-normal leading-[1.4] relative shrink-0 text-[var(--primary)]" style={{
+                          fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
+                          fontWeight: '400',
+                          fontSize: '16px',
+                        }}>
+                          {path.map(opt => opt.label).join(' / ')}
+                        </span>
                       </div>
                     ))
                   ) : (
-                    <div className="p-[var(--spacing-x4)] text-center text-[var(--color-tertiary)]">
+                    <div className="px-[var(--x3,12px)] py-[var(--x4,16px)] text-center text-[var(--tertiary)] font-normal leading-[1.4]" style={{
+                      fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
+                      fontWeight: '400',
+                      fontSize: '16px',
+                    }}>
                       No results found
                     </div>
                   )}
                 </div>
               ) : (
                 // Cascading columns
-                <div className="flex">
+                <div className="content-stretch flex gap-[16px] items-start relative shrink-0 w-full">
                   {columns.map((columnOptions, columnIndex) => (
                     <CascaderColumn
                       key={columnIndex}

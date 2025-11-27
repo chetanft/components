@@ -4,12 +4,12 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Typography } from '../Typography';
 
-export type DividerType = 'primary' | 'secondary' | 'tertiary' | 'with-label'; // Legacy
+export type DividerType = 'primary' | 'secondary' | 'tertiary' | 'with-label';
 export type DividerOrientation = 'left' | 'right' | 'center';
 
 export interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * The type of divider to display (Legacy)
+   * The type of divider to display
    * @default 'primary'
    */
   type?: DividerType;
@@ -37,7 +37,6 @@ export interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
   orientationMargin?: string | number;
   /**
    * Whether to be a normal text without line if plain
-   * (Ant Design concept, but here we might just map to simple style)
    */
   plain?: boolean;
   children?: React.ReactNode;
@@ -56,12 +55,13 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
     className, 
     ...props 
   }, ref) => {
-    // Determine content (children or label)
     const content = children || label;
     const isVertical = direction === 'vertical';
-    const isDashed = dashed || type === 'tertiary'; // Map legacy tertiary to dashed
+    const isDashed = dashed || type === 'tertiary';
+    const isWithLabel = type === 'with-label';
 
-    const baseColorClass = type === 'secondary' 
+    // Determine border color based on type
+    const borderColorClass = type === 'secondary' 
       ? 'border-[var(--border-secondary)]' 
       : 'border-[var(--border-primary)]';
 
@@ -71,7 +71,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
           ref={ref}
           className={cn(
             "inline-block w-px h-[0.9em] mx-2 align-middle border-l",
-            baseColorClass,
+            borderColorClass,
             isDashed && "border-dashed",
             className
           )}
@@ -80,66 +80,74 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
       );
     }
 
-    // Horizontal with Content
-    if (content) {
+    // Horizontal with Content (with-label type)
+    if (content || isWithLabel) {
+      const labelContent = content || label;
+      
       return (
         <div
           ref={ref}
           className={cn(
-            "flex w-full items-center whitespace-nowrap text-center m-0 p-0",
+            "box-border flex items-center justify-between w-full m-0 p-0",
+            'py-[var(--x4,16px)]',
             orientation === 'left' && "justify-start",
             orientation === 'right' && "justify-end",
-            orientation === 'center' && "justify-center",
-            // Padding logic?
-            'py-[var(--x4,16px)]',
+            orientation === 'center' && "justify-between",
             className
           )}
           {...props}
         >
+          {/* Left divider line */}
           <div 
-             className={cn(
-               "relative top-[50%] border-t w-full min-w-[5%]", 
-               baseColorClass,
-               isDashed && "border-dashed"
-             )} 
+            className={cn(
+              "h-px flex-1 border-t",
+              'border-[var(--border-primary)]'
+            )}
           />
           
+          {/* Label */}
           <span className={cn(
-             "inline-block px-[1em]",
-             plain ? "font-normal" : "font-medium"
+            "inline-block shrink-0 px-[10px]",
+            plain ? "font-normal" : "font-medium"
           )}>
-             {typeof content === 'string' ? (
-                <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-full px-[8px] py-[2px] mx-0 shrink-0">
-                    <Typography variant="body-secondary-medium" color="tertiary">
-                    {content}
-                    </Typography>
-                </div>
-             ) : content}
+            {typeof labelContent === 'string' ? (
+              <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid rounded-full px-[8px] py-[2px] shrink-0">
+                <Typography variant="body-secondary-medium" color="tertiary">
+                  {labelContent}
+                </Typography>
+              </div>
+            ) : labelContent}
           </span>
           
+          {/* Right divider line */}
           <div 
-             className={cn(
-               "relative top-[50%] border-t w-full min-w-[5%]", 
-               baseColorClass,
-               isDashed && "border-dashed"
-             )} 
+            className={cn(
+              "h-px flex-1 border-t",
+              'border-[var(--border-primary)]'
+            )}
           />
         </div>
       );
     }
 
-    // Simple Horizontal
+    // Simple Horizontal (primary, secondary, tertiary)
     return (
       <div
         ref={ref}
         className={cn(
-            "flex clear-both w-full min-w-full my-[24px]", // Ant default margin
-            'py-[var(--x4,16px)]', // Existing FT padding
-            className
+          "box-border flex items-center w-full m-0 p-0",
+          'py-[var(--x4,16px)]',
+          className
         )}
         {...props}
       >
-        <div className={cn('w-full border-t', baseColorClass, isDashed && 'border-dashed')} />
+        <div 
+          className={cn(
+            "h-px w-full border-t",
+            borderColorClass,
+            isDashed && "border-dashed"
+          )}
+        />
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import { cn, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'text' | 'link' | 'ghost' | 'dashed';
+export type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'text' | 'link' | 'ghost' | 'dashed';
 export type ButtonSize = ComponentSize; // Use unified sizing
 export type IconPosition = 'leading' | 'trailing' | 'only';
 
@@ -34,9 +34,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const isIconOnly = iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
   // Icon-only buttons: circular for primary/secondary/destructive/text variants
-  // Tertiary variant icon-only buttons are square
   const shouldBeCircular = className?.includes('rounded-full') ||
-    (isIconOnly && variant !== 'tertiary' && variant !== 'link');
+    (isIconOnly && variant !== 'link');
   const isLink = variant === 'link';
   // Text variant icon-only buttons should use secondary variant styling
   const effectiveVariant = (isIconOnly && variant === 'text') ? 'secondary' : variant;
@@ -44,7 +43,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   // Button-specific sizing from Figma design
   const buttonSizing = {
     xxs: {
-      padding: 'px-1.5 py-0.5',
+      padding: 'p-0.5', // 2px all sides
       fontSize: 'text-xs', // 12px
       iconSize: 12,
       borderRadius: 'rounded-component',
@@ -52,7 +51,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       width: 'w-4', // 16px for icon-only
     },
     xs: {
-      padding: 'px-2 py-[2px]',
+      padding: 'p-1', // 4px all sides
       fontSize: 'text-sm', // 14px
       iconSize: 12,
       borderRadius: 'rounded-component',
@@ -68,7 +67,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       width: 'w-8', // 32px for icon-only
     },
     md: {
-      padding: 'px-4 py-3', // 16px horizontal, 12px vertical
+      padding: 'p-3', // 12px all sides
       fontSize: 'text-base', // 16px
       iconSize: 16,
       borderRadius: 'rounded-component',
@@ -76,7 +75,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       width: 'w-10', // 40px for icon-only
     },
     lg: {
-      padding: 'px-6 py-3', // 24px horizontal, 12px vertical
+      padding: 'p-3', // 12px all sides
       fontSize: 'text-lg', // 20px
       iconSize: 24,
       borderRadius: 'rounded-component',
@@ -84,7 +83,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       width: 'w-12', // 48px for icon-only
     },
     xl: {
-      padding: 'px-6 py-4', // 24px horizontal, 16px vertical
+      padding: 'p-4', // 16px all sides
       fontSize: 'text-xl', // 24px
       iconSize: 24,
       borderRadius: 'rounded-component',
@@ -92,7 +91,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       width: 'w-14', // 56px for icon-only
     },
     xxl: {
-      padding: 'px-7 py-5', // 28px horizontal, 20px vertical
+      padding: 'p-5', // 20px all sides
       fontSize: 'text-[28px]', // 28px
       iconSize: 24,
       borderRadius: 'rounded-component',
@@ -134,8 +133,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     // Apply border radius based on button type
     !isIconOnly && buttonSize.borderRadius,
     // Icon-only buttons: square dimensions with no padding
+    isIconOnly && buttonSize.height,
     isIconOnly && buttonSize.width,
-    isIconOnly && "p-0 aspect-square",
+    isIconOnly && "p-0",
     // Icon-only buttons: apply border radius (square for tertiary, rounded for others)
     isIconOnly && !shouldBeCircular && buttonSize.borderRadius,
     // Regular buttons: use padding
@@ -158,12 +158,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "hover:bg-[var(--button-secondary-hover-bg)] hover:border-[var(--button-secondary-hover-border)]",
       "focus-visible:ring-[var(--primary)]",
       "disabled:text-[var(--tertiary)] disabled:border-[var(--border-primary)]"
-    ),
-    tertiary: cn(
-      "bg-[var(--button-tertiary-bg)] text-[var(--button-tertiary-text)] border border-[var(--button-tertiary-border)]",
-      "hover:bg-[var(--button-tertiary-hover-bg)] hover:border-[var(--button-tertiary-hover-border)]",
-      "focus-visible:ring-[var(--primary)]",
-      "disabled:text-[var(--tertiary)] disabled:border-[var(--border-primary)] disabled:opacity-50"
     ),
     destructive: cn(
       "bg-[var(--button-destructive-bg)] text-[var(--button-destructive-text)] border border-[var(--button-destructive-border)]",

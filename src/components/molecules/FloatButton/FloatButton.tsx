@@ -50,6 +50,21 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
   const isLink = !!href;
   const Component = isLink ? 'a' : 'button';
   
+  // Use FT Design System Button tokens to match Button component styling exactly
+  const variantStyles = type === 'primary' 
+    ? cn(
+        "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] border border-[var(--button-primary-border)]",
+        "hover:bg-[var(--button-primary-hover-bg)] hover:border-[var(--button-primary-hover-bg)] hover:shadow-button",
+        "active:transform active:translate-y-px",
+        "focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--primary)]"
+      )
+    : cn(
+        "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-[var(--button-secondary-border)]",
+        "hover:bg-[var(--button-secondary-hover-bg)] hover:border-[var(--button-secondary-hover-border)] hover:shadow-button",
+        "active:transform active:translate-y-px",
+        "focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--primary)]"
+      );
+
   const content = (
     <Component
       // @ts-ignore
@@ -57,10 +72,11 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
       href={href}
       target={target}
       className={cn(
-        "flex flex-col items-center justify-center relative cursor-pointer shadow-md transition-all duration-200 border-0",
-        "hover:shadow-lg focus:outline-none",
+        "flex flex-col items-center justify-center relative cursor-pointer",
+        "font-medium transition-all duration-200",
+        "focus-visible:outline-none",
         shape === 'circle' ? "rounded-full" : "rounded-md",
-        type === 'primary' ? "bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)]" : "bg-white text-[var(--text-primary)] hover:bg-[var(--background-neutral)]",
+        variantStyles,
         "w-10 h-10", // Default size
         className
       )}

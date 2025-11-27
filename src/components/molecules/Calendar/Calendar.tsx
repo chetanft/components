@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useMemo } from 'react';
+import { format } from 'date-fns';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
@@ -45,6 +46,8 @@ export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const MONTHS_FULL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+const COMPACT_NAV_BUTTON_CLASS = "min-w-[30px] min-h-[30px] w-fit h-fit flex items-center justify-center rounded-[4px] text-[var(--tertiary)] hover:bg-[var(--border-secondary)] transition-colors focus:outline-none";
 
 // ============================================================================
 // Helper Functions
@@ -158,6 +161,14 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       [viewDate]
     );
 
+    const weeks = useMemo(() => {
+      const chunked: Date[][] = [];
+      for (let i = 0; i < days.length; i += 7) {
+        chunked.push(days.slice(i, i + 7));
+      }
+      return chunked;
+    }, [days]);
+
     const isDateDisabled = useCallback((date: Date) => {
       if (disabledDate?.(date)) return true;
       if (validRange) {
@@ -177,18 +188,79 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
         });
       }
 
+      if (!fullscreen && mode === 'month') {
+        return (
+          <div className="flex items-center justify-between px-[16px] py-[12px] border-b border-[var(--border-primary)]">
+            <div className="flex items-center gap-[8px]">
+              <button
+                type="button"
+                onClick={() => navigateYear(-1)}
+                className={COMPACT_NAV_BUTTON_CLASS}
+                aria-label="Previous year"
+              >
+                <Icon name="backward" size={16} />
+              </button>
+              <button
+                type="button"
+                onClick={() => navigateMonth(-1)}
+                className={COMPACT_NAV_BUTTON_CLASS}
+                aria-label="Previous month"
+              >
+                <Icon name="chevron-left" size={16} />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-[8px] text-[14px] font-medium text-[var(--primary)]">
+              <button
+                type="button"
+                onClick={() => handleModeChange('month')}
+                className="hover:text-[var(--primary)] focus:outline-none"
+              >
+                {format(viewDate, 'MMM')}
+              </button>
+              <button
+                type="button"
+                onClick={() => handleModeChange('year')}
+                className="hover:text-[var(--primary)] focus:outline-none"
+              >
+                {format(viewDate, 'yyyy')}
+              </button>
+            </div>
+
+            <div className="flex items-center gap-[8px]">
+              <button
+                type="button"
+                onClick={() => navigateMonth(1)}
+                className={COMPACT_NAV_BUTTON_CLASS}
+                aria-label="Next month"
+              >
+                <Icon name="chevron-right" size={16} />
+              </button>
+              <button
+                type="button"
+                onClick={() => navigateYear(1)}
+                className={COMPACT_NAV_BUTTON_CLASS}
+                aria-label="Next year"
+              >
+                <Icon name="forward" size={16} />
+              </button>
+            </div>
+          </div>
+        );
+      }
+
       return (
         <div className={cn(
           "flex items-center justify-between",
-          fullscreen ? "p-[var(--spacing-x4)]" : "p-[var(--spacing-x2)]"
+          fullscreen ? "p-[24px]" : "p-[16px]"
         )}>
-          <div className="flex items-center gap-[var(--spacing-x1)]">
+          <div className="flex items-center gap-[8px]">
             <button
               type="button"
               onClick={() => navigateYear(-1)}
               className={cn(
-                "p-[var(--spacing-x1)] rounded hover:bg-[var(--color-bg-secondary)]",
-                "text-[var(--color-tertiary)] transition-colors"
+                "p-[8px] rounded hover:bg-[var(--bg-secondary)]",
+                "text-[var(--tertiary)] transition-colors"
               )}
               aria-label="Previous year"
             >
@@ -198,8 +270,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
               type="button"
               onClick={() => navigateMonth(-1)}
               className={cn(
-                "p-[var(--spacing-x1)] rounded hover:bg-[var(--color-bg-secondary)]",
-                "text-[var(--color-tertiary)] transition-colors"
+                "p-[8px] rounded hover:bg-[var(--bg-secondary)]",
+                "text-[var(--tertiary)] transition-colors"
               )}
               aria-label="Previous month"
             >
@@ -207,12 +279,12 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
             </button>
           </div>
 
-          <div className="flex items-center gap-[var(--spacing-x2)]">
+          <div className="flex items-center gap-[8px] mx-[16px]">
             <button
               type="button"
               onClick={() => handleModeChange('month')}
               className={cn(
-                "text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)]",
+                "text-[var(--primary)] font-medium hover:text-[var(--primary)]",
                 mode === 'month' && "underline"
               )}
             >
@@ -222,7 +294,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
               type="button"
               onClick={() => handleModeChange('year')}
               className={cn(
-                "text-[var(--color-primary)] font-medium hover:text-[var(--color-primary)]",
+                "text-[var(--primary)] font-medium hover:text-[var(--primary)]",
                 mode === 'year' && "underline"
               )}
             >
@@ -230,13 +302,13 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
             </button>
           </div>
 
-          <div className="flex items-center gap-[var(--spacing-x1)]">
+          <div className="flex items-center gap-[8px]">
             <button
               type="button"
               onClick={() => navigateMonth(1)}
               className={cn(
-                "p-[var(--spacing-x1)] rounded hover:bg-[var(--color-bg-secondary)]",
-                "text-[var(--color-tertiary)] transition-colors"
+                "p-[8px] rounded hover:bg-[var(--bg-secondary)]",
+                "text-[var(--tertiary)] transition-colors"
               )}
               aria-label="Next month"
             >
@@ -246,8 +318,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
               type="button"
               onClick={() => navigateYear(1)}
               className={cn(
-                "p-[var(--spacing-x1)] rounded hover:bg-[var(--color-bg-secondary)]",
-                "text-[var(--color-tertiary)] transition-colors"
+                "p-[8px] rounded hover:bg-[var(--bg-secondary)]",
+                "text-[var(--tertiary)] transition-colors"
               )}
               aria-label="Next year"
             >
@@ -259,70 +331,119 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     };
 
     // Month view
-    const renderMonthView = () => (
-      <div className={cn(fullscreen ? "p-[var(--spacing-x4)]" : "p-[var(--spacing-x2)]")}>
-        {/* Weekday headers */}
-        <div className="grid grid-cols-7 gap-1 mb-[var(--spacing-x2)]">
-          {WEEKDAYS.map(day => (
-            <div
-              key={day}
-              className={cn(
-                "text-center text-[var(--color-tertiary)]",
-                fullscreen ? "py-[var(--spacing-x2)] text-sm" : "py-[var(--spacing-x1)] text-xs"
-              )}
-            >
-              {day}
+    const renderMonthView = () => {
+      if (!fullscreen) {
+        return (
+          <div className="flex flex-col gap-[8px] p-[16px]">
+            <div className="flex gap-[12px]">
+              {WEEKDAYS.map((day) => (
+                <div
+                  key={day}
+                  className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[8px] text-[14px] text-[var(--tertiary)] font-normal"
+                >
+                  {day}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+            <div className="flex flex-col gap-[12px]">
+              {weeks.map((week, weekIndex) => (
+                <div key={weekIndex} className="flex gap-[12px] items-center">
+                  {week.map((date, dayIndex) => {
+                    const isCurrentMonth = isSameMonth(date, viewDate);
+                    const isSelected = isSameDay(date, selectedDate);
+                    const isTodayDate = isToday(date);
+                    const disabled = isDateDisabled(date);
 
-        {/* Days grid */}
-        <div className="grid grid-cols-7 gap-1">
-          {days.map((date, index) => {
-            const isCurrentMonth = isSameMonth(date, viewDate);
-            const isSelected = isSameDay(date, selectedDate);
-            const isTodayDate = isToday(date);
-            const disabled = isDateDisabled(date);
+                    return (
+                      <button
+                        key={`${weekIndex}-${dayIndex}`}
+                        type="button"
+                        onClick={() => handleDateSelect(date)}
+                        disabled={disabled}
+                        className={cn(
+                          "w-[30px] h-[30px] flex-shrink-0 flex items-center justify-center p-[8px] rounded-[4px] transition-colors",
+                          "bg-[var(--bg-primary)]",
+                          !disabled && !isSelected && "hover:bg-[var(--border-primary)]",
+                          isSelected && !disabled && "bg-[var(--border-secondary)]",
+                          isTodayDate && !isSelected && !disabled && "border border-[var(--border-primary)]",
+                          disabled && "cursor-not-allowed"
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            "text-[14px] leading-[normal]",
+                            isSelected ? "font-medium" : "font-normal",
+                            disabled ? "text-[var(--border-secondary)]" : "text-[var(--primary)]",
+                            !isCurrentMonth && !isSelected && !disabled && "text-[var(--tertiary)]"
+                          )}
+                        >
+                          {date.getDate()}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
 
-            return (
-              <button
-                key={index}
-                type="button"
-                onClick={() => handleDateSelect(date)}
-                disabled={disabled}
-                className={cn(
-                  "relative flex flex-col items-center justify-start rounded transition-colors",
-                  fullscreen ? "min-h-[80px] p-[var(--spacing-x1)]" : "h-[32px] w-[32px] justify-center",
-                  !isCurrentMonth && "opacity-40",
-                  isSelected && "bg-[var(--color-primary)] text-white",
-                  !isSelected && isTodayDate && "border border-[var(--color-primary)]",
-                  !isSelected && !disabled && "hover:bg-[var(--color-bg-secondary)]",
-                  disabled && "opacity-30 cursor-not-allowed"
-                )}
+      return (
+        <div className="p-[24px]">
+          <div className="grid grid-cols-7 gap-1 mb-[12px]">
+            {WEEKDAYS.map(day => (
+              <div
+                key={day}
+                className="text-center text-[var(--tertiary)] py-[12px] text-sm"
               >
-                <span className={cn(
-                  fullscreen ? "text-sm" : "text-xs",
-                  isTodayDate && !isSelected && "text-[var(--color-primary)] font-medium"
-                )}>
-                  {date.getDate()}
-                </span>
-                {fullscreen && dateCellRender && (
-                  <div className="w-full mt-1 text-xs overflow-hidden">
-                    {dateCellRender(date)}
-                  </div>
-                )}
-              </button>
-            );
-          })}
+                {day}
+              </div>
+            ))}
+          </div>
+          <div className="grid grid-cols-7 gap-1">
+            {days.map((date, index) => {
+              const isCurrentMonth = isSameMonth(date, viewDate);
+              const isSelected = isSameDay(date, selectedDate);
+              const isTodayDate = isToday(date);
+              const disabled = isDateDisabled(date);
+
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => handleDateSelect(date)}
+                  disabled={disabled}
+                  className={cn(
+                    "relative flex flex-col items-center justify-start rounded transition-colors min-h-[80px] p-[8px]",
+                    !isCurrentMonth && "opacity-40",
+                    isSelected && "bg-[var(--primary)] text-[var(--bg-primary)]",
+                    !isSelected && isTodayDate && "border border-[var(--primary)]",
+                    !isSelected && !disabled && "hover:bg-[var(--bg-secondary)]",
+                    disabled && "opacity-30 cursor-not-allowed"
+                  )}
+                >
+                  <span className="text-sm">
+                    {date.getDate()}
+                  </span>
+                  {dateCellRender && (
+                    <div className="w-full mt-1 text-xs overflow-hidden">
+                      {dateCellRender(date)}
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    );
+      );
+    };
 
     // Year view (month selection)
     const renderYearView = () => (
       <div className={cn(
-        "grid grid-cols-3 gap-[var(--spacing-x2)]",
-        fullscreen ? "p-[var(--spacing-x4)]" : "p-[var(--spacing-x2)]"
+        "grid grid-cols-3 gap-[12px]",
+        fullscreen ? "p-[24px]" : "p-[16px]"
       )}>
         {MONTHS.map((month, index) => {
           const monthDate = new Date(viewDate.getFullYear(), index, 1);
@@ -339,10 +460,10 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                 handleModeChange('month');
               }}
               className={cn(
-                "py-[var(--spacing-x3)] px-[var(--spacing-x2)] rounded transition-colors",
-                "text-[var(--color-primary)]",
-                isSelected && "bg-[var(--color-primary)] text-white",
-                !isSelected && "hover:bg-[var(--color-bg-secondary)]"
+                "py-[12px] px-[12px] rounded transition-colors",
+                "text-[var(--primary)]",
+                isSelected && "bg-[var(--primary)] text-[var(--bg-primary)]",
+                !isSelected && "hover:bg-[var(--bg-secondary)]"
               )}
             >
               {month}
@@ -364,8 +485,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
 
       return (
         <div className={cn(
-          "grid grid-cols-3 gap-[var(--spacing-x2)]",
-          fullscreen ? "p-[var(--spacing-x4)]" : "p-[var(--spacing-x2)]"
+          "grid grid-cols-3 gap-[12px]",
+          fullscreen ? "p-[24px]" : "p-[16px]"
         )}>
           {years.map((year, index) => {
             const isSelected = selectedDate && selectedDate.getFullYear() === year;
@@ -382,11 +503,11 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                   handleModeChange('year');
                 }}
                 className={cn(
-                  "py-[var(--spacing-x3)] px-[var(--spacing-x2)] rounded transition-colors",
-                  "text-[var(--color-primary)]",
+                  "py-[12px] px-[12px] rounded transition-colors",
+                  "text-[var(--primary)]",
                   isOutOfDecade && "opacity-40",
-                  isSelected && "bg-[var(--color-primary)] text-white",
-                  !isSelected && "hover:bg-[var(--color-bg-secondary)]"
+                  isSelected && "bg-[var(--primary)] text-[var(--bg-primary)]",
+                  !isSelected && "hover:bg-[var(--bg-secondary)]"
                 )}
               >
                 {year}
@@ -401,9 +522,9 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       <div
         ref={ref}
         className={cn(
-          "bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]",
-          "border border-[var(--color-border-secondary)]",
-          fullscreen ? "w-full" : "w-[280px]",
+          "bg-[var(--bg-primary)] rounded-[var(--radius-md)]",
+          "border border-[var(--border-secondary)]",
+          fullscreen ? "w-full" : "w-fit",
           className
         )}
         {...props}
@@ -416,7 +537,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
 
         {/* Today button */}
         {!fullscreen && (
-          <div className="p-[var(--spacing-x2)] border-t border-[var(--color-border-secondary)]">
+          <div className="p-[16px] border-t border-[var(--border-secondary)]">
             <Button
               variant="text"
               size="xs"
@@ -439,4 +560,3 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
 Calendar.displayName = 'Calendar';
 
 export default Calendar;
-

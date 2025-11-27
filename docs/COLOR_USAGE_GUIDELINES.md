@@ -104,8 +104,9 @@ class="bg-bg-secondary"
 
 ### **Critical** - Red Palette
 - **Dark**: `#b80100` - Critical text on light backgrounds
-- **Default**: `#ff3533` - Error states, destructive actions
-- **Light**: `#ffeaea` - Error background, critical alerts
+- **Default**: `#ff3532` (`--danger-500`) - Error states, destructive actions, Alert danger variant text and icon
+- **Light**: `#ffeafa` (`--danger-100`) - Error background, Alert danger variant background
+- **Alert Danger Variant**: Uses `--danger-100` for background, `--danger-500` for border, text, and icon
 
 ### **Warning** - Orange Palette  
 - **Dark**: `#dd6a00` - Warning text on light backgrounds

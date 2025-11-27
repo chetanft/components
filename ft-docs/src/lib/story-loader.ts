@@ -73,6 +73,7 @@ const storyPathMap: Record<string, () => Promise<any>> = {
   'Anchor': () => import('../../../src/components/molecules/Anchor/Anchor.stories'),
   'DatePicker': () => import('../../../src/components/molecules/DatePicker/DatePicker.stories'),
   'Dropdown': () => import('../../../src/components/molecules/Dropdown/Dropdown.stories'),
+  'DropdownMenu': () => import('../../../src/components/molecules/DropdownMenu/DropdownMenu.stories'),
   'UploadThumbnail': () => import('../../../src/components/molecules/UploadThumbnail/UploadThumbnail.stories'),
   'UploadItem': () => import('../../../src/components/molecules/UploadItem/UploadItem.stories'),
   'ButtonGroup': () => import('../../../src/components/molecules/ButtonGroup/ButtonGroup.stories'),
@@ -102,6 +103,8 @@ const storyPathMap: Record<string, () => Promise<any>> = {
   'Result': () => import('../../../src/components/organisms/Result/Result.stories'),
   'Collapsible': () => import('../../../src/components/organisms/Collapsible/Collapsible.stories'),
   'Modal': () => import('../../../src/components/organisms/Modal/Modal.stories'),
+  'PageHeader': () => import('../../../src/components/organisms/PageHeader/PageHeader.stories'),
+  'QuickFilters': () => import('../../../src/components/organisms/QuickFilters/QuickFilters.stories'),
   
   // Stories folder (standalone stories)
   'Input': () => import('../../../src/stories/Input.stories'),

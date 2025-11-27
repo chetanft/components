@@ -74,22 +74,24 @@ export const Small: Story = {
 };
 
 // Interactive Demo using sampleOptions from registry
+const InteractiveDemoComponent = () => {
+  const [selected, setSelected] = React.useState('option1');
+  return (
+    <div className="p-6 space-y-4">
+      <h3 className="text-lg font-semibold mb-4">Interactive Radio Group</h3>
+      <RadioGroup
+        name="interactive-radio"
+        options={sampleOptions}
+        value={selected}
+        onChange={(value) => setSelected(value)}
+        size="md"
+        orientation="vertical"
+      />
+      <p className="text-sm text-gray-600">Selected: {selected}</p>
+    </div>
+  );
+};
+
 export const InteractiveDemo: Story = {
-  render: function Render() {
-    const [selected, setSelected] = React.useState('option1');
-    return (
-      <div className="p-6 space-y-4">
-        <h3 className="text-lg font-semibold mb-4">Interactive Radio Group</h3>
-        <RadioGroup
-          name="interactive-radio"
-          options={sampleOptions}
-          value={selected}
-          onChange={(value) => setSelected(value)}
-          size="md"
-          orientation="vertical"
-        />
-        <p className="text-sm text-gray-600">Selected: {selected}</p>
-      </div>
-    );
-  },
+  render: () => <InteractiveDemoComponent />,
 };

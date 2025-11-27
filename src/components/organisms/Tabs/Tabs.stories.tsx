@@ -8,7 +8,7 @@ const meta: Meta<typeof Tabs> = {
   argTypes: {
     type: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary', 'card'],
+      options: ['primary', 'secondary', 'tertiary'],
     },
   },
 };
@@ -29,22 +29,49 @@ export const Primary: Story = {
   },
 };
 
-export const Card: Story = {
+export const Secondary: Story = {
   args: {
     tabs: tabsData,
-    type: 'card',
+    type: 'secondary',
   },
 };
 
-export const CardWithEdit: Story = {
-    render: () => (
-        <Tabs 
-            type="card"
-            tabs={[
-                { label: 'Tab 1', children: 'Content 1', closable: true },
-                { label: 'Tab 2', children: 'Content 2', closable: true },
-            ]}
-            onEdit={() => console.log('Edit')}
-        />
-    )
+export const Tertiary: Story = {
+  args: {
+    tabs: tabsData,
+    type: 'tertiary',
+  },
+};
+
+export const WithBadges: Story = {
+  args: {
+    tabs: [
+      { label: 'Tab 1', badge: true, badgeCount: '56', children: 'Content of Tab 1' },
+      { label: 'Tab 2', badge: true, badgeCount: '12', children: 'Content of Tab 2' },
+      { label: 'Tab 3', children: 'Content of Tab 3' },
+    ],
+    type: 'primary',
+  },
+};
+
+export const WithNotifications: Story = {
+  args: {
+    tabs: [
+      { label: 'Tab 1', notification: true, children: 'Content of Tab 1' },
+      { label: 'Tab 2', notification: true, children: 'Content of Tab 2' },
+      { label: 'Tab 3', children: 'Content of Tab 3' },
+    ],
+    type: 'primary',
+  },
+};
+
+export const WithIcons: Story = {
+  args: {
+    tabs: [
+      { label: 'Tab 1', icon: true, children: 'Content of Tab 1' },
+      { label: 'Tab 2', icon: true, children: 'Content of Tab 2' },
+      { label: 'Tab 3', children: 'Content of Tab 3' },
+    ],
+    type: 'primary',
+  },
 };

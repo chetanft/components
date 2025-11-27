@@ -60,10 +60,14 @@ All design tokens are available as CSS custom properties:
 - `--color-white`: #ffffff
 
 **Status Colors:**
-- Critical: `--color-critical` (#ff3533), `--color-critical-dark` (#b80100), `--color-critical-light` (#ffeaea)
+- Critical: `--color-critical` (#ff3532), `--color-critical-dark` (#b80100), `--color-critical-light` (#ffeaea)
 - Warning: `--color-warning` (#ff6c19), `--color-warning-dark` (#dd6a00), `--color-warning-light` (#ffebdc)  
 - Positive: `--color-positive` (#00c638), `--color-positive-dark` (#00763d), `--color-positive-light` (#dfffe8)
 - Neutral: `--color-neutral` (#1890ff), `--color-neutral-dark` (#006ed3), `--color-neutral-light` (#ecf6ff)
+
+**Danger Scale (for Alert component):**
+- `--danger-500` (#ff3532) - Alert danger variant border, text, and icon
+- `--danger-100` (#ffeafa) - Alert danger variant background
 
 ### Typography
 
@@ -152,6 +156,14 @@ Desktop spacing uses 4px base unit:
 - ✅ Documents the eleven Figma-aligned variants (`title-primary`, `body-secondary-medium`, etc.)
 - ✅ Uses direct pixel values (28px, 24px, 20px, 16px, 14px) with 140% line-height
 - ✅ Shows semantic color usage through the `color` prop
+
+### Alert Component
+- ✅ Uses `--danger-100` for danger variant background
+- ✅ Uses `--danger-500` for danger variant border, text, and icon
+- ✅ Uses semantic color tokens for all variants (info, success, warning, danger)
+- ✅ Configurable radius prop: `none`, `sm` (`--radius-sm`), `md` (`--radius-md`), `lg` (`--radius-lg`)
+- ✅ Default radius: `md` for regular alerts, `none` for banner alerts
+- ✅ Uses built `alert-critical` icon for danger variant
 
 ## Icon System Integration
 

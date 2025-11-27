@@ -13,7 +13,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary', 'destructive', 'text', 'link'],
+      options: ['primary', 'secondary', 'destructive', 'text', 'link'],
     },
     size: {
       control: { type: 'select' },
@@ -52,15 +52,6 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     variant: 'secondary',
-    size: 'md',
-    children: 'Button',
-  },
-};
-
-// Tertiary variant
-export const Tertiary: Story = {
-  args: {
-    variant: 'tertiary',
     size: 'md',
     children: 'Button',
   },
@@ -182,14 +173,6 @@ export function IconPositions() {
 export function CircularButtons() {
   return (
     <div className="flex flex-col gap-6 p-6">
-      <div>
-        <h3 className="text-lg font-semibold mb-4">Circular Buttons</h3>
-        <p className="text-sm text-gray-600 mb-4">
-          When using the `rounded-full` class, buttons automatically become perfect circles 
-          (width = height) with optimal padding removed for icon-only usage.
-        </p>
-      </div>
-      
       {/* Circular button sizes */}
       <div>
         <h4 className="text-base font-medium mb-3">Sizes</h4>
@@ -213,25 +196,9 @@ export function CircularButtons() {
         </div>
       </div>
       
-      {/* Square icon-only buttons (tertiary variant) */}
-      <div>
-        <h4 className="text-base font-medium mb-3">Square Icon-Only Buttons</h4>
-        <p className="text-sm text-gray-600 mb-3">
-          Tertiary variant icon-only buttons are square by default.
-        </p>
-        <div className="flex items-center gap-4">
-          <Button variant="tertiary" size="sm" icon="star" iconPosition="only" />
-          <Button variant="tertiary" size="md" icon="download" iconPosition="only" />
-          <Button variant="tertiary" size="lg" icon="filter" iconPosition="only" />
-        </div>
-      </div>
-      
       {/* Circular icon-only buttons (text variant uses secondary styling) */}
       <div>
         <h4 className="text-base font-medium mb-3">Circular Icon-Only Buttons</h4>
-        <p className="text-sm text-gray-600 mb-3">
-          Text variant icon-only buttons are circular and use secondary styling.
-        </p>
         <div className="flex items-center gap-4">
           <Button variant="text" size="sm" icon="more" iconPosition="only" />
           <Button variant="text" size="md" icon="more" iconPosition="only" />
@@ -246,9 +213,6 @@ export function CircularButtons() {
           <Button variant="secondary" size="sm" className="rounded-full" icon="more" iconPosition="only" />
           <Button variant="secondary" size="sm" className="rounded-full" icon="share" iconPosition="only" />
           <Button variant="secondary" size="sm" className="rounded-full" icon="copy" iconPosition="only" />
-        </div>
-        <div className="text-xs text-gray-500 mt-2">
-          Perfect for table action buttons, toolbar icons, and floating action buttons
         </div>
       </div>
       

@@ -1,0 +1,117 @@
+# FT DESIGN SYSTEM TOKEN ENFORCEMENT RULES
+
+## 1. Use exact design tokens from ft-design-system/global.css
+When generating CSS, Tailwind classes, or component styles:
+- ALWAYS use the exact token names defined in the FT Global CSS file.
+- NEVER modify token names (no underscores, no spaces, no casing changes).
+- NEVER auto-insert or transform tokens to Tailwind arbitrary values.
+
+Valid examples:
+- var(--primary)
+- var(--border-primary)
+- var(--bg-secondary)
+
+Invalid examples:
+- var(--border_primary)
+- var(--border primary)
+- var(--borderPrimary)
+
+## 2. Do NOT generate Tailwind arbitrary value classes for FT tokens
+Avoid generating classes like:
+
+❌ .border-[var(--border-primary)]
+❌ .text-[var(--primary)]
+❌ .bg-[var(--bg-secondary)]
+
+Reason:
+Turbopack sometimes breaks CSS escaping inside [].
+
+Instead, generate normal CSS or component styles:
+
+✔ border-color: var(--border-primary);
+✔ color: var(--primary);
+
+If user explicitly asks for Tailwind classes → use standard Tailwind colors only, not FT tokens.
+
+## 3. If using CSS-in-JS (styled-components / emotion)
+Use FT tokens exactly:
+
+background: var(--bg-primary);
+color: var(--primary);
+
+Never compute or rename tokens.
+
+## 4. When editing globals.css
+Do not transform, reformat, or rename tokens defined in the file.
+Tokens must stay EXACT as written in the official file.
+
+## 5. When Cursor auto-completes CSS variables
+Cursor must validate:
+- No spaces inside var()
+- No underscores when token uses hyphens
+- No fallback unless user asks
+
+Correct:
+var(--border-primary)
+var(--primary)
+
+Incorrect:
+var(--border primary)
+var(--primary-color)
+var(--border_primary)
+
+## 6. When generating component classes
+Use semantic names:
+- text-primary
+- border-primary
+- bg-primary
+
+Do NOT attempt to auto-derive new utilities.
+
+## 7. If unsure which token to use
+Refer to ft-design-system/global.css and pick the closest semantic token.
+Never invent new tokens.
+
+## 8. Error Prevention
+If Cursor detects a variable that is not in the FT token list → STOP and warn.
+Do NOT autocomplete the variable.
+
+Example:
+"Token --border_primary not found. Use --border-primary instead."
+
+## 9. Font Variables - CRITICAL RULES
+
+### NEVER use CSS variables with forward slashes `/`
+CSS custom property names CANNOT contain forward slashes. This breaks CSS parsing in Next.js/Turbopack.
+
+❌ **FORBIDDEN - Will break build:**
+- `--font/family/title-secondary`
+- `--font/family/body-primary`
+- `--font/sizes/md`
+- `--font/weight/regular`
+- Any variable with `/` in the name
+
+✅ **VALID FT Design System font tokens:**
+- `--font-family-primary` (defined in globals.css)
+- `--font-family-secondary` (if defined)
+- Use direct values: `font-size: 16px`, `font-weight: 400`
+
+### NEVER create Tailwind arbitrary font-family classes
+❌ **FORBIDDEN:**
+- `.font-[family-name:var(--font/family/title-secondary)]`
+- `.font-[var(--font-family-primary)]`
+- Any `.font-[...]` arbitrary value with CSS variables
+
+✅ **CORRECT approaches:**
+1. Use inline styles: `style={{ fontFamily: 'var(--font-family-primary, "Inter", sans-serif)' }}`
+2. Use standard Tailwind classes: `font-sans`, `font-serif`
+3. Use CSS directly: `font-family: var(--font-family-primary);`
+
+### Font size and weight
+- Use direct pixel values: `fontSize: '16px'`, `fontWeight: '400'`
+- Or standard Tailwind: `text-base`, `font-semibold`
+- NEVER: `var(--font/sizes/md)` or `var(--font/weight/regular)`
+
+---
+alwaysApply: true
+---

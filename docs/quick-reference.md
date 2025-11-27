@@ -15,7 +15,11 @@ import {
   Badge, 
   Checkbox, 
   Input, 
-  Switch 
+  Switch,
+  Empty,
+  Typography,
+  Dropdown,
+  DatePicker
 } from '@chetanft/design_system';
 ```
 
@@ -98,6 +102,26 @@ function App() {
 />
 ```
 
+### Empty States
+```jsx
+// Basic empty state
+<Empty description="No data available" />
+
+// With image variant
+<Empty image="simple" description="No results found" />
+
+// With actions
+<Empty description="No items in your cart">
+  <Button variant="primary">Start Shopping</Button>
+</Empty>
+
+// Using presets
+import { EmptyPresets } from '@chetanft/design_system';
+<Empty {...EmptyPresets.noResults}>
+  <Button variant="secondary">Clear Filters</Button>
+</Empty>
+```
+
 ## Common Patterns
 
 ### Dashboard Header
@@ -153,4 +177,9 @@ function App() {
 
 ### Badge
 - `variant`: `'default' | 'secondary' | 'success' | 'warning' | 'error'`
-- `size`: `'small' | 'medium' | 'large'` 
+- `size`: `'small' | 'medium' | 'large'`
+
+### Empty
+- `description`: `React.ReactNode`
+- `image`: `'default' | 'simple' | 'no-data' | 'error' | React.ReactNode`
+- `children`: `React.ReactNode` (actions) 

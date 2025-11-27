@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertCritical } from '../Icons';
+import { AlertInformational } from '../Icons';
 
 export interface LabelProps {
   /**
@@ -104,7 +104,7 @@ export const Label: React.FC<LabelProps> = ({
 
   const suffixIconElement = icon || (
     <div style={{ width: '16px', height: '16px', color: 'var(--primary)', flexShrink: 0 }}>
-      <AlertCritical />
+      <AlertInformational />
     </div>
   );
 

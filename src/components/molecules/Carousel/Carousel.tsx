@@ -79,7 +79,9 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
   }, ref) => {
     const slides = React.Children.toArray(children);
     const totalSlides = slides.length;
-    const [currentSlide, setCurrentSlide] = useState(initialSlide);
+    const maxInitialSlide = Math.max(0, totalSlides - slidesToShow);
+    const validatedInitialSlide = Math.min(initialSlide, maxInitialSlide);
+    const [currentSlide, setCurrentSlide] = useState(validatedInitialSlide);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -91,12 +93,15 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
 
       let nextSlide = index;
       
+      // Calculate max slide index based on slidesToShow
+      const maxSlide = Math.max(0, totalSlides - slidesToShow);
+      
       if (infinite) {
         if (index < 0) nextSlide = totalSlides - 1;
         else if (index >= totalSlides) nextSlide = 0;
       } else {
         if (index < 0) nextSlide = 0;
-        else if (index >= totalSlides) nextSlide = totalSlides - 1;
+        else if (index > maxSlide) nextSlide = maxSlide;
       }
 
       if (nextSlide === currentSlide) return;
@@ -109,7 +114,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         setIsTransitioning(false);
         afterChange?.(nextSlide);
       }, speed);
-    }, [currentSlide, totalSlides, infinite, beforeChange, afterChange, speed, isTransitioning]);
+    }, [currentSlide, totalSlides, infinite, beforeChange, afterChange, speed, isTransitioning, slidesToShow]);
 
     const goToNext = useCallback(() => {
       goToSlide(currentSlide + slidesToScroll);
@@ -168,24 +173,25 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
 
     // Container classes
     const containerClasses = cn(
-      "relative overflow-hidden",
-      isVertical && "flex",
-      dotPosition === 'right' && "flex-row-reverse",
+      "relative overflow-hidden w-full",
       className
     );
 
     // Track classes
     const trackClasses = cn(
-      "flex transition-transform",
+      "flex transition-transform ease-in-out",
       effect === 'fade' && "relative",
-      isVertical && "flex-col"
+      "h-full"
     );
+
+    // Calculate slide width percentage
+    const slideWidthPercent = 100 / slidesToShow;
 
     // Slide classes
     const slideClasses = (index: number) => cn(
-      "flex-shrink-0 w-full",
+      "flex-shrink-0 h-full",
       effect === 'fade' && [
-        "absolute inset-0 transition-opacity",
+        "absolute inset-0 transition-opacity duration-500",
         index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
       ]
     );
@@ -195,16 +201,20 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       "flex gap-[var(--spacing-x2)] p-[var(--spacing-x2)]",
       dotPosition === 'top' && "absolute top-0 left-1/2 -translate-x-1/2 z-20",
       dotPosition === 'bottom' && "absolute bottom-0 left-1/2 -translate-x-1/2 z-20",
-      dotPosition === 'left' && "flex-col",
-      dotPosition === 'right' && "flex-col"
+      dotPosition === 'left' && "flex-col absolute left-[var(--spacing-x2)] top-1/2 -translate-y-1/2 z-20",
+      dotPosition === 'right' && "flex-col absolute right-[var(--spacing-x2)] top-1/2 -translate-y-1/2 z-20"
     );
 
-    // Arrow button classes
-    const arrowClasses = cn(
-      "absolute z-20 p-[var(--spacing-x2)] rounded-full",
-      "bg-[var(--color-bg-primary)] shadow-[var(--shadow-md)]",
-      "text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)]",
-      "transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+    // Arrow button base classes
+    const arrowBaseClasses = cn(
+      "absolute z-30 flex items-center justify-center",
+      "w-10 h-10 rounded-full",
+      "bg-white/90 hover:bg-white",
+      "shadow-lg border border-gray-200/50",
+      "text-gray-700 hover:text-gray-900",
+      "transition-all duration-200",
+      "disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/90",
+      "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
     );
 
     return (
@@ -228,16 +238,19 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         {/* Slides container */}
         <div
           ref={containerRef}
-          className="relative overflow-hidden flex-1"
+          className="relative w-full overflow-hidden"
+          style={{ minHeight: '200px' }}
         >
           <div
             className={trackClasses}
             style={{
               transform: effect === 'slide' 
-                ? `translateX(-${currentSlide * (100 / slidesToShow)}%)`
+                ? `translateX(-${currentSlide * slideWidthPercent}%)`
                 : undefined,
               transitionDuration: `${speed}ms`,
-              width: effect === 'slide' ? `${(totalSlides / slidesToShow) * 100}%` : '100%',
+              transitionTimingFunction: 'ease-in-out',
+              width: effect === 'slide' ? `${totalSlides * slideWidthPercent}%` : '100%',
+              height: '100%',
             }}
           >
             {slides.map((slide, index) => (
@@ -245,7 +258,8 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                 key={index}
                 className={slideClasses(index)}
                 style={{
-                  width: effect === 'slide' ? `${100 / totalSlides}%` : '100%',
+                  width: effect === 'slide' ? `${slideWidthPercent}%` : '100%',
+                  height: '100%',
                   transitionDuration: `${speed}ms`,
                 }}
                 aria-hidden={index !== currentSlide}
@@ -265,7 +279,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                 type="button"
                 onClick={goToPrev}
                 disabled={!infinite && currentSlide === 0}
-                className={cn(arrowClasses, "left-[var(--spacing-x2)] top-1/2 -translate-y-1/2")}
+                className={cn(arrowBaseClasses, "left-2 top-1/2 -translate-y-1/2")}
                 aria-label="Previous slide"
               >
                 <Icon name="chevron-left" size={20} />
@@ -273,8 +287,8 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
               <button
                 type="button"
                 onClick={goToNext}
-                disabled={!infinite && currentSlide >= totalSlides - 1}
-                className={cn(arrowClasses, "right-[var(--spacing-x2)] top-1/2 -translate-y-1/2")}
+                disabled={!infinite && currentSlide >= Math.max(0, totalSlides - slidesToShow)}
+                className={cn(arrowBaseClasses, "right-2 top-1/2 -translate-y-1/2")}
                 aria-label="Next slide"
               >
                 <Icon name="chevron-right" size={20} />

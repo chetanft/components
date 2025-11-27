@@ -256,6 +256,12 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
+          title: "DropdownMenu",
+          href: "/docs/components/dropdown-menu",
+          items: [],
+          label: "New",
+        },
+        {
           title: "Empty",
           href: "/docs/components/empty",
           items: [],
@@ -465,6 +471,12 @@ export const docsConfig: DocsConfig = {
           title: "Modal",
           href: "/docs/components/modal",
           items: [],
+        },
+        {
+          title: "PageHeader",
+          href: "/docs/components/page-header",
+          items: [],
+          label: "New",
         },
         {
           title: "NavigationLauncher",

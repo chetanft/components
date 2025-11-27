@@ -1148,10 +1148,10 @@ function MyJourneysPreview() {
             </div>
 
             <div style={{ display: "flex", alignItems: "center", gap: "var(--space-4)" }}>
-              <Button variant="tertiary" icon="star" iconPosition="only" size="md" />
-              <Button variant="tertiary" icon="download" iconPosition="only" size="md" />
-              <Button variant="tertiary" icon="filter" iconPosition="only" size="md" />
-              <Button variant="tertiary" icon="hamburger-menu" iconPosition="only" size="md" />
+              <Button variant="secondary" icon="star" iconPosition="only" size="md" />
+              <Button variant="secondary" icon="download" iconPosition="only" size="md" />
+              <Button variant="secondary" icon="filter" iconPosition="only" size="md" />
+              <Button variant="secondary" icon="hamburger-menu" iconPosition="only" size="md" />
               <div style={{
                 display: "flex",
                 alignItems: "center",

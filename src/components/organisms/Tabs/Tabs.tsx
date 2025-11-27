@@ -1,10 +1,9 @@
 "use client";
 import React, { forwardRef, useState } from 'react';
 import { cn } from '../../../lib/utils';
-import { Badge } from '../../atoms/Badge/Badge';
 import { Icon } from '../../atoms/Icons';
 
-export type TabType = 'primary' | 'secondary' | 'tertiary' | 'card'; // Added 'card'
+export type TabType = 'primary' | 'secondary' | 'tertiary';
 export type TabState = 'unselected' | 'selected' | 'hover';
 
 // Tab Item component using exact Figma specifications
@@ -24,37 +23,56 @@ const TabContent = ({
   notification?: boolean;
   state: TabState;
   type: TabType;
-}) => (
-  <div className={cn(
-    "flex items-center gap-2",
-    // Layout based on type
-    type === 'primary' ? "justify-start" : "justify-center"
-  )}>
-    {icon && (
-      <Icon 
-        name="check" 
-        size={16} 
-        className={cn(
-          state === 'selected' ? 'text-[var(--primary)]' : 'text-[var(--primary)]'
-        )}
-      />
-    )}
-    <span className={cn(
-      "text-base leading-[22.4px]",
-      state === 'selected' ? 'font-semibold text-[var(--primary)]' : 'font-normal text-[var(--primary)]'
+}) => {
+  // Determine gap based on content - 8px for most, 4px when notification is present
+  const gapClass = notification ? "gap-[var(--x1,4px)]" : "gap-[var(--x2,8px)]";
+  
+  // Container alignment - center for selected primary, start for others
+  const containerAlignment = state === 'selected' && type === 'primary' 
+    ? "justify-center" 
+    : type === 'primary' 
+      ? "justify-start" 
+      : "justify-center";
+  
+  return (
+    <div className={cn(
+      "flex items-center",
+      gapClass,
+      containerAlignment,
+      "w-full"
     )}>
-      {label}
-    </span>
-    {badge && (
-      <Badge variant="normal" className="!text-[var(--secondary)] !bg-white border border-[var(--border-primary)] !text-sm !font-medium !px-1 !py-0.5 !h-6">
-        {badgeCount}
-      </Badge>
-    )}
-    {notification && (
-      <div className="w-1.5 h-1.5 bg-[var(--critical)] rounded-full" />
-    )}
-  </div>
-);
+      {icon && (
+        <div className="overflow-clip relative shrink-0 size-[16px]">
+          <Icon 
+            name="check" 
+            size={16} 
+            className="text-[var(--primary)]"
+          />
+        </div>
+      )}
+      <p className={cn(
+        "leading-[1.4] relative shrink-0 text-[var(--primary)] text-base",
+        state === 'selected' 
+          ? "font-semibold"
+          : "font-normal"
+      )}>
+        {label}
+      </p>
+      {badge && (
+        <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--x2,8px)] h-[24px] items-center justify-center px-[var(--x1,4px)] py-[var(--x0,0px)] relative rounded-[var(--x1,4px)] shrink-0">
+          <p className="font-semibold leading-[1.4] relative shrink-0 text-[var(--primary)] text-sm">
+            {badgeCount}
+          </p>
+        </div>
+      )}
+      {notification && (
+        <div className="relative shrink-0 size-[6px]">
+          <div className="absolute inset-0 bg-[var(--critical)] rounded-full" />
+        </div>
+      )}
+    </div>
+  );
+};
 
 export interface TabItemProps {
   label: string;
@@ -67,8 +85,6 @@ export interface TabItemProps {
   onSelect?: () => void;
   className?: string;
   disabled?: boolean;
-  closable?: boolean;
-  onClose?: (e: React.MouseEvent) => void;
 }
 
 export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
@@ -83,8 +99,6 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
     onSelect,
     className, 
     disabled,
-    closable,
-    onClose,
     ...props 
   }, ref) => {
     const [isHovered, setIsHovered] = useState(false);
@@ -92,26 +106,24 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
     // Get current state
     const currentState: TabState = active ? 'selected' : (isHovered ? 'hover' : 'unselected');
     
-    // Base styles
+    // Base styles matching Figma design exactly using FT design system tokens
     const baseStyles = cn(
-      "relative flex transition-all cursor-pointer items-center",
+      "relative flex flex-col gap-[10px] items-start transition-all cursor-pointer",
       disabled && "opacity-50 cursor-not-allowed pointer-events-none",
-      // Padding based on type
+      
+      // Padding based on type - using FT design system spacing tokens
       type === 'primary' 
-        ? "px-8 py-3" 
-        : type === 'card' 
-            ? "px-4 py-2" // Card padding
-            : "px-4 py-2", 
+        ? "px-[var(--x8,32px)] py-[var(--x3,12px)]" 
+        : "px-[var(--x4,16px)] py-[var(--x2,8px)]",
       
-      // Border radius based on type
+      // Border radius based on type - using FT design system tokens
       type === 'primary' && "rounded-none", 
-      type === 'secondary' && "rounded-lg",
-      type === 'tertiary' && "rounded-full",
-      type === 'card' && "rounded-t-lg border-b-0", // Card shape
+      type === 'secondary' && "rounded-[var(--x2,8px)]",
+      type === 'tertiary' && "rounded-[100px]",
       
-      // Border styles based on state and type
+      // Border styles based on state and type - using FT design system tokens
       type === 'primary' && [
-        "border-b",
+        "border-b border-l-0 border-r-0 border-t-0 border-solid",
         currentState === 'selected' 
           ? "border-b-4 border-[var(--primary)]" 
           : currentState === 'hover'
@@ -120,23 +132,15 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
       ],
       
       (type === 'secondary' || type === 'tertiary') && [
-        "border",
+        "border border-solid",
         currentState === 'selected'
           ? "border-[var(--tertiary)]"
           : currentState === 'hover'
           ? "border-[var(--primary)]"
           : "border-[var(--tertiary)]"
       ],
-      
-      // Card specific borders
-      type === 'card' && [
-          "border border-[var(--border-primary)] mr-[-1px]",
-          currentState === 'selected' 
-              ? "bg-white border-b-white z-10" 
-              : "bg-[var(--background-secondary)] border-b-[var(--border-primary)]"
-      ],
 
-      // Background colors based on state and type
+      // Background colors based on state and type - using FT design system tokens
       currentState === 'selected' && [
         (type === 'secondary' || type === 'tertiary') && "bg-[var(--border-secondary)]"
       ],
@@ -146,7 +150,7 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
         (type === 'secondary' || type === 'tertiary') && "bg-[var(--bg-secondary)]"
       ],
       
-      currentState === 'unselected' && type !== 'card' && "bg-transparent",
+      currentState === 'unselected' && "bg-transparent",
       
       className
     );
@@ -169,14 +173,6 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
           state={currentState}
           type={type}
         />
-        {type === 'card' && closable && (
-            <div 
-                className="ml-2 p-1 hover:bg-[var(--background-neutral)] rounded-full"
-                onClick={(e) => { e.stopPropagation(); onClose?.(e); }}
-            >
-                <Icon name="x" size={12} />
-            </div>
-        )}
       </div>
     );
   }
@@ -191,7 +187,6 @@ export interface Tab {
   notification?: boolean;
   icon?: boolean;
   disabled?: boolean;
-  closable?: boolean;
   children?: React.ReactNode; // Content for the tab panel
 }
 
@@ -202,8 +197,6 @@ export interface TabsProps {
   type?: TabType;
   showLine?: boolean;
   className?: string;
-  onEdit?: (targetKey: any, action: 'add' | 'remove') => void;
-  hideAdd?: boolean;
 }
 
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
@@ -214,8 +207,6 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     onTabChange, 
     type = 'primary',
     className, 
-    onEdit,
-    hideAdd,
     ...props 
   }, ref) => {
     const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
@@ -225,14 +216,11 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       onTabChange?.(index);
     };
     
-    // Container styles
+    // Container styles matching Figma design using FT design system tokens
     const containerStyles = cn(
-      "flex",
-      // Only show underline for primary type when showLine is true
-      showLine && type === 'primary' && "border-b border-[var(--border-primary)]",
-      // Spacing between tabs for secondary and tertiary
-      (type === 'secondary' || type === 'tertiary') && "gap-2",
-      type === 'card' && "border-b border-[var(--border-primary)] bg-[var(--background-secondary)] pt-2 px-2 gap-1 rounded-t-lg",
+      "flex items-start relative w-full",
+      // Spacing between tabs for secondary and tertiary - using FT design system tokens
+      (type === 'secondary' || type === 'tertiary') && "gap-[var(--x2,8px)]",
       className
     );
     
@@ -255,22 +243,17 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
                 active={index === internalActiveTab}
                 onSelect={() => !tab.disabled && handleTabSelect(index)}
                 disabled={tab.disabled}
-                closable={type === 'card' && tab.closable}
-                onClose={() => onEdit?.(index, 'remove')}
               />
             ))}
-            {type === 'card' && !hideAdd && onEdit && (
-                <div 
-                    className="flex items-center justify-center w-8 h-8 rounded hover:bg-[var(--background-neutral)] cursor-pointer ml-1 self-center"
-                    onClick={() => onEdit(null, 'add')}
-                >
-                    <Icon name="plus" size={16} />
-                </div>
+            {showLine && type === 'primary' && (
+              <div className="border-[var(--border-primary)] border-b border-l-0 border-r-0 border-solid border-t-0 flex-[1_0_0] min-h-px min-w-px self-stretch shrink-0" />
             )}
           </div>
-          <div className="p-4 bg-white border-l border-r border-b border-[var(--border-primary)] rounded-b-lg">
+          {tabs[internalActiveTab]?.children && (
+            <div className="p-[var(--x4,16px)] bg-[var(--bg-primary)] border-l border-r border-b border-[var(--border-primary)] rounded-b-lg">
               {tabs[internalActiveTab]?.children}
-          </div>
+            </div>
+          )}
       </div>
     );
   }

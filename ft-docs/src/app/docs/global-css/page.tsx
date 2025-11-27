@@ -125,12 +125,6 @@ const globalCssContent = `/* ===================================================
   --button-secondary-border: #ced1d7;
   --button-secondary-hover-border: #838c9d;
   
-  --button-tertiary-bg: #f8f8f9;
-  --button-tertiary-text: #434f64;
-  --button-tertiary-hover-bg: #f0f1f7;
-  --button-tertiary-border: #ced1d7;
-  --button-tertiary-hover-border: #ced1d7;
-  
   --button-destructive-bg: #ff3532;
   --button-destructive-text: #ffffff;
   --button-destructive-hover-bg: #b70100;
@@ -366,12 +360,6 @@ const globalCssContent = `/* ===================================================
   --button-secondary-hover-bg: #334155;
   --button-secondary-border: #475569;
   --button-secondary-hover-border: #64748b;
-  
-  --button-tertiary-bg: #334155;
-  --button-tertiary-text: #e2e8f0;
-  --button-tertiary-hover-bg: #475569;
-  --button-tertiary-border: #475569;
-  --button-tertiary-hover-border: #64748b;
   
   --button-destructive-bg: #ff4d4f;
   --button-destructive-text: #ffffff;

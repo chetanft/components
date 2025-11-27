@@ -27,6 +27,7 @@ export interface QuickFiltersProps {
   onFilterClick?: (filterId: string, optionId?: string) => void;
   onFilterRemove?: (filterId: string, optionId?: string) => void;
   className?: string;
+  scrollable?: boolean;
 }
 
 const FilterChip: React.FC<{
@@ -45,7 +46,7 @@ const FilterChip: React.FC<{
   return (
     <div 
       className={cn(
-        "inline-flex items-center gap-2 px-2 py-1 rounded-lg cursor-pointer transition-all duration-200",
+        "inline-flex items-center gap-2 px-2 h-7 rounded-lg cursor-pointer transition-all duration-200",
         "text-sm font-semibold font-inter",
         // Background based on Figma design
         isMainLabel 
@@ -53,8 +54,8 @@ const FilterChip: React.FC<{
           : isSelected 
             ? "bg-[#F0F1F7]" 
             : "bg-white",
-        // Border for default state (not main labels)
-        showBorder && !isSelected && !isMainLabel ? "border border-[#CED1D7]" : ""
+        // Border: always show border except for main labels without border
+        showBorder && !isMainLabel ? "border border-[#CED1D7]" : ""
       )}
       onClick={!isMainLabel ? onSelect : undefined}
       role={!isMainLabel ? "button" : undefined}
@@ -71,7 +72,9 @@ const FilterChip: React.FC<{
       {displayCount !== undefined && (
         <span 
           className={cn(
-            "inline-flex items-center justify-center px-2 py-0.5 rounded-full text-sm font-semibold min-w-[24px] h-5",
+            "inline-flex items-center justify-center px-2 py-0.5 text-sm font-semibold min-w-[24px] h-5",
+            // Count badge border radius: fully rounded (32px) when selected, rounded-full when not selected
+            isSelected ? "rounded-[32px]" : "rounded-full",
             // Count badge styling based on state and type
             isSelected 
               ? cn(
@@ -101,34 +104,36 @@ const FilterChip: React.FC<{
         {displayLabel}
       </span>
       
-      {/* Space for tick icon - always present to prevent layout shift */}
-      <div className="flex items-center justify-center w-[14px] h-[14px] ml-1">
-        {isSelected && onRemove && !isMainLabel && (
-          <div
-            className="cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
-              onRemove();
-            }}
-            role="button"
-            tabIndex={0}
-            aria-label={`Remove ${displayLabel} filter`}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
+      {/* Space for tick icon - only show when not a main label */}
+      {!isMainLabel && (
+        <div className="flex items-center justify-center w-[14px] h-full ml-1">
+          {isSelected && onRemove && (
+            <div
+              className="cursor-pointer flex items-center justify-center"
+              onClick={(e) => {
                 e.stopPropagation();
                 onRemove();
-              }
-            }}
-          >
-            <Icon
-              name="check-alt"
-              size={14}
-              className="text-[#434F64]"
-            />
-          </div>
-        )}
-      </div>
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label={`Remove ${displayLabel} filter`}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onRemove();
+                }
+              }}
+            >
+              <Icon
+                name="check-alt"
+                size={14}
+                className="text-[#434F64]"
+              />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
@@ -139,9 +144,9 @@ const MultiOptionFilter: React.FC<{
   onFilterRemove: (filterId: string, optionId?: string) => void;
 }> = ({ filter, onFilterClick, onFilterRemove }) => {
   return (
-    <div className="inline-flex items-center bg-white border border-[#CED1D7] rounded-lg overflow-hidden">
+    <div className="inline-flex items-center h-9 bg-white border border-[#CED1D7] rounded-lg overflow-hidden">
       {/* Main filter section - non-clickable label with gray background */}
-      <div className="bg-[#F0F1F7] px-2 py-1">
+      <div className="bg-[#F0F1F7] h-full flex items-center px-2">
         <FilterChip
           filter={filter}
           isSelected={false}
@@ -155,8 +160,8 @@ const MultiOptionFilter: React.FC<{
       {/* Options section with separators */}
       {filter.options?.map((option, index) => (
         <React.Fragment key={option.id}>
-          {index > 0 && <div className="w-[1px] h-6 bg-[#CED1D7]" />}
-          <div className="px-1">
+          {index > 0 && <div className="w-[1px] h-9 bg-[#CED1D7]" />}
+          <div className="px-1 h-full flex items-center">
             <FilterChip
               filter={filter}
               option={option}
@@ -179,30 +184,55 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
   onFilterClick = () => {},
   onFilterRemove = () => {},
   className,
+  scrollable = false,
 }) => {
   return (
-    <div className={cn('flex flex-wrap gap-2', className)} role="group" aria-label="Quick filters">
+    <div 
+      className={cn(
+        'flex gap-2',
+        scrollable ? 'overflow-x-auto overflow-y-hidden flex-nowrap' : 'flex-wrap',
+        className
+      )} 
+      role="group" 
+      aria-label="Quick filters"
+      style={scrollable ? { 
+        scrollbarWidth: 'thin',
+        WebkitOverflowScrolling: 'touch',
+      } : undefined}
+    >
       {filters.map((filter) => {
         if (filter.options && filter.options.length > 0) {
           // Multi-option filter
           return (
+            <div key={filter.id} className={scrollable ? 'flex-shrink-0' : ''}>
             <MultiOptionFilter
-              key={filter.id}
               filter={filter}
               onFilterClick={onFilterClick}
               onFilterRemove={onFilterRemove}
             />
+            </div>
           );
         } else {
-          // Single option filter
+          // Single option filter - wrap FilterChip in 36px container
           return (
-            <FilterChip
-              key={filter.id}
-              filter={filter}
-              isSelected={filter.selected || false}
-              onSelect={() => onFilterClick(filter.id)}
-              onRemove={filter.selected ? () => onFilterRemove(filter.id) : undefined}
-            />
+            <div 
+              key={filter.id} 
+              className={cn(
+                "h-9 flex items-center p-1 rounded-lg",
+                filter.selected 
+                  ? "bg-[#F0F1F7] border border-[#CED1D7]" 
+                  : "bg-white border border-[#CED1D7]",
+                scrollable ? 'flex-shrink-0' : ''
+              )}
+            >
+              <FilterChip
+                filter={filter}
+                isSelected={filter.selected || false}
+                onSelect={() => onFilterClick(filter.id)}
+                onRemove={filter.selected ? () => onFilterRemove(filter.id) : undefined}
+                showBorder={false}
+              />
+            </div>
           );
         }
       })}

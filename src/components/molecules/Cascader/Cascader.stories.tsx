@@ -9,7 +9,7 @@ const meta: Meta<typeof Cascader> = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'A cascading selector component for selecting from hierarchical data. Built using FT Design System tokens.',
+        component: 'A cascading selector component for selecting from hierarchical data.',
       },
     },
   },

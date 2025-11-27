@@ -18,9 +18,11 @@ export const FigmaBadge: React.FC<FigmaBadgeProps> = ({ className }) => {
         "inline-flex items-center gap-1 px-2 py-0.5 rounded-sm",
         "bg-[#ffebdc] text-[#ff6c19] border border-[#ff6c19]",
         "text-xs font-medium",
-        "font-[var(--font-family-primary)]",
         className
       )}
+      style={{
+        fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
+      }}
       title="Figma design not available - Component built using FT Design System tokens"
     >
       <span className="text-[10px]">⚠️</span>
