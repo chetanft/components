@@ -8,8 +8,8 @@
   # Next.js plugin handles publish directory automatically
   # No need to specify publish directory when using Next.js plugin
   
-  # Node.js version
-  environment = { NODE_VERSION = "18" }
+  # Node.js version (Next.js 16 requires >=20.9.0)
+  environment = { NODE_VERSION = "20" }
 
 # Next.js plugin configuration
 [[plugins]]
