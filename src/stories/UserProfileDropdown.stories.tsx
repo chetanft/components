@@ -1,24 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { UserProfileDropdown } from '../components/organisms/UserProfileDropdown';
-
-// Wrapper component to provide positioning context for the absolutely positioned dropdown
-const DropdownWrapper = (Story: any) => {
-  return (
-    <div style={{ 
-      padding: '40px', 
-      backgroundColor: '#F8F8F9', 
-      minHeight: '500px',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'flex-start'
-    }}>
-      <div style={{ position: 'relative', display: 'inline-flex', width: 'fit-content' }}>
-        <Story />
-      </div>
-    </div>
-  );
-};
+import { UserProfile } from '../components/organisms/UserProfile';
 
 const meta = {
   title: 'Components/UserProfile/Dropdown',
@@ -62,11 +45,30 @@ const meta = {
     isOpen: true,
   },
   decorators: [
-    (Story) => (
-      <DropdownWrapper>
-        <Story />
-      </DropdownWrapper>
-    ),
+    (Story, context) => {
+      const { userName, userRole, userLocation, userBadge, userAvatar, isOpen } = context.args;
+      return (
+        <div style={{ 
+          padding: '40px', 
+          backgroundColor: '#F8F8F9', 
+          minHeight: '500px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'flex-start'
+        }}>
+          <div style={{ position: 'relative', display: 'inline-flex', width: 'fit-content' }}>
+            <UserProfile
+              userName={userName}
+              userRole={userRole}
+              userLocation={userLocation}
+              userBadge={userBadge}
+              userAvatar={userAvatar}
+            />
+            <Story />
+          </div>
+        </div>
+      );
+    },
   ],
 } satisfies Meta<typeof UserProfileDropdown>;
 
