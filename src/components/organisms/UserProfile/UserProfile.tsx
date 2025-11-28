@@ -1,5 +1,4 @@
 import React from 'react';
-import { User, Settings, Refresh, Password, Logout } from '../../atoms/Icons';
 import { Logo } from '../../atoms/Logos';
 import { Avatar } from '../../atoms/Avatar';
 import { CompanyInfo } from '../../../types/company';
@@ -25,12 +24,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({
     displayName: 'Tata Motors'
   },
   userName = 'Santosh Kumar',
-  userRole = 'Dispatch Manager',
-  userLocation = 'SPD-Santoshnagar',
-  userBadge = 'Admin',
   userAvatar,
   companyName = true,
-  onClick = () => {},
+  onClick = () => { },
   className,
 }) => {
   const containerClassName = `${baseContainer} ${companyName ? 'gap-[15px] items-center p-[var(--x2,8px)]' : 'gap-[10px] items-center justify-center overflow-clip p-[var(--x2,8px)]'}${className ? ` ${className}` : ''}`;
@@ -49,29 +45,29 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   };
 
   return (
-    <div 
+    <div
       className={containerClassName}
     >
       {companyName ? (
         <>
-      <div className="flex items-center">
-        <div className="h-[26px] relative shrink-0 w-[155px] flex items-center">
-          <Logo name={company.name} width={155} height={26} />
-        </div>
-      </div>
-      <Avatar 
-        src={userAvatar}
-        alt={userName}
-        size="md"
-        className={avatarClass}
-        onClick={handleAvatarClick}
-        onKeyDown={handleAvatarKeyDown}
-        role="button"
-        tabIndex={0}
-      />
+          <div className="flex items-center">
+            <div className="h-[26px] relative shrink-0 w-[155px] flex items-center">
+              <Logo name={company.name} width={155} height={26} />
+            </div>
+          </div>
+          <Avatar
+            src={userAvatar}
+            alt={userName}
+            size="md"
+            className={avatarClass}
+            onClick={handleAvatarClick}
+            onKeyDown={handleAvatarKeyDown}
+            role="button"
+            tabIndex={0}
+          />
         </>
       ) : (
-        <Avatar 
+        <Avatar
           src={userAvatar}
           alt={userName}
           size="md"

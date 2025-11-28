@@ -4,7 +4,6 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
-import { Button } from '../../atoms/Button/Button';
 
 export type AlertVariant = 'info' | 'success' | 'warning' | 'danger';
 export type AlertRadius = 'none' | 'sm' | 'md' | 'lg';

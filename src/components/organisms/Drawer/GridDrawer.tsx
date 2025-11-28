@@ -70,14 +70,6 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
     };
   }, [open]);
 
-  if (!open) return null;
-
-  const handleMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (maskClosable && e.target === e.currentTarget) {
-      onClose?.();
-    }
-  };
-
   // Grid calculation:
   // For a 24-column grid with margins and gaps:
   // Available width = 100vw - left_margin - right_margin
@@ -95,7 +87,6 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
   // We'll use: width = (N/24) * (100vw - 2*margin) + (N-1) * gap
   // This treats gaps as spacing between columns within the drawer
 
-  // Inject styles once on mount (shared across all GridDrawer instances)
   useEffect(() => {
     const styleId = 'grid-drawer-styles';
     if (document.getElementById(styleId)) return;
@@ -143,6 +134,14 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
     document.head.appendChild(style);
     // Don't remove on unmount - styles are shared across all instances
   }, []);
+
+  if (!open) return null;
+
+  const handleMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (maskClosable && e.target === e.currentTarget) {
+      onClose?.();
+    }
+  };
 
   return (
     <div

@@ -95,10 +95,9 @@ const chartCategories = [
 
 export function ChartsSidebar({ className }: { className?: string }) {
   const pathname = usePathname()
-  const [hash, setHash] = useState("")
+  const [hash, setHash] = useState(() => (typeof window !== "undefined" ? window.location.hash : ""))
 
   useEffect(() => {
-    setHash(window.location.hash)
     const handleHashChange = () => setHash(window.location.hash)
     window.addEventListener("hashchange", handleHashChange)
     return () => window.removeEventListener("hashchange", handleHashChange)

@@ -34,8 +34,9 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     rows = 4,
     ...props 
   }, ref) => {
-    // Generate IDs for accessibility
-    const textareaId = id || `textarea-${React.useId()}`;
+    const generatedId = React.useId();
+    // Generate IDs for accessibility (ensure consistent hook usage)
+    const textareaId = id ?? `textarea-${generatedId}`;
     const errorId = error ? `${textareaId}-error` : undefined;
     const helperId = helperText ? `${textareaId}-helper` : undefined;
     const describedBy = [errorId, helperId].filter(Boolean).join(' ') || undefined;
@@ -172,4 +173,3 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 );
 
 Textarea.displayName = 'Textarea';
-

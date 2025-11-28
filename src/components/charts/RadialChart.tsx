@@ -26,8 +26,6 @@ export const RadialChart: React.FC<RadialChartProps> = ({
   maxValue = 100,
   showLabel = false,
   labelFormatter,
-  showGrid = true,
-  shape = 'round',
   stacked = false,
   ...props
 }) => {
@@ -36,7 +34,7 @@ export const RadialChart: React.FC<RadialChartProps> = ({
     ...data,
     datasets: data.datasets.map((dataset, index) => {
       const baseColor = defaultColors[index % defaultColors.length];
-      
+
       // If stacked, create multiple segments
       if (stacked && Array.isArray(dataset.data)) {
         const total = dataset.data.reduce((sum: number, val: number) => sum + val, 0);
@@ -85,8 +83,8 @@ export const RadialChart: React.FC<RadialChartProps> = ({
   const displayLabel = labelFormatter && value !== undefined
     ? labelFormatter(value, maxValue)
     : percentage !== undefined
-    ? `${percentage}%`
-    : '';
+      ? `${percentage}%`
+      : '';
 
   return (
     <BaseChart title={title} height={height} className={className} {...props}>

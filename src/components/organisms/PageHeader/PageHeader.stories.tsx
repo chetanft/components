@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { PageHeader } from './PageHeader';
 
@@ -165,4 +164,3 @@ export const Variant2: Story = {
     activeTab: 'orders',
   },
 };
-

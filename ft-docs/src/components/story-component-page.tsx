@@ -32,9 +32,9 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
       setError(null);
 
       try {
-        const module = await loadStoryModule(componentName);
-        if (module) {
-          setStoryModule(module);
+        const loadedModule = await loadStoryModule(componentName);
+        if (loadedModule) {
+          setStoryModule(loadedModule);
         } else {
           setError(`No stories found for ${componentName}`);
         }
@@ -285,4 +285,3 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
     </div>
   );
 }
-

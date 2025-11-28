@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { ExternalLink } from "lucide-react"
 
 export default function AIPromptsPage() {
@@ -67,14 +68,14 @@ Organisms: Table, Tabs, AppHeader, Card, Upload, UserProfile, Footer
                 <h3 className="font-semibold mb-2">Additional Resources</h3>
                 <ul className="space-y-1 text-sm">
                     <li>
-                        <a href="/docs/storybook" className="text-primary hover:underline">
+                        <Link href="/docs/storybook" className="text-primary hover:underline">
                             Storybook - Component playground
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="/docs/npm-package" className="text-primary hover:underline">
+                        <Link href="/docs/npm-package" className="text-primary hover:underline">
                             NPM Package - Installation guide
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>

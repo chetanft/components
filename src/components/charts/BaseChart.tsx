@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '../../lib/utils';
-import { defaultChartOptions, ftChartColors } from './chartConfig';
+import { ftChartColors } from './chartConfig';
 
 export interface BaseChartProps {
   title?: string;
@@ -14,8 +14,6 @@ export interface BaseChartProps {
 export const BaseChart: React.FC<BaseChartProps> = ({
   title,
   height = 400,
-  responsive = true,
-  maintainAspectRatio = false,
   className,
   children,
 }) => {

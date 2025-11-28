@@ -122,10 +122,11 @@ export function SiteHeader() {
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [])
 
-    // Reset selected index when results change
-    useEffect(() => {
+    const handleSearchChange = (value: string) => {
+        setSearchQuery(value)
         setSelectedIndex(0)
-    }, [searchQuery])
+        setIsSearchOpen(true)
+    }
 
     return (
         <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -188,10 +189,7 @@ export function SiteHeader() {
                             type="text"
                             placeholder="Search components, icons, charts..."
                             value={searchQuery}
-                            onChange={(e) => {
-                                setSearchQuery(e.target.value)
-                                setIsSearchOpen(true)
-                            }}
+                            onChange={(e) => handleSearchChange(e.target.value)}
                             onFocus={() => setIsSearchOpen(true)}
                             className="w-full pl-10 pr-4 py-2 h-9 rounded-md border border-input bg-background text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring placeholder:text-muted-foreground"
                         />

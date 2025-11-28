@@ -54,7 +54,7 @@
     "connect:publish": "figma connect publish",
     "connect:create": "figma connect create",
     "type-check": "tsc --noEmit",
-    "lint": "eslint src --ext .ts,.tsx",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "test": "jest",
     "publish:prepare": "npm run type-check && npm run build",
     "publish:dry-run": "npm run publish:prepare && npm pack --dry-run",
@@ -80,6 +80,7 @@
     "sync:all": "node scripts/sync-all.cjs",
     "sync:storybook-to-source": "node scripts/sync-storybook-to-source.cjs",
     "sync:source-to-docs": "node scripts/sync-source-to-docs-and-npm.cjs",
+    "sync:doc-stories": "node scripts/sync-doc-stories.cjs",
     "build": "npm run sync:version && npm run validate:docs && rollup -c",
     "build:sync": "npm run sync:source-to-docs",
     "publish:prepare": "npm run sync:version && npm run validate:docs && npm run type-check && npm run build"

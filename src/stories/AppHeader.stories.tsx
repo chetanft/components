@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj, StoryFn } from '@storybook/react';
 import React from 'react';
 import { AppHeader } from '../components/organisms/AppHeader';
 
@@ -14,7 +14,7 @@ const meta: Meta<typeof AppHeader> = {
     },
   },
   decorators: [
-    (Story) => (
+    (Story: StoryFn) => (
       <div style={{ minHeight: '100px', backgroundColor: '#f8f8f9' }}>
         <Story />
       </div>

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Icon, IconName } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
 
@@ -217,4 +216,3 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
 );
 
 Pagination.displayName = 'Pagination';
-

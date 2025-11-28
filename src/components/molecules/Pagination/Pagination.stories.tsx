@@ -112,6 +112,7 @@ export function InteractiveDemo() {
   const [current2, setCurrent2] = React.useState(1);
   const [current3, setCurrent3] = React.useState(1);
   const [current4, setCurrent4] = React.useState(1);
+  const [pageSize2, setPageSize2] = React.useState(10);
   const [pageSize4, setPageSize4] = React.useState(10);
 
   return (
@@ -135,11 +136,12 @@ export function InteractiveDemo() {
           <Pagination
             current={current2}
             total={100}
-            pageSize={10}
+            pageSize={pageSize2}
             showSizeChanger={true}
             onChange={(page) => setCurrent2(page)}
-            onShowSizeChange={(current, size) => {
-              setCurrent2(1);
+            onShowSizeChange={(currentPage, size) => {
+              setCurrent2(currentPage);
+              setPageSize2(size);
             }}
           />
         </div>
@@ -167,8 +169,8 @@ export function InteractiveDemo() {
               setCurrent4(page);
               if (size) setPageSize4(size);
             }}
-            onShowSizeChange={(current, size) => {
-              setCurrent4(1);
+            onShowSizeChange={(currentPage, size) => {
+              setCurrent4(currentPage);
               setPageSize4(size);
             }}
           />
@@ -177,4 +179,3 @@ export function InteractiveDemo() {
     </div>
   );
 }
-

@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import { docsConfig } from "@/config/docs";
@@ -54,11 +53,7 @@ function parseSlugFromPathname(pathname: string): string[] | null {
 export default function DocPage() {
   const pathname = usePathname();
   const router = useRouter();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const isClient = typeof window !== "undefined";
 
   const slug = parseSlugFromPathname(pathname);
 
@@ -103,7 +98,7 @@ export default function DocPage() {
       .flatMap((section) => section.items)
       .find((item) => item.href.startsWith("/docs/components/"))?.href;
 
-    if (firstComponent && mounted) {
+    if (firstComponent && isClient) {
       router.replace(firstComponent);
     }
 

@@ -89,6 +89,30 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
     }
   }, [visible]);
 
+  const handleZoomIn = useCallback(() => {
+    if (zoom) {
+      setScale(prev => Math.min(prev + 0.25, maxScale));
+    }
+  }, [zoom, maxScale]);
+
+  const handleZoomOut = useCallback(() => {
+    if (zoom) {
+      setScale(prev => Math.max(prev - 0.25, minScale));
+    }
+  }, [zoom, minScale]);
+
+  const handleRotateLeft = useCallback(() => {
+    if (rotate) {
+      setRotation(prev => prev - 90);
+    }
+  }, [rotate]);
+
+  const handleRotateRight = useCallback(() => {
+    if (rotate) {
+      setRotation(prev => prev + 90);
+    }
+  }, [rotate]);
+
   // Keyboard handlers
   useEffect(() => {
     if (!visible) return;
@@ -109,31 +133,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [visible]);
-
-  const handleZoomIn = () => {
-    if (zoom) {
-      setScale(prev => Math.min(prev + 0.25, maxScale));
-    }
-  };
-
-  const handleZoomOut = () => {
-    if (zoom) {
-      setScale(prev => Math.max(prev - 0.25, minScale));
-    }
-  };
-
-  const handleRotateLeft = () => {
-    if (rotate) {
-      setRotation(prev => prev - 90);
-    }
-  };
-
-  const handleRotateRight = () => {
-    if (rotate) {
-      setRotation(prev => prev + 90);
-    }
-  };
+  }, [visible, onClose, handleZoomIn, handleZoomOut, handleRotateLeft, handleRotateRight]);
 
   const handleReset = () => {
     setScale(1);
@@ -447,4 +447,3 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
 Image.displayName = 'Image';
 
 export default Image;
-

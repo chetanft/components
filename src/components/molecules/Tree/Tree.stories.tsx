@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Tree, TreeNode } from './Tree';
 import { useState } from 'react';
+import type { ComponentProps } from 'react';
 
 const meta: Meta<typeof Tree> = {
   title: 'Molecules/Tree',
@@ -48,6 +49,7 @@ const meta: Meta<typeof Tree> = {
 
 export default meta;
 type Story = StoryObj<typeof Tree>;
+type TreeStoryProps = ComponentProps<typeof Tree>;
 
 const sampleTreeData: TreeNode[] = [
   {
@@ -89,23 +91,26 @@ export const Default: Story = {
   },
 };
 
+const WithCheckboxesStory = (props: TreeStoryProps) => {
+  const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
+
+  return (
+    <div className="space-y-4">
+      <Tree
+        {...props}
+        checkedKeys={checkedKeys}
+        onCheck={(keys) => setCheckedKeys(keys)}
+      />
+      <p className="text-sm text-[var(--color-tertiary)]">
+        Checked: {checkedKeys.join(', ') || 'None'}
+      </p>
+    </div>
+  );
+};
+
 // With Checkboxes
 export const WithCheckboxes: Story = {
-  render: (args: React.ComponentProps<typeof Tree>) => {
-    const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
-    return (
-      <div className="space-y-4">
-        <Tree
-          {...args}
-          checkedKeys={checkedKeys}
-          onCheck={(keys) => setCheckedKeys(keys)}
-        />
-        <p className="text-sm text-[var(--color-tertiary)]">
-          Checked: {checkedKeys.join(', ') || 'None'}
-        </p>
-      </div>
-    );
-  },
+  render: (args) => <WithCheckboxesStory {...args} />,
   args: {
     treeData: sampleTreeData,
     checkable: true,
@@ -113,23 +118,26 @@ export const WithCheckboxes: Story = {
   },
 };
 
+const WithSelectionStory = (props: TreeStoryProps) => {
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+
+  return (
+    <div className="space-y-4">
+      <Tree
+        {...props}
+        selectedKeys={selectedKeys}
+        onSelect={(keys) => setSelectedKeys(keys)}
+      />
+      <p className="text-sm text-[var(--color-tertiary)]">
+        Selected: {selectedKeys.join(', ') || 'None'}
+      </p>
+    </div>
+  );
+};
+
 // With Selection
 export const WithSelection: Story = {
-  render: (args: React.ComponentProps<typeof Tree>) => {
-    const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-    return (
-      <div className="space-y-4">
-        <Tree
-          {...args}
-          selectedKeys={selectedKeys}
-          onSelect={(keys) => setSelectedKeys(keys)}
-        />
-        <p className="text-sm text-[var(--color-tertiary)]">
-          Selected: {selectedKeys.join(', ') || 'None'}
-        </p>
-      </div>
-    );
-  },
+  render: (args) => <WithSelectionStory {...args} />,
   args: {
     treeData: sampleTreeData,
     selectable: true,
@@ -195,23 +203,26 @@ export const DirectoryTree: Story = {
   },
 };
 
+const MultipleSelectionStory = (props: TreeStoryProps) => {
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+
+  return (
+    <div className="space-y-4">
+      <Tree
+        {...props}
+        selectedKeys={selectedKeys}
+        onSelect={(keys) => setSelectedKeys(keys)}
+      />
+      <p className="text-sm text-[var(--color-tertiary)]">
+        Selected: {selectedKeys.join(', ') || 'None'}
+      </p>
+    </div>
+  );
+};
+
 // Multiple Selection
 export const MultipleSelection: Story = {
-  render: (args: React.ComponentProps<typeof Tree>) => {
-    const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-    return (
-      <div className="space-y-4">
-        <Tree
-          {...args}
-          selectedKeys={selectedKeys}
-          onSelect={(keys) => setSelectedKeys(keys)}
-        />
-        <p className="text-sm text-[var(--color-tertiary)]">
-          Selected: {selectedKeys.join(', ') || 'None'}
-        </p>
-      </div>
-    );
-  },
+  render: (args) => <MultipleSelectionStory {...args} />,
   args: {
     treeData: sampleTreeData,
     selectable: true,
@@ -247,36 +258,38 @@ export const DisabledNodes: Story = {
   },
 };
 
+const ControlledExpansionStory = (props: TreeStoryProps) => {
+  const [expandedKeys, setExpandedKeys] = useState<string[]>(['0-0']);
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2">
+        <button
+          className="px-3 py-1 bg-[var(--color-primary)] text-white rounded text-sm"
+          onClick={() => setExpandedKeys(['0-0', '0-0-0', '0-0-1', '0-1'])}
+        >
+          Expand All
+        </button>
+        <button
+          className="px-3 py-1 bg-[var(--color-bg-secondary)] text-[var(--color-primary)] rounded text-sm"
+          onClick={() => setExpandedKeys([])}
+        >
+          Collapse All
+        </button>
+      </div>
+      <Tree
+        {...props}
+        expandedKeys={expandedKeys}
+        onExpand={(keys) => setExpandedKeys(keys)}
+      />
+    </div>
+  );
+};
+
 // Controlled Expansion
 export const ControlledExpansion: Story = {
-  render: (args: React.ComponentProps<typeof Tree>) => {
-    const [expandedKeys, setExpandedKeys] = useState<string[]>(['0-0']);
-    return (
-      <div className="space-y-4">
-        <div className="flex gap-2">
-          <button
-            className="px-3 py-1 bg-[var(--color-primary)] text-white rounded text-sm"
-            onClick={() => setExpandedKeys(['0-0', '0-0-0', '0-0-1', '0-1'])}
-          >
-            Expand All
-          </button>
-          <button
-            className="px-3 py-1 bg-[var(--color-bg-secondary)] text-[var(--color-primary)] rounded text-sm"
-            onClick={() => setExpandedKeys([])}
-          >
-            Collapse All
-          </button>
-        </div>
-        <Tree
-          {...args}
-          expandedKeys={expandedKeys}
-          onExpand={(keys) => setExpandedKeys(keys)}
-        />
-      </div>
-    );
-  },
+  render: (args) => <ControlledExpansionStory {...args} />,
   args: {
     treeData: sampleTreeData,
   },
 };
-

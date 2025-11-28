@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Icon } from './Icon';
+import { Icon, type IconName } from './Icon';
 
 const meta = {
   title: 'Components/Icon',
@@ -49,7 +49,7 @@ export const IconAlignment = () => (
         Testing that icons are properly centered and not cropped in their containers.
       </p>
     </div>
-    
+
     {/* Size variations */}
     <div>
       <h4 className="text-base font-medium mb-3">Size Variations</h4>
@@ -68,7 +68,7 @@ export const IconAlignment = () => (
         Icons in containers showing proper centering
       </div>
     </div>
-    
+
     {/* Commonly used icons */}
     <div>
       <h4 className="text-base font-medium mb-3">FileCard Icons</h4>
@@ -93,7 +93,7 @@ export const IconAlignment = () => (
         Icons used in FileCard action buttons
       </div>
     </div>
-    
+
     {/* Color inheritance test */}
     <div>
       <h4 className="text-base font-medium mb-3">Color Inheritance</h4>
@@ -125,7 +125,7 @@ export const AllIcons = () => {
 
   const twoToneIcons = [
     'dashboard', 'control-tower', 'my-trip', 'reports', 'indent',
-    'add-trip', 'bulk-trip', 'truck', 'settlement', 
+    'add-trip', 'bulk-trip', 'truck', 'settlement',
     'strength-high', 'strength-medium', 'strength-low', 'strength-no-tracking',
     'planning', 'home'
   ];
@@ -138,12 +138,12 @@ export const AllIcons = () => {
           Grid of commonly used icons showing proper alignment and sizing.
         </p>
       </div>
-      
+
       <div className="grid grid-cols-8 gap-4">
         {commonIcons.map((iconName) => (
           <div key={iconName} className="flex flex-col items-center gap-2">
             <div className="w-11 h-11 bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
-              <Icon name={iconName as any} size={16} />
+              <Icon name={iconName as IconName} size={16} />
             </div>
             <span className="text-xs text-gray-500 text-center">{iconName}</span>
           </div>
@@ -156,12 +156,12 @@ export const AllIcons = () => {
           Icons with primary and secondary elements for visual hierarchy.
         </p>
       </div>
-      
+
       <div className="grid grid-cols-8 gap-4">
         {twoToneIcons.map((iconName) => (
           <div key={iconName} className="flex flex-col items-center gap-2">
             <div className="w-14 h-14 bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
-              <Icon name={iconName as any} size={24} />
+              <Icon name={iconName as IconName} size={24} />
             </div>
             <span className="text-xs text-gray-500 text-center">{iconName}</span>
           </div>

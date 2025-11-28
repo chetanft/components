@@ -29,8 +29,6 @@ export const LineChart: React.FC<LineChartProps> = ({
   showDots = false,
   dotRadius = 4,
   dotColors,
-  showLabel = false,
-  labelFormatter,
   ...props
 }) => {
   // Apply default colors to datasets if not provided
@@ -39,7 +37,7 @@ export const LineChart: React.FC<LineChartProps> = ({
     datasets: data.datasets.map((dataset, index) => {
       const baseColor = defaultColors[index % defaultColors.length];
       const dotColor = dotColors?.[index] || baseColor;
-      
+
       return {
         ...dataset,
         backgroundColor: fill

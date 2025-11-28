@@ -46,11 +46,11 @@ const meta = {
   },
   decorators: [
     (Story, context) => {
-      const { userName, userRole, userLocation, userBadge, userAvatar, isOpen } = context.args;
+      const { userName, userRole, userLocation, userBadge, userAvatar } = context.args;
       return (
-        <div style={{ 
-          padding: '40px', 
-          backgroundColor: '#F8F8F9', 
+        <div style={{
+          padding: '40px',
+          backgroundColor: '#F8F8F9',
           minHeight: '500px',
           display: 'flex',
           justifyContent: 'center',

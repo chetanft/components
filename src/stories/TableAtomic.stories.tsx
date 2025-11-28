@@ -211,22 +211,24 @@ export const TableHeaderItemVariants: Story = {
 };
 
 // Story for Responsive Table
+const ResponsiveTableStoryComponent = () => {
+  const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
+
+  return (
+    <div className="w-full max-w-4xl">
+      <Table 
+        columns={columns}
+        data={data}
+        selectable
+        selectedRows={selectedRows}
+        onSelectionChange={setSelectedRows}
+      />
+    </div>
+  );
+};
+
 export const ResponsiveTableExample: Story = {
-  render: () => {
-    const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
-    
-    return (
-      <div className="w-full max-w-4xl">
-        <Table 
-          columns={columns}
-          data={data}
-          selectable
-          selectedRows={selectedRows}
-          onSelectionChange={setSelectedRows}
-        />
-      </div>
-    );
-  }
+  render: () => <ResponsiveTableStoryComponent />
 };
 
 // TableCellText Stories

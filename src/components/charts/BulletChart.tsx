@@ -16,7 +16,6 @@ export interface BulletChartProps {
 export const BulletChart: React.FC<BulletChartProps> = ({
   label,
   current,
-  target,
   ranges,
   title,
   height = 120,

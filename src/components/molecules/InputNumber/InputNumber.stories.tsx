@@ -141,16 +141,18 @@ export const WithFormatter: Story = {
   },
 };
 
+const ControlledInputNumberStory = () => {
+  const [value, setValue] = useState<number | null>(25);
+  return (
+    <div className="flex flex-col gap-4 items-center">
+      <InputNumber value={value} onChange={setValue} min={0} max={100} />
+      <p className="text-sm text-[var(--secondary)]">
+        Current value: {value ?? 'null'}
+      </p>
+    </div>
+  );
+};
+
 export const Controlled: Story = {
-  render: () => {
-    const [value, setValue] = useState<number | null>(25);
-    return (
-      <div className="flex flex-col gap-4 items-center">
-        <InputNumber value={value} onChange={setValue} min={0} max={100} />
-        <p className="text-sm text-[var(--secondary)]">
-          Current value: {value ?? 'null'}
-        </p>
-      </div>
-    );
-  },
+  render: () => <ControlledInputNumberStory />,
 };

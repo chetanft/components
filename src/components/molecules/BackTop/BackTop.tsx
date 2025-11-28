@@ -3,13 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
-import { Button } from '../../atoms/Button/Button';
 
 export interface BackTopProps {
   visibilityHeight?: number;
   onClick?: React.MouseEventHandler<HTMLElement>;
-  target?: () => HTMLElement | Window | Document;
-  duration?: number; // ms
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
@@ -18,8 +15,6 @@ export interface BackTopProps {
 export const BackTop = React.forwardRef<HTMLDivElement, BackTopProps>(({
   visibilityHeight = 400,
   onClick,
-  target,
-  duration = 450,
   children,
   className,
   style,
@@ -69,4 +64,3 @@ export const BackTop = React.forwardRef<HTMLDivElement, BackTopProps>(({
 });
 
 BackTop.displayName = 'BackTop';
-

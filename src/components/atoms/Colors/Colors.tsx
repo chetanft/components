@@ -1,116 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { cn } from "../../../lib/utils";
+import React from "react";
 import { Typography } from "../Typography";
+import { useTheme, type Theme } from "../../../contexts/ThemeContext";
 
-// Optional theme hook that doesn't throw if no provider
+const fallbackTheme = {
+  theme: 'light' as Theme,
+  setTheme: () => {},
+  isLight: true,
+  isDark: false,
+  isNight: false,
+};
+
 const useOptionalTheme = () => {
   try {
-    const { useTheme } = require("../../../contexts/ThemeContext");
     return useTheme();
-  } catch (error) {
-    // Fallback when ThemeProvider is not available (like in Storybook)
-    return { theme: 'light' };
+  } catch {
+    return fallbackTheme;
   }
 };
 
-interface ColorSwatchProps {
-  colorName: string;
-  colorVar: string;
-  colorValue: string;
-  textColor?: string;
-}
 
-const ColorSwatch: React.FC<ColorSwatchProps> = ({ 
-  colorName, 
-  colorVar, 
-  colorValue,
-  textColor = "text-black" 
-}) => {
-  return (
-    <div className="flex flex-col">
-      <div 
-        className="h-20 w-20 rounded-md mb-2 border border-gray-200"
-        style={{ backgroundColor: colorValue }}
-      ></div>
-      <div className="space-y-1">
-        <Typography variant="body-secondary-medium">{colorName}</Typography>
-        <Typography variant="body-secondary-regular" className="text-gray-600">{colorVar}</Typography>
-        <Typography variant="body-secondary-regular" className="font-mono">{colorValue}</Typography>
-      </div>
-    </div>
-  );
-};
-
-interface ThemeColorSwatchProps {
-  colorName: string;
-  colorVar: string;
-  lightValue: string;
-  darkValue: string;
-  nightValue: string;
-}
-
-const ThemeColorSwatch: React.FC<ThemeColorSwatchProps> = ({ 
-  colorName, 
-  colorVar, 
-  lightValue,
-  darkValue,
-  nightValue
-}) => {
-  return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <Typography variant="body-secondary-semibold" className="mb-3">{colorName}</Typography>
-      <Typography variant="body-secondary-regular" className="text-gray-600 mb-3 font-mono">{colorVar}</Typography>
-      
-      <div className="grid grid-cols-3 gap-3">
-        {/* Light Mode */}
-        <div className="text-center">
-          <div 
-            className="h-16 w-16 rounded-md mb-2 border border-gray-200 mx-auto"
-            style={{ backgroundColor: lightValue }}
-          ></div>
-          <Typography variant="body-secondary-medium" className="text-gray-700">Light</Typography>
-          <Typography variant="body-secondary-regular" className="font-mono text-gray-500">{lightValue}</Typography>
-        </div>
-        
-        {/* Dark Mode */}
-        <div className="text-center">
-          <div 
-            className="h-16 w-16 rounded-md mb-2 border border-gray-200 mx-auto"
-            style={{ backgroundColor: darkValue }}
-          ></div>
-          <Typography variant="body-secondary-medium" className="text-gray-700">Dark</Typography>
-          <Typography variant="body-secondary-regular" className="font-mono text-gray-500">{darkValue}</Typography>
-        </div>
-        
-        {/* Night Mode */}
-        <div className="text-center">
-          <div 
-            className="h-16 w-16 rounded-md mb-2 border border-gray-200 mx-auto"
-            style={{ backgroundColor: nightValue }}
-          ></div>
-          <Typography variant="body-secondary-medium" className="text-gray-700">Night</Typography>
-          <Typography variant="body-secondary-regular" className="font-mono text-gray-500">{nightValue}</Typography>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-interface ColorGroupProps {
-  title: string;
-  children: React.ReactNode;
-}
-
-const ColorGroup: React.FC<ColorGroupProps> = ({ title, children }) => {
-  return (
-    <div className="mb-8">
-      <Typography variant="display-primary" className="mb-4">{title}</Typography>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {children}
-      </div>
-    </div>
-  );
-};
 
 // Horizontal color scale component like Base Colors
 interface HorizontalColorScaleProps {
@@ -139,16 +47,16 @@ const HorizontalColorScale: React.FC<HorizontalColorScaleProps> = ({ title, colo
         {colors.map((color, index) => (
           <div key={color.shade} className="flex flex-col items-center">
             {/* Color swatch */}
-            <div 
+            <div
               className="w-12 h-12 border border-gray-300 flex items-center justify-center"
               style={{ backgroundColor: color.hex }}
               title={`${color.cssVar}: ${color.hex}`}
             >
               {/* Circle for certain shades like in Figma */}
               {(index === 2 || index === 4 || index === 6) && (
-                <div 
+                <div
                   className="w-6 h-6 rounded-full border-2"
-                  style={{ 
+                  style={{
                     backgroundColor: theme === 'light' ? 'white' : 'transparent',
                     borderColor: theme === 'light' ? color.hex : 'white'
                   }}
@@ -169,7 +77,7 @@ const HorizontalColorScale: React.FC<HorizontalColorScaleProps> = ({ title, colo
 
 export function Colors() {
   const { theme } = useOptionalTheme();
-  
+
   return (
     <div className="w-full space-y-10">
       <div className="flex justify-between items-center">
@@ -198,13 +106,13 @@ export function Colors() {
           </a>
         </div>
       </div>
-      
+
       <section>
         <Typography variant="title-secondary" className="mb-6">Primary Colors</Typography>
         <Typography variant="body-primary-regular" className="mb-6">Main color scale used for primary UI elements and text</Typography>
-        
-        <HorizontalColorScale 
-          title="Primary Scale" 
+
+        <HorizontalColorScale
+          title="Primary Scale"
           colors={[
             { shade: '900', hex: '#1a2330', cssVar: '--primary-900' },
             { shade: '800', hex: '#2c3547', cssVar: '--primary-800' },
@@ -219,13 +127,13 @@ export function Colors() {
           theme="light"
         />
       </section>
-      
+
       <section>
         <Typography variant="title-secondary" className="mb-6">Secondary Colors (Borders)</Typography>
         <Typography variant="body-primary-regular" className="mb-6">Used for borders, dividers, and subtle UI elements</Typography>
-        
-        <HorizontalColorScale 
-          title="Secondary Scale" 
+
+        <HorizontalColorScale
+          title="Secondary Scale"
           colors={[
             { shade: '900', hex: '#1e1f22', cssVar: '--secondary-900' },
             { shade: '800', hex: '#303236', cssVar: '--secondary-800' },
@@ -240,13 +148,13 @@ export function Colors() {
           theme="light"
         />
       </section>
-      
+
       <section>
         <Typography variant="title-secondary" className="mb-6">Semantic Colors</Typography>
         <Typography variant="body-primary-regular" className="mb-6">Status and interaction colors for components</Typography>
-        
-        <HorizontalColorScale 
-          title="Status Colors" 
+
+        <HorizontalColorScale
+          title="Status Colors"
           colors={[
             { shade: 'Neutral', hex: '#1890ff', cssVar: '--neutral' },
             { shade: 'Positive', hex: '#00c637', cssVar: '--positive' },

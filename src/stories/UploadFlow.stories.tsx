@@ -4,7 +4,6 @@ import { UploadZone } from '../components/organisms/UploadZone';
 import { FileCard } from '../components/organisms/FileCard';
 import { FileThumbnail } from '../components/organisms/FileThumbnail';
 import { FileTypeIcon } from '../components/organisms/FileTypeIcon';
-import { ProgressBar } from '../components/molecules/ProgressBar';
 
 const meta: Meta = {
   title: 'Patterns/Upload Flow',
@@ -22,41 +21,43 @@ export default meta;
 type Story = StoryObj;
 
 // Upload Zone Demo
-export const UploadZoneDemo: Story = {
-  render: () => {
-    const [uploadedFiles, setUploadedFiles] = React.useState<string[]>([]);
-    
-    const handleFileSelect = (files: FileList) => {
-      const fileNames = Array.from(files).map(file => file.name);
-      setUploadedFiles(prev => [...prev, ...fileNames]);
-    };
-    
-    return (
-      <div className="max-w-4xl space-y-6">
-        <div>
-          <h2 className="text-xl font-semibold mb-4">Upload File</h2>
-          <UploadZone 
-            onFileSelect={handleFileSelect}
-            acceptedFileTypes={['Excel', 'CSV']}
-            maxFileSize={10}
-          />
-        </div>
-        
-        {uploadedFiles.length > 0 && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Selected Files:</h3>
-            {uploadedFiles.map((fileName, index) => (
-              <FileThumbnail
-                key={index}
-                fileName={fileName}
-                onDownload={() => alert(`Downloading ${fileName}`)}
-              />
-            ))}
-          </div>
-        )}
+const UploadZoneDemoContent = () => {
+  const [uploadedFiles, setUploadedFiles] = React.useState<string[]>([]);
+
+  const handleFileSelect = (files: FileList) => {
+    const fileNames = Array.from(files).map(file => file.name);
+    setUploadedFiles(prev => [...prev, ...fileNames]);
+  };
+
+  return (
+    <div className="max-w-4xl space-y-6">
+      <div>
+        <h2 className="text-xl font-semibold mb-4">Upload File</h2>
+        <UploadZone
+          onFileSelect={handleFileSelect}
+          acceptedFileTypes={['Excel', 'CSV']}
+          maxFileSize={10}
+        />
       </div>
-    );
-  }
+
+      {uploadedFiles.length > 0 && (
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Selected Files:</h3>
+          {uploadedFiles.map((fileName, index) => (
+            <FileThumbnail
+              key={index}
+              fileName={fileName}
+              onDownload={() => alert(`Downloading ${fileName}`)}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const UploadZoneDemo: Story = {
+  render: () => <UploadZoneDemoContent />
 };
 
 // File Type Icons Showcase
@@ -99,13 +100,13 @@ export const FileProcessingFlow: Story = {
   render: () => (
     <div className="max-w-4xl space-y-8">
       <h2 className="text-xl font-semibold">File Processing States</h2>
-      
+
       {/* Upload Zone */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">1. Upload Zone</h3>
         <UploadZone />
       </div>
-      
+
       {/* Simple File Thumbnail */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">2. File Selected</h3>
@@ -114,7 +115,7 @@ export const FileProcessingFlow: Story = {
           onDownload={() => alert('Download')}
         />
       </div>
-      
+
       {/* Uploading State */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">3. Uploading</h3>
@@ -127,7 +128,7 @@ export const FileProcessingFlow: Story = {
           onClose={() => alert('Cancel upload')}
         />
       </div>
-      
+
       {/* Validating State */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">4. Validating</h3>
@@ -139,7 +140,7 @@ export const FileProcessingFlow: Story = {
           onClose={() => alert('Cancel')}
         />
       </div>
-      
+
       {/* Processed Successfully */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">5. Fully Processed</h3>
@@ -156,7 +157,7 @@ export const FileProcessingFlow: Story = {
           downloadDisabled={false}
         />
       </div>
-      
+
       {/* Partially Processed */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">6. Partially Processed</h3>
@@ -172,11 +173,11 @@ export const FileProcessingFlow: Story = {
           onDelete={() => alert('Delete')}
         />
       </div>
-      
+
       {/* Error States */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">7. Error States</h3>
-        
+
         {/* Template Mismatch */}
         <FileCard
           fileName="File 178.xlsx"
@@ -186,7 +187,7 @@ export const FileProcessingFlow: Story = {
           errorMessage="Missing required column: Origin. Please use the sample template"
           onDelete={() => alert('Delete')}
         />
-        
+
         {/* Upload Failed */}
         <FileCard
           fileName="File 178.xlsx"
@@ -197,7 +198,7 @@ export const FileProcessingFlow: Story = {
           onRefresh={() => alert('Retry')}
           onDelete={() => alert('Delete')}
         />
-        
+
         {/* Unsupported Format */}
         <FileCard
           fileName="File 178.txt"
@@ -206,7 +207,7 @@ export const FileProcessingFlow: Story = {
           fileDate="12 April 2024, 5:30 PM"
           onDelete={() => alert('Delete')}
         />
-        
+
         {/* File Too Large */}
         <FileCard
           fileName="File 178.xlsx"
@@ -222,106 +223,104 @@ export const FileProcessingFlow: Story = {
 };
 
 // Interactive Upload Simulator
-export const InteractiveUploadSimulator: Story = {
-  render: () => {
-    const [files, setFiles] = React.useState<Array<{
-      id: string;
-      name: string;
-      status: 'uploading' | 'validating' | 'processed' | 'failed';
-      progress: number;
-    }>>([]);
-    
-    const handleFileSelect = (fileList: FileList) => {
-      const newFiles = Array.from(fileList).map(file => ({
-        id: Date.now().toString() + Math.random(),
-        name: file.name,
-        status: 'uploading' as const,
-        progress: 0
-      }));
-      
-      setFiles(prev => [...prev, ...newFiles]);
-      
-      // Simulate upload progress
-      newFiles.forEach(file => {
-        simulateUpload(file.id);
-      });
-    };
-    
-    const simulateUpload = (fileId: string) => {
-      const interval = setInterval(() => {
-        setFiles(prev => 
-          prev.map(file => {
-            if (file.id === fileId && file.status === 'uploading') {
-              const newProgress = Math.min(file.progress + Math.random() * 15, 100);
-              
-              if (newProgress >= 100) {
-                clearInterval(interval);
-                // Transition to validating
+const InteractiveUploadSimulatorContent = () => {
+  const [files, setFiles] = React.useState<Array<{
+    id: string;
+    name: string;
+    status: 'uploading' | 'validating' | 'processed' | 'failed';
+    progress: number;
+  }>>([]);
+
+  const handleFileSelect = (fileList: FileList) => {
+    const newFiles = Array.from(fileList).map(file => ({
+      id: Date.now().toString() + Math.random(),
+      name: file.name,
+      status: 'uploading' as const,
+      progress: 0
+    }));
+
+    setFiles(prev => [...prev, ...newFiles]);
+    newFiles.forEach(file => {
+      simulateUpload(file.id);
+    });
+  };
+
+  const simulateUpload = (fileId: string) => {
+    const interval = setInterval(() => {
+      setFiles(prev =>
+        prev.map(file => {
+          if (file.id === fileId && file.status === 'uploading') {
+            const newProgress = Math.min(file.progress + Math.random() * 15, 100);
+
+            if (newProgress >= 100) {
+              clearInterval(interval);
+              setTimeout(() => {
+                setFiles(prev2 =>
+                  prev2.map(f =>
+                    f.id === fileId ? { ...f, status: 'validating' } : f
+                  )
+                );
+
                 setTimeout(() => {
-                  setFiles(prev2 => 
-                    prev2.map(f => 
-                      f.id === fileId ? { ...f, status: 'validating' } : f
+                  setFiles(prev3 =>
+                    prev3.map(f =>
+                      f.id === fileId ? { ...f, status: 'processed' } : f
                     )
                   );
-                  
-                  // Then to processed
-                  setTimeout(() => {
-                    setFiles(prev3 => 
-                      prev3.map(f => 
-                        f.id === fileId ? { ...f, status: 'processed' } : f
-                      )
-                    );
-                  }, 2000);
-                }, 1000);
-                
-                return { ...file, progress: 100 };
-              }
-              
-              return { ...file, progress: newProgress };
+                }, 2000);
+              }, 1000);
+
+              return { ...file, progress: 100 };
             }
-            return file;
-          })
-        );
-      }, 200);
-    };
-    
-    const removeFile = (fileId: string) => {
-      setFiles(prev => prev.filter(f => f.id !== fileId));
-    };
-    
-    return (
-      <div className="max-w-4xl space-y-6">
-        <div>
-          <h2 className="text-xl font-semibold mb-4">Interactive Upload Simulator</h2>
-          <p className="text-gray-600 mb-4">
-            Select files to see the complete upload flow in action.
-          </p>
-          
-          <UploadZone onFileSelect={handleFileSelect} />
-        </div>
-        
-        {files.length > 0 && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Files</h3>
-            {files.map(file => (
-              <FileCard
-                key={file.id}
-                fileName={file.name}
-                fileType="XLS"
-                status={file.status}
-                progress={file.progress}
-                variant={file.status === 'uploading' ? 'with-progress' : 'compact'}
-                fileDate={file.status === 'processed' ? '12 April 2024, 5:30 PM' : undefined}
-                stats={file.status === 'processed' ? { total: 100, success: 95, invalid: 5 } : undefined}
-                onClose={file.status === 'uploading' ? () => removeFile(file.id) : undefined}
-                onDelete={file.status === 'processed' ? () => removeFile(file.id) : undefined}
-                onDownload={file.status === 'processed' ? () => alert(`Downloading ${file.name}`) : undefined}
-                onPreview={file.status === 'processed' ? () => alert(`Previewing ${file.name}`) : undefined}
-              />
-            ))}
-          </div>
-        )}
+
+            return { ...file, progress: newProgress };
+          }
+          return file;
+        })
+      );
+    }, 200);
+  };
+
+  const removeFile = (fileId: string) => {
+    setFiles(prev => prev.filter(f => f.id !== fileId));
+  };
+
+  return (
+    <div className="max-w-4xl space-y-6">
+      <div>
+        <h2 className="text-xl font-semibold mb-4">Interactive Upload Simulator</h2>
+        <p className="text-gray-600 mb-4">
+          Select files to see the complete upload flow in action.
+        </p>
+
+        <UploadZone onFileSelect={handleFileSelect} />
       </div>
-    );
-  }
-}; 
+
+      {files.length > 0 && (
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Files</h3>
+          {files.map(file => (
+            <FileCard
+              key={file.id}
+              fileName={file.name}
+              fileType="XLS"
+              status={file.status}
+              progress={file.progress}
+              variant={file.status === 'uploading' ? 'with-progress' : 'compact'}
+              fileDate={file.status === 'processed' ? '12 April 2024, 5:30 PM' : undefined}
+              stats={file.status === 'processed' ? { total: 100, success: 95, invalid: 5 } : undefined}
+              onClose={file.status === 'uploading' ? () => removeFile(file.id) : undefined}
+              onDelete={file.status === 'processed' ? () => removeFile(file.id) : undefined}
+              onDownload={file.status === 'processed' ? () => alert(`Downloading ${file.name}`) : undefined}
+              onPreview={file.status === 'processed' ? () => alert(`Previewing ${file.name}`) : undefined}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const InteractiveUploadSimulator: Story = {
+  render: () => <InteractiveUploadSimulatorContent />
+};

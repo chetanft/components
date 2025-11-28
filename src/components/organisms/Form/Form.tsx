@@ -318,13 +318,17 @@ export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
     const fieldValue = name ? context?.values[name] : undefined;
 
     // Register field rules on mount
+    const registerFieldFn = context?.registerField;
+    const unregisterFieldFn = context?.unregisterField;
+
     React.useEffect(() => {
-      if (name && context) {
+      if (name && registerFieldFn && unregisterFieldFn) {
         const allRules = required ? [{ required: true, message: `${label || name} is required` }, ...rules] : rules;
-        context.registerField(name, allRules);
-        return () => context.unregisterField(name);
+        registerFieldFn(name, allRules);
+        return () => unregisterFieldFn(name);
       }
-    }, [name, required, rules, label, context]);
+      return undefined;
+    }, [name, required, rules, label, registerFieldFn, unregisterFieldFn]);
 
     // Validate on blur
     const handleBlur = useCallback(() => {
@@ -474,4 +478,3 @@ export const useForm = (formRef?: React.RefObject<HTMLFormElement>): FormInstanc
 (Form as any).useForm = useForm;
 
 export default Form;
-

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
 import { Tooltip } from '../Tooltip';
 
@@ -90,11 +90,14 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     const [hoveredHandle, setHoveredHandle] = useState<'start' | 'end' | null>(null);
 
     const actualValue = controlledValue !== undefined ? controlledValue : internalValue;
-    
+
     // Normalize to range format
-    const rangeValue: [number, number] = Array.isArray(actualValue)
-      ? actualValue
-      : [min, actualValue];
+    const rangeValue = useMemo<[number, number]>(() => {
+      if (Array.isArray(actualValue)) {
+        return actualValue;
+      }
+      return [min, actualValue];
+    }, [actualValue, min]);
 
     // Calculate percentage
     const getPercent = (val: number) => ((val - min) / (max - min)) * 100;
@@ -354,4 +357,3 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
 );
 
 Slider.displayName = 'Slider';
-

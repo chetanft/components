@@ -24,13 +24,9 @@ export const PieChart: React.FC<PieChartProps> = ({
   className,
   options,
   separatorWidth = 2,
-  showLabels = false,
   labelFormatter,
   showLegend = true,
   donut = false,
-  donutActive = false,
-  donutText,
-  stacked = false,
   ...props
 }) => {
   // Apply default colors to dataset if not provided

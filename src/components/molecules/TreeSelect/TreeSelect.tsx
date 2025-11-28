@@ -3,10 +3,9 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
-import { Icon, IconName } from '../../atoms/Icons';
+import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import { Tree, TreeNode } from '../Tree/Tree';
-import { Checkbox } from '../../atoms/Checkbox';
 
 // ============================================================================
 // Types
@@ -68,27 +67,27 @@ const findNode = (nodes: TreeNode[], key: string): TreeNode | null => {
 
 const filterTreeData = (nodes: TreeNode[], searchValue: string): TreeNode[] => {
   if (!searchValue) return nodes;
-  
+
   const search = searchValue.toLowerCase();
-  
+
   const filter = (items: TreeNode[]): TreeNode[] => {
     return items.reduce<TreeNode[]>((acc, node) => {
-      const titleMatch = typeof node.title === 'string' && 
+      const titleMatch = typeof node.title === 'string' &&
         node.title.toLowerCase().includes(search);
-      
+
       const filteredChildren = node.children ? filter(node.children) : [];
-      
+
       if (titleMatch || filteredChildren.length > 0) {
         acc.push({
           ...node,
           children: filteredChildren.length > 0 ? filteredChildren : node.children,
         });
       }
-      
+
       return acc;
     }, []);
   };
-  
+
   return filter(nodes);
 };
 
@@ -138,9 +137,11 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
       return Array.isArray(val) ? val : [val];
     });
 
-    const selectedKeys = controlledValue !== undefined
-      ? Array.isArray(controlledValue) ? controlledValue : [controlledValue]
-      : internalValue;
+    const selectedKeys = useMemo(() => (
+      controlledValue !== undefined
+        ? (Array.isArray(controlledValue) ? controlledValue : [controlledValue])
+        : internalValue
+    ), [controlledValue, internalValue]);
 
     // Get labels for selected values
     const selectedLabels = useMemo(() => {
@@ -151,7 +152,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
     }, [selectedKeys, treeData]);
 
     // Filter tree data for search
-    const filteredTreeData = useMemo(() => 
+    const filteredTreeData = useMemo(() =>
       filterTreeData(treeData, searchValue),
       [treeData, searchValue]
     );
@@ -173,13 +174,16 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
     useEffect(() => {
       if (isOpen && containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
+        const isTop = placement.startsWith('top');
+        const alignRight = placement.endsWith('Right');
+
         setDropdownPosition({
-          top: rect.bottom + 4,
-          left: rect.left,
+          top: isTop ? rect.top - 4 : rect.bottom + 4,
+          left: alignRight ? rect.right - rect.width : rect.left,
           width: rect.width,
         });
       }
-    }, [isOpen]);
+    }, [isOpen, placement]);
 
     // Close on outside click
     useEffect(() => {
@@ -237,7 +241,8 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
       handleSelect(selectedKeys.filter(k => k !== key));
     }, [selectedKeys, handleSelect]);
 
-    const inputId = id || `treeselect-${React.useId()}`;
+    const generatedId = React.useId();
+    const inputId = id || `treeselect-${generatedId}`;
 
     const inputStyles = cn(
       "w-full transition-all duration-200 cursor-pointer",
@@ -252,8 +257,8 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
       disabled
         ? "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled cursor-not-allowed"
         : error
-        ? "border-critical focus:border-critical"
-        : "focus:border-primary dark:focus:border-primary-dark",
+          ? "border-critical focus:border-critical"
+          : "focus:border-primary dark:focus:border-primary-dark",
       isOpen && "border-primary dark:border-primary-dark",
       "focus:outline-none"
     );
@@ -263,7 +268,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
       : selectedLabels[0] || '';
 
     return (
-      <div className={cn("w-full space-y-2", className)}>
+      <div ref={ref} className={cn("w-full space-y-2", className)} {...props}>
         {label && (
           <div>
             <Label
@@ -407,4 +412,3 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
 TreeSelect.displayName = 'TreeSelect';
 
 export default TreeSelect;
-

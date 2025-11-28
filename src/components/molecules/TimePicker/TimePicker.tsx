@@ -70,12 +70,12 @@ const padZero = (num: number): string => num.toString().padStart(2, '0');
 
 const parseTimeValue = (value: string | undefined): { hour: number; minute: number; second: number; period: 'AM' | 'PM' } => {
   if (!value) return { hour: 0, minute: 0, second: 0, period: 'AM' };
-  
+
   const parts = value.split(':');
   const hour = parseInt(parts[0], 10) || 0;
   const minute = parseInt(parts[1], 10) || 0;
   const second = parseInt(parts[2], 10) || 0;
-  
+
   return {
     hour: hour > 12 ? hour - 12 : hour === 0 ? 12 : hour,
     minute,
@@ -90,7 +90,7 @@ const formatTimeValue = (hour: number, minute: number, second: number, use12Hour
     if (period === 'PM' && hour !== 12) h = hour + 12;
     if (period === 'AM' && hour === 12) h = 0;
   }
-  
+
   if (showSecond) {
     return `${padZero(h)}:${padZero(minute)}:${padZero(second)}`;
   }
@@ -134,7 +134,7 @@ const TimeColumn: React.FC<TimeColumnProps> = ({ type, value, onChange, options,
       {options.map((option) => {
         const isSelected = option === value;
         const isDisabled = typeof option === 'number' && disabledOptions.includes(option);
-        
+
         return (
           <button
             key={option}
@@ -351,7 +351,8 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
     }, [use12Hours, handleTimeChange]);
 
     // Generate IDs for accessibility
-    const inputId = id || `timepicker-${React.useId()}`;
+    const generatedId = React.useId();
+    const inputId = id || `timepicker-${generatedId}`;
     const errorId = error ? `${inputId}-error` : undefined;
     const warningId = warning ? `${inputId}-warning` : undefined;
     const successId = success ? `${inputId}-success` : undefined;
@@ -372,12 +373,12 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
       disabled
         ? "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"
         : inputType === 'error'
-        ? "border-critical text-input dark:text-input-dark focus:border-critical"
-        : inputType === 'warning'
-        ? "border-warning text-input dark:text-input-dark focus:border-warning"
-        : inputType === 'success'
-        ? "border-positive text-input dark:text-input-dark focus:border-positive"
-        : "text-input dark:text-input-dark focus:border-primary dark:focus:border-primary-dark",
+          ? "border-critical text-input dark:text-input-dark focus:border-critical"
+          : inputType === 'warning'
+            ? "border-warning text-input dark:text-input-dark focus:border-warning"
+            : inputType === 'success'
+              ? "border-positive text-input dark:text-input-dark focus:border-positive"
+              : "text-input dark:text-input-dark focus:border-primary dark:focus:border-primary-dark",
       isOpen && "border-primary dark:border-primary-dark",
       "focus:outline-none",
       className
@@ -388,10 +389,10 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
       error
         ? "text-critical"
         : warning
-        ? "text-warning"
-        : success
-        ? "text-positive"
-        : "text-helper dark:text-helper-dark"
+          ? "text-warning"
+          : success
+            ? "text-positive"
+            : "text-helper dark:text-helper-dark"
     );
 
     const displayValue = inputValue || (format ? format : placeholder || (showSecond ? 'HH:mm:ss' : 'HH:mm'));
@@ -470,7 +471,7 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
               className="fixed inset-0 z-[9998]"
               onClick={() => setIsOpen(false)}
             />
-            
+
             {/* Dropdown */}
             <div
               className={cn(
@@ -517,7 +518,7 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
                   />
                 )}
               </div>
-              
+
               {/* Footer */}
               <div className="flex items-center justify-between p-[var(--spacing-x2)] border-t border-[var(--color-border-secondary)]">
                 <Button

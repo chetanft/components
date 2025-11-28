@@ -39,8 +39,8 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       disabled
         ? "bg-[var(--switch-disabled-bg)]" // rgba(139, 139, 139, 0.2) from Figma
         : props.checked
-        ? "bg-[var(--switch-on-bg)]" // #CED1D7 from Figma (track when on)
-        : "bg-[var(--switch-off-bg)]", // #838C9D from Figma (track when off)
+          ? "bg-[var(--switch-on-bg)]" // #CED1D7 from Figma (track when on)
+          : "bg-[var(--switch-off-bg)]", // #838C9D from Figma (track when off)
       // Focus styles
       "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--color-neutral-light)] focus-within:ring-offset-2",
       className
@@ -53,7 +53,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       // Size
       currentSize.thumb,
       // Position - exact calculations from Figma layout
-      props.checked 
+      props.checked
         ? "translate-x-[14px]" // When on: thumb moves right (34px track - 20px thumb = 14px)
         : "translate-x-[-3px]", // When off: thumb position (offset to align properly)
       // Colors using exact Figma specifications
@@ -62,8 +62,8 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           ? "bg-[var(--switch-disabled-thumb-on)]" // #CED1D7 - Disabled thumb when on
           : "bg-[var(--switch-disabled-thumb)]" // #F8F8F9 - Disabled thumb when off
         : props.checked
-        ? "bg-[var(--switch-thumb-on)]" // #434F64 when on from Figma
-        : "bg-[var(--switch-thumb-off)]" // #FFFFFF when off from Figma
+          ? "bg-[var(--switch-thumb-on)]" // #434F64 when on from Figma
+          : "bg-[var(--switch-thumb-off)]" // #FFFFFF when off from Figma
     );
 
     // Get color for label based on disabled state
@@ -82,11 +82,10 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     const isControlled = props.checked !== undefined;
     const hasOnChange = props.onChange !== undefined;
     const inputProps = { ...props };
-    
+
     // If checked is provided without onChange, use defaultChecked for uncontrolled
     if (isControlled && !hasOnChange) {
-      const { checked, ...rest } = inputProps;
-      inputProps.defaultChecked = checked;
+      inputProps.defaultChecked = inputProps.checked;
       delete inputProps.checked;
     }
 
@@ -103,8 +102,8 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           <div className={thumbStyles} />
         </div>
         {label && (
-          <Typography 
-            variant={currentSize.variant} 
+          <Typography
+            variant={currentSize.variant}
             color={getLabelColor()}
             as="span"
             className={disabled ? "cursor-not-allowed" : "cursor-pointer"}

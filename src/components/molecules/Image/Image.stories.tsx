@@ -112,33 +112,35 @@ export const CustomPlaceholder: Story = {
   },
 };
 
+const ControlledPreviewStory = (args: React.ComponentProps<typeof Image>) => {
+  const [visible, setVisible] = useState(false);
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-4 items-center">
+        <button
+          onClick={() => setVisible(true)}
+          className="px-4 py-2 bg-[var(--color-primary)] text-white rounded"
+        >
+          Open Preview
+        </button>
+        <span className="text-sm text-[var(--color-tertiary)]">
+          Preview is: {visible ? 'Open' : 'Closed'}
+        </span>
+      </div>
+      <Image
+        {...args}
+        preview={{
+          visible,
+          onVisibleChange: setVisible,
+        }}
+      />
+    </div>
+  );
+};
+
 // Controlled Preview
 export const ControlledPreview: Story = {
-  render: (args: React.ComponentProps<typeof Image>) => {
-    const [visible, setVisible] = useState(false);
-    return (
-      <div className="space-y-4">
-        <div className="flex gap-4 items-center">
-          <button
-            onClick={() => setVisible(true)}
-            className="px-4 py-2 bg-[var(--color-primary)] text-white rounded"
-          >
-            Open Preview
-          </button>
-          <span className="text-sm text-[var(--color-tertiary)]">
-            Preview is: {visible ? 'Open' : 'Closed'}
-          </span>
-        </div>
-        <Image
-          {...args}
-          preview={{
-            visible,
-            onVisibleChange: setVisible,
-          }}
-        />
-      </div>
-    );
-  },
+  render: (args) => <ControlledPreviewStory {...args} />,
   args: {
     src: sampleImage,
     alt: 'Controlled preview',
@@ -257,4 +259,3 @@ export const WithoutPreview: Story = {
     preview: false,
   },
 };
-

@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Spin } from './Spin';
-import { Button } from '../Button/Button';
-import { Card } from '../../organisms/Card';
 
 const meta: Meta<typeof Spin> = {
   title: 'Atoms/Spin',

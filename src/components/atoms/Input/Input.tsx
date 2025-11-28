@@ -49,8 +49,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     // Determine input type state (Normal, Error, Warning, Success)
     const inputType = error ? 'error' : warning ? 'warning' : success ? 'success' : 'normal';
     
-    // Generate IDs for accessibility
-    const inputId = id || `input-${React.useId()}`;
+    const generatedId = React.useId();
+    // Generate IDs for accessibility (ensure useId always executed)
+    const inputId = id ?? `input-${generatedId}`;
     const errorId = error ? `${inputId}-error` : undefined;
     const warningId = warning ? `${inputId}-warning` : undefined;
     const successId = success ? `${inputId}-success` : undefined;

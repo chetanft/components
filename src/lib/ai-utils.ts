@@ -16,7 +16,7 @@ import { cn } from './utils';
  */
 export function filterAIClasses(className?: string): string {
   if (!className) return '';
-  
+
   // Remove height overrides, border radius, and color overrides
   const filteredClasses = className
     .split(' ')
@@ -34,7 +34,7 @@ export function filterAIClasses(className?: string): string {
       return true;
     })
     .join(' ');
-    
+
   return filteredClasses;
 }
 
@@ -53,9 +53,9 @@ export function cnSafe(...inputs: ClassValue[]) {
  */
 export function filterAIStyles(style?: React.CSSProperties): React.CSSProperties | undefined {
   if (!style) return undefined;
-  
+
   const filteredStyle = { ...style };
-  
+
   // Remove problematic style properties that break design system
   delete filteredStyle.height;
   delete filteredStyle.borderRadius;
@@ -68,7 +68,7 @@ export function filterAIStyles(style?: React.CSSProperties): React.CSSProperties
   delete filteredStyle.paddingLeft;
   delete filteredStyle.paddingRight;
   delete filteredStyle.width; // Allow only if it's 100%
-  
+
   return Object.keys(filteredStyle).length > 0 ? filteredStyle : undefined;
 }
 
@@ -76,23 +76,25 @@ export function filterAIStyles(style?: React.CSSProperties): React.CSSProperties
  * Higher-order component that adds AI protection to any component
  * This filters out problematic props that AI tools might add
  */
-export function withAIProtection(Component: React.ComponentType<any>) {
-  const AIProtectedComponent = (props: any) => {
+export function withAIProtection<P extends { className?: string; style?: React.CSSProperties }>(
+  Component: React.ComponentType<P>
+) {
+  const AIProtectedComponent = (props: P) => {
     const safeProps = useMemo(() => {
       const { className, style, ...otherProps } = props;
-      
+
       return {
         ...otherProps,
         className: filterAIClasses(className),
         style: filterAIStyles(style),
-      };
+      } as P;
     }, [props]);
-    
+
     return React.createElement(Component, safeProps);
   };
-  
+
   AIProtectedComponent.displayName = `AIProtected(${Component.displayName || Component.name})`;
-  
+
   return AIProtectedComponent;
 }
 
@@ -102,22 +104,22 @@ export function withAIProtection(Component: React.ComponentType<any>) {
  */
 export function detectDesignSystemConflicts(): string[] {
   if (typeof window === 'undefined') return [];
-  
+
   const conflicts: string[] = [];
-  
+
   // Check for common conflicting libraries
-  if ((window as any).antd) conflicts.push('Ant Design');
-  if ((window as any).MaterialUI) conflicts.push('Material-UI');
-  if ((window as any).ChakraUI) conflicts.push('Chakra UI');
-  
+  if ((window as Window & { antd?: unknown }).antd) conflicts.push('Ant Design');
+  if ((window as Window & { MaterialUI?: unknown }).MaterialUI) conflicts.push('Material-UI');
+  if ((window as Window & { ChakraUI?: unknown }).ChakraUI) conflicts.push('Chakra UI');
+
   // Check DOM for conflicting CSS classes
   if (document.querySelector('[class*="MuiButton"]')) conflicts.push('Material-UI Components');
   if (document.querySelector('[class*="ant-btn"]')) conflicts.push('Ant Design Components');
-  if (document.querySelector('[data-radix-collection-item]') && 
-      !document.querySelector('[data-ft-design-system]')) {
+  if (document.querySelector('[data-radix-collection-item]') &&
+    !document.querySelector('[data-ft-design-system]')) {
     conflicts.push('Radix UI (possibly shadcn/ui)');
   }
-  
+
   // Check for conflicting CSS variables
   const rootStyles = getComputedStyle(document.documentElement);
   if (rootStyles.getPropertyValue('--chakra-colors-blue-500')) {
@@ -126,7 +128,7 @@ export function detectDesignSystemConflicts(): string[] {
   if (rootStyles.getPropertyValue('--ant-primary-color')) {
     conflicts.push('Ant Design CSS');
   }
-  
+
   return conflicts;
 }
 
@@ -135,12 +137,12 @@ export function detectDesignSystemConflicts(): string[] {
  */
 export function debugDesignSystemConflicts(): void {
   const conflicts = detectDesignSystemConflicts();
-  
+
   if (conflicts.length === 0) {
     console.log('✅ No design system conflicts detected');
     return;
   }
-  
+
   console.group('🚨 Design System Conflicts Detected');
   console.warn('The following conflicting design systems were found:');
   conflicts.forEach(conflict => console.warn(`  - ${conflict}`));
@@ -159,13 +161,13 @@ export function validateFTDesignSystem(): boolean {
     console.warn('⚠️ FT Design System CSS not detected. Make sure to import the stylesheet.');
     return false;
   }
-  
+
   // Check if FT Design System components are available (for CDN usage)
-  if (typeof window !== 'undefined' && (window as any).FTDesignSystem) {
+  if (typeof window !== 'undefined' && (window as Window & { FTDesignSystem?: unknown }).FTDesignSystem) {
     console.log('✅ FT Design System CDN loaded successfully');
     return true;
   }
-  
+
   // For npm usage, we can't easily detect if components are available
   console.log('✅ FT Design System validation passed');
   return true;
@@ -177,20 +179,20 @@ export function validateFTDesignSystem(): boolean {
  */
 export function runAIDevelopmentChecks(): void {
   if (process.env.NODE_ENV !== 'development') return;
-  
+
   console.group('🔍 FT Design System AI Development Checks');
-  
+
   // Validate FT Design System
   validateFTDesignSystem();
-  
+
   // Check for conflicts
   debugDesignSystemConflicts();
-  
+
   // Log available components (if using CDN)
-  if (typeof window !== 'undefined' && (window as any).FTDesignSystem) {
-    const availableComponents = Object.keys((window as any).FTDesignSystem);
+  if (typeof window !== 'undefined' && (window as Window & { FTDesignSystem?: Record<string, unknown> }).FTDesignSystem) {
+    const availableComponents = Object.keys((window as Window & { FTDesignSystem?: Record<string, unknown> }).FTDesignSystem!);
     console.log('📦 Available FT Components:', availableComponents);
   }
-  
+
   console.groupEnd();
 } 

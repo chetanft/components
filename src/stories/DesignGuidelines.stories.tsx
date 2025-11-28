@@ -108,7 +108,7 @@ const DesignGuidelinesPage = () => (
         </div>
         
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <h4 className="text-lg font-semibold text-red-900 mb-2">❌ DON'T:</h4>
+          <h4 className="text-lg font-semibold text-red-900 mb-2">❌ DON&apos;T:</h4>
           <ul className="text-red-800 space-y-1">
             <li>• Create custom heights (38px, 42px, etc.)</li>
             <li>• Mix different padding styles within the same size</li>

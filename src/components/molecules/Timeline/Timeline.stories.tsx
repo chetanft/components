@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Timeline, TimelineItem } from './Timeline';
-import { Icon } from '../../atoms/Icons';
 
 const meta: Meta<typeof Timeline> = {
   title: 'Molecules/Timeline',
@@ -157,4 +156,3 @@ export const ComplexContent: Story = {
     </Timeline>
   ),
 };
-

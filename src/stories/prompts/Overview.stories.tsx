@@ -30,8 +30,8 @@ const PromptsOverview = () => {
           <div>
             <h3 className="font-semibold text-gray-900 mb-2">Option 2: CDN (Universal)</h3>
             <div className="bg-gray-900 text-blue-400 p-3 rounded-lg font-mono text-sm">
-              &lt;link rel="stylesheet" href="https://unpkg.com/ft-design-system@latest/dist/styles.css"&gt;<br/>
-              &lt;script src="https://unpkg.com/ft-design-system@latest/dist/index.umd.js"&gt;&lt;/script&gt;
+              &lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/ft-design-system@latest/dist/styles.css&quot;&gt;<br/>
+              &lt;script src=&quot;https://unpkg.com/ft-design-system@latest/dist/index.umd.js&quot;&gt;&lt;/script&gt;
             </div>
             <p className="text-sm text-gray-600 mt-2">For Bolt.new, CodeSandbox, Replit, and other online tools</p>
           </div>
@@ -110,7 +110,7 @@ const PromptsOverview = () => {
               <li>• VS Code + Cursor AI</li>
               <li>• Local development</li>
               <li>• Lovable.dev</li>
-              <li>→ Use the "Integration" prompt</li>
+              <li>→ Use the &quot;Integration&quot; prompt</li>
             </ul>
           </div>
           <div>
@@ -119,7 +119,7 @@ const PromptsOverview = () => {
               <li>• Bolt.new</li>
               <li>• CodeSandbox</li>
               <li>• Replit</li>
-              <li>→ Use the "No NPM Support" prompt</li>
+              <li>→ Use the &quot;No NPM Support&quot; prompt</li>
             </ul>
           </div>
         </div>

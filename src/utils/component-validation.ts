@@ -12,7 +12,7 @@ export interface ValidationResult {
 /**
  * Validates Table component data structure
  */
-export function validateTableData(data: any[]): ValidationResult {
+export function validateTableData(data: unknown[]): ValidationResult {
   const errors: string[] = [];
   const suggestions: string[] = [];
 
@@ -26,7 +26,12 @@ export function validateTableData(data: any[]): ValidationResult {
     suggestions.push('Empty data array - table will show empty state');
   }
 
-  const missingIds = data.filter(row => row.id === undefined || row.id === null);
+  const missingIds = data.filter(row => {
+    if (row && typeof row === 'object' && 'id' in row) {
+      return row.id === undefined || row.id === null;
+    }
+    return true;
+  });
   if (missingIds.length > 0) {
     errors.push(`${missingIds.length} rows missing required 'id' property`);
     suggestions.push('Add id to each row: {id: 1, ...otherProps}');
@@ -42,7 +47,7 @@ export function validateTableData(data: any[]): ValidationResult {
 /**
  * Validates Table columns structure
  */
-export function validateTableColumns(columns: any[]): ValidationResult {
+export function validateTableColumns(columns: unknown[]): ValidationResult {
   const errors: string[] = [];
   const suggestions: string[] = [];
 
@@ -53,12 +58,14 @@ export function validateTableColumns(columns: any[]): ValidationResult {
   }
 
   columns.forEach((col, index) => {
-    if (!col.key) {
-      errors.push(`Column ${index} missing 'key' property`);
-    }
-    if (!col.title) {
-      errors.push(`Column ${index} missing 'title' property (not 'header' or 'label')`);
-      suggestions.push('Use "title" not "header": {key: "name", title: "Name"}');
+    if (col && typeof col === 'object') {
+      if (!('key' in col)) {
+        errors.push(`Column ${index} missing 'key' property`);
+      }
+      if (!('title' in col)) {
+        errors.push(`Column ${index} missing 'title' property (not 'header' or 'label')`);
+        suggestions.push('Use "title" not "header": {key: "name", title: "Name"}');
+      }
     }
   });
 
@@ -142,18 +149,18 @@ export function detectAntiPatterns(jsx: string): ValidationResult {
 /**
  * Comprehensive component validation
  */
-export function validateComponent(componentName: string, props: any): ValidationResult {
+export function validateComponent(componentName: string, props: Record<string, unknown>): ValidationResult {
   const errors: string[] = [];
   const suggestions: string[] = [];
 
   switch (componentName) {
     case 'Table':
-      if (props.data) {
+      if (props.data && Array.isArray(props.data)) {
         const dataValidation = validateTableData(props.data);
         errors.push(...dataValidation.errors);
         suggestions.push(...dataValidation.suggestions);
       }
-      if (props.columns) {
+      if (props.columns && Array.isArray(props.columns)) {
         const columnsValidation = validateTableColumns(props.columns);
         errors.push(...columnsValidation.errors);
         suggestions.push(...columnsValidation.suggestions);
@@ -164,7 +171,7 @@ export function validateComponent(componentName: string, props: any): Validation
     case 'Input':
     case 'Dropdown':
     case 'DatePicker':
-      if (props.size) {
+      if (props.size && typeof props.size === 'string') {
         const sizeValidation = validateComponentSize(componentName, props.size);
         errors.push(...sizeValidation.errors);
         suggestions.push(...sizeValidation.suggestions);
@@ -182,22 +189,22 @@ export function validateComponent(componentName: string, props: any): Validation
 /**
  * Debug helper for AI tools
  */
-export function debugComponent(componentName: string, props: any): void {
+export function debugComponent(componentName: string, props: Record<string, unknown>): void {
   console.group(`🔍 FT Design System - ${componentName} Debug`);
-  
+
   const validation = validateComponent(componentName, props);
-  
+
   if (validation.isValid) {
     console.log('✅ Component usage is valid');
   } else {
     console.error('❌ Component validation errors:');
     validation.errors.forEach(error => console.error(`  - ${error}`));
   }
-  
+
   if (validation.suggestions.length > 0) {
     console.warn('💡 Suggestions:');
     validation.suggestions.forEach(suggestion => console.warn(`  - ${suggestion}`));
   }
-  
+
   console.groupEnd();
 } 

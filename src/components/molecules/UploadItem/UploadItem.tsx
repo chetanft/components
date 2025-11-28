@@ -5,7 +5,6 @@ import { cn } from '../../../lib/utils';
 import { FileIcon } from '../../atoms/Icons/FileIcon';
 import { LoadingSpinner } from '../../atoms/Icons/LoadingSpinner';
 import { Icon } from '../../atoms/Icons';
-import { Badge } from '../../atoms/Badge/Badge';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { Typography } from '../../atoms/Typography';
 
@@ -154,12 +153,19 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
                   </Typography>
                   
                   {/* Subtitle - date or size */}
-                  {(state === 'uploaded' || state === 'saved') && file.uploadedAt && (
+                  {(state === 'uploaded' || state === 'saved') && file.uploadedAt ? (
                     <Typography 
                       variant="body-secondary-regular"
                       className="text-[var(--secondary)]"
                     >
                       {formatDate(file.uploadedAt)}
+                    </Typography>
+                  ) : (
+                    <Typography 
+                      variant="body-secondary-regular"
+                      className="text-[var(--secondary)]"
+                    >
+                      {formatFileSize(file.size)}
                     </Typography>
                   )}
                   
@@ -213,4 +219,3 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
 );
 
 UploadItem.displayName = 'UploadItem';
-

@@ -28,6 +28,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ...props
   }, ref) => {
     const checkboxRef = React.useRef<HTMLInputElement>(null);
+    const generatedId = React.useId();
 
     React.useImperativeHandle(ref, () => checkboxRef.current as HTMLInputElement);
 
@@ -37,8 +38,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     }, [indeterminate]);
 
-    // Generate IDs for accessibility
-    const checkboxId = id || `checkbox-${React.useId()}`;
+    // Generate IDs for accessibility (always call useId to avoid conditional hooks)
+    const checkboxId = id ?? `checkbox-${generatedId}`;
     const descriptionId = description ? `${checkboxId}-description` : undefined;
     const describedBy = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ') || undefined;
 
@@ -119,9 +120,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const inputProps = { ...props };
     
     // If checked is provided without onChange, use defaultChecked for uncontrolled
-    if (isControlled && !hasOnChange) {
-      const { checked, ...rest } = inputProps;
-      inputProps.defaultChecked = checked;
+    if (isControlled && !hasOnChange && 'checked' in inputProps) {
+      inputProps.defaultChecked = inputProps.checked;
       delete inputProps.checked;
     }
 

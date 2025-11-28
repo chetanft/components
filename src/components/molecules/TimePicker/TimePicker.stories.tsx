@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TimePicker } from './TimePicker';
 import { useState } from 'react';
+import type { ComponentProps } from 'react';
 
 const meta: Meta<typeof TimePicker> = {
   title: 'Molecules/TimePicker',
@@ -41,6 +42,54 @@ const meta: Meta<typeof TimePicker> = {
 
 export default meta;
 type Story = StoryObj<typeof TimePicker>;
+type TimePickerStoryProps = ComponentProps<typeof TimePicker>;
+
+const ControlledTimePickerStory = (props: TimePickerStoryProps) => {
+  const [time, setTime] = useState('14:30:00');
+
+  return (
+    <div className="space-y-4">
+      <TimePicker
+        {...props}
+        value={time}
+        onChange={setTime}
+      />
+      <p className="text-sm text-[var(--color-tertiary)]">Selected time: {time || 'None'}</p>
+    </div>
+  );
+};
+
+const FormIntegrationStory = () => {
+  const [startTime, setStartTime] = useState('09:00:00');
+  const [endTime, setEndTime] = useState('17:00:00');
+
+  return (
+    <div className="space-y-4 max-w-md">
+      <h3 className="text-lg font-medium text-[var(--color-primary)]">Schedule Meeting</h3>
+      <div className="grid grid-cols-2 gap-4">
+        <TimePicker
+          label="Start Time"
+          labelMandatory
+          value={startTime}
+          onChange={setStartTime}
+          showSecond={false}
+        />
+        <TimePicker
+          label="End Time"
+          labelMandatory
+          value={endTime}
+          onChange={setEndTime}
+          showSecond={false}
+        />
+      </div>
+      <p className="text-sm text-[var(--color-secondary)]">
+        Meeting duration: {startTime && endTime ?
+          `${startTime.slice(0, 5)} - ${endTime.slice(0, 5)}` :
+          'Select times'}
+      </p>
+    </div>
+  );
+};
 
 // Basic TimePicker
 export const Default: Story = {
@@ -52,19 +101,7 @@ export const Default: Story = {
 
 // Controlled TimePicker
 export const Controlled: Story = {
-  render: (args: React.ComponentProps<typeof TimePicker>) => {
-    const [time, setTime] = useState('14:30:00');
-    return (
-      <div className="space-y-4">
-        <TimePicker
-          {...args}
-          value={time}
-          onChange={setTime}
-        />
-        <p className="text-sm text-[var(--color-tertiary)]">Selected time: {time || 'None'}</p>
-      </div>
-    );
-  },
+  render: (args) => <ControlledTimePickerStory {...args} />,
   args: {
     label: 'Controlled Time',
   },
@@ -196,36 +233,5 @@ export const WithoutClear: Story = {
 
 // Form Integration Example
 export const FormIntegration: Story = {
-  render: () => {
-    const [startTime, setStartTime] = useState('09:00:00');
-    const [endTime, setEndTime] = useState('17:00:00');
-
-    return (
-      <div className="space-y-4 max-w-md">
-        <h3 className="text-lg font-medium text-[var(--color-primary)]">Schedule Meeting</h3>
-        <div className="grid grid-cols-2 gap-4">
-          <TimePicker
-            label="Start Time"
-            labelMandatory
-            value={startTime}
-            onChange={setStartTime}
-            showSecond={false}
-          />
-          <TimePicker
-            label="End Time"
-            labelMandatory
-            value={endTime}
-            onChange={setEndTime}
-            showSecond={false}
-          />
-        </div>
-        <p className="text-sm text-[var(--color-secondary)]">
-          Meeting duration: {startTime && endTime ?
-            `${startTime.slice(0, 5)} - ${endTime.slice(0, 5)}` :
-            'Select times'}
-        </p>
-      </div>
-    );
-  },
+  render: () => <FormIntegrationStory />,
 };
-

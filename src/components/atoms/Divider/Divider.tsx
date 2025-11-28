@@ -43,17 +43,16 @@ export interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
-  ({ 
-    type = 'primary', 
-    label, 
+  ({
+    type = 'primary',
+    label,
     direction = 'horizontal',
-    dashed, 
+    dashed,
     orientation = 'center',
-    orientationMargin,
     plain,
     children,
-    className, 
-    ...props 
+    className,
+    ...props
   }, ref) => {
     const content = children || label;
     const isVertical = direction === 'vertical';
@@ -61,8 +60,8 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
     const isWithLabel = type === 'with-label';
 
     // Determine border color based on type
-    const borderColorClass = type === 'secondary' 
-      ? 'border-[var(--border-secondary)]' 
+    const borderColorClass = type === 'secondary'
+      ? 'border-[var(--border-secondary)]'
       : 'border-[var(--border-primary)]';
 
     if (isVertical) {
@@ -83,7 +82,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
     // Horizontal with Content (with-label type)
     if (content || isWithLabel) {
       const labelContent = content || label;
-      
+
       return (
         <div
           ref={ref}
@@ -98,13 +97,13 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
           {...props}
         >
           {/* Left divider line */}
-          <div 
+          <div
             className={cn(
               "h-px flex-1 border-t",
               'border-[var(--border-primary)]'
             )}
           />
-          
+
           {/* Label */}
           <span className={cn(
             "inline-block shrink-0",
@@ -118,9 +117,9 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
               </div>
             ) : labelContent}
           </span>
-          
+
           {/* Right divider line */}
-          <div 
+          <div
             className={cn(
               "h-px flex-1 border-t",
               'border-[var(--border-primary)]'
@@ -141,7 +140,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
         )}
         {...props}
       >
-        <div 
+        <div
           className={cn(
             "h-px w-full border-t",
             borderColorClass,

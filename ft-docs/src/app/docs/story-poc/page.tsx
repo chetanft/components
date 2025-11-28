@@ -28,11 +28,11 @@ export default function StoryPocPage() {
       setError(null);
       
       try {
-        const module = await loadStoryModule(selectedComponent);
-        if (module) {
-          setStoryModule(module);
+        const loadedModule = await loadStoryModule(selectedComponent);
+        if (loadedModule) {
+            setStoryModule(loadedModule);
         } else {
-          setError(`No stories found for ${selectedComponent}`);
+            setError(`No stories found for ${selectedComponent}`);
         }
       } catch (err) {
         setError(`Failed to load stories: ${err}`);
@@ -206,4 +206,3 @@ export default function StoryPocPage() {
     </div>
   );
 }
-

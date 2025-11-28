@@ -39,23 +39,25 @@ const TransferDemo = () => {
   );
 };
 
+const OneWayTransferStory = () => {
+  const [targetKeys, setTargetKeys] = useState<string[]>(['1']);
+
+  return (
+    <Transfer
+      oneWay
+      dataSource={mockData}
+      targetKeys={targetKeys}
+      onChange={setTargetKeys}
+      titles={['Source', 'Target']}
+      render={(item) => item.title || ''}
+    />
+  );
+};
+
 export const Basic: Story = {
   render: () => <TransferDemo />,
 };
 
 export const OneWay: Story = {
-    render: () => {
-        const [targetKeys, setTargetKeys] = useState<string[]>(['1']);
-        return (
-            <Transfer
-                oneWay
-                dataSource={mockData}
-                targetKeys={targetKeys}
-                onChange={setTargetKeys}
-                titles={['Source', 'Target']}
-                render={(item) => item.title || ''}
-            />
-        );
-    }
+  render: () => <OneWayTransferStory />
 };
-

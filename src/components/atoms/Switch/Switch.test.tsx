@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Switch } from './Switch';
 
@@ -69,7 +69,7 @@ describe('Switch', () => {
     });
 
     it('renders checked when checked prop is true', () => {
-      render(<Switch checked onChange={() => {}} />);
+      render(<Switch checked onChange={() => { }} />);
       const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
       expect(checkbox.checked).toBe(true);
     });
@@ -98,10 +98,10 @@ describe('Switch', () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(<Switch onChange={handleChange} />);
-      
+
       const checkbox = screen.getByRole('checkbox');
       await user.click(checkbox);
-      
+
       expect(handleChange).toHaveBeenCalledTimes(1);
     });
 
@@ -109,10 +109,10 @@ describe('Switch', () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(<Switch label="Click me" onChange={handleChange} />);
-      
+
       const label = screen.getByText('Click me');
       await user.click(label);
-      
+
       expect(handleChange).toHaveBeenCalledTimes(1);
     });
 
@@ -120,10 +120,10 @@ describe('Switch', () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(<Switch disabled onChange={handleChange} />);
-      
+
       const checkbox = screen.getByRole('checkbox');
       await user.click(checkbox);
-      
+
       expect(handleChange).not.toHaveBeenCalled();
     });
 
@@ -131,11 +131,11 @@ describe('Switch', () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(<Switch onChange={handleChange} />);
-      
+
       const checkbox = screen.getByRole('checkbox');
       checkbox.focus();
       await user.keyboard(' ');
-      
+
       expect(handleChange).toHaveBeenCalledTimes(1);
     });
   });
@@ -148,7 +148,7 @@ describe('Switch', () => {
     });
 
     it('applies correct track color when checked', () => {
-      const { container } = render(<Switch checked onChange={() => {}} />);
+      const { container } = render(<Switch checked onChange={() => { }} />);
       const track = container.querySelector('.bg-\\[var\\(--switch-on-bg\\)\\]');
       expect(track).toBeInTheDocument();
     });
@@ -160,7 +160,7 @@ describe('Switch', () => {
     });
 
     it('applies correct thumb position when checked', () => {
-      const { container } = render(<Switch checked onChange={() => {}} />);
+      const { container } = render(<Switch checked onChange={() => { }} />);
       const thumb = container.querySelector('.translate-x-\\[14px\\]');
       expect(thumb).toBeInTheDocument();
     });
@@ -172,7 +172,7 @@ describe('Switch', () => {
     });
 
     it('applies correct thumb color when checked', () => {
-      const { container } = render(<Switch checked onChange={() => {}} />);
+      const { container } = render(<Switch checked onChange={() => { }} />);
       const thumb = container.querySelector('.bg-\\[var\\(--switch-thumb-on\\)\\]');
       expect(thumb).toBeInTheDocument();
     });
@@ -246,12 +246,12 @@ describe('Switch', () => {
 
   describe('Design System Compliance', () => {
     it('uses correct CSS custom properties for colors', () => {
-      const { container } = render(<Switch checked onChange={() => {}} />);
-      
+      const { container } = render(<Switch checked onChange={() => { }} />);
+
       // Check that the component uses CSS custom properties
       const track = container.querySelector('[class*="--switch-on-bg"]');
       const thumb = container.querySelector('[class*="--switch-thumb-on"]');
-      
+
       expect(track).toBeInTheDocument();
       expect(thumb).toBeInTheDocument();
     });
@@ -266,7 +266,7 @@ describe('Switch', () => {
       const { container } = render(<Switch />);
       const track = container.querySelector('.duration-200');
       const thumb = container.querySelector('.duration-200');
-      
+
       expect(track).toBeInTheDocument();
       expect(thumb).toBeInTheDocument();
     });

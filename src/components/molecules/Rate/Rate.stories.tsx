@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Rate } from './Rate';
 import { useState } from 'react';
+import type { ComponentProps } from 'react';
 
 const meta: Meta<typeof Rate> = {
   title: 'Molecules/Rate',
@@ -39,6 +40,20 @@ const meta: Meta<typeof Rate> = {
 
 export default meta;
 type Story = StoryObj<typeof Rate>;
+type RateStoryProps = ComponentProps<typeof Rate>;
+
+const ControlledRateStory = (props: RateStoryProps) => {
+  const [value, setValue] = useState(3);
+
+  return (
+    <div className="flex flex-col gap-4 items-center">
+      <Rate {...props} value={value} onChange={setValue} />
+      <p className="text-sm text-[var(--secondary)]">
+        Current rating: {value} stars
+      </p>
+    </div>
+  );
+};
 
 export const Default: Story = {
   args: {
@@ -106,16 +121,5 @@ export const CustomCount: Story = {
 };
 
 export const Controlled: Story = {
-  render: () => {
-    const [value, setValue] = useState(3);
-    return (
-      <div className="flex flex-col gap-4 items-center">
-        <Rate value={value} onChange={setValue} />
-        <p className="text-sm text-[var(--secondary)]">
-          Current rating: {value} stars
-        </p>
-      </div>
-    );
-  },
+  render: (args) => <ControlledRateStory {...args} />,
 };
-

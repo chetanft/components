@@ -21,7 +21,7 @@ const meta = {
       description: 'Name of the user',
     },
     userRole: {
-      control: 'text', 
+      control: 'text',
       description: 'Role or position of the user',
     },
     userLocation: {
@@ -47,7 +47,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Interactive example with state management
-const InteractiveUserProfile = (args: any) => {
+const InteractiveUserProfile = (args: React.ComponentProps<typeof UserProfile>) => {
   const [isOpen, setIsOpen] = useState(false);
   const userProfileRef = useRef<HTMLDivElement>(null);
 
@@ -80,8 +80,8 @@ const InteractiveUserProfile = (args: any) => {
   return (
     <div style={{ padding: '40px', backgroundColor: '#F8F8F9', minHeight: '500px' }}>
       <div ref={userProfileRef} style={{ position: 'relative', display: 'inline-flex', width: 'fit-content' }}>
-      <UserProfile
-        {...args}
+        <UserProfile
+          {...args}
           onClick={() => {
             setIsOpen(!isOpen);
             if (args.onClick) {
@@ -120,7 +120,7 @@ export const Interactive: Story = {
   args: {
     userName: 'Santosh Kumar',
     userRole: 'Dispatch Manager',
-    userLocation: 'SPD-Santoshnagar', 
+    userLocation: 'SPD-Santoshnagar',
     userBadge: 'Admin',
   },
 };

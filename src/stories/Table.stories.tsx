@@ -5,8 +5,6 @@ import { Table, TableColumn, TableRow, SortDirection, TableCellText, TableCellIt
 import { Badge } from '../components/atoms/Badge/Badge';
 import { Button } from '../components/atoms/Button/Button';
 import { Icon } from '../components/atoms/Icons';
-import { FileTypeIcon } from '../components/organisms/FileTypeIcon';
-import { Chicklet } from '../components/molecules/Chicklet';
 
 // Sample data interface
 interface User extends TableRow {
@@ -127,7 +125,7 @@ const atomicColumns: TableColumn<User>[] = [
     title: 'User',
     type: 'text',
     sortable: true,
-    render: (value, row) => (
+    render: (value) => (
       <TableCellItem
         text={value}
         textType="primary"
@@ -156,7 +154,7 @@ const atomicColumns: TableColumn<User>[] = [
     render: (value) => (
       <TableCellItem
         badge={
-          <Badge 
+          <Badge
             variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'}
           >
             {value}
@@ -194,7 +192,7 @@ const atomicColumns: TableColumn<User>[] = [
     title: 'Actions',
     type: 'actions',
     width: '120px',
-    render: (_, row) => (
+    render: () => (
       <TableCellItem
         badge={
           <div className="flex items-center gap-[8px]">
@@ -224,11 +222,10 @@ const starAccessoryButton = (_row: User, selected: boolean) => (
   <button
     type="button"
     aria-label="Toggle favorite"
-    className={`inline-flex items-center justify-center transition-colors ${
-      selected
+    className={`inline-flex items-center justify-center transition-colors ${selected
         ? 'text-[var(--warning)]'
         : 'text-[var(--tertiary)]'
-    }`}
+      }`}
   >
     <Icon name="star" size={16} />
   </button>
@@ -262,18 +259,19 @@ export const Default: Story = {
 };
 
 // Selectable table story
+const WithSelectionStoryComponent = (args: React.ComponentProps<UserTable>) => {
+  const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
+  return (
+    <Table
+      {...args}
+      selectedRows={selectedRows}
+      onSelectionChange={setSelectedRows}
+    />
+  );
+};
+
 export const WithSelection: Story = {
-  render: (args) => {
-    const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
-    
-    return (
-      <Table
-        {...args}
-        selectedRows={selectedRows}
-        onSelectionChange={setSelectedRows}
-      />
-    );
-  },
+  render: (args) => <WithSelectionStoryComponent {...args} />,
   args: {
     columns: basicColumns,
     data: sampleUsers,
@@ -282,43 +280,45 @@ export const WithSelection: Story = {
 };
 
 // Sortable table story
+const WithSortingStoryComponent = (args: React.ComponentProps<UserTable>) => {
+  const [sortColumn, setSortColumn] = useState<string>('');
+  const [sortDirection, setSortDirection] = useState<SortDirection>(null);
+  const [data, setData] = useState(sampleUsers);
+
+  const handleSort = (column: string, direction: SortDirection) => {
+    setSortColumn(column);
+    setSortDirection(direction);
+
+    if (!direction) {
+      setData(sampleUsers);
+      return;
+    }
+
+    const sortedData = [...sampleUsers].sort((a, b) => {
+      const aValue = a[column as keyof User];
+      const bValue = b[column as keyof User];
+
+      if (aValue < bValue) return direction === 'asc' ? -1 : 1;
+      if (aValue > bValue) return direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    setData(sortedData);
+  };
+
+  return (
+    <Table
+      {...args}
+      data={data}
+      sortColumn={sortColumn}
+      sortDirection={sortDirection}
+      onSort={handleSort}
+    />
+  );
+};
+
 export const WithSorting: Story = {
-  render: (args) => {
-    const [sortColumn, setSortColumn] = useState<string>('');
-    const [sortDirection, setSortDirection] = useState<SortDirection>(null);
-    const [data, setData] = useState(sampleUsers);
-    
-    const handleSort = (column: string, direction: SortDirection) => {
-      setSortColumn(column);
-      setSortDirection(direction);
-      
-      if (!direction) {
-        setData(sampleUsers);
-        return;
-      }
-      
-      const sortedData = [...sampleUsers].sort((a, b) => {
-        const aValue = a[column as keyof User];
-        const bValue = b[column as keyof User];
-        
-        if (aValue < bValue) return direction === 'asc' ? -1 : 1;
-        if (aValue > bValue) return direction === 'asc' ? 1 : -1;
-        return 0;
-      });
-      
-      setData(sortedData);
-    };
-    
-    return (
-      <Table
-        {...args}
-        data={data}
-        sortColumn={sortColumn}
-        sortDirection={sortDirection}
-        onSort={handleSort}
-      />
-    );
-  },
+  render: (args) => <WithSortingStoryComponent {...args} />,
   args: {
     columns: basicColumns,
     data: sampleUsers
@@ -326,18 +326,19 @@ export const WithSorting: Story = {
 };
 
 // Advanced table with atomic components
+const WithAtomicComponentsStoryComponent = (args: React.ComponentProps<UserTable>) => {
+  const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
+  return (
+    <Table
+      {...args}
+      selectedRows={selectedRows}
+      onSelectionChange={setSelectedRows}
+    />
+  );
+};
+
 export const WithAtomicComponents: Story = {
-  render: (args) => {
-    const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
-    
-    return (
-      <Table
-        {...args}
-        selectedRows={selectedRows}
-        onSelectionChange={setSelectedRows}
-      />
-    );
-  },
+  render: (args) => <WithAtomicComponentsStoryComponent {...args} />,
   args: {
     columns: atomicColumns,
     data: sampleUsers,
@@ -352,18 +353,20 @@ export const WithAtomicComponents: Story = {
   }
 };
 
-export const WithAccessoryAndActions: Story = {
-  render: (args) => {
-    const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
+const WithAccessoryAndActionsStoryComponent = (args: React.ComponentProps<UserTable>) => {
+  const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
 
-    return (
-      <Table
-        {...args}
-        selectedRows={selectedRows}
-        onSelectionChange={setSelectedRows}
-      />
-    );
-  },
+  return (
+    <Table
+      {...args}
+      selectedRows={selectedRows}
+      onSelectionChange={setSelectedRows}
+    />
+  );
+};
+
+export const WithAccessoryAndActions: Story = {
+  render: (args) => <WithAccessoryAndActionsStoryComponent {...args} />,
   args: {
     columns: basicColumns,
     data: extendedUsers,
@@ -378,164 +381,164 @@ export const WithAccessoryAndActions: Story = {
 export function VariantsPrimary() {
   const [selectedRowsPrimary, setSelectedRowsPrimary] = useState<(string | number)[]>(['2', '4']);
 
-    const figmaColumns: TableColumn<User>[] = [
-      {
-        key: 'name',
-        title: 'Name',
-        type: 'text',
-        sortable: true,
-        render: (value) => (
-          <TableCellText type="primary">
-            {value}
-          </TableCellText>
-        )
-      },
-      {
-        key: 'email',
-        title: 'Email',
-        type: 'text',
-        sortable: true,
-        render: (value) => (
-          <TableCellText type="secondary">
-            {value}
-          </TableCellText>
-        )
-      },
-      {
-        key: 'role',
-        title: 'Role',
-        type: 'text',
-        render: (value) => (
+  const figmaColumns: TableColumn<User>[] = [
+    {
+      key: 'name',
+      title: 'Name',
+      type: 'text',
+      sortable: true,
+      render: (value) => (
+        <TableCellText type="primary">
+          {value}
+        </TableCellText>
+      )
+    },
+    {
+      key: 'email',
+      title: 'Email',
+      type: 'text',
+      sortable: true,
+      render: (value) => (
+        <TableCellText type="secondary">
+          {value}
+        </TableCellText>
+      )
+    },
+    {
+      key: 'role',
+      title: 'Role',
+      type: 'text',
+      render: (value) => (
+        <TableCellItem
+          badge={
+            <Badge
+              variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'}
+            >
+              {value}
+            </Badge>
+          }
+        />
+      )
+    },
+    {
+      key: 'status',
+      title: 'Status',
+      render: (value) => {
+        const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
+        return (
           <TableCellItem
-            badge={
-              <Badge 
-                variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'}
-              >
-                {value}
-              </Badge>
-            }
+            badge={<Badge variant={variant}>{value}</Badge>}
           />
-        )
-      },
-      {
-        key: 'status',
-        title: 'Status',
-        render: (value) => {
-          const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
-          return (
-            <TableCellItem
-              badge={<Badge variant={variant}>{value}</Badge>}
-            />
-          );
-        }
+        );
       }
-    ];
+    }
+  ];
 
-    return (
-      <div className="p-8 bg-white">
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-xl font-semibold text-gray-800">Primary Variant</h3>
-            <p className="text-sm text-gray-600 mt-1">
-              Dark header (#838C9D) with alternating row backgrounds: white → gray → white → gray...
-            </p>
-          </div>
-          <Table
-            variant="primary"
-            columns={figmaColumns}
-            data={sampleUsers.slice(0, 6)}
-            selectable
-            selectedRows={selectedRowsPrimary}
-            onSelectionChange={setSelectedRowsPrimary}
-            className="max-w-5xl"
-          />
-          <div className="text-sm text-gray-500">
-            Selected rows: {selectedRowsPrimary.length} of {sampleUsers.slice(0, 6).length}
-          </div>
+  return (
+    <div className="p-8 bg-white">
+      <div className="space-y-4">
+        <div>
+          <h3 className="text-xl font-semibold text-gray-800">Primary Variant</h3>
+          <p className="text-sm text-gray-600 mt-1">
+            Dark header (#838C9D) with alternating row backgrounds: white → gray → white → gray...
+          </p>
+        </div>
+        <Table
+          variant="primary"
+          columns={figmaColumns}
+          data={sampleUsers.slice(0, 6)}
+          selectable
+          selectedRows={selectedRowsPrimary}
+          onSelectionChange={setSelectedRowsPrimary}
+          className="max-w-5xl"
+        />
+        <div className="text-sm text-gray-500">
+          Selected rows: {selectedRowsPrimary.length} of {sampleUsers.slice(0, 6).length}
         </div>
       </div>
-    );
+    </div>
+  );
 }
 
 // VariantsSecondary story - separate preview for secondary variant
 export function VariantsSecondary() {
   const [selectedRowsSecondary, setSelectedRowsSecondary] = useState<(string | number)[]>(['1']);
 
-    const figmaColumns: TableColumn<User>[] = [
-      {
-        key: 'name',
-        title: 'Name',
-        type: 'text',
-        sortable: true,
-        render: (value) => (
-          <TableCellText type="primary">
-            {value}
-          </TableCellText>
-        )
-      },
-      {
-        key: 'email',
-        title: 'Email',
-        type: 'text',
-        sortable: true,
-        render: (value) => (
-          <TableCellText type="secondary">
-            {value}
-          </TableCellText>
-        )
-      },
-      {
-        key: 'role',
-        title: 'Role',
-        type: 'text',
-        render: (value) => (
+  const figmaColumns: TableColumn<User>[] = [
+    {
+      key: 'name',
+      title: 'Name',
+      type: 'text',
+      sortable: true,
+      render: (value) => (
+        <TableCellText type="primary">
+          {value}
+        </TableCellText>
+      )
+    },
+    {
+      key: 'email',
+      title: 'Email',
+      type: 'text',
+      sortable: true,
+      render: (value) => (
+        <TableCellText type="secondary">
+          {value}
+        </TableCellText>
+      )
+    },
+    {
+      key: 'role',
+      title: 'Role',
+      type: 'text',
+      render: (value) => (
+        <TableCellItem
+          badge={
+            <Badge
+              variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'}
+            >
+              {value}
+            </Badge>
+          }
+        />
+      )
+    },
+    {
+      key: 'status',
+      title: 'Status',
+      render: (value) => {
+        const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
+        return (
           <TableCellItem
-            badge={
-              <Badge 
-                variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'}
-              >
-                {value}
-              </Badge>
-            }
+            badge={<Badge variant={variant}>{value}</Badge>}
           />
-        )
-      },
-      {
-        key: 'status',
-        title: 'Status',
-        render: (value) => {
-          const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
-          return (
-            <TableCellItem
-              badge={<Badge variant={variant}>{value}</Badge>}
-            />
-          );
-        }
+        );
       }
-    ];
+    }
+  ];
 
-    return (
-      <div className="p-8 bg-white">
-        <div className="space-y-4">
-          <div>
-            <h3 className="text-xl font-semibold text-gray-800">Secondary Variant</h3>
-            <p className="text-sm text-gray-600 mt-1">
-              Light header (#F8F8F9) with all white row backgrounds for a cleaner, minimal appearance.
-            </p>
-          </div>
-          <Table
-            variant="secondary"
-            columns={figmaColumns}
-            data={sampleUsers.slice(0, 6)}
-            selectable
-            selectedRows={selectedRowsSecondary}
-            onSelectionChange={setSelectedRowsSecondary}
-            className="max-w-5xl"
-          />
-          <div className="text-sm text-gray-500">
-            Selected rows: {selectedRowsSecondary.length} of {sampleUsers.slice(0, 6).length}
-          </div>
+  return (
+    <div className="p-8 bg-white">
+      <div className="space-y-4">
+        <div>
+          <h3 className="text-xl font-semibold text-gray-800">Secondary Variant</h3>
+          <p className="text-sm text-gray-600 mt-1">
+            Light header (#F8F8F9) with all white row backgrounds for a cleaner, minimal appearance.
+          </p>
+        </div>
+        <Table
+          variant="secondary"
+          columns={figmaColumns}
+          data={sampleUsers.slice(0, 6)}
+          selectable
+          selectedRows={selectedRowsSecondary}
+          onSelectionChange={setSelectedRowsSecondary}
+          className="max-w-5xl"
+        />
+        <div className="text-sm text-gray-500">
+          Selected rows: {selectedRowsSecondary.length} of {sampleUsers.slice(0, 6).length}
         </div>
       </div>
-    );
+    </div>
+  );
 } 

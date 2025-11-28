@@ -5,8 +5,8 @@ import { Checkbox } from './Checkbox';
 // Mock the Icon component
 jest.mock('../Icons', () => ({
   Icon: ({ name, size, className, ...props }: any) => (
-    <span 
-      data-testid={`icon-${name}`} 
+    <span
+      data-testid={`icon-${name}`}
       data-size={size}
       className={className}
       {...props}
@@ -77,7 +77,7 @@ describe('Checkbox Component', () => {
       render(<Checkbox disabled label="Disabled checkbox" />);
       const checkbox = screen.getByRole('checkbox');
       const label = screen.getByText('Disabled checkbox');
-      
+
       expect(checkbox).toBeDisabled();
       expect(label).toHaveClass('text-neutral-400', 'cursor-not-allowed');
     });
@@ -86,7 +86,7 @@ describe('Checkbox Component', () => {
       render(<Checkbox error label="Error checkbox" />);
       const checkbox = screen.getByRole('checkbox');
       const label = screen.getByText('Error checkbox');
-      
+
       expect(checkbox).toHaveAttribute('aria-invalid', 'true');
       expect(label).toHaveClass('text-critical');
     });
@@ -94,23 +94,23 @@ describe('Checkbox Component', () => {
     it('handles checked state change', () => {
       const handleChange = jest.fn();
       render(<Checkbox onChange={handleChange} />);
-      
+
       const checkbox = screen.getByRole('checkbox');
       fireEvent.click(checkbox);
-      
+
       expect(handleChange).toHaveBeenCalledTimes(1);
     });
 
     it('prevents interaction when disabled', () => {
       const handleChange = jest.fn();
       render(<Checkbox disabled onChange={handleChange} />);
-      
+
       const checkbox = screen.getByRole('checkbox');
-      
+
       // Disabled checkbox should not change checked state when clicked on the visual element
       const checkboxElement = checkbox.nextElementSibling;
       fireEvent.click(checkboxElement!);
-      
+
       // Since it's disabled, it shouldn't trigger the change event through normal interaction
       expect(checkbox).toBeDisabled();
       expect(checkbox).not.toBeChecked();
@@ -133,12 +133,12 @@ describe('Checkbox Component', () => {
     it('updates indeterminate state when prop changes', () => {
       const { rerender } = render(<Checkbox />);
       const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
-      
+
       expect(checkbox.indeterminate).toBe(false);
-      
+
       rerender(<Checkbox indeterminate />);
       expect(checkbox.indeterminate).toBe(true);
-      
+
       rerender(<Checkbox indeterminate={false} />);
       expect(checkbox.indeterminate).toBe(false);
     });
@@ -163,20 +163,20 @@ describe('Checkbox Component', () => {
       render(<Checkbox description="This is a description" />);
       const checkbox = screen.getByRole('checkbox');
       const description = screen.getByText('This is a description');
-      
+
       expect(checkbox).toHaveAttribute('aria-describedby', description.getAttribute('id'));
     });
 
     it('combines multiple aria-describedby values', () => {
       render(
-        <Checkbox 
-          description="Description text" 
-          aria-describedby="external-description" 
+        <Checkbox
+          description="Description text"
+          aria-describedby="external-description"
         />
       );
       const checkbox = screen.getByRole('checkbox');
       const describedBy = checkbox.getAttribute('aria-describedby');
-      
+
       expect(describedBy).toContain('external-description');
       expect(describedBy).toContain('description');
     });
@@ -196,7 +196,7 @@ describe('Checkbox Component', () => {
     it('supports keyboard navigation', () => {
       render(<Checkbox />);
       const checkbox = screen.getByRole('checkbox');
-      
+
       checkbox.focus();
       expect(checkbox).toHaveFocus();
     });
@@ -207,18 +207,17 @@ describe('Checkbox Component', () => {
     it('toggles checkbox when label is clicked', () => {
       const handleChange = jest.fn();
       render(<Checkbox label="Click me" onChange={handleChange} />);
-      
+
       const label = screen.getByText('Click me');
       fireEvent.click(label);
-      
+
       expect(handleChange).toHaveBeenCalledTimes(1);
     });
 
     it('associates label with checkbox correctly', () => {
       render(<Checkbox label="Associated label" />);
       const checkbox = screen.getByRole('checkbox');
-      const label = screen.getByText('Associated label');
-      
+
       expect(checkbox).toHaveAccessibleName('Associated label');
     });
   });
@@ -289,7 +288,7 @@ describe('Checkbox Component', () => {
     it('allows calling focus on ref', () => {
       const ref = React.createRef<HTMLInputElement>();
       render(<Checkbox ref={ref} />);
-      
+
       ref.current?.focus();
       expect(ref.current).toHaveFocus();
     });
@@ -315,7 +314,7 @@ describe('Checkbox Component', () => {
     it('positions description correctly relative to checkbox', () => {
       render(<Checkbox label="Test" description="Test description" />);
       const description = screen.getByText('Test description');
-      
+
       // Description should have left margin to align with label
       expect(description).toHaveStyle({
         marginLeft: expect.stringContaining('calc(')

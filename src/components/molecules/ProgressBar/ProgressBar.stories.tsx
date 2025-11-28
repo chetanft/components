@@ -213,27 +213,29 @@ export const CustomFormat: Story = {
   ),
 };
 
-export const Animated: Story = {
-  render: () => {
-    const [percent, setPercent] = useState(0);
-    
-    useEffect(() => {
-      const timer = setInterval(() => {
-        setPercent((prev) => (prev >= 100 ? 0 : prev + 10));
-      }, 500);
-      return () => clearInterval(timer);
-    }, []);
+const AnimatedProgressStory = () => {
+  const [percent, setPercent] = useState(0);
 
-    return (
-      <div className="flex flex-col items-center gap-8">
-        <Progress value={percent} animated className="w-[300px]" />
-        <div className="flex gap-8">
-          <Progress type="circle" value={percent} animated width={100} />
-          <Progress type="dashboard" value={percent} animated width={100} />
-        </div>
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPercent((prev) => (prev >= 100 ? 0 : prev + 10));
+    }, 500);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center gap-8">
+      <Progress value={percent} animated className="w-[300px]" />
+      <div className="flex gap-8">
+        <Progress type="circle" value={percent} animated width={100} />
+        <Progress type="dashboard" value={percent} animated width={100} />
       </div>
-    );
-  },
+    </div>
+  );
+};
+
+export const Animated: Story = {
+  render: () => <AnimatedProgressStory />,
 };
 
 export const ActiveStatus: Story = {

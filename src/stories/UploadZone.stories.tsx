@@ -77,37 +77,39 @@ export const DifferentFileTypes: Story = {
 };
 
 // Interactive demo
+const UploadZoneInteractiveDemo = () => {
+  const [selectedFiles, setSelectedFiles] = React.useState<string[]>([]);
+
+  const handleFileSelect = (files: FileList) => {
+    const fileNames = Array.from(files).map(file => file.name);
+    setSelectedFiles(prev => [...prev, ...fileNames]);
+  };
+
+  return (
+    <div className="space-y-6">
+      <UploadZone
+        onFileSelect={handleFileSelect}
+        acceptedFileTypes={['Excel', 'CSV']}
+        maxFileSize={10}
+        multiple={true}
+      />
+
+      {selectedFiles.length > 0 && (
+        <div className="space-y-2">
+          <h3 className="font-semibold">Selected Files:</h3>
+          <ul className="space-y-1">
+            {selectedFiles.map((fileName, index) => (
+              <li key={index} className="text-sm text-gray-600">
+                {fileName}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export const InteractiveDemo: Story = {
-  render: () => {
-    const [selectedFiles, setSelectedFiles] = React.useState<string[]>([]);
-    
-    const handleFileSelect = (files: FileList) => {
-      const fileNames = Array.from(files).map(file => file.name);
-      setSelectedFiles(prev => [...prev, ...fileNames]);
-    };
-    
-    return (
-      <div className="space-y-6">
-        <UploadZone
-          onFileSelect={handleFileSelect}
-          acceptedFileTypes={['Excel', 'CSV']}
-          maxFileSize={10}
-          multiple={true}
-        />
-        
-        {selectedFiles.length > 0 && (
-          <div className="space-y-2">
-            <h3 className="font-semibold">Selected Files:</h3>
-            <ul className="space-y-1">
-              {selectedFiles.map((fileName, index) => (
-                <li key={index} className="text-sm text-gray-600">
-                  {fileName}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    );
-  }
-}; 
+  render: () => <UploadZoneInteractiveDemo />
+};

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Badge } from '../../atoms/Badge';
 import { Icon } from '../../atoms/Icons/Icon';
 import { Typography } from '../../atoms/Typography';
 import { IconName } from '../../atoms/Icons/types';
@@ -83,7 +82,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
     );
   };
 
-  const renderPoint = (item: ProgressItem, index: number) => {
+  const renderPoint = (item: ProgressItem) => {
     const isActive = item.state === 'completed' || item.state === 'current';
     const isExpanded = expandedItems[item.id] || false;
 
@@ -328,7 +327,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
     );
   };
 
-  const renderProgressItem = (item: ProgressItem, index: number, isLast: boolean) => {
+  const renderProgressItem = (item: ProgressItem, isLast: boolean) => {
     return (
       <div key={item.id} className="flex gap-5 w-full">
         {/* Time Column */}
@@ -337,7 +336,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
         {/* Path Column */}
         <div className="flex flex-col items-center pt-1.5">
           {/* Point */}
-          {renderPoint(item, index)}
+          {renderPoint(item)}
           
           {/* Line */}
           {renderLine(item, isLast)}
@@ -366,7 +365,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
           return renderDivider(item);
         }
 
-        return renderProgressItem(item as ProgressItem, index, isLast);
+        return renderProgressItem(item as ProgressItem, isLast);
       })}
     </div>
   );

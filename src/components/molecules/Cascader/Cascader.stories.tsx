@@ -135,23 +135,25 @@ export const Default: Story = {
   },
 };
 
+const ControlledCascaderStory = (args: React.ComponentProps<typeof Cascader>) => {
+  const [value, setValue] = useState<string[]>(['usa', 'california', 'san-francisco']);
+  return (
+    <div className="space-y-4">
+      <Cascader
+        {...args}
+        value={value}
+        onChange={(val) => setValue(val as string[])}
+      />
+      <p className="text-sm text-[var(--color-tertiary)]">
+        Selected: {value.join(' / ') || 'None'}
+      </p>
+    </div>
+  );
+};
+
 // Controlled Cascader
 export const Controlled: Story = {
-  render: (args: React.ComponentProps<typeof Cascader>) => {
-    const [value, setValue] = useState<string[]>(['usa', 'california', 'san-francisco']);
-    return (
-      <div className="space-y-4">
-        <Cascader
-          {...args}
-          value={value}
-          onChange={(val) => setValue(val as string[])}
-        />
-        <p className="text-sm text-[var(--color-tertiary)]">
-          Selected: {value.join(' / ') || 'None'}
-        </p>
-      </div>
-    );
-  },
+  render: (args) => <ControlledCascaderStory {...args} />,
   args: {
     label: 'Controlled Cascader',
     options: locationOptions,
@@ -178,23 +180,25 @@ export const WithSearch: Story = {
   },
 };
 
+const ChangeOnSelectStory = (args: React.ComponentProps<typeof Cascader>) => {
+  const [value, setValue] = useState<string[]>([]);
+  return (
+    <div className="space-y-4">
+      <Cascader
+        {...args}
+        value={value}
+        onChange={(val) => setValue(val as string[])}
+      />
+      <p className="text-sm text-[var(--color-tertiary)]">
+        Selected path: {value.join(' / ') || 'None'}
+      </p>
+    </div>
+  );
+};
+
 // Change on Select
 export const ChangeOnSelect: Story = {
-  render: (args: React.ComponentProps<typeof Cascader>) => {
-    const [value, setValue] = useState<string[]>([]);
-    return (
-      <div className="space-y-4">
-        <Cascader
-          {...args}
-          value={value}
-          onChange={(val) => setValue(val as string[])}
-        />
-        <p className="text-sm text-[var(--color-tertiary)]">
-          Selected path: {value.join(' / ') || 'None'}
-        </p>
-      </div>
-    );
-  },
+  render: (args) => <ChangeOnSelectStory {...args} />,
   args: {
     label: 'Change on Any Level',
     options: locationOptions,

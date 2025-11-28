@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta } from '@storybook/react';
-import { Icon } from '../components/atoms/Icons/Icon';
+import { Icon, type IconName } from '../components/atoms/Icons/Icon';
 
 const meta = {
   title: 'Components/TwoToneIcons',
@@ -20,27 +20,27 @@ export const TwoToneIcons = () => {
   const twoToneIcons = [
     // Core navigation & management
     'my-trip',
-    'reconciliation', 
+    'reconciliation',
     'control-tower',
     'contracted-bill',
     'indent',
     'reports',
     'dashboard',
-    
+
     // Vehicles & transport
     'truck',
     'settlement',
-    
+
     // Signal strength
     'strength-high',
     'strength-medium',
     'strength-low',
     'strength-no-tracking',
-    
+
     // Connectivity & data
     'sim',
     'notification',
-    
+
     // Actions & utilities
     'add-trip',
     'bulk-trip',
@@ -50,7 +50,7 @@ export const TwoToneIcons = () => {
     'home',
     'default-icon',
     'lock',
-    
+
     // Status indicators
     'route-deviation',
     'diversion',
@@ -70,15 +70,15 @@ export const TwoToneIcons = () => {
           Complete set of two-tone icons from Figma design. These icons use opacity variations (primary: 1.0, secondary: 0.4) to create visual hierarchy and depth.
         </p>
       </div>
-      
+
       <div className="grid grid-cols-8 gap-4">
         {twoToneIcons.map((iconName) => (
           <div key={iconName} className="flex flex-col items-center gap-2">
             <div className="w-10 h-10 bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center">
-              <Icon name={iconName as any} size={18} />
+              <Icon name={iconName as IconName} size={18} />
             </div>
             <div className="w-10 h-10 bg-gray-800 border border-gray-700 rounded-lg flex items-center justify-center">
-              <Icon name={iconName as any} size={18} color="white" />
+              <Icon name={iconName as IconName} size={18} color="white" />
             </div>
             <span className="text-xs text-gray-700 text-center leading-tight max-w-16">{iconName}</span>
           </div>
@@ -95,7 +95,7 @@ export const TwoToneIcons = () => {
             <li>Variable sizes (18x18, 20x20) for status indicators</li>
           </ul>
         </div>
-        
+
         <div>
           <h4 className="text-base font-medium mb-3">Icon Categories</h4>
           <ul className="list-disc pl-5 text-sm text-gray-600 space-y-2">

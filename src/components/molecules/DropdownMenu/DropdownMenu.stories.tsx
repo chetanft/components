@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { DropdownMenu } from './DropdownMenu';
 import { DropdownMenuItem } from './DropdownMenuItem';
@@ -124,17 +123,8 @@ export const DisabledWithInfo: Story = {
   },
 };
 
-// DropdownMenuItem stories
-const menuItemMeta: Meta<typeof DropdownMenuItem> = {
-  title: 'Molecules/DropdownMenu/DropdownMenuItem',
-  component: DropdownMenuItem,
-  parameters: {
-    layout: 'centered',
-  },
-};
-
 export const MenuItemDefault: StoryObj<typeof DropdownMenuItem> = {
-  render: () => <DropdownMenuItem state="default" label="Dropdown menu" />,
+  render: () => <DropdownMenuItem state="default" label="Dropdown menu" />, 
 };
 
 export const MenuItemSelected: StoryObj<typeof DropdownMenuItem> = {
@@ -197,4 +187,3 @@ export const MenuItemInfo: StoryObj<typeof DropdownMenuItem> = {
     <DropdownMenuItem state="info" label="Select rows first to use bulk actions" />
   ),
 };
-

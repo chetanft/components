@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { RadioGroup, RadioOption } from './RadioGroup';
 
@@ -24,7 +24,7 @@ describe('RadioGroup', () => {
 
     it('renders all radio options', () => {
       render(<RadioGroup name="test" options={mockOptions} />);
-      
+
       mockOptions.forEach((option) => {
         expect(screen.getByLabelText(option.label)).toBeInTheDocument();
       });
@@ -34,7 +34,7 @@ describe('RadioGroup', () => {
       const { container } = render(
         <RadioGroup name="test" options={mockOptions} className="custom-class" />
       );
-      
+
       const radioGroup = container.querySelector('.custom-class');
       expect(radioGroup).toBeInTheDocument();
     });
@@ -45,7 +45,7 @@ describe('RadioGroup', () => {
           <div data-testid="custom-child">Custom child</div>
         </RadioGroup>
       );
-      
+
       expect(screen.getByTestId('custom-child')).toBeInTheDocument();
     });
   });
@@ -105,7 +105,7 @@ describe('RadioGroup', () => {
   describe('States', () => {
     it('renders with no selection by default', () => {
       render(<RadioGroup name="test" options={mockOptions} />);
-      
+
       mockOptions.forEach((option) => {
         const radio = screen.getByLabelText(option.label) as HTMLInputElement;
         expect(radio.checked).toBe(false);
@@ -114,28 +114,28 @@ describe('RadioGroup', () => {
 
     it('renders with defaultValue selected', () => {
       render(<RadioGroup name="test" options={mockOptions} defaultValue="option2" />);
-      
+
       const radio = screen.getByLabelText('Option 2') as HTMLInputElement;
       expect(radio.checked).toBe(true);
     });
 
     it('renders with controlled value selected', () => {
-      render(<RadioGroup name="test" options={mockOptions} value="option3" onChange={() => {}} />);
-      
+      render(<RadioGroup name="test" options={mockOptions} value="option3" onChange={() => { }} />);
+
       const radio = screen.getByLabelText('Option 3') as HTMLInputElement;
       expect(radio.checked).toBe(true);
     });
 
     it('renders disabled options correctly', () => {
       render(<RadioGroup name="test" options={mockOptionsWithDisabled} />);
-      
+
       const disabledRadio = screen.getByLabelText('Option 2') as HTMLInputElement;
       expect(disabledRadio.disabled).toBe(true);
     });
 
     it('applies correct name attribute to all radios', () => {
       render(<RadioGroup name="test-group" options={mockOptions} />);
-      
+
       mockOptions.forEach((option) => {
         const radio = screen.getByLabelText(option.label) as HTMLInputElement;
         expect(radio.name).toBe('test-group');
@@ -148,10 +148,10 @@ describe('RadioGroup', () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(<RadioGroup name="test" options={mockOptions} onChange={handleChange} />);
-      
+
       const radio = screen.getByLabelText('Option 2');
       await user.click(radio);
-      
+
       expect(handleChange).toHaveBeenCalledWith('option2');
     });
 
@@ -159,10 +159,10 @@ describe('RadioGroup', () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(<RadioGroup name="test" options={mockOptions} value="option1" onChange={handleChange} />);
-      
+
       const radio = screen.getByLabelText('Option 3');
       await user.click(radio);
-      
+
       expect(handleChange).toHaveBeenCalledWith('option3');
     });
 
@@ -170,28 +170,28 @@ describe('RadioGroup', () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(<RadioGroup name="test" options={mockOptionsWithDisabled} onChange={handleChange} />);
-      
+
       const disabledRadio = screen.getByLabelText('Option 2');
       await user.click(disabledRadio);
-      
+
       expect(handleChange).not.toHaveBeenCalled();
     });
 
     it('changes selection in uncontrolled mode', async () => {
       const user = userEvent.setup();
       render(<RadioGroup name="test" options={mockOptions} defaultValue="option1" />);
-      
+
       let radio1 = screen.getByLabelText('Option 1') as HTMLInputElement;
       let radio2 = screen.getByLabelText('Option 2') as HTMLInputElement;
-      
+
       expect(radio1.checked).toBe(true);
       expect(radio2.checked).toBe(false);
-      
+
       await user.click(radio2);
-      
+
       radio1 = screen.getByLabelText('Option 1') as HTMLInputElement;
       radio2 = screen.getByLabelText('Option 2') as HTMLInputElement;
-      
+
       expect(radio1.checked).toBe(false);
       expect(radio2.checked).toBe(true);
     });
@@ -199,12 +199,12 @@ describe('RadioGroup', () => {
     it('responds to keyboard navigation', async () => {
       const user = userEvent.setup();
       render(<RadioGroup name="test" options={mockOptions} />);
-      
+
       const firstRadio = screen.getByLabelText('Option 1');
       firstRadio.focus();
-      
+
       await user.keyboard('{ArrowDown}');
-      
+
       const secondRadio = screen.getByLabelText('Option 2') as HTMLInputElement;
       expect(secondRadio).toHaveFocus();
     });
@@ -218,7 +218,7 @@ describe('RadioGroup', () => {
     });
 
     it('applies correct border color for selected state', () => {
-      const { container } = render(<RadioGroup name="test" options={mockOptions} value="option1" onChange={() => {}} />);
+      const { container } = render(<RadioGroup name="test" options={mockOptions} value="option1" onChange={() => { }} />);
       const radio = container.querySelector('.border-\\[\\border-\[var\(--color-primary\)\]\\]');
       expect(radio).toBeInTheDocument();
     });
@@ -230,7 +230,7 @@ describe('RadioGroup', () => {
     });
 
     it('shows dot for selected radio', () => {
-      const { container } = render(<RadioGroup name="test" options={mockOptions} value="option1" onChange={() => {}} />);
+      const { container } = render(<RadioGroup name="test" options={mockOptions} value="option1" onChange={() => { }} />);
       const dot = container.querySelector('.bg-\[var\(--color-primary\)\][\\border-\[var\(--color-primary\)\]\\]');
       expect(dot).toBeInTheDocument();
     });
@@ -256,7 +256,7 @@ describe('RadioGroup', () => {
 
     it('properly labels each radio option', () => {
       render(<RadioGroup name="test" options={mockOptions} />);
-      
+
       mockOptions.forEach((option) => {
         expect(screen.getByLabelText(option.label)).toBeInTheDocument();
       });
@@ -264,7 +264,7 @@ describe('RadioGroup', () => {
 
     it('is focusable for enabled options', () => {
       render(<RadioGroup name="test" options={mockOptions} />);
-      
+
       const radio = screen.getByLabelText('Option 1');
       radio.focus();
       expect(radio).toHaveFocus();
@@ -272,7 +272,7 @@ describe('RadioGroup', () => {
 
     it('is not focusable for disabled options', () => {
       render(<RadioGroup name="test" options={mockOptionsWithDisabled} />);
-      
+
       const disabledRadio = screen.getByLabelText('Option 2');
       disabledRadio.focus();
       expect(disabledRadio).not.toHaveFocus();
@@ -286,7 +286,7 @@ describe('RadioGroup', () => {
 
     it('supports keyboard navigation between options', () => {
       render(<RadioGroup name="test" options={mockOptions} />);
-      
+
       const radios = screen.getAllByRole('radio');
       radios.forEach((radio) => {
         expect(radio).toHaveAttribute('type', 'radio');
@@ -298,7 +298,7 @@ describe('RadioGroup', () => {
   describe('HTML Attributes', () => {
     it('passes correct value attributes', () => {
       render(<RadioGroup name="test" options={mockOptions} />);
-      
+
       mockOptions.forEach((option) => {
         const radio = screen.getByLabelText(option.label) as HTMLInputElement;
         expect(radio.value).toBe(option.value);
@@ -307,7 +307,7 @@ describe('RadioGroup', () => {
 
     it('has correct input type', () => {
       render(<RadioGroup name="test" options={mockOptions} />);
-      
+
       const radios = screen.getAllByRole('radio') as HTMLInputElement[];
       radios.forEach((radio) => {
         expect(radio.type).toBe('radio');
@@ -326,10 +326,10 @@ describe('RadioGroup', () => {
   describe('Design System Compliance', () => {
     it('uses correct CSS custom properties for sizing', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptions} size="md" />);
-      
+
       const radio = container.querySelector('[class*="--radio-size"]');
       const gap = container.querySelector('[class*="--radio-gap"]');
-      
+
       expect(radio).toBeInTheDocument();
       expect(gap).toBeInTheDocument();
     });
@@ -347,7 +347,7 @@ describe('RadioGroup', () => {
     });
 
     it('uses proper font styling', () => {
-      const { container } = render(<RadioGroup name="test" options={mockOptions} />);
+      render(<RadioGroup name="test" options={mockOptions} />);
       const label = screen.getByText('Option 1');
       expect(label).toHaveStyle({ fontWeight: '500' });
     });
@@ -360,7 +360,7 @@ describe('RadioGroup', () => {
           <div data-testid="legacy-child">Legacy content</div>
         </RadioGroup>
       );
-      
+
       expect(screen.getByTestId('legacy-child')).toBeInTheDocument();
     });
 
@@ -370,7 +370,7 @@ describe('RadioGroup', () => {
           <div data-testid="legacy-child">Legacy content</div>
         </RadioGroup>
       );
-      
+
       expect(screen.getByLabelText('Option 1')).toBeInTheDocument();
       expect(screen.queryByTestId('legacy-child')).not.toBeInTheDocument();
     });
