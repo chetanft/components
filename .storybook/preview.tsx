@@ -1,27 +1,7 @@
 import type { Preview } from '@storybook/react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ThemeProvider } from '../src/contexts/ThemeContext';
 import '../src/styles/globals.css';
-
-// Wrapper component to handle theme application
-const ThemeDecorator = ({ children, theme }: { children: React.ReactNode; theme: string }) => {
-  useEffect(() => {
-    const root = document.documentElement;
-    root.classList.remove('light', 'dark', 'night');
-    root.classList.add(theme);
-  }, [theme]);
-
-  return (
-    <ThemeProvider defaultTheme={theme as 'light' | 'dark' | 'night'}>
-      <div 
-        className="min-h-screen bg-[var(--bg-primary)] text-[var(--primary)]"
-        style={{ padding: '20px' }}
-      >
-        {children}
-      </div>
-    </ThemeProvider>
-  );
-};
 
 const preview: Preview = {
   parameters: {
@@ -53,11 +33,24 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const theme = (context.globals.theme || 'light') as string;
+      const theme = context.globals.theme || 'light';
+      
+      // Apply theme class to iframe root
+      React.useEffect(() => {
+        const root = document.documentElement;
+        root.classList.remove('light', 'dark', 'night');
+        root.classList.add(theme);
+      }, [theme]);
+
       return (
-        <ThemeDecorator theme={theme}>
-          <Story />
-        </ThemeDecorator>
+        <ThemeProvider defaultTheme={theme}>
+          <div 
+            className="min-h-screen bg-[var(--bg-primary)] text-[var(--primary)]"
+            style={{ padding: '20px' }}
+          >
+            <Story />
+          </div>
+        </ThemeProvider>
       );
     },
   ],

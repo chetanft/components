@@ -43,11 +43,25 @@ export interface SliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
 /**
  * Slider component - Range input built with FT Design System tokens.
  * 
- * Uses:
- * - Track: var(--primary), var(--neutral)
+ * Features:
+ * - Single value and range modes
+ * - Vertical and horizontal orientations
+ * - Marks with custom labels
+ * - Tooltips on hover/drag
+ * - Smooth hover animations with proper centering
+ * - Custom track and rail colors
+ * - Controlled and uncontrolled modes
+ * 
+ * Design Tokens:
+ * - Track: var(--primary)
  * - Rail: var(--border-secondary)
  * - Handle: var(--bg-primary) with shadow
  * - Border radius: var(--radius-full)
+ * 
+ * Implementation Notes:
+ * - Handle uses origin-center for proper hover scaling
+ * - z-20 ensures handle stays above track
+ * - pointer-events-none on track prevents event conflicts
  */
 export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
   ({
@@ -195,8 +209,8 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         <div className={cn(
           "absolute",
           vertical 
-            ? "left-full ml-[var(--x2)] top-0 bottom-0" 
-            : "top-full mt-[var(--x2)] left-0 right-0"
+            ? "left-full ml-2 top-0 bottom-0" 
+            : "top-full mt-2 left-0 right-0"
         )}>
           {markItems.map((mark) => {
             const percent = getPercent(mark.value);
@@ -236,10 +250,11 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       const handle = (
         <div
           className={cn(
-            "absolute w-4 h-4 -translate-x-1/2 -translate-y-1/2",
+            "absolute w-4 h-4 left-1/2 top-1/2",
+            "-translate-x-1/2 -translate-y-1/2 origin-center",
             "rounded-full bg-[var(--bg-primary)]",
             "border-2 border-[var(--primary)]",
-            "shadow-md cursor-pointer",
+            "shadow-md cursor-pointer z-20 pointer-events-auto",
             "transition-transform duration-100",
             "hover:scale-110 focus:scale-110",
             "focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-opacity-30",
@@ -307,7 +322,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         >
           {/* Track (filled portion) */}
           <div
-            className="absolute rounded-full"
+            className="absolute rounded-full pointer-events-none"
             style={{
               backgroundColor: trackColor || 'var(--primary)',
               ...(vertical

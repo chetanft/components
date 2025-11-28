@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Cascader, CascaderOption } from './Cascader';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 
 const meta: Meta<typeof Cascader> = {
   title: 'Molecules/Cascader',
@@ -208,7 +208,7 @@ export const CustomDisplay: Story = {
   args: {
     label: 'Custom Display',
     options: locationOptions,
-    displayRender: (labels) => labels.join(' > '),
+    displayRender: (labels: ReactNode[]) => labels.join(' > '),
     placeholder: 'Select location',
   },
 };
@@ -317,4 +317,3 @@ export const CategorySelection: Story = {
     placeholder: 'Select a category',
   },
 };
-

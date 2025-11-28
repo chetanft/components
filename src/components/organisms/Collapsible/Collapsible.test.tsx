@@ -11,24 +11,13 @@ describe('Collapsible Component', () => {
   it('toggles between open and closed states when clicked', () => {
     render(<Collapsible header="Test Header">Content</Collapsible>);
     
-    // Initially closed
-    const button = screen.getByRole('button', { name: /add/i });
-    expect(button).toBeInTheDocument();
-    
-    // Click to open
+    const button = screen.getByRole('button');
     fireEvent.click(button);
     
-    // Now open
-    const subtractButton = screen.getByRole('button', { name: /subtract/i });
-    expect(subtractButton).toBeInTheDocument();
     expect(screen.getByText('Content')).toBeInTheDocument();
     
-    // Click to close
-    fireEvent.click(subtractButton);
-    
-    // Now closed again
-    const addButton = screen.getByRole('button', { name: /add/i });
-    expect(addButton).toBeInTheDocument();
+    fireEvent.click(button);
+    expect(screen.queryByText('Content')).not.toBeInTheDocument();
   });
 
   it('calls onToggle when provided', () => {
@@ -39,51 +28,43 @@ describe('Collapsible Component', () => {
       </Collapsible>
     );
     
-    const button = screen.getByRole('button', { name: /add/i });
+    const button = screen.getByRole('button');
     fireEvent.click(button);
     
     expect(handleToggle).toHaveBeenCalledWith(true);
   });
 
-  it('renders badges when provided', () => {
-    render(
-      <Collapsible 
-        header="Test Header" 
-        badges={{ loads: 5, invoices: 3, materials: 2 }}
-      />
-    );
-    
-    expect(screen.getByText('Loads: 5')).toBeInTheDocument();
-    expect(screen.getByText('Invoices: 3')).toBeInTheDocument();
-    expect(screen.getByText('Materials: 2')).toBeInTheDocument();
+  it('renders extra content when provided', () => {
+    render(<Collapsible header="Test Header" extra={<span>Actions</span>} />);
+    expect(screen.getByText('Actions')).toBeInTheDocument();
   });
 
-  it('renders form type collapsible with button icons', () => {
-    render(<Collapsible header="Test Header" type="form" />);
-    expect(screen.getByRole('button', { name: /add/i })).toBeInTheDocument();
+  it('applies primary background styles when requested', () => {
+    const { container } = render(<Collapsible header="Test Header" bg="Primary" />);
+    expect(container.firstChild).toHaveClass('bg-[var(--bg-primary)]');
   });
 
-  it('renders text type collapsible with chevron icons', () => {
-    render(<Collapsible header="Test Header" type="text" />);
-    expect(screen.getByRole('button', { name: 'Expand' })).toBeInTheDocument();
-  });
-
-  it('renders with white background when specified', () => {
-    const { container } = render(<Collapsible header="Test Header" background="white" />);
-    expect(container.firstChild).toHaveClass('bg-white');
-  });
-
-  it('renders with bg (gray) background by default', () => {
+  it('renders with secondary background by default', () => {
     const { container } = render(<Collapsible header="Test Header" />);
-    expect(container.firstChild).toHaveClass('bg-[#F8F8F9]');
+    expect(container.firstChild).toHaveClass('bg-[var(--bg-secondary)]');
   });
 
-  it('renders in submitted stage with default badges', () => {
-    render(<Collapsible header="Test Header" stage="submitted" />);
-    
-    expect(screen.getByText('Loads: 1')).toBeInTheDocument();
-    expect(screen.getByText('Invoices: 1')).toBeInTheDocument();
-    expect(screen.getByText('Materials: 1')).toBeInTheDocument();
+  it('applies tertiary type border styles', () => {
+    const { container } = render(<Collapsible header="Test Header" type="Tertiary" />);
+    expect(container.firstChild).toHaveClass('border-[var(--border-secondary)]');
+  });
+
+  it('does not toggle when disabled', () => {
+    render(
+      <Collapsible header="Test Header" disabled>
+        Content
+      </Collapsible>
+    );
+
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+
+    expect(screen.queryByText('Content')).not.toBeInTheDocument();
   });
 
   it('allows controlled expansion state', () => {

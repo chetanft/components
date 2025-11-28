@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import React, { useState } from 'react';
 import { Slider } from './Slider';
-import { useState } from 'react';
 
 const meta: Meta<typeof Slider> = {
   title: 'Molecules/Slider',
@@ -9,7 +9,7 @@ const meta: Meta<typeof Slider> = {
     layout: 'centered',
     docs: {
       description: {
-        component: '🆕 NEW: Range slider component built with FT Design System tokens.',
+        component: 'Range slider component built with FT Design System tokens. Supports single value and range modes, vertical/horizontal orientation, marks, tooltips, and custom colors.',
       },
     },
   },
@@ -98,35 +98,31 @@ export const VerticalRange: Story = {
   },
 };
 
-export const Controlled: Story = {
-  render: () => {
-    const [value, setValue] = useState(50);
-    return (
-      <div className="flex flex-col gap-4 items-center w-[300px]">
-        <Slider value={value} onChange={(v) => setValue(v as number)} />
-        <p className="text-sm text-[var(--secondary)]">
-          Value: {value}
-        </p>
-      </div>
-    );
-  },
-};
+export function Controlled() {
+  const [value, setValue] = useState(50);
+  return (
+    <div className="flex flex-col gap-4 items-center w-[300px]">
+      <Slider value={value} onChange={(v) => setValue(v as number)} />
+      <p className="text-sm text-[var(--secondary)]">
+        Value: {value}
+      </p>
+    </div>
+  );
+}
 
-export const ControlledRange: Story = {
-  render: () => {
-    const [value, setValue] = useState<[number, number]>([20, 80]);
-    return (
-      <div className="flex flex-col gap-4 items-center w-[300px]">
-        <Slider 
-          range 
-          value={value} 
-          onChange={(v) => setValue(v as [number, number])} 
-        />
-        <p className="text-sm text-[var(--secondary)]">
-          Range: {value[0]} - {value[1]}
-        </p>
-      </div>
-    );
-  },
-};
+export function ControlledRange() {
+  const [value, setValue] = useState<[number, number]>([20, 80]);
+  return (
+    <div className="flex flex-col gap-4 items-center w-[300px]">
+      <Slider 
+        range 
+        value={value} 
+        onChange={(v) => setValue(v as [number, number])} 
+      />
+      <p className="text-sm text-[var(--secondary)]">
+        Range: {value[0]} - {value[1]}
+      </p>
+    </div>
+  );
+}
 

@@ -107,7 +107,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
           
           {/* Label */}
           <span className={cn(
-            "inline-block shrink-0 px-[10px]",
+            "inline-block shrink-0",
             plain ? "font-normal" : "font-medium"
           )}>
             {typeof labelContent === 'string' ? (

@@ -8,6 +8,7 @@ import { PropsTable } from "@/components/props-table";
 import type { LoadedStoryModule, StoryDefinition } from "@/lib/story-loader";
 import { cn } from "@/lib/utils";
 import { Copy, Check, ChevronDown, ChevronUp, Filter, ExternalLink, BookOpen } from "lucide-react";
+import { getVariantPriority } from "@/config/variant-display-order";
 
 interface StoryComponentPageProps {
   componentName: string;
@@ -47,7 +48,7 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
     load();
   }, [componentName]);
 
-  // Filter stories based on type
+  // Filter and sort stories based on type and display order
   const filteredStories = useMemo(() => {
     if (!storyModule) return [];
     
@@ -59,13 +60,20 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
       stories = stories.filter(s => s.component || s.render);
     }
     
+    // Sort stories by variant display order
+    stories = [...stories].sort((a, b) => {
+      const priorityA = getVariantPriority(componentName, a.name);
+      const priorityB = getVariantPriority(componentName, b.name);
+      return priorityA - priorityB;
+    });
+    
     // Show max 5 stories initially, unless showAll is true
     if (!showAllStories && stories.length > 5) {
       return stories.slice(0, 5);
     }
     
     return stories;
-  }, [storyModule, storyFilter, showAllStories]);
+  }, [storyModule, storyFilter, showAllStories, componentName]);
 
   const totalStories = useMemo(() => {
     if (!storyModule) return 0;

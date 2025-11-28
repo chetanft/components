@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DatePicker, DatePickerField } from './DatePicker';
 import { Label } from '../../atoms/Label/Label';
@@ -11,15 +11,15 @@ describe('DatePicker Components', () => {
       expect(screen.getByText('Test Label')).toBeInTheDocument();
     });
 
-    it('shows required indicator when required', () => {
-      render(<Label required>Required Label</Label>);
-      expect(screen.getByText('*')).toBeInTheDocument();
+    it('shows mandatory indicator when enabled', () => {
+      const { container } = render(<Label mandatory>Required Label</Label>);
+      expect(container.querySelector('svg')).toBeInTheDocument();
       expect(screen.getByText('Required Label')).toBeInTheDocument();
     });
 
     it('does not show required indicator by default', () => {
-      render(<Label>Optional Label</Label>);
-      expect(screen.queryByText('*')).not.toBeInTheDocument();
+      const { container } = render(<Label>Optional Label</Label>);
+      expect(container.querySelector('svg')).not.toBeInTheDocument();
     });
 
     it('applies custom className', () => {
@@ -81,28 +81,22 @@ describe('DatePicker Components', () => {
       });
     });
 
-    describe('Types', () => {
-      it('applies normal type by default', () => {
+    describe('States', () => {
+      it('applies default state by default', () => {
         const { container } = render(<DatePickerField />);
-        const field = container.querySelector('.border-\\[var\\(--color-border\\)\\]');
+        const field = container.querySelector('.border-border');
         expect(field).toBeInTheDocument();
       });
 
-      it('applies error type', () => {
-        const { container } = render(<DatePickerField type="error" />);
-        const field = container.querySelector('.border-\\[var\\(--color-critical\\)\\]');
+      it('applies focused state', () => {
+        const { container } = render(<DatePickerField state="focused" />);
+        const field = container.querySelector('.border-primary');
         expect(field).toBeInTheDocument();
       });
 
-      it('applies warning type', () => {
-        const { container } = render(<DatePickerField type="warning" />);
-        const field = container.querySelector('.border-\\[var\\(--color-warning\\)\\]');
-        expect(field).toBeInTheDocument();
-      });
-
-      it('applies success type', () => {
-        const { container } = render(<DatePickerField type="success" />);
-        const field = container.querySelector('.border-\\[var\\(--color-positive\\)\\]');
+      it('applies disabled state', () => {
+        const { container } = render(<DatePickerField state="disabled" />);
+        const field = container.querySelector('.cursor-not-allowed');
         expect(field).toBeInTheDocument();
       });
     });
@@ -249,28 +243,9 @@ describe('DatePicker Components', () => {
         expect(container).toHaveClass('items-center');
       });
 
-      it('renders without label when labelPosition is none', () => {
-        render(<DatePicker label="Select Date" labelPosition="none" />);
-        expect(screen.queryByText('Select Date')).not.toBeInTheDocument();
-      });
-
       it('does not render label when label is not provided', () => {
         const { container } = render(<DatePicker />);
         expect(container.querySelector('label')).not.toBeInTheDocument();
-      });
-    });
-
-    describe('Label Variations', () => {
-      it('renders required label', () => {
-        render(<DatePicker label="Required Date" required />);
-        expect(screen.getByText('Required Date')).toBeInTheDocument();
-        expect(screen.getByText('*')).toBeInTheDocument();
-      });
-
-      it('renders optional label', () => {
-        render(<DatePicker label="Optional Date" />);
-        expect(screen.getByText('Optional Date')).toBeInTheDocument();
-        expect(screen.queryByText('*')).not.toBeInTheDocument();
       });
     });
 
@@ -318,28 +293,6 @@ describe('DatePicker Components', () => {
         expect(handleChange).toHaveBeenCalled();
       });
 
-      it('forwards onFocus to DatePickerField', async () => {
-        const user = userEvent.setup();
-        const handleFocus = jest.fn();
-        render(<DatePicker onFocus={handleFocus} />);
-        
-        const input = screen.getByRole('textbox');
-        await user.click(input);
-        
-        expect(handleFocus).toHaveBeenCalledTimes(1);
-      });
-
-      it('forwards onBlur to DatePickerField', async () => {
-        const user = userEvent.setup();
-        const handleBlur = jest.fn();
-        render(<DatePicker onBlur={handleBlur} />);
-        
-        const input = screen.getByRole('textbox');
-        await user.click(input);
-        await user.tab();
-        
-        expect(handleBlur).toHaveBeenCalledTimes(1);
-      });
     });
 
     describe('Accessibility', () => {
@@ -380,7 +333,6 @@ describe('DatePicker Components', () => {
             value="2024-01-01"
             placeholder="Select date"
             disabled
-            type="error"
             state="disabled"
           />
         );

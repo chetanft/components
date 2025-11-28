@@ -13,7 +13,7 @@ describe('ProgressList', () => {
       state: 'completed' as const,
       pointType: 'primary' as const,
       lineType: 'solid' as const,
-      icon: 'check',
+      icon: 'check' as IconName,
     },
     {
       id: '2',
@@ -22,7 +22,7 @@ describe('ProgressList', () => {
       state: 'current' as const,
       pointType: 'parent' as const,
       lineType: 'solid' as const,
-      icon: 'loading',
+      icon: 'loading' as IconName,
       collapsible: true,
     },
     {
@@ -32,7 +32,7 @@ describe('ProgressList', () => {
       state: 'upcoming' as const,
       pointType: 'icon' as const,
       lineType: 'dashed' as const,
-      icon: 'map',
+      icon: 'map' as IconName,
     },
   ];
 
@@ -69,7 +69,7 @@ describe('ProgressList', () => {
       state: 'completed' as const,
       pointType: 'icon' as const,
       lineType: 'solid' as const,
-      icon: 'check',
+      icon: 'check' as IconName,
       badges: [
         {
           label: 'Completed',
@@ -77,7 +77,7 @@ describe('ProgressList', () => {
         },
         {
           label: '30 min',
-          icon: 'clock',
+          icon: 'clock' as IconName,
           variant: 'danger' as const,
         },
       ],
@@ -184,7 +184,7 @@ describe('ProgressList', () => {
         state: 'completed' as const,
         pointType: 'icon' as const,
         lineType: 'solid' as const,
-        icon: 'check',
+        icon: 'check' as IconName,
       },
       {
         id: '3',
@@ -230,7 +230,7 @@ describe('ProgressList', () => {
         pointType: 'icon' as const,
         lineType: 'solid' as const,
         headerType: 'secondary' as const,
-        icon: 'check',
+        icon: 'check' as IconName,
       },
     ];
 
