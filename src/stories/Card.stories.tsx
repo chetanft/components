@@ -21,11 +21,7 @@ const meta: Meta<typeof Card> = {
       options: ['Basic', 'Advanced'],
       description: 'Card content variant'
     },
-    state: {
-      control: 'select',
-      options: ['Default'],
-      description: 'Card state'
-    },
+
     showEyebrow: {
       control: 'boolean',
       description: 'Show eyebrow section with badges'
@@ -48,7 +44,7 @@ type Story = StoryObj<typeof Card>;
 export const Basic: Story = {
   args: {
     contentVariant: 'Basic',
-    state: 'Default',
+
     showEyebrow: true,
     showFooter: true,
     eyebrowBadges: [
@@ -85,7 +81,7 @@ export const Basic: Story = {
 export const Advanced: Story = {
   args: {
     contentVariant: 'Advanced',
-    state: 'Default', 
+
     showEyebrow: true,
     showFooter: true,
     eyebrowBadges: [
@@ -128,7 +124,7 @@ export const Advanced: Story = {
 export const WithGraphicPadding: Story = {
   args: {
     contentVariant: 'Advanced',
-    state: 'Default',
+
     showEyebrow: false,
     showFooter: false,
     graphic: {
@@ -144,7 +140,7 @@ export const WithGraphicPadding: Story = {
 export const WithGraphicOverlay: Story = {
   args: {
     contentVariant: 'Advanced',
-    state: 'Default',
+
     showEyebrow: false,
     showFooter: false,
     graphic: {
@@ -221,7 +217,7 @@ export const CardFooterOnly: Story = {
 export const WithoutEyebrow: Story = {
   args: {
     contentVariant: 'Basic',
-    state: 'Default',
+
     showEyebrow: false,
     showFooter: true,
     headerTitle: 'Text',
@@ -248,7 +244,7 @@ export const WithoutEyebrow: Story = {
 export const WithoutFooter: Story = {
   args: {
     contentVariant: 'Basic',
-    state: 'Default',
+
     showEyebrow: true,
     showFooter: false,
     eyebrowBadges: [
@@ -273,7 +269,7 @@ export const WithoutFooter: Story = {
 export const Minimal: Story = {
   args: {
     contentVariant: 'Basic',
-    state: 'Default',
+
     showEyebrow: false,
     showFooter: false,
     headerTitle: 'Text',
@@ -289,9 +285,9 @@ export const AllVariants: Story = {
       <div>
         <h3 className="text-lg font-semibold mb-4">Basic Card</h3>
         <div className="max-w-[calc(var(--spacing-x10)*13.725)]">
-          <Card 
+          <Card
             contentVariant="Basic"
-            state="Default"
+
             showEyebrow={true}
             showFooter={true}
             eyebrowBadges={[
@@ -324,13 +320,13 @@ export const AllVariants: Story = {
           />
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-lg font-semibold mb-4">Advanced Card with Graphic</h3>
         <div className="max-w-[calc(var(--spacing-x10)*13.725)]">
-          <Card 
+          <Card
             contentVariant="Advanced"
-            state="Default"
+
             showEyebrow={true}
             showFooter={true}
             eyebrowBadges={[
@@ -369,13 +365,13 @@ export const AllVariants: Story = {
           />
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-lg font-semibold mb-4">Minimal Card</h3>
         <div className="max-w-[calc(var(--spacing-x10)*13.725)]">
-          <Card 
+          <Card
             contentVariant="Basic"
-            state="Default"
+
             showEyebrow={false}
             showFooter={false}
             headerTitle="Text"

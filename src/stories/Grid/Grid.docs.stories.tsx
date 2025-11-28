@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 import React from 'react';
-import { Row, Col } from '../components/organisms/Grid/Grid';
+import { Row, Col } from '../../components/organisms/Grid/Grid';
 
 const meta: Meta = {
   title: 'Design System/Grid System',
