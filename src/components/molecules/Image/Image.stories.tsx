@@ -94,7 +94,7 @@ export const ErrorState: Story = {
 
 // Custom Placeholder
 export const CustomPlaceholder: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Image>) => (
     <Image
       {...args}
       placeholder={
@@ -114,7 +114,7 @@ export const CustomPlaceholder: Story = {
 
 // Controlled Preview
 export const ControlledPreview: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Image>) => {
     const [visible, setVisible] = useState(false);
     return (
       <div className="space-y-4">

@@ -36,7 +36,7 @@ type Story = StoryObj<typeof Timeline>;
 
 // Basic Timeline
 export const Default: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Timeline>) => (
     <Timeline {...args}>
       <TimelineItem>Create a services site 2015-09-01</TimelineItem>
       <TimelineItem>Solve initial network problems 2015-09-01</TimelineItem>

@@ -137,7 +137,7 @@ export const Default: Story = {
 
 // Controlled Cascader
 export const Controlled: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Cascader>) => {
     const [value, setValue] = useState<string[]>(['usa', 'california', 'san-francisco']);
     return (
       <div className="space-y-4">
@@ -180,7 +180,7 @@ export const WithSearch: Story = {
 
 // Change on Select
 export const ChangeOnSelect: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Cascader>) => {
     const [value, setValue] = useState<string[]>([]);
     return (
       <div className="space-y-4">

@@ -228,9 +228,9 @@ const CardGraphic: React.FC<CardGraphicProps> = ({
                         "absolute inset-0 overflow-hidden pointer-events-none",
                         padding ? "rounded-[var(--x2,8px)]" : ""
                     )}>
-                        <img 
-                            src={imageUrl} 
-                            alt="" 
+                        <img
+                            src={imageUrl}
+                            alt=""
                             className="absolute h-[188.27%] left-0 max-w-none top-0 w-full object-cover"
                         />
                     </div>
@@ -253,219 +253,221 @@ const CardGraphic: React.FC<CardGraphicProps> = ({
     );
 };
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  // Classic props
-  title?: React.ReactNode;
-  extra?: React.ReactNode;
-  bordered?: boolean;
-  hoverable?: boolean;
-  loading?: boolean;
-  size?: 'default' | 'small';
-  actions?: React.ReactNode[];
-  cover?: React.ReactNode;
-  
-  // New Figma-based props
-  showEyebrow?: boolean;
-  showFooter?: boolean;
-  contentVariant?: 'Basic' | 'Advanced';
-  state?: 'Default';
-  
-  // Card sections
-  eyebrowBadges?: React.ReactNode[];
-  headerTitle?: React.ReactNode;
-  headerSubText?: React.ReactNode;
-  showArrowIcon?: boolean;
-  bodySections?: Array<{
-    statisticValue?: React.ReactNode;
-    statisticLabel?: React.ReactNode;
-    readOnlyLabel?: React.ReactNode;
-    readOnlyText?: React.ReactNode;
-  }>;
-  footerText?: React.ReactNode;
-  footerButton?: React.ReactNode;
-  graphic?: CardGraphicProps;
-  
-  // Legacy props (kept for compatibility)
-  content?: React.ReactNode;
+export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'content'> {
+    // Classic props
+    title?: React.ReactNode;
+    extra?: React.ReactNode;
+    bordered?: boolean;
+    hoverable?: boolean;
+    loading?: boolean;
+    size?: 'default' | 'small';
+    actions?: React.ReactNode[];
+    cover?: React.ReactNode;
+
+    // New Figma-based props
+    showEyebrow?: boolean;
+    showFooter?: boolean;
+    contentVariant?: 'Basic' | 'Advanced';
+    state?: 'Default';
+
+    // Card sections
+    eyebrowBadges?: React.ReactNode[];
+    headerTitle?: React.ReactNode;
+    headerSubText?: React.ReactNode;
+    showArrowIcon?: boolean;
+    bodySections?: Array<{
+        statisticValue?: React.ReactNode;
+        statisticLabel?: React.ReactNode;
+        readOnlyLabel?: React.ReactNode;
+        readOnlyText?: React.ReactNode;
+    }>;
+    footerText?: React.ReactNode;
+    footerButton?: React.ReactNode;
+    graphic?: CardGraphicProps;
+
+    // Legacy props (kept for compatibility)
+    content?: React.ReactNode;
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
-  title,
-  extra,
-  bordered = true,
-  hoverable = false,
-  loading = false,
-  size = 'default',
-  actions,
-  cover,
-  className,
-  children,
-  // New props
-  showEyebrow = true,
-  showFooter = true,
-  contentVariant = 'Basic',
-  state = 'Default',
-  eyebrowBadges,
-  headerTitle,
-  headerSubText,
-  showArrowIcon = false,
-  bodySections,
-  footerText,
-  footerButton,
-  graphic,
-  // Legacy
-  content,
-  ...props
+    title,
+    extra,
+    bordered = true,
+    hoverable = false,
+    loading = false,
+    size = 'default',
+    actions,
+    cover,
+    className,
+    children,
+    // New props
+    showEyebrow = true,
+    showFooter = true,
+    contentVariant = 'Basic',
+    state = 'Default',
+    eyebrowBadges,
+    headerTitle,
+    headerSubText,
+    showArrowIcon = false,
+    bodySections,
+    footerText,
+    footerButton,
+    graphic,
+    // Legacy
+    content,
+    ...props
 }, ref) => {
-    
-  const isSmall = size === 'default';
-  const isAdvanced = contentVariant === 'Advanced';
 
-  const renderLoading = () => (
-      <div className="p-6">
-          <Skeleton height="24px" width="30%" className="mb-4" />
-          <Skeleton height="16px" count={3} />
-      </div>
-  );
+    const isSmall = size === 'default';
+    const isAdvanced = contentVariant === 'Advanced';
 
-  // Render new Figma-based structure if new props are provided
-  const hasNewStructure = eyebrowBadges || headerTitle || bodySections || footerText || footerButton || graphic;
-
-  if (hasNewStructure) {
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid relative rounded-[var(--x2,8px)] flex flex-col overflow-hidden",
-          isAdvanced ? "w-full max-w-[549.333px]" : "w-full max-w-[549px]",
-          className
-        )}
-        {...props}
-      >
-        <div className="flex flex-col gap-[var(--x0,0px)] items-start justify-end overflow-clip p-[var(--x0,0px)] relative rounded-[inherit] w-full">
-          <Spacer size="x5" />
-          
-          {/* Eyebrow Section */}
-          {showEyebrow && eyebrowBadges && (
-            <>
-              <CardElements 
-                type="Eyebrow" 
-                eyebrowBadges={eyebrowBadges}
-              />
-              <Spacer size="x5" />
-            </>
-          )}
-
-          {/* Graphic Section (Advanced only) */}
-          {isAdvanced && graphic && (
-            <>
-              <CardGraphic {...graphic} />
-              <Spacer size="x5" />
-            </>
-          )}
-
-          {/* Header Section */}
-          {headerTitle && (
-            <>
-              <CardElements 
-                type="Header"
-                headerTitle={headerTitle}
-                headerSubText={headerSubText}
-                showArrowIcon={showArrowIcon}
-              />
-              <Spacer size="x5" />
-            </>
-          )}
-
-          {/* Body Sections */}
-          {bodySections && bodySections.map((section, idx) => (
-            <React.Fragment key={idx}>
-              <CardElements 
-                type="Body"
-                statisticValue={section.statisticValue}
-                statisticLabel={section.statisticLabel}
-                readOnlyLabel={section.readOnlyLabel}
-                readOnlyText={section.readOnlyText}
-              />
-              {idx < bodySections.length - 1 && <Spacer size="x5" />}
-            </React.Fragment>
-          ))}
-
-          {/* Footer Section */}
-          {showFooter && (footerText || footerButton) && (
-            <>
-              <Spacer size="x5" />
-              <CardFooter 
-                padding={true}
-                footerText={footerText}
-                footerButton={footerButton}
-              />
-              <Spacer size="x5" />
-            </>
-          )}
-
-          {/* Fallback for children if no structured content */}
-          {!hasNewStructure && children && (
-            <div className={cn("flex-1", isSmall ? "p-3" : "p-6")}>
-              {loading ? renderLoading() : children}
-            </div>
-          )}
+    const renderLoading = () => (
+        <div className="p-6">
+            <Skeleton height="24px" width="30%" className="mb-4" />
+            <Skeleton height="16px" className="mb-2" />
+            <Skeleton height="16px" className="mb-2" />
+            <Skeleton height="16px" />
         </div>
-      </div>
     );
-  }
 
-  // Legacy structure (for backward compatibility)
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "bg-white rounded-lg transition-all duration-200 flex flex-col overflow-hidden",
-        bordered ? "border border-[var(--border-primary)]" : "",
-        hoverable ? "hover:shadow-lg cursor-pointer" : "shadow-sm",
-        className
-      )}
-      {...props}
-    >
-      {/* Cover Image */}
-      {cover && <div className="w-full">{cover}</div>}
+    // Render new Figma-based structure if new props are provided
+    const hasNewStructure = eyebrowBadges || headerTitle || bodySections || footerText || footerButton || graphic;
 
-      {/* Header */}
-      {(title || extra) && (
-        <div className={cn(
-            "flex items-center justify-between border-b border-[var(--border-primary)]",
-            isSmall ? "px-3 py-2" : "px-6 py-4"
-        )}>
-           <div className={cn("font-semibold text-[var(--primary)]", isSmall ? "text-sm" : "text-lg")}>
-               {title}
-           </div>
-           {extra && <div className="text-sm text-[var(--primary)]">{extra}</div>}
-        </div>
-      )}
+    if (hasNewStructure) {
+        return (
+            <div
+                ref={ref}
+                className={cn(
+                    "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid relative rounded-[var(--x2,8px)] flex flex-col overflow-hidden",
+                    isAdvanced ? "w-full max-w-[549.333px]" : "w-full max-w-[549px]",
+                    className
+                )}
+                {...props}
+            >
+                <div className="flex flex-col gap-[var(--x0,0px)] items-start justify-end overflow-clip p-[var(--x0,0px)] relative rounded-[inherit] w-full">
+                    <Spacer size="x5" />
 
-      {/* Body */}
-      <div className={cn("flex-1", isSmall ? "p-3" : "p-6")}>
-          {loading ? renderLoading() : (content || children)}
-      </div>
-
-      {/* Actions */}
-      {actions && actions.length > 0 && (
-          <div className="flex items-center border-t border-[var(--border-primary)] bg-[var(--bg-secondary)]">
-              {actions.map((action, index) => (
-                  <div 
-                    key={index} 
-                    className={cn(
-                        "flex-1 flex items-center justify-center py-3 text-[var(--secondary)] hover:text-[var(--primary)] transition-colors cursor-pointer",
-                        index < actions.length - 1 ? "border-r border-[var(--border-primary)]" : ""
+                    {/* Eyebrow Section */}
+                    {showEyebrow && eyebrowBadges && (
+                        <>
+                            <CardElements
+                                type="Eyebrow"
+                                eyebrowBadges={eyebrowBadges}
+                            />
+                            <Spacer size="x5" />
+                        </>
                     )}
-                  >
-                      {action}
-                  </div>
-              ))}
-          </div>
-      )}
-    </div>
-  );
+
+                    {/* Graphic Section (Advanced only) */}
+                    {isAdvanced && graphic && (
+                        <>
+                            <CardGraphic {...graphic} />
+                            <Spacer size="x5" />
+                        </>
+                    )}
+
+                    {/* Header Section */}
+                    {headerTitle && (
+                        <>
+                            <CardElements
+                                type="Header"
+                                headerTitle={headerTitle}
+                                headerSubText={headerSubText}
+                                showArrowIcon={showArrowIcon}
+                            />
+                            <Spacer size="x5" />
+                        </>
+                    )}
+
+                    {/* Body Sections */}
+                    {bodySections && bodySections.map((section, idx) => (
+                        <React.Fragment key={idx}>
+                            <CardElements
+                                type="Body"
+                                statisticValue={section.statisticValue}
+                                statisticLabel={section.statisticLabel}
+                                readOnlyLabel={section.readOnlyLabel}
+                                readOnlyText={section.readOnlyText}
+                            />
+                            {idx < bodySections.length - 1 && <Spacer size="x5" />}
+                        </React.Fragment>
+                    ))}
+
+                    {/* Footer Section */}
+                    {showFooter && (footerText || footerButton) && (
+                        <>
+                            <Spacer size="x5" />
+                            <CardFooter
+                                padding={true}
+                                footerText={footerText}
+                                footerButton={footerButton}
+                            />
+                            <Spacer size="x5" />
+                        </>
+                    )}
+
+                    {/* Fallback for children if no structured content */}
+                    {!hasNewStructure && children && (
+                        <div className={cn("flex-1", isSmall ? "p-3" : "p-6")}>
+                            {loading ? renderLoading() : children}
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    }
+
+    // Legacy structure (for backward compatibility)
+    return (
+        <div
+            ref={ref}
+            className={cn(
+                "bg-white rounded-lg transition-all duration-200 flex flex-col overflow-hidden",
+                bordered ? "border border-[var(--border-primary)]" : "",
+                hoverable ? "hover:shadow-lg cursor-pointer" : "shadow-sm",
+                className
+            )}
+            {...props}
+        >
+            {/* Cover Image */}
+            {cover && <div className="w-full">{cover}</div>}
+
+            {/* Header */}
+            {(title || extra) && (
+                <div className={cn(
+                    "flex items-center justify-between border-b border-[var(--border-primary)]",
+                    isSmall ? "px-3 py-2" : "px-6 py-4"
+                )}>
+                    <div className={cn("font-semibold text-[var(--primary)]", isSmall ? "text-sm" : "text-lg")}>
+                        {title}
+                    </div>
+                    {extra && <div className="text-sm text-[var(--primary)]">{extra}</div>}
+                </div>
+            )}
+
+            {/* Body */}
+            <div className={cn("flex-1", isSmall ? "p-3" : "p-6")}>
+                {loading ? renderLoading() : (content || children)}
+            </div>
+
+            {/* Actions */}
+            {actions && actions.length > 0 && (
+                <div className="flex items-center border-t border-[var(--border-primary)] bg-[var(--bg-secondary)]">
+                    {actions.map((action, index) => (
+                        <div
+                            key={index}
+                            className={cn(
+                                "flex-1 flex items-center justify-center py-3 text-[var(--secondary)] hover:text-[var(--primary)] transition-colors cursor-pointer",
+                                index < actions.length - 1 ? "border-r border-[var(--border-primary)]" : ""
+                            )}
+                        >
+                            {action}
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
 });
 
 Card.displayName = 'Card';

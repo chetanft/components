@@ -36,7 +36,7 @@ export * from './atoms/Spin'; // 🆕 NEW
 export * from './molecules/Chicklet';
 export * from './molecules/ButtonGroup';
 export * from './molecules/DatePicker';
-export * from './molecules/StackedBarChart';
+// export * from './molecules/StackedBarChart'; // Removed duplicate export
 export * from './molecules/SimpleColumnLayout';
 export * from './molecules/Dropdown';
 export * from './molecules/DropdownMenu';
@@ -127,7 +127,7 @@ export { Badge as BadgeLegacy } from './atoms/Badge/Badge';
 // UTILITY EXPORTS
 // ======================
 // Re-export commonly used utilities
-export { cn } from '../lib/utils'; 
+export { cn } from '../lib/utils';
 
 // Theme System
 export { ThemeProvider, useTheme } from '../contexts/ThemeContext';

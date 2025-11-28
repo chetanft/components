@@ -53,7 +53,7 @@ const ControlledComponent = (args: any) => {
 };
 
 export const Controlled: Story = {
-  render: (args) => <ControlledComponent {...args} />,
+  render: (args: React.ComponentProps<typeof Calendar>) => <ControlledComponent {...args} />,
 };
 
 // Year Mode
@@ -72,7 +72,7 @@ export const DecadeMode: Story = {
 
 // Fullscreen Calendar
 export const Fullscreen: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Calendar>) => (
     <div className="h-[600px]">
       <Calendar
         {...args}
@@ -103,7 +103,7 @@ export const Fullscreen: Story = {
 
 // With Disabled Dates
 export const DisabledDates: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Calendar>) => {
     const today = new Date();
     return (
       <Calendar
@@ -120,13 +120,13 @@ export const DisabledDates: Story = {
 
 // With Valid Range
 export const ValidRange: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Calendar>) => {
     const today = new Date();
     const minDate = new Date(today);
     minDate.setDate(today.getDate() - 7);
     const maxDate = new Date(today);
     maxDate.setDate(today.getDate() + 30);
-    
+
     return (
       <div className="space-y-4">
         <Calendar
@@ -143,7 +143,7 @@ export const ValidRange: Story = {
 
 // Custom Header
 export const CustomHeader: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Calendar>) => (
     <Calendar
       {...args}
       headerRender={({ value, type, onChange, onTypeChange }) => (
@@ -179,7 +179,7 @@ export const CustomHeader: Story = {
 
 // Event Calendar
 export const EventCalendar: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Calendar>) => {
     const events: Record<string, string[]> = {
       '5': ['Team Standup'],
       '10': ['Project Review', 'Client Call'],
@@ -196,7 +196,7 @@ export const EventCalendar: Story = {
           dateCellRender={(date) => {
             const dayEvents = events[date.getDate().toString()];
             if (!dayEvents) return null;
-            
+
             return (
               <div className="space-y-1">
                 {dayEvents.map((event, i) => (
@@ -218,7 +218,7 @@ export const EventCalendar: Story = {
 
 // Month Selection with Events
 export const MonthSelectionWithSummary: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Calendar>) => {
     const monthEvents: Record<number, number> = {
       0: 5,
       1: 3,
@@ -286,6 +286,6 @@ const PanelChangeCallbackComponent = (args: any) => {
 };
 
 export const PanelChangeCallback: Story = {
-  render: (args) => <PanelChangeCallbackComponent {...args} />,
+  render: (args: React.ComponentProps<typeof Calendar>) => <PanelChangeCallbackComponent {...args} />,
 };
 

@@ -40,7 +40,7 @@ type Story = StoryObj<typeof Form>;
 
 // Basic Form
 export const Default: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
       onFinish={(values) => console.log('Form submitted:', values)}
@@ -67,7 +67,7 @@ export const Default: Story = {
 
 // Horizontal Layout
 export const HorizontalLayout: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
       onFinish={(values) => console.log('Form submitted:', values)}
@@ -95,7 +95,7 @@ export const HorizontalLayout: Story = {
 
 // Inline Layout
 export const InlineLayout: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
       onFinish={(values) => console.log('Form submitted:', values)}
@@ -118,7 +118,7 @@ export const InlineLayout: Story = {
 
 // With Validation
 export const WithValidation: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
       onFinish={(values) => {
@@ -198,7 +198,7 @@ export const WithValidation: Story = {
 
 // With Initial Values
 export const WithInitialValues: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
       initialValues={{
@@ -229,7 +229,7 @@ export const WithInitialValues: Story = {
 
 // Disabled Form
 export const DisabledForm: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
       initialValues={{
@@ -256,7 +256,7 @@ export const DisabledForm: Story = {
 
 // Complex Form
 export const ComplexForm: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Form>) => (
     <div className="max-w-2xl">
       <Typography variant="title-secondary" className="mb-4">Contact Information</Typography>
       <Form
@@ -274,10 +274,10 @@ export const ComplexForm: Story = {
         <FormItem name="email" label="Email Address" required rules={[{ pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Invalid email' }]}>
           <Input type="email" placeholder="email@example.com" leadingIcon="mail" />
         </FormItem>
-        <FormItem name="phone" label="Phone Number" labelOptional>
+        <FormItem name="phone" label="Phone Number">
           <Input type="tel" placeholder="+1 (555) 000-0000" leadingIcon="phone" />
         </FormItem>
-        <FormItem name="company" label="Company" labelOptional>
+        <FormItem name="company" label="Company">
           <Input placeholder="Company name" />
         </FormItem>
         <FormItem name="message" label="Message" required rules={[{ min: 10, message: 'Message must be at least 10 characters' }]}>

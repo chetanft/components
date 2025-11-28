@@ -12,7 +12,7 @@ import { Button } from '../../atoms/Button/Button';
 
 export type CalendarMode = 'month' | 'year' | 'decade';
 
-export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'onSelect'> {
+export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'onSelect' | 'defaultValue'> {
   /** Current selected date */
   value?: Date;
   /** Default selected date */
@@ -70,24 +70,24 @@ const getDaysInMonth = (year: number, month: number): Date[] => {
   const days: Date[] = [];
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
-  
+
   // Add days from previous month
   const startPadding = firstDay.getDay();
   for (let i = startPadding - 1; i >= 0; i--) {
     days.push(new Date(year, month, -i));
   }
-  
+
   // Add days of current month
   for (let i = 1; i <= lastDay.getDate(); i++) {
     days.push(new Date(year, month, i));
   }
-  
+
   // Add days from next month
   const endPadding = 42 - days.length; // 6 weeks
   for (let i = 1; i <= endPadding; i++) {
     days.push(new Date(year, month + 1, i));
   }
-  
+
   return days;
 };
 
@@ -121,7 +121,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
 
     const handleDateSelect = useCallback((date: Date) => {
       if (disabledDate?.(date)) return;
-      
+
       if (validRange) {
         if (date < validRange[0] || date > validRange[1]) return;
       }
@@ -156,7 +156,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       handleViewChange(newDate);
     }, [viewDate, handleViewChange]);
 
-    const days = useMemo(() => 
+    const days = useMemo(() =>
       getDaysInMonth(viewDate.getFullYear(), viewDate.getMonth()),
       [viewDate]
     );
@@ -447,8 +447,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       )}>
         {MONTHS.map((month, index) => {
           const monthDate = new Date(viewDate.getFullYear(), index, 1);
-          const isSelected = selectedDate && 
-            selectedDate.getMonth() === index && 
+          const isSelected = selectedDate &&
+            selectedDate.getMonth() === index &&
             selectedDate.getFullYear() === viewDate.getFullYear();
 
           return (
@@ -530,7 +530,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
         {...props}
       >
         {renderHeader()}
-        
+
         {mode === 'month' && renderMonthView()}
         {mode === 'year' && renderYearView()}
         {mode === 'decade' && renderDecadeView()}

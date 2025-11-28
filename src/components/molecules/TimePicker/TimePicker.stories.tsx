@@ -52,7 +52,7 @@ export const Default: Story = {
 
 // Controlled TimePicker
 export const Controlled: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof TimePicker>) => {
     const [time, setTime] = useState('14:30:00');
     return (
       <div className="space-y-4">
@@ -220,8 +220,8 @@ export const FormIntegration: Story = {
           />
         </div>
         <p className="text-sm text-[var(--color-secondary)]">
-          Meeting duration: {startTime && endTime ? 
-            `${startTime.slice(0, 5)} - ${endTime.slice(0, 5)}` : 
+          Meeting duration: {startTime && endTime ?
+            `${startTime.slice(0, 5)} - ${endTime.slice(0, 5)}` :
             'Select times'}
         </p>
       </div>

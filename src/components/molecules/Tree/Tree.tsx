@@ -245,7 +245,7 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) =>
     } else {
       iconElement = (
         <Icon
-          name={isLeaf ? 'file' : isExpanded ? 'folder-open' : 'folder'}
+          name={isLeaf ? 'file' : isExpanded ? 'bundle' : 'bundle'}
           size={16}
           className="text-[var(--color-secondary)]"
         />

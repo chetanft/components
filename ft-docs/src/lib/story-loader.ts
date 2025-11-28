@@ -103,6 +103,7 @@ const storyPathMap: Record<string, () => Promise<any>> = {
   'Result': () => import('../../../src/components/organisms/Result/Result.stories'),
   'Collapsible': () => import('../../../src/components/organisms/Collapsible/Collapsible.stories'),
   'Modal': () => import('../../../src/components/organisms/Modal/Modal.stories'),
+  'GridDrawer': () => import('../../../src/components/organisms/Drawer/GridDrawer.stories'),
   'PageHeader': () => import('../../../src/components/organisms/PageHeader/PageHeader.stories'),
   'QuickFilters': () => import('../../../src/components/organisms/QuickFilters/QuickFilters.stories'),
   

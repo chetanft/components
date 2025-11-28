@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
-import { getWindow } from '../../../lib/dom'; // Assuming a util or using simple window check
+// import { getWindow } from '../../../lib/dom'; // Removed unused import
 
-export interface AffixProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AffixProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   offsetTop?: number;
   offsetBottom?: number;
   target?: () => Window | HTMLElement | null;
@@ -35,17 +35,17 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
 
   const calculatePosition = useCallback(() => {
     if (!placeholderRef.current) return;
-    
+
     const targetNode = target();
     if (!targetNode) return;
 
-    const scrollTop = targetNode === window 
-      ? window.scrollY 
+    const scrollTop = targetNode === window
+      ? window.scrollY
       : (targetNode as HTMLElement).scrollTop;
-      
+
     const placeholderRect = placeholderRef.current.getBoundingClientRect();
-    const targetRect = targetNode === window 
-      ? { top: 0, bottom: window.innerHeight } 
+    const targetRect = targetNode === window
+      ? { top: 0, bottom: window.innerHeight }
       : (targetNode as HTMLElement).getBoundingClientRect();
 
     const fixedTop = offsetTop !== undefined ? offsetTop + (targetNode !== window ? targetRect.top : 0) : undefined;
@@ -69,33 +69,33 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
         height: placeholderRect.height,
       };
     } else if (fixedBottom !== undefined && placeholderRect.bottom >= (targetNode === window ? window.innerHeight : targetRect.bottom) - fixedBottom) {
-       // Bottom logic is a bit more complex relative to window vs container, simplified here
-       newState = true;
-       newAffixStyle = {
-         position: 'fixed',
-         bottom: fixedBottom,
-         width: placeholderRect.width,
-         height: placeholderRect.height,
-         zIndex: 100,
-       };
-       newPlaceholderStyle = {
-         width: placeholderRect.width,
-         height: placeholderRect.height,
-       };
+      // Bottom logic is a bit more complex relative to window vs container, simplified here
+      newState = true;
+      newAffixStyle = {
+        position: 'fixed',
+        bottom: fixedBottom,
+        width: placeholderRect.width,
+        height: placeholderRect.height,
+        zIndex: 100,
+      };
+      newPlaceholderStyle = {
+        width: placeholderRect.width,
+        height: placeholderRect.height,
+      };
     }
 
     if (newState !== affixed) {
       setAffixed(newState);
       onChange?.(newState);
     }
-    
+
     // Always update style if affixed to handle width changes or scroll
     if (newState) {
-        setAffixStyle(newAffixStyle);
-        setPlaceholderStyle(newPlaceholderStyle);
+      setAffixStyle(newAffixStyle);
+      setPlaceholderStyle(newPlaceholderStyle);
     } else {
-        setAffixStyle({});
-        setPlaceholderStyle({});
+      setAffixStyle({});
+      setPlaceholderStyle({});
     }
 
   }, [offsetTop, offsetBottom, target, affixed, onChange]);
@@ -118,8 +118,8 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
 
   return (
     <div ref={placeholderRef} style={placeholderStyle} {...props}>
-      <div 
-        ref={fixedNodeRef} 
+      <div
+        ref={fixedNodeRef}
         className={cn(className)}
         style={{ ...style, ...affixStyle }}
       >

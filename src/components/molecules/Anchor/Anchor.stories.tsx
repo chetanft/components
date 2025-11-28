@@ -16,7 +16,7 @@ type Story = StoryObj<typeof Anchor>;
 
 const DemoSection = ({ id, title }: { id: string; title: string }) => (
   <div id={id} style={{ height: '400px', padding: '20px', border: '1px solid #eee', marginBottom: '20px' }}>
-    <Typography variant="h3">{title}</Typography>
+    <Typography variant="display-primary" as="h3">{title}</Typography>
     <Typography>Content for {title}...</Typography>
   </div>
 );
@@ -33,17 +33,14 @@ export const Basic: Story = {
         <Anchor
           items={[
             {
-              key: 'part-1',
               href: '#part-1',
               title: 'Part 1',
             },
             {
-              key: 'part-2',
               href: '#part-2',
               title: 'Part 2',
             },
             {
-              key: 'part-3',
               href: '#part-3',
               title: 'Part 3',
             },
@@ -55,24 +52,24 @@ export const Basic: Story = {
 };
 
 export const Horizontal: Story = {
-    render: () => (
-      <div>
-        <div style={{ marginBottom: '20px', position: 'sticky', top: 0, zIndex: 100, background: 'white', padding: '10px 0' }}>
-          <Anchor
-            direction="horizontal"
-            items={[
-              { href: '#h-1', title: 'Horizontal 1' },
-              { href: '#h-2', title: 'Horizontal 2' },
-              { href: '#h-3', title: 'Horizontal 3' },
-            ]}
-          />
-        </div>
-        <div>
-          <DemoSection id="h-1" title="Horizontal 1" />
-          <DemoSection id="h-2" title="Horizontal 2" />
-          <DemoSection id="h-3" title="Horizontal 3" />
-        </div>
+  render: () => (
+    <div>
+      <div style={{ marginBottom: '20px', position: 'sticky', top: 0, zIndex: 100, background: 'white', padding: '10px 0' }}>
+        <Anchor
+          direction="horizontal"
+          items={[
+            { href: '#h-1', title: 'Horizontal 1' },
+            { href: '#h-2', title: 'Horizontal 2' },
+            { href: '#h-3', title: 'Horizontal 3' },
+          ]}
+        />
       </div>
-    ),
-  };
+      <div>
+        <DemoSection id="h-1" title="Horizontal 1" />
+        <DemoSection id="h-2" title="Horizontal 2" />
+        <DemoSection id="h-3" title="Horizontal 3" />
+      </div>
+    </div>
+  ),
+};
 

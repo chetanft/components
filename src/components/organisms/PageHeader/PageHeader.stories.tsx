@@ -125,7 +125,7 @@ export const WithCallbacks: Story = {
     primaryActionLabel: 'Create',
     secondaryActionLabel: 'Filter',
     onBack: () => console.log('Back clicked'),
-    onTabChange: (key) => console.log('Tab changed:', key),
+    onTabChange: (key: string) => console.log('Tab changed:', key),
     onPrimaryAction: () => console.log('Primary action clicked'),
     onSecondaryAction: () => console.log('Secondary action clicked'),
     onSearchClick: () => console.log('Search clicked'),

@@ -1,7 +1,7 @@
 import React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
-import { Icon } from '../../atoms/Icons';
+import { Icon, type IconName } from '../../atoms/Icons';
 import { Checkbox } from '../../atoms/Checkbox';
 
 const dropdownMenuItemVariants = cva(
@@ -81,7 +81,7 @@ export interface DropdownMenuItemProps
   label?: string;
   className?: string;
   onClick?: () => void;
-  iconName?: string;
+  iconName?: IconName;
   showCheckmark?: boolean;
 }
 
@@ -106,14 +106,14 @@ export const DropdownMenuItem = React.forwardRef<
   ) => {
     const [isHovered, setIsHovered] = React.useState(false);
     const [isFocused, setIsFocused] = React.useState(false);
-    
+
     const isDisabled = state === 'disabled';
     const isSelected = state === 'selected';
     const isInfo = state === 'info';
     const isExplicitHover = state === 'hover';
     const isExplicitFocused = state === 'focused';
     const isExplicitState = isDisabled || isInfo || isExplicitHover || isExplicitFocused;
-    
+
     // Determine actual state based on props and interactions
     // If state is explicitly set to hover/focused/disabled/info, use it directly (for stories/docs)
     // For selected/default states, allow JavaScript hover/focus to override
@@ -121,20 +121,20 @@ export const DropdownMenuItem = React.forwardRef<
     const actualState = isDisabled
       ? 'disabled'
       : isInfo
-      ? 'info'
-      : isExplicitHover
-      ? 'hover' // Use explicit hover state (for stories)
-      : isExplicitFocused
-      ? 'focused' // Use explicit focused state (for stories)
-      : isSelected && !isHovered && !isFocused
-      ? 'selected' // Selected state, but allow hover/focus to override
-      : isFocused
-      ? 'focused' // JavaScript-controlled focus
-      : isHovered
-      ? 'hover' // JavaScript-controlled hover
-      : state === 'selected'
-      ? 'selected' // Explicit selected state
-      : 'default';
+        ? 'info'
+        : isExplicitHover
+          ? 'hover' // Use explicit hover state (for stories)
+          : isExplicitFocused
+            ? 'focused' // Use explicit focused state (for stories)
+            : isSelected && !isHovered && !isFocused
+              ? 'selected' // Selected state, but allow hover/focus to override
+              : isFocused
+                ? 'focused' // JavaScript-controlled focus
+                : isHovered
+                  ? 'hover' // JavaScript-controlled hover
+                  : state === 'selected'
+                    ? 'selected' // Explicit selected state
+                    : 'default';
 
     // Text color based on state - using FT design tokens
     const textColorClass =
@@ -145,15 +145,15 @@ export const DropdownMenuItem = React.forwardRef<
     // Font style - use inline styles with valid CSS values
     const fontStyle = isInfo
       ? {
-          fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
-          fontStyle: 'italic',
-          fontSize: '16px',
-        }
+        fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
+        fontStyle: 'italic',
+        fontSize: '16px',
+      }
       : {
-          fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
-          fontWeight: '400',
-          fontSize: '16px',
-        };
+        fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
+        fontWeight: '400',
+        fontSize: '16px',
+      };
 
     const handleMouseEnter = () => {
       if (!isDisabled && !isInfo) {
@@ -177,7 +177,7 @@ export const DropdownMenuItem = React.forwardRef<
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
       if (isDisabled || isInfo) return;
-      
+
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         onClick?.();
@@ -213,7 +213,7 @@ export const DropdownMenuItem = React.forwardRef<
               disabled={isDisabled}
               size="sm"
               className="pointer-events-none"
-              onChange={() => {}}
+              onChange={() => { }}
             />
           </div>
         )}
@@ -256,8 +256,8 @@ export const DropdownMenuItem = React.forwardRef<
                       isDisabled
                         ? 'var(--tertiary)'
                         : actualState === 'hover' || actualState === 'focused'
-                        ? 'var(--tertiary)'
-                        : 'var(--tertiary)'
+                          ? 'var(--tertiary)'
+                          : 'var(--tertiary)'
                     }
                     strokeWidth="2"
                   />

@@ -91,7 +91,7 @@ export const Default: Story = {
 
 // With Checkboxes
 export const WithCheckboxes: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Tree>) => {
     const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
     return (
       <div className="space-y-4">
@@ -115,7 +115,7 @@ export const WithCheckboxes: Story = {
 
 // With Selection
 export const WithSelection: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Tree>) => {
     const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
     return (
       <div className="space-y-4">
@@ -197,7 +197,7 @@ export const DirectoryTree: Story = {
 
 // Multiple Selection
 export const MultipleSelection: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Tree>) => {
     const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
     return (
       <div className="space-y-4">
@@ -249,7 +249,7 @@ export const DisabledNodes: Story = {
 
 // Controlled Expansion
 export const ControlledExpansion: Story = {
-  render: (args) => {
+  render: (args: React.ComponentProps<typeof Tree>) => {
     const [expandedKeys, setExpandedKeys] = useState<string[]>(['0-0']);
     return (
       <div className="space-y-4">

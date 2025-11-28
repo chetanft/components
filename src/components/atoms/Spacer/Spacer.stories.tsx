@@ -34,7 +34,7 @@ export const Default: Story = {
   args: {
     size: 'x4',
   },
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Spacer>) => (
     <div className="flex flex-col border border-dashed border-gray-300 rounded p-4">
       <div className="bg-blue-100 p-3 rounded text-center text-sm">Above Element</div>
       <div className="bg-yellow-200 flex items-center justify-center">
@@ -50,7 +50,7 @@ export const Horizontal: Story = {
     size: 'x4',
     horizontal: true,
   },
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Spacer>) => (
     <div className="flex items-center border border-dashed border-gray-300 rounded p-4">
       <div className="bg-blue-100 p-3 rounded text-center text-sm">Left</div>
       <div className="bg-yellow-200 h-10 flex items-center">

@@ -197,7 +197,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
               className="p-[var(--spacing-x2)] rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
               aria-label="Zoom out"
             >
-              <Icon name="minus" size={20} />
+              <Icon name="subtract" size={20} />
             </button>
             <span className="text-white text-sm min-w-[60px] text-center">
               {Math.round(scale * 100)}%
@@ -208,7 +208,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
               className="p-[var(--spacing-x2)] rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
               aria-label="Zoom in"
             >
-              <Icon name="plus" size={20} />
+              <Icon name="add" size={20} />
             </button>
           </>
         )}
@@ -221,7 +221,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
               className="p-[var(--spacing-x2)] rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
               aria-label="Rotate left"
             >
-              <Icon name="refresh-ccw" size={20} />
+              <Icon name="refresh" size={20} />
             </button>
             <button
               type="button"
@@ -229,7 +229,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
               className="p-[var(--spacing-x2)] rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
               aria-label="Rotate right"
             >
-              <Icon name="refresh-cw" size={20} />
+              <Icon name="refresh" size={20} />
             </button>
           </>
         )}
@@ -240,7 +240,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
           className="p-[var(--spacing-x2)] rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
           aria-label="Reset"
         >
-          <Icon name="maximize" size={20} />
+          <Icon name="expand" size={20} />
         </button>
       </div>
 
@@ -326,13 +326,13 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
     const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
       setIsLoading(false);
       setHasError(true);
-      
+
       if (fallback && currentSrc !== fallback) {
         setCurrentSrc(fallback);
         setHasError(false);
         setIsLoading(true);
       }
-      
+
       onError?.(e);
     };
 
@@ -421,7 +421,7 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
                 "opacity-0 hover:opacity-100"
               )}
             >
-              <Icon name="zoom-in" size={32} className="text-white" />
+              <Icon name="search" size={32} className="text-white" />
             </div>
           )}
         </div>

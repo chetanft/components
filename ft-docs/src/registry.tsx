@@ -68,6 +68,7 @@ import {
     NotificationProvider,
     Modal,
     Drawer,
+    GridDrawer,
     // Charts
     AreaChart,
     LineChart,
@@ -352,6 +353,7 @@ export const registry: Record<string, React.ComponentType<any> | any> = {
     NotificationProvider,
     Modal,
     Drawer,
+    GridDrawer,
     // Charts
     AreaChart,
     LineChart,

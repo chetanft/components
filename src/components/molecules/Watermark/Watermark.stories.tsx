@@ -18,29 +18,29 @@ export const Basic: Story = {
   render: () => (
     <Watermark content="FT Design System">
       <div style={{ height: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f5f5f5' }}>
-        <Typography variant="h2">Confidential Content</Typography>
+        <Typography variant="title-secondary">Confidential Content</Typography>
       </div>
     </Watermark>
   ),
 };
 
 export const MultiLine: Story = {
-    render: () => (
-      <Watermark content={['Confidential', 'Do Not Share']}>
-        <div style={{ height: 500, backgroundColor: '#fff' }} />
-      </Watermark>
-    ),
-  };
+  render: () => (
+    <Watermark content={['Confidential', 'Do Not Share']}>
+      <div style={{ height: 500, backgroundColor: '#fff' }} />
+    </Watermark>
+  ),
+};
 
 export const CustomStyle: Story = {
-    render: () => (
-      <Watermark 
-        content="Draft" 
-        font={{ color: 'rgba(255, 0, 0, 0.15)', fontSize: 24 }}
-        rotate={-45}
-      >
-        <div style={{ height: 500, backgroundColor: '#fff' }} />
-      </Watermark>
-    ),
-  };
+  render: () => (
+    <Watermark
+      content="Draft"
+      font={{ color: 'rgba(255, 0, 0, 0.15)', fontSize: 24 }}
+      rotate={-45}
+    >
+      <div style={{ height: 500, backgroundColor: '#fff' }} />
+    </Watermark>
+  ),
+};
 

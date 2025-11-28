@@ -50,7 +50,7 @@ const slideStyle = "flex items-center justify-center h-[200px] text-white text-2
 
 // Basic Carousel
 export const Default: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Carousel>) => (
     <div className="max-w-[600px]">
       <Carousel {...args}>
         <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>Slide 1</div>
@@ -64,7 +64,7 @@ export const Default: Story = {
 
 // With Autoplay
 export const Autoplay: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Carousel>) => (
     <div className="max-w-[600px]">
       <Carousel {...args}>
         <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>Slide 1</div>
@@ -82,7 +82,7 @@ export const Autoplay: Story = {
 
 // Fade Effect
 export const FadeEffect: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Carousel>) => (
     <div className="max-w-[600px]">
       <Carousel {...args}>
         <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>Slide 1</div>
@@ -99,7 +99,7 @@ export const FadeEffect: Story = {
 
 // Without Arrows
 export const WithoutArrows: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Carousel>) => (
     <div className="max-w-[600px]">
       <Carousel {...args}>
         <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>Slide 1</div>
@@ -152,7 +152,7 @@ export const DotPositions: Story = {
 
 // Without Infinite Loop
 export const FiniteLoop: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Carousel>) => (
     <div className="max-w-[600px]">
       <Carousel {...args}>
         <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>First Slide</div>
@@ -169,7 +169,7 @@ export const FiniteLoop: Story = {
 
 // Image Gallery
 export const ImageGallery: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Carousel>) => (
     <div className="max-w-[800px]">
       <Carousel {...args}>
         <div className="h-[400px] bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
@@ -202,15 +202,14 @@ export const ImageGallery: Story = {
 
 // Custom Dots
 export const CustomDots: Story = {
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Carousel>) => (
     <div className="max-w-[600px]">
       <Carousel
         {...args}
         customDot={({ index, active }) => (
           <span
-            className={`w-3 h-3 rounded-full transition-all ${
-              active ? 'bg-[var(--color-primary)] scale-125' : 'bg-[var(--color-border-primary)]'
-            }`}
+            className={`w-3 h-3 rounded-full transition-all ${active ? 'bg-[var(--color-primary)] scale-125' : 'bg-[var(--color-border-primary)]'
+              }`}
           />
         )}
       >
