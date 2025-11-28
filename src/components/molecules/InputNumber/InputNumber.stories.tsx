@@ -133,8 +133,11 @@ export const NoControls: Story = {
 export const WithFormatter: Story = {
   args: {
     defaultValue: 1000,
-    formatter: (value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-    parser: (displayValue) => parseFloat(displayValue.replace(/,/g, '')),
+    formatter: (value?: number) =>
+      typeof value === 'number'
+        ? `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        : '',
+    parser: (displayValue: string) => parseFloat(displayValue.replace(/,/g, '')),
   },
 };
 
@@ -151,4 +154,3 @@ export const Controlled: Story = {
     );
   },
 };
-
