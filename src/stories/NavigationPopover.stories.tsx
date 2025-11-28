@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Decorator, Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import {
   NavigationPopover,
@@ -7,6 +7,36 @@ import {
 } from '../components/organisms/NavigationPopover';
 import { Button } from '../components/atoms/Button/Button';
 import { Typography } from '../components/atoms/Typography';
+
+type DecoratorStory = Parameters<Decorator>[0];
+
+const popoverCanvas: Decorator = (Story: DecoratorStory) => (
+  <div
+    style={{
+      minHeight: '100vh',
+      padding: 'var(--spacing-x8)',
+      backgroundColor: 'var(--bg-secondary)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      boxSizing: 'border-box',
+    }}
+  >
+    <div
+      style={{
+        width: '100%',
+        maxWidth: 'var(--container-max-width)',
+        backgroundColor: 'var(--bg-primary)',
+        borderRadius: 'var(--radius-xl)',
+        padding: 'var(--spacing-x8)',
+        boxShadow: 'var(--shadow-xl)',
+        border: '1px solid var(--border-primary)',
+      }}
+    >
+      <Story />
+    </div>
+  </div>
+);
 
 const meta: Meta<typeof NavigationPopover> = {
   title: 'Organisms/NavigationPopover',
@@ -20,35 +50,7 @@ const meta: Meta<typeof NavigationPopover> = {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          minHeight: '100vh',
-          padding: 'var(--spacing-x8)',
-          backgroundColor: 'var(--bg-secondary)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-start',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div
-          style={{
-            width: '100%',
-            maxWidth: 'var(--container-max-width)',
-            backgroundColor: 'var(--bg-primary)',
-            borderRadius: 'var(--radius-xl)',
-            padding: 'var(--spacing-x8)',
-            boxShadow: 'var(--shadow-xl)',
-            border: '1px solid var(--border-primary)',
-          }}
-        >
-          <Story />
-        </div>
-      </div>
-    ),
-  ],
+  decorators: [popoverCanvas],
   argTypes: {
     open: {
       control: 'boolean',
@@ -186,4 +188,3 @@ export const CustomSlots: Story = {
     ),
   },
 };
-

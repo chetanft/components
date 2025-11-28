@@ -14,7 +14,7 @@ const meta: Meta<typeof AppHeader> = {
     },
   },
   decorators: [
-    (Story: StoryFn) => (
+    (Story: StoryFn<typeof AppHeader>) => (
       <div style={{ minHeight: 'calc(var(--spacing-x10) * 2.5)', backgroundColor: 'var(--bg-secondary)' }}>
         <Story />
       </div>
