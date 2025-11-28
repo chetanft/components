@@ -43,15 +43,17 @@ export const Icon: React.FC<IconProps> = ({
   // Render the icon component
   const iconElement = <IconComponent />;
 
-  // If there's an animation class, clone the SVG element and apply className and size directly to it
-  const renderedIcon = hasAnimation && React.isValidElement(iconElement)
+  // Clone the SVG element to ensure color inheritance works correctly
+  // Apply color style directly to SVG so currentColor resolves properly
+  const renderedIcon = React.isValidElement(iconElement)
     ? React.cloneElement(iconElement as React.ReactElement<React.SVGProps<SVGSVGElement>>, {
-      className: className,
+      className: hasAnimation ? className : undefined,
       width: typeof size === 'number' ? size : size,
       height: typeof size === 'number' ? size : size,
       style: {
         width: typeof size === 'number' ? `${size}px` : size,
         height: typeof size === 'number' ? `${size}px` : size,
+        color: 'inherit', // Inherit color from parent span which has the color style
       }
     })
     : iconElement;
