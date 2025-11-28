@@ -101,7 +101,7 @@ export const Default: Story = {
 
 // Controlled TimePicker
 export const Controlled: Story = {
-  render: (args) => <ControlledTimePickerStory {...args} />,
+  render: (args: React.ComponentProps<typeof TimePicker>) => <ControlledTimePickerStory {...args} />,
   args: {
     label: 'Controlled Time',
   },

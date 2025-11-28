@@ -121,5 +121,5 @@ export const CustomCount: Story = {
 };
 
 export const Controlled: Story = {
-  render: (args) => <ControlledRateStory {...args} />,
+  render: (args: React.ComponentProps<typeof Rate>) => <ControlledRateStory {...args} />,
 };

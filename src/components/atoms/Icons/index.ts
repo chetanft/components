@@ -59,7 +59,7 @@ export { GoogleColour } from './GoogleColour';
 export { GoogleGray } from './GoogleGray';
 export { Gps } from './Gps';
 export { HamburgerMenu } from './HamburgerMenu';
-export { Inbound } from './Inbound';
+export { ArrowLeft } from './ArrowLeft';
 export { Jio } from './Jio';
 export { LightBulb } from './LightBulb';
 export { Link } from './Link';

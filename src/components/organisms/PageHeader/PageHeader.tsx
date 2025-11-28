@@ -124,7 +124,7 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
               >
                 <div className="relative shrink-0 size-[28px] flex items-center justify-center">
                   <Icon
-                    name="inbound"
+                    name="arrow-left"
                     size={16}
                     className="text-[var(--primary)]"
                   />

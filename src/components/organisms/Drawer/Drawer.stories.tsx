@@ -81,7 +81,7 @@ const DefaultDrawerStory = (args: React.ComponentProps<typeof Drawer>) => {
 
 // Basic Drawer (Right)
 export const Default: Story = {
-    render: (args) => <DefaultDrawerStory {...args} />,
+    render: (args: React.ComponentProps<typeof Drawer>) => <DefaultDrawerStory {...args} />,
     args: {
         title: 'Drawer Title',
         placement: 'right',
@@ -121,7 +121,7 @@ const LeftPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
 
 // Left Placement
 export const LeftPlacement: Story = {
-    render: (args) => <LeftPlacementStory {...args} />,
+    render: (args: React.ComponentProps<typeof Drawer>) => <LeftPlacementStory {...args} />,
     args: {
         title: 'Menu',
         placement: 'left',
@@ -156,7 +156,7 @@ const TopPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
 
 // Top Placement
 export const TopPlacement: Story = {
-    render: (args) => <TopPlacementStory {...args} />,
+    render: (args: React.ComponentProps<typeof Drawer>) => <TopPlacementStory {...args} />,
     args: {
         title: 'Notification',
         placement: 'top',
@@ -193,7 +193,7 @@ const BottomPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
 
 // Bottom Placement
 export const BottomPlacement: Story = {
-    render: (args) => <BottomPlacementStory {...args} />,
+    render: (args: React.ComponentProps<typeof Drawer>) => <BottomPlacementStory {...args} />,
     args: {
         title: 'Actions',
         placement: 'bottom',
@@ -237,7 +237,7 @@ const LargeDrawerStory = (args: React.ComponentProps<typeof Drawer>) => {
 
 // Large Drawer
 export const LargeDrawer: Story = {
-    render: (args) => <LargeDrawerStory {...args} />,
+    render: (args: React.ComponentProps<typeof Drawer>) => <LargeDrawerStory {...args} />,
     args: {
         title: 'Details',
         placement: 'right',
@@ -267,7 +267,7 @@ const NoTitleStory = (args: React.ComponentProps<typeof Drawer>) => {
 
 // No Title
 export const NoTitle: Story = {
-    render: (args) => <NoTitleStory {...args} />,
+    render: (args: React.ComponentProps<typeof Drawer>) => <NoTitleStory {...args} />,
     args: {
         placement: 'right',
         width: 400,
@@ -300,7 +300,7 @@ const NotClosableStory = (args: React.ComponentProps<typeof Drawer>) => {
 
 // Not Closable
 export const NotClosable: Story = {
-    render: (args) => <NotClosableStory {...args} />,
+    render: (args: React.ComponentProps<typeof Drawer>) => <NotClosableStory {...args} />,
     args: {
         title: 'Important',
         placement: 'right',
@@ -355,7 +355,7 @@ const FormExampleStory = (args: React.ComponentProps<typeof Drawer>) => {
 
 // Form Example
 export const FormExample: Story = {
-    render: (args) => <FormExampleStory {...args} />,
+    render: (args: React.ComponentProps<typeof Drawer>) => <FormExampleStory {...args} />,
     args: {
         title: 'Create New Item',
         placement: 'right',

@@ -271,7 +271,7 @@ const WithSelectionStoryComponent = (args: React.ComponentProps<UserTable>) => {
 };
 
 export const WithSelection: Story = {
-  render: (args) => <WithSelectionStoryComponent {...args} />,
+  render: (args: React.ComponentProps<UserTable>) => <WithSelectionStoryComponent {...args} />,
   args: {
     columns: basicColumns,
     data: sampleUsers,
@@ -318,7 +318,7 @@ const WithSortingStoryComponent = (args: React.ComponentProps<UserTable>) => {
 };
 
 export const WithSorting: Story = {
-  render: (args) => <WithSortingStoryComponent {...args} />,
+  render: (args: React.ComponentProps<UserTable>) => <WithSortingStoryComponent {...args} />,
   args: {
     columns: basicColumns,
     data: sampleUsers
@@ -338,7 +338,7 @@ const WithAtomicComponentsStoryComponent = (args: React.ComponentProps<UserTable
 };
 
 export const WithAtomicComponents: Story = {
-  render: (args) => <WithAtomicComponentsStoryComponent {...args} />,
+  render: (args: React.ComponentProps<UserTable>) => <WithAtomicComponentsStoryComponent {...args} />,
   args: {
     columns: atomicColumns,
     data: sampleUsers,
@@ -366,7 +366,7 @@ const WithAccessoryAndActionsStoryComponent = (args: React.ComponentProps<UserTa
 };
 
 export const WithAccessoryAndActions: Story = {
-  render: (args) => <WithAccessoryAndActionsStoryComponent {...args} />,
+  render: (args: React.ComponentProps<UserTable>) => <WithAccessoryAndActionsStoryComponent {...args} />,
   args: {
     columns: basicColumns,
     data: extendedUsers,

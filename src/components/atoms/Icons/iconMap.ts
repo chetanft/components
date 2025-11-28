@@ -82,7 +82,7 @@ import { HamburgerMenu } from './HamburgerMenu';
 import { Hand } from './Hand';
 import { Home } from './Home';
 import { Image } from './Image';
-import { Inbound } from './Inbound';
+import { ArrowLeft } from './ArrowLeft';
 import { Indent } from './Indent';
 import { Jio } from './Jio';
 import { LightBulb } from './LightBulb';
@@ -268,7 +268,7 @@ export const iconMap = {
   'hand': Hand,
   'home': Home,
   'image': Image,
-  'inbound': Inbound,
+  'arrow-left': ArrowLeft,
   'indent': Indent,
   'jio': Jio,
   'light-bulb': LightBulb,

@@ -110,7 +110,7 @@ const WithCheckboxesStory = (props: TreeStoryProps) => {
 
 // With Checkboxes
 export const WithCheckboxes: Story = {
-  render: (args) => <WithCheckboxesStory {...args} />,
+  render: (args: React.ComponentProps<typeof Tree>) => <WithCheckboxesStory {...args} />,
   args: {
     treeData: sampleTreeData,
     checkable: true,
@@ -137,7 +137,7 @@ const WithSelectionStory = (props: TreeStoryProps) => {
 
 // With Selection
 export const WithSelection: Story = {
-  render: (args) => <WithSelectionStory {...args} />,
+  render: (args: React.ComponentProps<typeof Tree>) => <WithSelectionStory {...args} />,
   args: {
     treeData: sampleTreeData,
     selectable: true,
@@ -222,7 +222,7 @@ const MultipleSelectionStory = (props: TreeStoryProps) => {
 
 // Multiple Selection
 export const MultipleSelection: Story = {
-  render: (args) => <MultipleSelectionStory {...args} />,
+  render: (args: React.ComponentProps<typeof Tree>) => <MultipleSelectionStory {...args} />,
   args: {
     treeData: sampleTreeData,
     selectable: true,
@@ -288,7 +288,7 @@ const ControlledExpansionStory = (props: TreeStoryProps) => {
 
 // Controlled Expansion
 export const ControlledExpansion: Story = {
-  render: (args) => <ControlledExpansionStory {...args} />,
+  render: (args: React.ComponentProps<typeof Tree>) => <ControlledExpansionStory {...args} />,
   args: {
     treeData: sampleTreeData,
   },

@@ -140,7 +140,7 @@ const ControlledPreviewStory = (args: React.ComponentProps<typeof Image>) => {
 
 // Controlled Preview
 export const ControlledPreview: Story = {
-  render: (args) => <ControlledPreviewStory {...args} />,
+  render: (args: React.ComponentProps<typeof Image>) => <ControlledPreviewStory {...args} />,
   args: {
     src: sampleImage,
     alt: 'Controlled preview',
