@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Decorator, Meta, StoryObj } from '@storybook/react';
 import { Colors } from '../components/atoms/Colors/Colors';
 import { ThemeProvider } from '../contexts/ThemeContext';
 
@@ -15,13 +15,13 @@ const meta = {
     },
   },
   decorators: [
-    (Story) => (
+    ((Story) => (
       <ThemeProvider>
         <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--primary)] p-8">
           <Story />
         </div>
       </ThemeProvider>
-    ),
+    )) satisfies Decorator,
   ],
 } satisfies Meta<typeof Colors>;
 
@@ -42,11 +42,11 @@ export const Default: Story = {
 export const WithoutThemeProvider: Story = {
   name: 'Standalone (No Provider)',
   decorators: [
-    (Story) => (
+    ((Story) => (
       <div className="min-h-screen bg-white text-black p-8">
         <Story />
       </div>
-    ),
+    )) satisfies Decorator,
   ],
   parameters: {
     docs: {
