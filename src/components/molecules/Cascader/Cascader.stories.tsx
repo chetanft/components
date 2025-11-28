@@ -198,7 +198,7 @@ const ChangeOnSelectStory = (args: React.ComponentProps<typeof Cascader>) => {
 
 // Change on Select
 export const ChangeOnSelect: Story = {
-  render: (args) => <ChangeOnSelectStory {...args} />,
+  render: (args: React.ComponentProps<typeof Cascader>) => <ChangeOnSelectStory {...args} />,
   args: {
     label: 'Change on Any Level',
     options: locationOptions,
