@@ -74,7 +74,7 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
     }, [onValidationComplete]);
 
     // Handle file upload (replace with real API call)
-    const handleUpload = useCallback(async (uploadFileData: UploadFile, _originalFile: File) => {
+    const handleUpload = useCallback(async (uploadFileData: UploadFile, originalFile: File) => {
       try {
         const uploadInterval = setInterval(() => {
           setFiles(prev => {

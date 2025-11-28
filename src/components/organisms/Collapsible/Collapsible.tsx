@@ -78,15 +78,15 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
 
   const renderHeader = () => {
       // Logic for icon
-      const icon = type === 'Primary'
-         ? (isExpanded ? 'subtract' : 'add')
+      const icon = type === 'Primary' 
+         ? (isExpanded ? 'subtract' : 'add') 
          : (isExpanded ? 'chevron-up' : 'chevron-down'); // For Secondary
-
+      
       // Secondary logic is different in original: chevron-down (collapsed), chevron-up (expanded)
       // Actually original code: Secondary/Tertiary collapsed -> chevron-right if Tertiary, chevron-down if Secondary...
-
+      
       return (
-         <div
+         <div 
             className={cn(
                 "flex items-center gap-[8px] px-0 py-[var(--x5,20px)] w-full cursor-pointer",
                 isExpanded ? "border-b border-[var(--border-primary)]" : "",
@@ -110,11 +110,11 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
                          {/* Secondary doesn't show icon on left in original, it shows chevron-down on right */}
                      </div>
                  )}
-
+                 
                  <div className="flex-1 font-semibold text-xl text-[var(--primary)]">{header}</div>
 
                  {extra}
-
+                 
                  {type === 'Secondary' && _showArrow && (
                      <div className="text-[var(--primary)]">
                          {isExpanded ? <Icon name="chevron-up" size={16} /> : <Icon name="chevron-down" size={16} />}
@@ -126,7 +126,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
   };
 
   return (
-    <div
+    <div 
         className={cn(
             'flex flex-col overflow-hidden',
             getBorderRadius(),

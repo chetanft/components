@@ -14,7 +14,7 @@ const iconNames: IconName[] = [
   'drag', 'edit', 'eway-bill-expired', 'excel', 'expand', 'export-file', 'eye-invisible',
   'file-alt', 'file-upload', 'file-uploader', 'file', 'fill-details', 'filter', 'forward',
   'ft-colour', 'ft-gray', 'google-colour', 'google-gray', 'gps', 'hamburger-menu', 'home',
-  'inbound', 'indent', 'jio', 'light-bulb', 'link', 'loading', 'location', 'lock', 'logout',
+  'arrow-left', 'indent', 'jio', 'light-bulb', 'link', 'loading', 'location', 'lock', 'logout',
   'long-stoppage', 'mail', 'map', 'more', 'mtnl', 'multiple-location', 'multiple-time',
   'multiple-weight', 'my-trip', 'navigator', 'notification', 'organisation', 'outbound',
   'password', 'pen', 'phone-alt', 'phone', 'plant-alt', 'plant', 'planning', 'play-fill',
@@ -123,4 +123,3 @@ export default function Icons() {
     </div>
   );
 }
-

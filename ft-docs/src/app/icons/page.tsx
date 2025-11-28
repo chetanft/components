@@ -18,7 +18,7 @@ const iconNames: IconName[] = [
   'drag', 'edit', 'eway-bill-expired', 'excel', 'expand', 'export-file', 'eye-invisible',
   'file-alt', 'file-upload', 'file-uploader', 'file', 'fill-details', 'filter', 'flame', 'forward',
   'ft-colour', 'ft-gray', 'gmail-logo', 'google-colour', 'google-drive', 'google-gray', 'gps', 'gst', 'hamburger-menu', 'hand', 'help-circle', 'home',
-  'image', 'inbound', 'indent', 'jio', 'light-bulb', 'link', 'loading', 'locate', 'location', 'lock', 'logout',
+  'image', 'arrow-left', 'indent', 'jio', 'light-bulb', 'link', 'loading', 'locate', 'location', 'lock', 'logout',
   'long-stoppage', 'mail', 'map', 'megaphone', 'more', 'more-options', 'mtnl', 'multiple-location', 'multiple-time',
   'multiple-weight', 'my-trip', 'navigator', 'no-signal', 'notification', 'noted', 'octagon-alert-filled', 'one-drive', 'organisation', 'outbound',
   'parcel-check', 'password', 'pause', 'pause-filled', 'pen', 'phone-alt', 'phone', 'plant-alt', 'plant', 'planning', 'play-fill',
@@ -70,7 +70,7 @@ const iconCategories = {
   'Brand': ['google-colour', 'google-gray', 'ft-colour', 'ft-gray', 'airtel', 'jio', 'vodafone', 'bsnl', 'mtnl', 'tata'],
   'UI & System': ['eye-invisible', 'password', 'lock', 'cursor-pointer', 'drag', 'more', 'three-dot-menu', 'hamburger-menu', 'burger', 'menu', 'preview', 'preview-fill', 'bulk-actions', 'filter', 'search', 'sort', 'settings', 'dashboard', 'control-tower', 'planning', 'reports', 'indent', 'data-stack', 'division'],
   'Financial & Commerce': ['rupee-coin', 'cheap', 'recommended', 'rocket', 'settlement', 'reconciliation'],
-  'Utility': ['clock', 'calendar', 'calendar-clock', 'portable-tracking', 'sim', 'link', 'logout', 'home', 'star', 'play', 'play-fill', 'fill-details', 'strength-high', 'strength-low', 'strength-medium', 'strength-no-tracking', 'tracker', 'untracked', 'inbound', 'outbound', 'pen', 'default-icon']
+  'Utility': ['clock', 'calendar', 'calendar-clock', 'portable-tracking', 'sim', 'link', 'logout', 'home', 'star', 'play', 'play-fill', 'fill-details', 'strength-high', 'strength-low', 'strength-medium', 'strength-no-tracking', 'tracker', 'untracked', 'arrow-left', 'outbound', 'pen', 'default-icon']
 } as const
 
 type CategoryName = keyof typeof iconCategories

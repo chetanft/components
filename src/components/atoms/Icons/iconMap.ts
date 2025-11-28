@@ -7,6 +7,7 @@ import { AlertCritical } from './AlertCritical';
 import { AlertInformationalFill } from './AlertInformationalFill';
 import { AlertInformational } from './AlertInformational';
 import { ArrowBottomLeft } from './ArrowBottomLeft';
+import { ArrowLeft } from './ArrowLeft';
 import { ArrowDownRight } from './ArrowDownRight';
 import { ArrowDown } from './ArrowDown';
 import { ArrowTopLeft } from './ArrowTopLeft';
@@ -82,7 +83,6 @@ import { HamburgerMenu } from './HamburgerMenu';
 import { Hand } from './Hand';
 import { Home } from './Home';
 import { Image } from './Image';
-import { ArrowLeft } from './ArrowLeft';
 import { Indent } from './Indent';
 import { Jio } from './Jio';
 import { LightBulb } from './LightBulb';
@@ -193,6 +193,7 @@ export const iconMap = {
   'alert-informational-fill': AlertInformationalFill,
   'alert-informational': AlertInformational,
   'arrow-bottom-left': ArrowBottomLeft,
+  'arrow-left': ArrowLeft,
   'arrow-down-right': ArrowDownRight,
   'arrow-down': ArrowDown,
   'arrow-top-left': ArrowTopLeft,
@@ -268,7 +269,6 @@ export const iconMap = {
   'hand': Hand,
   'home': Home,
   'image': Image,
-  'arrow-left': ArrowLeft,
   'indent': Indent,
   'jio': Jio,
   'light-bulb': LightBulb,

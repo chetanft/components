@@ -70,7 +70,7 @@ export function InteractiveDemo() {
       <h3 style={{ fontSize: 'var(--font-size-xl)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--spacing-x5)' }}>
         Interactive Form
       </h3>
-
+      
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x4)' }}>
         <div>
           <Label htmlFor="email-input" mandatory>
