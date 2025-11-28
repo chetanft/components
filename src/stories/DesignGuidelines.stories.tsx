@@ -1,6 +1,95 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
+const sizingScale = [
+  {
+    size: 'xxs',
+    height: 'var(--spacing-x4)',
+    fontSize: 'Typography: Body XS',
+    padding: 'calc(var(--spacing-x1) + var(--spacing-x1)/2) × calc(var(--spacing-x1)/2)',
+    icon: 'var(--spacing-x3)',
+    radius: 'var(--radius-sm)',
+  },
+  {
+    size: 'xs',
+    height: 'var(--spacing-x6)',
+    fontSize: 'Typography: Body XS',
+    padding: 'var(--spacing-x2) × calc(var(--spacing-x1)/2)',
+    icon: 'var(--spacing-x3)',
+    radius: 'var(--radius-sm)',
+  },
+  {
+    size: 'sm',
+    height: 'var(--spacing-x8)',
+    fontSize: 'Typography: Body SM',
+    padding: 'var(--spacing-x3) × var(--spacing-x2)',
+    icon: 'var(--spacing-x4)',
+    radius: 'var(--radius-md)',
+  },
+  {
+    size: 'md (Default)',
+    height: 'var(--spacing-x10)',
+    fontSize: 'Typography: Body MD',
+    padding: 'var(--spacing-x4) × var(--spacing-x3)',
+    icon: 'var(--spacing-x5)',
+    radius: 'var(--radius-md)',
+    highlight: true,
+  },
+  {
+    size: 'lg',
+    height: 'var(--spacing-x12)',
+    fontSize: 'Typography: Body LG',
+    padding: 'var(--spacing-x5) × var(--spacing-x3)',
+    icon: 'var(--spacing-x6)',
+    radius: 'var(--radius-md)',
+  },
+  {
+    size: 'xl',
+    height: 'var(--spacing-x14)',
+    fontSize: 'Typography: Display SM',
+    padding: 'var(--spacing-x6) × var(--spacing-x4)',
+    icon: 'var(--spacing-x6)',
+    radius: 'var(--radius-md)',
+  },
+  {
+    size: 'xxl',
+    height: 'var(--spacing-x16)',
+    fontSize: 'Typography: Display MD',
+    padding: 'var(--spacing-x7) × var(--spacing-x5)',
+    icon: 'var(--spacing-x6)',
+    radius: 'var(--radius-md)',
+  },
+];
+
+const colorGroups = [
+  {
+    title: 'Primary Colors',
+    swatches: [
+      { token: 'var(--color-primary)', label: 'Primary' },
+      { token: 'var(--color-secondary)', label: 'Primary Dark' },
+      { token: 'var(--color-tertiary)', label: 'Primary Light' },
+    ],
+  },
+  {
+    title: 'Semantic Colors',
+    swatches: [
+      { token: 'var(--color-positive)', label: 'Success' },
+      { token: 'var(--color-warning)', label: 'Warning' },
+      { token: 'var(--color-critical)', label: 'Error' },
+      { token: 'var(--color-neutral)', label: 'Info' },
+    ],
+  },
+  {
+    title: 'Neutral Colors',
+    swatches: [
+      { token: 'var(--color-primary)', label: 'Text Primary' },
+      { token: 'var(--color-tertiary)', label: 'Text Secondary' },
+      { token: 'var(--color-border-primary)', label: 'Border' },
+      { token: 'var(--color-bg-secondary)', label: 'Background' },
+    ],
+  },
+];
+
 const DesignGuidelinesPage = () => (
   <div className="max-w-4xl mx-auto p-6 space-y-8">
     <div className="border-b pb-6">
@@ -34,62 +123,16 @@ const DesignGuidelinesPage = () => (
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="border border-blue-300 px-4 py-2 font-medium">xxs</td>
-                <td className="border border-blue-300 px-4 py-2">16px</td>
-                <td className="border border-blue-300 px-4 py-2">12px</td>
-                <td className="border border-blue-300 px-4 py-2">6px × 2px</td>
-                <td className="border border-blue-300 px-4 py-2">12px</td>
-                <td className="border border-blue-300 px-4 py-2">4px</td>
-              </tr>
-              <tr>
-                <td className="border border-blue-300 px-4 py-2 font-medium">xs</td>
-                <td className="border border-blue-300 px-4 py-2">24px</td>
-                <td className="border border-blue-300 px-4 py-2">12px</td>
-                <td className="border border-blue-300 px-4 py-2">8px × 2px</td>
-                <td className="border border-blue-300 px-4 py-2">12px</td>
-                <td className="border border-blue-300 px-4 py-2">4px</td>
-              </tr>
-              <tr>
-                <td className="border border-blue-300 px-4 py-2 font-medium">sm</td>
-                <td className="border border-blue-300 px-4 py-2">32px</td>
-                <td className="border border-blue-300 px-4 py-2">14px</td>
-                <td className="border border-blue-300 px-4 py-2">12px × 8px</td>
-                <td className="border border-blue-300 px-4 py-2">16px</td>
-                <td className="border border-blue-300 px-4 py-2">8px</td>
-              </tr>
-              <tr className="bg-green-50">
-                <td className="border border-blue-300 px-4 py-2 font-medium">md (Default)</td>
-                <td className="border border-blue-300 px-4 py-2 font-bold">40px</td>
-                <td className="border border-blue-300 px-4 py-2">16px</td>
-                <td className="border border-blue-300 px-4 py-2">16px × 12px</td>
-                <td className="border border-blue-300 px-4 py-2">20px</td>
-                <td className="border border-blue-300 px-4 py-2">8px</td>
-              </tr>
-              <tr>
-                <td className="border border-blue-300 px-4 py-2 font-medium">lg</td>
-                <td className="border border-blue-300 px-4 py-2">48px</td>
-                <td className="border border-blue-300 px-4 py-2">20px</td>
-                <td className="border border-blue-300 px-4 py-2">20px × 12px</td>
-                <td className="border border-blue-300 px-4 py-2">24px</td>
-                <td className="border border-blue-300 px-4 py-2">8px</td>
-              </tr>
-              <tr>
-                <td className="border border-blue-300 px-4 py-2 font-medium">xl</td>
-                <td className="border border-blue-300 px-4 py-2">56px</td>
-                <td className="border border-blue-300 px-4 py-2">24px</td>
-                <td className="border border-blue-300 px-4 py-2">24px × 16px</td>
-                <td className="border border-blue-300 px-4 py-2">24px</td>
-                <td className="border border-blue-300 px-4 py-2">8px</td>
-              </tr>
-              <tr>
-                <td className="border border-blue-300 px-4 py-2 font-medium">xxl</td>
-                <td className="border border-blue-300 px-4 py-2">64px</td>
-                <td className="border border-blue-300 px-4 py-2">28px</td>
-                <td className="border border-blue-300 px-4 py-2">28px × 20px</td>
-                <td className="border border-blue-300 px-4 py-2">24px</td>
-                <td className="border border-blue-300 px-4 py-2">8px</td>
-              </tr>
+              {sizingScale.map((row) => (
+                <tr key={row.size} className={row.highlight ? 'bg-green-50' : undefined}>
+                  <td className="border border-blue-300 px-4 py-2 font-medium">{row.size}</td>
+                  <td className={`border border-blue-300 px-4 py-2 ${row.highlight ? 'font-bold' : ''}`}>{row.height}</td>
+                  <td className="border border-blue-300 px-4 py-2">{row.fontSize}</td>
+                  <td className="border border-blue-300 px-4 py-2">{row.padding}</td>
+                  <td className="border border-blue-300 px-4 py-2">{row.icon}</td>
+                  <td className="border border-blue-300 px-4 py-2">{row.radius}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -110,7 +153,7 @@ const DesignGuidelinesPage = () => (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
           <h4 className="text-lg font-semibold text-red-900 mb-2">❌ DON&apos;T:</h4>
           <ul className="text-red-800 space-y-1">
-            <li>• Create custom heights (38px, 42px, etc.)</li>
+            <li>• Create custom heights that fall outside the spacing token scale</li>
             <li>• Mix different padding styles within the same size</li>
             <li>• Use arbitrary border radius values</li>
             <li>• Scale icons independently from component size</li>
@@ -124,78 +167,20 @@ const DesignGuidelinesPage = () => (
       <h2 className="text-2xl font-bold text-gray-900 mb-4">🎨 Color System</h2>
       
       <div className="grid md:grid-cols-3 gap-6">
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Primary Colors</h3>
-          <div className="space-y-2">
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 rounded" style={{backgroundColor: '#434f64'}}></div>
-              <span className="font-mono text-sm">#434f64</span>
-              <span className="text-sm text-gray-600">Primary</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 rounded" style={{backgroundColor: '#363f52'}}></div>
-              <span className="font-mono text-sm">#363f52</span>
-              <span className="text-sm text-gray-600">Primary Dark</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 rounded" style={{backgroundColor: '#5a6b7d'}}></div>
-              <span className="font-mono text-sm">#5a6b7d</span>
-              <span className="text-sm text-gray-600">Primary Light</span>
+        {colorGroups.map((group) => (
+          <div key={group.title}>
+            <h3 className="text-lg font-semibold mb-3">{group.title}</h3>
+            <div className="space-y-2">
+              {group.swatches.map((swatch) => (
+                <div key={swatch.label} className="flex items-center space-x-3">
+                  <div className="w-6 h-6 rounded border" style={{ backgroundColor: swatch.token }} />
+                  <span className="font-mono text-sm">{swatch.token}</span>
+                  <span className="text-sm text-gray-600">{swatch.label}</span>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Semantic Colors</h3>
-          <div className="space-y-2">
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 rounded" style={{backgroundColor: '#10b981'}}></div>
-              <span className="font-mono text-sm">#10b981</span>
-              <span className="text-sm text-gray-600">Success</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 rounded" style={{backgroundColor: '#f59e0b'}}></div>
-              <span className="font-mono text-sm">#f59e0b</span>
-              <span className="text-sm text-gray-600">Warning</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 rounded" style={{backgroundColor: '#ef4444'}}></div>
-              <span className="font-mono text-sm">#ef4444</span>
-              <span className="text-sm text-gray-600">Error</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 rounded" style={{backgroundColor: '#3b82f6'}}></div>
-              <span className="font-mono text-sm">#3b82f6</span>
-              <span className="text-sm text-gray-600">Info</span>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-lg font-semibold mb-3">Neutral Colors</h3>
-          <div className="space-y-2">
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 rounded border" style={{backgroundColor: '#1f2937'}}></div>
-              <span className="font-mono text-sm">#1f2937</span>
-              <span className="text-sm text-gray-600">Text Primary</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 rounded border" style={{backgroundColor: '#6b7280'}}></div>
-              <span className="font-mono text-sm">#6b7280</span>
-              <span className="text-sm text-gray-600">Text Secondary</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 rounded border" style={{backgroundColor: '#d1d5db'}}></div>
-              <span className="font-mono text-sm">#d1d5db</span>
-              <span className="text-sm text-gray-600">Border</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-6 h-6 rounded border" style={{backgroundColor: '#f9fafb'}}></div>
-              <span className="font-mono text-sm">#f9fafb</span>
-              <span className="text-sm text-gray-600">Background</span>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
 
@@ -209,11 +194,11 @@ const DesignGuidelinesPage = () => (
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <p className="text-red-800 font-medium mb-1">❌ Wrong:</p>
-              <p className="text-red-700 text-sm">Button 40px, Input 36px, Dropdown 38px</p>
+              <p className="text-red-700 text-sm">Button var(--spacing-x10), Input var(--spacing-x9), Dropdown custom blend (not on the spacing scale)</p>
             </div>
             <div>
               <p className="text-green-800 font-medium mb-1">✅ Correct:</p>
-              <p className="text-green-700 text-sm">All components 40px (md size)</p>
+              <p className="text-green-700 text-sm">All components var(--spacing-x10) (md size)</p>
             </div>
           </div>
         </div>
@@ -269,7 +254,7 @@ const DesignGuidelinesPage = () => (
             <ul className="space-y-1 text-sm text-yellow-800">
               <li>□ Color contrast meets WCAG AA standards</li>
               <li>□ Focus indicators are visible</li>
-              <li>□ Touch targets are minimum 44px</li>
+              <li>□ Touch targets respect a var(--spacing-x11) minimum</li>
               <li>□ Text is readable at all sizes</li>
             </ul>
           </div>

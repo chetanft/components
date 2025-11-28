@@ -13,15 +13,6 @@ const RowContext = createContext<RowContextValue>({ gutter: [0, 0] });
 // Breakpoints aligned with FT Design System
 export type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
-const breakpointValues: Record<Breakpoint, number> = {
-  xs: 0,
-  sm: 576,
-  md: 768,
-  lg: 992,
-  xl: 1200,
-  xxl: 1600,
-};
-
 // ==================== ROW COMPONENT ====================
 
 export type RowAlign = 'top' | 'middle' | 'bottom' | 'stretch';
@@ -160,55 +151,18 @@ export const Col = React.forwardRef<HTMLDivElement, ColProps>(
     pull,
     push,
     flex,
-    xs,
-    sm,
-    md,
-    lg,
-    xl,
-    xxl,
+    xs: _xs,
+    sm: _sm,
+    md: _md,
+    lg: _lg,
+    xl: _xl,
+    xxl: _xxl,
     children,
     className,
     style,
     ...props
   }, ref) => {
     const { gutter } = useContext(RowContext);
-
-    // Normalize breakpoint value
-    const normalizeSize = (size: number | ColSize | undefined): ColSize | undefined => {
-      if (size === undefined) return undefined;
-      if (typeof size === 'number') return { span: size };
-      return size;
-    };
-
-    // Generate responsive classes
-    const generateResponsiveClasses = () => {
-      const classes: string[] = [];
-
-      // Base span
-      if (span !== undefined) {
-        if (span === 0) {
-          classes.push('hidden');
-        } else {
-          classes.push(`basis-[${(span / 24) * 100}%]`);
-          classes.push(`max-w-[${(span / 24) * 100}%]`);
-        }
-      }
-
-      // Responsive breakpoints
-      const breakpoints: { key: Breakpoint; value: number | ColSize | undefined }[] = [
-        { key: 'xs', value: xs },
-        { key: 'sm', value: sm },
-        { key: 'md', value: md },
-        { key: 'lg', value: lg },
-        { key: 'xl', value: xl },
-        { key: 'xxl', value: xxl },
-      ];
-
-      // We'll handle responsive styles inline for simplicity
-      // In production, you might want to use CSS-in-JS or media queries
-
-      return classes;
-    };
 
     // Calculate column styles
     const colStyle: React.CSSProperties = {
@@ -255,8 +209,7 @@ export const Col = React.forwardRef<HTMLDivElement, ColProps>(
       <div
         ref={ref}
         className={cn(
-          "relative min-h-[1px]",
-          ...generateResponsiveClasses(),
+          "relative min-h-px",
           className
         )}
         style={{
@@ -282,4 +235,3 @@ export const Grid = {
 };
 
 export default Grid;
-

@@ -257,6 +257,55 @@ rgba?\([^)]+\)
 
 ---
 
+## 📐 Layout & Width Tokens
+
+### Breakpoints
+| Token | Value | Use Case |
+| --- | --- | --- |
+| `var(--breakpoint-xxl)` | 1600px | Ultra-wide layouts |
+| `var(--breakpoint-xl)` | 1440px | Desktop container max |
+| `var(--breakpoint-lg)` | 1280px | Large laptops |
+| `var(--breakpoint-md)` | 1024px | Tablets/large screens |
+| `var(--breakpoint-sm)` | 768px | Small tablets |
+| `var(--breakpoint-xs)` | 480px | Compact phones |
+
+### 24-Column Grid System
+
+| Viewport | Columns | Margin | Gutter |
+| --- | --- | --- | --- |
+| >1440px | `var(--grid-desktop-columns)` = 24 | `var(--grid-desktop-margin)` = 20px | `var(--grid-desktop-gutter)` = 20px |
+| ≤1440px | `var(--grid-laptop-columns)` = 24 | `var(--grid-laptop-margin)` = 16px | `var(--grid-laptop-gutter)` = 16px |
+| ≤768px  | `var(--grid-mobile-columns)` = 4  | `var(--grid-mobile-margin)` = 16px | `var(--grid-mobile-gutter)` = 16px |
+
+Runtime variables (`--grid-columns`, `--grid-gutter`, `--grid-margin`, `--container-max-width`) switch automatically at the breakpoints above.
+
+### Utility Classes
+- `.ft-container` → Constrains width to `var(--container-max-width)` and applies the correct horizontal padding.
+- `.ft-grid` → Sets `grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr))` with the current gutter.
+
+### Usage Examples
+```tsx
+<section className="ft-container">
+  <div className="ft-grid">
+    <article style={{ gridColumn: 'span 8' }}>...</article>
+  </div>
+</section>
+```
+
+```tsx
+const drawerStyle = {
+  maxWidth: 'var(--container-max-width)',
+  paddingInline: 'var(--grid-margin)',
+};
+```
+
+💡 For fixed sizes, compose from the spacing scale instead of raw numbers:
+```tsx
+style={{ maxWidth: 'calc(var(--spacing-x10) * 15)' }} // ≈ 600px
+```
+
+---
+
 ## ✅ Checklist for Each Fix
 
 - [ ] Identify all hardcoded values in component
@@ -297,4 +346,3 @@ Some px values may be part of layout calculations and should be reviewed before 
 ---
 
 **Last Updated:** 2025-11-26
-

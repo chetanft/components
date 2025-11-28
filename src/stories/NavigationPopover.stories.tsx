@@ -25,7 +25,7 @@ const meta: Meta<typeof NavigationPopover> = {
       <div
         style={{
           minHeight: '100vh',
-          padding: 'var(--x6, 32px)',
+          padding: 'var(--spacing-x8)',
           backgroundColor: 'var(--bg-secondary)',
           display: 'flex',
           justifyContent: 'center',
@@ -36,12 +36,11 @@ const meta: Meta<typeof NavigationPopover> = {
         <div
           style={{
             width: '100%',
-            maxWidth: '1024px',
+            maxWidth: 'var(--container-max-width)',
             backgroundColor: 'var(--bg-primary)',
-            borderRadius: 'var(--x4, 16px)',
-            padding: 'var(--x6, 32px)',
-            boxShadow:
-              '0px 4px 12px rgba(16, 24, 40, 0.06), 0px 2px 4px rgba(16, 24, 40, 0.03)',
+            borderRadius: 'var(--radius-xl)',
+            padding: 'var(--spacing-x8)',
+            boxShadow: 'var(--shadow-xl)',
             border: '1px solid var(--border-primary)',
           }}
         >

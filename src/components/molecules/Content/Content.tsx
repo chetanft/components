@@ -15,18 +15,18 @@ export interface ContentProps {
 }
 
 export const Content: React.FC<ContentProps> = ({ 
-  type = "Text",
+  type: _type = "Text",
   className = '' 
 }) => {
   return (
     <div 
       className={cn(
-        "content-stretch flex flex-col gap-[4px] items-start justify-center relative size-full", 
+        "content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative size-full", 
         className
       )}
       data-name="Type=Text"
     >
-      <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+      <div className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
         <Typography variant="body-primary-regular" color="primary" className="relative shrink-0 whitespace-nowrap">
           Text
         </Typography>

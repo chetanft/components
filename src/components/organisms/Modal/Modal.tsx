@@ -3,7 +3,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
-import { Button } from '../../atoms/Button/Button';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
 
 export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -38,20 +37,6 @@ export const Modal: React.FC<ModalProps> = ({
   onClick,
   ...props
 }) => {
-  // Handle ESC key
-  useEffect(() => {
-    if (!open) return;
-
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && closable) {
-        onClose?.();
-      }
-    };
-
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [open, closable, onClose]);
-
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (open) {
@@ -64,21 +49,41 @@ export const Modal: React.FC<ModalProps> = ({
     };
   }, [open]);
 
-  if (!open) return null;
+  const handleClose = useCallback(() => {
+    if (!closable) return;
+    try {
+      onClose?.();
+    } catch (error) {
+      console.error('Error closing modal:', error);
+    }
+  }, [closable, onClose]);
+
+  // Handle ESC key
+  useEffect(() => {
+    if (!open) return;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && closable) {
+        handleClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [open, closable, handleClose]);
 
   const handleMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (maskClosable && e.target === e.currentTarget) {
-      onClose?.();
+      handleClose();
     }
   };
 
   const handleCloseClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    if (onClose && closable) {
-      onClose();
-    }
-  }, [onClose, closable]);
+    e.nativeEvent.stopImmediatePropagation();
+    handleClose();
+  }, [handleClose]);
 
   const handleModalContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
     // Only stop propagation if clicking the modal content itself, not children
@@ -89,6 +94,8 @@ export const Modal: React.FC<ModalProps> = ({
       onClick(e);
     }
   };
+
+  if (!open) return null;
 
   return (
     <div
@@ -142,18 +149,7 @@ export const Modal: React.FC<ModalProps> = ({
             {closable && (
               <button
                 type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  e.nativeEvent.stopImmediatePropagation();
-                  if (onClose) {
-                    try {
-                      onClose();
-                    } catch (error) {
-                      console.error('Error closing modal:', error);
-                    }
-                  }
-                }}
+                onClick={handleCloseClick}
                 className={cn(
                   "rounded-[var(--radius-sm)]",
                   "flex items-center justify-center",
@@ -234,4 +230,3 @@ export const Modal: React.FC<ModalProps> = ({
 };
 
 Modal.displayName = 'Modal';
-

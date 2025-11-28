@@ -51,7 +51,7 @@ export const AreaChart: React.FC<AreaChartProps> = ({
         pointRadius: showDots ? (dataset.pointRadius ?? 4) : 0,
         pointHoverRadius: showDots ? (dataset.pointHoverRadius ?? 6) : 0,
         pointBackgroundColor: dataset.pointBackgroundColor || baseColor,
-        pointBorderColor: dataset.pointBorderColor || '#ffffff',
+        pointBorderColor: dataset.pointBorderColor || 'var(--color-bg-primary)',
         pointBorderWidth: dataset.pointBorderWidth ?? 2,
       };
     }),
@@ -79,7 +79,6 @@ export const AreaChart: React.FC<AreaChartProps> = ({
     </BaseChart>
   );
 };
-
 
 
 

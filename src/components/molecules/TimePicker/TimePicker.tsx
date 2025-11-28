@@ -110,7 +110,14 @@ interface TimeColumnProps {
   use12Hours?: boolean;
 }
 
-const TimeColumn: React.FC<TimeColumnProps> = ({ type, value, onChange, options, disabledOptions = [], use12Hours }) => {
+const TimeColumn: React.FC<TimeColumnProps> = ({
+  type: _type,
+  value,
+  onChange,
+  options,
+  disabledOptions = [],
+  use12Hours: _use12Hours,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -127,7 +134,7 @@ const TimeColumn: React.FC<TimeColumnProps> = ({ type, value, onChange, options,
     <div
       ref={containerRef}
       className={cn(
-        "flex flex-col h-[200px] overflow-y-auto scrollbar-thin scrollbar-thumb-[var(--color-border-primary)]",
+        "flex flex-col h-[calc(var(--spacing-x10)*5)] overflow-y-auto scrollbar-thin scrollbar-thumb-[var(--color-border-primary)]",
         "border-r border-[var(--color-border-secondary)] last:border-r-0"
       )}
     >
@@ -142,9 +149,9 @@ const TimeColumn: React.FC<TimeColumnProps> = ({ type, value, onChange, options,
             onClick={() => !isDisabled && onChange(option)}
             disabled={isDisabled}
             className={cn(
-              "px-[var(--spacing-x3)] py-[var(--spacing-x2)] text-center transition-colors min-w-[56px]",
+              "px-[var(--spacing-x3)] py-[var(--spacing-x2)] text-center transition-colors min-w-[calc(var(--spacing-x2)*7)]",
               "text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)]",
-              isSelected && "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary)]",
+              isSelected && "bg-[var(--color-primary)] text-[var(--color-bg-primary)] hover:bg-[var(--color-primary)]",
               isDisabled && "text-[var(--color-tertiary)] cursor-not-allowed opacity-50"
             )}
           >
@@ -182,7 +189,7 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
     minuteStep = 1,
     secondStep = 1,
     placeholder,
-    format,
+    format: _format,
     allowClear = true,
     disabledHours,
     disabledMinutes,
@@ -395,8 +402,6 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
             : "text-helper dark:text-helper-dark"
     );
 
-    const displayValue = inputValue || (format ? format : placeholder || (showSecond ? 'HH:mm:ss' : 'HH:mm'));
-
     return (
       <div className="w-full space-y-2">
         {label && (
@@ -548,4 +553,3 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
 TimePicker.displayName = 'TimePicker';
 
 export default TimePicker;
-

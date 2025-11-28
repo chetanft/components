@@ -93,7 +93,7 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
       return (
         <div
           className={cn(
-            "w-[10px] h-[10px] rounded-full border-2",
+            "w-[var(--spacing-x2)] h-[var(--spacing-x2)] rounded-full border-2",
             colorMap[color]
           )}
         />
@@ -112,8 +112,8 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
         {...props}
       >
         {/* Timeline connector line - rendered by parent */}
-        <div className="timeline-dot-container flex items-start justify-center w-[24px] relative z-10">
-          <div className="mt-[6px]">
+        <div className="timeline-dot-container flex items-start justify-center w-[var(--spacing-x6)] relative z-10">
+          <div className="mt-[var(--spacing-x1)]">
             {renderDot()}
           </div>
         </div>
@@ -223,11 +223,11 @@ export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
               {!isLast && (
                 <div
                   className={cn(
-                    "absolute top-[20px] w-[2px] h-[calc(100%-20px)]",
-                    mode === 'left' && 'left-[11px]',
-                    mode === 'right' && 'right-[11px]',
-                    mode === 'alternate' && position === 'left' && 'left-[11px]',
-                    mode === 'alternate' && position === 'right' && 'right-[11px]',
+                    "absolute top-[var(--spacing-x3)] w-px h-[calc(100%-var(--spacing-x3))]",
+                    mode === 'left' && 'left-[calc(var(--spacing-x3)-var(--spacing-x1))]',
+                    mode === 'right' && 'right-[calc(var(--spacing-x3)-var(--spacing-x1))]',
+                    mode === 'alternate' && position === 'left' && 'left-[calc(var(--spacing-x3)-var(--spacing-x1))]',
+                    mode === 'alternate' && position === 'right' && 'right-[calc(var(--spacing-x3)-var(--spacing-x1))]',
                     isPending
                       ? 'border-l-2 border-dashed border-[var(--color-border-primary)]'
                       : 'bg-[var(--color-border-primary)]'
@@ -238,7 +238,7 @@ export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
               {mode === 'alternate' && child.props.label && (
                 <div
                   className={cn(
-                    "flex-1 text-[var(--color-tertiary)] pt-[6px]",
+                    "flex-1 text-[var(--color-tertiary)] pt-[var(--spacing-x1)]",
                     position === 'left' ? 'text-right pr-[var(--spacing-x3)]' : 'text-left pl-[var(--spacing-x3)]'
                   )}
                 >
@@ -269,4 +269,3 @@ Timeline.displayName = 'Timeline';
 (Timeline as any).Item = TimelineItem;
 
 export default Timeline;
-

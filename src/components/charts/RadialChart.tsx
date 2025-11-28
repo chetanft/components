@@ -37,7 +37,6 @@ export const RadialChart: React.FC<RadialChartProps> = ({
 
       // If stacked, create multiple segments
       if (stacked && Array.isArray(dataset.data)) {
-        const total = dataset.data.reduce((sum: number, val: number) => sum + val, 0);
         return {
           ...dataset,
           backgroundColor: dataset.backgroundColor || defaultColors.slice(0, dataset.data.length),
@@ -117,7 +116,6 @@ export const RadialChart: React.FC<RadialChartProps> = ({
     </BaseChart>
   );
 };
-
 
 
 

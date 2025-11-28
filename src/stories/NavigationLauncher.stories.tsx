@@ -20,7 +20,7 @@ type Story = StoryObj<typeof NavigationLauncher>;
 
 export const DefaultLauncher: Story = {
   render: () => (
-    <div className="h-[600px] bg-[var(--bg-secondary)] flex items-center justify-center">
+    <div className="bg-[var(--bg-secondary)] flex items-center justify-center" style={{ height: 'calc(var(--spacing-x10) * 15)' }}>
       <NavigationLauncher sections={DEFAULT_NAVIGATION_SECTIONS} />
     </div>
   ),
@@ -28,7 +28,7 @@ export const DefaultLauncher: Story = {
 
 export const CustomTrigger: Story = {
   render: () => (
-    <div className="h-[600px] bg-[var(--bg-secondary)] flex items-center justify-center">
+    <div className="bg-[var(--bg-secondary)] flex items-center justify-center" style={{ height: 'calc(var(--spacing-x10) * 15)' }}>
       <NavigationLauncher
         sections={DEFAULT_NAVIGATION_SECTIONS}
         trigger={({ toggle }) => (
@@ -47,7 +47,7 @@ export const CustomTrigger: Story = {
 
 export const AppHeaderIntegration: Story = {
   render: () => (
-    <div style={{ minHeight: '400px', backgroundColor: 'var(--bg-secondary)' }}>
+    <div style={{ minHeight: 'calc(var(--spacing-x10) * 10)', backgroundColor: 'var(--bg-secondary)' }}>
       <AppHeader
         leftAddon={() => (
           <NavigationLauncher
@@ -59,8 +59,8 @@ export const AppHeaderIntegration: Story = {
                 onClick={toggle}
                 style={{
                   backgroundColor: 'var(--bg-primary)',
-                  borderRadius: '100px',
-                  padding: '12px',
+                  borderRadius: 'var(--radius-full)',
+                  padding: 'var(--spacing-x3)',
                   border: '1px solid var(--border-primary)',
                 }}
                 aria-label="Open navigation hub"

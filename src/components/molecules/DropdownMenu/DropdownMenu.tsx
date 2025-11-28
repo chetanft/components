@@ -6,15 +6,15 @@ import { Icon } from '../../atoms/Icons';
 import { SegmentedTabs, type SegmentedTabItem } from '../SegmentedTabs';
 
 const dropdownMenuVariants = cva(
-  'bg-[var(--bg-primary)] border border-solid border-[var(--border-primary)] box-border flex flex-col items-start overflow-clip p-[var(--x2,8px)] relative rounded-[var(--x2,8px)] shadow-lg',
+  'bg-[var(--color-bg-primary)] border border-solid border-[var(--color-border-primary)] box-border flex flex-col items-start overflow-clip p-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shadow-lg',
   {
     variants: {
       property: {
-        default: 'gap-[4px] w-[300px]',
-        search: 'gap-[var(--x4,16px)] w-[300px]',
-        'search-segmented': 'gap-[var(--x4,16px)] w-[300px]',
-        'disabled-info': 'gap-[4px] w-[311px]',
-        groups: 'gap-[var(--x3,12px)] w-[311px]',
+        default: 'gap-[var(--spacing-x1)] w-[calc(var(--spacing-x10)*7.5)]',
+        search: 'gap-[var(--spacing-x4)] w-[calc(var(--spacing-x10)*7.5)]',
+        'search-segmented': 'gap-[var(--spacing-x4)] w-[calc(var(--spacing-x10)*7.5)]',
+        'disabled-info': 'gap-[var(--spacing-x1)] w-[calc(var(--spacing-x10)*7.5+var(--spacing-x1))]',
+        groups: 'gap-[var(--spacing-x3)] w-[calc(var(--spacing-x10)*7.5+var(--spacing-x1))]',
       },
     },
     defaultVariants: {
@@ -62,8 +62,6 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
 
     const isSearch = property === 'search' || property === 'search-segmented';
     const isGroups = property === 'groups';
-    const isDisabledInfo = property === 'disabled-info';
-
     // Filter options based on search query
     const filteredOptions = isSearch
       ? options.filter((option) =>
@@ -123,24 +121,24 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       if (!isSearch) return null;
 
       return (
-        <div className="content-stretch flex flex-col gap-[var(--x2,8px)] isolate items-start relative shrink-0 w-full">
-          <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex h-[40px] items-center justify-between min-h-[40px] px-[var(--x3,12px)] py-[var(--x0,0px)] relative rounded-[var(--x2,8px)] shrink-0 w-full z-[1]">
-            <div className="box-border content-stretch flex flex-[1_0_0] gap-[var(--x1,4px)] h-[40px] items-center min-h-px min-w-px px-[var(--x0,0px)] py-[var(--x5,20px)] relative rounded-[var(--x2,8px)] shrink-0">
+        <div className="content-stretch flex flex-col gap-[var(--spacing-x2)] isolate items-start relative shrink-0 w-full">
+          <div className="bg-[var(--color-bg-primary)] border border-[var(--color-border-primary)] border-solid box-border content-stretch flex h-[var(--spacing-x10)] items-center justify-between min-h-[var(--spacing-x10)] px-[var(--spacing-x3)] py-[var(--spacing-x0)] relative rounded-[var(--radius-md)] shrink-0 w-full z-[1]">
+            <div className="box-border content-stretch flex flex-[1_0_0] gap-[var(--spacing-x1)] h-[var(--spacing-x10)] items-center min-h-px min-w-px px-[var(--spacing-x0)] py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
               <Icon
                 name="search"
                 size={16}
                 className="relative shrink-0"
-                color="var(--tertiary)"
+                color="var(--color-tertiary)"
               />
               <input
                 type="text"
                 placeholder="Search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-[1_0_0] font-normal leading-[1.4] min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[16px] text-[var(--tertiary)] whitespace-nowrap bg-transparent border-none outline-none"
+                className="flex-[1_0_0] font-normal leading-[1.4] min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[var(--font-size-md)] text-[var(--color-tertiary)] whitespace-nowrap bg-transparent border-none outline-none"
                 style={{
                   fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
-                  fontWeight: '400',
+                  fontWeight: 'var(--font-weight-regular, 400)',
                 }}
               />
             </div>
@@ -162,49 +160,28 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       );
     };
 
-    const renderDivider = () => {
-      return (
-        <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x2,8px)] relative shrink-0 w-full">
-          <div className="flex-[1_0_0] h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
-            <div className="absolute inset-[-0.5px_-0.18%]">
-              <svg
-                width="100%"
-                height="1"
-                viewBox="0 0 264 1"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <line
-                  x1="0"
-                  y1="0.5"
-                  x2="264"
-                  y2="0.5"
-                  stroke="var(--border-primary)"
-                  strokeWidth="1"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      );
-    };
+    const renderDivider = () => (
+      <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[calc(var(--spacing-x4)*2)] py-[var(--spacing-x2)] relative shrink-0 w-full">
+        <div className="flex-1 h-px bg-[var(--color-border-primary)]" />
+      </div>
+    );
 
     const renderInfoItem = () => {
       if (property !== 'disabled-info') return null;
 
       return (
-        <div className="bg-[var(--bg-primary)] border-[var(--border-primary)] border-b-0 border-l-0 border-r-0 border-solid border-t box-border content-stretch flex gap-[10px] items-center pb-[var(--x3,12px)] pt-[var(--x4,16px)] px-[var(--x3,12px)] relative rounded-bl-[var(--x2,8px)] rounded-br-[var(--x2,8px)] shrink-0 w-full">
+        <div className="bg-[var(--color-bg-primary)] border-[var(--color-border-primary)] border-b-0 border-l-0 border-r-0 border-solid border-t box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center pb-[var(--spacing-x3)] pt-[var(--spacing-x4)] px-[var(--spacing-x3)] relative rounded-bl-[var(--radius-md)] rounded-br-[var(--radius-md)] shrink-0 w-full">
           <Icon
             name="data-stack"
             size={16}
             className="overflow-clip relative shrink-0"
-            color="var(--primary)"
+            color="var(--color-primary)"
           />
           <p
-            className="flex-[1_0_0] font-normal italic leading-[1.4] min-h-px min-w-px relative shrink-0 text-[var(--primary)] whitespace-pre-wrap"
+            className="flex-[1_0_0] font-normal italic leading-[1.4] min-h-px min-w-px relative shrink-0 text-[var(--color-primary)] whitespace-pre-wrap"
             style={{
               fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
-              fontSize: '16px',
+              fontSize: 'var(--font-size-md)',
             }}
           >
             Select rows first to use bulk actions
@@ -217,9 +194,9 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       if (!showScrollBar) return null;
 
       return (
-        <div className="h-[88px] relative shrink-0 w-[6px]">
-          <div className="w-full h-full bg-[var(--border-secondary)] rounded-full">
-            <div className="w-full h-[40%] bg-[var(--border-primary)] rounded-full" />
+        <div className="h-[calc(var(--spacing-x11)+var(--spacing-x1))] relative shrink-0 w-[var(--spacing-x1)]">
+          <div className="w-full h-full bg-[var(--color-border-secondary)] rounded-full">
+            <div className="w-full h-[40%] bg-[var(--color-border-primary)] rounded-full" />
           </div>
         </div>
       );
@@ -240,8 +217,8 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
         {renderSearchBar()}
 
         {/* List Container */}
-        <div className="content-stretch flex gap-[16px] items-start relative shrink-0 w-full">
-          <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex gap-[var(--spacing-x4)] items-start relative shrink-0 w-full">
+          <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start min-h-px min-w-px relative shrink-0">
             {/* Default/Disabled-Info layout */}
             {(property === 'default' || property === 'disabled-info') && (
               <>
@@ -272,15 +249,15 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
                 return Object.entries(groupedOptions).map(([groupName, groupOptions]) => (
                   <div
                     key={groupName}
-                    className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full"
+                    className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start relative shrink-0 w-full"
                   >
-                    <div className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[10px] items-center px-[var(--x3,12px)] py-[var(--x2,8px)] relative rounded-[var(--x2,8px)] shrink-0 w-full">
+                    <div className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center px-[var(--spacing-x3)] py-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shrink-0 w-full">
                       <p
-                        className="font-medium leading-[1.4] relative shrink-0 text-[var(--tertiary)]"
+                        className="font-medium leading-[1.4] relative shrink-0 text-[var(--color-tertiary)]"
                         style={{
                           fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
-                          fontWeight: '500',
-                          fontSize: '14px',
+                          fontWeight: 'var(--font-weight-medium, 500)',
+                          fontSize: 'var(--font-size-sm)',
                         }}
                       >
                         {groupName}
@@ -335,4 +312,3 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
 );
 
 DropdownMenu.displayName = 'DropdownMenu';
-

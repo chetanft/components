@@ -26,7 +26,7 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
   className,
   style,
   ...props
-}, ref) => {
+}, _ref) => {
   const [affixed, setAffixed] = useState(false);
   const [placeholderStyle, setPlaceholderStyle] = useState<React.CSSProperties>({});
   const [affixStyle, setAffixStyle] = useState<React.CSSProperties>({});
@@ -38,10 +38,6 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
 
     const targetNode = target();
     if (!targetNode) return;
-
-    const scrollTop = targetNode === window
-      ? window.scrollY
-      : (targetNode as HTMLElement).scrollTop;
 
     const placeholderRect = placeholderRef.current.getBoundingClientRect();
     const targetRect = targetNode === window
@@ -130,4 +126,3 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
 });
 
 Affix.displayName = 'Affix';
-

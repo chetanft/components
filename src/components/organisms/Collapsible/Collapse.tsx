@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapsible, CollapsibleProps } from './Collapsible';
+import { Collapsible } from './Collapsible';
 import { cn } from '../../../lib/utils';
 
 export interface CollapseProps {
@@ -86,4 +86,3 @@ export const Collapse: React.FC<CollapseProps> = ({
     </div>
   );
 };
-

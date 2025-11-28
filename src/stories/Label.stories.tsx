@@ -66,12 +66,12 @@ export function InteractiveDemo() {
   });
 
   return (
-    <div style={{ maxWidth: '400px', padding: '20px' }}>
-      <h3 style={{ fontSize: '18px', fontWeight: '600', marginBottom: '20px' }}>
+    <div style={{ maxWidth: 'calc(var(--spacing-x10) * 10)', padding: 'var(--spacing-x5)' }}>
+      <h3 style={{ fontSize: 'var(--font-size-xl)', fontWeight: 'var(--font-weight-semibold)', marginBottom: 'var(--spacing-x5)' }}>
         Interactive Form
       </h3>
-      
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x4)' }}>
         <div>
           <Label htmlFor="email-input" mandatory>
             Email Address
@@ -84,11 +84,11 @@ export function InteractiveDemo() {
             placeholder="Enter your email"
             style={{
               width: '100%',
-              padding: '8px 12px',
-              border: '1px solid #CED1D7',
-              borderRadius: '4px',
-              fontSize: '14px',
-              marginTop: '4px',
+              padding: 'var(--spacing-x2) var(--spacing-x3)',
+              border: '1px solid var(--border-primary)',
+              borderRadius: 'var(--radius-sm)',
+              fontSize: 'var(--font-size-sm)',
+              marginTop: 'var(--spacing-x1)',
             }}
           />
         </div>
@@ -105,16 +105,16 @@ export function InteractiveDemo() {
             placeholder="Enter your password"
             style={{
               width: '100%',
-              padding: '8px 12px',
-              border: '1px solid #CED1D7',
-              borderRadius: '4px',
-              fontSize: '14px',
-              marginTop: '4px',
+              padding: 'var(--spacing-x2) var(--spacing-x3)',
+              border: '1px solid var(--border-primary)',
+              borderRadius: 'var(--radius-sm)',
+              fontSize: 'var(--font-size-sm)',
+              marginTop: 'var(--spacing-x1)',
             }}
           />
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-x2)' }}>
           <input
             id="newsletter-input"
             type="checkbox"
@@ -127,9 +127,9 @@ export function InteractiveDemo() {
         </div>
       </div>
 
-      <div style={{ marginTop: '20px', padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
+      <div style={{ marginTop: 'var(--spacing-x5)', padding: 'var(--spacing-x3)', backgroundColor: 'var(--bg-secondary)', borderRadius: 'var(--radius-sm)' }}>
         <strong>Form Data:</strong>
-        <pre style={{ fontSize: '12px', marginTop: '8px' }}>
+        <pre style={{ fontSize: 'var(--font-size-xs)', marginTop: 'var(--spacing-x2)' }}>
           {JSON.stringify(formData, null, 2)}
         </pre>
       </div>
@@ -200,7 +200,7 @@ export const LongText: Story = {
 // Form field example
 export const FormField: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', minWidth: '300px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)', minWidth: 'calc(var(--spacing-x10) * 7.5)' }}>
       <Label htmlFor="email" mandatory>
         Email Address
       </Label>
@@ -209,10 +209,10 @@ export const FormField: Story = {
         type="email"
         placeholder="Enter your email"
         style={{
-          padding: '8px 12px',
-          border: '1px solid #CED1D7',
-          borderRadius: '4px',
-          fontSize: '14px',
+          padding: 'var(--spacing-x2) var(--spacing-x3)',
+          border: '1px solid var(--border-primary)',
+          borderRadius: 'var(--radius-sm)',
+          fontSize: 'var(--font-size-sm)',
         }}
       />
     </div>
@@ -222,8 +222,8 @@ export const FormField: Story = {
 // Form with multiple field types
 export const FormExample: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', minWidth: '400px' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x6)', minWidth: 'calc(var(--spacing-x10) * 10)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)' }}>
         <Label htmlFor="name" mandatory>
           Full Name
         </Label>
@@ -232,15 +232,15 @@ export const FormExample: Story = {
           type="text"
           placeholder="Enter your full name"
           style={{
-            padding: '8px 12px',
-            border: '1px solid #CED1D7',
-            borderRadius: '4px',
-            fontSize: '14px',
+            padding: 'var(--spacing-x2) var(--spacing-x3)',
+            border: '1px solid var(--border-primary)',
+            borderRadius: 'var(--radius-sm)',
+            fontSize: 'var(--font-size-sm)',
           }}
         />
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)' }}>
         <Label htmlFor="phone" suffixIcon>
           Phone Number
         </Label>
@@ -249,15 +249,15 @@ export const FormExample: Story = {
           type="tel"
           placeholder="Enter your phone number"
           style={{
-            padding: '8px 12px',
-            border: '1px solid #CED1D7',
-            borderRadius: '4px',
-            fontSize: '14px',
+            padding: 'var(--spacing-x2) var(--spacing-x3)',
+            border: '1px solid var(--border-primary)',
+            borderRadius: 'var(--radius-sm)',
+            fontSize: 'var(--font-size-sm)',
           }}
         />
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)' }}>
         <Label htmlFor="company" optional>
           Company Name
         </Label>
@@ -266,15 +266,15 @@ export const FormExample: Story = {
           type="text"
           placeholder="Enter your company name"
           style={{
-            padding: '8px 12px',
-            border: '1px solid #CED1D7',
-            borderRadius: '4px',
-            fontSize: '14px',
+            padding: 'var(--spacing-x2) var(--spacing-x3)',
+            border: '1px solid var(--border-primary)',
+            borderRadius: 'var(--radius-sm)',
+            fontSize: 'var(--font-size-sm)',
           }}
         />
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)' }}>
         <Label htmlFor="bio" optional suffixIcon>
           Bio
         </Label>
@@ -283,10 +283,10 @@ export const FormExample: Story = {
           placeholder="Tell us about yourself"
           rows={3}
           style={{
-            padding: '8px 12px',
-            border: '1px solid #CED1D7',
-            borderRadius: '4px',
-            fontSize: '14px',
+            padding: 'var(--spacing-x2) var(--spacing-x3)',
+            border: '1px solid var(--border-primary)',
+            borderRadius: 'var(--radius-sm)',
+            fontSize: 'var(--font-size-sm)',
             resize: 'vertical',
           }}
         />
@@ -298,45 +298,45 @@ export const FormExample: Story = {
 // All variations showcase
 export const AllVariations: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '20px' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x5)', padding: 'var(--spacing-x5)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--spacing-x5)' }}>
         <div>
-          <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#434F64' }}>
+          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
             Basic Label
           </h3>
           <Label>Label</Label>
         </div>
 
         <div>
-          <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#434F64' }}>
+          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
             With Suffix Icon
           </h3>
           <Label suffixIcon>Label</Label>
         </div>
 
         <div>
-          <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#434F64' }}>
+          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
             Optional
           </h3>
           <Label optional>Label</Label>
         </div>
 
         <div>
-          <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#434F64' }}>
+          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
             Optional with Icon
           </h3>
           <Label optional suffixIcon>Label</Label>
         </div>
 
         <div>
-          <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#434F64' }}>
+          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
             Mandatory
           </h3>
           <Label mandatory>Label</Label>
         </div>
 
         <div>
-          <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px', color: '#434F64' }}>
+          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
             Mandatory with Icon
           </h3>
           <Label mandatory suffixIcon>Label</Label>
@@ -350,23 +350,23 @@ export const AllVariations: Story = {
 // Different HTML elements
 export const AsElements: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x4)' }}>
       <div>
-        <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
+        <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)' }}>
           As Label Element (default)
         </h3>
         <Label mandatory>Form Label</Label>
       </div>
 
       <div>
-        <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
+        <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)' }}>
           As Span Element
         </h3>
         <Label as="span" suffixIcon>Inline Label</Label>
       </div>
 
       <div>
-        <h3 style={{ fontSize: '14px', fontWeight: '500', marginBottom: '8px' }}>
+        <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)' }}>
           As Div Element
         </h3>
         <Label as="div" optional>Block Label</Label>

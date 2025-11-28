@@ -99,7 +99,6 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
 
       // Steps mode
       if (steps && steps > 0) {
-        const stepWidth = 100 / steps;
         const filledSteps = Math.floor((clampedValue / 100) * steps);
         
         return (

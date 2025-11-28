@@ -77,14 +77,14 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
         <div
           ref={ref}
           className={cn(
-            "inline-flex items-center justify-between gap-[8px] p-[8px]",
-            "rounded-[4px]",
+            "inline-flex items-center justify-between gap-[var(--spacing-x2)] p-[var(--spacing-x2)]",
+            "rounded-[var(--radius-sm)]",
             className
           )}
           {...props}
         >
           {/* File name button */}
-          <div className="inline-flex items-center gap-[8px]">
+          <div className="inline-flex items-center gap-[var(--spacing-x2)]">
             <Typography 
               variant="body-secondary-medium"
               className="text-[var(--neutral)]"
@@ -95,8 +95,8 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
           
           {/* Status indicator */}
           <div className={cn(
-            "flex items-center justify-center w-[20px] h-[20px]",
-            "bg-[var(--bg-secondary)] rounded-full p-[2px]"
+            "flex items-center justify-center w-[var(--spacing-x3)] h-[var(--spacing-x3)]",
+            "bg-[var(--bg-secondary)] rounded-full p-[var(--spacing-x1)]"
           )}>
             {state === 'uploading' && (
               <LoadingSpinner size={12} color="var(--neutral)" />
@@ -128,23 +128,23 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
       >
         <div className={cn(
           "w-full bg-[var(--bg-primary)] border border-[var(--border-secondary)]",
-          "rounded-[8px] overflow-hidden"
+          "rounded-[var(--radius-md)] overflow-hidden"
         )}>
           {/* Spacer */}
-          <div className="h-[12px] w-full" />
+          <div className="h-[var(--spacing-x3)] w-full" />
           
           {/* Main content */}
-          <div className="flex items-center justify-between w-full px-[12px]">
+          <div className="flex items-center justify-between w-full px-[var(--spacing-x3)]">
             {/* Left side - Icon and file info */}
-            <div className="flex items-start gap-[20px] flex-1 min-w-0">
+            <div className="flex items-start gap-[var(--spacing-x5)] flex-1 min-w-0">
               {/* File icon */}
               <div className="flex items-center justify-center shrink-0">
                 <FileIcon type={getFileIconType()} size={40} />
               </div>
               
               {/* File details */}
-              <div className="flex flex-col gap-[4px] flex-1 min-w-0">
-                <div className="flex flex-col gap-[4px] w-full">
+              <div className="flex flex-col gap-[var(--spacing-x1)] flex-1 min-w-0">
+                <div className="flex flex-col gap-[var(--spacing-x1)] w-full">
                   <Typography 
                     variant="body-primary-semibold"
                     className="text-[var(--primary)] truncate"
@@ -185,7 +185,7 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
                 {onDelete && (
                   <div 
                     onClick={onDelete}
-                    className="w-[16px] h-[16px] cursor-pointer overflow-hidden"
+                    className="w-[var(--spacing-x4)] h-[var(--spacing-x4)] cursor-pointer overflow-hidden"
                   >
                     <Icon name="cross" size={16} className="text-[var(--secondary)]" />
                   </div>
@@ -195,13 +195,13 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
           </div>
           
           {/* Spacer */}
-          <div className="h-[12px] w-full" />
+          <div className="h-[var(--spacing-x3)] w-full" />
           
           {/* Progress bar for uploading state */}
           {state === 'uploading' && (
             <>
-              <div className="w-full px-[12px]">
-                <div className="flex items-center gap-[20px] w-full">
+              <div className="w-full px-[var(--spacing-x3)]">
+                <div className="flex items-center gap-[var(--spacing-x5)] w-full">
                   <ProgressBar 
                     value={file.uploadProgress || 0}
                     className="flex-1"
@@ -209,7 +209,7 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
                   />
                 </div>
               </div>
-              <div className="h-[12px] w-full" />
+              <div className="h-[var(--spacing-x3)] w-full" />
             </>
           )}
         </div>

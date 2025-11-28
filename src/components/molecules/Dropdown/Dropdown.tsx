@@ -1,10 +1,10 @@
 import React, { forwardRef, useState, useEffect, useRef, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
+import { cn, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
-import { SegmentedTabs, type SegmentedTabItem } from '../SegmentedTabs';
+import type { SegmentedTabItem } from '../SegmentedTabs';
 import { DropdownMenu, type DropdownMenuOption } from '../DropdownMenu';
 
 // Unified dropdown field variants using the design system
@@ -84,49 +84,49 @@ const sizeStylesMap: Record<ComponentSize, SizeStyles> = {
     height: "h-component-xxs",
     fontSize: "text-xs",
     borderRadius: "rounded-lg",
-    padding: "px-1.5",
+    padding: "px-[var(--spacing-x1)]",
     iconSize: 12,
   },
   xs: {
     height: "h-component-xs",
     fontSize: "text-xs",
     borderRadius: "rounded-lg",
-    padding: "px-2",
+    padding: "px-[var(--spacing-x1)] py-[var(--spacing-x1)]",
     iconSize: 14,
   },
   sm: {
     height: "h-component-sm",
     fontSize: "text-sm",
     borderRadius: "rounded-lg",
-    padding: "px-3",
+    padding: "px-[var(--spacing-x2)]",
     iconSize: 16,
   },
   md: {
     height: "h-component-md",
     fontSize: "text-base",
     borderRadius: "rounded-lg",
-    padding: "px-3 py-2",
+    padding: "px-[var(--spacing-x2)] py-[var(--spacing-x2)]",
     iconSize: 18,
   },
   lg: {
     height: "h-component-lg",
     fontSize: "text-base",
     borderRadius: "rounded-lg",
-    padding: "px-4 py-2",
+    padding: "px-[var(--spacing-x3)] py-[var(--spacing-x2)]",
     iconSize: 20,
   },
   xl: {
     height: "h-component-xl",
     fontSize: "text-base",
     borderRadius: "rounded-lg",
-    padding: "px-5 py-3",
+    padding: "px-[var(--spacing-x4)] py-[var(--spacing-x3)]",
     iconSize: 22,
   },
   xxl: {
     height: "h-component-xxl",
     fontSize: "text-lg",
     borderRadius: "rounded-lg",
-    padding: "px-6 py-4",
+    padding: "px-[var(--spacing-x5)] py-[var(--spacing-x4)]",
     iconSize: 24,
   },
 };
@@ -141,8 +141,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       state = "default",
       type = "normal",
       className,
-      onChange,
-      onSearch,
+  onChange,
+  onSearch: _onSearch,
       label,
       labelMandatory,
       labelOptional,
@@ -151,7 +151,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       labelPosition = "top",
       error,
       helperText,
-      required = false,
+      required: _required = false,
       onSelect,
       segments,
       selectedSegment,
@@ -168,7 +168,6 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0, width: 0 });
     const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
-    const componentStyles = getComponentStyles(size);
     const sizeStyles = sizeStylesMap[size];
 
     // Create portal container on mount
@@ -243,12 +242,6 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       setSearchQuery("");
       onChange?.(optionValue);
       onSelect?.(String(optionValue));
-    };
-
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const query = e.target.value;
-      setSearchQuery(query);
-      onSearch?.(query);
     };
 
     const renderField = () => {
@@ -356,26 +349,6 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
           />
         </div>,
         portalContainer
-      );
-    };
-
-    const renderLabel = () => {
-      if (!label) return null;
-
-      return (
-        <div className={cn(
-          "flex items-center",
-          labelPosition === "left" ? "mr-4" : "mb-2"
-        )}>
-          <Label
-            mandatory={labelMandatory}
-            optional={labelOptional}
-            suffixIcon={labelSuffixIcon}
-            icon={labelIcon}
-          >
-            {label}
-          </Label>
-        </div>
       );
     };
 

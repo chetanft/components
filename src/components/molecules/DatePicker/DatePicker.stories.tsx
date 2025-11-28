@@ -74,7 +74,7 @@ export const DateRange: Story = {
 export const SizeXS: Story = {
   args: {
     label: 'Extra Small (XS)',
-    placeholder: '24px height',
+    placeholder: 'var(--spacing-x6) height',
     size: 'xs',
   },
 };
@@ -82,7 +82,7 @@ export const SizeXS: Story = {
 export const SizeSM: Story = {
   args: {
     label: 'Small (SM)',
-    placeholder: '32px height',
+    placeholder: 'var(--spacing-x8) height',
     size: 'sm',
   },
 };
@@ -90,7 +90,7 @@ export const SizeSM: Story = {
 export const SizeLG: Story = {
   args: {
     label: 'Large (LG)',
-    placeholder: '48px height',
+    placeholder: 'var(--spacing-x12) height',
     size: 'lg',
   },
 };
@@ -98,7 +98,7 @@ export const SizeLG: Story = {
 export const SizeXL: Story = {
   args: {
     label: 'Extra Large (XL)',
-    placeholder: '56px height',
+    placeholder: 'var(--spacing-x14) height',
     size: 'xl',
   },
 };

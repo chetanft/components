@@ -75,7 +75,7 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
       className
     );
     
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleClick = (_e: React.MouseEvent<HTMLDivElement>) => {
       if (disabled) return;
       onClick?.();
     };

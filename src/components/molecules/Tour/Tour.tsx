@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../../lib/utils';
 import { Button } from '../../atoms/Button/Button';
@@ -175,4 +175,3 @@ export const Tour: React.FC<TourProps> = ({
 };
 
 Tour.displayName = 'Tour';
-

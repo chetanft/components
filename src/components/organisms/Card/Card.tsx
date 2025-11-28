@@ -3,7 +3,6 @@ import { cn } from '../../../lib/utils';
 import { Typography } from '../../atoms/Typography';
 import { Divider } from '../../atoms/Divider';
 import { Spacer } from '../../atoms/Spacer';
-import { Badge } from '../../atoms/Badge';
 import { Button } from '../../atoms/Button/Button';
 import { Icon } from '../../atoms/Icons';
 import { Skeleton } from '../../atoms/Skeleton';
@@ -214,7 +213,7 @@ const CardGraphic: React.FC<CardGraphicProps> = ({
     return (
         <div className={cn(
             "border border-[var(--border-secondary)] border-solid box-border flex flex-col gap-[10px] justify-center relative w-full",
-            isImage && !padding ? "bg-[#f6f5fa] h-[175px] items-center" : "",
+            isImage && !padding ? "bg-[var(--color-bg-secondary)] h-[175px] items-center" : "",
             isImage && padding ? "bg-[var(--bg-primary)] h-[175px] items-center pb-0 pt-[var(--x0,0px)] px-[var(--x4,16px)] rounded-tl-[var(--x2,8px)] rounded-tr-[var(--x2,8px)]" : "",
             isLogo && padding ? "bg-[var(--bg-primary)] items-start pb-0 pt-[var(--x4,16px)] px-[var(--x4,16px)] rounded-tl-[var(--x2,8px)] rounded-tr-[var(--x2,8px)]" : "",
             className
@@ -268,7 +267,6 @@ export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 't
     showEyebrow?: boolean;
     showFooter?: boolean;
     contentVariant?: 'Basic' | 'Advanced';
-    state?: 'Default';
 
     // Card sections
     eyebrowBadges?: React.ReactNode[];
@@ -304,7 +302,6 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     showEyebrow = true,
     showFooter = true,
     contentVariant = 'Basic',
-    state = 'Default',
     eyebrowBadges,
     headerTitle,
     headerSubText,

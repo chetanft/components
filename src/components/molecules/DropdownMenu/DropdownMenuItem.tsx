@@ -9,12 +9,12 @@ const dropdownMenuItemVariants = cva(
   {
     variants: {
       state: {
-        default: 'bg-[var(--bg-primary)]',
-        selected: 'bg-[var(--bg-secondary)]',
-        hover: 'bg-[var(--border-secondary)] cursor-pointer',
-        focused: 'bg-[var(--border-primary)] cursor-pointer',
-        disabled: 'bg-[var(--bg-primary)] cursor-not-allowed opacity-60',
-        info: 'bg-[var(--bg-primary)] border-[var(--border-primary)] border-b-0 border-l-0 border-r-0 border-solid border-t',
+        default: 'bg-[var(--color-bg-primary)]',
+        selected: 'bg-[var(--color-bg-secondary)]',
+        hover: 'bg-[var(--color-border-secondary)] cursor-pointer',
+        focused: 'bg-[var(--color-border-primary)] cursor-pointer',
+        disabled: 'bg-[var(--color-bg-primary)] cursor-not-allowed opacity-60',
+        info: 'bg-[var(--color-bg-primary)] border-[var(--color-border-primary)] border-b-0 border-l-0 border-r-0 border-solid border-t',
       },
       prefix: {
         none: '',
@@ -32,39 +32,39 @@ const dropdownMenuItemVariants = cva(
         prefix: 'none',
         suffix: false,
         state: 'selected',
-        className: 'p-[var(--x3,12px)] rounded-[var(--x2,8px)]',
+        className: 'p-[var(--spacing-x3)] rounded-[var(--radius-md)]',
       },
       {
         prefix: 'none',
         suffix: false,
-        className: 'gap-[10px] p-[var(--x3,12px)] rounded-[var(--x2,8px)]',
+        className: 'gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--spacing-x3)] rounded-[var(--radius-md)]',
       },
       {
         prefix: 'none',
         suffix: true,
-        className: 'justify-between p-[var(--x3,12px)] rounded-[var(--x2,8px)]',
+        className: 'justify-between p-[var(--spacing-x3)] rounded-[var(--radius-md)]',
       },
       {
         prefix: 'checkbox',
-        className: 'gap-[var(--x3,12px)] p-[var(--x3,12px)] rounded-[var(--x2,8px)]',
+        className: 'gap-[var(--spacing-x3)] p-[var(--spacing-x3)] rounded-[var(--radius-md)]',
       },
       {
         prefix: 'radio',
-        className: 'gap-[var(--x3,12px)] p-[var(--x3,12px)] rounded-[var(--x2,8px)]',
+        className: 'gap-[var(--spacing-x3)] p-[var(--spacing-x3)] rounded-[var(--radius-md)]',
       },
       {
         prefix: 'icon',
         suffix: false,
-        className: 'gap-[10px] p-[var(--x3,12px)] rounded-[var(--x2,8px)]',
+        className: 'gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--spacing-x3)] rounded-[var(--radius-md)]',
       },
       {
         prefix: 'icon',
         suffix: true,
-        className: 'justify-between p-[var(--x3,12px)] rounded-[var(--x2,8px)]',
+        className: 'justify-between p-[var(--spacing-x3)] rounded-[var(--radius-md)]',
       },
       {
         state: 'info',
-        className: 'pb-[var(--x3,12px)] pt-[var(--x4,16px)] px-[var(--x3,12px)] rounded-bl-[var(--x2,8px)] rounded-br-[var(--x2,8px)]',
+        className: 'pb-[var(--spacing-x3)] pt-[var(--spacing-x4)] px-[var(--spacing-x3)] rounded-bl-[var(--radius-md)] rounded-br-[var(--radius-md)]',
       },
     ],
     defaultVariants: {
@@ -99,7 +99,7 @@ export const DropdownMenuItem = React.forwardRef<
       className,
       onClick,
       iconName,
-      showCheckmark = false,
+      showCheckmark: _showCheckmark = false,
       ...props
     },
     ref
@@ -112,8 +112,6 @@ export const DropdownMenuItem = React.forwardRef<
     const isInfo = state === 'info';
     const isExplicitHover = state === 'hover';
     const isExplicitFocused = state === 'focused';
-    const isExplicitState = isDisabled || isInfo || isExplicitHover || isExplicitFocused;
-
     // Determine actual state based on props and interactions
     // If state is explicitly set to hover/focused/disabled/info, use it directly (for stories/docs)
     // For selected/default states, allow JavaScript hover/focus to override
@@ -139,20 +137,20 @@ export const DropdownMenuItem = React.forwardRef<
     // Text color based on state - using FT design tokens
     const textColorClass =
       isDisabled || isInfo
-        ? 'text-[var(--tertiary)]'
-        : 'text-[var(--primary)]';
+        ? 'text-[var(--color-tertiary)]'
+        : 'text-[var(--color-primary)]';
 
     // Font style - use inline styles with valid CSS values
     const fontStyle = isInfo
       ? {
         fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
         fontStyle: 'italic',
-        fontSize: '16px',
+        fontSize: 'var(--font-size-md)',
       }
       : {
         fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
-        fontWeight: '400',
-        fontSize: '16px',
+        fontWeight: 'var(--font-weight-regular, 400)',
+        fontSize: 'var(--font-size-md)',
       };
 
     const handleMouseEnter = () => {
@@ -220,9 +218,9 @@ export const DropdownMenuItem = React.forwardRef<
 
         {/* Radio prefix */}
         {prefix === 'radio' && (
-          <div className="box-border flex gap-[7px] h-[22px] items-center px-0 py-[8px] relative shrink-0">
+          <div className="box-border flex gap-[calc(var(--spacing-x2)-var(--spacing-x1)/4)] h-[calc(var(--spacing-x5)+var(--spacing-x1)/2)] items-center px-0 py-[var(--spacing-x2)] relative shrink-0">
             {isSelected ? (
-              <div className="relative shrink-0 size-[20px]">
+              <div className="relative shrink-0 size-[var(--spacing-x5)]">
                 <svg
                   width="20"
                   height="20"
@@ -230,12 +228,12 @@ export const DropdownMenuItem = React.forwardRef<
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <circle cx="10" cy="10" r="9" fill="var(--primary)" stroke="var(--primary)" strokeWidth="2" />
-                  <circle cx="10" cy="10" r="4" fill="var(--bg-primary)" />
+                  <circle cx="10" cy="10" r="9" fill="var(--color-primary)" stroke="var(--color-primary)" strokeWidth="2" />
+                  <circle cx="10" cy="10" r="4" fill="var(--color-bg-primary)" />
                 </svg>
               </div>
             ) : (
-              <div className="relative shrink-0 size-[20px]">
+              <div className="relative shrink-0 size-[var(--spacing-x5)]">
                 <svg
                   width="20"
                   height="20"
@@ -249,15 +247,15 @@ export const DropdownMenuItem = React.forwardRef<
                     r="9"
                     fill={
                       actualState === 'hover' || actualState === 'focused'
-                        ? 'var(--border-primary)'
+                        ? 'var(--color-border-primary)'
                         : 'transparent'
                     }
                     stroke={
                       isDisabled
-                        ? 'var(--tertiary)'
+                        ? 'var(--color-tertiary)'
                         : actualState === 'hover' || actualState === 'focused'
-                          ? 'var(--tertiary)'
-                          : 'var(--tertiary)'
+                          ? 'var(--color-tertiary)'
+                          : 'var(--color-tertiary)'
                     }
                     strokeWidth="2"
                   />
@@ -269,14 +267,14 @@ export const DropdownMenuItem = React.forwardRef<
 
         {/* Icon prefix */}
         {prefix === 'icon' && (
-          <div className="relative shrink-0 size-[16px] max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip">
+          <div className="relative shrink-0 size-[var(--spacing-x4)] max-h-[var(--spacing-x7)] max-w-[var(--spacing-x7)] min-h-[var(--spacing-x4)] min-w-[var(--spacing-x4)] overflow-clip">
             <Icon
               name={iconName || 'data-stack'}
               size={16}
               color={
                 isDisabled
-                  ? 'var(--tertiary)'
-                  : 'var(--primary)'
+                  ? 'var(--color-tertiary)'
+                  : 'var(--color-primary)'
               }
               className="absolute inset-[6.25%]"
             />
@@ -293,14 +291,16 @@ export const DropdownMenuItem = React.forwardRef<
 
         {/* Checkmark for selected state (when prefix is none) */}
         {isSelected && prefix === 'none' && !suffix && (
-          <div className={cn(
-            "overflow-clip relative shrink-0 size-[16px]",
-            (isHovered || isFocused) && "ml-auto"
-          )}>
+          <div
+            className={cn(
+              "overflow-clip relative shrink-0 size-[var(--spacing-x4)]",
+              (isHovered || isFocused) && "ml-auto"
+            )}
+          >
             <Icon
               name="check-alt"
               size={16}
-              color="var(--primary)"
+              color="var(--color-primary)"
               className="absolute inset-[28.12%_15.62%_23.62%_21.88%]"
             />
           </div>
@@ -308,16 +308,16 @@ export const DropdownMenuItem = React.forwardRef<
 
         {/* Suffix chevron */}
         {suffix && (
-          <div className="overflow-clip relative shrink-0 size-[16px]">
-            <div className="absolute flex inset-[19.4%_30.6%_11.85%_30.6%] items-center justify-center">
-              <div className="flex-none h-[6.207px] rotate-[270deg] w-[11px]">
+          <div className="overflow-clip relative shrink-0 size-[var(--spacing-x4)]">
+            <div className="absolute inset-[19.4%_30.6%_11.85%_30.6%] flex items-center justify-center">
+              <div className="flex-none h-[calc(var(--spacing-x2)-var(--spacing-x1)/2)] rotate-[270deg] w-[calc(var(--spacing-x3)-var(--spacing-x1)/4)]">
                 <Icon
                   name="chevron-down"
-                  size={11}
+                  size={12}
                   color={
                     isDisabled
-                      ? 'var(--tertiary)'
-                      : 'var(--primary)'
+                      ? 'var(--color-tertiary)'
+                      : 'var(--color-primary)'
                   }
                   className="relative size-full"
                 />
@@ -331,4 +331,3 @@ export const DropdownMenuItem = React.forwardRef<
 );
 
 DropdownMenuItem.displayName = 'DropdownMenuItem';
-

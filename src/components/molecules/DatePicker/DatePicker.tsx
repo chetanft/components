@@ -6,7 +6,6 @@ import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import { Calendar } from './Calendar';
 import {
-  startOfToday,
   startOfWeek,
   endOfWeek,
   startOfMonth,
@@ -16,19 +15,17 @@ import {
   addMonths,
   subWeeks,
   subMonths,
-  format,
   parse,
   isValid
 } from 'date-fns';
 
-// Utility function to omit specific props
-const omitProps = <T extends Record<string, any>, K extends (keyof T)[]>(
-  obj: T,
-  keys: K
-): Omit<T, K[number]> => {
-  const result = { ...obj };
-  keys.forEach(key => delete result[key]);
-  return result;
+const getSpacingValue = (token: string, fallback: number): number => {
+  if (typeof window === 'undefined') {
+    return fallback;
+  }
+  const rawValue = window.getComputedStyle(document.documentElement).getPropertyValue(token);
+  const parsed = parseFloat(rawValue);
+  return Number.isNaN(parsed) ? fallback : parsed;
 };
 
 // Date picker field variants using unified design system
@@ -49,12 +46,12 @@ const datePickerFieldVariants = cva(
         l: "h-component-lg text-base",
       },
       state: {
-        default: "border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)]",
+        default: "border-border dark:border-border-dark hover:border-[var(--color-primary)] dark:hover:border-[var(--color-primary)]",
         filled: "border-border dark:border-border-dark",
         disabled: "border-border-disabled dark:border-border-disabled-dark bg-surface-disabled dark:bg-surface-disabled-dark cursor-not-allowed",
         focused: "border-primary dark:border-primary-dark",
         prefilled: "border-border dark:border-border-dark",
-        hover: "border-[var(--primary)] dark:border-[var(--primary)]",
+        hover: "border-[var(--color-primary)] dark:border-[var(--color-primary)]",
         typing: "border-border dark:border-border-dark"
       }
     },
@@ -181,7 +178,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   onChange,
   disabled,
   error,
-  showTime,
+  showTime: _showTime,
   range,
   startValue,
   endValue,
@@ -216,7 +213,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   const calendarRef = useRef<HTMLDivElement>(null);
   const [calendarPosition, setCalendarPosition] = useState({ top: 0, left: 0 });
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
-  const [selectedDropdownValue, setSelectedDropdownValue] = useState<string | null>(null);
+  const [_selectedDropdownValue, setSelectedDropdownValue] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState<string>('');
   const [startInputValue, setStartInputValue] = useState<string>('');
   const [endInputValue, setEndInputValue] = useState<string>('');
@@ -369,33 +366,40 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
 
   // Calculate calendar position when it opens
   useEffect(() => {
+    const spacingX1 = getSpacingValue('--spacing-x1', 4);
+    const spacingX2 = getSpacingValue('--spacing-x2', 8);
+    const viewportPadding = spacingX2 + spacingX1 / 2;
+    let animationFrameId: number | null = null;
+
     const updateCalendarPosition = () => {
-      if (isOpen && containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const spaceBelow = window.innerHeight - rect.bottom;
-
-        // Position calendar below the input field (using viewport coordinates for fixed positioning)
-        const top = rect.bottom + 8;
-
-        // Check if we have enough space to the right for the calendar
-        // For range picker, we need more space
-        // Single calendar: 314px (282px content + 32px padding)
-        const calendarWidth = range ? 814 : 314;
-        let left = rect.left;
-
-        // If not enough space to the right, align to the right edge of the screen with some padding
-        if (left + calendarWidth > window.innerWidth) {
-          left = Math.max(10, window.innerWidth - calendarWidth - 10);
-        }
-
-        // If not enough space below, position above
-        const calendarHeight = range ? 400 : 350;
-        const finalTop = spaceBelow < calendarHeight
-          ? rect.top - calendarHeight - 8
-          : top;
-
-        setCalendarPosition({ top: finalTop, left });
+      if (!isOpen || !containerRef.current) {
+        return;
       }
+
+      const rect = containerRef.current.getBoundingClientRect();
+      const top = rect.bottom + spacingX2;
+      const calendarElement = calendarRef.current;
+
+      if (!calendarElement) {
+        animationFrameId = window.requestAnimationFrame(updateCalendarPosition);
+        return;
+      }
+
+      const calendarRect = calendarElement.getBoundingClientRect();
+      const calendarWidth = calendarRect.width;
+      const calendarHeight = calendarRect.height;
+      let left = rect.left;
+
+      if (left + calendarWidth > window.innerWidth - viewportPadding) {
+        left = Math.max(viewportPadding, window.innerWidth - calendarWidth - viewportPadding);
+      }
+
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const finalTop = spaceBelow < calendarHeight
+        ? rect.top - calendarHeight - spacingX2
+        : top;
+
+      setCalendarPosition({ top: finalTop, left });
     };
 
     updateCalendarPosition();
@@ -405,6 +409,9 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     window.addEventListener('resize', updateCalendarPosition);
 
     return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
       window.removeEventListener('scroll', updateCalendarPosition, true);
       window.removeEventListener('resize', updateCalendarPosition);
     };
@@ -708,7 +715,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
           className={cn(
             datePickerFieldVariants({ size, state: fieldState }),
             componentStyles.borderRadius,
-            "px-3 min-w-[320px]",
+            "px-3 min-w-[calc(var(--spacing-x10)*8)]",
             !range ? "cursor-pointer" : ""
           )}
           onClick={() => !disabled && !range && setIsOpen(true)}

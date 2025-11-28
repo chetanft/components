@@ -2,7 +2,6 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { TableCellText, CellTextType } from './TableCellText';
 import { Icon, IconName } from '../../atoms/Icons';
-import { Badge } from '../../atoms/Badge/Badge';
 
 export interface TableCellItemProps {
   text?: string;
@@ -25,7 +24,7 @@ export const TableCellItem: React.FC<TableCellItemProps> = ({
     <div
       className={cn(
         // Base layout from Figma: row with center alignment and 8px gap
-        "flex items-center gap-[8px]",
+        "flex items-center gap-[var(--spacing-x2)]",
         className
       )}
     >

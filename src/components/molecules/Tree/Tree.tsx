@@ -188,11 +188,11 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) =>
   const renderSwitcher = () => {
     if (isLeaf) {
       return showLine ? (
-        <span className="w-[24px] h-[24px] flex items-center justify-center">
-          <span className="w-[6px] h-[6px] rounded-full bg-[var(--color-border-primary)]" />
+        <span className="w-[var(--spacing-x6)] h-[var(--spacing-x6)] flex items-center justify-center">
+          <span className="w-[calc((var(--spacing-x2)+var(--spacing-x1))/2)] h-[calc((var(--spacing-x2)+var(--spacing-x1))/2)] rounded-full bg-[var(--color-border-primary)]" />
         </span>
       ) : (
-        <span className="w-[24px]" />
+        <span className="w-[var(--spacing-x6)]" />
       );
     }
 
@@ -213,7 +213,7 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) =>
         type="button"
         onClick={handleExpand}
         className={cn(
-          "w-[24px] h-[24px] flex items-center justify-center",
+          "w-[var(--spacing-x6)] h-[var(--spacing-x6)] flex items-center justify-center",
           "hover:bg-[var(--color-bg-secondary)] rounded transition-colors",
           isDisabled && "cursor-not-allowed opacity-50"
         )}
@@ -270,7 +270,7 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) =>
           isDisabled && "opacity-50 cursor-not-allowed",
           blockNode && "w-full"
         )}
-        style={{ paddingLeft: `${level * 24}px` }}
+        style={{ paddingLeft: `calc(${level} * var(--spacing-x6))` }}
       >
         {/* Switcher */}
         {renderSwitcher()}
@@ -304,7 +304,7 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) =>
 
       {/* Children */}
       {hasChildren && isExpanded && (
-        <div className={cn(showLine && "border-l border-[var(--color-border-secondary)] ml-[11px]")}>
+        <div className={cn(showLine && "border-l border-[var(--color-border-secondary)] ml-[calc(var(--spacing-x3)-1px)]")}>
           {node.children!.map(child => (
             <TreeNodeComponent
               key={child.key}
@@ -362,15 +362,27 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
       new Set(controlledCheckedKeys || defaultCheckedKeys)
     );
 
-    const expandedKeys = controlledExpandedKeys
-      ? new Set(controlledExpandedKeys)
-      : internalExpandedKeys;
-    const selectedKeys = controlledSelectedKeys
-      ? new Set(controlledSelectedKeys)
-      : internalSelectedKeys;
-    const checkedKeys = controlledCheckedKeys
-      ? new Set(controlledCheckedKeys)
-      : internalCheckedKeys;
+    const expandedKeys = useMemo(
+      () =>
+        controlledExpandedKeys
+          ? new Set(controlledExpandedKeys)
+          : internalExpandedKeys,
+      [controlledExpandedKeys, internalExpandedKeys]
+    );
+    const selectedKeys = useMemo(
+      () =>
+        controlledSelectedKeys
+          ? new Set(controlledSelectedKeys)
+          : internalSelectedKeys,
+      [controlledSelectedKeys, internalSelectedKeys]
+    );
+    const checkedKeys = useMemo(
+      () =>
+        controlledCheckedKeys
+          ? new Set(controlledCheckedKeys)
+          : internalCheckedKeys,
+      [controlledCheckedKeys, internalCheckedKeys]
+    );
 
     const toggleExpanded = useCallback((key: string, node: TreeNode) => {
       const newExpanded = new Set(expandedKeys);
@@ -477,4 +489,3 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
 Tree.displayName = 'Tree';
 
 export default Tree;
-

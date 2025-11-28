@@ -15,8 +15,8 @@ export const FigmaBadge: React.FC<FigmaBadgeProps> = ({ className }) => {
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1 px-2 py-0.5 rounded-sm",
-        "bg-[#ffebdc] text-[#ff6c19] border border-[#ff6c19]",
+        "inline-flex items-center gap-1 px-2 py-0.5 rounded-[var(--radius-sm)]",
+        "bg-[var(--color-warning-light)] text-[var(--color-warning)] border border-[var(--color-warning)]",
         "text-xs font-medium",
         className
       )}
@@ -32,4 +32,3 @@ export const FigmaBadge: React.FC<FigmaBadgeProps> = ({ className }) => {
 };
 
 FigmaBadge.displayName = 'FigmaBadge';
-

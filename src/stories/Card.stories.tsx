@@ -288,7 +288,7 @@ export const AllVariants: Story = {
     <div className="space-y-8">
       <div>
         <h3 className="text-lg font-semibold mb-4">Basic Card</h3>
-        <div className="max-w-[549px]">
+        <div className="max-w-[calc(var(--spacing-x10)*13.725)]">
           <Card 
             contentVariant="Basic"
             state="Default"
@@ -327,7 +327,7 @@ export const AllVariants: Story = {
       
       <div>
         <h3 className="text-lg font-semibold mb-4">Advanced Card with Graphic</h3>
-        <div className="max-w-[549px]">
+        <div className="max-w-[calc(var(--spacing-x10)*13.725)]">
           <Card 
             contentVariant="Advanced"
             state="Default"
@@ -372,7 +372,7 @@ export const AllVariants: Story = {
       
       <div>
         <h3 className="text-lg font-semibold mb-4">Minimal Card</h3>
-        <div className="max-w-[549px]">
+        <div className="max-w-[calc(var(--spacing-x10)*13.725)]">
           <Card 
             contentVariant="Basic"
             state="Default"

@@ -103,6 +103,50 @@
   --border-secondary: var(--secondary-100);  /* #f0f1f7 */
   --bg-primary: var(--tertiary-0);      /* #ffffff */
   --bg-secondary: var(--tertiary-100);  /* #f8f8f9 */
+
+  /* =====================================================
+     Token alias bridge (new naming scheme → legacy vars)
+     ===================================================== */
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
+  --color-border-primary: var(--border-primary);
+  --color-border-secondary: var(--border-secondary);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-critical: var(--critical);
+  --color-critical-dark: var(--critical-dark);
+  --color-critical-light: var(--critical-light);
+  --color-warning: var(--warning);
+  --color-warning-dark: var(--warning-dark);
+  --color-warning-light: var(--warning-light);
+  --color-positive: var(--positive);
+  --color-positive-dark: var(--positive-dark);
+  --color-positive-light: var(--positive-light);
+  --color-neutral: var(--neutral);
+  --color-neutral-dark: var(--neutral-dark);
+  --color-neutral-light: var(--neutral-light);
+
+  --font-family-primary: 'Inter', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-xxl: 28px;
+
+  --shadow-sm: 0 1px 2px 0 rgba(67, 79, 100, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(67, 79, 100, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(67, 79, 100, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(67, 79, 100, 0.1);
+
+  --transition-fast: 150ms;
+  --transition-normal: 200ms;
+  --transition-slow: 300ms;
   
   /* Button Colors */
   --button-primary-bg: #434f64;
@@ -243,6 +287,7 @@
   --component-padding-xl: 20px 24px;
   
   /* Spacing System - 8-Point Grid */
+  --x0: 0px;
   --x1: 4px;
   --x2: 8px;
   --x3: 12px;
@@ -255,6 +300,90 @@
   --x10: 40px;
   --x11: 44px;
   --x12: 48px;
+  --x13: 52px;
+  --x14: 56px;
+  --x15: 60px;
+  --x16: 64px;
+  --x20: 80px;
+  --x24: 96px;
+  --x38: 152px;
+
+  /* Spacing aliases for new token usages */
+  --spacing-x0: var(--x0);
+  --spacing-x1: var(--x1);
+  --spacing-x2: var(--x2);
+  --spacing-x3: var(--x3);
+  --spacing-x4: var(--x4);
+  --spacing-x5: var(--x5);
+  --spacing-x6: var(--x6);
+  --spacing-x7: var(--x7);
+  --spacing-x8: var(--x8);
+  --spacing-x9: var(--x9);
+  --spacing-x10: var(--x10);
+  --spacing-x11: var(--x11);
+  --spacing-x12: var(--x12);
+  --spacing-x13: var(--x13);
+  --spacing-x14: var(--x14);
+  --spacing-x15: var(--x15);
+  --spacing-x16: var(--x16);
+  --spacing-x20: var(--x20);
+  --spacing-x24: var(--x24);
+  --spacing-x38: var(--x38);
+
+  /* Layout Breakpoints */
+  --breakpoint-xxl: 1600px;
+  --breakpoint-xl: 1440px;
+  --breakpoint-lg: 1280px;
+  --breakpoint-md: 1024px;
+  --breakpoint-sm: 768px;
+  --breakpoint-xs: 480px;
+
+  /* Grid System */
+  --grid-desktop-columns: 24;
+  --grid-desktop-gutter: var(--x5);
+  --grid-desktop-margin: var(--x5);
+  --grid-laptop-columns: 24;
+  --grid-laptop-gutter: var(--x4);
+  --grid-laptop-margin: var(--x4);
+  --grid-mobile-columns: 4;
+  --grid-mobile-gutter: var(--x4);
+  --grid-mobile-margin: var(--x4);
+  --grid-columns: var(--grid-desktop-columns);
+  --grid-gutter: var(--grid-desktop-gutter);
+  --grid-margin: var(--grid-desktop-margin);
+  --container-max-width: min(100vw, var(--breakpoint-xxl));
+}
+
+@media (max-width: 1440px) {
+  :root {
+    --grid-columns: var(--grid-laptop-columns);
+    --grid-gutter: var(--grid-laptop-gutter);
+    --grid-margin: var(--grid-laptop-margin);
+    --container-max-width: min(100vw, var(--breakpoint-xl));
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --grid-columns: var(--grid-mobile-columns);
+    --grid-gutter: var(--grid-mobile-gutter);
+    --grid-margin: var(--grid-mobile-margin);
+  }
+}
+
+.ft-container {
+  width: min(100%, var(--container-max-width));
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--grid-margin);
+  padding-right: var(--grid-margin);
+}
+
+.ft-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
+  row-gap: var(--grid-gutter);
 }
 
 /* =====================================================

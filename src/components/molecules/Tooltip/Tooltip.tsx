@@ -51,33 +51,35 @@ export const Tooltip: React.FC<TooltipProps> = ({
 }) => {
   const baseClasses = 'relative inline-flex flex-col';
   const tooltipClasses = cn(
-    'rounded-[4px] p-2 min-w-[119px] max-w-[300px] relative',
-    color === 'white' ? 'bg-surface text-primary' : 'bg-primary text-on-primary'
+    'rounded-[var(--radius-sm)] p-[var(--spacing-x2)] min-w-[var(--spacing-x14)] max-w-[var(--spacing-x38)] relative',
+    color === 'white'
+      ? 'bg-[var(--color-bg-primary)] text-[var(--color-primary)]'
+      : 'bg-[var(--color-primary)] text-[var(--color-bg-primary)]'
   );
 
   // Tip base styles - using exact dimensions from Figma
-  const tipBaseClasses = 'absolute w-0 h-0 border-[6px] border-transparent';
+  const tipBaseClasses = 'absolute w-0 h-0 border-[var(--spacing-x1)] border-transparent';
 
   // Tip placement classes
   const tipPlacementClasses = {
     top: cn(
       tipBaseClasses,
-      'bottom-[-6px] border-b-0',
-      color === 'white' ? 'border-t-surface' : 'border-t-primary'
+      'bottom-[-var(--spacing-x1)] border-b-0',
+      color === 'white' ? 'border-t-[var(--color-bg-primary)]' : 'border-t-[var(--color-primary)]'
     ),
     bottom: cn(
       tipBaseClasses,
-      'top-[-6px] border-t-0',
+      'top-[-var(--spacing-x1)] border-t-0',
       color === 'white' ? 'border-b-surface' : 'border-b-primary'
     ),
     left: cn(
       tipBaseClasses,
-      'right-[-6px] border-r-0',
+      'right-[-var(--spacing-x1)] border-r-0',
       color === 'white' ? 'border-l-surface' : 'border-l-primary'
     ),
     right: cn(
       tipBaseClasses,
-      'left-[-6px] border-l-0',
+      'left-[-var(--spacing-x1)] border-l-0',
       color === 'white' ? 'border-r-surface' : 'border-r-primary'
     ),
   };
@@ -103,23 +105,27 @@ export const Tooltip: React.FC<TooltipProps> = ({
             {showClose && (
               <button
                 onClick={onClose}
-                className="p-1 hover:bg-gray-100 rounded-full"
+                className="p-[var(--spacing-x1)] hover:bg-[var(--color-bg-secondary)] rounded-[var(--radius-full)]"
                 aria-label="Close tooltip"
               >
-                <Icon name="cross" size={16} className={color === 'white' ? 'text-primary' : 'text-on-primary'} />
+                <Icon
+                  name="cross"
+                  size={16}
+                  className={color === 'white' ? 'text-[var(--color-primary)]' : 'text-[var(--color-bg-primary)]'}
+                />
               </button>
             )}
           </div>
         )}
 
         {/* Content */}
-        <div className="text-sm">
+        <div className="text-[var(--font-size-sm)]">
           {children}
         </div>
 
         {/* Actions */}
         {(primaryActionText || secondaryActionText) && (
-          <div className="flex gap-2 mt-5 justify-end">
+          <div className="flex gap-[var(--spacing-x2)] mt-[var(--spacing-x6)] justify-end">
             {secondaryActionText && (
               <Button
                 variant="text"

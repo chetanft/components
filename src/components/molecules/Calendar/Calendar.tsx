@@ -47,7 +47,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const MONTHS_FULL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const COMPACT_NAV_BUTTON_CLASS = "min-w-[30px] min-h-[30px] w-fit h-fit flex items-center justify-center rounded-[4px] text-[var(--tertiary)] hover:bg-[var(--border-secondary)] transition-colors focus:outline-none";
+const COMPACT_NAV_BUTTON_CLASS = "min-w-[30px] min-h-[30px] w-fit h-fit flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--tertiary)] hover:bg-[var(--border-secondary)] transition-colors focus:outline-none";
 
 // ============================================================================
 // Helper Functions
@@ -109,7 +109,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     disabledDate,
     headerRender,
     validRange,
-    locale = 'en',
+    locale: _locale = 'en',
     ...props
   }, ref) => {
     const [internalValue, setInternalValue] = useState(controlledValue ?? defaultValue);
@@ -190,8 +190,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
 
       if (!fullscreen && mode === 'month') {
         return (
-          <div className="flex items-center justify-between px-[16px] py-[12px] border-b border-[var(--border-primary)]">
-            <div className="flex items-center gap-[8px]">
+          <div className="flex items-center justify-between px-[var(--spacing-x4)] py-[var(--spacing-x3)] border-b border-[var(--border-primary)]">
+            <div className="flex items-center gap-[var(--spacing-x2)]">
               <button
                 type="button"
                 onClick={() => navigateYear(-1)}
@@ -210,7 +210,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
               </button>
             </div>
 
-            <div className="flex items-center gap-[8px] text-[14px] font-medium text-[var(--primary)]">
+            <div className="flex items-center gap-[var(--spacing-x2)] text-[var(--font-size-sm)] font-medium text-[var(--primary)]">
               <button
                 type="button"
                 onClick={() => handleModeChange('month')}
@@ -227,7 +227,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
               </button>
             </div>
 
-            <div className="flex items-center gap-[8px]">
+            <div className="flex items-center gap-[var(--spacing-x2)]">
               <button
                 type="button"
                 onClick={() => navigateMonth(1)}
@@ -252,14 +252,14 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       return (
         <div className={cn(
           "flex items-center justify-between",
-          fullscreen ? "p-[24px]" : "p-[16px]"
+          fullscreen ? "p-[var(--spacing-x6)]" : "p-[var(--spacing-x4)]"
         )}>
-          <div className="flex items-center gap-[8px]">
+          <div className="flex items-center gap-[var(--spacing-x2)]">
             <button
               type="button"
               onClick={() => navigateYear(-1)}
               className={cn(
-                "p-[8px] rounded hover:bg-[var(--bg-secondary)]",
+                "p-[var(--spacing-x2)] rounded-[var(--radius-sm)] hover:bg-[var(--bg-secondary)]",
                 "text-[var(--tertiary)] transition-colors"
               )}
               aria-label="Previous year"
@@ -270,7 +270,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
               type="button"
               onClick={() => navigateMonth(-1)}
               className={cn(
-                "p-[8px] rounded hover:bg-[var(--bg-secondary)]",
+                "p-[var(--spacing-x2)] rounded-[var(--radius-sm)] hover:bg-[var(--bg-secondary)]",
                 "text-[var(--tertiary)] transition-colors"
               )}
               aria-label="Previous month"
@@ -279,7 +279,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
             </button>
           </div>
 
-          <div className="flex items-center gap-[8px] mx-[16px]">
+          <div className="flex items-center gap-[var(--spacing-x2)] mx-[var(--spacing-x4)]">
             <button
               type="button"
               onClick={() => handleModeChange('month')}
@@ -302,12 +302,12 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
             </button>
           </div>
 
-          <div className="flex items-center gap-[8px]">
+          <div className="flex items-center gap-[var(--spacing-x2)]">
             <button
               type="button"
               onClick={() => navigateMonth(1)}
               className={cn(
-                "p-[8px] rounded hover:bg-[var(--bg-secondary)]",
+                "p-[var(--spacing-x2)] rounded-[var(--radius-sm)] hover:bg-[var(--bg-secondary)]",
                 "text-[var(--tertiary)] transition-colors"
               )}
               aria-label="Next month"
@@ -318,7 +318,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
               type="button"
               onClick={() => navigateYear(1)}
               className={cn(
-                "p-[8px] rounded hover:bg-[var(--bg-secondary)]",
+                "p-[var(--spacing-x2)] rounded-[var(--radius-sm)] hover:bg-[var(--bg-secondary)]",
                 "text-[var(--tertiary)] transition-colors"
               )}
               aria-label="Next year"
@@ -334,20 +334,20 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     const renderMonthView = () => {
       if (!fullscreen) {
         return (
-          <div className="flex flex-col gap-[8px] p-[16px]">
-            <div className="flex gap-[12px]">
+          <div className="flex flex-col gap-[var(--spacing-x2)] p-[var(--spacing-x4)]">
+            <div className="flex gap-[var(--spacing-x3)]">
               {WEEKDAYS.map((day) => (
                 <div
                   key={day}
-                  className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[8px] text-[14px] text-[var(--tertiary)] font-normal"
+                  className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-[var(--font-size-sm)] text-[var(--tertiary)] font-normal"
                 >
                   {day}
                 </div>
               ))}
             </div>
-            <div className="flex flex-col gap-[12px]">
+            <div className="flex flex-col gap-[var(--spacing-x3)]">
               {weeks.map((week, weekIndex) => (
-                <div key={weekIndex} className="flex gap-[12px] items-center">
+                <div key={weekIndex} className="flex gap-[var(--spacing-x3)] items-center">
                   {week.map((date, dayIndex) => {
                     const isCurrentMonth = isSameMonth(date, viewDate);
                     const isSelected = isSameDay(date, selectedDate);
@@ -361,7 +361,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                         onClick={() => handleDateSelect(date)}
                         disabled={disabled}
                         className={cn(
-                          "w-[30px] h-[30px] flex-shrink-0 flex items-center justify-center p-[8px] rounded-[4px] transition-colors",
+                          "w-[30px] h-[30px] flex-shrink-0 flex items-center justify-center p-[var(--spacing-x2)] rounded-[var(--radius-sm)] transition-colors",
                           "bg-[var(--bg-primary)]",
                           !disabled && !isSelected && "hover:bg-[var(--border-primary)]",
                           isSelected && !disabled && "bg-[var(--border-secondary)]",
@@ -371,7 +371,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                       >
                         <span
                           className={cn(
-                            "text-[14px] leading-[normal]",
+                            "text-[var(--font-size-sm)] leading-[normal]",
                             isSelected ? "font-medium" : "font-normal",
                             disabled ? "text-[var(--border-secondary)]" : "text-[var(--primary)]",
                             !isCurrentMonth && !isSelected && !disabled && "text-[var(--tertiary)]"
@@ -391,17 +391,17 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
 
       return (
         <div className="p-[24px]">
-          <div className="grid grid-cols-7 gap-1 mb-[12px]">
+          <div className="grid grid-cols-7 gap-[var(--spacing-x1)] mb-[var(--spacing-x3)]">
             {WEEKDAYS.map(day => (
               <div
                 key={day}
-                className="text-center text-[var(--tertiary)] py-[12px] text-sm"
+                className="text-center text-[var(--tertiary)] py-[var(--spacing-x3)] text-sm"
               >
                 {day}
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-7 gap-1">
+          <div className="grid grid-cols-7 gap-[var(--spacing-x1)]">
             {days.map((date, index) => {
               const isCurrentMonth = isSameMonth(date, viewDate);
               const isSelected = isSameDay(date, selectedDate);
@@ -415,7 +415,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                   onClick={() => handleDateSelect(date)}
                   disabled={disabled}
                   className={cn(
-                    "relative flex flex-col items-center justify-start rounded transition-colors min-h-[80px] p-[8px]",
+                    "relative flex flex-col items-center justify-start rounded-[var(--radius-sm)] transition-colors min-h-[var(--spacing-x20)] p-[var(--spacing-x2)]",
                     !isCurrentMonth && "opacity-40",
                     isSelected && "bg-[var(--primary)] text-[var(--bg-primary)]",
                     !isSelected && isTodayDate && "border border-[var(--primary)]",
@@ -442,8 +442,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     // Year view (month selection)
     const renderYearView = () => (
       <div className={cn(
-        "grid grid-cols-3 gap-[12px]",
-        fullscreen ? "p-[24px]" : "p-[16px]"
+        "grid grid-cols-3 gap-[var(--spacing-x3)]",
+        fullscreen ? "p-[var(--spacing-x6)]" : "p-[var(--spacing-x4)]"
       )}>
         {MONTHS.map((month, index) => {
           const monthDate = new Date(viewDate.getFullYear(), index, 1);
@@ -460,7 +460,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                 handleModeChange('month');
               }}
               className={cn(
-                "py-[12px] px-[12px] rounded transition-colors",
+                "py-[var(--spacing-x3)] px-[var(--spacing-x3)] rounded-[var(--radius-sm)] transition-colors",
                 "text-[var(--primary)]",
                 isSelected && "bg-[var(--primary)] text-[var(--bg-primary)]",
                 !isSelected && "hover:bg-[var(--bg-secondary)]"
@@ -485,8 +485,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
 
       return (
         <div className={cn(
-          "grid grid-cols-3 gap-[12px]",
-          fullscreen ? "p-[24px]" : "p-[16px]"
+          "grid grid-cols-3 gap-[var(--spacing-x3)]",
+          fullscreen ? "p-[var(--spacing-x6)]" : "p-[var(--spacing-x4)]"
         )}>
           {years.map((year, index) => {
             const isSelected = selectedDate && selectedDate.getFullYear() === year;
@@ -503,7 +503,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                   handleModeChange('year');
                 }}
                 className={cn(
-                  "py-[12px] px-[12px] rounded transition-colors",
+                  "py-[var(--spacing-x3)] px-[var(--spacing-x3)] rounded-[var(--radius-sm)] transition-colors",
                   "text-[var(--primary)]",
                   isOutOfDecade && "opacity-40",
                   isSelected && "bg-[var(--primary)] text-[var(--bg-primary)]",
@@ -537,7 +537,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
 
         {/* Today button */}
         {!fullscreen && (
-          <div className="p-[16px] border-t border-[var(--border-secondary)]">
+          <div className="p-[var(--spacing-x4)] border-t border-[var(--border-secondary)]">
             <Button
               variant="text"
               size="xs"

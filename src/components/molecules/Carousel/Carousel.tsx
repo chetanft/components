@@ -169,7 +169,6 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       }
     };
 
-    const isVertical = dotPosition === 'left' || dotPosition === 'right';
 
     // Container classes
     const containerClasses = cn(
@@ -208,13 +207,13 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     // Arrow button base classes
     const arrowBaseClasses = cn(
       "absolute z-30 flex items-center justify-center",
-      "w-10 h-10 rounded-full",
-      "bg-white/90 hover:bg-white",
-      "shadow-lg border border-gray-200/50",
-      "text-gray-700 hover:text-gray-900",
+      "w-[var(--spacing-x10)] h-[var(--spacing-x10)] rounded-full",
+      "bg-[var(--color-bg-primary)]/90 hover:bg-[var(--color-bg-primary)]",
+      "shadow-lg border border-[var(--color-border-primary)]",
+      "text-[var(--color-primary)] hover:text-[var(--color-primary)]",
       "transition-all duration-200",
-      "disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/90",
-      "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      "disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-[var(--color-bg-primary)]/90",
+      "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-neutral)]"
     );
 
     return (
@@ -239,7 +238,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         <div
           ref={containerRef}
           className="relative w-full overflow-hidden"
-          style={{ minHeight: '200px' }}
+          style={{ minHeight: 'calc(var(--spacing-x10)*5)' }}
         >
           <div
             className={trackClasses}
@@ -279,7 +278,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                 type="button"
                 onClick={goToPrev}
                 disabled={!infinite && currentSlide === 0}
-                className={cn(arrowBaseClasses, "left-2 top-1/2 -translate-y-1/2")}
+                className={cn(arrowBaseClasses, "left-[var(--spacing-x1)] top-1/2 -translate-y-1/2")}
                 aria-label="Previous slide"
               >
                 <Icon name="chevron-left" size={20} />
@@ -288,7 +287,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                 type="button"
                 onClick={goToNext}
                 disabled={!infinite && currentSlide >= Math.max(0, totalSlides - slidesToShow)}
-                className={cn(arrowBaseClasses, "right-2 top-1/2 -translate-y-1/2")}
+                className={cn(arrowBaseClasses, "right-[var(--spacing-x1)] top-1/2 -translate-y-1/2")}
                 aria-label="Next slide"
               >
                 <Icon name="chevron-right" size={20} />
@@ -324,9 +323,9 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                   type="button"
                   onClick={() => goToSlide(index)}
                   className={cn(
-                    "w-[8px] h-[8px] rounded-full transition-all",
+                    "w-[var(--spacing-x2)] h-[var(--spacing-x2)] rounded-full transition-all",
                     isActive
-                      ? "bg-[var(--color-primary)] w-[24px]"
+                      ? "bg-[var(--color-primary)] w-[var(--spacing-x6)]"
                       : "bg-[var(--color-border-primary)] hover:bg-[var(--color-border-secondary)]"
                   )}
                   role="tab"
@@ -345,4 +344,3 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
 Carousel.displayName = 'Carousel';
 
 export default Carousel;
-

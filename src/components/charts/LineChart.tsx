@@ -51,7 +51,7 @@ export const LineChart: React.FC<LineChartProps> = ({
         pointRadius: showDots ? (dataset.pointRadius ?? dotRadius) : 0,
         pointHoverRadius: showDots ? (dataset.pointHoverRadius ?? dotRadius + 2) : 0,
         pointBackgroundColor: dataset.pointBackgroundColor || dotColor,
-        pointBorderColor: dataset.pointBorderColor || '#ffffff',
+        pointBorderColor: dataset.pointBorderColor || 'var(--color-bg-primary)',
         pointBorderWidth: dataset.pointBorderWidth ?? 2,
       };
     }),
@@ -70,4 +70,3 @@ export const LineChart: React.FC<LineChartProps> = ({
     </BaseChart>
   );
 };
-

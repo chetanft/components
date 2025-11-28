@@ -60,15 +60,15 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
         <div
           ref={ref}
           className={cn(
-            "inline-flex flex-col items-start gap-[4px] w-[80px]",
+            "inline-flex flex-col items-start gap-[var(--spacing-x1)] w-[var(--spacing-x20)]",
             className
           )}
           {...props}
         >
           {/* Thumbnail container */}
-          <div className="relative w-[80px] h-[80px]">
+          <div className="relative w-[var(--spacing-x20)] h-[var(--spacing-x20)]">
             {/* Image preview */}
-            <div className="w-full h-full rounded-[8px] overflow-hidden">
+            <div className="w-full h-full rounded-[var(--radius-md)] overflow-hidden">
               <img
                 src={preview}
                 alt={fileName || 'Preview'}
@@ -81,18 +81,18 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
               <div
                 onClick={handleDelete}
                 className={cn(
-                  "absolute top-[3px] right-[3px]",
-                  "w-[20px] h-[20px]",
-                  "bg-[var(--bg-secondary)] rounded-full",
+                  "absolute top-[calc(var(--spacing-x1)-var(--spacing-x1)/4)] right-[calc(var(--spacing-x1)-var(--spacing-x1)/4)]",
+                  "w-[var(--spacing-x5)] h-[var(--spacing-x5)]",
+                  "bg-[var(--color-bg-secondary)] rounded-[var(--radius-full)]",
                   "flex items-center justify-center",
                   "cursor-pointer transition-all duration-200",
-                  "hover:bg-[var(--critical-light)]"
+                  "hover:bg-[var(--color-critical-light)]"
                 )}
               >
                 <Icon 
                   name="delete" 
                   size={12}
-                  className="text-[var(--critical)]"
+                  className="text-[var(--color-critical)]"
                 />
               </div>
             )}
@@ -102,7 +102,7 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
           {showFileName && fileName && (
             <Typography 
               variant="body-secondary-regular"
-              className="text-[var(--secondary)] text-center w-full overflow-hidden text-ellipsis whitespace-nowrap"
+              className="text-[var(--color-secondary)] text-center w-full overflow-hidden text-ellipsis whitespace-nowrap"
             >
               {fileName}
             </Typography>
@@ -116,7 +116,7 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
       <div
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center gap-0 p-0 rounded-[8px]",
+          "inline-flex items-center justify-center gap-0 p-0 rounded-[var(--radius-md)]",
           className
         )}
         {...props}
@@ -125,20 +125,20 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
           onClick={handleClick}
           className={cn(
             // Base button styles from Figma
-            "inline-flex items-center justify-center gap-[8px]",
-            "w-[80px] h-[80px] px-[20px] py-[12px]",
-            "rounded-[8px]",
+            "inline-flex items-center justify-center gap-[var(--spacing-x2)]",
+            "w-[var(--spacing-x20)] h-[var(--spacing-x20)] px-[var(--spacing-x5)] py-[var(--spacing-x3)]",
+            "rounded-[var(--radius-md)]",
             "border border-solid",
             "transition-all duration-200",
             "cursor-pointer",
             // Default state
-            "border-[var(--border-primary)] bg-transparent",
+            "border-[var(--color-border-primary)] bg-transparent",
             // Hover state
-            !isDisabled && "hover:border-[var(--primary)]",
+            !isDisabled && "hover:border-[var(--color-primary)]",
             // Disabled state
             isDisabled && "opacity-50 cursor-not-allowed",
             // Force hover state if specified
-            state === 'hover' && !isDisabled && "border-[var(--primary)]"
+            state === 'hover' && !isDisabled && "border-[var(--color-primary)]"
           )}
         >
           {/* Add icon - 24x24 from Figma */}
@@ -146,8 +146,8 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
             name="add" 
             size={24}
             className={cn(
-              "text-[var(--primary)]",
-              isDisabled && "text-[var(--border-primary)]"
+              "text-[var(--color-primary)]",
+              isDisabled && "text-[var(--color-border-primary)]"
             )}
           />
         </div>
@@ -168,4 +168,3 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
 );
 
 UploadThumbnail.displayName = 'UploadThumbnail';
-

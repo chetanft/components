@@ -156,7 +156,7 @@ export const Drawer: React.FC<DrawerProps> = ({
                 )}
                 aria-label="Close drawer"
               >
-                <Icon name="cross" size={20} className="text-[#838c9d]" />
+                <Icon name="cross" size={20} className="text-[var(--color-tertiary)]" />
               </button>
             )}
           </div>
@@ -172,4 +172,3 @@ export const Drawer: React.FC<DrawerProps> = ({
 };
 
 Drawer.displayName = 'Drawer';
-

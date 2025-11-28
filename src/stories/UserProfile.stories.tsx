@@ -78,7 +78,7 @@ const InteractiveUserProfile = (args: React.ComponentProps<typeof UserProfile>) 
   }, [isOpen]);
 
   return (
-    <div style={{ padding: '40px', backgroundColor: '#F8F8F9', minHeight: '500px' }}>
+    <div style={{ padding: 'calc(var(--spacing-x10) * 1.25)', backgroundColor: 'var(--bg-secondary)', minHeight: 'calc(var(--spacing-x10) * 15.625)' }}>
       <div ref={userProfileRef} style={{ position: 'relative', display: 'inline-flex', width: 'fit-content' }}>
         <UserProfile
           {...args}

@@ -191,11 +191,11 @@ const atomicColumns: TableColumn<User>[] = [
     key: 'actions',
     title: 'Actions',
     type: 'actions',
-    width: '120px',
+    width: 'calc(var(--spacing-x10)*3)',
     render: () => (
       <TableCellItem
         badge={
-          <div className="flex items-center gap-[8px]">
+          <div className="flex items-center gap-[var(--spacing-x2)]">
             <Button variant="secondary" size="sm" className="rounded-full">
               <Icon name="edit" size={14} />
             </Button>
@@ -435,11 +435,11 @@ export function VariantsPrimary() {
   ];
 
   return (
-    <div className="p-8 bg-white">
+    <div className="p-8 bg-[var(--color-bg-primary)]">
       <div className="space-y-4">
         <div>
-          <h3 className="text-xl font-semibold text-gray-800">Primary Variant</h3>
-          <p className="text-sm text-gray-600 mt-1">
+          <h3 className="text-xl font-semibold text-[var(--color-primary)]">Primary Variant</h3>
+          <p className="text-sm text-[var(--color-tertiary)] mt-1">
             Dark header (#838C9D) with alternating row backgrounds: white → gray → white → gray...
           </p>
         </div>
@@ -452,7 +452,7 @@ export function VariantsPrimary() {
           onSelectionChange={setSelectedRowsPrimary}
           className="max-w-5xl"
         />
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-[var(--color-tertiary)]">
           Selected rows: {selectedRowsPrimary.length} of {sampleUsers.slice(0, 6).length}
         </div>
       </div>
@@ -518,11 +518,11 @@ export function VariantsSecondary() {
   ];
 
   return (
-    <div className="p-8 bg-white">
+    <div className="p-8 bg-[var(--color-bg-primary)]">
       <div className="space-y-4">
         <div>
-          <h3 className="text-xl font-semibold text-gray-800">Secondary Variant</h3>
-          <p className="text-sm text-gray-600 mt-1">
+          <h3 className="text-xl font-semibold text-[var(--color-primary)]">Secondary Variant</h3>
+          <p className="text-sm text-[var(--color-tertiary)] mt-1">
             Light header (#F8F8F9) with all white row backgrounds for a cleaner, minimal appearance.
           </p>
         </div>
@@ -535,10 +535,10 @@ export function VariantsSecondary() {
           onSelectionChange={setSelectedRowsSecondary}
           className="max-w-5xl"
         />
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-[var(--color-tertiary)]">
           Selected rows: {selectedRowsSecondary.length} of {sampleUsers.slice(0, 6).length}
         </div>
       </div>
     </div>
   );
-} 
+}

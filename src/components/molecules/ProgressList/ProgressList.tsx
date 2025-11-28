@@ -66,9 +66,9 @@ export const ProgressList: React.FC<ProgressListProps> = ({
 
   const renderDivider = (item: DividerItem) => {
     return (
-      <div key={item.id} className="flex justify-between items-center gap-[-36px] py-4 w-full">
-        <div className="w-[253px] h-0 border-b border-[var(--border-primary)]" />
-        <div className="flex items-center justify-center gap-2.5 px-2 py-0.5 bg-white border border-[var(--border-primary)] rounded-full shadow-sm">
+      <div key={item.id} className="flex justify-between items-center gap-[-36px] py-[var(--spacing-x4)] w-full">
+        <div className="flex-1 h-px border-b border-[var(--border-primary)]" />
+        <div className="flex items-center justify-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] bg-[var(--color-bg-primary)] border border-[var(--border-primary)] rounded-full shadow-sm">
           <Typography 
             variant="body-secondary-medium" 
             color="secondary"
@@ -77,7 +77,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
             {item.label}
           </Typography>
         </div>
-        <div className="w-[257px] h-0 border-b border-[var(--border-primary)]" />
+        <div className="flex-1 h-px border-b border-[var(--border-primary)]" />
       </div>
     );
   };
@@ -93,8 +93,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
           {item.multiplePoints.map((point, idx) => (
             <div key={idx} className="flex items-center justify-center">
               {point.type === 'label' && (
-                <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[var(--primary)]">
-                  <span className="text-white text-[10px] font-medium leading-none text-center">
+                <div className="flex items-center justify-center w-[var(--spacing-x4)] h-[var(--spacing-x4)] rounded-full bg-[var(--primary)]">
+                  <span className="text-[var(--color-bg-primary)] text-[10px] font-medium leading-none text-center">
                     {point.label || 'OR'}
                   </span>
                 </div>
@@ -129,7 +129,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
       case 'icon':
         return (
           <div className={`
-            flex items-center justify-center w-6 h-6 rounded-full p-[7px]
+            flex items-center justify-center w-[var(--spacing-x4)] h-[var(--spacing-x4)] rounded-full p-[var(--spacing-x1)]
             ${isActive ? 'bg-[var(--primary)]' : 'bg-[var(--border-primary)]'}
           `}>
             <Icon
@@ -142,7 +142,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
 
       case 'primary':
         return (
-          <div className="flex items-center justify-center w-8 h-8">
+          <div className="flex items-center justify-center w-[var(--spacing-x5)] h-[var(--spacing-x5)]">
             <div className={`
               w-3 h-3 rounded-full bg-white border-4
               ${isActive ? 'border-[var(--primary)]' : 'border-[var(--border-primary)]'}
@@ -153,12 +153,12 @@ export const ProgressList: React.FC<ProgressListProps> = ({
       case 'label':
         return (
           <div className={`
-            flex items-center justify-center w-6 h-6 rounded-full
+            flex items-center justify-center w-[var(--spacing-x4)] h-[var(--spacing-x4)] rounded-full
             ${isActive ? 'bg-[var(--primary)]' : 'bg-[var(--border-primary)]'}
           `}>
             <span className={`
               text-[10px] font-medium leading-none text-center
-              ${isActive ? 'text-white' : 'text-[var(--primary)]'}
+              ${isActive ? 'text-[var(--color-bg-primary)]' : 'text-[var(--primary)]'}
             `}>
               {item.pointLabel || 'OR'}
             </span>
@@ -180,19 +180,19 @@ export const ProgressList: React.FC<ProgressListProps> = ({
 
     if (isDashed) {
       return (
-        <div className="flex flex-col justify-center gap-[2px] w-[2px] flex-1">
-          <div style={{ width: '2px', height: '4px', backgroundColor: lineColor }} />
+        <div className="flex flex-col justify-center gap-[2px] w-px flex-1">
+          <div style={{ width: '1px', height: '4px', backgroundColor: lineColor }} />
           {Array.from({ length: 8 }, (_, i) => (
-            <div key={i} style={{ width: '2px', height: '6px', backgroundColor: lineColor }} />
+            <div key={i} style={{ width: '1px', height: '6px', backgroundColor: lineColor }} />
           ))}
-          <div style={{ width: '2px', height: '4px', backgroundColor: lineColor }} />
+          <div style={{ width: '1px', height: '4px', backgroundColor: lineColor }} />
         </div>
       );
     }
 
     return (
       <div 
-        className="w-[2px] flex-1"
+        className="w-px flex-1"
         style={{ backgroundColor: lineColor, minHeight: `${lineHeight}px` }}
       />
     );
@@ -202,7 +202,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
     if (!showTime) return null;
 
     return (
-      <div className="flex flex-col gap-2 pt-1.5 min-w-[80px]">
+      <div className="flex flex-col gap-[var(--spacing-x1)] pt-[var(--spacing-x1)] min-w-[var(--spacing-x10)]">
         {item.timeLabel && (
           <Typography 
             variant="body-secondary-medium" 
@@ -227,7 +227,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
     const isExpanded = expandedItems[item.id] || false;
 
     return (
-      <div className="flex gap-4 pt-1.5 flex-1">
+        <div className="flex gap-[var(--spacing-x2)] pt-[var(--spacing-x1)] flex-1">
         {/* Icon */}
         {item.icon && (
           <div className="flex-shrink-0 w-4 h-4 mt-0.5">
@@ -236,7 +236,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
         )}
 
         {/* Content Container */}
-        <div className="flex flex-col gap-2 flex-1 pb-9">
+        <div className="flex flex-col gap-[var(--spacing-x1)] flex-1 pb-[var(--spacing-x7)]">
           {/* Header */}
           <div className="flex items-center gap-2 w-full">
             {item.headerType === 'primary' ? (
@@ -273,7 +273,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
 
           {/* Badges */}
           {item.badges && item.badges.length > 0 && (
-            <div className="flex gap-2 flex-wrap">
+            <div className="flex gap-[var(--spacing-x2)] flex-wrap">
               {item.badges.map((badge, index) => (
                 <div
                   key={index}
@@ -300,7 +300,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
 
           {/* Expanded Content */}
           {item.content && isExpanded && (
-            <div className="mt-4">
+            <div className="mt-[var(--spacing-x4)]">
               {item.content}
             </div>
           )}
@@ -308,7 +308,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
 
         {/* End Time Column */}
         {showTime && item.endTime && (
-          <div className="flex flex-col gap-2 items-end min-w-[80px]">
+          <div className="flex flex-col gap-[var(--spacing-x1)] items-end min-w-[var(--spacing-x10)]">
             <Typography 
               variant="body-secondary-medium" 
               color="secondary"
@@ -329,7 +329,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
 
   const renderProgressItem = (item: ProgressItem, isLast: boolean) => {
     return (
-      <div key={item.id} className="flex gap-5 w-full">
+      <div key={item.id} className="flex gap-[var(--spacing-x4)] w-full">
         {/* Time Column */}
         {renderTimeColumn(item)}
 

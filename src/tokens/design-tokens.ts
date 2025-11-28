@@ -433,6 +433,22 @@ export const designTokens = {
     fast: '150ms',
     normal: '200ms',
     slow: '300ms',
+  },
+
+  layout: {
+    breakpoints: {
+      xxl: '1600px',
+      xl: '1440px',
+      lg: '1280px',
+      md: '1024px',
+      sm: '768px',
+      xs: '480px',
+    },
+    grid: {
+      desktop: { columns: 24, gutter: '20px', margin: '20px' },
+      laptop: { columns: 24, gutter: '16px', margin: '16px' },
+      mobile: { columns: 4, gutter: '16px', margin: '16px' },
+    },
   }
 };
 
@@ -516,6 +532,29 @@ export const cssVariables = `
     --spacing-x16: ${designTokens.spacing.x16};
     --spacing-x20: ${designTokens.spacing.x20};
     --spacing-x24: ${designTokens.spacing.x24};
+    
+    /* Layout Breakpoints */
+    --breakpoint-xxl: ${designTokens.layout.breakpoints.xxl};
+    --breakpoint-xl: ${designTokens.layout.breakpoints.xl};
+    --breakpoint-lg: ${designTokens.layout.breakpoints.lg};
+    --breakpoint-md: ${designTokens.layout.breakpoints.md};
+    --breakpoint-sm: ${designTokens.layout.breakpoints.sm};
+    --breakpoint-xs: ${designTokens.layout.breakpoints.xs};
+
+    /* Grid System */
+    --grid-desktop-columns: ${designTokens.layout.grid.desktop.columns};
+    --grid-desktop-gutter: ${designTokens.layout.grid.desktop.gutter};
+    --grid-desktop-margin: ${designTokens.layout.grid.desktop.margin};
+    --grid-laptop-columns: ${designTokens.layout.grid.laptop.columns};
+    --grid-laptop-gutter: ${designTokens.layout.grid.laptop.gutter};
+    --grid-laptop-margin: ${designTokens.layout.grid.laptop.margin};
+    --grid-mobile-columns: ${designTokens.layout.grid.mobile.columns};
+    --grid-mobile-gutter: ${designTokens.layout.grid.mobile.gutter};
+    --grid-mobile-margin: ${designTokens.layout.grid.mobile.margin};
+    --grid-columns: ${designTokens.layout.grid.desktop.columns};
+    --grid-gutter: ${designTokens.layout.grid.desktop.gutter};
+    --grid-margin: ${designTokens.layout.grid.desktop.margin};
+    --container-max-width: min(100vw, ${designTokens.layout.breakpoints.xxl});
     
     /* Shadows */
     --shadow-sm: ${designTokens.shadows.sm};

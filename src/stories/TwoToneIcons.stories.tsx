@@ -91,8 +91,8 @@ export const TwoToneIcons = () => {
           <ul className="list-disc pl-5 text-sm text-gray-600 space-y-2">
             <li>Primary elements use full opacity (1.0) for main actions</li>
             <li>Secondary elements use 0.4 opacity for contextual information</li>
-            <li>Consistent 24x24px viewport for standard icons</li>
-            <li>Variable sizes (18x18, 20x20) for status indicators</li>
+            <li>Consistent 24×24 (var(--spacing-x6)) viewport for standard icons</li>
+            <li>Variable sizes (18×18, 20×20) for status indicators</li>
           </ul>
         </div>
 

@@ -212,8 +212,8 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         <div className={cn(
           "absolute",
           vertical 
-            ? "left-full ml-2 top-0 bottom-0" 
-            : "top-full mt-2 left-0 right-0"
+            ? "left-full ml-[var(--spacing-x2)] top-0 bottom-0" 
+            : "top-full mt-[var(--spacing-x2)] left-0 right-0"
         )}>
           {markItems.map((mark) => {
             const percent = getPercent(mark.value);
@@ -221,7 +221,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
               <div
                 key={mark.value}
                 className={cn(
-                  "absolute text-xs text-[var(--tertiary)]",
+                  "absolute text-[var(--font-size-sm)] text-[var(--tertiary)]",
                   vertical ? "-translate-y-1/2" : "-translate-x-1/2"
                 )}
                 style={vertical 
@@ -253,7 +253,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       const handle = (
         <div
           className={cn(
-            "absolute w-4 h-4 left-1/2 top-1/2",
+            "absolute w-[var(--spacing-x4)] h-[var(--spacing-x4)] left-1/2 top-1/2",
             "-translate-x-1/2 -translate-y-1/2 origin-center",
             "rounded-full bg-[var(--bg-primary)]",
             "border-2 border-[var(--primary)]",
@@ -305,7 +305,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         ref={ref}
         className={cn(
           "relative",
-          vertical ? "h-full w-4" : "w-full h-4",
+          vertical ? "h-full w-[var(--spacing-x4)]" : "w-full h-[var(--spacing-x4)]",
           disabled && "opacity-50 cursor-not-allowed",
           className
         )}
@@ -317,8 +317,8 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
           className={cn(
             "absolute rounded-full cursor-pointer",
             vertical 
-              ? "w-1 h-full left-1/2 -translate-x-1/2" 
-              : "h-1 w-full top-1/2 -translate-y-1/2"
+              ? "w-[var(--spacing-x1)] h-full left-1/2 -translate-x-1/2" 
+              : "h-[var(--spacing-x1)] w-full top-1/2 -translate-y-1/2"
           )}
           style={{ backgroundColor: railColor || 'var(--border-secondary)' }}
           onClick={handleRailClick}

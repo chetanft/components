@@ -98,7 +98,7 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
       <div
         ref={ref}
         className={cn(
-          'bg-[var(--bg-primary,#ffffff)]',
+          'bg-[var(--bg-primary)]',
           'box-border',
           'flex',
           'h-[88px]',
@@ -119,25 +119,25 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
             <div className="flex gap-[12px] items-center relative shrink-0">
               <button
                 onClick={onBack}
-                className="relative shrink-0 size-[44px] flex items-center justify-center hover:bg-[var(--bg-secondary,#f8f8f9)] rounded-[var(--x2,8px)] transition-colors cursor-pointer"
+                className="relative shrink-0 size-[44px] flex items-center justify-center hover:bg-[var(--bg-secondary)] rounded-[var(--x2,8px)] transition-colors cursor-pointer"
                 aria-label="Go back"
               >
                 <div className="relative shrink-0 size-[28px] flex items-center justify-center">
                   <Icon
                     name="inbound"
                     size={16}
-                    className="text-[var(--primary,#434f64)]"
+                    className="text-[var(--primary)]"
                   />
                 </div>
               </button>
             </div>
           )}
           <div className="flex flex-col gap-[2px] items-start justify-center relative shrink-0">
-            <p className="font-semibold leading-[1.4] relative shrink-0 text-[var(--primary,#434f64)] text-[24px]">
+            <p className="font-semibold leading-[1.4] relative shrink-0 text-[var(--primary)] text-[24px]">
               {title}
             </p>
             {showSubtitle && (
-              <p className="font-semibold leading-[1.4] relative shrink-0 text-[var(--tertiary,#838c9d)] text-base">
+              <p className="font-semibold leading-[1.4] relative shrink-0 text-[var(--tertiary)] text-base">
                 {subtitle}
               </p>
             )}
@@ -157,7 +157,7 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
         {/* Middle Section - Tabs (underline style only) */}
         {showTabs && tabs.length > 0 && tabStyle === 'underline' && (
           <div className="flex-1 flex h-full items-end justify-center relative">
-            {tabs.map((tab, index) => {
+            {tabs.map((tab) => {
               const isActive = tab.key === currentActiveTab;
               return (
                 <div
@@ -181,9 +181,9 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
                     'transition-colors',
                     tab.disabled && 'opacity-50 cursor-not-allowed',
                     isActive
-                      ? 'border-[var(--primary,#434f64)]'
-                      : 'border-[var(--border-primary,#ced1d7)]',
-                    !isActive && 'hover:bg-[var(--bg-secondary,#f8f8f9)]'
+                      ? 'border-[var(--primary)]'
+                      : 'border-[var(--border-primary)]',
+                    !isActive && 'hover:bg-[var(--bg-secondary)]'
                   )}
                 >
                   <div className="content-stretch flex gap-[8px] h-[22px] items-center justify-center relative shrink-0 w-full">
@@ -192,7 +192,7 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
                         'leading-[1.4]',
                         'relative',
                         'shrink-0',
-                        'text-[var(--primary,#434f64)]',
+                        'text-[var(--primary)]',
                         'text-base',
                         isActive
                           ? 'font-semibold'
@@ -267,4 +267,3 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
 PageHeader.displayName = 'PageHeader';
 
 export default PageHeader;
-

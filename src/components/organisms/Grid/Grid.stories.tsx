@@ -61,7 +61,7 @@ export const BasicGrid: Story = {
 export const Gutter: Story = {
   render: () => (
     <div className="space-y-4">
-      <p className="text-sm text-[var(--tertiary)]">Horizontal gutter: 16px</p>
+      <p className="text-sm text-[var(--tertiary)]">Horizontal gutter: var(--spacing-x4)</p>
       <Row gutter={16}>
         <Col span={6}><ColBox>col-6</ColBox></Col>
         <Col span={6}><ColBox>col-6</ColBox></Col>
@@ -184,15 +184,15 @@ export const FlexLayout: Story = {
 
       <p className="text-sm text-[var(--tertiary)] mt-4">Fixed + Fill</p>
       <Row>
-        <Col flex="100px"><ColBox>100px</ColBox></Col>
+        <Col flex="calc(var(--spacing-x10) * 2.5)"><ColBox>calc(var(--spacing-x10) * 2.5)</ColBox></Col>
         <Col flex="auto"><ColBoxLight>Fill Rest</ColBoxLight></Col>
       </Row>
 
       <p className="text-sm text-[var(--tertiary)] mt-4">Fixed + Fill + Fixed</p>
       <Row>
-        <Col flex="100px"><ColBox>100px</ColBox></Col>
+        <Col flex="calc(var(--spacing-x10) * 2.5)"><ColBox>calc(var(--spacing-x10) * 2.5)</ColBox></Col>
         <Col flex="auto"><ColBoxLight>Fill Rest</ColBoxLight></Col>
-        <Col flex="100px"><ColBox>100px</ColBox></Col>
+        <Col flex="calc(var(--spacing-x10) * 2.5)"><ColBox>calc(var(--spacing-x10) * 2.5)</ColBox></Col>
       </Row>
     </div>
   ),

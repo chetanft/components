@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
-import { Typography } from '../../atoms/Typography';
 
 export interface AnchorLinkProps {
   href: string;
@@ -65,9 +64,9 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
   items,
   affix = true,
   bounds = 5,
-  offsetTarget,
+  offsetTarget: _offsetTarget,
   targetOffset = 0,
-  showInkInFixed = false, // Not fully implemented in this simple version
+  showInkInFixed: _showInkInFixed = false, // Not fully implemented in this simple version
   onChange,
   onClick,
   direction = 'vertical',
@@ -77,7 +76,6 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
   ...props
 }, ref) => {
   const [activeLink, setActiveLink] = useState<string>('');
-  const containerRef = useRef<HTMLDivElement>(null);
   
   // Helper to render links recursively
   const renderLinks = (links: AnchorLinkProps[]) => {
@@ -106,7 +104,7 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
         return arr.reduce((acc, item) => {
           acc.push(item.href);
           if (item.children) {
-            // @ts-ignore
+            // @ts-expect-error - recursive children typing
             acc.push(...flattenItems(item.children));
           }
           return acc;
@@ -114,25 +112,9 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
       };
 
       const allHrefs = flattenItems(items);
-      let current = '';
-      
-      for (const href of allHrefs) {
-        if (!href.startsWith('#')) continue;
-        const element = document.getElementById(href.substring(1));
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= (targetOffset + bounds + 100) && rect.bottom > 0) { // +100 buffer
-             current = href;
-             // Don't break, we want the last one that fits the criteria if multiple are visible/close? 
-             // Actually usually we want the first one that is "active". 
-             // Common logic: first element whose top is <= offset.
-          }
-        }
-      }
-      
+
       // If we found a candidate, verify it's the "best" one. 
       // Actually simple loop: find the one closest to top but still passed it.
-      
       // Let's iterate and find the one with rect.top <= offset + bounds with the largest rect.top (closest to top line)
       let maxTop = -Infinity;
       let bestCandidate = '';
@@ -187,4 +169,3 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
 });
 
 Anchor.displayName = 'Anchor';
-

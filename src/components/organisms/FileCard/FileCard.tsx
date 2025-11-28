@@ -6,7 +6,6 @@ import { Button } from '../../atoms/Button/Button';
 import { Badge } from '../../atoms/Badge';
 import { FileTypeIcon } from '../FileTypeIcon';
 import { ProgressBar } from '../../molecules/ProgressBar';
-import { Icon } from '../../atoms/Icons';
 import { Typography } from '../../atoms/Typography';
 
 export interface FileStats {
@@ -145,19 +144,19 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
       <div
         className={cn(
           // Base styles from Figma
-          "bg-surface border border-border-secondary rounded-component p-[20px]",
-          "flex flex-col gap-[20px]",
+          "bg-surface border border-border-secondary rounded-component p-[var(--spacing-x5)]",
+          "flex flex-col gap-[var(--spacing-x5)]",
           // Full width for expanded variants
-          variant === 'expanded' || variant === 'with-stats' ? "w-full max-w-[930px]" : "w-full",
+          variant === 'expanded' || variant === 'with-stats' ? "w-full max-w-[calc(var(--spacing-x10)*23.25)]" : "w-full",
           className
         )}
         ref={ref}
         {...props}
       >
         {/* Main File Info Row */}
-        <div className="flex items-center justify-between gap-[12px]">
+        <div className="flex items-center justify-between gap-[var(--spacing-x3)]">
           {/* File Info Section */}
-          <div className="flex items-center gap-[20px]">
+          <div className="flex items-center gap-[var(--spacing-x5)]">
             {/* File Type Icon */}
             <FileTypeIcon
               fileType={fileType}
@@ -166,9 +165,9 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
             />
 
             {/* File Details */}
-            <div className="flex flex-col gap-[8px]">
+            <div className="flex flex-col gap-[var(--spacing-x2)]">
               {/* File name and badge should be horizontally aligned */}
-              <div className="flex items-center gap-[20px]">
+              <div className="flex items-center gap-[var(--spacing-x5)]">
                 <Typography
                   variant="body-primary-semibold"
                   as="h3"
@@ -196,7 +195,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-[12px]">
+          <div className="flex items-center gap-[var(--spacing-x3)]">
             {onDownload && (
               <Button
                 variant="secondary"
@@ -267,10 +266,10 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
 
         {/* Error Message */}
         {errorMessage && (
-          <div className="flex items-center justify-center px-[54px]">
+          <div className="flex items-center justify-center px-[calc(var(--spacing-x7)+var(--spacing-x1))]">
             <Typography
               variant="body-secondary-regular"
-              className="text-[#FF3533]"
+              className="text-[var(--color-critical)]"
             >
               {errorMessage}
             </Typography>
@@ -279,21 +278,21 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
 
         {/* Statistics Section */}
         {showStats && (
-          <div className="flex items-stretch gap-[20px] pl-[64px]">
+          <div className="flex items-stretch gap-[var(--spacing-x5)] pl-[calc(var(--spacing-x7)+var(--spacing-x1))]">
             {/* Total */}
-            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
+            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]">
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Total</Typography>
               <Typography variant="display-primary" className="text-[var(--primary)]">{stats?.total || 0}</Typography>
             </div>
 
             {/* Success */}
-            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
+            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]">
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Success</Typography>
               <Typography variant="display-primary" className="text-[var(--positive)]">{stats?.success || 0}</Typography>
             </div>
 
             {/* Invalid */}
-            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[8px] p-[12px_20px] flex flex-col gap-[4px] min-h-[74px]">
+            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]">
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Invalid</Typography>
               <Typography variant="display-primary" className="text-[var(--critical)]">{stats?.invalid || 0}</Typography>
             </div>

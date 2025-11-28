@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
-import { Tooltip } from '../../molecules/Tooltip'; // Using Tooltip for description/tooltip
 
 export type FloatButtonType = 'default' | 'primary';
 export type FloatButtonShape = 'circle' | 'square';
@@ -36,7 +35,7 @@ export interface FloatButtonGroupProps extends React.HTMLAttributes<HTMLDivEleme
 export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, FloatButtonProps>(({
   icon,
   description,
-  tooltip,
+  tooltip: _tooltip,
   type = 'default',
   shape = 'circle',
   href,
@@ -67,7 +66,7 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
 
   const content = (
     <Component
-      // @ts-ignore
+      // @ts-expect-error - forwarding refs to both anchor and button variants
       ref={ref}
       href={href}
       target={target}
@@ -115,8 +114,8 @@ export const FloatButtonGroup = React.forwardRef<HTMLDivElement, FloatButtonGrou
   open: controlledOpen,
   onOpenChange,
   icon = <Icon name="add" />, // Default trigger icon needs to be handled
-  description,
-  tooltip,
+  description: _groupDescription,
+  tooltip: _groupTooltip,
   type = 'default',
   children,
   className,
@@ -163,10 +162,8 @@ export const FloatButtonGroup = React.forwardRef<HTMLDivElement, FloatButtonGrou
         type={type}
         icon={isOpen && trigger === 'click' ? <Icon name="cross" /> : icon}
         onClick={trigger === 'click' ? toggleOpen : undefined}
-        tooltip={tooltip}
       />
     </div>
   );
 });
 FloatButtonGroup.displayName = 'FloatButtonGroup';
-

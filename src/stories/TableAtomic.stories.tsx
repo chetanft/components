@@ -242,7 +242,7 @@ export const CellTextPrimary: StoryObj<typeof TableCellText> = {
   parameters: {
     docs: {
       description: {
-        story: 'Text components for table cells with primary (#434F64) and secondary (#5F697B) variants. Uses Inter font, 16px, 400 weight.'
+        story: 'Text components for table cells with primary (var(--primary)) and secondary (var(--secondary)) variants. Uses Inter font, var(--font-size-md), var(--font-weight-regular).'
       }
     }
   }
@@ -296,7 +296,7 @@ export const CellItemVariants: StoryObj<typeof TableCellItem> = {
   parameters: {
     docs: {
       description: {
-        story: 'Cell items with various combinations of text, icons, and badges. Layout uses 8px gaps and center alignment.'
+        story: 'Cell items with various combinations of text, icons, and badges. Layout uses var(--spacing-x2) gaps and center alignment.'
       }
     }
   }
@@ -412,7 +412,7 @@ export const HeaderItemVariants: StoryObj<typeof TableHeaderItem> = {
   parameters: {
     docs: {
       description: {
-        story: 'Header items with different color variants, sorting states, drag handles, and checkbox support. Typography is Inter 600 16px.'
+        story: 'Header items with different color variants, sorting states, drag handles, and checkbox support. Typography is Inter var(--font-weight-semibold) var(--font-size-md).'
       }
     }
   }

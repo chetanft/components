@@ -74,7 +74,7 @@ const ShowcaseContent = (props: SkeletonProps) => (
 );
 
 export const Showcase: Story = {
-  render: (args) => <ShowcaseContent {...args} />,
+  render: (args: SkeletonProps) => <ShowcaseContent {...args} />,
   args: {
     animation: 'pulse',
   },

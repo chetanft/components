@@ -3,11 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
 import { Checkbox } from '../../atoms/Checkbox/Checkbox';
-import { Button } from '../../atoms/Button/Button';
-import { Badge } from '../../atoms/Badge/Badge';
-import { Icon, IconName } from '../../atoms/Icons';
 import { TableCellText } from './TableCellText';
-import { TableCellItem } from './TableCellItem';
 import { TableCell } from './TableCell';
 import { TableHeaderItem } from './TableHeaderItem';
 
@@ -65,8 +61,8 @@ interface TableHeaderProps<T extends TableRow = TableRow> {
   cellSize?: 'md' | 'lg' | 'xl';
 }
 
-const CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[72px]';
-const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[100px]';
+const CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x9)*2)]';
+const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x10)*2+var(--spacing-x5))]';
 
 const TableHeader = <T extends TableRow = TableRow>({
   columns,
@@ -230,7 +226,7 @@ const TableRowComponent = <T extends TableRow = TableRow>({
   }, [row, index]);
 
   // Determine cell background based on variant and row position
-  const getCellBackground = (columnIndex: number) => {
+  const getCellBackground = (_columnIndex: number) => {
     if (variant === 'secondary') {
       return 'white'; // Secondary variant: all white
     }

@@ -1,9 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useImperativeHandle } from 'react';
 import { cn } from '../../../lib/utils';
-// import { Input, InputProps } from '../../atoms/Input'; // Removed unused import
-import { createPortal } from 'react-dom';
 
 export interface MentionOption {
   value: string;
@@ -14,10 +12,7 @@ export interface MentionsProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
   options?: MentionOption[];
   prefix?: string | string[];
   split?: string;
-  validateSearch?: (text: string, props: MentionsProps) => boolean;
   filterOption?: false | ((input: string, option: MentionOption) => boolean);
-  notFoundContent?: React.ReactNode;
-  placement?: 'top' | 'bottom';
   onChange?: (value: string) => void;
   onSelect?: (option: MentionOption, prefix: string) => void;
   onSearch?: (text: string, prefix: string) => void;
@@ -29,10 +24,7 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
   options = [],
   prefix = '@',
   split = ' ',
-  validateSearch,
   filterOption,
-  notFoundContent = 'No matches found',
-  placement = 'bottom',
   onChange,
   onSelect,
   onSearch,
@@ -43,12 +35,12 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
   ...props
 }, ref) => {
   const [inputValue, setInputValue] = useState(defaultValue || value || '');
-  const [measuring, setMeasuring] = useState(false);
-  const [measureLocation, setMeasureLocation] = useState({ top: 0, left: 0 });
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activePrefix, setActivePrefix] = useState('');
   const [filterText, setFilterText] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useImperativeHandle(ref, () => textareaRef.current as HTMLTextAreaElement, []);
 
   // Handlers for input changes
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -75,15 +67,6 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
         setShowSuggestions(true);
         onSearch?.(query, p);
 
-        // Measure position (very simplified estimation)
-        // In production, use a library like textarea-caret to get coordinates
-        if (textareaRef.current) {
-          const rect = textareaRef.current.getBoundingClientRect();
-          setMeasureLocation({
-            top: rect.bottom + window.scrollY,
-            left: rect.left + window.scrollX
-          });
-        }
         return;
       }
     }
@@ -123,16 +106,18 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
         value={inputValue}
         onChange={handleChange}
         className={cn(
-          "flex w-full rounded-md border border-[var(--border-primary)] bg-[var(--background-primary)] px-3 py-2 text-sm placeholder:text-[var(--text-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50",
-          status === 'error' && "border-[var(--danger)] focus:ring-[var(--danger)]",
-          status === 'warning' && "border-[var(--warning)] focus:ring-[var(--warning)]"
+          "flex w-full rounded-[var(--radius-md)] border border-[var(--color-border-primary)] bg-[var(--color-bg-primary)]",
+          "px-[var(--spacing-x3)] py-[var(--spacing-x2)] text-[var(--font-size-sm)]",
+          "placeholder:text-[var(--color-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50",
+          status === 'error' && "border-[var(--color-critical)] focus:ring-[var(--color-critical)]",
+          status === 'warning' && "border-[var(--color-warning)] focus:ring-[var(--color-warning)]"
         )}
         {...props}
       />
       {showSuggestions && filteredOptions.length > 0 && (
         // Using Portal or absolute positioning
         <div
-          className="absolute z-50 min-w-[200px] overflow-hidden rounded-md border border-[var(--border-primary)] bg-white shadow-md animate-in fade-in-0 zoom-in-95"
+          className="absolute z-50 min-w-[calc(var(--spacing-x10)*5)] overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border-primary)] bg-[var(--color-bg-primary)] shadow-md animate-in fade-in-0 zoom-in-95"
           style={{
             top: "100%", // Simplified: always below for now
             left: 0
@@ -141,7 +126,7 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
           {filteredOptions.map(opt => (
             <div
               key={opt.value}
-              className="cursor-pointer px-4 py-2 hover:bg-[var(--neutral-100)] text-sm"
+              className="cursor-pointer px-[var(--spacing-x4)] py-[var(--spacing-x2)] hover:bg-[var(--color-neutral-light)] text-[var(--font-size-sm)]"
               onClick={() => handleSelect(opt)}
             >
               {opt.label}
@@ -154,4 +139,3 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
 });
 
 Mentions.displayName = 'Mentions';
-

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '../../atoms/Button/Button';
-import { Badge } from '../../atoms/Badge/Badge';
 import { Icon } from '../../atoms/Icons';
 import { cn } from '../../../lib/utils';
-import { CollapseContext } from './CollapseContext';
 
 export interface CollapsibleProps {
   header: React.ReactNode; // Changed to ReactNode
@@ -25,16 +23,16 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
   header,
   children,
   extra,
-  showArrow = true,
+  showArrow: _showArrow = true,
   disabled,
   className,
   // Legacy
-  badges,
+  badges: _badges,
   bg = 'Secondary',
   type = 'Primary',
   isExpanded: controlledIsExpanded,
   onToggle,
-  ...props
+  ..._props
 }) => {
   const [internalIsExpanded, setInternalIsExpanded] = useState(false);
   const isExpanded = controlledIsExpanded ?? internalIsExpanded;
@@ -80,15 +78,15 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
 
   const renderHeader = () => {
       // Logic for icon
-      const icon = type === 'Primary' 
-         ? (isExpanded ? 'subtract' : 'add') 
+      const icon = type === 'Primary'
+         ? (isExpanded ? 'subtract' : 'add')
          : (isExpanded ? 'chevron-up' : 'chevron-down'); // For Secondary
-      
+
       // Secondary logic is different in original: chevron-down (collapsed), chevron-up (expanded)
       // Actually original code: Secondary/Tertiary collapsed -> chevron-right if Tertiary, chevron-down if Secondary...
-      
+
       return (
-         <div 
+         <div
             className={cn(
                 "flex items-center gap-[8px] px-0 py-[var(--x5,20px)] w-full cursor-pointer",
                 isExpanded ? "border-b border-[var(--border-primary)]" : "",
@@ -96,7 +94,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
             onClick={handleToggle}
          >
              <div className="flex items-center gap-[var(--x5,20px)] px-[var(--x5,20px)] flex-1">
-                 {type === 'Primary' && (
+                 {type === 'Primary' && _showArrow && (
                      <Button
                         variant="secondary"
                         size="md"
@@ -105,19 +103,19 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
                         className="!w-10 !h-10 !p-0 flex items-center justify-center rounded-lg shrink-0 border border-[var(--border-primary)] pointer-events-none"
                      />
                  )}
-                 {(type === 'Secondary' || type === 'Tertiary') && (
+                 {(type === 'Secondary' || type === 'Tertiary') && _showArrow && (
                      <div className="text-[var(--primary)]">
                          {type === 'Tertiary' && !isExpanded && <Icon name="chevron-right" size={16} />}
                          {type === 'Tertiary' && isExpanded && <Icon name="chevron-up" size={16} />}
                          {/* Secondary doesn't show icon on left in original, it shows chevron-down on right */}
                      </div>
                  )}
-                 
+
                  <div className="flex-1 font-semibold text-xl text-[var(--primary)]">{header}</div>
 
                  {extra}
-                 
-                 {type === 'Secondary' && (
+
+                 {type === 'Secondary' && _showArrow && (
                      <div className="text-[var(--primary)]">
                          {isExpanded ? <Icon name="chevron-up" size={16} /> : <Icon name="chevron-down" size={16} />}
                      </div>
@@ -128,7 +126,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
   };
 
   return (
-    <div 
+    <div
         className={cn(
             'flex flex-col overflow-hidden',
             getBorderRadius(),
@@ -136,6 +134,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
             disabled && "opacity-50 cursor-not-allowed",
             className
         )}
+        {..._props}
     >
         {renderHeader()}
         {isExpanded && (

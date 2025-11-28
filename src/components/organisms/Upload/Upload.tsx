@@ -6,7 +6,7 @@ import { UploadZone } from '../UploadZone/UploadZone';
 import { UploadButton } from '../../molecules/UploadButton/UploadButton';
 import { UploadThumbnail } from '../../molecules/UploadThumbnail/UploadThumbnail';
 import { UploadItem, UploadFile } from '../../molecules/UploadItem/UploadItem';
-import { FileValidationCard, ValidationStats } from '../../molecules/FileValidationCard/FileValidationCard';
+import { ValidationStats } from '../../molecules/FileValidationCard/FileValidationCard';
 
 export type UploadType = 'drag-drop' | 'button' | 'thumbnail';
 
@@ -40,12 +40,82 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
   }, ref) => {
     
     const [files, setFiles] = useState<UploadFile[]>([]);
+    const [fileMap, setFileMap] = useState<Map<string, File>>(new Map());
     
     // Generate unique ID for files
     const generateFileId = () => {
       return `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     };
     
+    // Handle file validation (replace with real API call)
+    const validateFile = useCallback(async (file: UploadFile) => {
+      try {
+        const stats: ValidationStats = {
+          total: Math.floor(Math.random() * 1000) + 100,
+          success: 0,
+          invalid: 0
+        };
+
+        const validationType = Math.random();
+        if (validationType > 0.7) {
+          stats.success = stats.total;
+        } else if (validationType > 0.4) {
+          stats.success = Math.floor(stats.total * 0.7);
+          stats.invalid = stats.total - stats.success;
+        } else {
+          stats.invalid = stats.total;
+        }
+
+        onValidationComplete?.(file, stats);
+      } catch (error) {
+        console.error('Validation failed:', error);
+        onValidationComplete?.(file, { total: 0, success: 0, invalid: 0 });
+      }
+    }, [onValidationComplete]);
+
+    // Handle file upload (replace with real API call)
+    const handleUpload = useCallback(async (uploadFileData: UploadFile, originalFile: File) => {
+      try {
+        const uploadInterval = setInterval(() => {
+          setFiles(prev => {
+            const updatedFiles = prev.map(f => {
+              if (f.id === uploadFileData.id) {
+                const newProgress = Math.min((f.uploadProgress || 0) + 10, 100);
+
+                if (newProgress === 100) {
+                  clearInterval(uploadInterval);
+                  const completedFile = {
+                    ...f,
+                    uploadProgress: 100,
+                    uploadedAt: new Date()
+                  };
+
+                  setTimeout(() => {
+                    onUploadComplete?.(completedFile);
+
+                    if (showValidation) {
+                      validateFile(completedFile);
+                    }
+                  }, 500);
+
+                  return completedFile;
+                }
+
+                return { ...f, uploadProgress: newProgress };
+              }
+              return f;
+            });
+            return updatedFiles;
+          });
+        }, 200);
+      } catch (error) {
+        console.error('Upload failed:', error);
+        setFiles(prev => prev.map(f =>
+          f.id === uploadFileData.id ? { ...f, error: 'Upload failed' } : f
+        ));
+      }
+    }, [onUploadComplete, showValidation, validateFile]);
+
     // Handle file selection
     const handleFileSelect = useCallback((fileList: FileList) => {
       const newFiles: UploadFile[] = [];
@@ -86,103 +156,46 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
         }
         
         newFiles.push(uploadFile);
-        
-        // Simulate upload if autoUpload is enabled
+        fileMap.set(uploadFile.id, file);
+
+        // Start upload if autoUpload is enabled
         if (autoUpload) {
-          simulateUpload(uploadFile);
+          handleUpload(uploadFile, file);
         }
       }
-      
+
       if (newFiles.length > 0) {
         const updatedFiles = [...files, ...newFiles];
         setFiles(updatedFiles);
         onFilesChange?.(updatedFiles);
       }
-    }, [files, maxFiles, maxFileSize, type, autoUpload, onFilesChange]);
+    }, [files, maxFiles, maxFileSize, type, autoUpload, onFilesChange, fileMap, handleUpload]);
     
-    // Simulate file upload (replace with real upload logic)
-    const simulateUpload = useCallback((file: UploadFile) => {
-      const uploadInterval = setInterval(() => {
-        setFiles(prev => {
-          const updatedFiles = prev.map(f => {
-            if (f.id === file.id) {
-              const newProgress = Math.min((f.uploadProgress || 0) + 10, 100);
-              
-              // If upload complete
-              if (newProgress === 100) {
-                clearInterval(uploadInterval);
-                const completedFile = {
-                  ...f,
-                  uploadProgress: 100,
-                  uploadedAt: new Date()
-                };
-                
-                // Trigger callback
-                setTimeout(() => {
-                  onUploadComplete?.(completedFile);
-                  
-                  // Simulate validation if enabled
-                  if (showValidation) {
-                    simulateValidation(completedFile);
-                  }
-                }, 500);
-                
-                return completedFile;
-              }
-              
-              return { ...f, uploadProgress: newProgress };
-            }
-            return f;
-          });
-          return updatedFiles;
-        });
-      }, 200);
-    }, [onUploadComplete, showValidation]);
     
-    // Simulate validation (replace with real validation logic)
-    const simulateValidation = useCallback((file: UploadFile) => {
-      setTimeout(() => {
-        const stats: ValidationStats = {
-          total: Math.floor(Math.random() * 1000) + 100,
-          success: 0,
-          invalid: 0
-        };
-        
-        // Random validation result
-        const validationType = Math.random();
-        if (validationType > 0.7) {
-          // Success
-          stats.success = stats.total;
-        } else if (validationType > 0.4) {
-          // Partial
-          stats.success = Math.floor(stats.total * 0.7);
-          stats.invalid = stats.total - stats.success;
-        } else {
-          // Failed
-          stats.invalid = stats.total;
-        }
-        
-        onValidationComplete?.(file, stats);
-      }, 2000);
-    }, [onValidationComplete]);
     
     // Handle file deletion
     const handleDelete = useCallback((fileId: string) => {
       const updatedFiles = files.filter(f => f.id !== fileId);
       setFiles(updatedFiles);
+      setFileMap(prev => {
+        const newMap = new Map(prev);
+        newMap.delete(fileId);
+        return newMap;
+      });
       onFilesChange?.(updatedFiles);
     }, [files, onFilesChange]);
     
     // Handle file retry
     const handleRetry = useCallback((fileId: string) => {
-      const file = files.find(f => f.id === fileId);
-      if (file) {
-        setFiles(prev => prev.map(f => 
-          f.id === fileId ? { ...f, uploadProgress: 0 } : f
+      const uploadFile = files.find(f => f.id === fileId);
+      const originalFile = fileMap.get(fileId);
+      if (uploadFile && originalFile) {
+        setFiles(prev => prev.map(f =>
+          f.id === fileId ? { ...f, uploadProgress: 0, error: undefined } : f
         ));
-        simulateUpload(file);
+        handleUpload(uploadFile, originalFile);
       }
-    }, [files, simulateUpload]);
+    }, [files, fileMap, handleUpload]);
     
     // Render based on type
     const renderUploadInput = () => {
@@ -199,14 +212,14 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
           
         case 'thumbnail':
           return (
-            <div className="flex items-start gap-[16px] flex-wrap">
+            <div className="flex items-start gap-[var(--spacing-x4)] flex-wrap">
               {/* Show existing thumbnails */}
-              {files.map(file => (
+              {files.map(uploadFile => (
                 <UploadThumbnail
-                  key={file.id}
-                  preview={file.preview}
-                  fileName={file.name}
-                  onDelete={() => handleDelete(file.id)}
+                  key={uploadFile.id}
+                  preview={uploadFile.preview}
+                  fileName={uploadFile.name}
+                  onDelete={() => handleDelete(uploadFile.id)}
                   showFileName={true}
                 />
               ))}
@@ -248,9 +261,9 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
       <div
         ref={ref}
         className={cn(
-          "flex flex-col items-start gap-[16px]",
-          type === 'drag-drop' && "w-full max-w-[870px]",
-          type === 'button' && "w-full max-w-[308px]",
+          "flex flex-col items-start gap-[var(--spacing-x4)]",
+          type === 'drag-drop' && "w-full max-w-[calc(var(--spacing-x10)*21.75)]",
+          type === 'button' && "w-full max-w-[calc(var(--spacing-x8)*3.85)]",
           className
         )}
         {...props}
@@ -260,19 +273,17 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
         
         {/* File list (only for drag-drop and button types) */}
         {type !== 'thumbnail' && files.length > 0 && (
-          <div className="flex flex-col items-start gap-[16px] w-full">
-            {files.map(file => {
-              const isUploading = (file.uploadProgress || 0) < 100;
-              const isUploaded = (file.uploadProgress || 0) === 100;
-              
+          <div className="flex flex-col items-start gap-[var(--spacing-x4)] w-full">
+            {files.map(uploadFile => {
+              const isUploading = (uploadFile.uploadProgress || 0) < 100;
               return (
                 <UploadItem
-                  key={file.id}
+                  key={uploadFile.id}
                   type={getItemType()}
                   state={isUploading ? 'uploading' : 'uploaded'}
-                  file={file}
-                  onDelete={() => handleDelete(file.id)}
-                  onRetry={() => handleRetry(file.id)}
+                  file={uploadFile}
+                  onDelete={() => handleDelete(uploadFile.id)}
+                  onRetry={() => handleRetry(uploadFile.id)}
                 />
               );
             })}
@@ -284,4 +295,3 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
 );
 
 Upload.displayName = 'Upload';
-

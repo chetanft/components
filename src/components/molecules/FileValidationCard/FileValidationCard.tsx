@@ -102,23 +102,23 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
       >
         <div className={cn(
           "w-full bg-[var(--bg-primary)] border border-[var(--border-secondary)]",
-          "rounded-[8px] overflow-hidden"
+          "rounded-[var(--radius-md)] overflow-hidden"
         )}>
           {/* Spacer */}
-          <div className="h-[12px] w-full" />
+          <div className="h-[var(--spacing-x3)] w-full" />
           
           {/* Main content */}
-          <div className="flex items-center justify-between w-full px-[12px]">
+          <div className="flex items-center justify-between w-full px-[var(--spacing-x3)]">
             {/* Left side - Icon and file info */}
-            <div className="flex items-start gap-[20px] flex-1 min-w-0">
+            <div className="flex items-start gap-[var(--spacing-x5)] flex-1 min-w-0">
               {/* File icon */}
               <div className="flex items-center justify-center shrink-0">
                 <FileIcon type={fileType} size={40} />
               </div>
               
               {/* File details */}
-              <div className="flex flex-col gap-[4px] flex-1 min-w-0">
-                <div className="flex items-center gap-[12px]">
+              <div className="flex flex-col gap-[var(--spacing-x1)] flex-1 min-w-0">
+                <div className="flex items-center gap-[var(--spacing-x3)]">
                   <Typography 
                     variant="body-primary-semibold"
                     className="text-[var(--primary)]"
@@ -127,14 +127,14 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
                   </Typography>
                   
                   {/* Validation badge */}
-                  <div className="flex items-center gap-[8px]">
+                  <div className="flex items-center gap-[var(--spacing-x2)]">
                     {badgeConfig.showSpinner ? (
-                      <div className="inline-flex items-center justify-center border border-transparent px-[8px] py-[2px] gap-[8px] rounded-[4px] bg-[#ECF6FF]">
-                        <LoadingSpinner size={14} color="#1890FF" />
+                      <div className="inline-flex items-center justify-center border border-transparent px-[var(--spacing-x2)] py-[var(--spacing-x1)] gap-[var(--spacing-x2)] rounded-[var(--radius-sm)] bg-[var(--color-neutral-light)]">
+                        <LoadingSpinner size={14} color="var(--color-neutral)" />
                         <Typography 
                           variant="body-secondary-semibold" 
                           as="span"
-                          style={{ color: '#1890FF' }}
+                          className="text-[var(--color-neutral)]"
                         >
                           {badgeConfig.text}
                         </Typography>
@@ -151,7 +151,7 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
                 {uploadedAt && (
                   <Typography 
                     variant="body-secondary-regular"
-                    className="text-[var(--secondary)]"
+                    className="text-[var(--secondary)] truncate"
                   >
                     {formatDate(uploadedAt)}
                   </Typography>
@@ -160,13 +160,13 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
               
               {/* Right side - Actions or Delete */}
               {showActions ? (
-                <div className="flex items-center justify-end gap-[8px] shrink-0">
+                <div className="flex items-center justify-end gap-[var(--spacing-x2)] shrink-0">
                   {onDownload && (
                     <div 
                       onClick={onDownload}
                       className={cn(
                         "flex items-center justify-center",
-                        "w-[32px] h-[32px] rounded-[8px]",
+                        "w-[var(--spacing-x8)] h-[var(--spacing-x8)] rounded-[var(--radius-md)]",
                         "cursor-pointer transition-colors",
                         "hover:bg-[var(--bg-secondary)]"
                       )}
@@ -180,7 +180,7 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
                       onClick={onViewDetails}
                       className={cn(
                         "flex items-center justify-center",
-                        "w-[32px] h-[32px] rounded-[8px]",
+                        "w-[var(--spacing-x8)] h-[var(--spacing-x8)] rounded-[var(--radius-md)]",
                         "cursor-pointer transition-colors",
                         "hover:bg-[var(--bg-secondary)]"
                       )}
@@ -194,7 +194,7 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
                       onClick={onDelete}
                       className={cn(
                         "flex items-center justify-center",
-                        "w-[32px] h-[32px] rounded-[8px]",
+                        "w-[var(--spacing-x8)] h-[var(--spacing-x8)] rounded-[var(--radius-md)]",
                         "cursor-pointer transition-colors",
                         "hover:bg-[var(--critical-light)]"
                       )}
@@ -208,7 +208,7 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
                   <div className="flex items-center justify-center shrink-0">
                     <div 
                       onClick={onDelete}
-                      className="w-[16px] h-[16px] cursor-pointer overflow-hidden"
+                      className="w-[var(--spacing-x4)] h-[var(--spacing-x4)] cursor-pointer overflow-hidden"
                     >
                       <Icon name="cross" size={16} className="text-[var(--secondary)]" />
                     </div>
@@ -219,16 +219,16 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
           </div>
           
           {/* Spacer */}
-          <div className="h-[12px] w-full" />
+          <div className="h-[var(--spacing-x3)] w-full" />
           
           {/* Statistics section */}
           {showStats && (
             <>
-              <div className="flex items-start gap-[12px] w-full px-[52px]">
+              <div className="flex items-start gap-[var(--spacing-x3)] w-full px-[calc(var(--spacing-x6)+var(--spacing-x2))]">
                 {/* Total */}
                 <div className={cn(
-                  "flex-1 bg-[var(--bg-secondary)] rounded-[4px] p-[8px]",
-                  "flex flex-col gap-[8px]"
+                  "flex-1 bg-[var(--bg-secondary)] rounded-[var(--radius-sm)] p-[var(--spacing-x2)]",
+                  "flex flex-col gap-[var(--spacing-x2)]"
                 )}>
                   <Typography 
                     variant="body-secondary-medium"
@@ -246,8 +246,8 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
                 
                 {/* Success */}
                 <div className={cn(
-                  "flex-1 bg-[var(--bg-secondary)] rounded-[4px] p-[8px]",
-                  "flex flex-col gap-[8px]"
+                  "flex-1 bg-[var(--bg-secondary)] rounded-[var(--radius-sm)] p-[var(--spacing-x2)]",
+                  "flex flex-col gap-[var(--spacing-x2)]"
                 )}>
                   <Typography 
                     variant="body-secondary-medium"
@@ -265,8 +265,8 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
                 
                 {/* Invalid */}
                 <div className={cn(
-                  "flex-1 bg-[var(--bg-secondary)] rounded-[4px] p-[8px]",
-                  "flex flex-col gap-[8px]"
+                  "flex-1 bg-[var(--bg-secondary)] rounded-[var(--radius-sm)] p-[var(--spacing-x2)]",
+                  "flex flex-col gap-[var(--spacing-x2)]"
                 )}>
                   <Typography 
                     variant="body-secondary-medium"
@@ -283,7 +283,7 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
                 </div>
               </div>
               
-              <div className="h-[12px] w-full" />
+              <div className="h-[var(--spacing-x3)] w-full" />
             </>
           )}
         </div>
@@ -293,4 +293,3 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
 );
 
 FileValidationCard.displayName = 'FileValidationCard';
-

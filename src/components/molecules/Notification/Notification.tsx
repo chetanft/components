@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
-import { Icon, IconName } from '../../atoms/Icons';
+import { IconName } from '../../atoms/Icons';
 import { Alert, AlertVariant } from '../Alert';
 
 export interface NotificationConfig {
@@ -184,4 +184,3 @@ export const createNotification = () => {
     },
   };
 };
-

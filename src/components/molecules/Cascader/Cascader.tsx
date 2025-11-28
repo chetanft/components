@@ -109,7 +109,7 @@ const CascaderColumn: React.FC<CascaderColumnProps> = ({
   expandTrigger,
 }) => {
   return (
-    <div className="min-w-[160px] max-h-[256px] overflow-y-auto border-r border-solid border-[var(--border-primary)] last:border-r-0">
+    <div className="min-w-[calc(var(--spacing-x20)*2)] max-h-[calc(var(--spacing-x16)*4)] overflow-y-auto border-r border-solid border-[var(--border-primary)] last:border-r-0">
       {options.map((option) => {
         const isSelected = option.value === selectedValue;
         const hasChildren = option.children && option.children.length > 0;
@@ -119,7 +119,7 @@ const CascaderColumn: React.FC<CascaderColumnProps> = ({
             key={option.value}
             className={cn(
               "box-border flex items-center relative transition-colors duration-200",
-              "gap-[10px] p-[var(--x3,12px)] rounded-[var(--x2,8px)]",
+              "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--x3,12px)] rounded-[var(--x2,8px)]",
               isSelected && "bg-[var(--bg-secondary)]",
               !isSelected && !option.disabled && "hover:bg-[var(--border-secondary)] cursor-pointer",
               option.disabled && "bg-[var(--bg-primary)] cursor-not-allowed opacity-60"
@@ -172,7 +172,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
     showSearch = false,
     disabled,
     id,
-    ...props
+    ..._props
   }, ref) => {
     // All hooks must be called first, before any other logic
     const cascaderId = useId();
@@ -440,14 +440,14 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
             >
               {showSearch && searchValue ? (
                 // Search results
-                <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-h-px min-w-px relative shrink-0 max-h-[256px] overflow-y-auto min-w-[200px]">
+                <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start min-h-px min-w-px relative shrink-0 max-h-[calc(var(--spacing-x16)*4)] overflow-y-auto min-w-[calc(var(--spacing-x10)*5)]">
                   {searchResults.length > 0 ? (
                     searchResults.map(({ path }, index) => (
                       <div
                         key={index}
                         className={cn(
                           "box-border flex items-center relative transition-colors duration-200",
-                          "gap-[10px] p-[var(--x3,12px)] rounded-[var(--x2,8px)]",
+                          "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--x3,12px)] rounded-[var(--x2,8px)]",
                           "hover:bg-[var(--border-secondary)] cursor-pointer"
                         )}
                         onClick={() => handleSearchSelect(path)}
@@ -473,7 +473,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
                 </div>
               ) : (
                 // Cascading columns
-                <div className="content-stretch flex gap-[16px] items-start relative shrink-0 w-full">
+                <div className="content-stretch flex gap-[var(--spacing-x4)] items-start relative shrink-0 w-full">
                   {columns.map((columnOptions, columnIndex) => (
                     <CascaderColumn
                       key={columnIndex}
@@ -498,4 +498,3 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
 Cascader.displayName = 'Cascader';
 
 export default Cascader;
-

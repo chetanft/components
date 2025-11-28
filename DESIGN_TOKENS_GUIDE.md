@@ -103,6 +103,34 @@ Desktop spacing uses 4px base unit:
 - `--spacing-x15`: 60px
 - `--spacing-x16`: 64px
 
+### Layout & Grid System
+
+**Breakpoints**
+- `--breakpoint-xxl`: 1600px (ultra-wide)
+- `--breakpoint-xl`: 1440px (desktop container)
+- `--breakpoint-lg`: 1280px (large laptop)
+- `--breakpoint-md`: 1024px (tablet)
+- `--breakpoint-sm`: 768px (small tablet)
+- `--breakpoint-xs`: 480px (mobile)
+
+**Column Grid**
+
+| Viewport | Columns | Margin | Gutter |
+| --- | --- | --- | --- |
+| >1440px | `--grid-desktop-columns` = 24 | `--grid-desktop-margin` = 20px | `--grid-desktop-gutter` = 20px |
+| ≤1440px | `--grid-laptop-columns` = 24 | `--grid-laptop-margin` = 16px | `--grid-laptop-gutter` = 16px |
+| ≤768px  | `--grid-mobile-columns` = 4 | `--grid-mobile-margin` = 16px | `--grid-mobile-gutter` = 16px |
+
+Runtime tokens (`--grid-columns`, `--grid-gutter`, `--grid-margin`, `--container-max-width`) react to these breakpoints so layout code can stay token-based:
+
+```tsx
+<section className="ft-container">
+  <div className="ft-grid">
+    <article style={{ gridColumn: 'span 8' }}>...</article>
+  </div>
+</section>
+```
+
 ### Border Radius
 
 - `--radius-none`: 0px

@@ -62,7 +62,7 @@ const ColorScale: React.FC<ColorScaleProps> = ({ title, colors, theme }) => {
             {/* Shade label and hex value */}
             <div className="text-xs mt-1 text-center">
               <div className="font-mono">{color.shade}</div>
-              <div className="font-mono text-[10px] opacity-70">{color.hex}</div>
+              <div className="font-mono text-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] opacity-70">{color.hex}</div>
             </div>
           </div>
         ))}

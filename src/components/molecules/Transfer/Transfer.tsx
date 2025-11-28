@@ -5,8 +5,6 @@ import { cn } from '../../../lib/utils';
 import { Button } from '../../atoms/Button/Button';
 import { Checkbox } from '../../atoms/Checkbox';
 import { Input } from '../../atoms/Input';
-import { Icon } from '../../atoms/Icons';
-import { Typography } from '../../atoms/Typography';
 
 export interface TransferItem {
     key: string;
@@ -47,7 +45,7 @@ const TransferList = ({
     showSearch,
     searchPlaceholder,
     disabled,
-    direction
+    direction: _direction
 }: any) => {
     const [filter, setFilter] = useState('');
 
@@ -139,7 +137,7 @@ export const Transfer: React.FC<TransferProps> = ({
     titles = ['', ''],
     operations = ['', ''],
     targetKeys = [],
-    selectedKeys = [],
+    selectedKeys: _selectedKeys = [],
     onChange,
     onSelectChange,
     render,
@@ -148,7 +146,7 @@ export const Transfer: React.FC<TransferProps> = ({
     oneWay,
     disabled,
     className,
-    onScroll,
+    onScroll: _onScroll,
     ...props
 }) => {
     const [sourceSelectedKeys, setSourceSelectedKeys] = useState<string[]>([]);
@@ -264,4 +262,3 @@ export const Transfer: React.FC<TransferProps> = ({
 };
 
 Transfer.displayName = 'Transfer';
-

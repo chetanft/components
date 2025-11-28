@@ -117,7 +117,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               return (
                 <span
                   key={`ellipsis-${index}`}
-                  className="px-2 text-[#838c9d]"
+                  className="px-2 text-[var(--color-tertiary)]"
                 >
                   ...
                 </span>
@@ -134,7 +134,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
                 size="sm"
                 onClick={() => handlePageChange(pageNum)}
                 className={cn(
-                  "min-w-[32px]",
+                  "min-w-[var(--spacing-x8)]",
                   isActive && "font-semibold"
                 )}
                 aria-label={`Page ${pageNum}`}
@@ -158,7 +158,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
 
         {showSizeChanger && (
           <div className="flex items-center gap-2 ml-4">
-            <span className="text-sm text-[#838c9d]">Show:</span>
+            <span className="text-sm text-[var(--color-tertiary)]">Show:</span>
             <select
               value={pageSize}
               onChange={(e) => handleSizeChange(Number(e.target.value))}
@@ -180,7 +180,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
 
         {showQuickJumper && (
           <div className="flex items-center gap-2 ml-4">
-            <span className="text-sm text-[#838c9d]">Go to:</span>
+            <span className="text-sm text-[var(--color-tertiary)]">Go to:</span>
             <input
               type="number"
               min={1}

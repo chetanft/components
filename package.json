@@ -55,6 +55,8 @@
     "connect:create": "figma connect create",
     "type-check": "tsc --noEmit",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:strict": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0",
+    "check:px": "node scripts/check-px-literals.js",
     "test": "jest",
     "publish:prepare": "npm run type-check && npm run build",
     "publish:dry-run": "npm run publish:prepare && npm pack --dry-run",

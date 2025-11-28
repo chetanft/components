@@ -100,8 +100,8 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
         <div
           className={cn(
             // Base styles from Figma
-            "flex flex-col items-center justify-center gap-[20px] p-[20px_12px]",
-            "border-[1.5px] border-dashed rounded-[8px]",
+            "flex flex-col items-center justify-center gap-[var(--spacing-x5)] px-[var(--spacing-x5)] py-[var(--spacing-x3)]",
+            "border border-dashed rounded-[var(--radius-md)]",
             "cursor-pointer transition-all duration-200",
             "bg-[var(--bg-secondary)]",
             // Default state
@@ -121,9 +121,9 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
           {...props}
         >
           {/* Upload Icon */}
-          <div className="flex items-center justify-center w-[65px] h-[62px]">
+          <div className="flex items-center justify-center w-[calc(var(--spacing-x8)+var(--spacing-x1))] h-[calc(var(--spacing-x8)+var(--spacing-x1))]">
             <CloudUpload 
-              size={65}
+              size={52}
               className={cn(
                 "transition-colors",
                 isDisabled ? "text-[var(--bg-secondary)]" : "text-[var(--primary)]"
@@ -132,7 +132,7 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
           </div>
           
           {/* Upload Instructions */}
-          <div className="flex flex-col items-center gap-[16px] px-[20px] w-full">
+          <div className="flex flex-col items-center gap-[var(--spacing-x4)] px-[var(--spacing-x5)] w-full">
             {/* Main instruction */}
             <div className="flex items-center justify-center w-full">
               <Typography 

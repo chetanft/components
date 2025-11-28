@@ -107,37 +107,37 @@ export const Sizes: Story = {
         <div className="text-center">
           <FileTypeIcon fileType="XLS" size="xxs" />
           <p className="mt-2 text-xs">XXS</p>
-          <p className="text-xs text-muted-foreground">13×16px</p>
+          <p className="text-xs text-muted-foreground">13×16 (var(--component-height-xxs)×var(--spacing-x4))</p>
         </div>
         <div className="text-center">
           <FileTypeIcon fileType="XLS" size="xs" />
           <p className="mt-2 text-xs">XS</p>
-          <p className="text-xs text-muted-foreground">20×24px</p>
+          <p className="text-xs text-muted-foreground">20×24 (var(--component-height-xs)×var(--spacing-x6))</p>
         </div>
         <div className="text-center">
           <FileTypeIcon fileType="XLS" size="sm" />
           <p className="mt-2 text-xs">SM</p>
-          <p className="text-xs text-muted-foreground">26×32px</p>
+          <p className="text-xs text-muted-foreground">26×32 (var(--component-height-sm)×var(--spacing-x8))</p>
         </div>
         <div className="text-center">
           <FileTypeIcon fileType="XLS" size="md" />
           <p className="mt-2 text-xs">MD</p>
-          <p className="text-xs text-muted-foreground">33×40px</p>
+          <p className="text-xs text-muted-foreground">33×40 (var(--component-height-md)×var(--spacing-x10))</p>
         </div>
         <div className="text-center">
           <FileTypeIcon fileType="XLS" size="lg" />
           <p className="mt-2 text-xs">LG</p>
-          <p className="text-xs text-muted-foreground">39×48px</p>
+          <p className="text-xs text-muted-foreground">39×48 (var(--component-height-lg)×var(--spacing-x12))</p>
         </div>
         <div className="text-center">
           <FileTypeIcon fileType="XLS" size="xl" />
           <p className="mt-2 text-xs">XL</p>
-          <p className="text-xs text-muted-foreground">46×56px</p>
+          <p className="text-xs text-muted-foreground">46×56 (var(--component-height-xl)×var(--spacing-x14))</p>
         </div>
         <div className="text-center">
           <FileTypeIcon fileType="XLS" size="xxl" />
           <p className="mt-2 text-xs">XXL</p>
-          <p className="text-xs text-muted-foreground">52×64px</p>
+          <p className="text-xs text-muted-foreground">52×64 (var(--component-height-xxl)×var(--spacing-x16))</p>
         </div>
       </div>
     </div>

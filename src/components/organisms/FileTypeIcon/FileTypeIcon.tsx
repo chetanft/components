@@ -96,47 +96,47 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
           case 'XLS':
           case 'XLSX':
             return {
-              gradient: "linear-gradient(180deg, var(--bg-secondary) 0%, #1D6F42 100%)",
-              foldedCorner: "var(--border-primary)"
+              gradient: "linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-positive) 100%)",
+              foldedCorner: "var(--color-border-primary)"
             };
           case 'CSV':
             return {
-              gradient: "linear-gradient(180deg, var(--bg-secondary) 0%, #4A90E2 100%)",
-              foldedCorner: "#2E5C8A"
+              gradient: "linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-neutral) 100%)",
+              foldedCorner: "var(--color-neutral-dark)"
             };
           case 'PDF':
             return {
-              gradient: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--critical) 100%)",
-              foldedCorner: "var(--border-primary)"
+              gradient: "linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-critical) 100%)",
+              foldedCorner: "var(--color-border-primary)"
             };
           case 'DOC':
           case 'DOCX':
             return {
-              gradient: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--neutral) 100%)",
-              foldedCorner: "var(--border-primary)"
+              gradient: "linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-neutral) 100%)",
+              foldedCorner: "var(--color-border-primary)"
             };
           case 'PNG':
             return {
-              gradient: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--neutral) 100%)",
-              foldedCorner: "var(--border-primary)"
+              gradient: "linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-neutral) 100%)",
+              foldedCorner: "var(--color-border-primary)"
             };
           case 'JPEG':
           case 'JPG':
             return {
-              gradient: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--neutral) 100%)",
-              foldedCorner: "var(--border-primary)"
+              gradient: "linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-neutral) 100%)",
+              foldedCorner: "var(--color-border-primary)"
             };
           default:
             return {
-              gradient: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--tertiary) 100%)",
-              foldedCorner: "var(--border-primary)"
+              gradient: "linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-tertiary) 100%)",
+              foldedCorner: "var(--color-border-primary)"
             };
         }
       };
       
       const getErrorStyles = () => ({
-        gradient: "linear-gradient(180deg, var(--bg-secondary) 0%, var(--critical-light) 100%)",
-        foldedCorner: "var(--border-primary)"
+        gradient: "linear-gradient(180deg, var(--color-bg-secondary) 0%, var(--color-critical-light) 100%)",
+        foldedCorner: "var(--color-border-primary)"
       });
       
       const styles = variant === 'error' ? getErrorStyles() : getFileTypeStyles(fileType);
@@ -180,9 +180,9 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
           {/* File type text - positioned at bottom center */}
           <div className={cn("absolute left-1/2 transform -translate-x-1/2", bottomPadding[size])}>
             <span className={cn(
-              "text-white font-semibold",
+              "text-[var(--color-bg-primary)] font-semibold",
               textSizes[size],
-              variant === 'error' && "text-[#ff3532]"
+              variant === 'error' && "text-[var(--color-critical)]"
             )}>
               {displayText}
             </span>

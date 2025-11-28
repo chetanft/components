@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Checkbox } from '../../atoms/Checkbox/Checkbox';
@@ -36,8 +36,6 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
   onClick,
   className
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
   // Color mappings from Figma - use CSS variables instead of hardcoded
   const getBackgroundColor = () => {
     switch (colorVariant) {
@@ -73,14 +71,14 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
   // Size-based padding from Figma design - compact for better alignment
   const getPadding = () => {
     if (type === 'checkbox') {
-      return "py-[12px] px-[16px] pl-[8px]"; // Checkbox columns have consistent padding
+      return "py-[var(--spacing-x3)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]"; // Checkbox columns have consistent padding
     }
     
     switch (size) {
-      case 'md': return "py-[12px] px-[16px] pl-[8px]";
-      case 'lg': return "py-[16px] px-[16px] pl-[8px]";
-      case 'xl': return "py-[20px] px-[20px] pl-[8px]";
-      default: return "py-[12px] px-[16px] pl-[8px]";
+      case 'md': return "py-[var(--spacing-x3)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
+      case 'lg': return "py-[var(--spacing-x4)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
+      case 'xl': return "py-[var(--spacing-x5)] px-[var(--spacing-x5)] pl-[var(--spacing-x2)]";
+      default: return "py-[var(--spacing-x3)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
     }
   };
 
@@ -88,7 +86,7 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
     <th
       className={cn(
         // Base styles from Figma
-        "h-[50px] text-left transition-colors", // Fixed height from Figma
+        "h-[calc(var(--spacing-x12)+var(--spacing-x1)/2)] text-left transition-colors", // Fixed height from Figma
         // Size-based padding
         getPadding(),
         getBackgroundColor(),
@@ -98,8 +96,6 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
         className
       )}
       onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div className={cn(
         "flex items-center h-full",
@@ -108,10 +104,10 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
       )}>
         {/* Drag Handle */}
         {draggable && (
-          <div className="flex flex-col gap-[2px] w-[8px] h-[8px] mr-[10px]">
-            <div className={cn("w-full h-[1px]", colorVariant === 'dark25' ? "bg-[var(--bg-primary)]" : "bg-[var(--secondary)]")} />
-            <div className={cn("w-full h-[1px]", colorVariant === 'dark25' ? "bg-[var(--bg-primary)]" : "bg-[var(--secondary)]")} />
-            <div className={cn("w-full h-[1px]", colorVariant === 'dark25' ? "bg-[var(--bg-primary)]" : "bg-[var(--secondary)]")} />
+          <div className="flex flex-col gap-[calc(var(--spacing-x1)/2)] w-[var(--spacing-x2)] h-[var(--spacing-x2)] mr-[calc(var(--spacing-x2)+var(--spacing-x1)/2)]">
+            <div className={cn("w-full h-[calc(var(--spacing-x1)/4)]", colorVariant === 'dark25' ? "bg-[var(--bg-primary)]" : "bg-[var(--secondary)]")} />
+            <div className={cn("w-full h-[calc(var(--spacing-x1)/4)]", colorVariant === 'dark25' ? "bg-[var(--bg-primary)]" : "bg-[var(--secondary)]")} />
+            <div className={cn("w-full h-[calc(var(--spacing-x1)/4)]", colorVariant === 'dark25' ? "bg-[var(--bg-primary)]" : "bg-[var(--secondary)]")} />
           </div>
         )}
 
@@ -127,11 +123,11 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
 
         {/* Text Type - Inline sort indicators aligned with text */}
         {type === 'text' && (
-          <div className="flex items-center gap-[6px]">
+          <div className="flex items-center gap-[calc(var(--spacing-x2)-var(--spacing-x1)/2)]">
             <span
               className={cn(
                 // Typography from Figma - 14px/16px semibold
-                size === 'md' ? "text-[14px]" : "text-[16px]",
+                size === 'md' ? "text-[var(--font-size-sm)]" : "text-[var(--font-size-md)]",
                 "font-semibold leading-[1.4]",
                 getTextColor()
               )}
@@ -141,7 +137,7 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
             
             {/* Sort Indicators - Inline with text for better alignment */}
             {sortable && (
-              <div className="flex flex-col items-center justify-center w-[10px] h-[14px]">
+              <div className="flex flex-col items-center justify-center w-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] h-[calc(var(--spacing-x2)+var(--spacing-x1)+var(--spacing-x1)/2)]">
                 <Icon
                   name="chevron-up"
                   size={8}

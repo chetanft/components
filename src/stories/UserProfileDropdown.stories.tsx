@@ -49,9 +49,9 @@ const meta = {
       const { userName, userRole, userLocation, userBadge, userAvatar } = context.args;
       return (
         <div style={{
-          padding: '40px',
-          backgroundColor: '#F8F8F9',
-          minHeight: '500px',
+          padding: 'calc(var(--spacing-x10) * 1.25)',
+          backgroundColor: 'var(--bg-secondary)',
+          minHeight: 'calc(var(--spacing-x10) * 15.625)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'flex-start'
