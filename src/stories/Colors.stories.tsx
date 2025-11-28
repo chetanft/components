@@ -3,6 +3,20 @@ import type { Decorator, Meta, StoryObj } from '@storybook/react';
 import { Colors } from '../components/atoms/Colors/Colors';
 import { ThemeProvider } from '../contexts/ThemeContext';
 
+const withThemeProvider: Decorator = (Story) => (
+  <ThemeProvider>
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--primary)] p-8">
+      <Story />
+    </div>
+  </ThemeProvider>
+);
+
+const withStandaloneContainer: Decorator = (Story) => (
+  <div className="min-h-screen bg-white text-black p-8">
+    <Story />
+  </div>
+);
+
 const meta = {
   title: 'Design System/Colors',
   component: Colors,
@@ -14,15 +28,7 @@ const meta = {
       },
     },
   },
-  decorators: [
-    ((Story) => (
-      <ThemeProvider>
-        <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--primary)] p-8">
-          <Story />
-        </div>
-      </ThemeProvider>
-    )) satisfies Decorator,
-  ],
+  decorators: [withThemeProvider],
 } satisfies Meta<typeof Colors>;
 
 export default meta;
@@ -41,13 +47,7 @@ export const Default: Story = {
 
 export const WithoutThemeProvider: Story = {
   name: 'Standalone (No Provider)',
-  decorators: [
-    ((Story) => (
-      <div className="min-h-screen bg-white text-black p-8">
-        <Story />
-      </div>
-    )) satisfies Decorator,
-  ],
+  decorators: [withStandaloneContainer],
   parameters: {
     docs: {
       description: {
