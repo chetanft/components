@@ -66,12 +66,6 @@ export const docsConfig: DocsConfig = {
           href: "/docs/global-css",
           items: [],
         },
-        {
-          title: "Story POC",
-          href: "/docs/story-poc",
-          items: [],
-          badge: "New",
-        },
       ],
     },
     {
