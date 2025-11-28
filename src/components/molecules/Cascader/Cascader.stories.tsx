@@ -153,7 +153,7 @@ const ControlledCascaderStory = (args: React.ComponentProps<typeof Cascader>) =>
 
 // Controlled Cascader
 export const Controlled: Story = {
-  render: (args) => <ControlledCascaderStory {...args} />,
+  render: (args: React.ComponentProps<typeof Cascader>) => <ControlledCascaderStory {...args} />,
   args: {
     label: 'Controlled Cascader',
     options: locationOptions,
