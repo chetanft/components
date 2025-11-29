@@ -8,7 +8,9 @@ import {
 import { Button } from '../components/atoms/Button/Button';
 import { Typography } from '../components/atoms/Typography';
 
-const popoverCanvas = ((Story) => (
+type PopoverDecoratorStory = Parameters<Decorator>[0];
+
+const popoverCanvas = ((Story: PopoverDecoratorStory) => (
   <div
     style={{
       minHeight: '100vh',
