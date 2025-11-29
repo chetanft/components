@@ -4,7 +4,7 @@ import { UserProfileDropdown } from '../components/organisms/UserProfileDropdown
 import { UserProfile } from '../components/organisms/UserProfile';
 
 type DecoratorStory = Parameters<Decorator>[0];
-type DecoratorContext = Parameters<Decorator>[1];
+type DecoratorContext = Parameters<Decorator>[1] & { args: DecoratorArgs };
 
 type DecoratorArgs = {
   userName?: string;
@@ -21,7 +21,7 @@ const withAnchoredProfile: Decorator = (Story: DecoratorStory, context: Decorato
     userLocation,
     userBadge,
     userAvatar,
-  } = context.args as DecoratorArgs;
+  } = context.args;
   const StoryComponent = Story as React.ComponentType;
   return (
     <div style={{
