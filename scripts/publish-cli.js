@@ -208,11 +208,6 @@ async function handleNpmPublish(rl) {
   return execCommand('npm run publish:npm', 'npm registry publish');
 }
 
-async function handleVersionCheck() {
-  log('\n📋 Checking published versions...', 'blue');
-  return execCommand('npm run version:check', 'Version check');
-}
-
 async function handleClean() {
   log('\n🧹 Cleaning build artifacts...', 'blue');
   return execCommand('npm run clean', 'Build cleanup');
