@@ -1,11 +1,11 @@
 import React from 'react';
-import type { Decorator, Meta, StoryObj } from '@storybook/react';
+import type { Decorator, Meta, StoryObj, StoryFn } from '@storybook/react';
 import { Colors } from '../components/atoms/Colors/Colors';
 import { ThemeProvider } from '../contexts/ThemeContext';
 
-type DecoratorStory = Parameters<Decorator>[0];
 
-const withThemeProvider = ((Story: DecoratorStory) => (
+
+const withThemeProvider = ((Story: StoryFn) => (
   <ThemeProvider>
     <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--primary)] p-8">
       <Story />
@@ -13,7 +13,7 @@ const withThemeProvider = ((Story: DecoratorStory) => (
   </ThemeProvider>
 )) satisfies Decorator;
 
-const withStandaloneContainer = ((Story: DecoratorStory) => (
+const withStandaloneContainer = ((Story: StoryFn) => (
   <div className="min-h-screen bg-white text-black p-8">
     <Story />
   </div>
