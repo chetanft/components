@@ -1,7 +1,8 @@
 "use client";
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
+import { Button } from '../../atoms/Button/Button';
 
 export type TabType = 'primary' | 'secondary' | 'tertiary';
 export type TabState = 'unselected' | 'selected' | 'hover';
@@ -38,8 +39,7 @@ const TabContent = ({
     <div className={cn(
       "flex items-center",
       gapClass,
-      containerAlignment,
-      "w-full"
+      containerAlignment
     )}>
       {icon && (
         <div className="overflow-clip relative shrink-0 size-[16px]">
@@ -108,7 +108,7 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
     
     // Base styles matching Figma design exactly using FT design system tokens
     const baseStyles = cn(
-      "relative flex flex-col gap-[10px] items-start transition-all cursor-pointer",
+      "relative flex flex-col gap-[10px] items-start transition-all cursor-pointer flex-shrink-0",
       disabled && "opacity-50 cursor-not-allowed pointer-events-none",
       
       // Padding based on type - using FT design system spacing tokens
@@ -190,6 +190,8 @@ export interface Tab {
   children?: React.ReactNode; // Content for the tab panel
 }
 
+export type TabsOverflowBehavior = 'auto' | 'dropdown';
+
 export interface TabsProps {
   tabs: Tab[];
   activeTab?: number;
@@ -197,41 +199,197 @@ export interface TabsProps {
   type?: TabType;
   showLine?: boolean;
   className?: string;
+  overflowBehavior?: TabsOverflowBehavior;
 }
 
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
-  ({ 
-    showLine = true, 
-    tabs, 
-    activeTab = 0, 
-    onTabChange, 
+  ({
+    showLine = true,
+    tabs,
+    activeTab = 0,
+    onTabChange,
     type = 'primary',
-    className, 
-    ...props 
+    className,
+    overflowBehavior = 'auto',
+    ...props
   }, ref) => {
     const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
-    
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const measurementRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const [containerWidth, setContainerWidth] = useState<number | null>(null);
+    const [tabWidths, setTabWidths] = useState<number[]>([]);
+    const [overflowOpen, setOverflowOpen] = useState(false);
+    const overflowTriggerRef = useRef<HTMLButtonElement | null>(null);
+    const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
+
+    useEffect(() => {
+      setInternalActiveTab(activeTab);
+    }, [activeTab]);
+
     const handleTabSelect = (index: number) => {
       setInternalActiveTab(index);
       onTabChange?.(index);
     };
-    
-    // Container styles matching Figma design using FT design system tokens
+
+    useEffect(() => {
+      if (overflowBehavior !== 'dropdown') return;
+      const node = containerRef.current;
+      if (!node || typeof ResizeObserver === 'undefined') return;
+      const observer = new ResizeObserver(entries => {
+        const entry = entries[0];
+        if (entry?.contentRect?.width) {
+          setContainerWidth(entry.contentRect.width);
+        }
+      });
+      observer.observe(node);
+      return () => observer.disconnect();
+    }, [overflowBehavior]);
+
+    useLayoutEffect(() => {
+      if (overflowBehavior !== 'dropdown') return;
+      const widths = measurementRefs.current.map(el => el?.offsetWidth || 0);
+      setTabWidths(widths);
+    }, [tabs, type, overflowBehavior, internalActiveTab, containerWidth]);
+
+    const overflowData = useMemo(() => {
+      if (
+        overflowBehavior !== 'dropdown' ||
+        !containerWidth ||
+        tabWidths.length === 0 ||
+        tabWidths.every(width => width === 0)
+      ) {
+        return {
+          visible: tabs.map((_, index) => index),
+          overflow: [] as number[],
+        };
+      }
+
+      const OVERFLOW_TRIGGER_WIDTH = 56;
+      const visible: number[] = [];
+      const overflow: number[] = [];
+      let used = 0;
+
+      tabs.forEach((_, index) => {
+        const width = tabWidths[index] ?? 0;
+        if (used + width <= containerWidth) {
+          visible.push(index);
+          used += width;
+        } else {
+          overflow.push(index);
+        }
+      });
+
+      if (overflow.length > 0) {
+        while (visible.length > 0 && used + OVERFLOW_TRIGGER_WIDTH > containerWidth) {
+          const moved = visible.pop();
+          if (typeof moved === 'number') {
+            overflow.unshift(moved);
+            used -= tabWidths[moved] ?? 0;
+          } else {
+            break;
+          }
+        }
+        if (visible.length === 0 && overflow.length > 0) {
+          const first = overflow.shift();
+          if (typeof first === 'number') {
+            visible.push(first);
+          }
+        }
+      }
+
+      return { visible, overflow };
+    }, [overflowBehavior, containerWidth, tabWidths, tabs]);
+
+    useEffect(() => {
+      if (!overflowOpen) return;
+      const updatePosition = () => {
+        const rect = overflowTriggerRef.current?.getBoundingClientRect();
+        if (rect) {
+          setMenuPosition({ top: rect.bottom + 8, left: rect.left });
+        }
+      };
+      updatePosition();
+      window.addEventListener('resize', updatePosition);
+      window.addEventListener('scroll', updatePosition, true);
+      return () => {
+        window.removeEventListener('resize', updatePosition);
+        window.removeEventListener('scroll', updatePosition, true);
+      };
+    }, [overflowOpen]);
+
+    useEffect(() => {
+      if (!overflowOpen) return;
+      const handleClick = (event: MouseEvent) => {
+        if (
+          overflowTriggerRef.current &&
+          !overflowTriggerRef.current.contains(event.target as Node)
+        ) {
+          setOverflowOpen(false);
+        }
+      };
+      document.addEventListener('mousedown', handleClick);
+      const handleKey = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          setOverflowOpen(false);
+        }
+      };
+      document.addEventListener('keydown', handleKey);
+      return () => {
+        document.removeEventListener('mousedown', handleClick);
+        document.removeEventListener('keydown', handleKey);
+      };
+    }, [overflowOpen]);
+
     const containerStyles = cn(
-      "flex items-start relative w-full",
-      // Spacing between tabs for secondary and tertiary - using FT design system tokens
+      "flex items-start relative",
       (type === 'secondary' || type === 'tertiary') && "gap-[var(--x2,8px)]",
       className
     );
-    
+
+    const visibleIndices = overflowData.visible;
+    const overflowIndices = overflowData.overflow;
+    const activeInOverflow = overflowIndices.includes(internalActiveTab);
+
     return (
-      <div className="flex flex-col w-full">
-          <div
-            ref={ref}
-            className={containerStyles}
-            {...props}
-          >
-            {tabs.map((tab, index) => (
+      <div className="flex flex-col relative">
+        <div
+          className="absolute opacity-0 pointer-events-none -z-10 flex flex-wrap gap-2 top-0 left-0"
+          aria-hidden
+        >
+          {tabs.map((tab, index) => (
+            <TabItem
+              key={`measure-${index}`}
+              label={tab.label}
+              badge={tab.badge}
+              badgeCount={tab.badgeCount}
+              notification={tab.notification}
+              icon={tab.icon}
+              type={type}
+              active={index === internalActiveTab}
+              disabled={tab.disabled}
+              ref={(node) => {
+                measurementRefs.current[index] = node;
+              }}
+            />
+          ))}
+        </div>
+        <div
+          ref={(node) => {
+            if (typeof ref === 'function') {
+              ref(node);
+            } else if (ref) {
+              ref.current = node;
+            }
+            containerRef.current = node;
+          }}
+          className={containerStyles}
+          {...props}
+        >
+          {tabs.map((tab, index) => {
+            if (!visibleIndices.includes(index)) {
+              return null;
+            }
+            return (
               <TabItem
                 key={index}
                 label={tab.label}
@@ -244,16 +402,52 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
                 onSelect={() => !tab.disabled && handleTabSelect(index)}
                 disabled={tab.disabled}
               />
-            ))}
-            {showLine && type === 'primary' && (
-              <div className="border-[var(--border-primary)] border-b border-l-0 border-r-0 border-solid border-t-0 flex-[1_0_0] min-h-px min-w-px self-stretch shrink-0" />
-            )}
-          </div>
-          {tabs[internalActiveTab]?.children && (
-            <div className="p-[var(--x4,16px)] bg-[var(--bg-primary)] border-l border-r border-b border-[var(--border-primary)] rounded-b-lg">
-              {tabs[internalActiveTab]?.children}
+            );
+          })}
+          {overflowBehavior === 'dropdown' && overflowIndices.length > 0 && (
+            <div className="flex items-center">
+              <Button
+                ref={overflowTriggerRef}
+                variant="text"
+                size="md"
+                icon="more"
+                iconPosition="only"
+                aria-label="More tabs"
+                onClick={() => setOverflowOpen((prev) => !prev)}
+              />
             </div>
           )}
+          {showLine && type === 'primary' && (
+            <div className="border-[var(--border-primary)] border-b border-l-0 border-r-0 border-solid border-t-0 flex-[1_0_0] min-h-px min-w-px self-stretch shrink-0" />
+          )}
+        </div>
+        {overflowBehavior === 'dropdown' && overflowOpen && (
+          <div
+            className="fixed z-50 rounded-[var(--x2,8px)] border border-[var(--border-secondary)] bg-[var(--bg-primary)] shadow-lg min-w-[160px] py-[var(--x2,8px)]"
+            style={{ top: menuPosition.top, left: menuPosition.left }}
+          >
+            {overflowIndices.map((index) => (
+              <button
+                key={`overflow-${index}`}
+                className={cn(
+                  "w-full text-left px-[var(--x4,16px)] py-[var(--x2,8px)] text-[var(--primary)] hover:bg-[var(--bg-secondary)] transition-colors",
+                  index === internalActiveTab && "font-semibold"
+                )}
+                onClick={() => {
+                  handleTabSelect(index);
+                  setOverflowOpen(false);
+                }}
+              >
+                {tabs[index].label}
+              </button>
+            ))}
+          </div>
+        )}
+        {tabs[internalActiveTab]?.children && (
+          <div className="p-[var(--x4,16px)] bg-[var(--bg-primary)] border-l border-r border-b border-[var(--border-primary)] rounded-b-lg">
+            {tabs[internalActiveTab]?.children}
+          </div>
+        )}
       </div>
     );
   }

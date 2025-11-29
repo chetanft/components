@@ -164,3 +164,30 @@ export const Variant2: Story = {
     activeTab: 'orders',
   },
 };
+
+export const WithLeftTabsAndUnderlineTabs: Story = {
+  args: {
+    title: 'PB 09 HH6439',
+    showBackButton: true,
+    showTabs: true,
+    tabStyle: 'underline',
+    showLeftTabs: true,
+    showActions: true,
+    leftTabs: [
+      { label: 'Orders', key: 'orders' },
+      { label: 'Plans', key: 'plans' },
+    ],
+    activeLeftTab: 'orders',
+    tabs: [
+      { label: 'Tracking', key: 'tracking' },
+      { label: 'Loads', key: 'loads' },
+      { label: 'Exceptions', key: 'exceptions' },
+      { label: 'Ops', key: 'ops' },
+    ],
+    activeTab: 'tracking',
+    primaryActionLabel: 'Button',
+    secondaryActionLabel: 'Button',
+    onLeftTabChange: (key: string) => console.log('Left tab changed:', key),
+    onTabChange: (key: string) => console.log('Tab changed:', key),
+  },
+};

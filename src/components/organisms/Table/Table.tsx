@@ -270,15 +270,23 @@ const TableRowComponent = <T extends TableRow = TableRow>({
       {columns.map((column, columnIndex) => {
         const cellIndex = columnIndex + (selectable ? 1 : 0);
         // Determine if this cell should have multiple lines based on content
-        const cellValue = row[column.key];
+        let cellValue = row[column.key];
+        
+        // For secondary variant, extract only the first data point (before newline)
+        if (variant === 'secondary' && typeof cellValue === 'string' && cellValue.includes('\n')) {
+          cellValue = cellValue.split('\n')[0];
+        }
+        
         const hasNewlines = typeof cellValue === 'string' && cellValue.includes('\n');
         const hasSingleLine = !cellValue || (!hasNewlines && String(cellValue).length < 20);
+        // Secondary variant always uses single line
+        const lineVariant = variant === 'secondary' ? "single" : (hasSingleLine ? "single" : "double");
 
         return (
           <TableCell
             key={column.key}
             backgroundColor={getCellBackground(cellIndex)}
-            lineVariant={hasSingleLine ? "single" : "double"}
+            lineVariant={lineVariant}
             size={cellSize}
             state={selected ? 'selected' : (hoveredRowIndex ? 'hover' : 'default')}
           >

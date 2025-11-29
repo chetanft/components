@@ -22,7 +22,7 @@ export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   showBackButton?: boolean;
   /** Callback when back button is clicked */
   onBack?: () => void;
-  /** Array of tabs to display */
+  /** Array of tabs to display (underline tabs in the middle) */
   tabs?: PageHeaderTab[];
   /** Active tab key */
   activeTab?: string;
@@ -32,6 +32,14 @@ export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   tabStyle?: 'underline' | 'segmented';
   /** Whether to show tabs */
   showTabs?: boolean;
+  /** Array of segmented tabs to display on the left side (next to title) */
+  leftTabs?: PageHeaderTab[];
+  /** Active left tab key */
+  activeLeftTab?: string;
+  /** Callback when a left tab is clicked */
+  onLeftTabChange?: (key: string) => void;
+  /** Whether to show left segmented tabs */
+  showLeftTabs?: boolean;
   /** Whether to show action buttons */
   showActions?: boolean;
   /** Primary action button label */
@@ -65,6 +73,10 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
     onTabChange,
     tabStyle = 'underline',
     showTabs = true,
+    leftTabs,
+    activeLeftTab,
+    onLeftTabChange,
+    showLeftTabs = false,
     showActions = true,
     primaryActionLabel = 'Button',
     secondaryActionLabel = 'Button',
@@ -76,6 +88,9 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
     ...props
   }, ref) => {
     const [internalActiveTab, setInternalActiveTab] = useState(activeTab || tabs[0]?.key || '');
+    const [internalActiveLeftTab, setInternalActiveLeftTab] = useState(
+      activeLeftTab || leftTabs?.[0]?.key || ''
+    );
 
     const handleTabClick = (key: string) => {
       const tab = tabs.find(t => t.key === key);
@@ -85,14 +100,35 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
       }
     };
 
+    const handleLeftTabClick = (key: string) => {
+      const tab = leftTabs?.find(t => t.key === key);
+      if (tab && !tab.disabled) {
+        setInternalActiveLeftTab(key);
+        onLeftTabChange?.(key);
+      }
+    };
+
     const handleSegmentedTabChange = (value: string) => {
+      // If we have leftTabs, this is for left tabs, otherwise for main tabs
+      if (leftTabs && leftTabs.length > 0) {
+        handleLeftTabClick(value);
+      } else {
       handleTabClick(value);
+      }
     };
 
     const currentActiveTab = activeTab !== undefined ? activeTab : internalActiveTab;
+    const currentActiveLeftTab = activeLeftTab !== undefined ? activeLeftTab : internalActiveLeftTab;
     const isVariant1 = variant === 'variant1';
     const isVariant2 = variant === 'variant2';
     const showSubtitle = isVariant1 && subtitle;
+    
+    // Determine if we should show segmented tabs on the left
+    const shouldShowLeftSegmentedTabs = showLeftTabs && leftTabs && leftTabs.length > 0;
+    // Determine if we should show underline tabs in the middle
+    const shouldShowUnderlineTabs = showTabs && tabs.length > 0 && tabStyle === 'underline';
+    // Determine if we should show segmented tabs in the left section (when no leftTabs but tabStyle is segmented)
+    const shouldShowSegmentedTabsInLeft = showTabs && tabs.length > 0 && tabStyle === 'segmented' && !shouldShowLeftSegmentedTabs;
 
     return (
       <div
@@ -108,7 +144,7 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
           'relative',
           'w-full',
           // Use justify-between when we have both left (back/title) and right (tabs or actions) sections
-          (showBackButton || title) && (showTabs || showActions) ? 'justify-between' : '',
+          (showBackButton || title) && (shouldShowUnderlineTabs || showActions) ? 'justify-between' : '',
           className
         )}
         {...props}
@@ -142,7 +178,19 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
               </p>
             )}
           </div>
-          {showTabs && tabs.length > 0 && tabStyle === 'segmented' && (
+          {/* Left segmented tabs (separate from main tabs) */}
+          {shouldShowLeftSegmentedTabs && (
+            <div className="flex gap-[var(--x5,20px)] items-center relative shrink-0">
+              <SegmentedTabs
+                items={leftTabs.map(tab => ({ label: tab.label, value: tab.key }))}
+                value={currentActiveLeftTab}
+                onChange={handleSegmentedTabChange}
+                variant="default"
+              />
+            </div>
+          )}
+          {/* Segmented tabs in left section (when no separate leftTabs) */}
+          {shouldShowSegmentedTabsInLeft && (
             <div className="flex gap-[var(--x5,20px)] items-center relative shrink-0">
               <SegmentedTabs
                 items={tabs.map(tab => ({ label: tab.label, value: tab.key }))}
@@ -155,7 +203,7 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
         </div>
 
         {/* Middle Section - Tabs (underline style only) */}
-        {showTabs && tabs.length > 0 && tabStyle === 'underline' && (
+        {shouldShowUnderlineTabs && (
           <div className="flex-1 flex h-full items-end justify-center relative">
             {tabs.map((tab) => {
               const isActive = tab.key === currentActiveTab;

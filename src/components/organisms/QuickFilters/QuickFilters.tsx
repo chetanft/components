@@ -55,7 +55,7 @@ const FilterChip: React.FC<{
             ? "bg-[var(--color-bg-secondary)]"
             : "bg-[var(--color-bg-primary)]",
         // Border: always show border except for main labels without border
-        showBorder && !isMainLabel ? "border border-[var(--color-border-primary)]" : ""
+        showBorder && !isMainLabel ? "box-border border border-[var(--color-border-primary)]" : ""
       )}
       onClick={!isMainLabel ? onSelect : undefined}
       role={!isMainLabel ? "button" : undefined}
@@ -213,15 +213,16 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
             </div>
           );
         } else {
-          // Single option filter - wrap FilterChip in 36px container
+          // Single option filter - wrap FilterChip in container
           return (
             <div
               key={filter.id}
               className={cn(
-                "h-[var(--spacing-x9)] flex items-center p-[var(--spacing-x1)] rounded-[var(--radius-md)]",
+                "box-border h-[var(--spacing-x9)] flex items-center px-[var(--spacing-x1)] py-0 rounded-[var(--radius-md)]",
+                "border border-solid border-[var(--color-border-primary)]",
                 filter.selected
-                  ? "bg-[var(--color-bg-secondary)] border border-[var(--color-border-primary)]"
-                  : "bg-[var(--color-bg-primary)] border border-[var(--color-border-primary)]",
+                  ? "bg-[var(--color-bg-secondary)]"
+                  : "bg-[var(--color-bg-primary)]",
                 scrollable ? 'flex-shrink-0' : ''
               )}
             >

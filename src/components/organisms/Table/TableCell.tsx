@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+"use client";
+import React, { useState, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
 
 export type CellBackgroundColor = 'white' | 'bg';
@@ -40,6 +41,28 @@ export const TableCell: React.FC<TableCellProps> = ({
       : "bg-[var(--bg-secondary)]";
   };
 
+  // For single line variant, process children to replace newlines with spaces
+  const processedChildren = useMemo(() => {
+    if (lineVariant === 'single') {
+      // Recursively process children to replace newlines
+      const processNode = (node: React.ReactNode): React.ReactNode => {
+        if (typeof node === 'string') {
+          return node.replace(/\n/g, ' ');
+        }
+        if (React.isValidElement(node)) {
+          // If it's a React element, process its children
+          if (node.props?.children) {
+            const processedChildren = React.Children.map(node.props.children, processNode);
+            return React.cloneElement(node, { ...node.props, children: processedChildren });
+          }
+        }
+        return node;
+      };
+      return React.Children.map(children, processNode);
+    }
+    return children;
+  }, [children, lineVariant]);
+
   return (
     <td
       className={cn(
@@ -66,14 +89,17 @@ export const TableCell: React.FC<TableCellProps> = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className={cn(
-        "flex flex-col justify-center",
-        // Line variant affects the layout of child elements
+        // Line variant affects the layout direction
+        lineVariant === 'single' 
+          ? "flex items-center whitespace-nowrap" // Single line: horizontal layout, no wrapping
+          : "flex flex-col justify-center", // Double line: vertical layout
+        // Line variant affects the gap between child elements
         lineVariant === 'single' && "gap-[4px]",
         lineVariant === 'double' && "gap-[8px]",
         // Size affects min-height
         "min-h-[19px]"
       )}>
-        {children}
+        {processedChildren}
       </div>
     </td>
   );

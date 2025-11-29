@@ -1,7 +1,7 @@
+"use client";
 import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
-import { cn } from "@/lib/utils"
-import { ArrowRight, ExternalLink } from "lucide-react"
+import { Card, Icon, PageHeader } from "@chetanft/design_system"
 
 const blocks = [
   {
@@ -36,17 +36,28 @@ const blocks = [
 
 export default function BlocksPage() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-background">
+    <div
+      className="relative flex min-h-screen flex-col"
+      style={{ backgroundColor: "var(--bg-secondary)" }}
+    >
       <SiteHeader />
       <main className="flex-1">
-        <section className="container mx-auto px-4 py-12 md:py-16">
-          <div className="mb-8">
-            <h1 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl mb-4">
-              Building Blocks
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl">
-              Clean, modern building blocks built with FT Design System. Copy and paste into your apps.
-            </p>
+        <section className="mx-auto w-full max-w-6xl px-4 py-10 md:py-14">
+          <div
+            className="mb-10 rounded-2xl border"
+            style={{
+              backgroundColor: "var(--bg-primary)",
+              borderColor: "var(--border-secondary)",
+            }}
+          >
+            <PageHeader
+              title="Building Blocks"
+              subtitle="Clean, modern building blocks built with FT Design System. Copy and paste into your apps."
+              showBackButton={false}
+              showTabs={false}
+              showActions={false}
+              className="!bg-transparent !px-6"
+            />
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -62,28 +73,70 @@ export default function BlocksPage() {
 
 function BlockCard({ block }: { block: typeof blocks[0] }) {
   return (
-    <Link href={block.preview}>
-      <div className="group relative overflow-hidden rounded-lg border bg-card transition-all hover:shadow-lg">
-        <div className="aspect-video bg-muted/50 flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent" />
-          <div className="relative z-10 text-muted-foreground text-sm font-medium">
-            {block.category}
+    <Link href={block.preview} className="group block h-full">
+      <Card
+        hoverable
+        className="h-full transition-shadow"
+        style={{
+          backgroundColor: "var(--bg-primary)",
+          borderColor: "var(--border-secondary)",
+        }}
+      >
+        <div className="flex flex-col gap-4">
+          <div
+            className="relative flex aspect-video items-center justify-center overflow-hidden rounded-2xl"
+            style={{ backgroundColor: "var(--bg-secondary)" }}
+          >
+            <span
+              className="text-sm font-semibold uppercase tracking-wider"
+              style={{ color: "var(--secondary)" }}
+            >
+              {block.category}
+            </span>
+            <div className="absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(67,79,100,0.08), rgba(67,79,100,0))",
+                }}
+              />
+            </div>
           </div>
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
-        </div>
-        <div className="p-4">
-          <div className="flex items-start justify-between gap-2 mb-2">
-            <h3 className="font-semibold leading-none tracking-tight">
-              {block.title}
-            </h3>
-            <ExternalLink className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
+
+          <div className="flex flex-1 flex-col gap-3">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h3
+                  className="text-lg font-semibold leading-6"
+                  style={{ color: "var(--primary)" }}
+                >
+                  {block.title}
+                </h3>
+                <p
+                  className="mt-2 text-sm leading-relaxed"
+                  style={{ color: "var(--secondary)" }}
+                >
+                  {block.description}
+                </p>
+              </div>
+              <Icon
+                name="arrow-top-right"
+                size={20}
+                className="shrink-0"
+                style={{ color: "var(--tertiary)" }}
+              />
+            </div>
+
+            <div
+              className="flex items-center justify-between text-sm"
+              style={{ color: "var(--tertiary)" }}
+            >
+              <span>Preview blueprint</span>
+            </div>
           </div>
-          <p className="text-sm text-muted-foreground line-clamp-2">
-            {block.description}
-          </p>
         </div>
-      </div>
+      </Card>
     </Link>
   )
 }
-
