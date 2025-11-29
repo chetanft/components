@@ -93,7 +93,7 @@ export const CustomLabel: Story = {
     value: 75,
     maxValue: 100,
     showLabel: true,
-    labelFormatter: (value, max) => `${value}/${max}`,
+    labelFormatter: (value: number, max: number) => `${value}/${max}`,
   },
 };
 
@@ -149,7 +149,6 @@ export const Stacked: Story = {
     stacked: true,
   },
 };
-
 
 
 

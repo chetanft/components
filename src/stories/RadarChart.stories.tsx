@@ -89,7 +89,7 @@ export const CustomLabel: Story = {
     title: 'Product Performance',
     data: basicData,
     height: 400,
-    labelFormatter: (label) => label.toUpperCase(),
+    labelFormatter: (label: string) => label.toUpperCase(),
   },
 };
 
@@ -186,7 +186,6 @@ export const WithLegend: Story = {
     showLegend: true,
   },
 };
-
 
 
 

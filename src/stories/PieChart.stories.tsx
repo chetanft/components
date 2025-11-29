@@ -100,7 +100,7 @@ export const CustomLabel: Story = {
     data: basicData,
     height: 300,
     showLabels: true,
-    labelFormatter: (label, value, total) => `${label}: ${Math.round((value / total) * 100)}%`,
+    labelFormatter: (label: string, value: number, total: number) => `${label}: ${Math.round((value / total) * 100)}%`,
   },
 };
 
@@ -182,7 +182,6 @@ export const Interactive: Story = {
     },
   },
 };
-
 
 
 
