@@ -8,9 +8,7 @@ import {
 import { Button } from '../components/atoms/Button/Button';
 import { Typography } from '../components/atoms/Typography';
 
-type DecoratorStory = Parameters<Decorator>[0];
-
-const popoverCanvas: Decorator = (Story: DecoratorStory) => (
+const popoverCanvas = ((Story) => (
   <div
     style={{
       minHeight: '100vh',
@@ -36,7 +34,7 @@ const popoverCanvas: Decorator = (Story: DecoratorStory) => (
       <Story />
     </div>
   </div>
-);
+)) satisfies Decorator;
 
 const meta: Meta<typeof NavigationPopover> = {
   title: 'Organisms/NavigationPopover',
