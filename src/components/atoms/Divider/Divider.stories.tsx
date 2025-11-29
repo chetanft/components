@@ -29,6 +29,35 @@ export const Default: Story = {
   },
 };
 
+export const Primary: Story = {
+  args: {
+    type: 'primary',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    type: 'secondary',
+  },
+};
+
+export const Tertiary: Story = {
+  args: {
+    type: 'tertiary',
+  },
+};
+
+export const AllTypes: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <Divider type="primary" />
+      <Divider type="secondary" />
+      <Divider type="tertiary" />
+      <Divider type="with-label" label="With Label" />
+    </div>
+  ),
+};
+
 export const WithLabel: Story = {
   args: {
     type: 'with-label',

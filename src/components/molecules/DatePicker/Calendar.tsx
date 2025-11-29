@@ -34,7 +34,7 @@ interface CalendarProps {
 }
 
 const calendarVariants = cva(
-  "bg-[var(--color-bg-primary)] rounded-[var(--radius-md)] shadow-[var(--shadow-lg)] flex flex-col",
+  "bg-[var(--bg-primary)] rounded-[var(--radius-md)] shadow-[0px_6px_6px_0px_rgba(0,0,0,0.16)] flex flex-col",
   {
     variants: {
       range: {
@@ -49,7 +49,7 @@ const calendarVariants = cva(
 );
 
 const monthHeaderVariants = cva(
-  "flex items-center justify-between px-0 py-[var(--spacing-x3)] border-b border-[var(--color-border-primary)]",
+  "flex items-center justify-between px-0 py-[var(--spacing-x3)] border-b border-[var(--border-primary)]",
   {
     variants: {
       range: {
@@ -61,7 +61,7 @@ const monthHeaderVariants = cva(
 );
 
 const navigationButtonVariants = cva(
-  "min-w-[var(--spacing-x4)] min-h-[var(--spacing-x4)] w-fit h-fit flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--color-tertiary)] transition-colors hover:bg-[var(--color-border-secondary)] focus:outline-none",
+  "min-w-[var(--spacing-x4)] min-h-[var(--spacing-x4)] w-fit h-fit flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--tertiary)] transition-colors hover:bg-[var(--border-secondary)] focus:outline-none",
   {
     variants: {
       year: {
@@ -100,17 +100,17 @@ const dateGridVariants = cva(
 );
 
 const dateButtonVariants = cva(
-  "w-[var(--spacing-x4)] h-[var(--spacing-x4)] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] rounded-[var(--radius-sm)] transition-colors",
+  "w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] rounded-[var(--radius-sm)] transition-colors",
   {
     variants: {
       type: {
-        default: "bg-[var(--color-bg-primary)] text-[var(--color-primary)] hover:bg-[var(--color-border-primary)]",
-        selected: "bg-[var(--color-border-secondary)] text-[var(--color-primary)]",
-        hover: "bg-[var(--color-border-primary)] text-[var(--color-primary)]",
-        disabled: "bg-[var(--color-bg-primary)] text-[var(--color-border-secondary)] cursor-not-allowed",
-        rangeSelected: "bg-[var(--color-border-primary)] text-[var(--color-primary)]",
-        rangeStart: "bg-[var(--color-border-secondary)] text-[var(--color-primary)]",
-        rangeEnd: "bg-[var(--color-border-secondary)] text-[var(--color-primary)]"
+        default: "bg-[var(--bg-primary)] text-[var(--primary)] hover:bg-[var(--border-primary)]",
+        selected: "bg-[var(--border-secondary)] text-[var(--primary)] font-medium",
+        hover: "bg-[var(--border-primary)] text-[var(--primary)]",
+        disabled: "bg-[var(--bg-primary)] text-[var(--border-secondary)] cursor-not-allowed",
+        rangeSelected: "bg-[var(--border-primary)] text-[var(--primary)]",
+        rangeStart: "bg-[var(--border-secondary)] text-[var(--primary)] font-medium",
+        rangeEnd: "bg-[var(--border-secondary)] text-[var(--primary)] font-medium"
       },
       inRange: {
         true: "bg-[var(--color-border-primary)]",
@@ -125,11 +125,11 @@ const dateButtonVariants = cva(
 );
 
 const quickSelectVariants = cva(
-  "flex flex-col border-r border-[var(--color-border-primary)] py-0 overflow-y-auto gap-[var(--spacing-x2)]",
+  "flex flex-col border-r border-[var(--border-primary)] px-0 py-0 overflow-y-auto gap-[var(--spacing-x2)]",
   {
     variants: {
       range: {
-        true: "w-fit h-[calc(var(--spacing-x10)*8)]",
+        true: "w-[170px] h-[331px]",
         false: "hidden"
       }
     },
@@ -144,8 +144,8 @@ const quickSelectButtonVariants = cva(
   {
     variants: {
       selected: {
-        true: "bg-[var(--color-border-secondary)] text-[var(--color-primary)] font-medium",
-        false: "bg-[var(--color-bg-primary)] text-[var(--color-primary)] hover:bg-[var(--color-border-secondary)]"
+        true: "bg-[var(--bg-primary)] text-[var(--primary)] font-medium",
+        false: "bg-[var(--bg-primary)] text-[var(--primary)] hover:bg-[var(--border-secondary)]"
       }
     },
     defaultVariants: {
@@ -155,7 +155,7 @@ const quickSelectButtonVariants = cva(
 );
 
 const dropdownVariants = cva(
-  "flex items-center justify-between w-full h-[var(--spacing-x10)] px-[var(--spacing-x3)] py-[var(--spacing-x5)] border border-[var(--color-border-primary)] rounded-[var(--radius-md)] cursor-pointer bg-[var(--color-bg-primary)]",
+  "flex items-center justify-between w-full h-[var(--spacing-x10)] px-[var(--spacing-x3)] py-[var(--spacing-x5)] border border-[var(--border-primary)] rounded-[var(--radius-md)] cursor-pointer bg-[var(--bg-primary)]",
   {
     variants: {
       open: {
@@ -371,7 +371,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   };
 
   const renderMonth = (date: Date) => (
-    <div className={cn("flex-1 flex flex-col gap-[var(--spacing-x2)]", range ? "w-fit flex-shrink-0" : "w-full")}>
+    <div className={cn("flex-1 flex flex-col gap-[var(--spacing-x2)]", range ? "w-[282px] flex-shrink-0" : "w-full")}>
       <div className={monthHeaderVariants({ range })}>
         <div className="flex items-center gap-[var(--spacing-x2)]">
           <button
@@ -417,7 +417,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
             <Icon name="chevron-left" size={16} />
           </button>
         </div>
-        <span className="text-[var(--font-size-sm)] font-medium text-[var(--color-primary)]">{format(date, 'MMM yyyy')}</span>
+        <span className="text-[14px] font-medium text-[var(--primary)]">{format(date, 'MMM yyyy')}</span>
         <div className="flex items-center gap-[var(--spacing-x2)]">
           <button
             className={navigationButtonVariants()}
@@ -462,7 +462,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
 
       <div className={weekDayVariants({ range })}>
         {WEEKDAYS.map((day) => (
-          <div key={day} className="w-[var(--spacing-x4)] h-[var(--spacing-x4)] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-[var(--font-size-sm)] text-[var(--color-tertiary)] font-normal">
+          <div key={day} className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-[14px] text-[var(--tertiary)] font-normal">
             {day}
           </div>
         ))}
@@ -473,7 +473,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
           <div key={weekIndex} className="flex gap-[var(--spacing-x3)] items-center">
             {week.map((day, dayIndex) => {
               if (!day) {
-                return <div key={`${weekIndex}-${dayIndex}`} className="w-[var(--spacing-x4)] h-[var(--spacing-x4)] flex-shrink-0" />;
+                return <div key={`${weekIndex}-${dayIndex}`} className="w-[30px] h-[30px] flex-shrink-0" />;
               }
 
               const isRangeValue = value && Array.isArray(value) && value.length === 2;
@@ -555,7 +555,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
                   disabled={isDisabled}
                 >
                   <span className={cn(
-                    "text-[var(--font-size-sm)] leading-[normal]",
+                    "text-[14px] leading-[normal]",
                     (isStartDate || isEndDate || (isSelected && !isRangeValue))
                       ? "font-medium"
                       : "font-normal"
@@ -581,8 +581,8 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <div className="flex flex-1 items-center gap-[var(--spacing-x1)] w-full">
-                <span className="flex-1 text-[var(--font-size-md)] font-normal leading-[1.4] text-[var(--color-tertiary)] overflow-ellipsis overflow-hidden whitespace-nowrap">{selectedDateRange}</span>
-                <Icon name="chevron-down" size={16} className="text-[var(--color-primary)] flex-shrink-0" />
+                <span className="flex-1 text-[var(--font-size-md)] font-normal leading-[1.4] text-[var(--tertiary)] overflow-ellipsis overflow-hidden whitespace-nowrap">{selectedDateRange}</span>
+                <Icon name="chevron-down" size={16} className="text-[var(--primary)] flex-shrink-0" />
               </div>
             </div>
             {isDropdownOpen && (
@@ -621,7 +621,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
             ))}
           </div>
         )}
-        <div className={cn("flex-1", range && "flex gap-[var(--spacing-x4)*2] h-[calc(var(--spacing-x10)*8)]")}>
+        <div className={cn("flex-1", range && "flex gap-[var(--spacing-x8)] items-start")}>
           {renderMonth(currentMonth)}
           {range && renderMonth(secondMonth)}
         </div>
@@ -634,12 +634,12 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
       {range && (onCancel || onApply || onClear) && (
         <div className="w-full flex justify-end items-center gap-[var(--spacing-x5)]">
           {onCancel && (
-            <Button variant="text" onClick={onCancel} className="h-[var(--spacing-x10)] px-[var(--spacing-x4)] py-[var(--spacing-x3)] text-[var(--font-size-md)] font-medium text-[var(--color-primary)]">
+            <Button variant="text" onClick={onCancel} className="h-[var(--spacing-x10)] px-[var(--spacing-x4)] py-[var(--spacing-x3)] text-[var(--font-size-md)] font-medium text-[var(--primary)]">
               Cancel
             </Button>
           )}
           {onApply && (
-            <Button variant="primary" onClick={onApply} className="h-[var(--spacing-x10)] px-[var(--spacing-x4)] py-[var(--spacing-x3)] text-[var(--font-size-md)] font-medium bg-[var(--color-primary)] text-[var(--color-bg-primary)]" disabled={!!rangeError}>
+            <Button variant="primary" onClick={onApply} className="h-[var(--spacing-x10)] px-[var(--spacing-x4)] py-[var(--spacing-x3)] text-[var(--font-size-md)] font-medium bg-[var(--primary)] text-[var(--bg-primary)]" disabled={!!rangeError}>
               Apply
             </Button>
           )}
