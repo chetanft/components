@@ -36,7 +36,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     state: 'default',
-    onFileSelect: (files) => {
+    onFileSelect: (files: FileList | File[]) => {
       console.log('Selected files:', files);
     },
   },
@@ -57,9 +57,8 @@ export const Disabled: Story = {
 export const MultipleFiles: Story = {
   args: {
     multiple: true,
-    onFileSelect: (files) => {
+    onFileSelect: (files: FileList | File[]) => {
       console.log('Selected multiple files:', files);
     },
   },
 };
-

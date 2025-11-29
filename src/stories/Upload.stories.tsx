@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Upload } from '../components/organisms/Upload';
+import type { UploadFile } from '../components/molecules/UploadItem';
 
 const meta = {
   title: 'Organisms/Upload',
@@ -81,10 +82,10 @@ export const WithCallbacks: Story = {
     maxFileSize: 10,
     multiple: true,
     autoUpload: true,
-    onFilesChange: (files) => {
+    onFilesChange: (files: UploadFile[]) => {
       console.log('Files changed:', files);
     },
-    onUploadComplete: (file) => {
+    onUploadComplete: (file: UploadFile) => {
       console.log('Upload complete:', file);
     },
   },
@@ -99,4 +100,3 @@ export const SingleFile: Story = {
     autoUpload: true,
   },
 };
-
