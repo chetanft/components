@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { UserProfile } from '../UserProfile/UserProfile';
 import { UserProfileDropdown } from '../UserProfileDropdown/UserProfileDropdown';

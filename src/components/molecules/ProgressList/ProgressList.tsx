@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { Icon } from '../../atoms/Icons/Icon';
 import { Typography } from '../../atoms/Typography';

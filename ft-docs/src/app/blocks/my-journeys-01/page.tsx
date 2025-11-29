@@ -13,7 +13,7 @@ export default function MyJourneys01Page() {
       <SiteHeader />
       <main className="flex-1 w-full">
         <div className="w-full" style={{ backgroundColor: "var(--bg-secondary)" }}>
-          <JourneysBlock />
+              <JourneysBlock />
         </div>
       </main>
     </div>

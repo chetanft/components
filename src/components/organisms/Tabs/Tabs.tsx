@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
@@ -123,12 +123,12 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
       
       // Border styles based on state and type - using FT design system tokens
       type === 'primary' && [
-        "border-b border-l-0 border-r-0 border-t-0 border-solid",
+        "border-l-0 border-r-0 border-t-0 border-solid",
         currentState === 'selected' 
-          ? "border-b-4 border-[var(--primary)]" 
+          ? "border-b-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[var(--x1,4px)] after:bg-[var(--primary)]" 
           : currentState === 'hover'
-          ? "border-b border-[var(--tertiary)]"
-          : "border-b border-[var(--border-primary)]"
+          ? "border-b border-b-[var(--tertiary)]"
+          : "border-b border-b-[var(--border-primary)]"
       ],
       
       (type === 'secondary' || type === 'tertiary') && [
@@ -162,6 +162,13 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={onSelect}
+        style={
+          currentState === 'selected' && type === 'primary'
+            ? {
+                '--border-color': 'var(--primary)',
+              } as React.CSSProperties
+            : undefined
+        }
         {...props}
       >
         <TabContent
@@ -222,14 +229,19 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     const overflowTriggerRef = useRef<HTMLButtonElement | null>(null);
     const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
 
+    // Sync internal state with prop when it changes from parent
     useEffect(() => {
-      setInternalActiveTab(activeTab);
+      if (activeTab !== undefined) {
+        setInternalActiveTab(activeTab);
+      }
     }, [activeTab]);
 
-    const handleTabSelect = (index: number) => {
+    const handleTabSelect = useCallback((index: number) => {
+      // Update internal state immediately
       setInternalActiveTab(index);
+      // Notify parent synchronously
       onTabChange?.(index);
-    };
+    }, [onTabChange]);
 
     useEffect(() => {
       if (overflowBehavior !== 'dropdown') return;
@@ -265,8 +277,8 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       }
 
       const OVERFLOW_TRIGGER_WIDTH = 56;
-      const visible: number[] = [];
-      const overflow: number[] = [];
+      let visible: number[] = [];
+      let overflow: number[] = [];
       let used = 0;
 
       tabs.forEach((_, index) => {
@@ -279,26 +291,44 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
         }
       });
 
-      if (overflow.length > 0) {
+      const ensureTriggerSpace = () => {
+        if (overflow.length === 0) return;
         while (visible.length > 0 && used + OVERFLOW_TRIGGER_WIDTH > containerWidth) {
           const moved = visible.pop();
-          if (typeof moved === 'number') {
-            overflow.unshift(moved);
-            used -= tabWidths[moved] ?? 0;
-          } else {
-            break;
-          }
+          if (typeof moved !== 'number') break;
+          used -= tabWidths[moved] ?? 0;
+          overflow.unshift(moved);
         }
         if (visible.length === 0 && overflow.length > 0) {
           const first = overflow.shift();
           if (typeof first === 'number') {
             visible.push(first);
+            used += tabWidths[first] ?? 0;
           }
         }
+      };
+
+      ensureTriggerSpace();
+
+      if (overflow.includes(internalActiveTab)) {
+        const activeWidth = tabWidths[internalActiveTab] ?? 0;
+        overflow = overflow.filter((index) => index !== internalActiveTab);
+        while (
+          visible.length > 0 &&
+          used + activeWidth + (overflow.length > 0 ? OVERFLOW_TRIGGER_WIDTH : 0) > containerWidth
+        ) {
+          const moved = visible.pop();
+          if (typeof moved !== 'number') break;
+          used -= tabWidths[moved] ?? 0;
+          overflow.unshift(moved);
+        }
+        visible.push(internalActiveTab);
+        used += activeWidth;
+        ensureTriggerSpace();
       }
 
       return { visible, overflow };
-    }, [overflowBehavior, containerWidth, tabWidths, tabs]);
+    }, [overflowBehavior, containerWidth, tabWidths, tabs, internalActiveTab]);
 
     useEffect(() => {
       if (!overflowOpen) return;
@@ -409,10 +439,14 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
               <Button
                 ref={overflowTriggerRef}
                 variant="text"
-                size="md"
+                size="lg"
                 icon="more"
                 iconPosition="only"
                 aria-label="More tabs"
+                className={cn(
+                  activeInOverflow ? "bg-[var(--border-secondary)]" : "",
+                  "shadow-[inset_4px_0_4px_-2px_rgba(0,0,0,0.1)]"
+                )}
                 onClick={() => setOverflowOpen((prev) => !prev)}
               />
             </div>
@@ -433,9 +467,15 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
                   "w-full text-left px-[var(--x4,16px)] py-[var(--x2,8px)] text-[var(--primary)] hover:bg-[var(--bg-secondary)] transition-colors",
                   index === internalActiveTab && "font-semibold"
                 )}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  // Update tab selection immediately
                   handleTabSelect(index);
-                  setOverflowOpen(false);
+                  // Close dropdown after state update
+                  setTimeout(() => {
+                    setOverflowOpen(false);
+                  }, 0);
                 }}
               >
                 {tabs[index].label}
@@ -443,9 +483,12 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
             ))}
           </div>
         )}
-        {tabs[internalActiveTab]?.children && (
-          <div className="p-[var(--x4,16px)] bg-[var(--bg-primary)] border-l border-r border-b border-[var(--border-primary)] rounded-b-lg">
-            {tabs[internalActiveTab]?.children}
+        {tabs[internalActiveTab] && tabs[internalActiveTab].children !== undefined && (
+          <div 
+            key={`tab-content-${internalActiveTab}`}
+            className="p-[var(--x4,16px)] bg-[var(--bg-primary)] border-l border-r border-b border-[var(--border-primary)] rounded-b-lg"
+          >
+            {tabs[internalActiveTab].children}
           </div>
         )}
       </div>

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { NavigationPopover, type NavigationPopoverProps } from './NavigationPopover';
@@ -107,4 +108,3 @@ export const NavigationLauncher: React.FC<NavigationLauncherProps> = ({
 };
 
 NavigationLauncher.displayName = 'NavigationLauncher';
-

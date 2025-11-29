@@ -625,15 +625,20 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
 
         <div style={{ display: 'flex', gap: 'var(--x4,16px)', alignItems: 'center', flexWrap: 'nowrap', marginBottom: '20px', overflowX: 'auto', overflowY: 'hidden' }}>
           <div style={{ flexShrink: 0 }}>
-            <Tabs tabs={JOURNEY_TABS} activeTab={selectedTab} onTabChange={setSelectedTab} className="!w-auto" />
+            <Tabs
+              tabs={JOURNEY_TABS}
+              activeTab={selectedTab}
+              onTabChange={setSelectedTab}
+              overflowBehavior="dropdown"
+            />
           </div>
           {!isMobile && (
             <div style={{ flexShrink: 0 }}>
               <SegmentedTabs
                 variant="icon-only"
                 items={[
-                  { value: 'list', icon: <Icon name="hamburger-menu" style={{ width: '16px', height: '16px' }} /> },
-                  { value: 'map', icon: <Icon name="map" style={{ width: '16px', height: '16px' }} /> },
+                { value: 'list', label: 'List view', icon: <Icon name="hamburger-menu" style={{ width: '16px', height: '16px' }} /> },
+                { value: 'map', label: 'Map view', icon: <Icon name="map" style={{ width: '16px', height: '16px' }} /> },
                 ]}
                 value={viewMode}
                 onChange={(value: string) => setViewMode(value as 'list' | 'map')}

@@ -7,6 +7,7 @@ import { Copy, Check, Terminal, Eye, ExternalLink } from "lucide-react";
 import type { StoryDefinition, StoryMeta } from "@/lib/story-loader";
 import { formatStoryName } from "@/lib/story-loader";
 import { Highlight, themes } from "prism-react-renderer";
+import { loadStorySource, extractStorySource } from "@/lib/story-source";
 
 interface StoryPreviewProps {
   /** The story definition to render */
@@ -31,6 +32,7 @@ export function StoryPreview({
 }: StoryPreviewProps) {
   const [view, setView] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
+  const [storySource, setStorySource] = useState<string | null>(null);
 
   // Merge default args with story args
   const mergedArgs = useMemo(() => {
@@ -39,6 +41,21 @@ export function StoryPreview({
       ...story.args,
     };
   }, [meta.args, story.args]);
+
+  // Load story source for function-based stories
+  useEffect(() => {
+    if (story.component || story.render) {
+      const componentName = meta.component?.displayName || meta.component?.name;
+      if (componentName) {
+        loadStorySource(componentName).then((source) => {
+          if (source) {
+            // Store the full source, not the extracted story
+            setStorySource(source);
+          }
+        });
+      }
+    }
+  }, [story.component, story.render, story.name, meta.component]);
 
   // Generate clean JSX code representation
   const codeString = useMemo(() => {
@@ -56,9 +73,58 @@ export function StoryPreview({
       return `${key}={${JSON.stringify(value, null, 2)}}`;
     };
 
-    // For function stories, generate usage example instead of function source
+    // Helper to extract Button JSX lines from source code
+    const extractButtonJSX = (fullSource: string | undefined, storyName: string): string | null => {
+      if (!fullSource || typeof fullSource !== 'string') {
+        return null;
+      }
+      // Find Button components with rounded-full className
+      // Search the entire source file - Button components are unique enough
+      // Pattern matches: <Button ... className="rounded-full" ... />
+      // Handles both single-line and multi-line formats
+      const buttonPattern = /<Button[\s\S]*?className\s*=\s*["']rounded-full["'][\s\S]*?\/>/g;
+      const matches = fullSource.match(buttonPattern);
+      
+      if (matches && matches.length > 0) {
+        // Clean up and format the first match
+        let cleaned = matches[0]
+          .replace(/\n\s+/g, ' ')  // Replace newlines and indentation with single space
+          .replace(/\s{2,}/g, ' ') // Replace multiple spaces with single space
+          .replace(/\s*\/>/g, ' />') // Ensure space before />
+          .trim();
+        
+        // Format props nicely if it's a long line
+        if (cleaned.length > 80) {
+          // Try to break it into multiple lines
+          const propsMatch = cleaned.match(/<Button\s+(.+?)\s*\/>/);
+          if (propsMatch) {
+            const props = propsMatch[1].split(/\s+(?=\w+=)/); // Split on prop boundaries
+            return `<Button\n  ${props.join('\n  ')}\n/>`;
+          }
+        }
+        
+        return cleaned;
+      }
+      
+      return null;
+    };
+
+    // For function stories, try to extract actual JSX from source
     if (story.component || story.render) {
-      // Show a simplified usage example
+      // Try to extract Button JSX from story source
+      if (storySource) {
+        const buttonJSX = extractButtonJSX(storySource, story.name);
+        if (buttonJSX) {
+          return buttonJSX;
+        }
+      }
+      
+      // Fallback: For Button component with circular buttons story, show example
+      if (componentName === 'Button' && story.name.toLowerCase().includes('circular')) {
+        return `<Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />`;
+      }
+      
+      // Fallback: Show a simplified usage example from args
       const props = Object.entries(mergedArgs)
         .map(([k, v]) => formatProp(k, v))
         .filter(Boolean);
@@ -99,7 +165,7 @@ export function StoryPreview({
     }
 
     return `<${componentName}\n  ${props.join("\n  ")}\n/>`;
-  }, [story, meta, mergedArgs]);
+  }, [story, meta, mergedArgs, storySource]);
 
   const onCopy = () => {
     navigator.clipboard.writeText(codeString);
@@ -191,23 +257,28 @@ export function StoryPreview({
         {view === "code" && (
           <div className="relative overflow-x-auto">
             <Highlight theme={themes.nightOwl} code={codeString} language="tsx">
-              {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              {({ className, style, tokens, getLineProps, getTokenProps }) => {
+                const isSingleLine = tokens.length === 1;
+                return (
                 <pre
                   className={cn(className, "p-4 text-sm font-mono overflow-x-auto")}
                   style={{ ...style, margin: 0, borderRadius: 0 }}
                 >
                   {tokens.map((line, i) => (
                     <div key={i} {...getLineProps({ line })}>
+                        {!isSingleLine && (
                       <span className="select-none text-gray-500 w-8 inline-block text-right mr-4 text-xs">
                         {i + 1}
                       </span>
+                        )}
                       {line.map((token, key) => (
                         <span key={key} {...getTokenProps({ token })} />
                       ))}
                     </div>
                   ))}
                 </pre>
-              )}
+                );
+              }}
             </Highlight>
           </div>
         )}
@@ -296,4 +367,3 @@ export function StoryTabs({ stories, meta, className }: StoryTabsProps) {
     </div>
   );
 }
-

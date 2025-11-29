@@ -33,12 +33,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   // Core component - no AI filtering (use ft-design-system/ai for AI protection)
   const isIconOnly = iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
-  // Icon-only buttons: circular for primary/secondary/destructive/text variants
+  // Icon-only buttons: circular for primary/secondary/destructive variants
+  // Text variant icon-only buttons are square by default (only rounded if rounded-full is in className)
   const shouldBeCircular = className?.includes('rounded-full') ||
-    (isIconOnly && variant !== 'link');
+    (isIconOnly && variant !== 'link' && variant !== 'text');
   const isLink = variant === 'link';
-  // Text variant icon-only buttons should use secondary variant styling
-  const effectiveVariant = (isIconOnly && variant === 'text') ? 'secondary' : variant;
+  // Text variant icon-only buttons should keep text variant styling (borderless) per Figma design
+  const effectiveVariant = variant;
 
   // Button-specific sizing from Figma design
   const buttonSizing = {
@@ -136,8 +137,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     isIconOnly && buttonSize.height,
     isIconOnly && buttonSize.width,
     isIconOnly && "p-0",
-    // Icon-only buttons: apply border radius (square for tertiary, rounded for others)
-    isIconOnly && !shouldBeCircular && buttonSize.borderRadius,
+    // Icon-only buttons: apply border radius
+    // Text variant icon-only: square (no border radius) unless rounded-full is specified
+    // Other variants: rounded unless rounded-full makes them circular
+    isIconOnly && !shouldBeCircular && variant !== 'text' && buttonSize.borderRadius,
     // Regular buttons: use padding
     !isIconOnly && buttonSize.padding
   ) : cn(

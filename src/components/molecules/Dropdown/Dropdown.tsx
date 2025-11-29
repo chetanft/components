@@ -1,3 +1,4 @@
+"use client";
 import React, { forwardRef, useState, useEffect, useRef, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { cva, type VariantProps } from 'class-variance-authority';

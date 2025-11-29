@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { Collapsible } from './Collapsible';
 import { cn } from '../../../lib/utils';

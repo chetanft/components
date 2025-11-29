@@ -10,6 +10,23 @@ const meta: Meta<typeof Tabs> = {
       control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary'],
     },
+    overflowBehavior: {
+      control: { type: 'select' },
+      options: ['auto', 'dropdown'],
+    },
+  },
+};
+
+const overflowTabs = Array.from({ length: 20 }).map((_, index) => ({
+  label: `Tab ${index + 1}`,
+  children: `Content of Tab ${index + 1}`,
+}));
+
+export const OverflowDropdown: Story = {
+  args: {
+    tabs: overflowTabs,
+    type: 'primary',
+    overflowBehavior: 'dropdown',
   },
 };
 
