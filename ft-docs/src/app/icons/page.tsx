@@ -650,7 +650,7 @@ export default function IconsPage() {
           <div
             className="fixed inset-x-0 bottom-0 z-[10000] border-t border-border rounded-t-2xl shadow-2xl max-h-[90vh] flex flex-col transform transition-transform duration-300 ease-out"
             style={{
-              backgroundColor: '#ffffff',
+              backgroundColor: 'var(--bg-primary)',
               opacity: 1
             }}
           >
@@ -676,7 +676,7 @@ export default function IconsPage() {
             {/* Content */}
             <div
               className="flex-1 overflow-y-auto"
-              style={{ backgroundColor: '#ffffff' }}
+              style={{ backgroundColor: 'var(--bg-primary)' }}
             >
               <div className="max-w-7xl mx-auto px-6 py-8">
                 <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12">

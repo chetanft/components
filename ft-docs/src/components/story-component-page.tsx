@@ -7,7 +7,7 @@ import { StoryPreview } from "@/components/story-preview";
 import { PropsTable } from "@/components/props-table";
 import type { LoadedStoryModule, StoryDefinition } from "@/lib/story-loader";
 import { cn } from "@/lib/utils";
-import { Copy, Check, ChevronDown, ChevronUp, Filter, ExternalLink, BookOpen } from "lucide-react";
+import { Copy, Check, ChevronDown, ChevronUp, Filter } from "lucide-react";
 import { getVariantPriority } from "@/config/variant-display-order";
 
 interface StoryComponentPageProps {
@@ -153,18 +153,6 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
             <h1 className="text-5xl font-bold tracking-tight">{componentName}</h1>
             <p className="text-xl text-zinc-600 dark:text-zinc-400 mt-2">{description}</p>
           </div>
-          
-          {/* Open in Storybook button */}
-          <a
-            href={`http://localhost:6006/?path=/docs/${storyModule.meta.title?.toLowerCase().replace(/\s*\/\s*/g, "-").replace(/\s+/g, "-") || componentName.toLowerCase()}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border bg-background hover:bg-muted transition-colors shrink-0"
-          >
-            <BookOpen className="h-4 w-4" />
-            Open in Storybook
-            <ExternalLink className="h-3 w-3" />
-          </a>
         </div>
         
         {/* Story count and tags */}
@@ -191,18 +179,36 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
       <div className="space-y-4">
         <h2 className="text-2xl font-semibold tracking-tight">Installation</h2>
         <div className="relative group">
-          <div className="rounded-lg bg-zinc-950 dark:bg-zinc-900 p-4 font-mono text-sm text-zinc-50 pr-12">
+          <div 
+            className="rounded-lg p-4 font-mono text-sm pr-12"
+            style={{
+              backgroundColor: 'var(--primary)',
+              color: 'var(--bg-primary)',
+            }}
+          >
             {importStatement}
           </div>
           <button
             onClick={onCopy}
-            className="absolute right-3 top-3 p-2 rounded-md bg-zinc-800 hover:bg-zinc-700 transition-colors opacity-0 group-hover:opacity-100"
+            className="absolute right-3 top-3 p-2 rounded-md transition-colors opacity-0 group-hover:opacity-100"
+            style={{
+              backgroundColor: 'var(--bg-primary)',
+              color: 'var(--primary)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--secondary)';
+              e.currentTarget.style.color = 'var(--bg-primary)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--bg-primary)';
+              e.currentTarget.style.color = 'var(--primary)';
+            }}
             title="Copy import statement"
           >
             {copied ? (
-              <Check className="h-4 w-4 text-green-400" />
+              <Check className="h-4 w-4" style={{ color: 'var(--positive)' }} />
             ) : (
-              <Copy className="h-4 w-4 text-zinc-400" />
+              <Copy className="h-4 w-4" style={{ color: 'inherit' }} />
             )}
           </button>
         </div>

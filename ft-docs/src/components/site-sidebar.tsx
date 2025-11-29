@@ -30,11 +30,17 @@ export function SiteSidebar({ className }: { className?: string }) {
                                 >
                                     <span>{item.title}</span>
                                     {item.badge && (
-                                        <span className={cn(
-                                            "ml-1.5 px-1 py-0.5 text-[9px] font-medium rounded-full",
-                                            "bg-[#ffebdc] text-[#ff6c19] border border-[#ff6c19]",
-                                            "leading-tight whitespace-nowrap"
-                                        )}>
+                                        <span
+                                            className={cn(
+                                                "ml-1.5 px-1 py-0.5 font-medium rounded-full border leading-tight whitespace-nowrap"
+                                            )}
+                                            style={{
+                                                fontSize: "var(--font-size-xs)",
+                                                backgroundColor: "var(--warning-100)",
+                                                color: "var(--warning-500)",
+                                                borderColor: "var(--warning-500)",
+                                            }}
+                                        >
                                             {item.badge}
                                         </span>
                                     )}

@@ -16,42 +16,42 @@ export default {
             colors: {
                 ...rootConfig.theme.extend.colors,
                 // Map docs-specific tokens
-                background: 'hsl(var(--docs-background))',
-                foreground: 'hsl(var(--docs-foreground))',
+                background: 'var(--docs-background)',
+                foreground: 'var(--docs-foreground)',
                 card: {
-                    DEFAULT: 'hsl(var(--docs-card))',
-                    foreground: 'hsl(var(--docs-card-foreground))',
+                    DEFAULT: 'var(--docs-card)',
+                    foreground: 'var(--docs-card-foreground)',
                 },
                 popover: {
-                    DEFAULT: 'hsl(var(--docs-popover))',
-                    foreground: 'hsl(var(--docs-popover-foreground))',
+                    DEFAULT: 'var(--docs-popover)',
+                    foreground: 'var(--docs-popover-foreground)',
                 },
                 primary: {
                     ...rootConfig.theme.extend.colors.primary,
-                    DEFAULT: 'hsl(var(--docs-primary))',
-                    foreground: 'hsl(var(--docs-primary-foreground))',
+                    DEFAULT: 'var(--docs-primary)',
+                    foreground: 'var(--docs-primary-foreground)',
                 },
                 secondary: {
                     ...rootConfig.theme.extend.colors.secondary,
-                    DEFAULT: 'hsl(var(--docs-secondary))',
-                    foreground: 'hsl(var(--docs-secondary-foreground))',
+                    DEFAULT: 'var(--docs-secondary)',
+                    foreground: 'var(--docs-secondary-foreground)',
                 },
                 muted: {
-                    DEFAULT: 'hsl(var(--docs-muted))',
-                    foreground: 'hsl(var(--docs-muted-foreground))',
+                    DEFAULT: 'var(--docs-muted)',
+                    foreground: 'var(--docs-muted-foreground)',
                 },
                 accent: {
-                    DEFAULT: 'hsl(var(--docs-accent))',
-                    foreground: 'hsl(var(--docs-accent-foreground))',
+                    DEFAULT: 'var(--docs-accent)',
+                    foreground: 'var(--docs-accent-foreground)',
                 },
                 destructive: {
                     ...rootConfig.theme.extend.colors.destructive, // Keep FT destructive if exists, or override
-                    DEFAULT: 'hsl(var(--docs-destructive))',
-                    foreground: 'hsl(var(--docs-destructive-foreground))',
+                    DEFAULT: 'var(--docs-destructive)',
+                    foreground: 'var(--docs-destructive-foreground)',
                 },
-                border: 'hsl(var(--docs-border))',
-                input: 'hsl(var(--docs-input))',
-                ring: 'hsl(var(--docs-ring))',
+                border: 'var(--docs-border)',
+                input: 'var(--docs-input)',
+                ring: 'var(--docs-ring)',
             },
             borderRadius: {
                 ...rootConfig.theme.extend.borderRadius,

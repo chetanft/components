@@ -3,53 +3,53 @@
 @tailwind utilities;
 
 @layer base {
-   :root {
-      --docs-background: 0 0% 100%;
-      --docs-foreground: 240 10% 3.9%;
-      --docs-card: 0 0% 100%;
-      --docs-card-foreground: 240 10% 3.9%;
-      --docs-popover: 0 0% 100%;
-      --docs-popover-foreground: 240 10% 3.9%;
-      --docs-primary: 240 5.9% 10%;
-      --docs-primary-foreground: 0 0% 98%;
-      --docs-secondary: 240 4.8% 95.9%;
-      --docs-secondary-foreground: 240 5.9% 10%;
-      --docs-muted: 240 4.8% 95.9%;
-      --docs-muted-foreground: 240 3.8% 46.1%;
-      --docs-accent: 240 4.8% 95.9%;
-      --docs-accent-foreground: 240 5.9% 10%;
-      --docs-destructive: 0 84.2% 60.2%;
-      --docs-destructive-foreground: 0 0% 98%;
-      --docs-border: 240 5.9% 90%;
-      --docs-input: 240 5.9% 90%;
-      --docs-ring: 240 10% 3.9%;
-      --docs-radius: 0.5rem;
-   }
+  :root {
+    --docs-background: var(--bg-secondary);
+    --docs-foreground: var(--primary);
+    --docs-card: var(--bg-primary);
+    --docs-card-foreground: var(--primary);
+    --docs-popover: var(--bg-primary);
+    --docs-popover-foreground: var(--primary);
+    --docs-primary: var(--primary);
+    --docs-primary-foreground: var(--bg-primary);
+    --docs-secondary: var(--border-secondary);
+    --docs-secondary-foreground: var(--primary);
+    --docs-muted: var(--border-secondary);
+    --docs-muted-foreground: var(--secondary);
+    --docs-accent: var(--border-secondary);
+    --docs-accent-foreground: var(--primary);
+    --docs-destructive: var(--critical);
+    --docs-destructive-foreground: var(--bg-primary);
+    --docs-border: var(--border-primary);
+    --docs-input: var(--border-secondary);
+    --docs-ring: var(--primary);
+    --docs-radius: var(--component-border-radius);
+  }
 
-   .dark {
-      --docs-background: 240 10% 3.9%;
-      --docs-foreground: 0 0% 98%;
-      --docs-card: 240 10% 3.9%;
-      --docs-card-foreground: 0 0% 98%;
-      --docs-popover: 240 10% 3.9%;
-      --docs-popover-foreground: 0 0% 98%;
-      --docs-primary: 0 0% 98%;
-      --docs-primary-foreground: 240 5.9% 10%;
-      --docs-secondary: 240 3.7% 15.9%;
-      --docs-secondary-foreground: 0 0% 98%;
-      --docs-muted: 240 3.7% 15.9%;
-      --docs-muted-foreground: 240 5% 64.9%;
-      --docs-accent: 240 3.7% 15.9%;
-      --docs-accent-foreground: 0 0% 98%;
-      --docs-destructive: 0 62.8% 30.6%;
-      --docs-destructive-foreground: 0 0% 98%;
-      --docs-border: 240 3.7% 15.9%;
-      --docs-input: 240 3.7% 15.9%;
-      --docs-ring: 240 4.9% 83.9%;
-   }
+  .dark {
+    --docs-background: var(--primary-900);
+    --docs-foreground: var(--tertiary-0);
+    --docs-card: var(--primary-800);
+    --docs-card-foreground: var(--tertiary-0);
+    --docs-popover: var(--primary-800);
+    --docs-popover-foreground: var(--tertiary-0);
+    --docs-primary: var(--tertiary-0);
+    --docs-primary-foreground: var(--primary-900);
+    --docs-secondary: var(--primary-800);
+    --docs-secondary-foreground: var(--tertiary-0);
+    --docs-muted: var(--primary-800);
+    --docs-muted-foreground: var(--tertiary-300);
+    --docs-accent: var(--primary-800);
+    --docs-accent-foreground: var(--tertiary-0);
+    --docs-destructive: var(--critical);
+    --docs-destructive-foreground: var(--tertiary-0);
+    --docs-border: var(--primary-700);
+    --docs-input: var(--primary-700);
+    --docs-ring: var(--tertiary-0);
+  }
 
-   body {
-      background-color: hsl(var(--docs-background));
-      color: hsl(var(--docs-foreground));
-   }
+  body {
+    background-color: var(--docs-background);
+    color: var(--docs-foreground);
+  }
 }
