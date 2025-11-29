@@ -170,10 +170,9 @@ export const CustomLabel: Story = {
     data: basicData,
     height: 300,
     showLabel: true,
-    labelFormatter: (value) => `$${value}k`,
+    labelFormatter: (value: number | string) => `$${value}k`,
   },
 };
-
 
 
 
