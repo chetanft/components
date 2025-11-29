@@ -23,6 +23,53 @@ export const Default: Story = {
   },
 };
 
+export const Normal: Story = {
+  args: {
+    children: 'Normal',
+    variant: 'normal',
+  },
+};
+
+export const Danger: Story = {
+  args: {
+    children: 'Danger',
+    variant: 'danger',
+  },
+};
+
+export const Success: Story = {
+  args: {
+    children: 'Success',
+    variant: 'success',
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    children: 'Warning',
+    variant: 'warning',
+  },
+};
+
+export const Neutral: Story = {
+  args: {
+    children: 'Neutral',
+    variant: 'neutral',
+  },
+};
+
+export const AllVariants: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Badge variant="normal">Normal</Badge>
+      <Badge variant="danger">Danger</Badge>
+      <Badge variant="success">Success</Badge>
+      <Badge variant="warning">Warning</Badge>
+      <Badge variant="neutral">Neutral</Badge>
+    </div>
+  ),
+};
+
 export const NotificationDot: Story = {
     render: () => (
         <Badge dot>

@@ -2,7 +2,7 @@ import Link from "next/link"
 import { ExternalLink } from "lucide-react"
 
 export default function AIPromptsPage() {
-    const systemPrompt = `You are an expert frontend developer using the FT Design System.
+    const systemPrompt = `You are an expert frontend developer using the FT Design System. Always import the AI-protected components when prompting so unsafe Tailwind overrides are filtered automatically.
 
 ## Installation
 \`\`\`bash
@@ -17,18 +17,28 @@ import { Button, Input, Table } from 'ft-design-system/ai';
 
 ## Core Rules
 
-1. **Use semantic color tokens** - NEVER arbitrary colors
-   ✅ bg-primary, text-secondary, border-border
-   ❌ bg-[#123456], bg-blue-500
-
+1. **Use semantic tokens only** – bg-primary, text-secondary, border-border. Never invent colors like bg-[#123456].
 2. **Component specifications**
-   - Table: data needs 'id', columns use 'title' (NOT 'header')
-   - Badge: variant="danger" (NOT "error")
-   - Tabs: use tabs array (NOT children)
-   - Button: variants 'primary' | 'secondary' | 'destructive' | 'text' | 'link'
-   - Icons: pass string names, NOT React elements
+   - Table rows need \`id\`; columns use \`title\` (NOT \`header\`).
+   - Badge variants: "primary" | "secondary" | "danger" | "success" | "neutral" (no "error").
+   - Tabs accept a \`tabs\` array (NOT children rendering).
+   - Button variants: \`primary | secondary | destructive | text | link\`.
+   - Icons accept FT icon string names, never inline SVG React nodes.
+3. **Never override heights manually** – do not add \`h-*\`, \`rounded-*\`, or arbitrary padding classes. Use props.
+4. **Respect FT token rules** – \`var(--token-name)\` only, no underscores, no \`/\` in CSS variable names.
 
-3. **Never override heights** - use size props (sm|md|lg)
+## ⚠️ CSS Specificity & Component Sizing (CRITICAL)
+FT components ship with locked heights via CSS variables (e.g. \`var(--component-height-md)\`), so Tailwind classes like \`h-12\`, \`h-10\`, \`h-16\`, or \`h-[52px]\` will be ignored. Always drive size through the component API:
+
+- **Button/Input**: \`size="sm"|"md"|"lg"\` → 36px / 40px / 52px, text 14px (sm) or 16px (md/lg)
+- **Dropdown/DatePicker**: \`size="md"|"lg"|"xl"\` → 40px / 52px / 64px (xl reserved for DatePicker special cases)
+- **Upload controls, Steps, ProgressList**: inherit internal sizing; never layer extra \`h-*\` utility classes.
+
+### Debugging Tailwind Conflicts
+1. Inspect in DevTools to confirm FT CSS overriding with \`--component-height-*\`.
+2. Remove the custom height class; rely on the \`size\` prop or component defaults.
+3. Only use \`!important\` as a last resort and document why.
+4. If forms still mismatch, ensure no conflicting design system CSS is loaded (AntD, MUI, shadcn).
 
 ## Available Components
 Atoms: Button, Badge, Checkbox, Switch, Icon, Input, Label, Avatar, Divider
@@ -37,9 +47,9 @@ Organisms: Table, Tabs, AppHeader, Card, Upload, UserProfile, Footer
 
 ## Quick Examples
 \`\`\`tsx
-<Button variant="primary">Save</Button>
-<Input label="Email" type="email" />
-<Table columns={[{key: 'name', title: 'Name'}]} data={[{id: 1}]} />
+<Button size="lg" variant="primary">Save</Button>
+<Input size="md" label="Email" type="email" />
+<Table columns={[{key: 'name', title: 'Name'}]} data={[{id: 1, name: 'Report'}]} />
 <Badge variant="danger">Error</Badge>
 \`\`\``
 

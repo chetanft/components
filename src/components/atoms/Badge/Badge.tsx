@@ -39,11 +39,11 @@ const Ribbon: React.FC<BadgeRibbonProps> = ({
     children 
 }) => {
     return (
-        <div className="relative inline-block w-full">
+        <div className="relative inline-block">
             {children}
             <div 
                 className={cn(
-                    "absolute top-2 px-2 py-1 text-white text-xs whitespace-nowrap z-10",
+                    "absolute top-0 px-2 py-1 text-white text-xs whitespace-nowrap z-10",
                     placement === 'end' ? "right-0 rounded-l-md" : "left-0 rounded-r-md",
                     "bg-[var(--primary)] shadow-sm", // Default color
                     className

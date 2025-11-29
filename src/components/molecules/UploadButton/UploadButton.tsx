@@ -90,10 +90,7 @@ export const UploadButton = React.forwardRef<HTMLDivElement, UploadButtonProps>(
             <Icon 
               name="add" 
               size={16}
-              className={cn(
-                "text-[var(--primary)]",
-                isDisabled && "text-[var(--border-primary)]"
-              )}
+              color={isDisabled ? "var(--border-primary)" : "var(--primary)"}
             />
           </div>
           
