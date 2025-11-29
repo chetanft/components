@@ -298,7 +298,11 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
                       key={key}
                       label={node?.title || key}
                       showClose={!disabled}
-                      onClose={(e) => handleRemoveTag(key, e)}
+                      onClose={(e) => {
+                        if (e) {
+                          handleRemoveTag(key, e);
+                        }
+                      }}
                       className="shrink-0"
                       variant="rectangular"
                     />
