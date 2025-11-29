@@ -6,6 +6,7 @@ import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import { Tree, TreeNode } from '../Tree/Tree';
+import { Chicklet } from '../Chicklet/Chicklet';
 
 // ============================================================================
 // Types
@@ -246,6 +247,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
 
     const inputStyles = cn(
       "w-full transition-all duration-200 cursor-pointer",
+      "flex items-center flex-wrap gap-1",
       "font-sans font-normal",
       "placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
       componentStyles.height,
@@ -282,40 +284,29 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
         )}
 
         <div className="relative" ref={containerRef}>
-          {/* Selected tags for multiple mode */}
-          {isMultiple && selectedKeys.length > 0 && (
-            <div className="flex flex-wrap gap-1 mb-1">
-              {selectedKeys.map(key => {
-                const node = findNode(treeData, key);
-                return (
-                  <span
-                    key={key}
-                    className={cn(
-                      "inline-flex items-center gap-1 px-2 py-0.5 rounded",
-                      "bg-[var(--color-bg-secondary)] text-[var(--color-primary)]",
-                      "text-sm"
-                    )}
-                  >
-                    {node?.title || key}
-                    {!disabled && (
-                      <button
-                        type="button"
-                        onClick={(e) => handleRemoveTag(key, e)}
-                        className="hover:text-[var(--color-critical)]"
-                      >
-                        <Icon name="cross" size={12} />
-                      </button>
-                    )}
-                  </span>
-                );
-              })}
-            </div>
-          )}
-
           <div
             className={inputStyles}
             onClick={() => !disabled && setIsOpen(true)}
           >
+            {/* Selected tags for multiple mode */}
+            {isMultiple && selectedKeys.length > 0 && (
+              <div className="flex flex-wrap gap-1 flex-1 min-w-0">
+                {selectedKeys.map(key => {
+                  const node = findNode(treeData, key);
+                  return (
+                    <Chicklet
+                      key={key}
+                      label={node?.title || key}
+                      showClose={!disabled}
+                      onClose={(e) => handleRemoveTag(key, e)}
+                      className="shrink-0"
+                      variant="rectangular"
+                    />
+                  );
+                })}
+              </div>
+            )}
+
             {showSearch && isOpen ? (
               <input
                 ref={inputRef}
@@ -323,26 +314,22 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 placeholder={placeholder}
-                className="w-full bg-transparent border-none outline-none"
+                className={cn(
+                  "bg-transparent border-none outline-none",
+                  isMultiple && selectedKeys.length > 0 ? "flex-1 min-w-[120px]" : "w-full"
+                )}
                 autoFocus
               />
             ) : (
-              <span className={cn(!displayValue && "text-placeholder")}>
-                {displayValue || placeholder}
-              </span>
+              !isMultiple || selectedKeys.length === 0 ? (
+                <span className={cn(!displayValue && "text-placeholder")}>
+                  {displayValue || placeholder}
+                </span>
+              ) : null
             )}
           </div>
 
-          <div className="absolute right-0 top-0 h-full flex items-center pr-[var(--spacing-x3)] gap-[var(--spacing-x1)]">
-            {allowClear && selectedKeys.length > 0 && !disabled && (
-              <button
-                type="button"
-                onClick={handleClear}
-                className="text-[var(--color-tertiary)] hover:text-[var(--color-primary)] transition-colors"
-              >
-                <Icon name="cross" size={componentStyles.iconSize - 4} />
-              </button>
-            )}
+          <div className="absolute right-0 top-0 h-full flex items-center pr-[var(--spacing-x3)]">
             <Icon
               name={isOpen ? 'chevron-up' : 'chevron-down'}
               size={componentStyles.iconSize}
