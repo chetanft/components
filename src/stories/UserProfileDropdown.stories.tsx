@@ -22,6 +22,7 @@ const withAnchoredProfile: Decorator = (Story: DecoratorStory, context: Decorato
     userBadge,
     userAvatar,
   } = context.args as DecoratorArgs;
+  const StoryComponent = Story as React.ComponentType;
   return (
     <div style={{
       padding: 'calc(var(--spacing-x10) * 1.25)',
@@ -39,7 +40,7 @@ const withAnchoredProfile: Decorator = (Story: DecoratorStory, context: Decorato
           userBadge={userBadge}
           userAvatar={userAvatar}
         />
-        <Story />
+        <StoryComponent />
       </div>
     </div>
   );

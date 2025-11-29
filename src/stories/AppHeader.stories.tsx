@@ -14,11 +14,14 @@ const meta: Meta<typeof AppHeader> = {
     },
   },
   decorators: [
-    (Story: StoryFn<typeof AppHeader>) => (
-      <div style={{ minHeight: 'calc(var(--spacing-x10) * 2.5)', backgroundColor: 'var(--bg-secondary)' }}>
-        <Story />
-      </div>
-    ),
+    (Story: StoryFn<typeof AppHeader>) => {
+      const StoryComponent = Story as React.ComponentType;
+      return (
+        <div style={{ minHeight: 'calc(var(--spacing-x10) * 2.5)', backgroundColor: 'var(--bg-secondary)' }}>
+          <StoryComponent />
+        </div>
+      );
+    },
   ],
   argTypes: {
     user: {

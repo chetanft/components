@@ -4,19 +4,25 @@ import { Colors } from '../components/atoms/Colors/Colors';
 import { ThemeProvider } from '../contexts/ThemeContext';
 type ColorsDecoratorStory = Parameters<Decorator>[0];
 
-const withThemeProvider = ((Story: ColorsDecoratorStory) => (
-  <ThemeProvider>
-    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--primary)] p-8">
-      <Story />
-    </div>
-  </ThemeProvider>
-)) satisfies Decorator;
+const withThemeProvider = ((Story: ColorsDecoratorStory) => {
+  const StoryComponent = Story as React.ComponentType;
+  return (
+    <ThemeProvider>
+      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--primary)] p-8">
+        <StoryComponent />
+      </div>
+    </ThemeProvider>
+  );
+}) satisfies Decorator;
 
-const withStandaloneContainer = ((Story: ColorsDecoratorStory) => (
-  <div className="min-h-screen bg-white text-black p-8">
-    <Story />
-  </div>
-)) satisfies Decorator;
+const withStandaloneContainer = ((Story: ColorsDecoratorStory) => {
+  const StoryComponent = Story as React.ComponentType;
+  return (
+    <div className="min-h-screen bg-white text-black p-8">
+      <StoryComponent />
+    </div>
+  );
+}) satisfies Decorator;
 
 const meta = {
   title: 'Design System/Colors',

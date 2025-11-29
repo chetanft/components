@@ -10,33 +10,36 @@ import { Typography } from '../components/atoms/Typography';
 
 type PopoverDecoratorStory = Parameters<Decorator>[0];
 
-const popoverCanvas = ((Story: PopoverDecoratorStory) => (
-  <div
-    style={{
-      minHeight: '100vh',
-      padding: 'var(--spacing-x8)',
-      backgroundColor: 'var(--bg-secondary)',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-      boxSizing: 'border-box',
-    }}
-  >
+const popoverCanvas = ((Story: PopoverDecoratorStory) => {
+  const StoryComponent = Story as React.ComponentType;
+  return (
     <div
       style={{
-        width: '100%',
-        maxWidth: 'var(--container-max-width)',
-        backgroundColor: 'var(--bg-primary)',
-        borderRadius: 'var(--radius-xl)',
+        minHeight: '100vh',
         padding: 'var(--spacing-x8)',
-        boxShadow: 'var(--shadow-xl)',
-        border: '1px solid var(--border-primary)',
+        backgroundColor: 'var(--bg-secondary)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        boxSizing: 'border-box',
       }}
     >
-      <Story />
+      <div
+        style={{
+          width: '100%',
+          maxWidth: 'var(--container-max-width)',
+          backgroundColor: 'var(--bg-primary)',
+          borderRadius: 'var(--radius-xl)',
+          padding: 'var(--spacing-x8)',
+          boxShadow: 'var(--shadow-xl)',
+          border: '1px solid var(--border-primary)',
+        }}
+      >
+        <StoryComponent />
+      </div>
     </div>
-  </div>
-)) satisfies Decorator;
+  );
+}) satisfies Decorator;
 
 const meta: Meta<typeof NavigationPopover> = {
   title: 'Organisms/NavigationPopover',
