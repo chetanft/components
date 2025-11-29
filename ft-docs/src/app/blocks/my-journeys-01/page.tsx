@@ -14,7 +14,7 @@ import {
   SegmentedTabs,
   Checkbox,
   Icon,
-} from "../../../../../src"
+} from "@chetanft/design_system"
 import { SiteHeader } from "@/components/site-header"
 import Link from "next/link"
 import { ArrowLeft, Code, ExternalLink } from "lucide-react"
@@ -308,9 +308,10 @@ function MyJourneysPreview() {
         <div className="flex items-center gap-2">
           <Checkbox
             checked={selectedJourneyIds.includes(journey.journey_id)}
-            onChange={(checked) => {
+            onChange={(event) => {
+              const isChecked = event.target.checked;
               setSelectedJourneyIds((prev) =>
-                checked
+                isChecked
                   ? [...prev, journey.journey_id]
                   : prev.filter((id) => id !== journey.journey_id)
               )

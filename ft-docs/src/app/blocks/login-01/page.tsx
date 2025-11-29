@@ -1,6 +1,6 @@
 "use client"
 
-import { Button, Input, Card } from "../../../../../src"
+import { Button, Input, Card } from "@chetanft/design_system"
 import { SiteHeader } from "@/components/site-header"
 import Link from "next/link"
 import { ArrowLeft, Code, ExternalLink } from "lucide-react"
@@ -84,4 +84,3 @@ function LoginPreview() {
     </div>
   )
 }
-

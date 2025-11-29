@@ -1,6 +1,6 @@
 "use client"
 
-import { AppHeader, Card, Table, Button, Badge } from "../../../../../src"
+import { AppHeader, Card, Table, Button, Badge } from "@chetanft/design_system"
 import { SiteHeader } from "@/components/site-header"
 import Link from "next/link"
 import { ArrowLeft, Code, ExternalLink } from "lucide-react"
@@ -126,7 +126,7 @@ function DashboardPreview() {
               {
                 key: "status",
                 label: "Status",
-                render: (value) => (
+                render: (value: string) => (
                   <Badge variant={value === "Active" ? "success" : "neutral"}>
                     {value}
                   </Badge>
@@ -140,4 +140,3 @@ function DashboardPreview() {
     </div>
   )
 }
-

@@ -26,6 +26,9 @@
       "@/*": [
         "./src/*"
       ],
+      "@chetanft/design_system": [
+        "../src"
+      ],
       "@chetanft/design_system/*": [
         "../src/*"
       ]

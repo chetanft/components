@@ -1,6 +1,6 @@
 "use client"
 
-import { AppHeader, QuickFilters, Table, Button, Badge } from "../../../../../src"
+import { AppHeader, QuickFilters, Table, Button, Badge } from "@chetanft/design_system"
 import { SiteHeader } from "@/components/site-header"
 import Link from "next/link"
 import { ArrowLeft, Code, ExternalLink } from "lucide-react"
@@ -105,7 +105,7 @@ function ListingPreview() {
 
       <QuickFilters
         filters={filters}
-        onFilterClick={(filterId) => {
+        onFilterClick={(filterId: string) => {
           console.log("Filter clicked:", filterId)
         }}
       />
@@ -114,32 +114,31 @@ function ListingPreview() {
         data={sampleData}
         columns={[
           { key: "name", label: "Project Name" },
-          {
-            key: "status",
-            label: "Status",
-            render: (value) => (
-              <Badge
-                variant={
-                  value === "Active"
-                    ? "success"
-                    : value === "Completed"
-                      ? "neutral"
-                      : "warning"
-                }
-              >
-                {value}
-              </Badge>
-            ),
-          },
-          {
-            key: "progress",
-            label: "Progress",
-            render: (value) => `${value}%`,
-          },
+              {
+                key: "status",
+                label: "Status",
+                render: (value: string) => (
+                  <Badge
+                    variant={
+                      value === "Active"
+                        ? "success"
+                        : value === "Completed"
+                          ? "neutral"
+                          : "warning"
+                    }
+                  >
+                    {value}
+                  </Badge>
+                ),
+              },
+              {
+                key: "progress",
+                label: "Progress",
+                render: (value: number) => `${value}%`,
+              },
           { key: "assignee", label: "Assignee" },
         ]}
       />
     </div>
   )
 }
-
