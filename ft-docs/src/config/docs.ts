@@ -306,6 +306,11 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
+          title: "Loader",
+          href: "/docs/components/loader",
+          items: [],
+        },
+        {
           title: "ProgressList",
           href: "/docs/components/progress-list",
           items: [],

@@ -319,7 +319,21 @@ const FormExampleStory = (args: React.ComponentProps<typeof Drawer>) => {
             <Button variant="primary" onClick={() => setOpen(true)}>
                 Create New Item
             </Button>
-            <Drawer {...args} open={open} onClose={() => setOpen(false)}>
+            <Drawer 
+                {...args} 
+                open={open} 
+                onClose={() => setOpen(false)}
+                footer={
+                    <div className="flex gap-2">
+                        <Button variant="primary" className="flex-1">
+                            Create
+                        </Button>
+                        <Button variant="secondary" className="flex-1" onClick={() => setOpen(false)}>
+                            Cancel
+                        </Button>
+                    </div>
+                }
+            >
                 <div className="space-y-4">
                     <div>
                         <Typography variant="body-secondary-medium" className="mb-2">
@@ -338,14 +352,6 @@ const FormExampleStory = (args: React.ComponentProps<typeof Drawer>) => {
                             Description
                         </Typography>
                         <Input placeholder="Enter description" />
-                    </div>
-                    <div className="flex gap-2 pt-4">
-                        <Button variant="primary" className="flex-1">
-                            Create
-                        </Button>
-                        <Button variant="secondary" className="flex-1" onClick={() => setOpen(false)}>
-                            Cancel
-                        </Button>
                     </div>
                 </div>
             </Drawer>

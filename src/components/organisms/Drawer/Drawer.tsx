@@ -17,6 +17,7 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   closable?: boolean;
   maskClosable?: boolean;
   showFigmaBadge?: boolean;
+  footer?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -34,6 +35,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   closable = true,
   maskClosable = true,
   showFigmaBadge = true,
+  footer,
   children,
   className,
   ...props
@@ -127,12 +129,6 @@ export const Drawer: React.FC<DrawerProps> = ({
         }}
         {...props}
       >
-        {showFigmaBadge && (
-          <div className="absolute top-2 right-2 z-20">
-            <FigmaBadge />
-          </div>
-        )}
-
         {/* Header */}
         {(title || closable) && (
           <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border-secondary)] flex-shrink-0">
@@ -164,8 +160,20 @@ export const Drawer: React.FC<DrawerProps> = ({
 
         {/* Body */}
         <div className="flex-1 overflow-y-auto px-6 py-4">
+          {showFigmaBadge && (
+            <div className="mb-4">
+              <FigmaBadge />
+            </div>
+          )}
           {children}
         </div>
+
+        {/* Footer */}
+        {footer && (
+          <div className="flex-shrink-0 px-6 py-4 border-t border-[var(--color-border-secondary)]">
+            {footer}
+          </div>
+        )}
       </div>
     </div>
   );

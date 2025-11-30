@@ -42,6 +42,7 @@ export const storyPathMap: Record<string, StoryLoader> = {
   'Input': () => import('../components/stories/Input.stories'),
   'InputNumber': () => import('../components/molecules/InputNumber/InputNumber.stories'),
   'Label': () => import('../components/stories/Label.stories'),
+  'Loader': () => import('../components/molecules/Loader/Loader.stories'),
   'Logo': () => import('../components/atoms/Logos/Logo.stories'),
   'Mentions': () => import('../components/molecules/Mentions/Mentions.stories'),
   'Modal': () => import('../components/organisms/Modal/Modal.stories'),

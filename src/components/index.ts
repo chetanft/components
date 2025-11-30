@@ -42,6 +42,7 @@ export * from './molecules/Dropdown';
 export * from './molecules/DropdownMenu';
 export * from './molecules/FileValidationCard';
 export * from './molecules/ProgressBar';
+export * from './molecules/Loader';
 export * from './molecules/ProgressList';
 export * from './molecules/RadioSelector';
 export * from './molecules/SegmentedTabs';
