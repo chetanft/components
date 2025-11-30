@@ -119,7 +119,7 @@ const ControlledPreviewStory = (args: React.ComponentProps<typeof Image>) => {
       <div className="flex gap-4 items-center">
         <button
           onClick={() => setVisible(true)}
-          className="px-4 py-2 bg-[var(--color-primary)] text-white rounded"
+          className="px-4 py-2 bg-[var(--color-primary)] text-[var(--overlay-control-text)] rounded"
         >
           Open Preview
         </button>

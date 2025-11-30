@@ -73,13 +73,13 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         ? "bg-surface-alt border-border-secondary cursor-not-allowed"
         : error
           ? props.checked || indeterminate
-            ? "bg-critical border-critical text-white hover:bg-critical/90 hover:border-critical/90"
+            ? "bg-critical border-critical text-[var(--color-bg-primary)] hover:bg-critical/90 hover:border-critical/90"
             : "border-critical bg-surface text-critical hover:bg-critical/5"
           : props.checked || indeterminate
-            ? "bg-[var(--primary)] border-[var(--primary)] text-white hover:bg-[var(--primary)]/90 hover:border-[var(--primary)]/90"
+            ? "bg-[var(--primary)] border-[var(--primary)] text-[var(--color-bg-primary)] hover:bg-[var(--primary)]/90 hover:border-[var(--primary)]/90"
             : "border-border bg-surface hover:bg-surface-alt hover:border-border-hover",
       // Focus styles
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)]",
       error
         ? "focus-visible:ring-critical/50"
         : "focus-visible:ring-[var(--primary)]/50",

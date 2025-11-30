@@ -55,7 +55,7 @@ export const BackTop = React.forwardRef<HTMLDivElement, BackTopProps>(({
       {...props}
     >
       {children || (
-        <div className="w-10 h-10 bg-[var(--primary)] text-white rounded-full flex items-center justify-center shadow-lg hover:bg-[var(--primary-hover)]">
+        <div className="w-10 h-10 bg-[var(--primary)] text-[var(--color-bg-primary)] rounded-full flex items-center justify-center shadow-lg hover:bg-[var(--primary-hover)]">
           <Icon name="arrow-up" size={20} />
         </div>
       )}

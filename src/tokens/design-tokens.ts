@@ -352,6 +352,43 @@ export const designTokens = {
       dark: '#006ed3',
       light: '#ecf6ff',
     },
+    overlay: {
+      light: {
+        strong: 'rgba(12, 18, 28, 0.65)',
+        medium: 'rgba(12, 18, 28, 0.45)',
+        light: 'rgba(12, 18, 28, 0.2)',
+      },
+      dark: {
+        strong: 'rgba(3, 7, 15, 0.75)',
+        medium: 'rgba(3, 7, 15, 0.55)',
+        light: 'rgba(3, 7, 15, 0.35)',
+      },
+      night: {
+        strong: 'rgba(0, 0, 0, 0.75)',
+        medium: 'rgba(0, 0, 0, 0.55)',
+        light: 'rgba(0, 0, 0, 0.35)',
+      },
+      controls: {
+        light: {
+          bg: 'rgba(255, 255, 255, 0.12)',
+          hover: 'rgba(255, 255, 255, 0.24)',
+          divider: 'rgba(255, 255, 255, 0.3)',
+          text: '#ffffff',
+        },
+        dark: {
+          bg: 'rgba(255, 255, 255, 0.16)',
+          hover: 'rgba(255, 255, 255, 0.28)',
+          divider: 'rgba(255, 255, 255, 0.35)',
+          text: '#f8fafc',
+        },
+        night: {
+          bg: 'rgba(255, 255, 255, 0.2)',
+          hover: 'rgba(255, 255, 255, 0.35)',
+          divider: 'rgba(255, 255, 255, 0.4)',
+          text: '#ffffff',
+        },
+      },
+    },
   },
   
   typography: {
@@ -508,6 +545,15 @@ export const cssVariables = `
     --color-neutral: ${designTokens.colors.neutral.default};
     --color-neutral-dark: ${designTokens.colors.neutral.dark};
     --color-neutral-light: ${designTokens.colors.neutral.light};
+    
+    /* Overlay layers */
+    --overlay-strong: ${designTokens.colors.overlay.light.strong};
+    --overlay-medium: ${designTokens.colors.overlay.light.medium};
+    --overlay-light: ${designTokens.colors.overlay.light.light};
+    --overlay-control-bg: ${designTokens.colors.overlay.controls.light.bg};
+    --overlay-control-bg-hover: ${designTokens.colors.overlay.controls.light.hover};
+    --overlay-control-divider: ${designTokens.colors.overlay.controls.light.divider};
+    --overlay-control-text: ${designTokens.colors.overlay.controls.light.text};
     
     /* Typography */
     --font-family-primary: ${designTokens.typography.fontFamily.primary};

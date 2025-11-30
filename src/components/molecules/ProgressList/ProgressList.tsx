@@ -113,7 +113,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
           <button
             className={`
               flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200
-              ${isActive ? 'bg-white border-[var(--primary)]' : 'bg-white border-[var(--border-primary)]'}
+              ${isActive ? 'bg-[var(--color-bg-primary)] border-[var(--primary)]' : 'bg-[var(--color-bg-primary)] border-[var(--border-primary)]'}
               ${item.collapsible ? 'cursor-pointer hover:border-[var(--secondary)] hover:scale-105' : ''}
             `}
             onClick={() => item.collapsible && toggleExpand(item.id)}
@@ -136,7 +136,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
             <Icon
               name={item.icon || 'arrow-down'}
               size={10}
-              color={isActive ? '#FFFFFF' : 'var(--primary)'}
+              color={isActive ? 'var(--color-bg-primary)' : 'var(--primary)'}
             />
           </div>
         );
@@ -145,7 +145,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
         return (
           <div className="flex items-center justify-center w-[var(--spacing-x5)] h-[var(--spacing-x5)]">
             <div className={`
-              w-3 h-3 rounded-full bg-white border-4
+              w-3 h-3 rounded-full bg-[var(--color-bg-primary)] border-4
               ${isActive ? 'border-[var(--primary)]' : 'border-[var(--border-primary)]'}
             `} />
           </div>

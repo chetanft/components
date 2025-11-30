@@ -43,7 +43,7 @@ const Ribbon: React.FC<BadgeRibbonProps> = ({
             {children}
             <div 
                 className={cn(
-                    "absolute top-0 px-2 py-1 text-white text-xs whitespace-nowrap z-10",
+                    "absolute top-0 px-2 py-1 text-[var(--color-bg-primary)] text-xs whitespace-nowrap z-10",
                     placement === 'end' ? "right-0 rounded-l-md" : "left-0 rounded-r-md",
                     "bg-[var(--primary)] shadow-sm", // Default color
                     className
@@ -120,7 +120,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
                  <sup 
                     className={cn(
                         "absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2",
-                        "flex items-center justify-center text-xs font-normal text-white bg-[var(--danger)] border border-white",
+                        "flex items-center justify-center text-xs font-normal text-[var(--color-bg-primary)] bg-[var(--danger)] border border-[var(--color-bg-primary)]",
                         dot ? "w-2 h-2 p-0 rounded-full min-w-0" : "h-5 px-1.5 rounded-full min-w-[20px]",
                         size === 'small' && !dot && "h-4 min-w-[16px] px-1 text-[10px]"
                     )}

@@ -419,7 +419,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
         <div
             ref={ref}
             className={cn(
-                "bg-white rounded-lg transition-all duration-200 flex flex-col overflow-hidden",
+                "bg-[var(--color-bg-primary)] rounded-lg transition-all duration-200 flex flex-col overflow-hidden",
                 bordered ? "border border-[var(--border-primary)]" : "",
                 hoverable ? "hover:shadow-lg cursor-pointer" : "shadow-sm",
                 className
@@ -449,7 +449,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
 
             {/* Actions */}
             {actions && actions.length > 0 && (
-                <div className="flex items-center border-t border-[var(--border-primary)] bg-[var(--bg-secondary)]">
+                <div className="flex items-center border-t border-[var(--border-primary)] bg-[var(--color-bg-secondary)]">
                     {actions.map((action, index) => (
                         <div
                             key={index}

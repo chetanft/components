@@ -20,7 +20,7 @@ type Story = StoryObj<typeof Row>;
 
 // Helper component for visualization
 const ColBox = ({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) => (
-  <div className="bg-[var(--neutral)] text-white text-center py-4 rounded" style={style}>
+  <div className="bg-[var(--neutral)] text-[var(--overlay-control-text)] text-center py-4 rounded" style={style}>
     {children}
   </div>
 );
@@ -197,4 +197,3 @@ export const FlexLayout: Story = {
     </div>
   ),
 };
-

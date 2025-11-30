@@ -265,7 +265,7 @@ const ControlledExpansionStory = (props: TreeStoryProps) => {
     <div className="space-y-4">
       <div className="flex gap-2">
         <button
-          className="px-3 py-1 bg-[var(--color-primary)] text-white rounded text-sm"
+          className="px-3 py-1 bg-[var(--color-primary)] text-[var(--overlay-control-text)] rounded text-sm"
           onClick={() => setExpandedKeys(['0-0', '0-0-0', '0-0-1', '0-1'])}
         >
           Expand All

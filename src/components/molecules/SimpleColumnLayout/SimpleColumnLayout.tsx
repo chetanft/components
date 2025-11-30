@@ -91,13 +91,13 @@ export const SimpleColumnLayout = React.forwardRef<
           <div className="flex gap-[var(--x1,4px)] h-[19px] items-center w-full">
             <Typography 
               variant="body-primary-semibold"
-              className="text-white"
+              className="text-[var(--color-bg-primary)]"
             >
               {headerLeft}
             </Typography>
             <Typography 
               variant="body-primary-semibold"
-              className="ml-auto text-right text-white"
+              className="ml-auto text-right text-[var(--color-bg-primary)]"
             >
               {headerRight}
             </Typography>
@@ -146,4 +146,3 @@ export const SimpleColumnLayout = React.forwardRef<
 SimpleColumnLayout.displayName = 'SimpleColumnLayout';
 
 export default SimpleColumnLayout;
-

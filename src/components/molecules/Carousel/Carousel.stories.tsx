@@ -46,7 +46,7 @@ const meta: Meta<typeof Carousel> = {
 export default meta;
 type Story = StoryObj<typeof Carousel>;
 
-const slideStyle = "flex items-center justify-center h-[200px] text-white text-2xl font-bold";
+const slideStyle = "flex items-center justify-center h-[200px] text-[var(--overlay-control-text)] text-2xl font-bold";
 
 // Basic Carousel
 export const Default: Story = {
@@ -173,19 +173,19 @@ export const ImageGallery: Story = {
     <div className="max-w-[800px]">
       <Carousel {...args}>
         <div className="h-[400px] bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-          <div className="text-center text-white">
+          <div className="text-center text-[var(--overlay-control-text)]">
             <h2 className="text-3xl font-bold mb-2">Welcome to Our Platform</h2>
             <p className="text-lg opacity-80">Discover amazing features</p>
           </div>
         </div>
         <div className="h-[400px] bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
-          <div className="text-center text-white">
+          <div className="text-center text-[var(--overlay-control-text)]">
             <h2 className="text-3xl font-bold mb-2">Fast & Reliable</h2>
             <p className="text-lg opacity-80">Built for performance</p>
           </div>
         </div>
         <div className="h-[400px] bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-          <div className="text-center text-white">
+          <div className="text-center text-[var(--overlay-control-text)]">
             <h2 className="text-3xl font-bold mb-2">Get Started Today</h2>
             <p className="text-lg opacity-80">Join thousands of users</p>
           </div>
@@ -221,4 +221,3 @@ export const CustomDots: Story = {
     </div>
   ),
 };
-

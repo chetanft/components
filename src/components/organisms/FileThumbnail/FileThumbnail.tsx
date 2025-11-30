@@ -77,10 +77,10 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
                     e.stopPropagation();
                     onPreview();
                   }}
-                  className="absolute left-[calc(50%-15px)] top-[calc(50%-12px)] translate-x-[-50%] translate-y-[-50%] size-[20px] flex items-center justify-center z-10 hover:opacity-80 transition-opacity"
+                  className="absolute left-[calc(50%-15px)] top-[calc(50%-12px)] translate-x-[-50%] translate-y-[-50%] size-[20px] flex items-center justify-center z-10 hover:opacity-80 transition-opacity text-[var(--overlay-control-text)]"
                   aria-label="Preview file"
                 >
-                  <Icon name="preview" size={20} className="text-white" />
+                  <Icon name="preview" size={20} />
                 </button>
               )}
               {onDownload && (
@@ -89,10 +89,10 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
                     e.stopPropagation();
                     onDownload();
                   }}
-                  className="absolute left-[calc(50%+15px)] top-[calc(50%-12px)] translate-x-[-50%] translate-y-[-50%] size-[20px] flex items-center justify-center z-10 hover:opacity-80 transition-opacity"
+                  className="absolute left-[calc(50%+15px)] top-[calc(50%-12px)] translate-x-[-50%] translate-y-[-50%] size-[20px] flex items-center justify-center z-10 hover:opacity-80 transition-opacity text-[var(--overlay-control-text)]"
                   aria-label="Download file"
                 >
-                  <Icon name="download" size={20} className="text-white" />
+                  <Icon name="download" size={20} />
                 </button>
               )}
             </>

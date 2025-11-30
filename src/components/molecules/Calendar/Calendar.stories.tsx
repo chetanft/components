@@ -154,7 +154,7 @@ export const CustomHeader: Story = {
               newDate.setMonth(newDate.getMonth() - 1);
               onChange(newDate);
             }}
-            className="px-3 py-1 bg-[var(--color-primary)] text-white rounded"
+            className="px-3 py-1 bg-[var(--color-primary)] text-[var(--overlay-control-text)] rounded"
           >
             Prev
           </button>
@@ -167,7 +167,7 @@ export const CustomHeader: Story = {
               newDate.setMonth(newDate.getMonth() + 1);
               onChange(newDate);
             }}
-            className="px-3 py-1 bg-[var(--color-primary)] text-white rounded"
+            className="px-3 py-1 bg-[var(--color-primary)] text-[var(--overlay-control-text)] rounded"
           >
             Next
           </button>
@@ -288,4 +288,3 @@ const PanelChangeCallbackComponent = (args: any) => {
 export const PanelChangeCallback: Story = {
   render: (args: React.ComponentProps<typeof Calendar>) => <PanelChangeCallbackComponent {...args} />,
 };
-

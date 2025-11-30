@@ -185,7 +185,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
         className={cn(
           "absolute top-0 left-0 right-0 z-10",
           "flex items-center justify-center gap-[var(--spacing-x2)] p-[var(--spacing-x4)]",
-          "bg-gradient-to-b from-black/50 to-transparent"
+          "bg-gradient-to-b from-[var(--overlay-strong)] to-transparent"
         )}
         onClick={(e) => e.stopPropagation()}
       >
@@ -194,18 +194,18 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
             <button
               type="button"
               onClick={handleZoomOut}
-              className="p-[var(--spacing-x2)] rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              className="p-[var(--spacing-x2)] rounded-full bg-[var(--overlay-control-bg)] hover:bg-[var(--overlay-control-bg-hover)] text-[var(--overlay-control-text)] transition-colors"
               aria-label="Zoom out"
             >
               <Icon name="subtract" size={20} />
             </button>
-            <span className="text-white text-sm min-w-[60px] text-center">
+            <span className="text-[var(--overlay-control-text)] text-sm min-w-[60px] text-center">
               {Math.round(scale * 100)}%
             </span>
             <button
               type="button"
               onClick={handleZoomIn}
-              className="p-[var(--spacing-x2)] rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              className="p-[var(--spacing-x2)] rounded-full bg-[var(--overlay-control-bg)] hover:bg-[var(--overlay-control-bg-hover)] text-[var(--overlay-control-text)] transition-colors"
               aria-label="Zoom in"
             >
               <Icon name="add" size={20} />
@@ -214,11 +214,11 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
         )}
         {rotate && (
           <>
-            <div className="w-px h-6 bg-white/30 mx-2" />
+            <div className="w-px h-6 bg-[var(--overlay-control-divider)] mx-2" />
             <button
               type="button"
               onClick={handleRotateLeft}
-              className="p-[var(--spacing-x2)] rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              className="p-[var(--spacing-x2)] rounded-full bg-[var(--overlay-control-bg)] hover:bg-[var(--overlay-control-bg-hover)] text-[var(--overlay-control-text)] transition-colors"
               aria-label="Rotate left"
             >
               <Icon name="refresh" size={20} />
@@ -226,18 +226,18 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
             <button
               type="button"
               onClick={handleRotateRight}
-              className="p-[var(--spacing-x2)] rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+              className="p-[var(--spacing-x2)] rounded-full bg-[var(--overlay-control-bg)] hover:bg-[var(--overlay-control-bg-hover)] text-[var(--overlay-control-text)] transition-colors"
               aria-label="Rotate right"
             >
               <Icon name="refresh" size={20} />
             </button>
           </>
         )}
-        <div className="w-px h-6 bg-white/30 mx-2" />
+        <div className="w-px h-6 bg-[var(--overlay-control-divider)] mx-2" />
         <button
           type="button"
           onClick={handleReset}
-          className="p-[var(--spacing-x2)] rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+          className="p-[var(--spacing-x2)] rounded-full bg-[var(--overlay-control-bg)] hover:bg-[var(--overlay-control-bg-hover)] text-[var(--overlay-control-text)] transition-colors"
           aria-label="Reset"
         >
           <Icon name="expand" size={20} />
@@ -250,7 +250,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
         onClick={onClose}
         className={cn(
           "absolute top-[var(--spacing-x4)] right-[var(--spacing-x4)] z-10",
-          "p-[var(--spacing-x2)] rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+          "p-[var(--spacing-x2)] rounded-full bg-[var(--overlay-control-bg)] hover:bg-[var(--overlay-control-bg-hover)] text-[var(--overlay-control-text)] transition-colors"
         )}
         aria-label="Close preview"
       >
@@ -417,11 +417,11 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
             <div
               className={cn(
                 "absolute inset-0 flex items-center justify-center",
-                "bg-black/0 hover:bg-black/30 transition-colors",
+                "bg-transparent hover:bg-[var(--overlay-control-bg-hover)] transition-colors",
                 "opacity-0 hover:opacity-100"
               )}
             >
-              <Icon name="search" size={32} className="text-white" />
+              <Icon name="search" size={32} className="text-[var(--overlay-control-text)]" />
             </div>
           )}
         </div>

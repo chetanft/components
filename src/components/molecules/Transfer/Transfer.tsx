@@ -72,8 +72,8 @@ const TransferList = ({
     };
 
     return (
-        <div className="flex flex-col border border-[var(--border-primary)] rounded-md w-[250px] h-[300px] overflow-hidden bg-white">
-            <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--border-primary)] bg-[var(--background-secondary)]">
+        <div className="flex flex-col border border-[var(--border-primary)] rounded-md w-[250px] h-[300px] overflow-hidden bg-[var(--color-bg-primary)]">
+            <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--border-primary)] bg-[var(--color-bg-secondary)]">
                 <Checkbox
                     checked={allChecked}
                     indeterminate={indeterminate}
@@ -105,8 +105,8 @@ const TransferList = ({
                     <li
                         key={item.key}
                         className={cn(
-                            "flex items-center px-3 py-2 cursor-pointer transition-colors hover:bg-[var(--background-neutral)]",
-                            checkedKeys.includes(item.key) && "bg-[var(--primary-bg-subtle)]",
+                            "flex items-center px-3 py-2 cursor-pointer transition-colors hover:bg-[var(--surface-hover)]",
+                            checkedKeys.includes(item.key) && "bg-[var(--color-bg-secondary)]",
                             (item.disabled || disabled) && "cursor-not-allowed opacity-50"
                         )}
                         onClick={() => {

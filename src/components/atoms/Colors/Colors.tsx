@@ -28,17 +28,17 @@ interface HorizontalColorScaleProps {
 }
 
 const HorizontalColorScale: React.FC<HorizontalColorScaleProps> = ({ title, colors, theme }) => {
-  const themeStyles = {
-    light: 'bg-white',
-    dark: 'bg-slate-800',
-    night: 'bg-black'
-  };
+const themeStyles = {
+  light: 'bg-[var(--bg-secondary)]',
+  dark: 'bg-[var(--bg-primary)]',
+  night: 'bg-[var(--bg-primary)]'
+};
 
-  const textStyles = {
-    light: 'text-gray-900',
-    dark: 'text-white',
-    night: 'text-white'
-  };
+const textStyles = {
+  light: 'text-[var(--primary)]',
+  dark: 'text-[var(--overlay-control-text)]',
+  night: 'text-[var(--overlay-control-text)]'
+};
 
   return (
     <div className={`p-6 ${themeStyles[theme]} ${textStyles[theme]} rounded-lg border`}>

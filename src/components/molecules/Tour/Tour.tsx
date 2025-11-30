@@ -105,7 +105,7 @@ export const Tour: React.FC<TourProps> = ({
     <div className="fixed inset-0 z-[1000]" style={{ zIndex }}>
       {/* Mask */}
       {mask && (
-        <div className="absolute inset-0 bg-black/50 transition-all duration-300">
+        <div className="absolute inset-0 bg-overlay transition-all duration-300">
           {/* Cutout logic is complex, simulating with just overlay for now or SVG masking */}
           {/* For high fidelity, we'd use SVG mask. Here simple overlay */}
         </div>
@@ -128,7 +128,7 @@ export const Tour: React.FC<TourProps> = ({
       {/* Popover */}
       <div
         className={cn(
-          "absolute bg-white p-4 rounded-lg shadow-xl w-[300px] z-[1002] animate-in fade-in zoom-in-95 duration-200",
+          "absolute bg-[var(--color-bg-primary)] p-4 rounded-lg shadow-xl w-[300px] z-[1002] animate-in fade-in zoom-in-95 duration-200",
           className
         )}
         style={{

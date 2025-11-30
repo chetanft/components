@@ -89,7 +89,7 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
       {badge && (
         <span className={cn(
           "absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4",
-          "bg-[var(--danger)] text-white text-xs font-bold px-1.5 rounded-full min-w-[1.25rem] h-5 flex items-center justify-center border-2 border-white",
+          "bg-[var(--danger)] text-[var(--color-bg-primary)] text-xs font-bold px-1.5 rounded-full min-w-[1.25rem] h-5 flex items-center justify-center border-2 border-[var(--color-bg-primary)]",
           badge.dot ? "w-2.5 h-2.5 p-0 min-w-0" : ""
         )}>
           {!badge.dot && badge.count}

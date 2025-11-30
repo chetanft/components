@@ -127,8 +127,8 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
         disabled={disabled}
         onClick={() => !disabled && setOpen(!open)}
         className={cn(
-            "relative border border-[var(--border-primary)] rounded cursor-pointer flex items-center gap-2 p-1 bg-white hover:border-[var(--primary)] transition-colors",
-            disabled && "cursor-not-allowed opacity-50 bg-[var(--background-secondary)]",
+            "relative border border-[var(--border-primary)] rounded cursor-pointer flex items-center gap-2 p-1 bg-[var(--color-bg-primary)] hover:border-[var(--primary)] transition-colors",
+            disabled && "cursor-not-allowed opacity-50 bg-[var(--color-bg-secondary)]",
             size === 'sm' && "h-6 px-1",
             size === 'md' && "h-8 px-2",
             size === 'lg' && "h-10 px-3"
@@ -145,7 +145,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
 
       {open && (
         // Simple popover implementation - in real app would use proper positioning/portal
-        <div className="absolute z-50 mt-2 top-full left-0 bg-white p-3 rounded-lg shadow-xl border border-[var(--border-primary)] min-w-[200px]">
+        <div className="absolute z-50 mt-2 top-full left-0 bg-[var(--color-bg-primary)] p-3 rounded-lg shadow-xl border border-[var(--border-primary)] min-w-[200px]">
             <div className="grid grid-cols-5 gap-2 mb-3">
                 {presets.map(color => (
                     <button
