@@ -395,14 +395,6 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
             ))}
           </div>
         )}
-        {tabs[internalActiveTab] && tabs[internalActiveTab].children !== undefined && (
-          <div
-            key={`tab-content-${internalActiveTab}`}
-            className="p-[var(--x4,16px)] bg-[var(--bg-primary)] border-l border-r border-b border-[var(--border-primary)] rounded-b-lg"
-          >
-            {tabs[internalActiveTab].children}
-          </div>
-        )}
       </div>
     );
   }
