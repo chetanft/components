@@ -1,8 +1,7 @@
 import React from 'react';
 import { Avatar } from '../../atoms/Avatar';
 import { Typography } from '../../atoms/Typography';
-import { Divider } from '../../atoms/Divider';
-import { DropdownMenu } from '../../molecules/DropdownMenu';
+import { Icon } from '../../atoms/Icons';
 
 export interface UserProfileDropdownProps {
   userName?: string;
@@ -21,8 +20,9 @@ const menuItems = [
   { id: 'settings', label: 'Settings', iconName: 'settings' as const },
   { id: 'change-desk', label: 'Change Desk', iconName: 'refresh' as const },
   { id: 'change-password', label: 'Change Password', iconName: 'password' as const },
-  { id: 'logout', label: 'Logout', iconName: 'logout' as const },
 ];
+
+const logoutItem = { id: 'logout', label: 'Logout', iconName: 'logout' as const };
 
 export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
   userName = 'Santosh Kumar',
@@ -86,24 +86,59 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
       </div>
 
       {/* Divider */}
-      <div className="w-full py-[var(--x5,20px)]">
-        <Divider type="primary" className="w-full" />
+      <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
+        <div className="flex-[1_0_0] h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
+          <div className="absolute inset-[-0.5px_-0.13%]" style={{ borderTop: '1px solid var(--border-primary)' }} />
+        </div>
       </div>
 
       {/* Menu Items */}
-      <div className="px-[var(--x5,20px)] py-0 w-full">
-        <DropdownMenu
-          property="default"
-          options={menuItems.map(({ id, label, iconName }) => ({
-            value: id,
-            label,
-            prefix: 'icon' as const,
-            iconName,
-            state: 'default' as const,
-          }))}
-          onSelect={(value) => onMenuItemClick(value)}
-        />
+      <div className="box-border content-stretch flex flex-col gap-[16px] items-start px-[var(--x5,20px)] py-0 relative shrink-0 w-full">
+        {menuItems.map(({ id, label, iconName }) => (
+          <button
+            key={id}
+            onClick={() => onMenuItemClick(id)}
+            className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
+          >
+            <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
+              <Icon
+                name={iconName}
+                size={16}
+                className="absolute inset-0"
+                color="var(--primary)"
+              />
+            </div>
+            <p className="font-[family-name:var(--font-family-primary,'Inter',sans-serif)] font-[var(--font-weight-regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary)] text-[length:var(--font-size-md,16px)]">
+              {label}
+            </p>
+          </button>
+        ))}
       </div>
+
+      {/* Divider before Logout */}
+      <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
+        <div className="flex-[1_0_0] h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
+          <div className="absolute inset-[-0.5px_-0.13%]" style={{ borderTop: '1px solid var(--border-primary)' }} />
+        </div>
+      </div>
+
+      {/* Logout Item */}
+      <button
+        onClick={() => onMenuItemClick(logoutItem.id)}
+        className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[10px] items-center px-[32px] py-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
+      >
+        <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip relative shrink-0 size-[16px]">
+          <Icon
+            name={logoutItem.iconName}
+            size={16}
+            className="absolute inset-[12.5%]"
+            color="var(--critical)"
+          />
+        </div>
+        <p className="font-[family-name:var(--font-family-primary,'Inter',sans-serif)] font-[var(--font-weight-regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--critical)] text-[length:var(--font-size-md,16px)]">
+          {logoutItem.label}
+        </p>
+      </button>
     </div>
   );
 };

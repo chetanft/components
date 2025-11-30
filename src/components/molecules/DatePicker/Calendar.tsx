@@ -246,10 +246,25 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
     const normalizedEnd = startOfDay(end);
     const normalizedDate = startOfDay(date);
 
-    // If both dates are the same, clicking any date starts a new range
-    if (isSameDay(start, end)) {
-      onChange?.([date, date]);
-      setRangeError(null);
+    // If only the start date has been chosen (start === end), allow the next
+    // click to define the end of the range rather than restarting the range
+    if (isSameDay(normalizedStart, normalizedEnd)) {
+      if (isSameDay(normalizedDate, normalizedStart)) {
+        onChange?.([date, date]);
+        setRangeError(null);
+        return;
+      }
+
+      const isBeforeStart = isBefore(normalizedDate, normalizedStart);
+      const newStart = isBeforeStart ? date : start;
+      const newEnd = isBeforeStart ? start : date;
+
+      const error = validateRange(newStart, newEnd);
+      setRangeError(error);
+
+      if (!error) {
+        onChange?.([newStart, newEnd]);
+      }
       return;
     }
 

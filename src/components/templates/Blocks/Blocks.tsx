@@ -15,6 +15,7 @@ import { Tabs, type Tab } from '../../organisms/Tabs';
 import { SegmentedTabs } from '../../molecules/SegmentedTabs';
 import { Checkbox } from '../../atoms/Checkbox';
 import { Icon } from '../../atoms/Icons';
+import type { IconName } from '../../atoms/Icons';
 
 const DEFAULT_DASHBOARD_USER: AppHeaderUser = {
   name: 'John Doe',
@@ -377,6 +378,8 @@ export interface JourneysBlockProps {
   directionOptions?: DropdownOption[];
 }
 
+type CompactFilterType = 'company' | 'dates' | 'direction' | 'search';
+
 export const JourneysBlock: React.FC<JourneysBlockProps> = ({
   journeys = DEFAULT_JOURNEYS,
   filters = DEFAULT_JOURNEY_FILTERS,
@@ -396,14 +399,28 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
   const [activeFilters, setActiveFilters] = useState<Set<string>>(new Set());
   const [dateRangeStart, setDateRangeStart] = useState<string>('2024-08-12');
   const [dateRangeEnd, setDateRangeEnd] = useState<string>('2024-09-12');
-  const [isMobile, setIsMobile] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(() => (typeof window !== 'undefined' ? window.innerWidth : 1920));
+  const [activeCompactFilter, setActiveCompactFilter] = useState<CompactFilterType | null>(null);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 800);
+    const handleResize = () => setViewportWidth(window.innerWidth);
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const isMobile = viewportWidth <= 800;
+  const isCompactHeader = viewportWidth < 1440;
+
+  useEffect(() => {
+    if (!isCompactHeader) {
+      setActiveCompactFilter(null);
+    }
+  }, [isCompactHeader]);
+
+  const toggleCompactFilter = (filter: CompactFilterType) => {
+    setActiveCompactFilter((previous) => (previous === filter ? null : filter));
+  };
 
   const filteredByTab = useMemo(() => {
     const status = JOURNEY_STATUS_MAP[selectedTab];
@@ -585,12 +602,61 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
 
   const tableData = filteredJourneys.map((journey) => ({ ...journey, id: journey.journey_id }));
 
+  const compactFilterConfig: { key: CompactFilterType; icon: IconName; label: string }[] = [
+    { key: 'company', icon: 'organisation', label: 'Select company' },
+    { key: 'dates', icon: 'calendar', label: 'Select date range' },
+    { key: 'direction', icon: 'outbound', label: 'Select direction' },
+    { key: 'search', icon: 'search', label: 'Search My Journeys' },
+  ];
+
+  const renderCompactFilterContent = () => {
+    switch (activeCompactFilter) {
+      case 'company':
+        return (
+          <Dropdown
+            options={companyOptions}
+            placeholder="Select company"
+          />
+        );
+      case 'dates':
+        return (
+          <DatePicker
+            range
+            startValue={dateRangeStart}
+            endValue={dateRangeEnd}
+            onStartChange={(value) => setDateRangeStart(value)}
+            onEndChange={(value) => setDateRangeEnd(value)}
+            placeholder="12 Aug, 2024 → 12 Sep 2024"
+          />
+        );
+      case 'direction':
+        return (
+          <Dropdown
+            options={directionOptions}
+            placeholder="Direction"
+          />
+        );
+      case 'search':
+        return (
+          <Input
+            placeholder="Search My Journeys"
+            leadingIcon="search"
+            value={searchTerm}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(event.target.value)}
+            style={{ width: '100%' }}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div style={{ backgroundColor: 'var(--bg-secondary)', width: '100%', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
       <AppHeader user={DEFAULT_DASHBOARD_USER} />
 
       <div style={{ backgroundColor: 'var(--bg-primary)', padding: isMobile ? '12px' : '20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '20px', gap: 'var(--x4,16px)', flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x2,8px)' }}>
             <Icon name="navigator" style={{ width: '28px', height: '28px', color: 'var(--primary)' }} />
             <Typography variant="body-primary-medium" className="text-[var(--primary)] text-2xl">
@@ -598,33 +664,71 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
             </Typography>
           </div>
           {!isMobile && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x4,16px)' }}>
-              <Dropdown options={companyOptions} placeholder="Select company" />
-              <DatePicker
-                range
-                startValue={dateRangeStart}
-                endValue={dateRangeEnd}
-                onStartChange={(value) => setDateRangeStart(value)}
-                onEndChange={(value) => setDateRangeEnd(value)}
-                placeholder="12 Aug, 2024 → 12 Sep 2024"
-              />
-              <Dropdown options={directionOptions} placeholder="Direction" />
-              <Input
-                placeholder="Search My Journeys"
-                leadingIcon="search"
-                value={searchTerm}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(event.target.value)}
-                style={{ width: '280px' }}
-              />
-              <Button variant="primary" icon="add" size="md">
-                Add Journey
-              </Button>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 'var(--x2,8px)', flex: '1 1 0' }}>
+              {isCompactHeader ? (
+                <>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x3,12px)', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x2,8px)', flexWrap: 'wrap' }}>
+                      {compactFilterConfig.map(({ key, icon, label }) => (
+                        <Button
+                          key={key}
+                          variant={activeCompactFilter === key ? 'primary' : 'secondary'}
+                          size="md"
+                          icon={icon}
+                          iconPosition="only"
+                          onClick={() => toggleCompactFilter(key)}
+                          aria-label={label}
+                          aria-pressed={activeCompactFilter === key}
+                          className="rounded-[8px]"
+                        />
+                      ))}
+                    </div>
+                    <Button
+                      variant="primary"
+                      size="md"
+                      icon="add"
+                      iconPosition="leading"
+                      className="rounded-[8px]"
+                    >
+                      Add Journey
+                    </Button>
+                  </div>
+                  {activeCompactFilter && (
+                    <div style={{ width: '100%', maxWidth: '360px', marginTop: 'var(--x2,8px)' }}>
+                      {renderCompactFilterContent()}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x4,16px)' }}>
+                  <Dropdown options={companyOptions} placeholder="Select company" />
+                  <DatePicker
+                    range
+                    startValue={dateRangeStart}
+                    endValue={dateRangeEnd}
+                    onStartChange={(value) => setDateRangeStart(value)}
+                    onEndChange={(value) => setDateRangeEnd(value)}
+                    placeholder="12 Aug, 2024 → 12 Sep 2024"
+                  />
+                  <Dropdown options={directionOptions} placeholder="Direction" />
+                  <Input
+                    placeholder="Search My Journeys"
+                    leadingIcon="search"
+                    value={searchTerm}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(event.target.value)}
+                    style={{ width: '280px' }}
+                  />
+                  <Button variant="primary" icon="add" size="md">
+                    Add Journey
+                  </Button>
+                </div>
+              )}
             </div>
           )}
         </div>
 
-        <div style={{ display: 'flex', gap: 'var(--x4,16px)', alignItems: 'center', flexWrap: 'nowrap', marginBottom: '20px', overflowX: 'auto', overflowY: 'hidden' }}>
-          <div style={{ flexShrink: 0 }}>
+        <div style={{ display: 'flex', gap: 'var(--x4,16px)', alignItems: 'center', flexWrap: 'nowrap', marginBottom: '20px', overflowX: 'hidden', overflowY: 'hidden' }}>
+          <div style={{ flex: '1 1 0', minWidth: 0 }}>
             <Tabs
               tabs={JOURNEY_TABS}
               activeTab={selectedTab}

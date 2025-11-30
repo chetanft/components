@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
@@ -221,15 +221,13 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     ...props
   }, ref) => {
     const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const measurementRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const [containerWidth, setContainerWidth] = useState<number | null>(null);
-    const [tabWidths, setTabWidths] = useState<number[]>([]);
-    const [overflowOpen, setOverflowOpen] = useState(false);
-    const overflowTriggerRef = useRef<HTMLButtonElement | null>(null);
+    const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+    const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownTriggerRef = useRef<HTMLButtonElement | null>(null);
+    const dropdownMenuRef = useRef<HTMLDivElement | null>(null);
     const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
 
-    // Sync internal state with prop when it changes from parent
     useEffect(() => {
       if (activeTab !== undefined) {
         setInternalActiveTab(activeTab);
@@ -237,103 +235,35 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     }, [activeTab]);
 
     const handleTabSelect = useCallback((index: number) => {
-      // Update internal state immediately
       setInternalActiveTab(index);
-      // Notify parent synchronously
       onTabChange?.(index);
     }, [onTabChange]);
 
-    useEffect(() => {
-      if (overflowBehavior !== 'dropdown') return;
-      const node = containerRef.current;
-      if (!node || typeof ResizeObserver === 'undefined') return;
-      const observer = new ResizeObserver(entries => {
-        const entry = entries[0];
-        if (entry?.contentRect?.width) {
-          setContainerWidth(entry.contentRect.width);
-        }
-      });
-      observer.observe(node);
-      return () => observer.disconnect();
-    }, [overflowBehavior]);
-
-    useLayoutEffect(() => {
-      if (overflowBehavior !== 'dropdown') return;
-      const widths = measurementRefs.current.map(el => el?.offsetWidth || 0);
-      setTabWidths(widths);
-    }, [tabs, type, overflowBehavior, internalActiveTab, containerWidth]);
-
-    const overflowData = useMemo(() => {
-      if (
-        overflowBehavior !== 'dropdown' ||
-        !containerWidth ||
-        tabWidths.length === 0 ||
-        tabWidths.every(width => width === 0)
-      ) {
-        return {
-          visible: tabs.map((_, index) => index),
-          overflow: [] as number[],
-        };
+    const scrollToTab = useCallback((index: number) => {
+      const node = tabRefs.current[index];
+      if (!node) return;
+      try {
+        node.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } catch {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+        const offset = node.offsetLeft - container.clientWidth / 2 + node.clientWidth / 2;
+        container.scrollTo({ left: offset, behavior: 'smooth' });
       }
+    }, []);
 
-      const OVERFLOW_TRIGGER_WIDTH = 56;
-      let visible: number[] = [];
-      let overflow: number[] = [];
-      let used = 0;
-
-      tabs.forEach((_, index) => {
-        const width = tabWidths[index] ?? 0;
-        if (used + width <= containerWidth) {
-          visible.push(index);
-          used += width;
-        } else {
-          overflow.push(index);
-        }
-      });
-
-      const ensureTriggerSpace = () => {
-        if (overflow.length === 0) return;
-        while (visible.length > 0 && used + OVERFLOW_TRIGGER_WIDTH > containerWidth) {
-          const moved = visible.pop();
-          if (typeof moved !== 'number') break;
-          used -= tabWidths[moved] ?? 0;
-          overflow.unshift(moved);
-        }
-        if (visible.length === 0 && overflow.length > 0) {
-          const first = overflow.shift();
-          if (typeof first === 'number') {
-            visible.push(first);
-            used += tabWidths[first] ?? 0;
-          }
-        }
-      };
-
-      ensureTriggerSpace();
-
-      if (overflow.includes(internalActiveTab)) {
-        const activeWidth = tabWidths[internalActiveTab] ?? 0;
-        overflow = overflow.filter((index) => index !== internalActiveTab);
-        while (
-          visible.length > 0 &&
-          used + activeWidth + (overflow.length > 0 ? OVERFLOW_TRIGGER_WIDTH : 0) > containerWidth
-        ) {
-          const moved = visible.pop();
-          if (typeof moved !== 'number') break;
-          used -= tabWidths[moved] ?? 0;
-          overflow.unshift(moved);
-        }
-        visible.push(internalActiveTab);
-        used += activeWidth;
-        ensureTriggerSpace();
-      }
-
-      return { visible, overflow };
-    }, [overflowBehavior, containerWidth, tabWidths, tabs, internalActiveTab]);
+    const handleDropdownSelect = (index: number) => {
+      const tab = tabs[index];
+      if (!tab || tab.disabled) return;
+      handleTabSelect(index);
+      scrollToTab(index);
+      setDropdownOpen(false);
+    };
 
     useEffect(() => {
-      if (!overflowOpen) return;
+      if (!dropdownOpen) return;
       const updatePosition = () => {
-        const rect = overflowTriggerRef.current?.getBoundingClientRect();
+        const rect = dropdownTriggerRef.current?.getBoundingClientRect();
         if (rect) {
           setMenuPosition({ top: rect.bottom + 8, left: rect.left });
         }
@@ -345,146 +275,128 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
         window.removeEventListener('resize', updatePosition);
         window.removeEventListener('scroll', updatePosition, true);
       };
-    }, [overflowOpen]);
+    }, [dropdownOpen]);
 
     useEffect(() => {
-      if (!overflowOpen) return;
+      if (!dropdownOpen) return;
       const handleClick = (event: MouseEvent) => {
         if (
-          overflowTriggerRef.current &&
-          !overflowTriggerRef.current.contains(event.target as Node)
+          dropdownTriggerRef.current?.contains(event.target as Node) ||
+          dropdownMenuRef.current?.contains(event.target as Node)
         ) {
-          setOverflowOpen(false);
+          return;
+        }
+        setDropdownOpen(false);
+      };
+      const handleKey = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          setDropdownOpen(false);
         }
       };
       document.addEventListener('mousedown', handleClick);
-      const handleKey = (event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
-          setOverflowOpen(false);
-        }
-      };
       document.addEventListener('keydown', handleKey);
       return () => {
         document.removeEventListener('mousedown', handleClick);
         document.removeEventListener('keydown', handleKey);
       };
-    }, [overflowOpen]);
+    }, [dropdownOpen]);
 
-    const containerStyles = cn(
-      "flex items-start relative",
+    const scrollContainerClasses = cn(
+      "flex items-start relative w-full overflow-x-auto min-w-0",
       (type === 'secondary' || type === 'tertiary') && "gap-[var(--x2,8px)]",
       className
     );
 
-    const visibleIndices = overflowData.visible;
-    const overflowIndices = overflowData.overflow;
-    const activeInOverflow = overflowIndices.includes(internalActiveTab);
-
     return (
       <div className="flex flex-col relative">
-        <div
-          className="absolute opacity-0 pointer-events-none -z-10 flex flex-wrap gap-2 top-0 left-0"
-          aria-hidden
-        >
-          {tabs.map((tab, index) => (
-            <TabItem
-              key={`measure-${index}`}
-              label={tab.label}
-              badge={tab.badge}
-              badgeCount={tab.badgeCount}
-              notification={tab.notification}
-              icon={tab.icon}
-              type={type}
-              active={index === internalActiveTab}
-              disabled={tab.disabled}
+        <div className="flex items-start gap-[var(--x3,12px)] w-full">
+          <div className="flex-1 min-w-0">
+            <div
               ref={(node) => {
-                measurementRefs.current[index] = node;
+                scrollContainerRef.current = node;
+                if (typeof ref === 'function') {
+                  ref(node);
+                } else if (ref) {
+                  ref.current = node;
+                }
               }}
-            />
-          ))}
-        </div>
-        <div
-          ref={(node) => {
-            if (typeof ref === 'function') {
-              ref(node);
-            } else if (ref) {
-              ref.current = node;
-            }
-            containerRef.current = node;
-          }}
-          className={containerStyles}
-          {...props}
-        >
-          {tabs.map((tab, index) => {
-            if (!visibleIndices.includes(index)) {
-              return null;
-            }
-            return (
-              <TabItem
-                key={index}
-                label={tab.label}
-                badge={tab.badge}
-                badgeCount={tab.badgeCount}
-                notification={tab.notification}
-                icon={tab.icon}
-                type={type}
-                active={index === internalActiveTab}
-                onSelect={() => !tab.disabled && handleTabSelect(index)}
-                disabled={tab.disabled}
-              />
-            );
-          })}
-          {overflowBehavior === 'dropdown' && overflowIndices.length > 0 && (
-            <div className="flex items-center">
-              <Button
-                ref={overflowTriggerRef}
-                variant="text"
-                size="lg"
-                icon="more"
-                iconPosition="only"
-                aria-label="More tabs"
-                className={cn(
-                  activeInOverflow ? "bg-[var(--border-secondary)]" : "",
-                  "shadow-[inset_4px_0_4px_-2px_rgba(0,0,0,0.1)]"
-                )}
-                onClick={() => setOverflowOpen((prev) => !prev)}
-              />
+              className={scrollContainerClasses}
+              {...props}
+            >
+              {tabs.map((tab, index) => (
+                <TabItem
+                  key={index}
+                  label={tab.label}
+                  badge={tab.badge}
+                  badgeCount={tab.badgeCount}
+                  notification={tab.notification}
+                  icon={tab.icon}
+                  type={type}
+                  active={index === internalActiveTab}
+                  disabled={tab.disabled}
+                  onSelect={() => {
+                    if (!tab.disabled) {
+                      handleTabSelect(index);
+                      scrollToTab(index);
+                    }
+                  }}
+                  ref={(node) => {
+                    tabRefs.current[index] = node;
+                  }}
+                />
+              ))}
             </div>
-          )}
-          {showLine && type === 'primary' && (
-            <div className="border-[var(--border-primary)] border-b border-l-0 border-r-0 border-solid border-t-0 flex-[1_0_0] min-h-px min-w-px self-stretch shrink-0" />
+            {showLine && type === 'primary' && (
+              <div className="border-[var(--border-primary)] border-b border-l-0 border-r-0 border-solid border-t-0 flex-[1_0_0] min-h-px min-w-px self-stretch shrink-0" />
+            )}
+          </div>
+          {overflowBehavior === 'dropdown' && (
+            <Button
+              ref={dropdownTriggerRef}
+              variant="text"
+              size="md"
+              icon="more"
+              iconPosition="only"
+              aria-label="More tabs"
+              aria-pressed={dropdownOpen}
+              className={cn(
+                "shrink-0",
+                type === 'primary' 
+                  ? "h-[calc(var(--x3,12px)*2+1.4*1rem)] w-[calc(var(--x3,12px)*2+1.4*1rem)]"
+                  : "h-[calc(var(--x2,8px)*2+1.4*1rem)] w-[calc(var(--x2,8px)*2+1.4*1rem)]"
+              )}
+              onClick={() => setDropdownOpen((prev) => !prev)}
+            />
           )}
         </div>
-        {overflowBehavior === 'dropdown' && overflowOpen && (
+        {overflowBehavior === 'dropdown' && dropdownOpen && (
           <div
-            className="fixed z-50 rounded-[var(--x2,8px)] border border-[var(--border-secondary)] bg-[var(--bg-primary)] shadow-lg min-w-[160px] py-[var(--x2,8px)]"
+            ref={dropdownMenuRef}
+            className="fixed z-50 rounded-[var(--x2,8px)] border border-[var(--border-secondary)] bg-[var(--bg-primary)] shadow-lg min-w-[200px] py-[var(--x2,8px)]"
             style={{ top: menuPosition.top, left: menuPosition.left }}
           >
-            {overflowIndices.map((index) => (
+            {tabs.map((tab, index) => (
               <button
-                key={`overflow-${index}`}
+                key={`all-tabs-${index}`}
                 className={cn(
                   "w-full text-left px-[var(--x4,16px)] py-[var(--x2,8px)] text-[var(--primary)] hover:bg-[var(--bg-secondary)] transition-colors",
-                  index === internalActiveTab && "font-semibold"
+                  index === internalActiveTab && "font-semibold",
+                  tab.disabled && "opacity-50 cursor-not-allowed"
                 )}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  // Update tab selection immediately
-                  handleTabSelect(index);
-                  // Close dropdown after state update
-                  setTimeout(() => {
-                    setOverflowOpen(false);
-                  }, 0);
+                onClick={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  handleDropdownSelect(index);
                 }}
+                disabled={tab.disabled}
               >
-                {tabs[index].label}
+                {tab.label}
               </button>
             ))}
           </div>
         )}
         {tabs[internalActiveTab] && tabs[internalActiveTab].children !== undefined && (
-          <div 
+          <div
             key={`tab-content-${internalActiveTab}`}
             className="p-[var(--x4,16px)] bg-[var(--bg-primary)] border-l border-r border-b border-[var(--border-primary)] rounded-b-lg"
           >

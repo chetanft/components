@@ -120,6 +120,8 @@ import {
     ColorPicker,
 } from "../../src"
 
+export { UserProfile } from "../../src"
+
 import { Plus as PlusIcon, ArrowRight as ArrowRightIcon, Pencil as PencilIcon } from "lucide-react"
 
 // Sample data for component examples

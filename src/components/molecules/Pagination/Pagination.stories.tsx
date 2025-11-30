@@ -34,6 +34,11 @@ const meta: Meta<typeof Pagination> = {
     showQuickJumper: {
       control: 'boolean',
       description: 'Whether to show quick jumper'
+    },
+    variant: {
+      control: 'select',
+      options: ['default', 'compact'],
+      description: 'Pagination variant style'
     }
   },
 } satisfies Meta<typeof Pagination>;
@@ -101,6 +106,23 @@ export function WithBothFeatures() {
         pageSize={10}
         showSizeChanger={true}
         showQuickJumper={true}
+      />
+    </div>
+  );
+}
+
+// Compact variant story
+export function CompactVariant() {
+  const [current, setCurrent] = React.useState(1);
+  
+  return (
+    <div className="p-6">
+      <Pagination
+        current={current}
+        total={100}
+        pageSize={10}
+        variant="compact"
+        onChange={(page) => setCurrent(page)}
       />
     </div>
   );

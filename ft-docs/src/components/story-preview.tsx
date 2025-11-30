@@ -8,6 +8,7 @@ import type { StoryDefinition, StoryMeta } from "@/lib/story-loader";
 import { formatStoryName } from "@/lib/story-loader";
 import { Highlight, themes } from "prism-react-renderer";
 import { loadStorySource, extractStorySource } from "@/lib/story-source";
+import { UserProfile } from "@/registry";
 
 interface StoryPreviewProps {
   /** The story definition to render */
@@ -176,24 +177,54 @@ export function StoryPreview({
   // Render the actual story - ensure consistent rendering to prevent hook order issues
   const renderedStory = React.useMemo(() => {
     try {
+      let content: React.ReactNode;
+      
       // Case 1: Function component story (like `Sizes`, `InteractiveDemo`)
       if (story.component) {
         const StoryComponent = story.component;
-        return <StoryComponent />;
+        content = <StoryComponent />;
       }
-
       // Case 2: Render function story
-      if (story.render) {
-        return story.render(mergedArgs);
+      else if (story.render) {
+        content = story.render(mergedArgs);
       }
-
       // Case 3: Args-based story - render the component with args
-      if (meta.component) {
+      else if (meta.component) {
         const Component = meta.component;
-        return <Component {...mergedArgs} />;
+        content = <Component {...mergedArgs} />;
+      }
+      else {
+        return <div className="text-muted-foreground">Unable to render story</div>;
       }
 
-      return <div className="text-muted-foreground">Unable to render story</div>;
+      // Special handling for UserProfileDropdown - needs positioning context
+      const componentName = meta.component?.displayName || meta.component?.name || '';
+      if (componentName === 'UserProfileDropdown') {
+        const { userName, userRole, userLocation, userBadge, userAvatar } = mergedArgs as any;
+        return (
+          <div style={{
+            padding: 'calc(var(--spacing-x10) * 1.25)',
+            backgroundColor: 'var(--bg-secondary)',
+            minHeight: 'calc(var(--spacing-x10) * 15.625)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'flex-start'
+          }}>
+            <div style={{ position: 'relative', display: 'inline-flex', width: 'fit-content' }}>
+              <UserProfile
+                userName={userName}
+                userRole={userRole}
+                userLocation={userLocation}
+                userBadge={userBadge}
+                userAvatar={userAvatar}
+              />
+              {content}
+            </div>
+          </div>
+        );
+      }
+
+      return content;
     } catch (error) {
       console.error('Error rendering story:', error);
       return <div className="text-destructive">Error rendering story: {String(error)}</div>;

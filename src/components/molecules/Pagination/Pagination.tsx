@@ -4,6 +4,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Button } from '../../atoms/Button/Button';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
+import { Icon } from '../../atoms/Icons/Icon';
 
 export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
   current: number;
@@ -14,6 +15,7 @@ export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   onChange?: (page: number, pageSize?: number) => void;
   onShowSizeChange?: (current: number, size: number) => void;
   showFigmaBadge?: boolean;
+  variant?: 'default' | 'compact';
 }
 
 /**
@@ -30,6 +32,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     onChange,
     onShowSizeChange,
     showFigmaBadge = true,
+    variant = 'default',
     className,
     ...props
   }, ref) => {
@@ -90,10 +93,84 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
       return pages;
     };
 
-    if (totalPages <= 1 && !showSizeChanger) {
+    if (totalPages <= 1 && !showSizeChanger && variant !== 'compact') {
       return null;
     }
 
+    // Compact variant - single container with chevrons and current page
+    if (variant === 'compact') {
+      return (
+        <div ref={ref} className={cn("inline-flex", className)} {...props}>
+          {showFigmaBadge && (
+            <div className="mr-4">
+              <FigmaBadge />
+            </div>
+          )}
+          <div
+            className={cn(
+              "flex items-center justify-between",
+              "border border-solid border-[var(--border-primary)]",
+              "bg-[var(--bg-primary)]",
+              "rounded-[var(--x2,8px)]",
+              "px-[var(--x3,12px)] py-0",
+              "h-[40px]",
+              "box-border"
+            )}
+          >
+            <div className="flex items-center gap-[var(--x1,4px)] flex-1 h-full min-w-0 min-h-0 px-0 py-0">
+              <button
+                onClick={() => handlePageChange(current - 1)}
+                disabled={current === 1}
+                className={cn(
+                  "flex items-center justify-center",
+                  "shrink-0 size-4",
+                  "text-[var(--tertiary)]",
+                  "disabled:opacity-50 disabled:cursor-not-allowed",
+                  "hover:text-[var(--primary)] transition-colors",
+                  "cursor-pointer"
+                )}
+                aria-label="Previous page"
+              >
+                <Icon name="chevron-left" className="size-4" />
+              </button>
+              
+              <p
+                className={cn(
+                  "flex-1 text-center",
+                  "text-base",
+                  "font-normal",
+                  "leading-[1.4]",
+                  "text-[var(--tertiary)]",
+                  "whitespace-nowrap",
+                  "min-w-0",
+                  "overflow-hidden overflow-ellipsis"
+                )}
+              >
+                {current}
+              </p>
+              
+              <button
+                onClick={() => handlePageChange(current + 1)}
+                disabled={current === totalPages}
+                className={cn(
+                  "flex items-center justify-center",
+                  "shrink-0 size-4",
+                  "text-[var(--tertiary)]",
+                  "disabled:opacity-50 disabled:cursor-not-allowed",
+                  "hover:text-[var(--primary)] transition-colors",
+                  "cursor-pointer"
+                )}
+                aria-label="Next page"
+              >
+                <Icon name="chevron-right" className="size-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Default variant - full pagination with page numbers
     return (
       <div ref={ref} className={cn("flex items-center gap-2 flex-wrap", className)} {...props}>
         {showFigmaBadge && (
