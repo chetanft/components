@@ -245,6 +245,11 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
+          title: "Descriptions",
+          href: "/docs/components/descriptions",
+          items: [],
+        },
+        {
           title: "Dropdown",
           href: "/docs/components/dropdown",
           items: [],
@@ -279,6 +284,11 @@ export const docsConfig: DocsConfig = {
           badge: "New",
         },
         {
+          title: "HoverCard",
+          href: "/docs/components/hover-card",
+          items: [],
+        },
+        {
           title: "InputNumber",
           href: "/docs/components/input-number",
           items: [],
@@ -301,6 +311,11 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
+          title: "Popconfirm",
+          href: "/docs/components/popconfirm",
+          items: [],
+        },
+        {
           title: "ProgressBar",
           href: "/docs/components/progress-bar",
           items: [],
@@ -308,6 +323,11 @@ export const docsConfig: DocsConfig = {
         {
           title: "Loader",
           href: "/docs/components/loader",
+          items: [],
+        },
+        {
+          title: "List",
+          href: "/docs/components/list",
           items: [],
         },
         {
@@ -362,6 +382,16 @@ export const docsConfig: DocsConfig = {
         {
           title: "Tooltip",
           href: "/docs/components/tooltip",
+          items: [],
+        },
+        {
+          title: "Toggle",
+          href: "/docs/components/toggle",
+          items: [],
+        },
+        {
+          title: "ToggleGroup",
+          href: "/docs/components/toggle-group",
           items: [],
         },
         {

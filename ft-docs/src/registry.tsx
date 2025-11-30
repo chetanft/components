@@ -119,6 +119,13 @@ import {
     Mentions,
     Transfer,
     ColorPicker,
+    // Additional Components
+    Popconfirm,
+    Toggle,
+    ToggleGroup,
+    List,
+    HoverCard,
+    Descriptions,
 } from "../../src"
 
 export { UserProfile } from "../../src"
@@ -407,6 +414,13 @@ export const registry: Record<string, React.ComponentType<any> | any> = {
     Mentions,
     Transfer,
     ColorPicker,
+    // Additional Components
+    Popconfirm,
+    Toggle,
+    ToggleGroup,
+    List,
+    HoverCard,
+    Descriptions,
     // Icons
     PlusIcon,
     ArrowRightIcon,

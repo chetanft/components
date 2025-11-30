@@ -31,6 +31,7 @@ export * from './atoms/Textarea';
 export * from './atoms/Skeleton';
 export * from './atoms/FigmaBadge';
 export * from './atoms/Spin'; // 🆕 NEW
+export * from './atoms/Toggle';
 
 // MOLECULES - Simple combinations of atoms
 export * from './molecules/Chicklet';
@@ -80,6 +81,11 @@ export * from './molecules/Watermark';
 export * from './molecules/Mentions';
 export * from './molecules/Transfer';
 export * from './molecules/ColorPicker';
+export * from './molecules/Popconfirm';
+export * from './molecules/ToggleGroup';
+export * from './molecules/List';
+export * from './molecules/HoverCard';
+export * from './molecules/Descriptions';
 
 
 // CHARTS - Chart.js components with FT Design System styling
