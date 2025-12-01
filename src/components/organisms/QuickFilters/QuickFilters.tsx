@@ -50,9 +50,9 @@ const FilterChip: React.FC<{
         "text-sm font-semibold font-inter",
         // Background based on Figma design
         isMainLabel
-          ? "bg-[var(--color-bg-secondary)]" // Main labels in multi-option always have gray background
+          ? "bg-[var(--color-border-secondary)]" // Main labels in multi-option always have gray background
           : isSelected
-            ? "bg-[var(--color-bg-secondary)]"
+            ? "bg-[var(--color-border-secondary)]"
             : "bg-[var(--color-bg-primary)]",
         // Border: always show border except for main labels without border
         showBorder && !isMainLabel ? "box-border border border-[var(--color-border-primary)]" : ""
@@ -146,7 +146,7 @@ const MultiOptionFilter: React.FC<{
   return (
     <div className="inline-flex items-center h-[36px] bg-[var(--color-bg-primary)] border border-[var(--color-border-primary)] rounded-[var(--radius-md)] overflow-hidden">
       {/* Main filter section - non-clickable label with gray background */}
-      <div className="bg-[var(--color-bg-secondary)] h-full flex items-center px-[var(--spacing-x2)]">
+      <div className="bg-[var(--color-border-secondary)] h-full flex items-center px-[var(--spacing-x2)]">
         <FilterChip
           filter={filter}
           isSelected={false}
@@ -219,10 +219,10 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
               key={filter.id}
               className={cn(
                 "box-border h-[36px] flex items-center px-[var(--spacing-x1)] py-0 rounded-[var(--radius-md)]",
-                "border border-solid border-[var(--color-border-primary)]",
+                "border border-solid",
                 filter.selected
-                  ? "bg-[var(--color-bg-secondary)]"
-                  : "bg-[var(--color-bg-primary)]",
+                  ? "bg-[var(--color-border-secondary)] border-[var(--color-border-primary)]"
+                  : "bg-[var(--color-bg-primary)] border-[var(--color-border-primary)]",
                 scrollable ? 'flex-shrink-0' : ''
               )}
             >
