@@ -46,7 +46,7 @@ const FilterChip: React.FC<{
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] h-[var(--spacing-x9)] rounded-[var(--radius-md)] cursor-pointer transition-all duration-200",
+        "inline-flex items-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] h-[34px] rounded-[var(--radius-md)] cursor-pointer transition-all duration-200",
         "text-sm font-semibold font-inter",
         // Background based on Figma design
         isMainLabel
@@ -144,7 +144,7 @@ const MultiOptionFilter: React.FC<{
   onFilterRemove: (filterId: string, optionId?: string) => void;
 }> = ({ filter, onFilterClick, onFilterRemove }) => {
   return (
-    <div className="inline-flex items-center h-[var(--spacing-x9)] bg-[var(--color-bg-primary)] border border-[var(--color-border-primary)] rounded-[var(--radius-md)] overflow-hidden">
+    <div className="inline-flex items-center h-[36px] bg-[var(--color-bg-primary)] border border-[var(--color-border-primary)] rounded-[var(--radius-md)] overflow-hidden">
       {/* Main filter section - non-clickable label with gray background */}
       <div className="bg-[var(--color-bg-secondary)] h-full flex items-center px-[var(--spacing-x2)]">
         <FilterChip
@@ -160,7 +160,7 @@ const MultiOptionFilter: React.FC<{
       {/* Options section with separators */}
       {filter.options?.map((option, index) => (
         <React.Fragment key={option.id}>
-          {index > 0 && <div className="w-px h-[var(--spacing-x9)] bg-[var(--color-border-primary)]" />}
+          {index > 0 && <div className="w-px h-[36px] bg-[var(--color-border-primary)]" />}
           <div className="px-[var(--spacing-x1)] h-full flex items-center">
             <FilterChip
               filter={filter}
@@ -218,7 +218,7 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
             <div
               key={filter.id}
               className={cn(
-                "box-border h-[var(--spacing-x9)] flex items-center px-[var(--spacing-x1)] py-0 rounded-[var(--radius-md)]",
+                "box-border h-[36px] flex items-center px-[var(--spacing-x1)] py-0 rounded-[var(--radius-md)]",
                 "border border-solid border-[var(--color-border-primary)]",
                 filter.selected
                   ? "bg-[var(--color-bg-secondary)]"
