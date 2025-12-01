@@ -254,12 +254,27 @@ const CardGraphic: React.FC<CardGraphicProps> = ({
 
 export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'content'> {
     // Classic props
+    /**
+     * @deprecated Use `headerTitle` instead.
+     */
     title?: React.ReactNode;
     extra?: React.ReactNode;
     bordered?: boolean;
     hoverable?: boolean;
     loading?: boolean;
-    size?: 'default' | 'small';
+    /**
+     * The size of the card.
+     * @default 'md'
+     */
+    size?: 'sm' | 'md' | 'default' | 'small';
+    /**
+     * @deprecated Use `size="md"` instead.
+     */
+    // default is included above
+    /**
+     * @deprecated Use `size="sm"` instead.
+     */
+    // small is included above
     actions?: React.ReactNode[];
     cover?: React.ReactNode;
 
@@ -284,6 +299,9 @@ export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 't
     graphic?: CardGraphicProps;
 
     // Legacy props (kept for compatibility)
+    /**
+     * @deprecated Use `contentVariant="Advanced"` with `bodySections` or children instead.
+     */
     content?: React.ReactNode;
 }
 
@@ -293,7 +311,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     bordered = true,
     hoverable = false,
     loading = false,
-    size = 'default',
+    size = 'md',
     actions,
     cover,
     className,
@@ -315,8 +333,17 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     ...props
 }, ref) => {
 
-    const isSmall = size === 'default';
+    const isSmall = size === 'sm' || size === 'small';
     const isAdvanced = contentVariant === 'Advanced';
+
+    React.useEffect(() => {
+        if (title) {
+            console.warn('Card: `title` prop is deprecated. Use `headerTitle` instead.');
+        }
+        if (content) {
+            console.warn('Card: `content` prop is deprecated. Use `contentVariant="Advanced"` with `bodySections` or children instead.');
+        }
+    }, [title, content]);
 
     const renderLoading = () => (
         <div className="p-6">

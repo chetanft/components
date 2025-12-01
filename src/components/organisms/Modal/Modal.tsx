@@ -12,11 +12,20 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   footer?: React.ReactNode;
   closable?: boolean;
   maskClosable?: boolean;
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
   width?: string | number;
   centered?: boolean;
   showFigmaBadge?: boolean;
   children: React.ReactNode;
 }
+
+const modalSizes = {
+  sm: '400px',
+  md: '520px',
+  lg: '720px',
+  xl: '960px',
+  full: '90vw'
+};
 
 /**
  * Modal component built using FT Design System tokens.
@@ -29,7 +38,8 @@ export const Modal: React.FC<ModalProps> = ({
   footer,
   closable = true,
   maskClosable = true,
-  width = 520,
+  size = 'md',
+  width,
   centered = true,
   showFigmaBadge = true,
   children,
@@ -122,8 +132,8 @@ export const Modal: React.FC<ModalProps> = ({
           centered && "mx-auto",
           className
         )}
-        style={{ 
-          width: typeof width === 'number' ? `${width}px` : width,
+        style={{
+          width: width || modalSizes[size],
           backgroundColor: 'var(--bg-primary)',
           border: '1px solid var(--border-primary)'
         }}
@@ -132,7 +142,7 @@ export const Modal: React.FC<ModalProps> = ({
       >
         {/* Header */}
         {(title || closable) && (
-          <div 
+          <div
             className="flex items-center justify-between px-6 py-4"
             style={{ borderBottom: '1px solid var(--border-secondary)' }}
             onClick={(e) => e.stopPropagation()}
@@ -187,18 +197,18 @@ export const Modal: React.FC<ModalProps> = ({
                 }}
                 aria-label="Close modal"
               >
-                <Icon 
-                  name="cross" 
-                  size={20} 
-                  style={{ 
-                    color: 'var(--tertiary)', 
+                <Icon
+                  name="cross"
+                  size={20}
+                  style={{
+                    color: 'var(--tertiary)',
                     pointerEvents: 'none',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     margin: 0,
                     padding: 0,
-                  }} 
+                  }}
                 />
               </button>
             )}
@@ -217,7 +227,7 @@ export const Modal: React.FC<ModalProps> = ({
 
         {/* Footer */}
         {footer && (
-          <div 
+          <div
             className="flex items-center justify-end gap-2 px-6 py-4"
             style={{ borderTop: '1px solid var(--border-secondary)' }}
           >

@@ -151,3 +151,45 @@ export const SizeLG: Story = {
     ],
   },
 };
+
+export const RichOptions: Story = {
+  args: {
+    label: 'Rich Options',
+    placeholder: 'Select a user',
+    options: [
+      {
+        value: 'user1',
+        label: 'John Doe',
+        description: 'Software Engineer',
+        icon: <div className="w-4 h-4 rounded-full bg-blue-500" />
+      },
+      {
+        value: 'user2',
+        label: 'Jane Smith',
+        description: 'Product Manager',
+        icon: <div className="w-4 h-4 rounded-full bg-green-500" />
+      },
+      {
+        value: 'admin',
+        label: <span className="font-bold">Admin User</span>,
+        description: 'System Administrator',
+        icon: <div className="w-4 h-4 rounded-full bg-red-500" />,
+        group: 'System'
+      },
+    ],
+  },
+};
+
+export const GroupedOptions: Story = {
+  args: {
+    label: 'Grouped Options',
+    placeholder: 'Select a fruit',
+    type: 'groups',
+    options: [
+      { value: 'apple', label: 'Apple', group: 'Fruits' },
+      { value: 'banana', label: 'Banana', group: 'Fruits' },
+      { value: 'carrot', label: 'Carrot', group: 'Vegetables' },
+      { value: 'broccoli', label: 'Broccoli', group: 'Vegetables' },
+    ],
+  },
+};

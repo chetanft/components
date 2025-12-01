@@ -73,13 +73,20 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
     if (type === 'checkbox') {
       return "py-[var(--spacing-x3)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]"; // Checkbox columns have consistent padding
     }
-    
+
     switch (size) {
       case 'md': return "py-[var(--spacing-x3)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
       case 'lg': return "py-[var(--spacing-x4)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
       case 'xl': return "py-[var(--spacing-x5)] px-[var(--spacing-x5)] pl-[var(--spacing-x2)]";
       default: return "py-[var(--spacing-x3)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
     }
+  };
+
+  const getAriaSort = (): 'ascending' | 'descending' | 'none' | undefined => {
+    if (!sortable) return undefined;
+    if (sortDirection === 'asc') return 'ascending';
+    if (sortDirection === 'desc') return 'descending';
+    return 'none';
   };
 
   return (
@@ -96,6 +103,7 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
         className
       )}
       onClick={onClick}
+      aria-sort={getAriaSort()}
     >
       <div className={cn(
         "flex items-center h-full",
@@ -134,7 +142,7 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
             >
               {children}
             </span>
-            
+
             {/* Sort Indicators - Inline with text for better alignment */}
             {sortable && (
               <div className="flex flex-col items-center justify-center w-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] h-[calc(var(--spacing-x2)+var(--spacing-x1)+var(--spacing-x1)/2)]">

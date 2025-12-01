@@ -6,7 +6,23 @@ import { Icon, IconName } from '../../atoms/Icons';
 export interface TableCellItemProps {
   text?: string;
   textType?: CellTextType;
+  /**
+   * Icon to display before the text.
+   * Replaces `prefixIcon`.
+   */
+  leadingIcon?: IconName;
+  /**
+   * Icon to display after the text.
+   * Replaces `suffixIcon`.
+   */
+  trailingIcon?: IconName;
+  /**
+   * @deprecated Use `leadingIcon` instead.
+   */
   prefixIcon?: IconName;
+  /**
+   * @deprecated Use `trailingIcon` instead.
+   */
   suffixIcon?: IconName;
   badge?: React.ReactNode;
   className?: string;
@@ -15,11 +31,16 @@ export interface TableCellItemProps {
 export const TableCellItem: React.FC<TableCellItemProps> = ({
   text,
   textType = 'primary',
+  leadingIcon,
+  trailingIcon,
   prefixIcon,
   suffixIcon,
   badge,
   className
 }) => {
+  const finalLeadingIcon = leadingIcon || prefixIcon;
+  const finalTrailingIcon = trailingIcon || suffixIcon;
+
   return (
     <div
       className={cn(
@@ -28,33 +49,33 @@ export const TableCellItem: React.FC<TableCellItemProps> = ({
         className
       )}
     >
-      {/* Prefix Icon */}
-      {prefixIcon && (
-        <Icon 
-          name={prefixIcon} 
-          size={14} 
+      {/* Leading Icon */}
+      {finalLeadingIcon && (
+        <Icon
+          name={finalLeadingIcon}
+          size={14}
           color="var(--color-primary)" // --color-dark-100 from Figma
         />
       )}
-      
+
       {/* Text Content */}
       {text && (
         <TableCellText type={textType}>
           {text}
         </TableCellText>
       )}
-      
+
       {/* Badge */}
       {badge}
-      
-      {/* Suffix Icon */}
-      {suffixIcon && (
-        <Icon 
-          name={suffixIcon} 
-          size={16} 
+
+      {/* Trailing Icon */}
+      {finalTrailingIcon && (
+        <Icon
+          name={finalTrailingIcon}
+          size={16}
           color="var(--color-primary)" // --color-dark-100 from Figma
         />
       )}
     </div>
   );
-}; 
+};

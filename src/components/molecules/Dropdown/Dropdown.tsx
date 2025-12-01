@@ -30,6 +30,7 @@ const dropdownFieldVariants = cva(
       type: {
         normal: "",
         search: "",
+        groups: "",
       },
     },
     defaultVariants: {
@@ -43,8 +44,12 @@ const dropdownFieldVariants = cva(
 
 export interface DropdownOption {
   value: string | number;
-  label: string;
+  label: React.ReactNode;
   disabled?: boolean;
+  description?: React.ReactNode;
+  icon?: React.ReactNode;
+  group?: string;
+  searchValue?: string;
 }
 
 export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants> {
@@ -53,7 +58,7 @@ export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants
   placeholder?: string;
   size?: ComponentSize;
   state?: 'default' | 'error' | 'disabled';
-  type?: 'normal' | 'search';
+  type?: 'normal' | 'search' | 'groups';
   className?: string;
   onChange?: (value: string | number) => void;
   onSearch?: (query: string) => void;
@@ -66,6 +71,9 @@ export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants
   error?: string;
   helperText?: string;
   required?: boolean;
+  /**
+   * @deprecated Use `onChange` instead. Will be removed in v3.0.0.
+   */
   onSelect?: (value: string) => void;
   segments?: SegmentedTabItem[];
   selectedSegment?: string;
@@ -142,8 +150,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       state = "default",
       type = "normal",
       className,
-  onChange,
-  onSearch: _onSearch,
+      onChange,
+      onSearch: _onSearch,
       label,
       labelMandatory,
       labelOptional,
@@ -231,9 +239,10 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     }, [isOpen]);
 
     // Filter options based on search query
-    const filteredOptions = options.filter((option: DropdownOption) =>
-      option.label.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredOptions = options.filter((option: DropdownOption) => {
+      const searchTarget = option.searchValue || (typeof option.label === 'string' ? option.label : String(option.value));
+      return searchTarget.toLowerCase().includes(searchQuery.toLowerCase());
+    });
 
     const selectedOption = (options || []).find((option: DropdownOption) => option.value === selectedValue);
 
@@ -241,8 +250,14 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       setSelectedValue(optionValue);
       setIsOpen(false);
       setSearchQuery("");
+
+      // Deprecation warning for onSelect
+      if (onSelect) {
+        console.warn('Dropdown: `onSelect` is deprecated. Use `onChange` instead. This prop will be removed in v3.0.0.');
+        onSelect(String(optionValue));
+      }
+
       onChange?.(optionValue);
-      onSelect?.(String(optionValue));
     };
 
     const renderField = () => {
@@ -276,6 +291,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
               setIsOpen(!isOpen);
             }
           }}
+          role="combobox"
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          aria-controls={isOpen ? "dropdown-menu" : undefined}
+          aria-disabled={state === "disabled"}
           data-size={size}
           {...props}
         >
@@ -308,18 +328,24 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       const menuOptions: DropdownMenuOption[] = filteredOptions.map((option) => ({
         value: String(option.value),
         label: option.label,
+        description: option.description,
+        icon: option.icon,
+        group: option.group,
+        searchValue: option.searchValue,
         state: option.disabled ? 'disabled' : selectedValue === option.value ? 'selected' : 'default',
-        prefix: 'none' as const,
+        prefix: option.icon ? 'icon' : 'none',
         suffix: false,
         showCheckmark: true,
       }));
 
       // Determine property type for DropdownMenu
-      let property: 'default' | 'search' | 'search-segmented' = 'default';
+      let property: 'default' | 'search' | 'search-segmented' | 'groups' = 'default';
       if (type === 'search' && hasSegments) {
         property = 'search-segmented';
       } else if (type === 'search') {
         property = 'search';
+      } else if (type === 'groups') {
+        property = 'groups';
       }
 
       return ReactDOM.createPortal(
@@ -333,6 +359,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
             zIndex: 9999,
           }}
           onClick={(e) => e.stopPropagation()}
+          id="dropdown-menu"
         >
           <DropdownMenu
             property={property}

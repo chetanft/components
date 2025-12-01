@@ -79,10 +79,12 @@ const dropdownMenuItemVariants = cva(
 export interface DropdownMenuItemProps
   extends VariantProps<typeof dropdownMenuItemVariants> {
   children?: React.ReactNode;
-  label?: string;
+  label?: React.ReactNode;
+  description?: React.ReactNode;
   className?: string;
   onClick?: () => void;
   iconName?: IconName;
+  icon?: React.ReactNode;
   showCheckmark?: boolean;
 }
 
@@ -97,9 +99,11 @@ export const DropdownMenuItem = React.forwardRef<
       suffix = false,
       children,
       label = 'Dropdown menu',
+      description,
       className,
       onClick,
       iconName,
+      icon,
       showCheckmark: _showCheckmark = false,
       ...props
     },
@@ -269,26 +273,39 @@ export const DropdownMenuItem = React.forwardRef<
         {/* Icon prefix */}
         {prefix === 'icon' && (
           <div className="relative shrink-0 size-[var(--spacing-x4)] max-h-[var(--spacing-x7)] max-w-[var(--spacing-x7)] min-h-[var(--spacing-x4)] min-w-[var(--spacing-x4)] overflow-clip">
-            <Icon
-              name={iconName || 'data-stack'}
-              size={16}
-              color={
-                isDisabled
-                  ? 'var(--color-tertiary)'
-                  : 'var(--color-primary)'
-              }
-              className="absolute inset-[6.25%]"
-            />
+            {icon ? (
+              <div className="absolute inset-[6.25%] flex items-center justify-center">
+                {icon}
+              </div>
+            ) : (
+              <Icon
+                name={iconName || 'data-stack'}
+                size={16}
+                color={
+                  isDisabled
+                    ? 'var(--color-tertiary)'
+                    : 'var(--color-primary)'
+                }
+                className="absolute inset-[6.25%]"
+              />
+            )}
           </div>
         )}
 
-        {/* Label text */}
-        <p
-          className={cn('font-normal leading-[1.4] relative shrink-0', textColorClass)}
-          style={fontStyle}
-        >
-          {children || label}
-        </p>
+        {/* Label and Description */}
+        <div className="flex flex-col min-w-0 flex-1">
+          <div
+            className={cn('font-normal leading-[1.4] relative shrink-0 truncate', textColorClass)}
+            style={fontStyle}
+          >
+            {children || label}
+          </div>
+          {description && (
+            <div className="text-xs text-[var(--color-tertiary)] truncate mt-0.5">
+              {description}
+            </div>
+          )}
+        </div>
 
         {/* Checkmark for selected state (when prefix is none) */}
         {isSelected && prefix === 'none' && !suffix && (

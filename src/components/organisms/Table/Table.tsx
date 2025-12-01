@@ -271,12 +271,12 @@ const TableRowComponent = <T extends TableRow = TableRow>({
         const cellIndex = columnIndex + (selectable ? 1 : 0);
         // Determine if this cell should have multiple lines based on content
         let cellValue = row[column.key];
-        
+
         // For secondary variant, extract only the first data point (before newline)
         if (variant === 'secondary' && typeof cellValue === 'string' && cellValue.includes('\n')) {
           cellValue = cellValue.split('\n')[0];
         }
-        
+
         const hasNewlines = typeof cellValue === 'string' && cellValue.includes('\n');
         const hasSingleLine = !cellValue || (!hasNewlines && String(cellValue).length < 20);
         // Secondary variant always uses single line

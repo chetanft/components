@@ -88,31 +88,31 @@ type Story = StoryObj<UserTable>;
 const basicColumns: TableColumn<User>[] = [
   {
     key: 'name',
-    title: 'Name',
+    header: 'Name',
     type: 'text',
     sortable: true
   },
   {
     key: 'email',
-    title: 'Email',
+    header: 'Email',
     type: 'text',
     sortable: true
   },
   {
     key: 'role',
-    title: 'Role',
+    header: 'Role',
     type: 'text',
     sortable: true
   },
   {
     key: 'createdAt',
-    title: 'Created',
+    header: 'Created',
     type: 'date',
     sortable: true
   },
   {
     key: 'orders',
-    title: 'Orders',
+    header: 'Orders',
     type: 'number',
     sortable: true
   }
@@ -122,36 +122,36 @@ const basicColumns: TableColumn<User>[] = [
 const atomicColumns: TableColumn<User>[] = [
   {
     key: 'name',
-    title: 'User',
+    header: 'User',
     type: 'text',
     sortable: true,
-    render: (value) => (
+    cell: (row, { value }) => (
       <TableCellItem
         text={value}
         textType="primary"
-        prefixIcon="user"
+        leadingIcon="user"
       />
     )
   },
   {
     key: 'email',
-    title: 'Contact',
+    header: 'Contact',
     type: 'text',
     sortable: true,
-    render: (value) => (
+    cell: (row, { value }) => (
       <TableCellItem
         text={value}
         textType="secondary"
-        suffixIcon="link"
+        trailingIcon="link"
       />
     )
   },
   {
     key: 'role',
-    title: 'Role',
+    header: 'Role',
     type: 'text',
     sortable: true,
-    render: (value) => (
+    cell: (row, { value }) => (
       <TableCellItem
         badge={
           <Badge
@@ -165,8 +165,8 @@ const atomicColumns: TableColumn<User>[] = [
   },
   {
     key: 'status',
-    title: 'Status',
-    render: (value) => {
+    header: 'Status',
+    cell: (row, { value }) => {
       const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
       return (
         <TableCellItem
@@ -177,10 +177,10 @@ const atomicColumns: TableColumn<User>[] = [
   },
   {
     key: 'orders',
-    title: 'Orders',
+    header: 'Orders',
     type: 'number',
     sortable: true,
-    render: (value) => (
+    cell: (row, { value }) => (
       <TableCellItem
         text={value.toLocaleString()}
         textType="primary"
@@ -189,10 +189,10 @@ const atomicColumns: TableColumn<User>[] = [
   },
   {
     key: 'actions',
-    title: 'Actions',
+    header: 'Actions',
     type: 'actions',
     width: 'calc(var(--spacing-x10)*3)',
-    render: () => (
+    cell: () => (
       <TableCellItem
         badge={
           <div className="flex items-center gap-[var(--spacing-x2)]">
@@ -223,8 +223,8 @@ const starAccessoryButton = (_row: User, selected: boolean) => (
     type="button"
     aria-label="Toggle favorite"
     className={`inline-flex items-center justify-center transition-colors ${selected
-        ? 'text-[var(--warning)]'
-        : 'text-[var(--tertiary)]'
+      ? 'text-[var(--warning)]'
+      : 'text-[var(--tertiary)]'
       }`}
   >
     <Icon name="star" size={16} />
@@ -384,10 +384,10 @@ export function VariantsPrimary() {
   const figmaColumns: TableColumn<User>[] = [
     {
       key: 'name',
-      title: 'Name',
+      header: 'Name',
       type: 'text',
       sortable: true,
-      render: (value) => (
+      cell: (row, { value }) => (
         <TableCellText type="primary">
           {value}
         </TableCellText>
@@ -395,10 +395,10 @@ export function VariantsPrimary() {
     },
     {
       key: 'email',
-      title: 'Email',
+      header: 'Email',
       type: 'text',
       sortable: true,
-      render: (value) => (
+      cell: (row, { value }) => (
         <TableCellText type="secondary">
           {value}
         </TableCellText>
@@ -406,9 +406,9 @@ export function VariantsPrimary() {
     },
     {
       key: 'role',
-      title: 'Role',
+      header: 'Role',
       type: 'text',
-      render: (value) => (
+      cell: (row, { value }) => (
         <TableCellItem
           badge={
             <Badge
@@ -422,8 +422,8 @@ export function VariantsPrimary() {
     },
     {
       key: 'status',
-      title: 'Status',
-      render: (value) => {
+      header: 'Status',
+      cell: (row, { value }) => {
         const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
         return (
           <TableCellItem
@@ -467,10 +467,10 @@ export function VariantsSecondary() {
   const figmaColumns: TableColumn<User>[] = [
     {
       key: 'name',
-      title: 'Name',
+      header: 'Name',
       type: 'text',
       sortable: true,
-      render: (value) => (
+      cell: (row, { value }) => (
         <TableCellText type="primary">
           {value}
         </TableCellText>
@@ -478,10 +478,10 @@ export function VariantsSecondary() {
     },
     {
       key: 'email',
-      title: 'Email',
+      header: 'Email',
       type: 'text',
       sortable: true,
-      render: (value) => (
+      cell: (row, { value }) => (
         <TableCellText type="secondary">
           {value}
         </TableCellText>
@@ -489,9 +489,9 @@ export function VariantsSecondary() {
     },
     {
       key: 'role',
-      title: 'Role',
+      header: 'Role',
       type: 'text',
-      render: (value) => (
+      cell: (row, { value }) => (
         <TableCellItem
           badge={
             <Badge
@@ -505,8 +505,8 @@ export function VariantsSecondary() {
     },
     {
       key: 'status',
-      title: 'Status',
-      render: (value) => {
+      header: 'Status',
+      cell: (row, { value }) => {
         const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
         return (
           <TableCellItem

@@ -39,6 +39,11 @@ const meta: Meta<typeof Modal> = {
     width: {
       control: 'text',
       description: 'Modal width'
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl', 'full'],
+      description: 'Modal size preset'
     }
   },
 } satisfies Meta<typeof Modal>;
@@ -128,7 +133,7 @@ export function InteractiveDemo() {
     <div className="p-6 space-y-4">
       <h3 className="text-lg font-semibold mb-4">All Modal Variants - Interactive</h3>
       <p className="text-sm text-gray-600 mb-6">Click buttons to open modals. Close with X button, ESC key, or clicking outside.</p>
-      
+
       <div className="flex flex-wrap gap-4">
         <Button onClick={() => setBasicOpen(true)}>Basic Modal</Button>
         <Button onClick={() => setFooterOpen(true)}>Modal with Footer</Button>
@@ -187,6 +192,44 @@ export function InteractiveDemo() {
         }
       >
         <p>This modal has no X button. You can only close it by clicking outside or using the footer button.</p>
+      </Modal>
+    </div>
+  );
+}
+
+// Sizes story
+export function Sizes() {
+  const [open, setOpen] = React.useState(false);
+  const [size, setSize] = React.useState<'sm' | 'md' | 'lg' | 'xl' | 'full'>('md');
+
+  const openModal = (s: 'sm' | 'md' | 'lg' | 'xl' | 'full') => {
+    setSize(s);
+    setOpen(true);
+  };
+
+  return (
+    <div className="p-6 space-y-4">
+      <h3 className="text-lg font-semibold mb-4">Modal Sizes</h3>
+      <div className="flex flex-wrap gap-4">
+        <Button onClick={() => openModal('sm')}>Small (sm)</Button>
+        <Button onClick={() => openModal('md')}>Medium (md)</Button>
+        <Button onClick={() => openModal('lg')}>Large (lg)</Button>
+        <Button onClick={() => openModal('xl')}>Extra Large (xl)</Button>
+        <Button onClick={() => openModal('full')}>Full Width (full)</Button>
+      </div>
+
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        title={`Modal Size: ${size}`}
+        size={size}
+        closable={true}
+        maskClosable={true}
+      >
+        <p>This modal is using the <strong>{size}</strong> size preset.</p>
+        <p className="mt-2 text-gray-500">
+          Content adapts to the width of the modal.
+        </p>
       </Modal>
     </div>
   );

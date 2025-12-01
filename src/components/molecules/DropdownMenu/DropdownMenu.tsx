@@ -26,7 +26,8 @@ const dropdownMenuVariants = cva(
 
 export interface DropdownMenuOption extends Omit<DropdownMenuItemProps, 'children'> {
   value: string;
-  label: string;
+  label: React.ReactNode;
+  searchValue?: string;
   group?: string;
 }
 
@@ -65,24 +66,25 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
     const isGroups = property === 'groups';
     // Filter options based on search query
     const filteredOptions = isSearch
-      ? options.filter((option) =>
-          option.label.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+      ? options.filter((option) => {
+        const searchTarget = option.searchValue || (typeof option.label === 'string' ? option.label : option.value);
+        return searchTarget.toLowerCase().includes(searchQuery.toLowerCase());
+      })
       : options;
 
     // Group options if groups property
     const groupedOptions = isGroups
       ? filteredOptions.reduce(
-          (acc, option) => {
-            const group = option.group || 'Ungrouped';
-            if (!acc[group]) {
-              acc[group] = [];
-            }
-            acc[group].push(option);
-            return acc;
-          },
-          {} as Record<string, DropdownMenuOption[]>
-        )
+        (acc, option) => {
+          const group = option.group || 'Ungrouped';
+          if (!acc[group]) {
+            acc[group] = [];
+          }
+          acc[group].push(option);
+          return acc;
+        },
+        {} as Record<string, DropdownMenuOption[]>
+      )
       : {};
 
     const handleSelect = (value: string) => {

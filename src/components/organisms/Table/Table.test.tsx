@@ -18,12 +18,12 @@ describe('Table Component', () => {
 
   it('renders correctly with the provided data', () => {
     render(<Table columns={columns} data={data} />);
-    
+
     // Check if column headers are rendered
     expect(screen.getByText('Name')).toBeInTheDocument();
     expect(screen.getByText('Age')).toBeInTheDocument();
     expect(screen.getByText('Location')).toBeInTheDocument();
-    
+
     // Check if data is rendered
     expect(screen.getByText('John Doe')).toBeInTheDocument();
     expect(screen.getByText('30')).toBeInTheDocument();
@@ -32,20 +32,20 @@ describe('Table Component', () => {
 
   it('handles row selection correctly', () => {
     const handleSelectionChange = jest.fn();
-    
+
     render(
-      <Table 
-        columns={columns} 
-        data={data} 
-        selectable 
-        onSelectionChange={handleSelectionChange} 
+      <Table
+        columns={columns}
+        data={data}
+        selectable
+        onSelectionChange={handleSelectionChange}
       />
     );
-    
+
     // Find all checkboxes (one for header and one for each row)
     const checkboxes = screen.getAllByRole('checkbox');
     expect(checkboxes.length).toBe(4); // 3 rows + header
-    
+
     // Select the first row
     fireEvent.click(checkboxes[1]);
     expect(handleSelectionChange).toHaveBeenCalledWith([1]);
@@ -54,7 +54,7 @@ describe('Table Component', () => {
   it('applies different cell sizes based on data length', () => {
     // Test with small dataset (should use xl size)
     const { rerender } = render(<Table columns={columns} data={[data[0]]} />);
-    
+
     // Test with medium dataset (should use lg size)
     const mediumData = Array(15).fill(null).map((_, i) => ({
       id: i,
@@ -62,9 +62,9 @@ describe('Table Component', () => {
       age: 20 + i,
       location: 'Location'
     }));
-    
+
     rerender(<Table columns={columns} data={mediumData} />);
-    
+
     // Test with large dataset (should use md size)
     const largeData = Array(25).fill(null).map((_, i) => ({
       id: i,
@@ -72,7 +72,7 @@ describe('Table Component', () => {
       age: 20 + i,
       location: 'Location'
     }));
-    
+
     rerender(<Table columns={columns} data={largeData} />);
   });
 });
@@ -82,58 +82,58 @@ describe('TableCell Component', () => {
     const { rerender } = render(
       <TableCell backgroundColor="white">Cell Content</TableCell>
     );
-    
+
     let cell = screen.getByText('Cell Content').closest('td');
-    expect(cell).toHaveClass('bg-[#FFFFFF]');
-    
+    expect(cell).toHaveClass('bg-[var(--bg-primary)]');
+
     rerender(<TableCell backgroundColor="bg">Cell Content</TableCell>);
     cell = screen.getByText('Cell Content').closest('td');
-    expect(cell).toHaveClass('bg-[#F8F8F9]');
+    expect(cell).toHaveClass('bg-[var(--bg-secondary)]');
   });
-  
+
   it('renders with different line variants', () => {
     const { rerender } = render(
       <TableCell lineVariant="single">Cell Content</TableCell>
     );
-    
+
     let cell = screen.getByText('Cell Content').closest('td');
     let contentDiv = cell?.querySelector('div');
     expect(contentDiv).toHaveClass('gap-[4px]');
-    
+
     rerender(<TableCell lineVariant="double">Cell Content</TableCell>);
     cell = screen.getByText('Cell Content').closest('td');
     contentDiv = cell?.querySelector('div');
     expect(contentDiv).toHaveClass('gap-[8px]');
   });
-  
+
   it('renders with different sizes', () => {
     const { rerender } = render(
       <TableCell size="md">Cell Content</TableCell>
     );
-    
+
     let cell = screen.getByText('Cell Content').closest('td');
-    expect(cell).toHaveClass('py-[20px]');
-    
+    expect(cell).toHaveClass('py-[12px]');
+
     rerender(<TableCell size="lg">Cell Content</TableCell>);
     cell = screen.getByText('Cell Content').closest('td');
-    expect(cell).toHaveClass('py-[20px]');
-    
+    expect(cell).toHaveClass('py-[16px]');
+
     rerender(<TableCell size="xl">Cell Content</TableCell>);
     cell = screen.getByText('Cell Content').closest('td');
-    expect(cell).toHaveClass('py-[32px]');
+    expect(cell).toHaveClass('py-[20px]');
   });
-  
+
   it('handles different states correctly', () => {
     const { rerender } = render(
       <TableCell state="default">Cell Content</TableCell>
     );
-    
+
     rerender(<TableCell state="hover">Cell Content</TableCell>);
     let cell = screen.getByText('Cell Content').closest('td');
-    expect(cell).toHaveClass('bg-[#F0F1F7]');
-    
+    expect(cell).toHaveClass('bg-[var(--border-secondary)]');
+
     rerender(<TableCell state="selected">Cell Content</TableCell>);
     cell = screen.getByText('Cell Content').closest('td');
-    expect(cell).toHaveClass('bg-[#F0F1F7]');
+    expect(cell).toHaveClass('bg-[var(--border-secondary)]');
   });
 }); 
