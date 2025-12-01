@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from 'react';
+import { cn } from '../../../lib/utils';
 import { AppHeader, type User as AppHeaderUser } from '../../organisms/AppHeader';
 import { Card } from '../../organisms/Card';
 import { Table, type TableColumn, type TableRow } from '../../organisms/Table';
@@ -59,9 +60,9 @@ export const DashboardBlock: React.FC<DashboardBlockProps> = ({
     {
       key: 'status',
       label: 'Status',
-      render: (value: string) => (
+      render: (value: unknown) => (
         <Badge variant={value === 'Active' ? 'success' : 'neutral'}>
-          {value}
+          {value as string}
         </Badge>
       ),
     },
@@ -69,13 +70,13 @@ export const DashboardBlock: React.FC<DashboardBlockProps> = ({
   ], []);
 
   return (
-    <div className={className} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--x6,24px)' }}>
+    <div className={cn("flex flex-col gap-6", className)}>
       <AppHeader user={user} />
 
-      <div style={{ display: 'grid', gap: 'var(--x4,16px)', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
+      <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
         {metrics.map((metric) => (
           <Card key={metric.id}>
-            <div style={{ padding: 'var(--x4,16px)', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <div className="p-4 flex flex-col gap-1.5">
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">
                 {metric.label}
               </Typography>
@@ -88,8 +89,8 @@ export const DashboardBlock: React.FC<DashboardBlockProps> = ({
       </div>
 
       <Card>
-        <div style={{ padding: 'var(--x4,16px)', display: 'flex', flexDirection: 'column', gap: 'var(--x4,16px)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="p-4 flex flex-col gap-4">
+          <div className="flex items-center justify-between">
             <Typography variant="body-primary-medium" className="text-[var(--primary)] text-lg">
               Users
             </Typography>
@@ -151,29 +152,29 @@ export const ListingBlock: React.FC<ListingBlockProps> = ({
     {
       key: 'status',
       label: 'Status',
-      render: (value: string) => (
+      render: (value: unknown) => (
         <Badge
           variant={
             value === 'Active' ? 'success' : value === 'Completed' ? 'neutral' : 'warning'
           }
         >
-          {value}
+          {value as string}
         </Badge>
       ),
     },
     {
       key: 'progress',
       label: 'Progress',
-      render: (value: number) => `${value}%`,
+      render: (value: unknown) => `${value as number}%`,
     },
     { key: 'assignee', label: 'Assignee' },
   ], []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--x5,20px)' }}>
+    <div className="flex flex-col gap-5">
       <AppHeader user={user} />
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div className="flex items-center justify-between">
         <Typography variant="body-primary-medium" className="text-[var(--primary)] text-2xl">
           Projects
         </Typography>
@@ -198,10 +199,10 @@ export interface LoginBlockProps {
 
 export const LoginBlock: React.FC<LoginBlockProps> = ({ onSubmit }) => {
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', padding: 'var(--x6,24px)' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--x5,20px)', width: '100%', maxWidth: '360px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x2,8px)', justifyContent: 'center' }}>
-          <div style={{ width: '24px', height: '24px', borderRadius: '8px', backgroundColor: 'var(--primary)', color: 'var(--bg-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600 }}>
+    <div className="flex justify-center p-6">
+      <div className="flex flex-col gap-5 w-full max-w-[360px]">
+        <div className="flex items-center gap-2 justify-center">
+          <div className="w-6 h-6 rounded-lg bg-[var(--primary)] text-[var(--bg-primary)] flex items-center justify-center font-semibold">
             FT
           </div>
           <Typography variant="body-primary-medium" className="text-[var(--primary)]">
@@ -209,7 +210,7 @@ export const LoginBlock: React.FC<LoginBlockProps> = ({ onSubmit }) => {
           </Typography>
         </div>
         <Card>
-          <div style={{ padding: 'var(--x5,20px)', display: 'flex', flexDirection: 'column', gap: 'var(--x4,16px)' }}>
+          <div className="p-5 flex flex-col gap-4">
             <div>
               <Typography variant="body-primary-medium" className="text-[var(--primary)] text-2xl">
                 Welcome back
@@ -218,7 +219,7 @@ export const LoginBlock: React.FC<LoginBlockProps> = ({ onSubmit }) => {
                 Enter your credentials to access your account
               </Typography>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--x4,16px)' }}>
+            <div className="flex flex-col gap-4">
               <Input label="Email" type="email" placeholder="name@example.com" />
               <Input label="Password" type="password" placeholder="••••••••" />
               <Button variant="primary" size="md" className="w-full" onClick={onSubmit}>
@@ -446,7 +447,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
     {
       key: 'checkbox',
       title: '',
-      render: (_: any, journey: Journey) => (
+      render: (_: unknown, journey: Journey) => (
         <div className="flex items-center gap-2">
           <Checkbox
             checked={selectedJourneyIds.includes(journey.journey_id)}
@@ -464,7 +465,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
     {
       key: 'feed_unique_id',
       title: 'Feed Unique ID',
-      render: (_: any, journey: Journey) => (
+      render: (_: unknown, journey: Journey) => (
         <div className="flex flex-col min-w-0">
           <span className="font-medium text-sm truncate text-[var(--primary)]">{journey.feed_unique_id}</span>
           <Button
@@ -483,7 +484,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
     {
       key: 'from',
       title: 'From',
-      render: (_: any, journey: Journey) => (
+      render: (_: unknown, journey: Journey) => (
         <div className="flex flex-col gap-1 min-w-0">
           <div className="flex items-center gap-1 min-w-0">
             <span className="text-sm font-medium truncate text-[var(--primary)]">
@@ -502,7 +503,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
     {
       key: 'to',
       title: 'To',
-      render: (_: any, journey: Journey) => (
+      render: (_: unknown, journey: Journey) => (
         <div className="flex flex-col gap-1 min-w-0">
           <div className="flex items-center gap-1 min-w-0">
             <span className="text-sm font-medium truncate text-[var(--primary)]">
@@ -521,7 +522,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
     {
       key: 'vehicle_info',
       title: 'Vehicle Info',
-      render: (_: any, journey: Journey) => (
+      render: (_: unknown, journey: Journey) => (
         <div className="flex flex-col gap-1 min-w-0">
           <div className="flex items-center gap-1 min-w-0">
             <span className="text-sm font-medium truncate text-[var(--primary)]">{journey.vehicle_id}</span>
@@ -536,7 +537,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
     {
       key: 'status',
       title: 'Status',
-      render: (_: any, journey: Journey) => (
+      render: (_: unknown, journey: Journey) => (
         <div className="flex flex-col gap-1 min-w-0">
           <div className="flex items-center gap-2 min-w-0">
             <Icon
@@ -559,7 +560,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
     {
       key: 'sla',
       title: 'SLA',
-      render: (_: any, journey: Journey) => (
+      render: (_: unknown, journey: Journey) => (
         <div className="flex flex-col gap-1 min-w-0">
           <Badge variant={journey.sla_status === 'on_time' ? 'success' : 'danger'} className="w-fit">
             {journey.sla_status === 'on_time' ? 'On time' : 'Delayed by 13 hr'}
@@ -573,7 +574,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
     {
       key: 'alerts',
       title: 'Alerts',
-      render: (_: any, journey: Journey) => (
+      render: (_: unknown, journey: Journey) => (
         journey.alert_type ? (
           <div className="flex flex-col gap-1">
             <Badge variant="danger" className="text-xs w-fit">
@@ -652,23 +653,23 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--bg-secondary)', width: '100%', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+    <div className="bg-[var(--bg-secondary)] w-full rounded-[var(--radius-lg)] overflow-hidden">
       <AppHeader user={DEFAULT_DASHBOARD_USER} />
 
-      <div style={{ backgroundColor: 'var(--bg-primary)', padding: isMobile ? '12px' : '20px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '20px', gap: 'var(--x4,16px)', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x2,8px)' }}>
-            <Icon name="my-trip" style={{ width: '28px', height: '28px', color: 'var(--primary)' }} />
+      <div className={cn("bg-[var(--bg-primary)]", isMobile ? "p-3" : "p-5")}>
+        <div className="flex justify-between items-center pb-5 gap-4 flex-wrap">
+          <div className="flex items-center gap-2">
+            <Icon name="my-trip" className="w-7 h-7 text-[var(--primary)]" />
             <Typography variant="body-primary-medium" className="text-[var(--primary)] text-2xl">
               My Journeys
             </Typography>
           </div>
           {!isMobile && (
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 'var(--x2,8px)', flex: '1 1 0' }}>
+            <div className="flex flex-col items-end gap-2 flex-1">
               {isCompactHeader ? (
                 <>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x3,12px)', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x2,8px)', flexWrap: 'wrap' }}>
+                  <div className="flex items-center gap-3 flex-wrap justify-end">
+                    <div className="flex items-center gap-2 flex-wrap">
                       {compactFilterConfig.map(({ key, icon, label }) => (
                         <Button
                           key={key}
@@ -694,13 +695,13 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
                     </Button>
                   </div>
                   {activeCompactFilter && (
-                    <div style={{ width: '100%', maxWidth: '360px', marginTop: 'var(--x2,8px)' }}>
+                    <div className="w-full max-w-[360px] mt-2">
                       {renderCompactFilterContent()}
                     </div>
                   )}
                 </>
               ) : (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x4,16px)' }}>
+                <div className="flex items-center gap-4">
                   <Dropdown options={companyOptions} placeholder="Select company" />
                   <DatePicker
                     range
@@ -716,7 +717,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
                     leadingIcon="search"
                     value={searchTerm}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(event.target.value)}
-                    style={{ width: '280px' }}
+                    className="w-[280px]"
                   />
                   <Button variant="primary" icon="add" size="md">
                     Add Journey
@@ -727,8 +728,8 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
           )}
         </div>
 
-        <div style={{ display: 'flex', gap: 'var(--x4,16px)', alignItems: 'center', flexWrap: 'nowrap', marginBottom: '20px', overflowX: 'hidden', overflowY: 'hidden' }}>
-          <div style={{ flex: '1 1 0', minWidth: 0 }}>
+        <div className="flex gap-4 items-center flex-nowrap mb-5 overflow-hidden">
+          <div className="flex-1 min-w-0">
             <Tabs
               tabs={JOURNEY_TABS}
               activeTab={selectedTab}
@@ -737,12 +738,12 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
             />
           </div>
           {!isMobile && (
-            <div style={{ flexShrink: 0 }}>
+            <div className="shrink-0">
               <SegmentedTabs
                 variant="icon-only"
                 items={[
-                { value: 'list', label: 'List view', icon: <Icon name="hamburger-menu" style={{ width: '16px', height: '16px' }} /> },
-                { value: 'map', label: 'Map view', icon: <Icon name="map" style={{ width: '16px', height: '16px' }} /> },
+                  { value: 'list', label: 'List view', icon: <Icon name="hamburger-menu" className="w-4 h-4" /> },
+                  { value: 'map', label: 'Map view', icon: <Icon name="map" className="w-4 h-4" /> },
                 ]}
                 value={viewMode}
                 onChange={(value: string) => setViewMode(value as 'list' | 'map')}
@@ -811,12 +812,12 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
             <Button variant="text" size="md" icon="chevron-down" iconPosition="only" />
             <Button variant="text" size="md" icon="more" iconPosition="only" />
             <Button variant="text" size="md" icon="add" iconPosition="only" />
-            <div style={{ 
-              backgroundColor: 'var(--bg-primary)', 
-              border: '1px solid var(--border-primary)', 
-              borderRadius: 'var(--x2,8px)', 
-              display: 'flex', 
-              alignItems: 'center', 
+            <div style={{
+              backgroundColor: 'var(--bg-primary)',
+              border: '1px solid var(--border-primary)',
+              borderRadius: 'var(--x2,8px)',
+              display: 'flex',
+              alignItems: 'center',
               justifyContent: 'space-between',
               height: '40px',
               width: '100px',

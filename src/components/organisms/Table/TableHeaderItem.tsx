@@ -46,12 +46,12 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
     }
   };
 
-  const getTextColor = () => {
+  const getTextColorStyle = () => {
     switch (colorVariant) {
-      case 'dark25': return 'text-[var(--bg-primary)]'; // White text on dark header
-      case 'bg': return 'text-[var(--secondary)]'; // Dark text on light header
-      case 'white': return 'text-[var(--secondary)]';
-      default: return 'text-[var(--bg-primary)]';
+      case 'dark25': return { color: 'var(--bg-primary)' }; // White text on tertiary background (Primary variant)
+      case 'bg': return { color: 'var(--secondary)' }; // Dark text on light header (Secondary variant)
+      case 'white': return { color: 'var(--secondary)' };
+      default: return { color: 'var(--bg-primary)' };
     }
   };
 
@@ -92,8 +92,8 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
   return (
     <th
       className={cn(
-        // Base styles from Figma
-        "h-[calc(var(--spacing-x12)+var(--spacing-x1)/2)] text-left transition-colors", // Fixed height from Figma
+        // Base styles from Figma - Responsive height: 40px default, 48px for >= 1440px
+        "text-left transition-colors box-border",
         // Size-based padding
         getPadding(),
         getBackgroundColor(),
@@ -102,6 +102,7 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
         (sortable || onClick) && "cursor-pointer hover:opacity-80 transition-opacity",
         className
       )}
+      style={{ height: 'var(--table-header-height)', minHeight: 'var(--table-header-height)', maxHeight: 'var(--table-header-height)' }}
       onClick={onClick}
       aria-sort={getAriaSort()}
     >
@@ -136,9 +137,9 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
               className={cn(
                 // Typography from Figma - 14px/16px semibold
                 size === 'md' ? "text-[var(--font-size-sm)]" : "text-[var(--font-size-md)]",
-                "font-semibold leading-[1.4] whitespace-nowrap",
-                getTextColor()
+                "font-semibold leading-[1.4] whitespace-nowrap"
               )}
+              style={getTextColorStyle()}
             >
               {children}
             </span>

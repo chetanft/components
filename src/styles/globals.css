@@ -339,6 +339,9 @@
   --spacing-x24: var(--x24);
   --spacing-x38: var(--x38);
 
+  /* Table Header Height - Responsive */
+  --table-header-height: var(--spacing-x10); /* 40px default */
+
   /* Layout Breakpoints */
   --breakpoint-xxl: 1600px;
   --breakpoint-xl: 1440px;
@@ -361,6 +364,12 @@
   --grid-gutter: var(--grid-desktop-gutter);
   --grid-margin: var(--grid-desktop-margin);
   --container-max-width: min(100vw, var(--breakpoint-xxl));
+}
+
+@media (min-width: 1441px) {
+  :root {
+    --table-header-height: var(--spacing-x12); /* 48px for > 1440px */
+  }
 }
 
 @media (max-width: 1440px) {

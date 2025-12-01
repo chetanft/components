@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
+import { cn } from '../../../lib/utils';
 import { UserProfile } from '../UserProfile/UserProfile';
 import { UserProfileDropdown } from '../UserProfileDropdown/UserProfileDropdown';
 import { Rocket, Bell, ThreeDotMenu } from '../../atoms/Icons';
@@ -42,9 +43,9 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     name: 'tata-motors',
     displayName: 'Tata Motors'
   },
-  onNotificationClick = () => {},
-  onUserClick = () => {},
-  onUserMenuItemClick = () => {},
+  onNotificationClick = () => { },
+  onUserClick = () => { },
+  onUserMenuItemClick = () => { },
   className,
   leftAddon,
 }) => {
@@ -96,7 +97,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
     const { companyName = true, triggerClassName } = options ?? {};
 
     return (
-      <div ref={userProfileRef} style={{ position: 'relative', display: 'inline-flex', width: 'fit-content' }}>
+      <div ref={userProfileRef} className="relative inline-flex w-fit">
         <UserProfile
           company={userCompany}
           userName={user.name}
@@ -124,74 +125,43 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   // Size xl, Device Desktop (default)
   if (size === 'xl' && device === 'Desktop') {
     return (
-      <header 
-        style={{
-          backgroundColor: 'var(--bg-secondary)',
-          borderBottom: '1px solid var(--border-primary)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '13px 20px',
-          width: '100%',
-          maxWidth: '1728px',
-          height: '78px',
-          boxSizing: 'border-box',
-        }}
-        className={className}
+      <header
+        className={cn(
+          "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
+          className
+        )}
       >
         {/* Logo Section */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '20px',
-        }}>
+        {/* Logo Section */}
+        <div className="flex items-center gap-5">
           {/* Layout Grid Icon / Custom Addon */}
           {leftAddon ? (
             leftAddon()
           ) : (
-          <div style={{
-            backgroundColor: 'var(--bg-primary)',
-            borderRadius: '100px',
-            padding: '16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '54px',
-            height: '54px',
-            boxSizing: 'border-box',
-          }}>
-            <svg width="24" height="24" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
+            <div className="bg-[var(--bg-primary)] rounded-full p-4 flex items-center justify-center w-[54px] h-[54px]">
+              <svg width="24" height="24" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
           )}
 
           {/* FreightTiger Logo */}
-          <div style={{
-            height: '28px',
-            width: '190.242px',
-          }}>
+          <div className="h-7 w-[190.242px]">
             <Logo name="ft" width={191} height={28} />
           </div>
         </div>
 
         {/* Notification Icons and User Profile */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '16px',
-        }}>
+        {/* Notification Icons and User Profile */}
+        <div className="flex items-center gap-4">
           {/* Notification Container */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '36px',
-          }}>
+          {/* Notification Container */}
+          <div className="flex items-center gap-9">
             {/* Rocket Icon */}
-            <div 
-              style={{ 
-                width: '24px', 
-                height: '24px', 
+            <div
+              style={{
+                width: '24px',
+                height: '24px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -204,10 +174,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             </div>
 
             {/* Bell Icon */}
-            <div 
-              style={{ 
-                width: '24px', 
-                height: '24px', 
+            <div
+              style={{
+                width: '24px',
+                height: '24px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -230,20 +200,11 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   // Size lg, Device Desktop
   if (size === 'lg' && device === 'Desktop') {
     return (
-      <header 
-        style={{
-          backgroundColor: 'var(--bg-secondary)',
-          borderBottom: '1px solid var(--border-primary)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '13px 16px',
-          width: '100%',
-          maxWidth: '1440px',
-          height: '64px',
-          boxSizing: 'border-box',
-        }}
-        className={className}
+      <header
+        className={cn(
+          "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-4 py-[13px] w-full max-w-[1440px] h-16",
+          className
+        )}
       >
         {/* Logo Section */}
         <div style={{
@@ -255,28 +216,15 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           {leftAddon ? (
             leftAddon()
           ) : (
-          <div style={{
-            backgroundColor: 'var(--bg-primary)',
-            borderRadius: '100px',
-            padding: '16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '40px',
-            height: '40px',
-            boxSizing: 'border-box',
-          }}>
-            <svg width="20" height="20" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
+            <div className="bg-[var(--bg-primary)] rounded-full p-4 flex items-center justify-center w-10 h-10">
+              <svg width="20" height="20" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
           )}
 
           {/* FreightTiger Logo */}
-          <div style={{
-            height: '28px',
-            width: '163px',
-          }}>
+          <div className="h-7 w-[163px]">
             <Logo name="ft" width={163} height={28} />
           </div>
         </div>
@@ -294,10 +242,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             gap: '36px',
           }}>
             {/* Rocket Icon */}
-            <div 
-              style={{ 
-                width: '20px', 
-                height: '20px', 
+            <div
+              style={{
+                width: '20px',
+                height: '20px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -310,10 +258,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             </div>
 
             {/* Bell Icon */}
-            <div 
-              style={{ 
-                width: '20px', 
-                height: '20px', 
+            <div
+              style={{
+                width: '20px',
+                height: '20px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -336,20 +284,11 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   // Size md, Device Desktop
   if (size === 'md' && device === 'Desktop') {
     return (
-      <header 
-        style={{
-          backgroundColor: 'var(--bg-secondary)',
-          borderBottom: '1px solid var(--border-primary)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '13px 16px',
-          width: '100%',
-          maxWidth: '1200px',
-          height: '48px',
-          boxSizing: 'border-box',
-        }}
-        className={className}
+      <header
+        className={cn(
+          "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-4 py-[13px] w-full max-w-[1200px] h-12",
+          className
+        )}
       >
         {/* Logo Section */}
         <div style={{
@@ -361,28 +300,25 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           {leftAddon ? (
             leftAddon()
           ) : (
-          <div style={{
-            backgroundColor: 'var(--bg-primary)',
-            borderRadius: '100px',
-            padding: '16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '32px',
-            height: '32px',
-            boxSizing: 'border-box',
-          }}>
-            <svg width="16" height="16" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
+            <div style={{
+              backgroundColor: 'var(--bg-primary)',
+              borderRadius: '100px',
+              padding: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '32px',
+              height: '32px',
+              boxSizing: 'border-box',
+            }}>
+              <svg width="16" height="16" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
           )}
 
           {/* FreightTiger Logo */}
-          <div style={{
-            height: '18px',
-            width: '142px',
-          }}>
+          <div className="h-[18px] w-[142px]">
             <Logo name="ft" width={142} height={18} />
           </div>
         </div>
@@ -400,10 +336,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             gap: '36px',
           }}>
             {/* Rocket Icon */}
-            <div 
-              style={{ 
-                width: '20px', 
-                height: '20px', 
+            <div
+              style={{
+                width: '20px',
+                height: '20px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -416,10 +352,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             </div>
 
             {/* Bell Icon */}
-            <div 
-              style={{ 
-                width: '20px', 
-                height: '20px', 
+            <div
+              style={{
+                width: '20px',
+                height: '20px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -442,58 +378,31 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   // Size Default, Device Mobile
   if (size === 'Default' && device === 'Mobile') {
     return (
-      <header 
-        style={{
-          backgroundColor: 'var(--bg-secondary)',
-          borderBottom: '1px solid var(--border-primary)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '12px',
-          width: '100%',
-          maxWidth: '360px',
-          boxSizing: 'border-box',
-        }}
-        className={className}
+      <header
+        className={cn(
+          "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center p-3 w-full max-w-[360px]",
+          className
+        )}
       >
         {/* Logo Section */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-        }}>
+        {/* Logo Section */}
+        <div className="flex items-center gap-3">
           {/* Layout Grid Icon */}
-          <div style={{
-            backgroundColor: 'var(--bg-primary)',
-            borderRadius: '100px',
-            padding: '16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '32px',
-            height: '32px',
-            boxSizing: 'border-box',
-          }}>
+          <div className="bg-[var(--bg-primary)] rounded-full p-4 flex items-center justify-center w-8 h-8">
             <svg width="16" height="16" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
 
           {/* FreightTiger Logo */}
-          <div style={{
-            height: '28px',
-            width: '186.242px',
-          }}>
+          <div className="h-7 w-[186.242px]">
             <Logo name="ft" width={186} height={28} />
           </div>
         </div>
 
         {/* Notification Icons and User Profile */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        }}>
+        {/* Notification Icons and User Profile */}
+        <div className="flex items-center gap-2">
           {/* Notification Container */}
           <div style={{
             display: 'flex',
@@ -501,10 +410,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             gap: '36px',
           }}>
             {/* Three Dot Menu Icon */}
-            <div 
-              style={{ 
-                width: '24px', 
-                height: '24px', 
+            <div
+              style={{
+                width: '24px',
+                height: '24px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -526,70 +435,39 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 
   // Fallback to xl Desktop
   return (
-    <header 
-      style={{
-        backgroundColor: 'var(--bg-secondary)',
-        borderBottom: '1px solid var(--border-primary)',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '13px 20px',
-        width: '100%',
-        maxWidth: '1728px',
-        height: '78px',
-        boxSizing: 'border-box',
-      }}
-      className={className}
+    <header
+      className={cn(
+        "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
+        className
+      )}
     >
       {/* Logo Section */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '20px',
-      }}>
+      {/* Logo Section */}
+      <div className="flex items-center gap-5">
         {/* Layout Grid Icon */}
-        <div style={{
-          backgroundColor: 'var(--bg-primary)',
-          borderRadius: '100px',
-          padding: '16px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '54px',
-          height: '54px',
-          boxSizing: 'border-box',
-        }}>
+        <div className="bg-[var(--bg-primary)] rounded-full p-4 flex items-center justify-center w-[54px] h-[54px]">
           <svg width="24" height="24" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
 
         {/* FreightTiger Logo */}
-        <div style={{
-          height: '28px',
-          width: '190.242px',
-        }}>
+        <div className="h-7 w-[190.242px]">
           <Logo name="ft" width={191} height={28} />
         </div>
       </div>
 
       {/* Notification Icons and User Profile */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '16px',
-      }}>
+      {/* Notification Icons and User Profile */}
+      <div className="flex items-center gap-4">
         {/* Notification Container */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '36px',
-        }}>
+        {/* Notification Container */}
+        <div className="flex items-center gap-9">
           {/* Rocket Icon */}
-          <div 
-            style={{ 
-              width: '24px', 
-              height: '24px', 
+          <div
+            style={{
+              width: '24px',
+              height: '24px',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -602,10 +480,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           </div>
 
           {/* Bell Icon */}
-          <div 
-            style={{ 
-              width: '24px', 
-              height: '24px', 
+          <div
+            style={{
+              width: '24px',
+              height: '24px',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',

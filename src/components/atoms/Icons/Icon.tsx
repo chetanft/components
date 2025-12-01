@@ -5,11 +5,19 @@ export type IconName = keyof typeof iconMap;
 
 export interface IconProps {
   name: IconName;
-  size?: number | string;
+  size?: number | string | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   color?: string;
   className?: string;
   style?: React.CSSProperties;
 }
+
+const sizeMap: Record<string, number> = {
+  xs: 12,
+  sm: 16,
+  md: 20,
+  lg: 24,
+  xl: 32,
+};
 
 export const Icon: React.FC<IconProps> = ({
   name,
@@ -29,9 +37,11 @@ export const Icon: React.FC<IconProps> = ({
   // Check if className contains animation classes that should be applied to the SVG
   const hasAnimation = className.includes('animate-spin') || className.includes('animate-pulse');
 
+  const resolvedSize = typeof size === 'string' && size in sizeMap ? sizeMap[size] : size;
+
   const iconStyle: React.CSSProperties = {
-    width: typeof size === 'number' ? `${size}px` : size,
-    height: typeof size === 'number' ? `${size}px` : size,
+    width: typeof resolvedSize === 'number' ? `${resolvedSize}px` : resolvedSize,
+    height: typeof resolvedSize === 'number' ? `${resolvedSize}px` : resolvedSize,
     color: color,
     display: 'inline-flex',
     alignItems: 'center',
@@ -48,11 +58,11 @@ export const Icon: React.FC<IconProps> = ({
   const renderedIcon = React.isValidElement(iconElement)
     ? React.cloneElement(iconElement as React.ReactElement<React.SVGProps<SVGSVGElement>>, {
       className: hasAnimation ? className : undefined,
-      width: typeof size === 'number' ? size : size,
-      height: typeof size === 'number' ? size : size,
+      width: typeof resolvedSize === 'number' ? resolvedSize : resolvedSize,
+      height: typeof resolvedSize === 'number' ? resolvedSize : resolvedSize,
       style: {
-        width: typeof size === 'number' ? `${size}px` : size,
-        height: typeof size === 'number' ? `${size}px` : size,
+        width: typeof resolvedSize === 'number' ? `${resolvedSize}px` : resolvedSize,
+        height: typeof resolvedSize === 'number' ? `${resolvedSize}px` : resolvedSize,
         color: 'inherit', // Inherit color from parent span which has the color style
       }
     })

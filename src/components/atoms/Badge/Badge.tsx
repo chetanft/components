@@ -22,7 +22,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
    * The size of the badge.
    * @default 'md'
    */
-  size?: 'sm' | 'md' | 'default' | 'small';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'default' | 'small';
   /**
    * @deprecated Use `size="md"` instead.
    */
@@ -148,7 +148,8 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
                 "absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2",
                 "flex items-center justify-center text-xs font-normal text-[var(--color-bg-primary)] bg-[var(--danger)] border border-[var(--color-bg-primary)]",
                 dot ? "w-2 h-2 p-0 rounded-full min-w-0" : "h-5 px-1.5 rounded-full min-w-[20px]",
-                (size === 'small' || size === 'sm') && !dot && "h-4 min-w-[16px] px-1 text-[10px]"
+                (size === 'small' || size === 'sm' || size === 'xs') && !dot && "h-4 min-w-[16px] px-1 text-[10px]",
+                (size === 'lg') && !dot && "h-6 px-2 text-sm"
               )}
               style={{
                 backgroundColor: color,
@@ -165,7 +166,17 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     // CASE 3: Standard Tag-like Badge (Legacy FT Design)
     // Keep existing implementation
     const baseStyles = "inline-flex items-center justify-center transition-colors";
-    const sizeStyles = "px-[var(--x2)] py-[2px] gap-[var(--x2)] rounded-[var(--badge-border-radius)]";
+
+    const sizeStylesMap: Record<string, string> = {
+      xs: "px-1 py-0.5 text-[10px] gap-1 rounded-[var(--badge-border-radius)]",
+      sm: "px-1.5 py-0.5 text-xs gap-1.5 rounded-[var(--badge-border-radius)]",
+      small: "px-1.5 py-0.5 text-xs gap-1.5 rounded-[var(--badge-border-radius)]", // Alias for sm
+      md: "px-2 py-1 text-sm gap-2 rounded-[var(--badge-border-radius)]",
+      default: "px-2 py-1 text-sm gap-2 rounded-[var(--badge-border-radius)]", // Alias for md
+      lg: "px-3 py-1.5 text-base gap-2.5 rounded-[var(--badge-border-radius)]"
+    };
+
+    const sizeStyles = sizeStylesMap[size] || sizeStylesMap.md;
 
     const variantStyles: Record<string, string> = {
       default: "bg-[var(--badge-normal-bg)] text-[var(--badge-normal-text)]",

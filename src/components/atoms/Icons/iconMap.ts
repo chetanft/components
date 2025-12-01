@@ -373,6 +373,13 @@ export const iconMap = {
   'burger': HamburgerMenu,
   'menu': HamburgerMenu,
   'help-circle': AlertInformational,
+  // Standard Aliases
+  'close': Cross,
+  'trash': Delete,
+  'tick': Check,
+  'add-circle': Add,
+  'info': AlertInformational,
+  'warning': AlertCritical,
 };
 
 export type IconName = keyof typeof iconMap;

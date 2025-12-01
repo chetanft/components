@@ -199,7 +199,7 @@ export const Modal: React.FC<ModalProps> = ({
               >
                 <Icon
                   name="cross"
-                  size={20}
+                  size="md"
                   style={{
                     color: 'var(--tertiary)',
                     pointerEvents: 'none',

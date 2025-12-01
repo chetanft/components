@@ -41,6 +41,7 @@ export * from './molecules/DatePicker';
 export * from './molecules/SimpleColumnLayout';
 export * from './molecules/Dropdown';
 export * from './molecules/DropdownMenu';
+export * from './molecules/Select';
 export * from './molecules/FileValidationCard';
 export * from './molecules/ProgressBar';
 export * from './molecules/Loader';

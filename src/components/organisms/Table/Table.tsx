@@ -16,10 +16,11 @@ export interface TableColumn<T = any> {
   key: string;
   title?: string;
   label?: string; // Alias for title
+  header?: string; // Alias for title (common in other libraries)
   type?: ColumnType;
   sortable?: boolean;
   width?: string;
-  render?: (value: any, row: T, index: number) => React.ReactNode;
+  render?: (value: unknown, row: T, index: number) => React.ReactNode;
 }
 
 export interface TableRow {
@@ -42,6 +43,7 @@ export interface TableProps<T extends TableRow = TableRow> {
   rowActionsLabel?: string;
   loading?: boolean;
   emptyMessage?: string;
+  caption?: string;
   className?: string;
 }
 
@@ -137,7 +139,7 @@ const TableHeader = <T extends TableRow = TableRow>({
               column.width && `w-[${column.width}]`
             )}
           >
-            {column.title || column.label}
+            {column.title || column.label || column.header}
           </TableHeaderItem>
         ))}
         {hasRowActions && (
@@ -187,7 +189,7 @@ const TableRowComponent = <T extends TableRow = TableRow>({
     onSelectionChange(row.id, !selected);
   }, [row.id, selected, onSelectionChange]);
 
-  const renderCellContent = useCallback((column: TableColumn<T>, value: any) => {
+  const renderCellContent = useCallback((column: TableColumn<T>, value: unknown) => {
     try {
       if (column.render) {
         return column.render(value, row, index);
@@ -197,21 +199,21 @@ const TableRowComponent = <T extends TableRow = TableRow>({
         case 'number':
           return (
             <TableCellText type="primary">
-              {typeof value === 'number' ? value.toLocaleString() : (value ?? '')}
+              {typeof value === 'number' ? value.toLocaleString() : (value as React.ReactNode ?? '')}
             </TableCellText>
           );
 
         case 'date':
           return (
             <TableCellText type="primary">
-              {value instanceof Date ? value.toLocaleDateString() : (value ?? '')}
+              {value instanceof Date ? value.toLocaleDateString() : (value as React.ReactNode ?? '')}
             </TableCellText>
           );
 
         default:
           return (
             <TableCellText type="primary">
-              {value ?? ''}
+              {value as React.ReactNode ?? ''}
             </TableCellText>
           );
       }
@@ -240,6 +242,7 @@ const TableRowComponent = <T extends TableRow = TableRow>({
 
   return (
     <tr
+      aria-rowindex={index + 1} // 1-based index for ARIA
       onMouseEnter={() => setHoveredRowIndex(true)}
       onMouseLeave={() => setHoveredRowIndex(false)}
     >
@@ -327,6 +330,7 @@ export const Table = <T extends TableRow = TableRow>({
   rowActionsLabel = 'Actions',
   loading = false,
   emptyMessage,
+  caption,
   className
 }: TableProps<T>) => {
   // Defensive programming: ensure all rows have valid IDs
@@ -363,7 +367,10 @@ export const Table = <T extends TableRow = TableRow>({
   return (
     <div className={cn("border border-[var(--border-primary)] rounded-[var(--x2,8px)] overflow-hidden bg-[var(--bg-primary)]", className)}>
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
+        <table className="w-full border-collapse" aria-rowcount={data.length}>
+          {caption && (
+            <caption className="sr-only">{caption}</caption>
+          )}
           <TableHeader
             columns={columns}
             variant={variant}

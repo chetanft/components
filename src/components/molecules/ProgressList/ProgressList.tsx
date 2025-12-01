@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons/Icon';
 import { Typography } from '../../atoms/Typography';
 import { IconName } from '../../atoms/Icons/types';
@@ -70,8 +71,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
       <div key={item.id} className="flex justify-between items-center gap-[-36px] py-[var(--spacing-x4)] w-full">
         <div className="flex-1 h-px border-b border-[var(--border-primary)]" />
         <div className="flex items-center justify-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] bg-[var(--color-bg-primary)] border border-[var(--border-primary)] rounded-full shadow-sm">
-          <Typography 
-            variant="body-secondary-medium" 
+          <Typography
+            variant="body-secondary-medium"
             color="secondary"
             className="text-right"
           >
@@ -192,7 +193,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
     }
 
     return (
-      <div 
+      <div
         className="w-px flex-1"
         style={{ backgroundColor: lineColor, minHeight: `${lineHeight}px` }}
       />
@@ -205,16 +206,16 @@ export const ProgressList: React.FC<ProgressListProps> = ({
     return (
       <div className="flex flex-col gap-[var(--spacing-x1)] pt-[var(--spacing-x1)] min-w-[var(--spacing-x10)]">
         {item.timeLabel && (
-          <Typography 
-            variant="body-secondary-medium" 
+          <Typography
+            variant="body-secondary-medium"
             color="secondary"
           >
             {item.timeLabel}
           </Typography>
         )}
         {item.startTime && (
-          <Typography 
-            variant="body-secondary-medium" 
+          <Typography
+            variant="body-secondary-medium"
             color="primary"
           >
             {item.startTime}
@@ -228,7 +229,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
     const isExpanded = expandedItems[item.id] || false;
 
     return (
-        <div className="flex gap-[var(--spacing-x2)] pt-[var(--spacing-x1)] flex-1">
+      <div className="flex gap-[var(--spacing-x2)] pt-[var(--spacing-x1)] flex-1">
         {/* Icon */}
         {item.icon && (
           <div className="flex-shrink-0 w-4 h-4 mt-0.5">
@@ -242,8 +243,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
           <div className="flex items-center gap-2 w-full">
             {item.headerType === 'primary' ? (
               <>
-                <Typography 
-                  variant="body-secondary-semibold" 
+                <Typography
+                  variant="body-secondary-semibold"
                   color="secondary"
                 >
                   {item.title}
@@ -253,8 +254,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
                 )}
               </>
             ) : (
-              <Typography 
-                variant="body-secondary-medium" 
+              <Typography
+                variant="body-secondary-medium"
                 color={item.state === 'upcoming' ? 'secondary' : 'primary'}
               >
                 {item.title}
@@ -264,8 +265,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
 
           {/* Description */}
           {item.description && (
-            <Typography 
-              variant="body-primary-regular" 
+            <Typography
+              variant="body-primary-regular"
               color="primary"
             >
               {item.description}
@@ -280,8 +281,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
                   key={index}
                   className={`
                     flex items-center gap-2 px-2 py-0.5 rounded text-[14px] font-semibold
-                    ${badge.variant === 'danger' 
-                      ? 'bg-[var(--critical-light)] text-[var(--critical)]' 
+                    ${badge.variant === 'danger'
+                      ? 'bg-[var(--critical-light)] text-[var(--critical)]'
                       : 'bg-[var(--border-secondary)] text-[var(--primary)]'
                     }
                   `}
@@ -310,14 +311,14 @@ export const ProgressList: React.FC<ProgressListProps> = ({
         {/* End Time Column */}
         {showTime && item.endTime && (
           <div className="flex flex-col gap-[var(--spacing-x1)] items-end min-w-[var(--spacing-x10)]">
-            <Typography 
-              variant="body-secondary-medium" 
+            <Typography
+              variant="body-secondary-medium"
               color="secondary"
             >
               End time
             </Typography>
-            <Typography 
-              variant="body-secondary-medium" 
+            <Typography
+              variant="body-secondary-medium"
               color="primary"
             >
               {item.endTime}
@@ -338,7 +339,7 @@ export const ProgressList: React.FC<ProgressListProps> = ({
         <div className="flex flex-col items-center pt-1.5">
           {/* Point */}
           {renderPoint(item)}
-          
+
           {/* Line */}
           {renderLine(item, isLast)}
         </div>
@@ -351,14 +352,14 @@ export const ProgressList: React.FC<ProgressListProps> = ({
 
   if (!items || items.length === 0) {
     return (
-      <div className={`progress-list flex flex-col ${className}`}>
+      <div className={cn("progress-list flex flex-col", className)}>
         <div className="text-sm text-gray-500 p-4 text-center">No items to display</div>
       </div>
     );
   }
 
   return (
-    <div className={`progress-list flex flex-col ${className}`}>
+    <div className={cn("progress-list flex flex-col", className)}>
       {items.map((item, index) => {
         const isLast = index === items.length - 1;
 
