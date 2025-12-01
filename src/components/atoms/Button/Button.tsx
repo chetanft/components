@@ -136,9 +136,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     isIconOnly && buttonSize.height,
     isIconOnly && buttonSize.width,
     isIconOnly && "p-0",
-    // Icon-only buttons: square by default (no border radius) for all variants
-    // Only apply border radius if rounded-full is explicitly specified
-    // (No border radius applied here - all icon-only buttons are square by default)
+    // Icon-only buttons: rounded corners by default (unless rounded-full is specified)
+    isIconOnly && !shouldBeCircular && buttonSize.borderRadius,
     // Regular buttons: use padding
     !isIconOnly && buttonSize.padding
   ) : cn(

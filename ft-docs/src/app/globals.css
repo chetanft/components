@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --docs-background: var(--bg-secondary);
+    --docs-background: var(--bg-primary);
     --docs-foreground: var(--primary);
     --docs-card: var(--bg-primary);
     --docs-card-foreground: var(--primary);

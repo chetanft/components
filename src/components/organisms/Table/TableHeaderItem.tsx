@@ -136,7 +136,7 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
               className={cn(
                 // Typography from Figma - 14px/16px semibold
                 size === 'md' ? "text-[var(--font-size-sm)]" : "text-[var(--font-size-md)]",
-                "font-semibold leading-[1.4]",
+                "font-semibold leading-[1.4] whitespace-nowrap",
                 getTextColor()
               )}
             >

@@ -41,9 +41,9 @@ const iconStyleCategories = {
     !name.includes('colour') &&
     !name.includes('gray') &&
     !name.includes('logo') &&
-    !['dashboard', 'control-tower', 'my-trip', 'reports', 'indent', 'detention-at-origin', 'detention-at-destination', 'settlement', 'reconciliation', 'contracted-bill', 'part-truck-load', 'planning', 'upload-document'].includes(name)
+    !['dashboard', 'control-tower', 'my-trip', 'reports', 'indent', 'add-trip', 'bulk-trip', 'truck', 'settlement', 'strength-high', 'strength-medium', 'strength-low', 'strength-no-tracking', 'planning', 'home', 'notification', 'route-deviation', 'diversion', 'detention-at-destination', 'tracking-interrupted', 'untracked', 'transit-delay', 'detention-at-origin', 'eway-bill-expired', 'contracted-bill', 'part-truck-load', 'upload-document', 'reconciliation', 'sim', 'lock', 'default-icon', 'long-stoppage'].includes(name)
   ),
-  'Double Tone': ['dashboard', 'control-tower', 'my-trip', 'reports', 'indent', 'detention-at-origin', 'detention-at-destination', 'settlement', 'reconciliation', 'contracted-bill', 'part-truck-load', 'planning', 'upload-document'],
+  'Double Tone': ['dashboard', 'control-tower', 'my-trip', 'reports', 'indent', 'add-trip', 'bulk-trip', 'truck', 'settlement', 'strength-high', 'strength-medium', 'strength-low', 'strength-no-tracking', 'planning', 'home', 'notification', 'route-deviation', 'diversion', 'detention-at-destination', 'tracking-interrupted', 'untracked', 'transit-delay', 'detention-at-origin', 'eway-bill-expired', 'contracted-bill', 'part-truck-load', 'upload-document', 'reconciliation', 'sim', 'lock', 'default-icon', 'long-stoppage'],
   'Filled': iconNames.filter(name =>
     name.includes('-fill') ||
     name.includes('filled') ||
@@ -80,8 +80,8 @@ export default function IconsPage() {
   const [copiedIcon, setCopiedIcon] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<CategoryName>("All")
-  const [iconColor, setIconColor] = useState("#000000")
-  const [iconSize, setIconSize] = useState(24)
+  const [iconColor, setIconColor] = useState("var(--primary)") // FT DS primary color
+  const [iconSize, setIconSize] = useState(24) // var(--x6) = 24px
   const [strokeWidth, setStrokeWidth] = useState(2)
   const [absoluteStrokeWidth, setAbsoluteStrokeWidth] = useState(false)
   const [viewMode, setViewMode] = useState<"all" | "categories" | "styles">("all")
@@ -339,31 +339,52 @@ export default function IconsPage() {
               {/* Mobile Close Button */}
               <div className="flex items-center justify-between lg:hidden mb-4">
                 <h2 className="text-lg font-semibold">Customizer</h2>
-                <button
-                  onClick={() => setSidebarOpen(false)}
-                  className="p-2 hover:bg-muted rounded-md"
-                  type="button"
-                >
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M15 5L5 15M5 5l10 10" />
-                  </svg>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setIconColor("var(--primary)"); // FT DS primary color
+                      setIconSize(24); // var(--x6) = 24px
+                      setStrokeWidth(2);
+                      setAbsoluteStrokeWidth(false);
+                    }}
+                    className="p-2 hover:bg-muted rounded-md transition-colors cursor-pointer"
+                    type="button"
+                    title="Reset to defaults"
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className="pointer-events-none">
+                      <path d="M1 8a7 7 0 0 1 7-7v2M15 8a7 7 0 0 1-7 7v-2M8 1v6m0 2v6" strokeLinecap="round" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => setSidebarOpen(false)}
+                    className="p-2 hover:bg-muted rounded-md"
+                    type="button"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M15 5L5 15M5 5l10 10" />
+                    </svg>
+                  </button>
+                </div>
               </div>
               <div>
                 <div className="hidden lg:flex items-center justify-between mb-4">
                   <h2 className="text-sm font-semibold">Customizer</h2>
                   <button
-                    onClick={() => {
-                      setIconColor("#000000")
-                      setIconSize(24)
-                      setStrokeWidth(2)
-                      setAbsoluteStrokeWidth(false)
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setIconColor("var(--primary)"); // FT DS primary color
+                      setIconSize(24); // var(--x6) = 24px
+                      setStrokeWidth(2);
+                      setAbsoluteStrokeWidth(false);
                     }}
-                    className="p-1.5 hover:bg-muted rounded-md transition-colors"
+                    className="p-1.5 hover:bg-muted rounded-md transition-colors cursor-pointer"
                     type="button"
                     title="Reset to defaults"
                   >
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className="pointer-events-none">
                       <path d="M1 8a7 7 0 0 1 7-7v2M15 8a7 7 0 0 1-7 7v-2M8 1v6m0 2v6" strokeLinecap="round" />
                     </svg>
                   </button>
@@ -375,9 +396,10 @@ export default function IconsPage() {
                   <div className="flex items-center gap-2">
                     <input
                       type="color"
-                      value={iconColor === "currentColor" ? "#000000" : iconColor}
+                      value={iconColor === "currentColor" || iconColor.startsWith("var(") ? "#434f64" : iconColor}
                       onChange={(e) => setIconColor(e.target.value)}
                       className="h-8 w-16 rounded border cursor-pointer"
+                      style={{ borderColor: 'var(--border-primary)' }}
                     />
                     <input
                       type="text"
@@ -423,11 +445,11 @@ export default function IconsPage() {
                 </div>
 
                 {/* Absolute Stroke width */}
-                <div className="space-y-2 mb-4">
+                <div className="flex items-center justify-between mb-4">
                   <label className="text-xs font-medium text-muted-foreground">Absolute Stroke width</label>
                   <button
                     onClick={() => setAbsoluteStrokeWidth(!absoluteStrokeWidth)}
-                    className={`relative w-11 h-6 rounded-full transition-colors ${absoluteStrokeWidth ? "bg-primary" : "bg-muted"
+                    className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${absoluteStrokeWidth ? "bg-primary" : "bg-muted"
                       }`}
                     type="button"
                     role="switch"
@@ -444,17 +466,18 @@ export default function IconsPage() {
               {/* View Mode */}
               <div className="space-y-2">
                 <label className="text-xs font-medium text-muted-foreground">View</label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="flex gap-2">
                   <button
                     onClick={() => {
                       setViewMode("all")
                       setSelectedCategory("All")
                       setSelectedStyleCategory("All")
                     }}
-                    className={`px-3 py-1.5 text-xs rounded-md transition-colors ${viewMode === "all"
-                      ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+                    className={`px-3 py-1.5 text-xs rounded-md transition-colors whitespace-nowrap ${viewMode === "all"
+                      ? "bg-primary"
                       : "bg-background border hover:bg-muted"
                       }`}
+                    style={viewMode === "all" ? { color: 'var(--bg-primary)' } : undefined}
                   >
                     All
                   </button>
@@ -463,10 +486,11 @@ export default function IconsPage() {
                       setViewMode("styles")
                       setSelectedStyleCategory("All")
                     }}
-                    className={`px-3 py-1.5 text-xs rounded-md transition-colors ${viewMode === "styles"
-                      ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+                    className={`px-3 py-1.5 text-xs rounded-md transition-colors whitespace-nowrap ${viewMode === "styles"
+                      ? "bg-primary"
                       : "bg-background border hover:bg-muted"
                       }`}
+                    style={viewMode === "styles" ? { color: 'var(--bg-primary)' } : undefined}
                   >
                     Styles
                   </button>
@@ -475,10 +499,11 @@ export default function IconsPage() {
                       setViewMode("categories")
                       setSelectedCategory("All")
                     }}
-                    className={`px-3 py-1.5 text-xs rounded-md transition-colors ${viewMode === "categories"
-                      ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+                    className={`px-3 py-1.5 text-xs rounded-md transition-colors whitespace-nowrap flex-shrink-0 ${viewMode === "categories"
+                      ? "bg-primary"
                       : "bg-background border hover:bg-muted"
                       }`}
+                    style={viewMode === "categories" ? { color: 'var(--bg-primary)' } : undefined}
                   >
                     Categories
                   </button>
@@ -495,9 +520,10 @@ export default function IconsPage() {
                         key={category}
                         onClick={() => setSelectedStyleCategory(category as StyleCategoryName)}
                         className={`w-full text-left px-3 py-2 text-xs rounded-md transition-colors ${selectedStyleCategory === category
-                          ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+                          ? "bg-primary"
                           : "hover:bg-muted"
                           }`}
+                        style={selectedStyleCategory === category ? { color: 'var(--bg-primary)' } : undefined}
                       >
                         <div className="flex items-center justify-between">
                           <span>{category}</span>
@@ -521,9 +547,10 @@ export default function IconsPage() {
                         key={category}
                         onClick={() => setSelectedCategory(category as CategoryName)}
                         className={`w-full text-left px-3 py-2 text-xs rounded-md transition-colors ${selectedCategory === category
-                          ? "bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900"
+                          ? "bg-primary"
                           : "hover:bg-muted"
                           }`}
+                        style={selectedCategory === category ? { color: 'var(--bg-primary)' } : undefined}
                       >
                         <div className="flex items-center justify-between">
                           <span>{category}</span>
@@ -783,7 +810,8 @@ export default function IconsPage() {
                         onClick={() => {
                           copyToClipboard(selectedIcon, "name")
                         }}
-                        className="flex-1 px-4 py-3 bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 rounded-md font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+                        className="flex-1 px-4 py-3 bg-primary rounded-md font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                        style={{ color: 'var(--bg-primary)' }}
                       >
                         <span>Copy Name</span>
                         {copiedIcon === selectedIcon && (

@@ -181,7 +181,7 @@ export function SiteHeader() {
                         })}
                     </nav>
                 </div>
-                <div className="flex flex-1 items-center justify-center">
+                <div className="flex flex-1 items-center justify-end ml-auto">
                     <div ref={searchRef} className="relative w-full max-w-md">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                         <input
@@ -194,7 +194,7 @@ export function SiteHeader() {
                             className="w-full pl-10 pr-4 py-2 h-9 rounded-md border border-input bg-background text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring placeholder:text-muted-foreground"
                         />
                         {isSearchOpen && searchResults.length > 0 && (
-                            <div className="absolute top-full left-0 right-0 mt-1 bg-background border border-border rounded-md shadow-lg max-h-96 overflow-y-auto z-[9999]">
+                            <div className="absolute top-full right-0 mt-1 bg-background border border-border rounded-md shadow-lg max-h-96 overflow-y-auto z-[9999] w-full min-w-[300px]">
                                 {searchResults.map((result, index) => (
                                     <Link
                                         key={`${result.href}-${index}`}
@@ -217,15 +217,12 @@ export function SiteHeader() {
                             </div>
                         )}
                         {isSearchOpen && searchQuery.trim() && searchResults.length === 0 && (
-                            <div className="absolute top-full left-0 right-0 mt-1 bg-background border border-border rounded-md shadow-lg p-4 z-[9999]">
+                            <div className="absolute top-full right-0 mt-1 bg-background border border-border rounded-md shadow-lg p-4 z-[9999] w-full min-w-[300px]">
                                 <p className="text-sm text-muted-foreground text-center">No results found</p>
                             </div>
                         )}
                     </div>
                 </div>
-                <nav className="flex items-center">
-                    {/* GitHub link removed */}
-                </nav>
             </div>
         </header>
     )

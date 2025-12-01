@@ -7,9 +7,9 @@ export default function DocsLayout({
     children: React.ReactNode
 }) {
     return (
-        <div className="relative flex min-h-screen flex-col">
+        <div className="relative flex min-h-screen flex-col bg-background">
             <SiteHeader />
-            <div className="flex-1">
+            <div className="flex-1 bg-background">
                 <div className="container max-w-screen-2xl mx-auto">
                     <div className="flex gap-8 py-8">
                         {/* Sidebar */}

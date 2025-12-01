@@ -25,7 +25,8 @@ export default function Home() {
                 href="/docs"
                 className={cn(
                   "inline-flex h-11 items-center justify-center rounded-md px-8 text-sm font-medium shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
-                  "bg-gray-900 text-white hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200"
+                  "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] border border-[var(--button-primary-border)]",
+                  "hover:bg-[var(--button-primary-hover-bg)] hover:border-[var(--button-primary-hover-bg)]"
                 )}
               >
                 Get Started

@@ -593,8 +593,8 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
       title: 'Actions',
       render: () => (
         <div className="flex items-center gap-2">
-          <Button variant="text" icon="more" iconPosition="only" size="md" />
-          <Button variant="secondary" icon="chevron-right" iconPosition="only" size="md" />
+          <Button variant="secondary" size="md" className="rounded-full" icon="more" iconPosition="only" />
+          <Button variant="secondary" size="md" className="rounded-full" icon="chevron-right" iconPosition="only" />
         </div>
       ),
     },
@@ -658,7 +658,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
       <div style={{ backgroundColor: 'var(--bg-primary)', padding: isMobile ? '12px' : '20px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '20px', gap: 'var(--x4,16px)', flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x2,8px)' }}>
-            <Icon name="navigator" style={{ width: '28px', height: '28px', color: 'var(--primary)' }} />
+            <Icon name="my-trip" style={{ width: '28px', height: '28px', color: 'var(--primary)' }} />
             <Typography variant="body-primary-medium" className="text-[var(--primary)] text-2xl">
               My Journeys
             </Typography>
@@ -797,6 +797,39 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
             />
           </div>
         )}
+
+        {/* Journey count and action buttons line */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '20px', marginBottom: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x3,12px)' }}>
+            <Typography variant="body-primary-semibold" className="text-[var(--primary)]">
+              {filteredJourneys.length} Journeys available
+            </Typography>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+            <Button variant="text" size="md" icon="star" iconPosition="only" />
+            <Button variant="text" size="md" icon="bundle" iconPosition="only" />
+            <Button variant="text" size="md" icon="chevron-down" iconPosition="only" />
+            <Button variant="text" size="md" icon="more" iconPosition="only" />
+            <Button variant="text" size="md" icon="add" iconPosition="only" />
+            <div style={{ 
+              backgroundColor: 'var(--bg-primary)', 
+              border: '1px solid var(--border-primary)', 
+              borderRadius: 'var(--x2,8px)', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-between',
+              height: '40px',
+              width: '100px',
+              padding: '0 var(--x3,12px)'
+            }}>
+              <Button variant="text" size="sm" icon="chevron-left" iconPosition="only" style={{ width: '16px', height: '16px', padding: 0 }} />
+              <Typography variant="body-primary-regular" className="text-[var(--tertiary)]" style={{ fontSize: '16px' }}>
+                1
+              </Typography>
+              <Button variant="text" size="sm" icon="chevron-right" iconPosition="only" style={{ width: '16px', height: '16px', padding: 0 }} />
+            </div>
+          </div>
+        </div>
 
         <div style={{ marginTop: '20px' }}>
           {!isMobile ? (

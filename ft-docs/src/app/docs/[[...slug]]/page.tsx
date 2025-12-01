@@ -73,7 +73,13 @@ export default function DocPage() {
           <p className="text-muted-foreground">
             Install the design system package:
           </p>
-          <div className="rounded-lg bg-zinc-950 dark:bg-zinc-900 p-4 font-mono text-sm text-zinc-50">
+          <div 
+            className="rounded-lg p-4 font-mono text-sm"
+            style={{
+              backgroundColor: 'var(--primary-900)',
+              color: 'var(--tertiary-0)'
+            }}
+          >
             npm install @chetanft/design_system
           </div>
         </div>

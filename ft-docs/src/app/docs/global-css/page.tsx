@@ -681,11 +681,29 @@ export default function GlobalCSSPage() {
                         </button>
                     </div>
                 </div>
-                <div className="relative rounded-lg border bg-zinc-950 dark:bg-zinc-900 overflow-hidden">
+                <div 
+                  className="relative rounded-lg border overflow-hidden"
+                  style={{
+                    backgroundColor: 'var(--primary-900)',
+                    borderColor: 'var(--border-primary)'
+                  }}
+                >
                     <div className="absolute top-3 right-3">
                         <button
                             onClick={copyToClipboard}
-                            className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition-colors"
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors"
+                            style={{
+                              backgroundColor: 'var(--primary-800)',
+                              color: 'var(--tertiary-300)'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = 'var(--primary-700)';
+                              e.currentTarget.style.color = 'var(--tertiary-0)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = 'var(--primary-800)';
+                              e.currentTarget.style.color = 'var(--tertiary-300)';
+                            }}
                             title="Copy to clipboard"
                         >
                             {copied ? (
@@ -695,7 +713,12 @@ export default function GlobalCSSPage() {
                             )}
                         </button>
                     </div>
-                    <pre className="p-4 overflow-x-auto text-sm text-zinc-100 font-mono max-h-[600px] overflow-y-auto">
+                    <pre 
+                      className="p-4 overflow-x-auto text-sm font-mono max-h-[600px] overflow-y-auto"
+                      style={{
+                        color: 'var(--tertiary-0)'
+                      }}
+                    >
                         <code>{globalCssContent}</code>
                     </pre>
                 </div>
@@ -707,7 +730,13 @@ export default function GlobalCSSPage() {
                 <div className="space-y-4">
                     <div className="rounded-lg border p-4 space-y-3">
                         <h3 className="font-semibold">Using CSS Variables</h3>
-                        <pre className="rounded-md bg-zinc-950 dark:bg-zinc-900 p-3 text-sm text-zinc-100 font-mono overflow-x-auto">
+                        <pre 
+                          className="rounded-md p-3 text-sm font-mono overflow-x-auto"
+                          style={{
+                            backgroundColor: 'var(--primary-900)',
+                            color: 'var(--tertiary-0)'
+                          }}
+                        >
 {`.my-component {
   color: var(--primary);
   background: var(--bg-secondary);
@@ -719,7 +748,13 @@ export default function GlobalCSSPage() {
                     </div>
                     <div className="rounded-lg border p-4 space-y-3">
                         <h3 className="font-semibold">Using Utility Classes</h3>
-                        <pre className="rounded-md bg-zinc-950 dark:bg-zinc-900 p-3 text-sm text-zinc-100 font-mono overflow-x-auto">
+                        <pre 
+                          className="rounded-md p-3 text-sm font-mono overflow-x-auto"
+                          style={{
+                            backgroundColor: 'var(--primary-900)',
+                            color: 'var(--tertiary-0)'
+                          }}
+                        >
 {`<div class="text-primary bg-neutral border-warning">
   Styled with utility classes
 </div>`}
@@ -727,7 +762,13 @@ export default function GlobalCSSPage() {
                     </div>
                     <div className="rounded-lg border p-4 space-y-3">
                         <h3 className="font-semibold">Theme Switching</h3>
-                        <pre className="rounded-md bg-zinc-950 dark:bg-zinc-900 p-3 text-sm text-zinc-100 font-mono overflow-x-auto">
+                        <pre 
+                          className="rounded-md p-3 text-sm font-mono overflow-x-auto"
+                          style={{
+                            backgroundColor: 'var(--primary-900)',
+                            color: 'var(--tertiary-0)'
+                          }}
+                        >
 {`<!-- Light mode (default) -->
 <html>
 
