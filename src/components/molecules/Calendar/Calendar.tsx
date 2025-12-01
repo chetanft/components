@@ -210,7 +210,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
               </button>
             </div>
 
-            <div className="flex items-center gap-[var(--spacing-x2)] text-[var(--font-size-sm)] font-medium text-[var(--primary)]">
+            <div className="flex items-center gap-[var(--spacing-x2)] font-medium text-[var(--primary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+              {/* 14px → 1rem (responsive) */}
               <button
                 type="button"
                 onClick={() => handleModeChange('month')}
@@ -339,7 +340,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
               {WEEKDAYS.map((day) => (
                 <div
                   key={day}
-                  className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-[var(--font-size-sm)] text-[var(--tertiary)] font-normal"
+                  className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-[var(--tertiary)] font-normal"
+                  style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
                 >
                   {day}
                 </div>
@@ -371,11 +373,12 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                       >
                         <span
                           className={cn(
-                            "text-[var(--font-size-sm)] leading-[normal]",
+                            "leading-[normal]",
                             isSelected ? "font-medium" : "font-normal",
                             disabled ? "text-[var(--border-secondary)]" : "text-[var(--primary)]",
                             !isCurrentMonth && !isSelected && !disabled && "text-[var(--tertiary)]"
                           )}
+                          style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
                         >
                           {date.getDate()}
                         </span>

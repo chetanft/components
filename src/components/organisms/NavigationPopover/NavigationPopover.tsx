@@ -493,7 +493,8 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
       <>
         <Typography variant="button" color="primary">
           <span className="font-semibold">New: Workspace automation&nbsp;</span>
-          <span className="font-normal text-[16px]">
+          <span className="font-normal" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+            {/* 16px → 1.143rem (responsive) */}
             Connect data sources and share updates automatically.
           </span>
         </Typography>

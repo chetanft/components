@@ -8,7 +8,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: '🎨 **Typography Component** - Reusable text component with exact Figma specifications. Perfect for AI tools, development, and design documentation. Use this for all text rendering needs.'
+        component: 'Reusable text component with exact Figma specifications. Perfect for AI tools, development, and design documentation. Use this for all text rendering needs.'
       }
     }
   },
@@ -28,7 +28,7 @@ const meta = {
         'body-secondary-medium',
         'body-secondary-regular'
       ],
-      description: 'Typography variant based on Figma design system (28/140 = 28px font, 140% line-height)'
+      description: 'Typography variant based on Figma design system. Font sizes use rem units (14px = 1rem base).'
     },
     color: {
       control: 'select',
@@ -52,77 +52,77 @@ export const Default: Story = {
 // Individual variant stories - Figma Design System
 export const TitlePrimary: Story = {
   args: {
-    children: 'Page Title - 28/140',
+    children: 'Page Title - 2rem (28px)',
     variant: 'title-primary',
   },
 };
 
 export const TitleSecondary: Story = {
   args: {
-    children: 'Section Heading - 24/140',
+    children: 'Section Heading - 1.714rem (24px)',
     variant: 'title-secondary',
   },
 };
 
 export const DisplayPrimary: Story = {
   args: {
-    children: 'Display Primary - 20/140',
+    children: 'Display Primary - 1.429rem (20px)',
     variant: 'display-primary',
   },
 };
 
 export const ButtonText: Story = {
   args: {
-    children: 'Button Text - 20/140',
+    children: 'Button Text - 1.429rem (20px)',
     variant: 'button',
   },
 };
 
 export const BodyPrimarySemibold: Story = {
   args: {
-    children: 'Body Primary Semibold - 16/140',
+    children: 'Body Primary Semibold - 1.143rem (16px)',
     variant: 'body-primary-semibold',
   },
 };
 
 export const BodyPrimaryMedium: Story = {
   args: {
-    children: 'Body Primary Medium - 16/140',
+    children: 'Body Primary Medium - 1.143rem (16px)',
     variant: 'body-primary-medium',
   },
 };
 
 export const BodyPrimaryItalic: Story = {
   args: {
-    children: 'Body Primary Italic - 16/140',
+    children: 'Body Primary Italic - 1.143rem (16px)',
     variant: 'body-primary-italic',
   },
 };
 
 export const BodyPrimaryRegular: Story = {
   args: {
-    children: 'Body Primary Regular - 16/140',
+    children: 'Body Primary Regular - 1.143rem (16px)',
     variant: 'body-primary-regular',
   },
 };
 
 export const BodySecondarySemibold: Story = {
   args: {
-    children: 'Body Secondary Semibold - 14/140',
+    children: 'Body Secondary Semibold - 1rem (14px)',
     variant: 'body-secondary-semibold',
   },
 };
 
 export const BodySecondaryMedium: Story = {
   args: {
-    children: 'Body Secondary Medium - 14/140',
+    children: 'Body Secondary Medium - 1rem (14px)',
     variant: 'body-secondary-medium',
   },
 };
 
 export const BodySecondaryRegular: Story = {
   args: {
-    children: 'Body Secondary Regular - 14/140',
+    children: 'Body Secondary Regular - 1rem (14px)',
     variant: 'body-secondary-regular',
   },
 };

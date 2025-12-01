@@ -138,12 +138,27 @@ export const TwelveHourWithoutSeconds: Story = {
 // Different Sizes
 export const Sizes: Story = {
   render: () => (
-    <div className="space-y-4">
-      <TimePicker size="xs" label="Extra Small" placeholder="XS" />
-      <TimePicker size="sm" label="Small" placeholder="SM" />
-      <TimePicker size="md" label="Medium (Default)" placeholder="MD" />
-      <TimePicker size="lg" label="Large" placeholder="LG" />
-      <TimePicker size="xl" label="Extra Large" placeholder="XL" />
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <TimePicker size="xs" label="Extra Small - 1rem (14px)" placeholder="XS" />
+        <p className="text-sm text-muted-foreground ml-2">Font: 1rem (14px)</p>
+      </div>
+      <div className="space-y-2">
+        <TimePicker size="sm" label="Small - 1rem (14px)" placeholder="SM" />
+        <p className="text-sm text-muted-foreground ml-2">Font: 1rem (14px)</p>
+      </div>
+      <div className="space-y-2">
+        <TimePicker size="md" label="Medium (Default) - 1.143rem (16px)" placeholder="MD" />
+        <p className="text-sm text-muted-foreground ml-2">Font: 1.143rem (16px)</p>
+      </div>
+      <div className="space-y-2">
+        <TimePicker size="lg" label="Large - 1.429rem (20px)" placeholder="LG" />
+        <p className="text-sm text-muted-foreground ml-2">Font: 1.429rem (20px)</p>
+      </div>
+      <div className="space-y-2">
+        <TimePicker size="xl" label="Extra Large - 1.714rem (24px)" placeholder="XL" />
+        <p className="text-sm text-muted-foreground ml-2">Font: 1.714rem (24px)</p>
+      </div>
     </div>
   ),
 };

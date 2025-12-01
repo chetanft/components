@@ -68,13 +68,13 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
     
     // Text sizes based on container size
     const textSizes = {
-      xxs: 'text-[8px]',
-      xs: 'text-[10px]',
-      sm: 'text-[12px]',
-      md: 'text-[14px]',
-      lg: 'text-[16px]',
-      xl: 'text-[18px]',
-      xxl: 'text-[20px]'
+      xxs: 'text-[8px]', // Non-standard size, keeping px
+      xs: 'text-[10px]', // Non-standard size, keeping px
+      sm: 'text-xs-rem', // 12px → 0.857rem (responsive)
+      md: 'text-sm-rem', // 14px → 1rem (responsive)
+      lg: 'text-md-rem', // 16px → 1.143rem (responsive)
+      xl: 'text-[18px]', // Non-standard size, keeping px
+      xxl: 'text-lg-rem' // 20px → 1.429rem (responsive)
     };
     
     // Get image source - prefer provided src, then file type mapping

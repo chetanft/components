@@ -382,7 +382,8 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
             </div>
           )}
           <div className="flex flex-col gap-[2px] items-start justify-center relative shrink-0">
-            <p className="font-semibold leading-[1.4] relative shrink-0 text-[var(--primary)] text-[24px]">
+            <p className="font-semibold leading-[1.4] relative shrink-0 text-[var(--primary)] text-xl-rem">
+              {/* 24px → 1.714rem (responsive) */}
               {title}
             </p>
             {showSubtitle && (

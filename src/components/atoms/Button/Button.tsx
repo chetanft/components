@@ -44,7 +44,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const buttonSizing = {
     xxs: {
       padding: 'p-0.5', // 2px all sides
-      fontSize: 'text-xs', // 12px
+      fontSize: 'text-xs-rem', // 12px → 0.857rem (responsive)
       iconSize: 12,
       borderRadius: 'rounded-component',
       height: 'h-4', // 16px
@@ -52,7 +52,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     },
     xs: {
       padding: 'p-1', // 4px all sides
-      fontSize: 'text-sm', // 14px
+      fontSize: 'text-sm-rem', // 14px → 1rem (responsive)
       iconSize: 12,
       borderRadius: 'rounded-component',
       height: 'h-6', // 24px
@@ -60,7 +60,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     },
     sm: {
       padding: 'p-3', // 12px all around
-      fontSize: 'text-base', // 16px
+      fontSize: 'text-md-rem', // 16px → 1.143rem (responsive)
       iconSize: 16,
       borderRadius: 'rounded-component',
       height: 'h-8', // 32px
@@ -68,7 +68,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     },
     md: {
       padding: 'p-3', // 12px all sides
-      fontSize: 'text-base', // 16px
+      fontSize: 'text-md-rem', // 16px → 1.143rem (responsive)
       iconSize: 16,
       borderRadius: 'rounded-component',
       height: 'h-10', // 40px
@@ -76,7 +76,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     },
     lg: {
       padding: 'p-3', // 12px all sides
-      fontSize: 'text-lg', // 20px
+      fontSize: 'text-lg-rem', // 20px → 1.429rem (responsive)
       iconSize: 24,
       borderRadius: 'rounded-component',
       height: 'h-12', // 48px
@@ -84,7 +84,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     },
     xl: {
       padding: 'p-4', // 16px all sides
-      fontSize: 'text-xl', // 24px
+      fontSize: 'text-xl-rem', // 24px → 1.714rem (responsive)
       iconSize: 24,
       borderRadius: 'rounded-component',
       height: 'h-14', // 56px
@@ -92,7 +92,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     },
     xxl: {
       padding: 'p-5', // 20px all sides
-      fontSize: 'text-[28px]', // 28px
+      fontSize: 'text-xxl-rem', // 28px → 2rem (responsive)
       iconSize: 24,
       borderRadius: 'rounded-component',
       height: 'h-16', // 64px

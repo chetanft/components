@@ -101,7 +101,8 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
         
         {/* Filename (optional) */}
         {showFileName && (
-          <p className="font-normal leading-[1.4] overflow-ellipsis overflow-hidden relative shrink-0 text-[14px] text-[var(--secondary)] text-center w-full">
+          <p className="font-normal leading-[1.4] overflow-ellipsis overflow-hidden relative shrink-0 text-sm-rem text-[var(--secondary)] text-center w-full">
+            {/* 14px → 1rem (responsive) */}
             {fileName}
           </p>
         )}

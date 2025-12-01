@@ -824,7 +824,8 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
               padding: '0 var(--x3,12px)'
             }}>
               <Button variant="text" size="sm" icon="chevron-left" iconPosition="only" style={{ width: '16px', height: '16px', padding: 0 }} />
-              <Typography variant="body-primary-regular" className="text-[var(--tertiary)]" style={{ fontSize: '16px' }}>
+              <Typography variant="body-primary-regular" className="text-[var(--tertiary)]" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                {/* 16px → 1.143rem (responsive) */}
                 1
               </Typography>
               <Button variant="text" size="sm" icon="chevron-right" iconPosition="only" style={{ width: '16px', height: '16px', padding: 0 }} />

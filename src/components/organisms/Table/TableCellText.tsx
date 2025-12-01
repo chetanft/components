@@ -18,19 +18,32 @@ export const TableCellText: React.FC<TableCellTextProps> = ({
   singleLine = false
 }) => {
   // Handle multi-line text
-  const renderContent = () => {
-    if (typeof children === 'string' && children.includes('\n')) {
-      if (singleLine) {
-        // Join lines with space for single-line display
-        return children.replace(/\n/g, ' ');
-      }
-      // Split into multiple divs for multi-line display
-      return children.split('\n').map((line, index) => (
-        <div key={index}>{line}</div>
-      ));
-    }
-    return children;
-  };
+  const isMultiLine = typeof children === 'string' && children.includes('\n') && !singleLine;
+  
+  if (isMultiLine) {
+    // Split into multiple Typography components for multi-line display
+    // First line uses primary color, second line uses secondary color
+    return (
+      <>
+        {children.split('\n').map((line, index) => (
+          <Typography
+            key={index}
+            variant="body-primary-regular"
+            className={cn(
+              index === 0 ? "text-[var(--primary)]" : "text-[var(--secondary)]"
+            )}
+          >
+            {line}
+          </Typography>
+        ))}
+      </>
+    );
+  }
+
+  // Single line or non-string content
+  const content = typeof children === 'string' && children.includes('\n') && singleLine
+    ? children.replace(/\n/g, ' ')
+    : children;
 
   return (
     <Typography
@@ -42,7 +55,7 @@ export const TableCellText: React.FC<TableCellTextProps> = ({
         className
       )}
     >
-      {renderContent()}
+      {content}
     </Typography>
   );
 }; 

@@ -14,13 +14,13 @@ const dropdownFieldVariants = cva(
   {
     variants: {
       size: {
-        xxs: "text-xs",
-        xs: "text-xs",
-        sm: "text-sm",
-        md: "text-base",
-        lg: "text-base",
-        xl: "text-base",
-        xxl: "text-lg",
+        xxs: "text-xs-rem",
+        xs: "text-xs-rem",
+        sm: "text-sm-rem",
+        md: "text-md-rem",
+        lg: "text-md-rem",
+        xl: "text-md-rem",
+        xxl: "text-lg-rem",
       },
       state: {
         default: "border-[var(--border-primary)] dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)] focus-within:border-primary dark:focus-within:border-primary-dark",
@@ -91,49 +91,49 @@ interface SizeStyles {
 const sizeStylesMap: Record<ComponentSize, SizeStyles> = {
   xxs: {
     height: "h-component-xxs",
-    fontSize: "text-xs",
+    fontSize: "text-xs-rem",
     borderRadius: "rounded-lg",
     padding: "px-[var(--spacing-x1)]",
     iconSize: 12,
   },
   xs: {
     height: "h-component-xs",
-    fontSize: "text-xs",
+    fontSize: "text-xs-rem",
     borderRadius: "rounded-lg",
     padding: "px-[var(--spacing-x1)] py-[var(--spacing-x1)]",
     iconSize: 14,
   },
   sm: {
     height: "h-component-sm",
-    fontSize: "text-sm",
+    fontSize: "text-sm-rem",
     borderRadius: "rounded-lg",
     padding: "px-[var(--spacing-x2)]",
     iconSize: 16,
   },
   md: {
     height: "h-component-md",
-    fontSize: "text-base",
+    fontSize: "text-md-rem",
     borderRadius: "rounded-lg",
     padding: "px-[var(--spacing-x2)] py-[var(--spacing-x2)]",
     iconSize: 18,
   },
   lg: {
     height: "h-component-lg",
-    fontSize: "text-base",
+    fontSize: "text-md-rem",
     borderRadius: "rounded-lg",
     padding: "px-[var(--spacing-x3)] py-[var(--spacing-x2)]",
     iconSize: 20,
   },
   xl: {
     height: "h-component-xl",
-    fontSize: "text-base",
+    fontSize: "text-md-rem",
     borderRadius: "rounded-lg",
     padding: "px-[var(--spacing-x4)] py-[var(--spacing-x3)]",
     iconSize: 22,
   },
   xxl: {
     height: "h-component-xxl",
-    fontSize: "text-lg",
+    fontSize: "text-lg-rem",
     borderRadius: "rounded-lg",
     padding: "px-[var(--spacing-x5)] py-[var(--spacing-x4)]",
     iconSize: 24,
@@ -301,7 +301,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         >
           <span className={cn(
             selectedOption ? "text-[var(--primary)]" : "text-[var(--tertiary)]",
-            "text-base"
+            "text-md-rem"
           )}>
             {selectedOption ? selectedOption.label : placeholder}
           </span>
@@ -385,7 +385,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
       return (
         <p className={cn(
-          "text-sm leading-relaxed mt-1.5",
+          "text-sm-rem leading-relaxed mt-1.5",
           error ? "text-critical" : "text-secondary"
         )}>
           {error || helperText}

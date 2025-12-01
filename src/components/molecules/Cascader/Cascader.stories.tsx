@@ -220,11 +220,23 @@ export const CustomDisplay: Story = {
 // Different Sizes
 export const Sizes: Story = {
   render: () => (
-    <div className="space-y-4">
-      <Cascader size="xs" label="Extra Small" options={locationOptions} placeholder="XS" />
-      <Cascader size="sm" label="Small" options={locationOptions} placeholder="SM" />
-      <Cascader size="md" label="Medium (Default)" options={locationOptions} placeholder="MD" />
-      <Cascader size="lg" label="Large" options={locationOptions} placeholder="LG" />
+    <div className="space-y-6">
+      <div className="space-y-2">
+        <Cascader size="xs" label="Extra Small - 1rem (14px)" options={locationOptions} placeholder="XS" />
+        <p className="text-sm text-muted-foreground ml-2">Font: 1rem (14px)</p>
+      </div>
+      <div className="space-y-2">
+        <Cascader size="sm" label="Small - 1rem (14px)" options={locationOptions} placeholder="SM" />
+        <p className="text-sm text-muted-foreground ml-2">Font: 1rem (14px)</p>
+      </div>
+      <div className="space-y-2">
+        <Cascader size="md" label="Medium (Default) - 1.143rem (16px)" options={locationOptions} placeholder="MD" />
+        <p className="text-sm text-muted-foreground ml-2">Font: 1.143rem (16px)</p>
+      </div>
+      <div className="space-y-2">
+        <Cascader size="lg" label="Large - 1.429rem (20px)" options={locationOptions} placeholder="LG" />
+        <p className="text-sm text-muted-foreground ml-2">Font: 1.429rem (20px)</p>
+      </div>
     </div>
   ),
 };

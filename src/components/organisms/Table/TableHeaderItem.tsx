@@ -71,14 +71,14 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
   // Size-based padding from Figma design - compact for better alignment
   const getPadding = () => {
     if (type === 'checkbox') {
-      return "py-[var(--spacing-x3)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]"; // Checkbox columns have consistent padding
+      return "px-[var(--spacing-x4)] pl-[var(--spacing-x2)]"; // Checkbox columns have consistent padding
     }
 
     switch (size) {
-      case 'md': return "py-[var(--spacing-x3)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
-      case 'lg': return "py-[var(--spacing-x4)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
-      case 'xl': return "py-[var(--spacing-x5)] px-[var(--spacing-x5)] pl-[var(--spacing-x2)]";
-      default: return "py-[var(--spacing-x3)] px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
+      case 'md': return "px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
+      case 'lg': return "px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
+      case 'xl': return "px-[var(--spacing-x5)] pl-[var(--spacing-x2)]";
+      default: return "px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
     }
   };
 
@@ -102,7 +102,13 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
         (sortable || onClick) && "cursor-pointer hover:opacity-80 transition-opacity",
         className
       )}
-      style={{ height: 'var(--table-header-height)', minHeight: 'var(--table-header-height)', maxHeight: 'var(--table-header-height)' }}
+      style={{ 
+        height: 'var(--table-header-height)', 
+        minHeight: 'var(--table-header-height)', 
+        maxHeight: 'var(--table-header-height)',
+        paddingTop: 'var(--table-header-padding-y)',
+        paddingBottom: 'var(--table-header-padding-y)'
+      }}
       onClick={onClick}
       aria-sort={getAriaSort()}
     >
@@ -135,11 +141,12 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
           <div className="flex items-center gap-[calc(var(--spacing-x2)-var(--spacing-x1)/2)]">
             <span
               className={cn(
-                // Typography from Figma - 14px/16px semibold
-                size === 'md' ? "text-[var(--font-size-sm)]" : "text-[var(--font-size-md)]",
                 "font-semibold leading-[1.4] whitespace-nowrap"
               )}
-              style={getTextColorStyle()}
+              style={{
+                ...getTextColorStyle(),
+                fontSize: size === 'md' ? 'var(--font-size-sm-rem)' : 'var(--font-size-md-rem)', // 14px → 1rem / 16px → 1.143rem (responsive)
+              }}
             >
               {children}
             </span>

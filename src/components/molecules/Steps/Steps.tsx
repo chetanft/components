@@ -56,7 +56,7 @@ export const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
     );
 
     const labelStyles = cn(
-      "font-primary font-semibold text-[20px] leading-[1.4] transition-colors",
+      "font-primary font-semibold text-lg-rem leading-[1.4] transition-colors", // 20px → 1.429rem (responsive)
       state === "selected" || state === "completed"
         ? "text-[var(--primary)]"
         : "text-[var(--border-primary)]",

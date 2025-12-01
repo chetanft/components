@@ -61,21 +61,28 @@ export default function DocPage() {
   if (!slug || slug.length === 0) {
     return (
       <div className="space-y-6">
-        <h1 className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl">
+        <h1 className="scroll-m-20 font-bold tracking-tight" style={{ fontSize: 'var(--font-size-xxl-rem)' }}>
+          {/* 28px → 2rem (responsive) */}
           Introduction
         </h1>
-        <p className="leading-7 text-muted-foreground [&:not(:first-child)]:mt-6">
+        <p className="leading-7 text-muted-foreground [&:not(:first-child)]:mt-6" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+          {/* 16px → 1.143rem (responsive) */}
           Welcome to the FT Design System documentation. This library provides a set of reusable components
           built with Radix UI and Tailwind CSS.
         </p>
         <div className="space-y-4 mt-8">
-          <h2 className="text-2xl font-semibold tracking-tight">Getting Started</h2>
-          <p className="text-muted-foreground">
+          <h2 className="font-semibold tracking-tight" style={{ fontSize: 'var(--font-size-xl-rem)' }}>
+            {/* 24px → 1.714rem (responsive) */}
+            Getting Started
+          </h2>
+          <p className="text-muted-foreground" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+            {/* 16px → 1.143rem (responsive) */}
             Install the design system package:
           </p>
           <div 
-            className="rounded-lg p-4 font-mono text-sm"
+            className="rounded-lg p-4 font-mono"
             style={{
+              fontSize: 'var(--font-size-sm-rem)',
               backgroundColor: 'var(--primary-900)',
               color: 'var(--tertiary-0)'
             }}
@@ -84,7 +91,10 @@ export default function DocPage() {
           </div>
         </div>
         <div className="space-y-4 mt-8">
-          <h2 className="text-2xl font-semibold tracking-tight">Features</h2>
+          <h2 className="font-semibold tracking-tight" style={{ fontSize: 'var(--font-size-xl-rem)' }}>
+            {/* 24px → 1.714rem (responsive) */}
+            Features
+          </h2>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
             <li>80+ production-ready components</li>
             <li>Built with Radix UI primitives for accessibility</li>
@@ -126,13 +136,18 @@ export default function DocPage() {
     if (!hasStory(componentName)) {
       return (
         <div className="space-y-6">
-          <h1 className="text-5xl font-bold tracking-tight">{componentName}</h1>
-          <div className="bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-200 p-6 rounded-lg border border-amber-200 dark:border-amber-800">
-            <p className="font-medium">Stories not available</p>
-            <p className="text-sm mt-2">
+          <h1 className="font-bold tracking-tight" style={{ fontSize: 'var(--font-size-xxl-rem)' }}>
+            {/* 28px → 2rem (responsive) */}
+            {componentName}
+          </h1>
+          <div className="p-6 rounded-lg border" style={{ backgroundColor: 'var(--warning-light)', borderColor: 'var(--warning)', color: 'var(--warning-dark)' }}>
+            <p className="font-medium" style={{ fontSize: 'var(--font-size-md-rem)' }}>Stories not available</p>
+            <p style={{ fontSize: 'var(--font-size-sm-rem)', marginTop: 'var(--spacing-x2)' }}>
+              {/* 14px → 1rem (responsive) */}
               This component does not have Storybook stories yet.
             </p>
-            <p className="text-sm mt-2">
+            <p style={{ fontSize: 'var(--font-size-sm-rem)', marginTop: 'var(--spacing-x2)' }}>
+              {/* 14px → 1rem (responsive) */}
               Check the Storybook at{" "}
               <a href="http://localhost:6006" className="underline">
                 localhost:6006
@@ -151,8 +166,12 @@ export default function DocPage() {
   // 404
   return (
     <div className="space-y-6">
-      <h1 className="text-5xl font-bold tracking-tight">Page Not Found</h1>
-      <p className="text-muted-foreground">
+      <h1 className="font-bold tracking-tight" style={{ fontSize: 'var(--font-size-xxl-rem)' }}>
+        {/* 28px → 2rem (responsive) */}
+        Page Not Found
+      </h1>
+      <p className="text-muted-foreground" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+        {/* 16px → 1.143rem (responsive) */}
         The page you're looking for doesn't exist.
       </p>
     </div>

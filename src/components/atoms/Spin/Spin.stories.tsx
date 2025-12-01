@@ -44,19 +44,31 @@ export const Sizes: Story = {
     <div className="flex items-center gap-8">
       <div className="text-center">
         <Spin size="sm" />
-        <p className="mt-2 text-sm text-[var(--tertiary)]">Small</p>
+        <p className="mt-2 text-[var(--tertiary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          Small
+        </p>
       </div>
       <div className="text-center">
         <Spin size="md" />
-        <p className="mt-2 text-sm text-[var(--tertiary)]">Medium</p>
+        <p className="mt-2 text-[var(--tertiary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          Medium
+        </p>
       </div>
       <div className="text-center">
         <Spin size="lg" />
-        <p className="mt-2 text-sm text-[var(--tertiary)]">Large</p>
+        <p className="mt-2 text-[var(--tertiary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          Large
+        </p>
       </div>
       <div className="text-center">
         <Spin size="xl" />
-        <p className="mt-2 text-sm text-[var(--tertiary)]">XLarge</p>
+        <p className="mt-2 text-[var(--tertiary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          XLarge
+        </p>
       </div>
     </div>
   ),

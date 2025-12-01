@@ -65,7 +65,7 @@ export const Label: React.FC<LabelProps> = ({
     alignItems: 'center',
     gap: '4px',
     fontFamily: 'Inter, sans-serif',
-    fontSize: '14px',
+    fontSize: 'var(--font-size-sm-rem)', // 14px → 1rem (responsive)
     fontWeight: '500',
     lineHeight: '1.4',
     color: 'var(--tertiary)',
@@ -92,7 +92,7 @@ export const Label: React.FC<LabelProps> = ({
     <span
       style={{
         fontFamily: 'Inter, sans-serif',
-        fontSize: '12px',
+        fontSize: 'var(--font-size-xs-rem)', // 12px → 0.857rem (responsive)
         fontWeight: '400',
         lineHeight: '1.4',
         color: '#838C9D',

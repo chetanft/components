@@ -63,16 +63,24 @@ export const TableCell: React.FC<TableCellProps> = ({
     return children;
   }, [children, lineVariant]);
 
+  // Get horizontal padding based on size
+  const getHorizontalPadding = () => {
+    switch (size) {
+      case 'md': return "px-[16px] pl-[8px]";
+      case 'lg': return "px-[16px] pl-[8px]";
+      case 'xl': return "px-[20px] pl-[8px]";
+      default: return "px-[16px] pl-[8px]";
+    }
+  };
+
   return (
     <td
       className={cn(
         // Base styles
         "transition-colors duration-200 border-b border-[var(--border-primary)]",
         
-        // Size variants from Figma - compact spacing
-        size === 'md' && "py-[12px] px-[16px] pl-[8px]",
-        size === 'lg' && "py-[16px] px-[16px] pl-[8px]",
-        size === 'xl' && "py-[20px] px-[20px] pl-[8px]",
+        // Size variants - horizontal padding only (vertical padding via inline style)
+        getHorizontalPadding(),
         
         // Background color
         getBackgroundClass(),
@@ -84,6 +92,10 @@ export const TableCell: React.FC<TableCellProps> = ({
         "align-top",
         className
       )}
+      style={{
+        paddingTop: 'var(--table-cell-padding-y)',
+        paddingBottom: 'var(--table-cell-padding-y)'
+      }}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

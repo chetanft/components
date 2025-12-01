@@ -138,10 +138,11 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
                 placeholder="Search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-[1_0_0] font-normal leading-[1.4] min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[var(--font-size-md)] text-[var(--color-tertiary)] whitespace-nowrap bg-transparent border-none outline-none"
+                className="flex-[1_0_0] font-normal leading-[1.4] min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[var(--color-tertiary)] whitespace-nowrap bg-transparent border-none outline-none"
                 style={{
                   fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
                   fontWeight: 'var(--font-weight-regular, 400)',
+                  fontSize: 'var(--font-size-md-rem)', // 16px → 1.143rem (responsive)
                 }}
               />
             </div>
@@ -184,7 +185,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
             className="flex-[1_0_0] font-normal italic leading-[1.4] min-h-px min-w-px relative shrink-0 text-[var(--color-primary)] whitespace-pre-wrap"
             style={{
               fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
-              fontSize: 'var(--font-size-md)',
+              fontSize: 'var(--font-size-md-rem)', // 16px → 1.143rem (responsive)
             }}
           >
             Select rows first to use bulk actions
@@ -260,7 +261,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
                         style={{
                           fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
                           fontWeight: 'var(--font-weight-medium, 500)',
-                          fontSize: 'var(--font-size-sm)',
+                          fontSize: 'var(--font-size-sm-rem)', // 14px → 1rem (responsive)
                         }}
                       >
                         {groupName}

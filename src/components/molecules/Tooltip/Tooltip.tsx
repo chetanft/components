@@ -119,7 +119,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
         )}
 
         {/* Content */}
-        <div className="text-[var(--font-size-sm)]">
+        <div style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
           {children}
         </div>
 

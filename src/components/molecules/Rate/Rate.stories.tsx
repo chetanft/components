@@ -65,19 +65,31 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
-        <span className="w-16 text-sm text-[var(--tertiary)]">Small</span>
+        <span className="w-16 text-[var(--tertiary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          Small
+        </span>
         <Rate size="sm" defaultValue={3} />
       </div>
       <div className="flex items-center gap-4">
-        <span className="w-16 text-sm text-[var(--tertiary)]">Medium</span>
+        <span className="w-16 text-[var(--tertiary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          Medium
+        </span>
         <Rate size="md" defaultValue={3} />
       </div>
       <div className="flex items-center gap-4">
-        <span className="w-16 text-sm text-[var(--tertiary)]">Large</span>
+        <span className="w-16 text-[var(--tertiary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          Large
+        </span>
         <Rate size="lg" defaultValue={3} />
       </div>
       <div className="flex items-center gap-4">
-        <span className="w-16 text-sm text-[var(--tertiary)]">XLarge</span>
+        <span className="w-16 text-[var(--tertiary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          XLarge
+        </span>
         <Rate size="xl" defaultValue={3} />
       </div>
     </div>

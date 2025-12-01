@@ -36,18 +36,18 @@ export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const variantStyles = {
-  // Figma Design System - Direct pixel values
-  'title-primary': "text-[28px] font-normal leading-[1.4]",                    // Title Primary: 28/140
-  'title-secondary': "text-[24px] font-semibold leading-[1.4]",                // Title Secondary: 24/140
-  'display-primary': "text-[20px] font-semibold leading-[1.4]",                // Display Primary: 20/140
-  'button': "text-[20px] font-medium leading-[1.4] tracking-[0.0264px]",       // Btn: 20/140
-  'body-primary-semibold': "text-[16px] font-semibold leading-[1.4]",          // Body Primary Semibold: 16/140
-  'body-primary-medium': "text-[16px] font-medium leading-[1.4]",              // Body Primary Medium: 16/140
-  'body-primary-italic': "text-[16px] font-normal italic leading-[1.4]",       // Body Primary Italic: 16/140
-  'body-primary-regular': "text-[16px] font-normal leading-[1.4]",             // Body Primary Regular: 16/140
-  'body-secondary-semibold': "text-[14px] font-semibold leading-[1.4]",        // Body Secondary Semibold: 14/140
-  'body-secondary-medium': "text-[14px] font-medium leading-[1.4]",            // Body Secondary Medium: 14/140
-  'body-secondary-regular': "text-[14px] font-normal leading-[1.4]",           // Body Secondary Regular: 14/140
+  // Figma Design System - Rem-based values (responsive)
+  'title-primary': "text-xxl-rem font-normal leading-[1.4]",                    // Title Primary: 28px → 2rem (responsive)
+  'title-secondary': "text-xl-rem font-semibold leading-[1.4]",                // Title Secondary: 24px → 1.714rem (responsive)
+  'display-primary': "text-lg-rem font-semibold leading-[1.4]",                // Display Primary: 20px → 1.429rem (responsive)
+  'button': "text-lg-rem font-medium leading-[1.4] tracking-[0.0264px]",       // Btn: 20px → 1.429rem (responsive)
+  'body-primary-semibold': "text-md-rem font-semibold leading-[1.4]",          // Body Primary Semibold: 16px → 1.143rem (responsive)
+  'body-primary-medium': "text-md-rem font-medium leading-[1.4]",              // Body Primary Medium: 16px → 1.143rem (responsive)
+  'body-primary-italic': "text-md-rem font-normal italic leading-[1.4]",       // Body Primary Italic: 16px → 1.143rem (responsive)
+  'body-primary-regular': "text-md-rem font-normal leading-[1.4]",             // Body Primary Regular: 16px → 1.143rem (responsive)
+  'body-secondary-semibold': "text-sm-rem font-semibold leading-[1.4]",        // Body Secondary Semibold: 14px → 1rem (responsive)
+  'body-secondary-medium': "text-sm-rem font-medium leading-[1.4]",            // Body Secondary Medium: 14px → 1rem (responsive)
+  'body-secondary-regular': "text-sm-rem font-normal leading-[1.4]",           // Body Secondary Regular: 14px → 1rem (responsive)
 };
 
 const colorStyles = {
@@ -96,7 +96,7 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
     // Custom className
     className
   );
-  
+
   // Font family via inline style to avoid Tailwind arbitrary value issues
   const fontFamilyStyle = {
     fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',

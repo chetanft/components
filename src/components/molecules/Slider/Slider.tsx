@@ -221,12 +221,15 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
               <div
                 key={mark.value}
                 className={cn(
-                  "absolute text-[var(--font-size-sm)] text-[var(--tertiary)]",
+                  "absolute text-[var(--tertiary)]",
                   vertical ? "-translate-y-1/2" : "-translate-x-1/2"
                 )}
-                style={vertical 
-                  ? { bottom: `${percent}%` }
-                  : { left: `${percent}%` }
+                style={{
+                  fontSize: 'var(--font-size-sm-rem)', // 14px → 1rem (responsive)
+                  ...(vertical 
+                    ? { bottom: `${percent}%` }
+                    : { left: `${percent}%` })
+                }
                 }
               >
                 {mark.label ?? mark.value}

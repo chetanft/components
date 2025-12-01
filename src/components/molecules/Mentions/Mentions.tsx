@@ -107,11 +107,12 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
         onChange={handleChange}
         className={cn(
           "flex w-full rounded-[var(--radius-md)] border border-[var(--color-border-primary)] bg-[var(--color-bg-primary)]",
-          "px-[var(--spacing-x3)] py-[var(--spacing-x2)] text-[var(--font-size-sm)]",
+          "px-[var(--spacing-x3)] py-[var(--spacing-x2)]",
           "placeholder:text-[var(--color-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50",
           status === 'error' && "border-[var(--color-critical)] focus:ring-[var(--color-critical)]",
           status === 'warning' && "border-[var(--color-warning)] focus:ring-[var(--color-warning)]"
         )}
+        style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
         {...props}
       />
       {showSuggestions && filteredOptions.length > 0 && (
@@ -126,7 +127,8 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
           {filteredOptions.map(opt => (
             <div
               key={opt.value}
-              className="cursor-pointer px-[var(--spacing-x4)] py-[var(--spacing-x2)] hover:bg-[var(--color-neutral-light)] text-[var(--font-size-sm)]"
+              className="cursor-pointer px-[var(--spacing-x4)] py-[var(--spacing-x2)] hover:bg-[var(--color-neutral-light)]"
+              style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
               onClick={() => handleSelect(opt)}
             >
               {opt.label}

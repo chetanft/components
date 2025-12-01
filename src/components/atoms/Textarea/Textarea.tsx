@@ -45,37 +45,37 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const sizeStyles = {
       xxs: {
         padding: 'px-1.5 py-1',
-        fontSize: 'text-xs',
+        fontSize: 'text-xs-rem', // 12px → 0.857rem (responsive)
         minHeight: 'min-h-[32px]',
       },
       xs: {
         padding: 'px-2 py-1.5',
-        fontSize: 'text-sm',
+        fontSize: 'text-sm-rem', // 14px → 1rem (responsive)
         minHeight: 'min-h-[40px]',
       },
       sm: {
         padding: 'px-3 py-2',
-        fontSize: 'text-sm',
+        fontSize: 'text-sm-rem', // 14px → 1rem (responsive)
         minHeight: 'min-h-[48px]',
       },
       md: {
         padding: 'px-3 py-2',
-        fontSize: 'text-sm',
+        fontSize: 'text-sm-rem', // 14px → 1rem (responsive)
         minHeight: 'min-h-[56px]',
       },
       lg: {
         padding: 'px-5 py-4',
-        fontSize: 'text-lg',
+        fontSize: 'text-lg-rem', // 20px → 1.429rem (responsive)
         minHeight: 'min-h-[64px]',
       },
       xl: {
         padding: 'px-6 py-5',
-        fontSize: 'text-xl',
+        fontSize: 'text-xl-rem', // 24px → 1.714rem (responsive)
         minHeight: 'min-h-[72px]',
       },
       xxl: {
         padding: 'px-7 py-6',
-        fontSize: 'text-[28px]',
+        fontSize: 'text-xxl-rem', // 28px → 2rem (responsive)
         minHeight: 'min-h-[80px]',
       },
     };

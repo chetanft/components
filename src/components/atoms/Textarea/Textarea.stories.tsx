@@ -106,10 +106,35 @@ export function DisabledStates() {
 // Sizes story - separate preview for sizes
 export function Sizes() {
   return (
-    <div className="p-6 space-y-4">
-      <Textarea label="Small" size="sm" placeholder="Small textarea" />
-      <Textarea label="Medium" size="md" placeholder="Medium textarea" />
-      <Textarea label="Large" size="lg" placeholder="Large textarea" />
+    <div className="p-6 space-y-6">
+      <div className="space-y-2">
+        <Textarea label="XXS - 0.857rem (12px)" size="xxs" placeholder="XXS textarea" />
+        <p className="text-sm text-muted-foreground">Font: 0.857rem (12px)</p>
+      </div>
+      <div className="space-y-2">
+        <Textarea label="XS - 1rem (14px)" size="xs" placeholder="XS textarea" />
+        <p className="text-sm text-muted-foreground">Font: 1rem (14px)</p>
+      </div>
+      <div className="space-y-2">
+        <Textarea label="SM - 1rem (14px)" size="sm" placeholder="Small textarea" />
+        <p className="text-sm text-muted-foreground">Font: 1rem (14px)</p>
+      </div>
+      <div className="space-y-2">
+        <Textarea label="MD - 1rem (14px)" size="md" placeholder="Medium textarea" />
+        <p className="text-sm text-muted-foreground">Font: 1rem (14px)</p>
+      </div>
+      <div className="space-y-2">
+        <Textarea label="LG - 1.429rem (20px)" size="lg" placeholder="Large textarea" />
+        <p className="text-sm text-muted-foreground">Font: 1.429rem (20px)</p>
+      </div>
+      <div className="space-y-2">
+        <Textarea label="XL - 1.714rem (24px)" size="xl" placeholder="XL textarea" />
+        <p className="text-sm text-muted-foreground">Font: 1.714rem (24px)</p>
+      </div>
+      <div className="space-y-2">
+        <Textarea label="XXL - 2rem (28px)" size="xxl" placeholder="XXL textarea" />
+        <p className="text-sm text-muted-foreground">Font: 2rem (28px)</p>
+      </div>
     </div>
   );
 }

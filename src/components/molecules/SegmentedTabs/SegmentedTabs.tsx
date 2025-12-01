@@ -58,8 +58,8 @@ export const SegmentedTabs = ({
           variant === 'icon-only' 
             ? "px-[var(--x2,8px)]"
             : "px-[var(--x4,16px)]",
-          // Typography - 14px medium from Figma (only when not icon-only)
-          variant === 'default' && "text-[14px] font-medium leading-[1.4]",
+          // Typography - 14px → 1rem (responsive) medium from Figma (only when not icon-only)
+          variant === 'default' && "text-sm-rem font-medium leading-[1.4]",
           // State-specific styles using design tokens
           isSelected
             ? [

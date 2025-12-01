@@ -108,7 +108,8 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
                 color="var(--primary)"
               />
             </div>
-            <p className="font-[family-name:var(--font-family-primary,'Inter',sans-serif)] font-[var(--font-weight-regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary)] text-[length:var(--font-size-md,16px)]">
+            <p className="font-[family-name:var(--font-family-primary,'Inter',sans-serif)] font-[var(--font-weight-regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary)]" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+              {/* 16px → 1.143rem (responsive) */}
               {label}
             </p>
           </button>
@@ -135,7 +136,8 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
             color="var(--critical)"
           />
         </div>
-        <p className="font-[family-name:var(--font-family-primary,'Inter',sans-serif)] font-[var(--font-weight-regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--critical)] text-[length:var(--font-size-md,16px)]">
+        <p className="font-[family-name:var(--font-family-primary,'Inter',sans-serif)] font-[var(--font-weight-regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--critical)]" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+          {/* 16px → 1.143rem (responsive) */}
           {logoutItem.label}
         </p>
       </button>

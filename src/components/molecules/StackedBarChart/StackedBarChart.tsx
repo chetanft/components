@@ -95,7 +95,8 @@ export const StackedBarChart = React.forwardRef(
         {...props}
       >
         {title && (
-          <span className="text-[12px] font-semibold tracking-[0.08em] text-[var(--secondary)]">
+          <span className="text-xs-rem font-semibold tracking-[0.08em] text-[var(--secondary)]">
+            {/* 12px → 0.857rem (responsive) */}
             {title}
           </span>
         )}

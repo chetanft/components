@@ -12,7 +12,7 @@ export const designTokens = {
       primary300: "#838c9d",
       primary200: "#9aa3b2",
       primary100: "#c5cad3",
-      
+
       // Secondary Scale
       secondary900: "#1e1f22",
       secondary800: "#303236",
@@ -23,7 +23,7 @@ export const designTokens = {
       secondary300: "#ced1d7",
       secondary200: "#ebecef",
       secondary100: "#f0f1f7",
-      
+
       // Tertiary Scale
       tertiary900: "#121314",
       tertiary800: "#1c1d1f",
@@ -35,7 +35,7 @@ export const designTokens = {
       tertiary200: "#f4f4f6",
       tertiary100: "#f8f8f9",
       tertiary0: "#ffffff",
-      
+
       // Neutral Scale
       neutral900: "#002966",
       neutral800: "#0040a0",
@@ -46,7 +46,7 @@ export const designTokens = {
       neutral300: "#80c1ff",
       neutral200: "#b3d9ff",
       neutral100: "#ecf6ff",
-      
+
       // Positive Scale
       positive900: "#004d26",
       positive800: "#006633",
@@ -57,7 +57,7 @@ export const designTokens = {
       positive300: "#4dff88",
       positive200: "#99ffcc",
       positive100: "#deffe7",
-      
+
       // Warning Scale
       warning900: "#7a2f00",
       warning800: "#993d00",
@@ -68,7 +68,7 @@ export const designTokens = {
       warning300: "#ffb366",
       warning200: "#ffcc99",
       warning100: "#ffedbc",
-      
+
       // Danger Scale
       danger900: "#800000",
       danger800: "#990000",
@@ -80,7 +80,7 @@ export const designTokens = {
       danger200: "#ffcccc",
       danger100: "#ffeafa"
     },
-    
+
     darkMode: {
       // Primary Scale (inverted for dark mode)
       primary900: "#f8fafc",
@@ -92,7 +92,7 @@ export const designTokens = {
       primary300: "#475569",
       primary200: "#334155",
       primary100: "#1e293b",
-      
+
       // Secondary Scale
       secondary900: "#f9fafb",
       secondary800: "#f3f4f6",
@@ -103,7 +103,7 @@ export const designTokens = {
       secondary300: "#475569",
       secondary200: "#334155",
       secondary100: "#1f2937",
-      
+
       // Tertiary Scale
       tertiary900: "#ffffff",
       tertiary800: "#f9fafb",
@@ -115,7 +115,7 @@ export const designTokens = {
       tertiary200: "#334155",
       tertiary100: "#0f172a",
       tertiary0: "#1e293b",
-      
+
       // Neutral Scale
       neutral900: "#e0f0ff",
       neutral800: "#cce6ff",
@@ -126,7 +126,7 @@ export const designTokens = {
       neutral300: "#66b4ff",
       neutral200: "#52aaff",
       neutral100: "#3da0ff",
-      
+
       // Positive Scale
       positive900: "#ccffdd",
       positive800: "#b8f5c8",
@@ -137,7 +137,7 @@ export const designTokens = {
       positive300: "#52c460",
       positive200: "#3dba4b",
       positive100: "#29b036",
-      
+
       // Warning Scale
       warning900: "#ffe6cc",
       warning800: "#ffddb8",
@@ -148,7 +148,7 @@ export const designTokens = {
       warning300: "#ffae52",
       warning200: "#ffa43d",
       warning100: "#ff9a29",
-      
+
       // Danger Scale
       danger900: "#ffe3e3",
       danger800: "#ffd1d1",
@@ -160,7 +160,7 @@ export const designTokens = {
       danger200: "#ff6565",
       danger100: "#ff5353"
     },
-    
+
     nightMode: {
       // Primary Scale (high contrast for night mode)
       primary900: "#ffffff",
@@ -172,7 +172,7 @@ export const designTokens = {
       primary300: "#808080",
       primary200: "#404040",
       primary100: "#202020",
-      
+
       // Secondary Scale
       secondary900: "#ffffff",
       secondary800: "#f5f5f5",
@@ -183,7 +183,7 @@ export const designTokens = {
       secondary300: "#404040",
       secondary200: "#303030",
       secondary100: "#202020",
-      
+
       // Tertiary Scale
       tertiary900: "#ffffff",
       tertiary800: "#f5f5f5",
@@ -195,7 +195,7 @@ export const designTokens = {
       tertiary200: "#303030",
       tertiary100: "#1a1a1a",
       tertiary0: "#000000",
-      
+
       // Neutral Scale
       neutral900: "#e6f4ff",
       neutral800: "#d1eaff",
@@ -206,7 +206,7 @@ export const designTokens = {
       neutral300: "#6bb5ff",
       neutral200: "#56abff",
       neutral100: "#42a1ff",
-      
+
       // Positive Scale
       positive900: "#d9ffe6",
       positive800: "#c4f5d1",
@@ -217,7 +217,7 @@ export const designTokens = {
       positive300: "#5ec468",
       positive200: "#4aba53",
       positive100: "#36b03e",
-      
+
       // Warning Scale
       warning900: "#fff0d9",
       warning800: "#ffe6c7",
@@ -228,7 +228,7 @@ export const designTokens = {
       warning300: "#ffb56d",
       warning200: "#ffab5b",
       warning100: "#ffa149",
-      
+
       // Danger Scale
       danger900: "#ffe8e8",
       danger800: "#ffd6d6",
@@ -255,7 +255,7 @@ export const designTokens = {
       primary: '#ffffff',      // was white
       secondary: '#f8f8f9',    // was background
     },
-    
+
     // MULTI-THEME COLORS - Semantic mappings to base colors
     themes: {
       light: {
@@ -319,7 +319,7 @@ export const designTokens = {
         black: 'tertiary0',           // #000000
       }
     },
-    
+
     // BACKWARD COMPATIBILITY - Dark tones
     dark: {
       100: '#434f64',          // → primary
@@ -390,7 +390,7 @@ export const designTokens = {
       },
     },
   },
-  
+
   typography: {
     fontFamily: {
       primary: 'Inter',
@@ -418,6 +418,15 @@ export const designTokens = {
         xl: '21px',
         xxl: '26px',
       },
+      // Rem values (responsive - base: 14px, scales to 16px at >1440px)
+      rem: {
+        xs: '0.857rem',   // 12px / 14px
+        sm: '1rem',       // 14px / 14px
+        md: '1.143rem',   // 16px / 14px
+        lg: '1.429rem',   // 20px / 14px
+        xl: '1.714rem',   // 24px / 14px
+        xxl: '2rem',      // 28px / 14px
+      },
     },
     lineHeight: {
       tight: '1.2',
@@ -425,7 +434,7 @@ export const designTokens = {
       relaxed: '1.6',
     },
   },
-  
+
   spacing: {
     // 8-Point Grid System
     x0: '0px',
@@ -448,7 +457,7 @@ export const designTokens = {
     x20: '80px',
     x24: '96px',
   },
-  
+
   borderRadius: {
     none: '0px',
     sm: '4px',
@@ -458,14 +467,14 @@ export const designTokens = {
     full: '9999px',
     circle: '50%',
   },
-  
+
   shadows: {
     sm: '0 1px 2px 0 rgba(67, 79, 100, 0.05)',
     md: '0 4px 6px -1px rgba(67, 79, 100, 0.1)',
     lg: '0 10px 15px -3px rgba(67, 79, 100, 0.1)',
     xl: '0 20px 25px -5px rgba(67, 79, 100, 0.1)',
   },
-  
+
   transitions: {
     fast: '150ms',
     normal: '200ms',
@@ -501,18 +510,18 @@ export type Theme = 'light' | 'dark' | 'night';
 export const getThemeColor = (colorPath: string, theme: Theme = 'light'): string => {
   const keys = colorPath.split('.');
   let value = designTokens.colors.themes[theme] as any;
-  
+
   for (const key of keys) {
     value = value?.[key];
     if (!value) break;
   }
-  
+
   // If value is a string reference to base color, resolve it
   if (typeof value === 'string') {
     const baseTheme = theme === 'light' ? 'lightMode' : theme === 'dark' ? 'darkMode' : 'nightMode';
     return resolveBaseColor(value, baseTheme);
   }
-  
+
   return value || resolveBaseColor('primary700', 'lightMode'); // fallback
 };
 
@@ -621,17 +630,17 @@ export default designTokens;
 export const colors = {
   // Primary text colors
   primary: designTokens.colors.primary,
-  secondary: designTokens.colors.secondary,  
+  secondary: designTokens.colors.secondary,
   tertiary: designTokens.colors.tertiary,
-  
+
   // Border colors
   borderPrimary: designTokens.colors.border.primary,
   borderSecondary: designTokens.colors.border.secondary,
-  
+
   // Background colors
   bgPrimary: designTokens.colors.bg.primary,
   bgSecondary: designTokens.colors.bg.secondary,
-  
+
   // Status colors (unchanged)
   critical: designTokens.colors.critical.default,
   warning: designTokens.colors.warning.default,

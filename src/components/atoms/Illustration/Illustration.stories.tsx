@@ -82,19 +82,31 @@ export function Sizes() {
     <div className="flex flex-wrap gap-4 items-end p-6">
       <div className="text-center">
         <Illustration variant="overview" size="sm" />
-        <p className="mt-2 text-sm text-gray-600">Small</p>
+        <p className="mt-2 text-[var(--secondary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          Small
+        </p>
       </div>
       <div className="text-center">
         <Illustration variant="overview" size="md" />
-        <p className="mt-2 text-sm text-gray-600">Medium</p>
+        <p className="mt-2 text-[var(--secondary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          Medium
+        </p>
       </div>
       <div className="text-center">
         <Illustration variant="overview" size="lg" />
-        <p className="mt-2 text-sm text-gray-600">Large</p>
+        <p className="mt-2 text-[var(--secondary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          Large
+        </p>
       </div>
       <div className="text-center">
         <Illustration variant="overview" size="xl" />
-        <p className="mt-2 text-sm text-gray-600">Extra Large</p>
+        <p className="mt-2 text-[var(--secondary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+          {/* 14px → 1rem (responsive) */}
+          Extra Large
+        </p>
       </div>
     </div>
   );

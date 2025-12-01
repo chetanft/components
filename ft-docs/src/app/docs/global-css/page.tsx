@@ -256,6 +256,18 @@ const globalCssContent = `/* ===================================================
   --x10: 40px;
   --x11: 44px;
   --x12: 48px;
+  
+  /* =====================================================
+     REM-BASED TYPOGRAPHY (RESPONSIVE)
+     ===================================================== */
+  /* Base font size set via html { font-size: 14px; } */
+  /* Rem values scale proportionally with the base font size */
+  --font-size-xs-rem: 0.857rem;   /* 12px / 14px */
+  --font-size-sm-rem: 1rem;       /* 14px / 14px */
+  --font-size-md-rem: 1.143rem;   /* 16px / 14px */
+  --font-size-lg-rem: 1.429rem;   /* 20px / 14px */
+  --font-size-xl-rem: 1.714rem;   /* 24px / 14px */
+  --font-size-xxl-rem: 2rem;      /* 28px / 14px */
 }
 
 /* =====================================================
@@ -570,82 +582,107 @@ export default function GlobalCSSPage() {
         <div className="space-y-8">
             {/* Header */}
             <div className="space-y-4">
-                <h1 className="text-5xl font-bold tracking-tight">
+                <h1 className="font-bold tracking-tight" style={{ fontSize: 'var(--font-size-xxl-rem)' }}>
+                    {/* 28px → 2rem (responsive) */}
                     Global CSS
                 </h1>
-                <p className="text-xl text-zinc-600 dark:text-zinc-400">
+                <p className="text-[var(--secondary)]" style={{ fontSize: 'var(--font-size-xl-rem)' }}>
+                    {/* 24px → 1.714rem (responsive) */}
                     The complete FT Design System CSS file containing all design tokens, color scales, and utility classes.
                 </p>
             </div>
 
             {/* Quick Start */}
             <div className="space-y-4">
-                <h2 className="text-2xl font-semibold tracking-tight">Quick Start</h2>
-                <div className="rounded-lg border bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800 p-4">
-                    <p className="text-sm text-amber-800 dark:text-amber-200">
+                <h2 className="font-semibold tracking-tight" style={{ fontSize: 'var(--font-size-xl-rem)' }}>
+                    {/* 24px → 1.714rem (responsive) */}
+                    Quick Start
+                </h2>
+                <div className="rounded-lg border p-4" style={{ backgroundColor: 'var(--warning-light)', borderColor: 'var(--warning)' }}>
+                    <p style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--warning-dark)' }}>
+                        {/* 14px → 1rem (responsive) */}
                         <strong>1.</strong> Copy or download the CSS file below<br />
-                        <strong>2.</strong> Save it as <code className="px-1.5 py-0.5 bg-amber-100 dark:bg-amber-900/50 rounded text-xs font-mono">globals.css</code> in your project<br />
-                        <strong>3.</strong> Import it in your root layout: <code className="px-1.5 py-0.5 bg-amber-100 dark:bg-amber-900/50 rounded text-xs font-mono">import './globals.css'</code>
+                        <strong>2.</strong> Save it as <code className="px-1.5 py-0.5 rounded font-mono" style={{ backgroundColor: 'var(--warning)', color: 'var(--bg-primary)', fontSize: 'var(--font-size-xs-rem)' }}>globals.css</code> in your project<br />
+                        <strong>3.</strong> Import it in your root layout: <code className="px-1.5 py-0.5 rounded font-mono" style={{ backgroundColor: 'var(--warning)', color: 'var(--bg-primary)', fontSize: 'var(--font-size-xs-rem)' }}>import './globals.css'</code>
                     </p>
                 </div>
             </div>
 
             {/* Token Categories */}
             <div className="space-y-4">
-                <h2 className="text-2xl font-semibold tracking-tight">What's Included</h2>
+                <h2 className="font-semibold tracking-tight" style={{ fontSize: 'var(--font-size-xl-rem)' }}>
+                    {/* 24px → 1.714rem (responsive) */}
+                    What's Included
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div className="rounded-lg border p-4 space-y-2">
+                    <div className="rounded-lg border p-4 space-y-2" style={{ borderColor: 'var(--border-primary)' }}>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-gradient-to-r from-primary-700 to-primary-500" style={{ background: 'linear-gradient(to right, #434f64, #5f697b)' }} />
-                            <h3 className="font-semibold">Color Scales</h3>
+                            <div className="w-3 h-3 rounded-full" style={{ background: 'linear-gradient(to right, var(--primary-700), var(--primary-500))' }} />
+                            <h3 className="font-semibold" style={{ fontSize: 'var(--font-size-md-rem)' }}>Color Scales</h3>
                         </div>
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                        <p style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--secondary)' }}>
+                            {/* 14px → 1rem (responsive) */}
                             9-shade scales for Primary, Secondary, Tertiary, Neutral, Positive, Warning, and Danger colors.
                         </p>
                     </div>
-                    <div className="rounded-lg border p-4 space-y-2">
+                    <div className="rounded-lg border p-4 space-y-2" style={{ borderColor: 'var(--border-primary)' }}>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-blue-500" />
-                            <h3 className="font-semibold">Component Tokens</h3>
+                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--neutral)' }} />
+                            <h3 className="font-semibold" style={{ fontSize: 'var(--font-size-md-rem)' }}>Component Tokens</h3>
                         </div>
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                        <p style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--secondary)' }}>
+                            {/* 14px → 1rem (responsive) */}
                             Button, Badge, Form, Switch, and Radio component variables with hover and focus states.
                         </p>
                     </div>
-                    <div className="rounded-lg border p-4 space-y-2">
+                    <div className="rounded-lg border p-4 space-y-2" style={{ borderColor: 'var(--border-primary)' }}>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-green-500" />
-                            <h3 className="font-semibold">Spacing System</h3>
+                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--positive)' }} />
+                            <h3 className="font-semibold" style={{ fontSize: 'var(--font-size-md-rem)' }}>Spacing System</h3>
                         </div>
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                        <p style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--secondary)' }}>
+                            {/* 14px → 1rem (responsive) */}
                             8-point grid spacing from --x1 (4px) to --x12 (48px) for consistent layouts.
                         </p>
                     </div>
-                    <div className="rounded-lg border p-4 space-y-2">
+                    <div className="rounded-lg border p-4 space-y-2" style={{ borderColor: 'var(--border-primary)' }}>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-purple-500" />
-                            <h3 className="font-semibold">Dark Mode</h3>
+                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--tertiary)' }} />
+                            <h3 className="font-semibold" style={{ fontSize: 'var(--font-size-md-rem)' }}>Dark Mode</h3>
                         </div>
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                        <p style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--secondary)' }}>
+                            {/* 14px → 1rem (responsive) */}
                             Full dark mode support with inverted color scales and adjusted semantic colors.
                         </p>
                     </div>
-                    <div className="rounded-lg border p-4 space-y-2">
+                    <div className="rounded-lg border p-4 space-y-2" style={{ borderColor: 'var(--border-primary)' }}>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-zinc-900 dark:bg-white" />
-                            <h3 className="font-semibold">Night Mode</h3>
+                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--primary-900)' }} />
+                            <h3 className="font-semibold" style={{ fontSize: 'var(--font-size-md-rem)' }}>Night Mode</h3>
                         </div>
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                        <p style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--secondary)' }}>
+                            {/* 14px → 1rem (responsive) */}
                             True black theme for OLED displays with high contrast colors.
                         </p>
                     </div>
-                    <div className="rounded-lg border p-4 space-y-2">
+                    <div className="rounded-lg border p-4 space-y-2" style={{ borderColor: 'var(--border-primary)' }}>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-orange-500" />
-                            <h3 className="font-semibold">Utility Classes</h3>
+                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--warning)' }} />
+                            <h3 className="font-semibold" style={{ fontSize: 'var(--font-size-md-rem)' }}>Utility Classes</h3>
                         </div>
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                        <p style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--secondary)' }}>
+                            {/* 14px → 1rem (responsive) */}
                             Text, background, and border utility classes using design tokens.
+                        </p>
+                    </div>
+                    <div className="rounded-lg border p-4 space-y-2" style={{ borderColor: 'var(--border-primary)' }}>
+                        <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--primary)' }} />
+                            <h3 className="font-semibold" style={{ fontSize: 'var(--font-size-md-rem)' }}>Rem Typography</h3>
+                        </div>
+                        <p style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--secondary)' }}>
+                            {/* 14px → 1rem (responsive) */}
+                            Responsive font sizes (xs to xxl) that scale proportionally with base font size (14px).
                         </p>
                     </div>
                 </div>
@@ -654,18 +691,44 @@ export default function GlobalCSSPage() {
             {/* CSS File */}
             <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                    <h2 className="text-2xl font-semibold tracking-tight">globals.css</h2>
+                    <h2 className="font-semibold tracking-tight" style={{ fontSize: 'var(--font-size-xl-rem)' }}>
+                        {/* 24px → 1.714rem (responsive) */}
+                        globals.css
+                    </h2>
                     <div className="flex gap-2">
                         <button
                             onClick={downloadFile}
-                            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors"
+                            className="inline-flex items-center gap-2 px-4 py-2 font-medium rounded-md border transition-colors"
+                            style={{
+                                fontSize: 'var(--font-size-sm-rem)',
+                                borderColor: 'var(--border-primary)',
+                                backgroundColor: 'var(--bg-primary)',
+                                color: 'var(--primary)'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = 'var(--bg-primary)';
+                            }}
                         >
                             <Download className="h-4 w-4" />
                             Download
                         </button>
                         <button
                             onClick={copyToClipboard}
-                            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors"
+                            className="inline-flex items-center gap-2 px-4 py-2 font-medium rounded-md transition-colors"
+                            style={{
+                                fontSize: 'var(--font-size-sm-rem)',
+                                backgroundColor: 'var(--primary)',
+                                color: 'var(--bg-primary)'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = 'var(--primary-800)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.backgroundColor = 'var(--primary)';
+                            }}
                         >
                             {copied ? (
                                 <>
@@ -681,43 +744,44 @@ export default function GlobalCSSPage() {
                         </button>
                     </div>
                 </div>
-                <div 
-                  className="relative rounded-lg border overflow-hidden"
-                  style={{
-                    backgroundColor: 'var(--primary-900)',
-                    borderColor: 'var(--border-primary)'
-                  }}
+                <div
+                    className="relative rounded-lg border overflow-hidden"
+                    style={{
+                        backgroundColor: 'var(--primary-900)',
+                        borderColor: 'var(--border-primary)'
+                    }}
                 >
                     <div className="absolute top-3 right-3">
                         <button
                             onClick={copyToClipboard}
                             className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors"
                             style={{
-                              backgroundColor: 'var(--primary-800)',
-                              color: 'var(--tertiary-300)'
+                                backgroundColor: 'var(--primary-800)',
+                                color: 'var(--tertiary-300)'
                             }}
                             onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = 'var(--primary-700)';
-                              e.currentTarget.style.color = 'var(--tertiary-0)';
+                                e.currentTarget.style.backgroundColor = 'var(--primary-700)';
+                                e.currentTarget.style.color = 'var(--tertiary-0)';
                             }}
                             onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'var(--primary-800)';
-                              e.currentTarget.style.color = 'var(--tertiary-300)';
+                                e.currentTarget.style.backgroundColor = 'var(--primary-800)';
+                                e.currentTarget.style.color = 'var(--tertiary-300)';
                             }}
                             title="Copy to clipboard"
                         >
                             {copied ? (
-                                <Check className="h-4 w-4 text-green-400" />
+                                <Check className="h-4 w-4" style={{ color: 'var(--positive)' }} />
                             ) : (
                                 <Copy className="h-4 w-4" />
                             )}
                         </button>
                     </div>
-                    <pre 
-                      className="p-4 overflow-x-auto text-sm font-mono max-h-[600px] overflow-y-auto"
-                      style={{
-                        color: 'var(--tertiary-0)'
-                      }}
+                    <pre
+                        className="p-4 overflow-x-auto font-mono max-h-[600px] overflow-y-auto"
+                        style={{
+                            fontSize: 'var(--font-size-sm-rem)',
+                            color: 'var(--tertiary-0)'
+                        }}
                     >
                         <code>{globalCssContent}</code>
                     </pre>
@@ -726,18 +790,22 @@ export default function GlobalCSSPage() {
 
             {/* Usage Examples */}
             <div className="space-y-4">
-                <h2 className="text-2xl font-semibold tracking-tight">Usage Examples</h2>
+                <h2 className="font-semibold tracking-tight" style={{ fontSize: 'var(--font-size-xl-rem)' }}>
+                    {/* 24px → 1.714rem (responsive) */}
+                    Usage Examples
+                </h2>
                 <div className="space-y-4">
-                    <div className="rounded-lg border p-4 space-y-3">
-                        <h3 className="font-semibold">Using CSS Variables</h3>
-                        <pre 
-                          className="rounded-md p-3 text-sm font-mono overflow-x-auto"
-                          style={{
-                            backgroundColor: 'var(--primary-900)',
-                            color: 'var(--tertiary-0)'
-                          }}
+                    <div className="rounded-lg border p-4 space-y-3" style={{ borderColor: 'var(--border-primary)' }}>
+                        <h3 className="font-semibold" style={{ fontSize: 'var(--font-size-md-rem)' }}>Using CSS Variables</h3>
+                        <pre
+                            className="rounded-md p-3 font-mono overflow-x-auto"
+                            style={{
+                                fontSize: 'var(--font-size-sm-rem)',
+                                backgroundColor: 'var(--primary-900)',
+                                color: 'var(--tertiary-0)'
+                            }}
                         >
-{`.my-component {
+                            {`.my-component {
   color: var(--primary);
   background: var(--bg-secondary);
   border: 1px solid var(--border-primary);
@@ -746,30 +814,32 @@ export default function GlobalCSSPage() {
 }`}
                         </pre>
                     </div>
-                    <div className="rounded-lg border p-4 space-y-3">
-                        <h3 className="font-semibold">Using Utility Classes</h3>
-                        <pre 
-                          className="rounded-md p-3 text-sm font-mono overflow-x-auto"
-                          style={{
-                            backgroundColor: 'var(--primary-900)',
-                            color: 'var(--tertiary-0)'
-                          }}
+                    <div className="rounded-lg border p-4 space-y-3" style={{ borderColor: 'var(--border-primary)' }}>
+                        <h3 className="font-semibold" style={{ fontSize: 'var(--font-size-md-rem)' }}>Using Utility Classes</h3>
+                        <pre
+                            className="rounded-md p-3 font-mono overflow-x-auto"
+                            style={{
+                                fontSize: 'var(--font-size-sm-rem)',
+                                backgroundColor: 'var(--primary-900)',
+                                color: 'var(--tertiary-0)'
+                            }}
                         >
-{`<div class="text-primary bg-neutral border-warning">
+                            {`<div class="text-primary bg-neutral border-warning">
   Styled with utility classes
 </div>`}
                         </pre>
                     </div>
-                    <div className="rounded-lg border p-4 space-y-3">
-                        <h3 className="font-semibold">Theme Switching</h3>
-                        <pre 
-                          className="rounded-md p-3 text-sm font-mono overflow-x-auto"
-                          style={{
-                            backgroundColor: 'var(--primary-900)',
-                            color: 'var(--tertiary-0)'
-                          }}
+                    <div className="rounded-lg border p-4 space-y-3" style={{ borderColor: 'var(--border-primary)' }}>
+                        <h3 className="font-semibold" style={{ fontSize: 'var(--font-size-md-rem)' }}>Theme Switching</h3>
+                        <pre
+                            className="rounded-md p-3 font-mono overflow-x-auto"
+                            style={{
+                                fontSize: 'var(--font-size-sm-rem)',
+                                backgroundColor: 'var(--primary-900)',
+                                color: 'var(--tertiary-0)'
+                            }}
                         >
-{`<!-- Light mode (default) -->
+                            {`<!-- Light mode (default) -->
 <html>
 
 <!-- Dark mode -->
@@ -777,6 +847,28 @@ export default function GlobalCSSPage() {
 
 <!-- Night mode (true black) -->
 <html class="night">`}
+                        </pre>
+                    </div>
+                    <div className="rounded-lg border p-4 space-y-3" style={{ borderColor: 'var(--border-primary)' }}>
+                        <h3 className="font-semibold" style={{ fontSize: 'var(--font-size-md-rem)' }}>Rem-Based Typography</h3>
+                        <pre
+                            className="rounded-md p-3 font-mono overflow-x-auto"
+                            style={{
+                                fontSize: 'var(--font-size-sm-rem)',
+                                backgroundColor: 'var(--primary-900)',
+                                color: 'var(--tertiary-0)'
+                            }}
+                        >
+                            {`/* Tailwind classes (recommended for components) */
+<h1 className="text-xxl-rem">Title</h1>
+<p className="text-sm-rem">Body text</p>
+
+/* CSS variables (alternative for inline styles) */
+<h1 style={{ fontSize: 'var(--font-size-xxl-rem)' }}>Title</h1>
+<p style={{ fontSize: 'var(--font-size-sm-rem)' }}>Body text</p>
+
+/* Font sizes scale: xs (12px), sm (14px), md (16px), 
+   lg (20px), xl (24px), xxl (28px) */`}
                         </pre>
                     </div>
                 </div>

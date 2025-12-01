@@ -145,17 +145,17 @@ export const DropdownMenuItem = React.forwardRef<
         ? 'text-[var(--color-tertiary)]'
         : 'text-[var(--color-primary)]';
 
-    // Font style - use inline styles with valid CSS values
+    // Font style - use inline styles with valid CSS values (rem-based for responsive typography)
     const fontStyle = isInfo
       ? {
         fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
         fontStyle: 'italic',
-        fontSize: 'var(--font-size-md)',
+        fontSize: 'var(--font-size-md-rem)', // 16px → 1.143rem (responsive)
       }
       : {
         fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
         fontWeight: 'var(--font-weight-regular, 400)',
-        fontSize: 'var(--font-size-md)',
+        fontSize: 'var(--font-size-md-rem)', // 16px → 1.143rem (responsive)
       };
 
     const handleMouseEnter = () => {

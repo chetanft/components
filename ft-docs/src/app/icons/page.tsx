@@ -338,7 +338,10 @@ export default function IconsPage() {
             <div className="space-y-6">
               {/* Mobile Close Button */}
               <div className="flex items-center justify-between lg:hidden mb-4">
-                <h2 className="text-lg font-semibold">Customizer</h2>
+                <h2 className="font-semibold" style={{ fontSize: 'var(--font-size-lg-rem)' }}>
+                  {/* 20px → 1.429rem (responsive) */}
+                  Customizer
+                </h2>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={(e) => {
@@ -370,7 +373,10 @@ export default function IconsPage() {
               </div>
               <div>
                 <div className="hidden lg:flex items-center justify-between mb-4">
-                  <h2 className="text-sm font-semibold">Customizer</h2>
+                  <h2 className="font-semibold" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+                    {/* 14px → 1rem (responsive) */}
+                    Customizer
+                  </h2>
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -392,7 +398,10 @@ export default function IconsPage() {
 
                 {/* Color */}
                 <div className="space-y-2 mb-4">
-                  <label className="text-xs font-medium text-muted-foreground">Color</label>
+                  <label className="font-medium text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>
+                    {/* 12px → 0.857rem (responsive) */}
+                    Color
+                  </label>
                   <div className="flex items-center gap-2">
                     <input
                       type="color"
@@ -405,7 +414,8 @@ export default function IconsPage() {
                       type="text"
                       value={iconColor}
                       onChange={(e) => setIconColor(e.target.value)}
-                      className="flex-1 h-8 rounded-md border border-input bg-background px-2 text-xs"
+                      className="flex-1 h-8 rounded-md border border-input bg-background px-2"
+                      style={{ fontSize: 'var(--font-size-xs-rem)' }}
                       placeholder="currentColor"
                     />
                   </div>
@@ -414,8 +424,11 @@ export default function IconsPage() {
                 {/* Stroke width */}
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-medium text-muted-foreground">Stroke width</label>
-                    <span className="text-xs text-muted-foreground">{strokeWidth}px</span>
+                    <label className="font-medium text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>
+                      {/* 12px → 0.857rem (responsive) */}
+                      Stroke width
+                    </label>
+                    <span className="text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>{strokeWidth}px</span>
                   </div>
                   <input
                     type="range"
@@ -431,8 +444,11 @@ export default function IconsPage() {
                 {/* Size */}
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-medium text-muted-foreground">Size</label>
-                    <span className="text-xs text-muted-foreground">{iconSize}px</span>
+                    <label className="font-medium text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>
+                      {/* 12px → 0.857rem (responsive) */}
+                      Size
+                    </label>
+                    <span className="text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>{iconSize}px</span>
                   </div>
                   <input
                     type="range"
@@ -446,7 +462,10 @@ export default function IconsPage() {
 
                 {/* Absolute Stroke width */}
                 <div className="flex items-center justify-between mb-4">
-                  <label className="text-xs font-medium text-muted-foreground">Absolute Stroke width</label>
+                  <label className="font-medium text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>
+                    {/* 12px → 0.857rem (responsive) */}
+                    Absolute Stroke width
+                  </label>
                   <button
                     onClick={() => setAbsoluteStrokeWidth(!absoluteStrokeWidth)}
                     className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${absoluteStrokeWidth ? "bg-primary" : "bg-muted"
@@ -465,7 +484,10 @@ export default function IconsPage() {
 
               {/* View Mode */}
               <div className="space-y-2">
-                <label className="text-xs font-medium text-muted-foreground">View</label>
+                <label className="font-medium text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>
+                  {/* 12px → 0.857rem (responsive) */}
+                  View
+                </label>
                 <div className="flex gap-2">
                   <button
                     onClick={() => {
@@ -473,11 +495,11 @@ export default function IconsPage() {
                       setSelectedCategory("All")
                       setSelectedStyleCategory("All")
                     }}
-                    className={`px-3 py-1.5 text-xs rounded-md transition-colors whitespace-nowrap ${viewMode === "all"
+                    className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap ${viewMode === "all"
                       ? "bg-primary"
                       : "bg-background border hover:bg-muted"
                       }`}
-                    style={viewMode === "all" ? { color: 'var(--bg-primary)' } : undefined}
+                    style={{ fontSize: 'var(--font-size-xs-rem)', ...(viewMode === "all" ? { color: 'var(--bg-primary)' } : {}) }}
                   >
                     All
                   </button>
@@ -486,11 +508,11 @@ export default function IconsPage() {
                       setViewMode("styles")
                       setSelectedStyleCategory("All")
                     }}
-                    className={`px-3 py-1.5 text-xs rounded-md transition-colors whitespace-nowrap ${viewMode === "styles"
+                    className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap ${viewMode === "styles"
                       ? "bg-primary"
                       : "bg-background border hover:bg-muted"
                       }`}
-                    style={viewMode === "styles" ? { color: 'var(--bg-primary)' } : undefined}
+                    style={{ fontSize: 'var(--font-size-xs-rem)', ...(viewMode === "styles" ? { color: 'var(--bg-primary)' } : {}) }}
                   >
                     Styles
                   </button>
@@ -499,11 +521,11 @@ export default function IconsPage() {
                       setViewMode("categories")
                       setSelectedCategory("All")
                     }}
-                    className={`px-3 py-1.5 text-xs rounded-md transition-colors whitespace-nowrap flex-shrink-0 ${viewMode === "categories"
+                    className={`px-3 py-1.5 rounded-md transition-colors whitespace-nowrap flex-shrink-0 ${viewMode === "categories"
                       ? "bg-primary"
                       : "bg-background border hover:bg-muted"
                       }`}
-                    style={viewMode === "categories" ? { color: 'var(--bg-primary)' } : undefined}
+                    style={{ fontSize: 'var(--font-size-xs-rem)', ...(viewMode === "categories" ? { color: 'var(--bg-primary)' } : {}) }}
                   >
                     Categories
                   </button>
@@ -513,17 +535,20 @@ export default function IconsPage() {
               {/* Style Categories */}
               {viewMode === "styles" && (
                 <div className="space-y-2">
-                  <label className="text-xs font-medium text-muted-foreground">Style Categories</label>
+                  <label className="font-medium text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>
+                    {/* 12px → 0.857rem (responsive) */}
+                    Style Categories
+                  </label>
                   <div className="space-y-1 max-h-[400px] overflow-y-auto">
                     {Object.keys(iconStyleCategories).map((category) => (
                       <button
                         key={category}
                         onClick={() => setSelectedStyleCategory(category as StyleCategoryName)}
-                        className={`w-full text-left px-3 py-2 text-xs rounded-md transition-colors ${selectedStyleCategory === category
+                        className={`w-full text-left px-3 py-2 rounded-md transition-colors ${selectedStyleCategory === category
                           ? "bg-primary"
                           : "hover:bg-muted"
                           }`}
-                        style={selectedStyleCategory === category ? { color: 'var(--bg-primary)' } : undefined}
+                        style={{ fontSize: 'var(--font-size-xs-rem)', ...(selectedStyleCategory === category ? { color: 'var(--bg-primary)' } : {}) }}
                       >
                         <div className="flex items-center justify-between">
                           <span>{category}</span>
@@ -540,17 +565,20 @@ export default function IconsPage() {
               {/* Functional Categories */}
               {viewMode === "categories" && (
                 <div className="space-y-2">
-                  <label className="text-xs font-medium text-muted-foreground">Categories</label>
+                  <label className="font-medium text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>
+                    {/* 12px → 0.857rem (responsive) */}
+                    Categories
+                  </label>
                   <div className="space-y-1 max-h-[400px] overflow-y-auto">
                     {Object.keys(iconCategories).map((category) => (
                       <button
                         key={category}
                         onClick={() => setSelectedCategory(category as CategoryName)}
-                        className={`w-full text-left px-3 py-2 text-xs rounded-md transition-colors ${selectedCategory === category
+                        className={`w-full text-left px-3 py-2 rounded-md transition-colors ${selectedCategory === category
                           ? "bg-primary"
                           : "hover:bg-muted"
                           }`}
-                        style={selectedCategory === category ? { color: 'var(--bg-primary)' } : undefined}
+                        style={{ fontSize: 'var(--font-size-xs-rem)', ...(selectedCategory === category ? { color: 'var(--bg-primary)' } : {}) }}
                       >
                         <div className="flex items-center justify-between">
                           <span>{category}</span>
@@ -582,9 +610,13 @@ export default function IconsPage() {
                         <path d="M3 5h14M3 10h14M3 15h14" />
                       </svg>
                     </button>
-                    <h1 className="text-3xl font-bold tracking-tight">Icons</h1>
+                    <h1 className="font-bold tracking-tight" style={{ fontSize: 'var(--font-size-xl-rem)' }}>
+                      {/* 24px → 1.714rem (responsive) */}
+                      Icons
+                    </h1>
                   </div>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+                    {/* 14px → 1rem (responsive) */}
                     Browse all {iconNames.length} icons from the design system
                   </p>
                 </div>
@@ -597,7 +629,8 @@ export default function IconsPage() {
                   placeholder="Search icons..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full max-w-md rounded-md border border-input bg-background px-4 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="w-full max-w-md rounded-md border border-input bg-background px-4 py-2 shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  style={{ fontSize: 'var(--font-size-sm-rem)' }}
                 />
                 {searchQuery && (
                   <button

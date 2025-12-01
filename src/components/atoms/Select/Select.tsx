@@ -19,7 +19,7 @@ const SelectTrigger = React.forwardRef<
     <SelectPrimitive.Trigger
         ref={ref}
         className={cn(
-            "flex h-10 w-full items-center justify-between rounded-md border border-[var(--border-primary)] bg-[var(--bg-primary)] px-3 py-2 text-sm ring-offset-background placeholder:text-[var(--tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            "flex h-10 w-full items-center justify-between rounded-md border border-[var(--border-primary)] bg-[var(--bg-primary)] px-3 py-2 text-sm-rem ring-offset-background placeholder:text-[var(--tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
             className
         )}
         {...props}
@@ -105,7 +105,7 @@ const SelectLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
     <SelectPrimitive.Label
         ref={ref}
-        className={cn("py-1.5 pl-8 pr-2 text-sm font-semibold", className)}
+        className={cn("py-1.5 pl-8 pr-2 text-sm-rem font-semibold", className)}
         {...props}
     />
 ))
@@ -118,7 +118,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.Item
         ref={ref}
         className={cn(
-            "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-[var(--bg-secondary)] focus:text-[var(--primary)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+            "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm-rem outline-none focus:bg-[var(--bg-secondary)] focus:text-[var(--primary)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
             className
         )}
         {...props}

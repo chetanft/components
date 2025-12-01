@@ -112,3 +112,26 @@ export const WithRibbon: Story = {
         </Ribbon>
     )
 };
+
+export function Sizes() {
+  return (
+    <div className="p-6 space-y-6">
+      <div className="flex flex-col gap-2">
+        <Badge variant="normal" size="xs">XS - 0.714rem (10px)</Badge>
+        <p className="text-sm text-muted-foreground">Font: 0.714rem (10px)</p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <Badge variant="normal" size="sm">SM - 0.857rem (12px)</Badge>
+        <p className="text-sm text-muted-foreground">Font: 0.857rem (12px)</p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <Badge variant="normal" size="md">MD - 1rem (14px)</Badge>
+        <p className="text-sm text-muted-foreground">Font: 1rem (14px)</p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <Badge variant="normal" size="lg">LG - 1.143rem (16px)</Badge>
+        <p className="text-sm text-muted-foreground">Font: 1.143rem (16px)</p>
+      </div>
+    </div>
+  );
+}

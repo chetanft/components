@@ -26,6 +26,7 @@ import { Button, Input, Table } from 'ft-design-system/ai';
    - Icons accept FT icon string names, never inline SVG React nodes.
 3. **Never override heights manually** – do not add \`h-*\`, \`rounded-*\`, or arbitrary padding classes. Use props.
 4. **Respect FT token rules** – \`var(--token-name)\` only, no underscores, no \`/\` in CSS variable names.
+5. **Use rem-based typography** – Use responsive font size classes: \`text-sm-rem\`, \`text-md-rem\`, \`text-lg-rem\`, \`text-xl-rem\`, \`text-xxl-rem\`. These scale proportionally with the base font size (14px). Never use fixed pixel font sizes like \`text-[14px]\` unless absolutely necessary.
 
 ## ⚠️ CSS Specificity & Component Sizing (CRITICAL)
 FT components ship with locked heights via CSS variables (e.g. \`var(--component-height-md)\`), so Tailwind classes like \`h-12\`, \`h-10\`, \`h-16\`, or \`h-[52px]\` will be ignored. Always drive size through the component API:
@@ -33,6 +34,9 @@ FT components ship with locked heights via CSS variables (e.g. \`var(--component
 - **Button/Input**: \`size="sm"|"md"|"lg"\` → 36px / 40px / 52px, text 14px (sm) or 16px (md/lg)
 - **Dropdown/DatePicker**: \`size="md"|"lg"|"xl"\` → 40px / 52px / 64px (xl reserved for DatePicker special cases)
 - **Upload controls, Steps, ProgressList**: inherit internal sizing; never layer extra \`h-*\` utility classes.
+
+### Typography Sizing
+Use rem-based font size classes for responsive typography: \`text-xs-rem\` (12px), \`text-sm-rem\` (14px), \`text-md-rem\` (16px), \`text-lg-rem\` (20px), \`text-xl-rem\` (24px), \`text-xxl-rem\` (28px). These scale proportionally with the base font size.
 
 ### Debugging Tailwind Conflicts
 1. Inspect in DevTools to confirm FT CSS overriding with \`--component-height-*\`.

@@ -6,25 +6,25 @@ export default {
     './src/**/*.{js,jsx,ts,tsx}',
     './src/stories/**/*.{js,jsx,ts,tsx}',
   ],
-  
+
   // CRITICAL: Safelist ensures all design system classes are included in dist/styles.css
   safelist: [
     // Animation utilities (CRITICAL for Spin component)
     'animate-spin',
     'animate-pulse',
-    
+
     // BASE COLOR SCALES - All shades for all families
-    ...['primary', 'secondary', 'tertiary', 'neutral', 'positive', 'warning', 'danger'].flatMap(family => 
+    ...['primary', 'secondary', 'tertiary', 'neutral', 'positive', 'warning', 'danger'].flatMap(family =>
       ['900', '800', '700', '600', '500', '400', '300', '200', '100', ...(family === 'tertiary' ? ['0'] : [])].flatMap(shade => [
         `bg-${family}-${shade}`,
         `text-${family}-${shade}`,
         `border-${family}-${shade}`,
       ])
     ),
-    
+
     // CSS Variable-based colors
     'bg-[var(--primary)]',
-    'bg-[var(--secondary)]', 
+    'bg-[var(--secondary)]',
     'bg-[var(--tertiary)]',
     'bg-[var(--border-primary)]',
     'bg-[var(--border-secondary)]',
@@ -34,7 +34,7 @@ export default {
     'bg-[var(--warning)]',
     'bg-[var(--positive)]',
     'bg-[var(--neutral)]',
-    
+
     'text-[var(--primary)]',
     'text-[var(--secondary)]',
     'text-[var(--tertiary)]',
@@ -42,14 +42,14 @@ export default {
     'text-[var(--warning)]',
     'text-[var(--positive)]',
     'text-[var(--neutral)]',
-    
+
     'border-[var(--primary)]',
     'border-[var(--secondary)]',
     'border-[var(--tertiary)]',
     'border-[var(--border-primary)]',
     'border-[var(--border-secondary)]',
     'border-[var(--critical)]',
-    
+
     // Button-specific variables
     'bg-[var(--button-primary-bg)]',
     'bg-[var(--button-secondary-bg)]',
@@ -59,7 +59,7 @@ export default {
     'text-[var(--button-secondary-text)]',
     'text-[var(--button-destructive-text)]',
     'text-[var(--button-text-text)]',
-    
+
     // Badge-specific variables (MISSING - this was the issue!)
     'bg-[var(--badge-normal-bg)]',
     'bg-[var(--badge-danger-bg)]',
@@ -75,14 +75,14 @@ export default {
     'border-[var(--badge-danger-border)]',
     'border-[var(--badge-success-border)]',
     'border-[var(--badge-warning-border)]',
-    
+
     // Component sizing
     'w-[var(--radio-size)]',
     'h-[var(--radio-size)]',
     'gap-[var(--radio-gap)]',
     'rounded-[var(--badge-border-radius)]',
     'rounded-[var(--component-border-radius)]',
-    
+
     // Form system variables
     'bg-[var(--surface)]',
     'bg-[var(--surface-alt)]',
@@ -90,12 +90,12 @@ export default {
     'text-[var(--input)]',
     'border-[var(--border)]',
     'border-[var(--focus)]',
-    
+
     // Size variants
     'h-component-xxs',
     'h-component-xs',
     'h-component-sm',
-    'h-component-md', 
+    'h-component-md',
     'h-component-lg',
     'h-component-xl',
     'h-component-xxl',
@@ -106,15 +106,22 @@ export default {
     'w-component-lg',
     'w-component-xl',
     'w-component-xxl',
-    
+
     // Font sizes from design tokens
     'text-[12px]',
-    'text-[14px]', 
+    'text-[14px]',
     'text-[16px]',
     'text-[20px]',
     'text-[24px]',
     'text-[28px]',
-    
+    // Rem-based font sizes (responsive)
+    'text-xs-rem',
+    'text-sm-rem',
+    'text-md-rem',
+    'text-lg-rem',
+    'text-xl-rem',
+    'text-xxl-rem',
+
     // Spacing tokens
     'p-[6px]',
     'p-[8px]',
@@ -145,7 +152,7 @@ export default {
           200: 'var(--primary-200)',
           100: 'var(--primary-100)',
         },
-        
+
         secondary: {
           900: 'var(--secondary-900)',
           800: 'var(--secondary-800)',
@@ -157,7 +164,7 @@ export default {
           200: 'var(--secondary-200)',
           100: 'var(--secondary-100)',
         },
-        
+
         tertiary: {
           900: 'var(--tertiary-900)',
           800: 'var(--tertiary-800)',
@@ -170,7 +177,7 @@ export default {
           100: 'var(--tertiary-100)',
           0: 'var(--tertiary-0)',
         },
-        
+
         neutral: {
           900: 'var(--neutral-900)',
           800: 'var(--neutral-800)',
@@ -182,7 +189,7 @@ export default {
           200: 'var(--neutral-200)',
           100: 'var(--neutral-100)',
         },
-        
+
         positive: {
           900: 'var(--positive-900)',
           800: 'var(--positive-800)',
@@ -194,7 +201,7 @@ export default {
           200: 'var(--positive-200)',
           100: 'var(--positive-100)',
         },
-        
+
         warning: {
           900: 'var(--warning-900)',
           800: 'var(--warning-800)',
@@ -206,7 +213,7 @@ export default {
           200: 'var(--warning-200)',
           100: 'var(--warning-100)',
         },
-        
+
         danger: {
           900: 'var(--danger-900)',
           800: 'var(--danger-800)',
@@ -223,15 +230,15 @@ export default {
         'primary': 'var(--primary)', // #434f64 - Main text, primary actions
         'secondary': 'var(--secondary)', // #5f697b - Secondary text, muted content  
         'tertiary': 'var(--tertiary)', // #838c9d - Subtle text, disabled states
-        
+
         // BORDER COLORS
         'border-primary': 'var(--border-primary)', // #ced1d7 - Primary borders, form elements
         'border-secondary': 'var(--border-secondary)', // #f0f1f7 - Dividers, subtle separators
-        
+
         // BACKGROUND COLORS  
         'bg-primary': 'var(--bg-primary)', // #ffffff - Cards, surfaces, main backgrounds
         'bg-secondary': 'var(--bg-secondary)', // #f8f8f9 - Page backgrounds, subtle fills
-        
+
         // STATUS COLORS (unchanged)
         'critical': {
           'dark': 'var(--critical-dark)', // #b80100
@@ -253,7 +260,7 @@ export default {
           DEFAULT: 'var(--neutral)', // #1890ff
           'light': 'var(--neutral-light)', // #ecf6ff
         },
-        
+
         // COMPONENT SYSTEM COLORS (CRITICAL - DO NOT REMOVE)
         'component': {
           'border': 'var(--component-border-color)',
@@ -265,7 +272,7 @@ export default {
           'text-muted': 'var(--component-text-muted)',
           'text-disabled': 'var(--component-text-disabled)',
         },
-        
+
         // FORM SYSTEM COLORS (MISSING - ADDED TO FIX DARK MODE)
         'surface': {
           DEFAULT: 'var(--surface)',
@@ -307,7 +314,7 @@ export default {
         },
         'focus-ring': 'var(--focus-ring)',
       },
-      
+
       // SPACING SYSTEM (8-point grid)
       spacing: {
         'x0': 'var(--space-0)', // 0px
@@ -325,7 +332,7 @@ export default {
         'x20': 'var(--space-20)', // 80px
         'x24': 'var(--space-24)', // 96px
       },
-      
+
       // BORDER RADIUS TOKENS
       borderRadius: {
         'sm': 'var(--radius-sm)', // 4px
@@ -339,22 +346,22 @@ export default {
         'full': '9999px', // Full rounded (same as pill)
         'circle': '50%', // Perfect circles
       },
-      
+
       // SHADOW TOKENS
       boxShadow: {
         'sm': 'var(--shadow-sm)',
-        'md': 'var(--shadow-md)', 
+        'md': 'var(--shadow-md)',
         'lg': 'var(--shadow-lg)',
         'xl': 'var(--shadow-xl)',
       },
-      
+
       // TYPOGRAPHY TOKENS
       fontFamily: {
         'primary': ['Inter', 'sans-serif'],
         'title': ['Inter', 'sans-serif'],
         'body': ['Inter', 'sans-serif'],
       },
-      
+
       fontSize: {
         'xs': '12px',
         'sm': '14px',
@@ -362,20 +369,28 @@ export default {
         'lg': '20px',
         'xl': '24px',
         'xxl': '28px',
+        // Rem-based font sizes (responsive - base: 14px, scales to 16px at >1440px)
+        'xs-rem': 'var(--font-size-xs-rem)',
+        'sm-rem': 'var(--font-size-sm-rem)',
+        'md-rem': 'var(--font-size-md-rem)',
+        'lg-rem': 'var(--font-size-lg-rem)',
+        'xl-rem': 'var(--font-size-xl-rem)',
+        'xxl-rem': 'var(--font-size-xxl-rem)',
         // COMPONENT SYSTEM FONTS (CRITICAL - DO NOT REMOVE)
-        'component-sm': ['14px', { fontWeight: '500' }],
-        'component-md': ['14px', { fontWeight: '500' }],
-        'component-lg': ['16px', { fontWeight: '500' }],
-        'component-xl': ['18px', { fontWeight: '500' }],
+        // Using rem-based typography (responsive - base: 14px, scales to 16px at >1440px)
+        'component-sm': ['var(--font-size-sm-rem)', { fontWeight: '500' }], // 14px → 1rem (responsive)
+        'component-md': ['var(--font-size-sm-rem)', { fontWeight: '500' }], // 14px → 1rem (responsive)
+        'component-lg': ['var(--font-size-md-rem)', { fontWeight: '500' }], // 16px → 1.143rem (responsive)
+        'component-xl': ['var(--font-size-md-rem)', { fontWeight: '500' }], // 18px → 1.143rem (responsive, closest match)
       },
-      
+
       fontWeight: {
         'regular': '400',
         'medium': '500',
         'semibold': '600',
         'bold': '700',
-       },
-       
+      },
+
       // COMPONENT SYSTEM DIMENSIONS (CRITICAL - DO NOT REMOVE)
       height: {
         'component-xxs': 'var(--component-height-xxs)',  // 16px
@@ -386,7 +401,7 @@ export default {
         'component-xl': 'var(--component-height-xl)',  // 56px
         'component-xxl': 'var(--component-height-xxl)', // 64px
       },
-      
+
       width: {
         'component-xxs': 'var(--component-height-xxs)',  // 16px (for square components)
         'component-xs': 'var(--component-height-xs)',  // 24px (for square components)
@@ -396,7 +411,7 @@ export default {
         'component-xl': 'var(--component-height-xl)',  // 56px
         'component-xxl': 'var(--component-height-xxl)', // 64px
       },
-      
+
       padding: {
         'component-xxs': 'var(--component-padding-xxs)',
         'component-xs': 'var(--component-padding-xs)',
@@ -406,36 +421,36 @@ export default {
         'component-xl': 'var(--component-padding-xl)',
         'component-xxl': 'var(--component-padding-xxl)',
       },
-       
-       gap: {
-         'component-sm': 'var(--component-gap-sm)',
-         'component-md': 'var(--component-gap-md)',
-         'component-lg': 'var(--component-gap-lg)',
-       },
-       
-       borderWidth: {
-         'component': 'var(--component-border-width)',
-       },
-       
-       borderRadius: {
-         'component': 'var(--component-border-radius)',
-       },
-       
-       transitionProperty: {
-         'component': 'var(--component-transition)',
-       },
-       
-       // OPACITY SYSTEM
-       opacity: {
-         'disabled': '0.4',
-         'muted': '0.6',
-         'hover': '0.8',
-         'focus': '0.9',
-         'overlay': '0.5',
-       },
-     },
-   },
-   plugins: [],
+
+      gap: {
+        'component-sm': 'var(--component-gap-sm)',
+        'component-md': 'var(--component-gap-md)',
+        'component-lg': 'var(--component-gap-lg)',
+      },
+
+      borderWidth: {
+        'component': 'var(--component-border-width)',
+      },
+
+      borderRadius: {
+        'component': 'var(--component-border-radius)',
+      },
+
+      transitionProperty: {
+        'component': 'var(--component-transition)',
+      },
+
+      // OPACITY SYSTEM
+      opacity: {
+        'disabled': '0.4',
+        'muted': '0.6',
+        'hover': '0.8',
+        'focus': '0.9',
+        'overlay': '0.5',
+      },
+    },
+  },
+  plugins: [],
   // Enable JIT mode for better performance
   mode: 'jit',
   // Dark mode configuration

@@ -245,9 +245,15 @@ export function DisabledStates() {
 // Sizes story - separate preview for sizes
 export function Sizes() {
   return (
-    <div className="p-6 space-y-2">
-      <Checkbox label="Small checkbox" size="sm" />
-      <Checkbox label="Medium checkbox" size="md" />
+    <div className="p-6 space-y-4">
+      <div className="flex flex-col gap-2">
+        <Checkbox label="Small checkbox - 1rem (14px)" size="sm" />
+        <p className="text-sm text-muted-foreground ml-6">Font: 1rem (14px)</p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <Checkbox label="Medium checkbox - 1.143rem (16px)" size="md" />
+        <p className="text-sm text-muted-foreground ml-6">Font: 1.143rem (16px)</p>
+      </div>
     </div>
   );
 }

@@ -59,7 +59,7 @@ const Ribbon: React.FC<BadgeRibbonProps> = ({
       {children}
       <div
         className={cn(
-          "absolute top-0 px-2 py-1 text-[var(--color-bg-primary)] text-xs whitespace-nowrap z-10",
+          "absolute top-0 px-2 py-1 text-[var(--color-bg-primary)] text-xs-rem whitespace-nowrap z-10",
           placement === 'end' ? "right-0 rounded-l-md" : "left-0 rounded-r-md",
           "bg-[var(--primary)] shadow-sm", // Default color
           className
@@ -124,7 +124,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
             )}
             style={{ backgroundColor: color }}
           />
-          {text && <span className="text-sm">{text}</span>}
+          {text && <span className="text-sm-rem">{text}</span>}
         </span>
       );
     }
@@ -146,10 +146,11 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
             <sup
               className={cn(
                 "absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2",
-                "flex items-center justify-center text-xs font-normal text-[var(--color-bg-primary)] bg-[var(--danger)] border border-[var(--color-bg-primary)]",
+                "flex items-center justify-center text-xs-rem font-normal text-[var(--color-bg-primary)] bg-[var(--danger)] border border-[var(--color-bg-primary)]",
                 dot ? "w-2 h-2 p-0 rounded-full min-w-0" : "h-5 px-1.5 rounded-full min-w-[20px]",
-                (size === 'small' || size === 'sm' || size === 'xs') && !dot && "h-4 min-w-[16px] px-1 text-[10px]",
-                (size === 'lg') && !dot && "h-6 px-2 text-sm"
+                (size === 'small' || size === 'sm' || size === 'xs') && !dot && "h-4 min-w-[16px] px-1",
+                (size === 'small' || size === 'sm' || size === 'xs') && !dot && "text-xs-rem",
+                (size === 'lg') && !dot && "h-6 px-2 text-sm-rem"
               )}
               style={{
                 backgroundColor: color,
@@ -168,12 +169,12 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     const baseStyles = "inline-flex items-center justify-center transition-colors";
 
     const sizeStylesMap: Record<string, string> = {
-      xs: "px-1 py-0.5 text-[10px] gap-1 rounded-[var(--badge-border-radius)]",
-      sm: "px-1.5 py-0.5 text-xs gap-1.5 rounded-[var(--badge-border-radius)]",
-      small: "px-1.5 py-0.5 text-xs gap-1.5 rounded-[var(--badge-border-radius)]", // Alias for sm
-      md: "px-2 py-1 text-sm gap-2 rounded-[var(--badge-border-radius)]",
-      default: "px-2 py-1 text-sm gap-2 rounded-[var(--badge-border-radius)]", // Alias for md
-      lg: "px-3 py-1.5 text-base gap-2.5 rounded-[var(--badge-border-radius)]"
+      xs: "px-1 py-0.5 text-xs-rem gap-1 rounded-[var(--badge-border-radius)]", // 10px → 0.714rem (closest to xs-rem: 0.857rem)
+      sm: "px-1.5 py-0.5 text-xs-rem gap-1.5 rounded-[var(--badge-border-radius)]",
+      small: "px-1.5 py-0.5 text-xs-rem gap-1.5 rounded-[var(--badge-border-radius)]", // Alias for sm
+      md: "px-2 py-1 text-sm-rem gap-2 rounded-[var(--badge-border-radius)]",
+      default: "px-2 py-1 text-sm-rem gap-2 rounded-[var(--badge-border-radius)]", // Alias for md
+      lg: "px-3 py-1.5 text-md-rem gap-2.5 rounded-[var(--badge-border-radius)]"
     };
 
     const sizeStyles = sizeStylesMap[size] || sizeStylesMap.md;

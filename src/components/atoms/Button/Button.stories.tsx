@@ -133,12 +133,34 @@ export function Sizes() {
   return (
     <div className="p-6">
       <div className="flex flex-col gap-4">
-        <Button variant="primary" size="xs">XS (24px)</Button>
-        <Button variant="primary" size="sm">SM (32px)</Button>
-        <Button variant="primary" size="md">MD (40px)</Button>
-        <Button variant="primary" size="lg">LG (48px)</Button>
-        <Button variant="primary" size="xl">XL (56px)</Button>
-        <Button variant="primary" size="xxl">XXL (64px)</Button>
+        <div className="flex flex-col gap-2">
+          <Button variant="primary" size="xxs">XXS - 0.857rem (12px)</Button>
+          <p className="text-sm text-muted-foreground">Height: 16px | Font: 0.857rem (12px)</p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <Button variant="primary" size="xs">XS - 1rem (14px)</Button>
+          <p className="text-sm text-muted-foreground">Height: 24px | Font: 1rem (14px)</p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <Button variant="primary" size="sm">SM - 1.143rem (16px)</Button>
+          <p className="text-sm text-muted-foreground">Height: 32px | Font: 1.143rem (16px)</p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <Button variant="primary" size="md">MD - 1.143rem (16px)</Button>
+          <p className="text-sm text-muted-foreground">Height: 40px | Font: 1.143rem (16px)</p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <Button variant="primary" size="lg">LG - 1.429rem (20px)</Button>
+          <p className="text-sm text-muted-foreground">Height: 48px | Font: 1.429rem (20px)</p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <Button variant="primary" size="xl">XL - 1.714rem (24px)</Button>
+          <p className="text-sm text-muted-foreground">Height: 56px | Font: 1.714rem (24px)</p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <Button variant="primary" size="xxl">XXL - 2rem (28px)</Button>
+          <p className="text-sm text-muted-foreground">Height: 64px | Font: 2rem (28px)</p>
+        </div>
       </div>
     </div>
   );

@@ -159,9 +159,15 @@ export function NormalStates() {
 // Sizes story - separate preview for sizes
 export function Sizes() {
   return (
-    <div className="p-6 space-y-2">
-      <Switch label="Small switch" size="sm" />
-      <Switch label="Medium switch" size="md" />
+    <div className="p-6 space-y-4">
+      <div className="flex flex-col gap-2">
+        <Switch label="Small switch - 1rem (14px)" size="sm" />
+        <p className="text-sm text-muted-foreground ml-10">Font: 1rem (14px) - Body Secondary Regular</p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <Switch label="Medium switch - 1rem (14px)" size="md" />
+        <p className="text-sm text-muted-foreground ml-10">Font: 1rem (14px) - Body Secondary Medium</p>
+      </div>
     </div>
   );
 }

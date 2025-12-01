@@ -141,7 +141,7 @@ const quickSelectVariants = cva(
 );
 
 const quickSelectButtonVariants = cva(
-  "text-left px-[var(--spacing-x3)] py-[var(--spacing-x3)] text-[var(--font-size-md)] leading-[1.4] transition-colors rounded-[var(--radius-md)]",
+  "text-left px-[var(--spacing-x3)] py-[var(--spacing-x3)] leading-[1.4] transition-colors rounded-[var(--radius-md)]",
   {
     variants: {
       selected: {
@@ -433,7 +433,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
             <Icon name="chevron-left" size={16} />
           </button>
         </div>
-        <span className="text-[14px] font-medium text-[var(--primary)]">{format(date, 'MMM yyyy')}</span>
+        <span className="text-sm-rem font-medium text-[var(--primary)]">{/* 14px → 1rem (responsive) */}{format(date, 'MMM yyyy')}</span>
         <div className="flex items-center gap-[var(--spacing-x2)]">
           <button
             className={navigationButtonVariants()}
@@ -478,7 +478,8 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
 
       <div className={weekDayVariants({ range })}>
         {WEEKDAYS.map((day) => (
-          <div key={day} className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-[14px] text-[var(--tertiary)] font-normal">
+          <div key={day} className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-sm-rem text-[var(--tertiary)] font-normal">
+            {/* 14px → 1rem (responsive) */}
             {day}
           </div>
         ))}
@@ -571,7 +572,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
                   disabled={isDisabled}
                 >
                   <span className={cn(
-                    "text-[14px] leading-[normal]",
+                    "text-sm-rem leading-[normal]", // 14px → 1rem (responsive)
                     (isStartDate || isEndDate || (isSelected && !isRangeValue))
                       ? "font-medium"
                       : "font-normal"
@@ -597,7 +598,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <div className="flex flex-1 items-center gap-[var(--spacing-x1)] w-full">
-                <span className="flex-1 text-[var(--font-size-md)] font-normal leading-[1.4] text-[var(--tertiary)] overflow-ellipsis overflow-hidden whitespace-nowrap">{selectedDateRange}</span>
+                <span className="flex-1 font-normal leading-[1.4] text-[var(--tertiary)] overflow-ellipsis overflow-hidden whitespace-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>{/* 16px → 1.143rem (responsive) */}{selectedDateRange}</span>
                 <Icon name="chevron-down" size={16} className="text-[var(--primary)] flex-shrink-0" />
               </div>
             </div>
@@ -630,6 +631,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
                     selected: isQuickSelectActive(option.value)
                   })
                 )}
+                style={{ fontSize: 'var(--font-size-md-rem)' }} // 16px → 1.143rem (responsive)
                 onClick={() => handleQuickSelect(option.value)}
               >
                 {option.label}
@@ -650,12 +652,12 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
       {range && (onCancel || onApply || onClear) && (
         <div className="w-full flex justify-end items-center gap-[var(--spacing-x5)]">
           {onCancel && (
-            <Button variant="text" onClick={onCancel} className="h-[var(--spacing-x10)] px-[var(--spacing-x4)] py-[var(--spacing-x3)] text-[var(--font-size-md)] font-medium text-[var(--primary)]">
+            <Button variant="text" onClick={onCancel} className="h-[var(--spacing-x10)] px-[var(--spacing-x4)] py-[var(--spacing-x3)] font-medium text-[var(--primary)]">
               Cancel
             </Button>
           )}
           {onApply && (
-            <Button variant="primary" onClick={onApply} className="h-[var(--spacing-x10)] px-[var(--spacing-x4)] py-[var(--spacing-x3)] text-[var(--font-size-md)] font-medium bg-[var(--primary)] text-[var(--bg-primary)]" disabled={!!rangeError}>
+            <Button variant="primary" onClick={onApply} className="h-[var(--spacing-x10)] px-[var(--spacing-x4)] py-[var(--spacing-x3)] font-medium bg-[var(--primary)] text-[var(--bg-primary)]" disabled={!!rangeError}>
               Apply
             </Button>
           )}

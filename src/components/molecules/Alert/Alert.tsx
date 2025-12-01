@@ -118,14 +118,14 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
             {title && (
               <h4 className={cn(
                 "font-semibold mb-1",
-                "text-base"
+                "text-md-rem"
               )}>
                 {title}
               </h4>
             )}
             {(message || children) && (
               <div className={cn(
-                "text-sm",
+                "text-sm-rem",
                 title && "mt-1"
               )}>
                 {message || children}

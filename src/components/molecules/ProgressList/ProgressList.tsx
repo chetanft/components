@@ -280,7 +280,8 @@ export const ProgressList: React.FC<ProgressListProps> = ({
                 <div
                   key={index}
                   className={`
-                    flex items-center gap-2 px-2 py-0.5 rounded text-[14px] font-semibold
+                    flex items-center gap-2 px-2 py-0.5 rounded text-sm-rem font-semibold
+                    {/* 14px → 1rem (responsive) */}
                     ${badge.variant === 'danger'
                       ? 'bg-[var(--critical-light)] text-[var(--critical)]'
                       : 'bg-[var(--border-secondary)] text-[var(--primary)]'
