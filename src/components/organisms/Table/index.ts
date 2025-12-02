@@ -5,7 +5,8 @@ export type {
   TableRow, 
   SortDirection, 
   ColumnType,
-  TableVariant
+  TableVariant,
+  TableLayout
 } from './Table';
 
 // Atomic Table Components

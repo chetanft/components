@@ -2,7 +2,6 @@
 
 import React, { useState, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
-import { CloudUpload } from '../../atoms/Icons/CloudUpload';
 import { Typography } from '../../atoms/Typography';
 
 export type UploadZoneType = 'drag-drop' | 'button' | 'thumbnail';
@@ -122,13 +121,26 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
         >
           {/* Upload Icon */}
           <div className="flex items-center justify-center w-[calc(var(--spacing-x8)+var(--spacing-x1))] h-[calc(var(--spacing-x8)+var(--spacing-x1))]">
-            <CloudUpload 
-              size={52}
-              className={cn(
-                "transition-colors",
-                isDisabled ? "text-[var(--bg-secondary)]" : "text-[var(--primary)]"
-              )}
-            />
+            <svg 
+              width="65" 
+              height="62" 
+              viewBox="0 0 65 62" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              className={cn("transition-colors", isDisabled && "opacity-50")}
+            >
+              <path 
+                d="M0 8C0 3.58172 3.58172 0 8 0H57C61.4183 0 65 3.58172 65 8V54C65 58.4183 61.4183 62 57 62H8C3.58172 62 0 58.4183 0 54V8Z" 
+                fill="white"
+              />
+              <path 
+                d="M32.4974 32.6647V46M32.4974 32.6647L25.8968 39.3323M32.4974 32.6647L39.0981 39.3323M19.2961 35.8302C18.0701 34.5648 17.1452 33.0343 16.5915 31.3544C16.0378 29.6745 15.8698 27.8894 16.1003 26.1342C16.3307 24.3791 16.9536 22.6999 17.9216 21.2239C18.8897 19.7479 20.1776 18.5138 21.6877 17.615C23.1979 16.7163 24.8907 16.1765 26.638 16.0365C28.3852 15.8965 30.1411 16.1601 31.7726 16.8071C33.4041 17.4542 34.8685 18.4678 36.0548 19.7712C37.241 21.0746 38.1181 22.6336 38.6196 24.3301H41.5734C43.1666 24.3299 44.7177 24.8474 45.9975 25.8061C47.2772 26.7648 48.2178 28.1138 48.6803 29.6539C49.1428 31.1941 49.1026 32.8436 48.5657 34.3589C48.0288 35.8742 47.0237 37.1749 45.6988 38.0688" 
+                stroke={isDisabled ? "var(--border-primary)" : "#5F697B"} 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
           
           {/* Upload Instructions */}

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
+import { Button } from '../../atoms/Button/Button';
 
 export interface BackTopProps {
   visibilityHeight?: number;
@@ -47,7 +48,7 @@ export const BackTop = React.forwardRef<HTMLDivElement, BackTopProps>(({
     <div
       ref={ref}
       className={cn(
-        "fixed right-10 bottom-10 z-50 cursor-pointer transition-all duration-300 hover:scale-110",
+        "fixed right-10 bottom-10 z-50 transition-all duration-300 hover:scale-110",
         className
       )}
       style={style}
@@ -55,9 +56,13 @@ export const BackTop = React.forwardRef<HTMLDivElement, BackTopProps>(({
       {...props}
     >
       {children || (
-        <div className="w-10 h-10 bg-[var(--primary)] text-[var(--color-bg-primary)] rounded-full flex items-center justify-center shadow-lg hover:bg-[var(--primary-hover)]">
-          <Icon name="arrow-up" size={20} />
-        </div>
+        <Button
+          variant="primary"
+          size="md"
+          icon="arrow-up"
+          iconPosition="only"
+          className="rounded-full shadow-lg"
+        />
       )}
     </div>
   );

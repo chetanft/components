@@ -16,9 +16,9 @@ export interface CardMetaProps {
 }
 
 const CardMeta: React.FC<CardMetaProps> = ({ avatar, title, description, className, style }) => (
-    <div className={cn("flex gap-4 items-start", className)} style={style}>
+    <div className={cn("flex gap-[var(--spacing-x4)] items-start", className)} style={style}>
         {avatar && <div className="shrink-0">{avatar}</div>}
-        <div className="flex flex-col gap-1 w-full">
+        <div className="flex flex-col gap-[var(--spacing-x1)] w-full">
             {title && (
                 <div className="text-base font-semibold text-[var(--primary)] leading-tight">{title}</div>
             )}
@@ -60,23 +60,23 @@ const CardElements: React.FC<CardElementsProps> = ({
 
     return (
         <div className={cn(
-            "flex items-center justify-between w-full px-[var(--x5,20px)]",
+            "flex items-center justify-between w-full px-[var(--spacing-x5)]",
             className
         )}>
             {/* Left Content */}
             <div className={cn(
-                "flex flex-[1_0_0] gap-[var(--x5,20px)] items-start min-h-px min-w-px py-0 relative shrink-0"
+                "flex flex-[1_0_0] gap-[var(--spacing-x5)] items-start min-h-px min-w-px py-0 relative shrink-0"
             )}>
                 <div className={cn(
                     "flex flex-[1_0_0] items-start min-h-px min-w-px relative shrink-0",
-                    isEyebrow ? "flex-row gap-[10px] justify-start" : "flex-col justify-center",
-                    ['Header', 'Body'].includes(type) ? "gap-[var(--x1,4px)]" : ""
+                    isEyebrow ? "flex-row gap-[var(--spacing-x2)] justify-start" : "flex-col justify-center",
+                    ['Header', 'Body'].includes(type) ? "gap-[var(--spacing-x1)]" : ""
                 )}>
                     {isEyebrow && eyebrowBadges && eyebrowBadges.length > 0 && (
                         <React.Fragment>{eyebrowBadges[0]}</React.Fragment>
                     )}
                     {isHeader && (
-                        <div className="flex flex-col gap-[var(--x1,4px)] items-start justify-center relative shrink-0 w-full">
+                        <div className="flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
                             {headerTitle && (
                                 <Typography variant="display-primary" className="text-[var(--primary)]">
                                     {headerTitle}
@@ -90,7 +90,7 @@ const CardElements: React.FC<CardElementsProps> = ({
                         </div>
                     )}
                     {isBody && (
-                        <div className="flex flex-col gap-[var(--x2,8px)] items-start justify-center p-0 relative shrink-0 w-full">
+                        <div className="flex flex-col gap-[var(--spacing-x2)] items-start justify-center p-0 relative shrink-0 w-full">
                             {statisticValue && (
                                 <Typography variant="body-primary-regular" className="text-[var(--primary)]">
                                     {statisticValue}
@@ -109,7 +109,7 @@ const CardElements: React.FC<CardElementsProps> = ({
             {/* Right Content */}
             <div className={cn(
                 "flex flex-[1_0_0] min-h-px min-w-px py-0 relative shrink-0",
-                isEyebrow ? "flex-row items-end justify-end" : isHeader ? "gap-[var(--x5,20px)] items-center justify-end" : isBody ? "flex-col gap-[var(--x1,4px)] items-end justify-center" : ""
+                isEyebrow ? "flex-row items-end justify-end" : isHeader ? "gap-[var(--spacing-x5)] items-center justify-end" : isBody ? "flex-col gap-[var(--spacing-x1)] items-end justify-center" : ""
             )}>
                 {isEyebrow && eyebrowBadges && eyebrowBadges.length > 1 && (
                     <div className="flex items-end">
@@ -120,7 +120,7 @@ const CardElements: React.FC<CardElementsProps> = ({
                     <Icon name="arrow-top-right" size={16} className="text-[var(--primary)]" />
                 )}
                 {isBody && readOnlyLabel && (
-                    <div className="flex flex-col gap-[var(--x2,8px)] items-start relative shrink-0 w-full">
+                    <div className="flex flex-col gap-[var(--spacing-x2)] items-start relative shrink-0 w-full">
                         <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">
                             {readOnlyLabel}
                         </Typography>
@@ -151,20 +151,20 @@ const CardFooter: React.FC<CardFooterProps> = ({
 }) => {
     return (
         <div className={cn(
-            "flex flex-col items-start pb-0 pt-[var(--x0,0px)] relative w-full",
-            padding ? "px-[var(--x5,20px)]" : "px-0",
+            "flex flex-col items-start pb-0 pt-0 relative w-full",
+            padding ? "px-[var(--spacing-x5)]" : "px-0",
             className
         )}>
             <Divider type="primary" />
             <Spacer size="x5" />
             <div className={cn(
-                "flex gap-[var(--x4,16px)] items-center relative shrink-0 w-full",
-                padding ? "px-[var(--x5,20px)] py-0" : ""
+                "flex gap-[var(--spacing-x4)] items-center relative shrink-0 w-full",
+                padding ? "px-[var(--spacing-x5)] py-0" : ""
             )}>
                 {footerText && (
-                    <div className="flex flex-[1_0_0] gap-[var(--x5,20px)] items-center justify-center min-h-px min-w-px px-0 py-0 relative shrink-0">
-                        <div className="flex flex-[1_0_0] flex-col gap-[var(--x1,4px)] items-center justify-center min-h-px min-w-px relative shrink-0">
-                            <div className="flex flex-col gap-[var(--x1,4px)] items-start justify-center relative shrink-0 w-full">
+                    <div className="flex flex-[1_0_0] gap-[var(--spacing-x5)] items-center justify-center min-h-px min-w-px px-0 py-0 relative shrink-0">
+                        <div className="flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-center justify-center min-h-px min-w-px relative shrink-0">
+                            <div className="flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
                                 <Typography variant="body-primary-medium" className="text-[var(--primary)] font-bold">
                                     {footerText}
                                 </Typography>
@@ -174,11 +174,11 @@ const CardFooter: React.FC<CardFooterProps> = ({
                 )}
                 {footerButton && (
                     <div className={cn(
-                        "flex flex-[1_0_0] gap-[var(--x5,20px)] items-center min-h-px min-w-px px-0 py-0 relative shrink-0",
+                        "flex flex-[1_0_0] gap-[var(--spacing-x5)] items-center min-h-px min-w-px px-0 py-0 relative shrink-0",
                         padding ? "justify-center" : "justify-end"
                     )}>
                         <div className={cn(
-                            "flex gap-[var(--x5,20px)] items-center relative shrink-0",
+                            "flex gap-[var(--spacing-x5)] items-center relative shrink-0",
                             padding ? "flex-[1_0_0] justify-end min-h-px min-w-px" : "justify-center"
                         )}>
                             {footerButton}
@@ -212,20 +212,20 @@ const CardGraphic: React.FC<CardGraphicProps> = ({
 
     return (
         <div className={cn(
-            "border border-[var(--border-secondary)] border-solid box-border flex flex-col gap-[10px] justify-center relative w-full",
+            "border border-[var(--border-secondary)] border-solid box-border flex flex-col gap-[var(--spacing-x2)] justify-center relative w-full",
             isImage && !padding ? "bg-[var(--color-bg-secondary)] h-[175px] items-center" : "",
-            isImage && padding ? "bg-[var(--bg-primary)] h-[175px] items-center pb-0 pt-[var(--x0,0px)] px-[var(--x4,16px)] rounded-tl-[var(--x2,8px)] rounded-tr-[var(--x2,8px)]" : "",
-            isLogo && padding ? "bg-[var(--bg-primary)] items-start pb-0 pt-[var(--x4,16px)] px-[var(--x4,16px)] rounded-tl-[var(--x2,8px)] rounded-tr-[var(--x2,8px)]" : "",
+            isImage && padding ? "bg-[var(--bg-primary)] h-[175px] items-center pb-0 pt-0 px-[var(--spacing-x4)] rounded-tl-[var(--radius-md)] rounded-tr-[var(--radius-md)]" : "",
+            isLogo && padding ? "bg-[var(--bg-primary)] items-start pb-0 pt-[var(--spacing-x4)] px-[var(--spacing-x4)] rounded-tl-[var(--radius-md)] rounded-tr-[var(--radius-md)]" : "",
             className
         )}>
             {isImage && imageUrl && (
                 <div className={cn(
                     "flex-[1_0_0] min-h-px min-w-px relative shrink-0 w-full",
-                    padding ? "rounded-[var(--x2,8px)]" : ""
+                    padding ? "rounded-[var(--radius-md)]" : ""
                 )}>
                     <div className={cn(
                         "absolute inset-0 overflow-hidden pointer-events-none",
-                        padding ? "rounded-[var(--x2,8px)]" : ""
+                        padding ? "rounded-[var(--radius-md)]" : ""
                     )}>
                         <img
                             src={imageUrl}
@@ -237,14 +237,14 @@ const CardGraphic: React.FC<CardGraphicProps> = ({
             )}
             {overlayAction && (
                 <div className={cn(
-                    "absolute box-border flex gap-[8px] items-center justify-center px-[24px] py-[12px] rounded-[100px] size-[var(--x10,40px)]",
-                    !padding ? "left-[501px] top-[8px]" : "left-[485px] top-[24px]"
+                    "absolute box-border flex gap-[var(--spacing-x2)] items-center justify-center px-[var(--spacing-x6)] py-[var(--spacing-x3)] rounded-[var(--radius-full)] size-[var(--spacing-x10)]",
+                    !padding ? "left-[501px] top-[var(--spacing-x2)]" : "left-[485px] top-[var(--spacing-x6)]"
                 )}>
                     <Button variant="primary" size="md" icon="add" iconPosition="only" />
                 </div>
             )}
             {isLogo && logo && (
-                <div className="overflow-clip relative shrink-0 size-[72px]">
+                <div className="overflow-clip relative shrink-0 size-[var(--spacing-x18)]">
                     {logo}
                 </div>
             )}

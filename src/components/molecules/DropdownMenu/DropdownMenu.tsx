@@ -174,7 +174,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       if (property !== 'disabled-info') return null;
 
       return (
-        <div className="bg-[var(--color-bg-primary)] border-[var(--color-border-primary)] border-b-0 border-l-0 border-r-0 border-solid border-t box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center pb-[var(--spacing-x3)] pt-[var(--spacing-x4)] px-[var(--spacing-x3)] relative rounded-bl-[var(--radius-md)] rounded-br-[var(--radius-md)] shrink-0 w-full">
+        <div className="bg-[var(--color-bg-primary)] border-[var(--color-border-primary)] border-b-0 border-l-0 border-r-0 border-solid border-t box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center py-[var(--spacing-x5)] px-[var(--spacing-x3)] relative rounded-bl-[var(--radius-md)] rounded-br-[var(--radius-md)] shrink-0 w-full">
           <Icon
             name="data-stack"
             size={16}

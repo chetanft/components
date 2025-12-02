@@ -88,14 +88,20 @@ export const Descriptions: React.FC<DescriptionsProps> = ({
                             )}
                             <div
                                 className={cn(
-                                    "text-[var(--color-primary)] flex-1",
+                                    "flex-1",
                                     sizeStyles[size]
                                 )}
                             >
                                 {React.isValidElement(item.children) ? (
                                     item.children
                                 ) : (
-                                    <Typography variant="body-primary-regular">{item.children}</Typography>
+                                    <Typography 
+                                        variant="body-primary-regular" 
+                                        className="whitespace-pre-wrap"
+                                        style={{ color: 'var(--primary-500)' }}
+                                    >
+                                        {item.children}
+                                    </Typography>
                                 )}
                             </div>
                         </div>

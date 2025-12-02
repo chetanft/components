@@ -393,7 +393,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       }
 
       return (
-        <div className="p-[24px]">
+        <div className="p-[var(--spacing-x6)]">
           <div className="grid grid-cols-7 gap-[var(--spacing-x1)] mb-[var(--spacing-x3)]">
             {WEEKDAYS.map(day => (
               <div

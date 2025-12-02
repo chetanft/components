@@ -75,10 +75,10 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
     }
 
     switch (size) {
-      case 'md': return "px-[var(--spacing-x4)]";
-      case 'lg': return "px-[var(--spacing-x4)]";
-      case 'xl': return "px-[var(--spacing-x5)]";
-      default: return "px-[var(--spacing-x4)]";
+      case 'md': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]";
+      case 'lg': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]";
+      case 'xl': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x5)]";
+      default: return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]";
     }
   };
 

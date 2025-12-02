@@ -74,10 +74,10 @@ export const TableCell: React.FC<TableCellProps> = ({
     }
 
     switch (size) {
-      case 'md': return "px-[16px]"; // Standardized to 16px
-      case 'lg': return "px-[16px]";
-      case 'xl': return "px-[24px]";
-      default: return "px-[16px]";
+      case 'md': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // 8px left, 16px right
+      case 'lg': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // 8px left, 16px right
+      case 'xl': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x5)]"; // 8px left, 24px right
+      default: return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // 8px left, 16px right
     }
   };
 
@@ -114,8 +114,8 @@ export const TableCell: React.FC<TableCellProps> = ({
           ? "flex items-center whitespace-nowrap min-w-0" // Single line: horizontal layout, no wrapping, allow truncation
           : "flex flex-col justify-center", // Double line: vertical layout
         // Line variant affects the gap between child elements
-        lineVariant === 'single' && "gap-[4px]",
-        lineVariant === 'double' && "gap-[8px]",
+        lineVariant === 'single' && "gap-[var(--spacing-x1)]",
+        lineVariant === 'double' && "gap-[var(--spacing-x2)]",
         // Size affects min-height
         "min-h-[19px]"
       )}>

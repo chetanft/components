@@ -48,7 +48,7 @@ export const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
     );
 
     const progressBarStyles = cn(
-      "rounded-[8px] transition-colors",
+      "rounded-[var(--radius-md)] transition-colors",
       direction === 'vertical' ? "w-1 h-full min-h-[32px]" : "w-full h-2",
       state === "selected" || state === "completed"
         ? "bg-[var(--primary)]"
@@ -105,7 +105,7 @@ export const Steps = forwardRef<HTMLDivElement, StepsProps>(
     const containerStyles = cn(
       "flex",
       direction === 'vertical' ? "flex-col" : "flex-row items-center",
-      direction === 'horizontal' && device === "desktop" ? "gap-[12px]" : "gap-[8px]",
+      direction === 'horizontal' && device === "desktop" ? "gap-[var(--spacing-x3)]" : "gap-[var(--spacing-x2)]",
       direction === 'vertical' && "gap-0",
       className
     );

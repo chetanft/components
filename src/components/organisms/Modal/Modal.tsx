@@ -142,7 +142,7 @@ export const Modal: React.FC<ModalProps> = ({
         {/* Header */}
         {(title || closable) && (
           <div
-            className="flex items-center justify-between px-6 py-4 border-b border-[var(--border-secondary)]"
+            className="flex items-center justify-between px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-b border-[var(--border-secondary)]"
             onClick={(e) => e.stopPropagation()}
           >
             {title && (
@@ -164,7 +164,7 @@ export const Modal: React.FC<ModalProps> = ({
                   "focus:outline-none focus:ring-2 focus:ring-[var(--neutral)] focus:ring-offset-2",
                   "cursor-pointer",
                   "relative z-50",
-                  "w-7 h-7 p-0 m-0",
+                  "w-[var(--spacing-x7)] h-[var(--spacing-x7)] p-0 m-0",
                   "hover:bg-[var(--bg-secondary)]"
                 )}
                 aria-label="Close modal"
@@ -180,9 +180,9 @@ export const Modal: React.FC<ModalProps> = ({
         )}
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto px-6 py-4">
+        <div className="flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)]">
           {showFigmaBadge && (
-            <div className="mb-4">
+            <div className="mb-[var(--spacing-x4)]">
               <FigmaBadge />
             </div>
           )}
@@ -192,7 +192,7 @@ export const Modal: React.FC<ModalProps> = ({
         {/* Footer */}
         {footer && (
           <div
-            className="flex items-center justify-end gap-2 px-6 py-4 border-t border-[var(--border-secondary)]"
+            className="flex items-center justify-end gap-[var(--spacing-x2)] px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-t border-[var(--border-secondary)]"
           >
             {footer}
           </div>

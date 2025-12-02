@@ -44,7 +44,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
       <div
         ref={ref}
         className={cn(
-          'inline-flex items-center gap-[var(--x2,8px)]',
+          'inline-flex items-center gap-[var(--spacing-x2)]',
           wrap ? 'flex-wrap' : 'flex-nowrap',
           equalWidth && 'w-full',
           className

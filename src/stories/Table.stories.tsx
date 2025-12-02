@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { Table, TableColumn, TableRow, SortDirection, TableCellText, TableCellItem } from '../components/organisms/Table';
 import { Badge } from '../components/atoms/Badge/Badge';
 import { Button } from '../components/atoms/Button/Button';
-import { Icon } from '../components/atoms/Icons';
+import { Icon, type IconName } from '../components/atoms/Icons';
+import { Typography } from '../components/atoms/Typography';
 
 // Sample data interface
 interface User extends TableRow {
@@ -544,3 +545,564 @@ export function VariantsSecondary() {
     </div>
   );
 }
+
+// Journey Table Data Interface (based on Figma design)
+interface JourneyRow extends TableRow {
+  id: string;
+  feedUniqueId: string;
+  journeyId?: string;
+  from: {
+    location: string;
+    badge?: string;
+    company: string;
+  };
+  to: {
+    location: string;
+    badge?: string;
+    company: string;
+  };
+  vehicleInfo: {
+    number: string;
+    transporter: string;
+    hasAvatar?: boolean;
+  };
+  tripInfo: {
+    type: 'SIM' | 'GPS' | 'Fastag';
+    simNumber: string;
+    status: 'active' | 'warning' | 'critical';
+  };
+  status: {
+    state: 'On Road' | 'At Drop' | 'At Pickup';
+    location: string;
+  };
+  sla: {
+    status: 'On time' | 'Delayed by 13 hr';
+    eta: string;
+  };
+  alerts?: {
+    type: 'Long Stoppage' | 'Route Deviation' | 'Transit Delay';
+    timestamp: string;
+  };
+}
+
+// Sample journey data matching Figma design
+const journeyData: JourneyRow[] = [
+  {
+    id: '1',
+    feedUniqueId: '324673-9488478-8484',
+    from: {
+      location: 'Amritsar, Punjab',
+      badge: '+1 P',
+      company: 'MDC Labs ltd'
+    },
+    to: {
+      location: 'Mumbai, Mahara...',
+      badge: '+3 D',
+      company: 'Maa kaali Distributors'
+    },
+    vehicleInfo: {
+      number: 'PB09 HH 6439',
+      transporter: 'Yonex Transporter',
+      hasAvatar: false
+    },
+    tripInfo: {
+      type: 'SIM',
+      simNumber: '84973-47593',
+      status: 'active'
+    },
+    status: {
+      state: 'On Road',
+      location: 'Ambala, Haryana'
+    },
+    sla: {
+      status: 'On time',
+      eta: 'ETA: 12:30 pm, 12 Aug'
+    }
+  },
+  {
+    id: '2',
+    feedUniqueId: '324673-9488478-8484',
+    from: {
+      location: 'Amritsar, Punjab',
+      badge: '+1 P',
+      company: 'MDC Labs LTD'
+    },
+    to: {
+      location: 'Secunderabad, Telan..',
+      badge: '+2 D',
+      company: 'Jai Sri Ram'
+    },
+    vehicleInfo: {
+      number: 'KA12 AS 3421',
+      transporter: 'Laal Kamal Transporter',
+      hasAvatar: true
+    },
+    tripInfo: {
+      type: 'SIM',
+      simNumber: '84973-47593',
+      status: 'active'
+    },
+    status: {
+      state: 'At Drop',
+      location: 'Ambala, Haryana'
+    },
+    sla: {
+      status: 'On time',
+      eta: 'ETA: 12:30 pm, 12 Aug'
+    }
+  },
+  {
+    id: '3',
+    feedUniqueId: '324673-9488478-8484',
+    from: {
+      location: 'Amritsar, Punjab',
+      company: 'MDC Labs LTD'
+    },
+    to: {
+      location: 'Secunderabad, Telangana',
+      company: 'Sai Traders'
+    },
+    vehicleInfo: {
+      number: 'KA12 AS 3422',
+      transporter: 'Laal Kamal Transporter',
+      hasAvatar: true
+    },
+    tripInfo: {
+      type: 'GPS',
+      simNumber: '84973-47593',
+      status: 'active'
+    },
+    status: {
+      state: 'At Pickup',
+      location: 'Ambala, Haryana'
+    },
+    sla: {
+      status: 'Delayed by 13 hr',
+      eta: 'ETA: 12:30 pm, 12 Aug'
+    },
+    alerts: {
+      type: 'Long Stoppage',
+      timestamp: '1 hour ago'
+    }
+  },
+  {
+    id: '4',
+    feedUniqueId: '324673-9488478-8484',
+    from: {
+      location: 'Amritsar, Punjab',
+      company: 'MDC Labs LTD'
+    },
+    to: {
+      location: 'Secunderabad, Telangana',
+      company: 'Sai Traders'
+    },
+    vehicleInfo: {
+      number: 'KA12 AS 3423',
+      transporter: 'Laal Kamal Transporter',
+      hasAvatar: false
+    },
+    tripInfo: {
+      type: 'Fastag',
+      simNumber: '84973-47593',
+      status: 'critical'
+    },
+    status: {
+      state: 'At Drop',
+      location: 'Ambala, Haryana'
+    },
+    sla: {
+      status: 'Delayed by 13 hr',
+      eta: 'ETA: 12:30 pm, 12 Aug'
+    },
+    alerts: {
+      type: 'Route Deviation',
+      timestamp: '1 hour ago'
+    }
+  },
+  {
+    id: '5',
+    feedUniqueId: '324673-9488478-8484',
+    from: {
+      location: 'Amritsar, Punjab',
+      company: 'MDC Labs LTD'
+    },
+    to: {
+      location: 'Secunderabad, Telangana',
+      company: 'Sai Traders'
+    },
+    vehicleInfo: {
+      number: 'KA12 AS 3424',
+      transporter: 'Laal Kamal Transporter',
+      hasAvatar: true
+    },
+    tripInfo: {
+      type: 'GPS',
+      simNumber: '84973-47593',
+      status: 'warning'
+    },
+    status: {
+      state: 'On Road',
+      location: 'Ambala, Haryana'
+    },
+    sla: {
+      status: 'On time',
+      eta: 'at 12:30 pm, 12 Aug'
+    }
+  },
+  {
+    id: '6',
+    feedUniqueId: 'JRN-WER3444456665234',
+    journeyId: '324673-9488478-8484',
+    from: {
+      location: 'Amritsar, Punjab',
+      company: 'MDC Labs LTD'
+    },
+    to: {
+      location: 'Secunderabad, Telangana',
+      company: 'Sai Traders'
+    },
+    vehicleInfo: {
+      number: 'KA12 AS 3424',
+      transporter: 'Laal Kamal Transporter',
+      hasAvatar: true
+    },
+    tripInfo: {
+      type: 'GPS',
+      simNumber: '84973-47593',
+      status: 'warning'
+    },
+    status: {
+      state: 'On Road',
+      location: 'Ambala, Haryana'
+    },
+    sla: {
+      status: 'Delayed by 13 hr',
+      eta: 'ETA: 12:30 pm, 12 Aug'
+    },
+    alerts: {
+      type: 'Transit Delay',
+      timestamp: '1 hour ago'
+    }
+  },
+  {
+    id: '7',
+    feedUniqueId: 'JRN-WER3444456665234',
+    journeyId: '324673-9488478-8484',
+    from: {
+      location: 'Amritsar, Punjab',
+      company: 'MDC Labs LTD'
+    },
+    to: {
+      location: 'Secunderabad, Telangana',
+      company: 'Sai Traders'
+    },
+    vehicleInfo: {
+      number: 'KA12 AS 3423',
+      transporter: 'Laal Kamal Transporter',
+      hasAvatar: false
+    },
+    tripInfo: {
+      type: 'Fastag',
+      simNumber: '84973-47593',
+      status: 'critical'
+    },
+    status: {
+      state: 'On Road',
+      location: 'Ambala, Haryana'
+    },
+    sla: {
+      status: 'Delayed by 13 hr',
+      eta: 'ETA: 12:30 pm, 12 Aug'
+    },
+    alerts: {
+      type: 'Transit Delay',
+      timestamp: '1 hour ago'
+    }
+  }
+];
+
+// Journey Table Component
+function JourneyTableComponent() {
+  const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
+
+  const journeyColumns: TableColumn<JourneyRow>[] = [
+      {
+        key: 'feedUniqueId',
+        header: 'Feed Unique ID',
+        render: (value, row) => (
+          <div className="flex flex-col gap-[8px]">
+            <TableCellText type="primary" className="overflow-hidden text-ellipsis whitespace-nowrap w-[177px]">
+              {row.journeyId || row.feedUniqueId}
+            </TableCellText>
+            {row.journeyId && (
+              <TableCellText type="secondary" className="overflow-hidden text-ellipsis whitespace-nowrap w-[177px]">
+                {row.feedUniqueId}
+              </TableCellText>
+            )}
+            {!row.journeyId && (
+              <button
+                className="text-[var(--neutral,#1890ff)] text-[16px] font-medium leading-[1.4] cursor-pointer hover:opacity-80"
+                style={{ fontFamily: 'var(--font-family-primary, "Inter", sans-serif)' }}
+              >
+                View ID's
+              </button>
+            )}
+          </div>
+        )
+      },
+      {
+        key: 'from',
+        header: 'From',
+        render: (value, row) => (
+          <div className="flex flex-col gap-[8px]">
+            <div className="flex gap-[4px] items-center">
+              <TableCellText type="primary" className="overflow-hidden text-ellipsis whitespace-nowrap">
+                {row.from.location}
+              </TableCellText>
+              {row.from.badge && (
+                <Badge
+                  variant="default"
+                  size="sm"
+                  className="bg-[var(--border-secondary,#f0f1f7)] border border-[var(--border-primary,#ced1d7)] px-[8px] py-[2px]"
+                >
+                  {row.from.badge}
+                </Badge>
+              )}
+            </div>
+            <TableCellText type="secondary" className="whitespace-pre-wrap">
+              {row.from.company}
+            </TableCellText>
+          </div>
+        )
+      },
+      {
+        key: 'to',
+        header: 'To',
+        render: (value, row) => (
+          <div className="flex flex-col gap-[8px]">
+            <div className="flex gap-[4px] items-center">
+              <TableCellText type="primary" className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                {row.to.location}
+              </TableCellText>
+              {row.to.badge && (
+                <Badge
+                  variant="default"
+                  size="sm"
+                  className="bg-[var(--border-secondary,#f0f1f7)] border border-[var(--border-primary,#ced1d7)] px-[8px] py-[2px]"
+                >
+                  {row.to.badge}
+                </Badge>
+              )}
+            </div>
+            <TableCellText type="secondary" className="overflow-hidden text-ellipsis whitespace-nowrap">
+              {row.to.company}
+            </TableCellText>
+          </div>
+        )
+      },
+      {
+        key: 'vehicleInfo',
+        header: 'Vehicle Info',
+        render: (value, row) => (
+          <div className="flex flex-col gap-[8px]">
+            <div className="flex gap-[8px] items-center">
+              <TableCellText type="primary">
+                {row.vehicleInfo.number}
+              </TableCellText>
+              {row.vehicleInfo.hasAvatar && (
+                <div className="relative size-[30px] shrink-0">
+                  <div className="absolute inset-0 bg-[var(--border-secondary,#f0f1f7)] rounded-full" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Icon name="vehicle" size={16} color="var(--secondary,#5f697b)" />
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="flex gap-[1px] items-center">
+              <TableCellText type="secondary" className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+                {row.vehicleInfo.transporter}
+              </TableCellText>
+              <Icon name="chevron-right" size={16} color="var(--primary,#434f64)" />
+            </div>
+          </div>
+        )
+      },
+      {
+        key: 'tripInfo',
+        header: 'Trip Info',
+        render: (value, row) => {
+          const tripIconMap: Record<string, IconName> = {
+            'SIM': 'sim',
+            'GPS': 'gps',
+            'Fastag': 'gps' // Using gps as placeholder - Fastag icon may need to be added
+          };
+          
+          const statusBadgeMap: Record<string, { bg: string; icon: IconName; iconColor: string }> = {
+            'active': { bg: 'bg-[var(--positive-light,#dfffe8)]', icon: 'check', iconColor: 'var(--positive-dark,#00763d)' },
+            'warning': { bg: 'bg-[var(--warning-light,#ffebdc)]', icon: 'alert-critical', iconColor: 'var(--warning,#ff6c19)' },
+            'critical': { bg: 'bg-[var(--critical-light,#ffeaea)]', icon: 'alert-critical', iconColor: 'var(--critical,#ff3533)' }
+          };
+
+          const statusBadge = statusBadgeMap[row.tripInfo.status];
+
+          return (
+            <div className="flex flex-col gap-[8px]">
+              <div className="flex gap-[8px] items-center">
+                <Icon name={tripIconMap[row.tripInfo.type] as IconName} size={14} color="var(--primary,#434f64)" />
+                <TableCellText type="primary">
+                  {row.tripInfo.type}
+                </TableCellText>
+              </div>
+              <div className="flex gap-[8px] items-center">
+                <div className="flex gap-[8px] items-center">
+                  <Icon name="sim" size={16} color="var(--tertiary,#838c9d)" />
+                  <TableCellText type="secondary">
+                    {row.tripInfo.simNumber}
+                  </TableCellText>
+                </div>
+                <div className={`${statusBadge.bg} flex items-center justify-center p-[4px] rounded-[16px]`}>
+                  <Icon name={statusBadge.icon as IconName} size={14} color={statusBadge.iconColor} />
+                </div>
+              </div>
+            </div>
+          );
+        }
+      },
+      {
+        key: 'status',
+        header: 'Status',
+        render: (value, row) => {
+          const statusIconMap: Record<string, IconName> = {
+            'On Road': 'road',
+            'At Drop': 'location',
+            'At Pickup': 'location'
+          };
+
+          return (
+            <div className="flex flex-col gap-[8px]">
+              <div className="flex gap-[8px] items-center">
+                <Icon name={statusIconMap[row.status.state] as IconName} size={14} color="var(--primary,#434f64)" />
+                <TableCellText type="primary">
+                  {row.status.state}
+                </TableCellText>
+              </div>
+              <div className="flex gap-[8px] items-center">
+                <Icon name="location" size={14} color="var(--tertiary,#838c9d)" />
+                <TableCellText type="secondary" className="w-[140px] whitespace-pre-wrap">
+                  {row.status.location}
+                </TableCellText>
+              </div>
+            </div>
+          );
+        }
+      },
+      {
+        key: 'sla',
+        header: 'SLA',
+        render: (value, row) => {
+          const isOnTime = row.sla.status === 'On time';
+          const statusColor = isOnTime ? 'var(--positive,#00c638)' : 'var(--critical,#ff3533)';
+          const gap = isOnTime ? 'gap-[6px]' : 'gap-[5px]';
+
+          return (
+            <div className={`flex flex-col ${gap} leading-[1.4]`}>
+              <Typography
+                variant="body-secondary-semibold"
+                style={{ color: statusColor, fontSize: 'var(--font-size-sm-rem)' }}
+              >
+                {row.sla.status}
+              </Typography>
+              <TableCellText type="secondary" className="w-[200px] whitespace-pre-wrap">
+                {row.sla.eta}
+              </TableCellText>
+            </div>
+          );
+        }
+      },
+      {
+        key: 'alerts',
+        header: 'Alerts',
+        render: (value, row) => {
+          if (!row.alerts) {
+            return <div className="flex-1 h-[52px]" />;
+          }
+
+          const alertBadgeMap: Record<string, { bg: string; textColor: string }> = {
+            'Long Stoppage': { bg: 'bg-[var(--critical-light,#ffeaea)]', textColor: 'var(--critical,#ff3533)' },
+            'Route Deviation': { bg: 'bg-[var(--critical-light,#ffeaea)]', textColor: 'var(--critical,#ff3533)' },
+            'Transit Delay': { bg: 'bg-[var(--critical-light,#ffeaea)]', textColor: 'var(--critical,#ff3533)' }
+          };
+
+          const alertBadge = alertBadgeMap[row.alerts.type];
+
+          return (
+            <div className="flex flex-col gap-[8px]">
+              <Badge
+                variant="error"
+                size="sm"
+                className={`${alertBadge.bg} px-[8px] py-[2px]`}
+                style={{ color: alertBadge.textColor }}
+              >
+                {row.alerts.type}
+              </Badge>
+              <TableCellText type="secondary" className="w-[140px] whitespace-pre-wrap">
+                {row.alerts.timestamp}
+              </TableCellText>
+            </div>
+          );
+        }
+      },
+      {
+        key: 'actions',
+        header: 'Actions',
+        type: 'actions',
+        render: () => (
+          <div className="flex gap-[12px] items-center">
+            <Button
+              variant="secondary"
+              size="sm"
+              icon="add"
+              iconPosition="only"
+              className="rounded-full size-[40px] border border-[var(--border-primary,#ced1d7)]"
+            />
+            <Button
+              variant="secondary"
+              size="sm"
+              icon="chevron-right"
+              iconPosition="only"
+              className="rounded-full size-[40px] border border-[var(--border-primary,#ced1d7)]"
+            />
+          </div>
+        )
+      }
+    ];
+
+    return (
+      <div className="p-8 bg-[var(--bg-primary)]">
+        <div className="space-y-4">
+          <div>
+            <h3 className="text-xl font-semibold text-[var(--primary)]">Journey Table</h3>
+            <p className="text-sm text-[var(--tertiary)] mt-1">
+              Comprehensive journey tracking table with vehicle info, trip status, SLA monitoring, and alerts.
+            </p>
+          </div>
+          <div className="overflow-x-auto -mx-8 px-8">
+            <div className="min-w-[1400px]">
+              <Table
+                variant="primary"
+                columns={journeyColumns}
+                data={journeyData}
+                selectable
+                selectedRows={selectedRows}
+                onSelectionChange={setSelectedRows}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+}
+
+export const JourneyTable: Story = {
+  render: () => <JourneyTableComponent />
+};

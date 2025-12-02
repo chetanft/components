@@ -30,7 +30,7 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
     className,
     ...props
   }, ref) => {
-    const defaultSeparator = <Icon name="chevron-right" size={16} className="text-[#838c9d]" />;
+    const defaultSeparator = <Icon name="chevron-right" size={16} className="text-[var(--color-tertiary)]" />;
 
     return (
       <nav
@@ -40,17 +40,17 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
         {...props}
       >
         {showFigmaBadge && (
-          <div className="mr-4">
+          <div className="mr-[var(--spacing-x4)]">
             <FigmaBadge />
           </div>
         )}
-        <ol className="flex items-center gap-2 flex-wrap">
+        <ol className="flex items-center gap-[var(--spacing-x2)] flex-wrap">
           {items.map((item, index) => {
             const isLast = index === items.length - 1;
             const isClickable = !isLast && (item.href || item.onClick);
 
             return (
-              <li key={index} className="flex items-center gap-2">
+              <li key={index} className="flex items-center gap-[var(--spacing-x2)]">
                 {index > 0 && (
                   <span className="flex items-center">
                     {separator || defaultSeparator}
@@ -61,7 +61,7 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
                     href={item.href}
                     onClick={item.onClick}
                     className={cn(
-                      "flex items-center gap-1.5",
+                      "flex items-center gap-[var(--spacing-x2)]",
                       "text-sm font-medium",
                       "text-[var(--color-primary)]",
                       "hover:text-[var(--color-neutral)]",
@@ -75,9 +75,9 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
                 ) : (
                   <span
                     className={cn(
-                      "flex items-center gap-1.5",
+                      "flex items-center gap-[var(--spacing-x2)]",
                       "text-sm font-medium",
-                      isLast ? "text-[var(--color-primary)]" : "text-[#838c9d]"
+                      isLast ? "text-[var(--color-primary)]" : "text-[var(--color-tertiary)]"
                     )}
                     aria-current={isLast ? 'page' : undefined}
                   >

@@ -86,9 +86,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   // Tip alignment classes
   const tipAlignClasses = {
-    start: placement === 'top' || placement === 'bottom' ? 'left-4' : 'top-4',
+    start: placement === 'top' || placement === 'bottom' ? 'left-[var(--spacing-x4)]' : 'top-[var(--spacing-x4)]',
     center: placement === 'top' || placement === 'bottom' ? 'left-1/2 -translate-x-1/2' : 'top-1/2 -translate-y-1/2',
-    end: placement === 'top' || placement === 'bottom' ? 'right-4 left-auto' : 'bottom-4 top-auto',
+    end: placement === 'top' || placement === 'bottom' ? 'right-[var(--spacing-x4)] left-auto' : 'bottom-[var(--spacing-x4)] top-auto',
   };
 
   return (

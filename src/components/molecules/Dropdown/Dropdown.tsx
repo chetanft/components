@@ -385,7 +385,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
       return (
         <p className={cn(
-          "text-sm-rem leading-relaxed mt-1.5",
+          "text-sm-rem leading-relaxed mt-[var(--spacing-x2)]",
           error ? "text-critical" : "text-secondary"
         )}>
           {error || helperText}
@@ -399,7 +399,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         {label && (
           <div className={cn(
             "flex items-center",
-            labelPosition === "left" && "mb-0 mr-4"
+            labelPosition === "left" && "mb-0 mr-[var(--spacing-x4)]"
           )}>
             <Label
               mandatory={labelMandatory}

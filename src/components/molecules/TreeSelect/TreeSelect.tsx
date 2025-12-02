@@ -247,7 +247,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
 
     const inputStyles = cn(
       "w-full transition-all duration-200 cursor-pointer",
-      "flex items-center flex-wrap gap-1",
+      "flex items-center flex-wrap gap-[var(--spacing-x1)]",
       "font-sans font-normal",
       "placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
       componentStyles.height,
@@ -290,7 +290,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
           >
             {/* Selected tags for multiple mode */}
             {isMultiple && selectedKeys.length > 0 && (
-              <div className="flex flex-wrap gap-1 flex-1 min-w-0">
+              <div className="flex flex-wrap gap-[var(--spacing-x1)] flex-1 min-w-0">
                 {selectedKeys.map(key => {
                   const node = findNode(treeData, key);
                   return (

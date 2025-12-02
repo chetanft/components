@@ -81,8 +81,8 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
         const displayValue = formatter
           ? formatter(actualValue)
           : precision !== undefined
-          ? actualValue.toFixed(precision)
-          : String(actualValue);
+            ? actualValue.toFixed(precision)
+            : String(actualValue);
         setInputValue(displayValue);
       }
     }, [actualValue, formatter, precision, isFocused]);
@@ -99,7 +99,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     // Update value
     const updateValue = useCallback((newValue: number | null) => {
       const clampedValue = newValue !== null ? clampValue(newValue) : null;
-      
+
       if (controlledValue === undefined) {
         setInternalValue(clampedValue);
       }
@@ -143,7 +143,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     // Handle blur - finalize value
     const handleBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(false);
-      
+
       if (inputValue === '' || inputValue === '-') {
         updateValue(null);
         setInputValue('');
@@ -151,13 +151,13 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
         const parsedValue = parser
           ? parser(inputValue)
           : parseFloat(inputValue.replace(/[^\d.-]/g, ''));
-        
+
         if (!isNaN(parsedValue)) {
           const clamped = clampValue(parsedValue);
           updateValue(clamped);
         }
       }
-      
+
       props.onBlur?.(e);
     }, [inputValue, parser, clampValue, updateValue, props]);
 
@@ -199,11 +199,11 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     const canDecrement = actualValue === null || actualValue > min;
 
     // Control button component
-    const ControlButton = ({ 
-      direction, 
-      onClick 
-    }: { 
-      direction: 'up' | 'down'; 
+    const ControlButton = ({
+      direction,
+      onClick
+    }: {
+      direction: 'up' | 'down';
       onClick: () => void;
     }) => (
       <button
@@ -241,8 +241,8 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
           error
             ? "border-[var(--critical)]"
             : isFocused
-            ? "border-[var(--primary)]"
-            : "border-[var(--border-primary)] hover:border-[var(--primary)]",
+              ? "border-[var(--primary)]"
+              : "border-[var(--border-primary)] hover:border-[var(--primary)]",
           // Disabled state
           disabled && "bg-[var(--border-secondary)] cursor-not-allowed opacity-60",
           className
@@ -255,7 +255,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
 
         {/* Prefix */}
         {prefix && (
-          <span className={cn("text-[var(--tertiary)] pl-[var(--x3)]", config.text)}>
+          <span className={cn("text-[var(--tertiary)] pl-[var(--spacing-x3)]", config.text)}>
             {prefix}
           </span>
         )}
@@ -284,7 +284,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
 
         {/* Suffix */}
         {suffix && (
-          <span className={cn("text-[var(--tertiary)] pr-[var(--x3)]", config.text)}>
+          <span className={cn("text-[var(--tertiary)] pr-[var(--spacing-x3)]", config.text)}>
             {suffix}
           </span>
         )}

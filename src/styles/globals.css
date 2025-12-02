@@ -14,12 +14,12 @@
      ===================================================== */
 
    /* Primary Scale (9 shades) */
-   --primary-900: #0d1117; /* Darkest */
-   --primary-800: #1a2330;
+   --primary-900: #1a2330;
+   --primary-800: #2c3547;
    --primary-700: #434f64; /* Main brand color - dark navy */
-   --primary-600: #2c3547;
-   --primary-500: #434f64;
-   --primary-400: #5f697b;
+   --primary-600: #49556a;
+   --primary-500: #5f697b;
+   --primary-400: #6c7689;
    --primary-300: #838c9d;
    --primary-200: #9aa3b2;
    --primary-100: #c5cad3;
@@ -98,7 +98,7 @@
    /* Base Semantic Colors - Reference base color scales */
    --primary: var(--primary-700);
    /* #434f64 */
-   --secondary: var(--primary-400);
+   --secondary: var(--primary-500);
    /* #5f697b */
    --tertiary: var(--primary-300);
    /* #838c9d */

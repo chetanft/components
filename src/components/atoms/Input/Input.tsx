@@ -95,7 +95,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       componentStyles.padding,
       // Variant styles with dark mode
       variant === 'filled'
-        ? "bg-surface-alt dark:bg-surface-alt-dark border-2 border-transparent focus:bg-surface dark:focus:bg-surface-dark focus:border-border-alt dark:focus:border-border-alt-dark"
+        ? "bg-surface-alt dark:bg-surface-alt-dark border-2 border-[var(--border-primary)] dark:border-[var(--border-primary)] focus:bg-surface dark:focus:bg-surface-dark focus:border-[var(--primary)] dark:focus:border-[var(--primary)]"
         : variant === 'outlined'
           ? "bg-transparent border border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)] focus:border-primary"
           : "bg-surface dark:bg-surface-dark border-2 border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)]",
@@ -103,12 +103,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       disabled
         ? "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"
         : inputType === 'error'
-          ? "border-critical text-input dark:text-input-dark focus:border-critical"
+          ? "border-critical text-[var(--primary)] dark:text-[var(--primary)] focus:border-critical"
           : inputType === 'warning'
-            ? "border-warning text-input dark:text-input-dark focus:border-warning"
+            ? "border-warning text-[var(--primary)] dark:text-[var(--primary)] focus:border-warning"
             : inputType === 'success'
-              ? "border-positive text-input dark:text-input-dark focus:border-positive"
-              : "text-input dark:text-input-dark focus:border-primary dark:focus:border-primary-dark",
+              ? "border-positive text-[var(--primary)] dark:text-[var(--primary)] focus:border-positive"
+              : "text-[var(--primary)] dark:text-[var(--primary)] focus:border-primary dark:focus:border-primary-dark",
       // Focus styles
       "focus:outline-none",
       className

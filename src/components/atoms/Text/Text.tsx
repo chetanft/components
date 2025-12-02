@@ -8,34 +8,34 @@ export interface TextProps {
    * Whether to show sub text
    */
   subText?: boolean;
-  
+
   /**
    * Whether to show leading icon
    */
   leadingIcon?: boolean;
-  
+
   /**
    * Whether to show trailing icon
    */
   trailingIcon?: boolean;
-  
+
   /**
    * Text size variant
    */
   size?: "sm" | "md" | "lg" | "xl" | "xx";
-  
+
   /**
    * Additional CSS classes
    */
   className?: string;
 }
 
-export const Text: React.FC<TextProps> = ({ 
+export const Text: React.FC<TextProps> = ({
   subText = false,
-  leadingIcon = false, 
+  leadingIcon = false,
   trailingIcon = false,
   size = "sm",
-  className = '' 
+  className = ''
 }) => {
   // Map size to Typography variant for main text
   const getVariant = (): TypographyVariant => {
@@ -54,7 +54,7 @@ export const Text: React.FC<TextProps> = ({
         return "body-secondary-regular";
     }
   };
-  
+
   const variant = getVariant();
   const hasSubText = subText === true;
   const hasLeadingIcon = leadingIcon === true;
@@ -69,8 +69,8 @@ export const Text: React.FC<TextProps> = ({
 
   // Icon element factory matching Figma structure
   const createIconElement = (key: string) => (
-    <div key={key} className="relative shrink-0 size-[16px]" data-name="Check- fill">
-      <Icon name="check-fill" size={16} color="#434f64" />
+    <div key={key} className="relative shrink-0 size-[var(--spacing-x4)]" data-name="Check- fill">
+      <Icon name="check-fill" size={16} className="text-[var(--color-primary)]" />
     </div>
   );
 
@@ -87,19 +87,19 @@ export const Text: React.FC<TextProps> = ({
     if (hasLeadingIcon) {
       return "";
     }
-    
+
     // Subtext + trailing icon: width varies by size
     if (hasSubText && hasTrailingIcon) {
       if (size === "xl") return "w-[68px]";
       if (size === "xx") return "w-[75px]";
       return "w-[57px]";
     }
-    
+
     // Subtext without icons
     if (hasSubText && !hasTrailingIcon) {
       return "w-[58px]";
     }
-    
+
     // No subtext cases (with or without trailing icon)
     return "w-[57px]";
   };
@@ -116,10 +116,10 @@ export const Text: React.FC<TextProps> = ({
 
   // Subtext element
   const subTextElement = hasSubText ? (
-    <div className="content-stretch flex gap-[10px] items-center justify-center relative shrink-0" data-name="Sub text">
-      <Typography 
-        variant="body-secondary-regular" 
-        color="secondary" 
+    <div className="content-stretch flex gap-[var(--spacing-x3)] items-center justify-center relative shrink-0" data-name="Sub text">
+      <Typography
+        variant="body-secondary-regular"
+        color="secondary"
         className={cn("relative shrink-0 whitespace-pre-wrap", getSubTextWidth())}
       >
         Sub text
@@ -135,23 +135,23 @@ export const Text: React.FC<TextProps> = ({
 
     // Row with icons - matching Figma structure
     const rowContent = [];
-    
+
     if (hasLeadingIcon) {
       rowContent.push(createIconElement("leading-icon"));
     }
-    
+
     rowContent.push(
       <div key="text" className="relative shrink-0 whitespace-nowrap">
         {mainText}
       </div>
     );
-    
+
     if (hasTrailingIcon) {
       rowContent.push(createIconElement("trailing-icon"));
     }
 
     return (
-      <div className="content-stretch flex gap-[var(--x2,8px)] h-[22px] items-center relative shrink-0" data-name="Text">
+      <div className="content-stretch flex gap-[var(--spacing-x2)] h-[22px] items-center relative shrink-0" data-name="Text">
         {rowContent}
       </div>
     );
@@ -163,13 +163,13 @@ export const Text: React.FC<TextProps> = ({
   // Container class matching Figma structure
   const containerWidth = getContainerWidth();
   const containerClass = cn(
-    "content-stretch flex flex-col gap-[var(--x1,4px)] items-start justify-center relative",
+    "content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative",
     containerWidth || "size-full",
     className
   );
 
   return (
-    <div 
+    <div
       className={containerClass}
       data-name={dataName}
     >

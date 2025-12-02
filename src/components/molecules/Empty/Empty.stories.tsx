@@ -10,33 +10,6 @@ const meta: Meta<typeof Empty> = {
   component: Empty,
   parameters: {
     layout: 'centered',
-    docs: {
-      description: {
-        component: `🆕 NEW: Empty state component built with FT Design System tokens.
-
-## Features
-- Built entirely with FT Design System tokens and components
-- Multiple image variants: default, simple, no-data, error
-- Customizable descriptions and actions
-- Preset configurations for common scenarios
-
-## Example Variants
-- **Default**: Basic empty state with default illustration
-- **SimpleStyle**: Minimal empty state for search results
-- **NoDataStyle**: Empty state for data entry scenarios
-- **ErrorStyle**: Error state display
-- **JourneysEmptyState**: Complete example with filters and actions (see below)
-
-## JourneysEmptyState Example
-The \`JourneysEmptyState\` variant demonstrates a complete empty state implementation with:
-- Title and description using Typography components
-- Filter controls (Dropdown and DatePicker components)
-- Action button with icon
-- All using FT Design System tokens for spacing and colors
-
-This variant serves as a reference implementation for building complex empty states.`,
-      },
-    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -180,22 +153,22 @@ export const JourneysEmptyState: Story = {
       </div>
 
       {/* Filter Controls */}
-      <div className="flex flex-col gap-[var(--x3,12px)] items-center">
-        <div className="flex gap-[var(--x3,12px)] items-center flex-wrap justify-center">
+      <div className="flex flex-col gap-[var(--x3,12px)] items-center w-full">
+        <div className="flex gap-[var(--x3,12px)] items-center flex-nowrap justify-center w-full overflow-x-auto">
           <Dropdown
             options={[
               { value: 'mdc-labs-amritsar', label: 'MDC Labs, Amritsar' }
             ]}
             value="mdc-labs-amritsar"
             size="md"
-            className="w-[236px]"
+            className="w-[236px] flex-shrink-0"
           />
           <DatePicker
             range
             startValue="2024-08-12"
             endValue="2024-08-13"
             size="m"
-            className="min-w-[296px]"
+            className="flex-shrink-0"
           />
           <Dropdown
             options={[
@@ -203,7 +176,7 @@ export const JourneysEmptyState: Story = {
             ]}
             value="outbound-source"
             size="md"
-            className="w-[191px]"
+            className="w-[191px] flex-shrink-0"
           />
         </div>
       </div>

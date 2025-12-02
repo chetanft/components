@@ -69,13 +69,13 @@ const inputTextVariants = cva(
   {
     variants: {
       state: {
-        default: "text-input dark:text-input-dark placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
-        filled: "text-input dark:text-input-dark",
+        default: "text-[var(--primary)] dark:text-[var(--primary)] placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
+        filled: "text-[var(--primary)] dark:text-[var(--primary)]",
         disabled: "text-input-disabled dark:text-input-disabled-dark cursor-not-allowed",
-        prefilled: "text-input dark:text-input-dark",
-        hover: "text-input dark:text-input-dark",
-        focused: "text-input dark:text-input-dark",
-        typing: "text-input dark:text-input-dark"
+        prefilled: "text-[var(--primary)] dark:text-[var(--primary)]",
+        hover: "text-[var(--primary)] dark:text-[var(--primary)]",
+        focused: "text-[var(--primary)] dark:text-[var(--primary)]",
+        typing: "text-[var(--primary)] dark:text-[var(--primary)]"
       }
     },
     defaultVariants: {
@@ -115,7 +115,7 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
       <div className={cn(
         datePickerFieldVariants({ size, state }),
         componentStyles.borderRadius,
-        "px-3",
+        "px-[var(--spacing-x3)]",
         className
       )}>
         <input
@@ -199,13 +199,13 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
 
   // Size-specific vertical padding for inner content
   const verticalPaddingMap: Record<ComponentSize, string> = {
-    xxs: "py-0.5",
-    xs: "py-1",
-    sm: "py-2",
-    md: "py-3",
-    lg: "py-4",
-    xl: "py-5",
-    xxl: "py-6"
+    xxs: "py-[2px]",
+    xs: "py-[var(--spacing-x1)]",
+    sm: "py-[var(--spacing-x2)]",
+    md: "py-[var(--spacing-x3)]",
+    lg: "py-[var(--spacing-x4)]",
+    xl: "py-[var(--spacing-x5)]",
+    xxl: "py-[var(--spacing-x6)]"
   };
   const [isOpen, setIsOpen] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(startValue ? new Date(startValue) : null);
@@ -716,49 +716,53 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
           className={cn(
             datePickerFieldVariants({ size, state: fieldState }),
             componentStyles.borderRadius,
-            "px-3 min-w-[calc(var(--spacing-x10)*8)]",
+            range ? "pl-[var(--spacing-x3)] pr-[var(--spacing-x2)]" : "px-[var(--spacing-x3)] min-w-[calc(var(--spacing-x10)*8)]",
             !range ? "cursor-pointer" : ""
           )}
           onClick={() => !disabled && !range && setIsOpen(true)}
         >
-          <div className={cn("flex flex-1 items-center gap-1 w-full", verticalPaddingMap[componentSize])}>
+          <div className={cn("flex items-center gap-1", range ? "" : "flex-1 w-full", verticalPaddingMap[componentSize])}>
             {range ? (
               <>
                 <input
                   type="text"
                   value={getStartInputDisplayValue()}
-                  placeholder="MM/DD/YYYY"
+                  placeholder="Start date"
                   disabled={disabled}
                   onChange={handleStartInputChange}
                   onBlur={handleStartInputBlur}
                   onFocus={() => setIsTyping(true)}
                   onClick={(e) => e.stopPropagation()}
+                  size={startDate || startInputValue ? getStartInputDisplayValue().length || 10 : 10}
                   className={cn(
-                    "flex-1 bg-transparent border-none outline-none text-base font-normal leading-[1.4]",
+                    "bg-transparent border-none outline-none text-base font-normal leading-[1.4]",
                     startDate || startInputValue
-                      ? "text-input dark:text-input-dark"
+                      ? "text-[var(--primary)] dark:text-[var(--primary)]"
                       : "text-placeholder dark:text-placeholder-dark",
-                    "placeholder:text-placeholder dark:placeholder:text-placeholder-dark"
+                    "placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
+                    "inline-block w-auto pr-[12px]"
                   )}
                 />
-                <span className="text-base font-normal leading-[1.4] text-placeholder dark:text-placeholder-dark">
+                <span className="text-base font-normal leading-[1.4] text-placeholder dark:text-placeholder-dark flex-shrink-0">
                   →
                 </span>
                 <input
                   type="text"
                   value={getEndInputDisplayValue()}
-                  placeholder="MM/DD/YYYY"
+                  placeholder="End date"
                   disabled={disabled}
                   onChange={handleEndInputChange}
                   onBlur={handleEndInputBlur}
                   onFocus={() => setIsTyping(true)}
                   onClick={(e) => e.stopPropagation()}
+                  size={endDate || endInputValue ? getEndInputDisplayValue().length || 8 : 8}
                   className={cn(
-                    "flex-1 bg-transparent border-none outline-none text-base font-normal leading-[1.4]",
+                    "bg-transparent border-none outline-none text-base font-normal leading-[1.4]",
                     endDate || endInputValue
-                      ? "text-input dark:text-input-dark"
+                      ? "text-[var(--primary)] dark:text-[var(--primary)]"
                       : "text-placeholder dark:text-placeholder-dark",
-                    "placeholder:text-placeholder dark:placeholder:text-placeholder-dark"
+                    "placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
+                    "inline-block w-auto pr-[12px]"
                   )}
                 />
               </>
@@ -779,14 +783,14 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
                   e.stopPropagation();
                   setIsOpen(true);
                 }}
-                className="flex-1 bg-transparent border-none outline-none text-base font-normal leading-[1.4] text-input dark:text-input-dark placeholder:text-placeholder dark:placeholder:text-placeholder-dark"
+                className="flex-1 bg-transparent border-none outline-none text-base font-normal leading-[1.4] text-[var(--primary)] dark:text-[var(--primary)] placeholder:text-placeholder dark:placeholder:text-placeholder-dark"
               />
             )}
             <button
               type="button"
               onClick={() => !disabled && setIsOpen(true)}
               className={cn(
-                "flex-shrink-0 cursor-pointer",
+                "flex-shrink-0 cursor-pointer flex items-center justify-center",
                 disabled && "cursor-not-allowed"
               )}
               disabled={disabled}

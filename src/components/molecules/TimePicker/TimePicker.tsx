@@ -149,7 +149,7 @@ const TimeColumn: React.FC<TimeColumnProps> = ({
             onClick={() => !isDisabled && onChange(option)}
             disabled={isDisabled}
             className={cn(
-              "px-[var(--spacing-x3)] py-[var(--spacing-x2)] text-center transition-colors min-w-[calc(var(--spacing-x2)*7)]",
+              "px-[var(--spacing-x3)] py-[var(--spacing-x2)] text-center transition-colors min-w-[var(--spacing-x14)]",
               "text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)]",
               isSelected && "bg-[var(--color-primary)] text-[var(--color-bg-primary)] hover:bg-[var(--color-primary)]",
               isDisabled && "text-[var(--color-tertiary)] cursor-not-allowed opacity-50"

@@ -113,7 +113,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               "bg-[var(--bg-primary)]",
               "rounded-[var(--x2,8px)]",
               "px-[var(--x3,12px)] py-0",
-              "h-[40px]",
+              "h-[var(--spacing-x10)]",
               "box-border"
             )}
           >
@@ -133,7 +133,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               >
                 <Icon name="chevron-left" className="size-4" />
               </button>
-              
+
               <p
                 className={cn(
                   "flex-1 text-center",
@@ -148,7 +148,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
               >
                 {current}
               </p>
-              
+
               <button
                 onClick={() => handlePageChange(current + 1)}
                 disabled={current === totalPages}
@@ -172,13 +172,13 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
 
     // Default variant - full pagination with page numbers
     return (
-      <div ref={ref} className={cn("flex items-center gap-2 flex-wrap", className)} {...props}>
+      <div ref={ref} className={cn("flex items-center gap-[var(--spacing-x2)] flex-wrap", className)} {...props}>
         {showFigmaBadge && (
-          <div className="mr-4">
+          <div className="mr-[var(--spacing-x4)]">
             <FigmaBadge />
           </div>
         )}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-[var(--spacing-x1)]">
           <Button
             variant="secondary"
             size="sm"
@@ -188,13 +188,13 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             disabled={current === 1}
             aria-label="Previous page"
           />
-          
+
           {getPageNumbers().map((page, index) => {
             if (page === 'ellipsis') {
               return (
                 <span
                   key={`ellipsis-${index}`}
-                  className="px-2 text-[var(--color-tertiary)]"
+                  className="px-[var(--spacing-x2)] text-[var(--color-tertiary)]"
                 >
                   ...
                 </span>

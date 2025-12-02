@@ -73,14 +73,14 @@ const TransferList = ({
 
     return (
         <div className="flex flex-col border border-[var(--border-primary)] rounded-md w-[250px] h-[300px] overflow-hidden bg-[var(--color-bg-primary)]">
-            <div className="flex items-center justify-between px-3 py-2 border-b border-[var(--border-primary)] bg-[var(--color-bg-secondary)]">
+            <div className="flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x2)] border-b border-[var(--border-primary)] bg-[var(--color-bg-secondary)]">
                 <Checkbox
                     checked={allChecked}
                     indeterminate={indeterminate}
                     onChange={(e) => handleSelectAll(e.target.checked)}
                     disabled={disabled}
                 >
-                    <span className="ml-2 text-sm">
+                    <span className="ml-[var(--spacing-x2)] text-sm">
                         {checkedCount > 0 ? `${checkedCount}/${filteredDataSource.length} items` : `${filteredDataSource.length} items`}
                     </span>
                 </Checkbox>
@@ -88,7 +88,7 @@ const TransferList = ({
             </div>
 
             {showSearch && (
-                <div className="p-2 border-b border-[var(--border-primary)]">
+                <div className="p-[var(--spacing-x2)] border-b border-[var(--border-primary)]">
                     <Input
                         placeholder={searchPlaceholder || "Search"}
                         value={filter}
@@ -105,7 +105,7 @@ const TransferList = ({
                     <li
                         key={item.key}
                         className={cn(
-                            "flex items-center px-3 py-2 cursor-pointer transition-colors hover:bg-[var(--surface-hover)]",
+                            "flex items-center px-[var(--spacing-x3)] py-[var(--spacing-x2)] cursor-pointer transition-colors hover:bg-[var(--surface-hover)]",
                             checkedKeys.includes(item.key) && "bg-[var(--color-bg-secondary)]",
                             (item.disabled || disabled) && "cursor-not-allowed opacity-50"
                         )}
@@ -119,7 +119,7 @@ const TransferList = ({
                             checked={checkedKeys.includes(item.key)}
                             disabled={item.disabled || disabled}
                         />
-                        <span className="ml-2 text-sm">{render ? render(item) : item.title}</span>
+                        <span className="ml-[var(--spacing-x2)] text-sm">{render ? render(item) : item.title}</span>
                     </li>
                 ))}
                 {filteredDataSource.length === 0 && (
@@ -208,7 +208,7 @@ export const Transfer: React.FC<TransferProps> = ({
     const rightDataSource = dataSource.filter(item => targetKeys.includes(item.key));
 
     return (
-        <div className={cn("flex items-center gap-4", className)} {...props}>
+        <div className={cn("flex items-center gap-[var(--spacing-x4)]", className)} {...props}>
             <TransferList
                 title={titles[0]}
                 dataSource={leftDataSource}
@@ -222,7 +222,7 @@ export const Transfer: React.FC<TransferProps> = ({
                 direction="left"
             />
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-[var(--spacing-x2)]">
                 <Button
                     variant="secondary"
                     size="sm"

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { BackTop } from './BackTop';
 import { Typography } from '../../atoms/Typography';
+import { Button } from '../../atoms/Button/Button';
 
 const meta: Meta<typeof BackTop> = {
   title: 'Molecules/BackTop',
@@ -29,18 +30,12 @@ export const CustomContent: Story = {
     <div style={{ height: '300vh', padding: '20px' }}>
       <Typography variant="display-primary" as="h3">Scroll down (Custom Button)</Typography>
       <BackTop visibilityHeight={100}>
-        <div style={{
-          height: 40,
-          width: 100,
-          lineHeight: '40px',
-          borderRadius: 4,
-          backgroundColor: '#1088e9',
-          color: '#fff',
-          textAlign: 'center',
-          fontSize: 14
-        }}>
+        <Button
+          variant="primary"
+          size="md"
+        >
           UP
-        </div>
+        </Button>
       </BackTop>
     </div>
   ),

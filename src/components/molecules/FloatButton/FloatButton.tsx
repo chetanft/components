@@ -76,7 +76,7 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
         "focus-visible:outline-none",
         shape === 'circle' ? "rounded-full" : "rounded-md",
         variantStyles,
-        "w-10 h-10", // Default size
+        "w-[var(--spacing-x10)] h-[var(--spacing-x10)]", // Default size
         className
       )}
       onClick={onClick as any}
@@ -147,13 +147,13 @@ export const FloatButtonGroup = React.forwardRef<HTMLDivElement, FloatButtonGrou
   return (
     <div
       ref={ref}
-      className={cn("fixed right-6 bottom-6 flex flex-col items-center gap-3 z-50", className)}
+      className={cn("fixed right-[var(--spacing-x6)] bottom-[var(--spacing-x6)] flex flex-col items-center gap-[var(--spacing-x3)] z-50", className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       {...props}
     >
       {isOpen && (
-        <div className="flex flex-col gap-3 mb-3 animate-in fade-in slide-in-from-bottom-4 duration-200">
+        <div className="flex flex-col gap-[var(--spacing-x3)] mb-[var(--spacing-x3)] animate-in fade-in slide-in-from-bottom-[var(--spacing-x4)] duration-200">
           {children}
         </div>
       )}

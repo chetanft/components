@@ -53,11 +53,11 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
   // Currently this component is standalone.
 
   // I'll keep the existing "Primary/Secondary/Tertiary" styling logic but ensure children rendering works
-  
-    // Background colors and styling based on variant
+
+  // Background colors and styling based on variant
   const getBackgroundStyles = () => {
     const baseStyles = [];
-    
+
     if (bg === 'Primary') {
       baseStyles.push('bg-[var(--bg-primary)]');
       if (type === 'Tertiary') {
@@ -69,80 +69,80 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
         baseStyles.push('border border-[var(--border-secondary)]');
       }
     }
-    
+
     return baseStyles;
   };
 
   const getBorderRadius = () => {
-    return type === 'Tertiary' ? 'rounded-[var(--x3,16px)]' : 'rounded-[var(--x2,8px)]';
+    return type === 'Tertiary' ? 'rounded-[var(--spacing-x4)]' : 'rounded-[var(--spacing-x2)]';
   };
 
   const renderHeader = () => {
-      // Logic for icon
-      const icon = type === 'Primary' 
-         ? (isExpanded ? 'subtract' : 'add') 
-         : (isExpanded ? 'chevron-up' : 'chevron-down'); // For Secondary
-      
-      // Secondary logic is different in original: chevron-down (collapsed), chevron-up (expanded)
-      // Actually original code: Secondary/Tertiary collapsed -> chevron-right if Tertiary, chevron-down if Secondary...
-      
-      return (
-         <div 
-            className={cn(
-                "flex items-center gap-[8px] px-0 py-[var(--x5,20px)] w-full cursor-pointer",
-                isExpanded ? "border-b border-[var(--border-primary)]" : "",
-            )}
-            onClick={handleToggle}
-         >
-             <div className="flex items-center gap-[var(--x5,20px)] px-[var(--x5,20px)] flex-1">
-                 {type === 'Primary' && _showArrow && (
-                     <Button
-                        variant="secondary"
-                        size="md"
-                        icon={icon}
-                        iconPosition="only"
-                        className="!w-10 !h-10 !p-0 flex items-center justify-center rounded-lg shrink-0 border border-[var(--border-primary)] pointer-events-none"
-                     />
-                 )}
-                 {(type === 'Secondary' || type === 'Tertiary') && _showArrow && (
-                     <div className="text-[var(--primary)]">
-                         {type === 'Tertiary' && !isExpanded && <Icon name="chevron-right" size={16} />}
-                         {type === 'Tertiary' && isExpanded && <Icon name="chevron-up" size={16} />}
-                         {/* Secondary doesn't show icon on left in original, it shows chevron-down on right */}
-                     </div>
-                 )}
-                 
-                 <div className="flex-1 font-semibold text-xl text-[var(--primary)]">{header}</div>
+    // Logic for icon
+    const icon = type === 'Primary'
+      ? (isExpanded ? 'subtract' : 'add')
+      : (isExpanded ? 'chevron-up' : 'chevron-down'); // For Secondary
 
-                 {extra}
-                 
-                 {type === 'Secondary' && _showArrow && (
-                     <div className="text-[var(--primary)]">
-                         {isExpanded ? <Icon name="chevron-up" size={16} /> : <Icon name="chevron-down" size={16} />}
-                     </div>
-                 )}
-             </div>
-         </div>
-      );
+    // Secondary logic is different in original: chevron-down (collapsed), chevron-up (expanded)
+    // Actually original code: Secondary/Tertiary collapsed -> chevron-right if Tertiary, chevron-down if Secondary...
+
+    return (
+      <div
+        className={cn(
+          "flex items-center gap-[var(--spacing-x2)] px-0 py-[var(--spacing-x5)] w-full cursor-pointer",
+          isExpanded ? "border-b border-[var(--border-primary)]" : "",
+        )}
+        onClick={handleToggle}
+      >
+        <div className="flex items-center gap-[var(--spacing-x5)] px-[var(--spacing-x5)] flex-1">
+          {type === 'Primary' && _showArrow && (
+            <Button
+              variant="secondary"
+              size="md"
+              icon={icon}
+              iconPosition="only"
+              className="!w-[var(--spacing-x10)] !h-[var(--spacing-x10)] !p-0 flex items-center justify-center rounded-lg shrink-0 border border-[var(--border-primary)] pointer-events-none"
+            />
+          )}
+          {(type === 'Secondary' || type === 'Tertiary') && _showArrow && (
+            <div className="text-[var(--primary)]">
+              {type === 'Tertiary' && !isExpanded && <Icon name="chevron-right" size={16} />}
+              {type === 'Tertiary' && isExpanded && <Icon name="chevron-up" size={16} />}
+              {/* Secondary doesn't show icon on left in original, it shows chevron-down on right */}
+            </div>
+          )}
+
+          <div className="flex-1 font-semibold text-xl text-[var(--primary)]">{header}</div>
+
+          {extra}
+
+          {type === 'Secondary' && _showArrow && (
+            <div className="text-[var(--primary)]">
+              {isExpanded ? <Icon name="chevron-up" size={16} /> : <Icon name="chevron-down" size={16} />}
+            </div>
+          )}
+        </div>
+      </div>
+    );
   };
 
   return (
-    <div 
-        className={cn(
-            'flex flex-col overflow-hidden',
-            getBorderRadius(),
-            ...getBackgroundStyles(),
-            disabled && "opacity-50 cursor-not-allowed",
-            className
-        )}
-        {..._props}
+    <div
+      className={cn(
+        'flex flex-col overflow-hidden',
+        getBorderRadius(),
+        ...getBackgroundStyles(),
+        disabled && "opacity-50 cursor-not-allowed",
+        className
+      )}
+      {..._props}
     >
-        {renderHeader()}
-        {isExpanded && (
-            <div className={cn("px-[var(--x5,20px)] py-[var(--x5,20px)]", type === 'Tertiary' ? "pt-0" : "")}>
-                {children}
-            </div>
-        )}
+      {renderHeader()}
+      {isExpanded && (
+        <div className={cn("px-[var(--spacing-x5)] py-[var(--spacing-x5)]", type === 'Tertiary' ? "pt-0" : "")}>
+          {children}
+        </div>
+      )}
     </div>
   );
 };

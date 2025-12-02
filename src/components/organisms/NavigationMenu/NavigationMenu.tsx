@@ -47,12 +47,12 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
           <div className="content-stretch flex flex-col h-[568px] items-start justify-start overflow-clip relative w-full">
 
             {/* Header */}
-            <div className="box-border content-stretch flex items-center justify-between p-[20px] relative shrink-0 w-full">
-              <div className="h-[36px] relative shrink-0 w-[218px]">
+            <div className="box-border content-stretch flex items-center justify-between p-[var(--spacing-x5)] relative shrink-0 w-full">
+              <div className="h-[var(--spacing-x9)] relative shrink-0 w-[218px]">
                 <FTLogo width={218} height={36} />
               </div>
               <button
-                className="block cursor-pointer overflow-clip relative shrink-0 size-[24px]"
+                className="block cursor-pointer overflow-clip relative shrink-0 size-[var(--spacing-x6)]"
                 onClick={onClose}
               >
                 <Icon name="close-filled" size={24} className="text-[var(--color-primary)]" />
@@ -372,7 +372,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
         {/* Footer */}
         <div className="box-border content-stretch flex items-center justify-between px-[var(--spacing-x5)] py-[var(--spacing-x3)] relative shrink-0 w-full">
           <button
-            className="box-border content-stretch flex gap-[var(--spacing-x2)] h-[48px] items-center justify-center px-[var(--spacing-x6)] py-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+            className="box-border content-stretch flex gap-[var(--spacing-x2)] h-[var(--spacing-x12)] items-center justify-center px-[var(--spacing-x6)] py-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
             onClick={() => handleFooterButtonClick('announcement')}
           >
             <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--color-primary)] text-[0px] text-nowrap tracking-[0.0264px]">
@@ -383,7 +383,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
             </div>
           </button>
           <button
-            className="content-stretch flex gap-[var(--spacing-x2)] items-center justify-start relative rounded-[var(--radius-md)] shrink-0 cursor-pointer transition-colors hover:bg-[var(--color-neutral-light)] px-2 py-1"
+            className="content-stretch flex gap-[var(--spacing-x2)] items-center justify-start relative rounded-[var(--radius-md)] shrink-0 cursor-pointer transition-colors hover:bg-[var(--color-neutral-light)] px-[var(--spacing-x2)] py-[var(--spacing-x1)]"
             onClick={() => handleFooterButtonClick('releases')}
           >
             <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--color-neutral)] text-nowrap tracking-[0.0264px]" style={{ fontSize: 'var(--font-size-lg-rem)' }}>

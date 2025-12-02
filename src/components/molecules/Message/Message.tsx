@@ -101,7 +101,7 @@ const MessageItem: React.FC<{
         "px-[var(--x4)] py-[var(--x3)]",
         "rounded-[var(--radius-md)]",
         "shadow-lg",
-        "animate-in fade-in slide-in-from-top-2 duration-200",
+        "animate-in fade-in slide-in-from-top-[var(--spacing-x2)] duration-200",
         className
       )}
       style={{
@@ -130,7 +130,7 @@ const MessageItem: React.FC<{
       {duration === 0 && (
         <button
           onClick={() => onClose(id)}
-          className="ml-auto p-1 text-[var(--tertiary)] hover:text-[var(--primary)] transition-colors"
+          className="ml-auto p-[var(--spacing-x1)] text-[var(--tertiary)] hover:text-[var(--primary)] transition-colors"
         >
           <Icon name="cross" size={14} />
         </button>
@@ -153,8 +153,8 @@ export const MessageContainer: React.FC<{ children: React.ReactNode }> = ({ chil
   const generateId = () => `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
   const addMessage = useCallback((type: MessageType, config: MessageConfig | string): string => {
-    const normalizedConfig: MessageConfig = typeof config === 'string' 
-      ? { content: config } 
+    const normalizedConfig: MessageConfig = typeof config === 'string'
+      ? { content: config }
       : config;
 
     const id = normalizedConfig.key?.toString() || generateId();
@@ -219,7 +219,7 @@ export const MessageContainer: React.FC<{ children: React.ReactNode }> = ({ chil
  */
 export const useMessage = () => {
   const context = useContext(MessageContext);
-  
+
   if (!context) {
     // Return no-op functions if not in provider
     return {
@@ -228,7 +228,7 @@ export const useMessage = () => {
       warning: () => '',
       error: () => '',
       loading: () => '',
-      destroy: () => {},
+      destroy: () => { },
     };
   }
 

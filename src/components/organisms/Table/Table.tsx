@@ -6,11 +6,13 @@ import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 import { TableCellText } from './TableCellText';
 import { TableCell } from './TableCell';
 import { TableHeaderItem } from './TableHeaderItem';
+import { Typography } from '../../atoms/Typography';
 
 // Table types
 export type SortDirection = 'asc' | 'desc' | null;
 export type ColumnType = 'text' | 'number' | 'date' | 'actions';
 export type TableVariant = 'primary' | 'secondary';
+export type TableLayout = 'default' | 'simple';
 
 export interface TableColumn<T = any> {
   key: string;
@@ -32,6 +34,7 @@ export interface TableProps<T extends TableRow = TableRow> {
   columns: TableColumn<T>[];
   data: T[];
   variant?: TableVariant;
+  layout?: TableLayout; // 'default' | 'simple' - simple layout for 2-column label-value pairs
   selectable?: boolean;
   selectedRows?: (string | number)[];
   onSelectionChange?: (selectedRows: (string | number)[]) => void;
@@ -45,6 +48,10 @@ export interface TableProps<T extends TableRow = TableRow> {
   emptyMessage?: string;
   caption?: string;
   className?: string;
+  // Simple layout specific props
+  headerLeft?: React.ReactNode;
+  headerRight?: React.ReactNode;
+  striped?: boolean;
 }
 
 // Table Header Component
@@ -261,7 +268,7 @@ const TableRowComponent = <T extends TableRow = TableRow>({
           <div
             className={cn(
               'flex w-full items-center justify-start',
-              rowAccessory && 'gap-[var(--x2,8px)]'
+              rowAccessory && 'gap-[var(--spacing-x2)]'
             )}
           >
             <Checkbox
@@ -308,7 +315,7 @@ const TableRowComponent = <T extends TableRow = TableRow>({
           state={selected ? 'selected' : (hoveredRowIndex ? 'hover' : 'default')}
           className={ACTIONS_COLUMN_WIDTH_CLASS}
         >
-          <div className="flex items-center justify-end gap-[var(--x1,4px)]">
+          <div className="flex items-center justify-end gap-[var(--spacing-x1)]">
             {rowActions(row)}
           </div>
         </TableCell>
@@ -317,11 +324,42 @@ const TableRowComponent = <T extends TableRow = TableRow>({
   );
 };
 
+// ColumnCell component for simple layout (extracted from SimpleColumnLayout)
+const ColumnCell = ({
+  title,
+  subtitle,
+}: { title: React.ReactNode; subtitle?: React.ReactNode }) => (
+  <div
+    className={cn(
+      'flex flex-col gap-[var(--spacing-x1)] items-start justify-start w-full pl-[var(--spacing-x2)]'
+    )}
+  >
+    <Typography
+      variant="body-primary-regular"
+      as="p"
+      className="whitespace-pre-wrap"
+    >
+      {title}
+    </Typography>
+    {subtitle && (
+      <Typography
+        variant="body-primary-regular"
+        as="p"
+        className="whitespace-pre-wrap"
+        style={{ color: 'var(--primary-500)' }}
+      >
+        {subtitle}
+      </Typography>
+    )}
+  </div>
+);
+
 // Main Table Component
 export const Table = <T extends TableRow = TableRow>({
   columns,
   data,
   variant = 'primary',
+  layout = 'default',
   selectable = false,
   selectedRows = [],
   onSelectionChange,
@@ -334,7 +372,10 @@ export const Table = <T extends TableRow = TableRow>({
   loading = false,
   emptyMessage,
   caption,
-  className
+  className,
+  headerLeft,
+  headerRight,
+  striped = true
 }: TableProps<T>) => {
   // Defensive programming: ensure all rows have valid IDs
   const validatedData = data.filter(row => {
@@ -367,8 +408,106 @@ export const Table = <T extends TableRow = TableRow>({
     return null;
   }
 
+  // Simple layout rendering (2-column label-value pairs)
+  if (layout === 'simple') {
+    // For simple layout, we expect exactly 2 columns
+    if (columns.length !== 2) {
+      console.warn('Table: Simple layout requires exactly 2 columns');
+    }
+
+    const leftColumn = columns[0];
+    const rightColumn = columns[1] || columns[0];
+
+    return (
+      <div
+        className={cn('flex w-full flex-col', className)}
+      >
+        {/* Header - uses TableHeaderItem for consistency */}
+        <div className="w-full">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr>
+                <TableHeaderItem
+                  colorVariant="dark25"
+                  size="md"
+                  className="w-1/2"
+                >
+                  {headerLeft || leftColumn.title || leftColumn.label || leftColumn.header || 'Label'}
+                </TableHeaderItem>
+                <TableHeaderItem
+                  colorVariant="dark25"
+                  size="md"
+                  className="w-1/2 text-right"
+                >
+                  {headerRight || rightColumn.title || rightColumn.label || rightColumn.header || 'Value'}
+                </TableHeaderItem>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        {/* Rows - matches SimpleColumnLayout structure */}
+        <div className="flex flex-col">
+          {validatedData.length === 0 ? (
+            <div className="px-[var(--spacing-x3)] py-[var(--spacing-x8)] text-center">
+              <TableCellText type="secondary">
+                {emptyMessage || "No data available"}
+              </TableCellText>
+            </div>
+          ) : (
+            validatedData.map((row, index) => {
+              // Alternating pattern: even indices (0, 2, 4...) = white, odd indices (1, 3, 5...) = gray
+              const isEvenIndex = index % 2 === 0;
+              const bgColor = striped
+                ? (isEvenIndex
+                  ? 'bg-[var(--bg-primary)]'
+                  : 'bg-[var(--bg-secondary)]')
+                : 'bg-[var(--bg-primary)]';
+
+              const leftValue = row[leftColumn.key];
+              const rightValue = row[rightColumn.key];
+
+              // Handle multi-line values: if string contains \n, split into title/subtitle
+              const getCellContent = (value: unknown): { title: React.ReactNode; subtitle?: React.ReactNode } => {
+                if (typeof value === 'string' && value.includes('\n')) {
+                  const [title, ...rest] = value.split('\n');
+                  return { title, subtitle: rest.join('\n') };
+                }
+                return { title: value != null ? String(value) : '' };
+              };
+
+              const leftContent = getCellContent(leftValue);
+              const rightContent = getCellContent(rightValue);
+
+              return (
+                <div
+                  key={row.id ?? index}
+                  className={cn(
+                    'border-[var(--border-primary)] border-b border-l-0 border-r-0 border-solid border-t-0',
+                    'flex flex-col gap-[var(--spacing-x2)] h-[var(--spacing-x24)] items-start justify-center px-0 py-[var(--spacing-x5)] w-full',
+                    bgColor
+                  )}
+                >
+                  <div className="flex gap-[var(--spacing-x2)] items-center py-0 w-full">
+                    <div className="flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start justify-start min-h-px min-w-px">
+                      <ColumnCell title={leftContent.title} subtitle={leftContent.subtitle} />
+                    </div>
+                    <div className="flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start justify-start min-h-px min-w-px">
+                      <ColumnCell title={rightContent.title} subtitle={rightContent.subtitle} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Default layout rendering (standard table)
   return (
-    <div className={cn("border border-[var(--border-primary)] rounded-[var(--x2,8px)] overflow-hidden bg-[var(--bg-primary)]", className)}>
+    <div className={cn("border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden bg-[var(--bg-primary)]", className)}>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse" aria-rowcount={data.length}>
           {caption && (
@@ -393,7 +532,7 @@ export const Table = <T extends TableRow = TableRow>({
               <tr>
                 <td
                   colSpan={columns.length + (selectable ? 1 : 0)}
-                  className="px-[var(--x3,12px)] py-[var(--x8,32px)] text-center"
+                  className="px-[var(--spacing-x3)] py-[var(--spacing-x8)] text-center"
                 >
                   <TableCellText type="secondary">
                     {emptyMessage || "No data available"}

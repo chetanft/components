@@ -73,7 +73,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         notif.key === key ? { ...notif, visible: false } : notif
       )
     );
-    
+
     // Remove from DOM after animation
     setTimeout(() => {
       setNotifications((prev) => prev.filter((notif) => notif.key !== key));
@@ -107,7 +107,7 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({
 
   return (
     <div
-      className="fixed top-4 right-4 z-50 flex flex-col gap-2 max-w-md"
+      className="fixed top-[var(--spacing-x4)] right-[var(--spacing-x4)] z-50 flex flex-col gap-[var(--spacing-x2)] max-w-md"
       role="region"
       aria-live="polite"
       aria-label="Notifications"

@@ -60,8 +60,8 @@ export const GaugeChart: React.FC<GaugeChartProps> = ({
       <div className="relative w-full h-full flex flex-col items-center justify-center">
         <Doughnut data={chartData} options={chartOptions} />
         <div className="absolute top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-            <div className="text-3xl font-bold" style={{ color: ftChartColors.text.primary }}>{value}</div>
-            <div className="text-sm text-gray-500">Min: {min} - Max: {max}</div>
+          <div className="text-3xl font-bold text-[var(--color-primary)]">{value}</div>
+          <div className="text-sm text-[var(--color-secondary)]">Min: {min} - Max: {max}</div>
         </div>
       </div>
     </BaseChart>

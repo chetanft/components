@@ -131,7 +131,7 @@ export const Drawer: React.FC<DrawerProps> = ({
       >
         {/* Header */}
         {(title || closable) && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--color-border-secondary)] flex-shrink-0">
+          <div className="flex items-center justify-between px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-b border-[var(--color-border-secondary)] flex-shrink-0">
             {title && (
               <h2
                 id="drawer-title"
@@ -145,7 +145,7 @@ export const Drawer: React.FC<DrawerProps> = ({
                 type="button"
                 onClick={onClose}
                 className={cn(
-                  "p-1 rounded-[var(--radius-sm)]",
+                  "p-[var(--spacing-x1)] rounded-[var(--radius-sm)]",
                   "hover:bg-[var(--color-bg-secondary)]",
                   "transition-colors duration-[var(--transition-fast)]",
                   "focus:outline-none focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20"
@@ -159,9 +159,9 @@ export const Drawer: React.FC<DrawerProps> = ({
         )}
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto px-6 py-4 bg-[var(--bg-secondary)]/30">
+        <div className="flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)] bg-[var(--bg-secondary)]/30">
           {showFigmaBadge && (
-            <div className="mb-4">
+            <div className="mb-[var(--spacing-x4)]">
               <FigmaBadge />
             </div>
           )}
@@ -170,7 +170,7 @@ export const Drawer: React.FC<DrawerProps> = ({
 
         {/* Footer */}
         {footer && (
-          <div className="flex-shrink-0 px-6 py-4 border-t border-[var(--color-border-secondary)]">
+          <div className="flex-shrink-0 px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-t border-[var(--color-border-secondary)]">
             {footer}
           </div>
         )}

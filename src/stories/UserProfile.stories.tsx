@@ -47,7 +47,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Interactive example with state management
-const InteractiveUserProfile = (args: React.ComponentProps<typeof UserProfile>) => {
+const InteractiveUserProfileComponent = (args: React.ComponentProps<typeof UserProfile>) => {
   const [isOpen, setIsOpen] = useState(false);
   const userProfileRef = useRef<HTMLDivElement>(null);
 
@@ -116,7 +116,7 @@ export const Default: Story = {
 };
 
 export const Interactive: Story = {
-  render: InteractiveUserProfile,
+  render: (args) => <InteractiveUserProfileComponent {...args} />,
   args: {
     userName: 'Santosh Kumar',
     userRole: 'Dispatch Manager',

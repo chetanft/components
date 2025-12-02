@@ -26,7 +26,7 @@ const TabContent = ({
   type: TabType;
 }) => {
   // Determine gap based on content - 8px for most, 4px when notification is present
-  const gapClass = notification ? "gap-[var(--x1,4px)]" : "gap-[var(--x2,8px)]";
+  const gapClass = notification ? "gap-[var(--spacing-x1)]" : "gap-[var(--spacing-x2)]";
 
   // Container alignment - center for selected primary, start for others
   const containerAlignment = state === 'selected' && type === 'primary'
@@ -42,7 +42,7 @@ const TabContent = ({
       containerAlignment
     )}>
       {icon && (
-        <div className="overflow-clip relative shrink-0 size-[16px]">
+        <div className="overflow-clip relative shrink-0 size-[var(--spacing-x4)]">
           <Icon
             name="check"
             size={16}
@@ -59,7 +59,7 @@ const TabContent = ({
         {label}
       </p>
       {badge && (
-        <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--x2,8px)] h-[24px] items-center justify-center px-[var(--x1,4px)] py-[var(--x0,0px)] relative rounded-[var(--x1,4px)] shrink-0">
+        <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[24px] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
           <p className="font-semibold leading-[1.4] relative shrink-0 text-[var(--primary)] text-sm">
             {badgeCount}
           </p>
@@ -113,8 +113,8 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
 
       // Padding based on type - using FT design system spacing tokens
       type === 'primary'
-        ? "px-[var(--x8,32px)] py-[var(--x3,12px)]"
-        : "px-[var(--x4,16px)] py-[var(--x2,8px)]",
+        ? "px-[var(--spacing-x8)] py-[var(--spacing-x3)]"
+        : "px-[var(--spacing-x4)] py-[var(--spacing-x2)]",
 
       // Border radius based on type - using FT design system tokens
       type === 'primary' && "rounded-none",
@@ -125,7 +125,7 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
       type === 'primary' && [
         "border-l-0 border-r-0 border-t-0 border-solid",
         currentState === 'selected'
-          ? "border-b-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[var(--x1,4px)] after:bg-[var(--primary)]"
+          ? "border-b-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[var(--spacing-x1)] after:bg-[var(--primary)]"
           : currentState === 'hover'
             ? "border-b border-b-[var(--tertiary)]"
             : "border-b border-b-[var(--border-primary)]"
@@ -303,13 +303,13 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
 
     const scrollContainerClasses = cn(
       "flex items-start relative w-full overflow-x-auto min-w-0",
-      (type === 'secondary' || type === 'tertiary') && "gap-[var(--x2,8px)]",
+      (type === 'secondary' || type === 'tertiary') && "gap-[var(--spacing-x2)]",
       className
     );
 
     return (
       <div className="flex flex-col relative">
-        <div className="flex items-start gap-[var(--x3,12px)] w-full">
+        <div className="flex items-start gap-[var(--spacing-x3)] w-full">
           <div className="flex-1 min-w-0">
             <div
               ref={(node) => {
@@ -362,8 +362,8 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
               className={cn(
                 "shrink-0",
                 type === 'primary'
-                  ? "h-[calc(var(--x3,12px)*2+1.4*1rem)] w-[calc(var(--x3,12px)*2+1.4*1rem)]"
-                  : "h-[calc(var(--x2,8px)*2+1.4*1rem)] w-[calc(var(--x2,8px)*2+1.4*1rem)]"
+                  ? "h-[calc(var(--spacing-x3)*2+1.4*1rem)] w-[calc(var(--spacing-x3)*2+1.4*1rem)]"
+                  : "h-[calc(var(--spacing-x2)*2+1.4*1rem)] w-[calc(var(--spacing-x2)*2+1.4*1rem)]"
               )}
               onClick={() => setDropdownOpen((prev) => !prev)}
             />
@@ -372,14 +372,14 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
         {overflowBehavior === 'dropdown' && dropdownOpen && (
           <div
             ref={dropdownMenuRef}
-            className="fixed z-50 rounded-lg border border-[var(--border-secondary)] bg-[var(--bg-primary)] shadow-lg min-w-[200px] py-[var(--x2,8px)]"
+            className="fixed z-50 rounded-lg border border-[var(--border-secondary)] bg-[var(--bg-primary)] shadow-lg min-w-[200px] py-[var(--spacing-x2)]"
             style={{ top: menuPosition.top, left: menuPosition.left }}
           >
             {tabs.map((tab, index) => (
               <button
                 key={`all-tabs-${index}`}
                 className={cn(
-                  "w-full text-left px-[var(--x4,16px)] py-[var(--x2,8px)] text-[var(--primary)] hover:bg-[var(--bg-secondary)] transition-colors",
+                  "w-full text-left px-[var(--spacing-x4)] py-[var(--spacing-x2)] text-[var(--primary)] hover:bg-[var(--bg-secondary)] transition-colors",
                   index === internalActiveTab && "font-semibold",
                   tab.disabled && "opacity-50 cursor-not-allowed"
                 )}

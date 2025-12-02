@@ -48,12 +48,12 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
  * - Typography: body-secondary variants
  */
 export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
-  ({ 
-    className, 
-    value = 0, 
+  ({
+    className,
+    value = 0,
     type = 'line',
-    variant = 'primary', 
-    size = 'md', 
+    variant = 'primary',
+    size = 'md',
     width = 120,
     strokeWidth,
     trailColor,
@@ -64,13 +64,13 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
     gapDegree = 75,
     gapPosition = 'bottom',
     steps,
-    ...props 
+    ...props
   }, ref) => {
-    
+
     // Clamp value between 0 and 100
     const numericValue = typeof value === 'number' && !isNaN(value) ? value : 0;
     const clampedValue = Math.min(Math.max(numericValue, 0), 100);
-    
+
     // Variant color mapping using CSS variables
     const variantColors: Record<ProgressStatus, string> = {
       primary: 'var(--primary)',
@@ -100,7 +100,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
       // Steps mode
       if (steps && steps > 0) {
         const filledSteps = Math.floor((clampedValue / 100) * steps);
-        
+
         return (
           <div className="flex items-center gap-[var(--x5,20px)] w-full" ref={ref} {...props}>
             <div className={cn("flex gap-1 w-full", className)}>
@@ -108,7 +108,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
                 <div
                   key={i}
                   className={cn(
-                    "flex-1 rounded-[4px]",
+                    "flex-1 rounded-[var(--radius-sm)]",
                     sizeStyles[size],
                     animated && "transition-colors duration-300"
                   )}
@@ -119,8 +119,8 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
               ))}
             </div>
             {showPercentage && (
-              <Typography 
-                variant="body-secondary-medium" 
+              <Typography
+                variant="body-secondary-medium"
                 as="span"
                 className="text-[var(--tertiary)] whitespace-nowrap"
               >
@@ -134,9 +134,9 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
       // Default line progress - Figma: 8px height, 8px rounded corners
       return (
         <div className="flex items-center gap-[var(--x5,20px)] w-full" ref={ref} {...props}>
-          <div 
+          <div
             className={cn(
-              "relative w-full rounded-[8px] overflow-hidden",
+              "relative w-full rounded-[var(--radius-md)] overflow-hidden",
               sizeStyles[size],
               className
             )}
@@ -144,11 +144,11 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
           >
             <div
               className={cn(
-                "h-full rounded-[8px]",
+                "h-full rounded-[var(--radius-md)]",
                 animated && "transition-all duration-300 ease-out",
                 variant === 'active' && "animate-pulse"
               )}
-              style={{ 
+              style={{
                 width: `${clampedValue}%`,
                 backgroundColor: activeColor,
               }}
@@ -159,8 +159,8 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
             />
           </div>
           {showPercentage && (
-            <Typography 
-              variant="body-secondary-medium" 
+            <Typography
+              variant="body-secondary-medium"
               as="span"
               className="text-[var(--tertiary)] whitespace-nowrap"
             >
@@ -175,7 +175,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
     const circleStrokeWidth = strokeWidth || (type === 'dashboard' ? 8 : 6);
     const radius = (width - circleStrokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
-    
+
     // Calculate stroke dash for progress
     let dashOffset: number;
     let dashArray: string;
@@ -187,10 +187,10 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
       const gapRatio = validGapDegree / 360;
       const availableCircumference = circumference * (1 - gapRatio);
       const progressLength = (clampedValue / 100) * availableCircumference;
-      
+
       dashArray = `${availableCircumference} ${circumference}`;
       dashOffset = availableCircumference - progressLength;
-      
+
       // Rotation based on gap position
       const rotationMap = {
         bottom: 90 + (validGapDegree / 2),
@@ -208,7 +208,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
     }
 
     return (
-      <div 
+      <div
         ref={ref}
         className={cn("relative inline-flex items-center justify-center", className)}
         style={{ width, height: width }}
@@ -246,11 +246,11 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
             className={cn(animated && "transition-all duration-500 ease-out")}
           />
         </svg>
-        
+
         {/* Center content */}
         {showPercentage && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <Typography 
+            <Typography
               variant={width >= 100 ? "body-primary-semibold" : "body-secondary-medium"}
               as="span"
               className="text-[var(--primary)]"
