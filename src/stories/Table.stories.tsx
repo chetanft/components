@@ -830,7 +830,7 @@ function JourneyTableComponent() {
         key: 'feedUniqueId',
         header: 'Feed Unique ID',
         render: (value, row) => (
-          <div className="flex flex-col gap-[8px]">
+          <div className="flex flex-col gap-[8px] items-start">
             <TableCellText type="primary" className="overflow-hidden text-ellipsis whitespace-nowrap w-[177px]">
               {row.journeyId || row.feedUniqueId}
             </TableCellText>
@@ -841,7 +841,7 @@ function JourneyTableComponent() {
             )}
             {!row.journeyId && (
               <button
-                className="text-[var(--neutral,#1890ff)] text-[16px] font-medium leading-[1.4] cursor-pointer hover:opacity-80"
+                className="text-[var(--neutral,#1890ff)] text-[16px] font-medium leading-[1.4] cursor-pointer hover:opacity-80 text-left self-start"
                 style={{ fontFamily: 'var(--font-family-primary, "Inter", sans-serif)' }}
               >
                 View ID's
@@ -1036,11 +1036,11 @@ function JourneyTableComponent() {
           const alertBadge = alertBadgeMap[row.alerts.type];
 
           return (
-            <div className="flex flex-col gap-[8px]">
+            <div className="flex flex-col gap-[8px] items-start">
               <Badge
                 variant="error"
                 size="sm"
-                className={`${alertBadge.bg} px-[8px] py-[2px]`}
+                className={`${alertBadge.bg} px-[8px] py-[2px] w-fit self-start`}
                 style={{ color: alertBadge.textColor }}
               >
                 {row.alerts.type}
@@ -1105,4 +1105,80 @@ function JourneyTableComponent() {
 
 export const JourneyTable: Story = {
   render: () => <JourneyTableComponent />
+};
+
+// Secondary header variant story
+export const SecondaryVariant: Story = {
+  args: {
+    columns: basicColumns,
+    data: sampleUsers,
+    variant: 'secondary',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Table with secondary header variant - light gray header background with dark text, and all white cell backgrounds (no alternating rows).'
+      }
+    }
+  }
+};
+
+// Column reordering story
+const WithColumnReorderStoryComponent = (args: React.ComponentProps<UserTable>) => {
+  const [columns, setColumns] = useState<TableColumn<User>[]>(basicColumns);
+  
+  return (
+    <Table
+      {...args}
+      columns={columns}
+      reorderable={true}
+      onColumnReorder={(newColumns) => setColumns(newColumns)}
+    />
+  );
+};
+
+export const WithColumnReorder: Story = {
+  render: (args: React.ComponentProps<UserTable>) => <WithColumnReorderStoryComponent {...args} />,
+  args: {
+    columns: basicColumns,
+    data: sampleUsers,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Table with column reordering enabled. Drag column headers to reorder columns. The column order is maintained via the onColumnReorder callback.'
+      }
+    }
+  }
+};
+
+// Secondary variant with column reordering
+const SecondaryWithReorderStoryComponent = (args: React.ComponentProps<UserTable>) => {
+  const [columns, setColumns] = useState<TableColumn<User>[]>(basicColumns);
+  
+  return (
+    <Table
+      {...args}
+      columns={columns}
+      variant="secondary"
+      reorderable={true}
+      onColumnReorder={(newColumns) => setColumns(newColumns)}
+    />
+  );
+};
+
+export const SecondaryVariantWithReorder: Story = {
+  render: (args: React.ComponentProps<UserTable>) => <SecondaryWithReorderStoryComponent {...args} />,
+  args: {
+    columns: basicColumns,
+    data: sampleUsers,
+    variant: 'secondary',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Secondary header variant table with column reordering enabled. Combines the light header style with drag-to-reorder functionality.'
+      }
+    }
+  }
 };

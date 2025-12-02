@@ -76,12 +76,13 @@ export const HoverCard: React.FC<HoverCardProps> = ({
                 <div
                     className={cn(
                         "absolute z-50",
-                        "bg-[var(--color-bg-primary)] rounded-[var(--radius-md)] shadow-[var(--shadow-xl)]",
+                        "bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]",
                         "border border-[var(--color-border-secondary)]",
                         "p-[var(--spacing-x4)]",
                         placementStyles[placement],
                         className
                     )}
+                    style={{ boxShadow: 'var(--shadow-xl)' }}
                     style={{ width }}
                 >
                     {content}

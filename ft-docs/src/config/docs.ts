@@ -475,6 +475,12 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
+          title: "DataEntryTable",
+          href: "/docs/components/data-entry-table",
+          items: [],
+          badge: "New",
+        },
+        {
           title: "Drawer",
           href: "/docs/components/drawer",
           items: [],

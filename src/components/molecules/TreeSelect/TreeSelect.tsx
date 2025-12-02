@@ -364,13 +364,14 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
             <div
               className={cn(
                 "fixed z-[9999] bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]",
-                "shadow-[var(--shadow-lg)] border border-[var(--color-border-secondary)]",
+                "border border-[var(--color-border-secondary)]",
                 "max-h-[300px] overflow-auto p-[var(--spacing-x2)]"
               )}
               style={{
                 top: dropdownPosition.top,
                 left: dropdownPosition.left,
                 minWidth: dropdownPosition.width,
+                boxShadow: 'var(--shadow-lg)',
               }}
             >
               {filteredTreeData.length > 0 ? (

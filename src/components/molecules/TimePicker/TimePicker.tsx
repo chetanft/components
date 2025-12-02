@@ -481,12 +481,13 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
             <div
               className={cn(
                 "fixed z-[9999] bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]",
-                "shadow-[var(--shadow-lg)] border border-[var(--color-border-secondary)]",
+                "border border-[var(--color-border-secondary)]",
                 "overflow-hidden"
               )}
               style={{
                 top: dropdownPosition.top,
                 left: dropdownPosition.left,
+                boxShadow: 'var(--shadow-lg)',
               }}
             >
               <div className="flex">

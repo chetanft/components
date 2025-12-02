@@ -393,7 +393,11 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
           </button>
         </div>
       </div>
-      <div aria-hidden="true" className="absolute border border-[var(--color-border-primary)] border-solid inset-0 pointer-events-none rounded-[var(--radius-xl)] shadow-[var(--shadow-lg)]" />
+      <div 
+        aria-hidden="true" 
+        className="absolute border border-[var(--color-border-primary)] border-solid inset-0 pointer-events-none rounded-[var(--radius-xl)]" 
+        style={{ boxShadow: 'var(--shadow-lg)' }}
+      />
     </div>
   );
 };

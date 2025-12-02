@@ -17,7 +17,14 @@ export const FTImprovementDemo = () => {
 
     const columns = [
         { key: 'name', title: 'Name' },
-        { key: 'status', title: 'Status', render: (val: string) => <Badge variant={val === 'active' ? 'success' : 'warning'}>{val}</Badge> },
+        { 
+            key: 'status', 
+            title: 'Status', 
+            render: (value: unknown, row: { id: number; name: string; status: string; category: string; }, index: number) => {
+                const status = String(value);
+                return <Badge variant={status === 'active' ? 'success' : 'warning'}>{status}</Badge>;
+            }
+        },
         { key: 'category', title: 'Category' },
     ];
 

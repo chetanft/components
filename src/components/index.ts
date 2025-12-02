@@ -104,6 +104,7 @@ export * from './organisms/NavigationPopover';
 export * from './organisms/NavigationPopover/NavigationLauncher';
 export * from './organisms/QuickFilters';
 export * from './organisms/Table';
+export * from './organisms/DataEntryTable';
 export * from './organisms/Tabs';
 export * from './organisms/Upload';
 export * from './organisms/UploadZone';

@@ -126,7 +126,6 @@ export const Modal: React.FC<ModalProps> = ({
         className={cn(
           "relative z-10",
           "rounded-[var(--radius-lg)]",
-          "shadow-[var(--shadow-xl)]",
           "max-w-[90vw] max-h-[90vh]",
           "flex flex-col",
           "bg-[var(--bg-primary)] border border-[var(--border-primary)]",
@@ -135,6 +134,7 @@ export const Modal: React.FC<ModalProps> = ({
         )}
         style={{
           width: width || modalSizes[size],
+          boxShadow: 'var(--shadow-xl)',
         }}
         onClick={handleModalContentClick}
         {...props}

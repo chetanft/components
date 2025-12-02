@@ -64,6 +64,7 @@ const storySourceMap: Record<string, () => Promise<string>> = {
   'StackedBarChart': () => import('../../../src/components/molecules/StackedBarChart/StackedBarChart.stories.tsx?raw').then(m => m.default),
   
   // Organisms
+  'DataEntryTable': () => import('../../../src/stories/DataEntryTable.stories.tsx?raw').then(m => m.default),
   'Tabs': () => import('../../../src/components/organisms/Tabs/Tabs.stories.tsx?raw').then(m => m.default),
   'Form': () => import('../../../src/components/organisms/Form/Form.stories.tsx?raw').then(m => m.default),
   'Grid': () => import('../../../src/components/organisms/Grid/Grid.stories.tsx?raw').then(m => m.default),

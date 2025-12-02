@@ -22,6 +22,11 @@ export interface TableHeaderItemProps {
   children?: React.ReactNode;
   onClick?: () => void;
   className?: string;
+  onDragStart?: (e: React.DragEvent) => void;
+  onDragOver?: (e: React.DragEvent) => void;
+  onDragLeave?: () => void;
+  onDrop?: (e: React.DragEvent) => void;
+  onDragEnd?: () => void;
 }
 
 export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
@@ -34,7 +39,12 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
   checkboxProps,
   children,
   onClick,
-  className
+  className,
+  onDragStart,
+  onDragOver,
+  onDragLeave,
+  onDrop,
+  onDragEnd
 }) => {
   // Color mappings from Figma - use CSS variables instead of hardcoded
   const getBackgroundColor = () => {
@@ -99,7 +109,8 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
         getBackgroundColor(),
         getBorderStyles(),
         // Cursor for interactive elements
-        (sortable || onClick) && "cursor-pointer hover:opacity-80 transition-opacity",
+        (sortable || onClick) && !draggable && "cursor-pointer hover:opacity-80 transition-opacity",
+        draggable && "cursor-move",
         className
       )}
       style={{
@@ -111,6 +122,12 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
       }}
       onClick={onClick}
       aria-sort={getAriaSort()}
+      draggable={draggable}
+      onDragStart={onDragStart}
+      onDragOver={onDragOver}
+      onDragLeave={onDragLeave}
+      onDrop={onDrop}
+      onDragEnd={onDragEnd}
     >
       <div className={cn(
         "flex items-center h-full",

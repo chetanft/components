@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 import { TableCellText } from './TableCellText';
@@ -52,6 +52,9 @@ export interface TableProps<T extends TableRow = TableRow> {
   headerLeft?: React.ReactNode;
   headerRight?: React.ReactNode;
   striped?: boolean;
+  // Column reordering
+  reorderable?: boolean;
+  onColumnReorder?: (columns: TableColumn<T>[]) => void;
 }
 
 // Table Header Component
@@ -68,6 +71,8 @@ interface TableHeaderProps<T extends TableRow = TableRow> {
   hasRowActions?: boolean;
   rowActionsLabel?: string;
   cellSize?: 'md' | 'lg' | 'xl';
+  reorderable?: boolean;
+  onColumnReorder?: (columns: TableColumn<T>[]) => void;
 }
 
 const CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x9)*2)]';
@@ -85,8 +90,14 @@ const TableHeader = <T extends TableRow = TableRow>({
   sortDirection,
   hasRowActions = false,
   rowActionsLabel,
-  cellSize = 'md'
+  cellSize = 'md',
+  reorderable = false,
+  onColumnReorder
 }: TableHeaderProps<T>) => {
+  const [draggedColumnIndex, setDraggedColumnIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+  const dragStartIndexRef = useRef<number | null>(null);
+
   const isAllSelected = allRowIds.length > 0 && selectedRows.length === allRowIds.length;
   const isIndeterminate = selectedRows.length > 0 && selectedRows.length < allRowIds.length;
 
@@ -115,6 +126,53 @@ const TableHeader = <T extends TableRow = TableRow>({
     onSort(column.key, newDirection);
   }, [sortColumn, sortDirection, onSort]);
 
+  const handleDragStart = useCallback((index: number, e: React.DragEvent) => {
+    if (!reorderable) return;
+    dragStartIndexRef.current = index;
+    setDraggedColumnIndex(index);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', ''); // Required for Firefox
+  }, [reorderable]);
+
+  const handleDragOver = useCallback((index: number, e: React.DragEvent) => {
+    if (!reorderable || draggedColumnIndex === null) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    setDragOverIndex(index);
+  }, [reorderable, draggedColumnIndex]);
+
+  const handleDragLeave = useCallback(() => {
+    setDragOverIndex(null);
+  }, []);
+
+  const handleDrop = useCallback((index: number, e: React.DragEvent) => {
+    if (!reorderable || dragStartIndexRef.current === null || !onColumnReorder) return;
+    e.preventDefault();
+    
+    const startIndex = dragStartIndexRef.current;
+    if (startIndex === index) {
+      setDraggedColumnIndex(null);
+      setDragOverIndex(null);
+      dragStartIndexRef.current = null;
+      return;
+    }
+
+    const newColumns = [...columns];
+    const [removed] = newColumns.splice(startIndex, 1);
+    newColumns.splice(index, 0, removed);
+
+    onColumnReorder(newColumns);
+    setDraggedColumnIndex(null);
+    setDragOverIndex(null);
+    dragStartIndexRef.current = null;
+  }, [reorderable, columns, onColumnReorder]);
+
+  const handleDragEnd = useCallback(() => {
+    setDraggedColumnIndex(null);
+    setDragOverIndex(null);
+    dragStartIndexRef.current = null;
+  }, []);
+
   // Header color variant based on table variant - exact Figma mapping
   const headerColorVariant = variant === 'primary' ? 'dark25' : 'bg';
 
@@ -134,17 +192,25 @@ const TableHeader = <T extends TableRow = TableRow>({
             className={CHECKBOX_COLUMN_WIDTH_CLASS}
           />
         )}
-        {columns.map((column) => (
+        {columns.map((column, index) => (
           <TableHeaderItem
             key={column.key}
             colorVariant={headerColorVariant}
             size={cellSize}
             sortable={column.sortable}
+            draggable={reorderable}
             sortDirection={sortColumn === column.key ? sortDirection : null}
             onClick={() => column.sortable && handleSort(column)}
             className={cn(
-              column.width && `w-[${column.width}]`
+              column.width && `w-[${column.width}]`,
+              draggedColumnIndex === index && "opacity-50",
+              dragOverIndex === index && "border-t-2 border-t-[var(--primary)]"
             )}
+            onDragStart={(e) => handleDragStart(index, e)}
+            onDragOver={(e) => handleDragOver(index, e)}
+            onDragLeave={handleDragLeave}
+            onDrop={(e) => handleDrop(index, e)}
+            onDragEnd={handleDragEnd}
           >
             {column.title || column.label || column.header}
           </TableHeaderItem>
@@ -375,7 +441,9 @@ export const Table = <T extends TableRow = TableRow>({
   className,
   headerLeft,
   headerRight,
-  striped = true
+  striped = true,
+  reorderable = false,
+  onColumnReorder
 }: TableProps<T>) => {
   // Defensive programming: ensure all rows have valid IDs
   const validatedData = data.filter(row => {
@@ -526,6 +594,8 @@ export const Table = <T extends TableRow = TableRow>({
             hasRowActions={Boolean(rowActions)}
             rowActionsLabel={rowActions ? rowActionsLabel : undefined}
             cellSize={cellSize}
+            reorderable={reorderable}
+            onColumnReorder={onColumnReorder}
           />
           <tbody>
             {validatedData.length === 0 ? (

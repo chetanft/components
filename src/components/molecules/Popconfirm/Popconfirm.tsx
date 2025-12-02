@@ -98,11 +98,12 @@ export const Popconfirm: React.FC<PopconfirmProps> = ({
                 <div
                     className={cn(
                         "absolute z-50 min-w-[200px] max-w-[300px]",
-                        "bg-[var(--color-bg-primary)] rounded-[var(--radius-md)] shadow-[var(--shadow-lg)]",
+                        "bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]",
                         "border border-[var(--color-border-secondary)]",
                         "p-[var(--spacing-x4)]",
                         placementStyles[placement]
                     )}
+                    style={{ boxShadow: 'var(--shadow-lg)' }}
                 >
                     <div className="flex gap-[var(--spacing-x3)]">
                         <div className="flex-shrink-0 mt-0.5">

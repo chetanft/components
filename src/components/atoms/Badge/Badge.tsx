@@ -59,7 +59,7 @@ const Ribbon: React.FC<BadgeRibbonProps> = ({
       {children}
       <div
         className={cn(
-          "absolute top-0 px-2 py-1 text-[var(--color-bg-primary)] text-xs-rem whitespace-nowrap z-10",
+          "absolute top-0 px-2 py-1 text-white text-xs-rem whitespace-nowrap z-10 font-semibold",
           placement === 'end' ? "right-0 rounded-l-md" : "left-0 rounded-r-md",
           "bg-[var(--primary)] shadow-sm", // Default color
           className
@@ -106,10 +106,10 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     // CASE 1: Status Badge (Dot + Text)
     if (status || (color && !children && !count && !dot)) {
       const statusColorMap: Record<string, string> = {
-        success: 'bg-[var(--success)]',
+        success: 'bg-[var(--positive)]',
         processing: 'bg-[var(--primary)]',
         default: 'bg-[var(--neutral-400)]',
-        error: 'bg-[var(--danger)]',
+        error: 'bg-[var(--critical)]',
         warning: 'bg-[var(--warning)]'
       };
       const dotClass = status ? statusColorMap[status] : '';
@@ -118,13 +118,14 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         <span className={cn("inline-flex items-center gap-2", className)} ref={ref} {...props}>
           <span
             className={cn(
-              "w-1.5 h-1.5 rounded-full relative",
+              "w-1.5 h-1.5 rounded-full flex-shrink-0",
               dotClass,
               status === 'processing' && "animate-pulse" // Simple processing effect
             )}
-            style={{ backgroundColor: color }}
+            style={{ backgroundColor: color || undefined }}
           />
           {text && <span className="text-sm-rem">{text}</span>}
+          {children && !text && <span className="text-sm-rem">{children}</span>}
         </span>
       );
     }
@@ -154,6 +155,8 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
               )}
               style={{
                 backgroundColor: color,
+                color: 'var(--color-bg-primary)',
+                borderColor: 'var(--color-bg-primary)',
                 ...(offset ? { right: -offset[0], marginTop: offset[1] } : {})
               }}
             >
@@ -169,12 +172,21 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     const baseStyles = "inline-flex items-center justify-center transition-colors";
 
     const sizeStylesMap: Record<string, string> = {
-      xs: "px-1.5 py-0.5 text-xs-rem gap-1 rounded-[4px]", // 10px → 0.714rem (closest to xs-rem: 0.857rem)
-      sm: "px-2 py-0.5 text-xs-rem gap-1.5 rounded-[4px]",
-      small: "px-2 py-0.5 text-xs-rem gap-1.5 rounded-[4px]", // Alias for sm
-      md: "px-3 py-1 text-[0.8125rem] gap-2 rounded-[4px]", // 13px custom size
-      default: "px-3 py-1 text-[0.8125rem] gap-2 rounded-[4px]", // Alias for md
-      lg: "px-4 py-1.5 text-md-rem gap-2.5 rounded-[4px]"
+      xs: "px-1.5 py-0.5 gap-1 rounded-[4px]", // 10px → 0.714rem
+      sm: "px-2 py-0.5 gap-1.5 rounded-[4px]", // 12px → 0.857rem
+      small: "px-2 py-0.5 gap-1.5 rounded-[4px]", // Alias for sm
+      md: "px-3 py-1 gap-2 rounded-[4px]", // 14px → 1rem
+      default: "px-3 py-1 gap-2 rounded-[4px]", // Alias for md
+      lg: "px-4 py-1.5 gap-2.5 rounded-[4px]" // 16px → 1.143rem
+    };
+
+    const fontSizeMap: Record<string, string> = {
+      xs: "text-[0.714rem]", // 10px
+      sm: "text-[0.857rem]", // 12px
+      small: "text-[0.857rem]", // 12px
+      md: "text-[1rem]", // 14px
+      default: "text-[1rem]", // 14px
+      lg: "text-[1.143rem]" // 16px
     };
 
     const sizeStyles = sizeStylesMap[size] || sizeStylesMap.md;
@@ -250,13 +262,15 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         {...props}
       >
         {leadingIcon && <Icon name={leadingIcon} size={iconSize} />}
-        <Typography
-          variant="body-secondary-semibold"
-          as="span"
+        <span
+          className={cn(
+            fontSizeMap[size] || fontSizeMap.md,
+            "font-semibold leading-[1.4]"
+          )}
           style={{ color: getTextColor() }}
         >
           {children || count}
-        </Typography>
+        </span>
         {trailingIcon && <Icon name={trailingIcon} size={iconSize} />}
       </div>
     );

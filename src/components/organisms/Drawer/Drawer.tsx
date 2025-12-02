@@ -118,7 +118,6 @@ export const Drawer: React.FC<DrawerProps> = ({
         className={cn(
           "absolute",
           "bg-[var(--bg-primary)]",
-          "shadow-[var(--shadow-xl)]",
           "flex flex-col",
           styles.container,
           className
@@ -126,6 +125,7 @@ export const Drawer: React.FC<DrawerProps> = ({
         style={{
           width: styles.width,
           height: styles.height,
+          boxShadow: 'var(--shadow-xl)',
         }}
         {...props}
       >

@@ -23,6 +23,7 @@ export const storyPathMap: Record<string, StoryLoader> = {
   'Collapsible': () => import('../components/organisms/Collapsible/Collapsible.stories'),
   'ColorPicker': () => import('../components/molecules/ColorPicker/ColorPicker.stories'),
   'ColorSystem': () => import('../components/stories/ColorSystem.stories'),
+  'DataEntryTable': () => import('../components/stories/DataEntryTable.stories'),
   'DatePicker': () => import('../components/molecules/DatePicker/DatePicker.stories'),
   'Descriptions': () => import('../components/molecules/Descriptions/Descriptions.stories'),
   'Divider': () => import('../components/atoms/Divider/Divider.stories'),
