@@ -8,6 +8,11 @@ export default {
         '../src/**/*.{js,jsx,ts,tsx}', // Include component library source
         // Exclude DropdownMenu files that have problematic CSS variable patterns
         '!../src/components/molecules/DropdownMenu/**/*',
+        // Exclude dist and build files
+        '!../dist/**/*',
+        '!./dist/**/*',
+        '!../node_modules/**/*',
+        '!./node_modules/**/*',
     ],
     theme: {
         ...rootConfig.theme,

@@ -14,46 +14,248 @@ export type ColumnType = 'text' | 'number' | 'date' | 'actions';
 export type TableVariant = 'primary' | 'secondary';
 export type TableLayout = 'default' | 'simple';
 
+/**
+ * Table column definition
+ * 
+ * @public
+ */
 export interface TableColumn<T = any> {
+  /**
+   * Unique key for the column (required)
+   * Used to access data from row objects
+   */
   key: string;
+  
+  /**
+   * Column header text
+   * @alias label, header
+   */
   title?: string;
-  label?: string; // Alias for title
-  header?: string; // Alias for title (common in other libraries)
+  
+  /**
+   * Column header text (alias for title)
+   * @deprecated Use `title` instead
+   */
+  label?: string;
+  
+  /**
+   * Column header text (alias for title)
+   * @deprecated Use `title` instead
+   */
+  header?: string;
+  
+  /**
+   * Column data type for sorting/formatting
+   * @default 'text'
+   */
   type?: ColumnType;
+  
+  /**
+   * Enable column sorting
+   * @default false
+   */
   sortable?: boolean;
+  
+  /**
+   * Column width (CSS value)
+   * Example: "200px", "20%", "auto"
+   */
   width?: string;
+  
+  /**
+   * Custom cell renderer function
+   * @param value - Cell value from row data
+   * @param row - Full row object
+   * @param index - Row index
+   * @returns React node to render in cell
+   */
   render?: (value: unknown, row: T, index: number) => React.ReactNode;
 }
 
+/**
+ * Table row data structure
+ * 
+ * @public
+ */
 export interface TableRow {
+  /**
+   * Unique row identifier (required)
+   */
   id: string | number;
+  
+  /**
+   * Additional row data properties
+   */
   [key: string]: any;
 }
 
+/**
+ * Table component props
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * const columns = [
+ *   { key: 'name', title: 'Name', sortable: true },
+ *   { key: 'email', title: 'Email' },
+ *   { key: 'status', title: 'Status', render: (value) => <Badge>{value}</Badge> }
+ * ];
+ * 
+ * const data = [
+ *   { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active' },
+ *   { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Inactive' }
+ * ];
+ * 
+ * <Table 
+ *   columns={columns} 
+ *   data={data}
+ *   selectable
+ *   onSelectionChange={(selected) => console.log(selected)}
+ *   onSort={(column, direction) => console.log(column, direction)}
+ * />
+ * ```
+ */
 export interface TableProps<T extends TableRow = TableRow> {
+  /**
+   * Column definitions
+   * @required
+   */
   columns: TableColumn<T>[];
+  
+  /**
+   * Row data array
+   * Each row must have an `id` property
+   * @required
+   */
   data: T[];
+  
+  /**
+   * Table visual variant
+   * @default 'primary'
+   * 
+   * - `primary`: Main table style with borders
+   * - `secondary`: Alternative style
+   */
   variant?: TableVariant;
-  layout?: TableLayout; // 'default' | 'simple' - simple layout for 2-column label-value pairs
+  
+  /**
+   * Table layout style
+   * @default 'default'
+   * 
+   * - `default`: Standard table layout
+   * - `simple`: 2-column label-value pairs layout
+   */
+  layout?: TableLayout;
+  
+  /**
+   * Enable row selection with checkboxes
+   * @default false
+   */
   selectable?: boolean;
+  
+  /**
+   * Currently selected row IDs
+   * Controlled selection state
+   */
   selectedRows?: (string | number)[];
+  
+  /**
+   * Callback when selection changes
+   * @param selectedRows - Array of selected row IDs
+   */
   onSelectionChange?: (selectedRows: (string | number)[]) => void;
+  
+  /**
+   * Callback when column is sorted
+   * @param column - Column key being sorted
+   * @param direction - Sort direction: 'asc', 'desc', or null
+   */
   onSort?: (column: string, direction: SortDirection) => void;
+  
+  /**
+   * Currently sorted column key
+   * Controlled sort state
+   */
   sortColumn?: string;
+  
+  /**
+   * Current sort direction
+   * Controlled sort state
+   */
   sortDirection?: SortDirection;
+  
+  /**
+   * Custom accessory content for each row
+   * Rendered before row actions
+   * @param row - Row data object
+   * @param selected - Whether row is selected
+   * @returns React node
+   */
   rowAccessory?: (row: T, selected: boolean) => React.ReactNode;
+  
+  /**
+   * Custom actions for each row
+   * Rendered in actions column
+   * @param row - Row data object
+   * @returns React node (typically action buttons)
+   */
   rowActions?: (row: T) => React.ReactNode;
+  
+  /**
+   * Label for row actions column header
+   * @default 'Actions'
+   */
   rowActionsLabel?: string;
+  
+  /**
+   * Show loading state
+   * @default false
+   */
   loading?: boolean;
+  
+  /**
+   * Message displayed when table is empty
+   * @default 'No data available'
+   */
   emptyMessage?: string;
+  
+  /**
+   * Table caption (accessibility)
+   */
   caption?: string;
+  
+  /**
+   * Additional CSS classes
+   */
   className?: string;
-  // Simple layout specific props
+  
+  /**
+   * Left header content (simple layout only)
+   */
   headerLeft?: React.ReactNode;
+  
+  /**
+   * Right header content (simple layout only)
+   */
   headerRight?: React.ReactNode;
+  
+  /**
+   * Enable striped row styling
+   * @default false
+   */
   striped?: boolean;
-  // Column reordering
+  
+  /**
+   * Enable column reordering via drag-and-drop
+   * @default false
+   */
   reorderable?: boolean;
+  
+  /**
+   * Callback when columns are reordered
+   * @param columns - Reordered column definitions
+   */
   onColumnReorder?: (columns: TableColumn<T>[]) => void;
 }
 

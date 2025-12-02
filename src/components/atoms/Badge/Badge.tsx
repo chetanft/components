@@ -5,37 +5,119 @@ import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 import { Typography } from '../Typography';
 
+/**
+ * Badge component props
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Status badge
+ * <Badge variant="success">Active</Badge>
+ * 
+ * // Badge with count
+ * <Badge variant="error" count={5}>Notifications</Badge>
+ * 
+ * // Dot badge
+ * <Badge variant="warning" dot />
+ * 
+ * // Badge with icon
+ * <Badge variant="info" leadingIcon="info">New</Badge>
+ * ```
+ */
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * Badge variant for semantic coloring.
+   * Badge variant for semantic coloring
    * @default 'default'
+   * 
+   * - `default`: Neutral gray badge
+   * - `error` / `danger`: Red badge for errors
+   * - `success`: Green badge for success states
+   * - `warning`: Orange badge for warnings
+   * - `info` / `neutral`: Blue badge for informational content
+   * - `normal`: Default neutral styling
    */
   variant?: 'default' | 'error' | 'success' | 'warning' | 'info' | 'neutral' | 'normal' | 'danger';
-  count?: number | React.ReactNode;
-  showZero?: boolean;
-  overflowCount?: number;
-  dot?: boolean;
-  offset?: [number, number];
-  status?: 'success' | 'processing' | 'default' | 'error' | 'warning';
-  text?: React.ReactNode;
+  
   /**
-   * The size of the badge.
+   * Count number or custom React node to display
+   * When number exceeds overflowCount, shows "overflowCount+"
+   */
+  count?: number | React.ReactNode;
+  
+  /**
+   * Show count even when it's zero
+   * @default false
+   */
+  showZero?: boolean;
+  
+  /**
+   * Maximum count to display before showing "overflowCount+"
+   * @default 99
+   */
+  overflowCount?: number;
+  
+  /**
+   * Display as a dot instead of count/text
+   * @default false
+   */
+  dot?: boolean;
+  
+  /**
+   * Offset position [x, y] in pixels
+   * Useful for positioning badge on corners
+   */
+  offset?: [number, number];
+  
+  /**
+   * Status indicator variant
+   * Alternative to variant prop for status badges
+   */
+  status?: 'success' | 'processing' | 'default' | 'error' | 'warning';
+  
+  /**
+   * Badge text content
+   * Alternative to children prop
+   */
+  text?: React.ReactNode;
+  
+  /**
+   * Badge size
    * @default 'md'
+   * 
+   * Available sizes: `xs`, `sm`, `md`, `lg`
+   * 
+   * @deprecated `default` and `small` are deprecated, use `md` and `sm` instead
    */
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'default' | 'small';
+  
   /**
-   * @deprecated Use `size="md"` instead.
+   * Custom color (legacy prop)
+   * @deprecated Use variant prop instead
    */
-  // default is included in the union above
-  /**
-   * @deprecated Use `size="sm"` instead.
-   */
-  // small is included in the union above
   color?: string;
-  // Legacy props
+  
+  /**
+   * Icon displayed before badge content
+   * @see {@link IconName} for available icons
+   */
   leadingIcon?: IconName;
+  
+  /**
+   * Icon displayed after badge content
+   * @see {@link IconName} for available icons
+   */
   trailingIcon?: IconName;
+  
+  /**
+   * Enable hover interaction styles
+   * @default false
+   */
   interaction?: boolean;
+  
+  /**
+   * Badge content (text or React nodes)
+   */
   children?: React.ReactNode;
 }
 

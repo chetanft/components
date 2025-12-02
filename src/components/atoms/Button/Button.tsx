@@ -2,22 +2,139 @@ import React from 'react';
 import { cn, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 
+/**
+ * Button variant options
+ * @public
+ */
 export type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'text' | 'link' | 'ghost' | 'dashed';
-export type ButtonSize = ComponentSize; // Use unified sizing
+
+/**
+ * Button size options - uses unified ComponentSize
+ * @public
+ */
+export type ButtonSize = ComponentSize;
+
+/**
+ * Icon position relative to button text
+ * @public
+ */
 export type IconPosition = 'leading' | 'trailing' | 'only';
 
 /**
- * Complete theme system supporting Light, Dark, and Night modes with automatic component adaptation.
+ * Button component props
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Primary button with icon
+ * <Button variant="primary" icon="add" iconPosition="leading">
+ *   Add Item
+ * </Button>
+ * 
+ * // Icon-only button
+ * <Button variant="secondary" icon="edit" iconPosition="only" />
+ * 
+ * // Loading state
+ * <Button variant="primary" loading>
+ *   Saving...
+ * </Button>
+ * 
+ * // Link variant
+ * <Button variant="link" href="/about">
+ *   Learn More
+ * </Button>
+ * ```
  */
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /**
+   * Visual style variant
+   * @default 'primary'
+   * 
+   * - `primary`: Main call-to-action, dark background
+   * - `secondary`: Secondary actions, outlined style
+   * - `destructive`: Delete/dangerous actions, red
+   * - `text`: Text-only button, minimal styling
+   * - `link`: Link-style button with underline
+   * - `ghost`: Transparent with border, fills on hover
+   * - `dashed`: Dashed border style
+   */
   variant?: ButtonVariant;
+  
+  /**
+   * Button size
+   * @default 'md'
+   * 
+   * Available sizes: `xxs` (24px), `xs` (32px), `sm` (36px), `md` (40px), 
+   * `lg` (48px), `xl` (56px), `xxl` (64px)
+   */
   size?: ButtonSize;
+  
+  /**
+   * Icon name from FT Design System icon library
+   * @see {@link IconName} for available icons
+   */
   icon?: IconName;
+  
+  /**
+   * Icon position relative to text
+   * @default 'leading'
+   * 
+   * - `leading`: Icon before text
+   * - `trailing`: Icon after text
+   * - `only`: Icon-only button (no text)
+   */
   iconPosition?: IconPosition;
+  
+  /**
+   * Shows loading spinner and disables button
+   * @default false
+   */
   loading?: boolean;
+  
+  /**
+   * Button content (text or React nodes)
+   * Not required for icon-only buttons (`iconPosition="only"`)
+   */
   children?: React.ReactNode;
 }
 
+/**
+ * Button Component
+ * 
+ * A versatile button component with multiple variants, sizes, and icon support.
+ * Supports all standard HTML button attributes and accessibility features.
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * import { Button } from 'ft-design-system';
+ * 
+ * function MyComponent() {
+ *   return (
+ *     <div>
+ *       <Button variant="primary" onClick={() => alert('Clicked!')}>
+ *         Primary Action
+ *       </Button>
+ *       <Button variant="secondary" icon="edit" iconPosition="leading">
+ *         Edit
+ *       </Button>
+ *       <Button variant="destructive" loading>
+ *         Delete
+ *       </Button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ * 
+ * @remarks
+ * - Automatically adapts to light/dark/night themes via CSS variables
+ * - Icon-only buttons are square by default, circular if `rounded-full` class is added
+ * - Loading state shows spinner and disables interaction
+ * - Accessible: includes ARIA labels and keyboard navigation support
+ * - Use `ft-design-system/ai` import for AI-protected version with automatic class filtering
+ */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'primary',
   size = 'md',

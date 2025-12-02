@@ -152,24 +152,89 @@ export function debugDesignSystemConflicts(): void {
 }
 
 /**
+ * Checks if critical CSS variables are loaded
+ * Returns array of missing variable names
+ */
+export function checkCSSVariablesLoaded(): string[] {
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return [];
+  }
+
+  const criticalTokens = [
+    '--primary',
+    '--secondary',
+    '--spacing-x4',
+    '--radius-md',
+    '--font-family-primary',
+  ];
+
+  const rootStyles = getComputedStyle(document.documentElement);
+  const missing: string[] = [];
+
+  criticalTokens.forEach(token => {
+    const value = rootStyles.getPropertyValue(token).trim();
+    if (!value || value === '') {
+      missing.push(token);
+    }
+  });
+
+  return missing;
+}
+
+/**
  * Validates that FT Design System is properly loaded
+ * Enhanced version that checks actual CSS variable values
  */
 export function validateFTDesignSystem(): boolean {
-  // Check if FT Design System CSS is loaded
-  const ftStylesheet = document.querySelector('link[href*="ft-design-system"]');
-  if (!ftStylesheet) {
-    console.warn('⚠️ FT Design System CSS not detected. Make sure to import the stylesheet.');
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('⚠️ validateFTDesignSystem() called in non-browser environment');
+    }
     return false;
   }
 
-  // Check if FT Design System components are available (for CDN usage)
-  if (typeof window !== 'undefined' && (window as Window & { FTDesignSystem?: unknown }).FTDesignSystem) {
+  // Check for CDN usage first
+  if ((window as Window & { FTDesignSystem?: unknown }).FTDesignSystem) {
+    const missingVars = checkCSSVariablesLoaded();
+    if (missingVars.length > 0) {
+      console.error('❌ FT Design System CSS variables not loaded');
+      console.error('Missing variables:', missingVars);
+      console.warn('💡 Make sure the CSS file is loaded before components render');
+      return false;
+    }
     console.log('✅ FT Design System CDN loaded successfully');
     return true;
   }
 
-  // For npm usage, we can't easily detect if components are available
-  console.log('✅ FT Design System validation passed');
+  // For npm usage, check CSS variables directly
+  const missingVars = checkCSSVariablesLoaded();
+  
+  if (missingVars.length > 0) {
+    console.error('❌ FT Design System CSS not loaded properly');
+    console.error('Missing CSS variables:', missingVars);
+    console.group('🔧 How to fix:');
+    console.log('1. Import CSS in your root file (BEFORE other styles):');
+    console.log('   import "ft-design-system/styles.css";');
+    console.log('');
+    console.log('2. For Next.js App Router: Add to app/layout.tsx');
+    console.log('3. For Next.js Pages Router: Add to pages/_app.tsx');
+    console.log('4. For Vite/CRA: Add to main.tsx or App.tsx');
+    console.log('');
+    console.log('5. Make sure CSS import is BEFORE component imports');
+    console.groupEnd();
+    return false;
+  }
+
+  // Check if stylesheet link exists (optional check)
+  const ftStylesheet = document.querySelector('link[href*="ft-design-system"]');
+  if (!ftStylesheet && process.env.NODE_ENV === 'development') {
+    // This is just a warning, not an error, since npm users import CSS directly
+    console.log('ℹ️ FT Design System CSS loaded (npm import detected)');
+  }
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log('✅ FT Design System validation passed - all CSS variables loaded');
+  }
   return true;
 }
 
@@ -182,11 +247,23 @@ export function runAIDevelopmentChecks(): void {
 
   console.group('🔍 FT Design System AI Development Checks');
 
-  // Validate FT Design System
-  validateFTDesignSystem();
+  // Validate FT Design System (enhanced validation)
+  const isValid = validateFTDesignSystem();
+  
+  if (!isValid) {
+    console.warn('⚠️ FT Design System validation failed. Components may not render correctly.');
+  }
 
   // Check for conflicts
   debugDesignSystemConflicts();
+
+  // Check CSS variables
+  const missingVars = checkCSSVariablesLoaded();
+  if (missingVars.length > 0) {
+    console.warn('⚠️ Missing CSS variables:', missingVars);
+  } else {
+    console.log('✅ All critical CSS variables loaded');
+  }
 
   // Log available components (if using CDN)
   if (typeof window !== 'undefined' && (window as Window & { FTDesignSystem?: Record<string, unknown> }).FTDesignSystem) {

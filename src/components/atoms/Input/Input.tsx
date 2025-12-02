@@ -5,22 +5,159 @@ import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 import { Label } from '../Label/Label';
 
+/**
+ * Input component props
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Basic input with label
+ * <Input label="Email" type="email" placeholder="Enter your email" />
+ * 
+ * // Input with validation states
+ * <Input 
+ *   label="Password" 
+ *   type="password" 
+ *   error="Password must be at least 8 characters"
+ * />
+ * 
+ * // Input with icons
+ * <Input 
+ *   label="Search" 
+ *   leadingIcon="search" 
+ *   placeholder="Search..."
+ * />
+ * 
+ * // Input with helper text
+ * <Input 
+ *   label="Username" 
+ *   helperText="Choose a unique username"
+ * />
+ * ```
+ */
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  /**
+   * Label text displayed above the input
+   */
   label?: string;
+  
+  /**
+   * Shows mandatory indicator (*) next to label
+   * @default false
+   */
   labelMandatory?: boolean;
+  
+  /**
+   * Shows optional indicator next to label
+   * @default false
+   */
   labelOptional?: boolean;
+  
+  /**
+   * Shows suffix icon in label
+   * @default false
+   */
   labelSuffixIcon?: boolean;
+  
+  /**
+   * Custom icon component for label
+   */
   labelIcon?: React.ReactNode;
+  
+  /**
+   * Error message displayed below input
+   * When provided, input shows error styling
+   */
   error?: string;
+  
+  /**
+   * Warning message displayed below input
+   * When provided, input shows warning styling
+   */
   warning?: string;
+  
+  /**
+   * Success message displayed below input
+   * When provided, input shows success styling
+   */
   success?: string;
+  
+  /**
+   * Helper text displayed below input
+   * Provides additional context or instructions
+   */
   helperText?: string;
+  
+  /**
+   * Icon name displayed on the left side of input
+   * @see {@link IconName} for available icons
+   */
   leadingIcon?: IconName;
+  
+  /**
+   * Icon name displayed on the right side of input
+   * @see {@link IconName} for available icons
+   */
   trailingIcon?: IconName;
-  size?: ComponentSize; // Use unified sizing
+  
+  /**
+   * Input size
+   * @default 'md'
+   * 
+   * Available sizes: `xxs` (16px), `xs` (24px), `sm` (32px), `md` (40px), 
+   * `lg` (48px), `xl` (56px), `xxl` (64px)
+   */
+  size?: ComponentSize;
+  
+  /**
+   * Visual style variant
+   * @default 'default'
+   * 
+   * - `default`: Standard input with border
+   * - `filled`: Filled background style
+   * - `outlined`: Outlined border style
+   */
   variant?: 'default' | 'filled' | 'outlined';
 }
 
+/**
+ * Input Component
+ * 
+ * A versatile text input component with label, validation states, icons, and helper text.
+ * Supports all standard HTML input attributes and types.
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * import { Input } from 'ft-design-system';
+ * 
+ * function MyForm() {
+ *   const [email, setEmail] = useState('');
+ *   const [error, setError] = useState('');
+ * 
+ *   return (
+ *     <Input
+ *       label="Email Address"
+ *       type="email"
+ *       value={email}
+ *       onChange={(e) => setEmail(e.target.value)}
+ *       error={error}
+ *       helperText="We'll never share your email"
+ *       leadingIcon="mail"
+ *     />
+ *   );
+ * }
+ * ```
+ * 
+ * @remarks
+ * - Automatically generates accessible IDs for labels and error messages
+ * - Supports validation states: error, warning, success
+ * - Icon positioning adapts to input size
+ * - Accessible: includes ARIA attributes and keyboard navigation
+ * - Use `ft-design-system/ai` import for AI-protected version
+ */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({
     className,

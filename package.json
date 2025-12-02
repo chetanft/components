@@ -76,6 +76,8 @@
     "publish": "node scripts/publish-cli.js",
     "lovable:templates": "node scripts/lovable-templates.js",
     "update-docs": "node scripts/update-docs.cjs",
+    "generate:token-reference": "node scripts/generate-token-reference.cjs",
+    "setup": "node scripts/setup-ftds.cjs",
     "test:ai-architecture": "node test-ai-architecture.cjs",
     "monitor:performance": "node scripts/monitor-ai-performance.cjs",
     "validate:docs": "node scripts/validate-docs-exports.cjs",
@@ -86,7 +88,7 @@
     "sync:storybook-to-source": "node scripts/sync-storybook-to-source.cjs",
     "sync:source-to-docs": "node scripts/sync-source-to-docs-and-npm.cjs",
     "sync:doc-stories": "node scripts/sync-doc-stories.cjs",
-    "build": "npm run sync:version && npm run validate:docs && rollup -c",
+    "build": "npm run sync:version && npm run validate:docs && npm run generate:token-reference && rollup -c",
     "build:sync": "npm run sync:source-to-docs"
   },
   "dependencies": {

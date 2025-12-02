@@ -153,24 +153,151 @@ DatePickerField.displayName = "DatePickerField";
 // Using unified Label component from atoms
 
 // Main DatePicker component
+/**
+ * DatePicker component props
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Single date picker
+ * <DatePicker
+ *   label="Select Date"
+ *   value={date}
+ *   onChange={(value) => setDate(value)}
+ * />
+ * 
+ * // Date range picker
+ * <DatePicker
+ *   range
+ *   startValue={startDate}
+ *   endValue={endDate}
+ *   onStartChange={setStartDate}
+ *   onEndChange={setEndDate}
+ * />
+ * ```
+ */
 export interface DatePickerProps extends VariantProps<typeof datePickerFieldVariants> {
+  /**
+   * Label text displayed above or beside the input
+   */
   label?: string;
+  
+  /**
+   * Label position relative to input
+   * @default 'top'
+   */
   labelPosition?: 'top' | 'left';
+  
+  /**
+   * Placeholder text when no date is selected
+   */
   placeholder?: string;
+  
+  /**
+   * Selected date value (ISO string format)
+   * Controlled component value
+   */
   value?: string;
+  
+  /**
+   * Callback when date changes
+   * @param value - Selected date as ISO string
+   */
   onChange?: (value: string) => void;
+  
+  /**
+   * Disable the date picker
+   * @default false
+   */
   disabled?: boolean;
+  
+  /**
+   * Show error state styling
+   * @default false
+   */
   error?: boolean;
+  
+  /**
+   * Show time picker (not currently implemented)
+   * @default false
+   * @deprecated Time picker functionality not yet available
+   */
   showTime?: boolean;
+  
+  /**
+   * Enable date range selection
+   * @default false
+   */
   range?: boolean;
+  
+  /**
+   * Start date value for range picker (ISO string)
+   */
   startValue?: string;
+  
+  /**
+   * End date value for range picker (ISO string)
+   */
   endValue?: string;
+  
+  /**
+   * Callback when start date changes
+   * @param value - Start date as ISO string
+   */
   onStartChange?: (value: string) => void;
+  
+  /**
+   * Callback when end date changes
+   * @param value - End date as ISO string
+   */
   onEndChange?: (value: string) => void;
+  
+  /**
+   * Additional CSS classes
+   */
   className?: string;
+  
+  /**
+   * Include dropdown calendar picker
+   * @default true
+   */
   includeDropdown?: boolean;
 }
 
+/**
+ * DatePicker Component
+ * 
+ * A date selection component with calendar popup and optional range selection.
+ * Supports single date and date range picking with keyboard navigation.
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * import { DatePicker } from 'ft-design-system';
+ * 
+ * function MyForm() {
+ *   const [date, setDate] = useState('');
+ * 
+ *   return (
+ *     <DatePicker
+ *       label="Select Date"
+ *       value={date}
+ *       onChange={setDate}
+ *       placeholder="Choose a date"
+ *     />
+ *   );
+ * }
+ * ```
+ * 
+ * @remarks
+ * - Calendar popup opens on focus or click
+ * - Supports keyboard navigation (arrow keys, Enter, Escape)
+ * - Date range mode allows selecting start and end dates
+ * - Accessible: includes ARIA labels and keyboard support
+ * - Use `ft-design-system/ai` import for AI-protected version
+ */
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   label,
   labelPosition = 'top',

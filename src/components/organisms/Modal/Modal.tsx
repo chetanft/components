@@ -5,17 +5,100 @@ import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
 
+/**
+ * Modal component props
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * const [open, setOpen] = useState(false);
+ * 
+ * <Modal
+ *   open={open}
+ *   onClose={() => setOpen(false)}
+ *   title="Confirm Action"
+ *   footer={
+ *     <>
+ *       <Button onClick={() => setOpen(false)}>Cancel</Button>
+ *       <Button variant="primary" onClick={handleConfirm}>Confirm</Button>
+ *     </>
+ *   }
+ * >
+ *   <p>Are you sure you want to proceed?</p>
+ * </Modal>
+ * ```
+ */
 export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * Whether modal is open/visible
+   * @required
+   */
   open: boolean;
+  
+  /**
+   * Callback when modal should close
+   * Called on close button click, mask click (if maskClosable), or ESC key
+   */
   onClose?: () => void;
+  
+  /**
+   * Modal title displayed in header
+   */
   title?: string;
+  
+  /**
+   * Footer content (typically action buttons)
+   * Rendered at bottom of modal
+   */
   footer?: React.ReactNode;
+  
+  /**
+   * Show close button in header
+   * @default true
+   */
   closable?: boolean;
+  
+  /**
+   * Allow closing modal by clicking the backdrop/mask
+   * @default true
+   */
   maskClosable?: boolean;
+  
+  /**
+   * Modal size preset
+   * @default 'md'
+   * 
+   * - `sm`: 400px width
+   * - `md`: 520px width
+   * - `lg`: 720px width
+   * - `xl`: 960px width
+   * - `full`: 90vw width
+   */
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  
+  /**
+   * Custom modal width (overrides size)
+   * CSS value (e.g., "600px", "50%") or number (pixels)
+   */
   width?: string | number;
+  
+  /**
+   * Center modal vertically
+   * @default true
+   */
   centered?: boolean;
+  
+  /**
+   * Show Figma badge (development only)
+   * @default true
+   */
   showFigmaBadge?: boolean;
+  
+  /**
+   * Modal content
+   * @required
+   */
   children: React.ReactNode;
 }
 
@@ -28,8 +111,42 @@ const modalSizes = {
 };
 
 /**
- * Modal component built using FT Design System tokens.
- * Figma design not available - component created based on design system specifications.
+ * Modal Component
+ * 
+ * A modal dialog component that displays content in an overlay.
+ * Prevents body scroll when open and includes backdrop, header, footer, and close functionality.
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * import { Modal, Button } from 'ft-design-system';
+ * 
+ * function MyComponent() {
+ *   const [open, setOpen] = useState(false);
+ * 
+ *   return (
+ *     <>
+ *       <Button onClick={() => setOpen(true)}>Open Modal</Button>
+ *       <Modal
+ *         open={open}
+ *         onClose={() => setOpen(false)}
+ *         title="Modal Title"
+ *         footer={<Button onClick={() => setOpen(false)}>Close</Button>}
+ *       >
+ *         <p>Modal content goes here</p>
+ *       </Modal>
+ *     </>
+ *   );
+ * }
+ * ```
+ * 
+ * @remarks
+ * - Prevents body scroll when open
+ * - Closes on ESC key press (if closable)
+ * - Closes on backdrop click (if maskClosable)
+ * - Accessible: includes ARIA attributes and focus management
+ * - Use `ft-design-system/ai` import for AI-protected version
  */
 export const Modal: React.FC<ModalProps> = ({
   open,

@@ -44,17 +44,13 @@ export default [
         fileName: 'assets/[name][extname]'
       }),
       postcss({
-        extract: true,
-        extract: [
-          'dist/styles.css',
-          'dist/css/base.css'
-        ],
+        extract: 'dist/styles.css',
         minimize: true,
         config: {
           path: './postcss.config.js',
         },
       }),
-      typescript({ 
+      typescript({
         tsconfig: './tsconfig.json',
         declaration: true,
         declarationDir: './dist/types',
@@ -87,7 +83,7 @@ export default [
         limit: 8192,
         fileName: 'assets/[name][extname]'
       }),
-      typescript({ 
+      typescript({
         tsconfig: './tsconfig.json',
         declaration: true,
         declarationDir: './dist/types',

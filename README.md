@@ -19,14 +19,89 @@ A comprehensive React component library built from Figma designs, featuring a mo
 npm install ft-design-system
 ```
 
-## 🔧 Usage
+## 🚀 Quick Setup (Automated)
+
+**NEW!** Use the automated setup script to configure FT Design System in seconds:
+
+```bash
+# After installing the package, run:
+npx ft-design-system setup
+```
+
+The setup script will:
+- ✅ Detect your framework (Next.js, Vite, CRA)
+- ✅ Automatically inject CSS import in the correct location
+- ✅ Update Tailwind config with FT DS content paths
+- ✅ Verify setup worked correctly
+
+**Alternative:** Use pre-configured starter templates in [`templates/`](./templates/) directory.
+
+---
+
+## 🔧 Manual Setup (Required if not using automated setup)
+
+### ⚠️ CRITICAL: Two Required Steps
+
+FT Design System components **will not work** without completing BOTH steps below. Components use CSS variables and Tailwind utility classes that must be properly configured.
+
+---
+
+### Step 1: Import CSS (REQUIRED)
+
+**Why:** Components rely on CSS variables (`var(--primary-700)`, `var(--table-cell-padding-y)`, etc.) defined in the CSS file. Without importing it, all variables are undefined, resulting in:
+- ❌ Transparent or missing button colors
+- ❌ No table padding/spacing
+- ❌ Semi-transparent drawer backgrounds
+- ❌ Missing component styles
 
 ```tsx
-// Import components
-import { Table, Button, Badge, Checkbox } from 'ft-design-system';
+// ✅ For Next.js 14+ (App Router) - Import in app/layout.tsx
+import 'ft-design-system/styles.css';
+import './globals.css';
 
-// Import styles in your main App.tsx or index.tsx
-import 'ft-design-system/dist/styles.css';
+// ✅ For Next.js 13 (Pages Router) - Import in pages/_app.tsx
+import 'ft-design-system/styles.css';
+import '../styles/globals.css';
+
+// ✅ For Vite/CRA - Import in main.tsx or App.tsx (BEFORE other styles)
+import 'ft-design-system/styles.css';
+import './index.css';
+```
+
+**Important:** Import FT DS CSS **before** your own CSS files to ensure proper cascade.
+
+---
+
+### Step 2: Configure Tailwind Content Paths (REQUIRED)
+
+**Why:** Components use Tailwind arbitrary value classes like `bg-[var(--primary-700)]` and `text-[var(--primary)]`. Tailwind must scan the component files to generate these utility classes. Without this configuration:
+- ❌ Tailwind classes won't be generated
+- ❌ Components will have missing styles
+- ❌ Spacing, colors, and utilities won't work
+
+```js
+// tailwind.config.js
+module.exports = {
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+    './app/**/*.{js,jsx,ts,tsx}',
+    './pages/**/*.{js,jsx,ts,tsx}',
+    // ⚠️ CRITICAL: Include FT DS components so Tailwind scans them
+    './node_modules/ft-design-system/dist/**/*.{js,jsx}'
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+**Note:** After updating Tailwind config, restart your dev server to regenerate classes.
+
+### Step 4: Use Components
+
+```tsx
+import { Table, Button, Badge, Checkbox } from 'ft-design-system';
 
 function App() {
   return (
@@ -38,11 +113,138 @@ function App() {
 }
 ```
 
+## ⚡ Quick Start Example
+
+<details>
+<summary>Next.js 14+ (App Router)</summary>
+
+```tsx
+// app/layout.tsx
+import 'ft-design-system/styles.css';
+import './globals.css';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+
+// app/page.tsx
+import { Button, Table } from 'ft-design-system';
+
+export default function Home() {
+  return (
+    <main>
+      <Button variant="primary">Get Started</Button>
+    </main>
+  );
+}
+
+// tailwind.config.js
+module.exports = {
+  content: [
+    './app/**/*.{js,ts,jsx,tsx}',
+    './node_modules/ft-design-system/dist/**/*.{js,jsx}'
+  ],
+};
+```
+
+</details>
+
+<details>
+<summary>Vite + React</summary>
+
+```tsx
+// main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import 'ft-design-system/styles.css';
+import './index.css';
+import App from './App';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// tailwind.config.js
+export default {
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/ft-design-system/dist/**/*.{js,jsx}'
+  ],
+};
+```
+
+</details>
+
+
 ## 🚨 Troubleshooting
+
+> 📖 **For detailed setup and troubleshooting, see [Integration Guide](docs/INTEGRATION_GUIDE.md)**
+
+### Components Not Rendering Correctly
+
+**Symptoms:**
+- Buttons appear transparent or with wrong colors
+- Tables have no padding/spacing
+- Drawer has semi-transparent background
+- Components look unstyled
+
+**Root Cause:** Missing CSS import OR Tailwind not configured to scan FT DS components.
+
+**✅ Solution:** Complete BOTH required steps:
+
+1. **Import CSS** in your main application file (BEFORE other styles):
+   ```tsx
+   import 'ft-design-system/styles.css'; // ⚠️ Must be first
+   import './globals.css';
+   ```
+
+2. **Configure Tailwind** to include FT DS:
+   ```js
+   // tailwind.config.js
+   module.exports = {
+     content: [
+       './src/**/*.{js,jsx,ts,tsx}',
+       './node_modules/ft-design-system/dist/**/*.{js,jsx}' // ⚠️ Required!
+     ],
+   };
+   ```
+
+3. **Restart your dev server** after updating Tailwind config.
+
+### CSS Variables Undefined
+
+**Symptoms:**
+- Console shows: `Invalid property value` for `var(--primary-700)`
+- Components have no colors
+- Styles completely missing
+
+**Solution:**
+- Verify CSS is imported: Check Network tab → look for `styles.css` loaded
+- Ensure CSS import is BEFORE component imports
+- Try alternative import path: `import 'ft-design-system/dist/styles.css'`
+
+### Tailwind Classes Not Generated
+
+**Symptoms:**
+- Classes like `bg-[var(--primary-700)]` don't work
+- Components missing utility classes
+- Spacing/padding not applied
+
+**Solution:**
+- Add FT DS to Tailwind content paths (see Step 2 above)
+- Restart dev server after config change
+- Clear Tailwind cache: `rm -rf .next` (Next.js) or `rm -rf node_modules/.vite` (Vite)
 
 ### CSS Styles Not Loading
 
-If you're getting errors like `"Cannot resolve 'ft-design-system/dist/styles.css'"`, try these solutions:
+If you're getting errors like `"Cannot resolve 'ft-design-system/styles.css'"`:
 
 1. **Clear Cache and Reinstall**:
    ```bash
@@ -50,25 +252,12 @@ If you're getting errors like `"Cannot resolve 'ft-design-system/dist/styles.css
    npm install ft-design-system@latest
    ```
 
-2. **Verify Package Version**:
-   ```bash
-   npm list ft-design-system
-   # Should show version 4.2.3 or higher
-   ```
-
-3. **Alternative Import Methods**:
+2. **Try Alternative Import Path**:
    ```tsx
-   // Method 1: Direct path
-   import 'ft-design-system/dist/styles.css';
-   
-   // Method 2: If above fails, try importing from specific path
-   import 'ft-design-system/styles.css';
-   
-   // Method 3: For Next.js projects, import in _app.tsx or layout.tsx
    import 'ft-design-system/dist/styles.css';
    ```
 
-4. **For Vite Projects**, ensure your `vite.config.js` includes:
+3. **For Vite Projects**, ensure your `vite.config.js` includes:
    ```js
    export default defineConfig({
      optimizeDeps: {
@@ -77,31 +266,6 @@ If you're getting errors like `"Cannot resolve 'ft-design-system/dist/styles.css
    });
    ```
 
-5. **For Webpack Projects**, ensure CSS loader is configured:
-   ```js
-   module.exports = {
-     module: {
-       rules: [
-         {
-           test: /\.css$/,
-           use: ['style-loader', 'css-loader']
-         }
-       ]
-     }
-   };
-   ```
-
-### Icon Import Issues
-
-If icons are not working:
-```tsx
-// Import individual icons (recommended)
-import { ChevronLeft, Play, User } from 'ft-design-system';
-
-// Or use the generic Icon component
-import { Icon } from 'ft-design-system';
-<Icon name="chevron-left" />
-```
 
 ## 🧩 Components
 
@@ -173,6 +337,32 @@ Key highlights:
 - **Accessibility**: WCAG AA compliance requirements
 - **Developer Handoff**: Proper specifications and naming conventions
 
+## 🎨 Design Tokens
+
+FT Design System uses CSS custom properties (variables) for all design tokens. 
+
+**📖 Complete Token Reference:** See [`docs/DESIGN_TOKENS_REFERENCE.md`](./docs/DESIGN_TOKENS_REFERENCE.md) for a comprehensive list of all available tokens.
+
+The token reference is auto-generated from the CSS source and includes:
+- Color scales (primary, secondary, tertiary, neutral, positive, warning, danger)
+- Semantic colors
+- Spacing system (8-point grid)
+- Typography tokens
+- Shadows, transitions, border radius
+- Component-specific tokens
+- Usage examples
+
+**Quick examples:**
+```css
+/* Use semantic colors */
+.my-component {
+  color: var(--primary);
+  background-color: var(--bg-primary);
+  padding: var(--spacing-x4);
+  border-radius: var(--radius-md);
+}
+```
+
 ## 🎨 Customization
 
 ### Tailwind Configuration
@@ -183,7 +373,7 @@ The design system uses Tailwind CSS for styling. Make sure your project has Tail
 module.exports = {
   content: [
     './src/**/*.{js,jsx,ts,tsx}',
-    './node_modules/ft-design-system/**/*.{js,jsx,ts,tsx}'
+    './node_modules/ft-design-system/dist/**/*.{js,jsx}'
   ],
   // ... rest of your config
 }

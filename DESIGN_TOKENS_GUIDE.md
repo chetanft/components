@@ -2,6 +2,9 @@
 
 This document outlines the design tokens that have been applied to the component library based on the Figma design system export.
 
+> **📖 Complete Token Reference:** For a comprehensive, auto-generated reference of all tokens, see [`docs/DESIGN_TOKENS_REFERENCE.md`](./docs/DESIGN_TOKENS_REFERENCE.md).  
+> The token reference is automatically generated from CSS source and includes all available tokens with usage examples.
+
 ## Overview
 
 All components have been updated to use a centralized design token system that provides:
@@ -256,4 +259,24 @@ If you have existing components using hardcoded values, update them as follows:
 }
 ```
 
-This ensures your components will automatically benefit from future design token updates and maintain consistency across the entire system. 
+This ensures your components will automatically benefit from future design token updates and maintain consistency across the entire system.
+
+---
+
+## 📖 Complete Token Reference
+
+For a comprehensive, searchable reference of all design tokens, see:
+
+**[`docs/DESIGN_TOKENS_REFERENCE.md`](./docs/DESIGN_TOKENS_REFERENCE.md)**
+
+The complete token reference includes:
+- All color scales (primary, secondary, tertiary, neutral, positive, warning, danger)
+- Semantic colors and status colors
+- Complete spacing system (8-point grid)
+- Typography tokens (font families, sizes, weights)
+- Shadows, transitions, and border radius tokens
+- Breakpoints and grid system tokens
+- Component-specific tokens
+- Usage examples (CSS, JavaScript, React)
+
+The reference is auto-generated from `src/styles/globals.css` and stays in sync with the design system. 

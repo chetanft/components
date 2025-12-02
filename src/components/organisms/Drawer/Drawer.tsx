@@ -5,25 +5,142 @@ import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
 
+/**
+ * Drawer placement position
+ * 
+ * @public
+ */
 export type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom';
 
+/**
+ * Drawer component props
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * const [open, setOpen] = useState(false);
+ * 
+ * <Drawer
+ *   open={open}
+ *   onClose={() => setOpen(false)}
+ *   title="Settings"
+ *   placement="right"
+ *   width={400}
+ *   footer={<Button onClick={() => setOpen(false)}>Close</Button>}
+ * >
+ *   <p>Drawer content goes here</p>
+ * </Drawer>
+ * ```
+ */
 export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * Whether drawer is open/visible
+   * @required
+   */
   open: boolean;
+  
+  /**
+   * Callback when drawer should close
+   * Called on close button click, mask click (if maskClosable), or ESC key
+   */
   onClose?: () => void;
+  
+  /**
+   * Drawer title displayed in header
+   */
   title?: string;
+  
+  /**
+   * Side from which drawer slides in
+   * @default 'right'
+   */
   placement?: DrawerPlacement;
+  
+  /**
+   * Drawer width (for left/right placement)
+   * CSS value (e.g., "400px", "50%") or number (pixels)
+   * @default 400
+   */
   width?: string | number;
+  
+  /**
+   * Drawer height (for top/bottom placement)
+   * CSS value (e.g., "300px", "50vh") or number (pixels)
+   * @default '100%'
+   */
   height?: string | number;
+  
+  /**
+   * Show close button in header
+   * @default true
+   */
   closable?: boolean;
+  
+  /**
+   * Allow closing drawer by clicking the backdrop/mask
+   * @default true
+   */
   maskClosable?: boolean;
+  
+  /**
+   * Show Figma badge (development only)
+   * @default true
+   */
   showFigmaBadge?: boolean;
+  
+  /**
+   * Footer content (typically action buttons)
+   * Rendered at bottom of drawer
+   */
   footer?: React.ReactNode;
+  
+  /**
+   * Drawer content
+   * @required
+   */
   children: React.ReactNode;
 }
 
 /**
- * Drawer component built using FT Design System tokens.
- * Figma design not available - component created based on design system specifications.
+ * Drawer Component
+ * 
+ * A slide-out panel component that displays content from the side of the screen.
+ * Useful for settings panels, filters, navigation menus, and supplementary content.
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * import { Drawer, Button } from 'ft-design-system';
+ * 
+ * function MyComponent() {
+ *   const [open, setOpen] = useState(false);
+ * 
+ *   return (
+ *     <>
+ *       <Button onClick={() => setOpen(true)}>Open Drawer</Button>
+ *       <Drawer
+ *         open={open}
+ *         onClose={() => setOpen(false)}
+ *         title="Settings"
+ *         placement="right"
+ *         width={400}
+ *       >
+ *         <p>Drawer content goes here</p>
+ *       </Drawer>
+ *     </>
+ *   );
+ * }
+ * ```
+ * 
+ * @remarks
+ * - Slides in from specified side (left, right, top, bottom)
+ * - Prevents body scroll when open
+ * - Closes on ESC key press (if closable)
+ * - Closes on backdrop click (if maskClosable)
+ * - Accessible: includes ARIA attributes and focus management
+ * - Use `ft-design-system/ai` import for AI-protected version
  */
 export const Drawer: React.FC<DrawerProps> = ({
   open,
