@@ -142,7 +142,7 @@ export const Default: Story = {
   args: {
     columns: sampleColumns,
     data: sampleData,
-    onCellChange: (rowId, columnKey, value) => {
+    onCellChange: (rowId: string | number, columnKey: string, value: string | number) => {
       console.log('Cell changed:', { rowId, columnKey, value });
     },
   },
@@ -228,7 +228,7 @@ export const WithErrors: Story = {
         totalQuantity: 'Invalid amount',
       },
     },
-    onCellChange: (rowId, columnKey, value) => {
+    onCellChange: (rowId: string | number, columnKey: string, value: string | number) => {
       console.log('Cell changed:', { rowId, columnKey, value });
     },
   },
@@ -273,10 +273,10 @@ export const WithSelection: Story = {
     data: sampleData,
     selectable: true,
     selectedRows: [1],
-    onSelectionChange: (selectedRows) => {
+    onSelectionChange: (selectedRows: (string | number)[]) => {
       console.log('Selection changed:', selectedRows);
     },
-    onCellChange: (rowId, columnKey, value) => {
+    onCellChange: (rowId: string | number, columnKey: string, value: string | number) => {
       console.log('Cell changed:', { rowId, columnKey, value });
     },
   },
@@ -287,7 +287,7 @@ export const WithColumnResize: Story = {
     columns: sampleColumns,
     data: sampleData,
     resizable: true,
-    onCellChange: (rowId, columnKey, value) => {
+    onCellChange: (rowId: string | number, columnKey: string, value: string | number) => {
       console.log('Cell changed:', { rowId, columnKey, value });
     },
   },
@@ -298,7 +298,7 @@ export const WithContextMenu: Story = {
     columns: sampleColumns,
     data: sampleData,
     showContextMenu: true,
-    onCellChange: (rowId, columnKey, value) => {
+    onCellChange: (rowId: string | number, columnKey: string, value: string | number) => {
       console.log('Cell changed:', { rowId, columnKey, value });
     },
   },
@@ -387,7 +387,7 @@ export const AllCellTypes: Story = {
         readonly: 'Another value',
       },
     ],
-    onCellChange: (rowId, columnKey, value) => {
+    onCellChange: (rowId: string | number, columnKey: string, value: string | number) => {
       console.log('Cell changed:', { rowId, columnKey, value });
     },
   },
@@ -397,7 +397,7 @@ export const EmptyState: Story = {
   args: {
     columns: sampleColumns,
     data: [],
-    onCellChange: (rowId, columnKey, value) => {
+    onCellChange: (rowId: string | number, columnKey: string, value: string | number) => {
       console.log('Cell changed:', { rowId, columnKey, value });
     },
   },
