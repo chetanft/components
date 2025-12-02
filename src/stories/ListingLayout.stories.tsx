@@ -167,7 +167,7 @@ const journeyColumns: TableColumn<JourneyRow>[] = [
     title: 'Vehicle info',
     render: (value) => (
       <Typography variant="body-secondary-medium" as="span">
-        {value}
+        {String(value)}
       </Typography>
     ),
   },
@@ -176,7 +176,7 @@ const journeyColumns: TableColumn<JourneyRow>[] = [
     title: 'Trip info',
     render: (value) => (
       <Typography variant="body-secondary-medium" as="span">
-        {value}
+        {String(value)}
       </Typography>
     ),
   },
@@ -192,7 +192,7 @@ const journeyColumns: TableColumn<JourneyRow>[] = [
     title: 'ETA',
     render: (value) => (
       <Typography variant="body-secondary-medium" as="span">
-        {value}
+        {String(value)}
       </Typography>
     ),
   },

@@ -126,9 +126,9 @@ const atomicColumns: TableColumn<User>[] = [
     header: 'User',
     type: 'text',
     sortable: true,
-    cell: (row, { value }) => (
+    render: (value) => (
       <TableCellItem
-        text={value}
+        text={String(value)}
         textType="primary"
         leadingIcon="user"
       />
@@ -139,9 +139,9 @@ const atomicColumns: TableColumn<User>[] = [
     header: 'Contact',
     type: 'text',
     sortable: true,
-    cell: (row, { value }) => (
+    render: (value) => (
       <TableCellItem
-        text={value}
+        text={String(value)}
         textType="secondary"
         trailingIcon="link"
       />
@@ -152,13 +152,13 @@ const atomicColumns: TableColumn<User>[] = [
     header: 'Role',
     type: 'text',
     sortable: true,
-    cell: (row, { value }) => (
+    render: (value) => (
       <TableCellItem
         badge={
           <Badge
             variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'}
           >
-            {value}
+            {String(value)}
           </Badge>
         }
       />
@@ -167,11 +167,11 @@ const atomicColumns: TableColumn<User>[] = [
   {
     key: 'status',
     header: 'Status',
-    cell: (row, { value }) => {
+    render: (value) => {
       const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
       return (
         <TableCellItem
-          badge={<Badge variant={variant}>{value}</Badge>}
+          badge={<Badge variant={variant}>{String(value)}</Badge>}
         />
       );
     }
@@ -181,9 +181,9 @@ const atomicColumns: TableColumn<User>[] = [
     header: 'Orders',
     type: 'number',
     sortable: true,
-    cell: (row, { value }) => (
+    render: (value) => (
       <TableCellItem
-        text={value.toLocaleString()}
+        text={typeof value === 'number' ? value.toLocaleString() : String(value)}
         textType="primary"
       />
     )
@@ -193,7 +193,7 @@ const atomicColumns: TableColumn<User>[] = [
     header: 'Actions',
     type: 'actions',
     width: 'calc(var(--spacing-x10)*3)',
-    cell: () => (
+    render: () => (
       <TableCellItem
         badge={
           <div className="flex items-center gap-[var(--spacing-x2)]">
@@ -390,9 +390,9 @@ export function VariantsPrimary() {
       header: 'Name',
       type: 'text',
       sortable: true,
-      cell: (row, { value }) => (
+      render: (value) => (
         <TableCellText type="primary">
-          {value}
+          {String(value)}
         </TableCellText>
       )
     },
@@ -401,9 +401,9 @@ export function VariantsPrimary() {
       header: 'Email',
       type: 'text',
       sortable: true,
-      cell: (row, { value }) => (
+      render: (value) => (
         <TableCellText type="secondary">
-          {value}
+          {String(value)}
         </TableCellText>
       )
     },
@@ -411,13 +411,13 @@ export function VariantsPrimary() {
       key: 'role',
       header: 'Role',
       type: 'text',
-      cell: (row, { value }) => (
+      render: (value) => (
         <TableCellItem
           badge={
             <Badge
               variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'}
             >
-              {value}
+              {String(value)}
             </Badge>
           }
         />
@@ -426,11 +426,11 @@ export function VariantsPrimary() {
     {
       key: 'status',
       header: 'Status',
-      cell: (row, { value }) => {
+      render: (value) => {
         const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
         return (
           <TableCellItem
-            badge={<Badge variant={variant}>{value}</Badge>}
+            badge={<Badge variant={variant}>{String(value)}</Badge>}
           />
         );
       }
@@ -473,9 +473,9 @@ export function VariantsSecondary() {
       header: 'Name',
       type: 'text',
       sortable: true,
-      cell: (row, { value }) => (
+      render: (value) => (
         <TableCellText type="primary">
-          {value}
+          {String(value)}
         </TableCellText>
       )
     },
@@ -484,9 +484,9 @@ export function VariantsSecondary() {
       header: 'Email',
       type: 'text',
       sortable: true,
-      cell: (row, { value }) => (
+      render: (value) => (
         <TableCellText type="secondary">
-          {value}
+          {String(value)}
         </TableCellText>
       )
     },
@@ -494,13 +494,13 @@ export function VariantsSecondary() {
       key: 'role',
       header: 'Role',
       type: 'text',
-      cell: (row, { value }) => (
+      render: (value) => (
         <TableCellItem
           badge={
             <Badge
               variant={value === 'Admin' ? 'danger' : value === 'Editor' ? 'warning' : 'normal'}
             >
-              {value}
+              {String(value)}
             </Badge>
           }
         />
@@ -509,11 +509,11 @@ export function VariantsSecondary() {
     {
       key: 'status',
       header: 'Status',
-      cell: (row, { value }) => {
+      render: (value) => {
         const variant = value === 'Active' ? 'success' : value === 'Pending' ? 'warning' : 'neutral';
         return (
           <TableCellItem
-            badge={<Badge variant={variant}>{value}</Badge>}
+            badge={<Badge variant={variant}>{String(value)}</Badge>}
           />
         );
       }
