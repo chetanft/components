@@ -82,8 +82,7 @@ export const HoverCard: React.FC<HoverCardProps> = ({
                         placementStyles[placement],
                         className
                     )}
-                    style={{ boxShadow: 'var(--shadow-xl)' }}
-                    style={{ width }}
+                    style={{ boxShadow: 'var(--shadow-xl)', width }}
                 >
                     {content}
                 </div>

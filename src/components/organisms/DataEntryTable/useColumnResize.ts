@@ -34,7 +34,7 @@ export const useColumnResize = (options: UseColumnResizeOptions = {}) => {
       // Fallback: try to find the header cell by traversing up
       const tableRow = resizeHandle.closest('tr');
       if (tableRow) {
-        const cells = Array.from(tableRow.querySelectorAll('th'));
+        const cells = Array.from(tableRow.querySelectorAll('th')) as HTMLElement[];
         const resizeHandleIndex = cells.indexOf(resizeHandle);
         if (resizeHandleIndex > 0) {
           const prevCell = cells[resizeHandleIndex - 1] as HTMLElement;

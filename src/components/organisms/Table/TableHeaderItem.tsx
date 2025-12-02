@@ -22,6 +22,7 @@ export interface TableHeaderItemProps {
   children?: React.ReactNode;
   onClick?: () => void;
   className?: string;
+  style?: React.CSSProperties;
   onDragStart?: (e: React.DragEvent) => void;
   onDragOver?: (e: React.DragEvent) => void;
   onDragLeave?: () => void;
@@ -40,6 +41,7 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
   children,
   onClick,
   className,
+  style,
   onDragStart,
   onDragOver,
   onDragLeave,
@@ -118,7 +120,8 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
         minHeight: 'var(--table-header-height)',
         maxHeight: 'var(--table-header-height)',
         paddingTop: 'var(--table-header-padding-y)',
-        paddingBottom: 'var(--table-header-padding-y)'
+        paddingBottom: 'var(--table-header-padding-y)',
+        ...style
       }}
       onClick={onClick}
       aria-sort={getAriaSort()}

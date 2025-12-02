@@ -34,7 +34,7 @@ export const DataEntryTableCellActions: React.FC<DataEntryTableCellActionsProps>
           <Button
             variant="text"
             size="xs"
-            icon="plus"
+            icon="add"
             iconPosition="leading"
             disabled={isDisabled}
             className="px-[var(--x2)] py-[var(--x0)] rounded-[var(--radius-sm)]"
