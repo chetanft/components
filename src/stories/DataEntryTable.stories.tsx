@@ -138,7 +138,7 @@ const DefaultStoryComponent = (args: React.ComponentProps<typeof DataEntryTable>
 };
 
 export const Default: Story = {
-  render: (args) => <DefaultStoryComponent {...args} />,
+  render: (args: React.ComponentProps<typeof DataEntryTable>) => <DefaultStoryComponent {...args} />,
   args: {
     columns: sampleColumns,
     data: sampleData,
@@ -267,7 +267,7 @@ const WithSelectionStoryComponent = (args: React.ComponentProps<typeof DataEntry
 };
 
 export const WithSelection: Story = {
-  render: (args) => <WithSelectionStoryComponent {...args} />,
+  render: (args: React.ComponentProps<typeof DataEntryTable>) => <WithSelectionStoryComponent {...args} />,
   args: {
     columns: sampleColumns,
     data: sampleData,

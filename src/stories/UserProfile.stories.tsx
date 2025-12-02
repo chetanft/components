@@ -116,7 +116,7 @@ export const Default: Story = {
 };
 
 export const Interactive: Story = {
-  render: (args) => <InteractiveUserProfileComponent {...args} />,
+  render: (args: React.ComponentProps<typeof UserProfile>) => <InteractiveUserProfileComponent {...args} />,
   args: {
     userName: 'Santosh Kumar',
     userRole: 'Dispatch Manager',

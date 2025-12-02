@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 import { Popconfirm } from './Popconfirm';
 import { Button } from '../../atoms/Button/Button';
 
@@ -40,7 +41,7 @@ export const WithIcon: Story = {
 };
 
 export const Placement: Story = {
-    render: (args) => (
+    render: (args: React.ComponentProps<typeof Popconfirm>) => (
         <div className="flex gap-4 items-center justify-center h-64">
             <Popconfirm {...args} placement="top" title="Top">
                 <Button>Top</Button>

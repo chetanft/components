@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import React, { useState, useEffect } from 'react';
 import { Loader } from './Loader';
-import { useState, useEffect } from 'react';
 
 const meta: Meta<typeof Loader> = {
   title: 'Molecules/Loader',
@@ -47,7 +47,7 @@ export const Static: Story = {
   args: {
     value: 65,
   },
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Loader>) => (
     <div style={{ width: '500px', height: '300px', padding: '20px' }}>
       <Loader {...args} />
     </div>
@@ -59,7 +59,7 @@ export const WithoutLogo: Story = {
     value: 50,
     showLogo: false,
   },
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Loader>) => (
     <div style={{ width: '500px', height: '100px', padding: '20px' }}>
       <Loader {...args} />
     </div>
@@ -75,7 +75,7 @@ export const CustomLogo: Story = {
       </div>
     ),
   },
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Loader>) => (
     <div style={{ width: '500px', height: '300px', padding: '20px' }}>
       <Loader {...args} />
     </div>
@@ -87,7 +87,7 @@ export const SmallLogo: Story = {
     value: 40,
     logoSize: 120,
   },
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Loader>) => (
     <div style={{ width: '500px', height: '250px', padding: '20px' }}>
       <Loader {...args} />
     </div>
@@ -98,7 +98,7 @@ export const FullWidth: Story = {
   args: {
     value: 85,
   },
-  render: (args) => (
+  render: (args: React.ComponentProps<typeof Loader>) => (
     <div style={{ width: '100%', height: '400px', padding: '40px' }}>
       <Loader {...args} />
     </div>
