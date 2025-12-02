@@ -6,6 +6,8 @@ import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 import { TableCellText } from './TableCellText';
 import { TableCell } from './TableCell';
 import { TableHeaderItem } from './TableHeaderItem';
+import { TableHeader } from './TableHeader';
+import { TableRow as TableRowComponent } from './TableRow';
 import { Typography } from '../../atoms/Typography';
 
 // Table types
@@ -118,17 +120,23 @@ export interface TableRow {
  */
 export interface TableProps<T extends TableRow = TableRow> {
   /**
-   * Column definitions
-   * @required
+   * Column definitions (for declarative API)
+   * Required when using declarative API (columns + data)
    */
-  columns: TableColumn<T>[];
+  columns?: TableColumn<T>[];
   
   /**
-   * Row data array
+   * Row data array (for declarative API)
    * Each row must have an `id` property
-   * @required
+   * Required when using declarative API (columns + data)
    */
-  data: T[];
+  data?: T[];
+  
+  /**
+   * Table content (for composable API)
+   * Use TableHeader, TableBody, TableRow, TableCell components
+   */
+  children?: React.ReactNode;
   
   /**
    * Table visual variant
@@ -259,338 +267,8 @@ export interface TableProps<T extends TableRow = TableRow> {
   onColumnReorder?: (columns: TableColumn<T>[]) => void;
 }
 
-// Table Header Component
-interface TableHeaderProps<T extends TableRow = TableRow> {
-  columns: TableColumn<T>[];
-  variant?: TableVariant;
-  selectable?: boolean;
-  selectedRows?: (string | number)[];
-  allRowIds?: (string | number)[];
-  onSelectionChange?: (selectedRows: (string | number)[]) => void;
-  onSort?: (column: string, direction: SortDirection) => void;
-  sortColumn?: string;
-  sortDirection?: SortDirection;
-  hasRowActions?: boolean;
-  rowActionsLabel?: string;
-  cellSize?: 'md' | 'lg' | 'xl';
-  reorderable?: boolean;
-  onColumnReorder?: (columns: TableColumn<T>[]) => void;
-}
-
 const CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x9)*2)]';
 const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x10)*2+var(--spacing-x5))]';
-
-const TableHeader = <T extends TableRow = TableRow>({
-  columns,
-  variant = 'primary',
-  selectable,
-  selectedRows = [],
-  allRowIds = [],
-  onSelectionChange,
-  onSort,
-  sortColumn,
-  sortDirection,
-  hasRowActions = false,
-  rowActionsLabel,
-  cellSize = 'md',
-  reorderable = false,
-  onColumnReorder
-}: TableHeaderProps<T>) => {
-  const [draggedColumnIndex, setDraggedColumnIndex] = useState<number | null>(null);
-  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
-  const dragStartIndexRef = useRef<number | null>(null);
-
-  const isAllSelected = allRowIds.length > 0 && selectedRows.length === allRowIds.length;
-  const isIndeterminate = selectedRows.length > 0 && selectedRows.length < allRowIds.length;
-
-  const handleSelectAll = useCallback(() => {
-    if (!onSelectionChange) return;
-
-    if (isAllSelected) {
-      onSelectionChange([]);
-    } else {
-      onSelectionChange(allRowIds);
-    }
-  }, [isAllSelected, allRowIds, onSelectionChange]);
-
-  const handleSort = useCallback((column: TableColumn<T>) => {
-    if (!column.sortable || !onSort) return;
-
-    let newDirection: SortDirection = 'asc';
-    if (sortColumn === column.key) {
-      if (sortDirection === 'asc') {
-        newDirection = 'desc';
-      } else if (sortDirection === 'desc') {
-        newDirection = null;
-      }
-    }
-
-    onSort(column.key, newDirection);
-  }, [sortColumn, sortDirection, onSort]);
-
-  const handleDragStart = useCallback((index: number, e: React.DragEvent) => {
-    if (!reorderable) return;
-    dragStartIndexRef.current = index;
-    setDraggedColumnIndex(index);
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', ''); // Required for Firefox
-  }, [reorderable]);
-
-  const handleDragOver = useCallback((index: number, e: React.DragEvent) => {
-    if (!reorderable || draggedColumnIndex === null) return;
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-    setDragOverIndex(index);
-  }, [reorderable, draggedColumnIndex]);
-
-  const handleDragLeave = useCallback(() => {
-    setDragOverIndex(null);
-  }, []);
-
-  const handleDrop = useCallback((index: number, e: React.DragEvent) => {
-    if (!reorderable || dragStartIndexRef.current === null || !onColumnReorder) return;
-    e.preventDefault();
-    
-    const startIndex = dragStartIndexRef.current;
-    if (startIndex === index) {
-      setDraggedColumnIndex(null);
-      setDragOverIndex(null);
-      dragStartIndexRef.current = null;
-      return;
-    }
-
-    const newColumns = [...columns];
-    const [removed] = newColumns.splice(startIndex, 1);
-    newColumns.splice(index, 0, removed);
-
-    onColumnReorder(newColumns);
-    setDraggedColumnIndex(null);
-    setDragOverIndex(null);
-    dragStartIndexRef.current = null;
-  }, [reorderable, columns, onColumnReorder]);
-
-  const handleDragEnd = useCallback(() => {
-    setDraggedColumnIndex(null);
-    setDragOverIndex(null);
-    dragStartIndexRef.current = null;
-  }, []);
-
-  // Header color variant based on table variant - exact Figma mapping
-  const headerColorVariant = variant === 'primary' ? 'dark25' : 'bg';
-
-  return (
-    <thead>
-      <tr>
-        {selectable && (
-          <TableHeaderItem
-            type="checkbox"
-            colorVariant={headerColorVariant}
-            size={cellSize}
-            checkboxProps={{
-              checked: isAllSelected,
-              indeterminate: isIndeterminate,
-              onChange: handleSelectAll
-            }}
-            className={CHECKBOX_COLUMN_WIDTH_CLASS}
-          />
-        )}
-        {columns.map((column, index) => (
-          <TableHeaderItem
-            key={column.key}
-            colorVariant={headerColorVariant}
-            size={cellSize}
-            sortable={column.sortable}
-            draggable={reorderable}
-            sortDirection={sortColumn === column.key ? sortDirection : null}
-            onClick={() => column.sortable && handleSort(column)}
-            className={cn(
-              column.width && `w-[${column.width}]`,
-              draggedColumnIndex === index && "opacity-50",
-              dragOverIndex === index && "border-t-2 border-t-[var(--primary)]"
-            )}
-            onDragStart={(e) => handleDragStart(index, e)}
-            onDragOver={(e) => handleDragOver(index, e)}
-            onDragLeave={handleDragLeave}
-            onDrop={(e) => handleDrop(index, e)}
-            onDragEnd={handleDragEnd}
-          >
-            {column.title || column.label || column.header}
-          </TableHeaderItem>
-        ))}
-        {hasRowActions && (
-          <TableHeaderItem
-            colorVariant={headerColorVariant}
-            size={cellSize}
-            className={cn('text-right', ACTIONS_COLUMN_WIDTH_CLASS)}
-          >
-            {rowActionsLabel || ''}
-          </TableHeaderItem>
-        )}
-      </tr>
-    </thead>
-  );
-};
-
-// Table Row Component
-interface TableRowProps<T extends TableRow = TableRow> {
-  row: T;
-  columns: TableColumn<T>[];
-  index: number;
-  variant?: TableVariant;
-  selectable?: boolean;
-  selected?: boolean;
-  onSelectionChange?: (rowId: string | number, selected: boolean) => void;
-  rowAccessory?: (row: T, selected: boolean) => React.ReactNode;
-  rowActions?: (row: T) => React.ReactNode;
-  cellSize?: 'md' | 'lg' | 'xl';
-}
-
-const TableRowComponent = <T extends TableRow = TableRow>({
-  row,
-  columns,
-  index,
-  variant = 'primary',
-  selectable,
-  selected = false,
-  onSelectionChange,
-  rowAccessory,
-  rowActions,
-  cellSize = 'md'
-}: TableRowProps<T>) => {
-  const [hoveredRowIndex, setHoveredRowIndex] = useState<boolean>(false);
-
-  const handleSelect = useCallback(() => {
-    if (!onSelectionChange) return;
-    onSelectionChange(row.id, !selected);
-  }, [row.id, selected, onSelectionChange]);
-
-  const renderCellContent = useCallback((column: TableColumn<T>, value: unknown) => {
-    try {
-      if (column.render) {
-        return column.render(value, row, index);
-      }
-
-      switch (column.type) {
-        case 'number':
-          return (
-            <TableCellText type="primary">
-              {typeof value === 'number' ? value.toLocaleString() : String(value ?? '')}
-            </TableCellText>
-          );
-
-        case 'date':
-          return (
-            <TableCellText type="primary">
-              {value instanceof Date ? value.toLocaleDateString() : String(value ?? '')}
-            </TableCellText>
-          );
-
-        default:
-          // For string values, pass directly so TableCellText can handle newlines and apply colors correctly
-          // First line gets primary color, second line gets secondary color
-          return (
-            <TableCellText type="primary">
-              {typeof value === 'string' ? value : String(value ?? '')}
-            </TableCellText>
-          );
-      }
-    } catch (error) {
-      console.warn('Table: Error rendering cell content:', error, { column, value, row });
-      return (
-        <TableCellText type="primary">
-          -
-        </TableCellText>
-      );
-    }
-  }, [row, index]);
-
-  // Determine cell background based on variant and row position
-  const getCellBackground = (_columnIndex: number) => {
-    if (variant === 'secondary') {
-      return 'white'; // Secondary variant: all white
-    }
-
-    // Primary variant: alternating pattern based on row index
-    // Even rows (0, 2, 4...) = white, Odd rows (1, 3, 5...) = bg
-    return index % 2 === 0 ? 'white' : 'bg';
-  };
-
-  const actionCellIndex = columns.length + (selectable ? 1 : 0);
-
-  return (
-    <tr
-      aria-rowindex={index + 1} // 1-based index for ARIA
-      onMouseEnter={() => setHoveredRowIndex(true)}
-      onMouseLeave={() => setHoveredRowIndex(false)}
-    >
-      {selectable && (
-        <TableCell
-          type="checkbox"
-          backgroundColor={getCellBackground(0)}
-          lineVariant="single"
-          size={cellSize}
-          state={selected ? 'selected' : (hoveredRowIndex ? 'hover' : 'default')}
-          className={CHECKBOX_COLUMN_WIDTH_CLASS}
-          onClick={handleSelect}
-        >
-          <div
-            className={cn(
-              'flex w-full items-center justify-start',
-              rowAccessory && 'gap-[var(--spacing-x2)]'
-            )}
-          >
-            <Checkbox
-              checked={selected}
-              onChange={handleSelect}
-              size="md"
-            />
-            {rowAccessory && rowAccessory(row, selected)}
-          </div>
-        </TableCell>
-      )}
-      {columns.map((column, columnIndex) => {
-        const cellIndex = columnIndex + (selectable ? 1 : 0);
-        // Determine if this cell should have multiple lines based on content
-        let cellValue = row[column.key];
-
-        // For secondary variant, extract only the first data point (before newline)
-        if (variant === 'secondary' && typeof cellValue === 'string' && cellValue.includes('\n')) {
-          cellValue = cellValue.split('\n')[0];
-        }
-
-        const hasNewlines = typeof cellValue === 'string' && cellValue.includes('\n');
-        const hasSingleLine = !cellValue || (!hasNewlines && String(cellValue).length < 20);
-        // Secondary variant always uses single line
-        const lineVariant = variant === 'secondary' ? "single" : (hasSingleLine ? "single" : "double");
-
-        return (
-          <TableCell
-            key={column.key}
-            backgroundColor={getCellBackground(cellIndex)}
-            lineVariant={lineVariant}
-            size={cellSize}
-            state={selected ? 'selected' : (hoveredRowIndex ? 'hover' : 'default')}
-          >
-            {renderCellContent(column, cellValue)}
-          </TableCell>
-        );
-      })}
-      {rowActions && (
-        <TableCell
-          backgroundColor={getCellBackground(actionCellIndex)}
-          lineVariant="single"
-          size={cellSize}
-          state={selected ? 'selected' : (hoveredRowIndex ? 'hover' : 'default')}
-          className={ACTIONS_COLUMN_WIDTH_CLASS}
-        >
-          <div className="flex items-center justify-end gap-[var(--spacing-x1)]">
-            {rowActions(row)}
-          </div>
-        </TableCell>
-      )}
-    </tr>
-  );
-};
 
 // ColumnCell component for simple layout (extracted from SimpleColumnLayout)
 const ColumnCell = ({
@@ -645,8 +323,31 @@ export const Table = <T extends TableRow = TableRow>({
   headerRight,
   striped = true,
   reorderable = false,
-  onColumnReorder
+  onColumnReorder,
+  children
 }: TableProps<T>) => {
+  // If children are provided, use composable API
+  if (children) {
+    return (
+      <div className={cn("border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden bg-[var(--bg-primary)]", className)}>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            {caption && (
+              <caption className="sr-only">{caption}</caption>
+            )}
+            {children}
+          </table>
+        </div>
+      </div>
+    );
+  }
+
+  // Otherwise use declarative API
+  if (!columns || !data) {
+    console.warn('Table: Either provide children (composable API) or columns + data (declarative API)');
+    return null;
+  }
+
   // Defensive programming: ensure all rows have valid IDs
   const validatedData = data.filter(row => {
     if (row.id === undefined || row.id === null) {

@@ -71,10 +71,22 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   size?: ButtonSize;
   
   /**
-   * Icon name from FT Design System icon library
-   * @see {@link IconName} for available icons
+   * Icon name from FT Design System icon library or custom React component
+   * Can be an IconName string or a custom React component
+   * @see {@link IconName} for available icon names
    */
-  icon?: IconName;
+  icon?: IconName | React.ReactNode;
+  
+  /**
+   * Icon size (only applies when icon is IconName string)
+   * @default Based on button size
+   */
+  iconSize?: number;
+  
+  /**
+   * Custom className for icon wrapper (only applies when icon is IconName string)
+   */
+  iconClassName?: string;
   
   /**
    * Icon position relative to text
@@ -139,6 +151,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'primary',
   size = 'md',
   icon,
+  iconSize,
+  iconClassName,
   iconPosition = 'leading',
   loading = false,
   disabled = false,
@@ -350,31 +364,46 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       )}
 
       {!loading && isIconOnly && icon && (
-        <Icon
-          name={icon}
-          size={buttonSize.iconSize}
-          aria-hidden="true"
-        />
+        typeof icon === 'string' ? (
+          <Icon
+            name={icon as IconName}
+            size={iconSize ?? buttonSize.iconSize}
+            className={iconClassName}
+            aria-hidden="true"
+          />
+        ) : (
+          icon
+        )
       )}
 
       {!loading && !isIconOnly && (
         <>
           {icon && iconPosition === 'leading' && (
-            <Icon
-              name={icon}
-              size={buttonSize.iconSize}
-              aria-hidden="true"
-            />
+            typeof icon === 'string' ? (
+              <Icon
+                name={icon as IconName}
+                size={iconSize ?? buttonSize.iconSize}
+                className={iconClassName}
+                aria-hidden="true"
+              />
+            ) : (
+              icon
+            )
           )}
 
           {children}
 
           {icon && iconPosition === 'trailing' && (
-            <Icon
-              name={icon}
-              size={buttonSize.iconSize}
-              aria-hidden="true"
-            />
+            typeof icon === 'string' ? (
+              <Icon
+                name={icon as IconName}
+                size={iconSize ?? buttonSize.iconSize}
+                className={iconClassName}
+                aria-hidden="true"
+              />
+            ) : (
+              icon
+            )
           )}
         </>
       )}

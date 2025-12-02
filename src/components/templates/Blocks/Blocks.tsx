@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { AppHeader, type User as AppHeaderUser } from '../../organisms/AppHeader';
 import { Card } from '../../organisms/Card';
-import { Table, type TableColumn, type TableRow } from '../../organisms/Table';
+import { Table, type TableColumn, type TableRowData } from '../../organisms/Table';
 import { Button } from '../../atoms/Button/Button';
 import { Badge } from '../../atoms/Badge';
 import { Typography } from '../../atoms/Typography';
@@ -443,7 +443,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
     });
   }, [activeFilters, filteredByTab, searchTerm]);
 
-  const tableColumns = useMemo<TableColumn<Journey & TableRow>[]>(() => [
+  const tableColumns = useMemo<TableColumn<Journey & TableRowData>[]>(() => [
     {
       key: 'checkbox',
       title: '',

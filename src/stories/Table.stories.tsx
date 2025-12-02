@@ -1,14 +1,14 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Table, TableColumn, TableRow, SortDirection, TableCellText, TableCellItem } from '../components/organisms/Table';
+import { Table, TableColumn, TableRowData, SortDirection, TableCellText, TableCellItem } from '../components/organisms/Table';
 import { Badge } from '../components/atoms/Badge/Badge';
 import { Button } from '../components/atoms/Button/Button';
 import { Icon, type IconName } from '../components/atoms/Icons';
 import { Typography } from '../components/atoms/Typography';
 
 // Sample data interface
-interface User extends TableRow {
+interface User extends TableRowData {
   id: string;
   name: string;
   email: string;
@@ -547,7 +547,7 @@ export function VariantsSecondary() {
 }
 
 // Journey Table Data Interface (based on Figma design)
-interface JourneyRow extends TableRow {
+interface JourneyRow extends TableRowData {
   id: string;
   feedUniqueId: string;
   journeyId?: string;

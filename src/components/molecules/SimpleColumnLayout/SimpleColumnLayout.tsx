@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Table, TableColumn, TableRow } from '../../organisms/Table/Table';
+import { Table, TableColumn, TableRowData } from '../../organisms/Table';
 
 export interface SimpleColumnCell {
   title: React.ReactNode;
@@ -58,7 +58,7 @@ export const SimpleColumnLayout = React.forwardRef<
     }
 
     // Convert SimpleColumnRow format to Table format
-    const tableData: TableRow[] = rows.map((row, index) => {
+    const tableData: TableRowData[] = rows.map((row, index) => {
       // Helper to convert ReactNode to string
       const nodeToString = (node: React.ReactNode): string => {
         if (node == null) return '';

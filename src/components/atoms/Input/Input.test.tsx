@@ -143,6 +143,88 @@ describe('Input Component', () => {
       const input = screen.getByPlaceholderText('Small search');
       expect(input).toHaveClass('pl-9'); // Small size padding
     });
+
+    // Custom icon component support
+    describe('Custom Icon Components', () => {
+      it('renders custom React component as leading icon', () => {
+        const CustomIcon = () => <span data-testid="custom-leading-icon">🔍</span>;
+        render(<Input leadingIcon={<CustomIcon />} placeholder="Search" />);
+        expect(screen.getByTestId('custom-leading-icon')).toBeInTheDocument();
+      });
+
+      it('renders custom React component as trailing icon', () => {
+        const CustomIcon = () => <span data-testid="custom-trailing-icon">✕</span>;
+        render(<Input trailingIcon={<CustomIcon />} placeholder="Input" />);
+        expect(screen.getByTestId('custom-trailing-icon')).toBeInTheDocument();
+      });
+
+      it('renders custom icon with string icon together', () => {
+        const CustomIcon = () => <span data-testid="custom-icon">🔍</span>;
+        render(
+          <Input
+            leadingIcon={<CustomIcon />}
+            trailingIcon="cross"
+            placeholder="Search"
+          />
+        );
+        expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
+        expect(screen.getByTestId('icon-cross')).toBeInTheDocument();
+      });
+
+      it('applies custom icon size when provided', () => {
+        render(
+          <Input
+            leadingIcon="search"
+            leadingIconSize={24}
+            placeholder="Search"
+          />
+        );
+        const icon = screen.getByTestId('icon-search');
+        expect(icon).toHaveAttribute('data-size', '24');
+      });
+
+      it('applies custom icon className when provided', () => {
+        render(
+          <Input
+            leadingIcon="search"
+            leadingIconClassName="text-blue-500"
+            placeholder="Search"
+          />
+        );
+        const iconContainer = screen.getByTestId('icon-search').parentElement;
+        expect(iconContainer).toHaveClass('text-blue-500');
+      });
+
+      it('applies trailing icon size and className', () => {
+        render(
+          <Input
+            trailingIcon="cross"
+            trailingIconSize={20}
+            trailingIconClassName="text-red-500"
+            placeholder="Input"
+          />
+        );
+        const icon = screen.getByTestId('icon-cross');
+        const iconContainer = icon.parentElement;
+        expect(icon).toHaveAttribute('data-size', '20');
+        expect(iconContainer).toHaveClass('text-red-500');
+      });
+    });
+  });
+
+  // className prop support
+  describe('Custom className', () => {
+    it('applies custom className to input element', () => {
+      render(<Input placeholder="Test" className="custom-class" />);
+      const input = screen.getByPlaceholderText('Test');
+      expect(input).toHaveClass('custom-class');
+    });
+
+    it('merges className with existing styles', () => {
+      render(<Input placeholder="Test" className="text-blue-500" />);
+      const input = screen.getByPlaceholderText('Test');
+      expect(input).toHaveClass('text-blue-500');
+    });
   });
 
   // Accessibility

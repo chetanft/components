@@ -79,6 +79,51 @@ const DefaultDrawerStory = (args: React.ComponentProps<typeof Drawer>) => {
     );
 };
 
+export function CustomBackground() {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <div className="p-6">
+            <Button variant="primary" onClick={() => setOpen(true)}>
+                Open Drawer with Custom Background
+            </Button>
+            <Drawer
+                open={open}
+                onClose={() => setOpen(false)}
+                title="Custom Background Drawer"
+                background="bg-white"
+            >
+                <Typography variant="body-primary-regular">
+                    This drawer has a custom white background instead of the default.
+                </Typography>
+            </Drawer>
+        </div>
+    );
+}
+
+export function BackgroundWithClassName() {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <div className="p-6">
+            <Button variant="primary" onClick={() => setOpen(true)}>
+                Open Drawer with Background Override
+            </Button>
+            <Drawer
+                open={open}
+                onClose={() => setOpen(false)}
+                title="Background Override"
+                background="bg-gray-100"
+                className="border-2 border-blue-500"
+            >
+                <Typography variant="body-primary-regular">
+                    This drawer uses className to add a border while background prop sets the base color.
+                </Typography>
+            </Drawer>
+        </div>
+    );
+}
+
 // Basic Drawer (Right)
 export const Default: Story = {
     render: (args: React.ComponentProps<typeof Drawer>) => <DefaultDrawerStory {...args} />,

@@ -90,16 +90,40 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   helperText?: string;
   
   /**
-   * Icon name displayed on the left side of input
-   * @see {@link IconName} for available icons
+   * Icon displayed on the left side of input
+   * Can be an IconName string or a custom React component
+   * @see {@link IconName} for available icon names
    */
-  leadingIcon?: IconName;
+  leadingIcon?: IconName | React.ReactNode;
   
   /**
-   * Icon name displayed on the right side of input
-   * @see {@link IconName} for available icons
+   * Icon displayed on the right side of input
+   * Can be an IconName string or a custom React component
+   * @see {@link IconName} for available icon names
    */
-  trailingIcon?: IconName;
+  trailingIcon?: IconName | React.ReactNode;
+  
+  /**
+   * Size for leading icon (only applies when leadingIcon is IconName string)
+   * @default Based on input size
+   */
+  leadingIconSize?: number;
+  
+  /**
+   * Size for trailing icon (only applies when trailingIcon is IconName string)
+   * @default Based on input size
+   */
+  trailingIconSize?: number;
+  
+  /**
+   * Additional CSS classes for leading icon container
+   */
+  leadingIconClassName?: string;
+  
+  /**
+   * Additional CSS classes for trailing icon container
+   */
+  trailingIconClassName?: string;
   
   /**
    * Input size
@@ -173,6 +197,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     helperText,
     leadingIcon,
     trailingIcon,
+    leadingIconSize,
+    trailingIconSize,
+    leadingIconClassName,
+    trailingIconClassName,
     size = 'md',
     variant = 'default',
     disabled,
@@ -284,24 +312,32 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <div className="relative">
           {/* Leading Icon */}
           {leadingIcon && (
-            <div className={cn("absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none", currentIconOffset.split(' ')[0])}>
-              <Icon
-                name={leadingIcon}
-                size={componentStyles.iconSize}
-                className={cn(
-                  "transition-colors",
-                  disabled
-                    ? "text-input-disabled dark:text-input-disabled-dark"
-                    : inputType === 'error'
-                      ? "text-critical"
-                      : inputType === 'warning'
-                        ? "text-warning"
-                        : inputType === 'success'
-                          ? "text-positive"
-                          : "text-icon dark:text-icon-dark"
-                )}
-                aria-hidden="true"
-              />
+            <div className={cn(
+              "absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none",
+              currentIconOffset.split(' ')[0],
+              leadingIconClassName
+            )}>
+              {typeof leadingIcon === 'string' ? (
+                <Icon
+                  name={leadingIcon as IconName}
+                  size={leadingIconSize ?? componentStyles.iconSize}
+                  className={cn(
+                    "transition-colors",
+                    disabled
+                      ? "text-input-disabled dark:text-input-disabled-dark"
+                      : inputType === 'error'
+                        ? "text-critical"
+                        : inputType === 'warning'
+                          ? "text-warning"
+                          : inputType === 'success'
+                            ? "text-positive"
+                            : "text-icon dark:text-icon-dark"
+                  )}
+                  aria-hidden="true"
+                />
+              ) : (
+                leadingIcon
+              )}
             </div>
           )}
 
@@ -312,7 +348,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             className={cn(
               inputStyles,
               leadingIcon && currentIconPadding.left,
-              trailingIcon && currentIconPadding.right
+              trailingIcon && currentIconPadding.right,
+              className
             )}
             ref={ref}
             disabled={disabled}
@@ -325,24 +362,32 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
           {/* Trailing Icon */}
           {trailingIcon && (
-            <div className={cn("absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none", currentIconOffset.split(' ')[1])}>
-              <Icon
-                name={trailingIcon}
-                size={componentStyles.iconSize}
-                className={cn(
-                  "transition-colors",
-                  disabled
-                    ? "text-input-disabled dark:text-input-disabled-dark"
-                    : inputType === 'error'
-                      ? "text-critical"
-                      : inputType === 'warning'
-                        ? "text-warning"
-                        : inputType === 'success'
-                          ? "text-positive"
-                          : "text-icon dark:text-icon-dark"
-                )}
-                aria-hidden="true"
-              />
+            <div className={cn(
+              "absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none",
+              currentIconOffset.split(' ')[1],
+              trailingIconClassName
+            )}>
+              {typeof trailingIcon === 'string' ? (
+                <Icon
+                  name={trailingIcon as IconName}
+                  size={trailingIconSize ?? componentStyles.iconSize}
+                  className={cn(
+                    "transition-colors",
+                    disabled
+                      ? "text-input-disabled dark:text-input-disabled-dark"
+                      : inputType === 'error'
+                        ? "text-critical"
+                        : inputType === 'warning'
+                          ? "text-warning"
+                          : inputType === 'success'
+                            ? "text-positive"
+                            : "text-icon dark:text-icon-dark"
+                  )}
+                  aria-hidden="true"
+                />
+              ) : (
+                trailingIcon
+              )}
             </div>
           )}
         </div>

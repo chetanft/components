@@ -165,6 +165,41 @@ describe('Button Component', () => {
       rerender(<Button size="lg" icon="add">Large</Button>);
       expect(screen.getByTestId('icon-add')).toHaveAttribute('data-size', '24');
     });
+
+    // Custom icon component support
+    describe('Custom Icon Components', () => {
+      it('renders custom React component as icon', () => {
+        const CustomIcon = () => <span data-testid="custom-icon">🔍</span>;
+        render(<Button icon={<CustomIcon />} iconPosition="leading">Search</Button>);
+        expect(screen.getByTestId('custom-icon')).toBeInTheDocument();
+        expect(screen.getByText('Search')).toBeInTheDocument();
+      });
+
+      it('renders custom icon in icon-only button', () => {
+        const CustomIcon = () => <span data-testid="custom-icon-only">✕</span>;
+        render(<Button icon={<CustomIcon />} iconPosition="only" aria-label="Close" />);
+        expect(screen.getByTestId('custom-icon-only')).toBeInTheDocument();
+      });
+
+      it('applies custom iconSize when icon is string', () => {
+        render(<Button icon="add" iconSize={24}>Add</Button>);
+        const icon = screen.getByTestId('icon-add');
+        expect(icon).toHaveAttribute('data-size', '24');
+      });
+
+      it('applies custom iconClassName when icon is string', () => {
+        render(<Button icon="add" iconClassName="text-blue-500">Add</Button>);
+        const icon = screen.getByTestId('icon-add');
+        expect(icon).toHaveClass('text-blue-500');
+      });
+
+      it('maintains backward compatibility with string icons', () => {
+        render(<Button icon="add" iconPosition="leading">Add Item</Button>);
+        const icon = screen.getByTestId('icon-add');
+        expect(icon).toBeInTheDocument();
+        expect(icon).toHaveAttribute('aria-hidden', 'true');
+      });
+    });
   });
 
   // Event handling tests

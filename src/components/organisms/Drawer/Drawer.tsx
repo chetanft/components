@@ -96,6 +96,13 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   footer?: React.ReactNode;
   
   /**
+   * Custom background color class
+   * Overrides default bg-[var(--bg-primary)]
+   * Example: "bg-white", "bg-gray-100"
+   */
+  background?: string;
+  
+  /**
    * Drawer content
    * @required
    */
@@ -153,6 +160,7 @@ export const Drawer: React.FC<DrawerProps> = ({
   maskClosable = true,
   showFigmaBadge = true,
   footer,
+  background,
   children,
   className,
   ...props
@@ -234,7 +242,7 @@ export const Drawer: React.FC<DrawerProps> = ({
       <div
         className={cn(
           "absolute",
-          "bg-[var(--bg-primary)]",
+          background || "bg-[var(--bg-primary)]",
           "flex flex-col",
           styles.container,
           className
@@ -276,7 +284,10 @@ export const Drawer: React.FC<DrawerProps> = ({
         )}
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)] bg-[var(--bg-secondary)]/30">
+        <div className={cn(
+          "flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)]",
+          background ? "" : "bg-[var(--bg-secondary)]/30"
+        )}>
           {showFigmaBadge && (
             <div className="mb-[var(--spacing-x4)]">
               <FigmaBadge />

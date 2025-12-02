@@ -2,12 +2,25 @@ export { Table } from './Table';
 export type { 
   TableProps, 
   TableColumn, 
-  TableRow, 
+  TableRow as TableRowData,
   SortDirection, 
   ColumnType,
   TableVariant,
   TableLayout
 } from './Table';
+
+// Composable Table Components (Shadcn-compatible)
+export { TableHeader } from './TableHeader';
+export type { TableHeaderProps } from './TableHeader';
+
+export { TableHead } from './TableHead';
+export type { TableHeadProps } from './TableHead';
+
+export { TableBody } from './TableBody';
+export type { TableBodyProps } from './TableBody';
+
+export { TableRow } from './TableRow';
+export type { TableRowProps } from './TableRow';
 
 // Atomic Table Components
 export { TableCellText } from './TableCellText';
