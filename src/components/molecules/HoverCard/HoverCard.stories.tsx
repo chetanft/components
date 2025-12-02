@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 import { HoverCard } from './HoverCard';
 import { Button } from '../../atoms/Button/Button';
 import { Avatar } from '../../atoms/Avatar';
@@ -46,7 +47,7 @@ export const Default: Story = {
 };
 
 export const Placement: Story = {
-    render: (args) => (
+    render: (args: React.ComponentProps<typeof HoverCard>) => (
         <div className="flex gap-8 items-center justify-center h-64">
             <HoverCard {...args} placement="top" content={<div className="p-2">Top Content</div>}>
                 <Button>Top</Button>

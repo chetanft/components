@@ -141,12 +141,11 @@ const Ribbon: React.FC<BadgeRibbonProps> = ({
       {children}
       <div
         className={cn(
-          "absolute top-0 px-2 py-1 text-white text-xs-rem whitespace-nowrap z-10 font-semibold",
+          "absolute top-0 px-2 py-1 text-white text-xs-rem whitespace-nowrap z-10 font-semibold shadow-sm",
           placement === 'end' ? "right-0 rounded-l-md" : "left-0 rounded-r-md",
-          "bg-[var(--primary)] shadow-sm", // Default color
           className
         )}
-        style={{ backgroundColor: color }}
+        style={{ backgroundColor: color || 'var(--primary)' }}
       >
         {text}
         {/* Optional corner triangle for ribbon effect could be added here */}
@@ -187,24 +186,26 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
 
     // CASE 1: Status Badge (Dot + Text)
     if (status || (color && !children && !count && !dot)) {
-      const statusColorMap: Record<string, string> = {
-        success: 'bg-[var(--positive)]',
-        processing: 'bg-[var(--primary)]',
-        default: 'bg-[var(--neutral-400)]',
-        error: 'bg-[var(--critical)]',
-        warning: 'bg-[var(--warning)]'
+      const getStatusDotColor = () => {
+        if (color) return color;
+        switch (status) {
+          case 'success': return 'var(--positive)';
+          case 'processing': return 'var(--primary)';
+          case 'error': return 'var(--critical)';
+          case 'warning': return 'var(--warning)';
+          case 'default':
+          default: return 'var(--neutral-400)';
+        }
       };
-      const dotClass = status ? statusColorMap[status] : '';
 
       return (
         <span className={cn("inline-flex items-center gap-2", className)} ref={ref} {...props}>
           <span
             className={cn(
               "w-1.5 h-1.5 rounded-full flex-shrink-0",
-              dotClass,
               status === 'processing' && "animate-pulse" // Simple processing effect
             )}
-            style={{ backgroundColor: color || undefined }}
+            style={{ backgroundColor: getStatusDotColor() }}
           />
           {text && <span className="text-sm-rem">{text}</span>}
           {children && !text && <span className="text-sm-rem">{children}</span>}
@@ -229,16 +230,18 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
             <sup
               className={cn(
                 "absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2",
-                "flex items-center justify-center text-xs-rem font-normal text-[var(--color-bg-primary)] bg-[var(--danger)] border border-[var(--color-bg-primary)]",
+                "flex items-center justify-center text-xs-rem font-normal",
                 dot ? "w-2 h-2 p-0 rounded-full min-w-0" : "h-5 px-1.5 rounded-full min-w-[20px]",
                 (size === 'small' || size === 'sm' || size === 'xs') && !dot && "h-4 min-w-[16px] px-1",
                 (size === 'small' || size === 'sm' || size === 'xs') && !dot && "text-xs-rem",
                 (size === 'lg') && !dot && "h-6 px-2 text-sm-rem"
               )}
               style={{
-                backgroundColor: color,
+                backgroundColor: color || 'var(--danger)',
                 color: 'var(--color-bg-primary)',
                 borderColor: 'var(--color-bg-primary)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
                 ...(offset ? { right: -offset[0], marginTop: offset[1] } : {})
               }}
             >
@@ -253,13 +256,14 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     // Keep existing implementation
     const baseStyles = "inline-flex items-center justify-center transition-colors";
 
+    // Reduced padding to hug content tightly
     const sizeStylesMap: Record<string, string> = {
-      xs: "px-1.5 py-0.5 gap-1 rounded-[4px]", // 10px → 0.714rem
-      sm: "px-2 py-0.5 gap-1.5 rounded-[4px]", // 12px → 0.857rem
-      small: "px-2 py-0.5 gap-1.5 rounded-[4px]", // Alias for sm
-      md: "px-3 py-1 gap-2 rounded-[4px]", // 14px → 1rem
-      default: "px-3 py-1 gap-2 rounded-[4px]", // Alias for md
-      lg: "px-4 py-1.5 gap-2.5 rounded-[4px]" // 16px → 1.143rem
+      xs: "px-1 py-0 gap-0.5 rounded", // Minimal padding to hug content
+      sm: "px-1.5 py-0 gap-1 rounded", // Minimal padding to hug content
+      small: "px-1.5 py-0 gap-1 rounded", // Alias for sm
+      md: "px-2 py-0.5 gap-1 rounded", // Minimal padding to hug content
+      default: "px-2 py-0.5 gap-1 rounded", // Alias for md
+      lg: "px-2.5 py-0.5 gap-1.5 rounded" // Minimal padding to hug content
     };
 
     const fontSizeMap: Record<string, string> = {
@@ -273,40 +277,20 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
 
     const sizeStyles = sizeStylesMap[size] || sizeStylesMap.md;
 
-    const variantStyles: Record<string, string> = {
-      default: "bg-[var(--badge-normal-bg)] text-[var(--badge-normal-text)]",
-      normal: "bg-[var(--badge-normal-bg)] text-[var(--badge-normal-text)]",
-      error: "bg-[var(--badge-danger-bg)] text-[var(--badge-danger-text)]",
-      danger: "bg-[var(--badge-danger-bg)] text-[var(--badge-danger-text)]",
-      success: "bg-[var(--badge-success-bg)] text-[var(--badge-success-text)]",
-      warning: "bg-[var(--badge-warning-bg)] text-[var(--badge-warning-text)]",
-      info: "bg-[var(--badge-normal-bg)] text-[var(--badge-normal-text)]",
-      neutral: "bg-[var(--badge-neutral-bg)] text-[var(--badge-neutral-text)]"
+    // Get background and text colors for inline styles (avoiding Tailwind arbitrary values)
+    const getBgColor = () => {
+      switch (normalizedVariant) {
+        case 'error':
+        case 'danger': return 'var(--badge-danger-bg)';
+        case 'success': return 'var(--badge-success-bg)';
+        case 'warning': return 'var(--badge-warning-bg)';
+        case 'neutral': return 'var(--badge-neutral-bg)';
+        case 'default':
+        case 'normal':
+        case 'info':
+        default: return 'var(--badge-normal-bg)';
+      }
     };
-
-    const interactiveBorderStyles: Record<string, string> = {
-      default: "border border-[var(--badge-normal-border)]",
-      normal: "border border-[var(--badge-normal-border)]",
-      error: "border border-[var(--badge-danger-border)]",
-      danger: "border border-[var(--badge-danger-border)]",
-      success: "border border-[var(--badge-success-border)]",
-      warning: "border border-[var(--badge-warning-border)]",
-      info: "border border-[var(--badge-normal-border)]",
-      neutral: "border border-[var(--badge-neutral-border)]"
-    };
-
-    const hoverStyles: Record<string, string> = {
-      default: "hover:bg-[var(--badge-normal-hover-bg)] hover:border-[var(--badge-normal-hover-border)]",
-      normal: "hover:bg-[var(--badge-normal-hover-bg)] hover:border-[var(--badge-normal-hover-border)]",
-      error: "hover:bg-[var(--badge-danger-hover-bg)] hover:border-[var(--badge-danger-hover-border)] hover:text-[var(--badge-danger-hover-text)]",
-      danger: "hover:bg-[var(--badge-danger-hover-bg)] hover:border-[var(--badge-danger-hover-border)] hover:text-[var(--badge-danger-hover-text)]",
-      success: "hover:bg-[var(--badge-success-hover-bg)] hover:border-[var(--badge-success-hover-border)]",
-      warning: "hover:bg-[var(--badge-warning-hover-bg)] hover:border-[var(--badge-warning-hover-border)]",
-      info: "hover:bg-[var(--badge-normal-hover-bg)] hover:border-[var(--badge-normal-hover-border)]",
-      neutral: "hover:bg-[var(--badge-neutral-hover-bg)] hover:border-[var(--badge-neutral-hover-border)]"
-    };
-
-    const iconSize = 14;
 
     const getTextColor = () => {
       switch (normalizedVariant) {
@@ -322,7 +306,84 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       }
     };
 
+    const getBorderColor = () => {
+      if (!isInteractive) return undefined;
+      switch (normalizedVariant) {
+        case 'error':
+        case 'danger': return 'var(--badge-danger-border)';
+        case 'success': return 'var(--badge-success-border)';
+        case 'warning': return 'var(--badge-warning-border)';
+        case 'neutral': return 'var(--badge-neutral-border)';
+        case 'default':
+        case 'normal':
+        case 'info':
+        default: return 'var(--badge-normal-border)';
+      }
+    };
+
+    const getHoverBgColor = () => {
+      if (!isInteractive) return undefined;
+      switch (normalizedVariant) {
+        case 'error':
+        case 'danger': return 'var(--badge-danger-hover-bg)';
+        case 'success': return 'var(--badge-success-hover-bg)';
+        case 'warning': return 'var(--badge-warning-hover-bg)';
+        case 'neutral': return 'var(--badge-neutral-hover-bg)';
+        case 'default':
+        case 'normal':
+        case 'info':
+        default: return 'var(--badge-normal-hover-bg)';
+      }
+    };
+
+    const getHoverBorderColor = () => {
+      if (!isInteractive) return undefined;
+      switch (normalizedVariant) {
+        case 'error':
+        case 'danger': return 'var(--badge-danger-hover-border)';
+        case 'success': return 'var(--badge-success-hover-border)';
+        case 'warning': return 'var(--badge-warning-hover-border)';
+        case 'neutral': return 'var(--badge-neutral-hover-border)';
+        case 'default':
+        case 'normal':
+        case 'info':
+        default: return 'var(--badge-normal-hover-border)';
+      }
+    };
+
+    const getHoverTextColor = () => {
+      if (!isInteractive) return undefined;
+      if (normalizedVariant === 'error' || normalizedVariant === 'danger') {
+        return 'var(--badge-danger-hover-text)';
+      }
+      return undefined;
+    };
+
+    const iconSize = 14;
+
     const isInteractive = interaction || props.onClick || props.onMouseEnter || props.onFocus;
+
+    const [isHovered, setIsHovered] = React.useState(false);
+
+    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+      setIsHovered(true);
+      props.onMouseEnter?.(e);
+    };
+
+    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+      setIsHovered(false);
+      props.onMouseLeave?.(e);
+    };
+
+    const baseStyle: React.CSSProperties = {
+      backgroundColor: isHovered && isInteractive ? getHoverBgColor() : getBgColor(),
+      color: isHovered && isInteractive ? getHoverTextColor() || getTextColor() : getTextColor(),
+      ...(isInteractive && (isHovered ? getHoverBorderColor() : getBorderColor()) ? {
+        borderColor: isHovered && isInteractive ? getHoverBorderColor() : getBorderColor(),
+        borderWidth: '1px',
+        borderStyle: 'solid'
+      } : {}),
+    };
 
     // If count is provided but no children, it renders as a standalone badge (capsule)
     // But here we fallback to Legacy style if not strictly matching notification pattern
@@ -335,11 +396,11 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         className={cn(
           baseStyles,
           sizeStyles,
-          variantStyles[normalizedVariant],
-          isInteractive && interactiveBorderStyles[normalizedVariant],
-          isInteractive && hoverStyles[normalizedVariant],
           className
         )}
+        style={baseStyle}
+        onMouseEnter={isInteractive ? handleMouseEnter : props.onMouseEnter}
+        onMouseLeave={isInteractive ? handleMouseLeave : props.onMouseLeave}
         ref={ref}
         {...props}
       >
@@ -349,7 +410,6 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
             fontSizeMap[size] || fontSizeMap.md,
             "font-semibold leading-[1.4]"
           )}
-          style={{ color: getTextColor() }}
         >
           {children || count}
         </span>
