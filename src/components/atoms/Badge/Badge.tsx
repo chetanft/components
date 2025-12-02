@@ -169,12 +169,12 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     const baseStyles = "inline-flex items-center justify-center transition-colors";
 
     const sizeStylesMap: Record<string, string> = {
-      xs: "px-1 py-0.5 text-xs-rem gap-1 rounded-[var(--badge-border-radius)]", // 10px → 0.714rem (closest to xs-rem: 0.857rem)
-      sm: "px-1.5 py-0.5 text-xs-rem gap-1.5 rounded-[var(--badge-border-radius)]",
-      small: "px-1.5 py-0.5 text-xs-rem gap-1.5 rounded-[var(--badge-border-radius)]", // Alias for sm
-      md: "px-2 py-1 text-sm-rem gap-2 rounded-[var(--badge-border-radius)]",
-      default: "px-2 py-1 text-sm-rem gap-2 rounded-[var(--badge-border-radius)]", // Alias for md
-      lg: "px-3 py-1.5 text-md-rem gap-2.5 rounded-[var(--badge-border-radius)]"
+      xs: "px-1.5 py-0.5 text-xs-rem gap-1 rounded-[4px]", // 10px → 0.714rem (closest to xs-rem: 0.857rem)
+      sm: "px-2 py-0.5 text-xs-rem gap-1.5 rounded-[4px]",
+      small: "px-2 py-0.5 text-xs-rem gap-1.5 rounded-[4px]", // Alias for sm
+      md: "px-3 py-1 text-[0.8125rem] gap-2 rounded-[4px]", // 13px custom size
+      default: "px-3 py-1 text-[0.8125rem] gap-2 rounded-[4px]", // Alias for md
+      lg: "px-4 py-1.5 text-md-rem gap-2.5 rounded-[4px]"
     };
 
     const sizeStyles = sizeStylesMap[size] || sizeStylesMap.md;

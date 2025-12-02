@@ -28,7 +28,7 @@ export const DateRange: Story = {
   args: {
     range: true,
     value: [
-      new Date(), 
+      new Date(),
       new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
     ] as [Date, Date],
   },
@@ -51,13 +51,13 @@ export const WithActionsButtons: Story = {
 
 export const Interactive = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  
+
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-lg font-medium">Single Date Selection</h3>
-      <Calendar 
-        value={selectedDate} 
-        onChange={(date) => setSelectedDate(date as Date)} 
+      <Calendar
+        value={selectedDate}
+        onChange={(date) => setSelectedDate(date as Date)}
       />
       <div className="mt-2">
         Selected date: {selectedDate ? selectedDate.toLocaleDateString() : 'None'}
@@ -68,19 +68,19 @@ export const Interactive = () => {
 
 export const InteractiveRange = () => {
   const [dateRange, setDateRange] = useState<[Date, Date] | null>(null);
-  
+
   const handleChange = (value: Date | [Date, Date]) => {
     if (Array.isArray(value)) {
       setDateRange(value);
     }
   };
-  
+
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-lg font-medium">Date Range Selection</h3>
-      <Calendar 
-        range 
-        value={dateRange} 
+      <Calendar
+        range
+        value={dateRange}
         onChange={handleChange}
         onCancel={() => console.log('Cancelled')}
         onApply={() => console.log('Applied')}

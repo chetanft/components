@@ -129,13 +129,12 @@ export const Modal: React.FC<ModalProps> = ({
           "shadow-[var(--shadow-xl)]",
           "max-w-[90vw] max-h-[90vh]",
           "flex flex-col",
+          "bg-[var(--bg-primary)] border border-[var(--border-primary)]",
           centered && "mx-auto",
           className
         )}
         style={{
           width: width || modalSizes[size],
-          backgroundColor: 'var(--bg-primary)',
-          border: '1px solid var(--border-primary)'
         }}
         onClick={handleModalContentClick}
         {...props}
@@ -143,15 +142,13 @@ export const Modal: React.FC<ModalProps> = ({
         {/* Header */}
         {(title || closable) && (
           <div
-            className="flex items-center justify-between px-6 py-4"
-            style={{ borderBottom: '1px solid var(--border-secondary)' }}
+            className="flex items-center justify-between px-6 py-4 border-b border-[var(--border-secondary)]"
             onClick={(e) => e.stopPropagation()}
           >
             {title && (
               <h2
                 id="modal-title"
-                className="text-xl font-semibold"
-                style={{ color: 'var(--primary)' }}
+                className="text-xl font-semibold text-[var(--primary)]"
               >
                 {title}
               </h2>
@@ -164,51 +161,18 @@ export const Modal: React.FC<ModalProps> = ({
                   "rounded-[var(--radius-sm)]",
                   "flex items-center justify-center",
                   "transition-colors duration-[var(--transition-fast)]",
-                  "focus:outline-none",
+                  "focus:outline-none focus:ring-2 focus:ring-[var(--neutral)] focus:ring-offset-2",
                   "cursor-pointer",
-                  "relative z-50"
+                  "relative z-50",
+                  "w-7 h-7 p-0 m-0",
+                  "hover:bg-[var(--bg-secondary)]"
                 )}
-                style={{
-                  backgroundColor: 'transparent',
-                  cursor: 'pointer',
-                  pointerEvents: 'auto',
-                  position: 'relative',
-                  zIndex: 50,
-                  width: '28px',
-                  height: '28px',
-                  padding: 0,
-                  margin: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.outline = '2px solid var(--neutral)';
-                  e.currentTarget.style.outlineOffset = '2px';
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.outline = 'none';
-                }}
                 aria-label="Close modal"
               >
                 <Icon
                   name="cross"
                   size="md"
-                  style={{
-                    color: 'var(--tertiary)',
-                    pointerEvents: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: 0,
-                    padding: 0,
-                  }}
+                  className="text-[var(--tertiary)] pointer-events-none flex items-center justify-center m-0 p-0"
                 />
               </button>
             )}
@@ -228,8 +192,7 @@ export const Modal: React.FC<ModalProps> = ({
         {/* Footer */}
         {footer && (
           <div
-            className="flex items-center justify-end gap-2 px-6 py-4"
-            style={{ borderTop: '1px solid var(--border-secondary)' }}
+            className="flex items-center justify-end gap-2 px-6 py-4 border-t border-[var(--border-secondary)]"
           >
             {footer}
           </div>

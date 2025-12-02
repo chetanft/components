@@ -108,7 +108,7 @@ export const Drawer: React.FC<DrawerProps> = ({
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-overlay backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
         onClick={handleMaskClick}
         aria-hidden="true"
       />
@@ -117,7 +117,7 @@ export const Drawer: React.FC<DrawerProps> = ({
       <div
         className={cn(
           "absolute",
-          "bg-[var(--color-bg-primary)]",
+          "bg-[var(--bg-primary)]",
           "shadow-[var(--shadow-xl)]",
           "flex flex-col",
           styles.container,
@@ -159,7 +159,7 @@ export const Drawer: React.FC<DrawerProps> = ({
         )}
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto px-6 py-4">
+        <div className="flex-1 overflow-y-auto px-6 py-4 bg-[var(--bg-secondary)]/30">
           {showFigmaBadge && (
             <div className="mb-4">
               <FigmaBadge />

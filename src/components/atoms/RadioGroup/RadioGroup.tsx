@@ -114,12 +114,12 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
           currentSize.radio,
           // State styles with explicit colors for visibility
           isDisabled
-            ? "bg-transparent border-[#ced1d7] cursor-not-allowed opacity-50"
+            ? "bg-transparent border-[var(--border-disabled)] cursor-not-allowed opacity-50"
             : isSelected
-            ? "bg-transparent border-[#434f64] hover:bg-[#f0f1f7] hover:border-[#434f64]"
-            : "bg-transparent border-[#838c9d] hover:border-[#434f64]",
+              ? "bg-transparent border-[var(--primary)] hover:bg-[var(--bg-secondary)] hover:border-[var(--primary)]"
+              : "bg-transparent border-[var(--border-primary)] hover:border-[var(--primary)]",
           // Focus styles
-          "focus-within:outline-none focus-within:ring-2 focus-within:ring-[#434f64] focus-within:ring-offset-2"
+          "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--primary)] focus-within:ring-offset-2"
         );
 
         // Container styles for each radio option
@@ -144,9 +144,9 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
                 {/* Radio dot */}
                 {isSelected && !isDisabled && (
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div 
+                    <div
                       className={cn(
-                        "rounded-full bg-[#434f64]", // --primary
+                        "rounded-full bg-[var(--primary)]", // --primary
                         currentSize.dot
                       )}
                     />
@@ -172,7 +172,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
 };
 
 // Legacy compatibility exports
-export const RadioGroupItem = ({ children, ...props }: { children?: React.ReactNode; [key: string]: any }) => {
+export const RadioGroupItem = ({ children, ...props }: { children?: React.ReactNode;[key: string]: any }) => {
   console.warn('RadioGroupItem is deprecated. Use RadioGroup with options prop instead.');
   return <div {...props}>{children}</div>;
 };

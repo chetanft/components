@@ -20,19 +20,19 @@ export interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
  * Figma design not available - component created based on design system specifications.
  */
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ 
-    className, 
+  ({
+    className,
     label,
     labelMandatory = false,
     labelOptional = false,
-    error, 
-    helperText, 
-    size = 'md', 
+    error,
+    helperText,
+    size = 'md',
     disabled,
     id,
     showFigmaBadge = true,
     rows = 4,
-    ...props 
+    ...props
   }, ref) => {
     const generatedId = React.useId();
     // Generate IDs for accessibility (ensure consistent hook usage)
@@ -112,35 +112,35 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
               "w-full resize-y",
               "font-normal",
               "text-[var(--color-primary)]",
-              "bg-[var(--color-bg-primary)]",
-              "border border-[var(--color-border-primary)]",
-              "rounded-sm",
-              "placeholder:text-[#838c9d]",
+              "bg-[var(--bg-primary)]",
+              "border border-[var(--border-primary)]",
+              "rounded-md",
+              "placeholder:text-[var(--text-placeholder)]",
               "transition-all duration-[var(--transition-normal)]",
-              
+
               // Size styles
               currentSize.padding,
               currentSize.fontSize,
               currentSize.minHeight,
-              
+
               // Focus styles
               "focus:outline-none",
               "focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20",
               "focus:border-[var(--color-neutral)]",
-              
+
               // Error styles
               error && "border-[var(--color-critical)]",
               error && "focus:border-[var(--color-critical)] focus:ring-[var(--color-critical)] focus:ring-opacity-20",
-              
+
               // Disabled styles
-              disabled && "bg-[var(--color-bg-secondary)]",
-              disabled && "text-[#838c9d]",
+              disabled && "bg-[var(--bg-secondary)]",
+              disabled && "text-[var(--text-disabled)]",
               disabled && "cursor-not-allowed",
               disabled && "opacity-60",
-              
+
               // Hover styles
               !disabled && "hover:border-[var(--color-tertiary)]",
-              
+
               className
             )}
             style={{

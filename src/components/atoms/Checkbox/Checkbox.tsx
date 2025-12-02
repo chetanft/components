@@ -48,13 +48,13 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       sm: {
         checkbox: "w-4 h-4",
         icon: 12,
-        gap: "gap-1.5",
+        gap: "gap-2",
         text: "text-sm"
       },
       md: {
         checkbox: "w-5 h-5",
         icon: 16,
-        gap: "gap-2",
+        gap: "gap-2.5",
         text: "text-base"
       }
     };
@@ -77,7 +77,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             : "border-critical bg-surface text-critical hover:bg-critical/5"
           : props.checked || indeterminate
             ? "bg-[var(--primary)] border-[var(--primary)] text-[var(--color-bg-primary)] hover:bg-[var(--primary)]/90 hover:border-[var(--primary)]/90"
-            : "border-border bg-surface hover:bg-surface-alt hover:border-border-hover",
+            : "border-[var(--border-primary)] bg-[var(--bg-primary)] hover:bg-[var(--bg-secondary)] hover:border-[var(--border-hover)]",
       // Focus styles
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)]",
       error
@@ -118,7 +118,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     const hasOnChange = props.onChange !== undefined;
     // Children is already extracted, so props won't contain it
     const inputProps = { ...props };
-    
+
     // If checked is provided without onChange, use defaultChecked for uncontrolled
     if (isControlled && !hasOnChange && 'checked' in inputProps) {
       inputProps.defaultChecked = inputProps.checked;

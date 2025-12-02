@@ -6,12 +6,14 @@ export type CellBackgroundColor = 'white' | 'bg';
 export type CellLineVariant = 'single' | 'double';
 export type CellSize = 'md' | 'lg' | 'xl';
 export type CellState = 'default' | 'hover' | 'selected';
+export type CellType = 'text' | 'checkbox';
 
 export interface TableCellProps {
   backgroundColor?: CellBackgroundColor;
   lineVariant?: CellLineVariant;
   size?: CellSize;
   state?: CellState;
+  type?: CellType;
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
@@ -22,6 +24,7 @@ export const TableCell: React.FC<TableCellProps> = ({
   lineVariant = 'single',
   size = 'md',
   state = 'default',
+  type = 'text',
   children,
   className,
   onClick
@@ -30,14 +33,14 @@ export const TableCell: React.FC<TableCellProps> = ({
 
   // Determine if the cell should show hover state
   const showHoverState = state === 'hover' || (state === 'default' && isHovered);
-  
+
   // Determine background color based on state priority
   const getBackgroundClass = () => {
     if (state === 'selected' || showHoverState) {
       return "bg-[var(--border-secondary)]";
     }
-    return backgroundColor === 'white' 
-      ? "bg-[var(--bg-primary)]" 
+    return backgroundColor === 'white'
+      ? "bg-[var(--bg-primary)]"
       : "bg-[var(--bg-secondary)]";
   };
 
@@ -63,13 +66,18 @@ export const TableCell: React.FC<TableCellProps> = ({
     return children;
   }, [children, lineVariant]);
 
-  // Get horizontal padding based on size
+  // Get horizontal padding based on size and type
   const getHorizontalPadding = () => {
+    // Checkbox columns use equal padding on both sides since checkbox is centered
+    if (type === 'checkbox') {
+      return "px-[var(--spacing-x4)]"; // Equal padding for centered checkbox
+    }
+
     switch (size) {
-      case 'md': return "px-[16px] pl-[8px]";
-      case 'lg': return "px-[16px] pl-[8px]";
-      case 'xl': return "px-[20px] pl-[8px]";
-      default: return "px-[16px] pl-[8px]";
+      case 'md': return "px-[16px]"; // Standardized to 16px
+      case 'lg': return "px-[16px]";
+      case 'xl': return "px-[24px]";
+      default: return "px-[16px]";
     }
   };
 
@@ -78,16 +86,16 @@ export const TableCell: React.FC<TableCellProps> = ({
       className={cn(
         // Base styles
         "transition-colors duration-200 border-b border-[var(--border-primary)]",
-        
+
         // Size variants - horizontal padding only (vertical padding via inline style)
         getHorizontalPadding(),
-        
+
         // Background color
         getBackgroundClass(),
-        
+
         // Selected state can have additional styling if needed
         state === 'selected' && "relative",
-        
+
         // Vertical alignment
         "align-top",
         className
@@ -102,8 +110,8 @@ export const TableCell: React.FC<TableCellProps> = ({
     >
       <div className={cn(
         // Line variant affects the layout direction
-        lineVariant === 'single' 
-          ? "flex items-center whitespace-nowrap" // Single line: horizontal layout, no wrapping
+        lineVariant === 'single'
+          ? "flex items-center whitespace-nowrap min-w-0" // Single line: horizontal layout, no wrapping, allow truncation
           : "flex flex-col justify-center", // Double line: vertical layout
         // Line variant affects the gap between child elements
         lineVariant === 'single' && "gap-[4px]",

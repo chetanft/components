@@ -147,17 +147,17 @@ export const Sizes: Story = {
     <div className="w-[300px] space-y-6">
       <div className="space-y-2">
         <p className="text-sm text-[var(--tertiary)]">Small - 1rem (14px)</p>
-        <Progress value={50} size="sm" />
+      <Progress value={50} size="sm" />
         <p className="text-xs text-muted-foreground">Percentage font: 1rem (14px) - Body Secondary Regular</p>
       </div>
       <div className="space-y-2">
         <p className="text-sm text-[var(--tertiary)]">Medium - 1rem (14px)</p>
-        <Progress value={50} size="md" />
+      <Progress value={50} size="md" />
         <p className="text-xs text-muted-foreground">Percentage font: 1rem (14px) - Body Secondary Regular</p>
       </div>
       <div className="space-y-2">
         <p className="text-sm text-[var(--tertiary)]">Large - 1rem (14px)</p>
-        <Progress value={50} size="lg" />
+      <Progress value={50} size="lg" />
         <p className="text-xs text-muted-foreground">Percentage font: 1rem (14px) - Body Secondary Regular</p>
       </div>
     </div>

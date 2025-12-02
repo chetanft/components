@@ -362,7 +362,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
             <div
                 ref={ref}
                 className={cn(
-                    "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid relative rounded-[var(--x2,8px)] flex flex-col overflow-hidden",
+                    "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid relative rounded-lg flex flex-col overflow-hidden",
                     isAdvanced ? "w-full max-w-[549.333px]" : "w-full max-w-[549px]",
                     className
                 )}

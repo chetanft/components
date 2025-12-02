@@ -227,7 +227,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
                 style={{
                   fontSize: 'var(--font-size-sm-rem)', // 14px → 1rem (responsive)
                   ...(vertical 
-                    ? { bottom: `${percent}%` }
+                  ? { bottom: `${percent}%` }
                     : { left: `${percent}%` })
                 }
                 }

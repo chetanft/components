@@ -8,14 +8,14 @@ export type TabType = 'primary' | 'secondary' | 'tertiary';
 export type TabState = 'unselected' | 'selected' | 'hover';
 
 // Tab Item component using exact Figma specifications
-const TabContent = ({ 
-  label, 
-  icon, 
-  badge, 
-  badgeCount, 
-  notification, 
+const TabContent = ({
+  label,
+  icon,
+  badge,
+  badgeCount,
+  notification,
   state,
-  type 
+  type
 }: {
   label: string;
   icon?: boolean;
@@ -27,14 +27,14 @@ const TabContent = ({
 }) => {
   // Determine gap based on content - 8px for most, 4px when notification is present
   const gapClass = notification ? "gap-[var(--x1,4px)]" : "gap-[var(--x2,8px)]";
-  
+
   // Container alignment - center for selected primary, start for others
-  const containerAlignment = state === 'selected' && type === 'primary' 
-    ? "justify-center" 
-    : type === 'primary' 
-      ? "justify-start" 
+  const containerAlignment = state === 'selected' && type === 'primary'
+    ? "justify-center"
+    : type === 'primary'
+      ? "justify-start"
       : "justify-center";
-  
+
   return (
     <div className={cn(
       "flex items-center",
@@ -43,16 +43,16 @@ const TabContent = ({
     )}>
       {icon && (
         <div className="overflow-clip relative shrink-0 size-[16px]">
-          <Icon 
-            name="check" 
-            size={16} 
+          <Icon
+            name="check"
+            size={16}
             className="text-[var(--primary)]"
           />
         </div>
       )}
       <p className={cn(
         "leading-[1.4] relative shrink-0 text-[var(--primary)] text-base",
-        state === 'selected' 
+        state === 'selected'
           ? "font-semibold"
           : "font-normal"
       )}>
@@ -88,73 +88,73 @@ export interface TabItemProps {
 }
 
 export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
-  ({ 
-    label, 
-    badge = false, 
-    badgeCount = "56", 
-    notification = false, 
-    icon = false, 
+  ({
+    label,
+    badge = false,
+    badgeCount = "56",
+    notification = false,
+    icon = false,
     active = false,
     type = 'primary',
     onSelect,
-    className, 
+    className,
     disabled,
-    ...props 
+    ...props
   }, ref) => {
     const [isHovered, setIsHovered] = useState(false);
-    
+
     // Get current state
     const currentState: TabState = active ? 'selected' : (isHovered ? 'hover' : 'unselected');
-    
+
     // Base styles matching Figma design exactly using FT design system tokens
     const baseStyles = cn(
       "relative flex flex-col gap-[10px] items-start transition-all cursor-pointer flex-shrink-0",
       disabled && "opacity-50 cursor-not-allowed pointer-events-none",
-      
+
       // Padding based on type - using FT design system spacing tokens
-      type === 'primary' 
-        ? "px-[var(--x8,32px)] py-[var(--x3,12px)]" 
+      type === 'primary'
+        ? "px-[var(--x8,32px)] py-[var(--x3,12px)]"
         : "px-[var(--x4,16px)] py-[var(--x2,8px)]",
-      
+
       // Border radius based on type - using FT design system tokens
-      type === 'primary' && "rounded-none", 
-      type === 'secondary' && "rounded-[var(--x2,8px)]",
+      type === 'primary' && "rounded-none",
+      type === 'secondary' && "rounded-lg",
       type === 'tertiary' && "rounded-[100px]",
-      
+
       // Border styles based on state and type - using FT design system tokens
       type === 'primary' && [
         "border-l-0 border-r-0 border-t-0 border-solid",
-        currentState === 'selected' 
-          ? "border-b-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[var(--x1,4px)] after:bg-[var(--primary)]" 
+        currentState === 'selected'
+          ? "border-b-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[var(--x1,4px)] after:bg-[var(--primary)]"
           : currentState === 'hover'
-          ? "border-b border-b-[var(--tertiary)]"
-          : "border-b border-b-[var(--border-primary)]"
+            ? "border-b border-b-[var(--tertiary)]"
+            : "border-b border-b-[var(--border-primary)]"
       ],
-      
+
       (type === 'secondary' || type === 'tertiary') && [
         "border border-solid",
         currentState === 'selected'
           ? "border-[var(--tertiary)]"
           : currentState === 'hover'
-          ? "border-[var(--primary)]"
-          : "border-[var(--tertiary)]"
+            ? "border-[var(--primary)]"
+            : "border-[var(--tertiary)]"
       ],
 
       // Background colors based on state and type - using FT design system tokens
       currentState === 'selected' && [
         (type === 'secondary' || type === 'tertiary') && "bg-[var(--border-secondary)]"
       ],
-      
+
       currentState === 'hover' && [
         type === 'primary' && "bg-[var(--border-secondary)]",
         (type === 'secondary' || type === 'tertiary') && "bg-[var(--bg-secondary)]"
       ],
-      
+
       currentState === 'unselected' && "bg-transparent",
-      
+
       className
     );
-    
+
     return (
       <div
         ref={ref}
@@ -165,8 +165,8 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
         style={
           currentState === 'selected' && type === 'primary'
             ? {
-                '--border-color': 'var(--primary)',
-              } as React.CSSProperties
+              '--border-color': 'var(--primary)',
+            } as React.CSSProperties
             : undefined
         }
         {...props}
@@ -361,7 +361,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
               aria-pressed={dropdownOpen}
               className={cn(
                 "shrink-0",
-                type === 'primary' 
+                type === 'primary'
                   ? "h-[calc(var(--x3,12px)*2+1.4*1rem)] w-[calc(var(--x3,12px)*2+1.4*1rem)]"
                   : "h-[calc(var(--x2,8px)*2+1.4*1rem)] w-[calc(var(--x2,8px)*2+1.4*1rem)]"
               )}
@@ -372,7 +372,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
         {overflowBehavior === 'dropdown' && dropdownOpen && (
           <div
             ref={dropdownMenuRef}
-            className="fixed z-50 rounded-[var(--x2,8px)] border border-[var(--border-secondary)] bg-[var(--bg-primary)] shadow-lg min-w-[200px] py-[var(--x2,8px)]"
+            className="fixed z-50 rounded-lg border border-[var(--border-secondary)] bg-[var(--bg-primary)] shadow-lg min-w-[200px] py-[var(--x2,8px)]"
             style={{ top: menuPosition.top, left: menuPosition.left }}
           >
             {tabs.map((tab, index) => (

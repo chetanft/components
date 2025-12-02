@@ -39,8 +39,8 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
       disabled
         ? "bg-[var(--switch-disabled-bg)]" // rgba(139, 139, 139, 0.2) from Figma
         : props.checked
-          ? "bg-[var(--switch-on-bg)]" // #CED1D7 from Figma (track when on)
-          : "bg-[var(--switch-off-bg)]", // #838C9D from Figma (track when off)
+          ? "bg-[var(--primary)]" // Primary color when on
+          : "bg-[var(--neutral-300)]", // Neutral color when off
       // Focus styles
       "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--color-neutral-light)] focus-within:ring-offset-2",
       className
@@ -62,8 +62,8 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           ? "bg-[var(--switch-disabled-thumb-on)]" // #CED1D7 - Disabled thumb when on
           : "bg-[var(--switch-disabled-thumb)]" // #F8F8F9 - Disabled thumb when off
         : props.checked
-          ? "bg-[var(--switch-thumb-on)]" // #434F64 when on from Figma
-          : "bg-[var(--switch-thumb-off)]" // #FFFFFF when off from Figma
+          ? "bg-[var(--color-bg-primary)]" // White thumb when on
+          : "bg-[var(--color-bg-primary)]" // White thumb when off
     );
 
     // Get color for label based on disabled state

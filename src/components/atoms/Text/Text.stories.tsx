@@ -150,37 +150,37 @@ export const AllSizes: Story = {
         <h3 className="font-semibold mb-2">Text Sizes</h3>
         <div className="space-y-4">
           <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
               <span className="w-12 text-sm text-muted-foreground">sm:</span>
-              <Text size="sm" />
+            <Text size="sm" />
             </div>
             <p className="text-sm text-muted-foreground ml-16">Font: 1rem (14px) - Body Secondary Regular</p>
           </div>
           <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
               <span className="w-12 text-sm text-muted-foreground">md:</span>
-              <Text size="md" />
+            <Text size="md" />
             </div>
             <p className="text-sm text-muted-foreground ml-16">Font: 1.143rem (16px) - Body Primary Regular</p>
           </div>
           <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
               <span className="w-12 text-sm text-muted-foreground">lg:</span>
-              <Text size="lg" />
+            <Text size="lg" />
             </div>
             <p className="text-sm text-muted-foreground ml-16">Font: 1.143rem (16px) - Body Primary Semibold</p>
           </div>
           <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
               <span className="w-12 text-sm text-muted-foreground">xl:</span>
-              <Text size="xl" />
+            <Text size="xl" />
             </div>
             <p className="text-sm text-muted-foreground ml-16">Font: 1.429rem (20px) - Display Primary</p>
           </div>
           <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
               <span className="w-12 text-sm text-muted-foreground">xx:</span>
-              <Text size="xx" />
+            <Text size="xx" />
             </div>
             <p className="text-sm text-muted-foreground ml-16">Font: 1.714rem (24px) - Title Secondary</p>
           </div>

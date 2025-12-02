@@ -43,47 +43,47 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   // Button-specific sizing from Figma design
   const buttonSizing = {
     xxs: {
-      padding: 'p-0.5', // 2px all sides
+      padding: 'px-1.5 py-0.5', // Increased padding
       fontSize: 'text-xs-rem', // 12px → 0.857rem (responsive)
       iconSize: 12,
       borderRadius: 'rounded-component',
-      height: 'h-4', // 16px
-      width: 'w-4', // 16px for icon-only
-    },
-    xs: {
-      padding: 'p-1', // 4px all sides
-      fontSize: 'text-sm-rem', // 14px → 1rem (responsive)
-      iconSize: 12,
-      borderRadius: 'rounded-component',
-      height: 'h-6', // 24px
+      height: 'h-6', // Increased height
       width: 'w-6', // 24px for icon-only
     },
+    xs: {
+      padding: 'px-2.5 py-1', // Increased padding
+      fontSize: 'text-sm-rem', // 14px → 1rem (responsive)
+      iconSize: 14, // Slightly larger icon
+      borderRadius: 'rounded-component',
+      height: 'h-8', // Increased height
+      width: 'w-8', // 32px for icon-only
+    },
     sm: {
-      padding: 'p-3', // 12px all around
+      padding: 'px-3.5 py-1.5', // Increased padding
       fontSize: 'text-md-rem', // 16px → 1.143rem (responsive)
       iconSize: 16,
       borderRadius: 'rounded-component',
-      height: 'h-8', // 32px
-      width: 'w-8', // 32px for icon-only
+      height: 'h-9', // Increased height
+      width: 'w-9', // 36px for icon-only
     },
     md: {
-      padding: 'p-3', // 12px all sides
+      padding: 'px-4 py-2', // Increased padding
       fontSize: 'text-md-rem', // 16px → 1.143rem (responsive)
-      iconSize: 16,
+      iconSize: 18, // Larger icon
       borderRadius: 'rounded-component',
       height: 'h-10', // 40px
       width: 'w-10', // 40px for icon-only
     },
     lg: {
-      padding: 'p-3', // 12px all sides
+      padding: 'px-5 py-2.5', // Increased padding
       fontSize: 'text-lg-rem', // 20px → 1.429rem (responsive)
-      iconSize: 24,
+      iconSize: 20, // Larger icon
       borderRadius: 'rounded-component',
       height: 'h-12', // 48px
       width: 'w-12', // 48px for icon-only
     },
     xl: {
-      padding: 'p-4', // 16px all sides
+      padding: 'px-6 py-3', // Increased padding
       fontSize: 'text-xl-rem', // 24px → 1.714rem (responsive)
       iconSize: 24,
       borderRadius: 'rounded-component',
@@ -91,7 +91,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       width: 'w-14', // 56px for icon-only
     },
     xxl: {
-      padding: 'p-5', // 20px all sides
+      padding: 'px-7 py-3.5', // Increased padding
       fontSize: 'text-xxl-rem', // 28px → 2rem (responsive)
       iconSize: 24,
       borderRadius: 'rounded-component',
@@ -148,10 +148,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   // Variant styles using CSS variables that adapt to themes automatically
   const variantStyles: Record<ButtonVariant, string> = {
     primary: cn(
-      "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] border border-[var(--button-primary-border)]",
-      "hover:bg-[var(--button-primary-hover-bg)] hover:border-[var(--button-primary-hover-bg)]",
-      "focus-visible:ring-[var(--primary)]",
-      "disabled:bg-[var(--tertiary)] disabled:border-[var(--tertiary)] disabled:text-[var(--button-primary-text)] disabled:opacity-50"
+      "bg-[var(--primary-700)] text-white border border-[var(--primary-700)] shadow-sm",
+      "hover:bg-[var(--primary-800)] hover:border-[var(--primary-800)] hover:shadow-md",
+      "focus-visible:ring-[var(--primary-700)]",
+      "disabled:bg-[var(--tertiary)] disabled:border-[var(--tertiary)] disabled:text-white disabled:opacity-50 disabled:shadow-none"
     ),
     secondary: cn(
       "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-[var(--button-secondary-border)]",

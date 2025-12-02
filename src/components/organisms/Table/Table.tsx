@@ -199,21 +199,23 @@ const TableRowComponent = <T extends TableRow = TableRow>({
         case 'number':
           return (
             <TableCellText type="primary">
-              {typeof value === 'number' ? value.toLocaleString() : (value as React.ReactNode ?? '')}
+              {typeof value === 'number' ? value.toLocaleString() : String(value ?? '')}
             </TableCellText>
           );
 
         case 'date':
           return (
             <TableCellText type="primary">
-              {value instanceof Date ? value.toLocaleDateString() : (value as React.ReactNode ?? '')}
+              {value instanceof Date ? value.toLocaleDateString() : String(value ?? '')}
             </TableCellText>
           );
 
         default:
+          // For string values, pass directly so TableCellText can handle newlines and apply colors correctly
+          // First line gets primary color, second line gets secondary color
           return (
             <TableCellText type="primary">
-              {value as React.ReactNode ?? ''}
+              {typeof value === 'string' ? value : String(value ?? '')}
             </TableCellText>
           );
       }
@@ -248,6 +250,7 @@ const TableRowComponent = <T extends TableRow = TableRow>({
     >
       {selectable && (
         <TableCell
+          type="checkbox"
           backgroundColor={getCellBackground(0)}
           lineVariant="single"
           size={cellSize}
@@ -258,7 +261,7 @@ const TableRowComponent = <T extends TableRow = TableRow>({
           <div
             className={cn(
               'flex w-full items-center justify-start',
-              rowAccessory ? 'gap-[var(--x2,8px)]' : 'justify-center'
+              rowAccessory && 'gap-[var(--x2,8px)]'
             )}
           >
             <Checkbox

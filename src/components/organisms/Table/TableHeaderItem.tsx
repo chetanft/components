@@ -71,14 +71,14 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
   // Size-based padding from Figma design - compact for better alignment
   const getPadding = () => {
     if (type === 'checkbox') {
-      return "px-[var(--spacing-x4)] pl-[var(--spacing-x2)]"; // Checkbox columns have consistent padding
+      return "px-[var(--spacing-x4)]"; // Equal padding for centered checkbox
     }
 
     switch (size) {
-      case 'md': return "px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
-      case 'lg': return "px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
-      case 'xl': return "px-[var(--spacing-x5)] pl-[var(--spacing-x2)]";
-      default: return "px-[var(--spacing-x4)] pl-[var(--spacing-x2)]";
+      case 'md': return "px-[var(--spacing-x4)]";
+      case 'lg': return "px-[var(--spacing-x4)]";
+      case 'xl': return "px-[var(--spacing-x5)]";
+      default: return "px-[var(--spacing-x4)]";
     }
   };
 
@@ -102,9 +102,9 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
         (sortable || onClick) && "cursor-pointer hover:opacity-80 transition-opacity",
         className
       )}
-      style={{ 
-        height: 'var(--table-header-height)', 
-        minHeight: 'var(--table-header-height)', 
+      style={{
+        height: 'var(--table-header-height)',
+        minHeight: 'var(--table-header-height)',
         maxHeight: 'var(--table-header-height)',
         paddingTop: 'var(--table-header-padding-y)',
         paddingBottom: 'var(--table-header-padding-y)'
@@ -114,8 +114,8 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
     >
       <div className={cn(
         "flex items-center h-full",
-        // Center checkbox in its column to match data row alignment
-        type === 'checkbox' ? "justify-center" : "justify-start"
+        // Align checkbox to left to match header alignment
+        "justify-start"
       )}>
         {/* Drag Handle */}
         {draggable && (
@@ -126,9 +126,9 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
           </div>
         )}
 
-        {/* Checkbox Type - Perfectly centered to align with data rows */}
+        {/* Checkbox Type - Aligned to left */}
         {type === 'checkbox' && (
-          <div className="flex items-center justify-center w-full">
+          <div className="flex items-center justify-start">
             <Checkbox
               {...checkboxProps}
               size="md"
@@ -141,11 +141,12 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
           <div className="flex items-center gap-[calc(var(--spacing-x2)-var(--spacing-x1)/2)]">
             <span
               className={cn(
-                "font-semibold leading-[1.4] whitespace-nowrap"
+                "leading-[1.4] whitespace-nowrap"
               )}
               style={{
                 ...getTextColorStyle(),
-                fontSize: size === 'md' ? 'var(--font-size-sm-rem)' : 'var(--font-size-md-rem)', // 14px → 1rem / 16px → 1.143rem (responsive)
+                fontSize: 'var(--font-size-sm-rem)', // Always 1rem
+                fontWeight: 'var(--font-weight-semibold)',
               }}
             >
               {children}
@@ -157,12 +158,14 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
                 <Icon
                   name="chevron-up"
                   size={8}
-                  color={sortDirection === 'asc' ? getIconColor() : `${getIconColor()}40`}
+                  color={getIconColor()}
+                  style={{ opacity: sortDirection === 'asc' ? 1 : 0.25 }}
                 />
                 <Icon
                   name="chevron-down"
                   size={8}
-                  color={sortDirection === 'desc' ? getIconColor() : `${getIconColor()}40`}
+                  color={getIconColor()}
+                  style={{ opacity: sortDirection === 'desc' ? 1 : 0.25 }}
                 />
               </div>
             )}
