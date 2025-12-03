@@ -54,24 +54,24 @@ export interface AppHeaderProps extends Omit<ComposableProps<'header'>, 'childre
  */
 export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, ref) => {
   const {
-    size = 'xl',
-    device = 'Desktop',
-    user = {
-      name: 'Santosh Kumar',
-      role: 'Dispatch Manager',
-      location: 'SPD-Santoshnagar',
-      badge: 'Admin',
-    },
-    userCompany = {
-      name: 'tata-motors',
-      displayName: 'Tata Motors'
-    },
-    onNotificationClick = () => { },
-    onUserClick = () => { },
-    onUserMenuItemClick = () => { },
-    className,
-    leftAddon,
-    asChild,
+  size = 'xl',
+  device = 'Desktop',
+  user = {
+    name: 'Santosh Kumar',
+    role: 'Dispatch Manager',
+    location: 'SPD-Santoshnagar',
+    badge: 'Admin',
+  },
+  userCompany = {
+    name: 'tata-motors',
+    displayName: 'Tata Motors'
+  },
+  onNotificationClick = () => { },
+  onUserClick = () => { },
+  onUserMenuItemClick = () => { },
+  className,
+  leftAddon,
+  asChild,
     ...htmlProps
   } = props;
   const Comp = asChild ? Slot : 'header';

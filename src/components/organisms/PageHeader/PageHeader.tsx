@@ -81,34 +81,34 @@ export interface PageHeaderProps extends Omit<ComposableProps<'div'>, 'children'
 export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
   (props, ref) => {
     const {
-      title = 'PB 09 HH6439',
-      subtitle,
-      variant = 'variant1',
-      showBackButton = true,
-      onBack,
-      tabs = [
-        { label: 'Tracking', key: 'tracking' },
-        { label: 'Loads', key: 'loads' },
-        { label: 'Exceptions', key: 'exceptions' },
-        { label: 'Ops', key: 'ops' },
-      ],
-      activeTab,
-      onTabChange,
-      tabStyle = 'underline',
-      showTabs = true,
-      leftTabs,
-      activeLeftTab,
-      onLeftTabChange,
-      showLeftTabs = false,
-      showActions = true,
-      primaryActionLabel = 'Button',
-      secondaryActionLabel = 'Button',
-      onPrimaryAction,
-      onSecondaryAction,
-      onSearchClick,
-      onDocumentClick,
-      className,
-      asChild,
+    title = 'PB 09 HH6439',
+    subtitle,
+    variant = 'variant1',
+    showBackButton = true,
+    onBack,
+    tabs = [
+      { label: 'Tracking', key: 'tracking' },
+      { label: 'Loads', key: 'loads' },
+      { label: 'Exceptions', key: 'exceptions' },
+      { label: 'Ops', key: 'ops' },
+    ],
+    activeTab,
+    onTabChange,
+    tabStyle = 'underline',
+    showTabs = true,
+    leftTabs,
+    activeLeftTab,
+    onLeftTabChange,
+    showLeftTabs = false,
+    showActions = true,
+    primaryActionLabel = 'Button',
+    secondaryActionLabel = 'Button',
+    onPrimaryAction,
+    onSecondaryAction,
+    onSearchClick,
+    onDocumentClick,
+    className,
+    asChild,
       ...htmlProps
     } = props;
     const Comp = asChild ? Slot : 'div';
@@ -228,8 +228,17 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
       if (!shouldShowUnderlineTabs) return;
       underlineMeasurementRefs.current = underlineMeasurementRefs.current.slice(0, tabs.length);
       const widths = underlineMeasurementRefs.current.map((el) => el?.offsetWidth || 0);
-      setUnderlineTabWidths(widths);
-    }, [tabs, shouldShowUnderlineTabs, underlineContainerWidth, currentActiveTab]);
+      
+      // Only update state if widths actually changed to prevent unnecessary re-renders
+      setUnderlineTabWidths((prevWidths) => {
+        // If lengths differ, definitely update
+        if (prevWidths.length !== widths.length) return widths;
+        // If any width changed, update
+        if (prevWidths.some((w, i) => w !== widths[i])) return widths;
+        // No change, return previous to prevent re-render
+        return prevWidths;
+      });
+    }, [tabs, shouldShowUnderlineTabs, underlineContainerWidth]);
 
     const underlineOverflowData = useMemo(() => {
       if (

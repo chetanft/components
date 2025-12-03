@@ -133,16 +133,22 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
          }
       }
 
-      if (bestCandidate && bestCandidate !== activeLink) {
-        setActiveLink(bestCandidate);
-        onChange?.(bestCandidate);
+      // Use functional update to avoid dependency on 'activeLink' state
+      if (bestCandidate) {
+        setActiveLink((prevActiveLink) => {
+          if (bestCandidate !== prevActiveLink) {
+            onChange?.(bestCandidate);
+            return bestCandidate;
+          }
+          return prevActiveLink;
+        });
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [items, bounds, targetOffset, activeLink, onChange]);
+  }, [items, bounds, targetOffset, onChange]);
 
   return (
     <div 

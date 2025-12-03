@@ -298,18 +298,18 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     }, []);
 
     // Calculate menu position when it opens or window scrolls/resizes
-    const updateMenuPosition = useCallback(() => {
-      if (isOpen && dropdownRef.current) {
-        const rect = dropdownRef.current.getBoundingClientRect();
-        // For fixed positioning, use viewport coordinates directly
-        const top = rect.bottom + 4;
-        const left = rect.left;
-        const width = rect.width;
-        setMenuPosition({ top, left, width });
-      }
-    }, [isOpen]);
-
     useEffect(() => {
+      const updateMenuPosition = () => {
+        if (isOpen && dropdownRef.current) {
+          const rect = dropdownRef.current.getBoundingClientRect();
+          // For fixed positioning, use viewport coordinates directly
+          const top = rect.bottom + 4;
+          const left = rect.left;
+          const width = rect.width;
+          setMenuPosition({ top, left, width });
+        }
+      };
+
       updateMenuPosition();
 
       if (isOpen) {
@@ -321,7 +321,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         window.removeEventListener('scroll', updateMenuPosition, true);
         window.removeEventListener('resize', updateMenuPosition);
       };
-    }, [isOpen, updateMenuPosition]);
+    }, [isOpen]);
 
     // Close dropdown when clicking outside
     useEffect(() => {

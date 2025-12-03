@@ -80,10 +80,14 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
       };
     }
 
-    if (newState !== affixed) {
-      setAffixed(newState);
-      onChange?.(newState);
-    }
+    // Use functional update to avoid dependency on 'affixed' state
+    setAffixed((prevAffixed) => {
+      if (newState !== prevAffixed) {
+        onChange?.(newState);
+        return newState;
+      }
+      return prevAffixed;
+    });
 
     // Always update style if affixed to handle width changes or scroll
     if (newState) {
@@ -94,7 +98,7 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
       setPlaceholderStyle({});
     }
 
-  }, [offsetTop, offsetBottom, target, affixed, onChange]);
+  }, [offsetTop, offsetBottom, target, onChange]);
 
   useEffect(() => {
     const targetNode = target();

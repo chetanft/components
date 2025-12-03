@@ -250,7 +250,14 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
     // Reset active values when opening
     useEffect(() => {
       if (isOpen) {
-        setActiveValues(selectedValues);
+        // Only update if values actually changed to prevent unnecessary re-renders
+        setActiveValues((prevActiveValues) => {
+          // Compare arrays by converting to JSON string (simple deep comparison)
+          if (JSON.stringify(prevActiveValues) !== JSON.stringify(selectedValues)) {
+            return selectedValues;
+          }
+          return prevActiveValues;
+        });
       }
     }, [isOpen, selectedValues]);
 
