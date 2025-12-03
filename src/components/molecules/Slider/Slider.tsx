@@ -3,65 +3,120 @@
 import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
 import { Tooltip } from '../Tooltip';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { SliderProvider } from './SliderContext';
+import { SliderTrack } from './SliderTrack';
+import { SliderRange } from './SliderRange';
+import { SliderThumb } from './SliderThumb';
+import { SliderLabel } from './SliderLabel';
 
 export interface SliderMark {
   value: number;
   label?: React.ReactNode;
 }
 
-export interface SliderProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
-  /** Current value (single or range) */
+export interface SliderProps extends Omit<ComposableProps<'div'>, 'onChange' | 'defaultValue'> {
+  /**
+   * Current value (single or range) (controlled)
+   */
   value?: number | [number, number];
-  /** Default value */
+  /**
+   * Default value (uncontrolled)
+   * @default 0
+   */
   defaultValue?: number | [number, number];
-  /** Minimum value */
+  /**
+   * Minimum value
+   * @default 0
+   */
   min?: number;
-  /** Maximum value */
+  /**
+   * Maximum value
+   * @default 100
+   */
   max?: number;
-  /** Step increment */
+  /**
+   * Step increment
+   * @default 1
+   */
   step?: number;
-  /** Enable range mode */
+  /**
+   * Enable range mode
+   * @default false
+   */
   range?: boolean;
-  /** Vertical orientation */
+  /**
+   * Vertical orientation
+   * @default false
+   */
   vertical?: boolean;
-  /** Disabled state */
+  /**
+   * Disabled state
+   * @default false
+   */
   disabled?: boolean;
-  /** Show marks */
+  /**
+   * Show marks (for declarative API)
+   * @deprecated Use SliderLabel components instead
+   */
   marks?: SliderMark[] | boolean;
-  /** Show tooltip */
+  /**
+   * Show tooltip
+   * @default true
+   */
   tooltip?: boolean | { formatter?: (value: number) => React.ReactNode };
-  /** Track color */
+  /**
+   * Track color
+   */
   trackColor?: string;
-  /** Rail color */
+  /**
+   * Rail color
+   */
   railColor?: string;
-  /** Change handler */
+  /**
+   * Change handler
+   */
   onChange?: (value: number | [number, number]) => void;
-  /** Change complete handler (on mouse up) */
+  /**
+   * Change complete handler (on mouse up)
+   */
   onChangeComplete?: (value: number | [number, number]) => void;
+  /**
+   * Slider content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
 /**
- * Slider component - Range input built with FT Design System tokens.
+ * Slider Component
  * 
- * Features:
- * - Single value and range modes
- * - Vertical and horizontal orientations
- * - Marks with custom labels
- * - Tooltips on hover/drag
- * - Smooth hover animations with proper centering
- * - Custom track and rail colors
- * - Controlled and uncontrolled modes
+ * A range input component for selecting values along a track.
+ * Supports both composable API (recommended) and declarative API (deprecated).
  * 
- * Design Tokens:
- * - Track: var(--primary)
- * - Rail: var(--border-secondary)
- * - Handle: var(--bg-primary) with shadow
- * - Border radius: var(--radius-full)
+ * @public
  * 
- * Implementation Notes:
- * - Handle uses origin-center for proper hover scaling
- * - z-20 ensures handle stays above track
- * - pointer-events-none on track prevents event conflicts
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Slider value={50} min={0} max={100} step={1}>
+ *   <SliderTrack>
+ *     <SliderRange />
+ *   </SliderTrack>
+ *   <SliderThumb value={50} type="end" />
+ *   <SliderLabel value={0}>Min</SliderLabel>
+ *   <SliderLabel value={100}>Max</SliderLabel>
+ * </Slider>
+ * 
+ * // Declarative API (deprecated)
+ * <Slider value={50} marks={true} />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (SliderTrack, SliderRange, SliderThumb, etc.) support `asChild`
+ * - Supports single value and range modes, vertical/horizontal orientations
+ * - Declarative API is deprecated but still functional for backward compatibility
+ * - Uses FT Design System tokens: var(--primary) for track, var(--border-secondary) for rail
  */
 export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
   ({
@@ -80,6 +135,8 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     onChange,
     onChangeComplete,
     className,
+    children,
+    asChild,
     ...props
   }, ref) => {
     const sliderRef = useRef<HTMLDivElement>(null);
@@ -240,7 +297,85 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       );
     };
 
-    // Handle component
+    const startPercent = getPercent(rangeValue[0]);
+    const endPercent = getPercent(rangeValue[1]);
+    
+    // Check if using composable API (has children with Slider sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+        child?.type?.displayName?.startsWith('Slider')
+    );
+    
+    // Create context value
+    const contextValue = {
+      value: actualValue,
+      setValue: (newValue: number | [number, number]) => {
+        if (controlledValue === undefined) {
+          setInternalValue(newValue);
+        }
+        onChange?.(newValue);
+      },
+      min,
+      max,
+      step,
+      range,
+      vertical,
+      disabled,
+      marks,
+      tooltip,
+      trackColor,
+      railColor,
+      onChange,
+      onChangeComplete,
+      isDragging,
+      setIsDragging,
+      hoveredHandle,
+      setHoveredHandle,
+      sliderRef,
+      getPercent,
+      getValueFromPosition,
+      rangeValue,
+    };
+    
+    // If using composable API, render with context provider
+    if (hasComposableChildren) {
+        // Show deprecation warning if using old props with composable API
+        if (process.env.NODE_ENV !== 'production' && marks) {
+            console.warn(
+                'Slider: Using deprecated props (marks) with composable API. ' +
+                'Please use SliderLabel components instead. ' +
+                'See migration guide: docs/migrations/composable-migration.md'
+            );
+        }
+        
+        const Comp = asChild ? Slot : 'div';
+        return (
+            <SliderProvider value={contextValue}>
+                <Comp
+                    ref={ref}
+                    className={cn(
+                        "relative",
+                        vertical ? "h-full w-[var(--spacing-x4)]" : "w-full h-[var(--spacing-x4)]",
+                        disabled && "opacity-50 cursor-not-allowed",
+                        className
+                    )}
+                    {...props}
+                >
+                    {children}
+                </Comp>
+            </SliderProvider>
+        );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production' && marks) {
+        console.warn(
+            'Slider: Declarative API (marks prop) is deprecated. ' +
+            'Please migrate to composable API using SliderTrack, SliderRange, SliderThumb, and SliderLabel components. ' +
+            'See migration guide: docs/migrations/composable-migration.md'
+        );
+    }
+    
+    // Handle component (for declarative API)
     const Handle = ({ 
       position, 
       value, 
@@ -299,62 +434,35 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
 
       return handle;
     };
-
-    const startPercent = getPercent(rangeValue[0]);
-    const endPercent = getPercent(rangeValue[1]);
-
+    
+    const Comp = asChild ? Slot : 'div';
     return (
-      <div
-        ref={ref}
-        className={cn(
-          "relative",
-          vertical ? "h-full w-[var(--spacing-x4)]" : "w-full h-[var(--spacing-x4)]",
-          disabled && "opacity-50 cursor-not-allowed",
-          className
-        )}
-        {...props}
-      >
-        {/* Rail (background track) */}
-        <div
-          ref={sliderRef}
-          className={cn(
-            "absolute rounded-full cursor-pointer",
-            vertical 
-              ? "w-[var(--spacing-x1)] h-full left-1/2 -translate-x-1/2" 
-              : "h-[var(--spacing-x1)] w-full top-1/2 -translate-y-1/2"
-          )}
-          style={{ backgroundColor: railColor || 'var(--border-secondary)' }}
-          onClick={handleRailClick}
-        >
-          {/* Track (filled portion) */}
-          <div
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              backgroundColor: trackColor || 'var(--primary)',
-              ...(vertical
-                ? {
-                    width: '100%',
-                    bottom: range ? `${startPercent}%` : '0%',
-                    height: range ? `${endPercent - startPercent}%` : `${endPercent}%`,
-                  }
-                : {
-                    height: '100%',
-                    left: range ? `${startPercent}%` : '0%',
-                    width: range ? `${endPercent - startPercent}%` : `${endPercent}%`,
-                  }),
-            }}
-          />
-        </div>
+        <SliderProvider value={contextValue}>
+            <Comp
+                ref={ref}
+                className={cn(
+                    "relative",
+                    vertical ? "h-full w-[var(--spacing-x4)]" : "w-full h-[var(--spacing-x4)]",
+                    disabled && "opacity-50 cursor-not-allowed",
+                    className
+                )}
+                {...props}
+            >
+                {/* Rail (background track) */}
+                <SliderTrack ref={sliderRef}>
+                    <SliderRange />
+                </SliderTrack>
 
-        {/* Handles */}
-        {range && (
-          <Handle position={startPercent} value={rangeValue[0]} type="start" />
-        )}
-        <Handle position={endPercent} value={rangeValue[1]} type="end" />
+                {/* Handles */}
+                {range && (
+                    <Handle position={startPercent} value={rangeValue[0]} type="start" />
+                )}
+                <Handle position={endPercent} value={rangeValue[1]} type="end" />
 
-        {/* Marks */}
-        {renderMarks()}
-      </div>
+                {/* Marks */}
+                {renderMarks()}
+            </Comp>
+        </SliderProvider>
     );
   }
 );

@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 import { TableCell } from './TableCell';
 import { TableCellText } from './TableCellText';
@@ -10,7 +11,12 @@ import type { TableRow as TableRowType, TableColumn, TableVariant } from './Tabl
 const CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x9)*2)]';
 const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x10)*2+var(--spacing-x5))]';
 
-export interface TableRowProps<T extends TableRowType = TableRowType> extends React.HTMLAttributes<HTMLTableRowElement> {
+/**
+ * TableRow component props
+ * 
+ * @public
+ */
+export interface TableRowProps<T extends TableRowType = TableRowType> extends ComposableProps<'tr'> {
   /**
    * Row data object
    */
@@ -74,10 +80,34 @@ export interface TableRowProps<T extends TableRowType = TableRowType> extends Re
 /**
  * TableRow Component
  * 
- * Shadcn-compatible table row component.
- * Supports both composable API (children) and declarative API (row + columns).
+ * A composable table row component that wraps the `<tr>` element.
+ * Can be used in two ways:
+ * 1. Composable API: Provide children with TableCell components (recommended)
+ * 2. Declarative API: Provide row and columns props (deprecated)
  * 
  * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <TableRow>
+ *   <TableCell>John Doe</TableCell>
+ *   <TableCell>john@example.com</TableCell>
+ *   <TableCell>
+ *     <Badge variant="success">Active</Badge>
+ *   </TableCell>
+ * </TableRow>
+ * 
+ * // Declarative API (deprecated)
+ * <TableRow row={rowData} columns={columns} />
+ * ```
+ * 
+ * @remarks
+ * - Wraps the HTML `<tr>` element
+ * - Supports `asChild` prop for custom element composition
+ * - Use composable API for maximum flexibility and control
+ * - Automatically handles hover states and selection when using declarative API
+ * - Accessible: maintains proper row semantics and ARIA attributes
  */
 export const TableRow = <T extends TableRowType = TableRowType>({
   row,
@@ -92,6 +122,7 @@ export const TableRow = <T extends TableRowType = TableRowType>({
   cellSize = 'md',
   children,
   className,
+  asChild,
   ...props
 }: TableRowProps<T>) => {
   const [hoveredRowIndex, setHoveredRowIndex] = useState<boolean>(false);
@@ -152,40 +183,43 @@ export const TableRow = <T extends TableRowType = TableRowType>({
 
   // If children are provided, use composable API
   if (children) {
+    const Comp = asChild ? Slot : 'tr';
     return (
-      <tr
+      <Comp
         aria-rowindex={index + 1}
         onMouseEnter={() => setHoveredRowIndex(true)}
         onMouseLeave={() => setHoveredRowIndex(false)}
-        className={className}
+        className={cn(className)}
         {...props}
       >
         {children}
-      </tr>
+      </Comp>
     );
   }
 
   // Otherwise use declarative API with row + columns
   if (!row || !columns) {
+    const Comp = asChild ? Slot : 'tr';
     return (
-      <tr
+      <Comp
         aria-rowindex={index + 1}
-        className={className}
+        className={cn(className)}
         {...props}
       >
         {children}
-      </tr>
+      </Comp>
     );
   }
 
   const actionCellIndex = columns.length + (selectable ? 1 : 0);
+  const Comp = asChild ? Slot : 'tr';
 
   return (
-    <tr
+    <Comp
       aria-rowindex={index + 1}
       onMouseEnter={() => setHoveredRowIndex(true)}
       onMouseLeave={() => setHoveredRowIndex(false)}
-      className={className}
+      className={cn(className)}
       {...props}
     >
       {selectable && (
@@ -251,7 +285,7 @@ export const TableRow = <T extends TableRowType = TableRowType>({
           </div>
         </TableCell>
       )}
-    </tr>
+    </Comp>
   );
 };
 

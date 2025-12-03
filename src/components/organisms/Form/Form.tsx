@@ -1,9 +1,17 @@
 "use client";
 
+"use client";
+
 import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
 import { Label } from '../../atoms/Label/Label';
 import { Typography } from '../../atoms/Typography';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { FormLabel } from './FormLabel';
+import { FormControl } from './FormControl';
+import { FormHelper } from './FormHelper';
+import { FormError } from './FormError';
+import { FormDescription } from './FormDescription';
 
 // ============================================================================
 // Form Context & Types
@@ -268,16 +276,24 @@ Form.displayName = 'Form';
 // Form.Item Component
 // ============================================================================
 
-export interface FormItemProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FormItemProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+  /**
+   * Form item content (for composable API)
+   */
+  children?: React.ReactNode;
   /** Field name for form binding */
   name?: string;
-  /** Label text */
+  /** Label text (for declarative API)
+   * @deprecated Use FormLabel component instead
+   */
   label?: React.ReactNode;
   /** Whether the field is required */
   required?: boolean;
   /** Validation rules */
   rules?: FormRule[];
-  /** Help text shown below the field */
+  /** Help text shown below the field (for declarative API)
+   * @deprecated Use FormHelper component instead
+   */
   help?: React.ReactNode;
   /** Extra content shown below the field */
   extra?: React.ReactNode;
@@ -287,16 +303,48 @@ export interface FormItemProps extends React.HTMLAttributes<HTMLDivElement> {
   labelCol?: number;
   /** Wrapper column span override */
   wrapperCol?: number;
-  /** Custom class name */
-  className?: string;
-  /** Form item children */
-  children?: React.ReactNode;
 }
 
+/**
+ * FormItem Component
+ * 
+ * A versatile form item component for organizing form fields.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Form>
+ *   <FormItem name="email">
+ *     <FormLabel mandatory>Email</FormLabel>
+ *     <FormControl>
+ *       <Input type="email" />
+ *     </FormControl>
+ *     <FormError>Invalid email</FormError>
+ *     <FormHelper>We'll never share your email</FormHelper>
+ *   </FormItem>
+ * </Form>
+ * 
+ * // Declarative API (deprecated)
+ * <FormItem name="email" label="Email" required>
+ *   <Input type="email" />
+ * </FormItem>
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (FormLabel, FormControl, FormError, etc.) support `asChild`
+ * - Automatically handles form field binding and validation
+ * - Accessible: includes ARIA attributes and proper label associations
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
 export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
   ({
     className,
     name,
+    children,
     label,
     required,
     rules = [],
@@ -305,9 +353,58 @@ export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
     noLabel = false,
     labelCol: itemLabelCol,
     wrapperCol: itemWrapperCol,
-    children,
+    asChild,
     ...props
   }, ref) => {
+    // Check if using composable API (has children with Form sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+      child?.type?.displayName?.startsWith('Form')
+    );
+    
+    // If using composable API, render composable structure
+    if (hasComposableChildren) {
+      // Show deprecation warning if using old props with composable API
+      if (process.env.NODE_ENV !== 'production' && (label || help)) {
+        console.warn(
+          'FormItem: Using deprecated props (label, help) with composable API. ' +
+          'Please use FormLabel, FormControl, FormError, FormHelper components instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      }
+      
+      const context = useContext(FormContext);
+      const layout = context?.layout || 'vertical';
+      const labelCol = itemLabelCol ?? context?.labelCol ?? 8;
+      const wrapperCol = itemWrapperCol ?? context?.wrapperCol ?? 16;
+      
+      const containerClasses = cn(
+        'w-full',
+        layout === 'horizontal' && 'flex items-start gap-[var(--spacing-x4)]',
+        layout === 'inline' && 'flex items-center gap-[var(--spacing-x2)]',
+        layout === 'vertical' && 'flex flex-col gap-[var(--spacing-x2)]',
+        className
+      );
+      
+      const Comp = asChild ? Slot : 'div';
+      return (
+        <Comp
+          ref={ref}
+          className={containerClasses}
+          {...props}
+        >
+          {children}
+        </Comp>
+      );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production' && (label || help)) {
+      console.warn(
+        'FormItem: Declarative API (label, help props) is deprecated. ' +
+        'Please migrate to composable API using FormLabel, FormControl, FormError, FormHelper components. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
     const context = useContext(FormContext);
     const layout = context?.layout || 'vertical';
     const labelCol = itemLabelCol ?? context?.labelCol ?? 8;
@@ -386,43 +483,37 @@ export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
       layout === 'horizontal' && `w-[${(wrapperCol / 24) * 100}%]`,
     );
 
+    const Comp = asChild ? Slot : 'div';
     return (
-      <div
+      <Comp
         ref={ref}
         className={containerClasses}
         {...props}
       >
         {!noLabel && label && (
-          <div className={labelClasses}>
-            <Label mandatory={required}>
-              {label}
-            </Label>
-          </div>
+          <FormLabel mandatory={required}>
+            {label}
+          </FormLabel>
         )}
-        <div className={wrapperClasses}>
+        <FormControl>
           {enhancedChildren}
           {showError && (
-            <Typography
-              id={name ? `${name}-error` : undefined}
-              variant="body-secondary-regular"
-              className="text-[var(--color-critical)]"
-              role="alert"
-            >
+            <FormError id={name ? `${name}-error` : undefined}>
               {error}
-            </Typography>
+            </FormError>
           )}
           {help && !showError && (
-            <Typography variant="body-secondary-regular" className="text-[var(--color-tertiary)]">
+            <FormHelper>
               {help}
-            </Typography>
+            </FormHelper>
           )}
           {extra && (
             <div className="mt-[var(--spacing-x1)]">
               {extra}
             </div>
           )}
-        </div>
-      </div>
+        </FormControl>
+      </Comp>
     );
   }
 );

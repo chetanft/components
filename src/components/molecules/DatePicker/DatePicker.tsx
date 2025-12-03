@@ -6,6 +6,7 @@ import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import { Calendar } from './Calendar';
+import { DatePickerProvider } from './DatePickerContext';
 import {
   startOfWeek,
   endOfWeek,
@@ -179,7 +180,8 @@ DatePickerField.displayName = "DatePickerField";
  */
 export interface DatePickerProps extends VariantProps<typeof datePickerFieldVariants> {
   /**
-   * Label text displayed above or beside the input
+   * Label text displayed above or beside the input (for declarative API)
+   * @deprecated Use Label component with composable API
    */
   label?: string;
   
@@ -260,9 +262,14 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
   
   /**
    * Include dropdown calendar picker
-   * @default true
+   * @default false
    */
   includeDropdown?: boolean;
+  
+  /**
+   * DatePicker content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
 /**
@@ -314,7 +321,8 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   onEndChange,
   size = 'm',
   className,
-  includeDropdown = false
+  includeDropdown = false,
+  children
 }, ref) => {
   // Map DatePicker legacy size to unified component styles
   const componentSize: ComponentSize =
@@ -826,8 +834,100 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     if (startDate) return formatDateForDisplay(startDate);
     return inputValue;
   };
+  
+  // Check if using composable API (has children with DatePicker sub-components)
+  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+      child?.type?.displayName?.startsWith('DatePicker')
+  );
+  
+  // Create context value
+  const contextValue = {
+    isOpen,
+    setIsOpen,
+    value,
+    setValue: (newValue: string) => {
+      onChange?.(newValue);
+    },
+    startValue,
+    setStartValue: (newValue: string) => {
+      onStartChange?.(newValue);
+    },
+    endValue,
+    setEndValue: (newValue: string) => {
+      onEndChange?.(newValue);
+    },
+    range: range || false,
+    disabled: disabled || false,
+    error: error || false,
+    size,
+    placeholder,
+    includeDropdown,
+    onChange,
+    onStartChange,
+    onEndChange,
+    containerRef,
+    calendarRef,
+    calendarPosition,
+    setCalendarPosition,
+    portalContainer,
+    setPortalContainer,
+    inputValue,
+    setInputValue,
+    startInputValue,
+    setStartInputValue,
+    endInputValue,
+    setEndInputValue,
+    inputError,
+    setInputError,
+    isTyping,
+    setIsTyping,
+    formatDateForDisplay,
+    parseDateInput,
+    handleDateChange,
+    handleApply,
+    handleCancel,
+    handleClear,
+  };
+  
+  // If using composable API, render with context provider
+  if (hasComposableChildren) {
+      if (process.env.NODE_ENV !== 'production' && label) {
+          console.warn(
+              'DatePicker: Using deprecated props (label) with composable API. ' +
+              'Please use Label component instead. ' +
+              'See migration guide: docs/migrations/composable-migration.md'
+          );
+      }
+      
+      return (
+          <DatePickerProvider value={contextValue}>
+              <div className={cn(
+                  "flex",
+                  labelPosition === 'left' ? "flex-row items-center gap-4" : "flex-col items-start gap-2",
+                  className
+              )}>
+                  {label && (
+                      <Label>
+                          {label}
+                      </Label>
+                  )}
+                  {children}
+              </div>
+          </DatePickerProvider>
+      );
+  }
+  
+  // Otherwise use declarative API (deprecated)
+  if (process.env.NODE_ENV !== 'production' && label) {
+      console.warn(
+          'DatePicker: Declarative API (label prop) is deprecated. ' +
+          'Please migrate to composable API using DatePickerTrigger, DatePickerInput, and DatePickerCalendar components. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+      );
+  }
 
   return (
+      <DatePickerProvider value={contextValue}>
     <div className={cn(
       "flex",
       labelPosition === 'left' ? "flex-row items-center gap-4" : "flex-col items-start gap-2",
@@ -970,6 +1070,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
         )}
       </div>
     </div>
+      </DatePickerProvider>
   );
 });
 

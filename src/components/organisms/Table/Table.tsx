@@ -98,6 +98,35 @@ export interface TableRow {
  * 
  * @example
  * ```tsx
+ * // Composable API (recommended)
+ * <Table>
+ *   <TableCaption>Monthly Sales Data</TableCaption>
+ *   <TableHeader>
+ *     <TableRow>
+ *       <TableHead>Name</TableHead>
+ *       <TableHead sortable>Email</TableHead>
+ *       <TableHead>Status</TableHead>
+ *     </TableRow>
+ *   </TableHeader>
+ *   <TableBody>
+ *     <TableRow>
+ *       <TableCell>John Doe</TableCell>
+ *       <TableCell>john@example.com</TableCell>
+ *       <TableCell>
+ *         <Badge variant="success">Active</Badge>
+ *       </TableCell>
+ *     </TableRow>
+ *   </TableBody>
+ *   <TableFooter>
+ *     <TableRow>
+ *       <TableCell colSpan={3} className="text-right">
+ *         Total: $1,234.56
+ *       </TableCell>
+ *     </TableRow>
+ *   </TableFooter>
+ * </Table>
+ * 
+ * // Declarative API (deprecated)
  * const columns = [
  *   { key: 'name', title: 'Name', sortable: true },
  *   { key: 'email', title: 'Email' },
@@ -118,15 +147,17 @@ export interface TableRow {
  * />
  * ```
  */
-export interface TableProps<T extends TableRow = TableRow> {
+export interface TableProps<T extends TableRow = TableRow> extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Column definitions (for declarative API)
+   * @deprecated Use composable API with TableHeader, TableBody, TableRow, TableCell instead
    * Required when using declarative API (columns + data)
    */
   columns?: TableColumn<T>[];
   
   /**
    * Row data array (for declarative API)
+   * @deprecated Use composable API with TableHeader, TableBody, TableRow, TableCell instead
    * Each row must have an `id` property
    * Required when using declarative API (columns + data)
    */
@@ -135,6 +166,22 @@ export interface TableProps<T extends TableRow = TableRow> {
   /**
    * Table content (for composable API)
    * Use TableHeader, TableBody, TableRow, TableCell components
+   * 
+   * @example
+   * ```tsx
+   * <Table>
+   *   <TableHeader>
+   *     <TableRow>
+   *       <TableHead>Name</TableHead>
+   *     </TableRow>
+   *   </TableHeader>
+   *   <TableBody>
+   *     <TableRow>
+   *       <TableCell>John Doe</TableCell>
+   *     </TableRow>
+   *   </TableBody>
+   * </Table>
+   * ```
    */
   children?: React.ReactNode;
   
@@ -300,14 +347,55 @@ const ColumnCell = ({
   </div>
 );
 
-// Main Table Component
-export const Table = <T extends TableRow = TableRow>({
+/**
+ * Table Component
+ * 
+ * A composable table component that provides a flexible, Shadcn-style API.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended) - Full control and flexibility
+ * <Table>
+ *   <TableCaption>Employee Directory</TableCaption>
+ *   <TableHeader>
+ *     <TableRow>
+ *       <TableHead>Name</TableHead>
+ *       <TableHead sortable>Email</TableHead>
+ *       <TableHead>Department</TableHead>
+ *     </TableRow>
+ *   </TableHeader>
+ *   <TableBody>
+ *     <TableRow>
+ *       <TableCell>John Doe</TableCell>
+ *       <TableCell>john@example.com</TableCell>
+ *       <TableCell>
+ *         <Badge variant="info">Engineering</Badge>
+ *       </TableCell>
+ *     </TableRow>
+ *   </TableBody>
+ * </Table>
+ * 
+ * // Declarative API (deprecated) - Simpler but less flexible
+ * <Table columns={columns} data={data} />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (TableHeader, TableBody, TableRow, TableCell, etc.) support `asChild`
+ * - Use design tokens for consistent styling
+ * - Accessible: maintains proper table semantics and ARIA attributes
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
+export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(<T extends TableRow = TableRow>({
   columns,
   data,
   variant = 'primary',
   layout = 'default',
   selectable = false,
-  selectedRows = [],
+  selectedRows = [] as (string | number)[],
   onSelectionChange,
   onSort,
   sortColumn,
@@ -324,12 +412,17 @@ export const Table = <T extends TableRow = TableRow>({
   striped = true,
   reorderable = false,
   onColumnReorder,
-  children
-}: TableProps<T>) => {
+  children,
+  ...props
+}, ref) => {
   // If children are provided, use composable API
   if (children) {
     return (
-      <div className={cn("border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden bg-[var(--bg-primary)]", className)}>
+      <div 
+        ref={ref}
+        className={cn("border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden bg-[var(--bg-primary)]", className)}
+        {...props}
+      >
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             {caption && (
@@ -342,10 +435,19 @@ export const Table = <T extends TableRow = TableRow>({
     );
   }
 
-  // Otherwise use declarative API
+  // Otherwise use declarative API (deprecated)
   if (!columns || !data) {
     console.warn('Table: Either provide children (composable API) or columns + data (declarative API)');
     return null;
+  }
+
+  // Show deprecation warning for declarative API
+  if (process.env.NODE_ENV !== 'production') {
+    console.warn(
+      'Table: Declarative API (columns + data props) is deprecated. ' +
+      'Please migrate to composable API using TableHeader, TableBody, TableRow, and TableCell components. ' +
+      'See migration guide: docs/migrations/composable-migration.md'
+    );
   }
 
   // Defensive programming: ensure all rows have valid IDs
@@ -478,7 +580,11 @@ export const Table = <T extends TableRow = TableRow>({
 
   // Default layout rendering (standard table)
   return (
-    <div className={cn("border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden bg-[var(--bg-primary)]", className)}>
+    <div 
+      ref={ref}
+      className={cn("border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden bg-[var(--bg-primary)]", className)}
+      {...props}
+    >
       <div className="overflow-x-auto">
         <table className="w-full border-collapse" aria-rowcount={data.length}>
           {caption && (
@@ -513,27 +619,32 @@ export const Table = <T extends TableRow = TableRow>({
                 </td>
               </tr>
             ) : (
-              validatedData.map((row, index) => (
-                <TableRowComponent
-                  key={row.id}
-                  row={row}
-                  columns={columns}
-                  index={index}
-                  variant={variant}
-                  selectable={selectable}
-                  selected={selectedRows.includes(row.id)}
-                  onSelectionChange={handleRowSelectionChange}
-                  rowAccessory={rowAccessory}
-                  rowActions={rowActions}
-                  cellSize={cellSize}
-                />
-              ))
+              validatedData.map((row, index) => {
+                const rowId: string | number = row.id;
+                const isSelected = (selectedRows as (string | number)[]).includes(rowId);
+                return (
+                  <TableRowComponent<T>
+                    key={String(rowId)}
+                    row={row}
+                    columns={columns}
+                    index={index}
+                    {...({ variant } as any)}
+                    selectable={selectable}
+                    selected={isSelected}
+                    onSelectionChange={handleRowSelectionChange}
+                    rowAccessory={rowAccessory}
+                    rowActions={rowActions}
+                    cellSize={cellSize}
+                  />
+                );
+              })
             )}
           </tbody>
         </table>
       </div>
     </div>
   );
-};
+}) as <T extends TableRow = TableRow>(props: TableProps<T> & { ref?: React.Ref<HTMLDivElement> }) => React.ReactElement;
 
-Table.displayName = 'Table'; 
+// Assign displayName after the cast
+Object.assign(Table, { displayName: 'Table' }); 

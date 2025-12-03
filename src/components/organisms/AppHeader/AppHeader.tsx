@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 import { UserProfile } from '../UserProfile/UserProfile';
 import { UserProfileDropdown } from '../UserProfileDropdown/UserProfileDropdown';
 import { Rocket, Bell, ThreeDotMenu } from '../../atoms/Icons';
@@ -18,7 +19,7 @@ export interface User {
 export type AppHeaderSize = 'xl' | 'lg' | 'md' | 'Default';
 export type AppHeaderDevice = 'Desktop' | 'Mobile';
 
-export interface AppHeaderProps {
+export interface AppHeaderProps extends ComposableProps<'header'> {
   size?: AppHeaderSize;
   device?: AppHeaderDevice;
   user?: User;
@@ -30,7 +31,28 @@ export interface AppHeaderProps {
   leftAddon?: () => React.ReactNode;
 }
 
-export const AppHeader: React.FC<AppHeaderProps> = ({
+/**
+ * AppHeader Component
+ *
+ * A header component for application navigation and user profile.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <AppHeader
+ *   size="xl"
+ *   device="Desktop"
+ *   user={user}
+ *   onNotificationClick={handleNotification}
+ * />
+ * ```
+ *
+ * @remarks
+ * - Wraps the HTML `<header>` element by default.
+ * - Supports `asChild` prop to merge props with a custom child element.
+ */
+export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>(({
   size = 'xl',
   device = 'Desktop',
   user = {
@@ -48,7 +70,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   onUserMenuItemClick = () => { },
   className,
   leftAddon,
-}) => {
+  asChild,
+  ...props
+}, ref) => {
+  const Comp = asChild ? Slot : 'header';
   const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
   const userProfileRef = useRef<HTMLDivElement>(null);
 
@@ -125,11 +150,13 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   // Size xl, Device Desktop (default)
   if (size === 'xl' && device === 'Desktop') {
     return (
-      <header
+      <Comp
+        ref={ref}
         className={cn(
           "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
           className
         )}
+        {...props}
       >
         {/* Logo Section */}
         {/* Logo Section */}
@@ -193,18 +220,20 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           {/* User Profile */}
           {renderUserProfileSection()}
         </div>
-      </header>
+      </Comp>
     );
   }
 
   // Size lg, Device Desktop
   if (size === 'lg' && device === 'Desktop') {
     return (
-      <header
+      <Comp
+        ref={ref}
         className={cn(
           "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-4 py-[13px] w-full max-w-[1440px] h-16",
           className
         )}
+        {...props}
       >
         {/* Logo Section */}
         <div style={{
@@ -277,18 +306,20 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           {/* User Profile */}
           {renderUserProfileSection()}
         </div>
-      </header>
+      </Comp>
     );
   }
 
   // Size md, Device Desktop
   if (size === 'md' && device === 'Desktop') {
     return (
-      <header
+      <Comp
+        ref={ref}
         className={cn(
           "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-4 py-[13px] w-full max-w-[1200px] h-12",
           className
         )}
+        {...props}
       >
         {/* Logo Section */}
         <div style={{
@@ -371,18 +402,20 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           {/* User Profile */}
           {renderUserProfileSection({ triggerClassName: 'h-[36px]' })}
         </div>
-      </header>
+      </Comp>
     );
   }
 
   // Size Default, Device Mobile
   if (size === 'Default' && device === 'Mobile') {
     return (
-      <header
+      <Comp
+        ref={ref}
         className={cn(
           "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center p-3 w-full max-w-[360px]",
           className
         )}
+        {...props}
       >
         {/* Logo Section */}
         {/* Logo Section */}
@@ -429,17 +462,19 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           {/* User Profile - Mobile version */}
           {renderUserProfileSection({ companyName: false })}
         </div>
-      </header>
+      </Comp>
     );
   }
 
   // Fallback to xl Desktop
   return (
-    <header
+    <Comp
+      ref={ref}
       className={cn(
         "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
         className
       )}
+      {...props}
     >
       {/* Logo Section */}
       {/* Logo Section */}
@@ -499,8 +534,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
         {/* User Profile */}
         {renderUserProfileSection()}
       </div>
-    </header>
+    </Comp>
   );
-};
+});
 
 AppHeader.displayName = 'AppHeader'; 

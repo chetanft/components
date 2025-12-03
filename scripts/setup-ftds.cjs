@@ -202,6 +202,7 @@ function updateTailwindConfig() {
 
 function verifySetup() {
   log('\n🔍 Verifying setup...', 'cyan');
+  let allGood = true;
 
   // Check if package is installed
   const nodeModulesPath = path.join(projectRoot, 'node_modules', 'ft-design-system');
@@ -216,11 +217,95 @@ function verifySetup() {
   const cssPath = path.join(nodeModulesPath, 'dist', 'styles.css');
   if (!fs.existsSync(cssPath)) {
     log('   ⚠️  CSS file not found. Package may need to be rebuilt.', 'yellow');
+    allGood = false;
   } else {
     log('   ✅ CSS file found', 'green');
   }
 
-  return true;
+  // Check CSS import
+  const framework = detectFramework();
+  if (framework && framework !== 'unknown') {
+    const rootFile = findRootFile(framework);
+    if (rootFile) {
+      const content = fs.readFileSync(rootFile, 'utf-8');
+      if (content.includes("ft-design-system/styles.css") || 
+          content.includes("ft-design-system/dist/styles.css")) {
+        log(`   ✅ CSS import found in ${path.relative(projectRoot, rootFile)}`, 'green');
+      } else {
+        log(`   ❌ CSS import not found in ${path.relative(projectRoot, rootFile)}`, 'red');
+        log('   💡 Run: npx ft-design-system setup', 'yellow');
+        allGood = false;
+      }
+    }
+  }
+
+  // Check Tailwind config
+  const configFiles = [
+    'tailwind.config.js',
+    'tailwind.config.ts',
+    'tailwind.config.cjs',
+    'tailwind.config.mjs',
+  ];
+  
+  let configPath = null;
+  for (const file of configFiles) {
+    const fullPath = path.join(projectRoot, file);
+    if (fs.existsSync(fullPath)) {
+      configPath = fullPath;
+      break;
+    }
+  }
+
+  if (configPath) {
+    const content = fs.readFileSync(configPath, 'utf-8');
+    if (content.includes('ft-design-system')) {
+      log(`   ✅ Tailwind config includes FT Design System`, 'green');
+    } else {
+      log(`   ❌ Tailwind config missing FT Design System path`, 'red');
+      log('   💡 Run: npx ft-design-system update', 'yellow');
+      allGood = false;
+    }
+  } else {
+    log('   ⚠️  Tailwind config not found', 'yellow');
+    log('   💡 You may need to create one if using Tailwind', 'cyan');
+  }
+
+  return allGood;
+}
+
+function updateConfig() {
+  log('\n🔄 Updating FT Design System configuration...', 'cyan');
+  
+  // Check if package is installed
+  const nodeModulesPath = path.join(projectRoot, 'node_modules', 'ft-design-system');
+  if (!fs.existsSync(nodeModulesPath)) {
+    log('   ❌ ft-design-system package not found in node_modules', 'red');
+    log('   💡 Run: npm install ft-design-system', 'yellow');
+    return false;
+  }
+
+  // Update Tailwind config
+  log('\n1️⃣ Updating Tailwind config...', 'cyan');
+  const tailwindUpdated = updateTailwindConfig();
+
+  // Check and update CSS import if needed
+  log('\n2️⃣ Checking CSS import...', 'cyan');
+  const framework = detectFramework();
+  if (framework && framework !== 'unknown') {
+    const rootFile = findRootFile(framework);
+    if (rootFile) {
+      injectCSSImport(rootFile);
+    } else {
+      log('   ⚠️  Could not find root file for CSS import', 'yellow');
+    }
+  } else {
+    log('   ⚠️  Could not detect framework for CSS import', 'yellow');
+  }
+
+  log('\n✅ Configuration update complete!', 'green');
+  log('💡 Restart your dev server if it\'s running', 'cyan');
+  
+  return tailwindUpdated;
 }
 
 function createReadlineInterface() {
@@ -314,9 +399,154 @@ async function main() {
   log('\n💡 For more info, see: docs/INTEGRATION_GUIDE.md\n', 'cyan');
 }
 
-// Run setup
-main().catch(error => {
-  log(`\n❌ Error: ${error.message}`, 'red');
+function showHelp() {
+  console.log('\n📖 FT Design System CLI');
+  console.log('======================\n');
+  console.log('Usage: npx ft-design-system <command>\n');
+  console.log('Commands:');
+  console.log('  setup   Set up FT Design System in your project (default)');
+  console.log('  verify  Verify that FT Design System is properly configured');
+  console.log('  update  Update Tailwind config after package updates');
+  console.log('  init    Scaffold a new project with FT Design System');
+  console.log('  help    Show this help message\n');
+  console.log('Examples:');
+  console.log('  npx ft-design-system setup');
+  console.log('  npx ft-design-system verify');
+  console.log('  npx ft-design-system update');
+  console.log('  npx ft-design-system init');
+  console.log('  npx ftds setup  (shorter alias)\n');
+}
+
+async function initProject() {
+  log('\n🚀 FT Design System Project Scaffold', 'bold');
+  log('====================================\n', 'blue');
+
+  // Check if directory is empty
+  const files = fs.readdirSync(projectRoot);
+  if (files.length > 0 && !files.includes('package.json')) {
+    log('⚠️  Directory is not empty. Please run init in an empty directory.', 'yellow');
+    process.exit(1);
+  }
+
+  const rl = createReadlineInterface();
+  
+  log('Select a framework:', 'cyan');
+  log('  1. Next.js (App Router)', 'white');
+  log('  2. Next.js (Pages Router)', 'white');
+  log('  3. Vite + React', 'white');
+  log('  4. Create React App', 'white');
+  
+  const choice = await askQuestion(rl, '\nEnter your choice (1-4): ');
+  rl.close();
+
+  const templateMap = {
+    '1': 'nextjs-app-router',
+    '2': 'nextjs-pages-router',
+    '3': 'vite-react',
+    '4': 'create-react-app'
+  };
+
+  const templateName = templateMap[choice];
+  if (!templateName) {
+    log('❌ Invalid choice', 'red');
+    process.exit(1);
+  }
+
+  // Try to find templates in multiple locations
+  // 1. In node_modules (when installed via npm)
+  let templatePath = path.join(projectRoot, 'node_modules', 'ft-design-system', 'templates', templateName);
+  
+  // 2. If not found, try relative to script location (for development)
+  if (!fs.existsSync(templatePath)) {
+    const scriptDir = __dirname;
+    templatePath = path.join(scriptDir, '..', 'templates', templateName);
+  }
+  
+  // 3. Fallback: try relative to current directory
+  if (!fs.existsSync(templatePath)) {
+    const relativePath = path.join(projectRoot, '..', '..', 'templates', templateName);
+    if (fs.existsSync(relativePath)) {
+      templatePath = relativePath;
+    }
+  }
+  if (!fs.existsSync(templatePath)) {
+    log(`❌ Template not found: ${templateName}`, 'red');
+    log('💡 Templates should be in templates/ directory', 'yellow');
+    process.exit(1);
+  }
+
+  log(`\n📦 Copying template files for ${templateName}...`, 'cyan');
+  
+  // Copy template files
+  function copyRecursive(src, dest) {
+    const entries = fs.readdirSync(src, { withFileTypes: true });
+    
+    for (const entry of entries) {
+      const srcPath = path.join(src, entry.name);
+      const destPath = path.join(dest, entry.name);
+      
+      if (entry.isDirectory()) {
+        fs.mkdirSync(destPath, { recursive: true });
+        copyRecursive(srcPath, destPath);
+      } else {
+        // Skip README.md from template
+        if (entry.name === 'README.md') {
+          continue;
+        }
+        fs.copyFileSync(srcPath, destPath);
+      }
+    }
+  }
+
+  try {
+    copyRecursive(templatePath, projectRoot);
+    log('   ✅ Template files copied', 'green');
+  } catch (error) {
+    log(`   ❌ Error copying files: ${error.message}`, 'red');
+    process.exit(1);
+  }
+
+  log('\n📋 Next steps:', 'cyan');
+  log('   1. Install dependencies: npm install', 'white');
+  log('   2. Start development: npm run dev (or npm start for CRA)', 'white');
+  log('   3. Import components: import { Button } from "ft-design-system";', 'white');
+  log('\n✅ Project scaffolded successfully!', 'green');
+  log('💡 See templates/README.md for more information\n', 'cyan');
+}
+
+// Parse command from arguments
+const command = process.argv[2] || 'setup';
+
+// Route to appropriate command
+if (command === 'setup') {
+  main().catch(error => {
+    log(`\n❌ Error: ${error.message}`, 'red');
+    process.exit(1);
+  });
+} else if (command === 'verify') {
+  const verified = verifySetup();
+  if (verified) {
+    log('\n✅ FT Design System is properly configured!', 'green');
+    process.exit(0);
+  } else {
+    log('\n⚠️  Setup verification found issues. Please check your configuration.', 'yellow');
+    log('💡 Run "npx ft-design-system setup" to configure automatically.', 'cyan');
+    process.exit(1);
+  }
+} else if (command === 'update') {
+  const updated = updateConfig();
+  process.exit(updated ? 0 : 1);
+} else if (command === 'init') {
+  initProject().catch(error => {
+    log(`\n❌ Error: ${error.message}`, 'red');
+    process.exit(1);
+  });
+} else if (command === 'help' || command === '--help' || command === '-h') {
+  showHelp();
+  process.exit(0);
+} else {
+  log(`\n❌ Unknown command: ${command}`, 'red');
+  showHelp();
   process.exit(1);
-});
+}
 

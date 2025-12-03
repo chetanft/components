@@ -26,6 +26,8 @@ npm install ft-design-system
 ```bash
 # After installing the package, run:
 npx ft-design-system setup
+# or use the shorter alias:
+npx ftds setup
 ```
 
 The setup script will:
@@ -33,6 +35,14 @@ The setup script will:
 - ✅ Automatically inject CSS import in the correct location
 - ✅ Update Tailwind config with FT DS content paths
 - ✅ Verify setup worked correctly
+
+**Available commands:**
+- `npx ft-design-system setup` - Set up FT Design System in existing project (default)
+- `npx ft-design-system verify` - Verify your setup is correct
+- `npx ft-design-system update` - Update Tailwind config after package updates
+- `npx ft-design-system init` - Scaffold a new project with FT Design System
+- `npx ft-design-system help` - Show help message
+- `npx ftds <command>` - Shorter alias for all commands
 
 **Alternative:** Use pre-configured starter templates in [`templates/`](./templates/) directory.
 

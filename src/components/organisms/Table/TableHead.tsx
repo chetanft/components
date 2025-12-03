@@ -2,10 +2,16 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 import { TableHeaderItem } from './TableHeaderItem';
 import type { HeaderColorVariant, HeaderSize } from './TableHeaderItem';
 
-export interface TableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
+/**
+ * TableHead component props
+ * 
+ * @public
+ */
+export interface TableHeadProps extends Omit<ComposableProps<'th'>, 'children'> {
   /**
    * Header color variant
    * @default 'dark25'
@@ -33,15 +39,40 @@ export interface TableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElem
    * Callback when header is clicked (for sorting)
    */
   onSort?: () => void;
+  
+  /**
+   * Header cell content
+   */
+  children: React.ReactNode;
 }
 
 /**
  * TableHead Component
  * 
- * Shadcn-compatible table header cell component.
- * Wraps TableHeaderItem for consistent styling.
+ * A composable table header cell component that wraps the `<th>` element.
+ * Used within TableHeader and TableRow to create column headers.
  * 
  * @public
+ * 
+ * @example
+ * ```tsx
+ * <TableHeader>
+ *   <TableRow>
+ *     <TableHead>Name</TableHead>
+ *     <TableHead sortable sortDirection="asc" onSort={() => console.log('sorted')}>
+ *       Email
+ *     </TableHead>
+ *     <TableHead>Status</TableHead>
+ *   </TableRow>
+ * </TableHeader>
+ * ```
+ * 
+ * @remarks
+ * - Wraps the HTML `<th>` element
+ * - Supports `asChild` prop for custom element composition
+ * - Automatically handles sorting UI when sortable is true
+ * - Use with TableHeader and TableRow for proper table structure
+ * - Accessible: maintains proper header cell semantics
  */
 export const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
   ({
@@ -52,8 +83,22 @@ export const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
     sortable = false,
     sortDirection = null,
     onSort,
+    asChild,
     ...props
   }, ref) => {
+    if (asChild) {
+      const Comp = Slot;
+      return (
+        <Comp
+          ref={ref}
+          className={cn(className)}
+          {...props}
+        >
+          {children}
+        </Comp>
+      );
+    }
+    
     return (
       <TableHeaderItem
         colorVariant={colorVariant}

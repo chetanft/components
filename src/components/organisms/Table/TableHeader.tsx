@@ -2,13 +2,19 @@
 
 import React, { useState, useCallback, useRef } from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 import { TableHeaderItem } from './TableHeaderItem';
 import type { TableRow, TableColumn, SortDirection, TableVariant } from './Table';
 
 const CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x9)*2)]';
 const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x10)*2+var(--spacing-x5))]';
 
-export interface TableHeaderProps<T extends TableRow = TableRow> {
+/**
+ * TableHeader component props
+ * 
+ * @public
+ */
+export interface TableHeaderProps<T extends TableRow = TableRow> extends Omit<ComposableProps<'thead'>, 'children'> {
   columns: TableColumn<T>[];
   variant?: TableVariant;
   selectable?: boolean;
@@ -23,8 +29,45 @@ export interface TableHeaderProps<T extends TableRow = TableRow> {
   cellSize?: 'md' | 'lg' | 'xl';
   reorderable?: boolean;
   onColumnReorder?: (columns: TableColumn<T>[]) => void;
+  
+  /**
+   * Header content (for composable API)
+   * Use TableRow and TableHead components
+   */
+  children?: React.ReactNode;
 }
 
+/**
+ * TableHeader Component
+ * 
+ * A composable table header component that wraps the `<thead>` element.
+ * Can be used in two ways:
+ * 1. Composable API: Provide children with TableRow and TableHead components
+ * 2. Declarative API: Provide columns prop (deprecated)
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <TableHeader>
+ *   <TableRow>
+ *     <TableHead>Name</TableHead>
+ *     <TableHead sortable>Email</TableHead>
+ *     <TableHead>Status</TableHead>
+ *   </TableRow>
+ * </TableHeader>
+ * 
+ * // Declarative API (deprecated)
+ * <TableHeader columns={columns} onSort={handleSort} />
+ * ```
+ * 
+ * @remarks
+ * - Wraps the HTML `<thead>` element
+ * - Supports `asChild` prop for custom element composition
+ * - When using declarative API, automatically handles sorting and selection
+ * - Use composable API for maximum flexibility and control
+ */
 export const TableHeader = <T extends TableRow = TableRow>({
   columns,
   variant = 'primary',
@@ -39,8 +82,21 @@ export const TableHeader = <T extends TableRow = TableRow>({
   rowActionsLabel,
   cellSize = 'md',
   reorderable = false,
-  onColumnReorder
+  onColumnReorder,
+  children,
+  className,
+  asChild,
+  ...props
 }: TableHeaderProps<T>) => {
+  // If children are provided, use composable API
+  if (children) {
+    const Comp = asChild ? Slot : 'thead';
+    return (
+      <Comp className={cn(className)} {...props}>
+        {children}
+      </Comp>
+    );
+  }
   const [draggedColumnIndex, setDraggedColumnIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
   const dragStartIndexRef = useRef<number | null>(null);
@@ -123,8 +179,10 @@ export const TableHeader = <T extends TableRow = TableRow>({
   // Header color variant based on table variant - exact Figma mapping
   const headerColorVariant = variant === 'primary' ? 'dark25' : 'bg';
 
+  const Comp = asChild ? Slot : 'thead';
+  
   return (
-    <thead>
+    <Comp className={cn(className)} {...props}>
       <tr>
         {selectable && (
           <TableHeaderItem
@@ -172,7 +230,7 @@ export const TableHeader = <T extends TableRow = TableRow>({
           </TableHeaderItem>
         )}
       </tr>
-    </thead>
+    </Comp>
   );
 };
 

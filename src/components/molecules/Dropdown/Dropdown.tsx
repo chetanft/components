@@ -7,6 +7,9 @@ import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import type { SegmentedTabItem } from '../SegmentedTabs';
 import { DropdownMenu, type DropdownMenuOption } from '../DropdownMenu';
+import { DropdownProvider } from './DropdownContext';
+import { DropdownTrigger } from './DropdownTrigger';
+import { DropdownContent } from './DropdownContent';
 
 // Unified dropdown field variants using the design system
 const dropdownFieldVariants = cva(
@@ -53,31 +56,104 @@ export interface DropdownOption {
 }
 
 export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants> {
-  options: DropdownOption[];
+  /**
+   * Options array (for declarative API)
+   * @deprecated Use DropdownContent with DropdownItem components instead
+   */
+  options?: DropdownOption[];
+  /**
+   * Selected value
+   */
   value?: string | number;
+  /**
+   * Placeholder text
+   */
   placeholder?: string;
+  /**
+   * Component size
+   * @default 'md'
+   */
   size?: ComponentSize;
+  /**
+   * Component state
+   * @default 'default'
+   */
   state?: 'default' | 'error' | 'disabled';
+  /**
+   * Dropdown type
+   * @default 'normal'
+   */
   type?: 'normal' | 'search' | 'groups';
+  /**
+   * Additional CSS classes
+   */
   className?: string;
+  /**
+   * Change handler
+   */
   onChange?: (value: string | number) => void;
+  /**
+   * Search handler
+   */
   onSearch?: (query: string) => void;
+  /**
+   * Label text (for declarative API)
+   * @deprecated Use Label component with composable API
+   */
   label?: string;
+  /**
+   * Label mandatory indicator
+   */
   labelMandatory?: boolean;
+  /**
+   * Label optional indicator
+   */
   labelOptional?: boolean;
+  /**
+   * Label suffix icon
+   */
   labelSuffixIcon?: boolean;
+  /**
+   * Label icon
+   */
   labelIcon?: React.ReactNode;
+  /**
+   * Label position
+   * @default 'top'
+   */
   labelPosition?: 'top' | 'left';
+  /**
+   * Error message
+   */
   error?: string;
+  /**
+   * Helper text
+   */
   helperText?: string;
+  /**
+   * Required indicator
+   */
   required?: boolean;
   /**
    * @deprecated Use `onChange` instead. Will be removed in v3.0.0.
    */
   onSelect?: (value: string) => void;
+  /**
+   * Segments for segmented search
+   */
   segments?: SegmentedTabItem[];
+  /**
+   * Selected segment
+   */
   selectedSegment?: string;
+  /**
+   * Segment change handler
+   */
   onSegmentChange?: (value: string) => void;
+  /**
+   * Dropdown content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
 interface SizeStyles {
@@ -140,6 +216,37 @@ const sizeStylesMap: Record<ComponentSize, SizeStyles> = {
   },
 };
 
+/**
+ * Dropdown Component
+ * 
+ * A dropdown select component with menu popup.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Dropdown value={selectedValue} onChange={setValue}>
+ *   <DropdownTrigger />
+ *   <DropdownContent />
+ * </Dropdown>
+ * 
+ * // Declarative API (deprecated)
+ * <Dropdown
+ *   options={options}
+ *   value={selectedValue}
+ *   onChange={setValue}
+ *   placeholder="Select an option"
+ * />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (DropdownTrigger, DropdownContent) support `asChild`
+ * - Supports search, groups, and segmented tabs
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
 export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   (
     {
@@ -165,6 +272,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       segments,
       selectedSegment,
       onSegmentChange,
+      children,
       ...props
     },
     ref
@@ -258,6 +366,38 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       }
 
       onChange?.(optionValue);
+    };
+    
+    // Check if using composable API (has children with Dropdown sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+        child?.type?.displayName?.startsWith('Dropdown')
+    );
+    
+    // Create context value
+    const contextValue = {
+      isOpen,
+      setIsOpen,
+      value: selectedValue,
+      setValue: (newValue: string | number) => {
+        setSelectedValue(newValue);
+        onChange?.(newValue);
+      },
+      options,
+      placeholder,
+      size,
+      state,
+      type,
+      searchQuery,
+      setSearchQuery,
+      onChange,
+      onSearch: _onSearch,
+      dropdownRef,
+      menuRef,
+      menuPosition,
+      setMenuPosition,
+      portalContainer,
+      setPortalContainer,
+      handleSelect,
     };
 
     const renderField = () => {
@@ -393,32 +533,80 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       );
     };
 
+    // If using composable API, render with context provider
+    if (hasComposableChildren) {
+        if (process.env.NODE_ENV !== 'production' && (label || options.length > 0)) {
+            console.warn(
+                'Dropdown: Using deprecated props (label, options) with composable API. ' +
+                'Please use DropdownTrigger and DropdownContent components instead. ' +
+                'See migration guide: docs/migrations/composable-migration.md'
+            );
+        }
+        
+        return (
+            <DropdownProvider value={contextValue}>
+                <div className="w-full space-y-2">
+                    {label && (
+                        <div className={cn(
+                            "flex items-center",
+                            labelPosition === "left" && "mb-0 mr-[var(--spacing-x4)]"
+                        )}>
+                            <Label
+                                mandatory={labelMandatory}
+                                optional={labelOptional}
+                                suffixIcon={labelSuffixIcon}
+                                icon={labelIcon}
+                            >
+                                {label}
+                            </Label>
+                        </div>
+                    )}
+                    <div className="relative">
+                        {children}
+                        {(error || helperText) && renderHelperText()}
+                    </div>
+                </div>
+            </DropdownProvider>
+        );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production' && options.length > 0) {
+        console.warn(
+            'Dropdown: Declarative API (options prop) is deprecated. ' +
+            'Please migrate to composable API using DropdownTrigger and DropdownContent components. ' +
+            'See migration guide: docs/migrations/composable-migration.md'
+        );
+    }
+    
     return (
-      <div className="w-full space-y-2">
-        {/* Label */}
-        {label && (
-          <div className={cn(
-            "flex items-center",
-            labelPosition === "left" && "mb-0 mr-[var(--spacing-x4)]"
-          )}>
-            <Label
-              mandatory={labelMandatory}
-              optional={labelOptional}
-              suffixIcon={labelSuffixIcon}
-              icon={labelIcon}
-            >
-              {label}
-            </Label>
-          </div>
-        )}
+        <DropdownProvider value={contextValue}>
+            <div className="w-full space-y-2">
+                {/* Label */}
+                {label && (
+                    <div className={cn(
+                        "flex items-center",
+                        labelPosition === "left" && "mb-0 mr-[var(--spacing-x4)]"
+                    )}>
+                        <Label
+                            mandatory={labelMandatory}
+                            optional={labelOptional}
+                            suffixIcon={labelSuffixIcon}
+                            icon={labelIcon}
+                        >
+                            {label}
+                        </Label>
+                    </div>
+                )}
 
-        {/* Main Content */}
-        <div className="relative">
-          {renderField()}
-          {renderMenu()}
-          {(error || helperText) && renderHelperText()}
-        </div>
-      </div>
+                {/* Main Content */}
+                <div className="relative">
+                    {renderField()}
+                    {renderMenu()}
+                    {(error || helperText) && renderHelperText()}
+                </div>
+            </div>
+        </DropdownProvider>
     );
   }
 );

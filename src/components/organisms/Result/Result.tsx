@@ -4,10 +4,11 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
 import { Typography } from '../../atoms/Typography';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type ResultStatus = 'success' | 'error' | 'info' | 'warning' | '404' | '403' | '500';
 
-export interface ResultProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+export interface ResultProps extends ComposableProps<'div'> {
   /** Result status */
   status?: ResultStatus;
   /** Title text */
@@ -42,6 +43,7 @@ export const Result = React.forwardRef<HTMLDivElement, ResultProps>(
     extra,
     children,
     className,
+    asChild,
     ...props
   }, ref) => {
     // Status configurations
@@ -153,8 +155,9 @@ export const Result = React.forwardRef<HTMLDivElement, ResultProps>(
       );
     };
 
+    const Comp = asChild ? Slot : 'div';
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           "flex flex-col items-center justify-center",
@@ -202,7 +205,7 @@ export const Result = React.forwardRef<HTMLDivElement, ResultProps>(
             {children}
           </div>
         )}
-      </div>
+      </Comp>
     );
   }
 );

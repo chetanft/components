@@ -3,115 +3,145 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Typography } from '../Typography';
+import { SwitchProvider } from './SwitchContext';
+import { SwitchWrapper } from './SwitchWrapper';
+import { SwitchInput } from './SwitchInput';
+import { SwitchLabel } from './SwitchLabel';
+import { SwitchHelper } from './SwitchHelper';
+import { SwitchError } from './SwitchError';
 
 export interface SwitchProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  /**
+   * Switch content (for composable API)
+   */
+  children?: React.ReactNode;
+  /**
+   * Label text displayed next to switch (for declarative API)
+   * @deprecated Use SwitchLabel component instead
+   */
   label?: string;
+  /**
+   * Switch size
+   * @default 'md'
+   */
   size?: 'sm' | 'md';
+  /**
+   * Error state (for declarative API)
+   * @deprecated Use SwitchError component instead
+   */
+  error?: boolean;
+  /**
+   * Helper text (for declarative API)
+   * @deprecated Use SwitchHelper component instead
+   */
+  helperText?: string;
 }
 
+/**
+ * Switch Component
+ * 
+ * A versatile toggle switch component with label, validation states, and helper text.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Switch size="md">
+ *   <SwitchInput checked={isEnabled} onChange={handleChange} />
+ *   <SwitchLabel>Enable notifications</SwitchLabel>
+ *   <SwitchHelper>You can change this later</SwitchHelper>
+ * </Switch>
+ * 
+ * // Declarative API (deprecated)
+ * <Switch label="Enable notifications" checked={isEnabled} onChange={handleChange} />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (SwitchInput, SwitchLabel, SwitchHelper, etc.) support `asChild`
+ * - Supports checked and unchecked states with smooth animations
+ * - Automatically generates accessible IDs for labels and error messages
+ * - Accessible: includes ARIA attributes and keyboard navigation
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
 export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
-  ({ className, label, size = 'md', disabled, ...props }, ref) => {
-    // Size styles - exact Figma specifications
-    const sizeStyles = {
-      sm: {
-        track: "w-[30px] h-[16px]",
-        thumb: "w-[14px] h-[14px]",
-        gap: "gap-[6px]",
-        variant: "body-secondary-regular" as const // 12px → closest is 14px
-      },
-      md: {
-        track: "w-[34px] h-[14px]", // Exact Figma dimensions from switch track
-        thumb: "w-[20px] h-[20px]", // Exact Figma dimensions from thumb (Ellipse 1347)
-        gap: "gap-[8px]",
-        variant: "body-secondary-medium" as const // 14px, medium weight
+  ({ className, children, label, size = 'md', disabled, error, helperText, id, ...props }, ref) => {
+    // Check if using composable API (has children with Switch sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+      child?.type?.displayName?.startsWith('Switch')
+    );
+    
+    // If using composable API, wrap with context provider
+    if (hasComposableChildren) {
+      // Show deprecation warning if using old props with composable API
+      if (process.env.NODE_ENV !== 'production' && (label || error || helperText)) {
+        console.warn(
+          'Switch: Using deprecated props (label, error, helperText) with composable API. ' +
+          'Please use SwitchInput, SwitchLabel, SwitchHelper, SwitchError components instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
       }
-    };
-
-    const currentSize = sizeStyles[size];
-
-    // Track styles using exact Figma specifications
-    const trackStyles = cn(
-      // Base styles
-      "relative inline-flex shrink-0 rounded-full border-0 transition-all duration-200 cursor-pointer",
-      // Size
-      currentSize.track,
-      // State styles using exact Figma colors
-      disabled
-        ? "bg-[var(--switch-disabled-bg)]" // rgba(139, 139, 139, 0.2) from Figma
-        : props.checked
-          ? "bg-[var(--primary)]" // Primary color when on
-          : "bg-[var(--neutral-300)]", // Neutral color when off
-      // Focus styles
-      "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--color-neutral-light)] focus-within:ring-offset-2",
-      className
-    );
-
-    // Thumb styles using exact Figma specifications
-    const thumbStyles = cn(
-      // Base styles
-      "absolute top-1/2 transform -translate-y-1/2 rounded-full transition-all duration-200 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.35)]", // Exact shadow from Figma
-      // Size
-      currentSize.thumb,
-      // Position - exact calculations from Figma layout
-      props.checked
-        ? "translate-x-[14px]" // When on: thumb moves right (34px track - 20px thumb = 14px)
-        : "translate-x-[-3px]", // When off: thumb position (offset to align properly)
-      // Colors using exact Figma specifications
-      disabled
-        ? props.checked
-          ? "bg-[var(--switch-disabled-thumb-on)]" // #CED1D7 - Disabled thumb when on
-          : "bg-[var(--switch-disabled-thumb)]" // #F8F8F9 - Disabled thumb when off
-        : props.checked
-          ? "bg-[var(--color-bg-primary)]" // White thumb when on
-          : "bg-[var(--color-bg-primary)]" // White thumb when off
-    );
-
-    // Get color for label based on disabled state
-    const getLabelColor = () => {
-      if (disabled) return 'muted';
-      return 'primary';
-    };
-
-    // Container styles
-    const containerStyles = cn(
-      "inline-flex items-center",
-      currentSize.gap
-    );
-
-    // Handle controlled/uncontrolled switch
-    const isControlled = props.checked !== undefined;
-    const hasOnChange = props.onChange !== undefined;
-    const inputProps = { ...props };
-
-    // If checked is provided without onChange, use defaultChecked for uncontrolled
-    if (isControlled && !hasOnChange) {
-      inputProps.defaultChecked = inputProps.checked;
-      delete inputProps.checked;
+      
+      const generatedId = React.useId();
+      const switchId = id ?? `switch-${generatedId}`;
+      const helperId = helperText ? `${switchId}-helper` : undefined;
+      const errorId = error ? `${switchId}-error` : undefined;
+      
+      return (
+        <SwitchProvider
+          value={{
+            switchId,
+            size,
+            disabled,
+            hasError: !!error,
+            helperId,
+            errorId,
+          }}
+        >
+          <SwitchWrapper className={className}>
+            {children}
+          </SwitchWrapper>
+        </SwitchProvider>
+      );
     }
-
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(
+        'Switch: Declarative API (label, error, helperText props) is deprecated. ' +
+        'Please migrate to composable API using SwitchInput, SwitchLabel, SwitchHelper, SwitchError components. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+    
+    const generatedId = React.useId();
+    const switchId = id ?? `switch-${generatedId}`;
+    const helperId = helperText ? `${switchId}-helper` : undefined;
+    const errorId = error ? `${switchId}-error` : undefined;
     return (
-      <label className={containerStyles}>
-        <div className={trackStyles}>
-          <input
-            type="checkbox"
-            className="sr-only"
+      <SwitchProvider
+        value={{
+          switchId,
+          size,
+          disabled,
+          hasError: !!error,
+          helperId,
+          errorId,
+        }}
+      >
+        <SwitchWrapper className={className}>
+          <SwitchInput
             ref={ref}
             disabled={disabled}
-            {...inputProps}
+            {...props}
           />
-          <div className={thumbStyles} />
-        </div>
-        {label && (
-          <Typography
-            variant={currentSize.variant}
-            color={getLabelColor()}
-            as="span"
-            className={disabled ? "cursor-not-allowed" : "cursor-pointer"}
-          >
-            {label}
-          </Typography>
-        )}
-      </label>
+          {label && <SwitchLabel>{label}</SwitchLabel>}
+          {error && <SwitchError>Error occurred</SwitchError>}
+          {helperText && !error && <SwitchHelper>{helperText}</SwitchHelper>}
+        </SwitchWrapper>
+      </SwitchProvider>
     );
   }
 );

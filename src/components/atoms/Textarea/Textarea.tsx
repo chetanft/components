@@ -4,24 +4,88 @@ import React from 'react';
 import { cn, type ComponentSize } from '../../../lib/utils';
 import { Label } from '../Label/Label';
 import { FigmaBadge } from '../FigmaBadge';
+import { TextareaProvider } from './TextareaContext';
+import { TextareaWrapper } from './TextareaWrapper';
+import { TextareaLabel } from './TextareaLabel';
+import { TextareaField } from './TextareaField';
+import { TextareaHelper } from './TextareaHelper';
+import { TextareaError } from './TextareaError';
 
 export interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
+  /**
+   * Textarea content (for composable API)
+   */
+  children?: React.ReactNode;
+  /**
+   * Label text displayed above the textarea (for declarative API)
+   * @deprecated Use TextareaLabel component instead
+   */
   label?: string;
+  /**
+   * Shows mandatory indicator (*) next to label (for declarative API)
+   * @deprecated Use TextareaLabel component with mandatory prop instead
+   */
   labelMandatory?: boolean;
+  /**
+   * Shows optional indicator next to label (for declarative API)
+   * @deprecated Use TextareaLabel component with optional prop instead
+   */
   labelOptional?: boolean;
+  /**
+   * Error message displayed below textarea (for declarative API)
+   * @deprecated Use TextareaError component instead
+   */
   error?: string;
+  /**
+   * Helper text displayed below textarea (for declarative API)
+   * @deprecated Use TextareaHelper component instead
+   */
   helperText?: string;
+  /**
+   * Textarea size
+   * @default 'md'
+   */
   size?: ComponentSize;
+  /**
+   * Show Figma badge (development only)
+   * @default true
+   */
   showFigmaBadge?: boolean;
 }
 
 /**
- * Textarea component built using FT Design System tokens.
- * Figma design not available - component created based on design system specifications.
+ * Textarea Component
+ * 
+ * A versatile textarea component with label, validation states, and helper text.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Textarea size="md">
+ *   <TextareaLabel mandatory>Description</TextareaLabel>
+ *   <TextareaField rows={6} placeholder="Enter description" />
+ *   <TextareaError>Description is required</TextareaError>
+ * </Textarea>
+ * 
+ * // Declarative API (deprecated)
+ * <Textarea label="Description" rows={4} error="Required" />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (TextareaLabel, TextareaField, TextareaError, etc.) support `asChild`
+ * - Automatically generates accessible IDs for labels and error messages
+ * - Supports validation states: error
+ * - Accessible: includes ARIA attributes and keyboard navigation
+ * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({
     className,
+    children,
     label,
     labelMandatory = false,
     labelOptional = false,
@@ -34,6 +98,59 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     rows = 4,
     ...props
   }, ref) => {
+    // Check if using composable API (has children with Textarea sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+      child?.type?.displayName?.startsWith('Textarea')
+    );
+    
+    // If using composable API, wrap with context provider
+    if (hasComposableChildren) {
+      // Show deprecation warning if using old props with composable API
+      if (process.env.NODE_ENV !== 'production' && (label || error || helperText)) {
+        console.warn(
+          'Textarea: Using deprecated props (label, error, helperText) with composable API. ' +
+          'Please use TextareaLabel, TextareaField, TextareaError, TextareaHelper components instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      }
+      
+      const generatedId = React.useId();
+      const textareaId = id ?? `textarea-${generatedId}`;
+      const errorId = error ? `${textareaId}-error` : undefined;
+      const helperId = helperText ? `${textareaId}-helper` : undefined;
+      
+      return (
+        <TextareaProvider
+          value={{
+            textareaId,
+            size,
+            disabled,
+            hasError: !!error,
+            errorId,
+            helperId,
+          }}
+        >
+          <TextareaWrapper className={className}>
+            {showFigmaBadge && (
+              <div className="mb-2">
+                <FigmaBadge />
+              </div>
+            )}
+            {children}
+          </TextareaWrapper>
+        </TextareaProvider>
+      );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(
+        'Textarea: Declarative API (label, error, helperText props) is deprecated. ' +
+        'Please migrate to composable API using TextareaLabel, TextareaField, TextareaError, TextareaHelper components. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+    
     const generatedId = React.useId();
     // Generate IDs for accessibility (ensure consistent hook usage)
     const textareaId = id ?? `textarea-${generatedId}`;
@@ -83,91 +200,40 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const currentSize = sizeStyles[size];
 
     return (
-      <div className="w-full">
-        {showFigmaBadge && (
-          <div className="mb-2">
-            <FigmaBadge />
-          </div>
-        )}
-        {label && (
-          <Label
-            htmlFor={textareaId}
-            mandatory={labelMandatory}
-            optional={labelOptional}
-            className="mb-2"
-          >
-            {label}
-          </Label>
-        )}
-        <div className="relative">
-          <textarea
+      <TextareaProvider
+        value={{
+          textareaId,
+          size,
+          disabled,
+          hasError: !!error,
+          errorId,
+          helperId,
+        }}
+      >
+        <TextareaWrapper className={className}>
+          {showFigmaBadge && (
+            <div className="mb-2">
+              <FigmaBadge />
+            </div>
+          )}
+          {label && (
+            <TextareaLabel
+              mandatory={labelMandatory}
+              optional={labelOptional}
+            >
+              {label}
+            </TextareaLabel>
+          )}
+          <TextareaField
             ref={ref}
-            id={textareaId}
             rows={rows}
             disabled={disabled}
-            aria-describedby={describedBy}
-            aria-invalid={error ? 'true' : undefined}
-            className={cn(
-              // Base styles using FT Design System tokens
-              "w-full resize-y",
-              "font-normal",
-              "text-[var(--color-primary)]",
-              "bg-[var(--bg-primary)]",
-              "border border-[var(--border-primary)]",
-              "rounded-md",
-              "placeholder:text-[var(--text-placeholder)]",
-              "transition-all duration-[var(--transition-normal)]",
-
-              // Size styles
-              currentSize.padding,
-              currentSize.fontSize,
-              currentSize.minHeight,
-
-              // Focus styles
-              "focus:outline-none",
-              "focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20",
-              "focus:border-[var(--color-neutral)]",
-
-              // Error styles
-              error && "border-[var(--color-critical)]",
-              error && "focus:border-[var(--color-critical)] focus:ring-[var(--color-critical)] focus:ring-opacity-20",
-
-              // Disabled styles
-              disabled && "bg-[var(--bg-secondary)]",
-              disabled && "text-[var(--text-disabled)]",
-              disabled && "cursor-not-allowed",
-              disabled && "opacity-60",
-
-              // Hover styles
-              !disabled && "hover:border-[var(--color-tertiary)]",
-
-              className
-            )}
-            style={{
-              fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
-              ...props.style,
-            }}
             {...props}
           />
-        </div>
-        {error && (
-          <p
-            id={errorId}
-            className="mt-1 text-sm text-[var(--color-critical)]"
-            role="alert"
-          >
-            {error}
-          </p>
-        )}
-        {helperText && !error && (
-          <p
-            id={helperId}
-            className="mt-1 text-sm text-[#838c9d]"
-          >
-            {helperText}
-          </p>
-        )}
-      </div>
+          {error && <TextareaError>{error}</TextareaError>}
+          {helperText && !error && <TextareaHelper>{helperText}</TextareaHelper>}
+        </TextareaWrapper>
+      </TextareaProvider>
     );
   }
 );

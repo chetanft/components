@@ -2,10 +2,11 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type SpacerSize = 'x1' | 'x2' | 'x3' | 'x4' | 'x5' | 'x6' | 'x7' | 'x8' | 'x9' | 'x10' | 'x11' | 'x12';
 
-export interface SpacerProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SpacerProps extends ComposableProps<'div'> {
   /**
    * Size of the spacer
    * @default 'x1'
@@ -48,13 +49,33 @@ const horizontalSizeMap: Record<SpacerSize, string> = {
   x12: 'w-[var(--x12,48px)]',
 };
 
+/**
+ * Spacer Component
+ *
+ * A spacer component for adding consistent spacing between elements.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <Spacer size="x4" />
+ * <Spacer size="x2" horizontal />
+ * ```
+ *
+ * @remarks
+ * - Wraps the HTML `<div>` element by default.
+ * - Supports `asChild` prop to merge props with a custom child element.
+ * - Supports horizontal and vertical orientations.
+ * - Uses FT Design System spacing tokens.
+ */
 export const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
-  ({ size = 'x1', horizontal = false, className, ...props }, ref) => {
+  ({ size = 'x1', horizontal = false, className, asChild, ...props }, ref) => {
     const sizeClass = horizontal ? horizontalSizeMap[size] : sizeMap[size];
     const baseClass = horizontal ? 'inline-block' : 'block';
+    const Comp = asChild ? Slot : 'div';
 
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           baseClass,

@@ -3,48 +3,121 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { cn, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { InputNumberProvider } from './InputNumberContext';
+import { InputNumberWrapper } from './InputNumberWrapper';
+import { InputNumberField } from './InputNumberField';
+import { InputNumberControls } from './InputNumberControls';
+import { InputNumberPrefix } from './InputNumberPrefix';
+import { InputNumberSuffix } from './InputNumberSuffix';
 
-export interface InputNumberProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange' | 'value' | 'defaultValue' | 'prefix' | 'suffix'> {
-  /** Current value */
+export interface InputNumberProps extends Omit<ComposableProps<'div'>, 'onChange' | 'size'> {
+  /**
+   * Current value (controlled)
+   */
   value?: number | null;
-  /** Default value */
+  /**
+   * Default value (uncontrolled)
+   * @default 0
+   */
   defaultValue?: number;
-  /** Minimum value */
+  /**
+   * Minimum value
+   * @default -Infinity
+   */
   min?: number;
-  /** Maximum value */
+  /**
+   * Maximum value
+   * @default Infinity
+   */
   max?: number;
-  /** Step for increment/decrement */
+  /**
+   * Step for increment/decrement
+   * @default 1
+   */
   step?: number;
-  /** Decimal precision */
+  /**
+   * Decimal precision
+   */
   precision?: number;
-  /** Component size */
+  /**
+   * Component size
+   * @default 'md'
+   */
   size?: ComponentSize;
-  /** Whether to show controls */
+  /**
+   * Whether to show controls
+   * @default true
+   */
   controls?: boolean;
-  /** Controls position */
+  /**
+   * Controls position
+   * @default 'right'
+   */
   controlsPosition?: 'right' | 'both';
-  /** Prefix content */
+  /**
+   * Prefix content (for declarative API)
+   * @deprecated Use InputNumberPrefix component instead
+   */
   prefix?: React.ReactNode;
-  /** Suffix content */
+  /**
+   * Suffix content (for declarative API)
+   * @deprecated Use InputNumberSuffix component instead
+   */
   suffix?: React.ReactNode;
-  /** Error state */
+  /**
+   * Error state
+   * @default false
+   */
   error?: boolean;
-  /** Change handler */
+  /**
+   * Change handler
+   */
   onChange?: (value: number | null) => void;
-  /** Formatter for display */
+  /**
+   * Formatter for display
+   */
   formatter?: (value: number | undefined) => string;
-  /** Parser from string to number */
+  /**
+   * Parser from string to number
+   */
   parser?: (displayValue: string) => number;
+  /**
+   * InputNumber content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
 /**
- * InputNumber component - Numeric input with increment/decrement controls.
- * Built with FT Design System tokens.
+ * InputNumber Component
  * 
- * Uses:
- * - Colors: var(--primary), var(--border-primary), var(--tertiary)
- * - Spacing: var(--x2), var(--x3), var(--x4)
- * - Border radius: var(--radius-md)
+ * A numeric input component with increment/decrement controls.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <InputNumber value={10} min={0} max={100} step={1}>
+ *   <InputNumberWrapper>
+ *     <InputNumberPrefix>$</InputNumberPrefix>
+ *     <InputNumberField />
+ *     <InputNumberSuffix>USD</InputNumberSuffix>
+ *     <InputNumberControls />
+ *   </InputNumberWrapper>
+ * </InputNumber>
+ * 
+ * // Declarative API (deprecated)
+ * <InputNumber value={10} prefix="$" suffix="USD" />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (InputNumberWrapper, InputNumberField, etc.) support `asChild`
+ * - Supports formatting, parsing, min/max constraints, and custom controls
+ * - Declarative API is deprecated but still functional for backward compatibility
+ * - Uses FT Design System tokens: var(--primary), var(--border-primary), var(--tertiary)
  */
 export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
   ({
@@ -65,6 +138,8 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     formatter,
     parser,
     className,
+    children,
+    asChild,
     ...props
   }, ref) => {
     const [internalValue, setInternalValue] = useState<number | null>(
@@ -197,7 +272,72 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
 
     const canIncrement = actualValue === null || actualValue < max;
     const canDecrement = actualValue === null || actualValue > min;
-
+    
+    // Check if using composable API (has children with InputNumber sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+        child?.type?.displayName?.startsWith('InputNumber')
+    );
+    
+    // Create context value
+    const contextValue = {
+      value: actualValue,
+      setValue: (newValue: number | null) => {
+        if (controlledValue === undefined) {
+          setInternalValue(newValue);
+        }
+        onChange?.(newValue);
+      },
+      inputValue,
+      setInputValue,
+      isFocused,
+      setIsFocused,
+      min,
+      max,
+      step,
+      precision,
+      size,
+      controls,
+      controlsPosition,
+      error,
+      disabled,
+      formatter,
+      parser,
+      onChange,
+      handleIncrement,
+      handleDecrement,
+      canIncrement,
+      canDecrement,
+      updateValue,
+      clampValue,
+    };
+    
+    // If using composable API, render with context provider
+    if (hasComposableChildren) {
+        // Show deprecation warning if using old props with composable API
+        if (process.env.NODE_ENV !== 'production' && (prefix || suffix)) {
+            console.warn(
+                'InputNumber: Using deprecated props (prefix, suffix) with composable API. ' +
+                'Please use InputNumberPrefix and InputNumberSuffix components instead. ' +
+                'See migration guide: docs/migrations/composable-migration.md'
+            );
+        }
+        
+        return (
+            <InputNumberProvider value={contextValue}>
+                {children}
+            </InputNumberProvider>
+        );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production' && (prefix || suffix)) {
+        console.warn(
+            'InputNumber: Declarative API (prefix, suffix props) is deprecated. ' +
+            'Please migrate to composable API using InputNumberWrapper, InputNumberField, InputNumberPrefix, InputNumberSuffix, and InputNumberControls components. ' +
+            'See migration guide: docs/migrations/composable-migration.md'
+        );
+    }
+    
     // Control button component
     const ControlButton = ({
       direction,
@@ -230,109 +370,67 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     );
 
     return (
-      <div
-        className={cn(
-          "inline-flex items-center",
-          "border-2 rounded-[var(--radius-md)]",
-          "bg-[var(--bg-primary)]",
-          "transition-colors duration-200",
-          config.height,
-          // Border colors
-          error
-            ? "border-[var(--critical)]"
-            : isFocused
-              ? "border-[var(--primary)]"
-              : "border-[var(--border-primary)] hover:border-[var(--primary)]",
-          // Disabled state
-          disabled && "bg-[var(--border-secondary)] cursor-not-allowed opacity-60",
-          className
-        )}
-      >
-        {/* Left control (both mode) */}
-        {controls && controlsPosition === 'both' && (
-          <ControlButton direction="down" onClick={handleDecrement} />
-        )}
+        <InputNumberProvider value={contextValue}>
+            <InputNumberWrapper className={className}>
+                {/* Left control (both mode) */}
+                {controls && controlsPosition === 'both' && (
+                    <ControlButton direction="down" onClick={handleDecrement} />
+                )}
 
-        {/* Prefix */}
-        {prefix && (
-          <span className={cn("text-[var(--tertiary)] pl-[var(--spacing-x3)]", config.text)}>
-            {prefix}
-          </span>
-        )}
+                {/* Prefix */}
+                {prefix && <InputNumberPrefix>{prefix}</InputNumberPrefix>}
 
-        {/* Input */}
-        <input
-          ref={ref}
-          type="text"
-          inputMode="decimal"
-          value={inputValue}
-          onChange={handleInputChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onKeyDown={handleKeyDown}
-          disabled={disabled}
-          className={cn(
-            "flex-1 min-w-0 bg-transparent border-none outline-none",
-            "text-[var(--primary)] placeholder:text-[var(--tertiary)]",
-            "text-center",
-            config.padding,
-            config.text,
-            disabled && "cursor-not-allowed"
-          )}
-          {...props}
-        />
+                {/* Input */}
+                <InputNumberField ref={ref} {...props} />
 
-        {/* Suffix */}
-        {suffix && (
-          <span className={cn("text-[var(--tertiary)] pr-[var(--spacing-x3)]", config.text)}>
-            {suffix}
-          </span>
-        )}
+                {/* Suffix */}
+                {suffix && <InputNumberSuffix>{suffix}</InputNumberSuffix>}
 
-        {/* Right controls */}
-        {controls && controlsPosition === 'right' && (
-          <div className="flex flex-col h-full border-l border-[var(--border-primary)]">
-            <button
-              type="button"
-              tabIndex={-1}
-              disabled={disabled || !canIncrement}
-              onClick={handleIncrement}
-              className={cn(
-                "flex-1 flex items-center justify-center",
-                "transition-colors duration-150",
-                "text-[var(--tertiary)] hover:text-[var(--primary)]",
-                "hover:bg-[var(--border-secondary)]",
-                "border-b border-[var(--border-primary)]",
-                "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent",
-                config.button
-              )}
-            >
-              <Icon name="chevron-up" size={config.icon - 2} />
-            </button>
-            <button
-              type="button"
-              tabIndex={-1}
-              disabled={disabled || !canDecrement}
-              onClick={handleDecrement}
-              className={cn(
-                "flex-1 flex items-center justify-center",
-                "transition-colors duration-150",
-                "text-[var(--tertiary)] hover:text-[var(--primary)]",
-                "hover:bg-[var(--border-secondary)]",
-                "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent",
-                config.button
-              )}
-            >
-              <Icon name="chevron-down" size={config.icon - 2} />
-            </button>
-          </div>
-        )}
+                {/* Right controls */}
+                {controls && controlsPosition === 'right' && (
+                    <div className="flex flex-col h-full border-l border-[var(--border-primary)]">
+                        <button
+                            type="button"
+                            tabIndex={-1}
+                            disabled={disabled || !canIncrement}
+                            onClick={handleIncrement}
+                            className={cn(
+                                "flex-1 flex items-center justify-center",
+                                "transition-colors duration-150",
+                                "text-[var(--tertiary)] hover:text-[var(--primary)]",
+                                "hover:bg-[var(--border-secondary)]",
+                                "border-b border-[var(--border-primary)]",
+                                "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent",
+                                config.button
+                            )}
+                        >
+                            <Icon name="chevron-up" size={config.icon - 2} />
+                        </button>
+                        <button
+                            type="button"
+                            tabIndex={-1}
+                            disabled={disabled || !canDecrement}
+                            onClick={handleDecrement}
+                            className={cn(
+                                "flex-1 flex items-center justify-center",
+                                "transition-colors duration-150",
+                                "text-[var(--tertiary)] hover:text-[var(--primary)]",
+                                "hover:bg-[var(--border-secondary)]",
+                                "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent",
+                                config.button
+                            )}
+                        >
+                            <Icon name="chevron-down" size={config.icon - 2} />
+                        </button>
+                    </div>
+                )}
 
-        {/* Both mode - right control */}
-        {controls && controlsPosition === 'both' && (
-          <ControlButton direction="up" onClick={handleIncrement} />
-        )}
-      </div>
+                {/* Both mode - right control */}
+                {controls && controlsPosition === 'both' && (
+                    <ControlButton direction="up" onClick={handleIncrement} />
+                )}
+            </InputNumberWrapper>
+        </InputNumberProvider>
     );
   }
 );

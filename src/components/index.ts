@@ -5,13 +5,13 @@
 // ATOMS - Basic building blocks
 export * from './atoms/Avatar';
 export * from './atoms/Badge';
-export * from './atoms/Button/Button';
+export * from './atoms/Button';
 export * from './atoms/Checkbox';
 export * from './atoms/Colors';
 export * from './atoms/Divider';
 export * from './atoms/Illustration';
 export * from './atoms/Spacer';
-export * from './atoms/Statistic/Statistic';
+export * from './atoms/Statistic';
 // Import and re-export Icon component and IconName type explicitly
 import { Icon } from './atoms/Icons/Icon';
 import type { IconName } from './atoms/Icons/types';

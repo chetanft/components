@@ -2,11 +2,14 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { AvatarImage } from './AvatarImage';
+import { AvatarFallback } from './AvatarFallback';
 
 export type AvatarSize = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 export type AvatarShape = "circle" | "square";
 
-export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AvatarProps extends ComposableProps<'div'> {
   size?: AvatarSize | number;
   shape?: AvatarShape;
   src?: string | React.ReactNode; // Allow custom content
@@ -37,22 +40,89 @@ const sizeMap: Record<string, string> = {
   xxl: "size-[64px] text-xl",
 };
 
+/**
+ * Avatar Component
+ *
+ * A composable component for displaying user avatars.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Avatar size="md" shape="circle">
+ *   <AvatarImage src="/avatar.jpg" alt="User" />
+ *   <AvatarFallback>JD</AvatarFallback>
+ * </Avatar>
+ * 
+ * // Declarative API (deprecated)
+ * <Avatar src="/avatar.jpg" alt="User" />
+ * ```
+ *
+ * @remarks
+ * - Wraps the HTML `<div>` element by default.
+ * - Supports `asChild` prop to merge props with a custom child element.
+ * - Declarative API is deprecated but still functional for backward compatibility.
+ */
 export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
-  ({ size = "md", shape = "circle", src, icon, alt = "User Avatar", className, style, children, ...props }, ref) => {
+  ({ size = "md", shape = "circle", src, icon, alt = "User Avatar", className, style, children, asChild, ...props }, ref) => {
+    // Check if using composable API (has AvatarImage or AvatarFallback as children)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+        child?.type?.displayName === 'AvatarImage' || child?.type?.displayName === 'AvatarFallback'
+    );
 
     let sizeClass = typeof size === 'string' ? sizeMap[size] || sizeMap.md : '';
     let sizeStyle = typeof size === 'number' ? { width: size, height: size, fontSize: size / 2 } : {};
 
     const isImage = typeof src === 'string';
+    const Comp = asChild ? Slot : 'div';
+
+    // If using composable API, render with sub-components
+    if (hasComposableChildren) {
+        if (process.env.NODE_ENV !== 'production' && (src || icon)) {
+            console.warn(
+                'Avatar: Using deprecated props (src, icon) with composable API. ' +
+                'Please use AvatarImage and AvatarFallback components instead. ' +
+                'See migration guide: docs/migrations/composable-migration.md'
+            );
+        }
+        
+        return (
+            <Comp
+                ref={ref}
+                className={cn(
+                    "inline-flex items-center justify-center overflow-hidden shrink-0",
+                    sizeClass,
+                    shape === "circle" ? "rounded-full" : "rounded-md",
+                    "bg-[var(--bg-secondary)] text-[var(--secondary)]",
+                    className
+                )}
+                style={{ ...sizeStyle, ...style }}
+                {...props}
+            >
+                {children}
+            </Comp>
+        );
+    }
+
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production' && (src || icon)) {
+        console.warn(
+            'Avatar: Declarative API (src, icon props) is deprecated. ' +
+            'Please migrate to composable API using AvatarImage and AvatarFallback components. ' +
+            'See migration guide: docs/migrations/composable-migration.md'
+        );
+    }
 
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           "inline-flex items-center justify-center overflow-hidden shrink-0",
           sizeClass,
           shape === "circle" ? "rounded-full" : "rounded-md",
-          "bg-[var(--bg-secondary)] text-[var(--secondary)]", // Default placeholder styling
+          "bg-[var(--bg-secondary)] text-[var(--secondary)]",
           className
         )}
         style={{ ...sizeStyle, ...style }}
@@ -71,16 +141,9 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         ) : children ? (
           children
         ) : (
-          // Default placeholder (Initials or Icon)
-          <span className="flex items-center justify-center font-medium">
-            {/* Fallback to generic icon if needed, or just nothing */}
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-1/2 h-1/2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </span>
+          <AvatarFallback />
         )}
-      </div>
+      </Comp>
     );
   }
 );

@@ -4,6 +4,14 @@ import React from 'react';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon, IconName } from '../Icons';
 import { Label } from '../Label/Label';
+import { InputProvider } from './InputContext';
+import { InputWrapper } from './InputWrapper';
+import { InputLabel } from './InputLabel';
+import { InputField } from './InputField';
+import { InputHelper } from './InputHelper';
+import { InputError } from './InputError';
+import { InputWarning } from './InputWarning';
+import { InputSuccess } from './InputSuccess';
 
 /**
  * Input component props
@@ -12,31 +20,22 @@ import { Label } from '../Label/Label';
  * 
  * @example
  * ```tsx
- * // Basic input with label
+ * // Composable API (recommended)
+ * <Input size="md" variant="default">
+ *   <InputLabel mandatory>Email</InputLabel>
+ *   <InputField type="email" leadingIcon="mail" placeholder="Enter email" />
+ *   <InputError>Invalid email</InputError>
+ * </Input>
+ * 
+ * // Declarative API (deprecated)
  * <Input label="Email" type="email" placeholder="Enter your email" />
- * 
- * // Input with validation states
- * <Input 
- *   label="Password" 
- *   type="password" 
- *   error="Password must be at least 8 characters"
- * />
- * 
- * // Input with icons
- * <Input 
- *   label="Search" 
- *   leadingIcon="search" 
- *   placeholder="Search..."
- * />
- * 
- * // Input with helper text
- * <Input 
- *   label="Username" 
- *   helperText="Choose a unique username"
- * />
  * ```
  */
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  /**
+   * Input content (for composable API)
+   */
+  children?: React.ReactNode;
   /**
    * Label text displayed above the input
    */
@@ -149,43 +148,50 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
  * Input Component
  * 
  * A versatile text input component with label, validation states, icons, and helper text.
- * Supports all standard HTML input attributes and types.
+ * Supports both composable API (recommended) and declarative API (deprecated).
  * 
  * @public
  * 
  * @example
  * ```tsx
- * import { Input } from 'ft-design-system';
+ * // Composable API (recommended)
+ * import { Input, InputLabel, InputField, InputError, InputHelper } from 'ft-design-system';
  * 
  * function MyForm() {
  *   const [email, setEmail] = useState('');
  *   const [error, setError] = useState('');
  * 
  *   return (
- *     <Input
- *       label="Email Address"
- *       type="email"
- *       value={email}
- *       onChange={(e) => setEmail(e.target.value)}
- *       error={error}
- *       helperText="We'll never share your email"
- *       leadingIcon="mail"
- *     />
+ *     <Input size="md" variant="default">
+ *       <InputLabel mandatory>Email Address</InputLabel>
+ *       <InputField 
+ *         type="email" 
+ *         value={email}
+ *         onChange={(e) => setEmail(e.target.value)}
+ *         leadingIcon="mail"
+ *         placeholder="Enter your email"
+ *       />
+ *       {error && <InputError>{error}</InputError>}
+ *       <InputHelper>We'll never share your email</InputHelper>
+ *     </Input>
  *   );
  * }
  * ```
  * 
  * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (InputLabel, InputField, InputError, etc.) support `asChild`
  * - Automatically generates accessible IDs for labels and error messages
  * - Supports validation states: error, warning, success
  * - Icon positioning adapts to input size
  * - Accessible: includes ARIA attributes and keyboard navigation
- * - Use `ft-design-system/ai` import for AI-protected version
+ * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({
     className,
     type = 'text',
+    children,
     label,
     labelMandatory = false,
     labelOptional = false,
@@ -208,7 +214,61 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     'aria-describedby': ariaDescribedBy,
     ...props
   }, ref) => {
-    // Core component - no AI filtering (use ft-design-system/ai for AI protection)
+    // Check if using composable API (has children with Input sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+      child?.type?.displayName?.startsWith('Input')
+    );
+    
+    // If using composable API, wrap with context provider
+    if (hasComposableChildren) {
+      // Show deprecation warning if using old props with composable API
+      if (process.env.NODE_ENV !== 'production' && (label || error || warning || success || helperText || leadingIcon || trailingIcon)) {
+        console.warn(
+          'Input: Using deprecated props (label, error, warning, success, helperText, leadingIcon, trailingIcon) with composable API. ' +
+          'Please use InputLabel, InputField, InputError, InputWarning, InputSuccess, InputHelper components instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      }
+      
+      const generatedId = React.useId();
+      const inputId = id ?? `input-${generatedId}`;
+      const errorId = error ? `${inputId}-error` : undefined;
+      const warningId = warning ? `${inputId}-warning` : undefined;
+      const successId = success ? `${inputId}-success` : undefined;
+      const helperId = helperText ? `${inputId}-helper` : undefined;
+      
+      return (
+        <InputProvider
+          value={{
+            inputId,
+            size,
+            variant,
+            disabled,
+            hasError: !!error,
+            hasWarning: !!warning,
+            hasSuccess: !!success,
+            errorId,
+            warningId,
+            successId,
+            helperId,
+          }}
+        >
+          <InputWrapper className={className}>
+            {children}
+          </InputWrapper>
+        </InputProvider>
+      );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(
+        'Input: Declarative API (label, error, warning, success, helperText props) is deprecated. ' +
+        'Please migrate to composable API using InputLabel, InputField, InputError, InputWarning, InputSuccess, InputHelper components. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+    // Declarative API implementation
     const componentStyles = getComponentStyles(size);
 
     // Determine input type state (Normal, Error, Warning, Success)
@@ -292,117 +352,51 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
 
     return (
-      <div className="w-full space-y-2">
-        {/* Label */}
-        {label && (
-          <div>
-            <Label
-              htmlFor={inputId}
+      <InputProvider
+        value={{
+          inputId,
+          size,
+          variant,
+          disabled,
+          hasError: !!error,
+          hasWarning: !!warning,
+          hasSuccess: !!success,
+          errorId,
+          warningId,
+          successId,
+          helperId,
+        }}
+      >
+        <InputWrapper className={className}>
+          {label && (
+            <InputLabel
               mandatory={labelMandatory}
               optional={labelOptional}
               suffixIcon={labelSuffixIcon}
               icon={labelIcon}
             >
               {label}
-            </Label>
-          </div>
-        )}
-
-        {/* Input Container */}
-        <div className="relative">
-          {/* Leading Icon */}
-          {leadingIcon && (
-            <div className={cn(
-              "absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none",
-              currentIconOffset.split(' ')[0],
-              leadingIconClassName
-            )}>
-              {typeof leadingIcon === 'string' ? (
-                <Icon
-                  name={leadingIcon as IconName}
-                  size={leadingIconSize ?? componentStyles.iconSize}
-                  className={cn(
-                    "transition-colors",
-                    disabled
-                      ? "text-input-disabled dark:text-input-disabled-dark"
-                      : inputType === 'error'
-                        ? "text-critical"
-                        : inputType === 'warning'
-                          ? "text-warning"
-                          : inputType === 'success'
-                            ? "text-positive"
-                            : "text-icon dark:text-icon-dark"
-                  )}
-                  aria-hidden="true"
-                />
-              ) : (
-                leadingIcon
-              )}
-            </div>
+            </InputLabel>
           )}
-
-          {/* Input */}
-          <input
-            id={inputId}
-            type={type}
-            className={cn(
-              inputStyles,
-              leadingIcon && currentIconPadding.left,
-              trailingIcon && currentIconPadding.right,
-              className
-            )}
+          <InputField
             ref={ref}
+            type={type}
+            leadingIcon={leadingIcon}
+            trailingIcon={trailingIcon}
+            leadingIconSize={leadingIconSize}
+            trailingIconSize={trailingIconSize}
+            leadingIconClassName={leadingIconClassName}
+            trailingIconClassName={trailingIconClassName}
             disabled={disabled}
-            aria-invalid={error ? 'true' : 'false'}
-            aria-describedby={describedBy}
-            data-size={size}
-            data-type={inputType}
+            aria-describedby={ariaDescribedBy}
             {...props}
           />
-
-          {/* Trailing Icon */}
-          {trailingIcon && (
-            <div className={cn(
-              "absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none",
-              currentIconOffset.split(' ')[1],
-              trailingIconClassName
-            )}>
-              {typeof trailingIcon === 'string' ? (
-                <Icon
-                  name={trailingIcon as IconName}
-                  size={trailingIconSize ?? componentStyles.iconSize}
-                  className={cn(
-                    "transition-colors",
-                    disabled
-                      ? "text-input-disabled dark:text-input-disabled-dark"
-                      : inputType === 'error'
-                        ? "text-critical"
-                        : inputType === 'warning'
-                          ? "text-warning"
-                          : inputType === 'success'
-                            ? "text-positive"
-                            : "text-icon dark:text-icon-dark"
-                  )}
-                  aria-hidden="true"
-                />
-              ) : (
-                trailingIcon
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Helper Text, Error, Warning, or Success */}
-        {(helperText || error || warning || success) && (
-          <p
-            id={error ? errorId : warning ? warningId : success ? successId : helperId}
-            className={helperStyles}
-            role={(error || warning || success) ? 'alert' : undefined}
-          >
-            {error || warning || success || helperText}
-          </p>
-        )}
-      </div>
+          {error && <InputError>{error}</InputError>}
+          {warning && <InputWarning>{warning}</InputWarning>}
+          {success && <InputSuccess>{success}</InputSuccess>}
+          {helperText && !error && !warning && !success && <InputHelper>{helperText}</InputHelper>}
+        </InputWrapper>
+      </InputProvider>
     );
   }
 );

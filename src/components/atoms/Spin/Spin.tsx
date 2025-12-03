@@ -3,10 +3,11 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../Icons';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type SpinSize = 'sm' | 'md' | 'lg' | 'xl';
 
-export interface SpinProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface SpinProps extends ComposableProps<'div'> {
   /** Size of the spinner */
   size?: SpinSize;
   /** Tip text shown below spinner */
@@ -41,6 +42,7 @@ export const Spin = React.forwardRef<HTMLDivElement, SpinProps>(
     children,
     fullscreen = false,
     className,
+    asChild,
     ...props
   }, ref) => {
     const [shouldShow, setShouldShow] = React.useState(delay === 0 && spinning);
@@ -92,10 +94,12 @@ export const Spin = React.forwardRef<HTMLDivElement, SpinProps>(
       </div>
     );
 
+    const Comp = asChild ? Slot : 'div';
+    
     // Fullscreen mode
     if (fullscreen && shouldShow) {
       return (
-        <div
+        <Comp
           ref={ref}
           className={cn(
             "fixed inset-0 z-[var(--z-index-modal,1050)]",
@@ -106,7 +110,7 @@ export const Spin = React.forwardRef<HTMLDivElement, SpinProps>(
           {...props}
         >
           {spinnerContent}
-        </div>
+        </Comp>
       );
     }
 
@@ -114,19 +118,19 @@ export const Spin = React.forwardRef<HTMLDivElement, SpinProps>(
     if (!children) {
       if (!shouldShow) return null;
       return (
-        <div
+        <Comp
           ref={ref}
           className={cn("inline-flex items-center justify-center", className)}
           {...props}
         >
           {spinnerContent}
-        </div>
+        </Comp>
       );
     }
 
     // With children - show spinner as overlay
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn("relative", className)}
         {...props}
@@ -147,7 +151,7 @@ export const Spin = React.forwardRef<HTMLDivElement, SpinProps>(
             {spinnerContent}
           </div>
         )}
-      </div>
+      </Comp>
     );
   }
 );

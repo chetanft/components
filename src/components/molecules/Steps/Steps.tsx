@@ -2,7 +2,16 @@
 
 import React, { forwardRef } from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { StepsProvider } from './StepsContext';
+import { StepsList } from './StepsList';
+import { StepItem } from './StepItem';
+import { StepIcon } from './StepIcon';
+import { StepContent } from './StepContent';
+import { StepTitle } from './StepTitle';
+import { StepDescription } from './StepDescription';
 
+// Keep StepsItem for backward compatibility (deprecated)
 export interface StepsItemProps {
   label?: React.ReactNode;
   description?: React.ReactNode;
@@ -13,73 +22,6 @@ export interface StepsItemProps {
   type?: 'default' | 'dot' | 'navigation';
 }
 
-export const StepsItem = forwardRef<HTMLDivElement, StepsItemProps>(
-  ({ state, device, label = "Step", description, className, direction = 'horizontal', type = 'default', ...props }, ref) => {
-
-    // Dot Style
-    if (type === 'dot') {
-      return (
-        <div ref={ref} className={cn("flex items-center group", direction === 'vertical' ? "flex-col items-start gap-1" : "flex-row gap-2", className)} {...props}>
-          <div className="relative flex items-center justify-center">
-            <div className={cn(
-              "rounded-full transition-all duration-300",
-              state === 'selected' ? "w-2.5 h-2.5 bg-[var(--primary)]" : "w-2 h-2 bg-[var(--border-secondary)] group-hover:bg-[var(--primary)]",
-              state === 'completed' && "bg-[var(--primary)]"
-            )} />
-          </div>
-          <div className="flex flex-col">
-            <div className={cn("text-sm transition-colors", state === 'selected' ? "font-semibold text-[var(--text-primary)]" : "text-[var(--text-secondary)]")}>
-              {label}
-            </div>
-            {description && <div className="text-xs text-[var(--text-tertiary)]">{description}</div>}
-          </div>
-        </div>
-      );
-    }
-
-    // Default Bar Style (Original FT Design)
-    // Updated to support vertical
-
-    const containerStyles = cn(
-      "flex gap-4",
-      direction === 'vertical' ? "flex-row w-full h-full min-h-[64px]" : "flex-col",
-      device === "desktop" && direction === 'horizontal' ? "w-[292.67px]" : "flex-1",
-      className
-    );
-
-    const progressBarStyles = cn(
-      "rounded-[var(--radius-md)] transition-colors",
-      direction === 'vertical' ? "w-1 h-full min-h-[32px]" : "w-full h-2",
-      state === "selected" || state === "completed"
-        ? "bg-[var(--primary)]"
-        : "bg-[var(--border-secondary)]"
-    );
-
-    const labelStyles = cn(
-      "font-primary font-semibold text-lg-rem leading-[1.4] transition-colors", // 20px → 1.429rem (responsive)
-      state === "selected" || state === "completed"
-        ? "text-[var(--primary)]"
-        : "text-[var(--border-primary)]",
-      device === "mobile" && "sr-only"
-    );
-
-    return (
-      <div
-        ref={ref}
-        className={containerStyles}
-        {...props}
-      >
-        <div className={progressBarStyles} />
-        <div className={labelStyles}>
-          {label}
-        </div>
-      </div>
-    );
-  }
-);
-
-StepsItem.displayName = "StepsItem";
-
 export interface Step {
   label: React.ReactNode;
   description?: React.ReactNode;
@@ -88,61 +30,153 @@ export interface Step {
   disabled?: boolean;
 }
 
-export interface StepsProps {
-  steps: Step[];
-  currentStep?: number; // 1-based index usually
+export interface StepsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+  /**
+   * Steps array for declarative API (deprecated)
+   * @deprecated Use StepItem components instead
+   */
+  steps?: Step[];
+  /**
+   * Current step number (1-based)
+   * @default 1
+   */
+  currentStep?: number;
+  /**
+   * Device type
+   * @default 'desktop'
+   */
   device?: 'desktop' | 'mobile';
-  className?: string;
+  /**
+   * Direction of steps
+   * @default 'horizontal'
+   */
   direction?: 'horizontal' | 'vertical';
+  /**
+   * Step type
+   * @default 'default'
+   */
   type?: 'default' | 'dot' | 'navigation';
+  /**
+   * Callback when step changes
+   */
   onChange?: (current: number) => void;
+  /**
+   * Steps content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
+/**
+ * Steps Component
+ * 
+ * A component for displaying step-by-step progress indicators.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Steps currentStep={1} device="desktop" direction="horizontal" type="default">
+ *   <StepsList>
+ *     <StepItem value={1}>
+ *       <StepIcon />
+ *       <StepContent>
+ *         <StepTitle>Step 1</StepTitle>
+ *         <StepDescription>Description</StepDescription>
+ *       </StepContent>
+ *     </StepItem>
+ *   </StepsList>
+ * </Steps>
+ * 
+ * // Declarative API (deprecated)
+ * <Steps steps={[{label: 'Step 1', description: 'Description'}]} currentStep={1} />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (StepsList, StepItem, StepIcon, etc.) support `asChild`
+ * - Supports multiple types (default, dot, navigation) and directions
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
 export const Steps = forwardRef<HTMLDivElement, StepsProps>(
-  ({ device = "desktop", steps, currentStep = 1, className, direction = 'horizontal', type = 'default', onChange, ...props }, ref) => {
-
-    // Container styles
-    const containerStyles = cn(
-      "flex",
-      direction === 'vertical' ? "flex-col" : "flex-row items-center",
-      direction === 'horizontal' && device === "desktop" ? "gap-[var(--spacing-x3)]" : "gap-[var(--spacing-x2)]",
-      direction === 'vertical' && "gap-0",
-      className
+  ({ device = "desktop", steps, currentStep = 1, className, direction = 'horizontal', type = 'default', onChange, children, asChild, ...props }, ref) => {
+    // Check if using composable API (has children with Steps sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+        child?.type?.displayName?.startsWith('Steps') || child?.type?.displayName?.startsWith('Step')
     );
-
+    
+    // If using composable API, render with context provider
+    if (hasComposableChildren) {
+        // Show deprecation warning if using old props with composable API
+        if (process.env.NODE_ENV !== 'production' && steps?.length) {
+            console.warn(
+                'Steps: Using deprecated props (steps array) with composable API. ' +
+                'Please use StepsList and StepItem components instead. ' +
+                'See migration guide: docs/migrations/composable-migration.md'
+            );
+        }
+        
+        const Comp = asChild ? Slot : 'div';
+        return (
+            <StepsProvider
+                value={{
+                    currentStep,
+                    device,
+                    direction,
+                    type,
+                    onChange,
+                }}
+            >
+                <Comp ref={ref} className={className} {...props}>
+                    {children}
+                </Comp>
+            </StepsProvider>
+        );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production' && steps?.length) {
+        console.warn(
+            'Steps: Declarative API (steps array prop) is deprecated. ' +
+            'Please migrate to composable API using StepsList, StepItem, StepIcon, StepContent, StepTitle, and StepDescription components. ' +
+            'See migration guide: docs/migrations/composable-migration.md'
+        );
+    }
+    
+    const Comp = asChild ? Slot : 'div';
     return (
-      <div
-        ref={ref}
-        className={containerStyles}
-        {...props}
-      >
-        {steps.map((step, index) => {
-          const stepNumber = index + 1;
-          const isSelected = stepNumber === currentStep;
-          const isCompleted = stepNumber < currentStep || step.status === 'finish';
-          const isError = step.status === 'error';
-
-          let state: 'selected' | 'unselected' | 'completed' | 'error' = 'unselected';
-          if (isError) state = 'error';
-          else if (isSelected) state = 'selected';
-          else if (isCompleted) state = 'completed';
-
-          return (
-            <div key={index} className={cn("flex-1", direction === 'vertical' ? "w-full" : "")} onClick={() => !step.disabled && onChange?.(stepNumber)}>
-              <StepsItem
-
-                state={state}
-                device={device}
-                label={step.label}
-                description={step.description}
-                direction={direction}
-                type={type}
-                className={cn(!step.disabled && "cursor-pointer")}
-              />
-            </div>
-          );
-        })}
-      </div>
+        <StepsProvider
+            value={{
+                currentStep,
+                device,
+                direction,
+                type,
+                onChange,
+            }}
+        >
+            <Comp ref={ref} className={className} {...props}>
+                <StepsList>
+                    {steps?.map((step, index) => {
+                        const stepNumber = index + 1;
+                        return (
+                            <StepItem
+                                key={index}
+                                value={stepNumber}
+                                disabled={step.disabled}
+                                status={step.status}
+                            >
+                                <StepIcon />
+                                <StepContent>
+                                    <StepTitle>{step.label}</StepTitle>
+                                    {step.description && <StepDescription>{step.description}</StepDescription>}
+                                </StepContent>
+                            </StepItem>
+                        );
+                    })}
+                </StepsList>
+            </Comp>
+        </StepsProvider>
     );
   }
 );

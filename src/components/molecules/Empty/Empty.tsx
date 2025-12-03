@@ -3,10 +3,11 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Typography } from '../../atoms/Typography';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type EmptyImage = 'default' | 'simple' | 'no-data' | 'error';
 
-export interface EmptyProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface EmptyProps extends ComposableProps<'div'> {
   /** Description text */
   description?: React.ReactNode;
   /** Image type or custom image */
@@ -18,12 +19,24 @@ export interface EmptyProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 /**
- * Empty component - Empty state display built with FT Design System tokens.
+ * Empty Component
  * 
- * Uses:
- * - Colors: var(--tertiary), var(--border-primary), var(--border-secondary)
- * - Typography: body-secondary variants
- * - Spacing: var(--x4), var(--x6), var(--x8)
+ * An empty state component for displaying when there's no data or content.
+ * Supports `asChild` prop for flexible composition.
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * <Empty description="No data available" image="no-data">
+ *   <Button>Add Item</Button>
+ * </Empty>
+ * ```
+ * 
+ * @remarks
+ * - Wraps the HTML `<div>` element by default.
+ * - Supports `asChild` prop to merge props with a custom child element.
+ * - Uses FT Design System tokens for colors, typography, and spacing.
  */
 export const Empty = React.forwardRef<HTMLDivElement, EmptyProps>(
   ({
@@ -32,6 +45,7 @@ export const Empty = React.forwardRef<HTMLDivElement, EmptyProps>(
     imageStyle,
     children,
     className,
+    asChild,
     ...props
   }, ref) => {
     // Render image based on type
@@ -179,8 +193,9 @@ export const Empty = React.forwardRef<HTMLDivElement, EmptyProps>(
       return illustrations[imageType] || illustrations.default;
     };
 
+    const Comp = asChild ? Slot : 'div';
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           "flex flex-col items-center justify-center",
@@ -211,7 +226,7 @@ export const Empty = React.forwardRef<HTMLDivElement, EmptyProps>(
             {children}
           </div>
         )}
-      </div>
+      </Comp>
     );
   }
 );

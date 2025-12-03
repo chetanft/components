@@ -1,18 +1,21 @@
 "use client";
 
-import React, { useState, useCallback, useMemo, createContext, useContext } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
 import { Checkbox } from '../../atoms/Checkbox';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { TreeProvider, useTreeContext } from './TreeContext';
+import { TreeNode } from './TreeNode';
 
 // ============================================================================
 // Types
 // ============================================================================
 
-export interface TreeNode {
+export interface TreeNodeData {
   key: string;
   title: React.ReactNode;
-  children?: TreeNode[];
+  children?: TreeNodeData[];
   icon?: IconName | React.ReactNode;
   disabled?: boolean;
   selectable?: boolean;
@@ -20,80 +23,116 @@ export interface TreeNode {
   isLeaf?: boolean;
 }
 
-export interface TreeProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> {
-  /** Tree data */
-  treeData: TreeNode[];
-  /** Expanded keys (controlled) */
+// Keep TreeNode as an alias for backward compatibility
+export type TreeNode = TreeNodeData;
+
+export interface TreeProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
+  /**
+   * Tree data (for declarative API)
+   * @deprecated Use TreeNode components instead
+   */
+  treeData?: TreeNodeData[];
+  /**
+   * Expanded keys (controlled)
+   */
   expandedKeys?: string[];
-  /** Default expanded keys */
+  /**
+   * Default expanded keys
+   */
   defaultExpandedKeys?: string[];
-  /** Selected keys (controlled) */
+  /**
+   * Selected keys (controlled)
+   */
   selectedKeys?: string[];
-  /** Default selected keys */
+  /**
+   * Default selected keys
+   */
   defaultSelectedKeys?: string[];
-  /** Checked keys (controlled) */
+  /**
+   * Checked keys (controlled)
+   */
   checkedKeys?: string[];
-  /** Default checked keys */
+  /**
+   * Default checked keys
+   */
   defaultCheckedKeys?: string[];
-  /** Whether to show checkboxes */
+  /**
+   * Whether to show checkboxes
+   * @default false
+   */
   checkable?: boolean;
-  /** Whether nodes are selectable */
+  /**
+   * Whether nodes are selectable
+   * @default true
+   */
   selectable?: boolean;
-  /** Whether to allow multiple selection */
+  /**
+   * Whether to allow multiple selection
+   * @default false
+   */
   multiple?: boolean;
-  /** Whether to show connecting lines */
+  /**
+   * Whether to show connecting lines
+   * @default false
+   */
   showLine?: boolean;
-  /** Whether to show icons */
+  /**
+   * Whether to show icons
+   * @default false
+   */
   showIcon?: boolean;
-  /** Default expand all nodes */
+  /**
+   * Default expand all nodes
+   * @default false
+   */
   defaultExpandAll?: boolean;
-  /** Callback when node is expanded/collapsed */
-  onExpand?: (expandedKeys: string[], info: { node: TreeNode; expanded: boolean }) => void;
-  /** Callback when node is selected */
-  onSelect?: (selectedKeys: string[], info: { node: TreeNode; selected: boolean }) => void;
-  /** Callback when node is checked */
-  onCheck?: (checkedKeys: string[], info: { node: TreeNode; checked: boolean }) => void;
-  /** Custom expand/collapse icon */
+  /**
+   * Callback when node is expanded/collapsed
+   */
+  onExpand?: (expandedKeys: string[], info: { node: TreeNodeData; expanded: boolean }) => void;
+  /**
+   * Callback when node is selected
+   */
+  onSelect?: (selectedKeys: string[], info: { node: TreeNodeData; selected: boolean }) => void;
+  /**
+   * Callback when node is checked
+   */
+  onCheck?: (checkedKeys: string[], info: { node: TreeNodeData; checked: boolean }) => void;
+  /**
+   * Custom expand/collapse icon
+   */
   switcherIcon?: React.ReactNode | ((props: { expanded: boolean }) => React.ReactNode);
-  /** Custom node icon */
+  /**
+   * Custom node icon
+   */
   icon?: IconName | ((props: { expanded: boolean; isLeaf: boolean }) => React.ReactNode);
-  /** Disabled entire tree */
+  /**
+   * Disabled entire tree
+   * @default false
+   */
   disabled?: boolean;
-  /** Block node (full width clickable) */
+  /**
+   * Block node (full width clickable)
+   * @default false
+   */
   blockNode?: boolean;
+  /**
+   * Tree content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
 // ============================================================================
-// Tree Context
+// Tree Context (moved to TreeContext.tsx)
 // ============================================================================
-
-interface TreeContextValue {
-  expandedKeys: Set<string>;
-  selectedKeys: Set<string>;
-  checkedKeys: Set<string>;
-  checkable: boolean;
-  selectable: boolean;
-  multiple: boolean;
-  showLine: boolean;
-  showIcon: boolean;
-  disabled: boolean;
-  blockNode: boolean;
-  switcherIcon?: React.ReactNode | ((props: { expanded: boolean }) => React.ReactNode);
-  icon?: IconName | ((props: { expanded: boolean; isLeaf: boolean }) => React.ReactNode);
-  toggleExpanded: (key: string, node: TreeNode) => void;
-  toggleSelected: (key: string, node: TreeNode) => void;
-  toggleChecked: (key: string, node: TreeNode) => void;
-}
-
-const TreeContext = createContext<TreeContextValue | null>(null);
 
 // ============================================================================
 // Helper Functions
 // ============================================================================
 
-const getAllKeys = (nodes: TreeNode[]): string[] => {
+const getAllKeys = (nodes: TreeNodeData[]): string[] => {
   const keys: string[] = [];
-  const traverse = (items: TreeNode[]) => {
+  const traverse = (items: TreeNodeData[]) => {
     items.forEach(item => {
       keys.push(item.key);
       if (item.children) {
@@ -105,9 +144,9 @@ const getAllKeys = (nodes: TreeNode[]): string[] => {
   return keys;
 };
 
-const getChildKeys = (node: TreeNode): string[] => {
+const getChildKeys = (node: TreeNodeData): string[] => {
   const keys: string[] = [];
-  const traverse = (items: TreeNode[]) => {
+  const traverse = (items: TreeNodeData[]) => {
     items.forEach(item => {
       keys.push(item.key);
       if (item.children) {
@@ -126,14 +165,11 @@ const getChildKeys = (node: TreeNode): string[] => {
 // ============================================================================
 
 interface TreeNodeComponentProps {
-  node: TreeNode;
+  node: TreeNodeData;
   level: number;
 }
 
 const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) => {
-  const context = useContext(TreeContext);
-  if (!context) return null;
-
   const {
     expandedKeys,
     selectedKeys,
@@ -149,7 +185,7 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) =>
     toggleExpanded,
     toggleSelected,
     toggleChecked,
-  } = context;
+  } = useTreeContext();
 
   const isExpanded = expandedKeys.has(node.key);
   const isSelected = selectedKeys.has(node.key);
@@ -322,6 +358,37 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) =>
 // Tree Component
 // ============================================================================
 
+/**
+ * Tree Component
+ * 
+ * A tree component for displaying hierarchical data.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Tree checkable selectable>
+ *   <TreeNode nodeKey="1" title="Node 1">
+ *     <TreeNode nodeKey="1-1" title="Child 1" />
+ *   </TreeNode>
+ * </Tree>
+ * 
+ * // Declarative API (deprecated)
+ * <Tree
+ *   treeData={treeData}
+ *   checkable
+ *   onCheck={handleCheck}
+ * />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (TreeNode, TreeNodeSwitcher, etc.) support `asChild`
+ * - Supports selection, checking, and expansion
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
 export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
   ({
     className,
@@ -345,10 +412,17 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
     icon,
     disabled = false,
     blockNode = false,
+    children,
+    asChild,
     ...props
   }, ref) => {
+    // Check if using composable API (has children with TreeNode components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+        child?.type?.displayName?.startsWith('TreeNode')
+    );
+    
     // Initialize expanded keys
-    const initialExpandedKeys = defaultExpandAll
+    const initialExpandedKeys = defaultExpandAll && treeData
       ? getAllKeys(treeData)
       : defaultExpandedKeys;
 
@@ -384,7 +458,7 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
       [controlledCheckedKeys, internalCheckedKeys]
     );
 
-    const toggleExpanded = useCallback((key: string, node: TreeNode) => {
+    const toggleExpanded = useCallback((key: string, node: TreeNodeData) => {
       const newExpanded = new Set(expandedKeys);
       const wasExpanded = newExpanded.has(key);
 
@@ -400,7 +474,7 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
       onExpand?.(Array.from(newExpanded), { node, expanded: !wasExpanded });
     }, [expandedKeys, controlledExpandedKeys, onExpand]);
 
-    const toggleSelected = useCallback((key: string, node: TreeNode) => {
+    const toggleSelected = useCallback((key: string, node: TreeNodeData) => {
       let newSelected: Set<string>;
       const wasSelected = selectedKeys.has(key);
 
@@ -421,7 +495,7 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
       onSelect?.(Array.from(newSelected), { node, selected: !wasSelected });
     }, [selectedKeys, controlledSelectedKeys, multiple, onSelect]);
 
-    const toggleChecked = useCallback((key: string, node: TreeNode) => {
+    const toggleChecked = useCallback((key: string, node: TreeNodeData) => {
       const newChecked = new Set(checkedKeys);
       const wasChecked = newChecked.has(key);
 
@@ -443,7 +517,7 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
       onCheck?.(Array.from(newChecked), { node, checked: !wasChecked });
     }, [checkedKeys, controlledCheckedKeys, onCheck]);
 
-    const contextValue = useMemo<TreeContextValue>(() => ({
+    const contextValue = useMemo(() => ({
       expandedKeys,
       selectedKeys,
       checkedKeys,
@@ -465,23 +539,62 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
       icon, toggleExpanded, toggleSelected, toggleChecked
     ]);
 
+    // If using composable API, render with context provider
+    if (hasComposableChildren) {
+        if (process.env.NODE_ENV !== 'production' && treeData) {
+            console.warn(
+                'Tree: Using deprecated props (treeData) with composable API. ' +
+                'Please use TreeNode components instead. ' +
+                'See migration guide: docs/migrations/composable-migration.md'
+            );
+        }
+        
+        const Comp = asChild ? Slot : 'div';
+        return (
+            <TreeProvider value={contextValue}>
+                <Comp
+                    ref={ref}
+                    className={cn("tree", className)}
+                    role="tree"
+                    {...props}
+                >
+                    {children}
+                </Comp>
+            </TreeProvider>
+        );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production' && treeData) {
+        console.warn(
+            'Tree: Declarative API (treeData prop) is deprecated. ' +
+            'Please migrate to composable API using TreeNode components. ' +
+            'See migration guide: docs/migrations/composable-migration.md'
+        );
+    }
+    
+    if (!treeData || treeData.length === 0) {
+        return null;
+    }
+    
+    const Comp = asChild ? Slot : 'div';
     return (
-      <TreeContext.Provider value={contextValue}>
-        <div
-          ref={ref}
-          className={cn("tree", className)}
-          role="tree"
-          {...props}
-        >
-          {treeData.map(node => (
-            <TreeNodeComponent
-              key={node.key}
-              node={node}
-              level={0}
-            />
-          ))}
-        </div>
-      </TreeContext.Provider>
+        <TreeProvider value={contextValue}>
+            <Comp
+                ref={ref}
+                className={cn("tree", className)}
+                role="tree"
+                {...props}
+            >
+                {treeData.map(node => (
+                    <TreeNodeComponent
+                        key={node.key}
+                        node={node}
+                        level={0}
+                    />
+                ))}
+            </Comp>
+        </TreeProvider>
     );
   }
 );

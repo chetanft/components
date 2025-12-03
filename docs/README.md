@@ -4,7 +4,7 @@ This folder contains comprehensive documentation for the `@chetanft/design_syste
 
 ## Files Overview
 
-### 🎨 `../DESIGN_GUIDELINES.md`
+### 🎨 `for-designers.md`
 **Purpose**: Comprehensive design guidelines for designers
 - Unified component sizing system (36px, 44px, 52px, 64px)
 - Color system specifications (#434f64 primary brand color)
@@ -12,6 +12,15 @@ This folder contains comprehensive documentation for the `@chetanft/design_syste
 - Accessibility and responsive design guidelines
 
 **Best for**: Designers, design system consistency, Figma component creation
+
+### 👨‍💻 `for-developers.md`
+**Purpose**: Developer-focused guide with CLI commands and setup
+- Complete npx CLI command reference (setup, verify, update, init)
+- npm installation and usage instructions
+- Developer workflow and best practices
+- Troubleshooting guide for common issues
+
+**Best for**: Developers, quick setup, CLI usage, troubleshooting
 
 ### 📋 `components.json`
 **Purpose**: Machine-readable component specifications

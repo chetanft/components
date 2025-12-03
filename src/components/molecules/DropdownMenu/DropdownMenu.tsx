@@ -5,6 +5,12 @@ import { cn } from '../../../lib/utils';
 import { DropdownMenuItem, type DropdownMenuItemProps } from './DropdownMenuItem';
 import { Icon } from '../../atoms/Icons';
 import { SegmentedTabs, type SegmentedTabItem } from '../SegmentedTabs';
+import { DropdownMenuProvider } from './DropdownMenuContext';
+import { DropdownMenuList } from './DropdownMenuList';
+import { DropdownMenuSearch } from './DropdownMenuSearch';
+import { DropdownMenuSeparator } from './DropdownMenuSeparator';
+import { DropdownMenuLabel } from './DropdownMenuLabel';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 const dropdownMenuVariants = cva(
   'bg-[var(--color-bg-primary)] border border-solid border-[var(--color-border-primary)] box-border flex flex-col items-start overflow-clip p-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shadow-lg',
@@ -32,16 +38,82 @@ export interface DropdownMenuOption extends Omit<DropdownMenuItemProps, 'childre
 }
 
 export interface DropdownMenuProps
-  extends VariantProps<typeof dropdownMenuVariants> {
+  extends Omit<ComposableProps<'div'>, 'onSelect'> {
+  /**
+   * Menu property type
+   * @default 'default'
+   */
+  property?: VariantProps<typeof dropdownMenuVariants>['property'];
+  /**
+   * Options array (for declarative API)
+   * @deprecated Use DropdownMenuList with DropdownMenuItem components instead
+   */
   options?: DropdownMenuOption[];
+  /**
+   * Show scroll bar
+   * @default false
+   */
   showScrollBar?: boolean;
+  /**
+   * Additional CSS classes
+   */
   className?: string;
+  /**
+   * Select handler
+   */
   onSelect?: (value: string) => void;
+  /**
+   * Segments for segmented search
+   */
   segments?: SegmentedTabItem[];
+  /**
+   * Selected segment
+   */
   selectedSegment?: string;
+  /**
+   * Segment change handler
+   */
   onSegmentChange?: (value: string) => void;
+  /**
+   * DropdownMenu content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
+/**
+ * DropdownMenu Component
+ * 
+ * A dropdown menu component with options, search, and groups support.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <DropdownMenu property="search">
+ *   <DropdownMenuSearch />
+ *   <DropdownMenuList>
+ *     <DropdownMenuItem value="1">Option 1</DropdownMenuItem>
+ *     <DropdownMenuSeparator />
+ *     <DropdownMenuItem value="2">Option 2</DropdownMenuItem>
+ *   </DropdownMenuList>
+ * </DropdownMenu>
+ * 
+ * // Declarative API (deprecated)
+ * <DropdownMenu
+ *   property="default"
+ *   options={options}
+ *   onSelect={handleSelect}
+ * />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (DropdownMenuList, DropdownMenuItem, etc.) support `asChild`
+ * - Supports search, groups, segmented tabs, and keyboard navigation
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
 export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
   (
     {
@@ -53,6 +125,8 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       segments,
       selectedSegment,
       onSegmentChange,
+      children,
+      asChild,
       ...props
     },
     ref
@@ -90,6 +164,28 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
     const handleSelect = (value: string) => {
       setSelectedValue(value);
       onSelect?.(value);
+    };
+    
+    // Check if using composable API (has children with DropdownMenu sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+        child?.type?.displayName?.startsWith('DropdownMenu')
+    );
+    
+    // Create context value
+    const contextValue = {
+      property,
+      options,
+      selectedValue,
+      setSelectedValue,
+      searchQuery,
+      setSearchQuery,
+      focusedIndex,
+      setFocusedIndex,
+      onSelect,
+      segments,
+      selectedSegment,
+      onSegmentChange,
+      showScrollBar,
     };
 
     // Handle keyboard navigation

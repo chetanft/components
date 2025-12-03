@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn, type ComponentSize } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 import { Icon, IconName } from '../Icons';
 
 /**
@@ -27,9 +28,18 @@ export type IconPosition = 'leading' | 'trailing' | 'only';
  * 
  * @example
  * ```tsx
+ * // Primary button (default variant)
+ * <Button>Save</Button>
+ * 
  * // Primary button with icon
  * <Button variant="primary" icon="add" iconPosition="leading">
  *   Add Item
+ * </Button>
+ * 
+ * // Composable API with ButtonIcon and ButtonText
+ * <Button>
+ *   <ButtonIcon icon="add" />
+ *   <ButtonText>Add Item</ButtonText>
  * </Button>
  * 
  * // Icon-only button
@@ -44,9 +54,14 @@ export type IconPosition = 'leading' | 'trailing' | 'only';
  * <Button variant="link" href="/about">
  *   Learn More
  * </Button>
+ * 
+ * // With asChild
+ * <Button asChild>
+ *   <a href="/about">Link Button</a>
+ * </Button>
  * ```
  */
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends Omit<ComposableProps<'button'>, 'children'> {
   /**
    * Visual style variant
    * @default 'primary'
@@ -114,26 +129,43 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 /**
  * Button Component
  * 
- * A versatile button component with multiple variants, sizes, and icon support.
+ * A versatile, composable button component with multiple variants, sizes, and icon support.
  * Supports all standard HTML button attributes and accessibility features.
+ * Defaults to primary variant for better developer experience.
  * 
  * @public
  * 
  * @example
  * ```tsx
- * import { Button } from 'ft-design-system';
+ * import { Button, ButtonIcon, ButtonText } from 'ft-design-system';
  * 
  * function MyComponent() {
  *   return (
  *     <div>
- *       <Button variant="primary" onClick={() => alert('Clicked!')}>
+ *       // Default primary button
+ *       <Button onClick={() => alert('Clicked!')}>
  *         Primary Action
  *       </Button>
+ *       
+ *       // Composable API
+ *       <Button>
+ *         <ButtonIcon icon="add" />
+ *         <ButtonText>Add Item</ButtonText>
+ *       </Button>
+ *       
+ *       // Secondary with icon
  *       <Button variant="secondary" icon="edit" iconPosition="leading">
  *         Edit
  *       </Button>
+ *       
+ *       // Loading state
  *       <Button variant="destructive" loading>
  *         Delete
+ *       </Button>
+ *       
+ *       // With asChild
+ *       <Button asChild>
+ *         <a href="/about">Link Button</a>
  *       </Button>
  *     </div>
  *   );
@@ -141,6 +173,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
  * ```
  * 
  * @remarks
+ * - Defaults to `variant="primary"` for better DX
+ * - Supports composable API with ButtonIcon and ButtonText sub-components
+ * - Supports `asChild` prop to merge props with child element
  * - Automatically adapts to light/dark/night themes via CSS variables
  * - Icon-only buttons are square by default, circular if `rounded-full` class is added
  * - Loading state shows spinner and disables interaction
@@ -159,6 +194,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   children,
   className,
   type = 'button',
+  asChild,
   ...props
 }, ref) => {
   // Core component - no AI filtering (use ft-design-system/ai for AI protection)
@@ -335,6 +371,31 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const cleanedClassName = isIconOnly && shouldBeCircular && className
     ? className.replace(/\brounded-\[?[^\s\]]+\]?|\brounded-(none|sm|md|lg|xl|2xl|3xl|full)\b/g, '').trim()
     : className;
+
+  if (asChild) {
+    // Filter out button-specific props that Slot doesn't accept
+    // Slot will merge these with the child element
+    const { type: _type, disabled: _disabled, ...slotProps } = { type, disabled: isDisabled, ...props };
+    
+    return (
+      <Slot
+        ref={ref}
+        className={cn(
+          baseStyles,
+          sizeStyles,
+          variantStyles[effectiveVariant],
+          cleanedClassName,
+          isIconOnly && shouldBeCircular && "!rounded-full"
+        )}
+        aria-label={accessibleName}
+        aria-busy={loading}
+        data-size={size}
+        {...slotProps}
+      >
+        {children}
+      </Slot>
+    );
+  }
 
   return (
     <button

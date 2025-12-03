@@ -1,40 +1,120 @@
+"use client";
+
 import React from 'react';
 import { Button } from '../../atoms/Button/Button';
 import { Typography } from '../../atoms/Typography';
 import { Icon } from '../../atoms/Icons';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { TooltipProvider } from './TooltipContext';
+import { TooltipTrigger } from './TooltipTrigger';
+import { TooltipContent } from './TooltipContent';
+import { TooltipTitle } from './TooltipTitle';
+import { TooltipDescription } from './TooltipDescription';
+import { TooltipArrow } from './TooltipArrow';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 export type TooltipAlignment = 'start' | 'center' | 'end';
 export type TooltipColor = 'white' | 'dark';
 
-export interface TooltipProps {
-  /** The content to display in the tooltip */
-  children: React.ReactNode;
-  /** The heading text (optional) */
+export interface TooltipProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+  /**
+   * Tooltip content (for composable API)
+   */
+  children?: React.ReactNode;
+  /**
+   * The heading text (for declarative API)
+   * @deprecated Use TooltipTitle component instead
+   */
   heading?: string;
-  /** Whether to show the close button */
+  /**
+   * Whether to show the close button
+   * @default false
+   */
   showClose?: boolean;
-  /** Callback when close button is clicked */
+  /**
+   * Callback when close button is clicked
+   */
   onClose?: () => void;
-  /** Primary action button text (optional) */
+  /**
+   * Primary action button text (for declarative API)
+   * @deprecated Use Button components inside TooltipContent instead
+   */
   primaryActionText?: string;
-  /** Primary action callback */
+  /**
+   * Primary action callback
+   */
   onPrimaryAction?: () => void;
-  /** Secondary action button text (optional) */
+  /**
+   * Secondary action button text (for declarative API)
+   * @deprecated Use Button components inside TooltipContent instead
+   */
   secondaryActionText?: string;
-  /** Secondary action callback */
+  /**
+   * Secondary action callback
+   */
   onSecondaryAction?: () => void;
-  /** Tooltip placement relative to target */
+  /**
+   * Tooltip placement relative to target
+   * @default 'top'
+   */
   placement?: TooltipPlacement;
-  /** Tooltip alignment along the placement edge */
+  /**
+   * Tooltip alignment along the placement edge
+   * @default 'center'
+   */
   align?: TooltipAlignment;
-  /** Color theme */
+  /**
+   * Color theme
+   * @default 'white'
+   */
   color?: TooltipColor;
-  /** Additional CSS class name */
-  className?: string;
+  /**
+   * Open state (controlled)
+   */
+  open?: boolean;
+  /**
+   * Default open state (uncontrolled)
+   * @default false
+   */
+  defaultOpen?: boolean;
 }
 
+/**
+ * Tooltip Component
+ * 
+ * A versatile tooltip component for displaying contextual information.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Tooltip placement="top" align="center" color="white">
+ *   <TooltipTrigger>
+ *     <Button>Hover me</Button>
+ *   </TooltipTrigger>
+ *   <TooltipContent>
+ *     <TooltipTitle>Tooltip Title</TooltipTitle>
+ *     <TooltipDescription>Tooltip description</TooltipDescription>
+ *     <TooltipArrow />
+ *   </TooltipContent>
+ * </Tooltip>
+ * 
+ * // Declarative API (deprecated)
+ * <Tooltip heading="Title" primaryActionText="Action">
+ *   Content
+ * </Tooltip>
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (TooltipTrigger, TooltipContent, TooltipTitle, etc.) support `asChild`
+ * - Supports multiple placements and alignments
+ * - Accessible: includes ARIA attributes and keyboard navigation
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
 export const Tooltip: React.FC<TooltipProps> = ({
   children,
   heading,
@@ -48,109 +128,96 @@ export const Tooltip: React.FC<TooltipProps> = ({
   align = 'center',
   color = 'white',
   className = '',
+  open: controlledOpen,
+  defaultOpen = false,
+  asChild,
+  ...props
 }) => {
-  const baseClasses = 'relative inline-flex flex-col';
-  const tooltipClasses = cn(
-    'rounded-[var(--radius-sm)] p-[var(--spacing-x2)] min-w-[var(--spacing-x14)] max-w-[var(--spacing-x38)] relative',
-    color === 'white'
-      ? 'bg-[var(--color-bg-primary)] text-[var(--color-primary)]'
-      : 'bg-[var(--color-primary)] text-[var(--color-bg-primary)]'
+  const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
+  const open = controlledOpen ?? internalOpen;
+  
+  // Check if using composable API (has children with Tooltip sub-components)
+  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+    child?.type?.displayName?.startsWith('Tooltip')
   );
-
-  // Tip base styles - using exact dimensions from Figma
-  const tipBaseClasses = 'absolute w-0 h-0 border-[var(--spacing-x1)] border-transparent';
-
-  // Tip placement classes
-  const tipPlacementClasses = {
-    top: cn(
-      tipBaseClasses,
-      'bottom-[-var(--spacing-x1)] border-b-0',
-      color === 'white' ? 'border-t-[var(--color-bg-primary)]' : 'border-t-[var(--color-primary)]'
-    ),
-    bottom: cn(
-      tipBaseClasses,
-      'top-[-var(--spacing-x1)] border-t-0',
-      color === 'white' ? 'border-b-surface' : 'border-b-primary'
-    ),
-    left: cn(
-      tipBaseClasses,
-      'right-[-var(--spacing-x1)] border-r-0',
-      color === 'white' ? 'border-l-surface' : 'border-l-primary'
-    ),
-    right: cn(
-      tipBaseClasses,
-      'left-[-var(--spacing-x1)] border-l-0',
-      color === 'white' ? 'border-r-surface' : 'border-r-primary'
-    ),
-  };
-
-  // Tip alignment classes
-  const tipAlignClasses = {
-    start: placement === 'top' || placement === 'bottom' ? 'left-[var(--spacing-x4)]' : 'top-[var(--spacing-x4)]',
-    center: placement === 'top' || placement === 'bottom' ? 'left-1/2 -translate-x-1/2' : 'top-1/2 -translate-y-1/2',
-    end: placement === 'top' || placement === 'bottom' ? 'right-[var(--spacing-x4)] left-auto' : 'bottom-[var(--spacing-x4)] top-auto',
-  };
-
-  return (
-    <div className={cn(baseClasses, className)}>
-      <div className={tooltipClasses}>
-        {/* Header */}
-        {(heading || showClose) && (
-          <div className="flex justify-between items-center mb-1">
-            {heading && (
-              <Typography variant="body-secondary-semibold">
-                {heading}
-              </Typography>
-            )}
-            {showClose && (
-              <button
-                onClick={onClose}
-                className="p-[var(--spacing-x1)] hover:bg-[var(--color-bg-secondary)] rounded-[var(--radius-full)]"
-                aria-label="Close tooltip"
-              >
-                <Icon
-                  name="cross"
-                  size={16}
-                  className={color === 'white' ? 'text-[var(--color-primary)]' : 'text-[var(--color-bg-primary)]'}
-                />
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* Content */}
-        <div style={{ fontSize: 'var(--font-size-sm-rem)' }}>
-          {/* 14px → 1rem (responsive) */}
+  
+  // If using composable API, wrap with context provider
+  if (hasComposableChildren) {
+    // Show deprecation warning if using old props with composable API
+    if (process.env.NODE_ENV !== 'production' && (heading || primaryActionText || secondaryActionText)) {
+      console.warn(
+        'Tooltip: Using deprecated props (heading, primaryActionText, secondaryActionText) with composable API. ' +
+        'Please use TooltipTitle, TooltipDescription, and Button components inside TooltipContent instead. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+    
+    const Comp = asChild ? Slot : 'div';
+    return (
+      <TooltipProvider
+        value={{
+          open,
+          setOpen: setInternalOpen,
+          placement,
+          align,
+          color,
+        }}
+      >
+        <Comp className={cn("relative inline-flex flex-col", className)} {...props}>
           {children}
-        </div>
-
-        {/* Actions */}
-        {(primaryActionText || secondaryActionText) && (
-          <div className="flex gap-[var(--spacing-x2)] mt-[var(--spacing-x6)] justify-end">
-            {secondaryActionText && (
-              <Button
-                variant="text"
-                size="sm"
-                onClick={onSecondaryAction}
-              >
-                {secondaryActionText}
-              </Button>
-            )}
-            {primaryActionText && (
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={onPrimaryAction}
-              >
-                {primaryActionText}
-              </Button>
-            )}
-          </div>
-        )}
-
-        {/* Tooltip Tip */}
-        <div className={cn(tipPlacementClasses[placement], tipAlignClasses[align])} />
-      </div>
-    </div>
+        </Comp>
+      </TooltipProvider>
+    );
+  }
+  
+  // Otherwise use declarative API (deprecated)
+  if (process.env.NODE_ENV !== 'production' && (heading || primaryActionText || secondaryActionText)) {
+    console.warn(
+      'Tooltip: Declarative API (heading, primaryActionText, secondaryActionText props) is deprecated. ' +
+      'Please migrate to composable API using TooltipTrigger, TooltipContent, TooltipTitle, TooltipDescription components. ' +
+      'See migration guide: docs/migrations/composable-migration.md'
+    );
+  }
+  const Comp = asChild ? Slot : 'div';
+  return (
+    <TooltipProvider
+      value={{
+        open,
+        setOpen: setInternalOpen,
+        placement,
+        align,
+        color,
+      }}
+    >
+      <Comp className={cn("relative inline-flex flex-col", className)} {...props}>
+        <TooltipContent showClose={showClose} onClose={onClose}>
+          {heading && <TooltipTitle>{heading}</TooltipTitle>}
+          <TooltipDescription>{children}</TooltipDescription>
+          {(primaryActionText || secondaryActionText) && (
+            <div className="flex gap-[var(--spacing-x2)] mt-[var(--spacing-x6)] justify-end">
+              {secondaryActionText && (
+                <Button
+                  variant="text"
+                  size="sm"
+                  onClick={onSecondaryAction}
+                >
+                  {secondaryActionText}
+                </Button>
+              )}
+              {primaryActionText && (
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={onPrimaryAction}
+                >
+                  {primaryActionText}
+                </Button>
+              )}
+            </div>
+          )}
+          <TooltipArrow />
+        </TooltipContent>
+      </Comp>
+    </TooltipProvider>
   );
 }; 

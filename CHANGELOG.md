@@ -7,7 +7,121 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.15.0] - 2025-01-XX
+
+### Added
+- **Composable Architecture**: Complete refactor to Shadcn-style composable components
+  - All components now support composable API with sub-components
+  - Full `asChild` prop support via Radix UI Slot for maximum flexibility
+  - Comprehensive JSDoc documentation with usage examples for AI tooling
+  - All components support `forwardRef` for proper ref forwarding
+  
+- **DataEntryTable Composable API**: Refactored to composable primitives
+  - `DataEntryTableHeader`, `DataEntryTableHeaderRow`, `DataEntryTableHeaderCell`
+  - `DataEntryTableBody`, `DataEntryTableRow`, `DataEntryTableRowCell`, `DataEntryTableRowCheckbox`
+  - Context-based state management for selection, focus, hover, and resizing
+  - Backward compatible with declarative API (deprecated)
+
+- **Form Controls Composable API**: Enhanced form components with composable primitives
+  - `Input`: `InputWrapper`, `InputLabel`, `InputField`, `InputLeadingIcon`, `InputTrailingIcon`, `InputHelper`, `InputError`, `InputWarning`, `InputSuccess`
+  - `Textarea`: `TextareaWrapper`, `TextareaLabel`, `TextareaField`, `TextareaHelper`, `TextareaError`
+  - `Checkbox`: `CheckboxWrapper`, `CheckboxInput`, `CheckboxLabel`, `CheckboxHelper`, `CheckboxError`
+  - `RadioGroup`: `RadioGroupLabel`, `RadioItem`, `RadioItemInput`, `RadioItemLabel`, `RadioGroupHelper`, `RadioGroupError`
+  - `Switch`: `SwitchWrapper`, `SwitchInput`, `SwitchLabel`, `SwitchHelper`, `SwitchError`
+
+- **Complex Organisms Composable API**: Refactored complex components
+  - `Card`: `CardHeader`, `CardTitle`, `CardDescription`, `CardMeta`, `CardBody`, `CardFooter`, `CardActions`, `CardEyebrow`, `CardStatistic`
+  - `Tabs`: `TabsList`, `TabsTrigger`, `TabsContent`, `TabsBadge`, `TabsIcon`
+  - `Form`: `FormLabel`, `FormControl`, `FormHelper`, `FormError`, `FormDescription`
+  - `Collapsible`: `CollapsibleTrigger`, `CollapsibleHeader`, `CollapsibleTitle`, `CollapsibleExtra`, `CollapsibleContent`, `CollapsibleIcon`
+
+- **Feedback Components Composable API**: Refactored feedback components
+  - `Alert`: `AlertIcon`, `AlertTitle`, `AlertDescription`, `AlertAction`, `AlertClose`
+  - `Breadcrumb`: `BreadcrumbList`, `BreadcrumbItem`, `BreadcrumbLink`, `BreadcrumbSeparator`, `BreadcrumbIcon`
+  - `Pagination`: `PaginationList`, `PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, `PaginationEllipsis`
+  - `Tooltip`: `TooltipTrigger`, `TooltipContent`, `TooltipTitle`, `TooltipDescription`, `TooltipArrow`
+
+- **Data Display Components Composable API**: Refactored data display components
+  - `List`: `ListItem`, `ListItemIcon`, `ListItemContent`, `ListItemTitle`, `ListItemDescription`, `ListItemAction`, `ListHeader`, `ListFooter`, `ListBody`
+  - `Descriptions`: `DescriptionsTitle`, `DescriptionsExtra`, `DescriptionsItem`, `DescriptionsLabel`, `DescriptionsValue`
+  - `Steps`: `StepsList`, `StepItem`, `StepIcon`, `StepContent`, `StepTitle`, `StepDescription`
+
+- **Input Extensions Composable API**: Refactored input extension components
+  - `Rate`: `RateItem`, `RateIcon`
+  - `InputNumber`: `InputNumberWrapper`, `InputNumberField`, `InputNumberControls`, `InputNumberButton`, `InputNumberPrefix`, `InputNumberSuffix`
+  - `Slider`: `SliderTrack`, `SliderRange`, `SliderThumb`, `SliderLabel`
+  - `DatePicker`: `DatePickerTrigger`, `DatePickerInput`, `DatePickerCalendar`
+
+- **Overlay Components Composable API**: Refactored overlay components
+  - `Dropdown`: `DropdownTrigger`, `DropdownContent`
+  - `DropdownMenu`: `DropdownMenuList`, `DropdownMenuItem`, `DropdownMenuSeparator`, `DropdownMenuLabel`, `DropdownMenuSearch`
+  - `Popconfirm`: `PopconfirmTrigger`, `PopconfirmContent`, `PopconfirmTitle`, `PopconfirmDescription`, `PopconfirmActions`, `PopconfirmIcon`, `PopconfirmArrow`
+  - `HoverCard`: `HoverCardTrigger`, `HoverCardContent`
+
+- **Remaining Components Composable API**: Refactored remaining components
+  - `Upload`: `UploadTrigger`, `UploadList`
+  - `Tree`: `TreeNode`, `TreeNodeSwitcher`, `TreeNodeCheckbox`, `TreeNodeIcon`, `TreeNodeContent`, `TreeNodeChildren`
+  - `Timeline`: `TimelineDot`, `TimelineContent`, `TimelineLabel`
+  - `Avatar`: `AvatarImage`, `AvatarFallback`
+  - `Skeleton`: `SkeletonText`, `SkeletonImage`
+  - `Statistic`: `StatisticTitle`, `StatisticValue`
+
+### Changed
+- **Backward Compatibility**: All declarative APIs are deprecated but still functional
+  - Deprecation warnings shown in development mode
+  - Migration guides available in `docs/migrations/composable-migration.md`
+  - Old APIs will be removed in a future major version
+
 ### Fixed
+- **TypeScript Errors**: Fixed all critical TypeScript compilation errors
+  - Fixed duplicate property definitions in `TableCell`
+  - Fixed type inference issues in `Table` component
+  - Fixed missing imports (`cn` utility) in multiple components
+  - Fixed undefined variables in `Timeline` and `DatePicker` components
+  - Fixed `displayName` assignment issues
+
+- **Build Errors**: Resolved all build-blocking errors
+  - Fixed duplicate export conflicts (e.g., `TreeNode` type vs component)
+  - Fixed JSX parsing errors in `.ts` files
+  - Fixed context provider type mismatches
+
+## [4.14.0] - 2025-12-02
+
+### Added
+- **Table Composable API**: Added Shadcn-compatible composable Table components
+  - `TableHeader`, `TableHead`, `TableBody`, `TableRow` components now exported
+  - Full control over table structure and styling
+  - Supports both declarative (`columns` + `data`) and composable APIs
+  - `TableCell` already supports `React.ReactNode` children for complex content
+
+- **Select Composable API**: Complete Shadcn-compatible Select component suite
+  - `Select`, `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem`
+  - `SelectGroup`, `SelectLabel`, `SelectSeparator` for advanced layouts
+  - Context-based state management
+  - Portal rendering for proper z-index management
+  - Backward compatible with legacy `SelectLegacy` component
+
+- **Input Custom Icon Support**: Enhanced Input component with custom icon components
+  - `leadingIcon` and `trailingIcon` now accept `IconName | React.ReactNode`
+  - Added `leadingIconSize`, `trailingIconSize` props for custom sizing
+  - Added `leadingIconClassName`, `trailingIconClassName` props for custom styling
+  - Full backward compatibility with string-based icon names
+
+- **Button Custom Icon Support**: Added custom React component icon support to Button
+  - `icon` prop now accepts `IconName | React.ReactNode`
+  - Added `iconSize` and `iconClassName` props for custom icon styling
+  - Maintains backward compatibility with string icon names
+  - Supports custom icon components in all icon positions (leading, trailing, only)
+
+- **Drawer Background Customization**: Added `background` prop to Drawer component
+  - Allows custom background color via className string
+  - `className` prop can override default background styles
+
+### Fixed
+- **Input className Prop**: Fixed className prop not being merged into input element
+  - className now properly applied to input element via `cn()` utility
+  - Enables full Tailwind CSS customization
+
 - **Cascader Padding Alignment**: Fixed padding mismatch between Cascader trigger and dropdown items
   - Changed trigger padding from `pl-[var(--spacing-x3)] pr-[var(--spacing-x8)]` to `px-[var(--spacing-x3)]` to match dropdown items
   - Refactored layout from absolute positioning to flexbox with `justify-between` for proper icon positioning
@@ -18,6 +132,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Switched to flexbox layout pattern matching other dropdown components (Dropdown, TreeSelect)
   - Better icon positioning without affecting text content padding
   - Enhanced visual consistency across all dropdown-style components
+
+- **Component Exports**: Updated exports to include all new composable components
+  - Table composable components exported from `Table/index.ts`
+  - Select composable components exported from `Select/index.ts`
+  - All components available via main library entry point
+
+- **TypeScript Types**: Improved type exports and compatibility
+  - `TableRow` type renamed to `TableRowData` to avoid conflict with component
+  - All component prop types properly exported
+  - Full TypeScript support for composable APIs
+
+### Testing
+- Added comprehensive unit tests for composable Table components
+- Added unit tests for Input custom icon support
+- Added unit tests for composable Select components
+- Added unit tests for Button custom icon support
+
+### Documentation
+- Added Storybook stories for composable Table API
+- Added Storybook stories for Input custom icons
+- Added Storybook stories for composable Select API
+- Added Storybook examples for Drawer background customization
 
 ## [1.0.3] - 2024-12-19
 

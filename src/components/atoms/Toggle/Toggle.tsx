@@ -1,11 +1,12 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type ToggleSize = 'sm' | 'md' | 'lg';
 export type ToggleVariant = 'default' | 'outline';
 
-export interface ToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ToggleProps extends ComposableProps<'button'> {
     pressed?: boolean;
     onPressedChange?: (pressed: boolean) => void;
     defaultPressed?: boolean;
@@ -16,6 +17,25 @@ export interface ToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     children?: React.ReactNode;
 }
 
+/**
+ * Toggle Component
+ *
+ * A toggle button component for toggling between pressed and unpressed states.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <Toggle pressed={isPressed} onPressedChange={setIsPressed}>
+ *   Toggle
+ * </Toggle>
+ * ```
+ *
+ * @remarks
+ * - Wraps the HTML `<button>` element by default.
+ * - Supports `asChild` prop to merge props with a custom child element.
+ * - Supports controlled and uncontrolled modes.
+ */
 export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(({
     pressed,
     onPressedChange,
@@ -27,6 +47,7 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(({
     children,
     className,
     onClick,
+    asChild,
     ...props
 }, ref) => {
     const [isPressed, setIsPressed] = React.useState(pressed ?? defaultPressed);
@@ -67,24 +88,32 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(({
         ),
     };
 
+    const Comp = asChild ? Slot : 'button';
+    
+    // Filter out button-specific props when using asChild
+    const { type, disabled: _, onClick: __, ...restProps } = props as any;
+    const buttonProps = asChild ? restProps : { 
+        type: 'button' as const, 
+        disabled, 
+        onClick: handleClick,
+        ...props 
+    };
+    
     return (
-        <button
+        <Comp
             ref={ref}
-            type="button"
             aria-pressed={isPressed}
-            disabled={disabled}
-            onClick={handleClick}
             className={cn(
                 baseStyles,
                 sizeStyles[size],
                 variantStyles[variant],
                 className
             )}
-            {...props}
+            {...buttonProps}
         >
             {icon && <Icon name={icon} size={size === 'sm' ? 16 : size === 'lg' ? 24 : 20} className={cn(children && "mr-2")} />}
             {children}
-        </button>
+        </Comp>
     );
 });
 

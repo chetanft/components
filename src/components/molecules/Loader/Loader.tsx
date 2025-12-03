@@ -2,8 +2,9 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface LoaderProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface LoaderProps extends ComposableProps<'div'> {
   /** Progress value 0-100 */
   value?: number;
   /** Size of the logo/icon */
@@ -37,13 +38,22 @@ const FTIcon: React.FC<{ size?: number }> = ({ size = 180 }) => (
 );
 
 /**
- * Loader component - Full-screen loader with icon and progress bar.
- * Built with FT Design System tokens.
+ * Loader Component
  * 
- * Uses:
- * - Colors: var(--primary), var(--border-primary)
- * - Spacing: var(--x5)
- * - Icon: FT icon (slanted bars only, no text)
+ * A loading indicator component with progress bar and optional logo.
+ * Supports `asChild` prop for flexible composition.
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * <Loader value={50} showLogo={true} />
+ * ```
+ * 
+ * @remarks
+ * - Wraps the HTML `<div>` element by default.
+ * - Supports `asChild` prop to merge props with a custom child element.
+ * - Uses FT Design System tokens for colors and spacing.
  */
 export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
   ({
@@ -52,6 +62,7 @@ export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
     showLogo = true,
     logo,
     className,
+    asChild,
     ...props
   }, ref) => {
     // Clamp value between 0 and 100
@@ -67,8 +78,9 @@ export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
       </div>
     ) : null;
 
+    const Comp = asChild ? Slot : 'div';
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           "content-stretch flex flex-col gap-[var(--x5,20px)] items-center relative size-full",
@@ -98,7 +110,7 @@ export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
             aria-valuemax={100}
           />
         </div>
-      </div>
+      </Comp>
     );
   }
 );

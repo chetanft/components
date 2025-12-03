@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Typography } from '../../atoms/Typography';
@@ -6,6 +8,14 @@ import { Spacer } from '../../atoms/Spacer';
 import { Button } from '../../atoms/Button/Button';
 import { Icon } from '../../atoms/Icons';
 import { Skeleton } from '../../atoms/Skeleton';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { CardHeader } from './CardHeader';
+import { CardTitle } from './CardTitle';
+import { CardDescription } from './CardDescription';
+import { CardBody } from './CardBody';
+import { CardFooter as CardFooterComposable } from './CardFooter';
+import { CardActions } from './CardActions';
+import { CardMeta as CardMetaComposable } from './CardMeta';
 
 export interface CardMetaProps {
     avatar?: React.ReactNode;
@@ -252,7 +262,11 @@ const CardGraphic: React.FC<CardGraphicProps> = ({
     );
 };
 
-export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'content'> {
+export interface CardProps extends Omit<ComposableProps<'div'>, 'title' | 'content'> {
+  /**
+   * Card content (for composable API)
+   */
+  children?: React.ReactNode;
     // Classic props
     /**
      * @deprecated Use `headerTitle` instead.
@@ -305,6 +319,42 @@ export interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 't
     content?: React.ReactNode;
 }
 
+/**
+ * Card Component
+ * 
+ * A versatile card component for displaying content in a contained format.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Card>
+ *   <CardHeader>
+ *     <CardTitle>Card Title</CardTitle>
+ *     <CardDescription>Card description</CardDescription>
+ *   </CardHeader>
+ *   <CardBody>
+ *     <p>Card content</p>
+ *   </CardBody>
+ *   <CardFooter>
+ *     <CardActions>
+ *       <Button>Action</Button>
+ *     </CardActions>
+ *   </CardFooter>
+ * </Card>
+ * 
+ * // Declarative API (deprecated)
+ * <Card title="Card Title" content={<p>Content</p>} />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (CardHeader, CardTitle, CardBody, etc.) support `asChild`
+ * - Supports various card layouts and content structures
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     title,
     extra,
@@ -316,6 +366,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     cover,
     className,
     children,
+    asChild,
     // New props
     showEyebrow = true,
     showFooter = true,
@@ -332,18 +383,48 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     content,
     ...props
 }, ref) => {
+    // Check if using composable API (has children with Card sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+      child?.type?.displayName?.startsWith('Card')
+    );
+    
+    // If using composable API, render composable structure
+    if (hasComposableChildren) {
+      // Show deprecation warning if using old props with composable API
+      if (process.env.NODE_ENV !== 'production' && (title || headerTitle || bodySections || footerText || footerButton || graphic)) {
+        console.warn(
+          'Card: Using deprecated props (title, headerTitle, bodySections, footerText, footerButton, graphic) with composable API. ' +
+          'Please use CardHeader, CardTitle, CardBody, CardFooter, CardActions components instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      }
+      
+      const Comp = asChild ? Slot : 'div';
+      return (
+        <Comp
+          ref={ref}
+          className={cn(
+            "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid relative rounded-lg flex flex-col overflow-hidden",
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </Comp>
+      );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production' && (title || headerTitle || bodySections || footerText || footerButton || graphic)) {
+      console.warn(
+        'Card: Declarative API (title, headerTitle, bodySections, footerText, footerButton props) is deprecated. ' +
+        'Please migrate to composable API using CardHeader, CardTitle, CardBody, CardFooter, CardActions components. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
 
     const isSmall = size === 'sm' || size === 'small';
     const isAdvanced = contentVariant === 'Advanced';
-
-    React.useEffect(() => {
-        if (title) {
-            console.warn('Card: `title` prop is deprecated. Use `headerTitle` instead.');
-        }
-        if (content) {
-            console.warn('Card: `content` prop is deprecated. Use `contentVariant="Advanced"` with `bodySections` or children instead.');
-        }
-    }, [title, content]);
 
     const renderLoading = () => (
         <div className="p-6">
@@ -358,8 +439,9 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     const hasNewStructure = eyebrowBadges || headerTitle || bodySections || footerText || footerButton || graphic;
 
     if (hasNewStructure) {
+        const Comp = asChild ? Slot : 'div';
         return (
-            <div
+            <Comp
                 ref={ref}
                 className={cn(
                     "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid relative rounded-lg flex flex-col overflow-hidden",
@@ -437,13 +519,14 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
                         </div>
                     )}
                 </div>
-            </div>
+            </Comp>
         );
     }
 
     // Legacy structure (for backward compatibility)
+    const Comp = asChild ? Slot : 'div';
     return (
-        <div
+        <Comp
             ref={ref}
             className={cn(
                 "bg-[var(--color-bg-primary)] rounded-lg transition-all duration-200 flex flex-col overflow-hidden",
@@ -490,12 +573,13 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
                     ))}
                 </div>
             )}
-        </div>
+        </Comp>
     );
 });
 
 Card.displayName = 'Card';
 
+// Legacy exports (kept for backward compatibility)
 (Card as any).Meta = CardMeta;
 (Card as any).Elements = CardElements;
 (Card as any).Footer = CardFooter;

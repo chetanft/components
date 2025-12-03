@@ -7,22 +7,97 @@ import { UploadButton } from '../../molecules/UploadButton/UploadButton';
 import { UploadThumbnail } from '../../molecules/UploadThumbnail/UploadThumbnail';
 import { UploadItem, UploadFile } from '../../molecules/UploadItem/UploadItem';
 import { ValidationStats } from '../../molecules/FileValidationCard/FileValidationCard';
+import { UploadProvider } from './UploadContext';
+import { UploadTrigger } from './UploadTrigger';
+import { UploadList } from './UploadList';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type UploadType = 'drag-drop' | 'button' | 'thumbnail';
 
-export interface UploadProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface UploadProps extends Omit<ComposableProps<'div'>, 'onFilesChange' | 'onUploadComplete' | 'onValidationComplete'> {
+  /**
+   * Upload type
+   * @default 'drag-drop'
+   */
   type?: UploadType;
+  /**
+   * Maximum number of files
+   * @default 10
+   */
   maxFiles?: number;
+  /**
+   * Accepted file types
+   * @default ['Excel', 'CSV']
+   */
   acceptedFileTypes?: string[];
+  /**
+   * Maximum file size in MB
+   * @default 10
+   */
   maxFileSize?: number;
+  /**
+   * Allow multiple files
+   * @default true
+   */
   multiple?: boolean;
+  /**
+   * Files change handler
+   */
   onFilesChange?: (files: UploadFile[]) => void;
+  /**
+   * Upload complete handler
+   */
   onUploadComplete?: (file: UploadFile) => void;
+  /**
+   * Validation complete handler
+   */
   onValidationComplete?: (file: UploadFile, stats?: ValidationStats) => void;
+  /**
+   * Show validation
+   * @default false
+   */
   showValidation?: boolean;
+  /**
+   * Auto upload files
+   * @default true
+   */
   autoUpload?: boolean;
+  /**
+   * Upload content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
+/**
+ * Upload Component
+ * 
+ * A file upload component with drag-drop, button, and thumbnail support.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Upload type="drag-drop" maxFiles={5}>
+ *   <UploadTrigger />
+ *   <UploadList />
+ * </Upload>
+ * 
+ * // Declarative API (deprecated)
+ * <Upload
+ *   type="button"
+ *   maxFiles={10}
+ *   onFilesChange={handleFilesChange}
+ * />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (UploadTrigger, UploadList) support `asChild`
+ * - Supports drag-drop, button, and thumbnail upload types
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
 export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
   ({ 
     className,
@@ -36,6 +111,8 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
     onValidationComplete,
     showValidation = false,
     autoUpload = true,
+    children,
+    asChild,
     ...props 
   }, ref) => {
     

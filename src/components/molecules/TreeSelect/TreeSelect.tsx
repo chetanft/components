@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
-import { Tree, TreeNode } from '../Tree/Tree';
+import { Tree, TreeNodeData } from '../Tree/Tree';
 import { Chicklet } from '../Chicklet/Chicklet';
 
 // ============================================================================
@@ -26,7 +26,7 @@ export interface TreeSelectProps extends Omit<React.InputHTMLAttributes<HTMLInpu
   /** Component size */
   size?: ComponentSize;
   /** Tree data */
-  treeData: TreeNode[];
+  treeData: TreeNodeData[];
   /** Selected value(s) */
   value?: string | string[];
   /** Default value(s) */
@@ -55,7 +55,7 @@ export interface TreeSelectProps extends Omit<React.InputHTMLAttributes<HTMLInpu
 // Helper Functions
 // ============================================================================
 
-const findNode = (nodes: TreeNode[], key: string): TreeNode | null => {
+const findNode = (nodes: TreeNodeData[], key: string): TreeNodeData | null => {
   for (const node of nodes) {
     if (node.key === key) return node;
     if (node.children) {
@@ -66,13 +66,13 @@ const findNode = (nodes: TreeNode[], key: string): TreeNode | null => {
   return null;
 };
 
-const filterTreeData = (nodes: TreeNode[], searchValue: string): TreeNode[] => {
+const filterTreeData = (nodes: TreeNodeData[], searchValue: string): TreeNodeData[] => {
   if (!searchValue) return nodes;
 
   const search = searchValue.toLowerCase();
 
-  const filter = (items: TreeNode[]): TreeNode[] => {
-    return items.reduce<TreeNode[]>((acc, node) => {
+  const filter = (items: TreeNodeData[]): TreeNodeData[] => {
+    return items.reduce<TreeNodeData[]>((acc, node) => {
       const titleMatch = typeof node.title === 'string' &&
         node.title.toLowerCase().includes(search);
 

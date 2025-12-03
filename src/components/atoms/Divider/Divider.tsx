@@ -3,11 +3,12 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Typography } from '../Typography';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type DividerType = 'primary' | 'secondary' | 'tertiary' | 'with-label';
 export type DividerOrientation = 'left' | 'right' | 'center';
 
-export interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface DividerProps extends ComposableProps<'div'> {
   /**
    * The type of divider to display
    * @default 'primary'
@@ -42,6 +43,26 @@ export interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
 }
 
+/**
+ * Divider Component
+ *
+ * A divider component for separating content sections.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <Divider type="primary" />
+ * <Divider type="with-label" label="Section" />
+ * <Divider direction="vertical" />
+ * ```
+ *
+ * @remarks
+ * - Wraps the HTML `<div>` element by default.
+ * - Supports `asChild` prop to merge props with a custom child element.
+ * - Supports horizontal and vertical orientations.
+ * - Supports labels for section dividers.
+ */
 export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
   ({
     type = 'primary',
@@ -52,6 +73,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
     plain,
     children,
     className,
+    asChild,
     ...props
   }, ref) => {
     const content = children || label;
@@ -64,9 +86,11 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
       ? 'border-[var(--border-secondary)]'
       : 'border-[var(--border-primary)]';
 
+    const Comp = asChild ? Slot : 'div';
+    
     if (isVertical) {
       return (
-        <div
+        <Comp
           ref={ref}
           className={cn(
             "inline-block w-px h-[0.9em] mx-2 align-middle border-l",
@@ -84,7 +108,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
       const labelContent = content || label;
 
       return (
-        <div
+        <Comp
           ref={ref}
           className={cn(
             "box-border flex items-center justify-between w-full m-0 p-0",
@@ -125,13 +149,13 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
               'border-[var(--border-primary)]'
             )}
           />
-        </div>
+        </Comp>
       );
     }
 
     // Simple Horizontal (primary, secondary, tertiary)
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           "box-border flex items-center w-full m-0 p-0",
@@ -147,7 +171,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
             isDashed && "border-dashed"
           )}
         />
-      </div>
+      </Comp>
     );
   }
 );

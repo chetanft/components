@@ -4,6 +4,7 @@ import React, { useEffect, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
+import { ModalContextProvider } from './ModalContext';
 
 /**
  * Modal component props
@@ -12,8 +13,30 @@ import { FigmaBadge } from '../../atoms/FigmaBadge';
  * 
  * @example
  * ```tsx
- * const [open, setOpen] = useState(false);
+ * // Composable API (recommended)
+ * <Modal open={open} onOpenChange={setOpen}>
+ *   <ModalTrigger>
+ *     <Button>Open Modal</Button>
+ *   </ModalTrigger>
+ *   <ModalContent>
+ *     <ModalHeader>
+ *       <ModalTitle>Confirm Action</ModalTitle>
+ *       <ModalDescription>
+ *         Are you sure you want to proceed?
+ *       </ModalDescription>
+ *       <ModalClose />
+ *     </ModalHeader>
+ *     <ModalBody>
+ *       <p>Modal content goes here</p>
+ *     </ModalBody>
+ *     <ModalFooter>
+ *       <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+ *       <Button variant="primary" onClick={handleConfirm}>Confirm</Button>
+ *     </ModalFooter>
+ *   </ModalContent>
+ * </Modal>
  * 
+ * // Declarative API (deprecated)
  * <Modal
  *   open={open}
  *   onClose={() => setOpen(false)}
@@ -37,19 +60,28 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   open: boolean;
   
   /**
+   * Callback when modal open state changes
+   * Use this for controlled modals with composable API
+   */
+  onOpenChange?: (open: boolean) => void;
+  
+  /**
    * Callback when modal should close
    * Called on close button click, mask click (if maskClosable), or ESC key
+   * @deprecated Use onOpenChange instead for composable API
    */
   onClose?: () => void;
   
   /**
-   * Modal title displayed in header
+   * Modal title displayed in header (for declarative API)
+   * @deprecated Use ModalTitle component within ModalHeader instead
    */
   title?: string;
   
   /**
-   * Footer content (typically action buttons)
+   * Footer content (typically action buttons) (for declarative API)
    * Rendered at bottom of modal
+   * @deprecated Use ModalFooter component instead
    */
   footer?: React.ReactNode;
   
@@ -113,43 +145,52 @@ const modalSizes = {
 /**
  * Modal Component
  * 
- * A modal dialog component that displays content in an overlay.
- * Prevents body scroll when open and includes backdrop, header, footer, and close functionality.
+ * A composable modal dialog component that displays content in an overlay.
+ * Supports both composable API (recommended) and declarative API (deprecated).
  * 
  * @public
  * 
  * @example
  * ```tsx
- * import { Modal, Button } from 'ft-design-system';
+ * // Composable API (recommended)
+ * import { Modal, ModalTrigger, ModalContent, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button } from 'ft-design-system';
  * 
  * function MyComponent() {
  *   const [open, setOpen] = useState(false);
  * 
  *   return (
- *     <>
- *       <Button onClick={() => setOpen(true)}>Open Modal</Button>
- *       <Modal
- *         open={open}
- *         onClose={() => setOpen(false)}
- *         title="Modal Title"
- *         footer={<Button onClick={() => setOpen(false)}>Close</Button>}
- *       >
- *         <p>Modal content goes here</p>
- *       </Modal>
- *     </>
+ *     <Modal open={open} onOpenChange={setOpen}>
+ *       <ModalTrigger>
+ *         <Button>Open Modal</Button>
+ *       </ModalTrigger>
+ *       <ModalContent>
+ *         <ModalHeader>
+ *           <ModalTitle>Modal Title</ModalTitle>
+ *           <ModalClose />
+ *         </ModalHeader>
+ *         <ModalBody>
+ *           <p>Modal content goes here</p>
+ *         </ModalBody>
+ *         <ModalFooter>
+ *           <Button onClick={() => setOpen(false)}>Close</Button>
+ *         </ModalFooter>
+ *       </ModalContent>
+ *     </Modal>
  *   );
  * }
  * ```
  * 
  * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (ModalTrigger, ModalContent, ModalHeader, etc.) support `asChild`
  * - Prevents body scroll when open
- * - Closes on ESC key press (if closable)
- * - Closes on backdrop click (if maskClosable)
+ * - Closes on ESC key press and backdrop click
  * - Accessible: includes ARIA attributes and focus management
- * - Use `ft-design-system/ai` import for AI-protected version
+ * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Modal: React.FC<ModalProps> = ({
   open,
+  onOpenChange,
   onClose,
   title,
   footer,
@@ -164,6 +205,41 @@ export const Modal: React.FC<ModalProps> = ({
   onClick,
   ...props
 }) => {
+  // Check if using composable API (has ModalContent, ModalTrigger, etc. as children)
+  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+    child?.type?.displayName?.startsWith('Modal')
+  );
+  
+  // If using composable API, wrap with context provider
+  if (hasComposableChildren) {
+    // Show deprecation warning if using old props with composable API
+    if (process.env.NODE_ENV !== 'production' && (title || footer)) {
+      console.warn(
+        'Modal: Using deprecated props (title, footer) with composable API. ' +
+        'Please use ModalTitle, ModalHeader, ModalFooter components instead. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+    
+    return (
+      <ModalContextProvider 
+        open={open} 
+        onOpenChange={onOpenChange || (onClose ? () => onClose() : undefined)}
+        onClose={onClose}
+      >
+        {children}
+      </ModalContextProvider>
+    );
+  }
+  
+  // Otherwise use declarative API (deprecated)
+  if (process.env.NODE_ENV !== 'production') {
+    console.warn(
+      'Modal: Declarative API (title, footer props) is deprecated. ' +
+      'Please migrate to composable API using ModalTrigger, ModalContent, ModalHeader, ModalTitle, ModalBody, ModalFooter components. ' +
+      'See migration guide: docs/migrations/composable-migration.md'
+    );
+  }
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (open) {
@@ -179,11 +255,12 @@ export const Modal: React.FC<ModalProps> = ({
   const handleClose = useCallback(() => {
     if (!closable) return;
     try {
+      onOpenChange?.(false);
       onClose?.();
     } catch (error) {
       console.error('Error closing modal:', error);
     }
-  }, [closable, onClose]);
+  }, [closable, onOpenChange, onClose]);
 
   // Handle ESC key
   useEffect(() => {
@@ -225,97 +302,99 @@ export const Modal: React.FC<ModalProps> = ({
   if (!open) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={title ? 'modal-title' : undefined}
-    >
-      {/* Backdrop */}
+    <ModalContextProvider open={open} onOpenChange={onOpenChange || (onClose ? () => onClose() : undefined)} onClose={onClose}>
       <div
-        className="absolute inset-0 bg-overlay backdrop-blur-sm"
-        onClick={handleMaskClick}
-        aria-hidden="true"
-      />
-
-      {/* Modal Content */}
-      <div
-        className={cn(
-          "relative z-10",
-          "rounded-[var(--radius-lg)]",
-          "max-w-[90vw] max-h-[90vh]",
-          "flex flex-col",
-          "bg-[var(--bg-primary)] border border-[var(--border-primary)]",
-          centered && "mx-auto",
-          className
-        )}
-        style={{
-          width: width || modalSizes[size],
-          boxShadow: 'var(--shadow-xl)',
-        }}
-        onClick={handleModalContentClick}
-        {...props}
+        className="fixed inset-0 z-50 flex items-center justify-center"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={title ? 'modal-title' : undefined}
       >
-        {/* Header */}
-        {(title || closable) && (
-          <div
-            className="flex items-center justify-between px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-b border-[var(--border-secondary)]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {title && (
-              <h2
-                id="modal-title"
-                className="text-xl font-semibold text-[var(--primary)]"
-              >
-                {title}
-              </h2>
-            )}
-            {closable && (
-              <button
-                type="button"
-                onClick={handleCloseClick}
-                className={cn(
-                  "rounded-[var(--radius-sm)]",
-                  "flex items-center justify-center",
-                  "transition-colors duration-[var(--transition-fast)]",
-                  "focus:outline-none focus:ring-2 focus:ring-[var(--neutral)] focus:ring-offset-2",
-                  "cursor-pointer",
-                  "relative z-50",
-                  "w-[var(--spacing-x7)] h-[var(--spacing-x7)] p-0 m-0",
-                  "hover:bg-[var(--bg-secondary)]"
-                )}
-                aria-label="Close modal"
-              >
-                <Icon
-                  name="cross"
-                  size="md"
-                  className="text-[var(--tertiary)] pointer-events-none flex items-center justify-center m-0 p-0"
-                />
-              </button>
-            )}
-          </div>
-        )}
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-overlay backdrop-blur-sm"
+          onClick={handleMaskClick}
+          aria-hidden="true"
+        />
 
-        {/* Body */}
-        <div className="flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)]">
-          {showFigmaBadge && (
-            <div className="mb-[var(--spacing-x4)]">
-              <FigmaBadge />
+        {/* Modal Content */}
+        <div
+          className={cn(
+            "relative z-10",
+            "rounded-[var(--radius-lg)]",
+            "max-w-[90vw] max-h-[90vh]",
+            "flex flex-col",
+            "bg-[var(--bg-primary)] border border-[var(--border-primary)]",
+            centered && "mx-auto",
+            className
+          )}
+          style={{
+            width: width || modalSizes[size],
+            boxShadow: 'var(--shadow-xl)',
+          }}
+          onClick={handleModalContentClick}
+          {...props}
+        >
+          {/* Header */}
+          {(title || closable) && (
+            <div
+              className="flex items-center justify-between px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-b border-[var(--border-secondary)]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {title && (
+                <h2
+                  id="modal-title"
+                  className="text-xl font-semibold text-[var(--primary)]"
+                >
+                  {title}
+                </h2>
+              )}
+              {closable && (
+                <button
+                  type="button"
+                  onClick={handleCloseClick}
+                  className={cn(
+                    "rounded-[var(--radius-sm)]",
+                    "flex items-center justify-center",
+                    "transition-colors duration-[var(--transition-fast)]",
+                    "focus:outline-none focus:ring-2 focus:ring-[var(--neutral)] focus:ring-offset-2",
+                    "cursor-pointer",
+                    "relative z-50",
+                    "w-[var(--spacing-x7)] h-[var(--spacing-x7)] p-0 m-0",
+                    "hover:bg-[var(--bg-secondary)]"
+                  )}
+                  aria-label="Close modal"
+                >
+                  <Icon
+                    name="cross"
+                    size="md"
+                    className="text-[var(--tertiary)] pointer-events-none flex items-center justify-center m-0 p-0"
+                  />
+                </button>
+              )}
             </div>
           )}
-          {children}
-        </div>
 
-        {/* Footer */}
-        {footer && (
-          <div
-            className="flex items-center justify-end gap-[var(--spacing-x2)] px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-t border-[var(--border-secondary)]"
-          >
-            {footer}
+          {/* Body */}
+          <div className="flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)]">
+            {showFigmaBadge && (
+              <div className="mb-[var(--spacing-x4)]">
+                <FigmaBadge />
+              </div>
+            )}
+            {children}
           </div>
-        )}
+
+          {/* Footer */}
+          {footer && (
+            <div
+              className="flex items-center justify-end gap-[var(--spacing-x2)] px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-t border-[var(--border-secondary)]"
+            >
+              {footer}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </ModalContextProvider>
   );
 };
 

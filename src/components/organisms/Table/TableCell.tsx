@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type CellBackgroundColor = 'white' | 'bg';
 export type CellLineVariant = 'single' | 'double';
@@ -8,18 +9,83 @@ export type CellSize = 'md' | 'lg' | 'xl';
 export type CellState = 'default' | 'hover' | 'selected';
 export type CellType = 'text' | 'checkbox';
 
-export interface TableCellProps {
-  backgroundColor?: CellBackgroundColor;
-  lineVariant?: CellLineVariant;
-  size?: CellSize;
-  state?: CellState;
-  type?: CellType;
+/**
+ * TableCell component props
+ * 
+ * @public
+ */
+export interface TableCellProps extends Omit<ComposableProps<'td'>, 'children'> {
+  /**
+   * Cell content
+   */
   children: React.ReactNode;
-  className?: string;
+  
+  /**
+   * Background color variant
+   * @default 'white'
+   */
+  backgroundColor?: CellBackgroundColor;
+  
+  /**
+   * Line variant (single or double line layout)
+   * @default 'single'
+   */
+  lineVariant?: CellLineVariant;
+  
+  /**
+   * Cell size
+   * @default 'md'
+   */
+  size?: CellSize;
+  
+  /**
+   * Cell state (affects styling)
+   * @default 'default'
+   */
+  state?: CellState;
+  
+  /**
+   * Cell type
+   * @default 'text'
+   */
+  type?: CellType;
+  
+  /**
+   * Click handler
+   */
   onClick?: () => void;
 }
 
-export const TableCell: React.FC<TableCellProps> = ({
+/**
+ * TableCell Component
+ * 
+ * A composable table cell component that wraps the `<td>` element.
+ * Used within TableRow to create data cells in the table body.
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * <TableRow>
+ *   <TableCell>John Doe</TableCell>
+ *   <TableCell>
+ *     <Badge variant="success">Active</Badge>
+ *   </TableCell>
+ *   <TableCell className="text-right font-semibold">
+ *     $1,234.56
+ *   </TableCell>
+ * </TableRow>
+ * ```
+ * 
+ * @remarks
+ * - Wraps the HTML `<td>` element
+ * - Supports `asChild` prop for custom element composition
+ * - Automatically handles hover states and background colors
+ * - Supports single-line and double-line layouts
+ * - Use with TableRow for proper table structure
+ * - Accessible: maintains proper cell semantics
+ */
+export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(({
   backgroundColor = 'white',
   lineVariant = 'single',
   size = 'md',
@@ -27,8 +93,10 @@ export const TableCell: React.FC<TableCellProps> = ({
   type = 'text',
   children,
   className,
-  onClick
-}) => {
+  onClick,
+  asChild,
+  ...props
+}, ref) => {
   const [isHovered, setIsHovered] = useState(false);
 
   // Determine if the cell should show hover state
@@ -81,8 +149,22 @@ export const TableCell: React.FC<TableCellProps> = ({
     }
   };
 
+  if (asChild) {
+    const Comp = Slot;
+    return (
+      <Comp
+        ref={ref}
+        className={cn(className)}
+        {...props}
+      >
+        {children}
+      </Comp>
+    );
+  }
+
   return (
     <td
+      ref={ref}
       className={cn(
         // Base styles
         "transition-colors duration-200 border-b border-[var(--border-primary)]",
@@ -123,4 +205,6 @@ export const TableCell: React.FC<TableCellProps> = ({
       </div>
     </td>
   );
-}; 
+});
+
+TableCell.displayName = 'TableCell'; 

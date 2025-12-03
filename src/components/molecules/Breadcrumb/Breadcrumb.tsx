@@ -4,36 +4,132 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { BreadcrumbList } from './BreadcrumbList';
+import { BreadcrumbItem } from './BreadcrumbItem';
+import { BreadcrumbLink } from './BreadcrumbLink';
+import { BreadcrumbSeparator } from './BreadcrumbSeparator';
 
-export interface BreadcrumbItem {
+export interface BreadcrumbItemType {
   label: string;
   href?: string;
   icon?: IconName;
   onClick?: () => void;
 }
 
-export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
-  items: BreadcrumbItem[];
+export interface BreadcrumbProps extends Omit<ComposableProps<'nav'>, 'onChange'> {
+  /**
+   * Breadcrumb content (for composable API)
+   */
+  children?: React.ReactNode;
+  /**
+   * Breadcrumb items array (for declarative API)
+   * @deprecated Use BreadcrumbList, BreadcrumbItem, and BreadcrumbLink components instead
+   */
+  items?: BreadcrumbItemType[];
+  /**
+   * Separator icon or element (for declarative API)
+   * @deprecated Use BreadcrumbSeparator component instead
+   */
   separator?: IconName | React.ReactNode;
+  /**
+   * Show Figma badge (development only)
+   * @default true
+   */
   showFigmaBadge?: boolean;
 }
 
 /**
- * Breadcrumb component built using FT Design System tokens.
- * Figma design not available - component created based on design system specifications.
+ * Breadcrumb Component
+ * 
+ * A versatile breadcrumb component for navigation hierarchy.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Breadcrumb>
+ *   <BreadcrumbList>
+ *     <BreadcrumbItem>
+ *       <BreadcrumbLink href="/" icon="home">Home</BreadcrumbLink>
+ *     </BreadcrumbItem>
+ *     <BreadcrumbSeparator />
+ *     <BreadcrumbItem>
+ *       <BreadcrumbLink href="/about" isCurrentPage>About</BreadcrumbLink>
+ *     </BreadcrumbItem>
+ *   </BreadcrumbList>
+ * </Breadcrumb>
+ * 
+ * // Declarative API (deprecated)
+ * <Breadcrumb items={[{label: 'Home', href: '/'}]} />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (BreadcrumbList, BreadcrumbItem, BreadcrumbLink, etc.) support `asChild`
+ * - Accessible: includes ARIA attributes and proper navigation semantics
+ * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
   ({
+    children,
     items,
     separator,
     showFigmaBadge = true,
     className,
+    asChild,
     ...props
   }, ref) => {
+    // Check if using composable API (has children with Breadcrumb sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+      child?.type?.displayName?.startsWith('Breadcrumb')
+    );
+    
+    // If using composable API, render composable structure
+    if (hasComposableChildren) {
+      // Show deprecation warning if using old props with composable API
+      if (process.env.NODE_ENV !== 'production' && items && items.length > 0) {
+        console.warn(
+          'Breadcrumb: Using deprecated props (items array) with composable API. ' +
+          'Please use BreadcrumbList, BreadcrumbItem, BreadcrumbLink components instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      }
+      
+      const Comp = asChild ? Slot : 'nav';
+      return (
+        <Comp
+          ref={ref}
+          aria-label="Breadcrumb"
+          className={cn("flex items-center", className)}
+          {...props}
+        >
+          {showFigmaBadge && (
+            <div className="mr-[var(--spacing-x4)]">
+              <FigmaBadge />
+            </div>
+          )}
+          {children}
+        </Comp>
+      );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production' && items && items.length > 0) {
+      console.warn(
+        'Breadcrumb: Declarative API (items array prop) is deprecated. ' +
+        'Please migrate to composable API using BreadcrumbList, BreadcrumbItem, BreadcrumbLink components. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+    
     const defaultSeparator = <Icon name="chevron-right" size={16} className="text-[var(--color-tertiary)]" />;
-
+    
+    const Comp = asChild ? Slot : 'nav';
     return (
-      <nav
+      <Comp
         ref={ref}
         aria-label="Breadcrumb"
         className={cn("flex items-center", className)}
@@ -44,52 +140,33 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
             <FigmaBadge />
           </div>
         )}
-        <ol className="flex items-center gap-[var(--spacing-x2)] flex-wrap">
-          {items.map((item, index) => {
+        <BreadcrumbList>
+          {items?.map((item, index) => {
             const isLast = index === items.length - 1;
-            const isClickable = !isLast && (item.href || item.onClick);
-
             return (
-              <li key={index} className="flex items-center gap-[var(--spacing-x2)]">
+              <React.Fragment key={index}>
                 {index > 0 && (
-                  <span className="flex items-center">
-                    {separator || defaultSeparator}
-                  </span>
+                  <BreadcrumbItem>
+                    <BreadcrumbSeparator icon={typeof separator === 'string' ? separator : undefined}>
+                      {typeof separator !== 'string' ? separator : undefined}
+                    </BreadcrumbSeparator>
+                  </BreadcrumbItem>
                 )}
-                {isClickable ? (
-                  <a
+                <BreadcrumbItem>
+                  <BreadcrumbLink
                     href={item.href}
                     onClick={item.onClick}
-                    className={cn(
-                      "flex items-center gap-[var(--spacing-x2)]",
-                      "text-sm font-medium",
-                      "text-[var(--color-primary)]",
-                      "hover:text-[var(--color-neutral)]",
-                      "transition-colors duration-[var(--transition-fast)]",
-                      "focus:outline-none focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20 focus:rounded-[var(--radius-sm)]"
-                    )}
+                    icon={item.icon}
+                    isCurrentPage={isLast}
                   >
-                    {item.icon && <Icon name={item.icon} size={16} />}
-                    <span>{item.label}</span>
-                  </a>
-                ) : (
-                  <span
-                    className={cn(
-                      "flex items-center gap-[var(--spacing-x2)]",
-                      "text-sm font-medium",
-                      isLast ? "text-[var(--color-primary)]" : "text-[var(--color-tertiary)]"
-                    )}
-                    aria-current={isLast ? 'page' : undefined}
-                  >
-                    {item.icon && <Icon name={item.icon} size={16} />}
-                    <span>{item.label}</span>
-                  </span>
-                )}
-              </li>
+                    {item.label}
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              </React.Fragment>
             );
           })}
-        </ol>
-      </nav>
+        </BreadcrumbList>
+      </Comp>
     );
   }
 );

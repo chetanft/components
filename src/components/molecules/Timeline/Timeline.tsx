@@ -4,6 +4,10 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
 import { Typography } from '../../atoms/Typography';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { TimelineDot } from './TimelineDot';
+import { TimelineContent } from './TimelineContent';
+import { TimelineLabel } from './TimelineLabel';
 
 // ============================================================================
 // Types
@@ -11,31 +15,60 @@ import { Typography } from '../../atoms/Typography';
 
 export type TimelineMode = 'left' | 'right' | 'alternate';
 
-export interface TimelineItemProps extends React.HTMLAttributes<HTMLLIElement> {
-  /** Custom dot element or icon name */
+export interface TimelineItemProps extends ComposableProps<'li'> {
+  /**
+   * Custom dot element or icon name (for declarative API)
+   * @deprecated Use TimelineDot component instead
+   */
   dot?: React.ReactNode | IconName;
-  /** Dot color */
+  /**
+   * Dot color (for declarative API)
+   * @deprecated Use TimelineDot component instead
+   */
   color?: 'primary' | 'success' | 'warning' | 'danger' | 'neutral';
-  /** Label content (shown on opposite side in alternate mode) */
+  /**
+   * Label content (for declarative API)
+   * @deprecated Use TimelineLabel component instead
+   */
   label?: React.ReactNode;
-  /** Whether this item is pending (shows dashed line) */
+  /**
+   * Whether this item is pending (shows dashed line)
+   * @default false
+   */
   pending?: boolean;
-  /** Position override for this item */
+  /**
+   * Position override for this item
+   */
   position?: 'left' | 'right';
-  /** Item children */
+  /**
+   * Item children (for composable API)
+   */
   children?: React.ReactNode;
 }
 
-export interface TimelineProps extends React.HTMLAttributes<HTMLUListElement> {
-  /** Timeline mode - left, right, or alternate */
+export interface TimelineProps extends ComposableProps<'ul'> {
+  /**
+   * Timeline mode - left, right, or alternate
+   * @default 'left'
+   */
   mode?: TimelineMode;
-  /** Whether the last item is pending */
+  /**
+   * Whether the last item is pending
+   * @default false
+   */
   pending?: boolean | React.ReactNode;
-  /** Custom pending dot */
+  /**
+   * Custom pending dot
+   */
   pendingDot?: React.ReactNode;
-  /** Reverse the timeline order */
+  /**
+   * Reverse the timeline order
+   * @default false
+   */
   reverse?: boolean;
-  /** Timeline items */
+  /**
+   * Timeline items (typically TimelineItem components)
+   */
   children?: React.ReactNode;
 }
 
@@ -72,8 +105,14 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
     pending = false,
     position,
     children,
+    asChild,
     ...props
   }, ref) => {
+    // Check if using composable API (has children with Timeline sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+        child?.type?.displayName?.startsWith('Timeline')
+    );
+    
     const renderDot = () => {
       if (React.isValidElement(dot)) {
         return dot;
@@ -100,32 +139,60 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
       );
     };
 
+    // If using composable API, render with sub-components
+    if (hasComposableChildren) {
+        const Comp = asChild ? Slot : 'li';
+        return (
+            <Comp
+                ref={ref}
+                className={cn(
+                    "relative flex items-start gap-[var(--spacing-x3)]",
+                    pending && "opacity-50",
+                    className
+                )}
+                data-position={position}
+                data-pending={pending}
+                {...props}
+            >
+                <div className="flex-shrink-0 mt-[var(--spacing-x1)]">
+                    {dot ? <TimelineDot color={color} icon={dot as any} /> : <TimelineDot color={color} />}
+                </div>
+                <TimelineContent>
+                    {children}
+                </TimelineContent>
+                {label && <TimelineLabel>{label}</TimelineLabel>}
+            </Comp>
+        );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    const Comp = asChild ? Slot : 'li';
     return (
-      <li
-        ref={ref}
-        className={cn(
-          "relative flex",
-          className
-        )}
-        data-position={position}
-        data-pending={pending}
-        {...props}
-      >
-        {/* Timeline connector line - rendered by parent */}
-        <div className="timeline-dot-container flex items-start justify-center w-[var(--spacing-x6)] relative z-10">
-          <div className="mt-[var(--spacing-x1)]">
-            {renderDot()}
-          </div>
-        </div>
-        <div className="timeline-content flex-1 pb-[var(--spacing-x6)] pl-[var(--spacing-x3)]">
-          {children}
-        </div>
-        {label && (
-          <div className="timeline-label hidden">
-            {label}
-          </div>
-        )}
-      </li>
+        <Comp
+            ref={ref}
+            className={cn(
+                "relative flex",
+                className
+            )}
+            data-position={position}
+            data-pending={pending}
+            {...props}
+        >
+            {/* Timeline connector line - rendered by parent */}
+            <div className="timeline-dot-container flex items-start justify-center w-[var(--spacing-x6)] relative z-10">
+                <div className="mt-[var(--spacing-x1)]">
+                    {renderDot()}
+                </div>
+            </div>
+            <div className="timeline-content flex-1 pb-[var(--spacing-x6)] pl-[var(--spacing-x3)]">
+                {children}
+            </div>
+            {label && (
+                <div className="timeline-label hidden">
+                    {label}
+                </div>
+            )}
+        </Comp>
     );
   }
 );
@@ -144,6 +211,7 @@ export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
     pendingDot,
     reverse = false,
     children,
+    asChild,
     ...props
   }, ref) => {
     // Process children
@@ -190,8 +258,9 @@ export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
       } as Partial<TimelineItemProps>);
     });
 
+    const Comp = asChild ? Slot : 'ul';
     return (
-      <ul
+      <Comp
         ref={ref}
         className={cn(
           "relative list-none p-0 m-0",
@@ -258,7 +327,7 @@ export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
             </div>
           );
         })}
-      </ul>
+      </Comp>
     );
   }
 );

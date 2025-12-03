@@ -3,45 +3,109 @@
 import React, { useState, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { RateProvider } from './RateContext';
+import { RateItem } from './RateItem';
 
-export interface RateProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
-  /** Current value */
+export interface RateProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+  /**
+   * Current value (controlled)
+   */
   value?: number;
-  /** Default value */
+  /**
+   * Default value (uncontrolled)
+   * @default 0
+   */
   defaultValue?: number;
-  /** Total count of stars */
+  /**
+   * Total count of stars
+   * @default 5
+   */
   count?: number;
-  /** Allow half star */
+  /**
+   * Allow half star
+   * @default false
+   */
   allowHalf?: boolean;
-  /** Allow clearing by clicking again */
+  /**
+   * Allow clearing by clicking again
+   * @default true
+   */
   allowClear?: boolean;
-  /** Disabled state */
+  /**
+   * Disabled state
+   * @default false
+   */
   disabled?: boolean;
-  /** Read-only state */
+  /**
+   * Read-only state
+   * @default false
+   */
   readOnly?: boolean;
-  /** Custom character */
+  /**
+   * Custom character
+   */
   character?: React.ReactNode | ((props: { index: number }) => React.ReactNode);
-  /** Tooltips for each star */
+  /**
+   * Tooltips for each star
+   */
   tooltips?: string[];
-  /** Size of stars */
+  /**
+   * Size of stars
+   * @default 'md'
+   */
   size?: 'sm' | 'md' | 'lg' | 'xl';
-  /** Active color */
+  /**
+   * Active color
+   */
   activeColor?: string;
-  /** Inactive color */
+  /**
+   * Inactive color
+   */
   inactiveColor?: string;
-  /** Change handler */
+  /**
+   * Change handler
+   */
   onChange?: (value: number) => void;
-  /** Hover change handler */
+  /**
+   * Hover change handler
+   */
   onHoverChange?: (value: number) => void;
+  /**
+   * Rate content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
 /**
- * Rate component - Star rating built with FT Design System tokens.
+ * Rate Component
  * 
- * Uses:
- * - Active color: var(--warning) (gold/yellow)
- * - Inactive color: var(--border-primary)
- * - Hover: var(--warning-light)
+ * A star rating component for displaying and collecting ratings.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Rate value={3} count={5} size="md">
+ *   {Array.from({ length: 5 }, (_, i) => (
+ *     <RateItem key={i} index={i}>
+ *       <RateIcon index={i} />
+ *     </RateItem>
+ *   ))}
+ * </Rate>
+ * 
+ * // Declarative API (deprecated)
+ * <Rate value={3} count={5} />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (RateItem, RateIcon) support `asChild`
+ * - Supports half stars, custom characters, and tooltips
+ * - Declarative API is deprecated but still functional for backward compatibility
+ * - Uses FT Design System tokens: var(--warning) for active, var(--border-primary) for inactive
  */
 export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
   ({
@@ -60,6 +124,8 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
     onChange,
     onHoverChange,
     className,
+    children,
+    asChild,
     ...props
   }, ref) => {
     const [internalValue, setInternalValue] = useState(defaultValue);
@@ -67,7 +133,7 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
 
     const actualValue = controlledValue !== undefined ? controlledValue : internalValue;
     const displayValue = hoverValue !== null ? hoverValue : actualValue;
-
+    
     // Size configurations
     const sizeConfig = {
       sm: { icon: 16, gap: 'gap-1' },
@@ -77,6 +143,11 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
     };
 
     const config = sizeConfig[size];
+    
+    // Check if using composable API (has children with Rate sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+        child?.type?.displayName?.startsWith('Rate')
+    );
     const activeStyle = activeColor || 'var(--warning)';
     const inactiveStyle = inactiveColor || 'var(--border-primary)';
 
@@ -182,29 +253,139 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
         </div>
       );
     };
-
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          "inline-flex items-center",
-          config.gap,
-          className
-        )}
-        onMouseLeave={() => handleHover(null)}
-        role="radiogroup"
-        aria-label="Rating"
-        {...props}
-      >
-        {Array.from({ length: count }, (_, i) => renderStar(i))}
+    
+    // If using composable API, render with context provider
+    if (hasComposableChildren) {
+        // Show deprecation warning if using old props with composable API
+        if (process.env.NODE_ENV !== 'production' && count !== 5) {
+            console.warn(
+                'Rate: Using deprecated props (count) with composable API. ' +
+                'Please use RateItem components instead. ' +
+                'See migration guide: docs/migrations/composable-migration.md'
+            );
+        }
         
-        {/* Optional text showing current value */}
-        {hoverValue !== null && (
-          <span className="ml-2 text-sm text-[var(--tertiary)]">
-            {hoverValue} / {count}
-          </span>
-        )}
-      </div>
+        const Comp = asChild ? Slot : 'div';
+        return (
+            <RateProvider
+                value={{
+                    value: actualValue,
+                    setValue: (newValue: number) => {
+                        if (controlledValue === undefined) {
+                            setInternalValue(newValue);
+                        }
+                        onChange?.(newValue);
+                    },
+                    hoverValue,
+                    setHoverValue: (newValue: number | null) => {
+                        setHoverValue(newValue);
+                        if (newValue !== null) {
+                            onHoverChange?.(newValue);
+                        }
+                    },
+                    count,
+                    allowHalf,
+                    allowClear,
+                    disabled,
+                    readOnly,
+                    character,
+                    tooltips,
+                    size,
+                    activeColor,
+                    inactiveColor,
+                    onChange,
+                    onHoverChange,
+                }}
+            >
+                <Comp
+                    ref={ref}
+                    className={cn(
+                        "inline-flex items-center",
+                        config.gap,
+                        className
+                    )}
+                    onMouseLeave={() => {
+                        setHoverValue(null);
+                    }}
+                    role="radiogroup"
+                    aria-label="Rating"
+                    {...props}
+                >
+                    {children}
+                    {/* Optional text showing current value */}
+                    {hoverValue !== null && (
+                        <span className="ml-2 text-sm text-[var(--tertiary)]">
+                            {hoverValue} / {count}
+                        </span>
+                    )}
+                </Comp>
+            </RateProvider>
+        );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production') {
+        console.warn(
+            'Rate: Declarative API (automatic star rendering) is deprecated. ' +
+            'Please migrate to composable API using RateItem and RateIcon components. ' +
+            'See migration guide: docs/migrations/composable-migration.md'
+        );
+    }
+    
+    const Comp = asChild ? Slot : 'div';
+    return (
+        <RateProvider
+            value={{
+                value: actualValue,
+                setValue: (newValue: number) => {
+                    if (controlledValue === undefined) {
+                        setInternalValue(newValue);
+                    }
+                    onChange?.(newValue);
+                },
+                hoverValue,
+                setHoverValue: (newValue: number | null) => {
+                    setHoverValue(newValue);
+                    if (newValue !== null) {
+                        onHoverChange?.(newValue);
+                    }
+                },
+                count,
+                allowHalf,
+                allowClear,
+                disabled,
+                readOnly,
+                character,
+                tooltips,
+                size,
+                activeColor,
+                inactiveColor,
+                onChange,
+                onHoverChange,
+            }}
+        >
+            <Comp
+                ref={ref}
+                className={cn(
+                    "inline-flex items-center",
+                    config.gap,
+                    className
+                )}
+                onMouseLeave={() => handleHover(null)}
+                role="radiogroup"
+                aria-label="Rating"
+                {...props}
+            >
+                {Array.from({ length: count }, (_, i) => renderStar(i))}
+                
+                {/* Optional text showing current value */}
+                {hoverValue !== null && (
+                    <span className="ml-2 text-sm text-[var(--tertiary)]">
+                        {hoverValue} / {count}
+                    </span>
+                )}
+            </Comp>
+        </RateProvider>
     );
   }
 );

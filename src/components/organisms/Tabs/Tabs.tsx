@@ -3,6 +3,11 @@ import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'rea
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
+import { TabsProvider } from './TabsContext';
+import { TabsList } from './TabsList';
+import { TabsTrigger } from './TabsTrigger';
+import { TabsContent } from './TabsContent';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type TabType = 'primary' | 'secondary' | 'tertiary';
 export type TabState = 'unselected' | 'selected' | 'hover';
@@ -199,27 +204,143 @@ export interface Tab {
 
 export type TabsOverflowBehavior = 'auto' | 'dropdown';
 
-export interface TabsProps {
-  tabs: Tab[];
+export interface TabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+  /**
+   * Tabs content (for composable API)
+   */
+  children?: React.ReactNode;
+  /**
+   * Tabs array (for declarative API)
+   * @deprecated Use TabsList, TabsTrigger, and TabsContent components instead
+   */
+  tabs?: Tab[];
+  /**
+   * Active tab index (for declarative API)
+   */
   activeTab?: number;
+  /**
+   * Callback when tab changes (for declarative API)
+   */
   onTabChange?: (index: number) => void;
+  /**
+   * Tab type/style variant
+   * @default 'primary'
+   */
   type?: TabType;
+  /**
+   * Show line below tabs
+   * @default true
+   */
   showLine?: boolean;
-  className?: string;
+  /**
+   * Overflow behavior
+   * @default 'auto'
+   */
   overflowBehavior?: TabsOverflowBehavior;
 }
 
+/**
+ * Tabs Component
+ * 
+ * A versatile tabs component for organizing content into multiple panels.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Tabs type="primary" showLine>
+ *   <TabsList>
+ *     <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+ *     <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+ *   </TabsList>
+ *   <TabsContent value="tab1">Content 1</TabsContent>
+ *   <TabsContent value="tab2">Content 2</TabsContent>
+ * </Tabs>
+ * 
+ * // Declarative API (deprecated)
+ * <Tabs tabs={tabs} activeTab={0} onTabChange={handleChange} />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (TabsList, TabsTrigger, TabsContent) support `asChild`
+ * - Supports multiple tab types: primary, secondary, tertiary
+ * - Accessible: includes ARIA attributes and keyboard navigation
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   ({
     showLine = true,
+    children,
     tabs,
     activeTab = 0,
     onTabChange,
     type = 'primary',
     className,
     overflowBehavior = 'auto',
+    asChild,
     ...props
   }, ref) => {
+    // Check if using composable API (has children with Tabs sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+      child?.type?.displayName?.startsWith('Tabs')
+    );
+    
+    // If using composable API, wrap with context provider
+    if (hasComposableChildren) {
+      // Show deprecation warning if using old props with composable API
+      if (process.env.NODE_ENV !== 'production' && tabs && tabs.length > 0) {
+        console.warn(
+          'Tabs: Using deprecated props (tabs array) with composable API. ' +
+          'Please use TabsList, TabsTrigger, and TabsContent components instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      }
+      
+      const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
+      
+      useEffect(() => {
+        if (activeTab !== undefined) {
+          setInternalActiveTab(activeTab);
+        }
+      }, [activeTab]);
+      
+      const handleTabChange = useCallback((index: number) => {
+        setInternalActiveTab(index);
+        onTabChange?.(index);
+      }, [onTabChange]);
+      
+      const Comp = asChild ? Slot : 'div';
+      return (
+        <TabsProvider
+          value={{
+            activeTab: internalActiveTab,
+            onTabChange: handleTabChange,
+            type,
+            showLine,
+          }}
+        >
+          <Comp
+            ref={ref}
+            className={cn("flex flex-col relative", className)}
+            {...props}
+          >
+            {children}
+          </Comp>
+        </TabsProvider>
+      );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production' && tabs && tabs.length > 0) {
+      console.warn(
+        'Tabs: Declarative API (tabs array prop) is deprecated. ' +
+        'Please migrate to composable API using TabsList, TabsTrigger, and TabsContent components. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
     const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
     const scrollContainerRef = useRef<HTMLDivElement | null>(null);
     const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -253,6 +374,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     }, []);
 
     const handleDropdownSelect = (index: number) => {
+      if (!tabs) return;
       const tab = tabs[index];
       if (!tab || tab.disabled) return;
       handleTabSelect(index);
@@ -323,7 +445,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
               className={scrollContainerClasses}
               {...props}
             >
-              {tabs.map((tab, index) => (
+              {tabs?.map((tab, index) => (
                 <TabItem
                   key={index}
                   label={tab.label}
@@ -375,7 +497,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
             className="fixed z-50 rounded-lg border border-[var(--border-secondary)] bg-[var(--bg-primary)] shadow-lg min-w-[200px] py-[var(--spacing-x2)]"
             style={{ top: menuPosition.top, left: menuPosition.left }}
           >
-            {tabs.map((tab, index) => (
+            {tabs?.map((tab, index) => (
               <button
                 key={`all-tabs-${index}`}
                 className={cn(

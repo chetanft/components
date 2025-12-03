@@ -57,6 +57,11 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
+          title: "For Developers",
+          href: "/docs/for-developers",
+          items: [],
+        },
+        {
           title: "Accessibility",
           href: "/docs/accessibility",
           items: [],

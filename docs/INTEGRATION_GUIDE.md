@@ -81,6 +81,8 @@ After installation, run the setup script:
 
 ```bash
 npx ft-design-system setup
+# or use the shorter alias:
+npx ftds setup
 ```
 
 This will automatically:
@@ -88,6 +90,14 @@ This will automatically:
 2. Add CSS import to the correct file
 3. Update Tailwind config with FT DS content paths
 4. Verify the setup
+
+**Available commands:**
+- `npx ft-design-system setup` - Set up FT Design System in your project (default)
+- `npx ft-design-system verify` - Verify that FT Design System is properly configured
+- `npx ft-design-system update` - Update Tailwind config after package updates
+- `npx ft-design-system init` - Scaffold a new project with FT Design System
+- `npx ft-design-system help` - Show help message
+- `npx ftds <command>` - Shorter alias for all commands
 
 **Supported frameworks:**
 - Next.js 14+ (App Router)
@@ -242,6 +252,46 @@ root.render(
 ---
 
 ## ❌ Common Issues & Solutions
+
+### npx Command Not Found
+
+If `npx ft-design-system setup` doesn't work:
+
+1. **Make sure the package is installed:**
+   ```bash
+   npm install ft-design-system
+   ```
+
+2. **Try the shorter alias:**
+   ```bash
+   npx ftds setup
+   ```
+
+3. **Verify installation:**
+   ```bash
+   npm list ft-design-system
+   ```
+
+4. **If still not working, use manual setup** (see Manual Setup Checklist above)
+
+### Setup Script Fails to Detect Framework
+
+If the automated setup can't detect your framework:
+
+1. **Check your project structure:**
+   - Next.js App Router: Should have `app/` directory
+   - Next.js Pages Router: Should have `pages/` directory
+   - Vite: Should have `vite.config.js` or `vite.config.ts`
+   - CRA: Should have `src/index.js` or `src/index.tsx`
+
+2. **Use manual setup** - Follow the framework-specific instructions below
+
+3. **Verify command works:**
+   ```bash
+   npx ft-design-system verify
+   ```
+
+---
 
 ### Issue 1: Components Render Without Styles
 

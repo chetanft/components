@@ -19,8 +19,14 @@ export type { TableHeadProps } from './TableHead';
 export { TableBody } from './TableBody';
 export type { TableBodyProps } from './TableBody';
 
+export { TableFooter } from './TableFooter';
+export type { TableFooterProps } from './TableFooter';
+
 export { TableRow } from './TableRow';
 export type { TableRowProps } from './TableRow';
+
+export { TableCaption } from './TableCaption';
+export type { TableCaptionProps } from './TableCaption';
 
 // Atomic Table Components
 export { TableCellText } from './TableCellText';

@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
+import { DrawerContextProvider } from './DrawerContext';
 
 /**
  * Drawer placement position
@@ -19,8 +20,26 @@ export type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom';
  * 
  * @example
  * ```tsx
- * const [open, setOpen] = useState(false);
+ * // Composable API (recommended)
+ * <Drawer open={open} onOpenChange={setOpen}>
+ *   <DrawerTrigger>
+ *     <Button>Open Drawer</Button>
+ *   </DrawerTrigger>
+ *   <DrawerContent placement="right" width={400}>
+ *     <DrawerHeader>
+ *       <DrawerTitle>Settings</DrawerTitle>
+ *       <DrawerClose />
+ *     </DrawerHeader>
+ *     <DrawerBody>
+ *       <p>Drawer content goes here</p>
+ *     </DrawerBody>
+ *     <DrawerFooter>
+ *       <Button onClick={() => setOpen(false)}>Close</Button>
+ *     </DrawerFooter>
+ *   </DrawerContent>
+ * </Drawer>
  * 
+ * // Declarative API (deprecated)
  * <Drawer
  *   open={open}
  *   onClose={() => setOpen(false)}
@@ -41,13 +60,21 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   open: boolean;
   
   /**
+   * Callback when drawer open state changes
+   * Use this for controlled drawers with composable API
+   */
+  onOpenChange?: (open: boolean) => void;
+  
+  /**
    * Callback when drawer should close
    * Called on close button click, mask click (if maskClosable), or ESC key
+   * @deprecated Use onOpenChange instead for composable API
    */
   onClose?: () => void;
   
   /**
-   * Drawer title displayed in header
+   * Drawer title displayed in header (for declarative API)
+   * @deprecated Use DrawerTitle component within DrawerHeader instead
    */
   title?: string;
   
@@ -90,8 +117,9 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   showFigmaBadge?: boolean;
   
   /**
-   * Footer content (typically action buttons)
+   * Footer content (typically action buttons) (for declarative API)
    * Rendered at bottom of drawer
+   * @deprecated Use DrawerFooter component instead
    */
   footer?: React.ReactNode;
   
@@ -112,45 +140,54 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * Drawer Component
  * 
- * A slide-out panel component that displays content from the side of the screen.
+ * A composable slide-out panel component that displays content from the side of the screen.
+ * Supports both composable API (recommended) and declarative API (deprecated).
  * Useful for settings panels, filters, navigation menus, and supplementary content.
  * 
  * @public
  * 
  * @example
  * ```tsx
- * import { Drawer, Button } from 'ft-design-system';
+ * // Composable API (recommended)
+ * import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerBody, DrawerFooter, Button } from 'ft-design-system';
  * 
  * function MyComponent() {
  *   const [open, setOpen] = useState(false);
  * 
  *   return (
- *     <>
- *       <Button onClick={() => setOpen(true)}>Open Drawer</Button>
- *       <Drawer
- *         open={open}
- *         onClose={() => setOpen(false)}
- *         title="Settings"
- *         placement="right"
- *         width={400}
- *       >
- *         <p>Drawer content goes here</p>
- *       </Drawer>
- *     </>
+ *     <Drawer open={open} onOpenChange={setOpen}>
+ *       <DrawerTrigger>
+ *         <Button>Open Drawer</Button>
+ *       </DrawerTrigger>
+ *       <DrawerContent placement="right" width={400}>
+ *         <DrawerHeader>
+ *           <DrawerTitle>Settings</DrawerTitle>
+ *           <DrawerClose />
+ *         </DrawerHeader>
+ *         <DrawerBody>
+ *           <p>Drawer content goes here</p>
+ *         </DrawerBody>
+ *         <DrawerFooter>
+ *           <Button onClick={() => setOpen(false)}>Close</Button>
+ *         </DrawerFooter>
+ *       </DrawerContent>
+ *     </Drawer>
  *   );
  * }
  * ```
  * 
  * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (DrawerTrigger, DrawerContent, DrawerHeader, etc.) support `asChild`
  * - Slides in from specified side (left, right, top, bottom)
  * - Prevents body scroll when open
- * - Closes on ESC key press (if closable)
- * - Closes on backdrop click (if maskClosable)
+ * - Closes on ESC key press and backdrop click
  * - Accessible: includes ARIA attributes and focus management
- * - Use `ft-design-system/ai` import for AI-protected version
+ * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Drawer: React.FC<DrawerProps> = ({
   open,
+  onOpenChange,
   onClose,
   title,
   placement = 'right',
@@ -165,6 +202,41 @@ export const Drawer: React.FC<DrawerProps> = ({
   className,
   ...props
 }) => {
+  // Check if using composable API (has DrawerContent, DrawerTrigger, etc. as children)
+  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+    child?.type?.displayName?.startsWith('Drawer')
+  );
+  
+  // If using composable API, wrap with context provider
+  if (hasComposableChildren) {
+    // Show deprecation warning if using old props with composable API
+    if (process.env.NODE_ENV !== 'production' && (title || footer)) {
+      console.warn(
+        'Drawer: Using deprecated props (title, footer) with composable API. ' +
+        'Please use DrawerTitle, DrawerHeader, DrawerFooter components instead. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+    
+    return (
+      <DrawerContextProvider 
+        open={open} 
+        onOpenChange={onOpenChange || (onClose ? () => onClose() : undefined)}
+        onClose={onClose}
+      >
+        {children}
+      </DrawerContextProvider>
+    );
+  }
+  
+  // Otherwise use declarative API (deprecated)
+  if (process.env.NODE_ENV !== 'production') {
+    console.warn(
+      'Drawer: Declarative API (title, footer props) is deprecated. ' +
+      'Please migrate to composable API using DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerBody, DrawerFooter components. ' +
+      'See migration guide: docs/migrations/composable-migration.md'
+    );
+  }
   // Handle ESC key
   useEffect(() => {
     if (!open) return;
@@ -195,8 +267,15 @@ export const Drawer: React.FC<DrawerProps> = ({
 
   const handleMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (maskClosable && e.target === e.currentTarget) {
+      onOpenChange?.(false);
       onClose?.();
     }
+  };
+  
+  const handleClose = () => {
+    if (!closable) return;
+    onOpenChange?.(false);
+    onClose?.();
   };
 
   const placementStyles = {
@@ -225,85 +304,87 @@ export const Drawer: React.FC<DrawerProps> = ({
   const styles = placementStyles[placement];
 
   return (
-    <div
-      className="fixed inset-0 z-50"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={title ? 'drawer-title' : undefined}
-    >
-      {/* Backdrop */}
+    <DrawerContextProvider open={open} onOpenChange={onOpenChange || (onClose ? () => onClose() : undefined)} onClose={onClose}>
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
-        onClick={handleMaskClick}
-        aria-hidden="true"
-      />
-
-      {/* Drawer Content */}
-      <div
-        className={cn(
-          "absolute",
-          background || "bg-[var(--bg-primary)]",
-          "flex flex-col",
-          styles.container,
-          className
-        )}
-        style={{
-          width: styles.width,
-          height: styles.height,
-          boxShadow: 'var(--shadow-xl)',
-        }}
-        {...props}
+        className="fixed inset-0 z-50"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={title ? 'drawer-title' : undefined}
       >
-        {/* Header */}
-        {(title || closable) && (
-          <div className="flex items-center justify-between px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-b border-[var(--color-border-secondary)] flex-shrink-0">
-            {title && (
-              <h2
-                id="drawer-title"
-                className="text-xl font-semibold text-[var(--color-primary)]"
-              >
-                {title}
-              </h2>
-            )}
-            {closable && (
-              <button
-                type="button"
-                onClick={onClose}
-                className={cn(
-                  "p-[var(--spacing-x1)] rounded-[var(--radius-sm)]",
-                  "hover:bg-[var(--color-bg-secondary)]",
-                  "transition-colors duration-[var(--transition-fast)]",
-                  "focus:outline-none focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20"
-                )}
-                aria-label="Close drawer"
-              >
-                <Icon name="cross" size={20} className="text-[var(--color-tertiary)]" />
-              </button>
-            )}
-          </div>
-        )}
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+          onClick={handleMaskClick}
+          aria-hidden="true"
+        />
 
-        {/* Body */}
-        <div className={cn(
-          "flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)]",
-          background ? "" : "bg-[var(--bg-secondary)]/30"
-        )}>
-          {showFigmaBadge && (
-            <div className="mb-[var(--spacing-x4)]">
-              <FigmaBadge />
+        {/* Drawer Content */}
+        <div
+          className={cn(
+            "absolute",
+            background || "bg-[var(--bg-primary)]",
+            "flex flex-col",
+            styles.container,
+            className
+          )}
+          style={{
+            width: styles.width,
+            height: styles.height,
+            boxShadow: 'var(--shadow-xl)',
+          }}
+          {...props}
+        >
+          {/* Header */}
+          {(title || closable) && (
+            <div className="flex items-center justify-between px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-b border-[var(--color-border-secondary)] flex-shrink-0">
+              {title && (
+                <h2
+                  id="drawer-title"
+                  className="text-xl font-semibold text-[var(--color-primary)]"
+                >
+                  {title}
+                </h2>
+              )}
+              {closable && (
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className={cn(
+                    "p-[var(--spacing-x1)] rounded-[var(--radius-sm)]",
+                    "hover:bg-[var(--color-bg-secondary)]",
+                    "transition-colors duration-[var(--transition-fast)]",
+                    "focus:outline-none focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20"
+                  )}
+                  aria-label="Close drawer"
+                >
+                  <Icon name="cross" size={20} className="text-[var(--color-tertiary)]" />
+                </button>
+              )}
             </div>
           )}
-          {children}
-        </div>
 
-        {/* Footer */}
-        {footer && (
-          <div className="flex-shrink-0 px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-t border-[var(--color-border-secondary)]">
-            {footer}
+          {/* Body */}
+          <div className={cn(
+            "flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)]",
+            background ? "" : "bg-[var(--bg-secondary)]/30"
+          )}>
+            {showFigmaBadge && (
+              <div className="mb-[var(--spacing-x4)]">
+                <FigmaBadge />
+              </div>
+            )}
+            {children}
           </div>
-        )}
+
+          {/* Footer */}
+          {footer && (
+            <div className="flex-shrink-0 px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-t border-[var(--color-border-secondary)]">
+              {footer}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </DrawerContextProvider>
   );
 };
 

@@ -1,6 +1,7 @@
 "use client";
 import React, { forwardRef, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 import { Button } from '../../atoms/Button/Button';
 import { Icon } from '../../atoms/Icons';
 import { SegmentedTabs } from '../../molecules/SegmentedTabs/SegmentedTabs';
@@ -11,7 +12,7 @@ export interface PageHeaderTab {
   disabled?: boolean;
 }
 
-export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PageHeaderProps extends ComposableProps<'div'> {
   /** Title text displayed next to the back button */
   title?: string;
   /** Subtitle text displayed below the title (only shown in variant1) */
@@ -56,6 +57,27 @@ export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   onDocumentClick?: () => void;
 }
 
+/**
+ * PageHeader Component
+ *
+ * A header component for page navigation with tabs and actions.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <PageHeader
+ *   title="Page Title"
+ *   subtitle="Subtitle"
+ *   tabs={tabs}
+ *   onTabChange={handleTabChange}
+ * />
+ * ```
+ *
+ * @remarks
+ * - Wraps the HTML `<div>` element by default.
+ * - Supports `asChild` prop to merge props with a custom child element.
+ */
 export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
   ({
     title = 'PB 09 HH6439',
@@ -85,8 +107,10 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
     onSearchClick,
     onDocumentClick,
     className,
+    asChild,
     ...props
   }, ref) => {
+    const Comp = asChild ? Slot : 'div';
     const [internalActiveTab, setInternalActiveTab] = useState(activeTab || tabs[0]?.key || '');
     const [internalActiveLeftTab, setInternalActiveLeftTab] = useState(
       activeLeftTab || leftTabs?.[0]?.key || ''

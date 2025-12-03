@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 import { Icon, IconName } from '../Icons';
 import { Typography } from '../Typography';
 
@@ -12,8 +13,14 @@ import { Typography } from '../Typography';
  * 
  * @example
  * ```tsx
- * // Status badge
- * <Badge variant="success">Active</Badge>
+ * // Simple badge (Shadcn-style)
+ * <Badge variant="success" size="sm">Active</Badge>
+ * 
+ * // Composable API
+ * <Badge variant="success">
+ *   <BadgeIcon icon="check" />
+ *   <BadgeText>Active</BadgeText>
+ * </Badge>
  * 
  * // Badge with count
  * <Badge variant="error" count={5}>Notifications</Badge>
@@ -21,11 +28,13 @@ import { Typography } from '../Typography';
  * // Dot badge
  * <Badge variant="warning" dot />
  * 
- * // Badge with icon
- * <Badge variant="info" leadingIcon="info">New</Badge>
+ * // With asChild
+ * <Badge variant="info" asChild>
+ *   <span>Custom Badge</span>
+ * </Badge>
  * ```
  */
-export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BadgeProps extends ComposableProps<'div'> {
   /**
    * Badge variant for semantic coloring
    * @default 'default'
@@ -154,6 +163,37 @@ const Ribbon: React.FC<BadgeRibbonProps> = ({
   );
 };
 
+/**
+ * Badge Component
+ * 
+ * A composable badge component for displaying status, labels, and notifications.
+ * Supports Shadcn-style simple API and composable API with BadgeIcon and BadgeText.
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Simple API (Shadcn-style)
+ * <Badge variant="success" size="sm">Active</Badge>
+ * 
+ * // Composable API
+ * <Badge variant="success">
+ *   <BadgeIcon icon="check" />
+ *   <BadgeText>Active</BadgeText>
+ * </Badge>
+ * 
+ * // With asChild
+ * <Badge variant="info" asChild>
+ *   <span>Custom Badge</span>
+ * </Badge>
+ * ```
+ * 
+ * @remarks
+ * - Supports `asChild` prop for custom element composition
+ * - Use composable API with BadgeIcon and BadgeText for maximum flexibility
+ * - Automatically handles notification badges when used as wrapper
+ * - Accessible: maintains proper semantics
+ */
 export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
   ({
     className,
@@ -171,6 +211,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     trailingIcon,
     interaction = false,
     children,
+    asChild,
     ...props
   }, ref) => {
 
@@ -391,8 +432,10 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     // But FT Badge is a Label.
 
     // Let's stick to legacy rendering if no 'status' or 'dot' or 'children+count'
+    const Comp = asChild ? Slot : 'div';
+    
     return (
-      <div
+      <Comp
         className={cn(
           baseStyles,
           sizeStyles,
@@ -414,7 +457,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
           {children || count}
         </span>
         {trailingIcon && <Icon name={trailingIcon} size={iconSize} />}
-      </div>
+      </Comp>
     );
   }
 );

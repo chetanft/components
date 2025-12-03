@@ -5,25 +5,97 @@ import { cn } from '../../../lib/utils';
 import { Button } from '../../atoms/Button/Button';
 import { FigmaBadge } from '../../atoms/FigmaBadge';
 import { Icon } from '../../atoms/Icons/Icon';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { PaginationProvider } from './PaginationContext';
+import { PaginationList } from './PaginationList';
+import { PaginationItem } from './PaginationItem';
+import { PaginationPrevious } from './PaginationPrevious';
+import { PaginationNext } from './PaginationNext';
+import { PaginationEllipsis } from './PaginationEllipsis';
 
-export interface PaginationProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface PaginationProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+  /**
+   * Pagination content (for composable API)
+   */
+  children?: React.ReactNode;
+  /**
+   * Current page number
+   */
   current: number;
+  /**
+   * Total number of items
+   */
   total: number;
+  /**
+   * Items per page
+   * @default 10
+   */
   pageSize?: number;
+  /**
+   * Show page size changer (for declarative API)
+   * @default false
+   */
   showSizeChanger?: boolean;
+  /**
+   * Show quick jumper (for declarative API)
+   * @default false
+   */
   showQuickJumper?: boolean;
+  /**
+   * Callback when page changes
+   */
   onChange?: (page: number, pageSize?: number) => void;
+  /**
+   * Callback when page size changes
+   */
   onShowSizeChange?: (current: number, size: number) => void;
+  /**
+   * Show Figma badge (development only)
+   * @default true
+   */
   showFigmaBadge?: boolean;
+  /**
+   * Pagination variant
+   * @default 'default'
+   */
   variant?: 'default' | 'compact';
 }
 
 /**
- * Pagination component built using FT Design System tokens.
- * Figma design not available - component created based on design system specifications.
+ * Pagination Component
+ * 
+ * A versatile pagination component for navigating through pages of content.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Pagination current={1} total={100} pageSize={10}>
+ *   <PaginationList>
+ *     <PaginationPrevious />
+ *     <PaginationItem page={1} />
+ *     <PaginationEllipsis />
+ *     <PaginationItem page={5} />
+ *     <PaginationNext />
+ *   </PaginationList>
+ * </Pagination>
+ * 
+ * // Declarative API (deprecated)
+ * <Pagination current={1} total={100} onChange={handleChange} />
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (PaginationList, PaginationItem, etc.) support `asChild`
+ * - Supports default and compact variants
+ * - Accessible: includes ARIA attributes and keyboard navigation
+ * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
   ({
+    children,
     current,
     total,
     pageSize = 10,
@@ -34,16 +106,70 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     showFigmaBadge = true,
     variant = 'default',
     className,
+    asChild,
     ...props
   }, ref) => {
     const totalPages = Math.ceil(total / pageSize);
-    const [jumperValue, setJumperValue] = React.useState('');
-
+    
     const handlePageChange = (page: number) => {
       if (page >= 1 && page <= totalPages && page !== current) {
         onChange?.(page, pageSize);
       }
     };
+    
+    // Check if using composable API (has children with Pagination sub-components)
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+      child?.type?.displayName?.startsWith('Pagination')
+    );
+    
+    // If using composable API, wrap with context provider
+    if (hasComposableChildren) {
+      // Show deprecation warning if using old props with composable API
+      if (process.env.NODE_ENV !== 'production' && (showSizeChanger || showQuickJumper)) {
+        console.warn(
+          'Pagination: Using deprecated props (showSizeChanger, showQuickJumper) with composable API. ' +
+          'Please use PaginationList, PaginationItem, PaginationPrevious, PaginationNext components instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      }
+      
+      const Comp = asChild ? Slot : 'div';
+      return (
+        <PaginationProvider
+          value={{
+            current,
+            total,
+            pageSize,
+            totalPages,
+            onPageChange: handlePageChange,
+            variant,
+          }}
+        >
+          <Comp
+            ref={ref}
+            className={cn("flex items-center gap-[var(--spacing-x2)] flex-wrap", className)}
+            {...props}
+          >
+            {showFigmaBadge && (
+              <div className="mr-[var(--spacing-x4)]">
+                <FigmaBadge />
+              </div>
+            )}
+            {children}
+          </Comp>
+        </PaginationProvider>
+      );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(
+        'Pagination: Declarative API is deprecated. ' +
+        'Please migrate to composable API using PaginationList, PaginationItem, PaginationPrevious, PaginationNext components. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+    const [jumperValue, setJumperValue] = React.useState('');
 
     const handleSizeChange = (newSize: number) => {
       onShowSizeChange?.(current, newSize);
@@ -171,67 +297,38 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     }
 
     // Default variant - full pagination with page numbers
+    const Comp = asChild ? Slot : 'div';
     return (
-      <div ref={ref} className={cn("flex items-center gap-[var(--spacing-x2)] flex-wrap", className)} {...props}>
-        {showFigmaBadge && (
-          <div className="mr-[var(--spacing-x4)]">
-            <FigmaBadge />
-          </div>
-        )}
-        <div className="flex items-center gap-[var(--spacing-x1)]">
-          <Button
-            variant="secondary"
-            size="sm"
-            icon="chevron-left"
-            iconPosition="only"
-            onClick={() => handlePageChange(current - 1)}
-            disabled={current === 1}
-            aria-label="Previous page"
-          />
+      <PaginationProvider
+        value={{
+          current,
+          total,
+          pageSize,
+          totalPages,
+          onPageChange: handlePageChange,
+          variant,
+        }}
+      >
+        <Comp ref={ref} className={cn("flex items-center gap-[var(--spacing-x2)] flex-wrap", className)} {...props}>
+          {showFigmaBadge && (
+            <div className="mr-[var(--spacing-x4)]">
+              <FigmaBadge />
+            </div>
+          )}
+          <PaginationList>
+            <PaginationPrevious />
 
-          {getPageNumbers().map((page, index) => {
-            if (page === 'ellipsis') {
-              return (
-                <span
-                  key={`ellipsis-${index}`}
-                  className="px-[var(--spacing-x2)] text-[var(--color-tertiary)]"
-                >
-                  ...
-                </span>
-              );
-            }
+            {getPageNumbers().map((page, index) => {
+              if (page === 'ellipsis') {
+                return <PaginationEllipsis key={`ellipsis-${index}`} />;
+              }
 
-            const pageNum = page as number;
-            const isActive = pageNum === current;
+              const pageNum = page as number;
+              return <PaginationItem key={pageNum} page={pageNum} />;
+            })}
 
-            return (
-              <Button
-                key={pageNum}
-                variant={isActive ? 'primary' : 'secondary'}
-                size="sm"
-                onClick={() => handlePageChange(pageNum)}
-                className={cn(
-                  "min-w-[var(--spacing-x8)]",
-                  isActive && "font-semibold"
-                )}
-                aria-label={`Page ${pageNum}`}
-                aria-current={isActive ? 'page' : undefined}
-              >
-                {pageNum}
-              </Button>
-            );
-          })}
-
-          <Button
-            variant="secondary"
-            size="sm"
-            icon="chevron-right"
-            iconPosition="only"
-            onClick={() => handlePageChange(current + 1)}
-            disabled={current === totalPages}
-            aria-label="Next page"
-          />
-        </div>
+            <PaginationNext />
+          </PaginationList>
 
         {showSizeChanger && (
           <div className="flex items-center gap-2 ml-4">
@@ -287,7 +384,8 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             </Button>
           </div>
         )}
-      </div>
+        </Comp>
+      </PaginationProvider>
     );
   }
 );

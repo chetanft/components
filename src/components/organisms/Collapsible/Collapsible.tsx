@@ -3,37 +3,118 @@ import React, { useState } from 'react';
 import { Button } from '../../atoms/Button/Button';
 import { Icon } from '../../atoms/Icons';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
+import { CollapsibleProvider } from './CollapsibleContext';
+import { CollapsibleTrigger } from './CollapsibleTrigger';
+import { CollapsibleHeader } from './CollapsibleHeader';
+import { CollapsibleTitle } from './CollapsibleTitle';
+import { CollapsibleExtra } from './CollapsibleExtra';
+import { CollapsibleContent } from './CollapsibleContent';
+import { CollapsibleIcon } from './CollapsibleIcon';
 
-export interface CollapsibleProps {
-  header: React.ReactNode; // Changed to ReactNode
-  key?: string | number;
+export interface CollapsibleProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+  /**
+   * Collapsible content (for composable API)
+   */
   children?: React.ReactNode;
+  /**
+   * Header content (for declarative API)
+   * @deprecated Use CollapsibleTrigger with CollapsibleHeader and CollapsibleTitle instead
+   */
+  header?: React.ReactNode;
+  /**
+   * Extra content (for declarative API)
+   * @deprecated Use CollapsibleExtra component instead
+   */
   extra?: React.ReactNode;
+  /**
+   * Show arrow icon
+   * @default true
+   */
   showArrow?: boolean;
+  /**
+   * Whether the collapsible is disabled
+   * @default false
+   */
   disabled?: boolean;
-  className?: string;
-  // Legacy
-  badges?: boolean;
+  /**
+   * Background variant
+   * @default 'Secondary'
+   */
   bg?: 'Primary' | 'Secondary';
+  /**
+   * Type variant
+   * @default 'Primary'
+   */
   type?: 'Primary' | 'Secondary' | 'Tertiary';
+  /**
+   * Controlled expanded state
+   */
   isExpanded?: boolean;
+  /**
+   * Callback when toggle state changes
+   */
   onToggle?: (isExpanded: boolean) => void;
+  /**
+   * Legacy prop (unused)
+   * @deprecated
+   */
+  badges?: boolean;
 }
 
+/**
+ * Collapsible Component
+ * 
+ * A versatile collapsible component for showing/hiding content.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ * 
+ * @public
+ * 
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <Collapsible type="Primary" bg="Secondary">
+ *   <CollapsibleTrigger>
+ *     <CollapsibleHeader>
+ *       <CollapsibleIcon />
+ *       <CollapsibleTitle>Section Title</CollapsibleTitle>
+ *       <CollapsibleExtra>
+ *         <Button>Action</Button>
+ *       </CollapsibleExtra>
+ *     </CollapsibleHeader>
+ *   </CollapsibleTrigger>
+ *   <CollapsibleContent>
+ *     <p>Content here</p>
+ *   </CollapsibleContent>
+ * </Collapsible>
+ * 
+ * // Declarative API (deprecated)
+ * <Collapsible header="Title" extra={<Button>Action</Button>}>
+ *   Content here
+ * </Collapsible>
+ * ```
+ * 
+ * @remarks
+ * - Composable API provides maximum flexibility and control
+ * - All sub-components (CollapsibleTrigger, CollapsibleHeader, etc.) support `asChild`
+ * - Supports multiple type variants: Primary, Secondary, Tertiary
+ * - Accessible: includes ARIA attributes and keyboard navigation
+ * - Declarative API is deprecated but still functional for backward compatibility
+ */
 export const Collapsible: React.FC<CollapsibleProps> = ({
   header,
   children,
   extra,
-  showArrow: _showArrow = true,
+  showArrow = true,
   disabled,
   className,
-  // Legacy
+  asChild,
   badges: _badges,
   bg = 'Secondary',
   type = 'Primary',
   isExpanded: controlledIsExpanded,
   onToggle,
-  ..._props
+  ...props
 }) => {
   const [internalIsExpanded, setInternalIsExpanded] = useState(false);
   const isExpanded = controlledIsExpanded ?? internalIsExpanded;
@@ -47,6 +128,79 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
       setInternalIsExpanded(newValue);
     }
   };
+  
+  // Check if using composable API (has children with Collapsible sub-components)
+  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+    child?.type?.displayName?.startsWith('Collapsible')
+  );
+  
+  // If using composable API, wrap with context provider
+  if (hasComposableChildren) {
+    // Show deprecation warning if using old props with composable API
+    if (process.env.NODE_ENV !== 'production' && (header || extra)) {
+      console.warn(
+        'Collapsible: Using deprecated props (header, extra) with composable API. ' +
+        'Please use CollapsibleTrigger, CollapsibleHeader, CollapsibleTitle, CollapsibleExtra components instead. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+    
+    const getBorderRadius = () => {
+      return type === 'Tertiary' ? 'rounded-[var(--spacing-x4)]' : 'rounded-[var(--spacing-x2)]';
+    };
+
+    const getBackgroundStyles = () => {
+      const baseStyles = [];
+      if (bg === 'Primary') {
+        baseStyles.push('bg-[var(--bg-primary)]');
+        if (type === 'Tertiary') {
+          baseStyles.push('border border-[var(--border-primary)]');
+        }
+      } else {
+        baseStyles.push('bg-[var(--bg-secondary)]');
+        if (type === 'Tertiary') {
+          baseStyles.push('border border-[var(--border-secondary)]');
+        }
+      }
+      return baseStyles;
+    };
+    
+    const Comp = asChild ? Slot : 'div';
+    return (
+      <CollapsibleProvider
+        value={{
+          isExpanded,
+          onToggle: handleToggle,
+          disabled,
+          type,
+          bg,
+          showArrow,
+        }}
+      >
+        <Comp
+          className={cn(
+            'flex flex-col overflow-hidden',
+            getBorderRadius(),
+            ...getBackgroundStyles(),
+            disabled && "opacity-50 cursor-not-allowed",
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </Comp>
+      </CollapsibleProvider>
+    );
+  }
+  
+  // Otherwise use declarative API (deprecated)
+  if (process.env.NODE_ENV !== 'production' && (header || extra)) {
+    console.warn(
+      'Collapsible: Declarative API (header, extra props) is deprecated. ' +
+      'Please migrate to composable API using CollapsibleTrigger, CollapsibleHeader, CollapsibleTitle, CollapsibleExtra components. ' +
+      'See migration guide: docs/migrations/composable-migration.md'
+    );
+  }
 
   // Reuse existing legacy rendering logic or map to simpler one?
   // For compatibility, let's keep the structure but support "accordion" logic via context if we add it later
@@ -76,73 +230,47 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
   const getBorderRadius = () => {
     return type === 'Tertiary' ? 'rounded-[var(--spacing-x4)]' : 'rounded-[var(--spacing-x2)]';
   };
-
-  const renderHeader = () => {
-    // Logic for icon
-    const icon = type === 'Primary'
-      ? (isExpanded ? 'subtract' : 'add')
-      : (isExpanded ? 'chevron-up' : 'chevron-down'); // For Secondary
-
-    // Secondary logic is different in original: chevron-down (collapsed), chevron-up (expanded)
-    // Actually original code: Secondary/Tertiary collapsed -> chevron-right if Tertiary, chevron-down if Secondary...
-
-    return (
-      <div
-        className={cn(
-          "flex items-center gap-[var(--spacing-x2)] px-0 py-[var(--spacing-x5)] w-full cursor-pointer",
-          isExpanded ? "border-b border-[var(--border-primary)]" : "",
-        )}
-        onClick={handleToggle}
-      >
-        <div className="flex items-center gap-[var(--spacing-x5)] px-[var(--spacing-x5)] flex-1">
-          {type === 'Primary' && _showArrow && (
-            <Button
-              variant="secondary"
-              size="md"
-              icon={icon}
-              iconPosition="only"
-              className="!w-[var(--spacing-x10)] !h-[var(--spacing-x10)] !p-0 flex items-center justify-center rounded-lg shrink-0 border border-[var(--border-primary)] pointer-events-none"
-            />
-          )}
-          {(type === 'Secondary' || type === 'Tertiary') && _showArrow && (
-            <div className="text-[var(--primary)]">
-              {type === 'Tertiary' && !isExpanded && <Icon name="chevron-right" size={16} />}
-              {type === 'Tertiary' && isExpanded && <Icon name="chevron-up" size={16} />}
-              {/* Secondary doesn't show icon on left in original, it shows chevron-down on right */}
-            </div>
-          )}
-
-          <div className="flex-1 font-semibold text-xl text-[var(--primary)]">{header}</div>
-
-          {extra}
-
-          {type === 'Secondary' && _showArrow && (
-            <div className="text-[var(--primary)]">
-              {isExpanded ? <Icon name="chevron-up" size={16} /> : <Icon name="chevron-down" size={16} />}
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
-
+  
+  const Comp = asChild ? Slot : 'div';
   return (
-    <div
-      className={cn(
-        'flex flex-col overflow-hidden',
-        getBorderRadius(),
-        ...getBackgroundStyles(),
-        disabled && "opacity-50 cursor-not-allowed",
-        className
-      )}
-      {..._props}
+    <CollapsibleProvider
+      value={{
+        isExpanded,
+        onToggle: handleToggle,
+        disabled,
+        type,
+        bg,
+        showArrow,
+      }}
     >
-      {renderHeader()}
-      {isExpanded && (
-        <div className={cn("px-[var(--spacing-x5)] py-[var(--spacing-x5)]", type === 'Tertiary' ? "pt-0" : "")}>
-          {children}
-        </div>
-      )}
-    </div>
+      <Comp
+        className={cn(
+          'flex flex-col overflow-hidden',
+          getBorderRadius(),
+          ...getBackgroundStyles(),
+          disabled && "opacity-50 cursor-not-allowed",
+          className
+        )}
+        {...props}
+      >
+        <CollapsibleTrigger>
+          <CollapsibleHeader>
+            <CollapsibleIcon />
+            {header && <CollapsibleTitle>{header}</CollapsibleTitle>}
+            {extra && <CollapsibleExtra>{extra}</CollapsibleExtra>}
+            {type === 'Secondary' && showArrow && (
+              <div className="text-[var(--primary)]">
+                {isExpanded ? <Icon name="chevron-up" size={16} /> : <Icon name="chevron-down" size={16} />}
+              </div>
+            )}
+          </CollapsibleHeader>
+        </CollapsibleTrigger>
+        {isExpanded && (
+          <CollapsibleContent>
+            {children}
+          </CollapsibleContent>
+        )}
+      </Comp>
+    </CollapsibleProvider>
   );
 };

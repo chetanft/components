@@ -1,12 +1,21 @@
 "use client";
 
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 import { TableHeaderItem } from '../Table/TableHeaderItem';
 import { DataEntryTableCell } from './DataEntryTableCell';
 import { DataEntryTableCellContextMenu } from './DataEntryTableCellContextMenu';
 import { useColumnResize } from './useColumnResize';
+import { DataEntryTableProvider } from './DataEntryTableContext';
+import { DataEntryTableHeader } from './DataEntryTableHeader';
+import { DataEntryTableHeaderRow } from './DataEntryTableHeaderRow';
+import { DataEntryTableHeaderCell } from './DataEntryTableHeaderCell';
+import { DataEntryTableBody } from './DataEntryTableBody';
+import { DataEntryTableRow } from './DataEntryTableRow';
+import { DataEntryTableRowCell } from './DataEntryTableRowCell';
+import { DataEntryTableRowCheckbox } from './DataEntryTableRowCheckbox';
 import type { DropdownOption } from '../../molecules/Dropdown/Dropdown';
 import type { DataEntryCellType, DataEntryCellState, ActionConfig } from './DataEntryTableCell';
 
@@ -24,21 +33,100 @@ export interface DataEntryColumn {
   readOnlyValue?: (row: any, value: unknown) => React.ReactNode;
 }
 
-export interface DataEntryTableProps<T extends { id: string | number; [key: string]: any } = any> {
-  columns: DataEntryColumn[];
-  data: T[];
+export interface DataEntryTableProps<T extends { id: string | number; [key: string]: any } = any> extends ComposableProps<'div'> {
+  /**
+   * Columns configuration (for declarative API)
+   * @deprecated Use DataEntryTableHeader, DataEntryTableHeaderRow, DataEntryTableHeaderCell components instead
+   */
+  columns?: DataEntryColumn[];
+  /**
+   * Data rows (for declarative API)
+   * @deprecated Use DataEntryTableBody, DataEntryTableRow, DataEntryTableRowCell components instead
+   */
+  data?: T[];
+  /**
+   * Callback when cell value changes
+   */
   onCellChange?: (rowId: string | number, columnKey: string, value: string | number) => void;
+  /**
+   * Callback when row is added
+   */
   onRowAdd?: () => void;
+  /**
+   * Callback when row is deleted
+   */
   onRowDelete?: (rowId: string | number) => void;
+  /**
+   * Whether rows are selectable
+   * @default false
+   */
   selectable?: boolean;
+  /**
+   * Whether columns are resizable
+   * @default false
+   */
   resizable?: boolean;
+  /**
+   * Whether to show context menu on hover
+   * @default false
+   */
   showContextMenu?: boolean;
+  /**
+   * Selected row IDs (controlled)
+   */
   selectedRows?: (string | number)[];
+  /**
+   * Callback when selection changes
+   */
   onSelectionChange?: (selectedRows: (string | number)[]) => void;
-  className?: string;
+  /**
+   * Cell errors by row ID and column key
+   */
   cellErrors?: Record<string, Record<string, string>>;
+  /**
+   * Table content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
+/**
+ * DataEntryTable Component
+ *
+ * A composable component for editable data entry tables.
+ * Supports both composable API (recommended) and declarative API (deprecated).
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * // Composable API (recommended)
+ * <DataEntryTable selectable resizable>
+ *   <DataEntryTableHeader>
+ *     <DataEntryTableHeaderRow>
+ *       <DataEntryTableHeaderCell columnKey="name">Name</DataEntryTableHeaderCell>
+ *     </DataEntryTableHeaderRow>
+ *   </DataEntryTableHeader>
+ *   <DataEntryTableBody>
+ *     <DataEntryTableRow rowId="1">
+ *       <DataEntryTableRowCell rowId="1" columnKey="name" type="input" value="John" />
+ *     </DataEntryTableRow>
+ *   </DataEntryTableBody>
+ * </DataEntryTable>
+ * 
+ * // Declarative API (deprecated)
+ * <DataEntryTable
+ *   columns={columns}
+ *   data={data}
+ *   onCellChange={handleCellChange}
+ * />
+ * ```
+ *
+ * @remarks
+ * - Wraps the HTML `<div>` element by default.
+ * - Supports `asChild` prop to merge props with a custom child element.
+ * - Composable API provides maximum flexibility and control.
+ * - Declarative API is deprecated but still functional for backward compatibility.
+ */
 export const DataEntryTable = <T extends { id: string | number; [key: string]: any } = any>({
   columns,
   data,
@@ -52,6 +140,9 @@ export const DataEntryTable = <T extends { id: string | number; [key: string]: a
   onSelectionChange,
   className,
   cellErrors = {},
+  children,
+  asChild,
+  ...props
 }: DataEntryTableProps<T>) => {
   const [focusedCell, setFocusedCell] = useState<{ rowId: string | number; columnKey: string } | null>(null);
   const [hoveredCell, setHoveredCell] = useState<{ rowId: string | number; columnKey: string } | null>(null);
@@ -120,44 +211,132 @@ export const DataEntryTable = <T extends { id: string | number; [key: string]: a
     setContextMenu(null);
   }, []);
 
-  const isAllSelected = selectable && data.length > 0 && selectedRows.length === data.length;
-  const isIndeterminate = selectable && selectedRows.length > 0 && selectedRows.length < data.length;
-
+  // Check if using composable API (has children with DataEntryTable sub-components)
+  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+      child?.type?.displayName?.startsWith('DataEntryTable')
+  );
+  
+  const isAllSelected = selectable && data && data.length > 0 && selectedRows.length === data.length;
+  const isIndeterminate = selectable && selectedRows.length > 0 && data && selectedRows.length < data.length;
+  
+  const contextValue = useMemo(() => ({
+    selectable,
+    selectedRows,
+    onSelectionChange,
+    focusedCell,
+    hoveredCell,
+    setFocusedCell,
+    setHoveredCell,
+    onCellChange,
+    onRowAdd,
+    onRowDelete,
+    resizable,
+    columnWidths,
+    resizingColumn,
+    handleMouseDown,
+    showContextMenu,
+    contextMenu,
+    setContextMenu,
+    cellErrors,
+  }), [
+    selectable,
+    selectedRows,
+    onSelectionChange,
+    focusedCell,
+    hoveredCell,
+    onCellChange,
+    onRowAdd,
+    onRowDelete,
+    resizable,
+    columnWidths,
+    resizingColumn,
+    handleMouseDown,
+    showContextMenu,
+    contextMenu,
+    cellErrors,
+  ]);
+  
+  // If using composable API, render with context provider
+  if (hasComposableChildren) {
+      if (process.env.NODE_ENV !== 'production' && (columns || data)) {
+          console.warn(
+              'DataEntryTable: Using deprecated props (columns, data) with composable API. ' +
+              'Please use DataEntryTableHeader, DataEntryTableBody, DataEntryTableRow, and DataEntryTableRowCell components instead. ' +
+              'See migration guide: docs/migrations/composable-migration.md'
+          );
+      }
+      
+      const Comp = asChild ? Slot : 'div';
+      return (
+          <DataEntryTableProvider value={contextValue}>
+              <Comp className={cn("relative", className)} {...props}>
+                  <div className="overflow-x-auto">
+                      <table ref={tableRef} className="w-full border-collapse">
+                          {children}
+                      </table>
+                  </div>
+                  {contextMenu && (
+                      <DataEntryTableCellContextMenu
+                          options={contextMenu.options}
+                          position={contextMenu.position}
+                          onClose={() => setContextMenu(null)}
+                      />
+                  )}
+              </Comp>
+          </DataEntryTableProvider>
+      );
+  }
+  
+  // Otherwise use declarative API (deprecated)
+  if (process.env.NODE_ENV !== 'production' && (columns || data)) {
+      console.warn(
+          'DataEntryTable: Declarative API (columns, data props) is deprecated. ' +
+          'Please migrate to composable API using DataEntryTableHeader, DataEntryTableBody, DataEntryTableRow, and DataEntryTableRowCell components. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+      );
+  }
+  
+  if (!columns || !data) {
+      return null;
+  }
+  
+  const Comp = asChild ? Slot : 'div';
   return (
-    <div className={cn("relative", className)}>
-      <div className="overflow-x-auto">
-        <table ref={tableRef} className="w-full border-collapse">
-          {/* Header Row - 50px height, bg-secondary, border-secondary */}
-          <thead>
-            <tr>
-              {selectable && (
-                <TableHeaderItem
-                  type="checkbox"
-                  colorVariant="bg"
-                  size="lg"
-                  checkboxProps={{
-                    checked: isAllSelected,
-                    indeterminate: isIndeterminate,
-                    onChange: () => {
-                      if (onSelectionChange) {
-                        if (isAllSelected) {
-                          onSelectionChange([]);
-                        } else {
-                          onSelectionChange(data.map(row => row.id));
+    <DataEntryTableProvider value={contextValue}>
+      <Comp className={cn("relative", className)} {...props}>
+        <div className="overflow-x-auto">
+          <table ref={tableRef} className="w-full border-collapse">
+            {/* Header Row - 50px height, bg-secondary, border-secondary */}
+            <thead>
+              <tr>
+                {selectable && (
+                  <TableHeaderItem
+                    type="checkbox"
+                    colorVariant="bg"
+                    size="lg"
+                    checkboxProps={{
+                      checked: isAllSelected,
+                      indeterminate: isIndeterminate,
+                      onChange: () => {
+                        if (onSelectionChange) {
+                          if (isAllSelected) {
+                            onSelectionChange([]);
+                          } else {
+                            onSelectionChange(data.map(row => row.id));
+                          }
                         }
-                      }
-                    },
-                  }}
-                  className="relative shrink-0"
-                  style={{
-                    width: 'var(--x12, 48px)',
-                    height: '50px',
-                    paddingLeft: 'var(--x5, 20px)',
-                    paddingRight: 'var(--x2, 8px)',
-                  }}
-                />
-              )}
-              {columns.map((column, index) => {
+                      },
+                    }}
+                    className="relative shrink-0"
+                    style={{
+                      width: 'var(--x12, 48px)',
+                      height: '50px',
+                      paddingLeft: 'var(--x5, 20px)',
+                      paddingRight: 'var(--x2, 8px)',
+                    }}
+                  />
+                )}
+                {columns.map((column, index) => {
                 const width = resizable && columnWidths[column.key]
                   ? `${columnWidths[column.key]}px`
                   : column.width || 'auto';
@@ -354,16 +533,17 @@ export const DataEntryTable = <T extends { id: string | number; [key: string]: a
               })
             )}
           </tbody>
-        </table>
-      </div>
-      {contextMenu && (
-        <DataEntryTableCellContextMenu
-          options={contextMenu.options}
-          position={contextMenu.position}
-          onClose={() => setContextMenu(null)}
-        />
-      )}
-    </div>
+          </table>
+        </div>
+        {contextMenu && (
+          <DataEntryTableCellContextMenu
+            options={contextMenu.options}
+            position={contextMenu.position}
+            onClose={() => setContextMenu(null)}
+          />
+        )}
+      </Comp>
+    </DataEntryTableProvider>
   );
 };
 
