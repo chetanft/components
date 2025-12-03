@@ -118,6 +118,11 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
         );
     }
 
+    // Cast children and other ReactNode values to exclude bigint which Slot doesn't accept
+    const safeSrc = src as Exclude<React.ReactNode, bigint> | undefined;
+    const safeIcon = icon as Exclude<React.ReactNode, bigint> | undefined;
+    const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
+
     return (
       <Comp
         ref={ref}
@@ -137,12 +142,12 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
             alt={alt}
             src={src as string}
           />
-        ) : src ? (
-          src
-        ) : icon ? (
-          <span className="flex items-center justify-center">{icon}</span>
-        ) : children ? (
-          children
+        ) : safeSrc ? (
+          safeSrc
+        ) : safeIcon ? (
+          <span className="flex items-center justify-center">{safeIcon}</span>
+        ) : safeChildren ? (
+          safeChildren
         ) : (
           <AvatarFallback />
         )}
