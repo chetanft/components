@@ -12,7 +12,7 @@ import { CollapsibleExtra } from './CollapsibleExtra';
 import { CollapsibleContent } from './CollapsibleContent';
 import { CollapsibleIcon } from './CollapsibleIcon';
 
-export interface CollapsibleProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+export interface CollapsibleProps extends Omit<ComposableProps<'div'>, 'onChange' | 'onToggle'> {
   /**
    * Collapsible content (for composable API)
    */
@@ -128,12 +128,12 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
       setInternalIsExpanded(newValue);
     }
   };
-  
+
   // Check if using composable API (has children with Collapsible sub-components)
-  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+  const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
     child?.type?.displayName?.startsWith('Collapsible')
   );
-  
+
   // If using composable API, wrap with context provider
   if (hasComposableChildren) {
     // Show deprecation warning if using old props with composable API
@@ -144,7 +144,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
         'See migration guide: docs/migrations/composable-migration.md'
       );
     }
-    
+
     const getBorderRadius = () => {
       return type === 'Tertiary' ? 'rounded-[var(--spacing-x4)]' : 'rounded-[var(--spacing-x2)]';
     };
@@ -164,8 +164,32 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
       }
       return baseStyles;
     };
-    
-    const Comp = asChild ? Slot : 'div';
+
+    const combinedClassName = cn(
+      'flex flex-col overflow-hidden',
+      getBorderRadius(),
+      ...getBackgroundStyles(),
+      disabled && "opacity-50 cursor-not-allowed",
+      className
+    );
+
+    const wrappedChildren = asChild ? (
+      <Slot
+        ref={undefined}
+        className={combinedClassName}
+        {...(props as any)}
+      >
+        {children}
+      </Slot>
+    ) : (
+      <div
+        className={combinedClassName}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+
     return (
       <CollapsibleProvider
         value={{
@@ -177,22 +201,11 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
           showArrow,
         }}
       >
-        <Comp
-          className={cn(
-            'flex flex-col overflow-hidden',
-            getBorderRadius(),
-            ...getBackgroundStyles(),
-            disabled && "opacity-50 cursor-not-allowed",
-            className
-          )}
-          {...props}
-        >
-          {children}
-        </Comp>
+        {wrappedChildren}
       </CollapsibleProvider>
     );
   }
-  
+
   // Otherwise use declarative API (deprecated)
   if (process.env.NODE_ENV !== 'production' && (header || extra)) {
     console.warn(
@@ -230,8 +243,54 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
   const getBorderRadius = () => {
     return type === 'Tertiary' ? 'rounded-[var(--spacing-x4)]' : 'rounded-[var(--spacing-x2)]';
   };
-  
-  const Comp = asChild ? Slot : 'div';
+
+  const combinedClassName = cn(
+    'flex flex-col overflow-hidden',
+    getBorderRadius(),
+    ...getBackgroundStyles(),
+    disabled && "opacity-50 cursor-not-allowed",
+    className
+  );
+
+  const content = (
+    <>
+      <CollapsibleTrigger>
+        <CollapsibleHeader>
+          <CollapsibleIcon />
+          {header && <CollapsibleTitle>{header}</CollapsibleTitle>}
+          {extra && <CollapsibleExtra>{extra}</CollapsibleExtra>}
+          {type === 'Secondary' && showArrow && (
+            <div className="text-[var(--primary)]">
+              {isExpanded ? <Icon name="chevron-up" size={16} /> : <Icon name="chevron-down" size={16} />}
+            </div>
+          )}
+        </CollapsibleHeader>
+      </CollapsibleTrigger>
+      {isExpanded && (
+        <CollapsibleContent>
+          {children}
+        </CollapsibleContent>
+      )}
+    </>
+  );
+
+  const wrappedContent = asChild ? (
+    <Slot
+      ref={undefined}
+      className={combinedClassName}
+      {...(props as any)}
+    >
+      {content}
+    </Slot>
+  ) : (
+    <div
+      className={combinedClassName}
+      {...props}
+    >
+      {content}
+    </div>
+  );
+
   return (
     <CollapsibleProvider
       value={{
@@ -243,34 +302,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
         showArrow,
       }}
     >
-      <Comp
-        className={cn(
-          'flex flex-col overflow-hidden',
-          getBorderRadius(),
-          ...getBackgroundStyles(),
-          disabled && "opacity-50 cursor-not-allowed",
-          className
-        )}
-        {...props}
-      >
-        <CollapsibleTrigger>
-          <CollapsibleHeader>
-            <CollapsibleIcon />
-            {header && <CollapsibleTitle>{header}</CollapsibleTitle>}
-            {extra && <CollapsibleExtra>{extra}</CollapsibleExtra>}
-            {type === 'Secondary' && showArrow && (
-              <div className="text-[var(--primary)]">
-                {isExpanded ? <Icon name="chevron-up" size={16} /> : <Icon name="chevron-down" size={16} />}
-              </div>
-            )}
-          </CollapsibleHeader>
-        </CollapsibleTrigger>
-        {isExpanded && (
-          <CollapsibleContent>
-            {children}
-          </CollapsibleContent>
-        )}
-      </Comp>
+      {wrappedContent}
     </CollapsibleProvider>
   );
 };

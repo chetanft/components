@@ -36,9 +36,18 @@ export interface AvatarImageProps extends ComposableProps<'img'> {
  */
 export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
   ({ className, src, alt = "User Avatar", asChild, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'img';
+    if (asChild) {
+      return (
+        <Slot
+          ref={ref as any}
+          className={cn("w-full h-full object-cover", className)}
+          {...(props as any)}
+        />
+      );
+    }
+
     return (
-      <Comp
+      <img
         ref={ref}
         className={cn("w-full h-full object-cover", className)}
         alt={alt}

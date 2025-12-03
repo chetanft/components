@@ -54,25 +54,24 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
     ...props
   }, ref) => {
     // Check if using composable API (has SkeletonText or SkeletonImage as children)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
-        child?.type?.displayName === 'SkeletonText' || child?.type?.displayName === 'SkeletonImage'
+    const hasComposableChildren = React.Children.toArray(children as any).some((child: any) =>
+      child?.type?.displayName === 'SkeletonText' || child?.type?.displayName === 'SkeletonImage'
     );
-    
-    const Comp = asChild ? Slot : 'div';
+
     // If using composable API, render with sub-components
     if (hasComposableChildren) {
-        if (process.env.NODE_ENV !== 'production' && (variant || width || height)) {
-            console.warn(
-                'Skeleton: Using deprecated props (variant, width, height) with composable API. ' +
-                'Please use SkeletonText and SkeletonImage components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
-        
-        return (
-            <>
-                {animation === 'wave' && (
-                    <style>{`
+      if (process.env.NODE_ENV !== 'production' && (variant || width || height)) {
+        console.warn(
+          'Skeleton: Using deprecated props (variant, width, height) with composable API. ' +
+          'Please use SkeletonText and SkeletonImage components instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      }
+
+      return (
+        <>
+          {animation === 'wave' && (
+            <style>{`
                         @keyframes skeleton-wave {
                             0% { transform: translateX(-100%); }
                             100% { transform: translateX(100%); }
@@ -85,28 +84,39 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
                             animation: skeleton-wave 1.5s ease-in-out infinite;
                         }
                     `}</style>
-                )}
-                <Comp ref={ref} className={className} style={style} {...props}>
-                    {showFigmaBadge && (
-                        <div className="mb-2">
-                            <FigmaBadge />
-                        </div>
-                    )}
-                    {children}
-                </Comp>
-            </>
-        );
+          )}
+          {asChild ? (
+            <Slot ref={ref as any} className={className} style={style} {...(props as any)}>
+              {showFigmaBadge && (
+                <div className="mb-2">
+                  <FigmaBadge />
+                </div>
+              )}
+              {children}
+            </Slot>
+          ) : (
+            <div ref={ref} className={className} style={style} {...props}>
+              {showFigmaBadge && (
+                <div className="mb-2">
+                  <FigmaBadge />
+                </div>
+              )}
+              {children}
+            </div>
+          )}
+        </>
+      );
     }
-    
+
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && (variant || width || height)) {
-        console.warn(
-            'Skeleton: Declarative API (variant, width, height props) is deprecated. ' +
-            'Please migrate to composable API using SkeletonText and SkeletonImage components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
+      console.warn(
+        'Skeleton: Declarative API (variant, width, height props) is deprecated. ' +
+        'Please migrate to composable API using SkeletonText and SkeletonImage components. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
     }
-    
+
     const baseStyles = cn(
       "bg-[var(--color-bg-secondary)]",
       "rounded-[var(--radius-md)]",
@@ -151,17 +161,31 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
             }
           `}</style>
         )}
-        <Comp ref={ref} {...props}>
-          {showFigmaBadge && (
-            <div className="mb-2">
-              <FigmaBadge />
-            </div>
-          )}
-          <div
-            className={cn(baseStyles, animation === 'wave' && "skeleton-wave", className)}
-            style={computedStyle}
-          />
-        </Comp>
+        {asChild ? (
+          <Slot ref={ref as any} {...(props as any)}>
+            {showFigmaBadge && (
+              <div className="mb-2">
+                <FigmaBadge />
+              </div>
+            )}
+            <div
+              className={cn(baseStyles, animation === 'wave' && "skeleton-wave", className)}
+              style={computedStyle}
+            />
+          </Slot>
+        ) : (
+          <div ref={ref} {...props}>
+            {showFigmaBadge && (
+              <div className="mb-2">
+                <FigmaBadge />
+              </div>
+            )}
+            <div
+              className={cn(baseStyles, animation === 'wave' && "skeleton-wave", className)}
+              style={computedStyle}
+            />
+          </div>
+        )}
       </>
     );
   }

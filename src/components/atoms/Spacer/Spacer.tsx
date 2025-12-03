@@ -72,16 +72,22 @@ export const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
   ({ size = 'x1', horizontal = false, className, asChild, ...props }, ref) => {
     const sizeClass = horizontal ? horizontalSizeMap[size] : sizeMap[size];
     const baseClass = horizontal ? 'inline-block' : 'block';
-    const Comp = asChild ? Slot : 'div';
+    const combinedClassName = cn(baseClass, sizeClass, className);
+
+    if (asChild) {
+      return (
+        <Slot
+          ref={ref as any}
+          className={combinedClassName}
+          {...(props as any)}
+        />
+      );
+    }
 
     return (
-      <Comp
+      <div
         ref={ref}
-        className={cn(
-          baseClass,
-          sizeClass,
-          className
-        )}
+        className={combinedClassName}
         {...props}
       />
     );

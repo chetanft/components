@@ -38,7 +38,6 @@ type Story = StoryObj<typeof InputNumber>;
 export const Default: Story = {
   args: {
     defaultValue: 0,
-    placeholder: 'Enter number',
   },
 };
 
@@ -53,37 +52,37 @@ export const Sizes: Story = {
         <p className="text-sm text-muted-foreground ml-20">Font: 0.857rem (12px)</p>
       </div>
       <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-4">
-        <span className="w-16 text-sm text-[var(--tertiary)]">XS</span>
-        <InputNumber size="xs" defaultValue={10} />
-      </div>
+        <div className="flex items-center gap-4">
+          <span className="w-16 text-sm text-[var(--tertiary)]">XS</span>
+          <InputNumber size="xs" defaultValue={10} />
+        </div>
         <p className="text-sm text-muted-foreground ml-20">Font: 1rem (14px)</p>
       </div>
       <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-4">
-        <span className="w-16 text-sm text-[var(--tertiary)]">SM</span>
-        <InputNumber size="sm" defaultValue={10} />
-      </div>
+        <div className="flex items-center gap-4">
+          <span className="w-16 text-sm text-[var(--tertiary)]">SM</span>
+          <InputNumber size="sm" defaultValue={10} />
+        </div>
         <p className="text-sm text-muted-foreground ml-20">Font: 1rem (14px)</p>
       </div>
       <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-4">
-        <span className="w-16 text-sm text-[var(--tertiary)]">MD</span>
-        <InputNumber size="md" defaultValue={10} />
-      </div>
+        <div className="flex items-center gap-4">
+          <span className="w-16 text-sm text-[var(--tertiary)]">MD</span>
+          <InputNumber size="md" defaultValue={10} />
+        </div>
         <p className="text-sm text-muted-foreground ml-20">Font: 1.143rem (16px)</p>
       </div>
       <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-4">
-        <span className="w-16 text-sm text-[var(--tertiary)]">LG</span>
-        <InputNumber size="lg" defaultValue={10} />
-      </div>
+        <div className="flex items-center gap-4">
+          <span className="w-16 text-sm text-[var(--tertiary)]">LG</span>
+          <InputNumber size="lg" defaultValue={10} />
+        </div>
         <p className="text-sm text-muted-foreground ml-20">Font: 1.429rem (20px)</p>
       </div>
       <div className="flex flex-col gap-2">
-      <div className="flex items-center gap-4">
-        <span className="w-16 text-sm text-[var(--tertiary)]">XL</span>
-        <InputNumber size="xl" defaultValue={10} />
+        <div className="flex items-center gap-4">
+          <span className="w-16 text-sm text-[var(--tertiary)]">XL</span>
+          <InputNumber size="xl" defaultValue={10} />
         </div>
         <p className="text-sm text-muted-foreground ml-20">Font: 1.714rem (24px)</p>
       </div>

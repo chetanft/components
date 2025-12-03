@@ -45,19 +45,32 @@ export interface SkeletonImageProps extends ComposableProps<'div'> {
  */
 export const SkeletonImage = React.forwardRef<HTMLDivElement, SkeletonImageProps>(
   ({ className, width, height, shape = 'rectangular', animation = 'pulse', asChild, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'div';
-    
+    const baseClassName = cn(
+      "bg-[var(--color-bg-secondary)]",
+      shape === 'circular' ? "rounded-full" : "rounded-[var(--radius-md)]",
+      animation === 'pulse' && "animate-pulse",
+      animation === 'wave' && "relative overflow-hidden skeleton-wave",
+      className
+    );
+
+    const style = { width: width || height, height: height || width };
+
+    if (asChild) {
+      return (
+        <Slot
+          ref={ref as any}
+          className={baseClassName}
+          style={style}
+          {...(props as any)}
+        />
+      );
+    }
+
     return (
-      <Comp
+      <div
         ref={ref}
-        className={cn(
-          "bg-[var(--color-bg-secondary)]",
-          shape === 'circular' ? "rounded-full" : "rounded-[var(--radius-md)]",
-          animation === 'pulse' && "animate-pulse",
-          animation === 'wave' && "relative overflow-hidden skeleton-wave",
-          className
-        )}
-        style={{ width: width || height, height: height || width }}
+        className={baseClassName}
+        style={style}
         {...props}
       />
     );

@@ -44,40 +44,67 @@ export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
   ({ className, state: propState, type: propType, asChild, ...props }, ref) => {
     const { type: contextType, direction } = useStepsContext();
     const type = propType || contextType;
-    
+
     // For dot type, render dot indicator
     if (type === 'dot') {
       const state = propState || 'unselected';
-      const Comp = asChild ? Slot : 'div';
+
+      const dotElement = (
+        <div className={cn(
+          "rounded-full transition-all duration-300",
+          state === 'selected' ? "w-2.5 h-2.5 bg-[var(--primary)]" : "w-2 h-2 bg-[var(--border-secondary)]",
+          state === 'completed' && "bg-[var(--primary)]"
+        )} />
+      );
+
+      if (asChild) {
+        return (
+          <Slot
+            ref={ref as any}
+            className={cn("relative flex items-center justify-center", className)}
+            {...(props as any)}
+          >
+            {dotElement}
+          </Slot>
+        );
+      }
+
       return (
-        <Comp
+        <div
           ref={ref}
           className={cn("relative flex items-center justify-center", className)}
           {...props}
         >
-          <div className={cn(
-            "rounded-full transition-all duration-300",
-            state === 'selected' ? "w-2.5 h-2.5 bg-[var(--primary)]" : "w-2 h-2 bg-[var(--border-secondary)]",
-            state === 'completed' && "bg-[var(--primary)]"
-          )} />
-        </Comp>
+          {dotElement}
+        </div>
       );
     }
-    
+
     // For default type, render progress bar
     const state = propState || 'unselected';
-    const Comp = asChild ? Slot : 'div';
+    const className_combined = cn(
+      "rounded-[var(--radius-md)] transition-colors",
+      direction === 'vertical' ? "w-1 h-full min-h-[32px]" : "w-full h-2",
+      state === "selected" || state === "completed"
+        ? "bg-[var(--primary)]"
+        : "bg-[var(--border-secondary)]",
+      className
+    );
+
+    if (asChild) {
+      return (
+        <Slot
+          ref={ref as any}
+          className={className_combined}
+          {...(props as any)}
+        />
+      );
+    }
+
     return (
-      <Comp
+      <div
         ref={ref}
-        className={cn(
-          "rounded-[var(--radius-md)] transition-colors",
-          direction === 'vertical' ? "w-1 h-full min-h-[32px]" : "w-full h-2",
-          state === "selected" || state === "completed"
-            ? "bg-[var(--primary)]"
-            : "bg-[var(--border-secondary)]",
-          className
-        )}
+        className={className_combined}
         {...props}
       />
     );
