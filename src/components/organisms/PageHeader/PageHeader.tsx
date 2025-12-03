@@ -79,7 +79,7 @@ export interface PageHeaderProps extends Omit<ComposableProps<'div'>, 'children'
  * - Supports `asChild` prop to merge props with a custom child element.
  */
 export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
-  (propsWithChildren, ref) => {
+  (props, ref) => {
     const {
       title = 'PB 09 HH6439',
       subtitle,
@@ -109,11 +109,8 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
       onDocumentClick,
       className,
       asChild,
-      ...props
-    } = propsWithChildren;
-    // Extract children to prevent it from being spread onto the element
-    const { children, ...restProps } = props as any;
-    const finalProps = restProps;
+      ...htmlProps
+    } = props;
     const Comp = asChild ? Slot : 'div';
     const [internalActiveTab, setInternalActiveTab] = useState(activeTab || tabs[0]?.key || '');
     const [internalActiveLeftTab, setInternalActiveLeftTab] = useState(
@@ -388,7 +385,7 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
           (showBackButton || title) && (shouldShowUnderlineTabs || showActions) ? 'justify-between' : '',
           className
         )}
-        {...finalProps}
+        {...htmlProps}
       >
         {/* Left Side - Back Button, Title, and Tabs (if segmented) */}
         <div className="flex gap-[var(--x6,24px)] items-center relative shrink-0">
