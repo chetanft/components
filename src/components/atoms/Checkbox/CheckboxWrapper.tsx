@@ -41,7 +41,7 @@ export const CheckboxWrapper = React.forwardRef<HTMLDivElement, CheckboxWrapperP
     return (
       <Comp
         ref={ref}
-        className={cn("flex flex-col", className)}
+        className={cn("flex flex-row items-center flex-wrap", className)}
         {...props}
       >
         {children}

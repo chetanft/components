@@ -39,10 +39,6 @@ const meta: Meta<typeof Drawer> = {
             control: 'boolean',
             description: 'Whether clicking mask closes the drawer',
         },
-        showFigmaBadge: {
-            control: 'boolean',
-            description: 'Whether to show Figma badge',
-        },
     },
 };
 
@@ -133,7 +129,6 @@ export const Default: Story = {
         width: 400,
         closable: true,
         maskClosable: true,
-        showFigmaBadge: true,
     },
 };
 
@@ -173,7 +168,6 @@ export const LeftPlacement: Story = {
         width: 300,
         closable: true,
         maskClosable: true,
-        showFigmaBadge: true,
     },
 };
 
@@ -208,7 +202,6 @@ export const TopPlacement: Story = {
         height: 200,
         closable: true,
         maskClosable: true,
-        showFigmaBadge: true,
     },
 };
 
@@ -245,7 +238,6 @@ export const BottomPlacement: Story = {
         height: 300,
         closable: true,
         maskClosable: true,
-        showFigmaBadge: true,
     },
 };
 
@@ -289,7 +281,6 @@ export const LargeDrawer: Story = {
         width: 600,
         closable: true,
         maskClosable: true,
-        showFigmaBadge: true,
     },
 };
 
@@ -318,7 +309,6 @@ export const NoTitle: Story = {
         width: 400,
         closable: true,
         maskClosable: true,
-        showFigmaBadge: true,
     },
 };
 
@@ -352,7 +342,6 @@ export const NotClosable: Story = {
         width: 400,
         closable: false,
         maskClosable: false,
-        showFigmaBadge: true,
     },
 };
 
@@ -413,6 +402,5 @@ export const FormExample: Story = {
         width: 450,
         closable: true,
         maskClosable: true,
-        showFigmaBadge: true,
     },
 };

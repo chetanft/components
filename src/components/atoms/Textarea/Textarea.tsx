@@ -3,7 +3,6 @@
 import React from 'react';
 import { cn, type ComponentSize } from '../../../lib/utils';
 import { Label } from '../Label/Label';
-import { FigmaBadge } from '../FigmaBadge';
 import { TextareaProvider } from './TextareaContext';
 import { TextareaWrapper } from './TextareaWrapper';
 import { TextareaLabel } from './TextareaLabel';
@@ -46,11 +45,6 @@ export interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
    * @default 'md'
    */
   size?: ComponentSize;
-  /**
-   * Show Figma badge (development only)
-   * @default true
-   */
-  showFigmaBadge?: boolean;
 }
 
 /**
@@ -94,7 +88,6 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     size = 'md',
     disabled,
     id,
-    showFigmaBadge = true,
     rows = 4,
     ...props
   }, ref) => {
@@ -131,11 +124,6 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           }}
         >
           <TextareaWrapper className={className}>
-            {showFigmaBadge && (
-              <div className="mb-2">
-                <FigmaBadge />
-              </div>
-            )}
             {children}
           </TextareaWrapper>
         </TextareaProvider>
@@ -211,11 +199,6 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         }}
       >
         <TextareaWrapper className={className}>
-          {showFigmaBadge && (
-            <div className="mb-2">
-              <FigmaBadge />
-            </div>
-          )}
           {label && (
             <TextareaLabel
               mandatory={labelMandatory}

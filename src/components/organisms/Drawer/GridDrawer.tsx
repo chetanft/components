@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
-import { FigmaBadge } from '../../atoms/FigmaBadge';
 
 export type GridDrawerSize = 16 | 12 | 7;
 
@@ -14,7 +13,6 @@ export interface GridDrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: GridDrawerSize;
   closable?: boolean;
   maskClosable?: boolean;
-  showFigmaBadge?: boolean;
   children: React.ReactNode;
 }
 
@@ -39,7 +37,6 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
   size = 16,
   closable = true,
   maskClosable = true,
-  showFigmaBadge = true,
   children,
   className,
   ...props
@@ -179,12 +176,6 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
         }}
         {...props}
       >
-        {showFigmaBadge && (
-          <div className="absolute top-2 right-2 z-20">
-            <FigmaBadge />
-          </div>
-        )}
-
         {/* Header */}
         {(title || closable) && (
           <div

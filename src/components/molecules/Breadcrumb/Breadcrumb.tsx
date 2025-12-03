@@ -3,7 +3,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
-import { FigmaBadge } from '../../atoms/FigmaBadge';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { BreadcrumbList } from './BreadcrumbList';
 import { BreadcrumbItem } from './BreadcrumbItem';
@@ -32,11 +31,6 @@ export interface BreadcrumbProps extends Omit<ComposableProps<'nav'>, 'onChange'
    * @deprecated Use BreadcrumbSeparator component instead
    */
   separator?: IconName | React.ReactNode;
-  /**
-   * Show Figma badge (development only)
-   * @default true
-   */
-  showFigmaBadge?: boolean;
 }
 
 /**
@@ -77,7 +71,6 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
     children,
     items,
     separator,
-    showFigmaBadge = true,
     className,
     asChild,
     ...props
@@ -106,11 +99,6 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
           className={cn("flex items-center", className)}
           {...props}
         >
-          {showFigmaBadge && (
-            <div className="mr-[var(--spacing-x4)]">
-              <FigmaBadge />
-            </div>
-          )}
           {children}
         </Comp>
       );
@@ -135,11 +123,6 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
         className={cn("flex items-center", className)}
         {...props}
       >
-        {showFigmaBadge && (
-          <div className="mr-[var(--spacing-x4)]">
-            <FigmaBadge />
-          </div>
-        )}
         <BreadcrumbList>
           {items?.map((item, index) => {
             const isLast = index === items.length - 1;

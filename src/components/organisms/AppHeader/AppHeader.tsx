@@ -19,7 +19,7 @@ export interface User {
 export type AppHeaderSize = 'xl' | 'lg' | 'md' | 'Default';
 export type AppHeaderDevice = 'Desktop' | 'Mobile';
 
-export interface AppHeaderProps extends ComposableProps<'header'> {
+export interface AppHeaderProps extends Omit<ComposableProps<'header'>, 'children'> {
   size?: AppHeaderSize;
   device?: AppHeaderDevice;
   user?: User;
@@ -71,6 +71,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>(({
   className,
   leftAddon,
   asChild,
+  children,
   ...props
 }, ref) => {
   const Comp = asChild ? Slot : 'header';

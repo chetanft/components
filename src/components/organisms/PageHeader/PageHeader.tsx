@@ -12,7 +12,7 @@ export interface PageHeaderTab {
   disabled?: boolean;
 }
 
-export interface PageHeaderProps extends ComposableProps<'div'> {
+export interface PageHeaderProps extends Omit<ComposableProps<'div'>, 'children'> {
   /** Title text displayed next to the back button */
   title?: string;
   /** Subtitle text displayed below the title (only shown in variant1) */
@@ -108,6 +108,7 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
     onDocumentClick,
     className,
     asChild,
+    children,
     ...props
   }, ref) => {
     const Comp = asChild ? Slot : 'div';

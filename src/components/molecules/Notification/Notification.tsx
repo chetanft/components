@@ -152,7 +152,6 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notification, onClo
         icon={notification.icon}
         closable={notification.closable !== false}
         onClose={onClose}
-        showFigmaBadge={false}
       >
         {notification.description}
       </Alert>

@@ -3,7 +3,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Button } from '../../atoms/Button/Button';
-import { FigmaBadge } from '../../atoms/FigmaBadge';
 import { Icon } from '../../atoms/Icons/Icon';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { PaginationProvider } from './PaginationContext';
@@ -50,11 +49,6 @@ export interface PaginationProps extends Omit<ComposableProps<'div'>, 'onChange'
    */
   onShowSizeChange?: (current: number, size: number) => void;
   /**
-   * Show Figma badge (development only)
-   * @default true
-   */
-  showFigmaBadge?: boolean;
-  /**
    * Pagination variant
    * @default 'default'
    */
@@ -82,6 +76,15 @@ export interface PaginationProps extends Omit<ComposableProps<'div'>, 'onChange'
  *   </PaginationList>
  * </Pagination>
  * 
+ * // Compact variant
+ * <Pagination 
+ *   current={1} 
+ *   total={100} 
+ *   pageSize={10}
+ *   variant="compact"
+ *   onChange={(page) => handlePageChange(page)}
+ * />
+ * 
  * // Declarative API (deprecated)
  * <Pagination current={1} total={100} onChange={handleChange} />
  * ```
@@ -103,7 +106,6 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     showQuickJumper = false,
     onChange,
     onShowSizeChange,
-    showFigmaBadge = true,
     variant = 'default',
     className,
     asChild,
@@ -150,11 +152,6 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
             className={cn("flex items-center gap-[var(--spacing-x2)] flex-wrap", className)}
             {...props}
           >
-            {showFigmaBadge && (
-              <div className="mr-[var(--spacing-x4)]">
-                <FigmaBadge />
-              </div>
-            )}
             {children}
           </Comp>
         </PaginationProvider>
@@ -227,11 +224,6 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     if (variant === 'compact') {
       return (
         <div ref={ref} className={cn("inline-flex", className)} {...props}>
-          {showFigmaBadge && (
-            <div className="mr-4">
-              <FigmaBadge />
-            </div>
-          )}
           <div
             className={cn(
               "flex items-center justify-between",
@@ -310,11 +302,6 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
         }}
       >
         <Comp ref={ref} className={cn("flex items-center gap-[var(--spacing-x2)] flex-wrap", className)} {...props}>
-          {showFigmaBadge && (
-            <div className="mr-[var(--spacing-x4)]">
-              <FigmaBadge />
-            </div>
-          )}
           <PaginationList>
             <PaginationPrevious />
 

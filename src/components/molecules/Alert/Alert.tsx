@@ -3,7 +3,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
-import { FigmaBadge } from '../../atoms/FigmaBadge';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { AlertProvider } from './AlertContext';
 import { AlertIcon } from './AlertIcon';
@@ -63,11 +62,6 @@ export interface AlertProps extends Omit<ComposableProps<'div'>, 'onChange'> {
    * Close callback
    */
   onClose?: () => void;
-  /**
-   * Show Figma badge (development only)
-   * @default false
-   */
-  showFigmaBadge?: boolean;
 }
 
 /**
@@ -114,7 +108,6 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     radius,
     action,
     onClose,
-    showFigmaBadge = false,
     className,
     asChild,
     ...props
@@ -182,11 +175,6 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
           }}
         >
           <div ref={ref} {...props}>
-            {showFigmaBadge && (
-              <div className="mb-2">
-                <FigmaBadge />
-              </div>
-            )}
             <Comp
               className={cn(
                 "relative flex items-center gap-2 p-4",
@@ -275,11 +263,6 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         }}
       >
         <div ref={ref} {...props}>
-          {showFigmaBadge && (
-            <div className="mb-2">
-              <FigmaBadge />
-            </div>
-          )}
           <div
             className={cn(
               "relative flex items-center gap-2 p-4",

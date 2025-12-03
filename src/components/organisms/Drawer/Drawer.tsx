@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
-import { FigmaBadge } from '../../atoms/FigmaBadge';
 import { DrawerContextProvider } from './DrawerContext';
 
 /**
@@ -111,12 +110,6 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   maskClosable?: boolean;
   
   /**
-   * Show Figma badge (development only)
-   * @default true
-   */
-  showFigmaBadge?: boolean;
-  
-  /**
    * Footer content (typically action buttons) (for declarative API)
    * Rendered at bottom of drawer
    * @deprecated Use DrawerFooter component instead
@@ -195,7 +188,6 @@ export const Drawer: React.FC<DrawerProps> = ({
   height = '100%',
   closable = true,
   maskClosable = true,
-  showFigmaBadge = true,
   footer,
   background,
   children,
@@ -368,11 +360,6 @@ export const Drawer: React.FC<DrawerProps> = ({
             "flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)]",
             background ? "" : "bg-[var(--bg-secondary)]/30"
           )}>
-            {showFigmaBadge && (
-              <div className="mb-[var(--spacing-x4)]">
-                <FigmaBadge />
-              </div>
-            )}
             {children}
           </div>
 

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { FigmaBadge } from '../FigmaBadge';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { SkeletonText } from './SkeletonText';
 import { SkeletonImage } from './SkeletonImage';
@@ -12,7 +11,6 @@ export interface SkeletonProps extends ComposableProps<'div'> {
   width?: string | number;
   height?: string | number;
   animation?: 'pulse' | 'wave' | 'none';
-  showFigmaBadge?: boolean;
 }
 
 /**
@@ -46,7 +44,6 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
     width,
     height,
     animation = 'pulse',
-    showFigmaBadge = true,
     className,
     style,
     children,
@@ -87,20 +84,10 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
           )}
           {asChild ? (
             <Slot ref={ref as any} className={className} style={style} {...(props as any)}>
-              {showFigmaBadge && (
-                <div className="mb-2">
-                  <FigmaBadge />
-                </div>
-              )}
               {children}
             </Slot>
           ) : (
             <div ref={ref} className={className} style={style} {...props}>
-              {showFigmaBadge && (
-                <div className="mb-2">
-                  <FigmaBadge />
-                </div>
-              )}
               {children}
             </div>
           )}
@@ -163,11 +150,6 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
         )}
         {asChild ? (
           <Slot ref={ref as any} {...(props as any)}>
-            {showFigmaBadge && (
-              <div className="mb-2">
-                <FigmaBadge />
-              </div>
-            )}
             <div
               className={cn(baseStyles, animation === 'wave' && "skeleton-wave", className)}
               style={computedStyle}
@@ -175,11 +157,6 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
           </Slot>
         ) : (
           <div ref={ref} {...props}>
-            {showFigmaBadge && (
-              <div className="mb-2">
-                <FigmaBadge />
-              </div>
-            )}
             <div
               className={cn(baseStyles, animation === 'wave' && "skeleton-wave", className)}
               style={computedStyle}

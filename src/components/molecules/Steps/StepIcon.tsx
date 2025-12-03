@@ -6,7 +6,7 @@ import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useStepsContext } from './StepsContext';
 import type { StepState, StepDirection, StepType } from './StepsContext';
 
-export interface StepIconProps extends ComposableProps<'div'> {
+export interface StepIconProps extends Omit<ComposableProps<'div'>, 'children'> {
   /**
    * Step state (auto-determined if not provided)
    */
@@ -41,7 +41,7 @@ export interface StepIconProps extends ComposableProps<'div'> {
  * - Automatically styled based on step state and type.
  */
 export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
-  ({ className, state: propState, type: propType, asChild, ...props }, ref) => {
+  ({ className, state: propState, type: propType, asChild, children, ...props }, ref) => {
     const { type: contextType, direction } = useStepsContext();
     const type = propType || contextType;
 

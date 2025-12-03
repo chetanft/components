@@ -3,7 +3,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
-import { FigmaBadge } from '../../atoms/FigmaBadge';
 import { ModalContextProvider } from './ModalContext';
 
 /**
@@ -122,12 +121,6 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   centered?: boolean;
   
   /**
-   * Show Figma badge (development only)
-   * @default true
-   */
-  showFigmaBadge?: boolean;
-  
-  /**
    * Modal content
    * @required
    */
@@ -199,7 +192,6 @@ export const Modal: React.FC<ModalProps> = ({
   size = 'md',
   width,
   centered = true,
-  showFigmaBadge = true,
   children,
   className,
   onClick,
@@ -376,11 +368,6 @@ export const Modal: React.FC<ModalProps> = ({
 
           {/* Body */}
           <div className="flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)]">
-            {showFigmaBadge && (
-              <div className="mb-[var(--spacing-x4)]">
-                <FigmaBadge />
-              </div>
-            )}
             {children}
           </div>
 

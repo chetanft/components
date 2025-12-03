@@ -112,17 +112,62 @@ export function StoryPreview({
 
     // For function stories, try to extract actual JSX from source
     if (story.component || story.render) {
+      // Check if story has explicit source code in parameters
+      if (story.parameters?.docs?.source?.code) {
+        return story.parameters.docs.source.code;
+      }
+      
       // Try to extract Button JSX from story source
       if (storySource) {
         const buttonJSX = extractButtonJSX(storySource, story.name);
         if (buttonJSX) {
           return buttonJSX;
         }
+        
+        // Try to extract Pagination JSX from story source
+        if (componentName === 'Pagination' && storySource && typeof storySource === 'string') {
+          const paginationPattern = /<Pagination[\s\S]*?\/>/g;
+          const matches = storySource.match(paginationPattern);
+          if (matches && matches.length > 0) {
+            // Find the match that's inside the CompactVariant function
+            const storyFunctionPattern = new RegExp(
+              `(?:export\\s+function\\s+${story.name}[\\s\\S]*?)(<Pagination[\\s\\S]*?\\/>)`,
+              'i'
+            );
+            const storyMatch = storySource.match(storyFunctionPattern);
+            if (storyMatch && storyMatch[1]) {
+              // Clean up the extracted JSX
+              let cleaned = storyMatch[1]
+                .replace(/\n\s+/g, '\n  ')  // Preserve indentation
+                .replace(/\s{2,}/g, ' ') // Replace multiple spaces with single space
+                .trim();
+              
+              // Format multi-line if needed
+              if (cleaned.includes('\n') || cleaned.length > 80) {
+                // Already formatted or needs formatting
+                return cleaned;
+              }
+              
+              return cleaned;
+            }
+          }
+        }
       }
       
       // Fallback: For Button component with circular buttons story, show example
       if (componentName === 'Button' && story.name.toLowerCase().includes('circular')) {
         return `<Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />`;
+      }
+      
+      // Fallback: For Pagination compact variant, show example
+      if (componentName === 'Pagination' && story.name.toLowerCase().includes('compact')) {
+        return `<Pagination
+  current={1}
+  total={100}
+  pageSize={10}
+  variant="compact"
+  onChange={(page) => handlePageChange(page)}
+/>`;
       }
       
       // Fallback: Show a simplified usage example from args

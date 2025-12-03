@@ -112,7 +112,7 @@ export function WithBothFeatures() {
 }
 
 // Compact variant story
-export function CompactVariant() {
+function CompactVariantComponent() {
   const [current, setCurrent] = React.useState(1);
   
   return (
@@ -127,6 +127,25 @@ export function CompactVariant() {
     </div>
   );
 }
+
+export const CompactVariant: Story = {
+  render: () => <CompactVariantComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Pagination
+  current={1}
+  total={100}
+  pageSize={10}
+  variant="compact"
+  onChange={(page) => handlePageChange(page)}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
+};
 
 // Interactive Demo - all variants shown together and interactable
 export function InteractiveDemo() {
