@@ -45,7 +45,7 @@ export interface DatePickerInputProps extends Omit<ComposableProps<'input'>, 'on
  * - Automatically handles value formatting, parsing, and validation.
  */
 export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInputProps>(
-  ({ className, type = 'single', children, asChild, onChange, onFocus, onBlur, ...props }, ref) => {
+  ({ className, type = 'single', children, asChild, ...props }, ref) => {
     const {
       value,
       startValue,
@@ -154,8 +154,6 @@ export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInpu
           onValueChange?.(parsedDate.toISOString());
         }
       }
-      
-      onChange?.(e);
     };
     
     const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -163,7 +161,6 @@ export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInpu
       if (type === 'single') {
         setIsOpen(true);
       }
-      onFocus?.(e);
     };
     
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -191,7 +188,6 @@ export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInpu
           }
         }
       }
-      onBlur?.(e);
     };
     
     const displayValue = getDisplayValue();
@@ -201,13 +197,8 @@ export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInpu
       return (
         <Slot
           ref={ref}
-          type="text"
-          value={displayValue}
-          placeholder={inputPlaceholder}
+          {...({ type: "text", value: displayValue, placeholder: inputPlaceholder, onChange: handleChange, onFocus: handleFocus, onBlur: handleBlur } as any)}
           disabled={disabled}
-          onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
           onClick={(e) => e.stopPropagation()}
           className={cn(
             "bg-transparent border-none outline-none text-base font-normal leading-[1.4]",

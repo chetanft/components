@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Typography } from '../Typography';
+import { Typography, type TypographyColor } from '../Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useRadioGroupContext } from './RadioGroupContext';
 
@@ -38,7 +38,7 @@ export interface RadioItemLabelProps extends ComposableProps<'span'> {
  * - Accessible: maintains proper label-input association.
  */
 export const RadioItemLabel = React.forwardRef<HTMLSpanElement, RadioItemLabelProps>(
-  ({ className, children, asChild, ...props }, ref) => {
+  ({ className, children, asChild, color, ...props }, ref) => {
     const { size, disabled: groupDisabled } = useRadioGroupContext();
     
     const sizeStyles = {
@@ -47,7 +47,7 @@ export const RadioItemLabel = React.forwardRef<HTMLSpanElement, RadioItemLabelPr
     };
 
     const currentSize = sizeStyles[size];
-    const labelColor = groupDisabled ? 'muted' : 'primary';
+    const labelColor: TypographyColor = groupDisabled ? 'muted' : 'primary';
     
     if (asChild) {
       return (
@@ -64,6 +64,7 @@ export const RadioItemLabel = React.forwardRef<HTMLSpanElement, RadioItemLabelPr
       );
     }
     
+    const { color: _, ...restProps } = props as any;
     return (
       <Typography
         ref={ref}
@@ -71,7 +72,7 @@ export const RadioItemLabel = React.forwardRef<HTMLSpanElement, RadioItemLabelPr
         color={labelColor}
         as="span"
         className={cn(groupDisabled && "cursor-not-allowed", className)}
-        {...props}
+        {...restProps}
       >
         {children}
       </Typography>

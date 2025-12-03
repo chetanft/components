@@ -8,7 +8,7 @@ import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type ResultStatus = 'success' | 'error' | 'info' | 'warning' | '404' | '403' | '500';
 
-export interface ResultProps extends ComposableProps<'div'> {
+export interface ResultProps extends Omit<ComposableProps<'div'>, 'title'> {
   /** Result status */
   status?: ResultStatus;
   /** Title text */

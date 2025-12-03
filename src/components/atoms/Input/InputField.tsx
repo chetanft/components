@@ -168,7 +168,7 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           <Slot
             ref={ref}
             id={inputId}
-            type={type}
+            {...({ type } as any)}
             className={inputStyles}
             disabled={isDisabled}
             aria-invalid={hasError ? 'true' : 'false'}

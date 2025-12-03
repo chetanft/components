@@ -76,7 +76,7 @@ export const BadgeIcon = React.forwardRef<HTMLSpanElement, BadgeIconProps>(
           className={cn("inline-flex items-center justify-center", className)}
           {...props}
         >
-          <Icon name={icon} size={iconSize} />
+          <Icon name={icon as IconName} size={iconSize} />
         </span>
       );
     }

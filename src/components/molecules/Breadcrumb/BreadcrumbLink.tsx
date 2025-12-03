@@ -71,7 +71,7 @@ export const BreadcrumbLink = React.forwardRef<HTMLAnchorElement, BreadcrumbLink
     
     if (asChild) {
       return (
-        <Slot ref={ref} href={href} onClick={onClick} className={linkStyles} aria-current={isCurrentPage ? 'page' : undefined} {...props}>
+        <Slot ref={ref} className={linkStyles} aria-current={isCurrentPage ? 'page' : undefined} {...props}>
           {icon && <Icon name={icon} size={16} />}
           <span>{children}</span>
         </Slot>

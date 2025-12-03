@@ -43,12 +43,12 @@ export interface FormLabelProps extends Omit<ComposableProps<'label'>, 'htmlFor'
  * - Automatically styled based on form layout.
  * - Accessible: maintains proper label-input association.
  */
-export const FormLabel = React.forwardRef<HTMLLabelElement, FormLabelProps>(
-  ({ children, mandatory = false, asChild, className, ...props }, ref) => {
+export const FormLabel = React.forwardRef<HTMLDivElement, FormLabelProps>(
+  ({ children, mandatory = false, asChild, className, onClick, ...props }, ref) => {
     const { layout, labelCol } = useFormContext();
     
     const labelClasses = className || (
-      layout === 'horizontal' 
+      layout === 'horizontal' && labelCol
         ? `flex-shrink-0 text-right pt-[var(--spacing-x2)] w-[${(labelCol / 24) * 100}%]`
         : ''
     );
@@ -63,9 +63,10 @@ export const FormLabel = React.forwardRef<HTMLLabelElement, FormLabelProps>(
       );
     }
     
+    const { onClick: _, ...restProps } = props as any;
     return (
-      <div className={labelClasses}>
-        <Label ref={ref} mandatory={mandatory} {...props}>
+      <div ref={ref} className={labelClasses}>
+        <Label mandatory={mandatory} onClick={onClick as (() => void) | undefined} {...restProps}>
           {children}
         </Label>
       </div>

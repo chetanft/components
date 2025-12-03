@@ -147,7 +147,7 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
               <React.Fragment key={index}>
                 {index > 0 && (
                   <BreadcrumbItem>
-                    <BreadcrumbSeparator icon={typeof separator === 'string' ? separator : undefined}>
+                    <BreadcrumbSeparator icon={typeof separator === 'string' ? separator as IconName : undefined}>
                       {typeof separator !== 'string' ? separator : undefined}
                     </BreadcrumbSeparator>
                   </BreadcrumbItem>

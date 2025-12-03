@@ -11,7 +11,7 @@ import { InputNumberControls } from './InputNumberControls';
 import { InputNumberPrefix } from './InputNumberPrefix';
 import { InputNumberSuffix } from './InputNumberSuffix';
 
-export interface InputNumberProps extends Omit<ComposableProps<'div'>, 'onChange' | 'size'> {
+export interface InputNumberProps extends Omit<ComposableProps<'div'>, 'onChange' | 'size' | 'prefix'> {
   /**
    * Current value (controlled)
    */
@@ -70,6 +70,11 @@ export interface InputNumberProps extends Omit<ComposableProps<'div'>, 'onChange
    * @default false
    */
   error?: boolean;
+  /**
+   * Disabled state
+   * @default false
+   */
+  disabled?: boolean;
   /**
    * Change handler
    */

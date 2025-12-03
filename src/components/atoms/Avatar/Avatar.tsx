@@ -68,7 +68,7 @@ const sizeMap: Record<string, string> = {
 export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
   ({ size = "md", shape = "circle", src, icon, alt = "User Avatar", className, style, children, asChild, ...props }, ref) => {
     // Check if using composable API (has AvatarImage or AvatarFallback as children)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+    const hasComposableChildren = React.Children.toArray(children as React.ReactNode | React.ReactNode[]).some((child: any) => 
         child?.type?.displayName === 'AvatarImage' || child?.type?.displayName === 'AvatarFallback'
     );
 
@@ -152,7 +152,7 @@ Avatar.displayName = 'Avatar';
 
 const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
   ({ maxCount, maxStyle, size = 'md', shape = 'circle', children, className, ...props }, ref) => {
-    const childrenArray = React.Children.toArray(children);
+    const childrenArray = React.Children.toArray(children as React.ReactNode | React.ReactNode[]);
     const totalCount = childrenArray.length;
 
     let renderChildren = childrenArray;

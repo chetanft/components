@@ -44,8 +44,8 @@ export interface TextareaLabelProps extends Omit<ComposableProps<'label'>, 'html
  * - Automatically sets `htmlFor` to match the textarea field ID.
  * - Accessible: maintains proper label-textarea association.
  */
-export const TextareaLabel = React.forwardRef<HTMLLabelElement, TextareaLabelProps>(
-  ({ children, mandatory = false, optional = false, asChild, ...props }, ref) => {
+export const TextareaLabel = React.forwardRef<HTMLDivElement, TextareaLabelProps>(
+  ({ children, mandatory = false, optional = false, asChild, onClick, ...props }, ref) => {
     const { textareaId } = useTextareaContext();
     
     if (asChild) {
@@ -63,17 +63,20 @@ export const TextareaLabel = React.forwardRef<HTMLLabelElement, TextareaLabelPro
       );
     }
     
+    const { onClick: _, ...restProps } = props as any;
     return (
-      <Label
-        ref={ref}
-        htmlFor={textareaId}
-        mandatory={mandatory}
-        optional={optional}
-        className="mb-2"
-        {...props}
-      >
-        {children}
-      </Label>
+      <div ref={ref}>
+        <Label
+          htmlFor={textareaId}
+          mandatory={mandatory}
+          optional={optional}
+          className="mb-2"
+          onClick={onClick as (() => void) | undefined}
+          {...restProps}
+        >
+          {children}
+        </Label>
+      </div>
     );
   }
 );

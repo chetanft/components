@@ -35,7 +35,7 @@ export interface InputNumberFieldProps extends Omit<ComposableProps<'input'>, 'o
  * - Automatically handles value formatting, parsing, and keyboard navigation.
  */
 export const InputNumberField = React.forwardRef<HTMLInputElement, InputNumberFieldProps>(
-  ({ className, children, asChild, onFocus, onBlur, onKeyDown, ...props }, ref) => {
+  ({ className, children, asChild, ...props }, ref) => {
     const {
       inputValue,
       setInputValue,
@@ -95,17 +95,14 @@ export const InputNumberField = React.forwardRef<HTMLInputElement, InputNumberFi
           updateValue(clamped);
         }
       }
-
-      onBlur?.(e);
-    }, [inputValue, parser, clampValue, updateValue, setIsFocused, setInputValue, onBlur]);
+    }, [inputValue, parser, clampValue, updateValue, setIsFocused, setInputValue]);
     
     const handleFocusInternal = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
       if (value !== null) {
         setInputValue(String(value));
       }
-      onFocus?.(e);
-    }, [setIsFocused, setInputValue, value, onFocus]);
+    }, [setIsFocused, setInputValue, value]);
     
     const handleKeyDownInternal = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'ArrowUp') {
@@ -115,20 +112,13 @@ export const InputNumberField = React.forwardRef<HTMLInputElement, InputNumberFi
         e.preventDefault();
         handleDecrement();
       }
-      onKeyDown?.(e);
-    }, [handleIncrement, handleDecrement, onKeyDown]);
+    }, [handleIncrement, handleDecrement]);
     
     if (asChild) {
       return (
         <Slot
           ref={ref}
-          type="text"
-          inputMode="decimal"
-          value={inputValue}
-          onChange={handleInputChange}
-          onFocus={handleFocusInternal}
-          onBlur={handleBlurInternal}
-          onKeyDown={handleKeyDownInternal}
+          {...({ type: "text", inputMode: "decimal", value: inputValue, onChange: handleInputChange, onFocus: handleFocusInternal, onBlur: handleBlurInternal, onKeyDown: handleKeyDownInternal } as any)}
           disabled={disabled}
           className={cn(
             "flex-1 min-w-0 bg-transparent border-none outline-none",

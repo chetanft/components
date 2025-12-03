@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Typography } from '../Typography';
+import { Typography, type TypographyColor } from '../Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useSwitchContext } from './SwitchContext';
 
@@ -36,7 +36,7 @@ export interface SwitchLabelProps extends ComposableProps<'span'> {
  * - Accessible: maintains proper label-input association.
  */
 export const SwitchLabel = React.forwardRef<HTMLSpanElement, SwitchLabelProps>(
-  ({ className, children, asChild, ...props }, ref) => {
+  ({ className, children, asChild, color, ...props }, ref) => {
     const { size, disabled: contextDisabled } = useSwitchContext();
     
     const sizeStyles = {
@@ -45,7 +45,7 @@ export const SwitchLabel = React.forwardRef<HTMLSpanElement, SwitchLabelProps>(
     };
 
     const currentSize = sizeStyles[size];
-    const labelColor = contextDisabled ? 'muted' : 'primary';
+    const labelColor: TypographyColor = contextDisabled ? 'muted' : 'primary';
     
     if (asChild) {
       return (
@@ -62,6 +62,7 @@ export const SwitchLabel = React.forwardRef<HTMLSpanElement, SwitchLabelProps>(
       );
     }
     
+    const { color: _, ...restProps } = props as any;
     return (
       <Typography
         ref={ref}
@@ -69,7 +70,7 @@ export const SwitchLabel = React.forwardRef<HTMLSpanElement, SwitchLabelProps>(
         color={labelColor}
         as="span"
         className={cn(contextDisabled && "cursor-not-allowed", className)}
-        {...props}
+        {...restProps}
       >
         {children}
       </Typography>

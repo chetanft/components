@@ -6,7 +6,7 @@ import { HoverCardProvider } from './HoverCardContext';
 import { HoverCardTrigger } from './HoverCardTrigger';
 import { HoverCardContent } from './HoverCardContent';
 
-export interface HoverCardProps extends Omit<ComposableProps<'div'>, 'children'> {
+export interface HoverCardProps extends Omit<ComposableProps<'div'>, 'children' | 'content'> {
     /**
      * Trigger content (for declarative API)
      * @deprecated Use HoverCardTrigger component instead

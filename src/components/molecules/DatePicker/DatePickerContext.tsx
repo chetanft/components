@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useContext, useState, useRef } from 'react';
-import type { VariantProps } from 'class-variance-authority';
 
 export interface DatePickerContextType {
   isOpen: boolean;
@@ -15,7 +14,7 @@ export interface DatePickerContextType {
   range: boolean;
   disabled: boolean;
   error: boolean;
-  size?: VariantProps<'size'>['size'];
+  size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "m" | "l" | null | undefined;
   placeholder?: string;
   includeDropdown?: boolean;
   onChange?: (value: string) => void;

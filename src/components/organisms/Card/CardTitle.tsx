@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Typography } from '../../atoms/Typography';
+import { Typography, type TypographyColor } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface CardTitleProps extends ComposableProps<'h3'> {
@@ -35,7 +35,7 @@ export interface CardTitleProps extends ComposableProps<'h3'> {
  * - Uses display-primary variant for prominent styling.
  */
 export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
-  ({ className, children, asChild, ...props }, ref) => {
+  ({ className, children, asChild, color, ...props }, ref) => {
     if (asChild) {
       return (
         <Slot ref={ref} {...props}>
@@ -46,13 +46,14 @@ export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
       );
     }
     
+    const { color: _, ...restProps } = props as any;
     return (
       <Typography
         ref={ref}
         variant="display-primary"
         as="h3"
         className={cn("text-[var(--primary)]", className)}
-        {...props}
+        {...restProps}
       >
         {children}
       </Typography>

@@ -64,13 +64,18 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
       : width || 'auto';
     
     if (checkbox) {
+      const { draggable, ...restProps } = props as any;
       return (
         <TableHeaderItem
           type="checkbox"
           colorVariant="bg"
           size="lg"
-          checkboxProps={checkboxProps}
+          checkboxProps={checkboxProps ? {
+            ...checkboxProps,
+            onChange: checkboxProps.onChange ? () => checkboxProps.onChange?.(true) : undefined
+          } : undefined}
           className={cn("relative shrink-0", className)}
+          {...restProps}
           style={{
             width: 'var(--x12, 48px)',
             height: '50px',

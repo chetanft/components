@@ -389,7 +389,7 @@ const ColumnCell = ({
  * - Accessible: maintains proper table semantics and ARIA attributes
  * - Declarative API is deprecated but still functional for backward compatibility
  */
-export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(<T extends TableRow = TableRow>({
+export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(({
   columns,
   data,
   variant = 'primary',
@@ -451,7 +451,7 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(<T extend
   }
 
   // Defensive programming: ensure all rows have valid IDs
-  const validatedData = data.filter(row => {
+  const validatedData = (data || []).filter((row: any) => {
     if (row.id === undefined || row.id === null) {
       console.warn('Table: Row missing required "id" property:', row);
       return false;
@@ -459,7 +459,7 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(<T extend
     return true;
   });
 
-  const allRowIds = validatedData.map(row => row.id);
+  const allRowIds = validatedData.map((row: any) => row.id);
 
   // Determine cell size based on data density
   const cellSize = data.length > 20 ? 'md' : (data.length > 10 ? 'lg' : 'xl');
@@ -528,7 +528,7 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(<T extend
               </TableCellText>
             </div>
           ) : (
-            validatedData.map((row, index) => {
+            validatedData.map((row: any, index: number) => {
               // Alternating pattern: even indices (0, 2, 4...) = white, odd indices (1, 3, 5...) = gray
               const isEvenIndex = index % 2 === 0;
               const bgColor = striped
@@ -592,7 +592,7 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(<T extend
           )}
           <TableHeader
             columns={columns}
-            variant={variant}
+            variant={variant as TableVariant}
             selectable={selectable}
             selectedRows={selectedRows}
             allRowIds={allRowIds}
@@ -619,11 +619,11 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(<T extend
                 </td>
               </tr>
             ) : (
-              validatedData.map((row, index) => {
+              validatedData.map((row: any, index: number) => {
                 const rowId: string | number = row.id;
                 const isSelected = (selectedRows as (string | number)[]).includes(rowId);
                 return (
-                  <TableRowComponent<T>
+                  <TableRowComponent
                     key={String(rowId)}
                     row={row}
                     columns={columns}

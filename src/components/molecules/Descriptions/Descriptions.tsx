@@ -17,7 +17,7 @@ export interface DescriptionsItemProps {
     className?: string;
 }
 
-export interface DescriptionsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+export interface DescriptionsProps extends Omit<ComposableProps<'div'>, 'onChange' | 'title'> {
     /**
      * Title for declarative API (deprecated)
      * @deprecated Use DescriptionsTitle component instead

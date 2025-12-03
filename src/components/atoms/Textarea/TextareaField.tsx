@@ -118,7 +118,7 @@ export const TextareaField = React.forwardRef<HTMLTextAreaElement, TextareaField
           <Slot
             ref={ref}
             id={textareaId}
-            rows={rows}
+            {...({ rows } as any)}
             disabled={isDisabled}
             aria-describedby={describedBy}
             aria-invalid={hasError ? 'true' : undefined}

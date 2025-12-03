@@ -41,8 +41,8 @@ export interface PaginationItemProps extends ComposableProps<'div'> {
  * - Automatically applies active state styling.
  * - Accessible: includes ARIA attributes.
  */
-export const PaginationItem = React.forwardRef<HTMLDivElement, PaginationItemProps>(
-  ({ className, page, children, asChild, ...props }, ref) => {
+export const PaginationItem = React.forwardRef<HTMLButtonElement, PaginationItemProps>(
+  ({ className, page, children, asChild, onClick, ...props }, ref) => {
     const { current, onPageChange } = usePaginationContext();
     const isActive = page === current;
     
@@ -73,12 +73,20 @@ export const PaginationItem = React.forwardRef<HTMLDivElement, PaginationItemPro
       );
     }
     
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      onPageChange(page);
+      onClick?.(e as any);
+    };
+    
+    // Filter out incompatible props from ComposableProps<'div'>
+    const { onCopy, onCut, onPaste, ...buttonProps } = props as any;
+    
     return (
       <Button
-        ref={ref as any}
+        ref={ref}
         variant={isActive ? 'primary' : 'secondary'}
         size="sm"
-        onClick={() => onPageChange(page)}
+        onClick={handleClick}
         className={cn(
           "min-w-[var(--spacing-x8)]",
           isActive && "font-semibold",
@@ -86,7 +94,7 @@ export const PaginationItem = React.forwardRef<HTMLDivElement, PaginationItemPro
         )}
         aria-label={`Page ${page}`}
         aria-current={isActive ? 'page' : undefined}
-        {...props}
+        {...buttonProps}
       >
         {children || page}
       </Button>

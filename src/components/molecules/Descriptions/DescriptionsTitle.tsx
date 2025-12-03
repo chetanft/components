@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Typography } from '../../atoms/Typography';
+import { Typography, type TypographyColor } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface DescriptionsTitleProps extends ComposableProps<'div'> {
@@ -37,7 +37,7 @@ export interface DescriptionsTitleProps extends ComposableProps<'div'> {
  * - Uses title-secondary variant for prominent styling.
  */
 export const DescriptionsTitle = React.forwardRef<HTMLDivElement, DescriptionsTitleProps>(
-  ({ className, children, asChild, ...props }, ref) => {
+  ({ className, children, asChild, color, ...props }, ref) => {
     if (asChild) {
       return (
         <Slot ref={ref} className={className} {...props}>
@@ -48,8 +48,9 @@ export const DescriptionsTitle = React.forwardRef<HTMLDivElement, DescriptionsTi
       );
     }
     
+    const { color: _, ...restProps } = props as any;
     return (
-      <Typography variant="title-secondary" className={cn("font-semibold text-[var(--color-primary)]", className)} ref={ref as any} {...props}>
+      <Typography variant="title-secondary" className={cn("font-semibold text-[var(--color-primary)]", className)} ref={ref as any} {...restProps}>
         {children}
       </Typography>
     );

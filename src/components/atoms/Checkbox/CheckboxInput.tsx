@@ -102,7 +102,7 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
             <Slot
               ref={checkboxRef}
               id={checkboxId}
-              type="checkbox"
+              {...({ type: "checkbox" } as any)}
               className="sr-only"
               disabled={isDisabled}
               aria-invalid={hasError ? 'true' : 'false'}

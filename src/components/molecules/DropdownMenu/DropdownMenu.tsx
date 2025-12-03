@@ -38,7 +38,7 @@ export interface DropdownMenuOption extends Omit<DropdownMenuItemProps, 'childre
 }
 
 export interface DropdownMenuProps
-  extends Omit<ComposableProps<'div'>, 'onSelect'> {
+  extends Omit<ComposableProps<'div'>, 'onSelect' | 'property'> {
   /**
    * Menu property type
    * @default 'default'

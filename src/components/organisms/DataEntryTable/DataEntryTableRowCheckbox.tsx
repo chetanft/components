@@ -76,7 +76,7 @@ export const DataEntryTableRowCheckbox: React.FC<DataEntryTableRowCheckboxProps>
       >
         <Checkbox
           checked={isSelected}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e.target.checked)}
           size="md"
         />
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Typography } from '../../atoms/Typography';
+import { Typography, type TypographyColor } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface ListItemTitleProps extends ComposableProps<'div'> {
@@ -33,7 +33,7 @@ export interface ListItemTitleProps extends ComposableProps<'div'> {
  * - Uses body-primary-semibold variant for prominent styling.
  */
 export const ListItemTitle = React.forwardRef<HTMLDivElement, ListItemTitleProps>(
-  ({ className, children, asChild, ...props }, ref) => {
+  ({ className, children, asChild, color, ...props }, ref) => {
     if (asChild) {
       return (
         <Slot ref={ref} className={className} {...props}>
@@ -44,8 +44,9 @@ export const ListItemTitle = React.forwardRef<HTMLDivElement, ListItemTitleProps
       );
     }
     
+    const { color: _, ...restProps } = props as any;
     return (
-      <Typography variant="body-primary-semibold" ref={ref as any} className={className} {...props}>
+      <Typography variant="body-primary-semibold" ref={ref as any} className={className} {...restProps}>
         {children}
       </Typography>
     );

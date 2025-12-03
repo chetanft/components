@@ -101,10 +101,9 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, SwitchInputProps>(
             <Slot
               ref={ref}
               id={switchId}
-              type="checkbox"
+              {...({ type: "checkbox", checked } as any)}
               className="sr-only"
               disabled={isDisabled}
-              checked={checked}
               aria-invalid={hasError ? 'true' : 'false'}
               {...props}
             />

@@ -39,7 +39,7 @@ export const SliderTrack = React.forwardRef<HTMLDivElement, SliderTrackProps>(
   ({ className, children, asChild, onClick, ...props }, ref) => {
     const { vertical, railColor, getValueFromPosition, range, rangeValue, setValue } = useSliderContext();
     
-    const handleRailClick = (e: React.MouseEvent) => {
+    const handleRailClick = (e: React.MouseEvent<HTMLDivElement>) => {
       const newValue = getValueFromPosition(e.clientX, e.clientY);
       
       if (range) {

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Typography } from '../../atoms/Typography';
+import { Typography, type TypographyColor } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface CardDescriptionProps extends ComposableProps<'p'> {
@@ -36,7 +36,7 @@ export interface CardDescriptionProps extends ComposableProps<'p'> {
  * - Uses body-secondary-regular variant for subtle styling.
  */
 export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
-  ({ className, children, asChild, ...props }, ref) => {
+  ({ className, children, asChild, color, ...props }, ref) => {
     if (asChild) {
       return (
         <Slot ref={ref} {...props}>
@@ -47,13 +47,14 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescri
       );
     }
     
+    const { color: _, ...restProps } = props as any;
     return (
       <Typography
         ref={ref}
         variant="body-secondary-regular"
         as="p"
         className={cn("text-[var(--secondary)]", className)}
-        {...props}
+        {...restProps}
       >
         {children}
       </Typography>

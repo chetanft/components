@@ -11,7 +11,7 @@ import { TreeNodeContent } from './TreeNodeContent';
 import { TreeNodeChildren } from './TreeNodeChildren';
 import type { TreeNodeData } from './Tree';
 
-export interface TreeNodeProps extends ComposableProps<'div'> {
+export interface TreeNodeProps extends Omit<ComposableProps<'div'>, 'title'> {
   /**
    * Node key (unique identifier)
    */

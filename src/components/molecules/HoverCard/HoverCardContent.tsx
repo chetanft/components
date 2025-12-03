@@ -41,7 +41,7 @@ export const HoverCardContent = React.forwardRef<HTMLDivElement, HoverCardConten
   ({ className, children, asChild, onMouseEnter, onMouseLeave, ...props }, ref) => {
     const { open, setOpen, placement, width, closeDelay, openTimeoutRef, closeTimeoutRef } = useHoverCardContext();
     
-    const handleMouseEnter = () => {
+    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
       if (closeTimeoutRef.current) {
         clearTimeout(closeTimeoutRef.current);
         closeTimeoutRef.current = null;
@@ -51,14 +51,14 @@ export const HoverCardContent = React.forwardRef<HTMLDivElement, HoverCardConten
         openTimeoutRef.current = null;
       }
       setOpen(true);
-      onMouseEnter?.();
+      onMouseEnter?.(e);
     };
 
-    const handleMouseLeave = () => {
+    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
       closeTimeoutRef.current = setTimeout(() => {
         setOpen(false);
       }, closeDelay);
-      onMouseLeave?.();
+      onMouseLeave?.(e);
     };
     
     if (!open) return null;

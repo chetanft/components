@@ -859,7 +859,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     range: range || false,
     disabled: disabled || false,
     error: error || false,
-    size,
+    size: size ?? undefined,
     placeholder,
     includeDropdown,
     onChange,

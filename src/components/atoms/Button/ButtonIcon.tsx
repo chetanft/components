@@ -81,7 +81,7 @@ export const ButtonIcon = React.forwardRef<HTMLSpanElement, ButtonIconProps>(
           className={cn("inline-flex items-center justify-center", iconClassName, className)}
           {...props}
         >
-          <Icon name={icon} size={iconSize} />
+          <Icon name={icon as IconName} size={iconSize} />
         </span>
       );
     }

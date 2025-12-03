@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Typography } from '../../atoms/Typography';
+import { Typography, type TypographyColor } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface PopconfirmTitleProps extends ComposableProps<'div'> {
@@ -32,7 +32,7 @@ export interface PopconfirmTitleProps extends ComposableProps<'div'> {
  * - Automatically styled with Typography component.
  */
 export const PopconfirmTitle = React.forwardRef<HTMLDivElement, PopconfirmTitleProps>(
-  ({ className, children, asChild, ...props }, ref) => {
+  ({ className, children, asChild, color, ...props }, ref) => {
     if (asChild) {
       return (
         <Slot ref={ref} className={className} {...props}>
@@ -41,8 +41,9 @@ export const PopconfirmTitle = React.forwardRef<HTMLDivElement, PopconfirmTitleP
       );
     }
     
+    const { color: _, ...restProps } = props as any;
     return (
-      <Typography variant="body-primary-medium" className={className} ref={ref} {...props}>
+      <Typography variant="body-primary-medium" className={className} ref={ref} {...restProps}>
         {children}
       </Typography>
     );

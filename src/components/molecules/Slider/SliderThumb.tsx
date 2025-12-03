@@ -63,18 +63,18 @@ export const SliderThumb = React.forwardRef<HTMLDivElement, SliderThumbProps>(
     const isActive = isDragging === type || hoveredHandle === type;
     const showTooltip = tooltip && isActive;
     
-    const handleMouseDown = (e: React.MouseEvent) => {
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
       if (!disabled) setIsDragging(type);
       onMouseDown?.(e);
     };
     
-    const handleMouseEnter = (e: React.MouseEvent) => {
+    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
       setHoveredHandle(type);
       onMouseEnter?.(e);
     };
     
-    const handleMouseLeave = (e: React.MouseEvent) => {
+    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
       setHoveredHandle(null);
       onMouseLeave?.(e);
     };

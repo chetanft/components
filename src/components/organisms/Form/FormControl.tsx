@@ -44,7 +44,7 @@ export const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     
     const wrapperClasses = cn(
       'flex-1 flex flex-col gap-[var(--spacing-x1)]',
-      layout === 'horizontal' && `w-[${(wrapperCol / 24) * 100}%]`,
+      layout === 'horizontal' && wrapperCol && `w-[${(wrapperCol / 24) * 100}%]`,
       className
     );
     

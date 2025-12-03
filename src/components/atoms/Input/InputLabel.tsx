@@ -53,8 +53,8 @@ export interface InputLabelProps extends Omit<ComposableProps<'label'>, 'htmlFor
  * - Automatically sets `htmlFor` to match the input field ID.
  * - Accessible: maintains proper label-input association.
  */
-export const InputLabel = React.forwardRef<HTMLLabelElement, InputLabelProps>(
-  ({ children, mandatory = false, optional = false, suffixIcon = false, icon, asChild, ...props }, ref) => {
+export const InputLabel = React.forwardRef<HTMLDivElement, InputLabelProps>(
+  ({ children, mandatory = false, optional = false, suffixIcon = false, icon, asChild, onClick, ...props }, ref) => {
     const { inputId } = useInputContext();
     
     if (asChild) {
@@ -73,16 +73,17 @@ export const InputLabel = React.forwardRef<HTMLLabelElement, InputLabelProps>(
       );
     }
     
+    const { onClick: _, ...restProps } = props as any;
     return (
-      <div>
+      <div ref={ref}>
         <Label
-          ref={ref}
           htmlFor={inputId}
           mandatory={mandatory}
           optional={optional}
           suffixIcon={suffixIcon}
           icon={icon}
-          {...props}
+          onClick={onClick as (() => void) | undefined}
+          {...restProps}
         >
           {children}
         </Label>

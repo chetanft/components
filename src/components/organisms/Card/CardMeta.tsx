@@ -4,7 +4,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface CardMetaProps extends ComposableProps<'div'> {
+export interface CardMetaProps extends Omit<ComposableProps<'div'>, 'title'> {
   /**
    * Avatar or icon displayed before the title
    */

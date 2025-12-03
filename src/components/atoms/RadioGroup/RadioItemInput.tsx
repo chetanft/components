@@ -86,12 +86,8 @@ export const RadioItemInput = React.forwardRef<HTMLInputElement, RadioItemInputP
         <div className="relative">
           <Slot
             ref={ref}
-            type="radio"
-            name={name}
-            value={itemValue}
-            checked={isSelected}
+            {...({ type: "radio", name, value: itemValue, checked: isSelected, onChange: handleChange } as any)}
             disabled={isDisabled}
-            onChange={handleChange}
             className="sr-only"
             aria-invalid={hasError ? 'true' : 'false'}
             {...props}
