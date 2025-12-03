@@ -441,7 +441,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         >
           <span className={cn(
             selectedOption ? "text-[var(--primary)]" : "text-[var(--tertiary)]",
-            "text-md-rem"
+            sizeStyles.fontSize
           )}>
             {selectedOption ? selectedOption.label : placeholder}
           </span>

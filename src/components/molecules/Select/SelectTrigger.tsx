@@ -43,12 +43,17 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
     disabled = false,
     ...props
   }, ref) => {
-    const { open, onOpenChange } = useSelectContext();
+    const { open, onOpenChange, setSize } = useSelectContext();
     const triggerRef = useRef<HTMLButtonElement>(null);
     const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
 
     // Combine refs
     React.useImperativeHandle(ref, () => triggerRef.current as HTMLButtonElement);
+
+    // Set size in context so SelectValue can access it
+    useEffect(() => {
+      setSize(size);
+    }, [size, setSize]);
 
     // Calculate position for dropdown
     useEffect(() => {

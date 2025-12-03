@@ -99,7 +99,7 @@ export const DropdownTrigger = React.forwardRef<HTMLDivElement, DropdownTriggerP
           <>
             <span className={cn(
               selectedOption ? "text-[var(--primary)]" : "text-[var(--tertiary)]",
-              "text-md-rem"
+              sizeStyles.fontSize
             )}>
               {selectedOption ? selectedOption.label : placeholder || "Select an option"}
             </span>

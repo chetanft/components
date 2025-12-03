@@ -28,12 +28,23 @@ export const SelectValue: React.FC<SelectValueProps> = ({
   placeholder = 'Select an option',
   className
 }) => {
-  const { value, selectedLabel } = useSelectContext();
+  const { value, selectedLabel, size = 'md' } = useSelectContext();
+
+  // Map size to responsive font size classes (matching SelectTrigger's sizeStyles)
+  const fontSizeMap: Record<string, string> = {
+    xxs: 'text-xs-rem',
+    xs: 'text-xs-rem',
+    sm: 'text-sm-rem',
+    md: 'text-md-rem',
+    lg: 'text-md-rem',
+    xl: 'text-md-rem',
+    xxl: 'text-lg-rem',
+  };
 
   return (
     <span className={cn(
       selectedLabel || value ? "text-[var(--primary)]" : "text-[var(--tertiary)]",
-      "text-md-rem",
+      fontSizeMap[size] || fontSizeMap.md,
       className
     )}>
       {selectedLabel || value || placeholder}

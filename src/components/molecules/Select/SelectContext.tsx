@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useCallback } from 'react';
+import type { ComponentSize } from '../../../lib/utils';
 
 export interface SelectContextValue {
   value?: string;
@@ -9,6 +10,8 @@ export interface SelectContextValue {
   onOpenChange: (open: boolean) => void;
   selectedLabel?: string;
   setSelectedLabel: (label: string) => void;
+  size?: ComponentSize;
+  setSize: (size: ComponentSize) => void;
 }
 
 const SelectContext = createContext<SelectContextValue | undefined>(undefined);
@@ -34,9 +37,14 @@ export const SelectContextProvider: React.FC<SelectContextProviderProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState<string | undefined>();
+  const [size, setSize] = useState<ComponentSize>('md');
 
   const handleOpenChange = useCallback((newOpen: boolean) => {
     setOpen(newOpen);
+  }, []);
+
+  const handleSetSize = useCallback((newSize: ComponentSize) => {
+    setSize(newSize);
   }, []);
 
   const contextValue: SelectContextValue = {
@@ -45,7 +53,9 @@ export const SelectContextProvider: React.FC<SelectContextProviderProps> = ({
     open,
     onOpenChange: handleOpenChange,
     selectedLabel,
-    setSelectedLabel
+    setSelectedLabel,
+    size,
+    setSize: handleSetSize
   };
 
   return (
