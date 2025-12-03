@@ -69,7 +69,11 @@ const horizontalSizeMap: Record<SpacerSize, string> = {
  * - Uses FT Design System spacing tokens.
  */
 export const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
-  ({ size = 'x1', horizontal = false, className, asChild, children, ...props }, ref) => {
+  (propsWithChildren, ref) => {
+    const { size = 'x1', horizontal = false, className, asChild, ...props } = propsWithChildren;
+    // Extract children to prevent it from being spread onto the element
+    const { children, ...restProps } = props as any;
+    const finalProps = restProps;
     const sizeClass = horizontal ? horizontalSizeMap[size] : sizeMap[size];
     const baseClass = horizontal ? 'inline-block' : 'block';
     const combinedClassName = cn(baseClass, sizeClass, className);
@@ -79,7 +83,7 @@ export const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
         <Slot
           ref={ref as any}
           className={combinedClassName}
-          {...(props as any)}
+          {...(finalProps as any)}
         />
       );
     }
@@ -88,7 +92,7 @@ export const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
       <div
         ref={ref}
         className={combinedClassName}
-        {...props}
+        {...finalProps}
       />
     );
   }

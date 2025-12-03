@@ -41,7 +41,11 @@ export interface StepIconProps extends Omit<ComposableProps<'div'>, 'children'> 
  * - Automatically styled based on step state and type.
  */
 export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
-  ({ className, state: propState, type: propType, asChild, children, ...props }, ref) => {
+  (propsWithChildren, ref) => {
+    const { className, state: propState, type: propType, asChild, ...props } = propsWithChildren;
+    // Extract children to prevent it from being spread onto the element
+    const { children, ...restProps } = props as any;
+    const finalProps = restProps;
     const { type: contextType, direction } = useStepsContext();
     const type = propType || contextType;
 
@@ -62,7 +66,7 @@ export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
           <Slot
             ref={ref as any}
             className={cn("relative flex items-center justify-center", className)}
-            {...(props as any)}
+            {...(finalProps as any)}
           >
             {dotElement}
           </Slot>
@@ -73,7 +77,7 @@ export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
         <div
           ref={ref}
           className={cn("relative flex items-center justify-center", className)}
-          {...props}
+          {...finalProps}
         >
           {dotElement}
         </div>

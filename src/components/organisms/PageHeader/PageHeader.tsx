@@ -79,38 +79,41 @@ export interface PageHeaderProps extends Omit<ComposableProps<'div'>, 'children'
  * - Supports `asChild` prop to merge props with a custom child element.
  */
 export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
-  ({
-    title = 'PB 09 HH6439',
-    subtitle,
-    variant = 'variant1',
-    showBackButton = true,
-    onBack,
-    tabs = [
-      { label: 'Tracking', key: 'tracking' },
-      { label: 'Loads', key: 'loads' },
-      { label: 'Exceptions', key: 'exceptions' },
-      { label: 'Ops', key: 'ops' },
-    ],
-    activeTab,
-    onTabChange,
-    tabStyle = 'underline',
-    showTabs = true,
-    leftTabs,
-    activeLeftTab,
-    onLeftTabChange,
-    showLeftTabs = false,
-    showActions = true,
-    primaryActionLabel = 'Button',
-    secondaryActionLabel = 'Button',
-    onPrimaryAction,
-    onSecondaryAction,
-    onSearchClick,
-    onDocumentClick,
-    className,
-    asChild,
-    children,
-    ...props
-  }, ref) => {
+  (propsWithChildren, ref) => {
+    const {
+      title = 'PB 09 HH6439',
+      subtitle,
+      variant = 'variant1',
+      showBackButton = true,
+      onBack,
+      tabs = [
+        { label: 'Tracking', key: 'tracking' },
+        { label: 'Loads', key: 'loads' },
+        { label: 'Exceptions', key: 'exceptions' },
+        { label: 'Ops', key: 'ops' },
+      ],
+      activeTab,
+      onTabChange,
+      tabStyle = 'underline',
+      showTabs = true,
+      leftTabs,
+      activeLeftTab,
+      onLeftTabChange,
+      showLeftTabs = false,
+      showActions = true,
+      primaryActionLabel = 'Button',
+      secondaryActionLabel = 'Button',
+      onPrimaryAction,
+      onSecondaryAction,
+      onSearchClick,
+      onDocumentClick,
+      className,
+      asChild,
+      ...props
+    } = propsWithChildren;
+    // Extract children to prevent it from being spread onto the element
+    const { children, ...restProps } = props as any;
+    const finalProps = restProps;
     const Comp = asChild ? Slot : 'div';
     const [internalActiveTab, setInternalActiveTab] = useState(activeTab || tabs[0]?.key || '');
     const [internalActiveLeftTab, setInternalActiveLeftTab] = useState(
@@ -385,7 +388,7 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
           (showBackButton || title) && (shouldShowUnderlineTabs || showActions) ? 'justify-between' : '',
           className
         )}
-        {...props}
+        {...finalProps}
       >
         {/* Left Side - Back Button, Title, and Tabs (if segmented) */}
         <div className="flex gap-[var(--x6,24px)] items-center relative shrink-0">

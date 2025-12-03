@@ -52,28 +52,31 @@ export interface AppHeaderProps extends Omit<ComposableProps<'header'>, 'childre
  * - Wraps the HTML `<header>` element by default.
  * - Supports `asChild` prop to merge props with a custom child element.
  */
-export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>(({
-  size = 'xl',
-  device = 'Desktop',
-  user = {
-    name: 'Santosh Kumar',
-    role: 'Dispatch Manager',
-    location: 'SPD-Santoshnagar',
-    badge: 'Admin',
-  },
-  userCompany = {
-    name: 'tata-motors',
-    displayName: 'Tata Motors'
-  },
-  onNotificationClick = () => { },
-  onUserClick = () => { },
-  onUserMenuItemClick = () => { },
-  className,
-  leftAddon,
-  asChild,
-  children,
-  ...props
-}, ref) => {
+export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((propsWithChildren, ref) => {
+  const {
+    size = 'xl',
+    device = 'Desktop',
+    user = {
+      name: 'Santosh Kumar',
+      role: 'Dispatch Manager',
+      location: 'SPD-Santoshnagar',
+      badge: 'Admin',
+    },
+    userCompany = {
+      name: 'tata-motors',
+      displayName: 'Tata Motors'
+    },
+    onNotificationClick = () => { },
+    onUserClick = () => { },
+    onUserMenuItemClick = () => { },
+    className,
+    leftAddon,
+    asChild,
+    ...props
+  } = propsWithChildren;
+  // Extract children to prevent it from being spread onto the element
+  const { children, ...restProps } = props as any;
+  const finalProps = restProps;
   const Comp = asChild ? Slot : 'header';
   const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
   const userProfileRef = useRef<HTMLDivElement>(null);
@@ -157,7 +160,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>(({
           "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
           className
         )}
-        {...props}
+        {...finalProps}
       >
         {/* Logo Section */}
         {/* Logo Section */}
@@ -234,7 +237,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>(({
           "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-4 py-[13px] w-full max-w-[1440px] h-16",
           className
         )}
-        {...props}
+        {...finalProps}
       >
         {/* Logo Section */}
         <div style={{
@@ -320,7 +323,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>(({
           "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-4 py-[13px] w-full max-w-[1200px] h-12",
           className
         )}
-        {...props}
+        {...finalProps}
       >
         {/* Logo Section */}
         <div style={{
@@ -416,7 +419,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>(({
           "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center p-3 w-full max-w-[360px]",
           className
         )}
-        {...props}
+        {...finalProps}
       >
         {/* Logo Section */}
         {/* Logo Section */}
