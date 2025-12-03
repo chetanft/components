@@ -35,13 +35,16 @@ export interface AvatarFallbackProps extends ComposableProps<'span'> {
 export const AvatarFallback = React.forwardRef<HTMLSpanElement, AvatarFallbackProps>(
   ({ className, children, asChild, ...props }, ref) => {
     const Comp = asChild ? Slot : 'span';
+    // Cast children to exclude bigint which Slot doesn't accept
+    const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
+    
     return (
       <Comp
         ref={ref}
         className={cn("flex items-center justify-center font-medium", className)}
         {...props}
       >
-        {children || (
+        {safeChildren || (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-1/2 h-1/2">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
