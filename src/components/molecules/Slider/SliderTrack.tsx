@@ -58,6 +58,9 @@ export const SliderTrack = React.forwardRef<HTMLDivElement, SliderTrackProps>(
     };
     
     const Comp = asChild ? Slot : 'div';
+    // Cast children to exclude bigint which Slot doesn't accept
+    const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
+    
     return (
       <Comp
         ref={ref}
@@ -72,7 +75,7 @@ export const SliderTrack = React.forwardRef<HTMLDivElement, SliderTrackProps>(
         onClick={handleRailClick}
         {...props}
       >
-        {children}
+        {safeChildren}
       </Comp>
     );
   }

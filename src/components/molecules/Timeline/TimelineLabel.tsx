@@ -36,13 +36,16 @@ export interface TimelineLabelProps extends ComposableProps<'div'> {
 export const TimelineLabel = React.forwardRef<HTMLDivElement, TimelineLabelProps>(
   ({ className, children, asChild, ...props }, ref) => {
     const Comp = asChild ? Slot : 'div';
+    // Cast children to exclude bigint which Slot doesn't accept
+    const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
+    
     return (
       <Comp
         ref={ref}
         className={cn("text-[var(--color-tertiary)] text-sm", className)}
         {...props}
       >
-        {children}
+        {safeChildren}
       </Comp>
     );
   }

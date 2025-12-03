@@ -89,9 +89,13 @@ export const TimelineDot = React.forwardRef<HTMLDivElement, TimelineDotProps>(
     };
     
     if (asChild) {
+      // Cast children to exclude bigint which Slot doesn't accept
+      const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
+      const safeRenderDot = renderDot() as Exclude<React.ReactNode, bigint>;
+      
       return (
         <Slot ref={ref} className={className} {...props}>
-          {children || renderDot()}
+          {safeChildren || safeRenderDot}
         </Slot>
       );
     }

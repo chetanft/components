@@ -90,6 +90,8 @@ export const Statistic = React.forwardRef<HTMLDivElement, StatisticProps>(
         const orderedChildren = labelPlacement === "Top" 
             ? React.Children.toArray(children).reverse()
             : React.Children.toArray(children);
+        // Cast children to exclude bigint which Slot doesn't accept
+        const safeChildren = orderedChildren as Exclude<React.ReactNode, bigint>[];
         
         return (
             <Comp
@@ -98,7 +100,7 @@ export const Statistic = React.forwardRef<HTMLDivElement, StatisticProps>(
                 data-name={`Label Placement=${labelPlacement}`}
                 {...props}
             >
-                {orderedChildren}
+                {safeChildren}
             </Comp>
         );
     }

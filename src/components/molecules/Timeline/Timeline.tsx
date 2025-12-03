@@ -167,6 +167,10 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
     
     // Otherwise use declarative API (deprecated)
     const Comp = asChild ? Slot : 'li';
+    // Cast children and label to exclude bigint which Slot doesn't accept
+    const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
+    const safeLabel = label as Exclude<React.ReactNode, bigint> | undefined;
+    
     return (
         <Comp
             ref={ref}
@@ -185,11 +189,11 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
                 </div>
             </div>
             <div className="timeline-content flex-1 pb-[var(--spacing-x6)] pl-[var(--spacing-x3)]">
-                {children}
+                {safeChildren}
             </div>
-            {label && (
+            {safeLabel && (
                 <div className="timeline-label hidden">
-                    {label}
+                    {safeLabel}
                 </div>
             )}
         </Comp>

@@ -36,13 +36,16 @@ export interface TimelineContentProps extends ComposableProps<'div'> {
 export const TimelineContent = React.forwardRef<HTMLDivElement, TimelineContentProps>(
   ({ className, children, asChild, ...props }, ref) => {
     const Comp = asChild ? Slot : 'div';
+    // Cast children to exclude bigint which Slot doesn't accept
+    const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
+    
     return (
       <Comp
         ref={ref}
         className={cn("flex-1 min-w-0", className)}
         {...props}
       >
-        {children}
+        {safeChildren}
       </Comp>
     );
   }

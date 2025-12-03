@@ -44,6 +44,9 @@ export interface TreeNodeChildrenProps extends ComposableProps<'div'> {
 export const TreeNodeChildren = React.forwardRef<HTMLDivElement, TreeNodeChildrenProps>(
   ({ className, children, level, showLine, asChild, ...props }, ref) => {
     const Comp = asChild ? Slot : 'div';
+    // Cast children to exclude bigint which Slot doesn't accept
+    const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
+    
     return (
       <Comp
         ref={ref}
@@ -53,7 +56,7 @@ export const TreeNodeChildren = React.forwardRef<HTMLDivElement, TreeNodeChildre
         )}
         {...props}
       >
-        {children}
+        {safeChildren}
       </Comp>
     );
   }

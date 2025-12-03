@@ -49,13 +49,16 @@ export const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     );
     
     const Comp = asChild ? Slot : 'div';
+    // Cast children to exclude bigint which Slot doesn't accept
+    const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
+    
     return (
       <Comp
         ref={ref}
         className={wrapperClasses}
         {...props}
       >
-        {children}
+        {safeChildren}
       </Comp>
     );
   }

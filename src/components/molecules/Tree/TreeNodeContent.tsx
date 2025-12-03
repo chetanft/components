@@ -50,6 +50,10 @@ export const TreeNodeContent = React.forwardRef<HTMLDivElement, TreeNodeContentP
     const isNodeSelectable = selectable;
     
     const Comp = asChild ? Slot : 'div';
+    // Cast children and icon to exclude bigint which Slot doesn't accept
+    const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
+    const safeIcon = icon as Exclude<React.ReactNode, bigint> | undefined;
+    
     return (
       <Comp
         ref={ref}
@@ -60,9 +64,9 @@ export const TreeNodeContent = React.forwardRef<HTMLDivElement, TreeNodeContentP
         )}
         {...props}
       >
-        <TreeNodeIcon nodeKey={nodeKey} isLeaf={false} icon={icon} />
+        <TreeNodeIcon nodeKey={nodeKey} isLeaf={false} icon={safeIcon} />
         <span className="truncate text-[var(--color-primary)]">
-          {children}
+          {safeChildren}
         </span>
       </Comp>
     );

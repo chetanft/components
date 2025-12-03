@@ -137,6 +137,10 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
     if (asChild) {
       // Filter out disabled prop when using asChild (Slot doesn't accept it)
       const { disabled: _, ...slotProps } = props as any;
+      // Cast icon and children to exclude bigint which Slot doesn't accept
+      const safeIcon = icon as Exclude<React.ReactNode, bigint> | undefined;
+      const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
+      
       return (
         <Slot
           ref={ref}
@@ -150,12 +154,12 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
           {...slotProps}
         >
           <div className={cn("flex items-center", gapClass, containerAlignment)}>
-            {icon && (
+            {safeIcon && (
               <div className="overflow-clip relative shrink-0 size-[var(--spacing-x4)]">
-                {typeof icon === 'boolean' ? (
+                {typeof safeIcon === 'boolean' ? (
                   <Icon name="check" size={16} className="text-[var(--primary)]" />
                 ) : (
-                  icon
+                  safeIcon
                 )}
               </div>
             )}
@@ -163,7 +167,7 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
               "leading-[1.4] relative shrink-0 text-[var(--primary)] text-base",
               currentState === 'selected' ? "font-semibold" : "font-normal"
             )}>
-              {children}
+              {safeChildren}
             </span>
             {badge && (
               <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[24px] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
