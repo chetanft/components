@@ -71,7 +71,7 @@ export interface PageHeaderProps extends ComposableProps<'div'> {
  * - Wraps the HTML `<div>` element by default
  * - Supports `asChild` prop to merge props with a custom child element
  */
-export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
+const PageHeaderBase = forwardRef<HTMLDivElement, PageHeaderProps>(
   ({ className, children, asChild, ...htmlProps }, ref) => {
     const Comp = asChild ? Slot : 'div';
     return (
@@ -91,10 +91,24 @@ export const PageHeader = forwardRef<HTMLDivElement, PageHeaderProps>(
   }
 );
 
-PageHeader.displayName = 'PageHeader';
+PageHeaderBase.displayName = 'PageHeader';
 
 // Attach subcomponents for composable API
-const PageHeaderWithSubcomponents = PageHeader as typeof PageHeader & {
+(PageHeaderBase as any).Top = PageHeaderTop;
+(PageHeaderBase as any).Left = PageHeaderLeft;
+(PageHeaderBase as any).Right = PageHeaderRight;
+(PageHeaderBase as any).Bottom = PageHeaderBottom;
+(PageHeaderBase as any).BackButton = PageHeaderBackButton;
+(PageHeaderBase as any).Title = PageHeaderTitle;
+(PageHeaderBase as any).Subtitle = PageHeaderSubtitle;
+(PageHeaderBase as any).Icon = PageHeaderIcon;
+(PageHeaderBase as any).TitleGroup = PageHeaderTitleGroup;
+(PageHeaderBase as any).Actions = PageHeaderActions;
+(PageHeaderBase as any).Filters = PageHeaderFiltersWrapper;
+(PageHeaderBase as any).Tabs = PageHeaderTabs;
+
+// Type for PageHeader with subcomponents
+type PageHeaderWithSubcomponents = typeof PageHeaderBase & {
   Top: typeof PageHeaderTop;
   Left: typeof PageHeaderLeft;
   Right: typeof PageHeaderRight;
@@ -109,17 +123,6 @@ const PageHeaderWithSubcomponents = PageHeader as typeof PageHeader & {
   Tabs: typeof PageHeaderTabs;
 };
 
-PageHeaderWithSubcomponents.Top = PageHeaderTop;
-PageHeaderWithSubcomponents.Left = PageHeaderLeft;
-PageHeaderWithSubcomponents.Right = PageHeaderRight;
-PageHeaderWithSubcomponents.Bottom = PageHeaderBottom;
-PageHeaderWithSubcomponents.BackButton = PageHeaderBackButton;
-PageHeaderWithSubcomponents.Title = PageHeaderTitle;
-PageHeaderWithSubcomponents.Subtitle = PageHeaderSubtitle;
-PageHeaderWithSubcomponents.Icon = PageHeaderIcon;
-PageHeaderWithSubcomponents.TitleGroup = PageHeaderTitleGroup;
-PageHeaderWithSubcomponents.Actions = PageHeaderActions;
-PageHeaderWithSubcomponents.Filters = PageHeaderFiltersWrapper;
-PageHeaderWithSubcomponents.Tabs = PageHeaderTabs;
-
-export default PageHeaderWithSubcomponents;
+// Export with proper typing
+export const PageHeader = PageHeaderBase as PageHeaderWithSubcomponents;
+export default PageHeader;
