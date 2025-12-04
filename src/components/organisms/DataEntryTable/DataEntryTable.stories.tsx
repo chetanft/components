@@ -36,8 +36,8 @@ type Story = StoryObj<typeof DataEntryTable>;
 export const DeclarativeBasic: Story = {
   args: {
     columns: [
-      { key: 'name', title: 'Name', cellType: 'text', placeholder: 'Enter name' },
-      { key: 'email', title: 'Email', cellType: 'text', placeholder: 'Enter email' },
+      { key: 'name', title: 'Name', cellType: 'input', placeholder: 'Enter name' },
+      { key: 'email', title: 'Email', cellType: 'input', placeholder: 'Enter email' },
       { key: 'role', title: 'Role', cellType: 'dropdown', options: [
         { value: 'admin', label: 'Admin' },
         { value: 'user', label: 'User' },
@@ -77,19 +77,22 @@ function ComposableBasicComponent() {
           <DataEntryTableRow key={row.id} rowId={row.id}>
             <DataEntryTableRowCell 
               columnKey="name" 
-              cellType="text" 
+              rowId={row.id}
+              type="input" 
               value={row.name}
               placeholder="Enter name"
             />
             <DataEntryTableRowCell 
               columnKey="email" 
-              cellType="text" 
+              rowId={row.id}
+              type="input" 
               value={row.email}
               placeholder="Enter email"
             />
             <DataEntryTableRowCell 
               columnKey="role" 
-              cellType="dropdown" 
+              rowId={row.id}
+              type="dropdown" 
               value={row.role}
               options={[
                 { value: 'admin', label: 'Admin' },
@@ -130,7 +133,7 @@ function ComposableWithSelectionComponent() {
     >
       <DataEntryTableHeader>
         <DataEntryTableHeaderRow>
-          <DataEntryTableHeaderCell key="checkbox" width="50px" />
+          <DataEntryTableHeaderCell key="checkbox" width="50px">Select</DataEntryTableHeaderCell>
           <DataEntryTableHeaderCell key="name" width="200px">Name</DataEntryTableHeaderCell>
           <DataEntryTableHeaderCell key="email" width="250px">Email</DataEntryTableHeaderCell>
         </DataEntryTableHeaderRow>
@@ -138,16 +141,18 @@ function ComposableWithSelectionComponent() {
       <DataEntryTableBody>
         {rows.map((row) => (
           <DataEntryTableRow key={row.id} rowId={row.id}>
-            <DataEntryTableRowCheckbox />
+            <DataEntryTableRowCheckbox rowId={row.id} />
             <DataEntryTableRowCell 
               columnKey="name" 
-              cellType="text" 
+              rowId={row.id}
+              type="input" 
               value={row.name}
               placeholder="Enter name"
             />
             <DataEntryTableRowCell 
               columnKey="email" 
-              cellType="text" 
+              rowId={row.id}
+              type="input" 
               value={row.email}
               placeholder="Enter email"
             />
@@ -196,24 +201,29 @@ function ComposableWithActionsComponent() {
           <DataEntryTableRow key={row.id} rowId={row.id}>
             <DataEntryTableRowCell 
               columnKey="name" 
-              cellType="text" 
+              rowId={row.id}
+              type="input" 
               value={row.name}
               placeholder="Enter name"
             />
             <DataEntryTableRowCell 
               columnKey="email" 
-              cellType="text" 
+              rowId={row.id}
+              type="input" 
               value={row.email}
               placeholder="Enter email"
             />
             <DataEntryTableRowCell 
               columnKey="actions" 
-              cellType="custom"
-              value={
-                <Button size="sm" variant="destructive" onClick={() => handleDelete(row.id)}>
-                  Delete
-                </Button>
-              }
+              rowId={row.id}
+              type="action"
+              actions={[
+                {
+                  label: 'Delete',
+                  onClick: () => handleDelete(row.id),
+                  variant: 'destructive',
+                }
+              ]}
             />
           </DataEntryTableRow>
         ))}
@@ -253,24 +263,28 @@ function ComposableWithMultipleCellTypesComponent() {
           <DataEntryTableRow key={row.id} rowId={row.id}>
             <DataEntryTableRowCell 
               columnKey="name" 
-              cellType="text" 
+              rowId={row.id}
+              type="input" 
               value={row.name}
               placeholder="Enter product name"
             />
             <DataEntryTableRowCell 
               columnKey="price" 
-              cellType="currency" 
+              rowId={row.id}
+              type="amount-input" 
               value={row.price}
               currencySymbol="$"
             />
             <DataEntryTableRowCell 
               columnKey="quantity" 
-              cellType="number" 
+              rowId={row.id}
+              type="input" 
               value={row.quantity}
             />
             <DataEntryTableRowCell 
               columnKey="category" 
-              cellType="dropdown" 
+              rowId={row.id}
+              type="dropdown" 
               value={row.category}
               options={[
                 { value: 'electronics', label: 'Electronics' },

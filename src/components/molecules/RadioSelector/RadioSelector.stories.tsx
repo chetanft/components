@@ -199,6 +199,29 @@ export const ComposableWithDisabled: Story = {
   render: () => <ComposableWithDisabledComponent />,
 };
 
+function ComposableControlledComponent() {
+  const [value, setValue] = useState('option1');
+  return (
+    <RadioSelector name="choice" value={value} onChange={setValue}>
+      <RadioSelectorOption
+        value="option1"
+        header="Option 1"
+        description="This is option 1 (controlled)"
+      />
+      <RadioSelectorOption
+        value="option2"
+        header="Option 2"
+        description="This is option 2 (controlled)"
+      />
+      <RadioSelectorOption
+        value="option3"
+        header="Option 3"
+        description="This is option 3 (controlled)"
+      />
+    </RadioSelector>
+  );
+}
+
 export const ComposableControlled: Story = {
   render: () => <ComposableControlledComponent />,
 };

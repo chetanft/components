@@ -65,7 +65,7 @@ const sizeMap: Record<string, string> = {
  * - Supports `asChild` prop to merge props with a custom child element.
  * - Declarative API is deprecated but still functional for backward compatibility.
  */
-export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
+const AvatarBase = React.forwardRef<HTMLDivElement, AvatarProps>(
   ({ size = "md", shape = "circle", src, icon, alt = "User Avatar", className, style, children, asChild, ...props }, ref) => {
     // Check if using composable API (has AvatarImage or AvatarFallback as children)
     const hasComposableChildren = React.Children.toArray(children as React.ReactNode | React.ReactNode[]).some((child: any) => 
@@ -156,7 +156,21 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
   }
 );
 
-Avatar.displayName = 'Avatar';
+AvatarBase.displayName = 'Avatar';
+
+// Attach subcomponents for composable API
+(AvatarBase as any).AvatarImage = AvatarImage;
+(AvatarBase as any).AvatarFallback = AvatarFallback;
+
+// Type for Avatar with subcomponents
+type AvatarWithSubcomponents = typeof AvatarBase & {
+  AvatarImage: typeof AvatarImage;
+  AvatarFallback: typeof AvatarFallback;
+};
+
+// Export with proper typing
+export const Avatar = AvatarBase as AvatarWithSubcomponents;
+export default Avatar;
 
 const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
   ({ maxCount, maxStyle, size = 'md', shape = 'circle', children, className, ...props }, ref) => {

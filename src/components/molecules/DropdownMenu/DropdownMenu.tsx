@@ -115,7 +115,7 @@ export interface DropdownMenuProps
  * - Supports search, groups, segmented tabs, and keyboard navigation
  * - Declarative API is deprecated but still functional for backward compatibility
  */
-export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
+const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
   (
     {
       property = 'default',
@@ -448,4 +448,24 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
   }
 );
 
-DropdownMenu.displayName = 'DropdownMenu';
+DropdownMenuBase.displayName = 'DropdownMenu';
+
+// Attach subcomponents for composable API
+(DropdownMenuBase as any).DropdownMenuItem = DropdownMenuItem;
+(DropdownMenuBase as any).DropdownMenuLabel = DropdownMenuLabel;
+(DropdownMenuBase as any).DropdownMenuSeparator = DropdownMenuSeparator;
+(DropdownMenuBase as any).DropdownMenuList = DropdownMenuList;
+(DropdownMenuBase as any).DropdownMenuSearch = DropdownMenuSearch;
+
+// Type for DropdownMenu with subcomponents
+type DropdownMenuWithSubcomponents = typeof DropdownMenuBase & {
+  DropdownMenuItem: typeof DropdownMenuItem;
+  DropdownMenuLabel: typeof DropdownMenuLabel;
+  DropdownMenuSeparator: typeof DropdownMenuSeparator;
+  DropdownMenuList: typeof DropdownMenuList;
+  DropdownMenuSearch: typeof DropdownMenuSearch;
+};
+
+// Export with proper typing
+export const DropdownMenu = DropdownMenuBase as DropdownMenuWithSubcomponents;
+export default DropdownMenu;

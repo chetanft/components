@@ -15,7 +15,7 @@ const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x10)*2+var(--spacing-x
  * @public
  */
 export interface TableHeaderProps<T extends TableRowType = TableRowType> extends Omit<ComposableProps<'thead'>, 'children'> {
-  columns: TableColumn<T>[];
+  columns?: TableColumn<T>[];
   variant?: TableVariant;
   selectable?: boolean;
   selectedRows?: (string | number)[];
@@ -160,6 +160,7 @@ export const TableHeader = <T extends TableRowType = TableRowType>({
       return;
     }
 
+    if (!columns) return;
     const newColumns = [...columns];
     const [removed] = newColumns.splice(startIndex, 1);
     newColumns.splice(index, 0, removed);
@@ -197,7 +198,7 @@ export const TableHeader = <T extends TableRowType = TableRowType>({
             className={CHECKBOX_COLUMN_WIDTH_CLASS}
           />
         )}
-        {columns.map((column, index) => (
+        {columns?.map((column, index) => (
           <TableHeaderItem
             key={column.key}
             colorVariant={headerColorVariant}

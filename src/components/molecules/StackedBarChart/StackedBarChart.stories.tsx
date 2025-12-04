@@ -85,7 +85,7 @@ export const ComposableDefault: Story = {
 
 export const CustomHeights: Story = {
   args: {
-    ...Default.args,
+    ...DeclarativeDefault.args,
     barHeight: 220,
   },
 };

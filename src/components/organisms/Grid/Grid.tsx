@@ -96,7 +96,7 @@ export const Row = React.forwardRef<HTMLDivElement, RowProps>(
           style={rowStyle}
           {...props}
         >
-          {children}
+          {children as React.ReactNode}
         </Comp>
       </RowContext.Provider>
     );
@@ -226,7 +226,7 @@ export const Col = React.forwardRef<HTMLDivElement, ColProps>(
         }}
         {...props}
       >
-        {children}
+        {children as Exclude<React.ReactNode, bigint>}
       </Comp>
     );
   }

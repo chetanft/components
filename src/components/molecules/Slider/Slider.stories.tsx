@@ -36,7 +36,7 @@ export const ComposableBasic: Story = {
         <SliderTrack>
           <SliderRange />
         </SliderTrack>
-        <SliderThumb value={30} />
+        <SliderThumb value={30} type="end" />
       </Slider>
     </div>
   ),
@@ -77,7 +77,7 @@ export const ComposableWithLabels: Story = {
         <SliderTrack>
           <SliderRange />
         </SliderTrack>
-        <SliderThumb value={50} />
+        <SliderThumb value={50} type="end" />
         <SliderLabel value={0}>0°C</SliderLabel>
         <SliderLabel value={26}>26°C</SliderLabel>
         <SliderLabel value={37}>37°C</SliderLabel>

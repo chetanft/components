@@ -59,7 +59,7 @@ export const ComposableCard: Story = {
     <div className="p-6">
       <Skeleton>
         <div className="flex gap-4">
-          <SkeletonImage width={80} height={80} variant="circular" />
+          <SkeletonImage width={80} height={80} shape="circular" />
           <div className="flex-1 space-y-2">
             <SkeletonText lines={1} width="60%" />
             <SkeletonText lines={2} width="80%" />
@@ -83,7 +83,7 @@ export const ComposableList: Story = {
       {[1, 2, 3].map((i) => (
         <Skeleton key={i}>
           <div className="flex gap-3">
-            <SkeletonImage width={48} height={48} variant="rectangular" />
+            <SkeletonImage width={48} height={48} shape="rectangular" />
             <div className="flex-1 space-y-2">
               <SkeletonText lines={1} width="40%" />
               <SkeletonText lines={1} width="60%" />

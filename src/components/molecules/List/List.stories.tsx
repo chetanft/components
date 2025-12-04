@@ -75,7 +75,7 @@ export const ComposableWithIcons: Story = {
                     </ListItem>
                     <ListItem>
                         <ListItemIcon>
-                            <Icon name="alert" size={16} />
+                            <Icon name="alert-critical" size={16} />
                         </ListItemIcon>
                         <ListItemContent>
                             <ListItemTitle>Pending Task</ListItemTitle>

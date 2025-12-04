@@ -86,6 +86,7 @@ export interface DropdownMenuItemProps
   iconName?: IconName;
   icon?: React.ReactNode;
   showCheckmark?: boolean;
+  value?: string | number;
 }
 
 export const DropdownMenuItem = React.forwardRef<

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import type { ComponentProps } from 'react';
 import { Tree, TreeNode } from './index';
+import type { TreeNodeData } from './Tree';
 import { TreeNodeContent } from './TreeNodeContent';
 import { TreeNodeIcon } from './TreeNodeIcon';
 import { TreeNodeSwitcher } from './TreeNodeSwitcher';
@@ -56,7 +57,7 @@ export default meta;
 type Story = StoryObj<typeof Tree>;
 type TreeStoryProps = ComponentProps<typeof Tree>;
 
-const sampleTreeData: TreeNode[] = [
+const sampleTreeData: TreeNodeData[] = [
   {
     key: '0-0',
     title: 'Parent 0',
@@ -175,12 +176,12 @@ export const DirectoryTree: Story = {
       {
         key: 'src',
         title: 'src',
-        icon: 'folder',
+        icon: 'document',
         children: [
           {
             key: 'components',
             title: 'components',
-            icon: 'folder',
+            icon: 'document',
             children: [
               { key: 'Button.tsx', title: 'Button.tsx', icon: 'file', isLeaf: true },
               { key: 'Input.tsx', title: 'Input.tsx', icon: 'file', isLeaf: true },
@@ -190,7 +191,7 @@ export const DirectoryTree: Story = {
           {
             key: 'utils',
             title: 'utils',
-            icon: 'folder',
+            icon: 'document',
             children: [
               { key: 'helpers.ts', title: 'helpers.ts', icon: 'file', isLeaf: true },
               { key: 'constants.ts', title: 'constants.ts', icon: 'file', isLeaf: true },
@@ -326,12 +327,12 @@ export const ComposableWithIcons: Story = {
       <TreeNode 
         nodeKey="src" 
         title="src"
-        icon={<Icon name="folder" size={16} />}
+        icon={<Icon name="document" size={16} />}
       >
         <TreeNode 
           nodeKey="components" 
           title="components"
-          icon={<Icon name="folder" size={16} />}
+          icon={<Icon name="document" size={16} />}
         >
           <TreeNode nodeKey="Button.tsx" title="Button.tsx" isLeaf icon={<Icon name="file" size={16} />} />
           <TreeNode nodeKey="Input.tsx" title="Input.tsx" isLeaf icon={<Icon name="file" size={16} />} />
@@ -407,12 +408,12 @@ export const ComposableDirectoryTree: Story = {
       <TreeNode 
         nodeKey="src" 
         title="src"
-        icon={<Icon name="folder" size={16} />}
+        icon={<Icon name="document" size={16} />}
       >
         <TreeNode 
           nodeKey="components" 
           title="components"
-          icon={<Icon name="folder" size={16} />}
+          icon={<Icon name="document" size={16} />}
         >
           <TreeNode nodeKey="Button.tsx" title="Button.tsx" isLeaf icon={<Icon name="file" size={16} />} />
           <TreeNode nodeKey="Input.tsx" title="Input.tsx" isLeaf icon={<Icon name="file" size={16} />} />
@@ -421,7 +422,7 @@ export const ComposableDirectoryTree: Story = {
         <TreeNode 
           nodeKey="utils" 
           title="utils"
-          icon={<Icon name="folder" size={16} />}
+          icon={<Icon name="document" size={16} />}
         >
           <TreeNode nodeKey="helpers.ts" title="helpers.ts" isLeaf icon={<Icon name="file" size={16} />} />
           <TreeNode nodeKey="constants.ts" title="constants.ts" isLeaf icon={<Icon name="file" size={16} />} />
