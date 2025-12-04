@@ -1073,3 +1073,28 @@ body {
 .border-neutral {
    border-color: var(--neutral);
 }
+
+/* Rem-based text size utilities (responsive typography) */
+.text-xs-rem {
+   font-size: var(--font-size-xs-rem);
+}
+
+.text-sm-rem {
+   font-size: var(--font-size-sm-rem);
+}
+
+.text-md-rem {
+   font-size: var(--font-size-md-rem);
+}
+
+.text-lg-rem {
+   font-size: var(--font-size-lg-rem);
+}
+
+.text-xl-rem {
+   font-size: var(--font-size-xl-rem);
+}
+
+.text-xxl-rem {
+   font-size: var(--font-size-xxl-rem);
+}
