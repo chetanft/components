@@ -46,7 +46,8 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
     const childrenWithIndex = React.Children.map(children, (child, index) => {
       if (React.isValidElement(child)) {
         // Check if this is a TabsTrigger component
-        if (child.type && typeof child.type === 'object' && 'displayName' in child.type && child.type.displayName === 'TabsTrigger') {
+        const childType = child.type as any;
+        if (childType && typeof childType === 'object' && 'displayName' in childType && childType.displayName === 'TabsTrigger') {
           const value = (child.props as any).value;
           if (value) {
             registerValue(value, index);
