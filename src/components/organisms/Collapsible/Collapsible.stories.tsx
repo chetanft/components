@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Collapsible } from './Collapsible';
+import { Collapsible, CollapsibleTrigger, CollapsibleHeader, CollapsibleTitle, CollapsibleExtra, CollapsibleContent, CollapsibleIcon } from './index';
+import { Button } from '../../atoms/Button/Button';
 
 const meta: Meta<typeof Collapsible> = {
   title: 'Organisms/Collapsible',
@@ -171,4 +172,118 @@ export function InteractiveDemo() {
     </div>
   );
 }
+
+// Composable API Examples
+export const ComposableBasic: Story = {
+  render: () => (
+    <Collapsible type="Primary" bg="Secondary">
+      <CollapsibleTrigger>
+        <CollapsibleHeader>
+          <CollapsibleIcon />
+          <CollapsibleTitle>Composable Collapsible</CollapsibleTitle>
+        </CollapsibleHeader>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <p>This is a basic composable collapsible using sub-components.</p>
+      </CollapsibleContent>
+    </Collapsible>
+  ),
+};
+
+export const ComposableWithExtra: Story = {
+  render: () => (
+    <Collapsible type="Primary" bg="Secondary">
+      <CollapsibleTrigger>
+        <CollapsibleHeader>
+          <CollapsibleIcon />
+          <CollapsibleTitle>Collapsible with Actions</CollapsibleTitle>
+          <CollapsibleExtra>
+            <Button size="sm" variant="secondary">Edit</Button>
+          </CollapsibleExtra>
+        </CollapsibleHeader>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <p>This collapsible includes extra action buttons in the header.</p>
+      </CollapsibleContent>
+    </Collapsible>
+  ),
+};
+
+function ComposableMultipleComponent() {
+  const [expanded1, setExpanded1] = React.useState(false);
+  const [expanded2, setExpanded2] = React.useState(false);
+  
+  return (
+    <div className="space-y-4">
+      <Collapsible 
+        type="Primary" 
+        bg="Secondary"
+        isExpanded={expanded1}
+        onToggle={setExpanded1}
+      >
+        <CollapsibleTrigger>
+          <CollapsibleHeader>
+            <CollapsibleIcon />
+            <CollapsibleTitle>Section 1</CollapsibleTitle>
+          </CollapsibleHeader>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <p>Content for section 1 goes here.</p>
+        </CollapsibleContent>
+      </Collapsible>
+      
+      <Collapsible 
+        type="Secondary" 
+        bg="Secondary"
+        isExpanded={expanded2}
+          onToggle={setExpanded2}
+        >
+          <CollapsibleTrigger>
+            <CollapsibleHeader>
+              <CollapsibleIcon />
+              <CollapsibleTitle>Section 2</CollapsibleTitle>
+              <CollapsibleExtra>
+                <Button size="sm" variant="primary">Action</Button>
+              </CollapsibleExtra>
+            </CollapsibleHeader>
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <p>Content for section 2 goes here.</p>
+          </CollapsibleContent>
+        </Collapsible>
+      </div>
+  );
+}
+
+export const ComposableMultiple: Story = {
+  render: () => <ComposableMultipleComponent />,
+};
+
+export const ComposableCustomContent: Story = {
+  render: () => (
+    <Collapsible type="Tertiary" bg="Secondary">
+      <CollapsibleTrigger>
+        <CollapsibleHeader>
+          <CollapsibleIcon />
+          <CollapsibleTitle>Advanced Settings</CollapsibleTitle>
+          <CollapsibleExtra>
+            <Button size="sm" variant="secondary">Reset</Button>
+          </CollapsibleExtra>
+        </CollapsibleHeader>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <div className="space-y-4 p-4 bg-[var(--color-bg-secondary)] rounded-lg">
+          <div>
+            <label className="block text-sm font-medium mb-2">Setting 1</label>
+            <input type="text" className="w-full p-2 border rounded" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Setting 2</label>
+            <input type="text" className="w-full p-2 border rounded" />
+          </div>
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
+  ),
+};
 

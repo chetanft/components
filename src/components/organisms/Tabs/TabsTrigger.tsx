@@ -36,6 +36,11 @@ export interface TabsTriggerProps extends ComposableProps<'button'> {
    * The label text for the tab
    */
   children: React.ReactNode;
+  /**
+   * Internal prop: tab index (injected by TabsList)
+   * @internal
+   */
+  _tabIndex?: number;
 }
 
 /**
@@ -74,13 +79,14 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
     children,
     asChild,
     onClick,
+    _tabIndex,
     ...props
   }, ref) => {
     const { activeTab, onTabChange, type, showLine } = useTabsContext();
     const [isHovered, setIsHovered] = useState(false);
     
-    // Find index by value (simplified - in real implementation, would track value-to-index mapping)
-    const tabIndex = 0; // This would need to be calculated based on value
+    // Use the index injected by TabsList, or fallback to 0 if not provided
+    const tabIndex = _tabIndex ?? 0;
     const isSelected = activeTab === tabIndex;
     const currentState: 'unselected' | 'selected' | 'hover' = isSelected ? 'selected' : (isHovered ? 'hover' : 'unselected');
     

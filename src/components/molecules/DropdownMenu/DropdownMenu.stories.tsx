@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DropdownMenu } from './DropdownMenu';
-import { DropdownMenuItem } from './DropdownMenuItem';
+import React from 'react';
+import { DropdownMenu, DropdownMenuList, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuLabel, DropdownMenuSearch } from './index';
 
 const meta: Meta<typeof DropdownMenu> = {
   title: 'Molecules/DropdownMenu',
@@ -30,6 +30,76 @@ const meta: Meta<typeof DropdownMenu> = {
 export default meta;
 type Story = StoryObj<typeof DropdownMenu>;
 
+// Composable API Examples (Recommended)
+export const ComposableBasic: Story = {
+  render: () => (
+    <div className="p-6">
+      <DropdownMenu property="default">
+        <DropdownMenuList>
+          <DropdownMenuItem value="1" state="default">Option 1</DropdownMenuItem>
+          <DropdownMenuItem value="2" state="default">Option 2</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem value="3" state="default">Option 3</DropdownMenuItem>
+        </DropdownMenuList>
+      </DropdownMenu>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '✅ **Composable API**: Use DropdownMenuList, DropdownMenuItem, and DropdownMenuSeparator sub-components for flexible dropdown composition.',
+      },
+    },
+  },
+};
+
+export const ComposableWithSearch: Story = {
+  render: () => (
+    <div className="p-6">
+      <DropdownMenu property="search">
+        <DropdownMenuSearch />
+        <DropdownMenuList>
+          <DropdownMenuItem value="1" state="default">All Groups</DropdownMenuItem>
+          <DropdownMenuItem value="2" state="default">Group 1</DropdownMenuItem>
+          <DropdownMenuItem value="3" state="default">Group 2</DropdownMenuItem>
+        </DropdownMenuList>
+      </DropdownMenu>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use DropdownMenuSearch for searchable dropdowns.',
+      },
+    },
+  },
+};
+
+export const ComposableWithLabels: Story = {
+  render: () => (
+    <div className="p-6">
+      <DropdownMenu property="default">
+        <DropdownMenuList>
+          <DropdownMenuLabel>Section 1</DropdownMenuLabel>
+          <DropdownMenuItem value="1" state="default">Option 1</DropdownMenuItem>
+          <DropdownMenuItem value="2" state="default">Option 2</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel>Section 2</DropdownMenuLabel>
+          <DropdownMenuItem value="3" state="default">Option 3</DropdownMenuItem>
+        </DropdownMenuList>
+      </DropdownMenu>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use DropdownMenuLabel for grouped menu items.',
+      },
+    },
+  },
+};
+
+// Mark deprecated examples
 export const Default: Story = {
   args: {
     property: 'default',
@@ -45,6 +115,13 @@ export const Default: Story = {
       { value: '9', label: 'Dropdown menu', state: 'default' },
       { value: '10', label: 'Dropdown menu', state: 'default' },
     ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '⚠️ **Deprecated**: This uses the deprecated `options` prop. Use the composable API with DropdownMenuList and DropdownMenuItem instead.',
+      },
+    },
   },
 };
 

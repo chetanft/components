@@ -12,15 +12,24 @@ export interface AnchorLinkProps {
 }
 
 export interface AnchorProps {
+  /**
+   * Anchor items array (for declarative API)
+   * @deprecated Use AnchorLink components as children instead
+   */
   items?: AnchorLinkProps[]; // Simplified data structure
   affix?: boolean;
   bounds?: number;
   offsetTarget?: () => HTMLElement | Window;
   targetOffset?: number;
+  /**
+   * Show ink in fixed mode
+   * @deprecated This prop is not fully implemented and will be removed. Use custom styling for ink.
+   */
   showInkInFixed?: boolean;
   onChange?: (currentActiveLink: string) => void;
   onClick?: (e: React.MouseEvent<HTMLElement>, link: { title: React.ReactNode; href: string }) => void;
   direction?: 'vertical' | 'horizontal';
+  /** Anchor links (for composable API) */
   children?: React.ReactNode; // Can be used for custom link rendering structure
   className?: string;
   style?: React.CSSProperties;

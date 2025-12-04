@@ -55,7 +55,7 @@ export interface StepItemProps extends ComposableProps<'div'> {
  */
 export const StepItem = React.forwardRef<HTMLDivElement, StepItemProps>(
   ({ className, children, value, disabled = false, status, asChild, ...props }, ref) => {
-    const { currentStep, direction, device, onChange } = useStepsContext();
+    const { currentStep, direction, device, type, onChange } = useStepsContext();
     
     const isSelected = value === currentStep;
     const isCompleted = value < currentStep || status === 'finish';
@@ -77,8 +77,11 @@ export const StepItem = React.forwardRef<HTMLDivElement, StepItemProps>(
       <Comp
         ref={ref}
         className={cn(
-          "flex-1",
-          direction === 'vertical' ? "w-full" : "",
+          direction === 'vertical' 
+            ? "flex gap-[var(--spacing-x3)] items-start w-full"
+            : type === 'dot'
+              ? "flex gap-[var(--spacing-x3)] items-center flex-1"
+              : "flex-1",
           !disabled && "cursor-pointer",
           className
         )}

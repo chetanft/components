@@ -74,6 +74,7 @@ export interface TreeProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
   /**
    * Whether to show connecting lines
    * @default false
+   * @deprecated Use custom styling or conditional rendering for lines
    */
   showLine?: boolean;
   /**

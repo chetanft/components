@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tooltip } from './Tooltip';
+import React from 'react';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipTitle, TooltipDescription, TooltipArrow } from './index';
+import { Button } from '../../atoms/Button/Button';
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Molecules/Tooltip',
@@ -13,7 +15,76 @@ const meta: Meta<typeof Tooltip> = {
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
 
-// Default tooltip
+// Composable API Examples (Recommended)
+export const ComposableBasic: Story = {
+  render: () => (
+    <div className="p-8">
+      <Tooltip placement="top" align="center" color="white">
+        <TooltipTrigger>
+          <Button>Hover me</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <TooltipDescription>This is a basic tooltip using the composable API</TooltipDescription>
+        </TooltipContent>
+      </Tooltip>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '✅ **Composable API**: Use TooltipTrigger, TooltipContent, TooltipTitle, and TooltipDescription sub-components for flexible tooltip composition.',
+      },
+    },
+  },
+};
+
+export const ComposableWithTitle: Story = {
+  render: () => (
+    <div className="p-8">
+      <Tooltip placement="top" align="center" color="white">
+        <TooltipTrigger>
+          <Button>Hover for details</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <TooltipTitle>Tooltip Title</TooltipTitle>
+          <TooltipDescription>This tooltip has both a title and description</TooltipDescription>
+        </TooltipContent>
+      </Tooltip>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use TooltipTitle for tooltips with headings.',
+      },
+    },
+  },
+};
+
+export const ComposableWithArrow: Story = {
+  render: () => (
+    <div className="p-8">
+      <Tooltip placement="top" align="center" color="white">
+        <TooltipTrigger>
+          <Button>Hover me</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <TooltipDescription>This tooltip includes an arrow</TooltipDescription>
+          <TooltipArrow />
+        </TooltipContent>
+      </Tooltip>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use TooltipArrow to add an arrow pointing to the trigger element.',
+      },
+    },
+  },
+};
+
+// Mark deprecated examples
 export const Default: Story = {
   args: {
     children: 'This is a basic tooltip',
@@ -21,11 +92,18 @@ export const Default: Story = {
     align: 'center',
     color: 'white',
   },
+  parameters: {
+    docs: {
+      description: {
+        story: '⚠️ **Deprecated**: This uses the deprecated children prop directly. Use the composable API with TooltipTrigger and TooltipContent instead.',
+      },
+    },
+  },
 };
 
 // Placements story - separate preview for placements
-export function Placements() {
-  return (
+export const Placements: Story = {
+  render: () => (
     <div className="p-8">
       <div className="flex flex-wrap gap-4 items-center justify-center">
         <Tooltip children="Top left" placement="top" align="start" color="white" />
@@ -36,48 +114,48 @@ export function Placements() {
         <Tooltip children="Right" placement="right" align="center" color="white" />
       </div>
     </div>
-  );
-}
+  ),
+};
 
 // With Heading story - separate preview for tooltip with heading
-export function WithHeading() {
-  return (
+export const WithHeading: Story = {
+  render: () => (
     <div className="p-8">
       <Tooltip heading="Tooltip Heading" children="This is a tooltip with a heading" placement="top" align="center" color="white" />
     </div>
-  );
-}
+  ),
+};
 
 // With Close Button story - separate preview for tooltip with close button
-export function WithCloseButton() {
-  return (
+export const WithCloseButton: Story = {
+  render: () => (
     <div className="p-8">
       <Tooltip heading="Tooltip Heading" children="This is a tooltip with a close button" showClose={true} placement="top" align="center" color="white" />
     </div>
-  );
-}
+  ),
+};
 
 // With Actions story - separate preview for tooltip with actions
-export function WithActions() {
-  return (
+export const WithActions: Story = {
+  render: () => (
     <div className="p-8">
       <Tooltip heading="Tooltip Heading" children="This is a tooltip with action buttons" primaryActionText="Learn more" secondaryActionText="Skip" placement="top" align="center" color="white" />
     </div>
-  );
-}
+  ),
+};
 
 // Dark Theme story - separate preview for dark theme tooltip
-export function DarkTheme() {
-  return (
+export const DarkTheme: Story = {
+  render: () => (
     <div className="p-8">
       <Tooltip heading="Dark Tooltip" children="This is a tooltip with dark theme" showClose={true} primaryActionText="Learn more" secondaryActionText="Skip" placement="top" align="center" color="dark" />
     </div>
-  );
-}
+  ),
+};
 
 // Interactive Demo - hover/focus to see tooltips
-export function InteractiveDemo() {
-  return (
+export const InteractiveDemo: Story = {
+  render: () => (
     <div className="p-8 space-y-6">
       <h3 className="text-lg font-semibold mb-4">All Tooltip Variants - Interactive</h3>
       <p className="text-sm text-gray-600 mb-6">Hover or focus on the elements below to see tooltips appear.</p>
@@ -113,5 +191,5 @@ export function InteractiveDemo() {
         </div>
       </div>
     </div>
-  );
-} 
+  ),
+}; 

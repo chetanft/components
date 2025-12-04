@@ -43,7 +43,7 @@ export const ListItemAction = React.forwardRef<HTMLDivElement, ListItemActionPro
       <Comp
         ref={ref}
         className={cn(
-          "flex items-center gap-[var(--spacing-x2)] flex-shrink-0",
+          "flex items-center flex-shrink-0",
           className
         )}
         {...props}

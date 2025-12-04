@@ -4,6 +4,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useRadioGroupContext } from './RadioGroupContext';
+import { RadioItemProvider } from './RadioItemContext';
 
 export interface RadioItemProps extends ComposableProps<'label'> {
   /**
@@ -60,21 +61,22 @@ export const RadioItem = React.forwardRef<HTMLLabelElement, RadioItemProps>(
     const Comp = asChild ? Slot : 'label';
     
     return (
-      <Comp
-        ref={ref}
-        className={cn(
-          "inline-flex items-center",
-          currentSize.gap,
-          disabled && "opacity-50 cursor-not-allowed",
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </Comp>
+      <RadioItemProvider value={{ value, disabled }}>
+        <Comp
+          ref={ref}
+          className={cn(
+            "inline-flex items-center",
+            currentSize.gap,
+            disabled && "opacity-50 cursor-not-allowed",
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </Comp>
+      </RadioItemProvider>
     );
   }
 );
 
 RadioItem.displayName = 'RadioItem';
-

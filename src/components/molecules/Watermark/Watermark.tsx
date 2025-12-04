@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface WatermarkProps {
+export interface WatermarkProps extends Omit<ComposableProps<'div'>, 'content'> {
   zIndex?: number;
   rotate?: number;
   width?: number;
@@ -35,6 +36,8 @@ export const Watermark: React.FC<WatermarkProps> = ({
   offset,
   children,
   className,
+  asChild,
+  ...props
 }) => {
   const [base64Url, setBase64Url] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
@@ -96,11 +99,14 @@ export const Watermark: React.FC<WatermarkProps> = ({
     }
   }, [zIndex, rotate, width, height, image, content, font, gap, offset]);
 
+  const Comp = asChild ? Slot : 'div';
+
   return (
-    <div 
+    <Comp 
         ref={containerRef} 
         className={cn("relative overflow-hidden", className)}
         style={{ position: 'relative' }}
+        {...props}
     >
       {children}
       <div
@@ -113,7 +119,7 @@ export const Watermark: React.FC<WatermarkProps> = ({
             ...(offset ? { backgroundPosition: `${offset[0]}px ${offset[1]}px` } : {}),
         }}
       />
-    </div>
+    </Comp>
   );
 };
 

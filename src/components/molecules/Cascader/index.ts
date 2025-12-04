@@ -1,3 +1,3 @@
-export { Cascader } from './Cascader';
-export type { CascaderProps, CascaderOption } from './Cascader';
+export { Cascader, CascaderOption } from './Cascader';
+export type { CascaderProps, CascaderOption as CascaderOptionType, CascaderOptionComponentProps } from './Cascader';
 

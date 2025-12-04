@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 import Tabs from './Tabs';
+import { TabsList, TabsTrigger, TabsContent } from './index';
 
 const meta: Meta<typeof Tabs> = {
   title: 'Organisms/Tabs',
@@ -91,4 +93,88 @@ export const WithIcons: Story = {
     ],
     type: 'primary',
   },
+};
+
+function ComposableBasicComponent() {
+  const [activeTab, setActiveTab] = React.useState(0);
+  return (
+    <Tabs activeTab={activeTab} onTabChange={setActiveTab} type="primary">
+      <TabsList>
+        <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+        <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+        <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+      </TabsList>
+      <TabsContent value="tab1">Content of Tab 1</TabsContent>
+      <TabsContent value="tab2">Content of Tab 2</TabsContent>
+      <TabsContent value="tab3">Content of Tab 3</TabsContent>
+    </Tabs>
+  );
+}
+
+export const ComposableBasic: Story = {
+  render: () => <ComposableBasicComponent />,
+};
+
+function ComposableWithBadgesComponent() {
+  const [activeTab, setActiveTab] = React.useState(0);
+  return (
+    <Tabs activeTab={activeTab} onTabChange={setActiveTab} type="primary">
+      <TabsList>
+        <TabsTrigger value="tab1" badge badgeCount="56">
+          Tab 1
+        </TabsTrigger>
+        <TabsTrigger value="tab2" badge badgeCount="12">
+          Tab 2
+        </TabsTrigger>
+        <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+      </TabsList>
+      <TabsContent value="tab1">Content of Tab 1 with badge</TabsContent>
+      <TabsContent value="tab2">Content of Tab 2 with badge</TabsContent>
+      <TabsContent value="tab3">Content of Tab 3</TabsContent>
+    </Tabs>
+  );
+}
+
+export const ComposableWithBadges: Story = {
+  render: () => <ComposableWithBadgesComponent />,
+};
+
+function ComposableSecondaryComponent() {
+  const [activeTab, setActiveTab] = React.useState(0);
+  return (
+    <Tabs activeTab={activeTab} onTabChange={setActiveTab} type="secondary">
+      <TabsList>
+        <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+        <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+        <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+      </TabsList>
+      <TabsContent value="tab1">Content of Tab 1</TabsContent>
+      <TabsContent value="tab2">Content of Tab 2</TabsContent>
+      <TabsContent value="tab3">Content of Tab 3</TabsContent>
+    </Tabs>
+  );
+}
+
+export const ComposableSecondary: Story = {
+  render: () => <ComposableSecondaryComponent />,
+};
+
+function ComposableTertiaryComponent() {
+  const [activeTab, setActiveTab] = React.useState(0);
+  return (
+    <Tabs activeTab={activeTab} onTabChange={setActiveTab} type="tertiary">
+      <TabsList>
+        <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+        <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+        <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+      </TabsList>
+      <TabsContent value="tab1">Content of Tab 1</TabsContent>
+      <TabsContent value="tab2">Content of Tab 2</TabsContent>
+      <TabsContent value="tab3">Content of Tab 3</TabsContent>
+    </Tabs>
+  );
+}
+
+export const ComposableTertiary: Story = {
+  render: () => <ComposableTertiaryComponent />,
 };

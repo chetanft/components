@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 import type { VariantProps } from 'class-variance-authority';
-import type { DropdownMenuOption } from './DropdownMenu';
+import type { DropdownMenuOption } from './index';
 import type { SegmentedTabItem } from '../SegmentedTabs';
 
 export interface DropdownMenuContextType {

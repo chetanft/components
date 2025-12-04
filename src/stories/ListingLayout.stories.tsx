@@ -7,7 +7,8 @@ import {
   QuickFilters,
   type QuickFilter,
 } from '../components/organisms/QuickFilters';
-import { Table, type TableColumn } from '../components/organisms/Table';
+import { Table } from '../components/organisms/Table';
+import type { TableColumn } from '../components/organisms/Table';
 import { Button } from '../components/atoms/Button/Button';
 import { Typography } from '../components/atoms/Typography';
 import { Badge } from '../components/atoms/Badge';

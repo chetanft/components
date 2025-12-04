@@ -5,12 +5,13 @@ import ReactDOM from 'react-dom';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Spin } from '../../atoms/Spin/Spin';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 // ============================================================================
 // Types
 // ============================================================================
 
-export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+export interface ImageProps extends Omit<ComposableProps<'div'>, 'src' | 'alt'> {
   /** Image source */
   src: string;
   /** Alt text */
@@ -302,6 +303,7 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
     rootClassName,
     onError,
     style,
+    asChild,
     ...props
   }, ref) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -358,9 +360,11 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
       ? previewConfig.visible
       : previewVisible;
 
+    const Comp = asChild ? Slot : 'div';
+
     return (
       <>
-        <div
+        <Comp
           className={cn(
             "relative inline-block overflow-hidden",
             isPreviewEnabled && !hasError && "cursor-zoom-in",
@@ -424,7 +428,7 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
               <Icon name="search" size={32} className="text-[var(--overlay-control-text)]" />
             </div>
           )}
-        </div>
+        </Comp>
 
         {/* Preview modal */}
         {isPreviewEnabled && (

@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Dropdown } from '../../molecules/Dropdown/Dropdown';
-import type { DropdownOption } from '../../molecules/Dropdown/Dropdown';
+import type { DropdownOption } from '../../molecules/Dropdown';
 import type { DataEntryCellState } from './DataEntryTableCell';
 
 export interface DataEntryTableCellDropdownProps {

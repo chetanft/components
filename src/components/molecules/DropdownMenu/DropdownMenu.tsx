@@ -2,10 +2,11 @@
 import React, { useState } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
-import { DropdownMenuItem, type DropdownMenuItemProps } from './DropdownMenuItem';
+import { DropdownMenuItem } from './DropdownMenuItem';
+import type { DropdownMenuItemProps } from './DropdownMenuItem';
 import { Icon } from '../../atoms/Icons';
 import { SegmentedTabs, type SegmentedTabItem } from '../SegmentedTabs';
-import { DropdownMenuProvider } from './DropdownMenuContext';
+import { DropdownMenuProvider, type DropdownMenuContextType } from './DropdownMenuContext';
 import { DropdownMenuList } from './DropdownMenuList';
 import { DropdownMenuSearch } from './DropdownMenuSearch';
 import { DropdownMenuSeparator } from './DropdownMenuSeparator';
@@ -171,9 +172,14 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
         child?.type?.displayName?.startsWith('DropdownMenu')
     );
     
+    // Check if children include DropdownMenuSearch (to avoid rendering search bar twice)
+    const hasSearchInChildren = React.Children.toArray(children).some((child: any) => 
+        child?.type?.displayName === 'DropdownMenuSearch'
+    );
+    
     // Create context value
-    const contextValue = {
-      property,
+    const contextValue: DropdownMenuContextType = {
+      property: property || 'default',
       options,
       selectedValue,
       setSelectedValue,
@@ -302,29 +308,123 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       );
     };
 
+    // If using composable API, wrap with context provider and render children
+    if (hasComposableChildren) {
+      return (
+        <DropdownMenuProvider value={contextValue}>
+          <div
+            ref={ref}
+            role="menu"
+            className={cn(dropdownMenuVariants({ property }), className)}
+            onKeyDown={handleKeyDown}
+            {...props}
+          >
+            {/* Segmented Control */}
+            {renderSegmentedControl()}
+
+            {/* Search Bar - Only render if not using composable DropdownMenuSearch */}
+            {!hasSearchInChildren && renderSearchBar()}
+
+            {/* List Container - Render children directly */}
+            <div className="content-stretch flex gap-[var(--spacing-x4)] items-start relative shrink-0 w-full">
+              {children}
+              {/* Scroll Bar */}
+              {renderScrollBar()}
+            </div>
+          </div>
+        </DropdownMenuProvider>
+      );
+    }
+
+    // Otherwise use declarative API (deprecated)
     return (
-      <div
-        ref={ref}
-        role="menu"
-        className={cn(dropdownMenuVariants({ property }), className)}
-        onKeyDown={handleKeyDown}
-        {...props}
-      >
-        {/* Segmented Control */}
-        {renderSegmentedControl()}
+      <DropdownMenuProvider value={contextValue}>
+        <div
+          ref={ref}
+          role="menu"
+          className={cn(dropdownMenuVariants({ property }), className)}
+          onKeyDown={handleKeyDown}
+          {...props}
+        >
+          {/* Segmented Control */}
+          {renderSegmentedControl()}
 
-        {/* Search Bar */}
-        {renderSearchBar()}
+          {/* Search Bar */}
+          {renderSearchBar()}
 
-        {/* List Container */}
-        <div className="content-stretch flex gap-[var(--spacing-x4)] items-start relative shrink-0 w-full">
-          <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start min-h-px min-w-px relative shrink-0">
-            {/* Default/Disabled-Info layout */}
-            {(property === 'default' || property === 'disabled-info') && (
-              <>
-                {filteredOptions.map((option, index) => (
-                  <React.Fragment key={option.value || index}>
+          {/* List Container */}
+          <div className="content-stretch flex gap-[var(--spacing-x4)] items-start relative shrink-0 w-full">
+            <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start min-h-px min-w-px relative shrink-0">
+              {/* Default/Disabled-Info layout */}
+              {(property === 'default' || property === 'disabled-info') && (
+                <>
+                  {filteredOptions.map((option, index) => (
+                    <React.Fragment key={option.value || index}>
+                      <DropdownMenuItem
+                        ref={(el) => {
+                          itemRefs.current[index] = el;
+                        }}
+                        {...option}
+                        state={selectedValue === option.value ? 'selected' : option.state || 'default'}
+                        onClick={() => handleSelect(option.value)}
+                      >
+                        {option.label}
+                      </DropdownMenuItem>
+                      {/* Add divider after 6th item in default mode */}
+                      {property === 'default' && index === 5 && renderDivider()}
+                    </React.Fragment>
+                  ))}
+                  {renderInfoItem()}
+                </>
+              )}
+
+              {/* Groups layout */}
+              {isGroups &&
+                (() => {
+                  let itemIndex = 0;
+                  return Object.entries(groupedOptions).map(([groupName, groupOptions]) => (
+                    <div
+                      key={groupName}
+                      className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start relative shrink-0 w-full"
+                    >
+                      <div className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center px-[var(--spacing-x3)] py-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shrink-0 w-full">
+                        <p
+                          className="font-medium leading-[1.4] relative shrink-0 text-[var(--color-tertiary)]"
+                          style={{
+                            fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
+                            fontWeight: 'var(--font-weight-medium, 500)',
+                            fontSize: 'var(--font-size-sm-rem)', // 14px → 1rem (responsive)
+                          }}
+                        >
+                          {groupName}
+                        </p>
+                      </div>
+                      {groupOptions.map((option, localIndex) => {
+                        const currentIndex = itemIndex++;
+                        return (
+                          <DropdownMenuItem
+                            key={option.value || localIndex}
+                            ref={(el) => {
+                              itemRefs.current[currentIndex] = el;
+                            }}
+                            {...option}
+                            state={selectedValue === option.value ? 'selected' : option.state || 'default'}
+                            onClick={() => handleSelect(option.value)}
+                          >
+                            {option.label}
+                          </DropdownMenuItem>
+                        );
+                      })}
+                    </div>
+                  ));
+                })()}
+
+              {/* Search layout */}
+              {isSearch && (
+                <>
+                  {filteredOptions.map((option, index) => (
                     <DropdownMenuItem
+                      key={option.value || index}
                       ref={(el) => {
                         itemRefs.current[index] = el;
                       }}
@@ -334,79 +434,16 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
                     >
                       {option.label}
                     </DropdownMenuItem>
-                    {/* Add divider after 6th item in default mode */}
-                    {property === 'default' && index === 5 && renderDivider()}
-                  </React.Fragment>
-                ))}
-                {renderInfoItem()}
-              </>
-            )}
+                  ))}
+                </>
+              )}
+            </div>
 
-            {/* Groups layout */}
-            {isGroups &&
-              (() => {
-                let itemIndex = 0;
-                return Object.entries(groupedOptions).map(([groupName, groupOptions]) => (
-                  <div
-                    key={groupName}
-                    className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start relative shrink-0 w-full"
-                  >
-                    <div className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center px-[var(--spacing-x3)] py-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shrink-0 w-full">
-                      <p
-                        className="font-medium leading-[1.4] relative shrink-0 text-[var(--color-tertiary)]"
-                        style={{
-                          fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
-                          fontWeight: 'var(--font-weight-medium, 500)',
-                          fontSize: 'var(--font-size-sm-rem)', // 14px → 1rem (responsive)
-                        }}
-                      >
-                        {groupName}
-                      </p>
-                    </div>
-                    {groupOptions.map((option, localIndex) => {
-                      const currentIndex = itemIndex++;
-                      return (
-                        <DropdownMenuItem
-                          key={option.value || localIndex}
-                          ref={(el) => {
-                            itemRefs.current[currentIndex] = el;
-                          }}
-                          {...option}
-                          state={selectedValue === option.value ? 'selected' : option.state || 'default'}
-                          onClick={() => handleSelect(option.value)}
-                        >
-                          {option.label}
-                        </DropdownMenuItem>
-                      );
-                    })}
-                  </div>
-                ));
-              })()}
-
-            {/* Search layout */}
-            {isSearch && (
-              <>
-                {filteredOptions.map((option, index) => (
-                  <DropdownMenuItem
-                    key={option.value || index}
-                    ref={(el) => {
-                      itemRefs.current[index] = el;
-                    }}
-                    {...option}
-                    state={selectedValue === option.value ? 'selected' : option.state || 'default'}
-                    onClick={() => handleSelect(option.value)}
-                  >
-                    {option.label}
-                  </DropdownMenuItem>
-                ))}
-              </>
-            )}
+            {/* Scroll Bar */}
+            {renderScrollBar()}
           </div>
-
-          {/* Scroll Bar */}
-          {renderScrollBar()}
         </div>
-      </div>
+      </DropdownMenuProvider>
     );
   }
 );

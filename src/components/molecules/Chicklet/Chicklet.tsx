@@ -12,9 +12,16 @@ export interface ChickletProps {
   label?: React.ReactNode;
   /** Whether the chicklet has rounded corners (pill) or rectangular corners */
   variant?: ChickletVariant;
-  /** Whether to show the close (cross) icon */
+  /**
+   * Whether to show the close (cross) icon
+   * @deprecated Use conditional rendering instead: `{onClose && <CloseButton />}`
+   */
   showClose?: boolean;
-  closable?: boolean; // Alias for showClose
+  /**
+   * Alias for showClose
+   * @deprecated Use conditional rendering instead: `{onClose && <CloseButton />}`
+   */
+  closable?: boolean;
   /** Whether to show border */
   bordered?: boolean;
   /** Callback when the close icon is clicked */

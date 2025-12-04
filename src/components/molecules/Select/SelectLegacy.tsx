@@ -1,7 +1,8 @@
 "use client";
 
 import React, { forwardRef } from 'react';
-import { Dropdown, type DropdownProps, type DropdownOption } from '../Dropdown/Dropdown';
+import { Dropdown } from '../Dropdown';
+import type { DropdownProps, DropdownOption } from '../Dropdown';
 
 /**
  * Select option type (extends DropdownOption)

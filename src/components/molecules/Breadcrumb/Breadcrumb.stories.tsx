@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Breadcrumb } from './Breadcrumb';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from './index';
 
 const meta = {
   title: 'Molecules/Breadcrumb',
@@ -82,4 +82,108 @@ export function LongBreadcrumb() {
     </div>
   );
 }
+
+// Composable API Examples (Recommended)
+export const ComposableBasic: Story = {
+  render: () => (
+    <div className="p-6">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/products">Products</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/products/electronics" isCurrentPage>Electronics</BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '✅ **Composable API**: Use BreadcrumbList, BreadcrumbItem, BreadcrumbLink, and BreadcrumbSeparator sub-components for flexible breadcrumb composition.',
+      },
+    },
+  },
+};
+
+export const ComposableWithIcons: Story = {
+  render: () => (
+    <div className="p-6">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/" icon="home">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/settings" icon="settings">Settings</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/settings/profile" icon="user" isCurrentPage>Profile</BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Composable API allows flexible icon placement in breadcrumb links.',
+      },
+    },
+  },
+};
+
+export const ComposableCustomSeparator: Story = {
+  render: () => (
+    <div className="p-6">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator icon="chevron-right" />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/about">About</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>
+            <span className="text-[var(--color-tertiary)]">/</span>
+          </BreadcrumbSeparator>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/about/team" isCurrentPage>Team</BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Custom separators can be provided using BreadcrumbSeparator with custom icon or children.',
+      },
+    },
+  },
+};
+
+// Mark deprecated examples
+export const DefaultWithItems: Story = {
+  args: {
+    items: sampleItems,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '⚠️ **Deprecated**: This uses the deprecated `items` prop. Use the composable API with BreadcrumbList, BreadcrumbItem, and BreadcrumbLink instead.',
+      },
+    },
+  },
+};
 

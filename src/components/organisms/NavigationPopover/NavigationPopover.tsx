@@ -77,6 +77,10 @@ export interface MetricsColumnsConfig {
 export interface NavigationPopoverProps {
   open?: boolean;
   onClose?: () => void;
+  /**
+   * Sections array (for declarative API)
+   * @deprecated Use NavigationSection components as children instead
+   */
   sections?: NavigationSection[];
   initialSectionId?: string;
   onSectionChange?: (itemId: string) => void;
@@ -87,6 +91,137 @@ export interface NavigationPopoverProps {
   headerSlot?: React.ReactNode;
   heroPlacement?: HeroPlacement;
   metricsColumns?: MetricsColumnsConfig;
+  /**
+   * Navigation sections (for composable API)
+   */
+  children?: React.ReactNode;
+}
+
+export interface NavigationSectionComponentProps {
+  /**
+   * Section ID (required)
+   */
+  id: string;
+  /**
+   * Section label
+   */
+  label?: string;
+  /**
+   * Section icon
+   */
+  icon?: IconName;
+  /**
+   * Whether to show chevron
+   */
+  showChevron?: boolean;
+  /**
+   * Section content (for composable API)
+   */
+  children?: React.ReactNode;
+}
+
+export interface NavigationSectionHeroComponentProps {
+  /**
+   * Hero title
+   */
+  title?: string;
+  /**
+   * Hero description
+   */
+  children?: React.ReactNode;
+  /**
+   * Hero description (alternative to children)
+   */
+  description?: string;
+  /**
+   * Hero image URL
+   */
+  image?: string;
+  /**
+   * Illustration variant
+   */
+  illustrationVariant?: IllustrationVariant;
+  /**
+   * Alt text
+   */
+  alt?: string;
+}
+
+export interface NavigationSectionMetricComponentProps {
+  /**
+   * Metric variant
+   */
+  variant?: 'highlight' | 'stat' | 'alert';
+  /**
+   * Metric title (for highlight)
+   */
+  title?: string;
+  /**
+   * Metric description (for highlight)
+   */
+  children?: React.ReactNode;
+  /**
+   * Metric description (alternative to children, for highlight)
+   */
+  description?: string;
+  /**
+   * Action label (for highlight)
+   */
+  actionLabel?: string;
+  /**
+   * Action icon (for highlight)
+   */
+  actionIcon?: IconName;
+  /**
+   * Metric label (for stat/alert)
+   */
+  label?: string;
+  /**
+   * Metric value (for stat/alert)
+   */
+  value?: string;
+  /**
+   * Badge variant (for alert)
+   */
+  badgeVariant?: BadgeVariant;
+}
+
+export interface NavigationSectionSubCategoryComponentProps {
+  /**
+   * Category title
+   */
+  title?: string;
+  /**
+   * Category items (for composable API)
+   */
+  children?: React.ReactNode;
+}
+
+export interface NavigationSectionSubCategoryItemComponentProps {
+  /**
+   * Item label
+   */
+  label?: string;
+  /**
+   * Item icon
+   */
+  icon?: IconName;
+  /**
+   * Item description
+   */
+  children?: React.ReactNode;
+  /**
+   * Item description (alternative to children)
+   */
+  description?: string;
+  /**
+   * Whether item is disabled
+   */
+  disabled?: boolean;
+  /**
+   * Item status
+   */
+  status?: 'active';
 }
 
 const DEFAULT_SECTIONS: NavigationSection[] = [
@@ -417,6 +552,98 @@ const MetricsPanel = ({
   );
 };
 
+// Helper function to extract sections from children
+const extractSectionsFromChildren = (children: React.ReactNode): NavigationSection[] => {
+  return React.Children.toArray(children)
+    .filter((child): child is React.ReactElement<NavigationSectionComponentProps> => 
+      React.isValidElement(child) && child.type === NavigationSection
+    )
+    .map(child => {
+      const heroChild = React.Children.toArray(child.props.children)
+        .find((c): c is React.ReactElement<NavigationSectionHeroComponentProps> => 
+          React.isValidElement(c) && c.type === NavigationSectionHero
+        );
+      
+      const metricChildren = React.Children.toArray(child.props.children)
+        .filter((c): c is React.ReactElement<NavigationSectionMetricComponentProps> => 
+          React.isValidElement(c) && c.type === NavigationSectionMetric
+        );
+      
+      const subCategoryChildren = React.Children.toArray(child.props.children)
+        .filter((c): c is React.ReactElement<NavigationSectionSubCategoryComponentProps> => 
+          React.isValidElement(c) && c.type === NavigationSectionSubCategory
+        );
+
+      const hero: NavigationSectionHero | undefined = heroChild ? {
+        title: heroChild.props.title || '',
+        description: typeof heroChild.props.children === 'string' 
+          ? heroChild.props.children 
+          : (heroChild.props.description || ''),
+        image: heroChild.props.image,
+        illustrationVariant: heroChild.props.illustrationVariant,
+        alt: heroChild.props.alt,
+      } : undefined;
+
+      const metrics: NavigationSectionMetric[] = metricChildren.map(metric => {
+        if (metric.props.variant === 'highlight') {
+          return {
+            variant: 'highlight' as const,
+            title: metric.props.title || '',
+            description: typeof metric.props.children === 'string' 
+              ? metric.props.children 
+              : (metric.props.description || ''),
+            actionLabel: metric.props.actionLabel,
+            actionIcon: metric.props.actionIcon,
+          };
+        } else if (metric.props.variant === 'alert') {
+          return {
+            variant: 'alert' as const,
+            label: metric.props.label || '',
+            value: metric.props.value || '',
+            badgeVariant: metric.props.badgeVariant,
+            description: metric.props.description,
+          };
+        } else {
+          return {
+            variant: 'stat' as const,
+            label: metric.props.label || '',
+            value: metric.props.value || '',
+          };
+        }
+      });
+
+      const subCategories: NavigationSectionSubCategory[] = subCategoryChildren.map(subCat => {
+        const itemChildren = React.Children.toArray(subCat.props.children)
+          .filter((c): c is React.ReactElement<NavigationSectionSubCategoryItemComponentProps> => 
+            React.isValidElement(c) && c.type === NavigationSectionSubCategoryItem
+          );
+        
+        return {
+          title: subCat.props.title,
+          items: itemChildren.map(item => ({
+            label: item.props.label || '',
+            icon: item.props.icon,
+            description: typeof item.props.children === 'string' 
+              ? item.props.children 
+              : item.props.description,
+            disabled: item.props.disabled,
+            status: item.props.status,
+          })),
+        };
+      });
+
+      return {
+        id: child.props.id,
+        label: child.props.label || child.props.id,
+        icon: child.props.icon || 'dashboard',
+        hero,
+        metrics: metrics.length > 0 ? metrics : undefined,
+        subCategories: subCategories.length > 0 ? subCategories : undefined,
+        showChevron: child.props.showChevron,
+      };
+    });
+};
+
 export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
   open = true,
   onClose,
@@ -430,8 +657,38 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
   headerSlot,
   heroPlacement = 'auto',
   metricsColumns,
+  children,
 }) => {
-  const availableSections = sections?.length ? sections : DEFAULT_SECTIONS;
+  // Extract sections from children if using composable API
+  const sectionsFromChildren = React.useMemo(() => {
+    if (!children) return [];
+    return extractSectionsFromChildren(children);
+  }, [children]);
+
+  // Use children sections if available, otherwise use sections prop
+  const availableSections = sectionsFromChildren.length > 0 
+    ? sectionsFromChildren 
+    : (sections?.length ? sections : DEFAULT_SECTIONS);
+
+  // Check if using composable API
+  const hasComposableChildren = React.Children.count(children) > 0 && sectionsFromChildren.length > 0;
+
+  // Show deprecation warning
+  if (process.env.NODE_ENV !== 'production') {
+    if (hasComposableChildren && sections && sections.length > 0) {
+      console.warn(
+        'NavigationPopover: Using deprecated props (sections array) with composable API. ' +
+        'Please use NavigationSection components as children instead. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    } else if (!hasComposableChildren && sections && sections.length > 0) {
+      console.warn(
+        'NavigationPopover: Declarative API (sections array prop) is deprecated. ' +
+        'Please migrate to composable API using NavigationSection components as children. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+  }
 
   const safeInitialId = useMemo(() => {
     if (initialSectionId && availableSections.some((section) => section.id === initialSectionId)) {
@@ -596,3 +853,80 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
 };
 
 NavigationPopover.displayName = 'NavigationPopover';
+
+/**
+ * NavigationSection Component
+ *
+ * A composable component for individual sections in a NavigationPopover.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <NavigationPopover>
+ *   <NavigationSection id="overview" label="Overview" icon="dashboard">
+ *     <NavigationSectionHero title="Overview" description="High-level summary" />
+ *     <NavigationSectionMetric variant="highlight" title="Key Metrics" description="Monitor performance" />
+ *   </NavigationSection>
+ * </NavigationPopover>
+ * ```
+ */
+export const NavigationSection: React.FC<NavigationSectionComponentProps> = ({ children, ...props }) => {
+  // This component is used for composition only - it doesn't render anything itself
+  // The NavigationPopover component extracts props from NavigationSection children
+  return null;
+};
+
+NavigationSection.displayName = 'NavigationSection';
+
+/**
+ * NavigationSectionHero Component
+ *
+ * A composable component for hero content within a NavigationSection.
+ *
+ * @public
+ */
+export const NavigationSectionHero: React.FC<NavigationSectionHeroComponentProps> = ({ children, ...props }) => {
+  return null;
+};
+
+NavigationSectionHero.displayName = 'NavigationSectionHero';
+
+/**
+ * NavigationSectionMetric Component
+ *
+ * A composable component for metrics within a NavigationSection.
+ *
+ * @public
+ */
+export const NavigationSectionMetric: React.FC<NavigationSectionMetricComponentProps> = ({ children, ...props }) => {
+  return null;
+};
+
+NavigationSectionMetric.displayName = 'NavigationSectionMetric';
+
+/**
+ * NavigationSectionSubCategory Component
+ *
+ * A composable component for sub-categories within a NavigationSection.
+ *
+ * @public
+ */
+export const NavigationSectionSubCategory: React.FC<NavigationSectionSubCategoryComponentProps> = ({ children, ...props }) => {
+  return null;
+};
+
+NavigationSectionSubCategory.displayName = 'NavigationSectionSubCategory';
+
+/**
+ * NavigationSectionSubCategoryItem Component
+ *
+ * A composable component for items within a NavigationSectionSubCategory.
+ *
+ * @public
+ */
+export const NavigationSectionSubCategoryItem: React.FC<NavigationSectionSubCategoryItemComponentProps> = ({ children, ...props }) => {
+  return null;
+};
+
+NavigationSectionSubCategoryItem.displayName = 'NavigationSectionSubCategoryItem';

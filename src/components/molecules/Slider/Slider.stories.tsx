@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
-import { Slider } from './Slider';
+import { Slider, SliderTrack, SliderRange, SliderThumb, SliderLabel } from './index';
 
 const meta: Meta<typeof Slider> = {
   title: 'Molecules/Slider',
@@ -28,10 +28,84 @@ const meta: Meta<typeof Slider> = {
 export default meta;
 type Story = StoryObj<typeof Slider>;
 
+// Composable API Examples (Recommended)
+export const ComposableBasic: Story = {
+  render: () => (
+    <div className="p-6">
+      <Slider defaultValue={30} className="w-[300px]">
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb value={30} />
+      </Slider>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '✅ **Composable API**: Use SliderTrack, SliderRange, SliderThumb, and SliderLabel sub-components for flexible slider composition.',
+      },
+    },
+  },
+};
+
+export const ComposableRange: Story = {
+  render: () => (
+    <div className="p-6">
+      <Slider range defaultValue={[20, 80]} className="w-[300px]">
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb value={20} type="start" />
+        <SliderThumb value={80} type="end" />
+      </Slider>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use multiple SliderThumb components for range sliders.',
+      },
+    },
+  },
+};
+
+export const ComposableWithLabels: Story = {
+  render: () => (
+    <div className="p-6">
+      <Slider defaultValue={50} className="w-[300px]">
+        <SliderTrack>
+          <SliderRange />
+        </SliderTrack>
+        <SliderThumb value={50} />
+        <SliderLabel value={0}>0°C</SliderLabel>
+        <SliderLabel value={26}>26°C</SliderLabel>
+        <SliderLabel value={37}>37°C</SliderLabel>
+        <SliderLabel value={100}>100°C</SliderLabel>
+      </Slider>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use SliderLabel components for marks/labels on the slider track.',
+      },
+    },
+  },
+};
+
+// Mark deprecated examples
 export const Default: Story = {
   args: {
     defaultValue: 30,
     className: 'w-[300px]',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '⚠️ **Deprecated**: This uses the deprecated declarative API. Use the composable API with SliderTrack, SliderRange, and SliderThumb instead.',
+      },
+    },
   },
 };
 

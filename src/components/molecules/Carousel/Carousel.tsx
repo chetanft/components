@@ -3,6 +3,7 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 // ============================================================================
 // Types
@@ -11,7 +12,7 @@ import { Icon } from '../../atoms/Icons';
 export type CarouselEffect = 'slide' | 'fade';
 export type DotPosition = 'top' | 'bottom' | 'left' | 'right';
 
-export interface CarouselProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CarouselProps extends ComposableProps<'div'> {
   /** Auto play slides */
   autoplay?: boolean;
   /** Time between auto transitions (ms) */
@@ -75,6 +76,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     pauseOnFocus = true,
     swipe = true,
     children,
+    asChild,
     ...props
   }, ref) => {
     const slides = React.Children.toArray(children);
@@ -216,8 +218,10 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-neutral)]"
     );
 
+    const Comp = asChild ? Slot : 'div';
+
     return (
-      <div
+      <Comp
         ref={ref}
         className={containerClasses}
         onMouseEnter={() => pauseOnHover && setIsPaused(true)}
@@ -336,7 +340,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
             })}
           </div>
         )}
-      </div>
+      </Comp>
     );
   }
 );

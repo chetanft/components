@@ -7,7 +7,7 @@ import { DataEntryTableCellDropdown } from './DataEntryTableCellDropdown';
 import { DataEntryTableCellAmount } from './DataEntryTableCellAmount';
 import { DataEntryTableCellDateTime } from './DataEntryTableCellDateTime';
 import { DataEntryTableCellActions } from './DataEntryTableCellActions';
-import type { DropdownOption } from '../../molecules/Dropdown/Dropdown';
+import type { DropdownOption } from '../../molecules/Dropdown';
 
 export type DataEntryCellType = 'read-only' | 'input' | 'amount-input' | 'dropdown' | 'date-time' | 'action';
 export type DataEntryCellState = 'default' | 'hover' | 'focused' | 'typing' | 'filled' | 'error-filled' | 'disabled' | 'pre-filled';

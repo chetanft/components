@@ -269,7 +269,7 @@ export default function IconsPage() {
       if (cat === 'All') {
         counts[cat] = iconNames.length
       } else {
-        const categoryIcons = (categoriesToCount as any)[cat]
+        const categoryIcons = categoriesToCount[cat as keyof typeof categoriesToCount]
         if (Array.isArray(categoryIcons)) {
           counts[cat] = categoryIcons.filter((iconName) =>
             iconNames.includes(iconName as IconName)

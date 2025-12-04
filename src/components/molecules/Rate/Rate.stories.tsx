@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Rate } from './Rate';
+import { Rate, RateItem, RateIcon } from './index';
 import { useState } from 'react';
 import type { ComponentProps } from 'react';
 
@@ -134,4 +134,86 @@ export const CustomCount: Story = {
 
 export const Controlled: Story = {
   render: (args: React.ComponentProps<typeof Rate>) => <ControlledRateStory {...args} />,
+};
+
+// Composable API Examples
+function ComposableBasicComponent() {
+  const [value, setValue] = useState(3);
+  return (
+    <Rate value={value} onChange={setValue} count={5} size="md">
+      {Array.from({ length: 5 }, (_, i) => (
+        <RateItem key={i} index={i}>
+          <RateIcon index={i} />
+        </RateItem>
+      ))}
+    </Rate>
+  );
+}
+
+export const ComposableBasic: Story = {
+  render: () => <ComposableBasicComponent />,
+};
+
+function ComposableWithHalfStarsComponent() {
+  const [value, setValue] = useState(2.5);
+  return (
+    <Rate value={value} onChange={setValue} count={5} size="md" allowHalf>
+      {Array.from({ length: 5 }, (_, i) => (
+        <RateItem key={i} index={i}>
+          <RateIcon index={i} />
+        </RateItem>
+      ))}
+    </Rate>
+  );
+}
+
+export const ComposableWithHalfStars: Story = {
+  render: () => <ComposableWithHalfStarsComponent />,
+};
+
+function ComposableWithTooltipsComponent() {
+  const [value, setValue] = useState(3);
+  const tooltips = ['Terrible', 'Bad', 'Normal', 'Good', 'Excellent'];
+  return (
+    <Rate value={value} onChange={setValue} count={5} size="md" tooltips={tooltips}>
+      {Array.from({ length: 5 }, (_, i) => (
+        <RateItem key={i} index={i}>
+          <RateIcon index={i} />
+        </RateItem>
+      ))}
+    </Rate>
+  );
+}
+
+export const ComposableWithTooltips: Story = {
+  render: () => <ComposableWithTooltipsComponent />,
+};
+
+function ComposableCustomCharacterComponent() {
+  const [value, setValue] = useState(4);
+  return (
+    <Rate value={value} onChange={setValue} count={5} size="lg">
+      {Array.from({ length: 5 }, (_, i) => (
+        <RateItem key={i} index={i}>
+          <RateIcon index={i} />
+        </RateItem>
+      ))}
+    </Rate>
+  );
+}
+
+export const ComposableCustomCharacter: Story = {
+  render: () => <ComposableCustomCharacterComponent />,
+};
+
+export const ComposableDisabled: Story = {
+  render: () => (
+    <Rate value={4} count={5} size="md" disabled>
+      {Array.from({ length: 5 }, (_, i) => (
+        <RateItem key={i} index={i}>
+          <RateIcon index={i} />
+        </RateItem>
+      ))}
+    </Rate>
+  ),
 };

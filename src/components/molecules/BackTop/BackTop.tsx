@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface BackTopProps {
+export interface BackTopProps extends ComposableProps<'div'> {
   visibilityHeight?: number;
   onClick?: React.MouseEventHandler<HTMLElement>;
   children?: React.ReactNode;
@@ -19,6 +20,7 @@ export const BackTop = React.forwardRef<HTMLDivElement, BackTopProps>(({
   children,
   className,
   style,
+  asChild,
   ...props
 }, ref) => {
   const [visible, setVisible] = useState(false);
@@ -44,8 +46,10 @@ export const BackTop = React.forwardRef<HTMLDivElement, BackTopProps>(({
 
   if (!visible) return null;
 
+  const Comp = asChild ? Slot : 'div';
+
   return (
-    <div
+    <Comp
       ref={ref}
       className={cn(
         "fixed right-10 bottom-10 z-50 transition-all duration-300 hover:scale-110",
@@ -64,7 +68,7 @@ export const BackTop = React.forwardRef<HTMLDivElement, BackTopProps>(({
           className="rounded-full shadow-lg"
         />
       )}
-    </div>
+    </Comp>
   );
 });
 

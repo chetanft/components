@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 const illustrationSources = {
   overview: 'https://www.figma.com/api/mcp/asset/1135fea1-e788-4979-b5a2-ce58f7c8b2b9',
@@ -12,7 +13,7 @@ export type IllustrationVariant = keyof typeof illustrationSources;
 
 export type IllustrationSize = 'sm' | 'md' | 'lg' | 'xl';
 
-export interface IllustrationProps {
+export interface IllustrationProps extends ComposableProps<'figure'> {
   variant?: IllustrationVariant;
   src?: string;
   alt?: string;
@@ -44,11 +45,14 @@ export const Illustration: React.FC<IllustrationProps> = ({
   rounded = 'md',
   background = 'subtle',
   className,
+  asChild,
+  ...props
 }) => {
   const resolvedSrc = src ?? illustrationSources[variant];
+  const Comp = asChild ? Slot : 'figure';
 
   return (
-    <figure
+    <Comp
       className={cn(
         'overflow-hidden border border-[var(--border-primary)] flex items-center justify-center',
         background === 'subtle' ? 'bg-[var(--bg-secondary)]' : 'bg-transparent',
@@ -57,13 +61,14 @@ export const Illustration: React.FC<IllustrationProps> = ({
         className
       )}
       aria-label={alt}
+      {...props}
     >
       {resolvedSrc ? (
         <img src={resolvedSrc} alt={alt} className="w-full h-full object-cover" />
       ) : (
         <div className="text-[var(--tertiary)] text-sm">No illustration</div>
       )}
-    </figure>
+    </Comp>
   );
 };
 

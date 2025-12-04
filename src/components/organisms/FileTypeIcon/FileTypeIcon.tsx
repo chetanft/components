@@ -2,8 +2,9 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface FileTypeIconProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FileTypeIconProps extends ComposableProps<'div'> {
   fileType: string; // e.g., 'XLS', 'CSV', 'PDF', 'DOC'
   variant?: 'default' | 'error';
   size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
@@ -40,7 +41,7 @@ const getFileTypeImageUrl = (fileType: string, variant?: 'default' | 'error'): s
 };
 
 export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
-  ({ className, fileType, variant = 'default', size = 'md', src, ...props }, ref) => {
+  ({ className, fileType, variant = 'default', size = 'md', src, asChild, ...props }, ref) => {
     const [imageError, setImageError] = React.useState(false);
     
     // Size configurations - matching Figma design structure
@@ -153,8 +154,10 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
         xxl: 'bottom-[10px]'
       };
       
+      const Comp = asChild ? Slot : 'div';
+      
       return (
-        <div 
+        <Comp 
           className={cn(
             "relative rounded-none",
             sizeStyles[size],
@@ -187,13 +190,14 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
               {displayText}
             </span>
           </div>
-        </div>
+        </Comp>
       );
     }
     
     // Image-based design matching Figma structure
+    const ImageComp = asChild ? Slot : 'div';
     return (
-      <div 
+      <ImageComp 
         className={cn(
           "relative overflow-hidden flex items-center justify-center",
           sizeStyles[size],
@@ -214,7 +218,7 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
             maxHeight: '100%'
           }}
         />
-      </div>
+      </ImageComp>
     );
   }
 );

@@ -4,7 +4,7 @@ import React, { useState, useCallback, useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { TableHeaderItem } from './TableHeaderItem';
-import type { TableRow, TableColumn, SortDirection, TableVariant } from './Table';
+import type { TableRow as TableRowType, TableColumn, SortDirection, TableVariant } from './Table';
 
 const CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x9)*2)]';
 const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x10)*2+var(--spacing-x5))]';
@@ -14,7 +14,7 @@ const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x10)*2+var(--spacing-x
  * 
  * @public
  */
-export interface TableHeaderProps<T extends TableRow = TableRow> extends Omit<ComposableProps<'thead'>, 'children'> {
+export interface TableHeaderProps<T extends TableRowType = TableRowType> extends Omit<ComposableProps<'thead'>, 'children'> {
   columns: TableColumn<T>[];
   variant?: TableVariant;
   selectable?: boolean;
@@ -68,7 +68,7 @@ export interface TableHeaderProps<T extends TableRow = TableRow> extends Omit<Co
  * - When using declarative API, automatically handles sorting and selection
  * - Use composable API for maximum flexibility and control
  */
-export const TableHeader = <T extends TableRow = TableRow>({
+export const TableHeader = <T extends TableRowType = TableRowType>({
   columns,
   variant = 'primary',
   selectable,

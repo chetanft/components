@@ -1,1 +1,2 @@
-export * from './RadioSelector'; 
+export { RadioSelector, RadioSelectorOption } from './RadioSelector';
+export type { RadioSelectorProps, RadioSelectorOption as RadioSelectorOptionType, RadioSelectorOptionProps } from './RadioSelector'; 

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useRef, useImperativeHandle } from 'react';
+import React, { useState, useRef, useImperativeHandle, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface MentionOption {
   value: string;
@@ -9,6 +10,10 @@ export interface MentionOption {
 }
 
 export interface MentionsProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'prefix' | 'onChange' | 'onSelect'> {
+  /**
+   * Options array (for declarative API)
+   * @deprecated Use MentionOption components as children instead
+   */
   options?: MentionOption[];
   prefix?: string | string[];
   split?: string;
@@ -18,6 +23,25 @@ export interface MentionsProps extends Omit<React.TextareaHTMLAttributes<HTMLTex
   onSearch?: (text: string, prefix: string) => void;
   autoSize?: boolean | { minRows: number; maxRows: number };
   status?: 'error' | 'warning';
+  /**
+   * Mention options (for composable API)
+   */
+  children?: React.ReactNode;
+}
+
+export interface MentionOptionProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * Option value (required)
+   */
+  value: string;
+  /**
+   * Option label/content
+   */
+  children?: React.ReactNode;
+  /**
+   * Option label (alternative to children)
+   */
+  label?: React.ReactNode;
 }
 
 export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
@@ -32,6 +56,7 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
   value,
   defaultValue,
   status,
+  children,
   ...props
 }, ref) => {
   const [inputValue, setInputValue] = useState(defaultValue || value || '');
@@ -41,6 +66,42 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useImperativeHandle(ref, () => textareaRef.current as HTMLTextAreaElement, []);
+
+  // Extract options from children if using composable API
+  const optionsFromChildren = useMemo(() => {
+    if (!children) return [];
+    return React.Children.toArray(children)
+      .filter((child): child is React.ReactElement<MentionOptionProps> => 
+        React.isValidElement(child) && child.type === MentionOption
+      )
+      .map(child => ({
+        value: child.props.value,
+        label: child.props.children || child.props.label || child.props.value,
+      }));
+  }, [children]);
+
+  // Use children options if available, otherwise use options prop
+  const allOptions = optionsFromChildren.length > 0 ? optionsFromChildren : options;
+
+  // Check if using composable API
+  const hasComposableChildren = React.Children.count(children) > 0 && optionsFromChildren.length > 0;
+
+  // Show deprecation warning
+  if (process.env.NODE_ENV !== 'production') {
+    if (hasComposableChildren && options.length > 0) {
+      console.warn(
+        'Mentions: Using deprecated props (options array) with composable API. ' +
+        'Please use MentionOption components as children instead. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    } else if (!hasComposableChildren && options.length > 0) {
+      console.warn(
+        'Mentions: Declarative API (options array prop) is deprecated. ' +
+        'Please migrate to composable API using MentionOption components as children. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+  }
 
   // Handlers for input changes
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -93,7 +154,7 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
   };
 
   // Filter options
-  const filteredOptions = options.filter(opt => {
+  const filteredOptions = allOptions.filter(opt => {
     if (filterOption === false) return true;
     if (filterOption) return filterOption(filterText, opt);
     return opt.value.toLowerCase().includes(filterText.toLowerCase());
@@ -124,16 +185,40 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
             left: 0
           }}
         >
-          {filteredOptions.map(opt => (
-            <div
-              key={opt.value}
-              className="cursor-pointer px-[var(--spacing-x4)] py-[var(--spacing-x2)] hover:bg-[var(--color-neutral-light)]"
-              style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
-              onClick={() => handleSelect(opt)}
-            >
-              {opt.label}
-            </div>
-          ))}
+          {hasComposableChildren ? (
+            // Render composable children (filtered)
+            React.Children.toArray(children)
+              .filter((child): child is React.ReactElement<MentionOptionProps> => 
+                React.isValidElement(child) && 
+                child.type === MentionOption &&
+                filteredOptions.some(opt => opt.value === child.props.value)
+              )
+              .map(child => {
+                const option = filteredOptions.find(opt => opt.value === child.props.value);
+                if (!option) return null;
+                return (
+                  <MentionOption
+                    key={child.props.value}
+                    value={child.props.value}
+                    onClick={() => handleSelect(option)}
+                  >
+                    {child.props.children || child.props.label || child.props.value}
+                  </MentionOption>
+                );
+              })
+          ) : (
+            // Render declarative options
+            filteredOptions.map(opt => (
+              <div
+                key={opt.value}
+                className="cursor-pointer px-[var(--spacing-x4)] py-[var(--spacing-x2)] hover:bg-[var(--color-neutral-light)]"
+                style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
+                onClick={() => handleSelect(opt)}
+              >
+                {opt.label}
+              </div>
+            ))
+          )}
         </div>
       )}
     </div>
@@ -141,3 +226,39 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
 });
 
 Mentions.displayName = 'Mentions';
+
+/**
+ * MentionOption Component
+ *
+ * A composable component for individual mention options in a Mentions component.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <Mentions prefix="@">
+ *   <MentionOption value="john">John Doe</MentionOption>
+ *   <MentionOption value="jane">Jane Smith</MentionOption>
+ * </Mentions>
+ * ```
+ */
+export const MentionOption = React.forwardRef<HTMLDivElement, MentionOptionProps>(
+  ({ value, children, label, className, onClick, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "cursor-pointer px-[var(--spacing-x4)] py-[var(--spacing-x2)] hover:bg-[var(--color-neutral-light)]",
+          className
+        )}
+        style={{ fontSize: 'var(--font-size-sm-rem)' }}
+        onClick={onClick}
+        {...props}
+      >
+        {children || label || value}
+      </div>
+    );
+  }
+);
+
+MentionOption.displayName = 'MentionOption';

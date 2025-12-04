@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Table, TableColumn } from './Table';
+import { Table } from './Table';
+import type { TableColumn } from './Table';
 import { TableCell } from './TableCell';
 
 describe('Table Component', () => {

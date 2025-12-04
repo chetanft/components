@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { QuickFilters, type QuickFilter } from './QuickFilters';
+import { QuickFilters, QuickFilter, FilterOption, type QuickFilter as QuickFilterType } from './QuickFilters';
 
 const meta: Meta<typeof QuickFilters> = {
   title: 'UI Components/QuickFilters',
@@ -9,7 +9,7 @@ const meta: Meta<typeof QuickFilters> = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'A flexible filter component that displays quick filter chips with optional counts, types, and multi-option support. Supports single filters and filters with multiple options.',
+        component: 'A flexible filter component that displays quick filter chips with optional counts, types, and multi-option support. Supports both composable API (recommended) and declarative API (deprecated).',
       }
     }
   },
@@ -19,9 +19,9 @@ const meta: Meta<typeof QuickFilters> = {
 export default meta;
 type Story = StoryObj<typeof QuickFilters>;
 
-// Single filters - default state
-export function SingleFilters() {
-  const filters: QuickFilter[] = [
+// Declarative API - Single filters
+export function DeclarativeSingleFilters() {
+  const filters: QuickFilterType[] = [
     { id: 'filter-1', label: 'All Items' },
     { id: 'filter-2', label: 'Active', count: 12 },
     { id: 'filter-3', label: 'Pending', count: 5 },
@@ -35,6 +35,23 @@ export function SingleFilters() {
         onFilterClick={(id) => console.log('Clicked:', id)}
         onFilterRemove={(id) => console.log('Removed:', id)}
       />
+    </div>
+  );
+}
+
+// Composable API - Single filters
+export function ComposableSingleFilters() {
+  return (
+    <div className="p-6">
+      <QuickFilters
+        onFilterClick={(id) => console.log('Clicked:', id)}
+        onFilterRemove={(id) => console.log('Removed:', id)}
+      >
+        <QuickFilter id="filter-1" label="All Items" />
+        <QuickFilter id="filter-2" label="Active" count={12} />
+        <QuickFilter id="filter-3" label="Pending" count={5} />
+        <QuickFilter id="filter-4" label="Completed" count={23} />
+      </QuickFilters>
     </div>
   );
 }
@@ -80,9 +97,9 @@ export function SelectedFilters() {
   );
 }
 
-// Multi-option filters
-export function MultiOptionFilters() {
-  const filters: QuickFilter[] = [
+// Declarative API - Multi-option filters
+export function DeclarativeMultiOptionFilters() {
+  const filters: QuickFilterType[] = [
     {
       id: 'duration',
       label: 'Duration',
@@ -111,6 +128,29 @@ export function MultiOptionFilters() {
         onFilterClick={(id, optionId) => console.log('Clicked:', id, optionId)}
         onFilterRemove={(id, optionId) => console.log('Removed:', id, optionId)}
       />
+    </div>
+  );
+}
+
+// Composable API - Multi-option filters
+export function ComposableMultiOptionFilters() {
+  return (
+    <div className="p-6">
+      <QuickFilters
+        onFilterClick={(id, optionId) => console.log('Clicked:', id, optionId)}
+        onFilterRemove={(id, optionId) => console.log('Removed:', id, optionId)}
+      >
+        <QuickFilter id="duration" label="Duration" selectedOption="0-6">
+          <FilterOption id="0-6" label="0-6 hrs" />
+          <FilterOption id="6-12" label="6-12 hrs" />
+          <FilterOption id="12+" label="12+ hrs" />
+        </QuickFilter>
+        <QuickFilter id="status" label="Status">
+          <FilterOption id="active" label="Active" count={12} />
+          <FilterOption id="pending" label="Pending" count={5} />
+          <FilterOption id="completed" label="Completed" count={23} />
+        </QuickFilter>
+      </QuickFilters>
     </div>
   );
 }

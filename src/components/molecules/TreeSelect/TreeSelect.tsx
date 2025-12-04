@@ -6,6 +6,7 @@ import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import { Tree, TreeNodeData } from '../Tree/Tree';
+import { TreeNode } from '../Tree/TreeNode';
 import { Chicklet } from '../Chicklet/Chicklet';
 
 // ============================================================================
@@ -25,8 +26,11 @@ export interface TreeSelectProps extends Omit<React.InputHTMLAttributes<HTMLInpu
   helperText?: string;
   /** Component size */
   size?: ComponentSize;
-  /** Tree data */
-  treeData: TreeNodeData[];
+  /**
+   * Tree data (for declarative API)
+   * @deprecated Use TreeNode components as children instead
+   */
+  treeData?: TreeNodeData[];
   /** Selected value(s) */
   value?: string | string[];
   /** Default value(s) */
@@ -49,11 +53,52 @@ export interface TreeSelectProps extends Omit<React.InputHTMLAttributes<HTMLInpu
   defaultExpandAll?: boolean;
   /** Dropdown placement */
   placement?: 'bottomLeft' | 'bottomRight' | 'topLeft' | 'topRight';
+  /**
+   * Tree nodes (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
 // ============================================================================
 // Helper Functions
 // ============================================================================
+
+// Helper function to check if a component type is TreeNode
+const isTreeNodeType = (type: any): boolean => {
+  if (type === TreeNode) return true;
+  if (typeof type === 'function' && 'displayName' in type) {
+    return typeof type.displayName === 'string' && type.displayName.startsWith('TreeNode');
+  }
+  return false;
+};
+
+// Helper function to extract treeData from TreeNode children
+const extractTreeDataFromChildren = (children: React.ReactNode): TreeNodeData[] => {
+  return React.Children.toArray(children)
+    .filter((child): child is React.ReactElement<any> => 
+      React.isValidElement(child) && isTreeNodeType(child.type)
+    )
+    .map(child => {
+      const childNodes = child.props.children 
+        ? React.Children.toArray(child.props.children)
+            .filter((c): c is React.ReactElement<any> => 
+              React.isValidElement(c) && isTreeNodeType(c.type)
+            )
+            .map(c => extractTreeDataFromChildren([c])[0])
+        : undefined;
+
+      return {
+        key: child.props.nodeKey || child.props.key || String(child.key || ''),
+        title: child.props.title || child.props.children,
+        children: childNodes && childNodes.length > 0 ? childNodes : undefined,
+        disabled: child.props.disabled,
+        selectable: child.props.selectable,
+        checkable: child.props.checkable,
+        isLeaf: child.props.isLeaf,
+        icon: child.props.icon,
+      };
+    });
+};
 
 const findNode = (nodes: TreeNodeData[], key: string): TreeNodeData | null => {
   for (const node of nodes) {
@@ -119,8 +164,37 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
     placement = 'bottomLeft',
     disabled,
     id,
+    children,
     ...props
   }, ref) => {
+    // Extract treeData from children if using composable API
+    const treeDataFromChildren = React.useMemo(() => {
+      if (!children) return [];
+      return extractTreeDataFromChildren(children);
+    }, [children]);
+
+    // Use children treeData if available, otherwise use treeData prop
+    const allTreeData = treeDataFromChildren.length > 0 ? treeDataFromChildren : (treeData || []);
+
+    // Check if using composable API
+    const hasComposableChildren = React.Children.count(children) > 0 && treeDataFromChildren.length > 0;
+
+    // Show deprecation warning
+    if (process.env.NODE_ENV !== 'production') {
+      if (hasComposableChildren && treeData && treeData.length > 0) {
+        console.warn(
+          'TreeSelect: Using deprecated props (treeData array) with composable API. ' +
+          'Please use TreeNode components as children instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      } else if (!hasComposableChildren && treeData && treeData.length > 0) {
+        console.warn(
+          'TreeSelect: Declarative API (treeData array prop) is deprecated. ' +
+          'Please migrate to composable API using TreeNode components as children. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      }
+    }
     const componentStyles = getComponentStyles(size);
     const [isOpen, setIsOpen] = useState(false);
     const [searchValue, setSearchValue] = useState('');
@@ -147,15 +221,15 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
     // Get labels for selected values
     const selectedLabels = useMemo(() => {
       return selectedKeys.map(key => {
-        const node = findNode(treeData, key);
+        const node = findNode(allTreeData, key);
         return node?.title || key;
       });
-    }, [selectedKeys, treeData]);
+    }, [selectedKeys, allTreeData]);
 
     // Filter tree data for search
     const filteredTreeData = useMemo(() =>
-      filterTreeData(treeData, searchValue),
-      [treeData, searchValue]
+      filterTreeData(allTreeData, searchValue),
+      [allTreeData, searchValue]
     );
 
     // Portal setup
@@ -208,7 +282,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
 
     const handleSelect = useCallback((keys: string[]) => {
       const labels = keys.map(key => {
-        const node = findNode(treeData, key);
+        const node = findNode(allTreeData, key);
         return node?.title || key;
       });
 
@@ -222,7 +296,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
         setIsOpen(false);
         setSearchValue('');
       }
-    }, [treeData, controlledValue, onChange, isMultiple]);
+    }, [allTreeData, controlledValue, onChange, isMultiple]);
 
     const handleTreeSelect = useCallback((keys: string[]) => {
       if (isMultiple) {
@@ -292,7 +366,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
             {isMultiple && selectedKeys.length > 0 && (
               <div className="flex flex-wrap gap-[var(--spacing-x1)] flex-1 min-w-0">
                 {selectedKeys.map(key => {
-                  const node = findNode(treeData, key);
+                  const node = findNode(allTreeData, key);
                   return (
                     <Chicklet
                       key={key}
@@ -374,7 +448,21 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
                 boxShadow: 'var(--shadow-lg)',
               }}
             >
-              {filteredTreeData.length > 0 ? (
+              {hasComposableChildren ? (
+                <Tree
+                  selectedKeys={treeCheckable ? undefined : selectedKeys}
+                  checkedKeys={treeCheckable ? selectedKeys : undefined}
+                  checkable={treeCheckable}
+                  selectable={!treeCheckable}
+                  multiple={isMultiple}
+                  showLine={showLine}
+                  defaultExpandAll={defaultExpandAll}
+                  onSelect={(keys) => handleTreeSelect(keys)}
+                  onCheck={(keys) => handleTreeSelect(keys)}
+                >
+                  {children}
+                </Tree>
+              ) : filteredTreeData.length > 0 ? (
                 <Tree
                   treeData={filteredTreeData}
                   selectedKeys={treeCheckable ? undefined : selectedKeys}

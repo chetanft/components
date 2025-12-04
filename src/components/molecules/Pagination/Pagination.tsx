@@ -33,11 +33,13 @@ export interface PaginationProps extends Omit<ComposableProps<'div'>, 'onChange'
   /**
    * Show page size changer (for declarative API)
    * @default false
+   * @deprecated Use conditional rendering instead: `{showSizeChanger && <PaginationSizeChanger />}`
    */
   showSizeChanger?: boolean;
   /**
    * Show quick jumper (for declarative API)
    * @default false
+   * @deprecated Use conditional rendering instead: `{showQuickJumper && <PaginationQuickJumper />}`
    */
   showQuickJumper?: boolean;
   /**

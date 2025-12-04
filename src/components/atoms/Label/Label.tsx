@@ -1,7 +1,8 @@
 import React from 'react';
 import { AlertInformational } from '../Icons';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface LabelProps {
+export interface LabelProps extends Omit<ComposableProps<'label'>, 'as'> {
   /**
    * The text content of the label
    */
@@ -58,6 +59,7 @@ export const Label: React.FC<LabelProps> = ({
   className = '',
   htmlFor,
   onClick,
+  asChild,
   ...props
 }) => {
   const baseStyles = {
@@ -108,19 +110,31 @@ export const Label: React.FC<LabelProps> = ({
     </div>
   );
 
+  const Comp = asChild ? Slot : Component;
+  
+  // Type-safe props based on component type
+  // For label elements, include htmlFor; for div/span, exclude it
+  const baseProps = {
+    style: baseStyles,
+    className,
+    onClick,
+    ...props
+  };
+  
+  // Only add htmlFor for label elements (not for div/span)
+  const finalProps = (Component === 'label' || asChild) && htmlFor
+    ? { ...baseProps, htmlFor }
+    : baseProps;
+  
   return (
-    <Component
-      style={baseStyles}
-      className={className}
-      htmlFor={htmlFor}
-      onClick={onClick}
-      {...props}
+    <Comp
+      {...(finalProps as any)}
     >
       {mandatory && mandatoryAsterisk}
       <span style={{ flexShrink: 0 }}>{children}</span>
       {suffixIcon && suffixIconElement}
       {optional && optionalText}
-    </Component>
+    </Comp>
   );
 };
 

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
   StackedBarChart,
+  StackedBarChartBar,
+  StackedBarChartSegment,
   type StackedBarChartProps,
 } from './StackedBarChart';
 
@@ -49,12 +51,36 @@ const legend = [
   { label: 'Others', color: '#ff6384' },
 ];
 
-export const Default: Story = {
+// Declarative API
+export const DeclarativeDefault: Story = {
   args: {
     title: 'Ageing',
     data: sampleData,
     legend,
   },
+};
+
+// Composable API
+export const ComposableDefault: Story = {
+  render: () => (
+    <StackedBarChart title="Ageing">
+      <StackedBarChartBar label="4+ hrs">
+        <StackedBarChartSegment label="Laxmi Transporters" value={27} color="#ffb3c3" />
+        <StackedBarChartSegment label="Singh Transporters" value={43} color="#ff809a" />
+        <StackedBarChartSegment label="Others" value={48} color="#ff6384" />
+      </StackedBarChartBar>
+      <StackedBarChartBar label="2-4 hrs">
+        <StackedBarChartSegment label="Laxmi Transporters" value={25} color="#ffb3c3" />
+        <StackedBarChartSegment label="Singh Transporters" value={35} color="#ff809a" />
+        <StackedBarChartSegment label="Others" value={36} color="#ff6384" />
+      </StackedBarChartBar>
+      <StackedBarChartBar label="<2 hrs">
+        <StackedBarChartSegment label="Laxmi Transporters" value={27} color="#ffb3c3" />
+        <StackedBarChartSegment label="Singh Transporters" value={33} color="#ff809a" />
+        <StackedBarChartSegment label="Others" value={23} color="#ff6384" />
+      </StackedBarChartBar>
+    </StackedBarChart>
+  ),
 };
 
 export const CustomHeights: Story = {

@@ -4,8 +4,9 @@ import React, { useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Typography } from '../../atoms/Typography';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface UploadButtonProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> {
+export interface UploadButtonProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
   onFileSelect?: (files: FileList) => void;
   acceptedFileTypes?: string[];
   maxFileSize?: number;
@@ -23,6 +24,7 @@ export const UploadButton = React.forwardRef<HTMLDivElement, UploadButtonProps>(
     disabled = false,
     multiple = false,
     state = 'default',
+    asChild,
     ...props 
   }, ref) => {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -55,8 +57,10 @@ export const UploadButton = React.forwardRef<HTMLDivElement, UploadButtonProps>(
       return accepts.join(',');
     };
     
+    const Comp = asChild ? Slot : 'div';
+    
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           // Base container styles
@@ -116,7 +120,7 @@ export const UploadButton = React.forwardRef<HTMLDivElement, UploadButtonProps>(
           multiple={multiple}
           disabled={isDisabled}
         />
-      </div>
+      </Comp>
     );
   }
 );

@@ -3,11 +3,12 @@
 import React, { useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type FloatButtonType = 'default' | 'primary';
 export type FloatButtonShape = 'circle' | 'square';
 
-export interface FloatButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface FloatButtonProps extends Omit<ComposableProps<'button'>, 'onClick' | 'type'> {
   icon?: React.ReactNode;
   description?: React.ReactNode;
   tooltip?: React.ReactNode;
@@ -44,10 +45,12 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
   onClick,
   className,
   children, // If used as a container
+  asChild,
   ...props
 }, ref) => {
   const isLink = !!href;
-  const Component = isLink ? 'a' : 'button';
+  const BaseComponent = isLink ? 'a' : 'button';
+  const Comp = asChild ? Slot : BaseComponent;
 
   // Use FT Design System Button tokens to match Button component styling exactly
   const variantStyles = type === 'primary'
@@ -64,38 +67,64 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
       "focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--primary)]"
     );
 
-  const content = (
-    <Component
-      // @ts-expect-error - forwarding refs to both anchor and button variants
-      ref={ref}
+  // Common props for all variants
+  const commonClassName = cn(
+    "flex flex-col items-center justify-center relative cursor-pointer",
+    "font-medium transition-all duration-200",
+    "focus-visible:outline-none",
+    shape === 'circle' ? "rounded-full" : "rounded-md",
+    variantStyles,
+    "w-[var(--spacing-x10)] h-[var(--spacing-x10)]", // Default size
+    className
+  );
+
+  const badgeElement = badge && (
+    <span className={cn(
+      "absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4",
+      "bg-[var(--danger)] text-[var(--color-bg-primary)] text-xs font-bold px-1.5 rounded-full min-w-[1.25rem] h-5 flex items-center justify-center border-2 border-[var(--color-bg-primary)]",
+      badge.dot ? "w-2.5 h-2.5 p-0 min-w-0" : ""
+    )}>
+      {!badge.dot && badge.count}
+    </span>
+  );
+
+  const content = asChild ? (
+    <Slot ref={ref as any} className={commonClassName} onClick={onClick as any} {...props}>
+      <div className="flex flex-col items-center justify-center">
+        {icon || children}
+        {description && <span className="text-[10px] leading-tight mt-0.5">{description}</span>}
+      </div>
+      {badgeElement}
+    </Slot>
+  ) : isLink ? (
+    <a
+      ref={ref as React.Ref<HTMLAnchorElement>}
       href={href}
       target={target}
-      className={cn(
-        "flex flex-col items-center justify-center relative cursor-pointer",
-        "font-medium transition-all duration-200",
-        "focus-visible:outline-none",
-        shape === 'circle' ? "rounded-full" : "rounded-md",
-        variantStyles,
-        "w-[var(--spacing-x10)] h-[var(--spacing-x10)]", // Default size
-        className
-      )}
+      className={commonClassName}
       onClick={onClick as any}
-      {...props}
+      {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
     >
       <div className="flex flex-col items-center justify-center">
         {icon || children}
         {description && <span className="text-[10px] leading-tight mt-0.5">{description}</span>}
       </div>
-      {badge && (
-        <span className={cn(
-          "absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4",
-          "bg-[var(--danger)] text-[var(--color-bg-primary)] text-xs font-bold px-1.5 rounded-full min-w-[1.25rem] h-5 flex items-center justify-center border-2 border-[var(--color-bg-primary)]",
-          badge.dot ? "w-2.5 h-2.5 p-0 min-w-0" : ""
-        )}>
-          {!badge.dot && badge.count}
-        </span>
-      )}
-    </Component>
+      {badgeElement}
+    </a>
+  ) : (
+    <button
+      ref={ref as React.Ref<HTMLButtonElement>}
+      type="button"
+      className={commonClassName}
+      onClick={onClick as any}
+      {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+    >
+      <div className="flex flex-col items-center justify-center">
+        {icon || children}
+        {description && <span className="text-[10px] leading-tight mt-0.5">{description}</span>}
+      </div>
+      {badgeElement}
+    </button>
   );
 
   // if (tooltip) {

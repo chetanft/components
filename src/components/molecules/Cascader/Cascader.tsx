@@ -31,8 +31,11 @@ export interface CascaderProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   helperText?: string;
   /** Component size */
   size?: ComponentSize;
-  /** Cascader options */
-  options: CascaderOption[];
+  /**
+   * Cascader options (for declarative API)
+   * @deprecated Use CascaderOption components as children instead
+   */
+  options?: CascaderOption[];
   /** Selected value path */
   value?: string[];
   /** Default value path */
@@ -51,6 +54,37 @@ export interface CascaderProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   changeOnSelect?: boolean;
   /** Show search */
   showSearch?: boolean;
+  /**
+   * Cascader options (for composable API)
+   */
+  children?: React.ReactNode;
+}
+
+export interface CascaderOptionComponentProps {
+  /**
+   * Option value (required)
+   */
+  value: string;
+  /**
+   * Option label/content
+   */
+  children?: React.ReactNode;
+  /**
+   * Option label (alternative to children)
+   */
+  label?: React.ReactNode;
+  /**
+   * Whether option is disabled
+   */
+  disabled?: boolean;
+  /**
+   * Whether this is a leaf node (no children)
+   */
+  isLeaf?: boolean;
+  /**
+   * Child options (for composable API)
+   */
+  // Note: children can be either label content or CascaderOption components
 }
 
 // ============================================================================
@@ -151,6 +185,31 @@ const CascaderColumn: React.FC<CascaderColumnProps> = ({
 // Cascader Component
 // ============================================================================
 
+// Helper function to extract options from children
+const extractOptionsFromChildren = (children: React.ReactNode): CascaderOption[] => {
+  return React.Children.toArray(children)
+    .filter((child): child is React.ReactElement<CascaderOptionComponentProps> => 
+      React.isValidElement(child) && child.type === CascaderOption
+    )
+    .map(child => {
+      const childOptions = child.props.children 
+        ? React.Children.toArray(child.props.children)
+            .filter((c): c is React.ReactElement<CascaderOptionComponentProps> => 
+              React.isValidElement(c) && c.type === CascaderOption
+            )
+            .map(c => extractOptionsFromChildren([c])[0])
+        : undefined;
+
+      return {
+        value: child.props.value,
+        label: child.props.children && !childOptions ? child.props.children : (child.props.label || child.props.value),
+        disabled: child.props.disabled,
+        isLeaf: child.props.isLeaf,
+        children: childOptions && childOptions.length > 0 ? childOptions : undefined,
+      };
+    });
+};
+
 export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
   ({
     className,
@@ -172,8 +231,37 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
     showSearch = false,
     disabled,
     id,
+    children,
     ..._props
   }, ref) => {
+    // Extract options from children if using composable API
+    const optionsFromChildren = React.useMemo(() => {
+      if (!children) return [];
+      return extractOptionsFromChildren(children);
+    }, [children]);
+
+    // Use children options if available, otherwise use options prop
+    const allOptions = optionsFromChildren.length > 0 ? optionsFromChildren : options;
+
+    // Check if using composable API
+    const hasComposableChildren = React.Children.count(children) > 0 && optionsFromChildren.length > 0;
+
+    // Show deprecation warning
+    if (process.env.NODE_ENV !== 'production') {
+      if (hasComposableChildren && options.length > 0) {
+        console.warn(
+          'Cascader: Using deprecated props (options array) with composable API. ' +
+          'Please use CascaderOption components as children instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      } else if (!hasComposableChildren && options.length > 0) {
+        console.warn(
+          'Cascader: Declarative API (options array prop) is deprecated. ' +
+          'Please migrate to composable API using CascaderOption components as children. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      }
+    }
     // All hooks must be called first, before any other logic
     const cascaderId = useId();
     const [isOpen, setIsOpen] = useState(false);
@@ -191,14 +279,14 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
 
     const selectedValues = controlledValue !== undefined ? controlledValue : internalValue;
     const selectedOptions = useMemo(() => 
-      findOptionPath(options, selectedValues), 
-      [options, selectedValues]
+      findOptionPath(allOptions, selectedValues), 
+      [allOptions, selectedValues]
     );
 
     // Get active columns based on activeValues
     const columns = useMemo(() => {
-      const cols: CascaderOption[][] = [options];
-      let currentOptions = options;
+      const cols: CascaderOption[][] = [allOptions];
+      let currentOptions = allOptions;
 
       for (const value of activeValues) {
         const found = currentOptions.find(opt => opt.value === value);
@@ -209,12 +297,12 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
       }
 
       return cols;
-    }, [options, activeValues]);
+    }, [allOptions, activeValues]);
 
     // Search results
     const searchResults = useMemo(() => {
       if (!searchValue) return [];
-      const flatOptions = flattenOptions(options);
+      const flatOptions = flattenOptions(allOptions);
       const search = searchValue.toLowerCase();
       return flatOptions.filter(({ path }) =>
         path.some(opt => 
@@ -289,7 +377,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
       const isLeaf = option.isLeaf === true || !hasChildren;
 
       if (isLeaf || changeOnSelect) {
-        const newOptions = findOptionPath(options, newActiveValues);
+        const newOptions = findOptionPath(allOptions, newActiveValues);
         
         if (controlledValue === undefined) {
           setInternalValue(newActiveValues);
@@ -503,5 +591,33 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
 );
 
 Cascader.displayName = 'Cascader';
+
+/**
+ * CascaderOption Component
+ *
+ * A composable component for individual options in a Cascader component.
+ * Can be nested to create hierarchical structures.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <Cascader>
+ *   <CascaderOption value="usa" label="United States">
+ *     <CascaderOption value="california" label="California">
+ *       <CascaderOption value="san-francisco" label="San Francisco" />
+ *       <CascaderOption value="los-angeles" label="Los Angeles" />
+ *     </CascaderOption>
+ *   </CascaderOption>
+ * </Cascader>
+ * ```
+ */
+export const CascaderOption: React.FC<CascaderOptionComponentProps> = ({ children, ...props }) => {
+  // This component is used for composition only - it doesn't render anything itself
+  // The Cascader component extracts props from CascaderOption children
+  return null;
+};
+
+CascaderOption.displayName = 'CascaderOption';
 
 export default Cascader;

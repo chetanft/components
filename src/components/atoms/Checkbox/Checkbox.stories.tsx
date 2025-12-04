@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Checkbox } from './Checkbox';
+import { Checkbox, CheckboxInput, CheckboxLabel, CheckboxHelper, CheckboxError } from './index';
 
 const meta = {
   title: 'Atoms/Checkbox',
@@ -257,5 +257,72 @@ export function Sizes() {
     </div>
   );
 }
+
+// Composable API Examples
+function ComposableBasicComponent() {
+  const [checked, setChecked] = React.useState(false);
+  return (
+    <Checkbox size="md">
+      <CheckboxInput checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+      <CheckboxLabel>Accept terms and conditions</CheckboxLabel>
+    </Checkbox>
+  );
+}
+
+export const ComposableBasic: Story = {
+  render: () => <ComposableBasicComponent />,
+};
+
+function ComposableWithHelperComponent() {
+  const [checked, setChecked] = React.useState(false);
+  return (
+    <Checkbox size="md">
+      <CheckboxInput checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+      <CheckboxLabel>Newsletter subscription</CheckboxLabel>
+      <CheckboxHelper>Receive weekly updates about new features and products</CheckboxHelper>
+    </Checkbox>
+  );
+}
+
+export const ComposableWithHelper: Story = {
+  render: () => <ComposableWithHelperComponent />,
+};
+
+function ComposableWithErrorComponent() {
+  const [checked, setChecked] = React.useState(false);
+  return (
+    <Checkbox size="md" error>
+      <CheckboxInput checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+      <CheckboxLabel>Required field</CheckboxLabel>
+      <CheckboxError>This field must be checked to continue</CheckboxError>
+    </Checkbox>
+  );
+}
+
+export const ComposableWithError: Story = {
+  render: () => <ComposableWithErrorComponent />,
+};
+
+function ComposableIndeterminateComponent() {
+  const [checked, setChecked] = React.useState(false);
+  const [indeterminate, setIndeterminate] = React.useState(true);
+  return (
+    <Checkbox size="md">
+      <CheckboxInput 
+        checked={checked} 
+        indeterminate={indeterminate}
+        onChange={(e) => {
+          setChecked(e.target.checked);
+          setIndeterminate(false);
+        }} 
+      />
+      <CheckboxLabel>Select all items</CheckboxLabel>
+    </Checkbox>
+  );
+}
+
+export const ComposableIndeterminate: Story = {
+  render: () => <ComposableIndeterminateComponent />,
+};
 
 

@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { NavigationPopover, type NavigationPopoverProps } from './NavigationPopover';
+import { NavigationPopover } from './index';
+import type { NavigationPopoverProps } from './index';
 import { cn } from '../../../lib/utils';
 
 type Alignment = 'center' | 'top-left';

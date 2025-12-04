@@ -259,6 +259,70 @@ ComponentName.displayName = 'ComponentName';
 4. **Support className override** for customization
 5. **Forward refs** for DOM access
 
+### Composable API Guidelines
+
+Components should follow composable patterns (LEGO-style API) rather than rigid APIs:
+
+1. **Use Sub-Components**: Prefer `Component.SubComponent` pattern over prop-based configuration
+   ```tsx
+   // ✅ Good - Composable
+   <Alert>
+     <AlertIcon />
+     <AlertTitle>Title</AlertTitle>
+     <AlertDescription>Message</AlertDescription>
+   </Alert>
+   
+   // ❌ Avoid - Declarative
+   <Alert title="Title" message="Message" icon="info" />
+   ```
+
+2. **Support asChild**: Components should support `asChild` prop for flexible composition
+   ```tsx
+   <Button asChild>
+     <Link href="/">Click me</Link>
+   </Button>
+   ```
+
+3. **Avoid Variant Props**: Use composition or CSS classes instead of `variant` prop for visual styling
+   ```tsx
+   // ✅ Good - Composition
+   <Badge>
+     <BadgeIcon icon="check" />
+     <BadgeText>Success</BadgeText>
+   </Badge>
+   
+   // ❌ Avoid - Variant prop
+   <Badge variant="success">Success</Badge>
+   ```
+
+4. **Avoid Boolean Flags**: Use conditional rendering instead of `show*`, `enable*`, `hide*` props
+   ```tsx
+   // ✅ Good - Conditional rendering
+   {hasIcon && <AlertIcon />}
+   
+   // ❌ Avoid - Boolean flag
+   <Alert showIcon={true} />
+   ```
+
+5. **Avoid Data Arrays**: Use children composition instead of `columns`, `items`, `data` array props
+   ```tsx
+   // ✅ Good - Children composition
+   <Table>
+     <Table.Header>
+       <Table.Row>
+         <Table.HeaderCell>Name</Table.HeaderCell>
+       </Table.Row>
+     </Table.Header>
+   </Table>
+   
+   // ❌ Avoid - Data array prop
+   <Table columns={columns} data={data} />
+   ```
+
+6. **No Layout Logic**: Components should not inject layout/spacing. Parent controls layout.
+
+For more details, see [Composable Audit Rubric](docs/standards/composable-audit-rubric.md).
+
 ### Styling Guidelines
 
 1. **Use design tokens** instead of hardcoded values

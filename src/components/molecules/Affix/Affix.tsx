@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 // import { getWindow } from '../../../lib/dom'; // Removed unused import
 
-export interface AffixProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface AffixProps extends Omit<ComposableProps<'div'>, 'onChange'> {
   offsetTop?: number;
   offsetBottom?: number;
   target?: () => Window | HTMLElement | null;
@@ -25,6 +26,7 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
   children,
   className,
   style,
+  asChild,
   ...props
 }, _ref) => {
   const [affixed, setAffixed] = useState(false);
@@ -116,15 +118,18 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
     };
   }, [target, calculatePosition]);
 
+  const Comp = asChild ? Slot : 'div';
+
   return (
-    <div ref={placeholderRef} style={placeholderStyle} {...props}>
-      <div
+    <div ref={placeholderRef} style={placeholderStyle}>
+      <Comp
         ref={fixedNodeRef}
         className={cn(className)}
         style={{ ...style, ...affixStyle }}
+        {...props}
       >
         {children}
-      </div>
+      </Comp>
     </div>
   );
 });

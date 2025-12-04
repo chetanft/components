@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ButtonGroup } from './ButtonGroup';
+import { ButtonGroup, ButtonGroupItem } from './ButtonGroup';
+import { Button } from '../../atoms/Button/Button';
 
 const meta: Meta<typeof ButtonGroup> = {
   title: 'Molecules/ButtonGroup',
@@ -85,4 +86,75 @@ export const WithDisabled: Story = {
       { id: 'enabled2', label: 'Enabled', variant: 'secondary' },
     ],
   },
+};
+
+// Composable API Examples
+export const ComposableBasic: Story = {
+  render: () => (
+    <ButtonGroup>
+      <ButtonGroupItem>
+        <Button variant="text">Text</Button>
+      </ButtonGroupItem>
+      <ButtonGroupItem>
+        <Button variant="secondary">Secondary</Button>
+      </ButtonGroupItem>
+      <ButtonGroupItem>
+        <Button variant="primary">Primary</Button>
+      </ButtonGroupItem>
+    </ButtonGroup>
+  ),
+};
+
+export const ComposableEqualWidth: Story = {
+  render: () => (
+    <ButtonGroup equalWidth>
+      <ButtonGroupItem>
+        <Button variant="text" className="w-full">Cancel</Button>
+      </ButtonGroupItem>
+      <ButtonGroupItem>
+        <Button variant="secondary" className="w-full">Save Draft</Button>
+      </ButtonGroupItem>
+      <ButtonGroupItem>
+        <Button variant="primary" className="w-full">Submit</Button>
+      </ButtonGroupItem>
+    </ButtonGroup>
+  ),
+};
+
+export const ComposableWithIcons: Story = {
+  render: () => (
+    <ButtonGroup>
+      <ButtonGroupItem>
+        <Button variant="primary" icon="add" iconPosition="leading">Add</Button>
+      </ButtonGroupItem>
+      <ButtonGroupItem>
+        <Button variant="secondary" icon="edit" iconPosition="leading">Edit</Button>
+      </ButtonGroupItem>
+      <ButtonGroupItem>
+        <Button variant="destructive" icon="delete" iconPosition="leading">Delete</Button>
+      </ButtonGroupItem>
+    </ButtonGroup>
+  ),
+};
+
+export const ComposableWrapped: Story = {
+  render: () => (
+    <ButtonGroup wrap className="max-w-md">
+      <ButtonGroupItem>
+        <Button variant="secondary" size="sm">Option 1</Button>
+      </ButtonGroupItem>
+      <ButtonGroupItem>
+        <Button variant="secondary" size="sm">Option 2</Button>
+      </ButtonGroupItem>
+      <ButtonGroupItem>
+        <Button variant="secondary" size="sm">Option 3</Button>
+      </ButtonGroupItem>
+      <ButtonGroupItem>
+        <Button variant="secondary" size="sm">Option 4</Button>
+      </ButtonGroupItem>
+      <ButtonGroupItem>
+        <Button variant="secondary" size="sm">Option 5</Button>
+      </ButtonGroupItem>
+    </ButtonGroup>
+  ),
 };

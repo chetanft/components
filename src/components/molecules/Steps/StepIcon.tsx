@@ -52,9 +52,11 @@ export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
 
       const dotElement = (
         <div className={cn(
-          "rounded-full transition-all duration-300",
-          state === 'selected' ? "w-2.5 h-2.5 bg-[var(--primary)]" : "w-2 h-2 bg-[var(--border-secondary)]",
-          state === 'completed' && "bg-[var(--primary)]"
+          "rounded-full transition-all duration-300 shrink-0",
+          direction === 'vertical' ? "w-3 h-3" : "w-2.5 h-2.5",
+          state === 'selected' || state === 'completed'
+            ? "bg-[var(--primary)]"
+            : "bg-[var(--tertiary)]"
         )} />
       );
 
@@ -62,7 +64,11 @@ export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
         return (
           <Slot
             ref={ref as any}
-            className={cn("relative flex items-center justify-center", className)}
+            className={cn(
+              "relative flex shrink-0",
+              direction === 'vertical' ? "items-start justify-start" : "items-center justify-center",
+              className
+            )}
             {...(htmlProps as any)}
           >
             {dotElement}
@@ -73,7 +79,11 @@ export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
       return (
         <div
           ref={ref}
-          className={cn("relative flex items-center justify-center", className)}
+          className={cn(
+            "relative flex shrink-0",
+            direction === 'vertical' ? "items-start justify-start" : "items-center justify-center",
+            className
+          )}
           {...htmlProps}
         >
           {dotElement}
@@ -84,11 +94,11 @@ export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
     // For default type, render progress bar
     const state = propState || 'unselected';
     const className_combined = cn(
-      "rounded-[var(--radius-md)] transition-colors",
-      direction === 'vertical' ? "w-1 h-full min-h-[32px]" : "w-full h-2",
+      "rounded-[var(--radius-md)] transition-colors shrink-0",
+      direction === 'vertical' ? "w-1 h-full min-h-[101px]" : "w-full h-2",
       state === "selected" || state === "completed"
         ? "bg-[var(--primary)]"
-        : "bg-[var(--border-secondary)]",
+        : "bg-[var(--tertiary)]",
       className
     );
 

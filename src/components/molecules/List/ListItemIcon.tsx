@@ -43,7 +43,7 @@ export const ListItemIcon = React.forwardRef<HTMLDivElement, ListItemIconProps>(
       <Comp
         ref={ref}
         className={cn(
-          "flex items-center justify-center flex-shrink-0 mr-[var(--spacing-x3)]",
+          "flex items-center justify-center flex-shrink-0",
           className
         )}
         {...props}

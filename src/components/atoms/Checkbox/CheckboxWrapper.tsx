@@ -42,6 +42,7 @@ export const CheckboxWrapper = React.forwardRef<HTMLDivElement, CheckboxWrapperP
       <Comp
         ref={ref}
         className={cn("flex flex-row items-center flex-wrap", className)}
+        style={{ gap: 'var(--spacing-x2)', ...props.style }}
         {...props}
       >
         {children}

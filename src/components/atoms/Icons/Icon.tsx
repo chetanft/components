@@ -1,9 +1,10 @@
 import React from 'react';
 import { iconMap } from './iconMap';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type IconName = keyof typeof iconMap;
 
-export interface IconProps {
+export interface IconProps extends Omit<ComposableProps<'span'>, 'children'> {
   name: IconName;
   size?: number | string | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   color?: string;
@@ -25,6 +26,7 @@ export const Icon: React.FC<IconProps> = ({
   color = 'currentColor',
   className = '',
   style = {},
+  asChild,
   ...props
 }) => {
   const IconComponent = iconMap[name];
@@ -68,14 +70,16 @@ export const Icon: React.FC<IconProps> = ({
     })
     : iconElement;
 
+  const Comp = asChild ? Slot : 'span';
+
   return (
-    <span
+    <Comp
       className={`icon inline-flex items-center justify-center ${hasAnimation ? '' : className}`}
       style={iconStyle}
       {...props}
     >
       {renderedIcon}
-    </span>
+    </Comp>
   );
 };
 

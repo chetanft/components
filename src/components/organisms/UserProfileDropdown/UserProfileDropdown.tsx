@@ -2,8 +2,9 @@ import React from 'react';
 import { Avatar } from '../../atoms/Avatar';
 import { Typography } from '../../atoms/Typography';
 import { Icon } from '../../atoms/Icons';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface UserProfileDropdownProps {
+export interface UserProfileDropdownProps extends ComposableProps<'div'> {
   userName?: string;
   userRole?: string;
   userLocation?: string;
@@ -34,6 +35,8 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
   onMenuItemClick = () => {},
   className = '',
   style,
+  asChild,
+  ...props
 }) => {
   if (!isOpen) {
     return null;
@@ -47,11 +50,13 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
     zIndex: 1000,
     ...style,
   };
+  const Comp = asChild ? Slot : 'div';
 
   return (
-    <div
+    <Comp
       className={`bg-[var(--bg-primary)] flex flex-col items-center overflow-hidden px-0 py-[20px] rounded-[var(--x2,8px)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] w-[400px] ${className}`}
       style={baseStyles}
+      {...props}
     >
       {/* User Info Section */}
       <div className="flex flex-col gap-[20px] items-start justify-center px-[var(--x5,20px)] py-0 w-full">
@@ -141,7 +146,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
           {logoutItem.label}
         </p>
       </button>
-    </div>
+    </Comp>
   );
 };
 

@@ -150,12 +150,12 @@ export const DropdownMenuItem = React.forwardRef<
       ? {
         fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
         fontStyle: 'italic',
-        fontSize: 'var(--font-size-md-rem)', // 16px → 1.143rem (responsive)
+        fontSize: 'var(--font-size-md-rem, 1.143rem)', // 16px → 1.143rem (responsive)
       }
       : {
         fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
         fontWeight: 'var(--font-weight-regular, 400)',
-        fontSize: 'var(--font-size-md-rem)', // 16px → 1.143rem (responsive)
+        fontSize: 'var(--font-size-md-rem, 1.143rem)', // 16px → 1.143rem (responsive)
       };
 
     const handleMouseEnter = () => {

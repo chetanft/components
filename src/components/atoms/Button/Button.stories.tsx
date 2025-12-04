@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from './Button';
+import { Button, ButtonIcon, ButtonText } from './index';
 import { Icon } from '../Icons';
 
 const meta: Meta<typeof Button> = {
@@ -256,4 +256,98 @@ export function CircularButtons() {
       </div>
     </div>
   );
-} 
+}
+
+// Composable API Examples (Recommended)
+export const ComposableBasic: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Button variant="primary">
+        <ButtonIcon icon="add" />
+        <ButtonText>Add Item</ButtonText>
+      </Button>
+      <Button variant="secondary">
+        <ButtonText>Save</ButtonText>
+      </Button>
+      <Button variant="destructive">
+        <ButtonIcon icon="delete" />
+        <ButtonText>Delete</ButtonText>
+      </Button>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '✅ **Composable API**: Use ButtonIcon and ButtonText sub-components for flexible button composition.',
+      },
+    },
+  },
+};
+
+export const ComposableWithTrailingIcon: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Button variant="primary">
+        <ButtonText>Send</ButtonText>
+        <ButtonIcon icon="send" />
+      </Button>
+      <Button variant="secondary">
+        <ButtonText>Download</ButtonText>
+        <ButtonIcon icon="download" />
+      </Button>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Composable API allows flexible icon positioning.',
+      },
+    },
+  },
+};
+
+export const ComposableIconOnly: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Button variant="secondary">
+        <ButtonIcon icon="edit" />
+      </Button>
+      <Button variant="primary">
+        <ButtonIcon icon="add" />
+      </Button>
+      <Button variant="destructive">
+        <ButtonIcon icon="delete" />
+      </Button>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use ButtonIcon alone for icon-only buttons.',
+      },
+    },
+  },
+};
+
+export const ComposableTextOnly: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Button variant="primary">
+        <ButtonText>Click Me</ButtonText>
+      </Button>
+      <Button variant="text">
+        <ButtonText>Text Button</ButtonText>
+      </Button>
+      <Button variant="link">
+        <ButtonText>Link Button</ButtonText>
+      </Button>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use ButtonText alone when you only need text content.',
+      },
+    },
+  },
+};

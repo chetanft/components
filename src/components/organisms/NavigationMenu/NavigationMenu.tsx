@@ -3,8 +3,9 @@ import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons/Icon';
 import { FTLogo } from '../../atoms/Logos/FTLogo';
 import { Spacer } from '../../atoms/Spacer';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface NavigationMenuProps {
+export interface NavigationMenuProps extends ComposableProps<'div'> {
   /**
    * Close handler
    */
@@ -31,6 +32,8 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
   onNavigate,
   onFooterButtonClick,
   className,
+  asChild,
+  ...props
 }) => {
   const handleItemClick = (label: string) => {
     onNavigate?.(label);
@@ -40,8 +43,10 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
     onFooterButtonClick?.(buttonType);
   };
 
+  const Comp = asChild ? Slot : 'div';
+
   return (
-    <div className={cn("bg-[var(--color-bg-secondary)] relative rounded-[var(--radius-xl)] size-full", className)}>
+    <Comp className={cn("bg-[var(--color-bg-secondary)] relative rounded-[var(--radius-xl)] size-full", className)} {...props}>
       <div className="box-border content-stretch flex flex-col gap-[var(--spacing-x2)] items-start justify-start overflow-clip p-[var(--spacing-x2)] relative size-full">
         <div className="bg-[var(--color-bg-primary)] h-[568px] relative rounded-[var(--radius-xl)] shrink-0 w-full">
           <div className="content-stretch flex flex-col h-[568px] items-start justify-start overflow-clip relative w-full">
@@ -398,7 +403,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
         className="absolute border border-[var(--color-border-primary)] border-solid inset-0 pointer-events-none rounded-[var(--radius-xl)]" 
         style={{ boxShadow: 'var(--shadow-lg)' }}
       />
-    </div>
+    </Comp>
   );
 };
 

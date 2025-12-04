@@ -11,13 +11,25 @@ export type ResultStatus = 'success' | 'error' | 'info' | 'warning' | '404' | '4
 export interface ResultProps extends Omit<ComposableProps<'div'>, 'title'> {
   /** Result status */
   status?: ResultStatus;
-  /** Title text */
+  /**
+   * Title text
+   * @deprecated Use composable API with ResultTitle component (to be implemented)
+   */
   title?: React.ReactNode;
-  /** Subtitle text */
+  /**
+   * Subtitle text
+   * @deprecated Use composable API with ResultSubtitle component (to be implemented)
+   */
   subTitle?: React.ReactNode;
-  /** Custom icon */
+  /**
+   * Custom icon
+   * @deprecated Use composable API with ResultIcon component (to be implemented)
+   */
   icon?: React.ReactNode;
-  /** Extra content (usually action buttons) */
+  /**
+   * Extra content (usually action buttons)
+   * @deprecated Use composable API with ResultExtra component (to be implemented)
+   */
   extra?: React.ReactNode;
   /** Additional content below extra */
   children?: React.ReactNode;

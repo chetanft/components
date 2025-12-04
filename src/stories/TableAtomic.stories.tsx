@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { Table, TableColumn } from '../components/organisms/Table/Table';
+import { Table } from '../components/organisms/Table';
+import type { TableColumn } from '../components/organisms/Table';
 import { TableCell } from '../components/organisms/Table/TableCell';
 import { TableCellText } from '../components/organisms/Table/TableCellText';
 import { TableCellItem } from '../components/organisms/Table/TableCellItem';

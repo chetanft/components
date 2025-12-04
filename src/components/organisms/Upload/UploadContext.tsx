@@ -1,8 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState } from 'react';
-import type { UploadFile } from '../../molecules/UploadItem/UploadItem';
-import type { ValidationStats } from '../../molecules/FileValidationCard/FileValidationCard';
+import type { UploadFile } from '../../molecules/UploadItem';
+import type { ValidationStats } from '../../molecules/FileValidationCard';
 
 export type UploadType = 'drag-drop' | 'button' | 'thumbnail';
 

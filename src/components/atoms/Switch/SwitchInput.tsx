@@ -72,8 +72,8 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, SwitchInputProps>(
       isDisabled
         ? "bg-[var(--switch-disabled-bg)]"
         : checked
-          ? "bg-[var(--primary)]"
-          : "bg-[var(--neutral-300)]",
+          ? "bg-[var(--switch-on-bg)]"
+          : "bg-[var(--switch-off-bg)]",
       "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--color-neutral-light)] focus-within:ring-offset-2",
       hasError && "ring-2 ring-critical",
       trackClassName,
@@ -90,7 +90,9 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, SwitchInputProps>(
         ? checked
           ? "bg-[var(--switch-disabled-thumb-on)]"
           : "bg-[var(--switch-disabled-thumb)]"
-        : "bg-[var(--color-bg-primary)]",
+        : checked
+          ? "bg-[var(--switch-thumb-on)]"
+          : "bg-[var(--switch-thumb-off)]",
       thumbClassName
     );
 

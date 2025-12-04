@@ -1,5 +1,6 @@
 import React from "react";
 import { cn } from "../../../lib/utils";
+import { Slot, type ComposableProps } from "../../../lib/slot";
 
 // ======================
 // REUSABLE TYPOGRAPHY COMPONENT FOR AI TOOLS
@@ -28,7 +29,7 @@ export type TypographyColor =
   | 'success'
   | 'warning';
 
-export interface TypographyProps extends React.HTMLAttributes<HTMLElement> {
+export interface TypographyProps extends Omit<ComposableProps<'div'>, 'as'> {
   variant?: TypographyVariant;
   color?: TypographyColor;
   as?: keyof JSX.IntrinsicElements;
@@ -80,19 +81,21 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
   as,
   className,
   children,
+  asChild,
   ...props
 }, ref) => {
   // Determine the HTML element to render
-  const Element = (as || variantToElement[variant]) as keyof JSX.IntrinsicElements;
+  const BaseElement = (as || variantToElement[variant]) as keyof JSX.IntrinsicElements;
+  const Element = asChild ? Slot : BaseElement;
 
   // Build className based on props
   const classes = cn(
     // Base styles - use standard Tailwind font class, font-family set via inline style
     "font-sans",
     // Variant styles
-    variantStyles[variant],
+    variantStyles[variant as keyof typeof variantStyles],
     // Color
-    colorStyles[color],
+    colorStyles[color as keyof typeof colorStyles],
     // Custom className
     className
   );
@@ -104,31 +107,34 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
 
   // Use a switch to properly handle JSX rendering
   const commonProps = {
-    ref: ref as any,
     className: classes,
-    style: { ...fontFamilyStyle, ...props.style },
+    style: { ...fontFamilyStyle, ...(props.style || {}) },
     ...props
   };
 
+  if (Element === Slot) {
+    return <Slot ref={ref} {...commonProps}>{children}</Slot>;
+  }
+
   switch (Element) {
     case 'h1':
-      return <h1 {...commonProps}>{children}</h1>;
+      return <h1 ref={ref as React.Ref<HTMLHeadingElement>} {...commonProps}>{children}</h1>;
     case 'h2':
-      return <h2 {...commonProps}>{children}</h2>;
+      return <h2 ref={ref as React.Ref<HTMLHeadingElement>} {...commonProps}>{children}</h2>;
     case 'h3':
-      return <h3 {...commonProps}>{children}</h3>;
+      return <h3 ref={ref as React.Ref<HTMLHeadingElement>} {...commonProps}>{children}</h3>;
     case 'h4':
-      return <h4 {...commonProps}>{children}</h4>;
+      return <h4 ref={ref as React.Ref<HTMLHeadingElement>} {...commonProps}>{children}</h4>;
     case 'h5':
-      return <h5 {...commonProps}>{children}</h5>;
+      return <h5 ref={ref as React.Ref<HTMLHeadingElement>} {...commonProps}>{children}</h5>;
     case 'h6':
-      return <h6 {...commonProps}>{children}</h6>;
+      return <h6 ref={ref as React.Ref<HTMLHeadingElement>} {...commonProps}>{children}</h6>;
     case 'span':
-      return <span {...commonProps}>{children}</span>;
+      return <span ref={ref as React.Ref<HTMLSpanElement>} {...commonProps}>{children}</span>;
     case 'div':
-      return <div {...commonProps}>{children}</div>;
+      return <div ref={ref as React.Ref<HTMLDivElement>} {...commonProps}>{children}</div>;
     default:
-      return <p {...commonProps}>{children}</p>;
+      return <p ref={ref as React.Ref<HTMLParagraphElement>} {...commonProps}>{children}</p>;
   }
 });
 

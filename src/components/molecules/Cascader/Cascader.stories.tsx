@@ -126,13 +126,47 @@ const locationOptions: CascaderOption[] = [
   },
 ];
 
-// Basic Cascader
-export const Default: Story = {
+// Declarative API - Basic Cascader
+export const DeclarativeDefault: Story = {
   args: {
     label: 'Select Location',
     options: locationOptions,
     placeholder: 'Select a location',
   },
+};
+
+// Composable API - Basic Cascader
+export const ComposableDefault: Story = {
+  render: () => (
+    <Cascader label="Select Location" placeholder="Select a location">
+      <CascaderOption value="usa" label="United States">
+        <CascaderOption value="california" label="California">
+          <CascaderOption value="san-francisco" label="San Francisco" />
+          <CascaderOption value="los-angeles" label="Los Angeles" />
+          <CascaderOption value="san-diego" label="San Diego" />
+        </CascaderOption>
+        <CascaderOption value="new-york" label="New York">
+          <CascaderOption value="new-york-city" label="New York City" />
+          <CascaderOption value="buffalo" label="Buffalo" />
+        </CascaderOption>
+        <CascaderOption value="texas" label="Texas">
+          <CascaderOption value="houston" label="Houston" />
+          <CascaderOption value="dallas" label="Dallas" />
+          <CascaderOption value="austin" label="Austin" />
+        </CascaderOption>
+      </CascaderOption>
+      <CascaderOption value="canada" label="Canada">
+        <CascaderOption value="ontario" label="Ontario">
+          <CascaderOption value="toronto" label="Toronto" />
+          <CascaderOption value="ottawa" label="Ottawa" />
+        </CascaderOption>
+        <CascaderOption value="british-columbia" label="British Columbia">
+          <CascaderOption value="vancouver" label="Vancouver" />
+          <CascaderOption value="victoria" label="Victoria" />
+        </CascaderOption>
+      </CascaderOption>
+    </Cascader>
+  ),
 };
 
 const ControlledCascaderStory = (args: React.ComponentProps<typeof Cascader>) => {

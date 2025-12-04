@@ -41,7 +41,8 @@ export const SwitchWrapper = React.forwardRef<HTMLDivElement, SwitchWrapperProps
     return (
       <Comp
         ref={ref}
-        className={cn("flex flex-col", className)}
+        className={cn("flex flex-row items-center flex-wrap", className)}
+        style={{ gap: 'var(--spacing-x2)', ...props.style }}
         {...props}
       >
         {children}

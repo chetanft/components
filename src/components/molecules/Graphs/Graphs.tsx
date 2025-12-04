@@ -1,17 +1,20 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Spacer } from '../../atoms/Spacer';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface GraphsProps {
+export interface GraphsProps extends ComposableProps<'div'> {
   /**
    * Additional CSS classes
    */
   className?: string;
 }
 
-export const Graphs: React.FC<GraphsProps> = ({ className = '' }) => {
+export const Graphs: React.FC<GraphsProps> = ({ className = '', asChild, ...props }) => {
+  const Comp = asChild ? Slot : 'div';
+  
   return (
-    <div className={cn("content-stretch flex flex-col items-start relative size-full", className)} data-name="Type=Bar chart" data-node-id="4026:14389">
+    <Comp className={cn("content-stretch flex flex-col items-start relative size-full", className)} data-name="Type=Bar chart" data-node-id="4026:14389" {...props}>
       {/* Title */}
       <div className="flex flex-col font-semibold justify-end leading-[0] not-italic relative shrink-0 text-[12px] text-[var(--color-secondary)] whitespace-nowrap" data-node-id="4026:14360">
         <p className="leading-[1.4]">AGEING</p>
@@ -85,7 +88,7 @@ export const Graphs: React.FC<GraphsProps> = ({ className = '' }) => {
           </div>
         </div>
       </div>
-    </div>
+    </Comp>
   );
 };
 

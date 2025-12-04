@@ -1,7 +1,19 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Table, TableColumn, TableRowData, SortDirection, TableCellText, TableCellItem } from '../components/organisms/Table';
+import { 
+  Table, 
+  TableCellText, 
+  TableCellItem, 
+  TableHeader, 
+  TableBody, 
+  TableRow, 
+  TableCell, 
+  TableHead, 
+  TableCaption, 
+  TableFooter 
+} from '../components/organisms/Table';
+import type { TableColumn, TableRowData, SortDirection } from '../components/organisms/Table';
 import { Badge } from '../components/atoms/Badge/Badge';
 import { Button } from '../components/atoms/Button/Button';
 import { Icon, type IconName } from '../components/atoms/Icons';
@@ -1181,4 +1193,169 @@ export const SecondaryVariantWithReorder: Story = {
       }
     }
   }
+};
+
+// Composable API Examples (Recommended)
+export const ComposableBasic: Story = {
+  render: () => (
+    <div className="p-6">
+      <Table>
+        <TableCaption>Employee Directory</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead sortable>Email</TableHead>
+            <TableHead>Role</TableHead>
+            <TableHead>Status</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>John Doe</TableCell>
+            <TableCell>john.doe@example.com</TableCell>
+            <TableCell>Admin</TableCell>
+            <TableCell>
+              <Badge variant="success">Active</Badge>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Jane Smith</TableCell>
+            <TableCell>jane.smith@example.com</TableCell>
+            <TableCell>User</TableCell>
+            <TableCell>
+              <Badge variant="success">Active</Badge>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Bob Johnson</TableCell>
+            <TableCell>bob.johnson@example.com</TableCell>
+            <TableCell>Editor</TableCell>
+            <TableCell>
+              <Badge variant="danger">Inactive</Badge>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '✅ **Composable API**: Use TableHeader, TableBody, TableRow, TableHead, and TableCell sub-components for flexible table composition. This provides maximum control and follows LEGO-style composition patterns.',
+      },
+    },
+  },
+};
+
+function ComposableWithSortingComponent() {
+  const [sortColumn, setSortColumn] = React.useState<string | null>(null);
+  const [sortDirection, setSortDirection] = React.useState<SortDirection>(null);
+  
+  const handleSort = (column: string) => {
+    if (sortColumn === column) {
+      if (sortDirection === 'asc') {
+        setSortDirection('desc');
+      } else if (sortDirection === 'desc') {
+        setSortColumn(null);
+        setSortDirection(null);
+      } else {
+        setSortDirection('asc');
+      }
+    } else {
+      setSortColumn(column);
+      setSortDirection('asc');
+    }
+  };
+  
+  return (
+    <div className="p-6">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead 
+              sortable 
+              sortDirection={sortColumn === 'name' ? sortDirection : null}
+              onSort={() => handleSort('name')}
+            >
+              Name
+            </TableHead>
+            <TableHead 
+              sortable 
+              sortDirection={sortColumn === 'email' ? sortDirection : null}
+              onSort={() => handleSort('email')}
+            >
+              Email
+            </TableHead>
+            <TableHead>Role</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>John Doe</TableCell>
+            <TableCell>john.doe@example.com</TableCell>
+            <TableCell>Admin</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Jane Smith</TableCell>
+            <TableCell>jane.smith@example.com</TableCell>
+            <TableCell>User</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
+  );
+}
+
+export const ComposableWithSorting: Story = {
+  render: () => <ComposableWithSortingComponent />,
+  parameters: {
+    docs: {
+      description: {
+        story: 'Composable API allows full control over sorting behavior using TableHead with sortable prop.',
+      },
+    },
+  },
+};
+
+export const ComposableWithFooter: Story = {
+  render: () => (
+    <div className="p-6">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Product</TableHead>
+            <TableHead>Quantity</TableHead>
+            <TableHead>Price</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>Widget A</TableCell>
+            <TableCell>10</TableCell>
+            <TableCell>$100.00</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Widget B</TableCell>
+            <TableCell>5</TableCell>
+            <TableCell>$50.00</TableCell>
+          </TableRow>
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={2} className="text-right font-semibold">
+              Total:
+            </TableCell>
+            <TableCell className="font-semibold">$150.00</TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use TableFooter for summary rows or totals.',
+      },
+    },
+  },
 };

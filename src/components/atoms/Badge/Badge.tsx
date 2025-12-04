@@ -57,6 +57,7 @@ export interface BadgeProps extends ComposableProps<'div'> {
   /**
    * Show count even when it's zero
    * @default false
+   * @deprecated Use conditional rendering instead: `{count !== 0 && <Badge count={count}>...</Badge>}`
    */
   showZero?: boolean;
   

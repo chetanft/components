@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TreeSelect } from './TreeSelect';
-import type { TreeNode } from '../Tree/Tree';
+import { TreeNode } from '../Tree/TreeNode';
+import type { TreeNode as TreeNodeType } from '../Tree/Tree';
 
-const sampleTreeData: TreeNode[] = [
+const sampleTreeData: TreeNodeType[] = [
   {
     key: 'design',
     title: 'Design',
@@ -73,10 +74,39 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof TreeSelect>;
 
-export const Default: Story = {
+// Declarative API
+export const DeclarativeDefault: Story = {
   args: {
     helperText: 'Use search to quickly filter nodes',
   },
+};
+
+// Composable API
+export const ComposableDefault: Story = {
+  render: () => (
+    <TreeSelect
+      label="Select organization unit"
+      placeholder="Choose a team"
+      showSearch={true}
+      helperText="Use search to quickly filter nodes"
+    >
+      <TreeNode nodeKey="design" title="Design">
+        <TreeNode nodeKey="design-ui" title="UI Team" />
+        <TreeNode nodeKey="design-brand" title="Brand Team" />
+      </TreeNode>
+      <TreeNode nodeKey="engineering" title="Engineering">
+        <TreeNode nodeKey="fe" title="Frontend">
+          <TreeNode nodeKey="fe-platform" title="Platform" />
+          <TreeNode nodeKey="fe-experience" title="Experience" />
+        </TreeNode>
+        <TreeNode nodeKey="be" title="Backend" />
+      </TreeNode>
+      <TreeNode nodeKey="product" title="Product">
+        <TreeNode nodeKey="product-discovery" title="Discovery" />
+        <TreeNode nodeKey="product-research" title="Research" />
+      </TreeNode>
+    </TreeSelect>
+  ),
 };
 
 export const MultipleSelection: Story = {

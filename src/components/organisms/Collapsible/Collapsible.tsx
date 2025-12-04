@@ -30,6 +30,7 @@ export interface CollapsibleProps extends Omit<ComposableProps<'div'>, 'onChange
   /**
    * Show arrow icon
    * @default true
+   * @deprecated Use CollapsibleIcon component instead
    */
   showArrow?: boolean;
   /**

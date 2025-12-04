@@ -3,6 +3,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { useTabsContext } from './TabsContext';
 
 export interface TabsListProps extends ComposableProps<'div'> {
   /**
@@ -38,15 +39,35 @@ export interface TabsListProps extends ComposableProps<'div'> {
  */
 export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
   ({ className, children, asChild, ...props }, ref) => {
+    const { registerValue } = useTabsContext();
     const Comp = asChild ? Slot : 'div';
+    
+    // Clone children and inject index prop for TabsTrigger components
+    const childrenWithIndex = React.Children.map(children, (child, index) => {
+      if (React.isValidElement(child)) {
+        // Check if this is a TabsTrigger component
+        if (child.type && typeof child.type === 'object' && 'displayName' in child.type && child.type.displayName === 'TabsTrigger') {
+          const value = (child.props as any).value;
+          if (value) {
+            registerValue(value, index);
+          }
+          return React.cloneElement(child as React.ReactElement<any>, { 
+            ...child.props,
+            _tabIndex: index 
+          });
+        }
+      }
+      return child;
+    });
+    
     return (
       <Comp
         ref={ref}
-        className={cn("flex items-center gap-0", className)}
+        className={cn("flex items-center gap-[var(--spacing-x3)]", className)}
         role="tablist"
         {...props}
       >
-        {children}
+        {childrenWithIndex}
       </Comp>
     );
   }

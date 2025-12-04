@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext } from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 // Row context for gutter
 interface RowContextValue {
@@ -18,7 +19,7 @@ export type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 export type RowAlign = 'top' | 'middle' | 'bottom' | 'stretch';
 export type RowJustify = 'start' | 'end' | 'center' | 'space-around' | 'space-between' | 'space-evenly';
 
-export interface RowProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface RowProps extends ComposableProps<'div'> {
   /** Horizontal and vertical gutter [horizontal, vertical] or single number */
   gutter?: number | [number, number];
   /** Vertical alignment */
@@ -45,6 +46,7 @@ export const Row = React.forwardRef<HTMLDivElement, RowProps>(
     children,
     className,
     style,
+    asChild,
     ...props
   }, ref) => {
     // Normalize gutter to [horizontal, vertical]
@@ -78,9 +80,11 @@ export const Row = React.forwardRef<HTMLDivElement, RowProps>(
       rowGap: normalizedGutter[1] > 0 ? `${normalizedGutter[1]}px` : undefined,
     };
 
+    const Comp = asChild ? Slot : 'div';
+
     return (
       <RowContext.Provider value={{ gutter: normalizedGutter }}>
-        <div
+        <Comp
           ref={ref}
           className={cn(
             "flex",
@@ -93,7 +97,7 @@ export const Row = React.forwardRef<HTMLDivElement, RowProps>(
           {...props}
         >
           {children}
-        </div>
+        </Comp>
       </RowContext.Provider>
     );
   }
@@ -111,7 +115,7 @@ export interface ColSize {
   push?: number;
 }
 
-export interface ColProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ColProps extends ComposableProps<'div'> {
   /** Number of columns to span (1-24) */
   span?: number;
   /** Number of columns to offset from left */
@@ -160,6 +164,7 @@ export const Col = React.forwardRef<HTMLDivElement, ColProps>(
     children,
     className,
     style,
+    asChild,
     ...props
   }, ref) => {
     const { gutter } = useContext(RowContext);
@@ -205,8 +210,10 @@ export const Col = React.forwardRef<HTMLDivElement, ColProps>(
       return {};
     };
 
+    const Comp = asChild ? Slot : 'div';
+
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           "relative min-h-px",
@@ -220,7 +227,7 @@ export const Col = React.forwardRef<HTMLDivElement, ColProps>(
         {...props}
       >
         {children}
-      </div>
+      </Comp>
     );
   }
 );

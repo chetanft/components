@@ -3,11 +3,12 @@
 import React, { useState, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
 import { Typography } from '../../atoms/Typography';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type UploadZoneType = 'drag-drop' | 'button' | 'thumbnail';
 export type UploadZoneState = 'default' | 'hover' | 'disabled';
 
-export interface UploadZoneProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface UploadZoneProps extends ComposableProps<'div'> {
   type?: UploadZoneType;
   state?: UploadZoneState;
   onFileSelect?: (files: FileList) => void;
@@ -27,6 +28,7 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
     maxFileSize = 10,
     disabled = false,
     multiple = false,
+    asChild,
     ...props 
   }, ref) => {
     
@@ -93,10 +95,12 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
       }
     }, [isDisabled, multiple, acceptedFileTypes, handleFileChange]);
     
+    const Comp = asChild ? Slot : 'div';
+    
     // Only drag-drop type uses the full upload zone
     if (type === 'drag-drop') {
       return (
-        <div
+        <Comp
           className={cn(
             // Base styles from Figma
             "flex flex-col items-center justify-center gap-[var(--spacing-x5)] px-[var(--spacing-x5)] py-[var(--spacing-x3)]",
@@ -177,7 +181,7 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
               </Typography>
             </div>
           </div>
-        </div>
+        </Comp>
       );
     }
     

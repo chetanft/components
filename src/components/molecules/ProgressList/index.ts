@@ -1,2 +1,2 @@
-export * from './ProgressList';
-export type { ProgressListProps, ProgressItem, ProgressItemState, DividerItem, ProgressListItem, PointType } from './ProgressList'; 
+export { ProgressList, ProgressListItem, ProgressListDivider } from './ProgressList';
+export type { ProgressListProps, ProgressItem, ProgressItemState, DividerItem, ProgressListItem as ProgressListItemType, PointType, ProgressListItemProps, ProgressListDividerProps } from './ProgressList'; 

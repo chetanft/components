@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Badge, Ribbon } from './Badge';
+import { Badge, Ribbon, BadgeIcon, BadgeText } from './index';
 
 const meta: Meta<typeof Badge> = {
   title: 'Atoms/Badge',
@@ -135,3 +135,82 @@ export function Sizes() {
     </div>
   );
 }
+
+// Composable API Examples (Recommended)
+export const ComposableBasic: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Badge variant="success">
+        <BadgeIcon icon="check" />
+        <BadgeText>Active</BadgeText>
+      </Badge>
+      <Badge variant="danger">
+        <BadgeIcon icon="alert" />
+        <BadgeText>Error</BadgeText>
+      </Badge>
+      <Badge variant="warning">
+        <BadgeIcon icon="warning" />
+        <BadgeText>Warning</BadgeText>
+      </Badge>
+      <Badge variant="neutral">
+        <BadgeIcon icon="info" />
+        <BadgeText>Info</BadgeText>
+      </Badge>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '✅ **Composable API**: Use BadgeIcon and BadgeText sub-components for flexible badge composition.',
+      },
+    },
+  },
+};
+
+export const ComposableWithCustomIcon: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Badge variant="success">
+        <BadgeIcon icon="check" />
+        <BadgeText>Verified</BadgeText>
+      </Badge>
+      <Badge variant="danger">
+        <BadgeIcon icon="x" />
+        <BadgeText>Rejected</BadgeText>
+      </Badge>
+      <Badge variant="normal">
+        <BadgeText>No Icon</BadgeText>
+      </Badge>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Composable API allows flexible icon and text combinations.',
+      },
+    },
+  },
+};
+
+export const ComposableTextOnly: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Badge variant="success">
+        <BadgeText>Success</BadgeText>
+      </Badge>
+      <Badge variant="danger">
+        <BadgeText>Danger</BadgeText>
+      </Badge>
+      <Badge variant="warning">
+        <BadgeText>Warning</BadgeText>
+      </Badge>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use BadgeText alone when you only need text content.',
+      },
+    },
+  },
+};

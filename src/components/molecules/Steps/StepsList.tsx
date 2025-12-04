@@ -45,9 +45,8 @@ export const StepsList = React.forwardRef<HTMLDivElement, StepsListProps>(
         ref={ref}
         className={cn(
           "flex",
-          direction === 'vertical' ? "flex-col" : "flex-row items-center",
+          direction === 'vertical' ? "flex-col gap-[var(--spacing-x5)]" : "flex-row items-start",
           direction === 'horizontal' && device === "desktop" ? "gap-[var(--spacing-x3)]" : "gap-[var(--spacing-x2)]",
-          direction === 'vertical' && "gap-0",
           className
         )}
         {...props}

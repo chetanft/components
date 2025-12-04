@@ -16,7 +16,7 @@ import { DataEntryTableBody } from './DataEntryTableBody';
 import { DataEntryTableRow } from './DataEntryTableRow';
 import { DataEntryTableRowCell } from './DataEntryTableRowCell';
 import { DataEntryTableRowCheckbox } from './DataEntryTableRowCheckbox';
-import type { DropdownOption } from '../../molecules/Dropdown/Dropdown';
+import type { DropdownOption } from '../../molecules/Dropdown';
 import type { DataEntryCellType, DataEntryCellState, ActionConfig } from './DataEntryTableCell';
 
 export interface DataEntryColumn {

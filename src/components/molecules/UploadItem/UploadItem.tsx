@@ -7,6 +7,7 @@ import { LoadingSpinner } from '../../atoms/Icons/LoadingSpinner';
 import { Icon } from '../../atoms/Icons';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { Typography } from '../../atoms/Typography';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type UploadItemType = 'card' | 'text' | 'thumbnail';
 export type UploadItemState = 'uploading' | 'uploaded' | 'saved' | 'error';
@@ -21,7 +22,7 @@ export interface UploadFile {
   preview?: string;
 }
 
-export interface UploadItemProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface UploadItemProps extends ComposableProps<'div'> {
   type?: UploadItemType;
   state?: UploadItemState;
   file: UploadFile;
@@ -37,6 +38,7 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
     file,
     onDelete,
     onRetry,
+    asChild,
     ...props 
   }, ref) => {
     
@@ -71,10 +73,12 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
       }).format(date);
     };
     
+    const Comp = asChild ? Slot : 'div';
+    
     // Render Text type
     if (type === 'text') {
       return (
-        <div
+        <Comp
           ref={ref}
           className={cn(
             "inline-flex items-center justify-between gap-[var(--spacing-x2)] p-[var(--spacing-x2)]",
@@ -112,13 +116,13 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
               </div>
             )}
           </div>
-        </div>
+        </Comp>
       );
     }
     
     // Render Card type (default)
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           "flex flex-col items-start justify-center w-full",
@@ -213,7 +217,7 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
             </>
           )}
         </div>
-      </div>
+      </Comp>
     );
   }
 );

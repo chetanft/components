@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { RadioGroup, RadioOption } from './RadioGroup';
+import { RadioGroup, RadioItem, RadioItemInput, RadioItemLabel } from './index';
+import type { RadioOption } from './index';
 
 const mockOptions: RadioOption[] = [
   { value: 'option1', label: 'Option 1' },
@@ -99,6 +100,52 @@ describe('RadioGroup', () => {
       const { container } = render(<RadioGroup name="test" options={mockOptions} orientation="horizontal" />);
       const radioGroup = container.querySelector('.flex-row');
       expect(radioGroup).toBeInTheDocument();
+    });
+  });
+
+  describe('Composable API', () => {
+    const renderComposable = () =>
+      render(
+        <RadioGroup name="composable">
+          <RadioItem value="option1">
+            <RadioItemInput />
+            <RadioItemLabel>Option 1</RadioItemLabel>
+          </RadioItem>
+          <RadioItem value="option2">
+            <RadioItemInput />
+            <RadioItemLabel>Option 2</RadioItemLabel>
+          </RadioItem>
+          <RadioItem value="option3" disabled>
+            <RadioItemInput />
+            <RadioItemLabel>Option 3</RadioItemLabel>
+          </RadioItem>
+        </RadioGroup>
+      );
+
+    it('only selects the clicked radio item', async () => {
+      const user = userEvent.setup();
+      renderComposable();
+
+      const option1 = screen.getByLabelText('Option 1') as HTMLInputElement;
+      const option2 = screen.getByLabelText('Option 2') as HTMLInputElement;
+
+      await user.click(option1);
+      expect(option1.checked).toBe(true);
+      expect(option2.checked).toBe(false);
+
+      await user.click(option2);
+      expect(option1.checked).toBe(false);
+      expect(option2.checked).toBe(true);
+    });
+
+    it('respects disabled state defined on RadioItem', async () => {
+      const user = userEvent.setup();
+      renderComposable();
+
+      const disabledOption = screen.getByLabelText('Option 3') as HTMLInputElement;
+      await user.click(disabledOption);
+
+      expect(disabledOption.checked).toBe(false);
     });
   });
 

@@ -14,7 +14,11 @@ export interface TransferItem {
 }
 
 export interface TransferProps {
-    dataSource: TransferItem[];
+    /**
+     * Data source array (for declarative API)
+     * @deprecated Use TransferItem components as children instead
+     */
+    dataSource?: TransferItem[];
     titles?: [React.ReactNode, React.ReactNode];
     operations?: [string, string];
     targetKeys?: string[];
@@ -24,6 +28,9 @@ export interface TransferProps {
     onScroll?: (direction: 'left' | 'right', e: React.SyntheticEvent<HTMLUListElement>) => void;
     render?: (item: TransferItem) => React.ReactNode;
     footer?: (props: any) => React.ReactNode;
+    /**
+     * @deprecated Use conditional rendering: `{showSearch && <Input />}`
+     */
     showSearch?: boolean;
     filterOption?: (inputValue: string, item: TransferItem) => boolean;
     searchPlaceholder?: string;
@@ -31,6 +38,21 @@ export interface TransferProps {
     pagination?: boolean | { pageSize: number }; // Simplified pagination support
     disabled?: boolean;
     className?: string;
+    /**
+     * Transfer items (for composable API)
+     */
+    children?: React.ReactNode;
+}
+
+export interface TransferItemComponentProps extends Omit<TransferItem, 'key'> {
+    /**
+     * Item identifier (used as key if provided, otherwise React key will be used)
+     */
+    id?: string;
+    /**
+     * Item content (for composable API)
+     */
+    children?: React.ReactNode;
 }
 
 const TransferList = ({
@@ -119,7 +141,9 @@ const TransferList = ({
                             checked={checkedKeys.includes(item.key)}
                             disabled={item.disabled || disabled}
                         />
-                        <span className="ml-[var(--spacing-x2)] text-sm">{render ? render(item) : item.title}</span>
+                        <span className="ml-[var(--spacing-x2)] text-sm">
+                            {render ? render(item) : (item.children || item.title)}
+                        </span>
                     </li>
                 ))}
                 {filteredDataSource.length === 0 && (
@@ -147,10 +171,53 @@ export const Transfer: React.FC<TransferProps> = ({
     disabled,
     className,
     onScroll: _onScroll,
+    children,
     ...props
 }) => {
     const [sourceSelectedKeys, setSourceSelectedKeys] = useState<string[]>([]);
     const [targetSelectedKeys, setTargetSelectedKeys] = useState<string[]>([]);
+
+    // Extract items from children if using composable API
+    const itemsFromChildren = React.useMemo(() => {
+        if (!children) return [];
+        return React.Children.toArray(children)
+            .filter((child): child is React.ReactElement<TransferItemComponentProps> => 
+                React.isValidElement(child) && child.type === TransferItem
+            )
+            .map(child => {
+                // Use id prop if provided, otherwise fall back to React's key prop
+                const itemKey = child.props.id || (child.key as string) || String(Math.random());
+                return {
+                    key: itemKey,
+                    title: child.props.children || child.props.title,
+                    description: child.props.description,
+                    disabled: child.props.disabled,
+                };
+            });
+    }, [children]);
+
+    // Use children items if available, otherwise use dataSource prop
+    const allItems = itemsFromChildren.length > 0 ? itemsFromChildren : dataSource;
+
+    // Check if using composable API
+    const hasComposableChildren = React.Children.count(children) > 0 && itemsFromChildren.length > 0;
+
+    // Show deprecation warning
+    if (process.env.NODE_ENV !== 'production') {
+        if (hasComposableChildren && dataSource.length > 0) {
+            console.warn(
+                'Transfer: Using deprecated props (dataSource array) with composable API. ' +
+                'Please use TransferItem components as children instead. ' +
+                'See migration guide: docs/migrations/composable-migration.md'
+            );
+        } else if (!hasComposableChildren && dataSource.length > 0) {
+            console.warn(
+                'Transfer: Declarative API (dataSource array prop) is deprecated. ' +
+                'Please migrate to composable API using TransferItem components as children. ' +
+                'See migration guide: docs/migrations/composable-migration.md'
+            );
+        }
+    }
 
     useEffect(() => {
         // Sync internal state with props if provided
@@ -204,8 +271,8 @@ export const Transfer: React.FC<TransferProps> = ({
         else setTargetSelectedKeys([]);
     };
 
-    const leftDataSource = dataSource.filter(item => !targetKeys.includes(item.key));
-    const rightDataSource = dataSource.filter(item => targetKeys.includes(item.key));
+    const leftDataSource = allItems.filter(item => !targetKeys.includes(item.key));
+    const rightDataSource = allItems.filter(item => targetKeys.includes(item.key));
 
     return (
         <div className={cn("flex items-center gap-[var(--spacing-x4)]", className)} {...props}>
@@ -262,3 +329,27 @@ export const Transfer: React.FC<TransferProps> = ({
 };
 
 Transfer.displayName = 'Transfer';
+
+/**
+ * TransferItem Component
+ *
+ * A composable component for individual items in a Transfer component.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <Transfer targetKeys={targetKeys} onChange={setTargetKeys}>
+ *   <TransferItem key="1" title="Item 1" />
+ *   <TransferItem key="2" title="Item 2" />
+ *   <TransferItem key="3" title="Item 3" />
+ * </Transfer>
+ * ```
+ */
+export const TransferItem: React.FC<TransferItemComponentProps> = ({ children, ...props }) => {
+    // This component is used for composition only - it doesn't render anything itself
+    // The Transfer component extracts props from TransferItem children
+    return null;
+};
+
+TransferItem.displayName = 'TransferItem';

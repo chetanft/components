@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tree, TreeNode } from './Tree';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import type { ComponentProps } from 'react';
+import { Tree, TreeNode } from './index';
+import { TreeNodeContent } from './TreeNodeContent';
+import { TreeNodeIcon } from './TreeNodeIcon';
+import { TreeNodeSwitcher } from './TreeNodeSwitcher';
+import { TreeNodeCheckbox } from './TreeNodeCheckbox';
+import { Icon } from '../../atoms/Icons';
 
 const meta: Meta<typeof Tree> = {
   title: 'Molecules/Tree',
@@ -292,4 +297,139 @@ export const ControlledExpansion: Story = {
   args: {
     treeData: sampleTreeData,
   },
+};
+
+// Composable API Examples
+export const ComposableBasic: Story = {
+  render: () => (
+    <Tree defaultExpandAll>
+      <TreeNode nodeKey="0-0" title="Parent 0">
+        <TreeNode nodeKey="0-0-0" title="Child 0-0">
+          <TreeNode nodeKey="0-0-0-0" title="Leaf 0-0-0" isLeaf />
+          <TreeNode nodeKey="0-0-0-1" title="Leaf 0-0-1" isLeaf />
+        </TreeNode>
+        <TreeNode nodeKey="0-0-1" title="Child 0-1">
+          <TreeNode nodeKey="0-0-1-0" title="Leaf 0-1-0" isLeaf />
+        </TreeNode>
+      </TreeNode>
+      <TreeNode nodeKey="0-1" title="Parent 1">
+        <TreeNode nodeKey="0-1-0" title="Child 1-0" isLeaf />
+        <TreeNode nodeKey="0-1-1" title="Child 1-1" isLeaf />
+      </TreeNode>
+    </Tree>
+  ),
+};
+
+export const ComposableWithIcons: Story = {
+  render: () => (
+    <Tree defaultExpandAll showIcon>
+      <TreeNode 
+        nodeKey="src" 
+        title="src"
+        icon={<Icon name="folder" size={16} />}
+      >
+        <TreeNode 
+          nodeKey="components" 
+          title="components"
+          icon={<Icon name="folder" size={16} />}
+        >
+          <TreeNode nodeKey="Button.tsx" title="Button.tsx" isLeaf icon={<Icon name="file" size={16} />} />
+          <TreeNode nodeKey="Input.tsx" title="Input.tsx" isLeaf icon={<Icon name="file" size={16} />} />
+        </TreeNode>
+        <TreeNode nodeKey="index.ts" title="index.ts" isLeaf icon={<Icon name="file" size={16} />} />
+      </TreeNode>
+      <TreeNode nodeKey="package.json" title="package.json" isLeaf icon={<Icon name="file" size={16} />} />
+    </Tree>
+  ),
+};
+
+const ComposableWithCheckboxesComponent = () => {
+  const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
+  return (
+    <div className="space-y-4">
+      <Tree 
+        checkable 
+        defaultExpandAll
+        checkedKeys={checkedKeys}
+        onCheck={setCheckedKeys}
+      >
+        <TreeNode nodeKey="0-0" title="Parent 0">
+          <TreeNode nodeKey="0-0-0" title="Child 0-0" isLeaf />
+          <TreeNode nodeKey="0-0-1" title="Child 0-1" isLeaf />
+        </TreeNode>
+        <TreeNode nodeKey="0-1" title="Parent 1">
+          <TreeNode nodeKey="0-1-0" title="Child 1-0" isLeaf />
+        </TreeNode>
+      </Tree>
+      <p className="text-sm text-[var(--color-tertiary)]">
+        Checked: {checkedKeys.join(', ') || 'None'}
+      </p>
+    </div>
+  );
+};
+
+export const ComposableWithCheckboxes: Story = {
+  render: () => <ComposableWithCheckboxesComponent />,
+};
+
+const ComposableWithSelectionComponent = () => {
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+  return (
+    <div className="space-y-4">
+      <Tree 
+        selectable 
+        defaultExpandAll
+        selectedKeys={selectedKeys}
+        onSelect={setSelectedKeys}
+      >
+        <TreeNode nodeKey="0-0" title="Parent 0">
+          <TreeNode nodeKey="0-0-0" title="Child 0-0" isLeaf />
+          <TreeNode nodeKey="0-0-1" title="Child 0-1" isLeaf />
+        </TreeNode>
+        <TreeNode nodeKey="0-1" title="Parent 1">
+          <TreeNode nodeKey="0-1-0" title="Child 1-0" isLeaf />
+        </TreeNode>
+      </Tree>
+      <p className="text-sm text-[var(--color-tertiary)]">
+        Selected: {selectedKeys.join(', ') || 'None'}
+      </p>
+    </div>
+  );
+};
+
+export const ComposableWithSelection: Story = {
+  render: () => <ComposableWithSelectionComponent />,
+};
+
+export const ComposableDirectoryTree: Story = {
+  render: () => (
+    <Tree defaultExpandAll showIcon showLine>
+      <TreeNode 
+        nodeKey="src" 
+        title="src"
+        icon={<Icon name="folder" size={16} />}
+      >
+        <TreeNode 
+          nodeKey="components" 
+          title="components"
+          icon={<Icon name="folder" size={16} />}
+        >
+          <TreeNode nodeKey="Button.tsx" title="Button.tsx" isLeaf icon={<Icon name="file" size={16} />} />
+          <TreeNode nodeKey="Input.tsx" title="Input.tsx" isLeaf icon={<Icon name="file" size={16} />} />
+          <TreeNode nodeKey="Modal.tsx" title="Modal.tsx" isLeaf icon={<Icon name="file" size={16} />} />
+        </TreeNode>
+        <TreeNode 
+          nodeKey="utils" 
+          title="utils"
+          icon={<Icon name="folder" size={16} />}
+        >
+          <TreeNode nodeKey="helpers.ts" title="helpers.ts" isLeaf icon={<Icon name="file" size={16} />} />
+          <TreeNode nodeKey="constants.ts" title="constants.ts" isLeaf icon={<Icon name="file" size={16} />} />
+        </TreeNode>
+        <TreeNode nodeKey="index.ts" title="index.ts" isLeaf icon={<Icon name="file" size={16} />} />
+      </TreeNode>
+      <TreeNode nodeKey="package.json" title="package.json" isLeaf icon={<Icon name="file" size={16} />} />
+      <TreeNode nodeKey="README.md" title="README.md" isLeaf icon={<Icon name="file" size={16} />} />
+    </Tree>
+  ),
 };

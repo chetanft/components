@@ -1,8 +1,10 @@
-export { QuickFilters } from './QuickFilters';
+export { QuickFilters, QuickFilter, FilterOption } from './QuickFilters';
 export type { 
   QuickFiltersProps, 
-  QuickFilter, 
-  FilterOption, 
+  QuickFilter as QuickFilterType, 
+  FilterOption as FilterOptionType, 
   FilterType, 
-  FilterState 
+  FilterState,
+  QuickFilterComponentProps,
+  FilterOptionComponentProps
 } from './QuickFilters'; 

@@ -44,10 +44,10 @@ export interface TabsContentProps extends ComposableProps<'div'> {
  */
 export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
   ({ className, value, children, asChild, ...props }, ref) => {
-    const { activeTab } = useTabsContext();
+    const { activeTab, valueToIndexMap } = useTabsContext();
     
-    // Find index by value (simplified - would need value-to-index mapping)
-    const tabIndex = 0;
+    // Find index by value using the mapping from TabsList
+    const tabIndex = valueToIndexMap.get(value) ?? -1;
     const isActive = activeTab === tabIndex;
     
     if (!isActive) return null;

@@ -230,6 +230,7 @@ export interface TabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
   /**
    * Show line below tabs
    * @default true
+   * @deprecated Use conditional rendering or CSS classes instead. Consider using a wrapper div with border styling.
    */
   showLine?: boolean;
   /**
@@ -300,6 +301,9 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       }
       
       const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
+      const valueToIndexMapRef = useRef<Map<string, number>>(new Map());
+      // Reset the map on each render so registrations reflect the latest tree
+      valueToIndexMapRef.current = new Map();
       
       useEffect(() => {
         if (activeTab !== undefined) {
@@ -312,6 +316,10 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
         onTabChange?.(index);
       }, [onTabChange]);
       
+      const registerValue = useCallback((value: string, index: number) => {
+        valueToIndexMapRef.current.set(value, index);
+      }, []);
+      
       const Comp = asChild ? Slot : 'div';
       return (
         <TabsProvider
@@ -320,6 +328,8 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
             onTabChange: handleTabChange,
             type,
             showLine,
+            valueToIndexMap: valueToIndexMapRef.current,
+            registerValue,
           }}
         >
           <Comp

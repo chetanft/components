@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useRef } from 'react';
 import type { ComponentSize } from '../../../lib/utils';
-import type { DropdownOption } from './Dropdown';
+import type { DropdownOption } from './index';
 
 export interface DropdownContextType {
   isOpen: boolean;

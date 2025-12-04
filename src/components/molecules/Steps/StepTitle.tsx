@@ -51,7 +51,7 @@ export const StepTitle = React.forwardRef<HTMLDivElement, StepTitleProps>(
           "font-primary font-semibold text-lg-rem leading-[1.4] transition-colors",
           state === "selected" || state === "completed"
             ? "text-[var(--primary)]"
-            : "text-[var(--border-primary)]",
+            : "text-[var(--tertiary)]",
           device === "mobile" && "sr-only",
           className
         )}

@@ -6,12 +6,17 @@ import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import { Button } from '../../atoms/Button/Button';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 // ============================================================================
 // Types
 // ============================================================================
 
-export interface TimePickerProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange' | 'value'> {
+export interface TimePickerProps extends Omit<ComposableProps<'div'>, 'size' | 'onChange' | 'value'> {
+  /**
+   * Whether the time picker is disabled
+   */
+  disabled?: boolean;
   /** Label text */
   label?: string;
   /** Whether the field is mandatory */
@@ -190,13 +195,14 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
     secondStep = 1,
     placeholder,
     format: _format,
-    allowClear = true,
-    disabledHours,
-    disabledMinutes,
-    disabledSeconds,
-    disabled,
-    id,
+  allowClear = true,
+  disabledHours,
+  disabledMinutes,
+  disabledSeconds,
+  disabled: disabledProp = false,
+  id,
     'aria-describedby': ariaDescribedBy,
+    asChild,
     ...props
   }, ref) => {
     const componentStyles = getComponentStyles(size);
@@ -377,7 +383,7 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
       componentStyles.borderRadius,
       "px-[var(--spacing-x3)] pr-[var(--spacing-x8)]",
       "bg-surface dark:bg-surface-dark border-2 border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)]",
-      disabled
+      disabledProp
         ? "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"
         : inputType === 'error'
           ? "border-critical text-input dark:text-input-dark focus:border-critical"
@@ -402,8 +408,10 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
             : "text-helper dark:text-helper-dark"
     );
 
+    const Comp = asChild ? Slot : 'div';
+
     return (
-      <div className="w-full space-y-2">
+      <Comp className={cn("w-full space-y-2", className)} {...props}>
         {label && (
           <div>
             <Label
@@ -426,8 +434,8 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
             readOnly
             value={inputValue}
             placeholder={placeholder || (showSecond ? 'HH:mm:ss' : 'HH:mm')}
-            disabled={disabled}
-            onClick={() => !disabled && setIsOpen(true)}
+            disabled={disabledProp}
+            onClick={() => !disabledProp && setIsOpen(true)}
             className={inputStyles}
             aria-invalid={error ? 'true' : 'false'}
             aria-describedby={describedBy}
@@ -437,7 +445,7 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
           />
 
           <div className="absolute right-0 top-0 h-full flex items-center pr-[var(--spacing-x3)] gap-[var(--spacing-x1)]">
-            {allowClear && inputValue && !disabled && (
+            {allowClear && inputValue && !disabledProp && (
               <button
                 type="button"
                 onClick={handleClear}
@@ -451,9 +459,9 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
               name="clock"
               size={componentStyles.iconSize}
               className={cn(
-                disabled
-                  ? "text-input-disabled dark:text-input-disabled-dark"
-                  : "text-icon dark:text-icon-dark"
+                  disabledProp
+                    ? "text-input-disabled dark:text-input-disabled-dark"
+                    : "text-icon dark:text-icon-dark"
               )}
             />
           </div>
@@ -469,7 +477,7 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
           </p>
         )}
 
-        {isOpen && !disabled && portalContainer && ReactDOM.createPortal(
+        {isOpen && !disabledProp && portalContainer && ReactDOM.createPortal(
           <>
             {/* Backdrop */}
             <div
@@ -546,7 +554,7 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
           </>,
           portalContainer
         )}
-      </div>
+      </Comp>
     );
   }
 );

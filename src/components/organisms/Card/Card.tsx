@@ -44,6 +44,9 @@ export interface CardElementsProps {
     eyebrowBadges?: React.ReactNode[];
     headerTitle?: React.ReactNode;
     headerSubText?: React.ReactNode;
+    /**
+     * @deprecated Use conditional rendering instead: `{showArrow && <Icon name="arrow-right" />}`
+     */
     showArrowIcon?: boolean;
     statisticValue?: React.ReactNode;
     statisticLabel?: React.ReactNode;
@@ -293,7 +296,13 @@ export interface CardProps extends Omit<ComposableProps<'div'>, 'title' | 'conte
     cover?: React.ReactNode;
 
     // New Figma-based props
+    /**
+     * @deprecated Use conditional rendering instead: `{showEyebrow && <CardElements type="Eyebrow" />}`
+     */
     showEyebrow?: boolean;
+    /**
+     * @deprecated Use conditional rendering instead: `{showFooter && <CardFooter>...</CardFooter>}`
+     */
     showFooter?: boolean;
     contentVariant?: 'Basic' | 'Advanced';
 

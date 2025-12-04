@@ -1,10 +1,12 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Toggle, ToggleProps } from '../../atoms/Toggle/Toggle';
+import { Toggle } from '../../atoms/Toggle';
+import type { ToggleProps } from '../../atoms/Toggle';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type ToggleGroupType = 'single' | 'multiple';
 
-export interface ToggleGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface ToggleGroupProps extends Omit<ComposableProps<'div'>, 'onChange'> {
     type?: ToggleGroupType;
     value?: string | string[];
     defaultValue?: string | string[];
@@ -25,6 +27,7 @@ export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(({
     variant = 'default',
     children,
     className,
+    asChild,
     ...props
 }, ref) => {
     const [internalValue, setInternalValue] = React.useState<string | string[]>(
@@ -57,20 +60,24 @@ export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(({
         onValueChange?.(newValue);
     };
 
+    const Comp = asChild ? Slot : 'div';
+
     return (
-        <div
+        <Comp
             ref={ref}
             className={cn("inline-flex bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]", className)}
             role="group"
             {...props}
         >
             {React.Children.map(children, (child) => {
-                if (!React.isValidElement(child)) return null;
+                if (!React.isValidElement<ToggleProps>(child)) return null;
 
                 // We assume the child has a 'value' prop, even though it's not in ToggleProps interface strictly
                 // In a real app we might want to extend ToggleProps or cloneElement with a wrapper
                 // For now we'll assume the user passes a 'value' prop to Toggle or we use a data-value
-                const childValue = child.props['value'] as string || (child.props as any)['data-value'] as string || String(child.key);
+                const childValue = (child.props as ToggleProps & { value?: string; 'data-value'?: string }).value 
+                  || (child.props as ToggleProps & { value?: string; 'data-value'?: string })['data-value'] 
+                  || String(child.key);
 
                 const isPressed = type === 'single'
                     ? internalValue === childValue
@@ -85,7 +92,7 @@ export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(({
                     className: cn(child.props.className, "first:rounded-l-[var(--radius-md)] last:rounded-r-[var(--radius-md)] rounded-none border-l-0 first:border-l"),
                 } as ToggleProps);
             })}
-        </div>
+        </Comp>
     );
 });
 

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type ListingLayoutVariant = 'table' | 'card' | 'custom';
 export type ListingLayoutLayout = 'stack' | 'split' | 'grid';
@@ -26,7 +27,7 @@ export type ListingLayoutSectionProps = Partial<
 >;
 
 export interface ListingLayoutProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'content'> {
+  extends Omit<ComposableProps<'div'>, 'content'> {
   appHeader?: React.ReactNode;
   hero?: React.ReactNode;
   pageHeader?: React.ReactNode;
@@ -146,6 +147,7 @@ export const ListingLayout = React.forwardRef<
       layout,
       sectionProps,
       className,
+      asChild,
       ...props
     },
     ref
@@ -261,8 +263,10 @@ export const ListingLayout = React.forwardRef<
       );
     };
 
+    const Comp = asChild ? Slot : 'div';
+
     return (
-      <div
+      <Comp
         ref={ref}
         data-variant={variant}
         className={cn('flex w-full flex-col gap-[var(--x5,20px)]', className)}
@@ -271,7 +275,7 @@ export const ListingLayout = React.forwardRef<
         {sectionsOrder.map(renderSection)}
         {renderContent()}
         {renderFooter()}
-      </div>
+      </Comp>
     );
   }
 );

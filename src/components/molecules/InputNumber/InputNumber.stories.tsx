@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputNumber } from './InputNumber';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { InputNumber, InputNumberWrapper, InputNumberField, InputNumberControls, InputNumberPrefix, InputNumberSuffix } from './index';
 
 const meta: Meta<typeof InputNumber> = {
   title: 'Molecules/InputNumber',
@@ -35,9 +35,80 @@ const meta: Meta<typeof InputNumber> = {
 export default meta;
 type Story = StoryObj<typeof InputNumber>;
 
+// Composable API Examples (Recommended)
+export const ComposableBasic: Story = {
+  render: () => (
+    <div className="p-6">
+      <InputNumber defaultValue={0}>
+        <InputNumberWrapper>
+          <InputNumberField />
+          <InputNumberControls />
+        </InputNumberWrapper>
+      </InputNumber>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '✅ **Composable API**: Use InputNumberWrapper, InputNumberField, InputNumberControls, InputNumberPrefix, and InputNumberSuffix sub-components for flexible input composition.',
+      },
+    },
+  },
+};
+
+export const ComposableWithPrefix: Story = {
+  render: () => (
+    <div className="p-6">
+      <InputNumber defaultValue={100}>
+        <InputNumberWrapper>
+          <InputNumberPrefix>$</InputNumberPrefix>
+          <InputNumberField />
+          <InputNumberControls />
+        </InputNumberWrapper>
+      </InputNumber>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use InputNumberPrefix for prefix content like currency symbols.',
+      },
+    },
+  },
+};
+
+export const ComposableWithSuffix: Story = {
+  render: () => (
+    <div className="p-6">
+      <InputNumber defaultValue={50}>
+        <InputNumberWrapper>
+          <InputNumberField />
+          <InputNumberSuffix>%</InputNumberSuffix>
+          <InputNumberControls />
+        </InputNumberWrapper>
+      </InputNumber>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use InputNumberSuffix for suffix content like units.',
+      },
+    },
+  },
+};
+
+// Mark deprecated examples
 export const Default: Story = {
   args: {
     defaultValue: 0,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '⚠️ **Deprecated**: This uses the deprecated declarative API. Use the composable API with InputNumberWrapper, InputNumberField, and InputNumberControls instead.',
+      },
+    },
   },
 };
 

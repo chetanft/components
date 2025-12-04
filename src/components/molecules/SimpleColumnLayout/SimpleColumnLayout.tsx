@@ -1,7 +1,8 @@
 "use client";
 
 import React from 'react';
-import { Table, TableColumn, TableRowData } from '../../organisms/Table';
+import { Table } from '../../organisms/Table';
+import type { TableColumn, TableRowData } from '../../organisms/Table';
 
 export interface SimpleColumnCell {
   title: React.ReactNode;

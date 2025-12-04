@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 // ============================================================================
 // Types
@@ -12,7 +13,7 @@ import { Button } from '../../atoms/Button/Button';
 
 export type CalendarMode = 'month' | 'year' | 'decade';
 
-export interface CalendarProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'onSelect' | 'defaultValue'> {
+export interface CalendarProps extends Omit<ComposableProps<'div'>, 'onChange' | 'onSelect' | 'defaultValue'> {
   /** Current selected date */
   value?: Date;
   /** Default selected date */
@@ -110,6 +111,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     headerRender,
     validRange,
     locale: _locale = 'en',
+    asChild,
     ...props
   }, ref) => {
     const [internalValue, setInternalValue] = useState(controlledValue ?? defaultValue);
@@ -521,8 +523,10 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       );
     };
 
+    const Comp = asChild ? Slot : 'div';
+
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           "bg-[var(--bg-primary)] rounded-[var(--radius-md)]",
@@ -555,7 +559,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
             </Button>
           </div>
         )}
-      </div>
+      </Comp>
     );
   }
 );

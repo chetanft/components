@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Dropdown } from './Dropdown';
+import React, { useState } from 'react';
+import { Dropdown, DropdownTrigger, DropdownContent } from './index';
+import { DropdownMenu } from '../DropdownMenu';
 
 const meta: Meta<typeof Dropdown> = {
   title: 'Molecules/Dropdown',
@@ -191,5 +193,98 @@ export const GroupedOptions: Story = {
       { value: 'carrot', label: 'Carrot', group: 'Vegetables' },
       { value: 'broccoli', label: 'Broccoli', group: 'Vegetables' },
     ],
+  },
+};
+
+// Composable API Examples
+export const ComposableBasic: Story = {
+  render: () => {
+    const [value, setValue] = useState<string | number>();
+    return (
+      <Dropdown value={value} onChange={setValue} placeholder="Select an option">
+        <DropdownTrigger />
+        <DropdownContent>
+          <DropdownMenu>
+            <DropdownMenu.DropdownMenuItem value="option1">Option 1</DropdownMenu.DropdownMenuItem>
+            <DropdownMenu.DropdownMenuItem value="option2">Option 2</DropdownMenu.DropdownMenuItem>
+            <DropdownMenu.DropdownMenuItem value="option3">Option 3</DropdownMenu.DropdownMenuItem>
+          </DropdownMenu>
+        </DropdownContent>
+      </Dropdown>
+    );
+  },
+};
+
+export const ComposableWithLabel: Story = {
+  render: () => {
+    const [value, setValue] = useState<string | number>();
+    return (
+      <div className="space-y-2">
+        <label className="block text-sm font-medium">Select an Option</label>
+        <Dropdown value={value} onChange={setValue} placeholder="Choose...">
+          <DropdownTrigger />
+          <DropdownContent>
+            <DropdownMenu>
+              <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
+              <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
+              <DropdownMenu.DropdownMenuItem value="cherry">Cherry</DropdownMenu.DropdownMenuItem>
+            </DropdownMenu>
+          </DropdownContent>
+        </Dropdown>
+      </div>
+    );
+  },
+};
+
+function ComposableWithSearchComponent() {
+  const [value, setValue] = useState<string | number>();
+  const [searchQuery, setSearchQuery] = useState('');
+  return (
+    <Dropdown 
+      value={value} 
+      onChange={setValue} 
+      type="search"
+      placeholder="Search options..."
+      onSearch={setSearchQuery}
+    >
+      <DropdownTrigger />
+      <DropdownContent>
+        <DropdownMenu>
+          {['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry']
+              .filter(option => option.toLowerCase().includes(searchQuery.toLowerCase()))
+              .map(option => (
+                <DropdownMenu.DropdownMenuItem key={option} value={option.toLowerCase()}>
+                  {option}
+                </DropdownMenu.DropdownMenuItem>
+              ))}
+          </DropdownMenu>
+        </DropdownContent>
+      </Dropdown>
+  );
+}
+
+export const ComposableWithSearch: Story = {
+  render: () => <ComposableWithSearchComponent />,
+};
+
+export const ComposableWithGroups: Story = {
+  render: () => {
+    const [value, setValue] = useState<string | number>();
+    return (
+      <Dropdown value={value} onChange={setValue} type="groups" placeholder="Select a fruit">
+        <DropdownTrigger />
+        <DropdownContent>
+          <DropdownMenu>
+            <DropdownMenu.DropdownMenuLabel>Fruits</DropdownMenu.DropdownMenuLabel>
+            <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
+            <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
+            <DropdownMenu.DropdownMenuSeparator />
+            <DropdownMenu.DropdownMenuLabel>Vegetables</DropdownMenu.DropdownMenuLabel>
+            <DropdownMenu.DropdownMenuItem value="carrot">Carrot</DropdownMenu.DropdownMenuItem>
+            <DropdownMenu.DropdownMenuItem value="broccoli">Broccoli</DropdownMenu.DropdownMenuItem>
+          </DropdownMenu>
+        </DropdownContent>
+      </Dropdown>
+    );
   },
 };

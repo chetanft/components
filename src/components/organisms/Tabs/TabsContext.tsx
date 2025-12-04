@@ -9,6 +9,8 @@ export interface TabsContextType {
   onTabChange: (index: number) => void;
   type: TabType;
   showLine: boolean;
+  valueToIndexMap: Map<string, number>;
+  registerValue: (value: string, index: number) => void;
 }
 
 const TabsContext = createContext<TabsContextType | undefined>(undefined);

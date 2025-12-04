@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Input } from '../components/atoms/Input/Input';
+import { Input, InputLabel, InputField, InputHelper, InputError, InputWarning, InputSuccess } from '../components/atoms/Input';
 
 const meta: Meta<typeof Input> = {
   title: 'Components/Input',
@@ -113,6 +113,119 @@ export function InteractiveDemo() {
     </div>
   );
 }
+
+// Composable API Examples
+function ComposableBasicComponent() {
+  const [value, setValue] = React.useState('');
+  return (
+    <Input size="md" variant="default">
+      <InputLabel mandatory>Email Address</InputLabel>
+      <InputField 
+        type="email" 
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Enter your email"
+      />
+      <InputHelper>We'll never share your email</InputHelper>
+    </Input>
+  );
+}
+
+export const ComposableBasic: Story = {
+  render: () => <ComposableBasicComponent />,
+};
+
+function ComposableWithErrorComponent() {
+  const [value, setValue] = React.useState('');
+  const [error, setError] = React.useState('');
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setValue(val);
+    if (val && !val.includes('@')) {
+      setError('Please enter a valid email address');
+    } else {
+      setError('');
+    }
+  };
+  
+  return (
+    <Input size="md" variant="default" error={error}>
+      <InputLabel mandatory>Email Address</InputLabel>
+      <InputField 
+        type="email" 
+        value={value}
+        onChange={handleChange}
+        placeholder="Enter your email"
+      />
+      {error && <InputError>{error}</InputError>}
+    </Input>
+  );
+}
+
+export const ComposableWithError: Story = {
+  render: () => <ComposableWithErrorComponent />,
+};
+
+function ComposableWithIconsComponent() {
+  const [value, setValue] = React.useState('');
+  return (
+    <Input size="md" variant="default">
+      <InputLabel>Search</InputLabel>
+      <InputField 
+        type="text" 
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Search..."
+        leadingIcon="search"
+      />
+    </Input>
+  );
+}
+
+export const ComposableWithIcons: Story = {
+  render: () => <ComposableWithIconsComponent />,
+};
+
+function ComposableWithSuccessComponent() {
+  const [value, setValue] = React.useState('user@example.com');
+  return (
+    <Input size="md" variant="default" success="Email is valid">
+      <InputLabel>Email Address</InputLabel>
+      <InputField 
+        type="email" 
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Enter your email"
+      />
+      <InputSuccess>Email is valid</InputSuccess>
+    </Input>
+  );
+}
+
+export const ComposableWithSuccess: Story = {
+  render: () => <ComposableWithSuccessComponent />,
+};
+
+function ComposableWithWarningComponent() {
+  const [value, setValue] = React.useState('user@example');
+  return (
+    <Input size="md" variant="default" warning="Please verify your email address">
+      <InputLabel>Email Address</InputLabel>
+      <InputField 
+        type="email" 
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Enter your email"
+      />
+      <InputWarning>Please verify your email address</InputWarning>
+    </Input>
+  );
+}
+
+export const ComposableWithWarning: Story = {
+  render: () => <ComposableWithWarningComponent />,
+};
 
 // Filled variant (with value)
 export const Filled: Story = {

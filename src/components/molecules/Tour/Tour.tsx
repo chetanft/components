@@ -19,7 +19,11 @@ export interface TourStepProps {
 }
 
 export interface TourProps {
-  steps: TourStepProps[];
+  /**
+   * Steps array (for declarative API)
+   * @deprecated Use TourStep components as children instead
+   */
+  steps?: TourStepProps[];
   open?: boolean;
   defaultCurrent?: number;
   current?: number;
@@ -30,10 +34,21 @@ export interface TourProps {
   type?: 'default' | 'primary'; // Style of tour
   zIndex?: number;
   className?: string;
+  /**
+   * Tour steps (for composable API)
+   */
+  children?: React.ReactNode;
+}
+
+export interface TourStepComponentProps extends TourStepProps {
+  /**
+   * Step content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
 export const Tour: React.FC<TourProps> = ({
-  steps,
+  steps = [],
   open = false,
   defaultCurrent = 0,
   current: controlledCurrent,
@@ -43,12 +58,55 @@ export const Tour: React.FC<TourProps> = ({
   mask = true,
   zIndex = 1000,
   className,
+  children,
 }) => {
   const [internalCurrent, setInternalCurrent] = useState(defaultCurrent);
   const current = controlledCurrent !== undefined ? controlledCurrent : internalCurrent;
   const [position, setPosition] = useState<{ top: number; left: number; width: number; height: number } | null>(null);
 
-  const step = steps[current];
+  // Extract steps from children if using composable API
+  const stepsFromChildren = React.useMemo(() => {
+    if (!children) return [];
+    return React.Children.toArray(children)
+      .filter((child): child is React.ReactElement<TourStepComponentProps> => 
+        React.isValidElement(child) && child.type === TourStep
+      )
+      .map(child => ({
+        title: child.props.title,
+        description: child.props.children || child.props.description,
+        cover: child.props.cover,
+        target: child.props.target,
+        onClose: child.props.onClose,
+        nextButtonProps: child.props.nextButtonProps,
+        prevButtonProps: child.props.prevButtonProps,
+        placement: child.props.placement,
+      }));
+  }, [children]);
+
+  // Use children steps if available, otherwise use steps prop
+  const allSteps = stepsFromChildren.length > 0 ? stepsFromChildren : steps;
+
+  // Check if using composable API
+  const hasComposableChildren = React.Children.count(children) > 0 && stepsFromChildren.length > 0;
+
+  // Show deprecation warning
+  if (process.env.NODE_ENV !== 'production') {
+    if (hasComposableChildren && steps.length > 0) {
+      console.warn(
+        'Tour: Using deprecated props (steps array) with composable API. ' +
+        'Please use TourStep components as children instead. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    } else if (!hasComposableChildren && steps.length > 0) {
+      console.warn(
+        'Tour: Declarative API (steps array prop) is deprecated. ' +
+        'Please migrate to composable API using TourStep components as children. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+  }
+
+  const step = allSteps[current];
 
   // Calculate position based on target
   useEffect(() => {
@@ -153,7 +211,7 @@ export const Tour: React.FC<TourProps> = ({
 
         <div className="flex justify-between items-center mt-4">
           <div className="flex gap-1 text-xs text-[var(--text-tertiary)]">
-            {steps.map((_, idx) => (
+            {allSteps.map((_, idx) => (
               <span key={idx} className={cn("w-2 h-2 rounded-full", idx === current ? "bg-[var(--primary)]" : "bg-[var(--neutral-200)]")} />
             ))}
           </div>
@@ -162,7 +220,7 @@ export const Tour: React.FC<TourProps> = ({
               <Button size="xs" variant="secondary" onClick={handlePrev}>Previous</Button>
             )}
             <Button size="xs" variant="primary" onClick={handleNext}>
-              {current === steps.length - 1 ? 'Finish' : 'Next'}
+              {current === allSteps.length - 1 ? 'Finish' : 'Next'}
             </Button>
           </div>
         </div>
@@ -175,3 +233,30 @@ export const Tour: React.FC<TourProps> = ({
 };
 
 Tour.displayName = 'Tour';
+
+/**
+ * TourStep Component
+ *
+ * A composable component for individual steps in a Tour.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <Tour open={open} onClose={() => setOpen(false)}>
+ *   <TourStep title="Upload File" target={() => uploadRef.current}>
+ *     Put your files here.
+ *   </TourStep>
+ *   <TourStep title="Save" target={() => saveRef.current}>
+ *     Save your changes.
+ *   </TourStep>
+ * </Tour>
+ * ```
+ */
+export const TourStep: React.FC<TourStepComponentProps> = ({ children, ...props }) => {
+  // This component is used for composition only - it doesn't render anything itself
+  // The Tour component extracts props from TourStep children
+  return null;
+};
+
+TourStep.displayName = 'TourStep';

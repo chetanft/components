@@ -25,6 +25,9 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   /** 🆕 NEW: Stroke color (overrides variant) */
   strokeColor?: string;
   /** Show percentage text */
+  /**
+   * @deprecated Use conditional rendering instead: `{showPercentage && <span>{percentage}%</span>}`
+   */
   showPercentage?: boolean;
   /** 🆕 NEW: Custom format function for percentage */
   format?: (percent: number) => React.ReactNode;

@@ -23,11 +23,73 @@ export interface QuickFilter {
 }
 
 export interface QuickFiltersProps {
-  filters: QuickFilter[];
+  /**
+   * Filters array (for declarative API)
+   * @deprecated Use QuickFilter components as children instead
+   */
+  filters?: QuickFilter[];
   onFilterClick?: (filterId: string, optionId?: string) => void;
   onFilterRemove?: (filterId: string, optionId?: string) => void;
   className?: string;
   scrollable?: boolean;
+  /**
+   * Filter components (for composable API)
+   */
+  children?: React.ReactNode;
+}
+
+export interface QuickFilterComponentProps {
+  /**
+   * Filter ID (required)
+   */
+  id: string;
+  /**
+   * Filter label
+   */
+  label?: string;
+  /**
+   * Filter count
+   */
+  count?: number;
+  /**
+   * Filter type
+   */
+  type?: FilterType;
+  /**
+   * Whether filter is selected
+   */
+  selected?: boolean;
+  /**
+   * Selected option ID (for multi-option filters)
+   */
+  selectedOption?: string;
+  /**
+   * Filter options (for composable API)
+   */
+  children?: React.ReactNode;
+}
+
+export interface FilterOptionComponentProps {
+  /**
+   * Option ID (required)
+   */
+  id: string;
+  /**
+   * Option label
+   */
+  label?: string;
+  /**
+   * Option count
+   */
+  count?: number;
+  /**
+   * Option type
+   */
+  type?: FilterType;
+  /**
+   * Option content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
 const FilterChip: React.FC<{
@@ -180,12 +242,69 @@ const MultiOptionFilter: React.FC<{
 };
 
 export const QuickFilters: React.FC<QuickFiltersProps> = ({
-  filters,
+  filters = [],
   onFilterClick = () => { },
   onFilterRemove = () => { },
   className,
   scrollable = false,
+  children,
 }) => {
+  // Extract filters from children if using composable API
+  const filtersFromChildren = React.useMemo(() => {
+    if (!children) return [];
+    return React.Children.toArray(children)
+      .filter((child): child is React.ReactElement<QuickFilterComponentProps> => 
+        React.isValidElement(child) && child.type === QuickFilter
+      )
+      .map(child => {
+        // Extract FilterOption children
+        const optionChildren = React.Children.toArray(child.props.children)
+          .filter((opt): opt is React.ReactElement<FilterOptionComponentProps> => 
+            React.isValidElement(opt) && opt.type === FilterOption
+          );
+        
+        const options: FilterOption[] = optionChildren.map(opt => ({
+          id: opt.props.id,
+          label: String(opt.props.children || opt.props.label || opt.props.id),
+          count: opt.props.count,
+          type: opt.props.type,
+        }));
+
+        // Label comes from props.label, not children (children are FilterOptions for multi-option filters)
+        return {
+          id: child.props.id,
+          label: String(child.props.label || child.props.id),
+          count: child.props.count,
+          type: child.props.type,
+          options: options.length > 0 ? options : undefined,
+          selected: child.props.selected,
+          selectedOption: child.props.selectedOption,
+        } as QuickFilter;
+      });
+  }, [children]);
+
+  // Use children filters if available, otherwise use filters prop
+  const allFilters: QuickFilter[] = filtersFromChildren.length > 0 ? filtersFromChildren : filters;
+
+  // Check if using composable API
+  const hasComposableChildren = React.Children.count(children) > 0 && filtersFromChildren.length > 0;
+
+  // Show deprecation warning
+  if (process.env.NODE_ENV !== 'production') {
+    if (hasComposableChildren && filters.length > 0) {
+      console.warn(
+        'QuickFilters: Using deprecated props (filters array) with composable API. ' +
+        'Please use QuickFilter components as children instead. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    } else if (!hasComposableChildren && filters.length > 0) {
+      console.warn(
+        'QuickFilters: Declarative API (filters array prop) is deprecated. ' +
+        'Please migrate to composable API using QuickFilter components as children. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+  }
   return (
     <div
       className={cn(
@@ -200,7 +319,7 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
         WebkitOverflowScrolling: 'touch',
       } : undefined}
     >
-      {filters.map((filter) => {
+      {allFilters.map((filter) => {
         if (filter.options && filter.options.length > 0) {
           // Multi-option filter
           return (
@@ -241,4 +360,54 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
   );
 };
 
-QuickFilters.displayName = 'QuickFilters'; 
+QuickFilters.displayName = 'QuickFilters';
+
+/**
+ * QuickFilter Component
+ *
+ * A composable component for individual filters in a QuickFilters component.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <QuickFilters onFilterClick={handleClick}>
+ *   <QuickFilter id="all" label="All Items" />
+ *   <QuickFilter id="active" label="Active" count={12} />
+ *   <QuickFilter id="status" label="Status">
+ *     <FilterOption id="active" label="Active" count={12} />
+ *     <FilterOption id="pending" label="Pending" count={5} />
+ *   </QuickFilter>
+ * </QuickFilters>
+ * ```
+ */
+export const QuickFilter: React.FC<QuickFilterComponentProps> = ({ children, ...props }) => {
+  // This component is used for composition only - it doesn't render anything itself
+  // The QuickFilters component extracts props from QuickFilter children
+  return null;
+};
+
+QuickFilter.displayName = 'QuickFilter';
+
+/**
+ * FilterOption Component
+ *
+ * A composable component for individual options within a QuickFilter.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <QuickFilter id="status" label="Status">
+ *   <FilterOption id="active" label="Active" count={12} />
+ *   <FilterOption id="pending" label="Pending" count={5} />
+ * </QuickFilter>
+ * ```
+ */
+export const FilterOption: React.FC<FilterOptionComponentProps> = ({ children, ...props }) => {
+  // This component is used for composition only - it doesn't render anything itself
+  // The QuickFilters component extracts props from FilterOption children
+  return null;
+};
+
+FilterOption.displayName = 'FilterOption'; 

@@ -64,7 +64,7 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
           return {
             variant: 'neutral' as const,
             text: 'Validating',
-            showSpinner: true
+            showSpinner: true // Internal flag, not exposed as prop
           };
         case 'success':
           return {

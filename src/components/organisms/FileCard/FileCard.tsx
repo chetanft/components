@@ -7,6 +7,7 @@ import { Badge } from '../../atoms/Badge';
 import { FileTypeIcon } from '../FileTypeIcon';
 import { ProgressBar } from '../../molecules/ProgressBar';
 import { Typography } from '../../atoms/Typography';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface FileStats {
   total?: number;
@@ -14,7 +15,7 @@ export interface FileStats {
   invalid?: number;
 }
 
-export interface FileCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FileCardProps extends ComposableProps<'div'> {
   // File Information
   fileName: string;
   fileType: string;
@@ -61,6 +62,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
     onClose,
     variant = 'compact',
     downloadDisabled = false,
+    asChild,
     ...props
   }, ref) => {
 
@@ -139,9 +141,10 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
     const statusConfig = getStatusConfig();
     const isError = ['failed', 'template-mismatch', 'upload-failed', 'unsupported', 'empty', 'too-large'].includes(status);
     const showStats = variant === 'with-stats' && stats;
+    const Comp = asChild ? Slot : 'div';
 
     return (
-      <div
+      <Comp
         className={cn(
           // Base styles from Figma
           "bg-surface border border-border-secondary rounded-component p-[var(--spacing-x5)]",
@@ -298,7 +301,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
             </div>
           </div>
         )}
-      </div>
+      </Comp>
     );
   }
 );

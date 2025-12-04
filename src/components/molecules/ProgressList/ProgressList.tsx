@@ -4,6 +4,7 @@ import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons/Icon';
 import { Typography } from '../../atoms/Typography';
 import { IconName } from '../../atoms/Icons/types';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type ProgressItemState = 'completed' | 'current' | 'upcoming';
 export type PointType = 'parent' | 'icon' | 'primary' | 'label';
@@ -46,25 +47,134 @@ export interface DividerItem {
 
 export type ProgressListItem = ProgressItem | DividerItem;
 
-export interface ProgressListProps {
-  items: ProgressListItem[];
+export interface ProgressListProps extends ComposableProps<'div'> {
+  /**
+   * Items array (for declarative API)
+   * @deprecated Use ProgressListItem and ProgressListDivider components as children instead
+   */
+  items?: ProgressListItem[];
   showTime?: boolean;
-  className?: string;
+  /**
+   * Progress list content (for composable API)
+   */
+  children?: React.ReactNode;
 }
 
-export const ProgressList: React.FC<ProgressListProps> = ({
-  items = [],
-  showTime = false,
-  className = '',
-}) => {
-  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+export interface ProgressListItemProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * Item ID (required)
+   */
+  id: string;
+  /**
+   * Item title
+   */
+  title: string;
+  /**
+   * Item description
+   */
+  description?: string;
+  /**
+   * Item state
+   */
+  state: ProgressItemState;
+  /**
+   * Point type
+   */
+  pointType: PointType;
+  /**
+   * Line type
+   */
+  lineType?: LineType;
+  /**
+   * Start time
+   */
+  startTime?: string;
+  /**
+   * End time
+   */
+  endTime?: string;
+  /**
+   * Time label
+   */
+  timeLabel?: string;
+  /**
+   * Icon name
+   */
+  icon?: IconName;
+  /**
+   * Point label
+   */
+  pointLabel?: string;
+  /**
+   * Badges
+   */
+  badges?: Array<{
+    label: string;
+    icon?: IconName;
+    variant: 'normal' | 'danger' | 'warning' | 'success';
+  }>;
+  /**
+   * Header type
+   */
+  headerType?: 'primary' | 'secondary';
+  /**
+   * Show header line
+   */
+  showHeaderLine?: boolean;
+  /**
+   * Whether item is collapsible
+   */
+  collapsible?: boolean;
+  /**
+   * Item content
+   */
+  children?: React.ReactNode;
+  /**
+   * Multiple points
+   */
+  multiplePoints?: Array<{
+    type: PointType;
+    label?: string;
+    active?: boolean;
+  }>;
+  /**
+   * Whether this is the last item
+   */
+  isLast?: boolean;
+  /**
+   * Whether to show time column
+   */
+  showTime?: boolean;
+}
 
-  const toggleExpand = (id: string) => {
-    setExpandedItems(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
-  };
+export interface ProgressListDividerProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * Divider ID
+   */
+  id: string;
+  /**
+   * Divider label
+   */
+  label: string;
+}
+
+export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
+  ({
+    items = [],
+    showTime = false,
+    className = '',
+    children,
+    asChild,
+    ...props
+  }, ref) => {
+    const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+
+    const toggleExpand = (id: string) => {
+      setExpandedItems(prev => ({
+        ...prev,
+        [id]: !prev[id]
+      }));
+    };
 
   const renderDivider = (item: DividerItem) => {
     return (
@@ -351,25 +461,173 @@ export const ProgressList: React.FC<ProgressListProps> = ({
     );
   };
 
-  if (!items || items.length === 0) {
+    // Check if using composable API (has children)
+    const hasComposableChildren = React.Children.count(children) > 0;
+    
+    // If using composable API, render with children
+    if (hasComposableChildren) {
+      // Show deprecation warning if using old props with composable API
+      if (process.env.NODE_ENV !== 'production' && items?.length) {
+        console.warn(
+          'ProgressList: Using deprecated props (items array) with composable API. ' +
+          'Please use ProgressListItem and ProgressListDivider components as children instead. ' +
+          'See migration guide: docs/migrations/composable-migration.md'
+        );
+      }
+      
+      const Comp = asChild ? Slot : 'div';
+      const childrenArray = React.Children.toArray(children);
+      
+      return (
+        <Comp ref={ref} className={cn("progress-list flex flex-col", className)} {...props}>
+          {childrenArray.map((child, index) => {
+            if (React.isValidElement(child)) {
+              const isLast = index === childrenArray.length - 1;
+              if (child.type === ProgressListDivider) {
+                const dividerProps = child.props as ProgressListDividerProps;
+                return <ProgressListDivider key={dividerProps.id} {...dividerProps} />;
+              }
+              if (child.type === ProgressListItem) {
+                const itemProps = child.props as ProgressListItemProps;
+                const item: ProgressItem = {
+                  id: itemProps.id,
+                  title: itemProps.title,
+                  description: itemProps.description,
+                  state: itemProps.state,
+                  pointType: itemProps.pointType,
+                  lineType: itemProps.lineType,
+                  startTime: itemProps.startTime,
+                  endTime: itemProps.endTime,
+                  timeLabel: itemProps.timeLabel,
+                  icon: itemProps.icon,
+                  pointLabel: itemProps.pointLabel,
+                  badges: itemProps.badges,
+                  headerType: itemProps.headerType,
+                  showHeaderLine: itemProps.showHeaderLine,
+                  collapsible: itemProps.collapsible,
+                  content: itemProps.children,
+                  multiplePoints: itemProps.multiplePoints,
+                };
+                return (
+                  <div key={item.id}>
+                    {renderProgressItem(item, isLast)}
+                  </div>
+                );
+              }
+            }
+            return child;
+          })}
+        </Comp>
+      );
+    }
+    
+    // Otherwise use declarative API (deprecated)
+    if (process.env.NODE_ENV !== 'production' && items?.length) {
+      console.warn(
+        'ProgressList: Declarative API (items array prop) is deprecated. ' +
+        'Please migrate to composable API using ProgressListItem and ProgressListDivider components as children. ' +
+        'See migration guide: docs/migrations/composable-migration.md'
+      );
+    }
+
+    if (!items || items.length === 0) {
+      const Comp = asChild ? Slot : 'div';
+      return (
+        <Comp ref={ref} className={cn("progress-list flex flex-col", className)} {...props}>
+          <div className="text-sm text-gray-500 p-4 text-center">No items to display</div>
+        </Comp>
+      );
+    }
+
+    const Comp = asChild ? Slot : 'div';
     return (
-      <div className={cn("progress-list flex flex-col", className)}>
-        <div className="text-sm text-gray-500 p-4 text-center">No items to display</div>
+      <Comp ref={ref} className={cn("progress-list flex flex-col", className)} {...props}>
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+
+          if ('type' in item && item.type === 'divider') {
+            return renderDivider(item);
+          }
+
+          return renderProgressItem(item as ProgressItem, isLast);
+        })}
+      </Comp>
+    );
+  }
+);
+
+ProgressList.displayName = 'ProgressList';
+
+/**
+ * ProgressListItem Component
+ *
+ * A composable component for individual progress items in a ProgressList.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <ProgressList showTime>
+ *   <ProgressListItem
+ *     id="1"
+ *     title="Step 1"
+ *     description="Description"
+ *     state="completed"
+ *     pointType="primary"
+ *   />
+ *   <ProgressListItem
+ *     id="2"
+ *     title="Step 2"
+ *     state="current"
+ *     pointType="primary"
+ *   />
+ * </ProgressList>
+ * ```
+ */
+export const ProgressListItem = React.forwardRef<HTMLDivElement, ProgressListItemProps>(
+  (props, ref) => {
+    // This component is used as a marker for ProgressList to identify composable children
+    // The actual rendering is handled by ProgressList
+    return null;
+  }
+);
+
+ProgressListItem.displayName = 'ProgressListItem';
+
+/**
+ * ProgressListDivider Component
+ *
+ * A composable component for dividers in a ProgressList.
+ *
+ * @public
+ *
+ * @example
+ * ```tsx
+ * <ProgressList>
+ *   <ProgressListItem id="1" title="Step 1" state="completed" pointType="primary" />
+ *   <ProgressListDivider id="div1" label="Section Break" />
+ *   <ProgressListItem id="2" title="Step 2" state="current" pointType="primary" />
+ * </ProgressList>
+ * ```
+ */
+export const ProgressListDivider = React.forwardRef<HTMLDivElement, ProgressListDividerProps>(
+  ({ id, label, className, ...props }, ref) => {
+    return (
+      <div ref={ref} className={cn("flex justify-between items-center gap-[-36px] py-[var(--spacing-x4)] w-full", className)} {...props}>
+        <div className="flex-1 h-px border-b border-[var(--border-primary)]" />
+        <div className="flex items-center justify-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] bg-[var(--color-bg-primary)] border border-[var(--border-primary)] rounded-full shadow-sm">
+          <Typography
+            variant="body-secondary-medium"
+            color="secondary"
+            className="text-right"
+          >
+            {label}
+          </Typography>
+        </div>
+        <div className="flex-1 h-px border-b border-[var(--border-primary)]" />
       </div>
     );
   }
+);
 
-  return (
-    <div className={cn("progress-list flex flex-col", className)}>
-      {items.map((item, index) => {
-        const isLast = index === items.length - 1;
-
-        if ('type' in item && item.type === 'divider') {
-          return renderDivider(item);
-        }
-
-        return renderProgressItem(item as ProgressItem, isLast);
-      })}
-    </div>
-  );
-}; 
+ProgressListDivider.displayName = 'ProgressListDivider'; 

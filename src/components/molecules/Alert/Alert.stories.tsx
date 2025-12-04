@@ -1,5 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Alert } from './Alert';
+import { AlertIcon } from './AlertIcon';
+import { AlertTitle } from './AlertTitle';
+import { AlertDescription } from './AlertDescription';
+import { AlertAction } from './AlertAction';
+import { AlertClose } from './AlertClose';
 import { Button } from '../../atoms/Button/Button';
 
 const meta: Meta<typeof Alert> = {
@@ -22,10 +27,18 @@ const meta: Meta<typeof Alert> = {
 export default meta;
 type Story = StoryObj<typeof Alert>;
 
+// Deprecated API Examples (for backward compatibility)
 export const Default: Story = {
   args: {
     message: 'This is an alert message',
     variant: 'info',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: '⚠️ **Deprecated**: This uses the deprecated `message` prop. Use the composable API with `AlertDescription` instead.',
+      },
+    },
   },
 };
 
@@ -109,4 +122,53 @@ export const RadiusNone: Story = {
         variant: 'danger',
         radius: 'none',
     },
+};
+
+// Composable API Examples (Recommended)
+export const ComposableBasic: Story = {
+    render: () => (
+        <Alert variant="info" radius="md">
+            <AlertIcon />
+            <AlertTitle>Information</AlertTitle>
+            <AlertDescription>This is an info alert message using the composable API.</AlertDescription>
+        </Alert>
+    ),
+};
+
+export const ComposableWithAction: Story = {
+    render: () => (
+        <Alert variant="success" radius="md">
+            <AlertIcon />
+            <AlertTitle>Success</AlertTitle>
+            <AlertDescription>Your changes have been saved successfully.</AlertDescription>
+            <AlertAction>
+                <Button size="sm" variant="primary">View Details</Button>
+            </AlertAction>
+        </Alert>
+    ),
+};
+
+export const ComposableClosable: Story = {
+    render: () => (
+        <Alert variant="warning" radius="md">
+            <AlertIcon />
+            <AlertTitle>Warning</AlertTitle>
+            <AlertDescription>This alert can be dismissed.</AlertDescription>
+            <AlertClose />
+        </Alert>
+    ),
+};
+
+export const ComposableComplete: Story = {
+    render: () => (
+        <Alert variant="danger" radius="md">
+            <AlertIcon />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>Something went wrong. Please try again.</AlertDescription>
+            <AlertAction>
+                <Button size="sm" variant="destructive">Retry</Button>
+            </AlertAction>
+            <AlertClose />
+        </Alert>
+    ),
 };

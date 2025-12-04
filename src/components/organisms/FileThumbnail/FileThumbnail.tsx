@@ -3,8 +3,9 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { FileTypeIcon } from '../FileTypeIcon/FileTypeIcon';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface FileThumbnailProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface FileThumbnailProps extends ComposableProps<'div'> {
   fileName: string;
   imageUrl?: string; // Optional image preview URL
   showFileName?: boolean; // Whether to show filename below thumbnail
@@ -26,14 +27,16 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
     showFileName = false,
     onPreview,
     onDownload,
+    asChild,
     ...props 
   }, ref) => {
     const [isHovered, setIsHovered] = React.useState(false);
     const fileExtension = getFileExtension(fileName);
     const hasActions = (onPreview || onDownload) && imageUrl;
+    const Comp = asChild ? Slot : 'div';
     
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           "flex flex-col gap-[4px] items-start w-[80px]",
@@ -106,7 +109,7 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
             {fileName}
           </p>
         )}
-      </div>
+      </Comp>
     );
   }
 );

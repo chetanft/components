@@ -2,8 +2,9 @@ import React from 'react';
 import { Logo } from '../../atoms/Logos';
 import { Avatar } from '../../atoms/Avatar';
 import { CompanyInfo } from '../../../types/company';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface UserProfileProps {
+export interface UserProfileProps extends Omit<ComposableProps<'div'>, 'company' | 'userName' | 'userRole' | 'userLocation' | 'userBadge' | 'userAvatar' | 'companyName' | 'onClick'> {
   company?: CompanyInfo;
   userName?: string;
   userRole?: string;
@@ -24,12 +25,18 @@ export const UserProfile: React.FC<UserProfileProps> = ({
     displayName: 'Tata Motors'
   },
   userName = 'Santosh Kumar',
+  userRole,
+  userLocation,
+  userBadge,
   userAvatar,
   companyName = true,
   onClick = () => { },
   className,
+  asChild,
+  ...props
 }) => {
   const containerClassName = `${baseContainer} ${companyName ? 'gap-[15px] items-center p-[var(--x2,8px)]' : 'gap-[10px] items-center justify-center overflow-clip p-[var(--x2,8px)]'}${className ? ` ${className}` : ''}`;
+  const Comp = asChild ? Slot : 'div';
 
   const handleAvatarClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -45,8 +52,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   };
 
   return (
-    <div
+    <Comp
       className={containerClassName}
+      {...props}
     >
       {companyName ? (
         <>
@@ -78,7 +86,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
           tabIndex={0}
         />
       )}
-    </div>
+    </Comp>
   );
 };
 

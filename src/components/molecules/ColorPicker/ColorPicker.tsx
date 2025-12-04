@@ -83,6 +83,9 @@ export interface ColorPickerProps {
   onChange?: (value: string, hex: string) => void;
   disabled?: boolean;
   className?: string;
+  /**
+   * @deprecated Use conditional rendering instead: `{showText && <span>{formattedValue}</span>}`
+   */
   showText?: boolean;
   size?: 'sm' | 'md' | 'lg';
 }

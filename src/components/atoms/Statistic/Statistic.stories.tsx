@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Statistic } from './Statistic';
+import { Statistic, StatisticTitle, StatisticValue } from './index';
 
 const meta = {
   title: 'Atoms/Statistic',
@@ -187,6 +187,82 @@ export const DashboardExample: Story = {
           value="12" 
           labelPlacement="Top"
         />
+      </div>
+    </div>
+  ),
+};
+
+// Composable API Examples
+export const ComposableBasic: Story = {
+  render: () => (
+    <Statistic>
+      <StatisticValue>1,234</StatisticValue>
+      <StatisticTitle>Total Users</StatisticTitle>
+    </Statistic>
+  ),
+};
+
+export const ComposableLabelOnTop: Story = {
+  render: () => (
+    <Statistic labelPlacement="Top">
+      <StatisticTitle>Revenue</StatisticTitle>
+      <StatisticValue>$45,678</StatisticValue>
+    </Statistic>
+  ),
+};
+
+export const ComposableWithCustomStyling: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <Statistic>
+        <StatisticValue className="text-[var(--positive)] text-3xl font-bold">2,456</StatisticValue>
+        <StatisticTitle className="text-[var(--tertiary)]">Active Users</StatisticTitle>
+      </Statistic>
+      <Statistic>
+        <StatisticValue className="text-[var(--critical)] text-2xl">$12,345</StatisticValue>
+        <StatisticTitle>Monthly Revenue</StatisticTitle>
+      </Statistic>
+    </div>
+  ),
+};
+
+export const ComposableDashboard: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <h3 className="font-semibold">Dashboard Statistics (Composable API)</h3>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <Statistic>
+          <StatisticValue>12,345</StatisticValue>
+          <StatisticTitle>Total Users</StatisticTitle>
+        </Statistic>
+        <Statistic>
+          <StatisticValue>$98,765</StatisticValue>
+          <StatisticTitle>Monthly Revenue</StatisticTitle>
+        </Statistic>
+        <Statistic>
+          <StatisticValue>1,234</StatisticValue>
+          <StatisticTitle>Active Sessions</StatisticTitle>
+        </Statistic>
+        <Statistic>
+          <StatisticValue>4.2%</StatisticValue>
+          <StatisticTitle>Conversion Rate</StatisticTitle>
+        </Statistic>
+        <Statistic labelPlacement="Top">
+          <StatisticTitle>Page Views</StatisticTitle>
+          <StatisticValue>456,789</StatisticValue>
+        </Statistic>
+        <Statistic labelPlacement="Top">
+          <StatisticTitle>Avg. Session Duration</StatisticTitle>
+          <StatisticValue>3m 45s</StatisticValue>
+        </Statistic>
+        <Statistic labelPlacement="Top">
+          <StatisticTitle>New Customers</StatisticTitle>
+          <StatisticValue>234</StatisticValue>
+        </Statistic>
+        <Statistic labelPlacement="Top">
+          <StatisticTitle>Support Tickets</StatisticTitle>
+          <StatisticValue>12</StatisticValue>
+        </Statistic>
       </div>
     </div>
   ),

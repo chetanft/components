@@ -1,9 +1,10 @@
 import React from 'react';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../Icons/Icon';
 import { Typography } from '../Typography';
 
-export interface ReadOnlyProps {
+export interface ReadOnlyProps extends ComposableProps<'div'> {
   /**
    * Layout type
    */
@@ -35,19 +36,23 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
   labelIcon = false,
   label = "Label",
   value = "Text",
-  className = '' 
+  className = '',
+  asChild,
+  ...props
 }) => {
   const isHorizontal = type === "Horizontal";
   const isVertical = type === "Vertical";
+  const Comp = asChild ? Slot : 'div';
 
   // Horizontal without label icon
   if (isHorizontal && !labelIcon) {
     return (
-      <div 
+      <Comp 
         className={cn(
           "content-stretch flex gap-[8px] items-center relative w-[82px]", 
           className
         )}
+        {...props}
       >
         <div className="content-stretch flex gap-[var(--x1,4px)] items-center relative shrink-0" data-name="Label">
           <Typography variant="body-secondary-medium" color="secondary" className="relative shrink-0 whitespace-nowrap">
@@ -59,18 +64,19 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
             {value}
           </Typography>
         </div>
-      </div>
+      </Comp>
     );
   }
 
   // Horizontal with label icon
   if (isHorizontal && labelIcon) {
     return (
-      <div 
+      <Comp 
         className={cn(
           "content-stretch flex gap-[8px] items-center relative w-[102px]", 
           className
         )}
+        {...props}
       >
         <div className="content-stretch flex gap-[var(--x1,4px)] items-center relative shrink-0">
           <div className="relative shrink-0 size-[16px]" data-name="Check- fill">
@@ -87,18 +93,19 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
             {value}
           </Typography>
         </div>
-      </div>
+      </Comp>
     );
   }
 
   // Vertical with label icon
   if (isVertical && labelIcon) {
     return (
-      <div 
+      <Comp 
         className={cn(
           "content-stretch flex gap-[var(--x2,8px)] items-start relative w-[183px]", 
           className
         )}
+        {...props}
       >
         <div className="box-border content-stretch flex gap-[10px] items-center pb-0 pt-[2px] px-0 relative shrink-0">
           <div className="relative shrink-0 size-[16px]" data-name="Check- fill">
@@ -117,17 +124,18 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
             </Typography>
           </div>
         </div>
-      </div>
+      </Comp>
     );
   }
 
   // Vertical without label icon
   return (
-    <div 
+    <Comp 
       className={cn(
         "content-stretch flex flex-col gap-[var(--x2,8px)] items-start relative w-[183px]", 
         className
       )}
+      {...props}
     >
       <div className="content-stretch flex gap-[var(--x1,4px)] items-center relative shrink-0" data-name="Label">
         <Typography variant="body-secondary-medium" color="secondary" className="relative shrink-0 whitespace-nowrap">
@@ -139,7 +147,7 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
           {value}
         </Typography>
       </div>
-    </div>
+    </Comp>
   );
 };
 

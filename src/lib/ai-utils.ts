@@ -77,7 +77,7 @@ export function filterAIStyles(style?: React.CSSProperties): React.CSSProperties
  * This filters out problematic props that AI tools might add
  */
 export function withAIProtection<P extends { className?: string; style?: React.CSSProperties }>(
-  Component: React.ComponentType<P>
+  Component: React.ComponentType<P> | React.ForwardRefExoticComponent<P>
 ) {
   const AIProtectedComponent = (props: P) => {
     const safeProps = useMemo(() => {
@@ -93,7 +93,7 @@ export function withAIProtection<P extends { className?: string; style?: React.C
     return React.createElement(Component, safeProps);
   };
 
-  AIProtectedComponent.displayName = `AIProtected(${Component.displayName || Component.name})`;
+  AIProtectedComponent.displayName = `AIProtected(${Component.displayName || Component.name || 'Component'})`;
 
   return AIProtectedComponent;
 }

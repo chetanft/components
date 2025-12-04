@@ -113,8 +113,8 @@ export function StoryPreview({
     // For function stories, try to extract actual JSX from source
     if (story.component || story.render) {
       // Check if story has explicit source code in parameters
-      if (story.parameters?.docs?.source?.code) {
-        return story.parameters.docs.source.code;
+      if ((story.story as any)?.parameters?.docs?.source?.code) {
+        return (story.story as any).parameters.docs.source.code;
       }
       
       // Try to extract Button JSX from story source
@@ -326,7 +326,13 @@ export function StoryPreview({
         {/* Content */}
         {view === "preview" && (
           <div className="p-8 min-h-[200px] bg-background overflow-x-auto">
-            <div className="flex items-center justify-start min-w-max">{renderedStory}</div>
+            <div className={cn(
+              "flex items-center min-w-max",
+              (meta.component?.displayName || meta.component?.name) === 'FloatButton' || 
+              (meta.component?.displayName || meta.component?.name) === 'FloatButtonGroup'
+                ? "justify-center"
+                : "justify-start"
+            )}>{renderedStory}</div>
           </div>
         )}
 

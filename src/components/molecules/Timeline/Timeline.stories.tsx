@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 import { Timeline, TimelineItem } from './Timeline';
+import { TimelineDot } from './TimelineDot';
+import { TimelineContent } from './TimelineContent';
+import { TimelineLabel } from './TimelineLabel';
 
 const meta: Meta<typeof Timeline> = {
   title: 'Molecules/Timeline',
@@ -152,6 +156,103 @@ export const ComplexContent: Story = {
           <p className="text-sm text-[var(--color-secondary)] mt-1">Your application is currently under review by our team.</p>
           <p className="text-xs text-[var(--color-tertiary)] mt-2">September 3, 2015 at 10:00 AM</p>
         </div>
+      </TimelineItem>
+    </Timeline>
+  ),
+};
+
+// Composable API Examples
+export const ComposableBasic: Story = {
+  render: () => (
+    <Timeline>
+      <TimelineItem>
+        <TimelineDot color="success" icon="check-circle" />
+        <TimelineContent>
+          <TimelineLabel>2015-09-01</TimelineLabel>
+          <p>Create a services site</p>
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineDot color="success" icon="check-circle" />
+        <TimelineContent>
+          <TimelineLabel>2015-09-02</TimelineLabel>
+          <p>Solve initial network problems</p>
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineDot color="warning" icon="clock" />
+        <TimelineContent>
+          <TimelineLabel>2015-09-03</TimelineLabel>
+          <p>Technical testing</p>
+        </TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  ),
+};
+
+export const ComposableAlternate: Story = {
+  render: () => (
+    <Timeline mode="alternate">
+      <TimelineItem>
+        <TimelineDot color="success" icon="check-circle" />
+        <TimelineContent>
+          <TimelineLabel>2015-09-01</TimelineLabel>
+          <p className="font-medium">Application Submitted</p>
+          <p className="text-sm text-[var(--color-tertiary)]">Your application has been received</p>
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineDot color="success" icon="check-circle" />
+        <TimelineContent>
+          <TimelineLabel>2015-09-02</TimelineLabel>
+          <p className="font-medium">Documents Verified</p>
+          <p className="text-sm text-[var(--color-tertiary)]">All documents verified successfully</p>
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineDot color="warning" icon="clock" />
+        <TimelineContent>
+          <TimelineLabel>2015-09-03</TimelineLabel>
+          <p className="font-medium">Under Review</p>
+          <p className="text-sm text-[var(--color-tertiary)]">Currently under review</p>
+        </TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  ),
+};
+
+export const ComposableWithCustomContent: Story = {
+  render: () => (
+    <Timeline>
+      <TimelineItem>
+        <TimelineDot color="success" icon="check-circle" />
+        <TimelineContent>
+          <div className="bg-[var(--color-bg-secondary)] p-4 rounded-lg">
+            <h4 className="font-medium text-[var(--color-primary)]">Order Placed</h4>
+            <p className="text-sm text-[var(--color-secondary)] mt-1">Your order #12345 has been placed successfully.</p>
+            <TimelineLabel className="mt-2">September 1, 2015 at 9:12 AM</TimelineLabel>
+          </div>
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineDot color="primary" icon="package" />
+        <TimelineContent>
+          <div className="bg-[var(--color-bg-secondary)] p-4 rounded-lg">
+            <h4 className="font-medium text-[var(--color-primary)]">Order Shipped</h4>
+            <p className="text-sm text-[var(--color-secondary)] mt-1">Your order has been shipped via FedEx.</p>
+            <TimelineLabel className="mt-2">September 2, 2015 at 2:30 PM</TimelineLabel>
+          </div>
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem pending>
+        <TimelineDot color="neutral" icon="truck" />
+        <TimelineContent>
+          <div className="bg-[var(--color-bg-secondary)] p-4 rounded-lg">
+            <h4 className="font-medium text-[var(--color-primary)]">In Transit</h4>
+            <p className="text-sm text-[var(--color-secondary)] mt-1">Your order is on its way.</p>
+            <TimelineLabel className="mt-2">Expected: September 5, 2015</TimelineLabel>
+          </div>
+        </TimelineContent>
       </TimelineItem>
     </Timeline>
   ),

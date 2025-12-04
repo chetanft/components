@@ -6,7 +6,7 @@ import { Slot, type ComposableProps } from '../../../lib/slot';
 import { DataEntryTableCell } from './DataEntryTableCell';
 import { useDataEntryTableContext } from './DataEntryTableContext';
 import type { DataEntryCellType } from './DataEntryTableCell';
-import type { DropdownOption } from '../../molecules/Dropdown/Dropdown';
+import type { DropdownOption } from '../../molecules/Dropdown';
 import type { ActionConfig } from './DataEntryTableCell';
 
 export interface DataEntryTableRowCellProps extends ComposableProps<'td'> {

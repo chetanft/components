@@ -4,8 +4,9 @@ import React, { useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Typography } from '../../atoms/Typography';
+import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface UploadThumbnailProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSelect'> {
+export interface UploadThumbnailProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
   preview?: string | null;
   fileName?: string;
   state?: 'default' | 'hover' | 'disabled';
@@ -29,6 +30,7 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
     multiple = false,
     disabled = false,
     showFileName = true,
+    asChild,
     ...props 
   }, ref) => {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -112,8 +114,9 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
     }
     
     // Otherwise, show the "Add" button
+    const Comp = asChild ? Slot : 'div';
     return (
-      <div
+      <Comp
         ref={ref}
         className={cn(
           "inline-flex items-center justify-center gap-0 p-0 rounded-[var(--radius-md)]",
@@ -162,7 +165,7 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
           multiple={multiple}
           disabled={isDisabled}
         />
-      </div>
+      </Comp>
     );
   }
 );
