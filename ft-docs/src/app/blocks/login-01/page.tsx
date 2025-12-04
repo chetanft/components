@@ -22,15 +22,17 @@ export default function Login01Page() {
               borderColor: "var(--border-secondary)",
             }}
           >
-            <PageHeader
-              title="Login Page"
-              subtitle="A clean login page with form and branding."
-              showBackButton
-              onBack={() => router.push("/blocks")}
-              showTabs={false}
-              showActions={false}
-              className="!bg-transparent !px-6"
-            />
+            <PageHeader className="!bg-transparent !px-6">
+              <PageHeader.Top>
+                <PageHeader.Left>
+                  <PageHeader.BackButton onClick={() => router.push("/blocks")} />
+                  <PageHeader.TitleGroup>
+                    <PageHeader.Title>Login Page</PageHeader.Title>
+                    <PageHeader.Subtitle>A clean login page with form and branding.</PageHeader.Subtitle>
+                  </PageHeader.TitleGroup>
+                </PageHeader.Left>
+              </PageHeader.Top>
+            </PageHeader>
             <p
               className="px-6 pb-6 text-sm md:text-base"
               style={{ color: "var(--secondary)" }}

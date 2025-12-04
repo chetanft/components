@@ -50,14 +50,18 @@ export default function BlocksPage() {
               borderColor: "var(--border-secondary)",
             }}
           >
-            <PageHeader
-              title="Building Blocks"
-              subtitle="Clean, modern building blocks built with FT Design System. Copy and paste into your apps."
-              showBackButton={false}
-              showTabs={false}
-              showActions={false}
-              className="!bg-transparent !px-6"
-            />
+            <PageHeader className="!bg-transparent !px-6">
+              <PageHeader.Top>
+                <PageHeader.Left>
+                  <PageHeader.TitleGroup>
+                    <PageHeader.Title>Building Blocks</PageHeader.Title>
+                    <PageHeader.Subtitle>
+                      Clean, modern building blocks built with FT Design System. Copy and paste into your apps.
+                    </PageHeader.Subtitle>
+                  </PageHeader.TitleGroup>
+                </PageHeader.Left>
+              </PageHeader.Top>
+            </PageHeader>
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

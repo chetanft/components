@@ -22,15 +22,17 @@ export default function Listing01Page() {
               borderColor: "var(--border-secondary)",
             }}
           >
-            <PageHeader
-              title="Listing Page with Filters"
-              subtitle="A listing page with quick filters and table."
-              showBackButton
-              onBack={() => router.push("/blocks")}
-              showTabs={false}
-              showActions={false}
-              className="!bg-transparent !px-6"
-            />
+            <PageHeader className="!bg-transparent !px-6">
+              <PageHeader.Top>
+                <PageHeader.Left>
+                  <PageHeader.BackButton onClick={() => router.push("/blocks")} />
+                  <PageHeader.TitleGroup>
+                    <PageHeader.Title>Listing Page with Filters</PageHeader.Title>
+                    <PageHeader.Subtitle>A listing page with quick filters and table.</PageHeader.Subtitle>
+                  </PageHeader.TitleGroup>
+                </PageHeader.Left>
+              </PageHeader.Top>
+            </PageHeader>
             <p
               className="px-6 pb-6 text-sm md:text-base"
               style={{ color: "var(--secondary)" }}
