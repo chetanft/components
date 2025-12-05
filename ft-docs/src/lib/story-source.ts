@@ -25,7 +25,9 @@ const storySourceMap: Record<string, () => Promise<string>> = {
   'Illustration': () => import('../../../src/components/atoms/Illustration/Illustration.stories.tsx?raw').then(m => m.default),
   'Logo': () => import('../../../src/components/atoms/Logos/Logo.stories.tsx?raw').then(m => m.default),
   'Icon': () => import('../../../src/components/atoms/Icons/Icon.stories.tsx?raw').then(m => m.default),
-  
+  'Skeleton': () => import('../../../src/components/atoms/Skeleton/Skeleton.stories.tsx?raw').then(m => m.default),
+  'Toggle': () => import('../../../src/components/atoms/Toggle/Toggle.stories.tsx?raw').then(m => m.default),
+
   // Molecules
   'Alert': () => import('../../../src/components/molecules/Alert/Alert.stories.tsx?raw').then(m => m.default),
   'Chicklet': () => import('../../../src/components/molecules/Chicklet/Chicklet.stories.tsx?raw').then(m => m.default),
@@ -62,7 +64,15 @@ const storySourceMap: Record<string, () => Promise<string>> = {
   'SimpleColumnLayout': () => import('../../../src/components/molecules/SimpleColumnLayout/SimpleColumnLayout.stories.tsx?raw').then(m => m.default),
   'Steps': () => import('../../../src/components/molecules/Steps/Steps.stories.tsx?raw').then(m => m.default),
   'StackedBarChart': () => import('../../../src/components/molecules/StackedBarChart/StackedBarChart.stories.tsx?raw').then(m => m.default),
-  
+  'Descriptions': () => import('../../../src/components/molecules/Descriptions/Descriptions.stories.tsx?raw').then(m => m.default),
+  'HoverCard': () => import('../../../src/components/molecules/HoverCard/HoverCard.stories.tsx?raw').then(m => m.default),
+  'List': () => import('../../../src/components/molecules/List/List.stories.tsx?raw').then(m => m.default),
+  'Loader': () => import('../../../src/components/molecules/Loader/Loader.stories.tsx?raw').then(m => m.default),
+  'Notification': () => import('../../../src/components/molecules/Notification/Notification.stories.tsx?raw').then(m => m.default),
+  'Popconfirm': () => import('../../../src/components/molecules/Popconfirm/Popconfirm.stories.tsx?raw').then(m => m.default),
+  'ToggleGroup': () => import('../../../src/components/molecules/ToggleGroup/ToggleGroup.stories.tsx?raw').then(m => m.default),
+  'TreeSelect': () => import('../../../src/components/molecules/TreeSelect/TreeSelect.stories.tsx?raw').then(m => m.default),
+
   // Organisms
   'DataEntryTable': () => import('../../../src/stories/DataEntryTable.stories.tsx?raw').then(m => m.default),
   'Tabs': () => import('../../../src/components/organisms/Tabs/Tabs.stories.tsx?raw').then(m => m.default),
@@ -71,7 +81,10 @@ const storySourceMap: Record<string, () => Promise<string>> = {
   'Result': () => import('../../../src/components/organisms/Result/Result.stories.tsx?raw').then(m => m.default),
   'Collapsible': () => import('../../../src/components/organisms/Collapsible/Collapsible.stories.tsx?raw').then(m => m.default),
   'Modal': () => import('../../../src/components/organisms/Modal/Modal.stories.tsx?raw').then(m => m.default),
-  
+  'Drawer': () => import('../../../src/components/organisms/Drawer/Drawer.stories.tsx?raw').then(m => m.default),
+  'PageHeader': () => import('../../../src/components/organisms/PageHeader/PageHeader.stories.tsx?raw').then(m => m.default),
+  'QuickFilters': () => import('../../../src/components/organisms/QuickFilters/QuickFilters.stories.tsx?raw').then(m => m.default),
+
   // Stories folder (standalone stories)
   'Input': () => import('../../../src/stories/Input.stories.tsx?raw').then(m => m.default),
   'Label': () => import('../../../src/stories/Label.stories.tsx?raw').then(m => m.default),
@@ -94,7 +107,9 @@ const storySourceMap: Record<string, () => Promise<string>> = {
   'NavigationPopover': () => import('../../../src/stories/NavigationPopover.stories.tsx?raw').then(m => m.default),
   'Footer': () => import('../../../src/stories/Footer.stories.tsx?raw').then(m => m.default),
   'ReadOnly': () => import('../../../src/stories/ReadOnly.stories.tsx?raw').then(m => m.default),
-  
+  'ColorSystem': () => import('../../../src/stories/ColorSystem.stories.tsx?raw').then(m => m.default),
+  'ThemeSystem': () => import('../../../src/stories/ThemeSystem.stories.tsx?raw').then(m => m.default),
+
   // Charts
   'AreaChart': () => import('../../../src/stories/AreaChart.stories.tsx?raw').then(m => m.default),
   'LineChart': () => import('../../../src/stories/LineChart.stories.tsx?raw').then(m => m.default),
@@ -108,12 +123,12 @@ const storySourceMap: Record<string, () => Promise<string>> = {
  */
 export async function loadStorySource(componentName: string): Promise<string | null> {
   const loader = storySourceMap[componentName];
-  
+
   if (!loader) {
     console.warn(`No story source found for component: ${componentName}`);
     return null;
   }
-  
+
   try {
     return await loader();
   } catch (error) {
@@ -126,19 +141,22 @@ export async function loadStorySource(componentName: string): Promise<string | n
  * Extract source code for a specific story from the full source
  */
 export function extractStorySource(fullSource: string, storyName: string): string | null {
+  if (typeof fullSource !== 'string') {
+    return null;
+  }
   // Try to find the story export
   // Pattern 1: export const StoryName: Story = { args: { ... } }
   const argsPattern = new RegExp(
     `export\\s+const\\s+${storyName}\\s*:\\s*Story\\s*=\\s*\\{[^}]*args:\\s*\\{([^}]+)\\}`,
     's'
   );
-  
+
   // Pattern 2: export function StoryName() { ... }
   const functionPattern = new RegExp(
     `export\\s+function\\s+${storyName}\\s*\\([^)]*\\)\\s*\\{([\\s\\S]*?)\\n\\}(?=\\n|$)`,
     'm'
   );
-  
+
   // Pattern 3: export const StoryName = () => { ... } or () => ( ... )
   const arrowPattern = new RegExp(
     `export\\s+const\\s+${storyName}\\s*=\\s*\\([^)]*\\)\\s*=>\\s*[({]([\\s\\S]*?)[)}]\\s*;?\\s*(?=\\nexport|$)`,
@@ -149,17 +167,35 @@ export function extractStorySource(fullSource: string, storyName: string): strin
   if (match) {
     return `// ${storyName} story\nargs: {\n${match[1].trim()}\n}`;
   }
-  
+
   match = fullSource.match(functionPattern);
   if (match) {
     return `// ${storyName} story\nfunction ${storyName}() {\n${match[1]}\n}`;
   }
-  
+
   match = fullSource.match(arrowPattern);
   if (match) {
     return `// ${storyName} story\nconst ${storyName} = () => {\n${match[1]}\n}`;
   }
-  
+
+  // Pattern 4: export const StoryName: Story = { render: ... }
+  const renderPattern = new RegExp(
+    `export\\s+const\\s+${storyName}\\s*:\\s*Story\\s*=\\s*\\{[\\s\\S]*?render:\\s*(?:\\(\\)\\s*=>\\s*)?([\\s\\S]*?)\\n\\};`,
+    'm'
+  );
+
+  match = fullSource.match(renderPattern);
+  if (match) {
+    let code = match[1].trim();
+    // Remove trailing comma
+    if (code.endsWith(',')) code = code.slice(0, -1);
+    // Remove wrapping parentheses
+    if (code.startsWith('(') && code.endsWith(')')) {
+      code = code.slice(1, -1).trim();
+    }
+    return code;
+  }
+
   return null;
 }
 

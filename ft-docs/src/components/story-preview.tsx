@@ -7,7 +7,8 @@ import { Copy, Check, Terminal, Eye, ExternalLink } from "lucide-react";
 import type { StoryDefinition, StoryMeta } from "@/lib/story-loader";
 import { formatStoryName } from "@/lib/story-loader";
 import { Highlight, themes } from "prism-react-renderer";
-import { loadStorySource, extractStorySource } from "@/lib/story-source";
+import { extractStorySource } from "@/lib/story-source";
+import { getStorySource } from "@/app/actions/get-story-source";
 import { UserProfile } from "@/registry";
 
 interface StoryPreviewProps {
@@ -48,9 +49,9 @@ export function StoryPreview({
     if (story.component || story.render) {
       const componentName = meta.component?.displayName || meta.component?.name;
       if (componentName) {
-        loadStorySource(componentName).then((source) => {
+        getStorySource(componentName).then((source) => {
           if (source) {
-            // Store the full source, not the extracted story
+            // Store the full source
             setStorySource(source);
           }
         });
@@ -85,7 +86,7 @@ export function StoryPreview({
       // Handles both single-line and multi-line formats
       const buttonPattern = /<Button[\s\S]*?className\s*=\s*["']rounded-full["'][\s\S]*?\/>/g;
       const matches = fullSource.match(buttonPattern);
-      
+
       if (matches && matches.length > 0) {
         // Clean up and format the first match
         let cleaned = matches[0]
@@ -93,7 +94,7 @@ export function StoryPreview({
           .replace(/\s{2,}/g, ' ') // Replace multiple spaces with single space
           .replace(/\s*\/>/g, ' />') // Ensure space before />
           .trim();
-        
+
         // Format props nicely if it's a long line
         if (cleaned.length > 80) {
           // Try to break it into multiple lines
@@ -103,10 +104,10 @@ export function StoryPreview({
             return `<Button\n  ${props.join('\n  ')}\n/>`;
           }
         }
-        
+
         return cleaned;
       }
-      
+
       return null;
     };
 
@@ -116,14 +117,20 @@ export function StoryPreview({
       if ((story.story as any)?.parameters?.docs?.source?.code) {
         return (story.story as any).parameters.docs.source.code;
       }
-      
+
       // Try to extract Button JSX from story source
       if (storySource) {
+        // Try generic extraction first
+        const extractedSource = extractStorySource(storySource, story.name);
+        if (extractedSource) {
+          return extractedSource;
+        }
+
         const buttonJSX = extractButtonJSX(storySource, story.name);
         if (buttonJSX) {
           return buttonJSX;
         }
-        
+
         // Try to extract Pagination JSX from story source
         if (componentName === 'Pagination' && storySource && typeof storySource === 'string') {
           const paginationPattern = /<Pagination[\s\S]*?\/>/g;
@@ -141,24 +148,24 @@ export function StoryPreview({
                 .replace(/\n\s+/g, '\n  ')  // Preserve indentation
                 .replace(/\s{2,}/g, ' ') // Replace multiple spaces with single space
                 .trim();
-              
+
               // Format multi-line if needed
               if (cleaned.includes('\n') || cleaned.length > 80) {
                 // Already formatted or needs formatting
                 return cleaned;
               }
-              
+
               return cleaned;
             }
           }
         }
       }
-      
+
       // Fallback: For Button component with circular buttons story, show example
       if (componentName === 'Button' && story.name.toLowerCase().includes('circular')) {
         return `<Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />`;
       }
-      
+
       // Fallback: For Pagination compact variant, show example
       if (componentName === 'Pagination' && story.name.toLowerCase().includes('compact')) {
         return `<Pagination
@@ -169,27 +176,27 @@ export function StoryPreview({
   onChange={(page) => handlePageChange(page)}
 />`;
       }
-      
+
       // Fallback: Show a simplified usage example from args
       const props = Object.entries(mergedArgs)
         .map(([k, v]) => formatProp(k, v))
         .filter(Boolean);
-      
+
       if (props.length === 0) {
         return `<${componentName} />`;
       }
-      
+
       if (props.length <= 3) {
         return `<${componentName} ${props.join(" ")} />`;
       }
-      
+
       return `<${componentName}\n  ${props.join("\n  ")}\n/>`;
     }
 
     // Args-based story - generate clean JSX
     const hasChildren = "children" in mergedArgs;
-    const { children, ...restArgs } = mergedArgs as { children?: React.ReactNode; [key: string]: unknown };
-    
+    const { children, ...restArgs } = mergedArgs as { children?: React.ReactNode;[key: string]: unknown };
+
     const props = Object.entries(restArgs)
       .map(([k, v]) => formatProp(k, v))
       .filter(Boolean);
@@ -205,7 +212,7 @@ export function StoryPreview({
     if (props.length === 0) {
       return `<${componentName} />`;
     }
-    
+
     if (props.length <= 3) {
       return `<${componentName} ${props.join(" ")} />`;
     }
@@ -223,7 +230,7 @@ export function StoryPreview({
   const renderedStory = React.useMemo(() => {
     try {
       let content: React.ReactNode;
-      
+
       // Case 1: Function component story (like `Sizes`, `InteractiveDemo`)
       if (story.component) {
         const StoryComponent = story.component;
@@ -328,8 +335,8 @@ export function StoryPreview({
           <div className="p-8 min-h-[200px] bg-background overflow-x-auto">
             <div className={cn(
               "flex items-center min-w-max",
-              (meta.component?.displayName || meta.component?.name) === 'FloatButton' || 
-              (meta.component?.displayName || meta.component?.name) === 'FloatButtonGroup'
+              (meta.component?.displayName || meta.component?.name) === 'FloatButton' ||
+                (meta.component?.displayName || meta.component?.name) === 'FloatButtonGroup'
                 ? "justify-center"
                 : "justify-start"
             )}>{renderedStory}</div>
@@ -342,23 +349,23 @@ export function StoryPreview({
               {({ className, style, tokens, getLineProps, getTokenProps }) => {
                 const isSingleLine = tokens.length === 1;
                 return (
-                <pre
-                  className={cn(className, "p-4 text-sm font-mono overflow-x-auto")}
-                  style={{ ...style, margin: 0, borderRadius: 0 }}
-                >
-                  {tokens.map((line, i) => (
-                    <div key={i} {...getLineProps({ line })}>
+                  <pre
+                    className={cn(className, "p-4 text-sm font-mono overflow-x-auto")}
+                    style={{ ...style, margin: 0, borderRadius: 0 }}
+                  >
+                    {tokens.map((line, i) => (
+                      <div key={i} {...getLineProps({ line })}>
                         {!isSingleLine && (
-                      <span className="select-none text-gray-500 w-8 inline-block text-right mr-4 text-xs">
-                        {i + 1}
-                      </span>
+                          <span className="select-none text-gray-500 w-8 inline-block text-right mr-4 text-xs">
+                            {i + 1}
+                          </span>
                         )}
-                      {line.map((token, key) => (
-                        <span key={key} {...getTokenProps({ token })} />
-                      ))}
-                    </div>
-                  ))}
-                </pre>
+                        {line.map((token, key) => (
+                          <span key={key} {...getTokenProps({ token })} />
+                        ))}
+                      </div>
+                    ))}
+                  </pre>
                 );
               }}
             </Highlight>
@@ -415,7 +422,7 @@ interface StoryTabsProps {
 export function StoryTabs({ stories, meta, className }: StoryTabsProps) {
   // Always call hooks first, before any conditional returns
   const [activeStory, setActiveStory] = useState(stories[0]?.name || "");
-  
+
   // Find current story, fallback to first story if not found
   const currentStory = stories.find((s) => s.name === activeStory) || stories[0];
 
