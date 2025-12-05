@@ -57,45 +57,45 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
    * @required
    */
   open: boolean;
-  
+
   /**
    * Callback when modal open state changes
    * Use this for controlled modals with composable API
    */
   onOpenChange?: (open: boolean) => void;
-  
+
   /**
    * Callback when modal should close
    * Called on close button click, mask click (if maskClosable), or ESC key
    * @deprecated Use onOpenChange instead for composable API
    */
   onClose?: () => void;
-  
+
   /**
    * Modal title displayed in header (for declarative API)
    * @deprecated Use ModalTitle component within ModalHeader instead
    */
   title?: string;
-  
+
   /**
    * Footer content (typically action buttons) (for declarative API)
    * Rendered at bottom of modal
    * @deprecated Use ModalFooter component instead
    */
   footer?: React.ReactNode;
-  
+
   /**
    * Show close button in header
    * @default true
    */
   closable?: boolean;
-  
+
   /**
    * Allow closing modal by clicking the backdrop/mask
    * @default true
    */
   maskClosable?: boolean;
-  
+
   /**
    * Modal size preset
    * @default 'md'
@@ -107,19 +107,19 @@ export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
    * - `full`: 90vw width
    */
   size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  
+
   /**
    * Custom modal width (overrides size)
    * CSS value (e.g., "600px", "50%") or number (pixels)
    */
   width?: string | number;
-  
+
   /**
    * Center modal vertically
    * @default true
    */
   centered?: boolean;
-  
+
   /**
    * Modal content
    * @required
@@ -181,7 +181,7 @@ const modalSizes = {
  * - Accessible: includes ARIA attributes and focus management
  * - Declarative API is deprecated but still functional for backward compatibility
  */
-export const Modal: React.FC<ModalProps> = ({
+export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(({
   open,
   onOpenChange,
   onClose,
@@ -196,12 +196,29 @@ export const Modal: React.FC<ModalProps> = ({
   className,
   onClick,
   ...props
-}) => {
+}, ref) => {
+  // Deprecation warning for dual handlers
+  if (process.env.NODE_ENV !== 'production' && onClose && onOpenChange) {
+    console.warn(
+      'Modal: Both `onClose` and `onOpenChange` provided. ' +
+      '`onClose` is deprecated - use `onOpenChange` only. ' +
+      'onClose will be removed in v4.0.'
+    );
+  }
+
+  // Unified handler (prefer onOpenChange)
+  const handleOpenChange = React.useCallback((value: boolean) => {
+    onOpenChange?.(value);
+    if (!value) {
+      onClose?.();
+    }
+  }, [onOpenChange, onClose]);
+
   // Check if using composable API (has ModalContent, ModalTrigger, etc. as children)
-  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+  const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
     child?.type?.displayName?.startsWith('Modal')
   );
-  
+
   // If using composable API, wrap with context provider
   if (hasComposableChildren) {
     // Show deprecation warning if using old props with composable API
@@ -212,10 +229,10 @@ export const Modal: React.FC<ModalProps> = ({
         'See migration guide: docs/migrations/composable-migration.md'
       );
     }
-    
+
     return (
-      <ModalContextProvider 
-        open={open} 
+      <ModalContextProvider
+        open={open}
         onOpenChange={onOpenChange || (onClose ? () => onClose() : undefined)}
         onClose={onClose}
       >
@@ -223,7 +240,7 @@ export const Modal: React.FC<ModalProps> = ({
       </ModalContextProvider>
     );
   }
-  
+
   // Otherwise use declarative API (deprecated)
   if (process.env.NODE_ENV !== 'production') {
     console.warn(
@@ -383,6 +400,6 @@ export const Modal: React.FC<ModalProps> = ({
       </div>
     </ModalContextProvider>
   );
-};
+});
 
 Modal.displayName = 'Modal';

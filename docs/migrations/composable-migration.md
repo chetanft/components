@@ -1,411 +1,374 @@
-# Composable Components Migration Guide
+# Migration Guide: Declarative to Composable API
 
 ## Overview
 
-FT Design System has been refactored to support a **composable, LEGO-style architecture** inspired by Shadcn UI. All priority components now support both:
+FT Design System v4.x introduces a composable API pattern inspired by Shadcn/ui and Radix UI. This guide helps migrate from the legacy declarative API to the new composable pattern.
 
-1. **Composable API** (recommended) - Maximum flexibility and control
-2. **Declarative API** (deprecated) - Simpler but less flexible, maintained for backward compatibility
+## Why Migrate?
 
-This guide helps you migrate from the declarative API to the composable API.
+1. **Flexibility** - Compose components exactly how you need them
+2. **Tree-shaking** - Only import what you use
+3. **Accessibility** - Better control over ARIA attributes
+4. **Type Safety** - Improved TypeScript inference
+5. **Maintainability** - Smaller, focused sub-components
 
----
+## General Pattern
 
-## Table Component
-
-### Before (Declarative API - Deprecated)
-
+### Before (Declarative - Deprecated)
 ```tsx
-<Table 
-  columns={columns} 
-  data={data}
-  selectable
-  onSelectionChange={(selected) => console.log(selected)}
-  onSort={(column, direction) => console.log(column, direction)}
+<Component
+  title="Title"
+  description="Description"
+  actions={[<Button>Action</Button>]}
 />
 ```
 
-### After (Composable API - Recommended)
-
+### After (Composable - Recommended)
 ```tsx
-<Table>
-  <TableCaption>Monthly Sales Data</TableCaption>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Name</TableHead>
-      <TableHead sortable sortDirection="asc" onSort={() => handleSort('name')}>
-        Email
-      </TableHead>
-      <TableHead>Status</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>John Doe</TableCell>
-      <TableCell>john@example.com</TableCell>
-      <TableCell>
-        <Badge variant="success">Active</Badge>
-      </TableCell>
-    </TableRow>
-  </TableBody>
-  <TableFooter>
-    <TableRow>
-      <TableCell colSpan={3} className="text-right font-semibold">
-        Total: $1,234.56
-      </TableCell>
-    </TableRow>
-  </TableFooter>
-</Table>
+<Component>
+  <ComponentHeader>
+    <ComponentTitle>Title</ComponentTitle>
+    <ComponentDescription>Description</ComponentDescription>
+  </ComponentHeader>
+  <ComponentContent>
+    {/* content */}
+  </ComponentContent>
+  <ComponentFooter>
+    <ComponentActions>
+      <Button>Action</Button>
+    </ComponentActions>
+  </ComponentFooter>
+</Component>
 ```
-
-### Key Changes
-
-- **TableHeader**: Use `<TableHeader>` with `<TableRow>` and `<TableHead>` instead of `columns` prop
-- **TableBody**: Use `<TableBody>` with `<TableRow>` and `<TableCell>` instead of `data` prop
-- **TableFooter**: New component for footer rows
-- **TableCaption**: New component for accessible table descriptions
-- **Full Control**: You can now nest any components inside cells (Badges, Buttons, Icons, etc.)
-
-### Migration Steps
-
-1. Replace `columns` prop with `<TableHeader>` containing `<TableRow>` and `<TableHead>` components
-2. Replace `data` prop with `<TableBody>` containing `<TableRow>` and `<TableCell>` components
-3. Add `<TableFooter>` if you need footer rows
-4. Add `<TableCaption>` for accessibility
 
 ---
 
-## Modal Component
+## Component Migration Examples
 
-### Before (Declarative API - Deprecated)
+### Card
 
+#### Before
 ```tsx
-const [open, setOpen] = useState(false);
+<Card
+  title="Card Title"
+  description="Card description"
+  content={<p>Main content</p>}
+  cover={<img src="/image.jpg" alt="Cover" />}
+  actions={[
+    <Button key="1">Action 1</Button>,
+    <Button key="2">Action 2</Button>
+  ]}
+/>
+```
 
+#### After
+```tsx
+<Card bordered hoverable>
+  <CardImage src="/image.jpg" alt="Cover" aspectRatio="16/9" />
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>Card description</CardDescription>
+  </CardHeader>
+  <CardBody>
+    <p>Main content</p>
+  </CardBody>
+  <CardFooter>
+    <CardActions>
+      <Button>Action 1</Button>
+      <Button>Action 2</Button>
+    </CardActions>
+  </CardFooter>
+</Card>
+```
+
+---
+
+### Table with Selection
+
+#### Before
+```tsx
+<Table
+  columns={columns}
+  data={data}
+  selectable
+  onSelectionChange={(selectedIds) => setSelected(selectedIds)}
+  striped
+  bordered
+/>
+```
+
+#### After
+```tsx
+<TableSelectionProvider
+  selectedRows={selected}
+  onSelectionChange={setSelected}
+  allRowIds={data.map(row => row.id)}
+>
+  <Table striped bordered>
+    <TableHeader>
+      <TableRow>
+        <TableHead><TableSelectAll /></TableHead>
+        <TableHead>Name</TableHead>
+        <TableHead>Email</TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      {data.map(row => (
+        <TableRow key={row.id}>
+          <TableCell><TableRowSelect rowId={row.id} /></TableCell>
+          <TableCell>{row.name}</TableCell>
+          <TableCell>{row.email}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
+</TableSelectionProvider>
+```
+
+---
+
+### Modal
+
+#### Before
+```tsx
 <Modal
-  open={open}
-  onClose={() => setOpen(false)}
-  title="Confirm Action"
+  open={isOpen}
+  onClose={() => setIsOpen(false)}
+  title="Modal Title"
   footer={
-    <>
-      <Button onClick={() => setOpen(false)}>Cancel</Button>
-      <Button variant="primary" onClick={handleConfirm}>Confirm</Button>
-    </>
+    <div className="flex gap-2">
+      <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+      <Button variant="primary">Save</Button>
+    </div>
   }
 >
-  <p>Are you sure you want to proceed?</p>
+  <p>Modal content</p>
 </Modal>
 ```
 
-### After (Composable API - Recommended)
-
+#### After
 ```tsx
-const [open, setOpen] = useState(false);
-
-<Modal open={open} onOpenChange={setOpen}>
-  <ModalTrigger>
+<Modal open={isOpen} onOpenChange={setIsOpen}>
+  <ModalTrigger asChild>
     <Button>Open Modal</Button>
   </ModalTrigger>
   <ModalContent>
     <ModalHeader>
-      <ModalTitle>Confirm Action</ModalTitle>
-      <ModalDescription>
-        This action cannot be undone.
-      </ModalDescription>
+      <ModalTitle>Modal Title</ModalTitle>
       <ModalClose />
     </ModalHeader>
     <ModalBody>
-      <p>Are you sure you want to proceed?</p>
+      <p>Modal content</p>
     </ModalBody>
     <ModalFooter>
-      <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
-      <Button variant="primary" onClick={handleConfirm}>Confirm</Button>
+      <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+      <Button variant="primary">Save</Button>
     </ModalFooter>
   </ModalContent>
 </Modal>
 ```
 
-### Key Changes
+---
 
-- **ModalTrigger**: New component for trigger button (optional, can still use external button)
-- **ModalContent**: Wraps all modal content
-- **ModalHeader**: Contains title and description
-- **ModalTitle**: Replaces `title` prop
-- **ModalDescription**: New component for accessible descriptions
-- **ModalBody**: Contains main content
-- **ModalFooter**: Replaces `footer` prop
-- **ModalClose**: New component for close button
+### Dropdown
 
-### Migration Steps
+#### Before
+```tsx
+<Dropdown
+  options={[
+    { value: '1', label: 'Option 1' },
+    { value: '2', label: 'Option 2' },
+    { value: '3', label: 'Option 3' },
+  ]}
+  value={selected}
+  onChange={setSelected}
+  placeholder="Select an option"
+  label="Choose option"
+/>
+```
 
-1. Wrap modal content with `<ModalContent>`
-2. Replace `title` prop with `<ModalTitle>` inside `<ModalHeader>`
-3. Replace `footer` prop with `<ModalFooter>` containing your buttons
-4. Add `<ModalBody>` wrapper around main content
-5. Use `<ModalClose />` for close button (or keep `closable` prop)
-6. Optionally use `<ModalTrigger>` for trigger button
+#### After
+```tsx
+<Dropdown value={selected} onChange={setSelected}>
+  <DropdownTrigger>
+    <Button variant="secondary">
+      {selected || 'Select an option'}
+      <Icon name="chevron-down" />
+    </Button>
+  </DropdownTrigger>
+  <DropdownContent>
+    <DropdownItem value="1">Option 1</DropdownItem>
+    <DropdownItem value="2">Option 2</DropdownItem>
+    <DropdownItem value="3">Option 3</DropdownItem>
+  </DropdownContent>
+</Dropdown>
+```
 
 ---
 
-## Drawer Component
+### Pagination
 
-### Before (Declarative API - Deprecated)
-
+#### Before
 ```tsx
-const [open, setOpen] = useState(false);
+<Pagination
+  current={page}
+  total={100}
+  pageSize={10}
+  onChange={setPage}
+  showSizeChanger
+  showQuickJumper
+/>
+```
 
-<Drawer
-  open={open}
-  onClose={() => setOpen(false)}
-  title="Settings"
-  placement="right"
-  width={400}
-  footer={<Button onClick={() => setOpen(false)}>Close</Button>}
+#### After
+```tsx
+<Pagination
+  current={page}
+  total={100}
+  pageSize={pageSize}
+  onChange={setPage}
 >
-  <p>Drawer content goes here</p>
-</Drawer>
+  <PaginationList>
+    <PaginationPrevious />
+    <PaginationItem page={1} />
+    <PaginationEllipsis />
+    <PaginationItem page={page} />
+    <PaginationEllipsis />
+    <PaginationItem page={10} />
+    <PaginationNext />
+  </PaginationList>
+  <PaginationSizeChanger options={[10, 20, 50]} />
+  <PaginationQuickJumper />
+</Pagination>
 ```
-
-### After (Composable API - Recommended)
-
-```tsx
-const [open, setOpen] = useState(false);
-
-<Drawer open={open} onOpenChange={setOpen}>
-  <DrawerTrigger>
-    <Button>Open Drawer</Button>
-  </DrawerTrigger>
-  <DrawerContent placement="right" width={400}>
-    <DrawerHeader>
-      <DrawerTitle>Settings</DrawerTitle>
-      <DrawerDescription>
-        Configure your preferences
-      </DrawerDescription>
-      <DrawerClose />
-    </DrawerHeader>
-    <DrawerBody>
-      <p>Drawer content goes here</p>
-    </DrawerBody>
-    <DrawerFooter>
-      <Button onClick={() => setOpen(false)}>Close</Button>
-    </DrawerFooter>
-  </DrawerContent>
-</Drawer>
-```
-
-### Key Changes
-
-- **DrawerTrigger**: New component for trigger button
-- **DrawerContent**: Wraps all drawer content, accepts `placement`, `width`, `height` props
-- **DrawerHeader**: Contains title and description
-- **DrawerTitle**: Replaces `title` prop
-- **DrawerDescription**: New component for accessible descriptions
-- **DrawerBody**: Contains main content
-- **DrawerFooter**: Replaces `footer` prop
-- **DrawerClose**: New component for close button
-
-### Migration Steps
-
-1. Move `placement`, `width`, `height` props to `<DrawerContent>`
-2. Wrap drawer content with `<DrawerContent>`
-3. Replace `title` prop with `<DrawerTitle>` inside `<DrawerHeader>`
-4. Replace `footer` prop with `<DrawerFooter>`
-5. Add `<DrawerBody>` wrapper around main content
-6. Use `<DrawerClose />` for close button
 
 ---
 
-## Button Component
+### Button with Icon
 
-### Before (Standard API)
-
+#### Before
 ```tsx
-<Button variant="primary" icon="add" iconPosition="leading">
+<Button
+  icon="add"
+  iconPosition="leading"
+  loading={isLoading}
+>
   Add Item
 </Button>
 ```
 
-### After (Composable API - Optional Enhancement)
-
+#### After
 ```tsx
-// Still works - no changes required!
-<Button variant="primary" icon="add" iconPosition="leading">
-  Add Item
-</Button>
-
-// Or use composable API for more control
-<Button variant="primary">
-  <ButtonIcon icon="add" />
+<Button>
+  {isLoading ? (
+    <ButtonSpinner />
+  ) : (
+    <ButtonIcon name="add" />
+  )}
   <ButtonText>Add Item</ButtonText>
 </Button>
+```
 
-// With asChild for custom elements
+---
+
+### RadioGroup
+
+#### Before
+```tsx
+<RadioGroup
+  options={[
+    { value: 'a', label: 'Option A' },
+    { value: 'b', label: 'Option B' },
+    { value: 'c', label: 'Option C' },
+  ]}
+  value={selected}
+  onChange={setSelected}
+/>
+```
+
+#### After
+```tsx
+<RadioGroup value={selected} onValueChange={setSelected}>
+  <RadioItem value="a">
+    <RadioItemInput />
+    <RadioItemLabel>Option A</RadioItemLabel>
+  </RadioItem>
+  <RadioItem value="b">
+    <RadioItemInput />
+    <RadioItemLabel>Option B</RadioItemLabel>
+  </RadioItem>
+  <RadioItem value="c">
+    <RadioItemInput />
+    <RadioItemLabel>Option C</RadioItemLabel>
+  </RadioItem>
+</RadioGroup>
+```
+
+---
+
+## Using asChild Pattern
+
+The asChild prop allows you to merge component props onto a custom child element:
+
+```tsx
+// Without asChild - renders a button
+<Button>Click me</Button>
+
+// With asChild - renders custom element with Button styles
 <Button asChild>
-  <a href="/about">Link Button</a>
+  <a href="/link">Click me</a>
 </Button>
 ```
 
-### Key Changes
-
-- **ButtonIcon**: New composable sub-component for icons
-- **ButtonText**: New composable sub-component for text
-- **asChild**: New prop to merge props with child element
-- **Default variant**: Now defaults to `primary` (no need to specify)
-
-### Migration Steps
-
-- **No migration required** - existing code continues to work
-- Optionally refactor to use `<ButtonIcon>` and `<ButtonText>` for more control
-- Use `asChild` when you need to wrap custom elements
-
----
-
-## Badge Component
-
-### Before (Standard API)
+This works with all composable sub-components:
 
 ```tsx
-<Badge variant="success" leadingIcon="check">Active</Badge>
-```
+<ModalTrigger asChild>
+  <CustomButton />  {/* Gets trigger behavior */}
+</ModalTrigger>
 
-### After (Composable API - Optional Enhancement)
-
-```tsx
-// Still works - no changes required!
-<Badge variant="success" leadingIcon="check">Active</Badge>
-
-// Or use composable API
-<Badge variant="success">
-  <BadgeIcon icon="check" />
-  <BadgeText>Active</BadgeText>
-</Badge>
-
-// With asChild
-<Badge variant="info" asChild>
-  <span>Custom Badge</span>
-</Badge>
-```
-
-### Key Changes
-
-- **BadgeIcon**: New composable sub-component for icons
-- **BadgeText**: New composable sub-component for text
-- **asChild**: New prop to merge props with child element
-- **Shadcn-style**: Simple API like `<Badge variant="success" size="sm">Active</Badge>`
-
-### Migration Steps
-
-- **No migration required** - existing code continues to work
-- Optionally refactor to use `<BadgeIcon>` and `<BadgeText>` for more control
-- Use `asChild` when you need to wrap custom elements
-
----
-
-## Common Patterns
-
-### Using `asChild` Prop
-
-The `asChild` prop allows components to merge their props with a child element instead of rendering a wrapper:
-
-```tsx
-// Without asChild - renders a button wrapper
-<Button className="custom-class">
-  <a href="/about">Link</a>
-</Button>
-// Result: <button class="custom-class"><a>Link</a></button>
-
-// With asChild - merges props with anchor
-<Button asChild className="custom-class">
-  <a href="/about">Link</a>
-</Button>
-// Result: <a href="/about" class="custom-class">Link</a>
-```
-
-### Composing Multiple Components
-
-All composable components can be nested and combined:
-
-```tsx
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>
-        <div className="flex items-center gap-2">
-          <Icon name="user" />
-          <span>User</span>
-        </div>
-      </TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <Badge variant="success">
-          <BadgeIcon icon="check" />
-          <BadgeText>Active</BadgeText>
-        </Badge>
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-```
-
-### className Overrides
-
-All components support `className` prop for custom styling:
-
-```tsx
-<Table className="my-custom-table">
-  <TableHeader className="bg-gray-100">
-    {/* ... */}
-  </TableHeader>
-</Table>
+<CardBody asChild>
+  <section>  {/* Becomes the card body */}
+    Content
+  </section>
+</CardBody>
 ```
 
 ---
 
-## Benefits of Composable API
+## Event Handler Changes
 
-1. **Maximum Flexibility**: Compose components exactly how you need them
-2. **Better Type Safety**: TypeScript can better infer types with explicit components
-3. **Easier Customization**: Override styles at any level with `className`
-4. **AI-Friendly**: Clear component structure helps AI tools understand your code
-5. **Future-Proof**: New features can be added without breaking existing code
-
----
-
-## Backward Compatibility
-
-- **All old APIs still work** - no breaking changes
-- **Deprecation warnings** shown in development mode
-- **Gradual migration** - migrate components one at a time
-- **No rush** - old API will be supported for multiple versions
+| Old Handler | New Handler | Components |
+|-------------|-------------|------------|
+| onChange (for selection) | onValueChange | Select, RadioGroup |
+| onSelect | onValueChange | Dropdown |
+| onClose | onOpenChange(false) | Modal, Drawer |
 
 ---
 
-## FAQ
+## Deprecation Timeline
 
-### Do I need to migrate immediately?
+| Version | Status |
+|---------|--------|
+| v4.14 | Deprecation warnings in development mode |
+| v4.15 | Documentation updated, migration guide published |
+| v4.16 | Console warnings in all environments |
+| v5.0 | Deprecated props removed |
 
-No. The declarative API is deprecated but still fully functional. Migrate when convenient.
+---
 
-### Will the old API be removed?
+## Tips for Migration
 
-Not in the near future. We'll maintain backward compatibility for multiple versions.
-
-### Can I mix old and new APIs?
-
-Yes, but it's not recommended. Mixing APIs can lead to confusion and unexpected behavior.
-
-### What if I find a bug?
-
-Please report it! We're committed to maintaining both APIs during the transition period.
+1. Start with new components - Use composable API for new features
+2. Migrate incrementally - Update one component at a time
+3. Check console warnings - Deprecation warnings show migration hints
+4. Use TypeScript - Type errors will guide you to correct patterns
+5. Reference Storybook - Examples show correct composable patterns
 
 ---
 
 ## Need Help?
 
-- Check component JSDoc for detailed examples
-- See Storybook stories for live examples
-- Open an issue on GitHub for questions or bugs
-
+- Check the component documentation at /docs/components
+- View Storybook examples
+- File an issue on GitHub

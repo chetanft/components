@@ -8,6 +8,7 @@ export interface PaginationContextType {
   pageSize: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  onShowSizeChange?: (current: number, size: number) => void;
   variant?: 'default' | 'compact';
 }
 

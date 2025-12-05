@@ -19,6 +19,11 @@ export type { PaginationNextProps } from './PaginationNext';
 export { PaginationEllipsis } from './PaginationEllipsis';
 export type { PaginationEllipsisProps } from './PaginationEllipsis';
 
+export { PaginationSizeChanger } from './PaginationSizeChanger';
+export type { PaginationSizeChangerProps } from './PaginationSizeChanger';
+
+export { PaginationQuickJumper } from './PaginationQuickJumper';
+export type { PaginationQuickJumperProps } from './PaginationQuickJumper';
+
 export { PaginationProvider, usePaginationContext } from './PaginationContext';
 export type { PaginationContextType } from './PaginationContext';
-

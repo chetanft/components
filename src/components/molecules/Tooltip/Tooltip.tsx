@@ -115,7 +115,7 @@ export interface TooltipProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  * - Accessible: includes ARIA attributes and keyboard navigation
  * - Declarative API is deprecated but still functional for backward compatibility
  */
-export const Tooltip: React.FC<TooltipProps> = ({
+export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({
   children,
   heading,
   showClose = false,
@@ -132,15 +132,15 @@ export const Tooltip: React.FC<TooltipProps> = ({
   defaultOpen = false,
   asChild,
   ...props
-}) => {
+}, ref) => {
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
   const open = controlledOpen ?? internalOpen;
-  
+
   // Check if using composable API (has children with Tooltip sub-components)
-  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+  const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
     child?.type?.displayName?.startsWith('Tooltip')
   );
-  
+
   // If using composable API, wrap with context provider
   if (hasComposableChildren) {
     // Show deprecation warning if using old props with composable API
@@ -151,7 +151,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         'See migration guide: docs/migrations/composable-migration.md'
       );
     }
-    
+
     const Comp = asChild ? Slot : 'div';
     return (
       <TooltipProvider
@@ -169,7 +169,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
       </TooltipProvider>
     );
   }
-  
+
   // Otherwise use declarative API (deprecated)
   if (process.env.NODE_ENV !== 'production' && (heading || primaryActionText || secondaryActionText)) {
     console.warn(
@@ -215,9 +215,10 @@ export const Tooltip: React.FC<TooltipProps> = ({
               )}
             </div>
           )}
-          <TooltipArrow />
         </TooltipContent>
       </Comp>
     </TooltipProvider>
   );
-}; 
+});
+
+Tooltip.displayName = 'Tooltip';

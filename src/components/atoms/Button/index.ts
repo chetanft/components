@@ -8,3 +8,5 @@ export type { ButtonIconProps } from './ButtonIcon';
 export { ButtonText } from './ButtonText';
 export type { ButtonTextProps } from './ButtonText';
 
+export { ButtonSpinner } from './ButtonSpinner';
+export type { ButtonSpinnerProps } from './ButtonSpinner';

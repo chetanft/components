@@ -1,9 +1,9 @@
 export { Table } from './Table';
-export type { 
-  TableProps, 
-  TableColumn, 
+export type {
+  TableProps,
+  TableColumn,
   TableRow as TableRowData,
-  SortDirection, 
+  SortDirection,
   ColumnType,
   TableVariant,
   TableLayout
@@ -39,4 +39,14 @@ export { TableCell } from './TableCell';
 export type { TableCellProps, CellBackgroundColor, CellLineVariant } from './TableCell';
 
 export { TableHeaderItem } from './TableHeaderItem';
-export type { TableHeaderItemProps, HeaderItemType, HeaderColorVariant } from './TableHeaderItem'; 
+export type { TableHeaderItemProps, HeaderItemType, HeaderColorVariant } from './TableHeaderItem';
+
+// Selection Components
+export { TableSelectAll } from './TableSelectAll';
+export type { TableSelectAllProps } from './TableSelectAll';
+
+export { TableRowSelect } from './TableRowSelect';
+export type { TableRowSelectProps } from './TableRowSelect';
+
+export { TableSelectionProvider, useTableSelection, useTableSelectionOptional } from './TableSelectionContext';
+export type { TableSelectionContextValue, TableSelectionProviderProps } from './TableSelectionContext';

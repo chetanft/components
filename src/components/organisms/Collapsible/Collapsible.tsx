@@ -102,7 +102,7 @@ export interface CollapsibleProps extends Omit<ComposableProps<'div'>, 'onChange
  * - Accessible: includes ARIA attributes and keyboard navigation
  * - Declarative API is deprecated but still functional for backward compatibility
  */
-export const Collapsible: React.FC<CollapsibleProps> = ({
+export const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(({
   header,
   children,
   extra,
@@ -116,7 +116,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
   isExpanded: controlledIsExpanded,
   onToggle,
   ...props
-}) => {
+}, ref) => {
   const [internalIsExpanded, setInternalIsExpanded] = useState(false);
   const isExpanded = controlledIsExpanded ?? internalIsExpanded;
 
@@ -306,4 +306,6 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
       {wrappedContent}
     </CollapsibleProvider>
   );
-};
+});
+
+Collapsible.displayName = 'Collapsible';

@@ -47,7 +47,7 @@ export interface TourStepComponentProps extends TourStepProps {
   children?: React.ReactNode;
 }
 
-export const Tour: React.FC<TourProps> = ({
+export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
   steps = [],
   open = false,
   defaultCurrent = 0,
@@ -59,7 +59,7 @@ export const Tour: React.FC<TourProps> = ({
   zIndex = 1000,
   className,
   children,
-}) => {
+}, ref) => {
   const [internalCurrent, setInternalCurrent] = useState(defaultCurrent);
   const current = controlledCurrent !== undefined ? controlledCurrent : internalCurrent;
   const [position, setPosition] = useState<{ top: number; left: number; width: number; height: number } | null>(null);
@@ -68,7 +68,7 @@ export const Tour: React.FC<TourProps> = ({
   const stepsFromChildren = React.useMemo(() => {
     if (!children) return [];
     return React.Children.toArray(children)
-      .filter((child): child is React.ReactElement<TourStepComponentProps> => 
+      .filter((child): child is React.ReactElement<TourStepComponentProps> =>
         React.isValidElement(child) && child.type === TourStep
       )
       .map(child => ({
@@ -138,7 +138,7 @@ export const Tour: React.FC<TourProps> = ({
   }, [open, step]);
 
   const handleNext = () => {
-    if (current < steps.length - 1) {
+    if (current < allSteps.length - 1) {
       const next = current + 1;
       setInternalCurrent(next);
       onChange?.(next);
@@ -230,7 +230,7 @@ export const Tour: React.FC<TourProps> = ({
     </div>,
     document.body
   );
-};
+});
 
 Tour.displayName = 'Tour';
 

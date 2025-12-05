@@ -57,72 +57,72 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
    * @required
    */
   open: boolean;
-  
+
   /**
    * Callback when drawer open state changes
    * Use this for controlled drawers with composable API
    */
   onOpenChange?: (open: boolean) => void;
-  
+
   /**
    * Callback when drawer should close
    * Called on close button click, mask click (if maskClosable), or ESC key
    * @deprecated Use onOpenChange instead for composable API
    */
   onClose?: () => void;
-  
+
   /**
    * Drawer title displayed in header (for declarative API)
    * @deprecated Use DrawerTitle component within DrawerHeader instead
    */
   title?: string;
-  
+
   /**
    * Side from which drawer slides in
    * @default 'right'
    */
   placement?: DrawerPlacement;
-  
+
   /**
    * Drawer width (for left/right placement)
    * CSS value (e.g., "400px", "50%") or number (pixels)
    * @default 400
    */
   width?: string | number;
-  
+
   /**
    * Drawer height (for top/bottom placement)
    * CSS value (e.g., "300px", "50vh") or number (pixels)
    * @default '100%'
    */
   height?: string | number;
-  
+
   /**
    * Show close button in header
    * @default true
    */
   closable?: boolean;
-  
+
   /**
    * Allow closing drawer by clicking the backdrop/mask
    * @default true
    */
   maskClosable?: boolean;
-  
+
   /**
    * Footer content (typically action buttons) (for declarative API)
    * Rendered at bottom of drawer
    * @deprecated Use DrawerFooter component instead
    */
   footer?: React.ReactNode;
-  
+
   /**
    * Custom background color class
    * Overrides default bg-[var(--bg-primary)]
    * Example: "bg-white", "bg-gray-100"
    */
   background?: string;
-  
+
   /**
    * Drawer content
    * @required
@@ -178,7 +178,7 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
  * - Accessible: includes ARIA attributes and focus management
  * - Declarative API is deprecated but still functional for backward compatibility
  */
-export const Drawer: React.FC<DrawerProps> = ({
+export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(({
   open,
   onOpenChange,
   onClose,
@@ -193,12 +193,29 @@ export const Drawer: React.FC<DrawerProps> = ({
   children,
   className,
   ...props
-}) => {
+}, ref) => {
+  // Deprecation warning for dual handlers
+  if (process.env.NODE_ENV !== 'production' && onClose && onOpenChange) {
+    console.warn(
+      'Drawer: Both `onClose` and `onOpenChange` provided. ' +
+      '`onClose` is deprecated - use `onOpenChange` only. ' +
+      'onClose will be removed in v4.0.'
+    );
+  }
+
+  // Unified handler (prefer onOpenChange)
+  const handleOpenChange = React.useCallback((value: boolean) => {
+    onOpenChange?.(value);
+    if (!value) {
+      onClose?.();
+    }
+  }, [onOpenChange, onClose]);
+
   // Check if using composable API (has DrawerContent, DrawerTrigger, etc. as children)
-  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+  const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
     child?.type?.displayName?.startsWith('Drawer')
   );
-  
+
   // If using composable API, wrap with context provider
   if (hasComposableChildren) {
     // Show deprecation warning if using old props with composable API
@@ -209,10 +226,10 @@ export const Drawer: React.FC<DrawerProps> = ({
         'See migration guide: docs/migrations/composable-migration.md'
       );
     }
-    
+
     return (
-      <DrawerContextProvider 
-        open={open} 
+      <DrawerContextProvider
+        open={open}
         onOpenChange={onOpenChange || (onClose ? () => onClose() : undefined)}
         onClose={onClose}
       >
@@ -220,7 +237,7 @@ export const Drawer: React.FC<DrawerProps> = ({
       </DrawerContextProvider>
     );
   }
-  
+
   // Otherwise use declarative API (deprecated)
   if (process.env.NODE_ENV !== 'production') {
     console.warn(
@@ -263,7 +280,7 @@ export const Drawer: React.FC<DrawerProps> = ({
       onClose?.();
     }
   };
-  
+
   const handleClose = () => {
     if (!closable) return;
     onOpenChange?.(false);
@@ -373,6 +390,6 @@ export const Drawer: React.FC<DrawerProps> = ({
       </div>
     </DrawerContextProvider>
   );
-};
+});
 
 Drawer.displayName = 'Drawer';

@@ -26,3 +26,13 @@ export type { CardActionsProps } from './CardActions';
 
 export { CardMeta } from './CardMeta';
 export type { CardMetaProps } from './CardMeta';
+
+// New sub-components (Phase 1 additions)
+export { CardImage } from './sub-components/CardImage';
+export type { CardImageProps } from './sub-components/CardImage';
+
+export { CardSkeleton } from './sub-components/CardSkeleton';
+export type { CardSkeletonProps } from './sub-components/CardSkeleton';
+
+// Context (for advanced usage)
+export { CardProvider, useCardContext } from './Card.context';

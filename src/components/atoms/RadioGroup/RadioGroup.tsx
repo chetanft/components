@@ -114,7 +114,7 @@ export interface RadioGroupProps {
  * - Accessible: includes ARIA attributes and keyboard navigation
  * - Declarative API is deprecated but still functional for backward compatibility
  */
-export const RadioGroup: React.FC<RadioGroupProps> = ({
+export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(({
   name,
   value,
   defaultValue,
@@ -128,7 +128,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   error = false,
   helperText,
   children,
-}) => {
+}, ref) => {
   const [internalValue, setInternalValue] = React.useState(defaultValue || '');
   const currentValue = value !== undefined ? value : internalValue;
   const handleChange = onValueChange || onChange;
@@ -139,12 +139,12 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
     }
     handleChange?.(optionValue);
   };
-  
+
   // Check if using composable API (has children with RadioGroup sub-components)
-  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+  const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
     child?.type?.displayName?.startsWith('Radio')
   );
-  
+
   // If using composable API, wrap with context provider
   if (hasComposableChildren) {
     // Show deprecation warning if using old props with composable API
@@ -155,11 +155,11 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
         'See migration guide: docs/migrations/composable-migration.md'
       );
     }
-    
+
     const generatedId = React.useId();
     const helperId = helperText ? `radiogroup-${generatedId}-helper` : undefined;
     const errorId = error ? `radiogroup-${generatedId}-error` : undefined;
-    
+
     return (
       <RadioGroupProvider
         value={{
@@ -174,17 +174,21 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
           errorId,
         }}
       >
-        <div className={cn(
-          "flex",
-          orientation === 'horizontal' ? "flex-row gap-[16px]" : "flex-col gap-[16px]",
-          className
-        )} role="radiogroup">
+        <div
+          ref={ref}
+          className={cn(
+            "flex",
+            orientation === 'horizontal' ? "flex-row gap-[var(--spacing-x4)]" : "flex-col gap-[var(--spacing-x4)]",
+            className
+          )}
+          role="radiogroup"
+        >
           {children}
         </div>
       </RadioGroupProvider>
     );
   }
-  
+
   // Otherwise use declarative API (deprecated)
   if (process.env.NODE_ENV !== 'production' && options.length > 0) {
     console.warn(
@@ -208,7 +212,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       const generatedId = React.useId();
       const helperId = helperText ? `radiogroup-${generatedId}-helper` : undefined;
       const errorId = error ? `radiogroup-${generatedId}-error` : undefined;
-      
+
       return (
         <RadioGroupProvider
           value={{
@@ -231,7 +235,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
     }
     return null;
   }
-  
+
   const generatedId = React.useId();
   const helperId = helperText ? `radiogroup-${generatedId}-helper` : undefined;
   const errorId = error ? `radiogroup-${generatedId}-error` : undefined;
@@ -295,7 +299,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       </div>
     </RadioGroupProvider>
   );
-};
+});
 
 // Legacy compatibility exports
 export const RadioGroupItem = ({ children, ...props }: { children?: React.ReactNode;[key: string]: any }) => {
