@@ -1,3 +1,15 @@
+/**
+ * FT DESIGN SYSTEM
+ * 
+ * Components with built-in AI protection utilities available.
+ * Use filterAIClasses() or withAIProtection() HOC for AI safety.
+ * 
+ * Quick Start:
+ * import { Button, Input, filterAIClasses } from 'ft-design-system';
+ * 
+ * @module ft-design-system
+ */
+
 // Import global styles
 import './styles/globals.css';
 
@@ -16,8 +28,8 @@ export * from './components';
 export { cn } from './lib/utils';
 export * from './utils/component-validation';
 
-// AI utilities (optional - for advanced users)
+// AI utilities - Use these to wrap components or filter classes
 export * from './lib/ai-utils';
 
 // Global styles - consumers should import this manually
-export const globalStyles = './styles/globals.css'; 
+export const globalStyles = './styles/globals.css';

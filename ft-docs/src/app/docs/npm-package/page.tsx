@@ -48,13 +48,13 @@ export default function NPMPackagePage() {
                 <div className="rounded-lg border bg-muted p-4">
                     <pre className="text-sm font-mono whitespace-pre-wrap">
                         {`// Import styles
-import 'ft-design-system/dist/styles.css';
+import 'ft-design-system/styles.css';
 
-// Import components
+// Import components (AI-protected by default)
 import { Button, Input, Table } from 'ft-design-system';
 
-// For AI tools (automatic filtering)
-import { Button, Input, Table } from 'ft-design-system/ai';`}
+// Advanced: unprotected components
+import { Button, Input, Table } from 'ft-design-system/core';`}
                     </pre>
                 </div>
             </div>

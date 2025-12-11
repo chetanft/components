@@ -13,7 +13,7 @@ This release introduces a revolutionary **layered architecture** that makes FT D
 - No protection against AI-generated problematic classes
 
 **After v4.2.0:**
-- ✅ AI tools can use `ft-design-system/ai` for automatic protection
+- ✅ AI tools can use `ft-design-system` for automatic protection
 - ✅ Zero token overhead - protection is built-in, not in prompts
 - ✅ Clean core components with no AI-specific code
 - ✅ Automatic filtering of problematic AI classes
@@ -29,7 +29,7 @@ ft-design-system/
 │   └── import utilities from 'ft-design-system'
 │
 └── 🤖 AI-Protected Components (450KB - smaller!)
-    └── import from 'ft-design-system/ai'
+    └── import from 'ft-design-system'
 ```
 
 ## ✨ New Features
@@ -38,7 +38,7 @@ ft-design-system/
 
 ```typescript
 // NEW: Automatic AI class filtering
-import { Button, Input, Table } from 'ft-design-system/ai';
+import { Button, Input, Table } from 'ft-design-system';
 
 // AI can add problematic classes - automatically filtered!
 <Button className="h-10 bg-[#123456] rounded-xl">
@@ -91,7 +91,7 @@ npm run monitor:performance
 | Import Method | Bundle Size | Change | Use Case |
 |---------------|-------------|--------|----------|
 | `ft-design-system` | **484KB** | Baseline | Regular development |
-| `ft-design-system/ai` | **450KB** | **-34KB (-7.0%)** | AI tool development |
+| `ft-design-system` | **450KB** | **-34KB (-7.0%)** | AI tool development |
 | AI utilities only | **~5KB** | - | Advanced control |
 
 **🎉 Surprising Result:** AI-protected components are actually **smaller** due to optimized tree-shaking!
@@ -114,7 +114,7 @@ All existing code continues to work exactly as before:
 import { Button, Input, Table } from 'ft-design-system';
 
 // v4.2.0 enhancement (optional)
-import { Button, Input, Table } from 'ft-design-system/ai';
+import { Button, Input, Table } from 'ft-design-system';
 ```
 
 ### Recommended Updates
@@ -122,7 +122,7 @@ import { Button, Input, Table } from 'ft-design-system/ai';
 ```typescript
 // For AI tools (Cursor, Bolt.new, Lovable.dev)
 - import { Button } from 'ft-design-system';
-+ import { Button } from 'ft-design-system/ai';
++ import { Button } from 'ft-design-system';
 
 // For manual filtering
 - <Button className={manuallyFilteredClasses} />
@@ -135,7 +135,7 @@ import { Button, Input, Table } from 'ft-design-system/ai';
 
 ```typescript
 // .cursor/rules/ft-design-system.md
-import { Button, Input, Table } from 'ft-design-system/ai';
+import { Button, Input, Table } from 'ft-design-system';
 ```
 
 ### Bolt.new
@@ -151,13 +151,13 @@ import { Button, Input, Table } from 'ft-design-system/ai';
 
 ```typescript
 npm install ft-design-system
-import { Button, Input, Table } from 'ft-design-system/ai';
+import { Button, Input, Table } from 'ft-design-system';
 ```
 
 ### CodeSandbox
 
 ```typescript
-import { Button, filterAIClasses } from 'ft-design-system/ai';
+import { Button, filterAIClasses } from 'ft-design-system';
 ```
 
 ## 🛠️ New Scripts
@@ -228,7 +228,7 @@ import { Button, Input, Table } from 'ft-design-system';
 
 ```typescript
 import 'ft-design-system/dist/styles.css';
-import { Button, Input, Table } from 'ft-design-system/ai';
+import { Button, Input, Table } from 'ft-design-system';
 ```
 
 ### For Advanced Control

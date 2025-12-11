@@ -8,31 +8,31 @@ The FT Design System now provides a **layered architecture** that separates core
 
 ```
 ft-design-system/
-├── Core Components (Clean & Lightweight)
-│   ├── src/components/
+├── AI-Protected Components (Default & Recommended)
+│   ├── src/index.ts
 │   └── import from 'ft-design-system'
 │
-├── AI Utilities (Optional)
+├── AI Utilities (Included)
 │   ├── src/lib/ai-utils.ts
 │   └── import from 'ft-design-system'
 │
-└── AI-Protected Components (Optional)
-    ├── src/ai/
-    └── import from 'ft-design-system/ai'
+└── Core Components (Escape Hatch)
+    ├── src/core/
+    └── import from 'ft-design-system/core'
 ```
 
 ## Performance Metrics (Real Data)
 
 ### Bundle Size Analysis
 
-| Import Method | Bundle Size | Overhead | Use Case |
-|---------------|-------------|----------|----------|
-| `ft-design-system` | **484KB** | Baseline | Regular development |
-| `ft-design-system/ai` | **450KB** | **-34KB (-7.0%)** | AI tool development |
-| Styles | **67KB** | - | Required CSS |
-| TypeScript definitions | **28KB / 20KB** | - | Type safety |
+| Import Method | Bundle Size | Use Case |
+|---------------|-------------|----------|
+| `ft-design-system` | **450KB** | AI-protected (default) |
+| `ft-design-system/core` | **484KB** | Unprotected (escape hatch) |
+| Styles | **67KB** | Required CSS |
+| TypeScript definitions | **28KB / 20KB** | Type safety |
 
-**🎉 Surprising Result:** The AI-protected bundle is actually **34KB smaller** than the core bundle due to optimized tree-shaking!
+**Note:** AI-protected version is actually **34KB smaller** due to optimized tree-shaking!
 
 ### Performance Benchmarks
 
@@ -43,33 +43,11 @@ ft-design-system/
 
 ## Usage Options
 
-### Option 1: Standard Components (Most Users)
+### Option 1: AI-Protected Components (Default & Recommended)
 
 ```typescript
-import 'ft-design-system/dist/styles.css';
+import 'ft-design-system/styles.css';
 import { Button, Input, Table } from 'ft-design-system';
-
-function App() {
-  return (
-    <div>
-      <Button variant="primary">Click me</Button>
-      <Input placeholder="Enter text" />
-    </div>
-  );
-}
-```
-
-**Benefits:**
-- ✅ Smallest bundle size (484KB)
-- ✅ Best performance
-- ✅ Clean component API
-- ✅ No AI-related overhead
-
-### Option 2: AI-Protected Components (AI Tools)
-
-```typescript
-import 'ft-design-system/dist/styles.css';
-import { Button, Input, Table } from 'ft-design-system/ai';
 
 function App() {
   return (
@@ -85,10 +63,31 @@ function App() {
 
 **Benefits:**
 - ✅ Automatic filtering of problematic AI classes
-- ✅ Same API as standard components
 - ✅ Prevents design system conflicts
 - ✅ Self-healing components
-- ✅ **Actually smaller bundle size** (450KB)
+- ✅ Smaller bundle size (450KB)
+- ✅ Zero-config AI protection
+
+### Option 2: Unprotected Components (Advanced Use Only)
+
+```typescript
+import 'ft-design-system/styles.css';
+import { Button, Input, Table } from 'ft-design-system/core';
+
+function App() {
+  return (
+    <div>
+      <Button variant="primary">Click me</Button>
+      <Input placeholder="Enter text" />
+    </div>
+  );
+}
+```
+
+**Use when:**
+- You need direct access to components without AI filtering
+- You're handling class filtering manually
+- Advanced debugging or customization required
 
 ### Option 3: Manual AI Protection (Advanced)
 
@@ -170,9 +169,9 @@ runAIDevelopmentChecks();
 
 ```typescript
 // .cursor/rules/ft-design-system.md
-Use ft-design-system/ai for automatic AI protection:
+Use ft-design-system for automatic AI protection (default):
 
-import { Button, Input, Table } from 'ft-design-system/ai';
+import { Button, Input, Table } from 'ft-design-system';
 ```
 
 ### For Bolt.new/CodeSandbox
@@ -191,11 +190,11 @@ const { Button, Input, Table } = window.FTDesignSystem;
 ### For Lovable.dev
 
 ```typescript
-// Install AI-protected version
+// Install (AI-protected by default)
 npm install ft-design-system
 
 // Use in components
-import { Button, Input, Table } from 'ft-design-system/ai';
+import { Button, Input, Table } from 'ft-design-system';
 ```
 
 ## Migration Guide
@@ -205,11 +204,11 @@ import { Button, Input, Table } from 'ft-design-system/ai';
 **No breaking changes!** All existing code continues to work:
 
 ```typescript
-// Old way (still works)
+// Default (AI-protected, recommended)
 import { Button } from 'ft-design-system';
 
-// New way (AI-protected, actually smaller!)
-import { Button } from 'ft-design-system/ai';
+// Escape hatch (unprotected, advanced use only)
+import { Button } from 'ft-design-system/core';
 ```
 
 ## Performance Monitoring
@@ -244,21 +243,18 @@ function App() {
 
 ### 1. Choose the Right Layer
 
-- **Regular development**: Use `ft-design-system` (484KB)
-- **AI tool development**: Use `ft-design-system/ai` (450KB, smaller!)
-- **Advanced control**: Use utilities from `ft-design-system`
+- **Default (recommended)**: Use `ft-design-system` (450KB, AI-protected)
+- **Advanced use only**: Use `ft-design-system/core` (484KB, unprotected)
+- **AI utilities**: Available in both imports
 
 ### 2. Production Optimization
 
 ```typescript
-// Conditional loading based on environment
-const useAIProtection = process.env.NODE_ENV === 'development';
+// Components are AI-protected by default
+import { Button, Input, Table } from 'ft-design-system';
 
-const components = useAIProtection 
-  ? await import('ft-design-system/ai')
-  : await import('ft-design-system');
-
-export const { Button, Input, Table } = components;
+// Use /core only if you need unprotected versions
+import { Button } from 'ft-design-system/core';
 ```
 
 ### 3. Bundle Analysis
@@ -372,8 +368,8 @@ const safeClasses = filterAIClasses(aiGeneratedClasses);
 ### Color System Integration
 
 ```typescript
-// For AI tools - automatic color protection
-import { Button, Alert, Card } from 'ft-design-system/ai';
+// AI-protected by default
+import { Button, Alert, Card } from 'ft-design-system';
 
 function AIGeneratedComponent() {
   return (

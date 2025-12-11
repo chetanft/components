@@ -303,7 +303,7 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
  * - Supports keyboard navigation (arrow keys, Enter, Escape)
  * - Date range mode allows selecting start and end dates
  * - Accessible: includes ARIA labels and keyboard support
- * - Use `ft-design-system/ai` import for AI-protected version
+ * - AI-protected by default. Use `ft-design-system/core` for unprotected version
  */
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   label,

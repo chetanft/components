@@ -1,0 +1,112 @@
+# FT Design System - AI Context
+# Machine-readable rules for LLMs and AI coding assistants
+# Version: 4.15.14
+
+## IDENTITY
+name: ft-design-system
+type: react-component-library
+package: ft-design-system
+version: 4.15.14
+
+## IMPORTS (CRITICAL - USE EXACTLY AS SHOWN)
+css: import 'ft-design-system/styles';
+components: import { Button, Input, Table } from 'ft-design-system';
+components_unprotected: import { Button, Input, Table } from 'ft-design-system/core';
+provider: import { FTProvider } from 'ft-design-system';
+tailwind_preset: require('ft-design-system/tailwind-preset')
+
+## SETUP (CHOOSE ONE)
+setup_auto: <FTProvider theme="system"><App /></FTProvider>
+setup_manual: import 'ft-design-system/styles'; + import from 'ft-design-system'
+setup_cli: npx ftds setup
+
+## NOTE
+All components are AI-protected by default. Use /core only if you need unprotected versions.
+
+## FORBIDDEN PATTERNS (AI MUST NEVER GENERATE)
+- Arbitrary hex colors: bg-[ #xxx ], text-[ #xxx ], border-[ #xxx ]
+- Arbitrary CSS vars: bg-[ var(--x) ], text-[ var(--x) ]
+- Height overrides on components: h-[ x ]
+- Width overrides on components: w-[ x ] (except w-full allowed)
+- Border radius overrides: rounded-[ x ]
+- Padding overrides: p-[ x ], px-[ x ], py-[ x ]
+- Hardcoded pixels: fontSize: '16px'
+- Hardcoded fonts: fontFamily: 'Inter'
+- Underscore in CSS var: var(--border_primary)
+- Slash in CSS var: var(--font/family/title)
+
+## ALLOWED PATTERNS
+- bg-primary-700, bg-primary-800, bg-secondary, bg-tertiary
+- text-primary, text-secondary, text-tertiary
+- border-border-primary, border-border-secondary
+- size="sm" | size="md" | size="lg" props
+- variant="primary" | variant="secondary" | variant="destructive"
+- Semantic color classes from tailwind-preset
+
+## COMPONENT API RULES
+Button:
+  variants: primary | secondary | destructive | text | link | ghost | dashed
+  sizes: sm (36px) | md (40px) | lg (48px)
+  props: variant, size, icon, iconPosition, loading, disabled, asChild
+
+Input:
+  sizes: sm | md | lg
+  props: label, placeholder, error, helperText, size, disabled
+
+Table:
+  columns: [{key: string, title: string}]  # NOT 'header'
+  data: [{id: required, ...}]  # rows MUST have 'id'
+
+Badge:
+  variants: primary | secondary | danger | success | warning | neutral
+  # NOT 'error' - use 'danger'
+
+Select/Dropdown:
+  sizes: md (40px) | lg (52px) | xl (64px)
+  use: options prop or composable <SelectItem> children
+
+Modal/Drawer:
+  use: open, onOpenChange props
+  structure: ModalTrigger, ModalContent, ModalHeader, ModalBody, ModalFooter
+
+## COLOR TOKENS (Reference Only - Use Classes)
+primary-700: #434F64  → use bg-primary-700
+primary-800: #2c3547  → use bg-primary-800
+tertiary: #838C9D     → use text-tertiary
+critical: #ff3532    → use text-critical
+positive: #00c637    → use text-positive
+warning: #ff6c19     → use text-warning
+neutral: #1890ff     → use text-neutral
+
+## TYPOGRAPHY (Use rem classes)
+text-xs-rem: 12px
+text-sm-rem: 14px
+text-md-rem: 16px
+text-lg-rem: 20px
+text-xl-rem: 24px
+text-xxl-rem: 28px
+
+## SPACING (8-point grid)
+--x1: 4px, --x2: 8px, --x3: 12px, --x4: 16px
+--x5: 20px, --x6: 24px, --x8: 32px, --x10: 40px
+
+## RESOURCES
+registry: ft-design-system/registry
+schema: ft-design-system/schema
+examples: ft-design-system/examples
+docs: https://ft-design-system.dev
+
+## COMPONENT COUNT
+total: 124
+atoms: 25
+molecules: 57
+organisms: 24
+charts: 16
+
+## QUICK EXAMPLES
+button_primary: <Button variant="primary" size="md">Save</Button>
+button_destructive: <Button variant="destructive">Delete</Button>
+input_basic: <Input label="Email" size="md" placeholder="Enter email" />
+table_basic: <Table columns={[{key:'name',title:'Name'}]} data={[{id:1,name:'John'}]} />
+badge_danger: <Badge variant="danger">Error</Badge>
+modal_basic: <Modal open={open} onOpenChange={setOpen}><ModalContent>...</ModalContent></Modal>

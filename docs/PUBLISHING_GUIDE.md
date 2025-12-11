@@ -101,7 +101,7 @@ Your package is already configured for GitHub Packages. Users need to:
 
 2. Install your package:
 ```bash
-npm install @chetanft/design_system
+npm install ft-design-system
 ```
 
 ### 2. npm Registry Setup
@@ -123,17 +123,17 @@ To publish to the public npm registry, update your `package.json`:
 
 ```bash
 # From GitHub Packages
-npm install @chetanft/design_system
+npm install ft-design-system
 
 # From npm (if published there)
-npm install @chetanft/design_system
+npm install ft-design-system
 ```
 
 ### Usage in React Projects
 
 ```tsx
-import { Button, Input, Badge } from '@chetanft/design_system';
-import '@chetanft/design_system/dist/styles.css';
+import { Button, Input, Badge } from 'ft-design-system';
+import 'ft-design-system/dist/styles.css';
 
 function App() {
   return (
@@ -151,7 +151,7 @@ function App() {
 The package includes TypeScript declarations, so you get full type safety:
 
 ```tsx
-import { ButtonProps, InputProps } from '@chetanft/design_system';
+import { ButtonProps, InputProps } from 'ft-design-system';
 
 const MyButton: React.FC<ButtonProps> = (props) => {
   return <Button {...props} />;
@@ -253,7 +253,7 @@ npm run publish:beta
 
 Users can install with:
 ```bash
-npm install @chetanft/design_system@beta
+npm install ft-design-system@beta
 ```
 
 ### 3. Documentation

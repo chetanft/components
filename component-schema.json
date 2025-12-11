@@ -1,0 +1,5212 @@
+{
+  "$schema": "https://ft-design-system.dev/component-schema.json",
+  "name": "ft-design-system",
+  "version": "4.15.14",
+  "generatedAt": "2025-12-11T07:44:32.983Z",
+  "quickStart": {
+    "install": "npm install ft-design-system",
+    "cssImport": "import 'ft-design-system/styles.css';",
+    "componentImport": "import { Button, Input, Table } from 'ft-design-system';",
+    "coreImport": "import { Button, Input, Table } from 'ft-design-system/core';"
+  },
+  "summary": {
+    "total": 104,
+    "byCategory": {
+      "atoms": 23,
+      "molecules": 57,
+      "organisms": 24
+    }
+  },
+  "components": [
+    {
+      "name": "Affix",
+      "category": "molecules",
+      "import": "import { Affix } from 'ft-design-system';",
+      "description": "Affix component from FT Design System",
+      "props": [
+        {
+          "name": "offsetTop",
+          "type": "number",
+          "required": false,
+          "description": "The offsetTop prop"
+        },
+        {
+          "name": "offsetBottom",
+          "type": "number",
+          "required": false,
+          "description": "The offsetBottom prop"
+        },
+        {
+          "name": "target",
+          "type": "() => Window | HTMLElement | null",
+          "required": false,
+          "description": "The target prop"
+        },
+        {
+          "name": "onChange",
+          "type": "(affixed?: boolean) => void",
+          "required": false,
+          "description": "The onChange prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Alert",
+      "category": "molecules",
+      "import": "import { Alert } from 'ft-design-system';",
+      "description": "Alert content (for composable API)",
+      "props": [
+        {
+          "name": "variant",
+          "type": "AlertVariant",
+          "required": false,
+          "default": "info",
+          "description": "Alert variant/style"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Title text (for declarative API)"
+        },
+        {
+          "name": "message",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Message content (for declarative API)"
+        },
+        {
+          "name": "icon",
+          "type": "IconName",
+          "required": false,
+          "description": "Icon name (for declarative API)"
+        },
+        {
+          "name": "closable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show close button"
+        },
+        {
+          "name": "banner",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Banner style (full width, no border radius)"
+        },
+        {
+          "name": "radius",
+          "type": "AlertRadius",
+          "required": false,
+          "description": "Border radius"
+        },
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Action content (for declarative API)"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "description": "Close callback"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Alert variant=\"info\" radius=\"md\">\n *   <AlertIcon />\n *   <AlertTitle>Information</AlertTitle>\n *   <AlertDescription>This is an info alert message</AlertDescription>\n *   <AlertAction>\n *     <Button>Action</Button>\n *   </AlertAction>\n *   <AlertClose />\n * </Alert>\n * \n * // Declarative API (deprecated)\n * <Alert variant=\"info\" title=\"Info\" message=\"Message\" action={<Button>Action</Button>} />\n *"
+    },
+    {
+      "name": "Anchor",
+      "category": "molecules",
+      "import": "import { Anchor } from 'ft-design-system';",
+      "description": "Anchor component from FT Design System",
+      "props": [
+        {
+          "name": "items",
+          "type": "AnchorLinkProps[]",
+          "required": false,
+          "description": "Anchor items array (for declarative API)"
+        },
+        {
+          "name": "affix",
+          "type": "boolean",
+          "required": false,
+          "description": "The affix prop"
+        },
+        {
+          "name": "bounds",
+          "type": "number",
+          "required": false,
+          "description": "The bounds prop"
+        },
+        {
+          "name": "offsetTarget",
+          "type": "() => HTMLElement | Window",
+          "required": false,
+          "description": "The offsetTarget prop"
+        },
+        {
+          "name": "targetOffset",
+          "type": "number",
+          "required": false,
+          "description": "The targetOffset prop"
+        },
+        {
+          "name": "showInkInFixed",
+          "type": "boolean",
+          "required": false,
+          "description": "Show ink in fixed mode"
+        },
+        {
+          "name": "onChange",
+          "type": "(currentActiveLink: string) => void",
+          "required": false,
+          "description": "The onChange prop"
+        },
+        {
+          "name": "onClick",
+          "type": "(e: React.MouseEvent<HTMLElement>, link: { title: ReactNode",
+          "required": false,
+          "description": "The onClick prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "AppHeader",
+      "category": "organisms",
+      "import": "import { AppHeader } from 'ft-design-system';",
+      "description": "AppHeader Component",
+      "props": [
+        {
+          "name": "size",
+          "type": "AppHeaderSize",
+          "required": false,
+          "description": "The size prop"
+        },
+        {
+          "name": "device",
+          "type": "AppHeaderDevice",
+          "required": false,
+          "description": "The device prop"
+        },
+        {
+          "name": "user",
+          "type": "User",
+          "required": false,
+          "description": "The user prop"
+        },
+        {
+          "name": "userCompany",
+          "type": "CompanyInfo",
+          "required": false,
+          "description": "The userCompany prop"
+        },
+        {
+          "name": "onNotificationClick",
+          "type": "(type: 'rocket' | 'bell' | 'menu') => void",
+          "required": false,
+          "description": "The onNotificationClick prop"
+        },
+        {
+          "name": "onUserClick",
+          "type": "() => void",
+          "required": false,
+          "description": "The onUserClick prop"
+        },
+        {
+          "name": "onUserMenuItemClick",
+          "type": "(item: string) => void",
+          "required": false,
+          "description": "The onUserMenuItemClick prop"
+        },
+        {
+          "name": "leftAddon",
+          "type": "() => ReactNode",
+          "required": false,
+          "description": "The leftAddon prop"
+        }
+      ],
+      "example": "* <AppHeader\n *   size=\"xl\"\n *   device=\"Desktop\"\n *   user={user}\n *   onNotificationClick={handleNotification}\n * />\n *"
+    },
+    {
+      "name": "Avatar",
+      "category": "atoms",
+      "import": "import { Avatar } from 'ft-design-system';",
+      "description": "Avatar component from FT Design System",
+      "props": [
+        {
+          "name": "size",
+          "type": "AvatarSize | number",
+          "required": false,
+          "description": "The size prop"
+        },
+        {
+          "name": "shape",
+          "type": "AvatarShape",
+          "required": false,
+          "description": "The shape prop"
+        },
+        {
+          "name": "src",
+          "type": "string | ReactNode",
+          "required": false,
+          "description": "The src prop"
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The icon prop"
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "required": false,
+          "description": "The alt prop"
+        },
+        {
+          "name": "gap",
+          "type": "number",
+          "required": false,
+          "description": "The gap prop"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Avatar size=\"md\" shape=\"circle\">\n *   <AvatarImage src=\"/avatar.jpg\" alt=\"User\" />\n *   <AvatarFallback>JD</AvatarFallback>\n * </Avatar>\n * \n * // Declarative API (deprecated)\n * <Avatar src=\"/avatar.jpg\" alt=\"User\" />\n *"
+    },
+    {
+      "name": "BackTop",
+      "category": "molecules",
+      "import": "import { BackTop } from 'ft-design-system';",
+      "description": "BackTop component from FT Design System",
+      "props": [
+        {
+          "name": "visibilityHeight",
+          "type": "number",
+          "required": false,
+          "description": "The visibilityHeight prop"
+        },
+        {
+          "name": "onClick",
+          "type": "React.MouseEventHandler<HTMLElement>",
+          "required": false,
+          "description": "The onClick prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Badge",
+      "category": "atoms",
+      "import": "import { Badge } from 'ft-design-system';",
+      "description": "Badge component props",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'default' | 'error' | 'success' | 'warning' | 'info' | 'neutral' | 'normal' | 'danger'",
+          "required": false,
+          "default": "default",
+          "description": "Badge variant for semantic coloring"
+        },
+        {
+          "name": "count",
+          "type": "number | ReactNode",
+          "required": false,
+          "description": "Count number or custom React node to display"
+        }
+      ],
+      "example": "* // Simple badge (Shadcn-style)\n * <Badge variant=\"success\" size=\"sm\">Active</Badge>\n * \n * // Composable API\n * <Badge variant=\"success\">\n *   <BadgeIcon icon=\"check\" />\n *   <BadgeText>Active</BadgeText>\n * </Badge>\n * \n * // Badge with count\n * <Badge variant=\"error\" count={5}>Notifications</Badge>\n * \n * // Dot badge\n * <Badge variant=\"warning\" dot />\n * \n * // With asChild\n * <Badge variant=\"info\" asChild>\n *   <span>Custom Badge</span>\n * </Badge>\n *"
+    },
+    {
+      "name": "Breadcrumb",
+      "category": "molecules",
+      "import": "import { Breadcrumb } from 'ft-design-system';",
+      "description": "Breadcrumb content (for composable API)",
+      "props": [
+        {
+          "name": "items",
+          "type": "BreadcrumbItemType[]",
+          "required": false,
+          "description": "Breadcrumb items array (for declarative API)"
+        },
+        {
+          "name": "separator",
+          "type": "IconName | ReactNode",
+          "required": false,
+          "description": "Separator icon or element (for declarative API)"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Breadcrumb>\n *   <BreadcrumbList>\n *     <BreadcrumbItem>\n *       <BreadcrumbLink href=\"/\" icon=\"home\">Home</BreadcrumbLink>\n *     </BreadcrumbItem>\n *     <BreadcrumbSeparator />\n *     <BreadcrumbItem>\n *       <BreadcrumbLink href=\"/about\" isCurrentPage>About</BreadcrumbLink>\n *     </BreadcrumbItem>\n *   </BreadcrumbList>\n * </Breadcrumb>\n * \n * // Declarative API (deprecated)\n * <Breadcrumb items={[{label: 'Home', href: '/'}]} />\n *"
+    },
+    {
+      "name": "Button",
+      "category": "atoms",
+      "import": "import { Button } from 'ft-design-system';",
+      "description": "Button variant options",
+      "props": [
+        {
+          "name": "variant",
+          "type": "ButtonVariant",
+          "required": false,
+          "default": "primary",
+          "description": "Visual style variant"
+        },
+        {
+          "name": "size",
+          "type": "ButtonSize",
+          "required": false,
+          "default": "md",
+          "description": "Button size"
+        }
+      ],
+      "example": "* // Primary button (default variant)\n * <Button>Save</Button>\n * \n * // Primary button with icon\n * <Button variant=\"primary\" icon=\"add\" iconPosition=\"leading\">\n *   Add Item\n * </Button>\n * \n * // Composable API with ButtonIcon and ButtonText\n * <Button>\n *   <ButtonIcon icon=\"add\" />\n *   <ButtonText>Add Item</ButtonText>\n * </Button>\n * \n * // Icon-only button\n * <Button variant=\"secondary\" icon=\"edit\" iconPosition=\"only\" />\n * \n * // Loading state\n * <Button variant=\"primary\" loading>\n *   Saving...\n * </Button>\n * \n * // Link variant\n * <Button variant=\"link\" href=\"/about\">\n *   Learn More\n * </Button>\n * \n * // With asChild\n * <Button asChild>\n *   <a href=\"/about\">Link Button</a>\n * </Button>\n *"
+    },
+    {
+      "name": "ButtonGroup",
+      "category": "molecules",
+      "import": "import { ButtonGroup } from 'ft-design-system';",
+      "description": "Buttons array (for declarative API)",
+      "props": [
+        {
+          "name": "buttons",
+          "type": "ButtonGroupItem[]",
+          "required": false,
+          "description": "Buttons array (for declarative API)"
+        },
+        {
+          "name": "equalWidth",
+          "type": "boolean",
+          "required": false,
+          "description": "The equalWidth prop"
+        },
+        {
+          "name": "wrap",
+          "type": "boolean",
+          "required": false,
+          "description": "The wrap prop"
+        }
+      ],
+      "example": "* <ButtonGroup equalWidth>\n *   <ButtonGroupItem>\n *     <Button variant=\"primary\">Save</Button>\n *   </ButtonGroupItem>\n *   <ButtonGroupItem>\n *     <Button variant=\"secondary\">Cancel</Button>\n *   </ButtonGroupItem>\n * </ButtonGroup>\n *"
+    },
+    {
+      "name": "Calendar",
+      "category": "molecules",
+      "import": "import { Calendar } from 'ft-design-system';",
+      "description": "Calendar component from FT Design System",
+      "props": [
+        {
+          "name": "value",
+          "type": "Date",
+          "required": false,
+          "description": "Current selected date"
+        },
+        {
+          "name": "defaultValue",
+          "type": "Date",
+          "required": false,
+          "description": "Default selected date"
+        },
+        {
+          "name": "onSelect",
+          "type": "(date: Date) => void",
+          "required": false,
+          "description": "Callback when date is selected"
+        },
+        {
+          "name": "onPanelChange",
+          "type": "(date: Date, mode: CalendarMode) => void",
+          "required": false,
+          "description": "Callback when panel changes"
+        },
+        {
+          "name": "mode",
+          "type": "CalendarMode",
+          "required": false,
+          "description": "Current display mode"
+        },
+        {
+          "name": "fullscreen",
+          "type": "boolean",
+          "required": false,
+          "description": "Full screen mode"
+        },
+        {
+          "name": "dateCellRender",
+          "type": "(date: Date) => ReactNode",
+          "required": false,
+          "description": "Custom date cell render"
+        },
+        {
+          "name": "monthCellRender",
+          "type": "(date: Date) => ReactNode",
+          "required": false,
+          "description": "Custom month cell render"
+        },
+        {
+          "name": "disabledDate",
+          "type": "(date: Date) => boolean",
+          "required": false,
+          "description": "Disabled date function"
+        },
+        {
+          "name": "headerRender",
+          "type": "(props: { value: Date",
+          "required": false,
+          "description": "Header render function"
+        },
+        {
+          "name": "type",
+          "type": "CalendarMode",
+          "required": true,
+          "description": "The type prop"
+        },
+        {
+          "name": "onChange",
+          "type": "(date: Date) => void",
+          "required": true,
+          "description": "The onChange prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Card",
+      "category": "organisms",
+      "import": "import { Card } from 'ft-design-system';",
+      "description": "showArrowIcon?: boolean;",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The title prop"
+        },
+        {
+          "name": "extra",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The extra prop"
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "required": false,
+          "description": "The bordered prop"
+        },
+        {
+          "name": "hoverable",
+          "type": "boolean",
+          "required": false,
+          "description": "The hoverable prop"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "description": "The loading prop"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'default' | 'small'",
+          "required": false,
+          "default": "md",
+          "description": "The size of the card."
+        },
+        {
+          "name": "actions",
+          "type": "ReactNode[]",
+          "required": false,
+          "description": "The actions prop"
+        },
+        {
+          "name": "cover",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The cover prop"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Card>\n *   <CardHeader>\n *     <CardTitle>Card Title</CardTitle>\n *     <CardDescription>Card description</CardDescription>\n *   </CardHeader>\n *   <CardBody>\n *     <p>Card content</p>\n *   </CardBody>\n *   <CardFooter>\n *     <CardActions>\n *       <Button>Action</Button>\n *     </CardActions>\n *   </CardFooter>\n * </Card>\n * \n * // Declarative API (deprecated)\n * <Card title=\"Card Title\" content={<p>Content</p>} />\n *"
+    },
+    {
+      "name": "Carousel",
+      "category": "molecules",
+      "import": "import { Carousel } from 'ft-design-system';",
+      "description": "Carousel component from FT Design System",
+      "props": [
+        {
+          "name": "autoplay",
+          "type": "boolean",
+          "required": false,
+          "description": "Auto play slides"
+        },
+        {
+          "name": "autoplaySpeed",
+          "type": "number",
+          "required": false,
+          "description": "Time between auto transitions (ms)"
+        },
+        {
+          "name": "dots",
+          "type": "boolean",
+          "required": false,
+          "description": "Show navigation dots"
+        },
+        {
+          "name": "dotPosition",
+          "type": "DotPosition",
+          "required": false,
+          "description": "Dot position"
+        },
+        {
+          "name": "customDot",
+          "type": "(props: { index: number",
+          "required": false,
+          "description": "Custom dot render"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Cascader",
+      "category": "molecules",
+      "import": "import { Cascader } from 'ft-design-system';",
+      "description": "label?: string;",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label text"
+        },
+        {
+          "name": "labelMandatory",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the field is mandatory"
+        },
+        {
+          "name": "labelOptional",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to show optional indicator"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "description": "Error message"
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "description": "Helper text"
+        },
+        {
+          "name": "size",
+          "type": "ComponentSize",
+          "required": false,
+          "description": "Component size"
+        },
+        {
+          "name": "options",
+          "type": "CascaderOption[]",
+          "required": false,
+          "description": "Cascader options (for declarative API)"
+        },
+        {
+          "name": "value",
+          "type": "string[]",
+          "required": false,
+          "description": "Selected value path"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string[]",
+          "required": false,
+          "description": "Default value path"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string[], selectedOptions: CascaderOption[]) => void",
+          "required": false,
+          "description": "Callback when selection changes"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text"
+        },
+        {
+          "name": "allowClear",
+          "type": "boolean",
+          "required": false,
+          "description": "Allow clearing selection"
+        },
+        {
+          "name": "expandTrigger",
+          "type": "'click' | 'hover'",
+          "required": false,
+          "description": "Expand trigger"
+        },
+        {
+          "name": "displayRender",
+          "type": "(labels: ReactNode[], selectedOptions: CascaderOption[]) => ReactNode",
+          "required": false,
+          "description": "Display render function"
+        },
+        {
+          "name": "changeOnSelect",
+          "type": "boolean",
+          "required": false,
+          "description": "Change on select (not just leaf nodes)"
+        },
+        {
+          "name": "showSearch",
+          "type": "boolean",
+          "required": false,
+          "description": "Show search"
+        }
+      ],
+      "example": "* <Cascader>\n *   <CascaderOption value=\"usa\" label=\"United States\">\n *     <CascaderOption value=\"california\" label=\"California\">\n *       <CascaderOption value=\"san-francisco\" label=\"San Francisco\" />\n *       <CascaderOption value=\"los-angeles\" label=\"Los Angeles\" />\n *     </CascaderOption>\n *   </CascaderOption>\n * </Cascader>\n *"
+    },
+    {
+      "name": "Checkbox",
+      "category": "atoms",
+      "import": "import { Checkbox } from 'ft-design-system';",
+      "description": "Checkbox content (for composable API)",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label text displayed next to checkbox (for declarative API)"
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Indeterminate state (shows minus icon instead of check)"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md'",
+          "required": false,
+          "default": "md",
+          "description": "Checkbox size"
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "description": "Error state (for declarative API)"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Description/helper text (for declarative API)"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Checkbox size=\"md\">\n *   <CheckboxInput checked={isChecked} onChange={handleChange} indeterminate={isIndeterminate} />\n *   <CheckboxLabel>Accept terms and conditions</CheckboxLabel>\n *   <CheckboxHelper>You can change this later</CheckboxHelper>\n * </Checkbox>\n * \n * // Declarative API (deprecated)\n * <Checkbox label=\"Accept terms\" checked={isChecked} onChange={handleChange} />\n *"
+    },
+    {
+      "name": "Chicklet",
+      "category": "molecules",
+      "import": "import { Chicklet } from 'ft-design-system';",
+      "description": "Chicklet component from FT Design System",
+      "props": [
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The text content of the chicklet"
+        },
+        {
+          "name": "variant",
+          "type": "ChickletVariant",
+          "required": false,
+          "description": "Whether the chicklet has rounded corners (pill) or rectangular corners"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Collapsible",
+      "category": "organisms",
+      "import": "import { Collapsible } from 'ft-design-system';",
+      "description": "Collapsible content (for composable API)",
+      "props": [
+        {
+          "name": "header",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Header content (for declarative API)"
+        },
+        {
+          "name": "extra",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Extra content (for declarative API)"
+        },
+        {
+          "name": "showArrow",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show arrow icon"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether the collapsible is disabled"
+        },
+        {
+          "name": "bg",
+          "type": "'Primary' | 'Secondary'",
+          "required": false,
+          "default": "Secondary",
+          "description": "Background variant"
+        },
+        {
+          "name": "type",
+          "type": "'Primary' | 'Secondary' | 'Tertiary'",
+          "required": false,
+          "default": "Primary",
+          "description": "Type variant"
+        },
+        {
+          "name": "isExpanded",
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled expanded state"
+        },
+        {
+          "name": "onToggle",
+          "type": "(isExpanded: boolean) => void",
+          "required": false,
+          "description": "Callback when toggle state changes"
+        },
+        {
+          "name": "badges",
+          "type": "boolean",
+          "required": false,
+          "description": "Legacy prop (unused)"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Collapsible type=\"Primary\" bg=\"Secondary\">\n *   <CollapsibleTrigger>\n *     <CollapsibleHeader>\n *       <CollapsibleIcon />\n *       <CollapsibleTitle>Section Title</CollapsibleTitle>\n *       <CollapsibleExtra>\n *         <Button>Action</Button>\n *       </CollapsibleExtra>\n *     </CollapsibleHeader>\n *   </CollapsibleTrigger>\n *   <CollapsibleContent>\n *     <p>Content here</p>\n *   </CollapsibleContent>\n * </Collapsible>\n * \n * // Declarative API (deprecated)\n * <Collapsible header=\"Title\" extra={<Button>Action</Button>}>\n *   Content here\n * </Collapsible>\n *"
+    },
+    {
+      "name": "ColorPicker",
+      "category": "molecules",
+      "import": "import { ColorPicker } from 'ft-design-system';",
+      "description": "ColorPicker component from FT Design System",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "The value prop"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "The defaultValue prop"
+        },
+        {
+          "name": "defaultFormat",
+          "type": "ColorFormat",
+          "required": false,
+          "description": "The defaultFormat prop"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string, hex: string) => void",
+          "required": false,
+          "description": "The onChange prop"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "The disabled prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Colors",
+      "category": "atoms",
+      "import": "import { Colors } from 'ft-design-system';",
+      "description": "Colors component from FT Design System",
+      "props": [],
+      "example": null
+    },
+    {
+      "name": "Content",
+      "category": "molecules",
+      "import": "import { Content } from 'ft-design-system';",
+      "description": "Content component from FT Design System",
+      "props": [
+        {
+          "name": "type",
+          "type": "\"Text\"",
+          "required": false,
+          "description": "Content type - only \"Text\" variant as shown in Figma"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "DataEntryTable",
+      "category": "organisms",
+      "import": "import { DataEntryTable } from 'ft-design-system';",
+      "description": "Columns configuration (for declarative API)",
+      "props": [
+        {
+          "name": "id",
+          "type": "string | number",
+          "required": true,
+          "description": "The id prop"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <DataEntryTable selectable resizable>\n *   <DataEntryTableHeader>\n *     <DataEntryTableHeaderRow>\n *       <DataEntryTableHeaderCell columnKey=\"name\">Name</DataEntryTableHeaderCell>\n *     </DataEntryTableHeaderRow>\n *   </DataEntryTableHeader>\n *   <DataEntryTableBody>\n *     <DataEntryTableRow rowId=\"1\">\n *       <DataEntryTableRowCell rowId=\"1\" columnKey=\"name\" type=\"input\" value=\"John\" />\n *     </DataEntryTableRow>\n *   </DataEntryTableBody>\n * </DataEntryTable>\n * \n * // Declarative API (deprecated)\n * <DataEntryTable\n *   columns={columns}\n *   data={data}\n *   onCellChange={handleCellChange}\n * />\n *"
+    },
+    {
+      "name": "DatePicker",
+      "category": "molecules",
+      "import": "import { DatePicker } from 'ft-design-system';",
+      "description": "DatePicker component props",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label text displayed above or beside the input (for declarative API)"
+        },
+        {
+          "name": "labelPosition",
+          "type": "'top' | 'left'",
+          "required": false,
+          "default": "top",
+          "description": "Label position relative to input"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text when no date is selected"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Selected date value (ISO string format)"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback when date changes"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable the date picker"
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show error state styling"
+        },
+        {
+          "name": "showTime",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show time picker (not currently implemented)"
+        },
+        {
+          "name": "range",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Enable date range selection"
+        },
+        {
+          "name": "startValue",
+          "type": "string",
+          "required": false,
+          "description": "Start date value for range picker (ISO string)"
+        },
+        {
+          "name": "endValue",
+          "type": "string",
+          "required": false,
+          "description": "End date value for range picker (ISO string)"
+        },
+        {
+          "name": "onStartChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback when start date changes"
+        },
+        {
+          "name": "onEndChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback when end date changes"
+        },
+        {
+          "name": "includeDropdown",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Include dropdown calendar picker"
+        }
+      ],
+      "example": "* // Single date picker\n * <DatePicker\n *   label=\"Select Date\"\n *   value={date}\n *   onChange={(value) => setDate(value)}\n * />\n * \n * // Date range picker\n * <DatePicker\n *   range\n *   startValue={startDate}\n *   endValue={endDate}\n *   onStartChange={setStartDate}\n *   onEndChange={setEndDate}\n * />\n *"
+    },
+    {
+      "name": "Descriptions",
+      "category": "molecules",
+      "import": "import { Descriptions } from 'ft-design-system';",
+      "description": "Title for declarative API (deprecated)",
+      "props": [
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Title for declarative API (deprecated)"
+        },
+        {
+          "name": "extra",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Extra content for declarative API (deprecated)"
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show border around descriptions"
+        },
+        {
+          "name": "column",
+          "type": "number",
+          "required": false,
+          "default": "3",
+          "description": "Number of columns"
+        },
+        {
+          "name": "layout",
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "default": "horizontal",
+          "description": "Layout direction"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "md",
+          "description": "Size of items"
+        },
+        {
+          "name": "items",
+          "type": "DescriptionsItemProps[]",
+          "required": false,
+          "description": "Items array for declarative API (deprecated)"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Descriptions bordered column={2}>\n *   <DescriptionsTitle>User Details</DescriptionsTitle>\n *   <DescriptionsExtra>\n *     <Button size=\"sm\">Edit</Button>\n *   </DescriptionsExtra>\n *   <DescriptionsItem span={2}>\n *     <DescriptionsLabel>Name</DescriptionsLabel>\n *     <DescriptionsValue>John Doe</DescriptionsValue>\n *   </DescriptionsItem>\n * </Descriptions>\n * \n * // Declarative API (deprecated)\n * <Descriptions items={[{label: 'Name', children: 'John Doe'}]} />\n *"
+    },
+    {
+      "name": "DisplayBlock",
+      "category": "organisms",
+      "import": "import { DisplayBlock } from 'ft-design-system';",
+      "description": "DisplayBlock component from FT Design System",
+      "props": [
+        {
+          "name": "layout",
+          "type": "\"Horizontal\" | \"Vertical\"",
+          "required": false,
+          "description": "Layout direction"
+        },
+        {
+          "name": "blocks",
+          "type": "\"1\" | \"2\" | \"3\"",
+          "required": false,
+          "description": "Number of blocks"
+        },
+        {
+          "name": "padding",
+          "type": "\"True\" | \"False\"",
+          "required": false,
+          "description": "Whether to include padding"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Divider",
+      "category": "atoms",
+      "import": "import { Divider } from 'ft-design-system';",
+      "description": "The type of divider to display",
+      "props": [
+        {
+          "name": "type",
+          "type": "DividerType",
+          "required": false,
+          "default": "primary",
+          "description": "The type of divider to display"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Label to display in the middle of the divider (only for type='with-label')"
+        },
+        {
+          "name": "direction",
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "default": "horizontal",
+          "description": "Direction of divider"
+        },
+        {
+          "name": "dashed",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether line is dashed"
+        },
+        {
+          "name": "orientation",
+          "type": "DividerOrientation",
+          "required": false,
+          "default": "center",
+          "description": "Position of title inside divider"
+        },
+        {
+          "name": "orientationMargin",
+          "type": "string | number",
+          "required": false,
+          "description": "Margin for orientation"
+        },
+        {
+          "name": "plain",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to be a normal text without line if plain"
+        }
+      ],
+      "example": "* <Divider type=\"primary\" />\n * <Divider type=\"with-label\" label=\"Section\" />\n * <Divider direction=\"vertical\" />\n *"
+    },
+    {
+      "name": "Drawer",
+      "category": "organisms",
+      "import": "import { Drawer } from 'ft-design-system';",
+      "description": "Drawer placement position",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "description": "Whether drawer is open/visible"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "description": "Callback when drawer open state changes"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "description": "Callback when drawer should close"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Drawer title displayed in header (for declarative API)"
+        },
+        {
+          "name": "placement",
+          "type": "DrawerPlacement",
+          "required": false,
+          "default": "right",
+          "description": "Side from which drawer slides in"
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "default": "400",
+          "description": "Drawer width (for left/right placement)"
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "default": "100%",
+          "description": "Drawer height (for top/bottom placement)"
+        },
+        {
+          "name": "closable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show close button in header"
+        },
+        {
+          "name": "maskClosable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Allow closing drawer by clicking the backdrop/mask"
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Footer content (typically action buttons) (for declarative API)"
+        },
+        {
+          "name": "background",
+          "type": "string",
+          "required": false,
+          "description": "Custom background color class"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Drawer open={open} onOpenChange={setOpen}>\n *   <DrawerTrigger>\n *     <Button>Open Drawer</Button>\n *   </DrawerTrigger>\n *   <DrawerContent placement=\"right\" width={400}>\n *     <DrawerHeader>\n *       <DrawerTitle>Settings</DrawerTitle>\n *       <DrawerClose />\n *     </DrawerHeader>\n *     <DrawerBody>\n *       <p>Drawer content goes here</p>\n *     </DrawerBody>\n *     <DrawerFooter>\n *       <Button onClick={() => setOpen(false)}>Close</Button>\n *     </DrawerFooter>\n *   </DrawerContent>\n * </Drawer>\n * \n * // Declarative API (deprecated)\n * <Drawer\n *   open={open}\n *   onClose={() => setOpen(false)}\n *   title=\"Settings\"\n *   placement=\"right\"\n *   width={400}\n *   footer={<Button onClick={() => setOpen(false)}>Close</Button>}\n * >\n *   <p>Drawer content goes here</p>\n * </Drawer>\n *"
+    },
+    {
+      "name": "Dropdown",
+      "category": "molecules",
+      "import": "import { Dropdown } from 'ft-design-system';",
+      "description": "Options array (for declarative API)",
+      "props": [
+        {
+          "name": "options",
+          "type": "DropdownOption[]",
+          "required": false,
+          "description": "Options array (for declarative API)"
+        },
+        {
+          "name": "value",
+          "type": "string | number",
+          "required": false,
+          "description": "Selected value"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text"
+        },
+        {
+          "name": "size",
+          "type": "ComponentSize",
+          "required": false,
+          "default": "md",
+          "description": "Component size"
+        },
+        {
+          "name": "state",
+          "type": "'default' | 'error' | 'disabled'",
+          "required": false,
+          "default": "default",
+          "description": "Component state"
+        },
+        {
+          "name": "type",
+          "type": "'normal' | 'search' | 'groups'",
+          "required": false,
+          "default": "normal",
+          "description": "Dropdown type"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string | number) => void",
+          "required": false,
+          "description": "Change handler"
+        },
+        {
+          "name": "onSearch",
+          "type": "(query: string) => void",
+          "required": false,
+          "description": "Search handler"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label text (for declarative API)"
+        },
+        {
+          "name": "labelMandatory",
+          "type": "boolean",
+          "required": false,
+          "description": "Label mandatory indicator"
+        },
+        {
+          "name": "labelOptional",
+          "type": "boolean",
+          "required": false,
+          "description": "Label optional indicator"
+        },
+        {
+          "name": "labelSuffixIcon",
+          "type": "boolean",
+          "required": false,
+          "description": "Label suffix icon"
+        },
+        {
+          "name": "labelIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Label icon"
+        },
+        {
+          "name": "labelPosition",
+          "type": "'top' | 'left'",
+          "required": false,
+          "default": "top",
+          "description": "Label position"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "description": "Error message"
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "description": "Helper text"
+        },
+        {
+          "name": "required",
+          "type": "boolean",
+          "required": false,
+          "description": "Required indicator"
+        },
+        {
+          "name": "onSelect",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "The onSelect prop"
+        },
+        {
+          "name": "segments",
+          "type": "SegmentedTabItem[]",
+          "required": false,
+          "description": "Segments for segmented search"
+        },
+        {
+          "name": "selectedSegment",
+          "type": "string",
+          "required": false,
+          "description": "Selected segment"
+        },
+        {
+          "name": "onSegmentChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Segment change handler"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Dropdown value={selectedValue} onChange={setValue}>\n *   <DropdownTrigger />\n *   <DropdownContent />\n * </Dropdown>\n * \n * // Declarative API (deprecated)\n * <Dropdown\n *   options={options}\n *   value={selectedValue}\n *   onChange={setValue}\n *   placeholder=\"Select an option\"\n * />\n *"
+    },
+    {
+      "name": "DropdownMenu",
+      "category": "molecules",
+      "import": "import { DropdownMenu } from 'ft-design-system';",
+      "description": "DropdownMenu component from FT Design System",
+      "props": [
+        {
+          "name": "property",
+          "type": "VariantProps<typeof dropdownMenuVariants>['property']",
+          "required": false,
+          "default": "default",
+          "description": "Menu property type"
+        },
+        {
+          "name": "options",
+          "type": "DropdownMenuOption[]",
+          "required": false,
+          "description": "Options array (for declarative API)"
+        },
+        {
+          "name": "showScrollBar",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show scroll bar"
+        },
+        {
+          "name": "onSelect",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Select handler"
+        },
+        {
+          "name": "segments",
+          "type": "SegmentedTabItem[]",
+          "required": false,
+          "description": "Segments for segmented search"
+        },
+        {
+          "name": "selectedSegment",
+          "type": "string",
+          "required": false,
+          "description": "Selected segment"
+        },
+        {
+          "name": "onSegmentChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Segment change handler"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <DropdownMenu property=\"search\">\n *   <DropdownMenuSearch />\n *   <DropdownMenuList>\n *     <DropdownMenuItem value=\"1\">Option 1</DropdownMenuItem>\n *     <DropdownMenuSeparator />\n *     <DropdownMenuItem value=\"2\">Option 2</DropdownMenuItem>\n *   </DropdownMenuList>\n * </DropdownMenu>\n * \n * // Declarative API (deprecated)\n * <DropdownMenu\n *   property=\"default\"\n *   options={options}\n *   onSelect={handleSelect}\n * />\n *"
+    },
+    {
+      "name": "Empty",
+      "category": "molecules",
+      "import": "import { Empty } from 'ft-design-system';",
+      "description": "description?: React.ReactNode;",
+      "props": [
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Description text"
+        },
+        {
+          "name": "image",
+          "type": "EmptyImage | ReactNode",
+          "required": false,
+          "description": "Image type or custom image"
+        },
+        {
+          "name": "imageStyle",
+          "type": "React.CSSProperties",
+          "required": false,
+          "description": "Custom image style"
+        }
+      ],
+      "example": "* <Empty description=\"No data available\" image=\"no-data\">\n *   <Button>Add Item</Button>\n * </Empty>\n *"
+    },
+    {
+      "name": "FigmaBadge",
+      "category": "atoms",
+      "import": "import { FigmaBadge } from 'ft-design-system';",
+      "description": "FigmaBadge component from FT Design System",
+      "props": [],
+      "example": null
+    },
+    {
+      "name": "FileCard",
+      "category": "organisms",
+      "import": "import { FileCard } from 'ft-design-system';",
+      "description": "FileCard component from FT Design System",
+      "props": [
+        {
+          "name": "fileName",
+          "type": "string",
+          "required": true,
+          "description": "The fileName prop"
+        },
+        {
+          "name": "fileType",
+          "type": "string",
+          "required": true,
+          "description": "The fileType prop"
+        },
+        {
+          "name": "fileDate",
+          "type": "string",
+          "required": false,
+          "description": "The fileDate prop"
+        },
+        {
+          "name": "status",
+          "type": "'uploading' | 'validating' | 'processed' | 'partially-processed' | 'failed' | 'template-mismatch' | 'upload-failed' | 'unsupported' | 'empty' | 'too-large'",
+          "required": true,
+          "description": "The status prop"
+        },
+        {
+          "name": "progress",
+          "type": "number",
+          "required": false,
+          "description": "The progress prop"
+        },
+        {
+          "name": "stats",
+          "type": "FileStats",
+          "required": false,
+          "description": "The stats prop"
+        },
+        {
+          "name": "errorMessage",
+          "type": "string",
+          "required": false,
+          "description": "The errorMessage prop"
+        },
+        {
+          "name": "onDownload",
+          "type": "() => void",
+          "required": false,
+          "description": "The onDownload prop"
+        },
+        {
+          "name": "onPreview",
+          "type": "() => void",
+          "required": false,
+          "description": "The onPreview prop"
+        },
+        {
+          "name": "onDelete",
+          "type": "() => void",
+          "required": false,
+          "description": "The onDelete prop"
+        },
+        {
+          "name": "onRefresh",
+          "type": "() => void",
+          "required": false,
+          "description": "The onRefresh prop"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "description": "The onClose prop"
+        },
+        {
+          "name": "variant",
+          "type": "'compact' | 'expanded' | 'with-progress' | 'with-stats'",
+          "required": false,
+          "description": "The variant prop"
+        },
+        {
+          "name": "downloadDisabled",
+          "type": "boolean",
+          "required": false,
+          "description": "The downloadDisabled prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "FileThumbnail",
+      "category": "organisms",
+      "import": "import { FileThumbnail } from 'ft-design-system';",
+      "description": "FileThumbnail component from FT Design System",
+      "props": [
+        {
+          "name": "fileName",
+          "type": "string",
+          "required": true,
+          "description": "The fileName prop"
+        },
+        {
+          "name": "imageUrl",
+          "type": "string",
+          "required": false,
+          "description": "The imageUrl prop"
+        },
+        {
+          "name": "showFileName",
+          "type": "boolean",
+          "required": false,
+          "description": "The showFileName prop"
+        },
+        {
+          "name": "onPreview",
+          "type": "() => void",
+          "required": false,
+          "description": "The onPreview prop"
+        },
+        {
+          "name": "onDownload",
+          "type": "() => void",
+          "required": false,
+          "description": "The onDownload prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "FileTypeIcon",
+      "category": "organisms",
+      "import": "import { FileTypeIcon } from 'ft-design-system';",
+      "description": "FileTypeIcon component from FT Design System",
+      "props": [
+        {
+          "name": "fileType",
+          "type": "string",
+          "required": true,
+          "description": "The fileType prop"
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'error'",
+          "required": false,
+          "description": "The variant prop"
+        },
+        {
+          "name": "size",
+          "type": "'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'",
+          "required": false,
+          "description": "The size prop"
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "required": false,
+          "description": "The src prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "FileValidationCard",
+      "category": "molecules",
+      "import": "import { FileValidationCard } from 'ft-design-system';",
+      "description": "FileValidationCard component from FT Design System",
+      "props": [
+        {
+          "name": "fileName",
+          "type": "string",
+          "required": true,
+          "description": "The fileName prop"
+        },
+        {
+          "name": "fileType",
+          "type": "'excel' | 'csv' | 'generic'",
+          "required": false,
+          "description": "The fileType prop"
+        },
+        {
+          "name": "uploadedAt",
+          "type": "Date",
+          "required": false,
+          "description": "The uploadedAt prop"
+        },
+        {
+          "name": "validationStatus",
+          "type": "ValidationStatus",
+          "required": false,
+          "description": "The validationStatus prop"
+        },
+        {
+          "name": "validationStats",
+          "type": "ValidationStats",
+          "required": false,
+          "description": "The validationStats prop"
+        },
+        {
+          "name": "onDelete",
+          "type": "() => void",
+          "required": false,
+          "description": "The onDelete prop"
+        },
+        {
+          "name": "onDownload",
+          "type": "() => void",
+          "required": false,
+          "description": "The onDownload prop"
+        },
+        {
+          "name": "onViewDetails",
+          "type": "() => void",
+          "required": false,
+          "description": "The onViewDetails prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "FilterDateRange",
+      "category": "molecules",
+      "import": "import { FilterDateRange } from 'ft-design-system';",
+      "description": "Unique identifier for this filter (used for context management)",
+      "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Unique identifier for this filter (used for context management)"
+        },
+        {
+          "name": "startValue",
+          "type": "string",
+          "required": false,
+          "description": "Start date value (ISO string)"
+        },
+        {
+          "name": "endValue",
+          "type": "string",
+          "required": false,
+          "description": "End date value (ISO string)"
+        },
+        {
+          "name": "onStartChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback when start date changes"
+        },
+        {
+          "name": "onEndChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback when end date changes"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text"
+        }
+      ],
+      "example": "* <FilterDateRange\n *   id=\"date-filter\"\n *   startValue={startDate}\n *   endValue={endDate}\n *   onStartChange={setStartDate}\n *   onEndChange={setEndDate}\n *   placeholder=\"12 Aug, 2024 → 12 Sep 2024\"\n * />\n *"
+    },
+    {
+      "name": "FilterDropdown",
+      "category": "molecules",
+      "import": "import { FilterDropdown } from 'ft-design-system';",
+      "description": "Unique identifier for this filter (used for context management)",
+      "props": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "Unique identifier for this filter (used for context management)"
+        },
+        {
+          "name": "value",
+          "type": "string | number",
+          "required": false,
+          "description": "Selected value"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string | number) => void",
+          "required": false,
+          "description": "Callback when value changes"
+        },
+        {
+          "name": "options",
+          "type": "DropdownOption[]",
+          "required": true,
+          "description": "Dropdown options"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text"
+        },
+        {
+          "name": "icon",
+          "type": "IconName",
+          "required": false,
+          "description": "Icon name for mobile icon button"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label for mobile dropdown menu"
+        }
+      ],
+      "example": "* <FilterDropdown\n *   id=\"location-filter\"\n *   value={location}\n *   onChange={setLocation}\n *   options={locationOptions}\n *   placeholder=\"Select location\"\n *   icon=\"location\"\n *   label=\"Location\"\n * />\n *"
+    },
+    {
+      "name": "FilterSearch",
+      "category": "molecules",
+      "import": "import { FilterSearch } from 'ft-design-system';",
+      "description": "Search value",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Search value"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback when value changes"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text"
+        },
+        {
+          "name": "onExpand",
+          "type": "() => void",
+          "required": false,
+          "description": "Callback when search expands"
+        },
+        {
+          "name": "onCollapse",
+          "type": "() => void",
+          "required": false,
+          "description": "Callback when search collapses"
+        }
+      ],
+      "example": "* <FilterSearch\n *   value={searchTerm}\n *   onChange={setSearchTerm}\n *   placeholder=\"Search My Journeys\"\n * />\n *"
+    },
+    {
+      "name": "FloatButton",
+      "category": "molecules",
+      "import": "import { FloatButton } from 'ft-design-system';",
+      "description": "FloatButton component from FT Design System",
+      "props": [
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The icon prop"
+        },
+        {
+          "name": "description",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The description prop"
+        },
+        {
+          "name": "tooltip",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The tooltip prop"
+        },
+        {
+          "name": "type",
+          "type": "FloatButtonType",
+          "required": false,
+          "description": "The type prop"
+        },
+        {
+          "name": "shape",
+          "type": "FloatButtonShape",
+          "required": false,
+          "description": "The shape prop"
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "required": false,
+          "description": "The href prop"
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "The target prop"
+        },
+        {
+          "name": "badge",
+          "type": "{ count?: number",
+          "required": false,
+          "description": "The badge prop"
+        },
+        {
+          "name": "dot",
+          "type": "boolean",
+          "required": false,
+          "description": "The dot prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Footer",
+      "category": "organisms",
+      "import": "import { Footer } from 'ft-design-system';",
+      "description": "Number of buttons to display (1-4) - for declarative API",
+      "props": [
+        {
+          "name": "buttonCount",
+          "type": "1 | 2 | 3 | 4",
+          "required": false,
+          "description": "Number of buttons to display (1-4) - for declarative API"
+        },
+        {
+          "name": "leftSideButton",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to show the left side button (only for 3+ button layouts) - for declarative API"
+        },
+        {
+          "name": "buttonTexts",
+          "type": "string[]",
+          "required": false,
+          "description": "Custom button texts - if not provided, defaults to \"Button\" - for declarative API"
+        },
+        {
+          "name": "buttonVariants",
+          "type": "Array<'primary' | 'secondary' | 'text' | 'link'>",
+          "required": false,
+          "description": "Custom button variants for each button - for declarative API"
+        },
+        {
+          "name": "onButtonClick",
+          "type": "Array<() => void>",
+          "required": false,
+          "description": "Custom click handlers for each button - for declarative API"
+        }
+      ],
+      "example": "* <Footer>\n *   <FooterButton variant=\"secondary\">Cancel</FooterButton>\n *   <FooterButton variant=\"primary\">Save</FooterButton>\n * </Footer>\n *"
+    },
+    {
+      "name": "Form",
+      "category": "organisms",
+      "import": "import { Form } from 'ft-design-system';",
+      "description": "layout?: FormLayout;",
+      "props": [
+        {
+          "name": "layout",
+          "type": "FormLayout",
+          "required": false,
+          "description": "Form layout direction"
+        },
+        {
+          "name": "labelCol",
+          "type": "number",
+          "required": false,
+          "description": "Label column span (1-24) for horizontal layout"
+        },
+        {
+          "name": "wrapperCol",
+          "type": "number",
+          "required": false,
+          "description": "Wrapper column span (1-24) for horizontal layout"
+        },
+        {
+          "name": "initialValues",
+          "type": "Record<string, any>",
+          "required": false,
+          "description": "Initial form values"
+        },
+        {
+          "name": "onFinish",
+          "type": "(values: Record<string, any>) => void",
+          "required": false,
+          "description": "Called when form is submitted with valid values"
+        },
+        {
+          "name": "onFinishFailed",
+          "type": "(errors: Record<string, string>) => void",
+          "required": false,
+          "description": "Called when form submission fails validation"
+        },
+        {
+          "name": "onValuesChange",
+          "type": "(changedValues: Record<string, any>, allValues: Record<string, any>) => void",
+          "required": false,
+          "description": "Called when any field value changes"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Disable all form fields"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": "Size of form controls"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Form>\n *   <FormItem name=\"email\">\n *     <FormLabel mandatory>Email</FormLabel>\n *     <FormControl>\n *       <Input type=\"email\" />\n *     </FormControl>\n *     <FormError>Invalid email</FormError>\n *     <FormHelper>We'll never share your email</FormHelper>\n *   </FormItem>\n * </Form>\n * \n * // Declarative API (deprecated)\n * <FormItem name=\"email\" label=\"Email\" required>\n *   <Input type=\"email\" />\n * </FormItem>\n *"
+    },
+    {
+      "name": "Graphs",
+      "category": "molecules",
+      "import": "import { Graphs } from 'ft-design-system';",
+      "description": "Graphs component from FT Design System",
+      "props": [],
+      "example": null
+    },
+    {
+      "name": "Grid",
+      "category": "organisms",
+      "import": "import { Grid } from 'ft-design-system';",
+      "description": "Grid component from FT Design System",
+      "props": [],
+      "example": null
+    },
+    {
+      "name": "HoverCard",
+      "category": "molecules",
+      "import": "import { HoverCard } from 'ft-design-system';",
+      "description": "Trigger content (for declarative API)",
+      "props": [
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Card content (for declarative API)"
+        },
+        {
+          "name": "openDelay",
+          "type": "number",
+          "required": false,
+          "default": "200",
+          "description": "Open delay in milliseconds"
+        },
+        {
+          "name": "closeDelay",
+          "type": "number",
+          "required": false,
+          "default": "300",
+          "description": "Close delay in milliseconds"
+        },
+        {
+          "name": "width",
+          "type": "number | string",
+          "required": false,
+          "default": "320",
+          "description": "Card width"
+        },
+        {
+          "name": "placement",
+          "type": "'top' | 'bottom' | 'left' | 'right'",
+          "required": false,
+          "default": "bottom",
+          "description": "Placement"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <HoverCard openDelay={200} closeDelay={300}>\n *   <HoverCardTrigger>\n *     <Button>Hover me</Button>\n *   </HoverCardTrigger>\n *   <HoverCardContent>\n *     <p>Card content</p>\n *   </HoverCardContent>\n * </HoverCard>\n * \n * // Declarative API (deprecated)\n * <HoverCard content={<p>Card content</p>}>\n *   <Button>Hover me</Button>\n * </HoverCard>\n *"
+    },
+    {
+      "name": "Illustration",
+      "category": "atoms",
+      "import": "import { Illustration } from 'ft-design-system';",
+      "description": "Illustration component from FT Design System",
+      "props": [
+        {
+          "name": "variant",
+          "type": "IllustrationVariant",
+          "required": false,
+          "description": "The variant prop"
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "required": false,
+          "description": "The src prop"
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "required": false,
+          "description": "The alt prop"
+        },
+        {
+          "name": "size",
+          "type": "IllustrationSize",
+          "required": false,
+          "description": "The size prop"
+        },
+        {
+          "name": "rounded",
+          "type": "'none' | 'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": "The rounded prop"
+        },
+        {
+          "name": "background",
+          "type": "'transparent' | 'subtle'",
+          "required": false,
+          "description": "The background prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Image",
+      "category": "molecules",
+      "import": "import { Image } from 'ft-design-system';",
+      "description": "Image component from FT Design System",
+      "props": [
+        {
+          "name": "src",
+          "type": "string",
+          "required": true,
+          "description": "Image source"
+        },
+        {
+          "name": "alt",
+          "type": "string",
+          "required": true,
+          "description": "Alt text"
+        },
+        {
+          "name": "fallback",
+          "type": "string",
+          "required": false,
+          "description": "Fallback image src"
+        },
+        {
+          "name": "placeholder",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Placeholder to show while loading"
+        },
+        {
+          "name": "preview",
+          "type": "boolean | PreviewConfig",
+          "required": false,
+          "description": "Enable preview on click"
+        },
+        {
+          "name": "width",
+          "type": "number | string",
+          "required": false,
+          "description": "Image width"
+        },
+        {
+          "name": "height",
+          "type": "number | string",
+          "required": false,
+          "description": "Image height"
+        },
+        {
+          "name": "rootClassName",
+          "type": "string",
+          "required": false,
+          "description": "Root class name"
+        },
+        {
+          "name": "onError",
+          "type": "(e: React.SyntheticEvent<HTMLImageElement>) => void",
+          "required": false,
+          "description": "Callback when image fails to load"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Input",
+      "category": "atoms",
+      "import": "import { Input } from 'ft-design-system';",
+      "description": "Input component props",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label text displayed above the input"
+        },
+        {
+          "name": "labelMandatory",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Shows mandatory indicator (*) next to label"
+        },
+        {
+          "name": "labelOptional",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Shows optional indicator next to label"
+        },
+        {
+          "name": "labelSuffixIcon",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Shows suffix icon in label"
+        },
+        {
+          "name": "labelIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Custom icon component for label"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "description": "Error message displayed below input"
+        },
+        {
+          "name": "warning",
+          "type": "string",
+          "required": false,
+          "description": "Warning message displayed below input"
+        },
+        {
+          "name": "success",
+          "type": "string",
+          "required": false,
+          "description": "Success message displayed below input"
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "description": "Helper text displayed below input"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Input size=\"md\" variant=\"default\">\n *   <InputLabel mandatory>Email</InputLabel>\n *   <InputField type=\"email\" leadingIcon=\"mail\" placeholder=\"Enter email\" />\n *   <InputError>Invalid email</InputError>\n * </Input>\n * \n * // Declarative API (deprecated)\n * <Input label=\"Email\" type=\"email\" placeholder=\"Enter your email\" />\n *"
+    },
+    {
+      "name": "InputNumber",
+      "category": "molecules",
+      "import": "import { InputNumber } from 'ft-design-system';",
+      "description": "Current value (controlled)",
+      "props": [
+        {
+          "name": "value",
+          "type": "number | null",
+          "required": false,
+          "description": "Current value (controlled)"
+        },
+        {
+          "name": "defaultValue",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Default value (uncontrolled)"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": "-Infinity",
+          "description": "Minimum value"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "Infinity",
+          "description": "Maximum value"
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": "Step for increment/decrement"
+        },
+        {
+          "name": "precision",
+          "type": "number",
+          "required": false,
+          "description": "Decimal precision"
+        },
+        {
+          "name": "size",
+          "type": "ComponentSize",
+          "required": false,
+          "default": "md",
+          "description": "Component size"
+        },
+        {
+          "name": "controls",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether to show controls"
+        },
+        {
+          "name": "controlsPosition",
+          "type": "'right' | 'both'",
+          "required": false,
+          "default": "right",
+          "description": "Controls position"
+        },
+        {
+          "name": "prefix",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Prefix content (for declarative API)"
+        },
+        {
+          "name": "suffix",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Suffix content (for declarative API)"
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Error state"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disabled state"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: number | null) => void",
+          "required": false,
+          "description": "Change handler"
+        },
+        {
+          "name": "formatter",
+          "type": "(value: number | undefined) => string",
+          "required": false,
+          "description": "Formatter for display"
+        },
+        {
+          "name": "parser",
+          "type": "(displayValue: string) => number",
+          "required": false,
+          "description": "Parser from string to number"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <InputNumber value={10} min={0} max={100} step={1}>\n *   <InputNumberWrapper>\n *     <InputNumberPrefix>$</InputNumberPrefix>\n *     <InputNumberField />\n *     <InputNumberSuffix>USD</InputNumberSuffix>\n *     <InputNumberControls />\n *   </InputNumberWrapper>\n * </InputNumber>\n * \n * // Declarative API (deprecated)\n * <InputNumber value={10} prefix=\"$\" suffix=\"USD\" />\n *"
+    },
+    {
+      "name": "Label",
+      "category": "atoms",
+      "import": "import { Label } from 'ft-design-system';",
+      "description": "Label component from FT Design System",
+      "props": [
+        {
+          "name": "mandatory",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the field is mandatory (shows red asterisk)"
+        },
+        {
+          "name": "optional",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the field is optional (shows \"(Optional)\" text)"
+        },
+        {
+          "name": "suffixIcon",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to show a suffix icon (info/alert icon)"
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Custom icon to use instead of default AlertTriangle"
+        },
+        {
+          "name": "as",
+          "type": "'label' | 'span' | 'div'",
+          "required": false,
+          "description": "HTML element to render as (default: 'label')"
+        },
+        {
+          "name": "htmlFor",
+          "type": "string",
+          "required": false,
+          "description": "HTML attributes for the label element"
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "required": false,
+          "description": "Click handler"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "List",
+      "category": "molecules",
+      "import": "import { List } from 'ft-design-system';",
+      "description": "Data source for declarative API (deprecated)",
+      "props": [
+        {
+          "name": "dataSource",
+          "type": "T[]",
+          "required": false,
+          "description": "Data source for declarative API (deprecated)"
+        },
+        {
+          "name": "renderItem",
+          "type": "(item: T, index: number) => ReactNode",
+          "required": false,
+          "description": "Render function for declarative API (deprecated)"
+        },
+        {
+          "name": "header",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Header content for declarative API (deprecated)"
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Footer content for declarative API (deprecated)"
+        },
+        {
+          "name": "bordered",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show border around list"
+        },
+        {
+          "name": "split",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show split lines between items"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show loading state"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "default": "md",
+          "description": "Size of list items"
+        },
+        {
+          "name": "grid",
+          "type": "{ gutter?: number",
+          "required": false,
+          "description": "Grid layout configuration (deprecated)"
+        },
+        {
+          "name": "column",
+          "type": "number",
+          "required": false,
+          "description": "The column prop"
+        },
+        {
+          "name": "xs",
+          "type": "number",
+          "required": false,
+          "description": "The xs prop"
+        },
+        {
+          "name": "sm",
+          "type": "number",
+          "required": false,
+          "description": "The sm prop"
+        },
+        {
+          "name": "md",
+          "type": "number",
+          "required": false,
+          "description": "The md prop"
+        },
+        {
+          "name": "lg",
+          "type": "number",
+          "required": false,
+          "description": "The lg prop"
+        },
+        {
+          "name": "xl",
+          "type": "number",
+          "required": false,
+          "description": "The xl prop"
+        },
+        {
+          "name": "xxl",
+          "type": "number",
+          "required": false,
+          "description": "The xxl prop"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <List bordered>\n *   <ListHeader>\n *     <Typography variant=\"title-secondary\">List Header</Typography>\n *   </ListHeader>\n *   <ListBody>\n *     <ListItem>\n *       <ListItemIcon>\n *         <Icon name=\"check\" />\n *       </ListItemIcon>\n *       <ListItemContent>\n *         <ListItemTitle>Item Title</ListItemTitle>\n *         <ListItemDescription>Item description</ListItemDescription>\n *       </ListItemContent>\n *       <ListItemAction>\n *         <Button size=\"sm\">Action</Button>\n *       </ListItemAction>\n *     </ListItem>\n *   </ListBody>\n *   <ListFooter>\n *     <Button>Load More</Button>\n *   </ListFooter>\n * </List>\n * \n * // Declarative API (deprecated)\n * <List dataSource={items} renderItem={(item) => <div>{item.name}</div>} />\n *"
+    },
+    {
+      "name": "Loader",
+      "category": "molecules",
+      "import": "import { Loader } from 'ft-design-system';",
+      "description": "value?: number;",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "description": "Progress value 0-100"
+        },
+        {
+          "name": "logoSize",
+          "type": "number",
+          "required": false,
+          "description": "Size of the logo/icon"
+        },
+        {
+          "name": "showLogo",
+          "type": "boolean",
+          "required": false,
+          "description": "Show logo/icon"
+        },
+        {
+          "name": "logo",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Custom logo component"
+        }
+      ],
+      "example": "* <Loader value={50} showLogo={true} />\n *"
+    },
+    {
+      "name": "Mentions",
+      "category": "molecules",
+      "import": "import { Mentions } from 'ft-design-system';",
+      "description": "Options array (for declarative API)",
+      "props": [
+        {
+          "name": "options",
+          "type": "MentionOption[]",
+          "required": false,
+          "description": "Options array (for declarative API)"
+        },
+        {
+          "name": "prefix",
+          "type": "string | string[]",
+          "required": false,
+          "description": "The prefix prop"
+        },
+        {
+          "name": "split",
+          "type": "string",
+          "required": false,
+          "description": "The split prop"
+        },
+        {
+          "name": "filterOption",
+          "type": "false | ((input: string, option: MentionOption) => boolean)",
+          "required": false,
+          "description": "The filterOption prop"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "The onChange prop"
+        },
+        {
+          "name": "onSelect",
+          "type": "(option: MentionOption, prefix: string) => void",
+          "required": false,
+          "description": "The onSelect prop"
+        },
+        {
+          "name": "onSearch",
+          "type": "(text: string, prefix: string) => void",
+          "required": false,
+          "description": "The onSearch prop"
+        },
+        {
+          "name": "autoSize",
+          "type": "boolean | { minRows: number",
+          "required": false,
+          "description": "The autoSize prop"
+        }
+      ],
+      "example": "* <Mentions prefix=\"@\">\n *   <MentionOption value=\"john\">John Doe</MentionOption>\n *   <MentionOption value=\"jane\">Jane Smith</MentionOption>\n * </Mentions>\n *"
+    },
+    {
+      "name": "Message",
+      "category": "molecules",
+      "import": "import { Message } from 'ft-design-system';",
+      "description": "Message component from FT Design System",
+      "props": [
+        {
+          "name": "type",
+          "type": "MessageType",
+          "required": false,
+          "description": "The type prop"
+        },
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": true,
+          "description": "The content prop"
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The icon prop"
+        },
+        {
+          "name": "closable",
+          "type": "boolean",
+          "required": false,
+          "description": "The closable prop"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "description": "The onClose prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Modal",
+      "category": "organisms",
+      "import": "import { Modal } from 'ft-design-system';",
+      "description": "Modal component props",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "description": "Whether modal is open/visible"
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "required": false,
+          "description": "Callback when modal open state changes"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "description": "Callback when modal should close"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Modal title displayed in header (for declarative API)"
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Footer content (typically action buttons) (for declarative API)"
+        },
+        {
+          "name": "closable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show close button in header"
+        },
+        {
+          "name": "maskClosable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Allow closing modal by clicking the backdrop/mask"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg' | 'xl' | 'full'",
+          "required": false,
+          "default": "md",
+          "description": "Modal size preset"
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "Custom modal width (overrides size)"
+        },
+        {
+          "name": "centered",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Center modal vertically"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Modal open={open} onOpenChange={setOpen}>\n *   <ModalTrigger>\n *     <Button>Open Modal</Button>\n *   </ModalTrigger>\n *   <ModalContent>\n *     <ModalHeader>\n *       <ModalTitle>Confirm Action</ModalTitle>\n *       <ModalDescription>\n *         Are you sure you want to proceed?\n *       </ModalDescription>\n *       <ModalClose />\n *     </ModalHeader>\n *     <ModalBody>\n *       <p>Modal content goes here</p>\n *     </ModalBody>\n *     <ModalFooter>\n *       <Button variant=\"secondary\" onClick={() => setOpen(false)}>Cancel</Button>\n *       <Button variant=\"primary\" onClick={handleConfirm}>Confirm</Button>\n *     </ModalFooter>\n *   </ModalContent>\n * </Modal>\n * \n * // Declarative API (deprecated)\n * <Modal\n *   open={open}\n *   onClose={() => setOpen(false)}\n *   title=\"Confirm Action\"\n *   footer={\n *     <>\n *       <Button onClick={() => setOpen(false)}>Cancel</Button>\n *       <Button variant=\"primary\" onClick={handleConfirm}>Confirm</Button>\n *     </>\n *   }\n * >\n *   <p>Are you sure you want to proceed?</p>\n * </Modal>\n *"
+    },
+    {
+      "name": "NavigationMenu",
+      "category": "organisms",
+      "import": "import { NavigationMenu } from 'ft-design-system';",
+      "description": "NavigationMenu component from FT Design System",
+      "props": [
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "description": "Close handler"
+        },
+        {
+          "name": "onNavigate",
+          "type": "(itemLabel: string) => void",
+          "required": false,
+          "description": "Navigation item click handler"
+        },
+        {
+          "name": "onFooterButtonClick",
+          "type": "(buttonType: 'announcement' | 'releases') => void",
+          "required": false,
+          "description": "Footer button click handler"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "NavigationPopover",
+      "category": "organisms",
+      "import": "import { NavigationPopover } from 'ft-design-system';",
+      "description": "Sections array (for declarative API)",
+      "props": [
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "The open prop"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "description": "The onClose prop"
+        },
+        {
+          "name": "sections",
+          "type": "NavigationSection[]",
+          "required": false,
+          "description": "Sections array (for declarative API)"
+        },
+        {
+          "name": "initialSectionId",
+          "type": "string",
+          "required": false,
+          "description": "The initialSectionId prop"
+        },
+        {
+          "name": "onSectionChange",
+          "type": "(itemId: string) => void",
+          "required": false,
+          "description": "The onSectionChange prop"
+        },
+        {
+          "name": "renderHero",
+          "type": "(hero: NavigationSectionHero) => ReactNode",
+          "required": false,
+          "description": "The renderHero prop"
+        },
+        {
+          "name": "renderHeader",
+          "type": "(defaultHeader: ReactNode) => ReactNode",
+          "required": false,
+          "description": "The renderHeader prop"
+        },
+        {
+          "name": "footerSlot",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The footerSlot prop"
+        },
+        {
+          "name": "headerSlot",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The headerSlot prop"
+        },
+        {
+          "name": "heroPlacement",
+          "type": "HeroPlacement",
+          "required": false,
+          "description": "The heroPlacement prop"
+        },
+        {
+          "name": "metricsColumns",
+          "type": "MetricsColumnsConfig",
+          "required": false,
+          "description": "The metricsColumns prop"
+        }
+      ],
+      "example": "* <NavigationPopover>\n *   <NavigationSection id=\"overview\" label=\"Overview\" icon=\"dashboard\">\n *     <NavigationSectionHero title=\"Overview\" description=\"High-level summary\" />\n *     <NavigationSectionMetric variant=\"highlight\" title=\"Key Metrics\" description=\"Monitor performance\" />\n *   </NavigationSection>\n * </NavigationPopover>\n *"
+    },
+    {
+      "name": "Notification",
+      "category": "molecules",
+      "import": "import { Notification } from 'ft-design-system';",
+      "description": "Notification component from FT Design System",
+      "props": [],
+      "example": null
+    },
+    {
+      "name": "PageHeader",
+      "category": "organisms",
+      "import": "import { PageHeader } from 'ft-design-system';",
+      "description": "PageHeader component from FT Design System",
+      "props": [],
+      "example": "* <PageHeader>\n *   <PageHeader.Top>\n *     <PageHeader.Left>\n *       <PageHeader.BackButton />\n *       <PageHeader.Title>Page Title</PageHeader.Title>\n *     </PageHeader.Left>\n *     <PageHeader.Right>\n *       <PageHeader.Actions>\n *         <Button>Action</Button>\n *       </PageHeader.Actions>\n *     </PageHeader.Right>\n *   </PageHeader.Top>\n *   <PageHeader.Bottom>\n *     <PageHeader.Tabs value={activeTab} onValueChange={setActiveTab}>\n *       <PageHeader.Tabs.List>\n *         <PageHeader.Tabs.Trigger value=\"tracking\">Tracking</PageHeader.Tabs.Trigger>\n *         <PageHeader.Tabs.Trigger value=\"loads\">Loads</PageHeader.Tabs.Trigger>\n *       </PageHeader.Tabs.List>\n *     </PageHeader.Tabs>\n *   </PageHeader.Bottom>\n * </PageHeader>\n *"
+    },
+    {
+      "name": "PageHeaderFilters",
+      "category": "molecules",
+      "import": "import { PageHeaderFilters } from 'ft-design-system';",
+      "description": "Filter components (FilterDropdown, FilterDateRange, FilterSearch)",
+      "props": [
+        {
+          "name": "primaryAction",
+          "type": "PrimaryActionConfig",
+          "required": false,
+          "description": "Primary action button configuration"
+        }
+      ],
+      "example": "* <PageHeaderFilters primaryAction={{ label: 'Add Journey', icon: 'add', onClick: handleAdd }}>\n *   <FilterDropdown id=\"location\" ... />\n *   <FilterDateRange id=\"dates\" ... />\n *   <FilterSearch ... />\n * </PageHeaderFilters>\n *"
+    },
+    {
+      "name": "Pagination",
+      "category": "molecules",
+      "import": "import { Pagination } from 'ft-design-system';",
+      "description": "Pagination content (for composable API)",
+      "props": [
+        {
+          "name": "current",
+          "type": "number",
+          "required": true,
+          "description": "Current page number"
+        },
+        {
+          "name": "total",
+          "type": "number",
+          "required": true,
+          "description": "Total number of items"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": false,
+          "default": "10",
+          "description": "Items per page"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Pagination current={1} total={100} pageSize={10}>\n *   <PaginationList>\n *     <PaginationPrevious />\n *     <PaginationItem page={1} />\n *     <PaginationEllipsis />\n *     <PaginationItem page={5} />\n *     <PaginationNext />\n *   </PaginationList>\n * </Pagination>\n * \n * // Compact variant\n * <Pagination \n *   current={1} \n *   total={100} \n *   pageSize={10}\n *   variant=\"compact\"\n *   onChange={(page) => handlePageChange(page)}\n * />\n * \n * // Declarative API (deprecated)\n * <Pagination current={1} total={100} onChange={handleChange} />\n *"
+    },
+    {
+      "name": "Popconfirm",
+      "category": "molecules",
+      "import": "import { Popconfirm } from 'ft-design-system';",
+      "description": "Title text (for declarative API)",
+      "props": [
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "Title text (for declarative API)"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "Description text (for declarative API)"
+        },
+        {
+          "name": "onConfirm",
+          "type": "() => void",
+          "required": false,
+          "description": "Confirm handler"
+        },
+        {
+          "name": "onCancel",
+          "type": "() => void",
+          "required": false,
+          "description": "Cancel handler"
+        },
+        {
+          "name": "okText",
+          "type": "string",
+          "required": false,
+          "default": "Yes",
+          "description": "OK button text (for declarative API)"
+        },
+        {
+          "name": "cancelText",
+          "type": "string",
+          "required": false,
+          "default": "No",
+          "description": "Cancel button text (for declarative API)"
+        },
+        {
+          "name": "okType",
+          "type": "'primary' | 'danger' | 'default'",
+          "required": false,
+          "default": "primary",
+          "description": "OK button type (for declarative API)"
+        },
+        {
+          "name": "icon",
+          "type": "IconName",
+          "required": false,
+          "default": "triangle-alert",
+          "description": "Icon name (for declarative API)"
+        },
+        {
+          "name": "placement",
+          "type": "PopconfirmPlacement",
+          "required": false,
+          "default": "top",
+          "description": "Placement"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disabled state"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Popconfirm onConfirm={handleConfirm} placement=\"top\">\n *   <PopconfirmTrigger>\n *     <Button>Delete</Button>\n *   </PopconfirmTrigger>\n *   <PopconfirmContent>\n *     <PopconfirmIcon />\n *     <PopconfirmTitle>Are you sure?</PopconfirmTitle>\n *     <PopconfirmDescription>This action cannot be undone.</PopconfirmDescription>\n *     <PopconfirmActions />\n *     <PopconfirmArrow />\n *   </PopconfirmContent>\n * </Popconfirm>\n * \n * // Declarative API (deprecated)\n * <Popconfirm\n *   title=\"Are you sure?\"\n *   description=\"This action cannot be undone.\"\n *   onConfirm={handleConfirm}\n * >\n *   <Button>Delete</Button>\n * </Popconfirm>\n *"
+    },
+    {
+      "name": "ProgressBar",
+      "category": "molecules",
+      "import": "import { ProgressBar } from 'ft-design-system';",
+      "description": "ProgressBar component from FT Design System",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "description": "Progress value 0-100"
+        },
+        {
+          "name": "type",
+          "type": "ProgressType",
+          "required": false,
+          "description": "🆕 NEW: Progress type - line, circle, or dashboard"
+        },
+        {
+          "name": "variant",
+          "type": "ProgressStatus",
+          "required": false,
+          "description": "Color variant"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": "Size for line type"
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "required": false,
+          "description": "🆕 NEW: Width/diameter for circle/dashboard (default: 120)"
+        },
+        {
+          "name": "strokeWidth",
+          "type": "number",
+          "required": false,
+          "description": "🆕 NEW: Stroke width for circle/dashboard"
+        },
+        {
+          "name": "trailColor",
+          "type": "string",
+          "required": false,
+          "description": "🆕 NEW: Trail (background) color"
+        },
+        {
+          "name": "strokeColor",
+          "type": "string",
+          "required": false,
+          "description": "🆕 NEW: Stroke color (overrides variant)"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "ProgressList",
+      "category": "molecules",
+      "import": "import { ProgressList } from 'ft-design-system';",
+      "description": "Items array (for declarative API)",
+      "props": [
+        {
+          "name": "items",
+          "type": "ProgressListItem[]",
+          "required": false,
+          "description": "Items array (for declarative API)"
+        },
+        {
+          "name": "showTime",
+          "type": "boolean",
+          "required": false,
+          "description": "The showTime prop"
+        }
+      ],
+      "example": "* <ProgressList showTime>\n *   <ProgressListItem\n *     id=\"1\"\n *     title=\"Step 1\"\n *     description=\"Description\"\n *     state=\"completed\"\n *     pointType=\"primary\"\n *   />\n *   <ProgressListItem\n *     id=\"2\"\n *     title=\"Step 2\"\n *     state=\"current\"\n *     pointType=\"primary\"\n *   />\n * </ProgressList>\n *"
+    },
+    {
+      "name": "QuickFilters",
+      "category": "organisms",
+      "import": "import { QuickFilters } from 'ft-design-system';",
+      "description": "Filters array (for declarative API)",
+      "props": [
+        {
+          "name": "filters",
+          "type": "QuickFilter[]",
+          "required": false,
+          "description": "Filters array (for declarative API)"
+        },
+        {
+          "name": "onFilterClick",
+          "type": "(filterId: string, optionId?: string) => void",
+          "required": false,
+          "description": "The onFilterClick prop"
+        },
+        {
+          "name": "onFilterRemove",
+          "type": "(filterId: string, optionId?: string) => void",
+          "required": false,
+          "description": "The onFilterRemove prop"
+        },
+        {
+          "name": "scrollable",
+          "type": "boolean",
+          "required": false,
+          "description": "The scrollable prop"
+        }
+      ],
+      "example": "* <QuickFilters onFilterClick={handleClick}>\n *   <QuickFilter id=\"all\" label=\"All Items\" />\n *   <QuickFilter id=\"active\" label=\"Active\" count={12} />\n *   <QuickFilter id=\"status\" label=\"Status\">\n *     <FilterOption id=\"active\" label=\"Active\" count={12} />\n *     <FilterOption id=\"pending\" label=\"Pending\" count={5} />\n *   </QuickFilter>\n * </QuickFilters>\n *"
+    },
+    {
+      "name": "RadioGroup",
+      "category": "atoms",
+      "import": "import { RadioGroup } from 'ft-design-system';",
+      "description": "Radio group name (required for form submission)",
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "Radio group name (required for form submission)"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Controlled value"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "Default value (uncontrolled)"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback when value changes"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback when value changes (alias for onChange)"
+        },
+        {
+          "name": "options",
+          "type": "RadioOption[]",
+          "required": false,
+          "description": "Options array (for declarative API)"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md'",
+          "required": false,
+          "default": "md",
+          "description": "Radio group size"
+        },
+        {
+          "name": "orientation",
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "default": "vertical",
+          "description": "Orientation of radio items"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disable all radio items"
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "description": "Error state (for declarative API)"
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "description": "Helper text (for declarative API)"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <RadioGroup name=\"choice\" value={value} onValueChange={setValue} size=\"md\">\n *   <RadioGroupLabel>Select an option</RadioGroupLabel>\n *   <RadioItem value=\"option1\">\n *     <RadioItemInput />\n *     <RadioItemLabel>Option 1</RadioItemLabel>\n *   </RadioItem>\n *   <RadioItem value=\"option2\">\n *     <RadioItemInput />\n *     <RadioItemLabel>Option 2</RadioItemLabel>\n *   </RadioItem>\n *   <RadioGroupError>Please select an option</RadioGroupError>\n * </RadioGroup>\n * \n * // Declarative API (deprecated)\n * <RadioGroup name=\"choice\" options={options} value={value} onChange={setValue} />\n *"
+    },
+    {
+      "name": "RadioSelector",
+      "category": "molecules",
+      "import": "import { RadioSelector } from 'ft-design-system';",
+      "description": "Options array (for declarative API)",
+      "props": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "description": "The name prop"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "The value prop"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "The defaultValue prop"
+        },
+        {
+          "name": "options",
+          "type": "RadioSelectorOption[]",
+          "required": false,
+          "description": "Options array (for declarative API)"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "The onChange prop"
+        }
+      ],
+      "example": "* <RadioSelector name=\"choice\" value={value} onChange={setValue}>\n *   <RadioSelectorOption value=\"option1\" header=\"Option 1\" description=\"Description 1\" />\n *   <RadioSelectorOption value=\"option2\" header=\"Option 2\" description=\"Description 2\" icon={<Icon name=\"check\" />} />\n * </RadioSelector>\n *"
+    },
+    {
+      "name": "Rate",
+      "category": "molecules",
+      "import": "import { Rate } from 'ft-design-system';",
+      "description": "Current value (controlled)",
+      "props": [
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "description": "Current value (controlled)"
+        },
+        {
+          "name": "defaultValue",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Default value (uncontrolled)"
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "required": false,
+          "default": "5",
+          "description": "Total count of stars"
+        },
+        {
+          "name": "allowHalf",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Allow half star"
+        },
+        {
+          "name": "allowClear",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Allow clearing by clicking again"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disabled state"
+        },
+        {
+          "name": "readOnly",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Read-only state"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Rate value={3} count={5} size=\"md\">\n *   {Array.from({ length: 5 }, (_, i) => (\n *     <RateItem key={i} index={i}>\n *       <RateIcon index={i} />\n *     </RateItem>\n *   ))}\n * </Rate>\n * \n * // Declarative API (deprecated)\n * <Rate value={3} count={5} />\n *"
+    },
+    {
+      "name": "ReadOnly",
+      "category": "atoms",
+      "import": "import { ReadOnly } from 'ft-design-system';",
+      "description": "ReadOnly component from FT Design System",
+      "props": [
+        {
+          "name": "type",
+          "type": "\"Vertical\" | \"Horizontal\"",
+          "required": false,
+          "description": "Layout type"
+        },
+        {
+          "name": "labelIcon",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to show label icon"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label text"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Value text"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Result",
+      "category": "organisms",
+      "import": "import { Result } from 'ft-design-system';",
+      "description": "Result component from FT Design System",
+      "props": [
+        {
+          "name": "status",
+          "type": "ResultStatus",
+          "required": false,
+          "description": "Result status"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Title text"
+        },
+        {
+          "name": "subTitle",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Subtitle text"
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Custom icon"
+        },
+        {
+          "name": "extra",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Extra content (usually action buttons)"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "SegmentedTabs",
+      "category": "molecules",
+      "import": "import { SegmentedTabs } from 'ft-design-system';",
+      "description": "Items array (for declarative API)",
+      "props": [
+        {
+          "name": "items",
+          "type": "SegmentedTabItem[]",
+          "required": false,
+          "description": "Items array (for declarative API)"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "The value prop"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "The defaultValue prop"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "The onChange prop"
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'icon-only'",
+          "required": false,
+          "description": "The variant prop"
+        }
+      ],
+      "example": "* <SegmentedTabs value={value} onChange={setValue}>\n *   <SegmentedTabItem value=\"tab1\" label=\"Tab 1\" />\n *   <SegmentedTabItem value=\"tab2\" label=\"Tab 2\" icon={<Icon name=\"settings\" />} />\n * </SegmentedTabs>\n *"
+    },
+    {
+      "name": "Select",
+      "category": "atoms",
+      "import": "import { Select } from 'ft-design-system';",
+      "description": "Select component from FT Design System",
+      "props": [],
+      "example": null
+    },
+    {
+      "name": "Select",
+      "category": "molecules",
+      "import": "import { Select } from 'ft-design-system';",
+      "description": "Selected value",
+      "props": [
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Selected value"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Callback when value changes"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "Default value (uncontrolled)"
+        }
+      ],
+      "example": "* <Select value={value} onValueChange={setValue}>\n *   <SelectTrigger>\n *     <SelectValue placeholder=\"Select option\" />\n *   </SelectTrigger>\n *   <SelectContent>\n *     <SelectItem value=\"1\">Option 1</SelectItem>\n *     <SelectItem value=\"2\">Option 2</SelectItem>\n *   </SelectContent>\n * </Select>\n *"
+    },
+    {
+      "name": "SimpleColumnLayout",
+      "category": "molecules",
+      "import": "import { SimpleColumnLayout } from 'ft-design-system';",
+      "description": "SimpleColumnLayout component from FT Design System",
+      "props": [
+        {
+          "name": "headerLeft",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The headerLeft prop"
+        },
+        {
+          "name": "headerRight",
+          "type": "ReactNode",
+          "required": false,
+          "description": "The headerRight prop"
+        },
+        {
+          "name": "rows",
+          "type": "SimpleColumnRow[]",
+          "required": true,
+          "description": "The rows prop"
+        },
+        {
+          "name": "striped",
+          "type": "boolean",
+          "required": false,
+          "description": "Alternate row backgrounds to match Figma visual"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Skeleton",
+      "category": "atoms",
+      "import": "import { Skeleton } from 'ft-design-system';",
+      "description": "Skeleton Component",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'text' | 'circular' | 'rectangular'",
+          "required": false,
+          "description": "The variant prop"
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "description": "The width prop"
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "description": "The height prop"
+        },
+        {
+          "name": "animation",
+          "type": "'pulse' | 'wave' | 'none'",
+          "required": false,
+          "description": "The animation prop"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Skeleton>\n *   <SkeletonImage width={200} height={200} />\n *   <SkeletonText lines={3} />\n * </Skeleton>\n * \n * // Declarative API (deprecated)\n * <Skeleton variant=\"rectangular\" width={200} height={100} />\n *"
+    },
+    {
+      "name": "Slider",
+      "category": "molecules",
+      "import": "import { Slider } from 'ft-design-system';",
+      "description": "Current value (single or range) (controlled)",
+      "props": [
+        {
+          "name": "value",
+          "type": "number | [number, number]",
+          "required": false,
+          "description": "Current value (single or range) (controlled)"
+        },
+        {
+          "name": "defaultValue",
+          "type": "number | [number, number]",
+          "required": false,
+          "default": "0",
+          "description": "Default value (uncontrolled)"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "default": "0",
+          "description": "Minimum value"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "default": "100",
+          "description": "Maximum value"
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": "Step increment"
+        },
+        {
+          "name": "range",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Enable range mode"
+        },
+        {
+          "name": "vertical",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Vertical orientation"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Disabled state"
+        },
+        {
+          "name": "marks",
+          "type": "SliderMark[] | boolean",
+          "required": false,
+          "description": "Show marks (for declarative API)"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Slider value={50} min={0} max={100} step={1}>\n *   <SliderTrack>\n *     <SliderRange />\n *   </SliderTrack>\n *   <SliderThumb value={50} type=\"end\" />\n *   <SliderLabel value={0}>Min</SliderLabel>\n *   <SliderLabel value={100}>Max</SliderLabel>\n * </Slider>\n * \n * // Declarative API (deprecated)\n * <Slider value={50} marks={true} />\n *"
+    },
+    {
+      "name": "Spacer",
+      "category": "atoms",
+      "import": "import { Spacer } from 'ft-design-system';",
+      "description": "Size of the spacer",
+      "props": [
+        {
+          "name": "size",
+          "type": "SpacerSize",
+          "required": false,
+          "default": "x1",
+          "description": "Size of the spacer"
+        },
+        {
+          "name": "horizontal",
+          "type": "boolean",
+          "required": false,
+          "default": "false (vertical)",
+          "description": "Whether the spacer is horizontal (width) or vertical (height)"
+        }
+      ],
+      "example": "* <Spacer size=\"x4\" />\n * <Spacer size=\"x2\" horizontal />\n *"
+    },
+    {
+      "name": "Spin",
+      "category": "atoms",
+      "import": "import { Spin } from 'ft-design-system';",
+      "description": "Spin component from FT Design System",
+      "props": [
+        {
+          "name": "size",
+          "type": "SpinSize",
+          "required": false,
+          "description": "Size of the spinner"
+        },
+        {
+          "name": "tip",
+          "type": "string",
+          "required": false,
+          "description": "Tip text shown below spinner"
+        },
+        {
+          "name": "spinning",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to show spinner"
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "required": false,
+          "description": "Delay before showing spinner (ms)"
+        },
+        {
+          "name": "indicator",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Custom spinner indicator"
+        },
+        {
+          "name": "fullscreen",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to use full screen mode"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "StackedBarChart",
+      "category": "molecules",
+      "import": "import { StackedBarChart } from 'ft-design-system';",
+      "description": "Chart data (for declarative API)",
+      "props": [
+        {
+          "name": "data",
+          "type": "StackedBarData[]",
+          "required": false,
+          "description": "Chart data (for declarative API)"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "The title prop"
+        },
+        {
+          "name": "legend",
+          "type": "StackedBarLegendItem[]",
+          "required": false,
+          "description": "The legend prop"
+        },
+        {
+          "name": "maxValue",
+          "type": "number",
+          "required": false,
+          "description": "Force the maximum value used for scaling (defaults to the largest bar sum)"
+        },
+        {
+          "name": "barHeight",
+          "type": "number",
+          "required": false,
+          "description": "Explicit chart height in pixels (default taken from Figma)"
+        }
+      ],
+      "example": "* <StackedBarChart title=\"Ageing\">\n *   <StackedBarChartBar label=\"4+ hrs\">\n *     <StackedBarChartSegment label=\"Laxmi Transporters\" value={27} />\n *     <StackedBarChartSegment label=\"Singh Transporters\" value={43} />\n *   </StackedBarChartBar>\n * </StackedBarChart>\n *"
+    },
+    {
+      "name": "Statistic",
+      "category": "atoms",
+      "import": "import { Statistic } from 'ft-design-system';",
+      "description": "The label text (for declarative API)",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "The label text (for declarative API)"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "The statistic value (for declarative API)"
+        },
+        {
+          "name": "labelPlacement",
+          "type": "\"Below\" | \"Top\"",
+          "required": false,
+          "default": "Below",
+          "description": "Label placement relative to value"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Statistic>\n *   <StatisticValue>100</StatisticValue>\n *   <StatisticTitle>Users</StatisticTitle>\n * </Statistic>\n * \n * // Declarative API (deprecated)\n * <Statistic label=\"Users\" value=\"100\" />\n *"
+    },
+    {
+      "name": "Steps",
+      "category": "molecules",
+      "import": "import { Steps } from 'ft-design-system';",
+      "description": "Steps array for declarative API (deprecated)",
+      "props": [
+        {
+          "name": "steps",
+          "type": "Step[]",
+          "required": false,
+          "description": "Steps array for declarative API (deprecated)"
+        },
+        {
+          "name": "currentStep",
+          "type": "number",
+          "required": false,
+          "default": "1",
+          "description": "Current step number (1-based)"
+        },
+        {
+          "name": "device",
+          "type": "'desktop' | 'mobile'",
+          "required": false,
+          "default": "desktop",
+          "description": "Device type"
+        },
+        {
+          "name": "direction",
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "default": "horizontal",
+          "description": "Direction of steps"
+        },
+        {
+          "name": "type",
+          "type": "'default' | 'dot' | 'navigation'",
+          "required": false,
+          "default": "default",
+          "description": "Step type"
+        },
+        {
+          "name": "onChange",
+          "type": "(current: number) => void",
+          "required": false,
+          "description": "Callback when step changes"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Steps currentStep={1} device=\"desktop\" direction=\"horizontal\" type=\"default\">\n *   <StepsList>\n *     <StepItem value={1}>\n *       <StepIcon />\n *       <StepContent>\n *         <StepTitle>Step 1</StepTitle>\n *         <StepDescription>Description</StepDescription>\n *       </StepContent>\n *     </StepItem>\n *   </StepsList>\n * </Steps>\n * \n * // Declarative API (deprecated)\n * <Steps steps={[{label: 'Step 1', description: 'Description'}]} currentStep={1} />\n *"
+    },
+    {
+      "name": "SubText",
+      "category": "atoms",
+      "import": "import { SubText } from 'ft-design-system';",
+      "description": "SubText component from FT Design System",
+      "props": [
+        {
+          "name": "icon",
+          "type": "\"Yes\" | \"No\"",
+          "required": false,
+          "description": "Whether to show the check icon"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Switch",
+      "category": "atoms",
+      "import": "import { Switch } from 'ft-design-system';",
+      "description": "Switch content (for composable API)",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label text displayed next to switch (for declarative API)"
+        },
+        {
+          "name": "size",
+          "type": "'sm' | 'md'",
+          "required": false,
+          "default": "md",
+          "description": "Switch size"
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "description": "Error state (for declarative API)"
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "description": "Helper text (for declarative API)"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Switch size=\"md\">\n *   <SwitchInput checked={isEnabled} onChange={handleChange} />\n *   <SwitchLabel>Enable notifications</SwitchLabel>\n *   <SwitchHelper>You can change this later</SwitchHelper>\n * </Switch>\n * \n * // Declarative API (deprecated)\n * <Switch label=\"Enable notifications\" checked={isEnabled} onChange={handleChange} />\n *"
+    },
+    {
+      "name": "Table",
+      "category": "organisms",
+      "import": "import { Table } from 'ft-design-system';",
+      "description": "Table column definition",
+      "props": [
+        {
+          "name": "columns",
+          "type": "TableColumn<T>[]",
+          "required": false,
+          "description": "Column definitions (for declarative API)"
+        },
+        {
+          "name": "data",
+          "type": "T[]",
+          "required": false,
+          "description": "Row data array (for declarative API)"
+        },
+        {
+          "name": "variant",
+          "type": "TableVariant",
+          "required": false,
+          "default": "primary",
+          "description": "Table visual variant"
+        },
+        {
+          "name": "layout",
+          "type": "TableLayout",
+          "required": false,
+          "default": "default",
+          "description": "Table layout style"
+        },
+        {
+          "name": "selectable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Enable row selection with checkboxes"
+        },
+        {
+          "name": "selectedRows",
+          "type": "(string | number)[]",
+          "required": false,
+          "description": "Currently selected row IDs"
+        },
+        {
+          "name": "onSelectionChange",
+          "type": "(selectedRows: (string | number)[]) => void",
+          "required": false,
+          "description": "Callback when selection changes"
+        },
+        {
+          "name": "onSort",
+          "type": "(column: string, direction: SortDirection) => void",
+          "required": false,
+          "description": "Callback when column is sorted"
+        },
+        {
+          "name": "sortColumn",
+          "type": "string",
+          "required": false,
+          "description": "Currently sorted column key"
+        },
+        {
+          "name": "sortDirection",
+          "type": "SortDirection",
+          "required": false,
+          "description": "Current sort direction"
+        },
+        {
+          "name": "rowAccessory",
+          "type": "(row: T, selected: boolean) => ReactNode",
+          "required": false,
+          "description": "Custom accessory content for each row"
+        },
+        {
+          "name": "rowActions",
+          "type": "(row: T) => ReactNode",
+          "required": false,
+          "description": "Custom actions for each row"
+        },
+        {
+          "name": "rowActionsLabel",
+          "type": "string",
+          "required": false,
+          "default": "Actions",
+          "description": "Label for row actions column header"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show loading state"
+        },
+        {
+          "name": "emptyMessage",
+          "type": "string",
+          "required": false,
+          "default": "No data available",
+          "description": "Message displayed when table is empty"
+        },
+        {
+          "name": "caption",
+          "type": "string",
+          "required": false,
+          "description": "Table caption (accessibility)"
+        },
+        {
+          "name": "headerLeft",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Left header content (simple layout only)"
+        },
+        {
+          "name": "headerRight",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Right header content (simple layout only)"
+        },
+        {
+          "name": "striped",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Enable striped row styling"
+        },
+        {
+          "name": "reorderable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Enable column reordering via drag-and-drop"
+        },
+        {
+          "name": "onColumnReorder",
+          "type": "(columns: TableColumn<T>[]) => void",
+          "required": false,
+          "description": "Callback when columns are reordered"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Table>\n *   <TableCaption>Monthly Sales Data</TableCaption>\n *   <TableHeader>\n *     <TableRow>\n *       <TableHead>Name</TableHead>\n *       <TableHead sortable>Email</TableHead>\n *       <TableHead>Status</TableHead>\n *     </TableRow>\n *   </TableHeader>\n *   <TableBody>\n *     <TableRow>\n *       <TableCell>John Doe</TableCell>\n *       <TableCell>john@example.com</TableCell>\n *       <TableCell>\n *         <Badge variant=\"success\">Active</Badge>\n *       </TableCell>\n *     </TableRow>\n *   </TableBody>\n *   <TableFooter>\n *     <TableRow>\n *       <TableCell colSpan={3} className=\"text-right\">\n *         Total: $1,234.56\n *       </TableCell>\n *     </TableRow>\n *   </TableFooter>\n * </Table>\n * \n * // Declarative API (deprecated)\n * const columns = [\n *   { key: 'name', title: 'Name', sortable: true },\n *   { key: 'email', title: 'Email' },\n *   { key: 'status', title: 'Status', render: (value) => <Badge>{value}</Badge> }\n * ];\n * \n * const data = [\n *   { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active' },\n *   { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'Inactive' }\n * ];\n * \n * <Table \n *   columns={columns} \n *   data={data}\n *   selectable\n *   onSelectionChange={(selected) => console.log(selected)}\n *   onSort={(column, direction) => console.log(column, direction)}\n * />\n *"
+    },
+    {
+      "name": "Tabs",
+      "category": "organisms",
+      "import": "import { Tabs } from 'ft-design-system';",
+      "description": "Tabs content (for composable API)",
+      "props": [
+        {
+          "name": "tabs",
+          "type": "Tab[]",
+          "required": false,
+          "description": "Tabs array (for declarative API)"
+        },
+        {
+          "name": "activeTab",
+          "type": "number",
+          "required": false,
+          "description": "Active tab index (for declarative API)"
+        },
+        {
+          "name": "onTabChange",
+          "type": "(index: number) => void",
+          "required": false,
+          "description": "Callback when tab changes (for declarative API)"
+        },
+        {
+          "name": "type",
+          "type": "TabType",
+          "required": false,
+          "default": "primary",
+          "description": "Tab type/style variant"
+        },
+        {
+          "name": "showLine",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Show line below tabs"
+        },
+        {
+          "name": "overflowBehavior",
+          "type": "TabsOverflowBehavior",
+          "required": false,
+          "default": "auto",
+          "description": "Overflow behavior"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Tabs type=\"primary\" showLine>\n *   <TabsList>\n *     <TabsTrigger value=\"tab1\">Tab 1</TabsTrigger>\n *     <TabsTrigger value=\"tab2\">Tab 2</TabsTrigger>\n *   </TabsList>\n *   <TabsContent value=\"tab1\">Content 1</TabsContent>\n *   <TabsContent value=\"tab2\">Content 2</TabsContent>\n * </Tabs>\n * \n * // Declarative API (deprecated)\n * <Tabs tabs={tabs} activeTab={0} onTabChange={handleChange} />\n *"
+    },
+    {
+      "name": "Text",
+      "category": "atoms",
+      "import": "import { Text } from 'ft-design-system';",
+      "description": "Text component from FT Design System",
+      "props": [
+        {
+          "name": "subText",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to show sub text"
+        },
+        {
+          "name": "leadingIcon",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to show leading icon"
+        },
+        {
+          "name": "trailingIcon",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to show trailing icon"
+        },
+        {
+          "name": "size",
+          "type": "\"sm\" | \"md\" | \"lg\" | \"xl\" | \"xx\"",
+          "required": false,
+          "description": "Text size variant"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Textarea",
+      "category": "atoms",
+      "import": "import { Textarea } from 'ft-design-system';",
+      "description": "Textarea content (for composable API)",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label text displayed above the textarea (for declarative API)"
+        },
+        {
+          "name": "labelMandatory",
+          "type": "boolean",
+          "required": false,
+          "description": "Shows mandatory indicator (*) next to label (for declarative API)"
+        },
+        {
+          "name": "labelOptional",
+          "type": "boolean",
+          "required": false,
+          "description": "Shows optional indicator next to label (for declarative API)"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "description": "Error message displayed below textarea (for declarative API)"
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "description": "Helper text displayed below textarea (for declarative API)"
+        },
+        {
+          "name": "size",
+          "type": "ComponentSize",
+          "required": false,
+          "default": "md",
+          "description": "Textarea size"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Textarea size=\"md\">\n *   <TextareaLabel mandatory>Description</TextareaLabel>\n *   <TextareaField rows={6} placeholder=\"Enter description\" />\n *   <TextareaError>Description is required</TextareaError>\n * </Textarea>\n * \n * // Declarative API (deprecated)\n * <Textarea label=\"Description\" rows={4} error=\"Required\" />\n *"
+    },
+    {
+      "name": "ThemeSwitch",
+      "category": "molecules",
+      "import": "import { ThemeSwitch } from 'ft-design-system';",
+      "description": "ThemeSwitch component from FT Design System",
+      "props": [
+        {
+          "name": "variant",
+          "type": "'segmented' | 'dropdown'",
+          "required": false,
+          "description": "The variant prop"
+        },
+        {
+          "name": "showLabels",
+          "type": "boolean",
+          "required": false,
+          "description": "The showLabels prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Timeline",
+      "category": "molecules",
+      "import": "import { Timeline } from 'ft-design-system';",
+      "description": "Timeline component from FT Design System",
+      "props": [
+        {
+          "name": "mode",
+          "type": "TimelineMode",
+          "required": false,
+          "default": "left",
+          "description": "Timeline mode - left, right, or alternate"
+        },
+        {
+          "name": "pending",
+          "type": "boolean | ReactNode",
+          "required": false,
+          "default": "false",
+          "description": "Whether the last item is pending"
+        },
+        {
+          "name": "pendingDot",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Custom pending dot"
+        },
+        {
+          "name": "reverse",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Reverse the timeline order"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "TimePicker",
+      "category": "molecules",
+      "import": "import { TimePicker } from 'ft-design-system';",
+      "description": "TimePicker component from FT Design System",
+      "props": [
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the time picker is disabled"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label text"
+        },
+        {
+          "name": "labelMandatory",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the field is mandatory"
+        },
+        {
+          "name": "labelOptional",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to show optional indicator"
+        },
+        {
+          "name": "labelSuffixIcon",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to show suffix icon on label"
+        },
+        {
+          "name": "labelIcon",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Custom label icon"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "description": "Error message"
+        },
+        {
+          "name": "warning",
+          "type": "string",
+          "required": false,
+          "description": "Warning message"
+        },
+        {
+          "name": "success",
+          "type": "string",
+          "required": false,
+          "description": "Success message"
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "description": "Helper text"
+        },
+        {
+          "name": "size",
+          "type": "ComponentSize",
+          "required": false,
+          "description": "Component size"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "description": "Time value in HH:mm:ss or HH:mm format"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "description": "Default time value"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string) => void",
+          "required": false,
+          "description": "Called when time changes"
+        },
+        {
+          "name": "use12Hours",
+          "type": "boolean",
+          "required": false,
+          "description": "Time format (12 or 24 hour)"
+        },
+        {
+          "name": "showSecond",
+          "type": "boolean",
+          "required": false,
+          "description": "Show seconds selector"
+        },
+        {
+          "name": "hourStep",
+          "type": "number",
+          "required": false,
+          "description": "Hour step"
+        },
+        {
+          "name": "minuteStep",
+          "type": "number",
+          "required": false,
+          "description": "Minute step"
+        },
+        {
+          "name": "secondStep",
+          "type": "number",
+          "required": false,
+          "description": "Second step"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text"
+        },
+        {
+          "name": "format",
+          "type": "string",
+          "required": false,
+          "description": "Format string for display"
+        },
+        {
+          "name": "allowClear",
+          "type": "boolean",
+          "required": false,
+          "description": "Allow clearing the value"
+        },
+        {
+          "name": "disabledHours",
+          "type": "() => number[]",
+          "required": false,
+          "description": "Disabled hours (array of hours to disable)"
+        },
+        {
+          "name": "disabledMinutes",
+          "type": "(selectedHour: number) => number[]",
+          "required": false,
+          "description": "Disabled minutes (array of minutes to disable for selected hour)"
+        },
+        {
+          "name": "disabledSeconds",
+          "type": "(selectedHour: number, selectedMinute: number) => number[]",
+          "required": false,
+          "description": "Disabled seconds (array of seconds to disable for selected hour and minute)"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Toggle",
+      "category": "atoms",
+      "import": "import { Toggle } from 'ft-design-system';",
+      "description": "Toggle Component",
+      "props": [
+        {
+          "name": "pressed",
+          "type": "boolean",
+          "required": false,
+          "description": "The pressed prop"
+        },
+        {
+          "name": "onPressedChange",
+          "type": "(pressed: boolean) => void",
+          "required": false,
+          "description": "The onPressedChange prop"
+        },
+        {
+          "name": "defaultPressed",
+          "type": "boolean",
+          "required": false,
+          "description": "The defaultPressed prop"
+        },
+        {
+          "name": "size",
+          "type": "ToggleSize",
+          "required": false,
+          "description": "The size prop"
+        },
+        {
+          "name": "variant",
+          "type": "ToggleVariant",
+          "required": false,
+          "description": "The variant prop"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "The disabled prop"
+        },
+        {
+          "name": "icon",
+          "type": "IconName",
+          "required": false,
+          "description": "The icon prop"
+        }
+      ],
+      "example": "* <Toggle pressed={isPressed} onPressedChange={setIsPressed}>\n *   Toggle\n * </Toggle>\n *"
+    },
+    {
+      "name": "ToggleGroup",
+      "category": "molecules",
+      "import": "import { ToggleGroup } from 'ft-design-system';",
+      "description": "ToggleGroup component from FT Design System",
+      "props": [
+        {
+          "name": "type",
+          "type": "ToggleGroupType",
+          "required": false,
+          "description": "The type prop"
+        },
+        {
+          "name": "value",
+          "type": "string | string[]",
+          "required": false,
+          "description": "The value prop"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | string[]",
+          "required": false,
+          "description": "The defaultValue prop"
+        },
+        {
+          "name": "onValueChange",
+          "type": "(value: any) => void",
+          "required": false,
+          "description": "The onValueChange prop"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "The disabled prop"
+        },
+        {
+          "name": "size",
+          "type": "ToggleProps['size']",
+          "required": false,
+          "description": "The size prop"
+        },
+        {
+          "name": "variant",
+          "type": "ToggleProps['variant']",
+          "required": false,
+          "description": "The variant prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Tooltip",
+      "category": "molecules",
+      "import": "import { Tooltip } from 'ft-design-system';",
+      "description": "Tooltip content (for composable API)",
+      "props": [
+        {
+          "name": "heading",
+          "type": "string",
+          "required": false,
+          "description": "The heading text (for declarative API)"
+        },
+        {
+          "name": "showClose",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to show the close button"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "description": "Callback when close button is clicked"
+        },
+        {
+          "name": "primaryActionText",
+          "type": "string",
+          "required": false,
+          "description": "Primary action button text (for declarative API)"
+        },
+        {
+          "name": "onPrimaryAction",
+          "type": "() => void",
+          "required": false,
+          "description": "Primary action callback"
+        },
+        {
+          "name": "secondaryActionText",
+          "type": "string",
+          "required": false,
+          "description": "Secondary action button text (for declarative API)"
+        },
+        {
+          "name": "onSecondaryAction",
+          "type": "() => void",
+          "required": false,
+          "description": "Secondary action callback"
+        },
+        {
+          "name": "placement",
+          "type": "TooltipPlacement",
+          "required": false,
+          "default": "top",
+          "description": "Tooltip placement relative to target"
+        },
+        {
+          "name": "align",
+          "type": "TooltipAlignment",
+          "required": false,
+          "default": "center",
+          "description": "Tooltip alignment along the placement edge"
+        },
+        {
+          "name": "color",
+          "type": "TooltipColor",
+          "required": false,
+          "default": "white",
+          "description": "Color theme"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "Open state (controlled)"
+        },
+        {
+          "name": "defaultOpen",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Default open state (uncontrolled)"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Tooltip placement=\"top\" align=\"center\" color=\"white\">\n *   <TooltipTrigger>\n *     <Button>Hover me</Button>\n *   </TooltipTrigger>\n *   <TooltipContent>\n *     <TooltipTitle>Tooltip Title</TooltipTitle>\n *     <TooltipDescription>Tooltip description</TooltipDescription>\n *     <TooltipArrow />\n *   </TooltipContent>\n * </Tooltip>\n * \n * // Declarative API (deprecated)\n * <Tooltip heading=\"Title\" primaryActionText=\"Action\">\n *   Content\n * </Tooltip>\n *"
+    },
+    {
+      "name": "Tour",
+      "category": "molecules",
+      "import": "import { Tour } from 'ft-design-system';",
+      "description": "Steps array (for declarative API)",
+      "props": [
+        {
+          "name": "steps",
+          "type": "TourStepProps[]",
+          "required": false,
+          "description": "Steps array (for declarative API)"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "description": "The open prop"
+        },
+        {
+          "name": "defaultCurrent",
+          "type": "number",
+          "required": false,
+          "description": "The defaultCurrent prop"
+        },
+        {
+          "name": "current",
+          "type": "number",
+          "required": false,
+          "description": "The current prop"
+        },
+        {
+          "name": "onClose",
+          "type": "() => void",
+          "required": false,
+          "description": "The onClose prop"
+        },
+        {
+          "name": "onChange",
+          "type": "(current: number) => void",
+          "required": false,
+          "description": "The onChange prop"
+        },
+        {
+          "name": "onFinish",
+          "type": "() => void",
+          "required": false,
+          "description": "The onFinish prop"
+        },
+        {
+          "name": "mask",
+          "type": "boolean",
+          "required": false,
+          "description": "The mask prop"
+        },
+        {
+          "name": "type",
+          "type": "'default' | 'primary'",
+          "required": false,
+          "description": "The type prop"
+        },
+        {
+          "name": "zIndex",
+          "type": "number",
+          "required": false,
+          "description": "The zIndex prop"
+        }
+      ],
+      "example": "* <Tour open={open} onClose={() => setOpen(false)}>\n *   <TourStep title=\"Upload File\" target={() => uploadRef.current}>\n *     Put your files here.\n *   </TourStep>\n *   <TourStep title=\"Save\" target={() => saveRef.current}>\n *     Save your changes.\n *   </TourStep>\n * </Tour>\n *"
+    },
+    {
+      "name": "Transfer",
+      "category": "molecules",
+      "import": "import { Transfer } from 'ft-design-system';",
+      "description": "Data source array (for declarative API)",
+      "props": [
+        {
+          "name": "dataSource",
+          "type": "TransferItem[]",
+          "required": false,
+          "description": "Data source array (for declarative API)"
+        },
+        {
+          "name": "titles",
+          "type": "[ReactNode, ReactNode]",
+          "required": false,
+          "description": "The titles prop"
+        },
+        {
+          "name": "operations",
+          "type": "[string, string]",
+          "required": false,
+          "description": "The operations prop"
+        },
+        {
+          "name": "targetKeys",
+          "type": "string[]",
+          "required": false,
+          "description": "The targetKeys prop"
+        },
+        {
+          "name": "selectedKeys",
+          "type": "string[]",
+          "required": false,
+          "description": "The selectedKeys prop"
+        },
+        {
+          "name": "onChange",
+          "type": "(targetKeys: string[], direction: 'left' | 'right', moveKeys: string[]) => void",
+          "required": false,
+          "description": "The onChange prop"
+        },
+        {
+          "name": "onSelectChange",
+          "type": "(sourceSelectedKeys: string[], targetSelectedKeys: string[]) => void",
+          "required": false,
+          "description": "The onSelectChange prop"
+        },
+        {
+          "name": "onScroll",
+          "type": "(direction: 'left' | 'right', e: React.SyntheticEvent<HTMLUListElement>) => void",
+          "required": false,
+          "description": "The onScroll prop"
+        },
+        {
+          "name": "render",
+          "type": "(item: TransferItem) => ReactNode",
+          "required": false,
+          "description": "The render prop"
+        },
+        {
+          "name": "footer",
+          "type": "(props: any) => ReactNode",
+          "required": false,
+          "description": "The footer prop"
+        }
+      ],
+      "example": "* <Transfer targetKeys={targetKeys} onChange={setTargetKeys}>\n *   <TransferItem key=\"1\" title=\"Item 1\" />\n *   <TransferItem key=\"2\" title=\"Item 2\" />\n *   <TransferItem key=\"3\" title=\"Item 3\" />\n * </Transfer>\n *"
+    },
+    {
+      "name": "Tree",
+      "category": "molecules",
+      "import": "import { Tree } from 'ft-design-system';",
+      "description": "Tree data (for declarative API)",
+      "props": [
+        {
+          "name": "treeData",
+          "type": "TreeNodeData[]",
+          "required": false,
+          "description": "Tree data (for declarative API)"
+        },
+        {
+          "name": "expandedKeys",
+          "type": "string[]",
+          "required": false,
+          "description": "Expanded keys (controlled)"
+        },
+        {
+          "name": "defaultExpandedKeys",
+          "type": "string[]",
+          "required": false,
+          "description": "Default expanded keys"
+        },
+        {
+          "name": "selectedKeys",
+          "type": "string[]",
+          "required": false,
+          "description": "Selected keys (controlled)"
+        },
+        {
+          "name": "defaultSelectedKeys",
+          "type": "string[]",
+          "required": false,
+          "description": "Default selected keys"
+        },
+        {
+          "name": "checkedKeys",
+          "type": "string[]",
+          "required": false,
+          "description": "Checked keys (controlled)"
+        },
+        {
+          "name": "defaultCheckedKeys",
+          "type": "string[]",
+          "required": false,
+          "description": "Default checked keys"
+        },
+        {
+          "name": "checkable",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to show checkboxes"
+        },
+        {
+          "name": "selectable",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Whether nodes are selectable"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to allow multiple selection"
+        },
+        {
+          "name": "showLine",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to show connecting lines"
+        },
+        {
+          "name": "showIcon",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Whether to show icons"
+        },
+        {
+          "name": "defaultExpandAll",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Default expand all nodes"
+        },
+        {
+          "name": "onExpand",
+          "type": "(expandedKeys: string[], info: { node: TreeNodeData",
+          "required": false,
+          "description": "Callback when node is expanded/collapsed"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Tree checkable selectable>\n *   <TreeNode nodeKey=\"1\" title=\"Node 1\">\n *     <TreeNode nodeKey=\"1-1\" title=\"Child 1\" />\n *   </TreeNode>\n * </Tree>\n * \n * // Declarative API (deprecated)\n * <Tree\n *   treeData={treeData}\n *   checkable\n *   onCheck={handleCheck}\n * />\n *"
+    },
+    {
+      "name": "TreeSelect",
+      "category": "molecules",
+      "import": "import { TreeSelect } from 'ft-design-system';",
+      "description": "TreeSelect component from FT Design System",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Label text"
+        },
+        {
+          "name": "labelMandatory",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the field is mandatory"
+        },
+        {
+          "name": "labelOptional",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to show optional indicator"
+        },
+        {
+          "name": "error",
+          "type": "string",
+          "required": false,
+          "description": "Error message"
+        },
+        {
+          "name": "helperText",
+          "type": "string",
+          "required": false,
+          "description": "Helper text"
+        },
+        {
+          "name": "size",
+          "type": "ComponentSize",
+          "required": false,
+          "description": "Component size"
+        },
+        {
+          "name": "treeData",
+          "type": "TreeNodeData[]",
+          "required": false,
+          "description": "Tree data (for declarative API)"
+        },
+        {
+          "name": "value",
+          "type": "string | string[]",
+          "required": false,
+          "description": "Selected value(s)"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | string[]",
+          "required": false,
+          "description": "Default value(s)"
+        },
+        {
+          "name": "onChange",
+          "type": "(value: string | string[], labels: ReactNode[]) => void",
+          "required": false,
+          "description": "Callback when selection changes"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "description": "Allow multiple selection"
+        },
+        {
+          "name": "treeCheckable",
+          "type": "boolean",
+          "required": false,
+          "description": "Show checkboxes (implies multiple)"
+        },
+        {
+          "name": "showSearch",
+          "type": "boolean",
+          "required": false,
+          "description": "Allow searching"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text"
+        },
+        {
+          "name": "allowClear",
+          "type": "boolean",
+          "required": false,
+          "description": "Allow clearing selection"
+        },
+        {
+          "name": "showLine",
+          "type": "boolean",
+          "required": false,
+          "description": "Show tree lines"
+        },
+        {
+          "name": "defaultExpandAll",
+          "type": "boolean",
+          "required": false,
+          "description": "Default expand all"
+        },
+        {
+          "name": "placement",
+          "type": "'bottomLeft' | 'bottomRight' | 'topLeft' | 'topRight'",
+          "required": false,
+          "description": "Dropdown placement"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Typography",
+      "category": "atoms",
+      "import": "import { Typography } from 'ft-design-system';",
+      "description": "Typography component from FT Design System",
+      "props": [
+        {
+          "name": "variant",
+          "type": "TypographyVariant",
+          "required": false,
+          "description": "The variant prop"
+        },
+        {
+          "name": "color",
+          "type": "TypographyColor",
+          "required": false,
+          "description": "The color prop"
+        },
+        {
+          "name": "as",
+          "type": "keyof JSX.IntrinsicElements",
+          "required": false,
+          "description": "The as prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Upload",
+      "category": "organisms",
+      "import": "import { Upload } from 'ft-design-system';",
+      "description": "Upload type",
+      "props": [
+        {
+          "name": "type",
+          "type": "UploadType",
+          "required": false,
+          "default": "drag-drop",
+          "description": "Upload type"
+        },
+        {
+          "name": "maxFiles",
+          "type": "number",
+          "required": false,
+          "default": "10",
+          "description": "Maximum number of files"
+        },
+        {
+          "name": "acceptedFileTypes",
+          "type": "string[]",
+          "required": false,
+          "default": "[Excel, CSV]",
+          "description": "Accepted file types"
+        },
+        {
+          "name": "maxFileSize",
+          "type": "number",
+          "required": false,
+          "default": "10",
+          "description": "Maximum file size in MB"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Allow multiple files"
+        },
+        {
+          "name": "onFilesChange",
+          "type": "(files: UploadFile[]) => void",
+          "required": false,
+          "description": "Files change handler"
+        },
+        {
+          "name": "onUploadComplete",
+          "type": "(file: UploadFile) => void",
+          "required": false,
+          "description": "Upload complete handler"
+        },
+        {
+          "name": "onValidationComplete",
+          "type": "(file: UploadFile, stats?: ValidationStats) => void",
+          "required": false,
+          "description": "Validation complete handler"
+        },
+        {
+          "name": "showValidation",
+          "type": "boolean",
+          "required": false,
+          "default": "false",
+          "description": "Show validation"
+        },
+        {
+          "name": "autoUpload",
+          "type": "boolean",
+          "required": false,
+          "default": "true",
+          "description": "Auto upload files"
+        }
+      ],
+      "example": "* // Composable API (recommended)\n * <Upload type=\"drag-drop\" maxFiles={5}>\n *   <UploadTrigger />\n *   <UploadList />\n * </Upload>\n * \n * // Declarative API (deprecated)\n * <Upload\n *   type=\"button\"\n *   maxFiles={10}\n *   onFilesChange={handleFilesChange}\n * />\n *"
+    },
+    {
+      "name": "UploadButton",
+      "category": "molecules",
+      "import": "import { UploadButton } from 'ft-design-system';",
+      "description": "UploadButton component from FT Design System",
+      "props": [
+        {
+          "name": "onFileSelect",
+          "type": "(files: FileList) => void",
+          "required": false,
+          "description": "The onFileSelect prop"
+        },
+        {
+          "name": "acceptedFileTypes",
+          "type": "string[]",
+          "required": false,
+          "description": "The acceptedFileTypes prop"
+        },
+        {
+          "name": "maxFileSize",
+          "type": "number",
+          "required": false,
+          "description": "The maxFileSize prop"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "The disabled prop"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "description": "The multiple prop"
+        },
+        {
+          "name": "state",
+          "type": "'default' | 'hover' | 'disabled'",
+          "required": false,
+          "description": "The state prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "UploadItem",
+      "category": "molecules",
+      "import": "import { UploadItem } from 'ft-design-system';",
+      "description": "UploadItem component from FT Design System",
+      "props": [
+        {
+          "name": "type",
+          "type": "UploadItemType",
+          "required": false,
+          "description": "The type prop"
+        },
+        {
+          "name": "state",
+          "type": "UploadItemState",
+          "required": false,
+          "description": "The state prop"
+        },
+        {
+          "name": "file",
+          "type": "UploadFile",
+          "required": true,
+          "description": "The file prop"
+        },
+        {
+          "name": "onDelete",
+          "type": "() => void",
+          "required": false,
+          "description": "The onDelete prop"
+        },
+        {
+          "name": "onRetry",
+          "type": "() => void",
+          "required": false,
+          "description": "The onRetry prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "UploadThumbnail",
+      "category": "molecules",
+      "import": "import { UploadThumbnail } from 'ft-design-system';",
+      "description": "UploadThumbnail component from FT Design System",
+      "props": [
+        {
+          "name": "preview",
+          "type": "string | null",
+          "required": false,
+          "description": "The preview prop"
+        },
+        {
+          "name": "fileName",
+          "type": "string",
+          "required": false,
+          "description": "The fileName prop"
+        },
+        {
+          "name": "state",
+          "type": "'default' | 'hover' | 'disabled'",
+          "required": false,
+          "description": "The state prop"
+        },
+        {
+          "name": "onFileSelect",
+          "type": "(files: FileList) => void",
+          "required": false,
+          "description": "The onFileSelect prop"
+        },
+        {
+          "name": "onDelete",
+          "type": "() => void",
+          "required": false,
+          "description": "The onDelete prop"
+        },
+        {
+          "name": "acceptedFileTypes",
+          "type": "string[]",
+          "required": false,
+          "description": "The acceptedFileTypes prop"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "description": "The multiple prop"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "The disabled prop"
+        },
+        {
+          "name": "showFileName",
+          "type": "boolean",
+          "required": false,
+          "description": "The showFileName prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "UploadZone",
+      "category": "organisms",
+      "import": "import { UploadZone } from 'ft-design-system';",
+      "description": "UploadZone component from FT Design System",
+      "props": [
+        {
+          "name": "type",
+          "type": "UploadZoneType",
+          "required": false,
+          "description": "The type prop"
+        },
+        {
+          "name": "state",
+          "type": "UploadZoneState",
+          "required": false,
+          "description": "The state prop"
+        },
+        {
+          "name": "onFileSelect",
+          "type": "(files: FileList) => void",
+          "required": false,
+          "description": "The onFileSelect prop"
+        },
+        {
+          "name": "acceptedFileTypes",
+          "type": "string[]",
+          "required": false,
+          "description": "The acceptedFileTypes prop"
+        },
+        {
+          "name": "maxFileSize",
+          "type": "number",
+          "required": false,
+          "description": "The maxFileSize prop"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "The disabled prop"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "description": "The multiple prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "UserProfile",
+      "category": "organisms",
+      "import": "import { UserProfile } from 'ft-design-system';",
+      "description": "UserProfile component from FT Design System",
+      "props": [
+        {
+          "name": "company",
+          "type": "CompanyInfo",
+          "required": false,
+          "description": "The company prop"
+        },
+        {
+          "name": "userName",
+          "type": "string",
+          "required": false,
+          "description": "The userName prop"
+        },
+        {
+          "name": "userRole",
+          "type": "string",
+          "required": false,
+          "description": "The userRole prop"
+        },
+        {
+          "name": "userLocation",
+          "type": "string",
+          "required": false,
+          "description": "The userLocation prop"
+        },
+        {
+          "name": "userBadge",
+          "type": "string",
+          "required": false,
+          "description": "The userBadge prop"
+        },
+        {
+          "name": "userAvatar",
+          "type": "string",
+          "required": false,
+          "description": "The userAvatar prop"
+        },
+        {
+          "name": "companyName",
+          "type": "boolean",
+          "required": false,
+          "description": "The companyName prop"
+        },
+        {
+          "name": "onClick",
+          "type": "() => void",
+          "required": false,
+          "description": "The onClick prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "UserProfileDropdown",
+      "category": "organisms",
+      "import": "import { UserProfileDropdown } from 'ft-design-system';",
+      "description": "UserProfileDropdown component from FT Design System",
+      "props": [
+        {
+          "name": "userName",
+          "type": "string",
+          "required": false,
+          "description": "The userName prop"
+        },
+        {
+          "name": "userRole",
+          "type": "string",
+          "required": false,
+          "description": "The userRole prop"
+        },
+        {
+          "name": "userLocation",
+          "type": "string",
+          "required": false,
+          "description": "The userLocation prop"
+        },
+        {
+          "name": "userBadge",
+          "type": "string",
+          "required": false,
+          "description": "The userBadge prop"
+        },
+        {
+          "name": "userAvatar",
+          "type": "string",
+          "required": false,
+          "description": "The userAvatar prop"
+        },
+        {
+          "name": "isOpen",
+          "type": "boolean",
+          "required": false,
+          "description": "The isOpen prop"
+        },
+        {
+          "name": "onMenuItemClick",
+          "type": "(item: string) => void",
+          "required": false,
+          "description": "The onMenuItemClick prop"
+        }
+      ],
+      "example": null
+    },
+    {
+      "name": "Watermark",
+      "category": "molecules",
+      "import": "import { Watermark } from 'ft-design-system';",
+      "description": "Watermark component from FT Design System",
+      "props": [
+        {
+          "name": "zIndex",
+          "type": "number",
+          "required": false,
+          "description": "The zIndex prop"
+        },
+        {
+          "name": "rotate",
+          "type": "number",
+          "required": false,
+          "description": "The rotate prop"
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "required": false,
+          "description": "The width prop"
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "description": "The height prop"
+        },
+        {
+          "name": "image",
+          "type": "string",
+          "required": false,
+          "description": "The image prop"
+        },
+        {
+          "name": "content",
+          "type": "string | string[]",
+          "required": false,
+          "description": "The content prop"
+        },
+        {
+          "name": "font",
+          "type": "{ color?: string",
+          "required": false,
+          "description": "The font prop"
+        },
+        {
+          "name": "fontSize",
+          "type": "number | string",
+          "required": false,
+          "description": "The fontSize prop"
+        },
+        {
+          "name": "fontWeight",
+          "type": "'normal' | 'light' | 'weight' | number",
+          "required": false,
+          "description": "The fontWeight prop"
+        },
+        {
+          "name": "fontStyle",
+          "type": "'none' | 'normal' | 'italic' | 'oblique'",
+          "required": false,
+          "description": "The fontStyle prop"
+        },
+        {
+          "name": "fontFamily",
+          "type": "string",
+          "required": false,
+          "description": "The fontFamily prop"
+        }
+      ],
+      "example": null
+    }
+  ],
+  "patterns": {
+    "button": "<Button variant=\"primary\">Click me</Button>",
+    "input": "<Input label=\"Name\" placeholder=\"Enter name\" />",
+    "table": "<Table columns={cols} data={rows} />",
+    "card": "<Card title=\"Title\"><Content /></Card>",
+    "modal": "<Modal open={open} onClose={close}>Content</Modal>",
+    "form": "<Form onSubmit={submit}><FormItem label=\"Field\"><Input /></FormItem></Form>"
+  }
+}

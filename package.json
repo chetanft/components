@@ -19,14 +19,28 @@
       "types": "./dist/index.d.ts"
     },
     "./ai": {
-      "import": "./dist/ai/index.esm.js",
-      "require": "./dist/ai/index.js",
-      "types": "./dist/ai/index.d.ts"
+      "import": "./dist/ai.esm.js",
+      "require": "./dist/ai.js",
+      "types": "./dist/ai.d.ts"
+    },
+    "./core": {
+      "import": "./dist/core/index.esm.js",
+      "require": "./dist/core/index.js",
+      "types": "./dist/core/index.d.ts"
     },
     "./styles.css": "./dist/styles.css",
+    "./styles": "./dist/styles.css",
     "./index.css": "./dist/index.css",
     "./dist/styles.css": "./dist/styles.css",
-    "./dist/css/base.css": "./dist/styles.css"
+    "./dist/css/base.css": "./dist/styles.css",
+    "./tailwind-preset": "./tailwind-preset.js",
+    "./tailwind": "./tailwind-preset.js",
+    "./registry.json": "./registry.json",
+    "./registry": "./registry.json",
+    "./component-schema.json": "./component-schema.json",
+    "./schema": "./component-schema.json",
+    "./examples.json": "./examples.json",
+    "./examples": "./examples.json"
   },
   "bin": {
     "ftds": "./scripts/setup-ftds.cjs",
@@ -35,7 +49,14 @@
   "files": [
     "dist/**/*",
     "scripts/setup-ftds.cjs",
-    "templates/**/*"
+    "templates/**/*",
+    "registry.json",
+    "registry.min.json",
+    "component-schema.json",
+    "examples.json",
+    "tailwind-preset.js",
+    "AI_CONTEXT.md",
+    "llms.txt"
   ],
   "keywords": [
     "react",
@@ -96,7 +117,11 @@
     "sync:doc-stories": "node scripts/sync-doc-stories.cjs",
     "audit:inventory": "npx tsx scripts/audit/inventory-components.ts",
     "audit:scan": "npx tsx scripts/audit/scan-composable-patterns.ts",
-    "build": "npm run sync:version && npm run validate:docs && npm run generate:token-reference && rollup -c",
+    "build": "npm run sync:version && npm run validate:docs && npm run generate:token-reference && npm run generate:registry && rollup -c",
+    "generate:registry": "node scripts/generate-registry.cjs",
+    "generate:schema": "node scripts/generate-component-schema.cjs",
+    "generate:examples": "node scripts/generate-examples.cjs",
+    "find:arbitrary-classes": "node scripts/find-arbitrary-classes.cjs",
     "build:sync": "npm run sync:source-to-docs"
   },
   "dependencies": {

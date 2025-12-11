@@ -123,6 +123,18 @@ function App() {
 }
 ```
 
+### 🤖 AI Protection (Optional but Recommended)
+
+For AI coding assistants (Cursor, Copilot, v0.dev), use AI-protected imports:
+
+```tsx
+import { Button, Input, Table } from 'ft-design-system/ai';
+```
+
+**What it does:** Automatically filters problematic AI-generated classes like `h-12`, `bg-[#FF0000]`, `rounded-xl` that break your design system.
+
+**Learn more:** See [AI_PROTECTION.md](./AI_PROTECTION.md)
+
 ## ⚡ Quick Start Example
 
 <details>

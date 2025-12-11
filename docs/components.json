@@ -1,19 +1,19 @@
 {
   "designSystem": {
-    "name": "@chetanft/design_system",
-    "version": "1.0.0",
+    "name": "ft-design-system",
+    "version": "4.15.14",
     "description": "React design system components built from Figma designs",
     "installation": {
-      "npm": "npm install @chetanft/design_system",
+      "npm": "npm install ft-design-system",
       "githubPackages": {
         "npmrc": "@chetanft:registry=https://npm.pkg.github.com\n//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN",
-        "install": "npm install @chetanft/design_system"
+        "install": "npm install ft-design-system"
       }
     },
     "components": {
       "AppHeader": {
         "description": "Application header with user profile, notifications, and company branding",
-        "import": "import { AppHeader } from '@chetanft/design_system';",
+        "import": "import { AppHeader } from 'ft-design-system';",
         "props": {
           "user": {
             "type": "User",
@@ -60,7 +60,7 @@
       },
       "Button": {
         "description": "Interactive button component with multiple variants and icon support",
-        "import": "import { Button } from '@chetanft/design_system';",
+        "import": "import { Button } from 'ft-design-system';",
         "props": {
           "variant": {
             "type": "'primary' | 'secondary' | 'text'",
@@ -135,7 +135,7 @@
       },
       "UserProfile": {
         "description": "User profile component with dropdown menu",
-        "import": "import { UserProfile } from '@chetanft/design_system';",
+        "import": "import { UserProfile } from 'ft-design-system';",
         "props": {
           "userName": {
             "type": "string",
@@ -196,7 +196,7 @@
       },
       "Footer": {
         "description": "Footer component with multiple layout variants",
-        "import": "import { Footer } from '@chetanft/design_system';",
+        "import": "import { Footer } from 'ft-design-system';",
         "props": {
           "variant": {
             "type": "'minimal' | 'standard' | 'detailed' | 'corporate' | 'social'",
@@ -227,7 +227,7 @@
       },
       "Badge": {
         "description": "Status and label badge component",
-        "import": "import { Badge } from '@chetanft/design_system';",
+        "import": "import { Badge } from 'ft-design-system';",
         "props": {
           "variant": {
             "type": "'default' | 'secondary' | 'success' | 'warning' | 'error'",
@@ -261,7 +261,7 @@
       },
       "Checkbox": {
         "description": "A flexible checkbox component with support for labels, descriptions, error states, and indeterminate state.",
-        "import": "import { Checkbox } from '@chetanft/design_system';",
+        "import": "import { Checkbox } from 'ft-design-system';",
         "props": {
           "checked": {
             "type": "boolean",
@@ -348,7 +348,7 @@
       },
       "Input": {
         "description": "Form input component",
-        "import": "import { Input } from '@chetanft/design_system';",
+        "import": "import { Input } from 'ft-design-system';",
         "props": {
           "type": {
             "type": "'text' | 'email' | 'password' | 'number'",
@@ -410,7 +410,7 @@
       },
       "Switch": {
         "description": "Toggle switch component",
-        "import": "import { Switch } from '@chetanft/design_system';",
+        "import": "import { Switch } from 'ft-design-system';",
         "props": {
           "checked": {
             "type": "boolean",
@@ -452,7 +452,7 @@
       },
       "Spacer": {
         "description": "A spacing component for creating consistent vertical or horizontal spacing between elements.",
-        "import": "import { Spacer } from '@chetanft/design_system';",
+        "import": "import { Spacer } from 'ft-design-system';",
         "props": {
           "className": {
             "type": "string",
@@ -498,16 +498,16 @@
           "react >= 16.8.0",
           "react-dom >= 16.8.0"
         ],
-        "installation": "npm install @chetanft/design_system",
-        "import": "import { ComponentName } from '@chetanft/design_system';"
+        "installation": "npm install ft-design-system",
+        "import": "import { ComponentName } from 'ft-design-system';"
       },
       "styling": {
         "note": "Components include built-in styles and don't require additional CSS imports",
         "customization": "Use className prop to add custom styles"
       },
       "examples": {
-        "appLayout": "// Complete app layout example\nimport { AppHeader, Footer, Button } from '@chetanft/design_system';\n\nfunction App() {\n  return (\n    <div className=\"min-h-screen flex flex-col\">\n      <AppHeader \n        user={{\n          name: 'John Doe',\n          role: 'Manager',\n          location: 'Mumbai',\n          badge: 'Admin'\n        }}\n      />\n      <main className=\"flex-1 p-6\">\n        <Button variant=\"primary\">Get Started</Button>\n      </main>\n      <Footer variant=\"standard\" />\n    </div>\n  );\n}",
-        "form": "// Form example\nimport { Input, Checkbox, Button, Switch } from '@chetanft/design_system';\n\nfunction ContactForm() {\n  const [formData, setFormData] = useState({\n    name: '',\n    email: '',\n    subscribe: false,\n    notifications: true\n  });\n\n  return (\n    <form className=\"space-y-4\">\n      <Input \n        label=\"Name\"\n        value={formData.name}\n        onChange={(e) => setFormData({...formData, name: e.target.value})}\n      />\n      <Input \n        type=\"email\"\n        label=\"Email\"\n        value={formData.email}\n        onChange={(e) => setFormData({...formData, email: e.target.value})}\n      />\n      <Checkbox \n        label=\"Subscribe to newsletter\"\n        checked={formData.subscribe}\n        onChange={(checked) => setFormData({...formData, subscribe: checked})}\n      />\n      <Switch \n        label=\"Enable notifications\"\n        checked={formData.notifications}\n        onChange={(checked) => setFormData({...formData, notifications: checked})}\n      />\n      <Button variant=\"primary\" type=\"submit\">Submit</Button>\n    </form>\n  );\n}"
+        "appLayout": "// Complete app layout example\nimport { AppHeader, Footer, Button } from 'ft-design-system';\n\nfunction App() {\n  return (\n    <div className=\"min-h-screen flex flex-col\">\n      <AppHeader \n        user={{\n          name: 'John Doe',\n          role: 'Manager',\n          location: 'Mumbai',\n          badge: 'Admin'\n        }}\n      />\n      <main className=\"flex-1 p-6\">\n        <Button variant=\"primary\">Get Started</Button>\n      </main>\n      <Footer variant=\"standard\" />\n    </div>\n  );\n}",
+        "form": "// Form example\nimport { Input, Checkbox, Button, Switch } from 'ft-design-system';\n\nfunction ContactForm() {\n  const [formData, setFormData] = useState({\n    name: '',\n    email: '',\n    subscribe: false,\n    notifications: true\n  });\n\n  return (\n    <form className=\"space-y-4\">\n      <Input \n        label=\"Name\"\n        value={formData.name}\n        onChange={(e) => setFormData({...formData, name: e.target.value})}\n      />\n      <Input \n        type=\"email\"\n        label=\"Email\"\n        value={formData.email}\n        onChange={(e) => setFormData({...formData, email: e.target.value})}\n      />\n      <Checkbox \n        label=\"Subscribe to newsletter\"\n        checked={formData.subscribe}\n        onChange={(checked) => setFormData({...formData, subscribe: checked})}\n      />\n      <Switch \n        label=\"Enable notifications\"\n        checked={formData.notifications}\n        onChange={(checked) => setFormData({...formData, notifications: checked})}\n      />\n      <Button variant=\"primary\" type=\"submit\">Submit</Button>\n    </form>\n  );\n}"
       }
     }
   }

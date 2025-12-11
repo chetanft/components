@@ -1,4 +1,4 @@
-# Using @chetanft/design_system in Your Project
+# Using ft-design-system in Your Project
 
 This guide shows how to install and use the design system in your React project.
 
@@ -8,12 +8,12 @@ This guide shows how to install and use the design system in your React project.
 
 #### From GitHub Packages
 ```bash
-npm install @chetanft/design_system
+npm install ft-design-system
 ```
 
 #### From npm (if published)
 ```bash
-npm install @chetanft/design_system
+npm install ft-design-system
 ```
 
 ### 2. Configure .npmrc (for GitHub Packages)
@@ -33,7 +33,7 @@ Add the design system styles to your main app file:
 
 ```tsx
 // src/App.tsx or src/index.tsx
-import '@chetanft/design_system/dist/styles.css';
+import 'ft-design-system/dist/styles.css';
 ```
 
 ### 2. Configure Tailwind (Optional)
@@ -45,7 +45,7 @@ If you're using Tailwind CSS in your project, add the design system to your cont
 module.exports = {
   content: [
     './src/**/*.{js,jsx,ts,tsx}',
-    './node_modules/@chetanft/design_system/**/*.{js,jsx,ts,tsx}' // Add this line
+    './node_modules/ft-design-system/**/*.{js,jsx,ts,tsx}' // Add this line
   ],
   theme: {
     extend: {},
@@ -66,7 +66,7 @@ import {
   Badge, 
   Checkbox,
   DatePicker 
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 
 function MyApp() {
   return (
@@ -114,7 +114,7 @@ export default MyApp;
 
 ```tsx
 import React from 'react';
-import { Table } from '@chetanft/design_system';
+import { Table } from 'ft-design-system';
 
 const data = [
   { id: 1, name: 'John Doe', email: 'john@example.com', status: 'Active' },
@@ -150,7 +150,7 @@ import {
   XMarkIcon, 
   UserIcon,
   // ... other icons
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 
 function IconExample() {
   return (
@@ -174,7 +174,7 @@ import {
   ButtonProps, 
   TableProps, 
   BadgeVariant 
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 
 // Type-safe props
 interface MyComponentProps {
@@ -208,7 +208,7 @@ import {
   Checkbox, 
   RadioGroup,
   DatePicker 
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -287,10 +287,10 @@ function ContactForm() {
 
 ```tsx
 // ✅ Good - tree-shaking friendly
-import { Button, Input } from '@chetanft/design_system';
+import { Button, Input } from 'ft-design-system';
 
 // ❌ Avoid - imports entire library
-import * as DesignSystem from '@chetanft/design_system';
+import * as DesignSystem from 'ft-design-system';
 ```
 
 ### 2. Use TypeScript
@@ -298,7 +298,7 @@ import * as DesignSystem from '@chetanft/design_system';
 Take advantage of the built-in TypeScript definitions:
 
 ```tsx
-import { ButtonProps } from '@chetanft/design_system';
+import { ButtonProps } from 'ft-design-system';
 
 // Get full autocomplete and type checking
 const buttonConfig: ButtonProps = {
@@ -344,7 +344,7 @@ Use the design system's spacing and color tokens:
 To update to the latest version:
 
 ```bash
-npm update @chetanft/design_system
+npm update ft-design-system
 ```
 
 Check the [changelog](https://github.com/chetanft/components/releases) for breaking changes and new features. 

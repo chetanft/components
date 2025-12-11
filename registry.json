@@ -1,0 +1,2915 @@
+{
+  "$schema": "https://ft-design-system.dev/registry-schema.json",
+  "name": "ft-design-system",
+  "version": "4.15.14",
+  "description": "Design system built from Figma designs using Code Connect",
+  "repository": "https://github.com/chetanft/components.git",
+  "license": "MIT",
+  "generatedAt": "2025-12-11T08:00:19.382Z",
+  "coreDependencies": {
+    "peer": [
+      "react",
+      "react-dom"
+    ],
+    "required": [
+      "clsx",
+      "tailwind-merge",
+      "class-variance-authority"
+    ],
+    "optional": [
+      "lucide-react"
+    ]
+  },
+  "styling": {
+    "cssImport": "ft-design-system/styles.css",
+    "tailwindContentPath": "./node_modules/ft-design-system/dist/**/*.{js,jsx}",
+    "tailwindPreset": "ft-design-system/tailwind-preset"
+  },
+  "imports": {
+    "default": "ft-design-system",
+    "core": "ft-design-system/core",
+    "styles": "ft-design-system/styles.css"
+  },
+  "summary": {
+    "total": 124,
+    "atoms": 25,
+    "molecules": 57,
+    "organisms": 24,
+    "charts": 16,
+    "templates": 2
+  },
+  "components": [
+    {
+      "name": "Affix",
+      "category": "molecules",
+      "path": "src/components/molecules/Affix",
+      "files": [
+        "Affix.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Affix component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Alert",
+      "category": "molecules",
+      "path": "src/components/molecules/Alert",
+      "files": [
+        "Alert.tsx",
+        "AlertAction.tsx",
+        "AlertClose.tsx",
+        "AlertContext.tsx",
+        "AlertDescription.tsx",
+        "AlertIcon.tsx",
+        "AlertTitle.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "AlertAction",
+        "AlertClose",
+        "AlertContext",
+        "AlertDescription",
+        "AlertIcon",
+        "AlertTitle"
+      ],
+      "description": "Alert content (for composable API)",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "Anchor",
+      "category": "molecules",
+      "path": "src/components/molecules/Anchor",
+      "files": [
+        "Anchor.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Anchor items array (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "AppHeader",
+      "category": "organisms",
+      "path": "src/components/organisms/AppHeader",
+      "files": [
+        "AppHeader.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "AppHeader Component",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon",
+          "UserProfile",
+          "Logo"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "AreaChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "AreaChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "Avatar",
+      "category": "atoms",
+      "path": "src/components/atoms/Avatar",
+      "files": [
+        "Avatar.tsx",
+        "AvatarFallback.tsx",
+        "AvatarImage.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "AvatarFallback",
+        "AvatarImage"
+      ],
+      "description": "Avatar Component",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "BackTop",
+      "category": "molecules",
+      "path": "src/components/molecules/BackTop",
+      "files": [
+        "BackTop.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "BackTop component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Badge",
+      "category": "atoms",
+      "path": "src/components/atoms/Badge",
+      "files": [
+        "Badge.tsx",
+        "BadgeCount.tsx",
+        "BadgeDot.tsx",
+        "BadgeIcon.tsx",
+        "BadgeStatus.tsx",
+        "BadgeText.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "BadgeCount",
+        "BadgeDot",
+        "BadgeIcon",
+        "BadgeStatus",
+        "BadgeText"
+      ],
+      "description": "Badge component props",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "BarChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "BarChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "Blocks",
+      "category": "templates",
+      "path": "src/components/templates/Blocks",
+      "files": [
+        "Blocks.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Blocks component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Breadcrumb",
+      "category": "molecules",
+      "path": "src/components/molecules/Breadcrumb",
+      "files": [
+        "Breadcrumb.tsx",
+        "BreadcrumbIcon.tsx",
+        "BreadcrumbItem.tsx",
+        "BreadcrumbLink.tsx",
+        "BreadcrumbList.tsx",
+        "BreadcrumbSeparator.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "BreadcrumbIcon",
+        "BreadcrumbItem",
+        "BreadcrumbLink",
+        "BreadcrumbList",
+        "BreadcrumbSeparator"
+      ],
+      "description": "Breadcrumb content (for composable API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "BubbleChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "BubbleChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "BulletChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "BulletChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "Button",
+      "category": "atoms",
+      "path": "src/components/atoms/Button",
+      "files": [
+        "Button.tsx",
+        "ButtonIcon.tsx",
+        "ButtonSpinner.tsx",
+        "ButtonText.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "ButtonIcon",
+        "ButtonSpinner",
+        "ButtonText"
+      ],
+      "description": "Button variant options",
+      "dependencies": {
+        "internal": [
+          "Icon",
+          "Spin"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "ButtonGroup",
+      "category": "molecules",
+      "path": "src/components/molecules/ButtonGroup",
+      "files": [
+        "ButtonGroup.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Buttons array (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Calendar",
+      "category": "molecules",
+      "path": "src/components/molecules/Calendar",
+      "files": [
+        "Calendar.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Calendar component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "date-fns"
+        ]
+      }
+    },
+    {
+      "name": "Card",
+      "category": "organisms",
+      "path": "src/components/organisms/Card",
+      "files": [
+        "Card.context.tsx",
+        "Card.tsx",
+        "Card.types.ts",
+        "CardActions.tsx",
+        "CardBody.tsx",
+        "CardDescription.tsx",
+        "CardFooter.tsx",
+        "CardHeader.tsx",
+        "CardMeta.tsx",
+        "CardTitle.tsx",
+        "index.ts",
+        "sub-components/CardImage.tsx",
+        "sub-components/CardMeta.tsx",
+        "sub-components/CardSkeleton.tsx",
+        "sub-components/index.ts"
+      ],
+      "subComponents": [
+        "Card.context",
+        "CardActions",
+        "CardBody",
+        "CardDescription",
+        "CardFooter",
+        "CardHeader",
+        "CardMeta",
+        "CardTitle"
+      ],
+      "description": "Card component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "Carousel",
+      "category": "molecules",
+      "path": "src/components/molecules/Carousel",
+      "files": [
+        "Carousel.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Carousel component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Cascader",
+      "category": "molecules",
+      "path": "src/components/molecules/Cascader",
+      "files": [
+        "Cascader.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Cascader component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "Input",
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "Checkbox",
+      "category": "atoms",
+      "path": "src/components/atoms/Checkbox",
+      "files": [
+        "Checkbox.tsx",
+        "CheckboxContext.tsx",
+        "CheckboxError.tsx",
+        "CheckboxHelper.tsx",
+        "CheckboxInput.tsx",
+        "CheckboxLabel.tsx",
+        "CheckboxWrapper.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "CheckboxContext",
+        "CheckboxError",
+        "CheckboxHelper",
+        "CheckboxInput",
+        "CheckboxLabel",
+        "CheckboxWrapper"
+      ],
+      "description": "Checkbox content (for composable API)",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": [
+          "@radix-ui/react-checkbox"
+        ]
+      }
+    },
+    {
+      "name": "Chicklet",
+      "category": "molecules",
+      "path": "src/components/molecules/Chicklet",
+      "files": [
+        "Chicklet.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Chicklet component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Collapsible",
+      "category": "organisms",
+      "path": "src/components/organisms/Collapsible",
+      "files": [
+        "Collapse.tsx",
+        "CollapseContext.tsx",
+        "Collapsible.tsx",
+        "CollapsibleContent.tsx",
+        "CollapsibleContext.tsx",
+        "CollapsibleExtra.tsx",
+        "CollapsibleHeader.tsx",
+        "CollapsibleIcon.tsx",
+        "CollapsibleTitle.tsx",
+        "CollapsibleTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "CollapseContext",
+        "CollapsibleContent",
+        "CollapsibleContext",
+        "CollapsibleExtra",
+        "CollapsibleHeader",
+        "CollapsibleIcon",
+        "CollapsibleTitle",
+        "CollapsibleTrigger"
+      ],
+      "description": "Collapsible content (for composable API)",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "ColorPicker",
+      "category": "molecules",
+      "path": "src/components/molecules/ColorPicker",
+      "files": [
+        "ColorPicker.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "ColorPicker component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "Input",
+          "Button"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "Colors",
+      "category": "atoms",
+      "path": "src/components/atoms/Colors",
+      "files": [
+        "Colors.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Colors component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Content",
+      "category": "molecules",
+      "path": "src/components/molecules/Content",
+      "files": [
+        "Content.tsx"
+      ],
+      "subComponents": [],
+      "description": "Content type - only \"Text\" variant as shown in Figma",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "DataEntryTable",
+      "category": "organisms",
+      "path": "src/components/organisms/DataEntryTable",
+      "files": [
+        "DataEntryTable.tsx",
+        "DataEntryTableBody.tsx",
+        "DataEntryTableCell.tsx",
+        "DataEntryTableCellActions.tsx",
+        "DataEntryTableCellAmount.tsx",
+        "DataEntryTableCellContextMenu.tsx",
+        "DataEntryTableCellDateTime.tsx",
+        "DataEntryTableCellDropdown.tsx",
+        "DataEntryTableCellInput.tsx",
+        "DataEntryTableContext.tsx",
+        "DataEntryTableHeader.tsx",
+        "DataEntryTableHeaderCell.tsx",
+        "DataEntryTableHeaderRow.tsx",
+        "DataEntryTableRow.tsx",
+        "DataEntryTableRowCell.tsx",
+        "DataEntryTableRowCheckbox.tsx",
+        "index.ts",
+        "useColumnResize.ts"
+      ],
+      "subComponents": [
+        "DataEntryTableBody",
+        "DataEntryTableCell",
+        "DataEntryTableCellActions",
+        "DataEntryTableCellAmount",
+        "DataEntryTableCellContextMenu",
+        "DataEntryTableCellDateTime",
+        "DataEntryTableCellDropdown",
+        "DataEntryTableCellInput",
+        "DataEntryTableContext",
+        "DataEntryTableHeader",
+        "DataEntryTableHeaderCell",
+        "DataEntryTableHeaderRow",
+        "DataEntryTableRow",
+        "DataEntryTableRowCell",
+        "DataEntryTableRowCheckbox"
+      ],
+      "description": "Columns configuration (for declarative API)",
+      "dependencies": {
+        "internal": [
+          "Input",
+          "Checkbox",
+          "Dropdown",
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "DatePicker",
+      "category": "molecules",
+      "path": "src/components/molecules/DatePicker",
+      "files": [
+        "Calendar.tsx",
+        "DatePicker.tsx",
+        "DatePickerCalendar.tsx",
+        "DatePickerContext.tsx",
+        "DatePickerInput.tsx",
+        "DatePickerTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "DatePickerCalendar",
+        "DatePickerContext",
+        "DatePickerInput",
+        "DatePickerTrigger"
+      ],
+      "description": "DatePicker component props",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon",
+          "Input"
+        ],
+        "peer": [
+          "date-fns"
+        ]
+      }
+    },
+    {
+      "name": "Descriptions",
+      "category": "molecules",
+      "path": "src/components/molecules/Descriptions",
+      "files": [
+        "Descriptions.tsx",
+        "DescriptionsExtra.tsx",
+        "DescriptionsItem.tsx",
+        "DescriptionsLabel.tsx",
+        "DescriptionsTitle.tsx",
+        "DescriptionsValue.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "DescriptionsExtra",
+        "DescriptionsItem",
+        "DescriptionsLabel",
+        "DescriptionsTitle",
+        "DescriptionsValue"
+      ],
+      "description": "Title for declarative API (deprecated)",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "DisplayBlock",
+      "category": "organisms",
+      "path": "src/components/organisms/DisplayBlock",
+      "files": [
+        "DisplayBlock.tsx"
+      ],
+      "subComponents": [],
+      "description": "Layout direction",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Divider",
+      "category": "atoms",
+      "path": "src/components/atoms/Divider",
+      "files": [
+        "Divider.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "The type of divider to display",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "DoughnutChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "DoughnutChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "Drawer",
+      "category": "organisms",
+      "path": "src/components/organisms/Drawer",
+      "files": [
+        "Drawer.tsx",
+        "DrawerBody.tsx",
+        "DrawerClose.tsx",
+        "DrawerContent.tsx",
+        "DrawerContext.tsx",
+        "DrawerDescription.tsx",
+        "DrawerFooter.tsx",
+        "DrawerHeader.tsx",
+        "DrawerTitle.tsx",
+        "DrawerTrigger.tsx",
+        "GridDrawer.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "DrawerBody",
+        "DrawerClose",
+        "DrawerContent",
+        "DrawerContext",
+        "DrawerDescription",
+        "DrawerFooter",
+        "DrawerHeader",
+        "DrawerTitle",
+        "DrawerTrigger"
+      ],
+      "description": "Drawer placement position",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon"
+        ],
+        "peer": [
+          "@radix-ui/react-dialog"
+        ]
+      }
+    },
+    {
+      "name": "Dropdown",
+      "category": "molecules",
+      "path": "src/components/molecules/Dropdown",
+      "files": [
+        "Dropdown.styles.ts",
+        "Dropdown.tsx",
+        "DropdownContent.tsx",
+        "DropdownContext.tsx",
+        "DropdownTrigger.tsx",
+        "index.ts",
+        "useDropdown.ts"
+      ],
+      "subComponents": [
+        "DropdownContent",
+        "DropdownContext",
+        "DropdownTrigger"
+      ],
+      "description": "Options array (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "@radix-ui/react-dropdown-menu"
+        ]
+      }
+    },
+    {
+      "name": "DropdownMenu",
+      "category": "molecules",
+      "path": "src/components/molecules/DropdownMenu",
+      "files": [
+        "DropdownMenu.tsx",
+        "DropdownMenuContext.tsx",
+        "DropdownMenuItem.tsx",
+        "DropdownMenuLabel.tsx",
+        "DropdownMenuList.tsx",
+        "DropdownMenuSearch.tsx",
+        "DropdownMenuSeparator.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "DropdownMenuContext",
+        "DropdownMenuItem",
+        "DropdownMenuLabel",
+        "DropdownMenuList",
+        "DropdownMenuSearch",
+        "DropdownMenuSeparator"
+      ],
+      "description": "Menu property type",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "@radix-ui/react-dropdown-menu"
+        ]
+      }
+    },
+    {
+      "name": "DualAxesChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "DualAxesChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "Empty",
+      "category": "molecules",
+      "path": "src/components/molecules/Empty",
+      "files": [
+        "Empty.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Empty component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "FigmaBadge",
+      "category": "atoms",
+      "path": "src/components/atoms/FigmaBadge",
+      "files": [
+        "FigmaBadge.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Badge component to indicate that Figma design is not available for this component.",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "FileCard",
+      "category": "organisms",
+      "path": "src/components/organisms/FileCard",
+      "files": [
+        "FileCard.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "FileCard component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "Icon",
+          "Badge",
+          "Button"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "FileThumbnail",
+      "category": "organisms",
+      "path": "src/components/organisms/FileThumbnail",
+      "files": [
+        "FileThumbnail.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "FileThumbnail component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "FileTypeIcon",
+      "category": "organisms",
+      "path": "src/components/organisms/FileTypeIcon",
+      "files": [
+        "FileTypeIcon.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "FileTypeIcon component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "FileValidationCard",
+      "category": "molecules",
+      "path": "src/components/molecules/FileValidationCard",
+      "files": [
+        "FileValidationCard.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "FileValidationCard component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "FilterDateRange",
+      "category": "molecules",
+      "path": "src/components/molecules/FilterDateRange",
+      "files": [
+        "FilterDateRange.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Unique identifier for this filter (used for context management)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "FilterDropdown",
+      "category": "molecules",
+      "path": "src/components/molecules/FilterDropdown",
+      "files": [
+        "FilterDropdown.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Unique identifier for this filter (used for context management)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "FilterSearch",
+      "category": "molecules",
+      "path": "src/components/molecules/FilterSearch",
+      "files": [
+        "FilterSearch.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Search value",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "FloatButton",
+      "category": "molecules",
+      "path": "src/components/molecules/FloatButton",
+      "files": [
+        "FloatButton.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "FloatButton component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Footer",
+      "category": "organisms",
+      "path": "src/components/organisms/Footer",
+      "files": [
+        "Footer.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Number of buttons to display (1-4) - for declarative API",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Form",
+      "category": "organisms",
+      "path": "src/components/organisms/Form",
+      "files": [
+        "Form.tsx",
+        "FormControl.tsx",
+        "FormDescription.tsx",
+        "FormError.tsx",
+        "FormHelper.tsx",
+        "FormLabel.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "FormControl",
+        "FormDescription",
+        "FormError",
+        "FormHelper",
+        "FormLabel"
+      ],
+      "description": "Form component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "Input",
+          "Checkbox",
+          "RadioGroup",
+          "Select",
+          "Switch",
+          "Textarea"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "GaugeChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "GaugeChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "Graphs",
+      "category": "molecules",
+      "path": "src/components/molecules/Graphs",
+      "files": [
+        "Graphs.tsx"
+      ],
+      "subComponents": [],
+      "description": "Additional CSS classes",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Grid",
+      "category": "organisms",
+      "path": "src/components/organisms/Grid",
+      "files": [
+        "Grid.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Grid component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "HorizontalBarChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "HorizontalBarChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "HoverCard",
+      "category": "molecules",
+      "path": "src/components/molecules/HoverCard",
+      "files": [
+        "HoverCard.tsx",
+        "HoverCardContent.tsx",
+        "HoverCardContext.tsx",
+        "HoverCardTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "HoverCardContent",
+        "HoverCardContext",
+        "HoverCardTrigger"
+      ],
+      "description": "Trigger content (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "@radix-ui/react-hover-card"
+        ]
+      }
+    },
+    {
+      "name": "Icons",
+      "category": "atoms",
+      "path": "src/components/atoms/Icons",
+      "files": [
+        "Add.tsx",
+        "AddTrip.tsx",
+        "Aeroplane.tsx",
+        "Airtel.tsx",
+        "AlertCritical.tsx",
+        "AlertCriticalFill.tsx",
+        "AlertInformational.tsx",
+        "AlertInformationalFill.tsx",
+        "ArrowBottomLeft.tsx",
+        "ArrowDown.tsx",
+        "ArrowDownRight.tsx",
+        "ArrowLeft.tsx",
+        "ArrowTopLeft.tsx",
+        "ArrowTopRight.tsx",
+        "ArrowUp.tsx",
+        "Backward.tsx",
+        "Bell.tsx",
+        "Bsnl.tsx",
+        "BulkActions.tsx",
+        "BulkTrip.tsx",
+        "Bundle.tsx",
+        "Calendar.tsx",
+        "CalendarClock.tsx",
+        "Cheap.tsx",
+        "Check.tsx",
+        "CheckAlt.tsx",
+        "CheckFill.tsx",
+        "ChevronDown.tsx",
+        "ChevronLeft.tsx",
+        "ChevronRight.tsx",
+        "ChevronUp.tsx",
+        "Clock.tsx",
+        "ClockAlert.tsx",
+        "ClockCross.tsx",
+        "ClockTick.tsx",
+        "ClockWarning.tsx",
+        "CloseFilled.tsx",
+        "CloudUpload.tsx",
+        "Comment.tsx",
+        "Compress.tsx",
+        "ConsentAvailable.tsx",
+        "ConsentPending.tsx",
+        "ConsentRejected.tsx",
+        "ContractedBill.tsx",
+        "ControlTower.tsx",
+        "Copy.tsx",
+        "Cross.tsx",
+        "CrossIcon.tsx",
+        "CursorPointer.tsx",
+        "Dashboard.tsx",
+        "DataStack.tsx",
+        "DefaultIcon.tsx",
+        "Delete.tsx",
+        "DetentionAtDestination.tsx",
+        "DetentionAtOrigin.tsx",
+        "Diversion.tsx",
+        "Division.tsx",
+        "Document.tsx",
+        "DocumentReuse.tsx",
+        "Download.tsx",
+        "Drag.tsx",
+        "Edit.tsx",
+        "EwayBillExpired.tsx",
+        "Excel.tsx",
+        "Expand.tsx",
+        "ExportFile.tsx",
+        "EyeInvisible.tsx",
+        "File.tsx",
+        "FileAlt.tsx",
+        "FileIcon.tsx",
+        "FileUpload.tsx",
+        "FileUploader.tsx",
+        "FillDetails.tsx",
+        "Filter.tsx",
+        "Flame.tsx",
+        "Forward.tsx",
+        "FtColour.tsx",
+        "FtGray.tsx",
+        "GmailLogo.tsx",
+        "GoogleColour.tsx",
+        "GoogleDrive.tsx",
+        "GoogleGray.tsx",
+        "Gps.tsx",
+        "Gst.tsx",
+        "HamburgerMenu.tsx",
+        "Hand.tsx",
+        "Home.tsx",
+        "Icon.tsx",
+        "Image.tsx",
+        "Indent.tsx",
+        "Jio.tsx",
+        "LightBulb.tsx",
+        "Link.tsx",
+        "Loading.tsx",
+        "LoadingSpinner.tsx",
+        "Locate.tsx",
+        "Location.tsx",
+        "Lock.tsx",
+        "Logout.tsx",
+        "LongStoppage.tsx",
+        "Mail.tsx",
+        "Map.tsx",
+        "Megaphone.tsx",
+        "More.tsx",
+        "MoreOptions.tsx",
+        "Mtnl.tsx",
+        "MultipleLocation.tsx",
+        "MultipleTime.tsx",
+        "MultipleWeight.tsx",
+        "MyTrip.tsx",
+        "Navigator.tsx",
+        "NoSignal.tsx",
+        "Noted.tsx",
+        "Notification.tsx",
+        "OctagonAlertFilled.tsx",
+        "OneDrive.tsx",
+        "Organisation.tsx",
+        "Outbound.tsx",
+        "ParcelCheck.tsx",
+        "PartTruckLoad.tsx",
+        "Password.tsx",
+        "Pause.tsx",
+        "PauseFilled.tsx",
+        "Pen.tsx",
+        "Phone.tsx",
+        "PhoneAlt.tsx",
+        "Planning.tsx",
+        "Plant.tsx",
+        "PlantAlt.tsx",
+        "Play.tsx",
+        "PlayFill.tsx",
+        "PortableTracking.tsx",
+        "Preview.tsx",
+        "PreviewFill.tsx",
+        "Recommended.tsx",
+        "Reconciliation.tsx",
+        "Refresh.tsx",
+        "Remove.tsx",
+        "Reports.tsx",
+        "Road.tsx",
+        "Rocket.tsx",
+        "RoundTrip.tsx",
+        "RouteDeviation.tsx",
+        "RupeeCoin.tsx",
+        "Satellite.tsx",
+        "Save.tsx",
+        "Search.tsx",
+        "Send.tsx",
+        "Settings.tsx",
+        "Settlement.tsx",
+        "ShakeHand.tsx",
+        "Share.tsx",
+        "ShieldAlert.tsx",
+        "Ship.tsx",
+        "Sim.tsx",
+        "SmallTruck.tsx",
+        "Sort.tsx",
+        "Star.tsx",
+        "Stop.tsx",
+        "Streetview.tsx",
+        "StrengthHigh.tsx",
+        "StrengthLow.tsx",
+        "StrengthMedium.tsx",
+        "StrengthNoTracking.tsx",
+        "Subtract.tsx",
+        "Success.tsx",
+        "Tata.tsx",
+        "TemperatureCold.tsx",
+        "TemperatureDefault.tsx",
+        "TemperatureHot.tsx",
+        "ThreeDotMenu.tsx",
+        "Time.tsx",
+        "Timer.tsx",
+        "Tracker.tsx",
+        "TrackingInterrupted.tsx",
+        "Train.tsx",
+        "TransitDelay.tsx",
+        "TriangleAlert.tsx",
+        "Trolley.tsx",
+        "Truck.tsx",
+        "TwoToneIcons/index.ts",
+        "Untracked.tsx",
+        "UploadDocument.tsx",
+        "User.tsx",
+        "Vehicle.tsx",
+        "Vodafone.tsx",
+        "Warehouse.tsx",
+        "Weight.tsx",
+        "Whatsapp.tsx",
+        "iconMap.ts",
+        "index.ts",
+        "types.ts"
+      ],
+      "subComponents": [],
+      "description": "Icons component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Illustration",
+      "category": "atoms",
+      "path": "src/components/atoms/Illustration",
+      "files": [
+        "Illustration.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Illustration component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Image",
+      "category": "molecules",
+      "path": "src/components/molecules/Image",
+      "files": [
+        "Image.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Image component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Input",
+      "category": "atoms",
+      "path": "src/components/atoms/Input",
+      "files": [
+        "Input.tsx",
+        "InputContext.tsx",
+        "InputError.tsx",
+        "InputField.tsx",
+        "InputHelper.tsx",
+        "InputLabel.tsx",
+        "InputSuccess.tsx",
+        "InputWarning.tsx",
+        "InputWrapper.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "InputContext",
+        "InputError",
+        "InputField",
+        "InputHelper",
+        "InputLabel",
+        "InputSuccess",
+        "InputWarning",
+        "InputWrapper"
+      ],
+      "description": "Input component props",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "InputNumber",
+      "category": "molecules",
+      "path": "src/components/molecules/InputNumber",
+      "files": [
+        "InputNumber.tsx",
+        "InputNumberButton.tsx",
+        "InputNumberContext.tsx",
+        "InputNumberControls.tsx",
+        "InputNumberField.tsx",
+        "InputNumberPrefix.tsx",
+        "InputNumberSuffix.tsx",
+        "InputNumberWrapper.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "InputNumberButton",
+        "InputNumberContext",
+        "InputNumberControls",
+        "InputNumberField",
+        "InputNumberPrefix",
+        "InputNumberSuffix",
+        "InputNumberWrapper"
+      ],
+      "description": "Current value (controlled)",
+      "dependencies": {
+        "internal": [
+          "Input",
+          "Button",
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "Label",
+      "category": "atoms",
+      "path": "src/components/atoms/Label",
+      "files": [
+        "Label.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "The text content of the label",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "LineChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "LineChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "List",
+      "category": "molecules",
+      "path": "src/components/molecules/List",
+      "files": [
+        "List.tsx",
+        "ListBody.tsx",
+        "ListFooter.tsx",
+        "ListHeader.tsx",
+        "ListItem.tsx",
+        "ListItemAction.tsx",
+        "ListItemContent.tsx",
+        "ListItemDescription.tsx",
+        "ListItemIcon.tsx",
+        "ListItemTitle.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "ListBody",
+        "ListFooter",
+        "ListHeader",
+        "ListItem",
+        "ListItemAction",
+        "ListItemContent",
+        "ListItemDescription",
+        "ListItemIcon",
+        "ListItemTitle"
+      ],
+      "description": "Data source for declarative API (deprecated)",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "ListingLayout",
+      "category": "templates",
+      "path": "src/components/templates/ListingLayout",
+      "files": [
+        "ListingLayout.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Optional fallback to support legacy children-based consumption.",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Loader",
+      "category": "molecules",
+      "path": "src/components/molecules/Loader",
+      "files": [
+        "Loader.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Loader component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Logos",
+      "category": "atoms",
+      "path": "src/components/atoms/Logos",
+      "files": [
+        "FTLogo.tsx",
+        "Logo.tsx",
+        "TataMotorsLogo.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Logos component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Mentions",
+      "category": "molecules",
+      "path": "src/components/molecules/Mentions",
+      "files": [
+        "Mentions.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Options array (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Message",
+      "category": "molecules",
+      "path": "src/components/molecules/Message",
+      "files": [
+        "Message.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Message component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Modal",
+      "category": "organisms",
+      "path": "src/components/organisms/Modal",
+      "files": [
+        "Modal.tsx",
+        "ModalBody.tsx",
+        "ModalClose.tsx",
+        "ModalContent.tsx",
+        "ModalContext.tsx",
+        "ModalDescription.tsx",
+        "ModalFooter.tsx",
+        "ModalHeader.tsx",
+        "ModalTitle.tsx",
+        "ModalTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "ModalBody",
+        "ModalClose",
+        "ModalContent",
+        "ModalContext",
+        "ModalDescription",
+        "ModalFooter",
+        "ModalHeader",
+        "ModalTitle",
+        "ModalTrigger"
+      ],
+      "description": "Modal component props",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon"
+        ],
+        "peer": [
+          "@radix-ui/react-dialog"
+        ]
+      }
+    },
+    {
+      "name": "NavigationMenu",
+      "category": "organisms",
+      "path": "src/components/organisms/NavigationMenu",
+      "files": [
+        "NavigationMenu.tsx"
+      ],
+      "subComponents": [],
+      "description": "Close handler",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "NavigationPopover",
+      "category": "organisms",
+      "path": "src/components/organisms/NavigationPopover",
+      "files": [
+        "NavigationLauncher.tsx",
+        "NavigationPopover.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Sections array (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Notification",
+      "category": "molecules",
+      "path": "src/components/molecules/Notification",
+      "files": [
+        "Notification.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Notification Provider component built using FT Design System tokens.",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "PageHeader",
+      "category": "organisms",
+      "path": "src/components/organisms/PageHeader",
+      "files": [
+        "PageHeader.tsx",
+        "PageHeaderSubcomponents.tsx",
+        "PageHeaderTabs.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "PageHeaderSubcomponents",
+        "PageHeaderTabs"
+      ],
+      "description": "PageHeader Props",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon",
+          "Breadcrumb",
+          "Tabs"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "PageHeaderFilters",
+      "category": "molecules",
+      "path": "src/components/molecules/PageHeaderFilters",
+      "files": [
+        "PageHeaderFilters.tsx",
+        "PageHeaderFiltersContext.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "PageHeaderFiltersContext"
+      ],
+      "description": "Filter components (FilterDropdown, FilterDateRange, FilterSearch)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Pagination",
+      "category": "molecules",
+      "path": "src/components/molecules/Pagination",
+      "files": [
+        "Pagination.tsx",
+        "PaginationContext.tsx",
+        "PaginationEllipsis.tsx",
+        "PaginationItem.tsx",
+        "PaginationLink.tsx",
+        "PaginationList.tsx",
+        "PaginationNext.tsx",
+        "PaginationPrevious.tsx",
+        "PaginationQuickJumper.tsx",
+        "PaginationSizeChanger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "PaginationContext",
+        "PaginationEllipsis",
+        "PaginationItem",
+        "PaginationLink",
+        "PaginationList",
+        "PaginationNext",
+        "PaginationPrevious",
+        "PaginationQuickJumper",
+        "PaginationSizeChanger"
+      ],
+      "description": "Pagination content (for composable API)",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon",
+          "Select"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "PieChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "PieChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "PolarAreaChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "PolarAreaChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "Popconfirm",
+      "category": "molecules",
+      "path": "src/components/molecules/Popconfirm",
+      "files": [
+        "Popconfirm.tsx",
+        "PopconfirmActions.tsx",
+        "PopconfirmArrow.tsx",
+        "PopconfirmContent.tsx",
+        "PopconfirmContext.tsx",
+        "PopconfirmDescription.tsx",
+        "PopconfirmIcon.tsx",
+        "PopconfirmTitle.tsx",
+        "PopconfirmTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "PopconfirmActions",
+        "PopconfirmArrow",
+        "PopconfirmContent",
+        "PopconfirmContext",
+        "PopconfirmDescription",
+        "PopconfirmIcon",
+        "PopconfirmTitle",
+        "PopconfirmTrigger"
+      ],
+      "description": "Title text (for declarative API)",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon"
+        ],
+        "peer": [
+          "@radix-ui/react-popover"
+        ]
+      }
+    },
+    {
+      "name": "ProgressBar",
+      "category": "molecules",
+      "path": "src/components/molecules/ProgressBar",
+      "files": [
+        "ProgressBar.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "ProgressBar component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "ProgressList",
+      "category": "molecules",
+      "path": "src/components/molecules/ProgressList",
+      "files": [
+        "ProgressList.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Items array (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "QuickFilters",
+      "category": "organisms",
+      "path": "src/components/organisms/QuickFilters",
+      "files": [
+        "QuickFilters.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Filters array (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "RadarChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "RadarChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "RadialChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "RadialChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "RadioGroup",
+      "category": "atoms",
+      "path": "src/components/atoms/RadioGroup",
+      "files": [
+        "RadioGroup.tsx",
+        "RadioGroupContext.tsx",
+        "RadioGroupError.tsx",
+        "RadioGroupHelper.tsx",
+        "RadioGroupLabel.tsx",
+        "RadioItem.tsx",
+        "RadioItemContext.tsx",
+        "RadioItemInput.tsx",
+        "RadioItemLabel.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "RadioGroupContext",
+        "RadioGroupError",
+        "RadioGroupHelper",
+        "RadioGroupLabel",
+        "RadioItemContext"
+      ],
+      "description": "Radio group name (required for form submission)",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": [
+          "@radix-ui/react-radio-group"
+        ]
+      }
+    },
+    {
+      "name": "RadioSelector",
+      "category": "molecules",
+      "path": "src/components/molecules/RadioSelector",
+      "files": [
+        "RadioSelector.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Options array (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Rate",
+      "category": "molecules",
+      "path": "src/components/molecules/Rate",
+      "files": [
+        "Rate.tsx",
+        "RateContext.tsx",
+        "RateIcon.tsx",
+        "RateItem.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "RateContext",
+        "RateIcon",
+        "RateItem"
+      ],
+      "description": "Current value (controlled)",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "ReadOnly",
+      "category": "atoms",
+      "path": "src/components/atoms/ReadOnly",
+      "files": [
+        "ReadOnly.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Layout type",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Result",
+      "category": "organisms",
+      "path": "src/components/organisms/Result",
+      "files": [
+        "Result.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Result component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "ScatterChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "ScatterChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "SegmentedTabs",
+      "category": "molecules",
+      "path": "src/components/molecules/SegmentedTabs",
+      "files": [
+        "SegmentedTabs.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Items array (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Select",
+      "category": "atoms",
+      "path": "src/components/atoms/Select",
+      "files": [
+        "Select.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Select component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": [
+          "@radix-ui/react-select"
+        ]
+      }
+    },
+    {
+      "name": "Select",
+      "category": "molecules",
+      "path": "src/components/molecules/Select",
+      "files": [
+        "Select.tsx",
+        "SelectContent.tsx",
+        "SelectContext.tsx",
+        "SelectGroup.tsx",
+        "SelectItem.tsx",
+        "SelectLabel.tsx",
+        "SelectLegacy.tsx",
+        "SelectSeparator.tsx",
+        "SelectTrigger.tsx",
+        "SelectValue.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "SelectContent",
+        "SelectContext",
+        "SelectGroup",
+        "SelectItem",
+        "SelectLabel",
+        "SelectLegacy",
+        "SelectSeparator",
+        "SelectTrigger",
+        "SelectValue"
+      ],
+      "description": "Selected value",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": [
+          "@radix-ui/react-select"
+        ]
+      }
+    },
+    {
+      "name": "SimpleColumnLayout",
+      "category": "molecules",
+      "path": "src/components/molecules/SimpleColumnLayout",
+      "files": [
+        "SimpleColumnLayout.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Force highlight regardless of stripe order",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Skeleton",
+      "category": "atoms",
+      "path": "src/components/atoms/Skeleton",
+      "files": [
+        "Skeleton.tsx",
+        "SkeletonImage.tsx",
+        "SkeletonText.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "SkeletonImage",
+        "SkeletonText"
+      ],
+      "description": "Skeleton Component",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Slider",
+      "category": "molecules",
+      "path": "src/components/molecules/Slider",
+      "files": [
+        "Slider.tsx",
+        "SliderContext.tsx",
+        "SliderLabel.tsx",
+        "SliderRange.tsx",
+        "SliderThumb.tsx",
+        "SliderTrack.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "SliderContext",
+        "SliderLabel",
+        "SliderRange",
+        "SliderThumb",
+        "SliderTrack"
+      ],
+      "description": "Current value (single or range) (controlled)",
+      "dependencies": {
+        "internal": [
+          "Input"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "Spacer",
+      "category": "atoms",
+      "path": "src/components/atoms/Spacer",
+      "files": [
+        "Spacer.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Size of the spacer",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Spin",
+      "category": "atoms",
+      "path": "src/components/atoms/Spin",
+      "files": [
+        "Spin.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Spin component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "StackedBarChart",
+      "category": "molecules",
+      "path": "src/components/molecules/StackedBarChart",
+      "files": [
+        "StackedBarChart.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Chart data (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "StackedBarChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "StackedBarChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "Statistic",
+      "category": "atoms",
+      "path": "src/components/atoms/Statistic",
+      "files": [
+        "Statistic.tsx",
+        "StatisticTitle.tsx",
+        "StatisticValue.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "StatisticTitle",
+        "StatisticValue"
+      ],
+      "description": "The label text (for declarative API)",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "Steps",
+      "category": "molecules",
+      "path": "src/components/molecules/Steps",
+      "files": [
+        "StepContent.tsx",
+        "StepDescription.tsx",
+        "StepIcon.tsx",
+        "StepItem.tsx",
+        "StepTitle.tsx",
+        "Steps.tsx",
+        "StepsContext.tsx",
+        "StepsList.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "StepsContext",
+        "StepsList"
+      ],
+      "description": "Steps array for declarative API (deprecated)",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "SubText",
+      "category": "atoms",
+      "path": "src/components/atoms/SubText",
+      "files": [
+        "SubText.tsx"
+      ],
+      "subComponents": [],
+      "description": "Whether to show the check icon",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Switch",
+      "category": "atoms",
+      "path": "src/components/atoms/Switch",
+      "files": [
+        "Switch.tsx",
+        "SwitchContext.tsx",
+        "SwitchError.tsx",
+        "SwitchHelper.tsx",
+        "SwitchInput.tsx",
+        "SwitchLabel.tsx",
+        "SwitchWrapper.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "SwitchContext",
+        "SwitchError",
+        "SwitchHelper",
+        "SwitchInput",
+        "SwitchLabel",
+        "SwitchWrapper"
+      ],
+      "description": "Switch content (for composable API)",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "@radix-ui/react-switch"
+        ]
+      }
+    },
+    {
+      "name": "Table",
+      "category": "organisms",
+      "path": "src/components/organisms/Table",
+      "files": [
+        "SkeletonRow.tsx",
+        "Table.tsx",
+        "TableBody.tsx",
+        "TableCaption.tsx",
+        "TableCell.tsx",
+        "TableCellItem.tsx",
+        "TableCellText.tsx",
+        "TableFooter.tsx",
+        "TableHead.tsx",
+        "TableHeader.tsx",
+        "TableHeaderItem.tsx",
+        "TableRow.tsx",
+        "TableRowSelect.tsx",
+        "TableSelectAll.tsx",
+        "TableSelectionContext.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "TableBody",
+        "TableCaption",
+        "TableCell",
+        "TableCellItem",
+        "TableCellText",
+        "TableFooter",
+        "TableHead",
+        "TableHeader",
+        "TableHeaderItem",
+        "TableRow",
+        "TableRowSelect",
+        "TableSelectAll",
+        "TableSelectionContext"
+      ],
+      "description": "Table column definition",
+      "dependencies": {
+        "internal": [
+          "Checkbox",
+          "Icon",
+          "Pagination"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "Tabs",
+      "category": "organisms",
+      "path": "src/components/organisms/Tabs",
+      "files": [
+        "Tabs.tsx",
+        "TabsContent.tsx",
+        "TabsContext.tsx",
+        "TabsList.tsx",
+        "TabsTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "TabsContent",
+        "TabsContext",
+        "TabsList",
+        "TabsTrigger"
+      ],
+      "description": "Tabs content (for composable API)",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "Text",
+      "category": "atoms",
+      "path": "src/components/atoms/Text",
+      "files": [
+        "Text.tsx"
+      ],
+      "subComponents": [],
+      "description": "Whether to show sub text",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Textarea",
+      "category": "atoms",
+      "path": "src/components/atoms/Textarea",
+      "files": [
+        "Textarea.tsx",
+        "TextareaContext.tsx",
+        "TextareaError.tsx",
+        "TextareaField.tsx",
+        "TextareaHelper.tsx",
+        "TextareaLabel.tsx",
+        "TextareaWrapper.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "TextareaContext",
+        "TextareaError",
+        "TextareaField",
+        "TextareaHelper",
+        "TextareaLabel",
+        "TextareaWrapper"
+      ],
+      "description": "Textarea content (for composable API)",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "ThemeSwitch",
+      "category": "molecules",
+      "path": "src/components/molecules/ThemeSwitch",
+      "files": [
+        "ThemeSwitch.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "ThemeSwitch component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Timeline",
+      "category": "molecules",
+      "path": "src/components/molecules/Timeline",
+      "files": [
+        "Timeline.tsx",
+        "TimelineContent.tsx",
+        "TimelineDot.tsx",
+        "TimelineLabel.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "TimelineContent",
+        "TimelineDot",
+        "TimelineLabel"
+      ],
+      "description": "Custom dot element or icon name (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "TimePicker",
+      "category": "molecules",
+      "path": "src/components/molecules/TimePicker",
+      "files": [
+        "TimePicker.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Whether the time picker is disabled",
+      "dependencies": {
+        "internal": [
+          "Input",
+          "Icon"
+        ],
+        "peer": [
+          "date-fns"
+        ]
+      }
+    },
+    {
+      "name": "Toggle",
+      "category": "atoms",
+      "path": "src/components/atoms/Toggle",
+      "files": [
+        "Toggle.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Toggle Component",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "ToggleGroup",
+      "category": "molecules",
+      "path": "src/components/molecules/ToggleGroup",
+      "files": [
+        "ToggleGroup.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "ToggleGroup component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Tooltip",
+      "category": "molecules",
+      "path": "src/components/molecules/Tooltip",
+      "files": [
+        "Tooltip.tsx",
+        "TooltipArrow.tsx",
+        "TooltipContent.tsx",
+        "TooltipContext.tsx",
+        "TooltipDescription.tsx",
+        "TooltipTitle.tsx",
+        "TooltipTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "TooltipArrow",
+        "TooltipContent",
+        "TooltipContext",
+        "TooltipDescription",
+        "TooltipTitle",
+        "TooltipTrigger"
+      ],
+      "description": "Tooltip content (for composable API)",
+      "dependencies": {
+        "internal": [
+          "Icon"
+        ],
+        "peer": [
+          "@radix-ui/react-tooltip"
+        ]
+      }
+    },
+    {
+      "name": "Tour",
+      "category": "molecules",
+      "path": "src/components/molecules/Tour",
+      "files": [
+        "Tour.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Steps array (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Transfer",
+      "category": "molecules",
+      "path": "src/components/molecules/Transfer",
+      "files": [
+        "Transfer.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Data source array (for declarative API)",
+      "dependencies": {
+        "internal": [
+          "Checkbox",
+          "Button",
+          "Input"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "Tree",
+      "category": "molecules",
+      "path": "src/components/molecules/Tree",
+      "files": [
+        "Tree.tsx",
+        "TreeContext.tsx",
+        "TreeNode.tsx",
+        "TreeNodeCheckbox.tsx",
+        "TreeNodeChildren.tsx",
+        "TreeNodeContent.tsx",
+        "TreeNodeIcon.tsx",
+        "TreeNodeSwitcher.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "TreeContext",
+        "TreeNode",
+        "TreeNodeCheckbox",
+        "TreeNodeChildren",
+        "TreeNodeContent",
+        "TreeNodeIcon",
+        "TreeNodeSwitcher"
+      ],
+      "description": "Tree data (for declarative API)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "TreeSelect",
+      "category": "molecules",
+      "path": "src/components/molecules/TreeSelect",
+      "files": [
+        "TreeSelect.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "TreeSelect component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "Input",
+          "Icon",
+          "Checkbox"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "Typography",
+      "category": "atoms",
+      "path": "src/components/atoms/Typography",
+      "files": [
+        "Typography.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Typography component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Upload",
+      "category": "organisms",
+      "path": "src/components/organisms/Upload",
+      "files": [
+        "Upload.tsx",
+        "UploadContext.tsx",
+        "UploadList.tsx",
+        "UploadTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "UploadContext",
+        "UploadList",
+        "UploadTrigger"
+      ],
+      "description": "Upload type",
+      "dependencies": {
+        "internal": [
+          "Button",
+          "Icon",
+          "ProgressBar"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "UploadButton",
+      "category": "molecules",
+      "path": "src/components/molecules/UploadButton",
+      "files": [
+        "UploadButton.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "UploadButton component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "UploadItem",
+      "category": "molecules",
+      "path": "src/components/molecules/UploadItem",
+      "files": [
+        "UploadItem.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "UploadItem component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "UploadThumbnail",
+      "category": "molecules",
+      "path": "src/components/molecules/UploadThumbnail",
+      "files": [
+        "UploadThumbnail.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "UploadThumbnail component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "UploadZone",
+      "category": "organisms",
+      "path": "src/components/organisms/UploadZone",
+      "files": [
+        "UploadZone.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "UploadZone component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "Icon",
+          "Button"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "UserProfile",
+      "category": "organisms",
+      "path": "src/components/organisms/UserProfile",
+      "files": [
+        "UserProfile.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "UserProfile component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "UserProfileDropdown",
+      "category": "organisms",
+      "path": "src/components/organisms/UserProfileDropdown",
+      "files": [
+        "UserProfileDropdown.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "UserProfileDropdown component from FT Design System",
+      "dependencies": {
+        "internal": [
+          "UserProfile",
+          "Dropdown",
+          "Button",
+          "Icon"
+        ],
+        "peer": []
+      }
+    },
+    {
+      "name": "WaterfallChart",
+      "category": "charts",
+      "path": "src/components/charts",
+      "files": [
+        "WaterfallChart.tsx"
+      ],
+      "subComponents": [],
+      "description": "Chart component for data visualization",
+      "dependencies": {
+        "internal": [],
+        "peer": [
+          "chart.js",
+          "react-chartjs-2"
+        ]
+      }
+    },
+    {
+      "name": "Watermark",
+      "category": "molecules",
+      "path": "src/components/molecules/Watermark",
+      "files": [
+        "Watermark.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Watermark component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    }
+  ],
+  "componentIndex": {
+    "affix": "Affix",
+    "alert": "Alert",
+    "anchor": "Anchor",
+    "appheader": "AppHeader",
+    "areachart": "AreaChart",
+    "avatar": "Avatar",
+    "backtop": "BackTop",
+    "badge": "Badge",
+    "barchart": "BarChart",
+    "blocks": "Blocks",
+    "breadcrumb": "Breadcrumb",
+    "bubblechart": "BubbleChart",
+    "bulletchart": "BulletChart",
+    "button": "Button",
+    "buttongroup": "ButtonGroup",
+    "calendar": "Calendar",
+    "card": "Card",
+    "carousel": "Carousel",
+    "cascader": "Cascader",
+    "checkbox": "Checkbox",
+    "chicklet": "Chicklet",
+    "collapsible": "Collapsible",
+    "colorpicker": "ColorPicker",
+    "colors": "Colors",
+    "content": "Content",
+    "dataentrytable": "DataEntryTable",
+    "datepicker": "DatePicker",
+    "descriptions": "Descriptions",
+    "displayblock": "DisplayBlock",
+    "divider": "Divider",
+    "doughnutchart": "DoughnutChart",
+    "drawer": "Drawer",
+    "dropdown": "Dropdown",
+    "dropdownmenu": "DropdownMenu",
+    "dualaxeschart": "DualAxesChart",
+    "empty": "Empty",
+    "figmabadge": "FigmaBadge",
+    "filecard": "FileCard",
+    "filethumbnail": "FileThumbnail",
+    "filetypeicon": "FileTypeIcon",
+    "filevalidationcard": "FileValidationCard",
+    "filterdaterange": "FilterDateRange",
+    "filterdropdown": "FilterDropdown",
+    "filtersearch": "FilterSearch",
+    "floatbutton": "FloatButton",
+    "footer": "Footer",
+    "form": "Form",
+    "gaugechart": "GaugeChart",
+    "graphs": "Graphs",
+    "grid": "Grid",
+    "horizontalbarchart": "HorizontalBarChart",
+    "hovercard": "HoverCard",
+    "icons": "Icons",
+    "illustration": "Illustration",
+    "image": "Image",
+    "input": "Input",
+    "inputnumber": "InputNumber",
+    "label": "Label",
+    "linechart": "LineChart",
+    "list": "List",
+    "listinglayout": "ListingLayout",
+    "loader": "Loader",
+    "logos": "Logos",
+    "mentions": "Mentions",
+    "message": "Message",
+    "modal": "Modal",
+    "navigationmenu": "NavigationMenu",
+    "navigationpopover": "NavigationPopover",
+    "notification": "Notification",
+    "pageheader": "PageHeader",
+    "pageheaderfilters": "PageHeaderFilters",
+    "pagination": "Pagination",
+    "piechart": "PieChart",
+    "polarareachart": "PolarAreaChart",
+    "popconfirm": "Popconfirm",
+    "progressbar": "ProgressBar",
+    "progresslist": "ProgressList",
+    "quickfilters": "QuickFilters",
+    "radarchart": "RadarChart",
+    "radialchart": "RadialChart",
+    "radiogroup": "RadioGroup",
+    "radioselector": "RadioSelector",
+    "rate": "Rate",
+    "readonly": "ReadOnly",
+    "result": "Result",
+    "scatterchart": "ScatterChart",
+    "segmentedtabs": "SegmentedTabs",
+    "select": "Select",
+    "simplecolumnlayout": "SimpleColumnLayout",
+    "skeleton": "Skeleton",
+    "slider": "Slider",
+    "spacer": "Spacer",
+    "spin": "Spin",
+    "stackedbarchart": "StackedBarChart",
+    "statistic": "Statistic",
+    "steps": "Steps",
+    "subtext": "SubText",
+    "switch": "Switch",
+    "table": "Table",
+    "tabs": "Tabs",
+    "text": "Text",
+    "textarea": "Textarea",
+    "themeswitch": "ThemeSwitch",
+    "timeline": "Timeline",
+    "timepicker": "TimePicker",
+    "toggle": "Toggle",
+    "togglegroup": "ToggleGroup",
+    "tooltip": "Tooltip",
+    "tour": "Tour",
+    "transfer": "Transfer",
+    "tree": "Tree",
+    "treeselect": "TreeSelect",
+    "typography": "Typography",
+    "upload": "Upload",
+    "uploadbutton": "UploadButton",
+    "uploaditem": "UploadItem",
+    "uploadthumbnail": "UploadThumbnail",
+    "uploadzone": "UploadZone",
+    "userprofile": "UserProfile",
+    "userprofiledropdown": "UserProfileDropdown",
+    "waterfallchart": "WaterfallChart",
+    "watermark": "Watermark"
+  }
+}

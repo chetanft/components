@@ -101,5 +101,5 @@ try {
 console.log('\n🎉 All tests passed! AI architecture is working correctly.');
 console.log('\n📖 Usage Examples:');
 console.log('   Standard: import { Button } from "ft-design-system"');
-console.log('   AI-protected: import { Button } from "ft-design-system/ai"');
+console.log('   AI-protected: import { Button } from "ft-design-system"');
 console.log('   Utilities: import { filterAIClasses } from "ft-design-system"'); 

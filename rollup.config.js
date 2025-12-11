@@ -60,17 +60,17 @@ export default [
     ],
     external: ['react', 'react-dom', 'react/jsx-runtime'],
   },
-  // AI layer build
+  // AI-protected components build
   {
-    input: 'src/ai/index.ts',
+    input: 'src/ai.ts',
     output: [
       {
-        file: 'dist/ai/index.js',
+        file: 'dist/ai.js',
         format: 'cjs',
         sourcemap: true,
       },
       {
-        file: 'dist/ai/index.esm.js',
+        file: 'dist/ai.esm.js',
         format: 'esm',
         sourcemap: true,
       },
@@ -91,7 +91,40 @@ export default [
         jsx: 'react-jsx'
       }),
     ],
-    external: ['react', 'react-dom', 'react/jsx-runtime'],
+    external: ['react', 'react-dom', 'react/jsx-runtime', /\.css$/, /\.scss$/],
+  },
+  // Core (unprotected) layer build
+  {
+    input: 'src/core/index.ts',
+    output: [
+      {
+        file: 'dist/core/index.js',
+        format: 'cjs',
+        sourcemap: true,
+      },
+      {
+        file: 'dist/core/index.esm.js',
+        format: 'esm',
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      resolve(),
+      commonjs(),
+      url({
+        include: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif'],
+        limit: 8192,
+        fileName: 'assets/[name][extname]'
+      }),
+      typescript({
+        tsconfig: './tsconfig.json',
+        declaration: true,
+        declarationDir: './dist/types',
+        outDir: './dist',
+        jsx: 'react-jsx'
+      }),
+    ],
+    external: ['react', 'react-dom', 'react/jsx-runtime', /\.css$/, /\.scss$/],
   },
   // Type definitions for main package
   {
@@ -102,8 +135,15 @@ export default [
   },
   // Type definitions for AI layer
   {
-    input: 'dist/types/ai/index.d.ts',
-    output: [{ file: 'dist/ai/index.d.ts', format: 'esm' }],
+    input: 'dist/types/ai.d.ts',
+    output: [{ file: 'dist/ai.d.ts', format: 'esm' }],
+    plugins: [dts()],
+    external: [/\.css$/],
+  },
+  // Type definitions for core layer
+  {
+    input: 'dist/types/core/index.d.ts',
+    output: [{ file: 'dist/core/index.d.ts', format: 'esm' }],
     plugins: [dts()],
     external: [/\.css$/],
   },

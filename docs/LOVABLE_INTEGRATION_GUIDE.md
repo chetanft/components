@@ -108,7 +108,7 @@ import {
   Badge, 
   Input,
   QuickFilters 
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 
 const Dashboard = () => {
   const [users] = useState([
@@ -181,7 +181,7 @@ import {
   RadioGroup,
   DatePicker,
   Badge 
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 
 interface FormData {
   firstName: string;
@@ -356,7 +356,7 @@ export default ContactForm;
 ```tsx
 // src/components/ProductCard.tsx
 import React from 'react';
-import { Button, Badge, FileCard } from '@chetanft/design_system';
+import { Button, Badge, FileCard } from 'ft-design-system';
 
 interface Product {
   id: number;
@@ -466,7 +466,7 @@ Your design system components will hot-reload in Lovable just like regular compo
 
 ```tsx
 // Make changes to your components and see them instantly
-import { Button } from '@chetanft/design_system';
+import { Button } from 'ft-design-system';
 
 // This will update in real-time
 <Button variant="primary">Updated Text</Button>
@@ -477,7 +477,7 @@ import { Button } from '@chetanft/design_system';
 When prompting Lovable's AI, specify you want to use your design system:
 
 ```
-"Create a user profile page using components from @chetanft/design_system. 
+"Create a user profile page using components from ft-design-system. 
 Include Table for user data, Input for editing, and Button for actions."
 ```
 
@@ -494,7 +494,7 @@ import {
   Table,
   Checkbox,
   DatePicker 
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 
 const ComponentShowcase = () => (
   <div className="p-8 space-y-8">
@@ -550,10 +550,10 @@ Users can update to latest versions:
 
 ```bash
 # In Lovable project terminal
-npm update @chetanft/design_system
+npm update ft-design-system
 
 # Or install specific version
-npm install @chetanft/design_system@1.2.0
+npm install ft-design-system@1.2.0
 ```
 
 ### 3. Migration Guide for Breaking Changes
@@ -601,7 +601,7 @@ export {
   Table,
   Checkbox,
   DatePicker 
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 
 // Use consistent imports
 import { Button, Input } from '@/components/ui';
@@ -610,7 +610,7 @@ import { Button, Input } from '@/components/ui';
 ### 2. Type Safety
 
 ```tsx
-import type { ButtonProps, TableColumn } from '@chetanft/design_system';
+import type { ButtonProps, TableColumn } from 'ft-design-system';
 
 // Full type safety in Lovable
 const columns: TableColumn[] = [
@@ -636,32 +636,32 @@ const customStyles = {
 1. **Styles not loading**
    ```tsx
    // Make sure to import styles in App.tsx
-   import '@chetanft/design_system/dist/styles.css';
+   import 'ft-design-system/dist/styles.css';
    ```
 
 2. **Component not found**
    ```bash
    # Check if package is installed
-   npm list @chetanft/design_system
+   npm list ft-design-system
    
    # Reinstall if needed
-   npm install @chetanft/design_system
+   npm install ft-design-system
    ```
 
 3. **TypeScript errors**
    ```tsx
    // Import types explicitly
-   import type { ButtonProps } from '@chetanft/design_system';
+   import type { ButtonProps } from 'ft-design-system';
    ```
 
 ### Performance Optimization
 
 ```tsx
 // Import only what you need for better performance
-import { Button } from '@chetanft/design_system';
+import { Button } from 'ft-design-system';
 
 // Instead of
-import * as DS from '@chetanft/design_system';
+import * as DS from 'ft-design-system';
 ```
 
 ## 🎨 Template Generator

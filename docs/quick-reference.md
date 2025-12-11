@@ -2,7 +2,7 @@
 
 ## Installation
 ```bash
-npm install @chetanft/design_system
+npm install ft-design-system
 ```
 
 ## Essential Imports
@@ -20,7 +20,7 @@ import {
   Typography,
   Dropdown,
   DatePicker
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 ```
 
 ## Component Snippets
@@ -116,7 +116,7 @@ function App() {
 </Empty>
 
 // Using presets
-import { EmptyPresets } from '@chetanft/design_system';
+import { EmptyPresets } from 'ft-design-system';
 <Empty {...EmptyPresets.noResults}>
   <Button variant="secondary">Clear Filters</Button>
 </Empty>

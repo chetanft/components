@@ -1,4 +1,10 @@
 // ======================
+// PROVIDER
+// ======================
+export { FTProvider, useFTTheme } from './FTProvider';
+export type { FTProviderProps } from './FTProvider';
+
+// ======================
 // ATOMIC DESIGNS EXPORTS
 // ======================
 

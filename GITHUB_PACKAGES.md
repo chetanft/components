@@ -23,13 +23,13 @@ Create or update your `.npmrc` file in your project root:
 ### 3. Install the package
 
 ```bash
-npm install @chetanft/design_system
+npm install ft-design-system
 ```
 
 ## 🚀 Usage
 
 ```jsx
-import { Button, AppHeader, UserProfile } from '@chetanft/design_system';
+import { Button, AppHeader, UserProfile } from 'ft-design-system';
 
 function App() {
   return (

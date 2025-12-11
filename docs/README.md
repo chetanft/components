@@ -1,6 +1,6 @@
 # Design System Documentation
 
-This folder contains comprehensive documentation for the `@chetanft/design_system` package, specifically formatted for use in AI development environments like lovable.dev and bolt.new.
+This folder contains comprehensive documentation for the `ft-design-system` package, specifically formatted for use in AI development environments like lovable.dev and bolt.new.
 
 ## Files Overview
 
@@ -55,7 +55,7 @@ This folder contains comprehensive documentation for the `@chetanft/design_syste
 1. Upload any of these files to your lovable project
 2. Reference components in your prompts:
    ```
-   Use the AppHeader component from @chetanft/design_system with user data
+   Use the AppHeader component from ft-design-system with user data
    ```
 3. The AI will have context about available props and usage patterns
 
@@ -71,12 +71,12 @@ This folder contains comprehensive documentation for the `@chetanft/design_syste
 
 **Installation:**
 ```bash
-npm install @chetanft/design_system
+npm install ft-design-system
 ```
 
 **Basic Import:**
 ```jsx
-import { AppHeader, Button, Footer } from '@chetanft/design_system';
+import { AppHeader, Button, Footer } from 'ft-design-system';
 ```
 
 **Example Usage:**

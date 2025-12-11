@@ -28,7 +28,7 @@ npm install ft-design-system
 ```typescript
 // OPTION A: AI-Protected Components (Recommended for Cursor)
 import 'ft-design-system/dist/styles.css';
-import { Button, Input, Table, Badge, ProgressBar } from 'ft-design-system/ai';
+import { Button, Input, Table, Badge, ProgressBar } from 'ft-design-system';
 
 // OPTION B: Standard Components (if no AI class conflicts)
 import 'ft-design-system/dist/styles.css';
@@ -225,7 +225,7 @@ import {
   AppHeader,
   Footer,
   runAIDevelopmentChecks 
-} from 'ft-design-system/ai';
+} from 'ft-design-system';
 
 function App() {
   // Run AI development checks in development
@@ -323,7 +323,7 @@ module.exports = {
   designSystem: {
     name: 'ft-design-system',
     version: 'latest',
-    importPath: 'ft-design-system/ai', // Use AI-protected components
+    importPath: 'ft-design-system', // Use AI-protected components
     cssPath: 'ft-design-system/dist/styles.css'
   },
   ai: {
@@ -364,7 +364,7 @@ import {
   Table,
   Tabs,
   filterAIClasses 
-} from 'ft-design-system/ai';
+} from 'ft-design-system';
 
 export default function App() {
   const [activeTab, setActiveTab] = React.useState('components');
@@ -497,7 +497,7 @@ function DataDemo() {
 ```typescript
 // Problem: AI adds conflicting classes
 // Solution: Use AI-protected components
-import { Button } from 'ft-design-system/ai'; // ✅ Automatically filters
+import { Button } from 'ft-design-system'; // ✅ Automatically filters
 
 // Problem: Manual class conflicts
 // Solution: Use filterAIClasses utility
@@ -568,7 +568,7 @@ console.timeEnd('AI filtering'); // Should be < 1ms
 const useAIProtection = process.env.REACT_APP_AI_PROTECTION === 'true';
 
 const components = useAIProtection 
-  ? await import('ft-design-system/ai')
+  ? await import('ft-design-system')
   : await import('ft-design-system');
 
 export const { Button, Input, Table } = components;

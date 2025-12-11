@@ -404,17 +404,225 @@ function showHelp() {
   console.log('======================\n');
   console.log('Usage: npx ft-design-system <command>\n');
   console.log('Commands:');
-  console.log('  setup   Set up FT Design System in your project (default)');
-  console.log('  verify  Verify that FT Design System is properly configured');
-  console.log('  update  Update Tailwind config after package updates');
-  console.log('  init    Scaffold a new project with FT Design System');
-  console.log('  help    Show this help message\n');
+  console.log('  setup          Set up FT Design System in your project (default)');
+  console.log('  verify         Verify that FT Design System is properly configured');
+  console.log('  update         Update Tailwind config after package updates');
+  console.log('  init           Scaffold a new project with FT Design System');
+  console.log('  add <name>     Add specific components (like shadcn)');
+  console.log('  list           List all available components');
+  console.log('  help           Show this help message\n');
   console.log('Examples:');
   console.log('  npx ft-design-system setup');
-  console.log('  npx ft-design-system verify');
-  console.log('  npx ft-design-system update');
-  console.log('  npx ft-design-system init');
-  console.log('  npx ftds setup  (shorter alias)\n');
+  console.log('  npx ft-design-system add button input table');
+  console.log('  npx ft-design-system add --all');
+  console.log('  npx ft-design-system list');
+  console.log('  npx ft-design-system list --category atoms');
+  console.log('  npx ftds add button  (shorter alias)\n');
+}
+
+/**
+ * Load the component registry
+ */
+function loadRegistry() {
+  // Try to find registry in multiple locations
+  const locations = [
+    path.join(projectRoot, 'node_modules', 'ft-design-system', 'registry.json'),
+    path.join(__dirname, '..', 'registry.json'),
+    path.join(projectRoot, 'registry.json'),
+  ];
+  
+  for (const location of locations) {
+    if (fs.existsSync(location)) {
+      try {
+        return JSON.parse(fs.readFileSync(location, 'utf-8'));
+      } catch (e) {
+        continue;
+      }
+    }
+  }
+  
+  return null;
+}
+
+/**
+ * List available components
+ */
+function listComponents(category = null) {
+  const registry = loadRegistry();
+  
+  if (!registry) {
+    log('\n❌ Registry not found. Make sure ft-design-system is installed.', 'red');
+    log('   Run: npm install ft-design-system', 'yellow');
+    return;
+  }
+  
+  log('\n📦 FT Design System Components', 'bold');
+  log(`   Version: ${registry.version}`, 'cyan');
+  log(`   Total: ${registry.summary.total} components\n`, 'cyan');
+  
+  const categories = ['atoms', 'molecules', 'organisms', 'charts', 'templates'];
+  
+  for (const cat of categories) {
+    if (category && cat !== category) continue;
+    
+    const components = registry.components.filter(c => c.category === cat);
+    if (components.length === 0) continue;
+    
+    log(`\n📁 ${cat.toUpperCase()} (${components.length})`, 'blue');
+    log('─'.repeat(40), 'blue');
+    
+    for (const comp of components) {
+      const subComps = comp.subComponents.length > 0 
+        ? ` [+${comp.subComponents.length} sub]` 
+        : '';
+      const deps = comp.dependencies.peer.length > 0 
+        ? ` (needs: ${comp.dependencies.peer.slice(0, 2).join(', ')}${comp.dependencies.peer.length > 2 ? '...' : ''})` 
+        : '';
+      log(`   ${comp.name}${subComps}${deps}`, 'white');
+    }
+  }
+  
+  log('\n💡 Usage:', 'cyan');
+  log('   npx ftds add <component-name>', 'white');
+  log('   npx ftds add button input table', 'white');
+  log('   npx ftds list --category molecules\n', 'white');
+}
+
+/**
+ * Add components to the project
+ */
+async function addComponents(componentNames) {
+  const registry = loadRegistry();
+  
+  if (!registry) {
+    log('\n❌ Registry not found. Make sure ft-design-system is installed.', 'red');
+    log('   Run: npm install ft-design-system', 'yellow');
+    return false;
+  }
+  
+  log('\n🚀 FT Design System - Add Components', 'bold');
+  log('=====================================\n', 'blue');
+  
+  // Handle --all flag
+  if (componentNames.includes('--all')) {
+    log('📦 Adding all components...', 'cyan');
+    componentNames = registry.components.map(c => c.name.toLowerCase());
+  }
+  
+  // Resolve component names (case-insensitive)
+  const resolvedComponents = [];
+  const notFound = [];
+  const allPeerDeps = new Set();
+  const allInternalDeps = new Set();
+  
+  for (const name of componentNames) {
+    const normalized = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const found = registry.components.find(c => 
+      c.name.toLowerCase() === normalized ||
+      c.name.toLowerCase().replace(/[^a-z0-9]/g, '') === normalized
+    );
+    
+    if (found) {
+      resolvedComponents.push(found);
+      
+      // Collect dependencies
+      found.dependencies.peer.forEach(d => allPeerDeps.add(d));
+      found.dependencies.internal.forEach(d => allInternalDeps.add(d));
+    } else {
+      notFound.push(name);
+    }
+  }
+  
+  // Report not found
+  if (notFound.length > 0) {
+    log(`⚠️  Components not found: ${notFound.join(', ')}`, 'yellow');
+    log('   Use "npx ftds list" to see available components', 'cyan');
+  }
+  
+  if (resolvedComponents.length === 0) {
+    log('\n❌ No valid components specified.', 'red');
+    return false;
+  }
+  
+  // Show what will be added
+  log('📋 Components to add:', 'cyan');
+  for (const comp of resolvedComponents) {
+    const subComps = comp.subComponents.length > 0 
+      ? ` (includes: ${comp.subComponents.slice(0, 3).join(', ')}${comp.subComponents.length > 3 ? '...' : ''})` 
+      : '';
+    log(`   ✓ ${comp.name}${subComps}`, 'green');
+  }
+  
+  // Show internal dependencies
+  if (allInternalDeps.size > 0) {
+    const depsNotIncluded = [...allInternalDeps].filter(
+      d => !resolvedComponents.find(c => c.name === d)
+    );
+    if (depsNotIncluded.length > 0) {
+      log('\n📎 Required internal dependencies:', 'cyan');
+      for (const dep of depsNotIncluded) {
+        log(`   + ${dep}`, 'yellow');
+      }
+      log('   (These will be imported from ft-design-system)', 'cyan');
+    }
+  }
+  
+  // Show peer dependencies
+  if (allPeerDeps.size > 0) {
+    log('\n📦 Peer dependencies needed:', 'cyan');
+    for (const dep of allPeerDeps) {
+      log(`   ${dep}`, 'yellow');
+    }
+  }
+  
+  // Generate import statement
+  log('\n📝 Import Statement:', 'cyan');
+  log('─'.repeat(50), 'cyan');
+  
+  const importNames = resolvedComponents.map(c => c.name).join(', ');
+  log(`import { ${importNames} } from 'ft-design-system';`, 'green');
+  
+  // Note about AI protection
+  log('\n// Note: AI-protected by default. For unprotected:', 'cyan');
+  log(`import { ${importNames} } from 'ft-design-system/core';`, 'green');
+  
+  // CSS import reminder
+  log('\n// Don\'t forget to import CSS (in your root file):', 'cyan');
+  log(`import 'ft-design-system/styles.css';`, 'green');
+  
+  log('\n─'.repeat(50), 'cyan');
+  
+  // Check if peer deps are installed
+  const packageJsonPath = path.join(projectRoot, 'package.json');
+  if (fs.existsSync(packageJsonPath) && allPeerDeps.size > 0) {
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+    const allDeps = { ...packageJson.dependencies, ...packageJson.devDependencies };
+    
+    const missingDeps = [...allPeerDeps].filter(dep => !allDeps[dep]);
+    
+    if (missingDeps.length > 0) {
+      log('\n⚠️  Missing peer dependencies. Install with:', 'yellow');
+      log(`   npm install ${missingDeps.join(' ')}`, 'cyan');
+    }
+  }
+  
+  // Ensure CSS is imported
+  log('\n🔧 Checking project setup...', 'cyan');
+  const framework = detectFramework();
+  if (framework && framework !== 'unknown') {
+    const rootFile = findRootFile(framework);
+    if (rootFile) {
+      injectCSSImport(rootFile);
+    }
+  }
+  
+  // Update Tailwind config
+  updateTailwindConfig();
+  
+  log('\n✅ Components ready to use!', 'green');
+  log('💡 Tip: Restart your dev server to see changes.\n', 'cyan');
+  
+  return true;
 }
 
 async function initProject() {
@@ -516,6 +724,7 @@ async function initProject() {
 
 // Parse command from arguments
 const command = process.argv[2] || 'setup';
+const args = process.argv.slice(3);
 
 // Route to appropriate command
 if (command === 'setup') {
@@ -541,6 +750,25 @@ if (command === 'setup') {
     log(`\n❌ Error: ${error.message}`, 'red');
     process.exit(1);
   });
+} else if (command === 'add') {
+  if (args.length === 0) {
+    log('\n❌ Please specify component names to add.', 'red');
+    log('   Usage: npx ftds add button input table', 'cyan');
+    log('   Use "npx ftds list" to see available components.', 'cyan');
+    process.exit(1);
+  }
+  addComponents(args).then(success => {
+    process.exit(success ? 0 : 1);
+  }).catch(error => {
+    log(`\n❌ Error: ${error.message}`, 'red');
+    process.exit(1);
+  });
+} else if (command === 'list') {
+  // Check for category filter
+  const categoryIndex = args.indexOf('--category');
+  const category = categoryIndex !== -1 ? args[categoryIndex + 1] : null;
+  listComponents(category);
+  process.exit(0);
 } else if (command === 'help' || command === '--help' || command === '-h') {
   showHelp();
   process.exit(0);

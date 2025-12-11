@@ -180,7 +180,7 @@ export interface ButtonProps extends Omit<ComposableProps<'button'>, 'children'>
  * - Icon-only buttons are square by default, circular if `rounded-full` class is added
  * - Loading state shows spinner and disables interaction
  * - Accessible: includes ARIA labels and keyboard navigation support
- * - Use `ft-design-system/ai` import for AI-protected version with automatic class filtering
+ * - AI-protected by default. Use `ft-design-system/core` for unprotected version
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   variant = 'primary',
@@ -197,7 +197,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   asChild,
   ...props
 }, ref) => {
-  // Core component - no AI filtering (use ft-design-system/ai for AI protection)
+  // Core component implementation (AI protection applied at export layer)
   const isIconOnly = iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
   // Icon-only buttons: square by default for all variants
@@ -346,14 +346,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "active:underline active:translate-y-0 active:shadow-none",
       "disabled:text-[var(--border-primary)] disabled:no-underline disabled:pointer-events-none"
     ),
-    // 🆕 NEW: Ghost variant - transparent with border, fills on hover
     ghost: cn(
       "bg-transparent text-[var(--button-primary-bg)] border border-[var(--button-primary-bg)]",
       "hover:bg-[var(--button-primary-bg)] hover:text-[var(--button-primary-text)]",
       "focus-visible:ring-[var(--primary)]",
       "disabled:text-[var(--tertiary)] disabled:border-[var(--tertiary)] disabled:opacity-50"
     ),
-    // 🆕 NEW: Dashed variant - dashed border style
     dashed: cn(
       "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-dashed border-[var(--button-secondary-border)]",
       "hover:border-[var(--primary)] hover:text-[var(--primary)]",

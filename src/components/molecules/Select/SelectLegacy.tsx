@@ -72,7 +72,7 @@ export interface SelectLegacyProps extends Omit<DropdownProps, 'options'> {
  * - Wrapper around Dropdown component for single-select use cases
  * - Supports all Dropdown props except `options` (which is required)
  * - Accessible: includes keyboard navigation and ARIA attributes
- * - Use `ft-design-system/ai` import for AI-protected version
+ * - AI-protected by default. Use `ft-design-system/core` for unprotected version
  * - For composable API, use Select, SelectTrigger, SelectValue, SelectContent, etc.
  */
 export const SelectLegacy = forwardRef<HTMLDivElement, SelectLegacyProps>((props, ref) => {
