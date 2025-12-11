@@ -49,6 +49,15 @@ This folder contains comprehensive documentation for the `ft-design-system` pack
 
 **Best for**: Rapid development, quick lookups, code snippets
 
+### 🤖 `AI_CONTEXT_REQUIREMENTS.md`
+**Purpose**: Critical context provider requirements for AI models
+- Components that require parent wrappers
+- Common error messages and solutions
+- Context provider usage patterns
+- Quick reference table of dependencies
+
+**Best for**: AI assistants, preventing context errors, proper component usage
+
 ## How to Use in AI Development Platforms
 
 ### For lovable.dev

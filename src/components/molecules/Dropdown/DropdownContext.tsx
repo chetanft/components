@@ -29,10 +29,27 @@ export interface DropdownContextType {
 
 const DropdownContext = createContext<DropdownContextType | undefined>(undefined);
 
+/**
+ * Hook to access Dropdown context
+ * Required for DropdownTrigger and DropdownContent sub-components
+ * @throws Error if used outside Dropdown component
+ */
 export const useDropdownContext = () => {
   const context = useContext(DropdownContext);
   if (!context) {
-    throw new Error('Dropdown sub-components must be used within a Dropdown component');
+    throw new Error(
+      'DropdownTrigger/DropdownContent must be inside a <Dropdown> parent.\n\n' +
+      'Option 1 - Simple (no composition):\n' +
+      '<Dropdown\n' +
+      '  value={value} onChange={setValue} options={options}\n' +
+      '  placeholder="Select..."\n' +
+      '/>\n\n' +
+      'Option 2 - Composable:\n' +
+      '<Dropdown value={value} onChange={setValue} options={options}>\n' +
+      '  <DropdownTrigger />\n' +
+      '  <DropdownContent />\n' +
+      '</Dropdown>'
+    );
   }
   return context;
 };

@@ -6,7 +6,7 @@ import { cn } from '../../../lib/utils';
 import { DatePicker } from '../DatePicker/DatePicker';
 import { Button } from '../../atoms/Button/Button';
 import { Icon } from '../../atoms/Icons';
-import { usePageHeaderFilters } from '../PageHeaderFilters/PageHeaderFiltersContext';
+import { usePageHeaderFiltersOptional } from '../PageHeaderFilters/PageHeaderFiltersContext';
 import { useMediaQuery } from '../../../lib/hooks/useMediaQuery';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
@@ -47,25 +47,40 @@ export interface FilterDateRangeProps extends ComposableProps<'div'> {
  * A responsive date range filter that shows full date picker on desktop (≥1200px)
  * and icon button with date picker dropdown on mobile (<1200px).
  * 
+ * Works standalone or with PageHeaderFiltersProvider for multi-filter coordination.
+ * 
  * @public
  * 
  * @example
  * ```tsx
+ * // Standalone usage (works without provider)
  * <FilterDateRange
  *   id="date-filter"
  *   startValue={startDate}
  *   endValue={endDate}
  *   onStartChange={setStartDate}
  *   onEndChange={setEndDate}
- *   placeholder="12 Aug, 2024 → 12 Sep 2024"
  * />
+ * 
+ * // With provider (coordinates multiple filters - only one open at a time)
+ * <PageHeaderFiltersProvider>
+ *   <FilterDateRange id="date" ... />
+ *   <FilterDropdown id="status" ... />
+ * </PageHeaderFiltersProvider>
  * ```
  */
 export const FilterDateRange = React.forwardRef<HTMLDivElement, FilterDateRangeProps>(
   ({ id, startValue, endValue, onStartChange, onEndChange, placeholder, className, asChild, ...props }, ref) => {
     const isMobile = useMediaQuery('(max-width: 1199px)');
-    const { openFilterId, setOpenFilterId } = usePageHeaderFilters();
-    const [isOpen, setIsOpen] = useState(false);
+    
+    // Use context if available, otherwise fall back to local state (standalone mode)
+    const context = usePageHeaderFiltersOptional();
+    const [localOpenFilterId, setLocalOpenFilterId] = useState<string | null>(null);
+    
+    // Use context values if provider exists, otherwise use local state
+    const openFilterId = context?.openFilterId ?? localOpenFilterId;
+    const setOpenFilterId = context?.setOpenFilterId ?? setLocalOpenFilterId;
+    
     const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0, width: 0 });
     const buttonRef = useRef<HTMLButtonElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -119,7 +134,6 @@ export const FilterDateRange = React.forwardRef<HTMLDivElement, FilterDateRangeP
           menuRef.current &&
           !menuRef.current.contains(event.target as Node)
         ) {
-          setIsOpen(false);
           setOpenFilterId(null);
         }
       };
@@ -137,7 +151,6 @@ export const FilterDateRange = React.forwardRef<HTMLDivElement, FilterDateRangeP
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === 'Escape' && isFilterOpen) {
-          setIsOpen(false);
           setOpenFilterId(null);
         }
       };
@@ -153,10 +166,8 @@ export const FilterDateRange = React.forwardRef<HTMLDivElement, FilterDateRangeP
 
     const handleButtonClick = () => {
       if (isFilterOpen) {
-        setIsOpen(false);
         setOpenFilterId(null);
       } else {
-        setIsOpen(true);
         setOpenFilterId(id);
       }
     };

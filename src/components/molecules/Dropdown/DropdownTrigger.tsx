@@ -23,7 +23,7 @@ export interface DropdownTriggerProps extends ComposableProps<'div'> {
  *
  * @example
  * ```tsx
- * <Dropdown value={selectedValue} options={options}>
+ * <Dropdown value={selectedValue} onChange={setValue} options={options}>
  *   <DropdownTrigger />
  *   <DropdownContent />
  * </Dropdown>
@@ -33,6 +33,9 @@ export interface DropdownTriggerProps extends ComposableProps<'div'> {
  * - Wraps the HTML `<div>` element by default.
  * - Supports `asChild` prop to merge props with a custom child element.
  * - Automatically handles open/close state and displays selected value.
+ * 
+ * @important
+ * ⚠️ MUST be used inside a parent Dropdown component. Cannot be used standalone.
  */
 export const DropdownTrigger = React.forwardRef<HTMLDivElement, DropdownTriggerProps>(
   ({ className, children, asChild, onClick, ...props }, ref) => {

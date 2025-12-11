@@ -220,32 +220,35 @@ const sizeStylesMap: Record<ComponentSize, SizeStyles> = {
  * Dropdown Component
  * 
  * A dropdown select component with menu popup.
- * Supports both composable API (recommended) and declarative API (deprecated).
+ * Supports both composable API (maximum control) and declarative API (simple usage).
  * 
  * @public
  * 
  * @example
  * ```tsx
- * // Composable API (recommended)
- * <Dropdown value={selectedValue} onChange={setValue}>
+ * // Simple declarative API (most common)
+ * <Dropdown
+ *   value={selectedValue}
+ *   onChange={setValue}
+ *   options={options}
+ *   placeholder="Select an option"
+ * />
+ * 
+ * // Composable API (for custom layouts)
+ * <Dropdown value={selectedValue} onChange={setValue} options={options}>
  *   <DropdownTrigger />
  *   <DropdownContent />
  * </Dropdown>
- * 
- * // Declarative API (deprecated)
- * <Dropdown
- *   options={options}
- *   value={selectedValue}
- *   onChange={setValue}
- *   placeholder="Select an option"
- * />
  * ```
  * 
  * @remarks
- * - Composable API provides maximum flexibility and control
- * - All sub-components (DropdownTrigger, DropdownContent) support `asChild`
+ * - Declarative API: Simple, no composition needed - use for most cases
+ * - Composable API: Full control over layout, supports `asChild` prop
  * - Supports search, groups, and segmented tabs
- * - Declarative API is deprecated but still functional for backward compatibility
+ * 
+ * @important
+ * If using DropdownTrigger or DropdownContent sub-components, they MUST be wrapped
+ * in a parent <Dropdown>. For simple use cases, use the declarative API instead.
  */
 export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   (

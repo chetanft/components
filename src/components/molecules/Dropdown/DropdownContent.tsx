@@ -24,7 +24,7 @@ export interface DropdownContentProps extends ComposableProps<'div'> {
  *
  * @example
  * ```tsx
- * <Dropdown value={selectedValue} options={options}>
+ * <Dropdown value={selectedValue} onChange={setValue} options={options}>
  *   <DropdownTrigger />
  *   <DropdownContent />
  * </Dropdown>
@@ -34,6 +34,9 @@ export interface DropdownContentProps extends ComposableProps<'div'> {
  * - Automatically renders in a portal when Dropdown is open
  * - Supports custom content via children
  * - Handles positioning automatically
+ * 
+ * @important
+ * ⚠️ MUST be used inside a parent Dropdown component. Cannot be used standalone.
  */
 export const DropdownContent = React.forwardRef<HTMLDivElement, DropdownContentProps>(
   ({ className, children, asChild, ...props }, ref) => {

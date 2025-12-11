@@ -275,27 +275,30 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
 /**
  * DatePicker Component
  * 
- * A date selection component with calendar popup and optional range selection.
+ * A complete date selection component with calendar popup and optional range selection.
  * Supports single date and date range picking with keyboard navigation.
  * 
  * @public
  * 
  * @example
  * ```tsx
- * import { DatePicker } from 'ft-design-system';
+ * // Simple single date picker
+ * <DatePicker
+ *   label="Select Date"
+ *   value={date}
+ *   onChange={setDate}
+ *   placeholder="Choose a date"
+ * />
  * 
- * function MyForm() {
- *   const [date, setDate] = useState('');
- * 
- *   return (
- *     <DatePicker
- *       label="Select Date"
- *       value={date}
- *       onChange={setDate}
- *       placeholder="Choose a date"
- *     />
- *   );
- * }
+ * // Date range picker
+ * <DatePicker
+ *   label="Select Range"
+ *   range
+ *   startValue={startDate}
+ *   endValue={endDate}
+ *   onStartChange={setStartDate}
+ *   onEndChange={setEndDate}
+ * />
  * ```
  * 
  * @remarks
@@ -303,7 +306,7 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
  * - Supports keyboard navigation (arrow keys, Enter, Escape)
  * - Date range mode allows selecting start and end dates
  * - Accessible: includes ARIA labels and keyboard support
- * - AI-protected by default. Use `ft-design-system/core` for unprotected version
+ * - DatePicker manages all internals - sub-components (DatePickerInput, etc.) are internal only
  */
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   label,

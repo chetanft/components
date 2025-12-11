@@ -290,10 +290,10 @@ Use FT Design System for all UI components.
                 </Link>
                 <Link href="/docs/npm-package" className="hover:underline" style={{ color: 'var(--neutral)', fontSize: 'var(--font-size-sm-rem)' }}>
                     NPM Package →
-                </Link>
+                        </Link>
                 <Link href="/docs/global-css" className="hover:underline" style={{ color: 'var(--neutral)', fontSize: 'var(--font-size-sm-rem)' }}>
                     Global CSS →
-                </Link>
+                        </Link>
             </div>
         </div>
     )

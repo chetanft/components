@@ -8,7 +8,7 @@ import type { DropdownOption } from '../Dropdown';
 import { DropdownMenu, type DropdownMenuOption } from '../DropdownMenu';
 import { Button } from '../../atoms/Button/Button';
 import { Icon, IconName } from '../../atoms/Icons';
-import { usePageHeaderFilters } from '../PageHeaderFilters/PageHeaderFiltersContext';
+import { usePageHeaderFiltersOptional } from '../PageHeaderFilters/PageHeaderFiltersContext';
 import { useMediaQuery } from '../../../lib/hooks/useMediaQuery';
 
 export interface FilterDropdownProps {
@@ -52,26 +52,40 @@ export interface FilterDropdownProps {
  * A responsive dropdown filter that shows full dropdown on desktop (≥1200px)
  * and icon button with dropdown menu on mobile (<1200px).
  * 
+ * Works standalone or with PageHeaderFiltersProvider for multi-filter coordination.
+ * 
  * @public
  * 
  * @example
  * ```tsx
+ * // Standalone usage (works without provider)
  * <FilterDropdown
  *   id="location-filter"
  *   value={location}
  *   onChange={setLocation}
  *   options={locationOptions}
  *   placeholder="Select location"
- *   icon="location"
- *   label="Location"
  * />
+ * 
+ * // With provider (coordinates multiple filters - only one open at a time)
+ * <PageHeaderFiltersProvider>
+ *   <FilterDropdown id="location" ... />
+ *   <FilterDateRange id="date" ... />
+ * </PageHeaderFiltersProvider>
  * ```
  */
 export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownProps>(
   ({ id, value, onChange, options, placeholder, icon = 'chevron-down', label, className }, ref) => {
     const isMobile = useMediaQuery('(max-width: 1199px)');
-    const { openFilterId, setOpenFilterId } = usePageHeaderFilters();
-    const [isOpen, setIsOpen] = useState(false);
+    
+    // Use context if available, otherwise fall back to local state (standalone mode)
+    const context = usePageHeaderFiltersOptional();
+    const [localOpenFilterId, setLocalOpenFilterId] = useState<string | null>(null);
+    
+    // Use context values if provider exists, otherwise use local state
+    const openFilterId = context?.openFilterId ?? localOpenFilterId;
+    const setOpenFilterId = context?.setOpenFilterId ?? setLocalOpenFilterId;
+    
     const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0, width: 0 });
     const buttonRef = useRef<HTMLButtonElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -125,7 +139,6 @@ export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownPro
           menuRef.current &&
           !menuRef.current.contains(event.target as Node)
         ) {
-          setIsOpen(false);
           setOpenFilterId(null);
         }
       };
@@ -143,7 +156,6 @@ export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownPro
     useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === 'Escape' && isFilterOpen) {
-          setIsOpen(false);
           setOpenFilterId(null);
         }
       };
@@ -159,17 +171,14 @@ export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownPro
 
     const handleButtonClick = () => {
       if (isFilterOpen) {
-        setIsOpen(false);
         setOpenFilterId(null);
       } else {
-        setIsOpen(true);
         setOpenFilterId(id);
       }
     };
 
     const handleSelect = (selectedValue: string) => {
       onChange?.(selectedValue);
-      setIsOpen(false);
       setOpenFilterId(null);
     };
 

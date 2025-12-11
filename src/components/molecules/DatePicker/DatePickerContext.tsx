@@ -46,10 +46,24 @@ export interface DatePickerContextType {
 
 const DatePickerContext = createContext<DatePickerContextType | undefined>(undefined);
 
+/**
+ * Hook to access DatePicker context
+ * Required for DatePickerInput, DatePickerCalendar, DatePickerTrigger sub-components
+ * @throws Error if used outside DatePicker component
+ */
 export const useDatePickerContext = () => {
   const context = useContext(DatePickerContext);
   if (!context) {
-    throw new Error('DatePicker sub-components must be used within a DatePicker component');
+    throw new Error(
+      'DatePickerInput/DatePickerCalendar/DatePickerTrigger must be inside a <DatePicker> parent.\n\n' +
+      'Use DatePicker as a complete component (manages all internals):\n' +
+      '<DatePicker\n' +
+      '  value={date}\n' +
+      '  onChange={setDate}\n' +
+      '  placeholder="Select date"\n' +
+      '/>\n\n' +
+      'Do not import and use sub-components separately.'
+    );
   }
   return context;
 };
