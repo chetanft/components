@@ -53,18 +53,20 @@ export const TableSelectAll = React.forwardRef<HTMLDivElement, TableSelectAllPro
             onChange: toggleAll,
         };
 
+        const content = (children ?? (renderCheckbox ? (
+            renderCheckbox(checkboxProps)
+        ) : (
+            <Checkbox
+                checked={isAllSelected}
+                // Note: indeterminate would need to be added to Checkbox component
+                onChange={toggleAll}
+                aria-label="Select all rows"
+            />
+        ))) as React.ReactElement | null;
+
         return (
             <Comp ref={ref} className={cn("flex items-center justify-center", className)} {...props}>
-                {children ?? (renderCheckbox ? (
-                    renderCheckbox(checkboxProps)
-                ) : (
-                    <Checkbox
-                        checked={isAllSelected}
-                        // Note: indeterminate would need to be added to Checkbox component
-                        onChange={toggleAll}
-                        aria-label="Select all rows"
-                    />
-                ))}
+                {content}
             </Comp>
         );
     }

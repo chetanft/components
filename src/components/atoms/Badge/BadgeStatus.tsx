@@ -39,21 +39,26 @@ export const BadgeStatus = React.forwardRef<HTMLSpanElement, BadgeStatusProps>(
             error: 'bg-[var(--danger)]',
         }[status];
 
+        const displayText = text ?? children;
+
         return (
             <Comp
                 ref={ref}
                 className={cn("inline-flex items-center gap-2", className)}
                 {...props}
             >
-                <span
-                    className={cn("w-1.5 h-1.5 rounded-full", statusDotClasses)}
-                    aria-hidden="true"
-                />
-                {(text || children) && (
-                    <span className="text-sm text-[var(--primary)]">
-                        {text ?? children}
-                    </span>
-                )}
+                {[
+                    <span
+                        key="dot"
+                        className={cn("w-1.5 h-1.5 rounded-full", statusDotClasses)}
+                        aria-hidden="true"
+                    />,
+                    displayText && (
+                        <span key="text" className="text-sm text-[var(--primary)]">
+                            {String(displayText)}
+                        </span>
+                    )
+                ] as React.ReactElement[]}
             </Comp>
         );
     }

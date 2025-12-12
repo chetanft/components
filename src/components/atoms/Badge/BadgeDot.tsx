@@ -4,11 +4,13 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export interface BadgeDotProps extends ComposableProps<'span'> {
+export interface BadgeDotProps extends Omit<ComposableProps<'span'>, 'children'> {
     /** Dot color variant */
     color?: 'default' | 'primary' | 'success' | 'warning' | 'danger';
     /** Animate the dot (pulsing) */
     pulse?: boolean;
+    /** Children are not supported for BadgeDot */
+    children?: never;
 }
 
 /**

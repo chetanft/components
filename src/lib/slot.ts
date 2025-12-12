@@ -86,3 +86,11 @@ export type ComposableProps<T extends React.ElementType = 'div'> = AsChildProps 
     className?: string;
   };
 
+/**
+ * Helper type to exclude bigint from React children
+ * Ensures compatibility with React types that include bigint
+ * 
+ * @internal
+ */
+export type SafeReactChild = Exclude<React.ReactNode, bigint>;
+

@@ -59,17 +59,19 @@ export const TableRowSelect = React.forwardRef<HTMLDivElement, TableRowSelectPro
             onChange: handleChange,
         };
 
+        const content = (children ?? (renderCheckbox ? (
+            renderCheckbox(checkboxProps)
+        ) : (
+            <Checkbox
+                checked={checked}
+                onChange={handleChange}
+                aria-label={`Select row ${rowId}`}
+            />
+        ))) as React.ReactElement | null;
+
         return (
             <Comp ref={ref} className={cn("flex items-center justify-center", className)} {...props}>
-                {children ?? (renderCheckbox ? (
-                    renderCheckbox(checkboxProps)
-                ) : (
-                    <Checkbox
-                        checked={checked}
-                        onChange={handleChange}
-                        aria-label={`Select row ${rowId}`}
-                    />
-                ))}
+                {content}
             </Comp>
         );
     }

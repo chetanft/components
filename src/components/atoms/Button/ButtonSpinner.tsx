@@ -34,6 +34,8 @@ export const ButtonSpinner = React.forwardRef<HTMLSpanElement, ButtonSpinnerProp
     ({ size = 18, children, className, asChild, ...props }, ref) => {
         const Comp = asChild ? Slot : 'span';
 
+        const content = (children ?? <Icon name="loading" size={size} />) as React.ReactElement;
+
         return (
             <Comp
                 ref={ref}
@@ -41,7 +43,7 @@ export const ButtonSpinner = React.forwardRef<HTMLSpanElement, ButtonSpinnerProp
                 aria-label="Loading"
                 {...props}
             >
-                {children ?? <Icon name="loading" size={size} />}
+                {content}
             </Comp>
         );
     }

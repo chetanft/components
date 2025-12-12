@@ -39,7 +39,8 @@ export const BadgeCount = React.forwardRef<HTMLSpanElement, BadgeCountProps>(
             return null;
         }
 
-        const displayCount = count > overflowCount ? `${overflowCount}+` : count;
+        const displayCount = count > overflowCount ? `${overflowCount}+` : String(count);
+        const content = (children ?? displayCount) as React.ReactElement | string | number | null;
 
         return (
             <Comp
@@ -53,7 +54,7 @@ export const BadgeCount = React.forwardRef<HTMLSpanElement, BadgeCountProps>(
                 )}
                 {...props}
             >
-                {children ?? displayCount}
+                {content}
             </Comp>
         );
     }

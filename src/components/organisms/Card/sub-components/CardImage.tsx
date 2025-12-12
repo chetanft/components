@@ -65,6 +65,14 @@ export const CardImage = React.forwardRef<HTMLDivElement, CardImageProps>(
             '1/1': 'aspect-square',
         }[aspectRatio];
 
+        const imageContent = src ? (
+            <img
+                src={src}
+                alt={alt}
+                className="absolute inset-0 w-full h-full object-cover"
+            />
+        ) : children;
+
         return (
             <Comp
                 ref={ref}
@@ -77,19 +85,14 @@ export const CardImage = React.forwardRef<HTMLDivElement, CardImageProps>(
                 )}
                 {...props}
             >
-                {src ? (
-                    <img
-                        src={src}
-                        alt={alt}
-                        className="absolute inset-0 w-full h-full object-cover"
-                    />
-                ) : children}
-
-                {overlayAction && (
-                    <div className="absolute top-[var(--spacing-x2)] right-[var(--spacing-x2)]">
-                        {overlayAction}
-                    </div>
-                )}
+                {[
+                    imageContent as React.ReactElement,
+                    overlayAction && (
+                        <div key="overlay" className="absolute top-[var(--spacing-x2)] right-[var(--spacing-x2)]">
+                            {overlayAction}
+                        </div>
+                    )
+                ] as React.ReactElement[]}
             </Comp>
         );
     }
