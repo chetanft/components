@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useId } from 'react';
 
 export interface RadioGroupContextType {
   name: string;
@@ -16,10 +16,28 @@ export interface RadioGroupContextType {
 
 const RadioGroupContext = createContext<RadioGroupContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a RadioGroup parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const createDefaultContext = (fallbackId: string): RadioGroupContextType => ({
+  name: fallbackId,
+  value: undefined,
+  onChange: undefined,
+  size: 'md',
+  orientation: 'vertical',
+  disabled: false,
+  hasError: false,
+  helperId: undefined,
+  errorId: undefined,
+});
+
 export const useRadioGroupContext = () => {
   const context = useContext(RadioGroupContext);
+  const fallbackId = useId();
+  
   if (!context) {
-    throw new Error('RadioGroup sub-components must be used within a RadioGroup component');
+    return createDefaultContext(`radio-group-${fallbackId}`);
   }
   return context;
 };

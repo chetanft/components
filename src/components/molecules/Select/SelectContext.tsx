@@ -16,10 +16,26 @@ export interface SelectContextValue {
 
 const SelectContext = createContext<SelectContextValue | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a Select parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: SelectContextValue = {
+  value: undefined,
+  onValueChange: undefined,
+  open: false,
+  onOpenChange: () => {},
+  selectedLabel: undefined,
+  setSelectedLabel: () => {},
+  size: 'md',
+  setSize: () => {},
+};
+
 export const useSelectContext = () => {
   const context = useContext(SelectContext);
+  
   if (!context) {
-    throw new Error('Select components must be used within a Select component');
+    return defaultContext;
   }
   return context;
 };

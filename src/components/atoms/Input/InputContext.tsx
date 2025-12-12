@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useId } from 'react';
 import type { ComponentSize } from '../../../lib/utils';
 
 export interface InputContextType {
@@ -19,10 +19,30 @@ export interface InputContextType {
 
 const InputContext = createContext<InputContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of an Input parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const createDefaultContext = (fallbackId: string): InputContextType => ({
+  inputId: fallbackId,
+  size: 'md',
+  variant: 'default',
+  disabled: false,
+  hasError: false,
+  hasWarning: false,
+  hasSuccess: false,
+  errorId: undefined,
+  warningId: undefined,
+  successId: undefined,
+  helperId: undefined,
+});
+
 export const useInputContext = () => {
   const context = useContext(InputContext);
+  const fallbackId = useId();
+  
   if (!context) {
-    throw new Error('Input sub-components must be used within an Input component');
+    return createDefaultContext(`input-${fallbackId}`);
   }
   return context;
 };

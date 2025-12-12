@@ -17,10 +17,23 @@ export interface StepsContextType {
 
 const StepsContext = createContext<StepsContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a Steps parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: StepsContextType = {
+  currentStep: 0,
+  device: 'desktop',
+  direction: 'horizontal',
+  type: 'default',
+  onChange: undefined,
+};
+
 export const useStepsContext = () => {
   const context = useContext(StepsContext);
+  
   if (!context) {
-    throw new Error('Steps sub-components must be used within a Steps component');
+    return defaultContext;
   }
   return context;
 };

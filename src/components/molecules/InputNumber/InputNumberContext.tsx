@@ -32,10 +32,42 @@ export interface InputNumberContextType {
 
 const InputNumberContext = createContext<InputNumberContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of an InputNumber parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: InputNumberContextType = {
+  value: null,
+  setValue: () => {},
+  inputValue: '',
+  setInputValue: () => {},
+  isFocused: false,
+  setIsFocused: () => {},
+  min: -Infinity,
+  max: Infinity,
+  step: 1,
+  precision: undefined,
+  size: 'md',
+  controls: true,
+  controlsPosition: 'right',
+  error: false,
+  disabled: false,
+  formatter: undefined,
+  parser: undefined,
+  onChange: undefined,
+  handleIncrement: () => {},
+  handleDecrement: () => {},
+  canIncrement: true,
+  canDecrement: true,
+  updateValue: () => {},
+  clampValue: (val: number) => val,
+};
+
 export const useInputNumberContext = () => {
   const context = useContext(InputNumberContext);
+  
   if (!context) {
-    throw new Error('InputNumber sub-components must be used within an InputNumber component');
+    return defaultContext;
   }
   return context;
 };

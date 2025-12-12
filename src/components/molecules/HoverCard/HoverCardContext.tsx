@@ -17,10 +17,26 @@ export interface HoverCardContextType {
 
 const HoverCardContext = createContext<HoverCardContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a HoverCard parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const createDefaultContext = (): HoverCardContextType => ({
+  open: false,
+  setOpen: () => {},
+  openDelay: 200,
+  closeDelay: 300,
+  placement: 'bottom',
+  width: undefined,
+  openTimeoutRef: { current: null },
+  closeTimeoutRef: { current: null },
+});
+
 export const useHoverCardContext = () => {
   const context = useContext(HoverCardContext);
+  
   if (!context) {
-    throw new Error('HoverCard sub-components must be used within a HoverCard component');
+    return createDefaultContext();
   }
   return context;
 };

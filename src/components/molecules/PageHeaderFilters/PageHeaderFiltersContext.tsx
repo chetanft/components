@@ -48,17 +48,23 @@ export function usePageHeaderFiltersOptional() {
 }
 
 /**
+ * Default values for when components are used outside of PageHeaderFiltersProvider.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: PageHeaderFiltersContextValue = {
+  openFilterId: null,
+  setOpenFilterId: () => {},
+};
+
+/**
  * Hook to access PageHeaderFilters context
- * @throws Error if used outside PageHeaderFiltersProvider
- * @deprecated Use usePageHeaderFiltersOptional() for components that should work standalone
+ * Returns default values if used outside PageHeaderFiltersProvider
  */
 export function usePageHeaderFilters() {
   const context = useContext(PageHeaderFiltersContext);
+  
   if (context === undefined) {
-    throw new Error(
-      'usePageHeaderFilters must be used within PageHeaderFiltersProvider.\n' +
-      'Use usePageHeaderFiltersOptional() if you want the component to work standalone.'
-    );
+    return defaultContext;
   }
   return context;
 }

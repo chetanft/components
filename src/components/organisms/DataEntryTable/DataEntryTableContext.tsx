@@ -46,10 +46,36 @@ export interface DataEntryTableContextType {
 
 const DataEntryTableContext = createContext<DataEntryTableContextType | null>(null);
 
+/**
+ * Default values for when sub-components are used outside of a DataEntryTable parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: DataEntryTableContextType = {
+  selectable: false,
+  selectedRows: [],
+  onSelectionChange: undefined,
+  focusedCell: null,
+  hoveredCell: null,
+  setFocusedCell: () => {},
+  setHoveredCell: () => {},
+  onCellChange: undefined,
+  onRowAdd: undefined,
+  onRowDelete: undefined,
+  resizable: false,
+  columnWidths: {},
+  resizingColumn: null,
+  handleMouseDown: () => {},
+  showContextMenu: false,
+  contextMenu: null,
+  setContextMenu: () => {},
+  cellErrors: {},
+};
+
 export const useDataEntryTableContext = () => {
   const context = useContext(DataEntryTableContext);
+  
   if (!context) {
-    throw new Error('DataEntryTable sub-components must be used within a DataEntryTable component');
+    return defaultContext;
   }
   return context;
 };

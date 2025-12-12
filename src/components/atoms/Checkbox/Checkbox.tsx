@@ -85,26 +85,21 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     'aria-describedby': ariaDescribedBy,
     ...props
   }, ref) => {
-    // Check if using composable API (has children with Checkbox sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
-      child?.type?.displayName?.startsWith('Checkbox')
-    );
+    const generatedId = React.useId();
+    const checkboxId = id ?? `checkbox-${generatedId}`;
+    const descriptionId = description ? `${checkboxId}-description` : undefined;
     
-    // If using composable API, wrap with context provider
-    if (hasComposableChildren) {
-      // Show deprecation warning if using old props with composable API
-      if (process.env.NODE_ENV !== 'production' && (label || error || description)) {
-        console.warn(
-          'Checkbox: Using deprecated props (label, error, description) with composable API. ' +
-          'Please use CheckboxInput, CheckboxLabel, CheckboxHelper, CheckboxError components instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
-      
-      const generatedId = React.useId();
-      const checkboxId = id ?? `checkbox-${generatedId}`;
-      const descriptionId = description ? `${checkboxId}-description` : undefined;
-      
+    // Determine if using legacy declarative API (has label/error/description props but no children,
+    // or children are plain text/elements, not Checkbox sub-components)
+    // Note: We no longer rely on displayName detection as it's unreliable in bundled code.
+    // Instead, we check for the presence of legacy props.
+    const hasLegacyProps = !!(label || error || description);
+    const hasChildren = React.Children.count(children) > 0;
+    
+    // If has children, treat as composable API (children could be CheckboxInput, CheckboxLabel, etc.)
+    // The sub-components will work correctly because we always provide context.
+    // If they're not Checkbox sub-components, they'll still render (just as regular children).
+    if (hasChildren && !hasLegacyProps) {
       return (
         <CheckboxProvider
           value={{
@@ -122,19 +117,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       );
     }
     
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn(
-        'Checkbox: Declarative API (label, error, description props) is deprecated. ' +
-        'Please migrate to composable API using CheckboxInput, CheckboxLabel, CheckboxHelper, CheckboxError components. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
-    
-    const generatedId = React.useId();
-    const checkboxId = id ?? `checkbox-${generatedId}`;
-    const descriptionId = description ? `${checkboxId}-description` : undefined;
-    
+    // Legacy declarative API - create the internal structure
+    // This handles: <Checkbox label="Text" /> or <Checkbox>Text</Checkbox> patterns
     return (
       <CheckboxProvider
         value={{

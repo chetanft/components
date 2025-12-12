@@ -34,10 +34,40 @@ export interface SliderContextType {
 
 const SliderContext = createContext<SliderContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a Slider parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const createDefaultContext = (): SliderContextType => ({
+  value: 0,
+  setValue: () => {},
+  min: 0,
+  max: 100,
+  step: 1,
+  range: false,
+  vertical: false,
+  disabled: false,
+  marks: undefined,
+  tooltip: true,
+  trackColor: undefined,
+  railColor: undefined,
+  onChange: undefined,
+  onChangeComplete: undefined,
+  isDragging: null,
+  setIsDragging: () => {},
+  hoveredHandle: null,
+  setHoveredHandle: () => {},
+  sliderRef: { current: null },
+  getPercent: (val: number) => val,
+  getValueFromPosition: () => 0,
+  rangeValue: [0, 100],
+});
+
 export const useSliderContext = () => {
   const context = useContext(SliderContext);
+  
   if (!context) {
-    throw new Error('Slider sub-components must be used within a Slider component');
+    return createDefaultContext();
   }
   return context;
 };

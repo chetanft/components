@@ -16,13 +16,28 @@ export interface TableSelectionContextValue {
 const TableSelectionContext = React.createContext<TableSelectionContextValue | null>(null);
 
 /**
+ * Default values for when sub-components are used outside of a Table with selection.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: TableSelectionContextValue = {
+    selectedRows: [],
+    allRowIds: [],
+    onSelectionChange: undefined,
+    isRowSelected: () => false,
+    toggleRow: () => {},
+    toggleAll: () => {},
+    isAllSelected: false,
+    isSomeSelected: false,
+};
+
+/**
  * Hook to access Table selection context
- * @throws Error if used outside TableSelectionProvider
  */
 export const useTableSelection = () => {
     const context = React.useContext(TableSelectionContext);
+    
     if (!context) {
-        throw new Error('Table selection components must be used within a Table with selection enabled');
+        return defaultContext;
     }
     return context;
 };

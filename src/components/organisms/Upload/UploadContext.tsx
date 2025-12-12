@@ -26,10 +26,33 @@ export interface UploadContextType {
 
 const UploadContext = createContext<UploadContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of an Upload parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: UploadContextType = {
+  type: 'drag-drop',
+  files: [],
+  setFiles: () => {},
+  maxFiles: 10,
+  acceptedFileTypes: [],
+  maxFileSize: 10 * 1024 * 1024, // 10MB
+  multiple: true,
+  showValidation: false,
+  autoUpload: false,
+  onFilesChange: undefined,
+  onUploadComplete: undefined,
+  onValidationComplete: undefined,
+  handleFileSelect: () => {},
+  handleDelete: () => {},
+  handleRetry: () => {},
+};
+
 export const useUploadContext = () => {
   const context = useContext(UploadContext);
+  
   if (!context) {
-    throw new Error('Upload sub-components must be used within an Upload component');
+    return defaultContext;
   }
   return context;
 };

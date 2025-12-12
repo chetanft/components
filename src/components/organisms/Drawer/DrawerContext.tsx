@@ -27,14 +27,25 @@ export interface DrawerContextValue {
 const DrawerContext = createContext<DrawerContextValue | undefined>(undefined);
 
 /**
+ * Default values for when sub-components are used outside of a Drawer parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: DrawerContextValue = {
+  open: false,
+  setOpen: () => {},
+  onClose: undefined,
+};
+
+/**
  * Hook to access drawer context
  * 
  * @public
  */
 export function useDrawerContext() {
   const context = useContext(DrawerContext);
+  
   if (!context) {
-    throw new Error('Drawer components must be used within a Drawer component');
+    return defaultContext;
   }
   return context;
 }

@@ -27,14 +27,25 @@ export interface ModalContextValue {
 const ModalContext = createContext<ModalContextValue | undefined>(undefined);
 
 /**
+ * Default values for when sub-components are used outside of a Modal parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: ModalContextValue = {
+  open: false,
+  setOpen: () => {},
+  onClose: undefined,
+};
+
+/**
  * Hook to access modal context
  * 
  * @public
  */
 export function useModalContext() {
   const context = useContext(ModalContext);
+  
   if (!context) {
-    throw new Error('Modal components must be used within a Modal component');
+    return defaultContext;
   }
   return context;
 }

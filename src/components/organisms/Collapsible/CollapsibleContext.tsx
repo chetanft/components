@@ -13,10 +13,24 @@ export interface CollapsibleContextType {
 
 const CollapsibleContext = createContext<CollapsibleContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a Collapsible parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: CollapsibleContextType = {
+  isExpanded: false,
+  onToggle: () => {},
+  disabled: false,
+  type: 'Primary',
+  bg: 'Primary',
+  showArrow: true,
+};
+
 export const useCollapsibleContext = () => {
   const context = useContext(CollapsibleContext);
+  
   if (!context) {
-    throw new Error('Collapsible sub-components must be used within a Collapsible component');
+    return defaultContext;
   }
   return context;
 };

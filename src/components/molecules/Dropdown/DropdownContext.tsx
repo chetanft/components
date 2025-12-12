@@ -30,26 +30,41 @@ export interface DropdownContextType {
 const DropdownContext = createContext<DropdownContextType | undefined>(undefined);
 
 /**
+ * Default values for when sub-components are used outside of a Dropdown parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const createDefaultContext = (): DropdownContextType => ({
+  isOpen: false,
+  setIsOpen: () => {},
+  value: undefined,
+  setValue: () => {},
+  options: [],
+  placeholder: 'Select...',
+  size: 'md',
+  state: 'default',
+  type: 'normal',
+  searchQuery: '',
+  setSearchQuery: () => {},
+  onChange: undefined,
+  onSearch: undefined,
+  dropdownRef: { current: null },
+  menuRef: { current: null },
+  menuPosition: { top: 0, left: 0, width: 0 },
+  setMenuPosition: () => {},
+  portalContainer: null,
+  setPortalContainer: () => {},
+  handleSelect: () => {},
+});
+
+/**
  * Hook to access Dropdown context
  * Required for DropdownTrigger and DropdownContent sub-components
- * @throws Error if used outside Dropdown component
  */
 export const useDropdownContext = () => {
   const context = useContext(DropdownContext);
+  
   if (!context) {
-    throw new Error(
-      'DropdownTrigger/DropdownContent must be inside a <Dropdown> parent.\n\n' +
-      'Option 1 - Simple (no composition):\n' +
-      '<Dropdown\n' +
-      '  value={value} onChange={setValue} options={options}\n' +
-      '  placeholder="Select..."\n' +
-      '/>\n\n' +
-      'Option 2 - Composable:\n' +
-      '<Dropdown value={value} onChange={setValue} options={options}>\n' +
-      '  <DropdownTrigger />\n' +
-      '  <DropdownContent />\n' +
-      '</Dropdown>'
-    );
+    return createDefaultContext();
   }
   return context;
 };

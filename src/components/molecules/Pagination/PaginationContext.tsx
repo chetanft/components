@@ -14,10 +14,25 @@ export interface PaginationContextType {
 
 const PaginationContext = createContext<PaginationContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a Pagination parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: PaginationContextType = {
+  current: 1,
+  total: 0,
+  pageSize: 10,
+  totalPages: 0,
+  onPageChange: () => {},
+  onShowSizeChange: undefined,
+  variant: 'default',
+};
+
 export const usePaginationContext = () => {
   const context = useContext(PaginationContext);
+  
   if (!context) {
-    throw new Error('Pagination sub-components must be used within a Pagination component');
+    return defaultContext;
   }
   return context;
 };

@@ -18,10 +18,26 @@ export interface PopconfirmContextType {
 
 const PopconfirmContext = createContext<PopconfirmContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a Popconfirm parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const createDefaultContext = (): PopconfirmContextType => ({
+  open: false,
+  setOpen: () => {},
+  disabled: false,
+  placement: 'top',
+  icon: undefined,
+  onConfirm: undefined,
+  onCancel: undefined,
+  containerRef: { current: null },
+});
+
 export const usePopconfirmContext = () => {
   const context = useContext(PopconfirmContext);
+  
   if (!context) {
-    throw new Error('Popconfirm sub-components must be used within a Popconfirm component');
+    return createDefaultContext();
   }
   return context;
 };

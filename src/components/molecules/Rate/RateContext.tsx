@@ -23,10 +23,34 @@ export interface RateContextType {
 
 const RateContext = createContext<RateContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a Rate parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: RateContextType = {
+  value: 0,
+  setValue: () => {},
+  hoverValue: null,
+  setHoverValue: () => {},
+  count: 5,
+  allowHalf: false,
+  allowClear: true,
+  disabled: false,
+  readOnly: false,
+  character: undefined,
+  tooltips: undefined,
+  size: 'md',
+  activeColor: undefined,
+  inactiveColor: undefined,
+  onChange: undefined,
+  onHoverChange: undefined,
+};
+
 export const useRateContext = () => {
   const context = useContext(RateContext);
+  
   if (!context) {
-    throw new Error('Rate sub-components must be used within a Rate component');
+    return defaultContext;
   }
   return context;
 };

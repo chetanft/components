@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useId } from 'react';
 
 export interface SwitchContextType {
   switchId: string;
@@ -13,10 +13,25 @@ export interface SwitchContextType {
 
 const SwitchContext = createContext<SwitchContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a Switch parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const createDefaultContext = (fallbackId: string): SwitchContextType => ({
+  switchId: fallbackId,
+  size: 'md',
+  disabled: false,
+  hasError: false,
+  helperId: undefined,
+  errorId: undefined,
+});
+
 export const useSwitchContext = () => {
   const context = useContext(SwitchContext);
+  const fallbackId = useId();
+  
   if (!context) {
-    throw new Error('Switch sub-components must be used within a Switch component');
+    return createDefaultContext(`switch-${fallbackId}`);
   }
   return context;
 };

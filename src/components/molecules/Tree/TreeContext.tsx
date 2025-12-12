@@ -24,10 +24,33 @@ export interface TreeContextType {
 
 const TreeContext = createContext<TreeContextType | null>(null);
 
+/**
+ * Default values for when sub-components are used outside of a Tree parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const createDefaultContext = (): TreeContextType => ({
+  expandedKeys: new Set<string>(),
+  selectedKeys: new Set<string>(),
+  checkedKeys: new Set<string>(),
+  checkable: false,
+  selectable: true,
+  multiple: false,
+  showLine: false,
+  showIcon: false,
+  disabled: false,
+  blockNode: false,
+  switcherIcon: undefined,
+  icon: undefined,
+  toggleExpanded: () => {},
+  toggleSelected: () => {},
+  toggleChecked: () => {},
+});
+
 export const useTreeContext = () => {
   const context = useContext(TreeContext);
+  
   if (!context) {
-    throw new Error('Tree sub-components must be used within a Tree component');
+    return createDefaultContext();
   }
   return context;
 };

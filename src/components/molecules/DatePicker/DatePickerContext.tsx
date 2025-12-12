@@ -47,23 +47,60 @@ export interface DatePickerContextType {
 const DatePickerContext = createContext<DatePickerContextType | undefined>(undefined);
 
 /**
+ * Default values for when sub-components are used outside of a DatePicker parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const createDefaultContext = (): DatePickerContextType => ({
+  isOpen: false,
+  setIsOpen: () => {},
+  value: undefined,
+  setValue: () => {},
+  startValue: undefined,
+  setStartValue: () => {},
+  endValue: undefined,
+  setEndValue: () => {},
+  range: false,
+  disabled: false,
+  error: false,
+  size: 'md',
+  placeholder: 'Select date',
+  includeDropdown: false,
+  onChange: undefined,
+  onStartChange: undefined,
+  onEndChange: undefined,
+  containerRef: { current: null },
+  calendarRef: { current: null },
+  calendarPosition: { top: 0, left: 0 },
+  setCalendarPosition: () => {},
+  portalContainer: null,
+  setPortalContainer: () => {},
+  inputValue: '',
+  setInputValue: () => {},
+  startInputValue: '',
+  setStartInputValue: () => {},
+  endInputValue: '',
+  setEndInputValue: () => {},
+  inputError: null,
+  setInputError: () => {},
+  isTyping: false,
+  setIsTyping: () => {},
+  formatDateForDisplay: () => '',
+  parseDateInput: () => null,
+  handleDateChange: () => {},
+  handleApply: () => {},
+  handleCancel: () => {},
+  handleClear: () => {},
+});
+
+/**
  * Hook to access DatePicker context
  * Required for DatePickerInput, DatePickerCalendar, DatePickerTrigger sub-components
- * @throws Error if used outside DatePicker component
  */
 export const useDatePickerContext = () => {
   const context = useContext(DatePickerContext);
+  
   if (!context) {
-    throw new Error(
-      'DatePickerInput/DatePickerCalendar/DatePickerTrigger must be inside a <DatePicker> parent.\n\n' +
-      'Use DatePicker as a complete component (manages all internals):\n' +
-      '<DatePicker\n' +
-      '  value={date}\n' +
-      '  onChange={setDate}\n' +
-      '  placeholder="Select date"\n' +
-      '/>\n\n' +
-      'Do not import and use sub-components separately.'
-    );
+    return createDefaultContext();
   }
   return context;
 };

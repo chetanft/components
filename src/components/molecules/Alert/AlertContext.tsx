@@ -15,10 +15,23 @@ export interface AlertContextType {
 
 const AlertContext = createContext<AlertContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of an Alert parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: AlertContextType = {
+  variant: 'info',
+  radius: 'md',
+  banner: false,
+  closable: false,
+  onClose: undefined,
+};
+
 export const useAlertContext = () => {
   const context = useContext(AlertContext);
+  
   if (!context) {
-    throw new Error('Alert sub-components must be used within an Alert component');
+    return defaultContext;
   }
   return context;
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useId } from 'react';
 import type { ComponentSize } from '../../../lib/utils';
 
 export interface TextareaContextType {
@@ -14,10 +14,25 @@ export interface TextareaContextType {
 
 const TextareaContext = createContext<TextareaContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a Textarea parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const createDefaultContext = (fallbackId: string): TextareaContextType => ({
+  textareaId: fallbackId,
+  size: 'md',
+  disabled: false,
+  hasError: false,
+  errorId: undefined,
+  helperId: undefined,
+});
+
 export const useTextareaContext = () => {
   const context = useContext(TextareaContext);
+  const fallbackId = useId();
+  
   if (!context) {
-    throw new Error('Textarea sub-components must be used within a Textarea component');
+    return createDefaultContext(`textarea-${fallbackId}`);
   }
   return context;
 };

@@ -23,10 +23,31 @@ export interface DropdownMenuContextType {
 
 const DropdownMenuContext = createContext<DropdownMenuContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a DropdownMenu parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: DropdownMenuContextType = {
+  property: 'default',
+  options: [],
+  selectedValue: undefined,
+  setSelectedValue: () => {},
+  searchQuery: '',
+  setSearchQuery: () => {},
+  focusedIndex: null,
+  setFocusedIndex: () => {},
+  onSelect: undefined,
+  segments: undefined,
+  selectedSegment: undefined,
+  onSegmentChange: undefined,
+  showScrollBar: false,
+};
+
 export const useDropdownMenuContext = () => {
   const context = useContext(DropdownMenuContext);
+  
   if (!context) {
-    throw new Error('DropdownMenu sub-components must be used within a DropdownMenu component');
+    return defaultContext;
   }
   return context;
 };

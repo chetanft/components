@@ -15,10 +15,24 @@ export interface TabsContextType {
 
 const TabsContext = createContext<TabsContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a Tabs parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const createDefaultContext = (): TabsContextType => ({
+  activeTab: 0,
+  onTabChange: () => {},
+  type: 'primary',
+  showLine: true,
+  valueToIndexMap: new Map<string, number>(),
+  registerValue: () => {},
+});
+
 export const useTabsContext = () => {
   const context = useContext(TabsContext);
+  
   if (!context) {
-    throw new Error('Tabs sub-components must be used within a Tabs component');
+    return createDefaultContext();
   }
   return context;
 };

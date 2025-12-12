@@ -16,10 +16,23 @@ export interface TooltipContextType {
 
 const TooltipContext = createContext<TooltipContextType | undefined>(undefined);
 
+/**
+ * Default values for when sub-components are used outside of a Tooltip parent.
+ * This provides resilience against displayName detection failures in bundled code.
+ */
+const defaultContext: TooltipContextType = {
+  open: false,
+  setOpen: () => {},
+  placement: 'top',
+  align: 'center',
+  color: 'dark',
+};
+
 export const useTooltipContext = () => {
   const context = useContext(TooltipContext);
+  
   if (!context) {
-    throw new Error('Tooltip sub-components must be used within a Tooltip component');
+    return defaultContext;
   }
   return context;
 };
