@@ -49,19 +49,19 @@ export const PaginationSizeChanger = React.forwardRef<HTMLDivElement, Pagination
         const Comp = asChild ? Slot : 'div';
 
         const content = (children ?? (
-            <>
-                <span className="text-sm text-[var(--tertiary)]">{label}</span>
-                <Select value={String(pageSize)} onValueChange={handleSizeChange}>
-                    <SelectTrigger className="w-20 h-8">
-                        <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {options.map(opt => (
-                            <SelectItem key={opt} value={String(opt)}>{opt}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
-            </>
+                    <>
+                        <span className="text-sm text-[var(--tertiary)]">{label}</span>
+                        <Select value={String(pageSize)} onValueChange={handleSizeChange}>
+                            <SelectTrigger className="w-20 h-8">
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {options.map(opt => (
+                                    <SelectItem key={opt} value={String(opt)}>{opt}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </>
         )) as React.ReactElement;
 
         return (

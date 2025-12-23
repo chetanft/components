@@ -89,8 +89,8 @@ export const CardImage = React.forwardRef<HTMLDivElement, CardImageProps>(
                     imageContent as React.ReactElement,
                     overlayAction && (
                         <div key="overlay" className="absolute top-[var(--spacing-x2)] right-[var(--spacing-x2)]">
-                            {overlayAction}
-                        </div>
+                        {overlayAction}
+                    </div>
                     )
                 ] as React.ReactElement[]}
             </Comp>

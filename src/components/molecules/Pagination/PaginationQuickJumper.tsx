@@ -70,28 +70,28 @@ export const PaginationQuickJumper = React.forwardRef<HTMLDivElement, Pagination
         const Comp = asChild ? Slot : 'div';
 
         const content = (children ?? (
-            <>
-                <span className="text-sm text-[var(--tertiary)]">{label}</span>
-                <input
-                    type="number"
-                    min={1}
-                    max={totalPages}
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    className={cn(
-                        "w-16 px-2 py-1.5 rounded-[var(--radius-md)]",
-                        "border border-[var(--border-primary)]",
-                        "text-sm",
-                        "focus:outline-none focus:ring-2 focus:ring-[var(--neutral)] focus:ring-opacity-20",
-                        "bg-[var(--bg-primary)]"
-                    )}
-                    placeholder={placeholder}
-                />
-                <Button variant="secondary" size="sm" onClick={handleJump}>
-                    {buttonText}
-                </Button>
-            </>
+                    <>
+                        <span className="text-sm text-[var(--tertiary)]">{label}</span>
+                        <input
+                            type="number"
+                            min={1}
+                            max={totalPages}
+                            value={value}
+                            onChange={(e) => setValue(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            className={cn(
+                                "w-16 px-2 py-1.5 rounded-[var(--radius-md)]",
+                                "border border-[var(--border-primary)]",
+                                "text-sm",
+                                "focus:outline-none focus:ring-2 focus:ring-[var(--neutral)] focus:ring-opacity-20",
+                                "bg-[var(--bg-primary)]"
+                            )}
+                            placeholder={placeholder}
+                        />
+                        <Button variant="secondary" size="sm" onClick={handleJump}>
+                            {buttonText}
+                        </Button>
+                    </>
         )) as React.ReactElement;
 
         return (

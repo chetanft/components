@@ -48,15 +48,15 @@ export const BadgeStatus = React.forwardRef<HTMLSpanElement, BadgeStatusProps>(
                 {...props}
             >
                 {[
-                    <span
+                <span
                         key="dot"
-                        className={cn("w-1.5 h-1.5 rounded-full", statusDotClasses)}
-                        aria-hidden="true"
+                    className={cn("w-1.5 h-1.5 rounded-full", statusDotClasses)}
+                    aria-hidden="true"
                     />,
                     displayText && (
                         <span key="text" className="text-sm text-[var(--primary)]">
                             {String(displayText)}
-                        </span>
+                    </span>
                     )
                 ] as React.ReactElement[]}
             </Comp>

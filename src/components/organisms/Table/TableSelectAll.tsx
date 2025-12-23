@@ -54,14 +54,14 @@ export const TableSelectAll = React.forwardRef<HTMLDivElement, TableSelectAllPro
         };
 
         const content = (children ?? (renderCheckbox ? (
-            renderCheckbox(checkboxProps)
-        ) : (
-            <Checkbox
-                checked={isAllSelected}
-                // Note: indeterminate would need to be added to Checkbox component
-                onChange={toggleAll}
-                aria-label="Select all rows"
-            />
+                    renderCheckbox(checkboxProps)
+                ) : (
+                    <Checkbox
+                        checked={isAllSelected}
+                        // Note: indeterminate would need to be added to Checkbox component
+                        onChange={toggleAll}
+                        aria-label="Select all rows"
+                    />
         ))) as React.ReactElement | null;
 
         return (
