@@ -61,16 +61,16 @@ export const docsConfig: DocsConfig = {
           href: "/docs/for-developers",
           items: [],
         },
-        {
-          title: "Accessibility",
-          href: "/docs/accessibility",
-          items: [],
-        },
-        {
-          title: "Migration Guides",
-          href: "/docs/migrations",
-          items: [],
-        },
+        // {
+        //   title: "Accessibility",
+        //   href: "/docs/accessibility",
+        //   items: [],
+        // },
+        // {
+        //   title: "Migration Guides",
+        //   href: "/docs/migrations",
+        //   items: [],
+        // },
         {
           title: "Storybook",
           href: "/docs/storybook",
