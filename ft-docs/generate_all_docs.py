@@ -169,7 +169,7 @@ def generate_components_json():
         
         components[component_name] = {
             "description": description,
-            "import": f"import {{ {component_name} }} from '@chetanft/design_system';",
+            "import": f"import {{ {component_name} }} from 'ft-design-system';",
             "props": props,
             "examples": examples
         }

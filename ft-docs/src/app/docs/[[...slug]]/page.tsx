@@ -87,7 +87,7 @@ export default function DocPage() {
               color: 'var(--tertiary-0)'
             }}
           >
-            npm install @chetanft/design_system
+            npm install ft-design-system
           </div>
         </div>
         <div className="space-y-4 mt-8">

@@ -86,7 +86,7 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
   }, [storyModule, storyFilter]);
 
   // Generate import statement
-  const importStatement = `import { ${componentName} } from '@chetanft/design_system';`;
+  const importStatement = `import { ${componentName} } from 'ft-design-system';`;
 
   const onCopy = () => {
     navigator.clipboard.writeText(importStatement);
@@ -253,7 +253,12 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
                   </span>
                 )}
               </h3>
-              <StoryPreview story={story} meta={storyModule.meta} showName={false} />
+              <StoryPreview
+                story={story}
+                meta={storyModule.meta}
+                showName={false}
+                componentName={componentName}
+              />
             </div>
           ))}
         </div>

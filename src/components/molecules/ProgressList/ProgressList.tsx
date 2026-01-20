@@ -288,24 +288,24 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
     const lineColor = item.state === 'completed' ? 'var(--primary)' : 'var(--border-primary)';
     const isDashed = item.lineType === 'dashed' || item.state !== 'completed';
 
-    const lineHeight = 60; // Default height, adjust based on content
-
     if (isDashed) {
       return (
-        <div className="flex flex-col justify-center gap-[2px] w-px flex-1">
-          <div style={{ width: '1px', height: '4px', backgroundColor: lineColor }} />
-          {Array.from({ length: 8 }, (_, i) => (
-            <div key={i} style={{ width: '1px', height: '6px', backgroundColor: lineColor }} />
-          ))}
-          <div style={{ width: '1px', height: '4px', backgroundColor: lineColor }} />
-        </div>
+        <div 
+          className="w-px flex-1"
+          style={{ 
+            backgroundImage: `linear-gradient(to bottom, ${lineColor} 50%, transparent 50%)`,
+            backgroundSize: '1px 8px',
+            backgroundRepeat: 'repeat-y',
+            minHeight: '24px'
+          }} 
+        />
       );
     }
 
     return (
       <div
         className="w-px flex-1"
-        style={{ backgroundColor: lineColor, minHeight: `${lineHeight}px` }}
+        style={{ backgroundColor: lineColor, minHeight: '24px' }}
       />
     );
   };
@@ -339,7 +339,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
     const isExpanded = expandedItems[item.id] || false;
 
     return (
-      <div className="flex gap-[var(--spacing-x2)] pt-[var(--spacing-x1)] flex-1">
+      <div className="flex gap-[var(--spacing-x2)] pt-2 flex-1">
         {/* Icon */}
         {item.icon && (
           <div className="flex-shrink-0 w-4 h-4 mt-0.5">
@@ -447,12 +447,14 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
         {renderTimeColumn(item)}
 
         {/* Path Column */}
-        <div className="flex flex-col items-center pt-1.5">
+        <div className="flex flex-col items-center pt-2 w-8 shrink-0">
           {/* Point */}
           {renderPoint(item)}
 
           {/* Line */}
-          {renderLine(item, isLast)}
+          <div className="flex-1 w-full flex flex-col items-center mb-[-8px]">
+            {renderLine(item, isLast)}
+          </div>
         </div>
 
         {/* Content Column */}

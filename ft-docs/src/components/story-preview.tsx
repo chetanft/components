@@ -16,6 +16,8 @@ interface StoryPreviewProps {
   story: StoryDefinition;
   /** The story meta (contains the component and default args) */
   meta: StoryMeta;
+  /** Optional component name override */
+  componentName?: string;
   /** Optional class name */
   className?: string;
   /** Show the story name as a header */
@@ -29,12 +31,14 @@ interface StoryPreviewProps {
 export function StoryPreview({
   story,
   meta,
+  componentName,
   className,
   showName = true,
 }: StoryPreviewProps) {
   const [view, setView] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
   const [storySource, setStorySource] = useState<string | null>(null);
+  const resolvedComponentName = componentName || meta.component?.displayName || meta.component?.name;
 
   // Merge default args with story args
   const mergedArgs = useMemo(() => {
@@ -47,9 +51,8 @@ export function StoryPreview({
   // Load story source for function-based stories
   useEffect(() => {
     if (story.component || story.render) {
-      const componentName = meta.component?.displayName || meta.component?.name;
-      if (componentName) {
-        getStorySource(componentName).then((source) => {
+      if (resolvedComponentName) {
+        getStorySource(resolvedComponentName).then((source) => {
           if (source) {
             // Store the full source
             setStorySource(source);
@@ -57,12 +60,12 @@ export function StoryPreview({
         });
       }
     }
-  }, [story.component, story.render, story.name, meta.component]);
+  }, [story.component, story.render, story.name, resolvedComponentName]);
 
   // Generate clean JSX code representation
   const codeString = useMemo(() => {
     const Component = meta.component;
-    const componentName = Component?.displayName || Component?.name || "Component";
+    const displayName = Component?.displayName || Component?.name || resolvedComponentName || "Component";
 
     // Helper to format prop value
     const formatProp = (key: string, value: unknown): string | null => {
@@ -132,7 +135,7 @@ export function StoryPreview({
         }
 
         // Try to extract Pagination JSX from story source
-        if (componentName === 'Pagination' && storySource && typeof storySource === 'string') {
+      if (displayName === 'Pagination' && storySource && typeof storySource === 'string') {
           const paginationPattern = /<Pagination[\s\S]*?\/>/g;
           const matches = storySource.match(paginationPattern);
           if (matches && matches.length > 0) {
@@ -162,12 +165,12 @@ export function StoryPreview({
       }
 
       // Fallback: For Button component with circular buttons story, show example
-      if (componentName === 'Button' && story.name.toLowerCase().includes('circular')) {
+      if (displayName === 'Button' && story.name.toLowerCase().includes('circular')) {
         return `<Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />`;
       }
 
       // Fallback: For Pagination compact variant, show example
-      if (componentName === 'Pagination' && story.name.toLowerCase().includes('compact')) {
+      if (displayName === 'Pagination' && story.name.toLowerCase().includes('compact')) {
         return `<Pagination
   current={1}
   total={100}
@@ -183,14 +186,14 @@ export function StoryPreview({
         .filter(Boolean);
 
       if (props.length === 0) {
-        return `<${componentName} />`;
+        return `<${displayName} />`;
       }
 
       if (props.length <= 3) {
-        return `<${componentName} ${props.join(" ")} />`;
+        return `<${displayName} ${props.join(" ")} />`;
       }
 
-      return `<${componentName}\n  ${props.join("\n  ")}\n/>`;
+      return `<${displayName}\n  ${props.join("\n  ")}\n/>`;
     }
 
     // Args-based story - generate clean JSX
@@ -204,21 +207,21 @@ export function StoryPreview({
     if (hasChildren) {
       const childrenStr = typeof children === "string" ? children : "{/* children */}";
       if (props.length === 0) {
-        return `<${componentName}>${childrenStr}</${componentName}>`;
+        return `<${displayName}>${childrenStr}</${displayName}>`;
       }
-      return `<${componentName} ${props.join(" ")}>\n  ${childrenStr}\n</${componentName}>`;
+      return `<${displayName} ${props.join(" ")}>\n  ${childrenStr}\n</${displayName}>`;
     }
 
     if (props.length === 0) {
-      return `<${componentName} />`;
+      return `<${displayName} />`;
     }
 
     if (props.length <= 3) {
-      return `<${componentName} ${props.join(" ")} />`;
+      return `<${displayName} ${props.join(" ")} />`;
     }
 
-    return `<${componentName}\n  ${props.join("\n  ")}\n/>`;
-  }, [story, meta, mergedArgs, storySource]);
+    return `<${displayName}\n  ${props.join("\n  ")}\n/>`;
+  }, [story, meta, mergedArgs, storySource, resolvedComponentName]);
 
   const onCopy = () => {
     navigator.clipboard.writeText(codeString);
@@ -250,8 +253,7 @@ export function StoryPreview({
       }
 
       // Special handling for UserProfileDropdown - needs positioning context
-      const componentName = meta.component?.displayName || meta.component?.name || '';
-      if (componentName === 'UserProfileDropdown') {
+      if (resolvedComponentName === 'UserProfileDropdown') {
         const { userName, userRole, userLocation, userBadge, userAvatar } = mergedArgs as any;
         return (
           <div style={{
@@ -281,7 +283,7 @@ export function StoryPreview({
       console.error('Error rendering story:', error);
       return <div className="text-destructive">Error rendering story: {String(error)}</div>;
     }
-  }, [story.component, story.render, meta.component, mergedArgs]);
+  }, [story.component, story.render, meta.component, mergedArgs, resolvedComponentName]);
 
   return (
     <div className={cn("group relative flex flex-col space-y-2", className)}>
@@ -332,14 +334,10 @@ export function StoryPreview({
 
         {/* Content */}
         {view === "preview" && (
-          <div className="p-8 min-h-[200px] bg-background overflow-x-auto">
-            <div className={cn(
-              "flex items-center min-w-max",
-              (meta.component?.displayName || meta.component?.name) === 'FloatButton' ||
-                (meta.component?.displayName || meta.component?.name) === 'FloatButtonGroup'
-                ? "justify-center"
-                : "justify-start"
-            )}>{renderedStory}</div>
+          <div className="p-8 min-h-[200px] bg-background overflow-x-auto flex items-center">
+            <div className="min-w-max mx-auto">
+              {renderedStory}
+            </div>
           </div>
         )}
 

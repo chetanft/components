@@ -12,7 +12,7 @@ A comprehensive React design system built from Figma designs with Code Connect i
 //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
 
 # Install the package
-npm install @chetanft/design_system
+npm install ft-design-system
 ```
 
 ### Dependencies
@@ -25,7 +25,7 @@ npm install react@>=16.8.0 react-dom@>=16.8.0
 ## Quick Start
 
 ```jsx
-import { AppHeader, Button, UserProfile, Footer } from '@chetanft/design_system';
+import { AppHeader, Button, UserProfile, Footer } from 'ft-design-system';
 
 function App() {
   return (
@@ -54,7 +54,7 @@ function App() {
 Application header with user profile, notifications, and company branding.
 
 ```jsx
-import { AppHeader } from '@chetanft/design_system';
+import { AppHeader } from 'ft-design-system';
 
 // Basic usage
 <AppHeader 
@@ -91,7 +91,7 @@ import { AppHeader } from '@chetanft/design_system';
 Interactive button component with multiple variants and icon support. **Updated in v1.0.2** with improved typography matching Figma specifications (20px font, medium weight).
 
 ```jsx
-import { Button } from '@chetanft/design_system';
+import { Button } from 'ft-design-system';
 
 // Basic buttons
 <Button variant="primary">Save Changes</Button>
@@ -137,7 +137,7 @@ import { Button } from '@chetanft/design_system';
 User profile component with dropdown menu functionality.
 
 ```jsx
-import { UserProfile } from '@chetanft/design_system';
+import { UserProfile } from 'ft-design-system';
 import { useState } from 'react';
 
 // Basic usage
@@ -187,7 +187,7 @@ function UserProfileExample() {
 Footer component with multiple layout variants.
 
 ```jsx
-import { Footer } from '@chetanft/design_system';
+import { Footer } from 'ft-design-system';
 
 // Different footer variants
 <Footer variant="minimal" />
@@ -206,7 +206,7 @@ import { Footer } from '@chetanft/design_system';
 Status and label badge component with exact Figma specifications.
 
 ```jsx
-import { Badge } from '@chetanft/design_system';
+import { Badge } from 'ft-design-system';
 
 // Status badges with exact Figma colors
 <Badge variant="normal">Default</Badge>
@@ -246,7 +246,7 @@ import { Badge } from '@chetanft/design_system';
 Form checkbox component with label support.
 
 ```jsx
-import { Checkbox } from '@chetanft/design_system';
+import { Checkbox } from 'ft-design-system';
 import { useState } from 'react';
 
 // Basic checkbox
@@ -281,7 +281,7 @@ function CheckboxExample() {
 Form input component with validation and error handling.
 
 ```jsx
-import { Input } from '@chetanft/design_system';
+import { Input } from 'ft-design-system';
 import { useState } from 'react';
 
 // Basic input
@@ -330,7 +330,7 @@ function InputExample() {
 Toggle switch component for boolean settings.
 
 ```jsx
-import { Switch } from '@chetanft/design_system';
+import { Switch } from 'ft-design-system';
 import { useState } from 'react';
 
 // Basic switch
@@ -365,8 +365,8 @@ function SwitchExample() {
 Empty state component for displaying no data, search results, or error states. Built entirely with FT Design System tokens and components.
 
 ```jsx
-import { Empty, EmptyPresets } from '@chetanft/design_system';
-import { Button } from '@chetanft/design_system';
+import { Empty, EmptyPresets } from 'ft-design-system';
+import { Button } from 'ft-design-system';
 
 // Basic empty state
 <Empty description="No data available" />
@@ -397,7 +397,7 @@ import { Button } from '@chetanft/design_system';
 />
 
 // Complex example with filters (JourneysEmptyState pattern)
-import { Typography, Dropdown, DatePicker, Button } from '@chetanft/design_system';
+import { Typography, Dropdown, DatePicker, Button } from 'ft-design-system';
 
 <div className="flex flex-col items-center justify-center gap-[var(--x6,24px)]">
   <div className="flex flex-col gap-[var(--x5,20px)] items-center text-center">
@@ -476,7 +476,7 @@ import {
   Button, 
   Badge, 
   UserProfile 
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 
 function Dashboard() {
   const user = {
@@ -538,7 +538,7 @@ import {
   Checkbox, 
   Switch, 
   Button 
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 import { useState } from 'react';
 
 function ContactForm() {
@@ -648,7 +648,7 @@ Components are built with responsive design in mind and work well with Tailwind 
 All components are built with TypeScript and include full type definitions:
 
 ```tsx
-import type { AppHeaderProps, ButtonProps } from '@chetanft/design_system';
+import type { AppHeaderProps, ButtonProps } from 'ft-design-system';
 
 interface MyComponentProps {
   user: AppHeaderProps['user'];
@@ -668,7 +668,7 @@ import {
   Button, 
   Input, 
   Checkbox 
-} from '@chetanft/design_system';
+} from 'ft-design-system';
 
 // Separate business logic
 import { useAuth, useNotifications } from './hooks';

@@ -25,12 +25,16 @@ The official Figma MCP server is configured as a **remote server** connecting di
       "type": "http",
       "url": "https://figma-mcp.figma.com",
       "env": {
-        "FIGMA_ACCESS_TOKEN": "figd_XOy4gRvyyNg91Cfz2Xrc11pqKQqizAFz41XT0NjL"
+        "FIGMA_ACCESS_TOKEN": "${FIGMA_ACCESS_TOKEN}"
       }
     }
   }
 }
 ```
+
+**⚠️ SECURITY NOTE**: Never commit your Figma API token to version control. Use environment variables instead:
+- Set `FIGMA_ACCESS_TOKEN` in your environment or Cursor's settings
+- The token should start with `figd_` and be kept private
 
 ### Next Steps: Restart Cursor
 After updating the configuration, **restart Cursor** to load the official Figma MCP server.
@@ -116,10 +120,20 @@ This project already has:
 | **Community** | ❌ Smaller community | ✅ 8k+ GitHub stars |
 
 ## Next Steps
-1. Replace `YOUR_FIGMA_API_KEY_HERE` with your actual API key
+1. **Set your Figma API token as an environment variable** (never commit it to git):
+   - In Cursor: Settings → Features → Model Context Protocol → Environment Variables
+   - Add `FIGMA_ACCESS_TOKEN` with your token value
+   - Or set it in your shell: `export FIGMA_ACCESS_TOKEN=figd_your_token_here`
 2. Restart Cursor
 3. Test with a Figma URL in agent mode
 4. Start implementing designs with AI assistance!
+
+## Security Best Practices
+- ✅ **DO**: Store tokens in environment variables
+- ✅ **DO**: Use `.env` files (and add them to `.gitignore`)
+- ✅ **DO**: Revoke and regenerate tokens if exposed
+- ❌ **DON'T**: Commit tokens to version control
+- ❌ **DON'T**: Share tokens in documentation or screenshots
 
 ## Links
 - [Framelink GitHub](https://github.com/GLips/Figma-Context-MCP)
