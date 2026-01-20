@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+  /* Light mode - maps to FT design tokens (default) */
   :root {
     --docs-background: var(--bg-primary);
     --docs-foreground: var(--primary);
@@ -26,26 +27,57 @@
     --docs-radius: var(--component-border-radius);
   }
 
+  /* Dark mode - FT tokens automatically change via .dark class in main globals.css */
+  /* We just need to ensure docs tokens reference the updated FT tokens */
+  html.dark,
   .dark {
-    --docs-background: var(--primary-900);
-    --docs-foreground: var(--tertiary-0);
-    --docs-card: var(--primary-800);
-    --docs-card-foreground: var(--tertiary-0);
-    --docs-popover: var(--primary-800);
-    --docs-popover-foreground: var(--tertiary-0);
-    --docs-primary: var(--tertiary-0);
-    --docs-primary-foreground: var(--primary-900);
-    --docs-secondary: var(--primary-800);
-    --docs-secondary-foreground: var(--tertiary-0);
-    --docs-muted: var(--primary-800);
-    --docs-muted-foreground: var(--tertiary-300);
-    --docs-accent: var(--primary-800);
-    --docs-accent-foreground: var(--tertiary-0);
+    /* FT tokens will be updated by main globals.css .dark block */
+    /* These docs tokens just reference them - they'll automatically update */
+    --docs-background: var(--bg-secondary);
+    --docs-foreground: var(--primary);
+    --docs-card: var(--bg-primary);
+    --docs-card-foreground: var(--primary);
+    --docs-popover: var(--bg-primary);
+    --docs-popover-foreground: var(--primary);
+    --docs-primary: var(--primary);
+    --docs-primary-foreground: var(--bg-secondary);
+    --docs-secondary: var(--bg-primary);
+    --docs-secondary-foreground: var(--primary);
+    --docs-muted: var(--bg-primary);
+    --docs-muted-foreground: var(--secondary);
+    --docs-accent: var(--bg-primary);
+    --docs-accent-foreground: var(--primary);
     --docs-destructive: var(--critical);
-    --docs-destructive-foreground: var(--tertiary-0);
-    --docs-border: var(--primary-700);
-    --docs-input: var(--primary-700);
-    --docs-ring: var(--tertiary-0);
+    --docs-destructive-foreground: var(--primary);
+    --docs-border: var(--border-primary);
+    --docs-input: var(--border-primary);
+    --docs-ring: var(--primary);
+  }
+
+  /* Night mode - FT tokens automatically change via .night class in main globals.css */
+  html.night,
+  .night {
+    /* FT tokens will be updated by main globals.css .night block */
+    /* These docs tokens just reference them - they'll automatically update */
+    --docs-background: var(--bg-primary);
+    --docs-foreground: var(--primary);
+    --docs-card: var(--bg-secondary);
+    --docs-card-foreground: var(--primary);
+    --docs-popover: var(--bg-secondary);
+    --docs-popover-foreground: var(--primary);
+    --docs-primary: var(--primary);
+    --docs-primary-foreground: var(--bg-primary);
+    --docs-secondary: var(--tertiary-200);
+    --docs-secondary-foreground: var(--primary);
+    --docs-muted: var(--tertiary-200);
+    --docs-muted-foreground: var(--secondary);
+    --docs-accent: var(--tertiary-200);
+    --docs-accent-foreground: var(--primary);
+    --docs-destructive: var(--critical);
+    --docs-destructive-foreground: var(--bg-primary);
+    --docs-border: var(--border-primary);
+    --docs-input: var(--border-secondary);
+    --docs-ring: var(--primary);
   }
 
   body {

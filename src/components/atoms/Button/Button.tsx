@@ -360,6 +360,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     ),
   };
 
+  const variantStyleOverrides: React.CSSProperties | undefined = effectiveVariant === 'primary'
+    ? { color: 'var(--button-primary-text)' }
+    : undefined;
+
   // Determine accessible name
   const accessibleName = props['aria-label'] ||
     (typeof children === 'string' ? children : undefined) ||
@@ -388,6 +392,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         aria-label={accessibleName}
         aria-busy={loading}
         data-size={size}
+        style={{ ...variantStyleOverrides, ...slotProps.style }}
         {...slotProps}
       >
         {children}
@@ -411,6 +416,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       aria-label={accessibleName}
       aria-busy={loading}
       data-size={size}
+      style={{ ...variantStyleOverrides, ...props.style }}
       {...props}
     >
       {loading && (

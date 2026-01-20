@@ -411,7 +411,7 @@ export default function ColorsPage() {
     const g = parseInt(hex.slice(3, 5), 16)
     const b = parseInt(hex.slice(5, 7), 16)
     const brightness = (r * 299 + g * 587 + b * 114) / 1000
-    return brightness > 128 ? '#000000' : '#ffffff'
+    return brightness > 128 ? 'var(--primary)' : 'var(--bg-primary)'
   }
 
   return (
@@ -438,10 +438,10 @@ export default function ColorsPage() {
                     key={mode}
                     onClick={() => setSelectedMode(mode)}
                     className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${selectedMode === mode
-                      ? 'text-white'
+                      ? 'text-foreground'
                       : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
-                    style={selectedMode === mode ? { backgroundColor: '#434f64' } : undefined}
+                    style={selectedMode === mode ? { backgroundColor: 'var(--primary)' } : undefined}
                   >
                     {mode === 'lightMode' ? 'Light' : mode === 'darkMode' ? 'Dark' : 'Night'}
                   </button>
@@ -458,10 +458,10 @@ export default function ColorsPage() {
                     key={format}
                     onClick={() => setSelectedFormat(format)}
                     className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${selectedFormat === format
-                      ? 'text-white'
+                      ? 'text-foreground'
                       : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
-                    style={selectedFormat === format ? { backgroundColor: '#434f64' } : undefined}
+                    style={selectedFormat === format ? { backgroundColor: 'var(--primary)' } : undefined}
                   >
                     {format.toUpperCase()}
                   </button>

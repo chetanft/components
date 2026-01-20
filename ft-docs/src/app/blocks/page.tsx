@@ -102,7 +102,7 @@ function BlockCard({ block }: { block: typeof blocks[0] }) {
                 className="absolute inset-0"
                 style={{
                   background:
-                    "linear-gradient(135deg, rgba(67,79,100,0.08), rgba(67,79,100,0))",
+                    "linear-gradient(135deg, color-mix(in srgb, var(--primary) 8%, transparent), transparent)",
                 }}
               />
             </div>

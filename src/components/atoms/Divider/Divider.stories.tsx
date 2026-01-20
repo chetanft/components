@@ -24,51 +24,86 @@ export default meta;
 type Story = StoryObj<typeof Divider>;
 
 export const Default: Story = {
-  args: {
-    type: 'primary',
-  },
+  render: () => (
+    <div className="space-y-4 w-full">
+      <div className="text-sm text-[var(--primary)]">Content above divider</div>
+      <Divider type="primary" />
+      <div className="text-sm text-[var(--primary)]">Content below divider</div>
+    </div>
+  ),
 };
 
 export const Primary: Story = {
-  args: {
-    type: 'primary',
-  },
+  render: () => (
+    <div className="space-y-4 w-full">
+      <div className="text-sm text-[var(--primary)]">Content above divider</div>
+      <Divider type="primary" />
+      <div className="text-sm text-[var(--primary)]">Content below divider</div>
+    </div>
+  ),
 };
 
 export const Secondary: Story = {
-  args: {
-    type: 'secondary',
-  },
+  render: () => (
+    <div className="space-y-4 w-full">
+      <div className="text-sm text-[var(--primary)]">Content above divider</div>
+      <Divider type="secondary" />
+      <div className="text-sm text-[var(--primary)]">Content below divider</div>
+    </div>
+  ),
 };
 
 export const Tertiary: Story = {
-  args: {
-    type: 'tertiary',
-  },
+  render: () => (
+    <div className="space-y-4 w-full">
+      <div className="text-sm text-[var(--primary)]">Content above divider</div>
+      <Divider type="tertiary" />
+      <div className="text-sm text-[var(--primary)]">Content below divider</div>
+    </div>
+  ),
 };
 
 export const AllTypes: Story = {
   render: () => (
-    <div className="flex flex-col gap-4">
-      <Divider type="primary" />
-      <Divider type="secondary" />
-      <Divider type="tertiary" />
-      <Divider type="with-label" label="With Label" />
+    <div className="space-y-6 w-full">
+      <div>
+        <div className="text-sm text-[var(--primary)] mb-2">Primary Divider</div>
+        <Divider type="primary" />
+      </div>
+      <div>
+        <div className="text-sm text-[var(--primary)] mb-2">Secondary Divider</div>
+        <Divider type="secondary" />
+      </div>
+      <div>
+        <div className="text-sm text-[var(--primary)] mb-2">Tertiary Divider (Dashed)</div>
+        <Divider type="tertiary" />
+      </div>
+      <div>
+        <div className="text-sm text-[var(--primary)] mb-2">With Label</div>
+        <Divider type="with-label" label="With Label" />
+      </div>
     </div>
   ),
 };
 
 export const WithLabel: Story = {
-  args: {
-    type: 'with-label',
-    label: 'Label',
-  },
+  render: () => (
+    <div className="space-y-4 w-full">
+      <div className="text-sm text-[var(--primary)]">Content above divider</div>
+      <Divider type="with-label" label="Label" />
+      <div className="text-sm text-[var(--primary)]">Content below divider</div>
+    </div>
+  ),
 };
 
 export const Dashed: Story = {
-  args: {
-    dashed: true,
-  },
+  render: () => (
+    <div className="space-y-4 w-full">
+      <div className="text-sm text-[var(--primary)]">Content above dashed divider</div>
+      <Divider dashed={true} />
+      <div className="text-sm text-[var(--primary)]">Content below dashed divider</div>
+    </div>
+  ),
 };
 
 export const Vertical: Story = {

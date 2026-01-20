@@ -405,7 +405,9 @@ export default function IconsPage() {
                   <div className="flex items-center gap-2">
                     <input
                       type="color"
-                      value={iconColor === "currentColor" || iconColor.startsWith("var(") ? "#434f64" : iconColor}
+                      value={iconColor === "currentColor" || iconColor.startsWith("var(") ? 
+                        (typeof window !== 'undefined' ? getComputedStyle(document.documentElement).getPropertyValue('--primary-700').trim() || "#434f64" : "#434f64")
+                        : iconColor}
                       onChange={(e) => setIconColor(e.target.value)}
                       className="h-8 w-16 rounded border cursor-pointer"
                       style={{ borderColor: 'var(--border-primary)' }}

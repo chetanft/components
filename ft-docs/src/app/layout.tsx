@@ -38,13 +38,15 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  const theme = localStorage.getItem('theme');
-                  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  const theme = localStorage.getItem('theme') || 'light';
                   
-                  if (theme === 'dark' || (theme !== 'light' && systemDark)) {
-                    document.documentElement.classList.add('dark');
+                  // Remove all theme classes first
+                  document.documentElement.classList.remove('light', 'dark', 'night');
+                  
+                  if (theme === 'dark' || theme === 'night' || theme === 'light') {
+                    document.documentElement.classList.add(theme);
                   } else {
-                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
                   }
                 } catch (e) {}
               })();
@@ -53,9 +55,10 @@ export default function RootLayout({
         />
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
+          themes={['light', 'dark', 'night']}
         >
           {children}
         </ThemeProvider>

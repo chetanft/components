@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useState, useMemo, useRef, useEffect } from "react"
-import { Search } from "lucide-react"
+import { Search, Sun, Moon, MoonStar } from "lucide-react"
+import { useTheme } from "next-themes"
 import { docsConfig } from "@/config/docs"
 import { cn } from "@/lib/utils"
 
@@ -22,6 +23,95 @@ export function SiteHeader() {
     const [selectedIndex, setSelectedIndex] = useState(0)
     const searchRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
+    const { theme, setTheme } = useTheme()
+    const [mounted, setMounted] = useState(false)
+    const [currentTheme, setCurrentTheme] = useState<'light' | 'dark' | 'night'>('light')
+
+    // Theme cycling logic
+    const themes = ['light', 'dark', 'night'] as const
+    
+    useEffect(() => {
+        setMounted(true)
+        // Get current theme from html class or theme state
+        if (typeof document !== 'undefined') {
+            const html = document.documentElement
+            if (html.classList.contains('dark')) {
+                setCurrentTheme('dark')
+            } else if (html.classList.contains('night')) {
+                setCurrentTheme('night')
+            } else {
+                setCurrentTheme('light')
+            }
+        }
+    }, [])
+
+    // Watch for theme changes and ensure class is applied
+    useEffect(() => {
+        if (!mounted || !theme) return
+        
+        const html = document.documentElement
+        
+        // Ensure the correct class is applied
+        html.classList.remove('light', 'dark', 'night')
+        if (theme === 'dark' || theme === 'night' || theme === 'light') {
+            html.classList.add(theme)
+            setCurrentTheme(theme as typeof themes[number])
+        } else {
+            html.classList.add('light')
+            setCurrentTheme('light')
+        }
+        
+        const observer = new MutationObserver(() => {
+            if (html.classList.contains('dark')) {
+                setCurrentTheme('dark')
+            } else if (html.classList.contains('night')) {
+                setCurrentTheme('night')
+            } else {
+                setCurrentTheme('light')
+            }
+        })
+        
+        observer.observe(html, { attributes: true, attributeFilter: ['class'] })
+        
+        return () => observer.disconnect()
+    }, [mounted, theme])
+
+    // Update currentTheme when theme prop changes
+    useEffect(() => {
+        if (theme && themes.includes(theme as typeof themes[number])) {
+            setCurrentTheme(theme as typeof themes[number])
+        }
+    }, [theme])
+
+    const currentThemeIndex = themes.indexOf(currentTheme)
+    const nextTheme = themes[(currentThemeIndex + 1) % themes.length]
+    
+    const handleThemeToggle = () => {
+        // Set theme via next-themes
+        setTheme(nextTheme)
+        
+        // Also manually ensure the class is applied immediately (fallback)
+        if (typeof document !== 'undefined') {
+            const html = document.documentElement
+            html.classList.remove('light', 'dark', 'night')
+            html.classList.add(nextTheme)
+            setCurrentTheme(nextTheme)
+        }
+    }
+    
+    const getThemeIcon = () => {
+        if (!mounted) return Sun
+        if (currentTheme === 'dark') return Moon
+        if (currentTheme === 'night') return MoonStar
+        return Sun
+    }
+    
+    const getThemeLabel = () => {
+        if (!mounted) return 'Switch to dark mode'
+        if (currentTheme === 'light') return 'Switch to dark mode'
+        if (currentTheme === 'dark') return 'Switch to night mode'
+        return 'Switch to light mode'
+    }
 
     const isActive = (href: string) => {
         if (pathname === href) return true
@@ -181,7 +271,7 @@ export function SiteHeader() {
                         })}
                     </nav>
                 </div>
-                <div className="flex flex-1 items-center justify-end ml-auto">
+                <div className="flex flex-1 items-center justify-end ml-auto gap-2">
                     <div ref={searchRef} className="relative w-full max-w-md">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                         <input
@@ -222,6 +312,23 @@ export function SiteHeader() {
                             </div>
                         )}
                     </div>
+                    <button
+                        onClick={handleThemeToggle}
+                        disabled={!mounted}
+                        className={cn(
+                            "inline-flex items-center justify-center rounded-md p-2 h-9 w-9",
+                            "text-foreground/60 hover:text-foreground hover:bg-accent",
+                            "transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+                            "disabled:opacity-50 disabled:cursor-not-allowed"
+                        )}
+                        aria-label={getThemeLabel()}
+                        title={getThemeLabel()}
+                    >
+                        {(() => {
+                            const Icon = getThemeIcon()
+                            return <Icon className="h-4 w-4" />
+                        })()}
+                    </button>
                 </div>
             </div>
         </header>
