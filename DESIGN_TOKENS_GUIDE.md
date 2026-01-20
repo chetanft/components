@@ -10,10 +10,12 @@ This document outlines the design tokens that have been applied to the component
 All components have been updated to use a centralized design token system that provides:
 
 - Consistent colors across all variants
-- Responsive typography scaling
-- Standardized spacing values
+- Responsive typography scaling (rem-based)
+- Standardized spacing values (px for precision, rem for scalability)
 - Border radius consistency  
 - Global CSS custom properties
+
+> **📐 Rem Unit Policy:** The design system uses **rem units** for typography and optional rem-based spacing. See [`docs/REM_POLICY.md`](./docs/REM_POLICY.md) for detailed guidelines on when to use rem vs px.
 
 ## How to Use
 
@@ -77,17 +79,47 @@ All design tokens are available as CSS custom properties:
 **Font Family:**
 - `--font-family-primary`: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif
 
+**Typography Tokens (Rem-Based - Responsive)**
+
+All typography uses rem units for responsive scaling. The root font-size is 14px (base) and scales to 16px at screens >1440px.
+
+| Token | Rem Value | Base (14px) | Scaled (16px) | Utility Class |
+|-------|-----------|-------------|---------------|---------------|
+| `--font-size-xs-rem` | `0.857rem` | 12px | 13.71px | `.text-xs-rem` |
+| `--font-size-sm-rem` | `1rem` | 14px | 16px | `.text-sm-rem` |
+| `--font-size-md-rem` | `1.143rem` | 16px | 18.29px | `.text-md-rem` |
+| `--font-size-lg-rem` | `1.429rem` | 20px | 22.86px | `.text-lg-rem` |
+| `--font-size-xl-rem` | `1.714rem` | 24px | 27.43px | `.text-xl-rem` |
+| `--font-size-xxl-rem` | `2rem` | 28px | 32px | `.text-xxl-rem` |
+
 **Typography Variants (Figma Spec)**
-- Title Primary: 28px / 140%, regular weight
-- Title Secondary: 24px / 140%, semibold
-- Display Primary: 20px / 140%, semibold
-- Button: 20px / 140%, medium with 0.0264px tracking
-- Body Primary: 16px / 140% (semibold, medium, italic, regular)
-- Body Secondary: 14px / 140% (semibold, medium, regular)
+- Title Primary: 28px → `2rem` (`.text-xxl-rem`) / 140%, regular weight
+- Title Secondary: 24px → `1.714rem` (`.text-xl-rem`) / 140%, semibold
+- Display Primary: 20px → `1.429rem` (`.text-lg-rem`) / 140%, semibold
+- Button: 20px → `1.429rem` (`.text-lg-rem`) / 140%, medium with 0.0264px tracking
+- Body Primary: 16px → `1.143rem` (`.text-md-rem`) / 140% (semibold, medium, italic, regular)
+- Body Secondary: 14px → `1rem` (`.text-sm-rem`) / 140% (semibold, medium, regular)
 
-### Spacing (Responsive)
+**Usage:**
+```tsx
+// ✅ Correct - Using rem utility class
+<Typography variant="body-primary-regular" className="text-md-rem">
+  Responsive text
+</Typography>
 
-Desktop spacing uses 4px base unit:
+// ✅ Correct - Using rem CSS variable
+<div style={{ fontSize: 'var(--font-size-md-rem)' }}>
+  Also responsive
+</div>
+```
+
+### Spacing (Hybrid: px for precision, rem for scalability)
+
+Spacing uses an 8-point grid system (4px base unit). Two token sets are available:
+
+**Pixel-Based Tokens (Precise Spacing)**
+Use for borders, icons, grid alignment, and other cases where pixel precision matters:
+
 - `--spacing-x0`: 0px
 - `--spacing-x1`: 4px
 - `--spacing-x2`: 8px
@@ -105,6 +137,50 @@ Desktop spacing uses 4px base unit:
 - `--spacing-x14`: 56px
 - `--spacing-x15`: 60px
 - `--spacing-x16`: 64px
+- `--spacing-x20`: 80px
+- `--spacing-x24`: 96px
+- `--spacing-x38`: 152px
+
+**Rem-Based Tokens (Scalable Spacing)**
+Use for component padding, margins between text elements, and other spacing that should scale with typography:
+
+- `--spacing-x0-rem`: 0rem
+- `--spacing-x1-rem`: 0.286rem (4px base, 4.57px scaled)
+- `--spacing-x2-rem`: 0.571rem (8px base, 9.14px scaled)
+- `--spacing-x3-rem`: 0.857rem (12px base, 13.71px scaled)
+- `--spacing-x4-rem`: 1.143rem (16px base, 18.29px scaled)
+- `--spacing-x5-rem`: 1.429rem (20px base, 22.86px scaled)
+- `--spacing-x6-rem`: 1.714rem (24px base, 27.43px scaled)
+- `--spacing-x7-rem`: 2rem (28px base, 32px scaled)
+- `--spacing-x8-rem`: 2.286rem (32px base, 36.57px scaled)
+- `--spacing-x9-rem`: 2.571rem (36px base, 41.14px scaled)
+- `--spacing-x10-rem`: 2.857rem (40px base, 45.71px scaled)
+- `--spacing-x11-rem`: 3.143rem (44px base, 50.29px scaled)
+- `--spacing-x12-rem`: 3.429rem (48px base, 54.86px scaled)
+- `--spacing-x13-rem`: 3.714rem (52px base, 59.43px scaled)
+- `--spacing-x14-rem`: 4rem (56px base, 64px scaled)
+- `--spacing-x15-rem`: 4.286rem (60px base, 68.57px scaled)
+- `--spacing-x16-rem`: 4.571rem (64px base, 73.14px scaled)
+- `--spacing-x20-rem`: 5.714rem (80px base, 91.43px scaled)
+- `--spacing-x24-rem`: 6.857rem (96px base, 109.71px scaled)
+- `--spacing-x38-rem`: 10.857rem (152px base, 173.71px scaled)
+
+**Decision Guide:**
+- **Use px tokens** (`--spacing-x4`) for: borders, icons, fixed layouts, grid alignment
+- **Use rem tokens** (`--spacing-x4-rem`) for: component padding, margins between text elements, spacing that should scale with typography
+
+**Usage:**
+```css
+/* Precise spacing (border) */
+.component {
+  border-width: var(--spacing-x1); /* 4px - fixed */
+}
+
+/* Scalable spacing (padding) */
+.component {
+  padding: var(--spacing-x4-rem); /* 1.143rem - scales with root font-size */
+}
+```
 
 ### Layout & Grid System
 
@@ -230,10 +306,20 @@ The design token system automatically handles responsive typography and spacing:
 ## Best Practices
 
 1. **Always use CSS custom properties** instead of hardcoded values
-2. **Use semantic color tokens** (critical, warning, positive, neutral) instead of specific colors
-3. **Follow the spacing scale** - use increments of the x-scale (x1, x2, x3, etc.)
-4. **Use built icons** from the icon system instead of external libraries
-5. **Test responsive behavior** across different screen sizes
+2. **Use rem units for typography** - all font sizes should use rem tokens or rem utility classes
+3. **Choose spacing units wisely** - use px tokens for precise spacing (borders, icons), rem tokens for typography-relative spacing (padding, margins)
+4. **Use semantic color tokens** (critical, warning, positive, neutral) instead of specific colors
+5. **Follow the spacing scale** - use increments of the x-scale (x1, x2, x3, etc.)
+6. **Use built icons** from the icon system instead of external libraries
+7. **Test responsive behavior** across different screen sizes and browser zoom levels
+8. **Respect accessibility** - rem units automatically respect browser zoom and OS font scaling
+
+## Rem Unit Policy
+
+For detailed guidelines on rem usage, scaling strategy, and cross-platform considerations, see:
+
+- **[Rem Policy Guide](./docs/REM_POLICY.md)** - Complete rem unit policy and best practices
+- **[Platform Mapping Guide](./docs/PLATFORM_MAPPING.md)** - Cross-platform unit conversion (Web, iOS, Android)
 
 ## Migration from Hardcoded Values
 

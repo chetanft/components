@@ -1,11 +1,11 @@
 {
   "$schema": "https://ft-design-system.dev/registry-schema.json",
   "name": "ft-design-system",
-  "version": "4.15.20",
+  "version": "4.15.21",
   "description": "Design system built from Figma designs using Code Connect",
   "repository": "https://github.com/chetanft/components.git",
   "license": "MIT",
-  "generatedAt": "2025-12-12T08:20:24.948Z",
+  "generatedAt": "2026-01-20T18:06:05.554Z",
   "coreDependencies": {
     "peer": [
       "react",

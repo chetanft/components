@@ -379,6 +379,49 @@
    --spacing-x24: var(--x24);
    --spacing-x38: var(--x38);
 
+   /* Spacing Rem Values - Responsive (base: 14px, scales to 16px at >1440px) */
+   /* Use for spacing that should scale with typography (padding, margins between text elements) */
+   --spacing-x0-rem: 0rem;
+   /* 0px / 14px */
+   --spacing-x1-rem: 0.286rem;
+   /* 4px / 14px */
+   --spacing-x2-rem: 0.571rem;
+   /* 8px / 14px */
+   --spacing-x3-rem: 0.857rem;
+   /* 12px / 14px */
+   --spacing-x4-rem: 1.143rem;
+   /* 16px / 14px */
+   --spacing-x5-rem: 1.429rem;
+   /* 20px / 14px */
+   --spacing-x6-rem: 1.714rem;
+   /* 24px / 14px */
+   --spacing-x7-rem: 2rem;
+   /* 28px / 14px */
+   --spacing-x8-rem: 2.286rem;
+   /* 32px / 14px */
+   --spacing-x9-rem: 2.571rem;
+   /* 36px / 14px */
+   --spacing-x10-rem: 2.857rem;
+   /* 40px / 14px */
+   --spacing-x11-rem: 3.143rem;
+   /* 44px / 14px */
+   --spacing-x12-rem: 3.429rem;
+   /* 48px / 14px */
+   --spacing-x13-rem: 3.714rem;
+   /* 52px / 14px */
+   --spacing-x14-rem: 4rem;
+   /* 56px / 14px */
+   --spacing-x15-rem: 4.286rem;
+   /* 60px / 14px */
+   --spacing-x16-rem: 4.571rem;
+   /* 64px / 14px */
+   --spacing-x20-rem: 5.714rem;
+   /* 80px / 14px */
+   --spacing-x24-rem: 6.857rem;
+   /* 96px / 14px */
+   --spacing-x38-rem: 10.857rem;
+   /* 152px / 14px */
+
    /* Table Header Height - Responsive */
    --table-header-height: var(--spacing-x10);
    /* 40px default */

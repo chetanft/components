@@ -436,7 +436,7 @@ export const designTokens = {
   },
 
   spacing: {
-    // 8-Point Grid System
+    // 8-Point Grid System (Pixel values - use for precise spacing)
     x0: '0px',
     x1: '4px',
     x2: '8px',
@@ -456,6 +456,31 @@ export const designTokens = {
     x16: '64px',
     x20: '80px',
     x24: '96px',
+    x38: '152px',
+    // Rem values (responsive - base: 14px, scales to 16px at >1440px)
+    // Use for spacing that should scale with typography
+    rem: {
+      x0: '0rem',        // 0px / 14px
+      x1: '0.286rem',    // 4px / 14px
+      x2: '0.571rem',    // 8px / 14px
+      x3: '0.857rem',    // 12px / 14px
+      x4: '1.143rem',    // 16px / 14px
+      x5: '1.429rem',    // 20px / 14px
+      x6: '1.714rem',    // 24px / 14px
+      x7: '2rem',        // 28px / 14px
+      x8: '2.286rem',    // 32px / 14px
+      x9: '2.571rem',    // 36px / 14px
+      x10: '2.857rem',   // 40px / 14px
+      x11: '3.143rem',   // 44px / 14px
+      x12: '3.429rem',   // 48px / 14px
+      x13: '3.714rem',   // 52px / 14px
+      x14: '4rem',       // 56px / 14px
+      x15: '4.286rem',   // 60px / 14px
+      x16: '4.571rem',   // 64px / 14px
+      x20: '5.714rem',   // 80px / 14px
+      x24: '6.857rem',   // 96px / 14px
+      x38: '10.857rem',  // 152px / 14px
+    },
   },
 
   borderRadius: {

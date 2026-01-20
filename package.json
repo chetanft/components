@@ -117,6 +117,8 @@
     "sync:doc-stories": "node scripts/sync-doc-stories.cjs",
     "audit:inventory": "npx tsx scripts/audit/inventory-components.ts",
     "audit:scan": "npx tsx scripts/audit/scan-composable-patterns.ts",
+    "audit:rem-spacing": "npx tsx scripts/audit-rem-spacing.ts",
+    "test:rem-scaling": "jest src/__tests__/rem-scaling.test.tsx",
     "build": "npm run sync:version && npm run validate:docs && npm run generate:token-reference && npm run generate:registry && rollup -c",
     "generate:registry": "node scripts/generate-registry.cjs",
     "generate:schema": "node scripts/generate-component-schema.cjs",
