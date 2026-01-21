@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Tooltip } from '../Tooltip';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipDescription } from '../Tooltip';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useSliderContext } from './SliderContext';
 
@@ -124,19 +124,20 @@ export const SliderThumb = React.forwardRef<HTMLDivElement, SliderThumbProps>(
       );
     }
     
-    if (showTooltip && tooltip) {
-      const tooltipContent = typeof tooltip === 'object' && tooltip.formatter
-        ? tooltip.formatter(value)
-        : value;
-      
-      return (
-        <Tooltip heading={String(tooltipContent)}>
-          {thumbContent}
-        </Tooltip>
-      );
-    }
+    const tooltipValue = typeof tooltip === 'object' && tooltip.formatter
+      ? tooltip.formatter(value)
+      : value;
     
-    return <>{thumbContent}</>;
+    return (
+      <Tooltip open={showTooltip && !!tooltip}>
+        <TooltipTrigger asChild>
+          {thumbContent}
+        </TooltipTrigger>
+        <TooltipContent>
+          <TooltipDescription>{String(tooltipValue)}</TooltipDescription>
+        </TooltipContent>
+      </Tooltip>
+    );
   }
 );
 

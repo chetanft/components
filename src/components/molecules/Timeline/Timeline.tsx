@@ -41,6 +41,11 @@ export interface TimelineItemProps extends ComposableProps<'li'> {
    */
   position?: 'left' | 'right';
   /**
+   * Whether to show the connector line to the next item
+   * @default false
+   */
+  showConnector?: boolean;
+  /**
    * Item children (for composable API)
    */
   children?: React.ReactNode;
@@ -104,6 +109,7 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
     label,
     pending = false,
     position,
+    showConnector = false,
     children,
     asChild,
     ...props
@@ -114,39 +120,39 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
     );
     
     const renderDot = () => {
-      if (React.isValidElement(dot)) {
-        return dot;
+      if (dot) {
+        return <TimelineDot color={color} icon={dot as any} />;
       }
 
-      if (typeof dot === 'string') {
-        return (
-          <Icon
-            name={dot as IconName}
-            size={16}
-            className={iconColorMap[color]}
-          />
-        );
-      }
-
-      // Default dot
-      return (
-        <div
-          className={cn(
-            "w-[var(--spacing-x2)] h-[var(--spacing-x2)] rounded-full border-2",
-            colorMap[color]
-          )}
-        />
-      );
+      return <TimelineDot color={color} />;
     };
+
+    const Connector = () => (
+      <div
+        className={cn(
+          "absolute w-px left-1/2 -translate-x-1/2",
+          pending
+            ? 'border-l-2 border-dashed border-[var(--color-border-primary)]'
+            : 'bg-[var(--color-border-primary)]'
+        )}
+        style={{
+          top: 'calc(var(--spacing-x3) + var(--spacing-x2))',
+          height: 'calc(100% - (var(--spacing-x3) + var(--spacing-x2)))',
+        }}
+      />
+    );
 
     // If using composable API, render with sub-components
     if (hasComposableChildren) {
         const Comp = asChild ? Slot : 'li';
+        const isReversed = position === 'right';
+        
         return (
             <Comp
                 ref={ref}
                 className={cn(
-                    "relative flex items-start gap-[var(--spacing-x3)]",
+                    "relative flex w-full",
+                    isReversed && "flex-row-reverse",
                     pending && "opacity-50",
                     className
                 )}
@@ -154,19 +160,30 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
                 data-pending={pending}
                 {...props}
             >
-                <div className="flex-shrink-0 mt-[var(--spacing-x1)]">
-                    {dot ? <TimelineDot color={color} icon={dot as any} /> : <TimelineDot color={color} />}
+                <div className={cn(
+                  "timeline-dot-container flex-shrink-0 w-[var(--spacing-x6)] flex flex-col justify-start items-center relative z-10"
+                )}>
+                    {showConnector && <Connector />}
+                    <div className="mt-[var(--spacing-x1)] flex items-center justify-center">
+                      {renderDot()}
+                    </div>
                 </div>
-                <TimelineContent>
-                    {children}
-                </TimelineContent>
-                {label && <TimelineLabel>{label}</TimelineLabel>}
+                <div className={cn(
+                    "flex-1 pb-[var(--spacing-x6)]",
+                    isReversed ? "pr-[var(--spacing-x3)] text-right" : "pl-[var(--spacing-x3)]"
+                )}>
+                    <TimelineContent>
+                        {children}
+                    </TimelineContent>
+                    {label && <TimelineLabel>{label}</TimelineLabel>}
+                </div>
             </Comp>
         );
     }
     
     // Otherwise use declarative API (deprecated)
     const Comp = asChild ? Slot : 'li';
+    const isReversed = position === 'right';
     // Cast children and label to exclude bigint which Slot doesn't accept
     const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
     const safeLabel = label as Exclude<React.ReactNode, bigint> | undefined;
@@ -175,20 +192,27 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
         <Comp
             ref={ref}
             className={cn(
-                "relative flex",
+                "relative flex w-full",
+                isReversed && "flex-row-reverse",
                 className
             )}
             data-position={position}
             data-pending={pending}
             {...props}
         >
-            {/* Timeline connector line - rendered by parent */}
-            <div className="timeline-dot-container flex items-start justify-center w-[var(--spacing-x6)] relative z-10">
-                <div className="mt-[var(--spacing-x1)]">
+            {/* Timeline connector line - rendered by parent in old version, now here */}
+            <div className="timeline-dot-container flex flex-col items-center justify-start w-[var(--spacing-x6)] relative z-10">
+                {showConnector && <Connector />}
+                <div className="mt-[var(--spacing-x1)] flex items-center justify-center">
                     {renderDot()}
                 </div>
             </div>
-            <div className="timeline-content flex-1 pb-[var(--spacing-x6)] pl-[var(--spacing-x3)]">
+            <div
+              className={cn(
+                "timeline-content flex-1 flex flex-col w-full pb-[var(--spacing-x6)]",
+                isReversed ? "pr-[var(--spacing-x3)] text-right" : "pl-[var(--spacing-x3)]"
+              )}
+            >
                 {safeChildren}
             </div>
             {safeLabel && (
@@ -255,10 +279,12 @@ export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
       const itemPosition = child.props.position || position;
       const isLast = index === items.length - 1;
       const isPending = child.props.pending || (pending && isLast);
+      const showConnector = !isLast;
 
       return React.cloneElement(child, {
         position: itemPosition,
         pending: isPending,
+        showConnector,
       } as Partial<TimelineItemProps>);
     });
 
@@ -267,7 +293,7 @@ export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
       <Comp
         ref={ref}
         className={cn(
-          "relative list-none p-0 m-0",
+          "relative list-none p-0 m-0 flex flex-col",
           mode === 'alternate' && 'timeline-alternate',
           mode === 'right' && 'timeline-right',
           className
@@ -278,55 +304,50 @@ export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
         {processedItems.map((child, index) => {
           if (!React.isValidElement<TimelineItemProps>(child)) return child;
 
-          const isLast = index === processedItems.length - 1;
-          const isPending = child.props.pending;
           const position = child.props.position || 'left';
 
           // Wrapper for positioning
+          const labelNode = mode === 'alternate' && child.props.label ? (
+            <div
+              className={cn(
+                "flex-1 text-[var(--color-tertiary)] pt-[var(--spacing-x1)]",
+                position === 'left'
+                  ? 'text-left pl-[var(--spacing-x3)]'
+                  : 'text-right pr-[var(--spacing-x3)]'
+              )}
+            >
+              <Typography variant="body-secondary-regular">
+                {child.props.label}
+              </Typography>
+            </div>
+          ) : null;
+
+          const contentNode = (
+            <div className={cn(mode === 'alternate' && 'flex-1')}>
+              {child}
+            </div>
+          );
+
           return (
             <div
               key={child.key || index}
               className={cn(
-                "relative",
-                mode === 'alternate' && position === 'right' && 'flex flex-row-reverse',
-                mode === 'right' && 'flex flex-row-reverse'
+                "relative flex",
+                mode === 'right' && 'flex-row-reverse'
               )}
             >
-              {/* Connector line */}
-              {!isLast && (
-                <div
-                  className={cn(
-                    "absolute top-[var(--spacing-x3)] w-px h-[calc(100%-var(--spacing-x3))]",
-                    mode === 'left' && 'left-[calc(var(--spacing-x3)-var(--spacing-x1))]',
-                    mode === 'right' && 'right-[calc(var(--spacing-x3)-var(--spacing-x1))]',
-                    mode === 'alternate' && position === 'left' && 'left-[calc(var(--spacing-x3)-var(--spacing-x1))]',
-                    mode === 'alternate' && position === 'right' && 'right-[calc(var(--spacing-x3)-var(--spacing-x1))]',
-                    isPending
-                      ? 'border-l-2 border-dashed border-[var(--color-border-primary)]'
-                      : 'bg-[var(--color-border-primary)]'
-                  )}
-                />
-              )}
-              {/* Label for alternate mode */}
-              {mode === 'alternate' && child.props.label && (
-                <div
-                  className={cn(
-                    "flex-1 text-[var(--color-tertiary)] pt-[var(--spacing-x1)]",
-                    position === 'left' ? 'text-right pr-[var(--spacing-x3)]' : 'text-left pl-[var(--spacing-x3)]'
-                  )}
-                >
-                  <Typography variant="body-secondary-regular">
-                    {child.props.label}
-                  </Typography>
-                </div>
-              )}
-              {/* Content wrapper */}
-              <div className={cn(mode === 'alternate' && 'flex-1')}>
-                {child}
-              </div>
-              {/* Empty spacer for alternate mode */}
-              {mode === 'alternate' && !child.props.label && (
-                <div className="flex-1" />
+              {/* Connector line removed - now in TimelineItem */}
+              {mode === 'alternate' ? (
+                <>
+                  {position === 'left' ? contentNode : labelNode}
+                  {position === 'left' ? labelNode : contentNode}
+                  {!child.props.label && <div className="flex-1" />}
+                </>
+              ) : (
+                <>
+                  {labelNode}
+                  {contentNode}
+                </>
               )}
             </div>
           );

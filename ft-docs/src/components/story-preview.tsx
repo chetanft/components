@@ -10,6 +10,7 @@ import { Highlight, themes } from "prism-react-renderer";
 import { extractStorySource } from "@/lib/story-source";
 import { getStorySource } from "@/app/actions/get-story-source";
 import { UserProfile } from "@/registry";
+import { useTheme } from "next-themes";
 
 interface StoryPreviewProps {
   /** The story definition to render */
@@ -35,10 +36,18 @@ export function StoryPreview({
   className,
   showName = true,
 }: StoryPreviewProps) {
+  const { theme, resolvedTheme } = useTheme();
   const [view, setView] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
   const [storySource, setStorySource] = useState<string | null>(null);
   const resolvedComponentName = componentName || meta.component?.displayName || meta.component?.name;
+
+  const currentTheme = resolvedTheme || theme || "light";
+  const isDark = currentTheme === "dark" || currentTheme === "night";
+
+  // Use a prism theme that matches the mode
+  // Using nightOwl for dark/night and github for light
+  const prismTheme = isDark ? themes.nightOwl : themes.github;
 
   // Merge default args with story args
   const mergedArgs = useMemo(() => {
@@ -342,19 +351,24 @@ export function StoryPreview({
         )}
 
         {view === "code" && (
-          <div className="relative overflow-x-auto">
-            <Highlight theme={themes.nightOwl} code={codeString} language="tsx">
+          <div className="relative overflow-x-auto bg-[var(--bg-secondary)]">
+            <Highlight theme={prismTheme} code={codeString} language="tsx">
               {({ className, style, tokens, getLineProps, getTokenProps }) => {
                 const isSingleLine = tokens.length === 1;
                 return (
                   <pre
                     className={cn(className, "p-4 text-sm font-mono overflow-x-auto")}
-                    style={{ ...style, margin: 0, borderRadius: 0 }}
+                    style={{ 
+                      ...style, 
+                      margin: 0, 
+                      borderRadius: 0,
+                      backgroundColor: "transparent" // Let the container handle the background
+                    }}
                   >
                     {tokens.map((line, i) => (
                       <div key={i} {...getLineProps({ line })}>
                         {!isSingleLine && (
-                          <span className="select-none text-gray-500 w-8 inline-block text-right mr-4 text-xs">
+                          <span className="select-none opacity-50 w-8 inline-block text-right mr-4 text-xs">
                             {i + 1}
                           </span>
                         )}

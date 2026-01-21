@@ -125,6 +125,16 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   trailingIconClassName?: string;
   
   /**
+   * Additional CSS classes for InputField wrapper div
+   */
+  wrapperClassName?: string;
+  
+  /**
+   * Additional inline styles for InputField wrapper div
+   */
+  wrapperStyle?: React.CSSProperties;
+  
+  /**
    * Input size
    * @default 'md'
    * 

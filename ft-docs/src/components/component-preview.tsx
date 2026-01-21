@@ -247,7 +247,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                     )}
 
                     {view === "code" && (
-                        <div className="relative bg-muted/50 p-4">
+                        <div className="relative bg-[var(--bg-secondary)] p-4">
                             <LiveEditor
                                 className="font-mono text-sm"
                                 disabled

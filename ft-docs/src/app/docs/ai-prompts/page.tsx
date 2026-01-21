@@ -222,11 +222,11 @@ Use FT Design System for all UI components.
                 </div>
                 <div
                     className="relative rounded-lg border overflow-hidden"
-                    style={{ backgroundColor: 'var(--primary-900)', borderColor: 'var(--border-primary)' }}
+                    style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-primary)' }}
                 >
                     <pre
                         className="p-4 overflow-x-auto font-mono max-h-[500px] overflow-y-auto"
-                        style={{ fontSize: 'var(--font-size-xs-rem)', color: 'var(--tertiary-0)' }}
+                        style={{ fontSize: 'var(--font-size-xs-rem)', color: 'var(--primary)' }}
                     >
                         {getActiveContent()}
                     </pre>

@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
-import { Tooltip } from '../Tooltip';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipDescription } from '../Tooltip';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { SliderProvider } from './SliderContext';
 import { SliderTrack } from './SliderTrack';
@@ -420,19 +420,20 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         />
       );
 
-      if (showTooltip && tooltip) {
-        const tooltipContent = typeof tooltip === 'object' && tooltip.formatter
-          ? tooltip.formatter(value)
-          : value;
+      const tooltipValue = typeof tooltip === 'object' && tooltip.formatter
+        ? tooltip.formatter(value)
+        : value;
 
-        return (
-          <Tooltip heading={String(tooltipContent)}>
+      return (
+        <Tooltip open={showTooltip && !!tooltip}>
+          <TooltipTrigger asChild>
             {handle}
-          </Tooltip>
-        );
-      }
-
-      return handle;
+          </TooltipTrigger>
+          <TooltipContent>
+            <TooltipDescription>{String(tooltipValue)}</TooltipDescription>
+          </TooltipContent>
+        </Tooltip>
+      );
     };
     
     const Comp = asChild ? Slot : 'div';

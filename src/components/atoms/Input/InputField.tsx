@@ -33,6 +33,14 @@ export interface InputFieldProps extends Omit<ComposableProps<'input'>, 'size'> 
    * Additional CSS classes for trailing icon container
    */
   trailingIconClassName?: string;
+  /**
+   * Additional CSS classes for the wrapper div
+   */
+  wrapperClassName?: string;
+  /**
+   * Additional inline styles for the wrapper div
+   */
+  wrapperStyle?: React.CSSProperties;
 }
 
 /**
@@ -68,6 +76,8 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     trailingIconSize,
     leadingIconClassName,
     trailingIconClassName,
+    wrapperClassName,
+    wrapperStyle,
     asChild,
     disabled,
     ...props
@@ -135,7 +145,7 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       // When asChild is true, merge props with child element
       // Note: Icon handling is complex with asChild, so we render the wrapper structure
       return (
-        <div className="relative">
+        <div className={cn("relative", wrapperClassName)} style={wrapperStyle}>
           {leadingIcon && (
             <div className={cn(
               "absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none",
@@ -211,7 +221,7 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     }
 
     return (
-      <div className="relative">
+      <div className={cn("relative", wrapperClassName)} style={wrapperStyle}>
         {leadingIcon && (
           <div className={cn(
             "absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none",

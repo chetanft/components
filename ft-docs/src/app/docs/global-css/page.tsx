@@ -747,7 +747,7 @@ export default function GlobalCSSPage() {
                 <div
                     className="relative rounded-lg border overflow-hidden"
                     style={{
-                        backgroundColor: 'var(--primary-900)',
+                        backgroundColor: 'var(--bg-secondary)',
                         borderColor: 'var(--border-primary)'
                     }}
                 >
@@ -756,16 +756,16 @@ export default function GlobalCSSPage() {
                             onClick={copyToClipboard}
                             className="inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors"
                             style={{
-                                backgroundColor: 'var(--primary-800)',
-                                color: 'var(--tertiary-300)'
+                                backgroundColor: 'var(--bg-primary)',
+                                color: 'var(--secondary)'
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.backgroundColor = 'var(--primary-700)';
-                                e.currentTarget.style.color = 'var(--tertiary-0)';
+                                e.currentTarget.style.backgroundColor = 'var(--border-secondary)';
+                                e.currentTarget.style.color = 'var(--primary)';
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.backgroundColor = 'var(--primary-800)';
-                                e.currentTarget.style.color = 'var(--tertiary-300)';
+                                e.currentTarget.style.backgroundColor = 'var(--bg-primary)';
+                                e.currentTarget.style.color = 'var(--secondary)';
                             }}
                             title="Copy to clipboard"
                         >
@@ -780,7 +780,7 @@ export default function GlobalCSSPage() {
                         className="p-4 overflow-x-auto font-mono max-h-[600px] overflow-y-auto"
                         style={{
                             fontSize: 'var(--font-size-sm-rem)',
-                            color: 'var(--tertiary-0)'
+                            color: 'var(--primary)'
                         }}
                     >
                         <code>{globalCssContent}</code>
@@ -801,8 +801,8 @@ export default function GlobalCSSPage() {
                             className="rounded-md p-3 font-mono overflow-x-auto"
                             style={{
                                 fontSize: 'var(--font-size-sm-rem)',
-                                backgroundColor: 'var(--primary-900)',
-                                color: 'var(--tertiary-0)'
+                                backgroundColor: 'var(--bg-secondary)',
+                                color: 'var(--primary)'
                             }}
                         >
                             {`.my-component {
@@ -820,8 +820,8 @@ export default function GlobalCSSPage() {
                             className="rounded-md p-3 font-mono overflow-x-auto"
                             style={{
                                 fontSize: 'var(--font-size-sm-rem)',
-                                backgroundColor: 'var(--primary-900)',
-                                color: 'var(--tertiary-0)'
+                                backgroundColor: 'var(--bg-secondary)',
+                                color: 'var(--primary)'
                             }}
                         >
                             {`<div class="text-primary bg-neutral border-warning">
@@ -835,8 +835,8 @@ export default function GlobalCSSPage() {
                             className="rounded-md p-3 font-mono overflow-x-auto"
                             style={{
                                 fontSize: 'var(--font-size-sm-rem)',
-                                backgroundColor: 'var(--primary-900)',
-                                color: 'var(--tertiary-0)'
+                                backgroundColor: 'var(--bg-secondary)',
+                                color: 'var(--primary)'
                             }}
                         >
                             {`<!-- Light mode (default) -->
@@ -855,8 +855,8 @@ export default function GlobalCSSPage() {
                             className="rounded-md p-3 font-mono overflow-x-auto"
                             style={{
                                 fontSize: 'var(--font-size-sm-rem)',
-                                backgroundColor: 'var(--primary-900)',
-                                color: 'var(--tertiary-0)'
+                                backgroundColor: 'var(--bg-secondary)',
+                                color: 'var(--primary)'
                             }}
                         >
                             {`/* Tailwind classes (recommended for components) */

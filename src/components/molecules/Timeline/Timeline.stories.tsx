@@ -65,7 +65,7 @@ export const WithColors: Story = {
 export const WithCustomIcons: Story = {
   render: () => (
     <Timeline>
-      <TimelineItem dot="check-circle" color="success">
+      <TimelineItem dot="check" color="success">
         <p className="font-medium">Step 1: Order Placed</p>
         <p className="text-sm text-[var(--color-tertiary)]">2015-09-01 09:12:11</p>
       </TimelineItem>
@@ -136,14 +136,14 @@ export const Reversed: Story = {
 export const ComplexContent: Story = {
   render: () => (
     <Timeline>
-      <TimelineItem color="success" dot="check-circle">
+      <TimelineItem color="success" dot="check">
         <div className="bg-[var(--color-bg-secondary)] p-4 rounded-lg">
           <h4 className="font-medium text-[var(--color-primary)]">Application Submitted</h4>
           <p className="text-sm text-[var(--color-secondary)] mt-1">Your application has been received and is being processed.</p>
           <p className="text-xs text-[var(--color-tertiary)] mt-2">September 1, 2015 at 9:12 AM</p>
         </div>
       </TimelineItem>
-      <TimelineItem color="success" dot="check-circle">
+      <TimelineItem color="success" dot="check">
         <div className="bg-[var(--color-bg-secondary)] p-4 rounded-lg">
           <h4 className="font-medium text-[var(--color-primary)]">Documents Verified</h4>
           <p className="text-sm text-[var(--color-secondary)] mt-1">All required documents have been verified successfully.</p>
@@ -166,14 +166,14 @@ export const ComposableBasic: Story = {
   render: () => (
     <Timeline>
       <TimelineItem>
-        <TimelineDot color="success" icon="check-circle" />
+        <TimelineDot color="success" icon="check" />
         <TimelineContent>
           <TimelineLabel>2015-09-01</TimelineLabel>
           <p>Create a services site</p>
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
-        <TimelineDot color="success" icon="check-circle" />
+        <TimelineDot color="success" icon="check" />
         <TimelineContent>
           <TimelineLabel>2015-09-02</TimelineLabel>
           <p>Solve initial network problems</p>
@@ -194,7 +194,7 @@ export const ComposableAlternate: Story = {
   render: () => (
     <Timeline mode="alternate">
       <TimelineItem>
-        <TimelineDot color="success" icon="check-circle" />
+        <TimelineDot color="success" icon="check" />
         <TimelineContent>
           <TimelineLabel>2015-09-01</TimelineLabel>
           <p className="font-medium">Application Submitted</p>
@@ -202,7 +202,7 @@ export const ComposableAlternate: Story = {
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
-        <TimelineDot color="success" icon="check-circle" />
+        <TimelineDot color="success" icon="check" />
         <TimelineContent>
           <TimelineLabel>2015-09-02</TimelineLabel>
           <p className="font-medium">Documents Verified</p>
@@ -225,7 +225,7 @@ export const ComposableWithCustomContent: Story = {
   render: () => (
     <Timeline>
       <TimelineItem>
-        <TimelineDot color="success" icon="check-circle" />
+        <TimelineDot color="success" icon="check" />
         <TimelineContent>
           <div className="bg-[var(--color-bg-secondary)] p-4 rounded-lg">
             <h4 className="font-medium text-[var(--color-primary)]">Order Placed</h4>

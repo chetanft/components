@@ -32,6 +32,13 @@ const blocks = [
     category: "Listing",
     preview: "/blocks/my-journeys-01",
   },
+  {
+    id: "formula-builder-01",
+    title: "Formula Builder",
+    description: "An interactive formula builder with rule-based dropdown menus for variables, functions, and operators",
+    category: "Forms",
+    preview: "/blocks/formula-builder-01",
+  },
 ]
 
 export default function BlocksPage() {

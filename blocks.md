@@ -907,20 +907,14 @@ type FormulaState = 'empty' | 'formula-input' | 'with-conditions';
 
 type FormulaTokenKind = 'value' | 'operator';
 
-type TokenType = 'value' | 'operator' | 'functionStart' | 'functionEnd' | 'comma' | 'parenOpen' | 'parenClose';
-
 interface FormulaToken {
   id: string;
   kind: FormulaTokenKind;
   label: string;
-  expressionValue: string; // Actual value for formula generation (e.g., "*" instead of "×")
-  tokenType: TokenType; // Type for expression parsing
   valueType?: 'charge' | 'dimension' | 'percentage' | 'constant' | 'function' | 'operator';
   meta?: {
     percentageValue?: string;
     percentageTarget?: string;
-    functionType?: 'wrapper' | 'aggregator';
-    functionName?: string;
   };
 }
 
@@ -950,7 +944,7 @@ interface ElseBlockData {
 
 const VALUE_PICKER_CATEGORIES = [
   { id: 'charges', label: 'Charges' },
-  { id: 'percentage-of-charge', label: 'Percentage of Value' },
+  { id: 'percentage-of-charge', label: 'Percentage of Charge' },
   { id: 'dimensions', label: 'Dimensions' },
   { id: 'percentage-of-dimensions', label: 'Percentage of Dimensions' },
   { id: 'constant', label: 'Constant' },
@@ -984,21 +978,13 @@ const NUMERIC_DIMENSIONS = [
   { value: 'quantity', label: 'Quantity' },
 ];
 
-// Wrapper functions (1-arg): wrap previous value token
-const WRAPPER_FUNCTIONS = [
+const FUNCTION_OPTIONS = [
+  { value: 'MAX', label: 'MAX( , )' },
+  { value: 'MIN', label: 'MIN( , )' },
   { value: 'ABS', label: 'ABS( )' },
   { value: 'CEIL', label: 'CEIL( )' },
   { value: 'FLOOR', label: 'FLOOR( )' },
 ];
-
-// Aggregator functions (multi-arg): need argument builder UI
-const AGGREGATOR_FUNCTIONS = [
-  { value: 'MAX', label: 'MAX( , )' },
-  { value: 'MIN', label: 'MIN( , )' },
-];
-
-// Combined for display in value picker
-const FUNCTION_OPTIONS = [...WRAPPER_FUNCTIONS, ...AGGREGATOR_FUNCTIONS];
 
 // Variable options for condition dropdowns
 const CONDITION_VARIABLES = [
@@ -1076,81 +1062,13 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
   const [isDirty, setIsDirty] = useState(false);
   const [isValid, setIsValid] = useState<boolean | null>(null);
 
-  // Formula data - will be migrated in useEffect after getTokenExpressionData is defined
+  // Formula data
   const [formulaTokens, setFormulaTokens] = useState<FormulaToken[]>(
     initialData?.formula?.tokens || []
   );
-  // Generate proper formula expression from tokens
-  const generateExpression = useCallback((tokens: FormulaToken[]): string => {
-    if (tokens.length === 0) return '';
-    
-    const parts: string[] = [];
-    let inFunction = false;
-    let functionArgCount = 0;
-    
-    for (let i = 0; i < tokens.length; i++) {
-      const token = tokens[i];
-      const prevToken = i > 0 ? tokens[i - 1] : null;
-      
-      switch (token.tokenType) {
-        case 'functionStart':
-          inFunction = true;
-          functionArgCount = 0;
-          parts.push(token.expressionValue);
-          break;
-          
-        case 'functionEnd':
-          inFunction = false;
-          parts.push(token.expressionValue);
-          break;
-          
-        case 'comma':
-          if (inFunction) {
-            parts.push(token.expressionValue);
-          }
-          break;
-          
-        case 'parenOpen':
-          parts.push(token.expressionValue);
-          break;
-          
-        case 'parenClose':
-          parts.push(token.expressionValue);
-          break;
-          
-        case 'operator':
-          // Add space before operator if previous wasn't opening paren
-          if (prevToken && prevToken.tokenType !== 'parenOpen' && prevToken.tokenType !== 'functionStart') {
-            parts.push(' ');
-          }
-          parts.push(token.expressionValue);
-          // Add space after operator if next isn't closing paren
-          const nextToken = i < tokens.length - 1 ? tokens[i + 1] : null;
-          if (nextToken && nextToken.tokenType !== 'parenClose' && nextToken.tokenType !== 'functionEnd') {
-            parts.push(' ');
-          }
-          break;
-          
-        case 'value':
-          // Add space before value if previous wasn't opening paren or function start
-          if (prevToken && 
-              prevToken.tokenType !== 'parenOpen' && 
-              prevToken.tokenType !== 'functionStart' &&
-              prevToken.tokenType !== 'comma' &&
-              prevToken.tokenType !== 'operator') {
-            parts.push(' ');
-          }
-          parts.push(token.expressionValue);
-          break;
-      }
-    }
-    
-    return parts.join('');
-  }, []);
-
   const formulaExpression = useMemo(
-    () => generateExpression(formulaTokens),
-    [formulaTokens, generateExpression]
+    () => formulaTokens.map((token) => token.label).join(' '),
+    [formulaTokens]
   );
   
   // Conditions (only used when state is 'with-conditions')
@@ -1161,38 +1079,24 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     initialData?.elseBlock || { value: '0' }
   );
 
-  // Picker state machine
-  type PickerMode = 
-    | 'none'
-    | 'valueCategory'      // Level 1: Categories
-    | 'valueOptions'       // Level 2: Specific options
-    | 'valueInline'        // Inline input (percentage, constant)
-    | 'operator'
-    | 'condition'
-    | 'tokenEdit';
-
-  const [pickerMode, setPickerMode] = useState<PickerMode>('none');
+  // UI state
+  const [showValuePicker, setShowValuePicker] = useState(false);
+  const [showOperatorPicker, setShowOperatorPicker] = useState(false);
   const [activeValueCategory, setActiveValueCategory] = useState<string | null>(null);
-  const [selectedVariableType, setSelectedVariableType] = useState<string | null>(null);
   const [activeSubDropdown, setActiveSubDropdown] = useState<string | null>(null);
-  
-  // Separate position states for each picker type
-  const [pickerPositions, setPickerPositions] = useState<{
-    valueCategory?: { top: number; left: number }
-    valueOptions?: { top: number; left: number }
-    operator?: { top: number; left: number }
-    condition?: { top: number; left: number }
-    tokenEdit?: { top: number; left: number }
-  }>({});
-
-  // Percentage and constant values
+  const [subDropdownPosition, setSubDropdownPosition] = useState<{ top: number; left: number } | null>(null);
   const [percentageOfChargeValue, setPercentageOfChargeValue] = useState('0');
   const [percentageOfChargeTarget, setPercentageOfChargeTarget] = useState<string>('');
   const [percentageOfDimensionValue, setPercentageOfDimensionValue] = useState('0');
   const [percentageOfDimensionTarget, setPercentageOfDimensionTarget] = useState<string>('');
   const [constantValue, setConstantValue] = useState('50');
-  
-  // Condition dropdown state
+  // Two-step dropdown state
+  const [selectedVariableType, setSelectedVariableType] = useState<string | null>(null);
+  const [showVariableTypeDropdown, setShowVariableTypeDropdown] = useState(false);
+  const [showSpecificOptionsDropdown, setShowSpecificOptionsDropdown] = useState(false);
+  const [showInlinePercentageOfCharge, setShowInlinePercentageOfCharge] = useState(false);
+  const [isOptionsListOpen, setIsOptionsListOpen] = useState(false);
+  const [specificOptionsDropdownPosition, setSpecificOptionsDropdownPosition] = useState<{ top: number; left: number } | null>(null);
   const [activeConditionDropdown, setActiveConditionDropdown] = useState<{
     blockId: string;
     conditionId: string;
@@ -1202,36 +1106,10 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     blockId: string;
     conditionId: string;
   } | null>(null);
+  const [popoverPosition, setPopoverPosition] = useState<{ top: number; left: number } | null>(null);
   const [editingTokenId, setEditingTokenId] = useState<string | null>(null);
-  // State for editing specific token types
-  const [editingPercentageValue, setEditingPercentageValue] = useState('');
-  const [editingPercentageTarget, setEditingPercentageTarget] = useState('');
-  const [editingConstantValue, setEditingConstantValue] = useState('');
-
-  // Helper functions to set picker mode and position
-  const setPickerModeAndPosition = useCallback((
-    mode: PickerMode,
-    position?: { top: number; left: number }
-  ) => {
-    setPickerMode(mode);
-    if (position) {
-      setPickerPositions(prev => ({
-        ...prev,
-        [mode === 'valueCategory' ? 'valueCategory' :
-         mode === 'valueOptions' ? 'valueOptions' :
-         mode === 'operator' ? 'operator' :
-         mode === 'condition' ? 'condition' :
-         mode === 'tokenEdit' ? 'tokenEdit' : 'valueCategory']: position
-      }));
-    }
-  }, []);
-
-  const closePicker = useCallback(() => {
-    setPickerMode('none');
-    setActiveValueCategory(null);
-    setSelectedVariableType(null);
-    setActiveSubDropdown(null);
-  }, []);
+  const [tokenDropdownPosition, setTokenDropdownPosition] = useState<{ top: number; left: number } | null>(null);
+  const [variableTypeDropdownPosition, setVariableTypeDropdownPosition] = useState<{ top: number; left: number } | null>(null);
 
   // Refs
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
@@ -1257,52 +1135,6 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     };
   }, []);
 
-  // Migrate old tokens to new format (add expressionValue and tokenType if missing)
-  useEffect(() => {
-    if (formulaTokens.length === 0) return;
-    
-    const needsMigration = formulaTokens.some((token: any) => {
-      const hasExpressionValue = 'expressionValue' in token;
-      const hasTokenType = 'tokenType' in token;
-      return !hasExpressionValue || !hasTokenType;
-    });
-    
-    if (needsMigration) {
-      const migratedTokens: FormulaToken[] = formulaTokens.map((token: any) => {
-        const hasExpressionValue = 'expressionValue' in token;
-        const hasTokenType = 'tokenType' in token;
-        
-        if (hasExpressionValue && hasTokenType) {
-          return token as FormulaToken;
-        }
-        
-        const { expressionValue, tokenType } = getTokenExpressionData(
-          token.label || '', 
-          token.valueType, 
-          token.meta
-        );
-        
-        return {
-          id: token.id || `token-${Date.now()}`,
-          kind: token.kind || 'value',
-          label: token.label || '',
-          expressionValue,
-          tokenType,
-          valueType: token.valueType,
-          meta: token.meta,
-        };
-      });
-      setFormulaTokens(migratedTokens);
-    }
-  }, []); // Only run once on mount
-
-  // Computed values for backward compatibility (derived from pickerMode)
-  const showValuePicker = pickerMode === 'valueCategory' || pickerMode === 'valueOptions';
-  const showOperatorPicker = pickerMode === 'operator';
-  const showVariableTypeDropdown = pickerMode === 'valueCategory';
-  const showSpecificOptionsDropdown = pickerMode === 'valueOptions';
-  const showInlinePercentageOfCharge = pickerMode === 'valueInline' && activeValueCategory === 'percentage-of-charge';
-
   // Auto-insert percentage of charge token when both value and charge are selected
   const prevPercentageRef = useRef<string>('');
   useEffect(() => {
@@ -1323,18 +1155,14 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           
           if (!alreadyExists && prevPercentageRef.current !== currentLabel) {
             prevPercentageRef.current = currentLabel;
-            const meta = { percentageValue: percentageOfChargeValue, percentageTarget: percentageOfChargeTarget };
-            const { expressionValue, tokenType } = getTokenExpressionData(currentLabel, 'percentage', meta);
             setFormulaTokens([
               ...formulaTokens,
               { 
                 id: `token-${Date.now()}`, 
                 kind: 'value', 
-                label: currentLabel,
-                expressionValue,
-                tokenType,
+                label: currentLabel, 
                 valueType: 'percentage',
-                meta
+                meta: { percentageValue: percentageOfChargeValue, percentageTarget: percentageOfChargeTarget }
               },
             ]);
             setState('formula-input');
@@ -1358,54 +1186,48 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
-      
-      // Check value picker dropdowns
-      if ((pickerMode === 'valueCategory' || pickerMode === 'valueOptions') && dropdownRef && !dropdownRef.contains(target)) {
-        if (addButtonRef.current && !addButtonRef.current.contains(target)) {
-          closePicker();
-          setConditionValueTarget(null);
-        }
+      if (showValuePicker && dropdownRef && !dropdownRef.contains(target)) {
+        setShowValuePicker(false);
+        setActiveValueCategory(null);
+        setConditionValueTarget(null);
       }
-      
-      // Check operator picker
-      if (pickerMode === 'operator' && popoverRef && !popoverRef.contains(target)) {
-        closePicker();
+      if (showOperatorPicker && popoverRef && !popoverRef.contains(target)) {
+        setShowOperatorPicker(false);
       }
-      
-      // Check condition dropdown
       if (activeConditionDropdown && dropdownRef && !dropdownRef.contains(target)) {
         setActiveConditionDropdown(null);
       }
-      
-      // Check token edit dropdown
-      if (pickerMode === 'tokenEdit' && tokenDropdownRef && !tokenDropdownRef.contains(target)) {
+      if (editingTokenId && tokenDropdownRef && !tokenDropdownRef.contains(target)) {
         setEditingTokenId(null);
-        setPickerMode('none');
-        setPickerPositions(prev => ({ ...prev, tokenEdit: undefined }));
+        setTokenDropdownPosition(null);
       }
-      
-      // Check sub dropdown
       if (activeSubDropdown && subDropdownRef && !subDropdownRef.contains(target)) {
         setActiveSubDropdown(null);
+        setSubDropdownPosition(null);
+      }
+      if (showVariableTypeDropdown && variableTypeDropdownRef.current && !variableTypeDropdownRef.current.contains(target) && addButtonRef.current && !addButtonRef.current.contains(target)) {
+        setShowVariableTypeDropdown(false);
+        setVariableTypeDropdownPosition(null);
+      }
+      if (isOptionsListOpen && 
+          specificOptionsDropdownRef.current && !specificOptionsDropdownRef.current.contains(target) && 
+          specificOptionsPlaceholderRef.current && !specificOptionsPlaceholderRef.current.contains(target) &&
+          addButtonRef.current && !addButtonRef.current.contains(target)) {
+        setIsOptionsListOpen(false);
+        setSpecificOptionsDropdownPosition(null);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [pickerMode, activeConditionDropdown, editingTokenId, activeSubDropdown, dropdownRef, popoverRef, tokenDropdownRef, subDropdownRef, addButtonRef, closePicker]);
-
-  // Helper to get operator label from value
-  const getOperatorLabel = useCallback((value: string): string => {
-    const operator = CONDITION_OPERATORS.find(op => op.value === value);
-    return operator?.label || value;
-  }, []);
+  }, [showValuePicker, showOperatorPicker, activeConditionDropdown, editingTokenId, activeSubDropdown, showVariableTypeDropdown, isOptionsListOpen, dropdownRef, popoverRef, tokenDropdownRef, subDropdownRef, specificOptionsDropdownRef, specificOptionsPlaceholderRef]);
 
   // Generate formula display text for header
   const formatConditionValue = useCallback((condition: ConditionRow) => {
     const operator = condition.operator || '>';
-    if (operator === 'between') {
+    if (operator === 'BETWEEN') {
       return `${condition.value || '…'} AND ${condition.valueTo || '…'}`;
     }
-    if (operator === 'in' || operator === 'not-in') {
+    if (operator === 'IN' || operator === 'NOT IN') {
       return `(${condition.value || '…'})`;
     }
     return condition.value || '…';
@@ -1425,8 +1247,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         const conditionText = ifBlock.conditions.map((c, i) => {
           const varLabel = CONDITION_VARIABLES.find(v => v.value === c.variable)?.label || c.variable;
           const prefix = i > 0 ? ` ${c.logicalOperator || 'And'} ` : '';
-          const operatorLabel = getOperatorLabel(c.operator || '>');
-          return `${prefix}${varLabel} ${operatorLabel} ${formatConditionValue(c)}`;
+          return `${prefix}${varLabel} ${c.operator || '>'} ${formatConditionValue(c)}`;
         }).join('');
         text += `, If ${conditionText}`;
       }
@@ -1437,8 +1258,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           const conditionText = block.conditions.map((c, i) => {
             const varLabel = CONDITION_VARIABLES.find(v => v.value === c.variable)?.label || c.variable;
             const prefix = i > 0 ? ` ${c.logicalOperator || 'And'} ` : '';
-            const operatorLabel = getOperatorLabel(c.operator || '>');
-            return `${prefix}${varLabel} ${operatorLabel} ${formatConditionValue(c)}`;
+            return `${prefix}${varLabel} ${c.operator || '>'} ${formatConditionValue(c)}`;
           }).join('');
           text += `, Else If ${conditionText}`;
         }
@@ -1448,179 +1268,45 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     }
 
     return text;
-  }, [state, label, formulaExpression, conditions, elseBlock, formatConditionValue, getOperatorLabel]);
-
-  // Helper to determine expected next token type based on context
-  const getExpectedNextTokenType = useCallback((tokens: FormulaToken[]): 'value' | 'operator' | 'comma' | 'close' => {
-    if (tokens.length === 0) return 'value';
-    
-    let parenDepth = 0;
-    let inFunction = false;
-    let functionArgCount = 0;
-    
-    for (let i = 0; i < tokens.length; i++) {
-      const token = tokens[i];
-      
-      switch (token.tokenType) {
-        case 'functionStart':
-          inFunction = true;
-          functionArgCount = 0;
-          break;
-        case 'functionEnd':
-          inFunction = false;
-          functionArgCount = 0;
-          break;
-        case 'parenOpen':
-          parenDepth++;
-          break;
-        case 'parenClose':
-          parenDepth--;
-          if (parenDepth === 0) {
-            inFunction = false;
-            functionArgCount = 0;
-          }
-          break;
-        case 'comma':
-          if (inFunction) {
-            functionArgCount++;
-          }
-          break;
-        case 'value':
-          if (inFunction && parenDepth > 0) {
-            functionArgCount++;
-          }
-          break;
-      }
-    }
-    
-    const lastToken = tokens[tokens.length - 1];
-    
-    // If we're inside a function and after a value, expect comma or close
-    if (inFunction && parenDepth > 0) {
-      if (lastToken.tokenType === 'value') {
-        return 'comma'; // Can add more args or close
-      }
-      if (lastToken.tokenType === 'comma') {
-        return 'value'; // Need value after comma
-      }
-      if (lastToken.tokenType === 'parenOpen' || lastToken.tokenType === 'functionStart') {
-        return 'value'; // Need first argument
-      }
-    }
-    
-    // If last token is opening paren or function start, expect value
-    if (lastToken.tokenType === 'parenOpen' || lastToken.tokenType === 'functionStart') {
-      return 'value';
-    }
-    
-    // If last token is comma, expect value
-    if (lastToken.tokenType === 'comma') {
-      return 'value';
-    }
-    
-    // If last token is closing paren and we're in a function, expect comma or close
-    if (lastToken.tokenType === 'parenClose' && inFunction) {
-      return 'comma'; // Can add more args
-    }
-    
-    // If last token is a value or closing paren (outside function), expect operator
-    if (lastToken.tokenType === 'value' || lastToken.tokenType === 'parenClose') {
-      return 'operator';
-    }
-    
-    // If last token is an operator, expect value
-    if (lastToken.tokenType === 'operator' || lastToken.tokenType === 'parenOpen') {
-      return 'value';
-    }
-    
-    // Default: expect value
-    return 'value';
-  }, []);
+  }, [state, label, formulaExpression, conditions, elseBlock, formatConditionValue]);
 
   const getNextPicker = useCallback(() => {
-    const expected = getExpectedNextTokenType(formulaTokens);
-    if (expected === 'operator' || expected === 'close') {
-      return 'operator';
-    }
-    return 'value';
-  }, [formulaTokens, getExpectedNextTokenType]);
+    if (formulaTokens.length === 0) return 'value';
+    const lastToken = formulaTokens[formulaTokens.length - 1];
+    const lastIsValue = lastToken.kind === 'value' || lastToken.label === ')';
+    return lastIsValue ? 'operator' : 'value';
+  }, [formulaTokens]);
 
   const openPickerForNextToken = (buttonElement: HTMLButtonElement) => {
     const rect = buttonElement.getBoundingClientRect();
+    setPopoverPosition({
+      top: rect.bottom + 12,
+      left: rect.left,
+    });
     setActiveConditionDropdown(null);
     setConditionValueTarget(null);
     const nextPicker = getNextPicker();
     if (nextPicker === 'value') {
       // Show variable type dropdown positioned relative to edit button
-      setPickerModeAndPosition('valueCategory', {
+      setVariableTypeDropdownPosition({
         top: rect.bottom + 8,
         left: rect.left,
       });
+      setShowVariableTypeDropdown(true);
+      setShowValuePicker(false);
+      setShowOperatorPicker(false);
       setActiveValueCategory(null);
       setSelectedVariableType(null);
+      setShowSpecificOptionsDropdown(false);
+      setShowInlinePercentageOfCharge(false);
     } else {
-      setPickerModeAndPosition('operator', {
-        top: rect.bottom + 12,
-        left: rect.left,
-      });
+      setShowOperatorPicker(true);
+      setShowValuePicker(false);
+      setShowVariableTypeDropdown(false);
+      setVariableTypeDropdownPosition(null);
+      setShowInlinePercentageOfCharge(false);
     }
   };
-
-  // Helper to determine expressionValue and tokenType from label and valueType
-  const getTokenExpressionData = useCallback((
-    label: string,
-    valueType?: FormulaToken['valueType'],
-    meta?: FormulaToken['meta']
-  ): { expressionValue: string; tokenType: TokenType } => {
-    // Handle operators
-    if (valueType === 'operator') {
-      const operatorMap: Record<string, string> = {
-        '×': '*',
-        '÷': '/',
-        '+': '+',
-        '-': '-',
-        '(': '(',
-        ')': ')',
-      };
-      return {
-        expressionValue: operatorMap[label] || label,
-        tokenType: label === '(' ? 'parenOpen' : label === ')' ? 'parenClose' : 'operator',
-      };
-    }
-    
-    // Handle functions
-    if (valueType === 'function') {
-      const functionName = label.split('(')[0].trim();
-      const isAggregator = AGGREGATOR_FUNCTIONS.some(f => f.value === functionName);
-      
-      if (isAggregator || meta?.functionType === 'aggregator') {
-        // MAX, MIN - these will be handled separately with functionStart/functionEnd
-        return {
-          expressionValue: functionName,
-          tokenType: 'functionStart',
-        };
-      }
-      // Wrapper functions (ABS, CEIL, FLOOR) - handled as values that wrap previous
-      return {
-        expressionValue: functionName,
-        tokenType: 'value',
-      };
-    }
-    
-    // Handle percentage tokens
-    if (valueType === 'percentage' && meta?.percentageValue && meta?.percentageTarget) {
-      return {
-        expressionValue: `${meta.percentageValue}% of ${meta.percentageTarget}`,
-        tokenType: 'value',
-      };
-    }
-    
-    // Default: value token
-    return {
-      expressionValue: label,
-      tokenType: 'value',
-    };
-  }, []);
 
   const handleInsertValueToken = (
     label: string,
@@ -1630,159 +1316,61 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     if (conditionValueTarget) {
       handleUpdateCondition(conditionValueTarget.blockId, conditionValueTarget.conditionId, 'value', label);
       setConditionValueTarget(null);
-      closePicker();
+      setShowValuePicker(false);
+      setActiveValueCategory(null);
       return;
     }
-    const { expressionValue, tokenType } = getTokenExpressionData(label, valueType, meta);
     setFormulaTokens([
       ...formulaTokens,
-      { 
-        id: `token-${Date.now()}`, 
-        kind: 'value', 
-        label, 
-        expressionValue,
-        tokenType,
-        valueType, 
-        meta 
-      },
+      { id: `token-${Date.now()}`, kind: 'value', label, valueType, meta },
     ]);
     setState('formula-input');
-    closePicker();
+    setShowValuePicker(false);
+    setActiveValueCategory(null);
+    setShowInlinePercentageOfCharge(false);
+    setSelectedVariableType(null);
+    setShowSpecificOptionsDropdown(false);
+    // Reset two-step dropdown state
+    setSelectedVariableType(null);
+    setShowVariableTypeDropdown(false);
+    setVariableTypeDropdownPosition(null);
+    setShowSpecificOptionsDropdown(false);
+    setIsOptionsListOpen(false);
+    setSpecificOptionsDropdownPosition(null);
     setIsDirty(true);
   };
 
   const handleInsertOperatorToken = (operator: string) => {
-    const { expressionValue, tokenType } = getTokenExpressionData(operator, 'operator');
     setFormulaTokens([
       ...formulaTokens,
-      { 
-        id: `token-${Date.now()}`, 
-        kind: 'operator', 
-        label: operator, 
-        expressionValue,
-        tokenType,
-        valueType: 'operator' 
-      },
+      { id: `token-${Date.now()}`, kind: 'operator', label: operator, valueType: 'operator' },
     ]);
-    closePicker();
-    setIsDirty(true);
-  };
-
-  // Insert wrapper function (ABS, CEIL, FLOOR) - wraps previous value token
-  const handleInsertWrapperFunction = (functionName: string) => {
-    if (formulaTokens.length === 0) {
-      // No previous token to wrap, just insert as value
-      handleInsertValueToken(functionName, 'function', { functionType: 'wrapper', functionName });
-      return;
-    }
-
-    const lastToken = formulaTokens[formulaTokens.length - 1];
-    // Only wrap if last token is a value
-    if (lastToken.kind === 'value' && lastToken.tokenType === 'value') {
-      // Wrap the previous token: insert opening paren, keep previous token, insert closing paren
-      const wrappedTokens: FormulaToken[] = [
-        {
-          id: `token-${Date.now()}-func`,
-          kind: 'value',
-          label: functionName,
-          expressionValue: functionName,
-          tokenType: 'value',
-          valueType: 'function',
-          meta: { functionType: 'wrapper', functionName },
-        },
-        {
-          id: `token-${Date.now()}-open`,
-          kind: 'operator',
-          label: '(',
-          expressionValue: '(',
-          tokenType: 'parenOpen',
-          valueType: 'operator',
-        },
-        lastToken, // Keep the wrapped token
-        {
-          id: `token-${Date.now()}-close`,
-          kind: 'operator',
-          label: ')',
-          expressionValue: ')',
-          tokenType: 'parenClose',
-          valueType: 'operator',
-        },
-      ];
-      
-      setFormulaTokens([...formulaTokens.slice(0, -1), ...wrappedTokens]);
-    } else {
-      // Can't wrap, just insert as value
-      handleInsertValueToken(functionName, 'function', { functionType: 'wrapper', functionName });
-    }
-    
-    closePicker();
-    setIsDirty(true);
-  };
-
-  // Insert aggregator function (MAX, MIN) - opens argument builder UI
-  const handleInsertAggregatorFunction = (functionName: string) => {
-    const functionStartToken: FormulaToken = {
-      id: `token-${Date.now()}-func-start`,
-      kind: 'value',
-      label: `${functionName}( , )`,
-      expressionValue: functionName,
-      tokenType: 'functionStart',
-      valueType: 'function',
-      meta: { functionType: 'aggregator', functionName },
-    };
-
-    const openParenToken: FormulaToken = {
-      id: `token-${Date.now()}-open`,
-      kind: 'operator',
-      label: '(',
-      expressionValue: '(',
-      tokenType: 'parenOpen',
-      valueType: 'operator',
-    };
-
-    setFormulaTokens([...formulaTokens, functionStartToken, openParenToken]);
-    
-    // Open value picker for first argument - will be opened by user clicking edit button
+    setShowOperatorPicker(false);
     setIsDirty(true);
   };
 
   const handleOpenTokenDropdown = (tokenId: string, buttonElement: HTMLButtonElement) => {
     const rect = buttonElement.getBoundingClientRect();
-    const position = {
+    setTokenDropdownPosition({
       top: rect.bottom + 8,
       left: rect.left,
-    };
-    setPickerModeAndPosition('tokenEdit', position);
-    const token = formulaTokens.find(t => t.id === tokenId);
-    
-    // Initialize editing state based on token type
-    if (token?.valueType === 'percentage' && token.meta) {
-      setEditingPercentageValue(token.meta.percentageValue || '');
-      setEditingPercentageTarget(token.meta.percentageTarget || '');
-    } else if (token?.valueType === 'constant') {
-      setEditingConstantValue(token.label);
-    } else {
-      // Reset editing states for other types
-      setEditingPercentageValue('');
-      setEditingPercentageTarget('');
-      setEditingConstantValue('');
-    }
-    
+    });
     setEditingTokenId(tokenId);
+    setShowValuePicker(false);
+    setShowOperatorPicker(false);
+    setActiveValueCategory(null);
   };
 
   const handleUpdateToken = (tokenId: string, newLabel: string, valueType?: FormulaToken['valueType'], meta?: FormulaToken['meta']) => {
-    const { expressionValue, tokenType } = getTokenExpressionData(newLabel, valueType, meta);
     setFormulaTokens(
       formulaTokens.map((token) =>
         token.id === tokenId
-          ? { ...token, label: newLabel, expressionValue, tokenType, valueType, meta }
+          ? { ...token, label: newLabel, valueType, meta }
           : token
       )
     );
     setEditingTokenId(null);
-    setPickerMode('none');
-    setPickerPositions(prev => ({ ...prev, tokenEdit: undefined }));
+    setTokenDropdownPosition(null);
     setIsDirty(true);
   };
 
@@ -1822,7 +1410,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     });
     setActiveConditionDropdown({ blockId, conditionId, type });
     setConditionValueTarget(null);
-    setPickerMode('condition');
+    setShowValuePicker(false);
+    setShowOperatorPicker(false);
   };
 
   const handleOpenConditionValuePicker = (
@@ -1831,15 +1420,14 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     conditionId: string
   ) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    const position = {
+    setPopoverPosition({
       top: rect.bottom + 8,
       left: rect.left,
-    };
-    setPickerPositions(prev => ({ ...prev, valueCategory: position }));
-    setPickerMode('valueCategory');
+    });
     setConditionValueTarget({ blockId, conditionId });
-    setPickerMode('valueCategory');
+    setShowValuePicker(true);
     setActiveValueCategory(null);
+    setShowOperatorPicker(false);
     setActiveConditionDropdown(null);
   };
 
@@ -1885,10 +1473,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           conditions: block.conditions.map(c => {
             if (c.id !== conditionId) return c;
             if (field === 'operator') {
-              // Ensure we store the value, not the label
-              const operatorOption = CONDITION_OPERATORS.find(op => op.value === value || op.label === value);
-              const nextOperator = operatorOption?.value || value;
-              const shouldClearValueTo = nextOperator !== 'between';
+              const nextOperator = value;
+              const shouldClearValueTo = nextOperator !== 'BETWEEN';
               return {
                 ...c,
                 operator: nextOperator,
@@ -1967,7 +1553,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         const hasValidConditions = ifBlock && ifBlock.conditions.length > 0 &&
           ifBlock.conditions.every(c => {
             if (!c.variable || !c.operator || !c.value) return false;
-            if (c.operator === 'between') {
+            if (c.operator === 'BETWEEN') {
               return Boolean(c.valueTo);
             }
             return true;
@@ -1988,26 +1574,24 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
   // Handler for opening sub-dropdowns
   const handleOpenSubDropdown = (type: string, buttonElement: HTMLButtonElement) => {
     const rect = buttonElement.getBoundingClientRect();
-    const position = {
+    setSubDropdownPosition({
       top: rect.bottom + 4,
       left: rect.left,
-    };
-    setPickerPositions(prev => ({ ...prev, valueOptions: position }));
+    });
     setActiveSubDropdown(type);
-    setPickerMode('valueOptions');
   };
 
   // Render variable type dropdown (Charges, Dimensions, etc.) positioned relative to edit button
   const renderVariableTypeDropdown = () => {
-    if (pickerMode !== 'valueCategory' || !pickerPositions.valueCategory) return null;
+    if (!showVariableTypeDropdown || !variableTypeDropdownPosition) return null;
 
     return (
       <div
         ref={variableTypeDropdownRef}
         style={{
           position: 'fixed',
-          top: pickerPositions.valueCategory.top,
-          left: pickerPositions.valueCategory.left,
+          top: variableTypeDropdownPosition.top,
+          left: variableTypeDropdownPosition.left,
           zIndex: 10000,
         }}
       >
@@ -2028,18 +1612,26 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               onClick={() => {
                 // Handle percentage of charge inline
                 if (category.id === 'percentage-of-charge') {
-                  setPickerMode('valueInline');
-                  setActiveValueCategory(category.id);
+                  setShowInlinePercentageOfCharge(true);
+                  setShowVariableTypeDropdown(false);
+                  setVariableTypeDropdownPosition(null);
                   setSelectedVariableType(null);
+                  setShowSpecificOptionsDropdown(false);
+                  setShowValuePicker(false);
+                  setActiveValueCategory(null);
                 } else if (category.id === 'percentage-of-dimensions') {
                   // Keep percentage-of-dimensions in pop-up for now
-                  setPickerMode('valueCategory');
+                  setShowValuePicker(true);
                   setActiveValueCategory(category.id);
+                  setShowVariableTypeDropdown(false);
+                  setVariableTypeDropdownPosition(null);
                   setSelectedVariableType(null);
+                  setShowSpecificOptionsDropdown(false);
                 } else {
                   setSelectedVariableType(category.id);
-                  setPickerMode('valueOptions');
-                  // Position will be set by handleOpenSubDropdown
+                  setShowVariableTypeDropdown(false);
+                  setVariableTypeDropdownPosition(null);
+                  setShowSpecificOptionsDropdown(true);
                 }
               }}
               style={{
@@ -2065,7 +1657,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
 
   // Render specific options dropdown (charges, dimensions, etc.)
   const renderSpecificOptionsDropdown = () => {
-    if (pickerMode !== 'valueOptions' || !selectedVariableType || !pickerPositions.valueOptions) return null;
+    if (!selectedVariableType || !showSpecificOptionsDropdown) return null;
 
     const getPlaceholderText = () => {
       switch (selectedVariableType) {
@@ -2166,69 +1758,18 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     };
 
     return (
-      <div 
-        ref={specificOptionsPlaceholderRef} 
-        style={{ 
-          position: 'fixed',
-          top: pickerPositions.valueOptions?.top || 0,
-          left: pickerPositions.valueOptions?.left || 0,
-          zIndex: 10000,
-        }}
-      >
-        <div
-          ref={specificOptionsDropdownRef}
+      <div ref={specificOptionsPlaceholderRef} style={{ position: 'relative', display: 'inline-block' }}>
+        <Dropdown
+          value={undefined}
+          onChange={handleDropdownChange}
+          options={dropdownOptions}
+          placeholder={getPlaceholderText()}
+          size="sm"
+          className="min-w-[139px]"
           style={{
-            backgroundColor: 'var(--bg-primary)',
-            border: '1px solid var(--border-primary)',
-            borderRadius: 'var(--radius-md)',
-            boxShadow: 'var(--shadow-md)',
-            padding: '8px 0',
-            minWidth: '200px',
-            maxHeight: '260px',
-            overflowY: 'auto',
+            height: '36px',
           }}
-        >
-          {options.map((option) => {
-            const valueType = selectedVariableType === 'charges' ? 'charge' : 
-                             selectedVariableType === 'dimensions' ? 'dimension' : 
-                             selectedVariableType === 'functions' ? 'function' : undefined;
-            return (
-              <button
-                key={option.value}
-                onClick={() => {
-                  if (valueType === 'function') {
-                    const functionName = option.label.split('(')[0].trim();
-                    const isWrapper = WRAPPER_FUNCTIONS.some(f => f.value === functionName);
-                    const isAggregator = AGGREGATOR_FUNCTIONS.some(f => f.value === functionName);
-                    
-                    if (isWrapper) {
-                      handleInsertWrapperFunction(functionName);
-                    } else if (isAggregator) {
-                      handleInsertAggregatorFunction(functionName);
-                    }
-                  } else {
-                    handleInsertValueToken(option.label, valueType);
-                  }
-                  closePicker();
-                }}
-                style={{
-                  width: '100%',
-                  padding: '10px 16px',
-                  border: 'none',
-                  backgroundColor: 'transparent',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  fontSize: '14px',
-                  color: 'var(--primary)',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}
-                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
-              >
-                {option.label}
-              </button>
-            );
-          })}
-        </div>
+        />
       </div>
     );
   };
@@ -2237,7 +1778,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
 
   // Render value picker
   const renderValuePicker = () => {
-    if (pickerMode !== 'valueCategory' || !portalContainer || !pickerPositions.valueCategory) return null;
+    if (!showValuePicker || !portalContainer) return null;
 
     const renderCategoryHeader = (title: string) => (
       <div
@@ -2325,15 +1866,15 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
 
     // Render sub-dropdown menu
     const renderSubDropdown = (options: Array<{ value: string; label: string }>, onSelect: (label: string) => void) => {
-      if (!activeSubDropdown || !pickerPositions.valueOptions || !portalContainer) return null;
+      if (!activeSubDropdown || !subDropdownPosition || !portalContainer) return null;
 
       return ReactDOM.createPortal(
         <div
           ref={setSubDropdownRef}
           style={{
             position: 'fixed',
-            top: pickerPositions.valueOptions.top,
-            left: pickerPositions.valueOptions.left,
+            top: subDropdownPosition.top,
+            left: subDropdownPosition.left,
             zIndex: 10001,
           }}
           onClick={(e) => e.stopPropagation()}
@@ -2355,10 +1896,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 onClick={() => {
                   onSelect(option.label);
                   setActiveSubDropdown(null);
-                  setPickerPositions(prev => ({ ...prev, valueOptions: undefined }));
-                  if (pickerMode === 'valueOptions') {
-                    setPickerMode('none');
-                  }
+                  setSubDropdownPosition(null);
                 }}
                 style={{
                   width: '100%',
@@ -2447,17 +1985,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               null,
               (e) => handleOpenSubDropdown('functions', e.currentTarget)
             )}
-            {renderSubDropdown(FUNCTION_OPTIONS, (label) => {
-              const functionName = label.split('(')[0].trim();
-              const isWrapper = WRAPPER_FUNCTIONS.some(f => f.value === functionName);
-              const isAggregator = AGGREGATOR_FUNCTIONS.some(f => f.value === functionName);
-              
-              if (isWrapper) {
-                handleInsertWrapperFunction(functionName);
-              } else if (isAggregator) {
-                handleInsertAggregatorFunction(functionName);
-              }
-            })}
+            {renderSubDropdown(FUNCTION_OPTIONS, (label) => handleInsertValueToken(label, 'function'))}
           </>
         );
       }
@@ -2465,7 +1993,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
       if (activeValueCategory === 'percentage-of-charge') {
         return (
           <>
-            {renderCategoryHeader('Percentage of Value')}
+            {renderCategoryHeader('Percentage of Charge')}
             <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <PercentageOfChargeInput
                 value={percentageOfChargeValue}
@@ -2619,8 +2147,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         ref={setDropdownRef}
         style={{
           position: 'fixed',
-          top: pickerPositions.valueCategory.top,
-          left: pickerPositions.valueCategory.left,
+          top: popoverPosition?.top || 0,
+          left: popoverPosition?.left || 0,
           zIndex: 10000,
         }}
       >
@@ -2642,34 +2170,9 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     );
   };
 
-  // Check if we're inside a function (need comma/close options)
-  const isInsideFunction = useCallback(() => {
-    let parenDepth = 0;
-    let inFunction = false;
-    
-    for (const token of formulaTokens) {
-      if (token.tokenType === 'functionStart') {
-        inFunction = true;
-      }
-      if (token.tokenType === 'parenOpen') {
-        parenDepth++;
-      }
-      if (token.tokenType === 'parenClose') {
-        parenDepth--;
-        if (parenDepth === 0) {
-          inFunction = false;
-        }
-      }
-    }
-    
-    return inFunction && parenDepth > 0;
-  }, [formulaTokens]);
-
   // Render operator picker (operators + conditions)
   const renderOperatorPicker = () => {
-    if (pickerMode !== 'operator' || !pickerPositions.operator || !portalContainer) return null;
-    
-    const insideFunc = isInsideFunction();
+    if (!showOperatorPicker || !popoverPosition || !portalContainer) return null;
 
     return ReactDOM.createPortal(
       <div
@@ -2726,32 +2229,30 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
             </div>
           </div>
 
-          {/* Conditions - only show when not inside function */}
-          {!insideFunc && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--tertiary)' }}>
-                Conditions
-              </span>
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <button
-                  onClick={() => handleOperatorPickerSelect('if-else')}
-                  style={{
-                    padding: '8px 16px',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--border-primary)',
-                    backgroundColor: 'var(--bg-primary)',
-                    fontSize: '14px',
-                    color: 'var(--primary)',
-                    cursor: 'pointer',
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-primary)')}
-                >
-                  If Else Condition
-                </button>
-              </div>
+          {/* Conditions */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--tertiary)' }}>
+              Conditions
+            </span>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <button
+                onClick={() => handleOperatorPickerSelect('if-else')}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: 'var(--radius-md)',
+                  border: '1px solid var(--border-primary)',
+                  backgroundColor: 'var(--bg-primary)',
+                  fontSize: '14px',
+                  color: 'var(--primary)',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-primary)')}
+              >
+                If Else Condition
+              </button>
             </div>
-          )}
+          </div>
         </div>
       </div>,
       portalContainer
@@ -2759,7 +2260,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
   };
 
   const renderConditionDropdown = () => {
-    if (!activeConditionDropdown || !pickerPositions.condition || !portalContainer) return null;
+    if (!activeConditionDropdown || !popoverPosition || !portalContainer) return null;
 
     const dropdownOptions = (() => {
       if (activeConditionDropdown.type === 'logical') return LOGICAL_OPERATORS;
@@ -2772,8 +2273,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         ref={setDropdownRef}
         style={{
           position: 'fixed',
-          top: pickerPositions.condition.top,
-          left: pickerPositions.condition.left,
+          top: popoverPosition.top,
+          left: popoverPosition.left,
           zIndex: 10000,
         }}
       >
@@ -2797,18 +2298,14 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   activeConditionDropdown.type === 'logical'
                     ? 'logicalOperator'
                     : activeConditionDropdown.type;
-                // Always use option.value for operators and variables, label only for display
-                const value = option.value;
+                const value =
+                  activeConditionDropdown.type === 'variable' ? option.value : option.label;
                 handleUpdateCondition(
                   activeConditionDropdown.blockId,
                   activeConditionDropdown.conditionId,
                   field,
                   value
                 );
-                // Update position when opening condition dropdown
-                if (field === 'operator' || field === 'variable') {
-                  setPickerPositions(prev => ({ ...prev, condition: pickerPositions.condition }));
-                }
               }}
               style={{
                 width: '100%',
@@ -2834,216 +2331,10 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
 
   // Render token dropdown for editing value tokens
   const renderTokenDropdown = () => {
-    if (pickerMode !== 'tokenEdit' || !editingTokenId || !pickerPositions.tokenEdit || !portalContainer) return null;
+    if (!editingTokenId || !tokenDropdownPosition || !portalContainer) return null;
 
     const editingToken = formulaTokens.find(t => t.id === editingTokenId);
     if (!editingToken || editingToken.kind !== 'value') return null;
-
-    // Handle percentage token editing
-    if (editingToken.valueType === 'percentage' && editingToken.meta?.percentageValue) {
-
-      return ReactDOM.createPortal(
-        <div
-          ref={setTokenDropdownRef}
-          style={{
-            position: 'fixed',
-            top: tokenDropdownPosition.top,
-            left: tokenDropdownPosition.left,
-            zIndex: 10000,
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div
-            style={{
-              backgroundColor: 'var(--bg-primary)',
-              border: '1px solid var(--border-primary)',
-              borderRadius: 'var(--radius-md)',
-              boxShadow: 'var(--shadow-lg)',
-              padding: '12px 16px',
-              minWidth: '280px',
-            }}
-          >
-            <div style={{ marginBottom: '12px', fontSize: '14px', fontWeight: 600, color: 'var(--primary)' }}>
-              Edit Percentage
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <PercentageOfChargeInput
-                value={editingPercentageValue}
-                selectedCharge={editingPercentageTarget || undefined}
-                chargeOptions={[...CHARGE_OPTIONS, ...NUMERIC_DIMENSIONS]}
-                onValueChange={(val) => setEditingPercentageValue(val)}
-                onChargeChange={(charge) => setEditingPercentageTarget(charge)}
-                placeholder="Select charge"
-                size="md"
-              />
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button
-                  onClick={() => {
-                    if (editingPercentageValue && editingPercentageTarget) {
-                      const newLabel = `${editingPercentageValue}% of ${editingPercentageTarget}`;
-                      const meta = { percentageValue: editingPercentageValue, percentageTarget: editingPercentageTarget };
-                      handleUpdateToken(editingTokenId, newLabel, 'percentage', meta);
-                      setEditingPercentageValue('');
-                      setEditingPercentageTarget('');
-                    }
-                  }}
-                  disabled={!editingPercentageValue || !editingPercentageTarget}
-                  style={{
-                    flex: 1,
-                    height: '32px',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--border-primary)',
-                    backgroundColor: (!editingPercentageValue || !editingPercentageTarget) 
-                      ? 'var(--bg-secondary)' 
-                      : 'var(--bg-primary)',
-                    fontSize: '14px',
-                    color: (!editingPercentageValue || !editingPercentageTarget) 
-                      ? 'var(--tertiary)' 
-                      : 'var(--primary)',
-                    cursor: (!editingPercentageValue || !editingPercentageTarget) 
-                      ? 'not-allowed' 
-                      : 'pointer',
-                  }}
-                >
-                  Update
-                </button>
-                <button
-                  onClick={() => {
-                    setEditingTokenId(null);
-                    setPickerMode('none');
-                    setPickerPositions(prev => ({ ...prev, tokenEdit: undefined }));
-                    setEditingPercentageValue('');
-                    setEditingPercentageTarget('');
-                  }}
-                  style={{
-                    height: '32px',
-                    padding: '0 16px',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--border-primary)',
-                    backgroundColor: 'var(--bg-primary)',
-                    fontSize: '14px',
-                    color: 'var(--primary)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>,
-        portalContainer
-      );
-    }
-
-    // Handle constant token editing
-    if (editingToken.valueType === 'constant') {
-
-      return ReactDOM.createPortal(
-        <div
-          ref={setTokenDropdownRef}
-          style={{
-            position: 'fixed',
-            top: tokenDropdownPosition.top,
-            left: tokenDropdownPosition.left,
-            zIndex: 10000,
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div
-            style={{
-              backgroundColor: 'var(--bg-primary)',
-              border: '1px solid var(--border-primary)',
-              borderRadius: 'var(--radius-md)',
-              boxShadow: 'var(--shadow-lg)',
-              padding: '12px 16px',
-              minWidth: '200px',
-            }}
-          >
-            <div style={{ marginBottom: '12px', fontSize: '14px', fontWeight: 600, color: 'var(--primary)' }}>
-              Edit Constant
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <input
-                type="text"
-                value={editingConstantValue}
-                onChange={(e) => setEditingConstantValue(e.target.value)}
-                style={{
-                  height: '32px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--border-primary)',
-                  padding: '0 10px',
-                  fontSize: '14px',
-                  color: 'var(--primary)',
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && editingConstantValue.trim()) {
-                    handleUpdateToken(editingTokenId, editingConstantValue.trim(), 'constant');
-                    setEditingConstantValue('');
-                  }
-                  if (e.key === 'Escape') {
-                    setEditingTokenId(null);
-                    setPickerMode('none');
-                    setPickerPositions(prev => ({ ...prev, tokenEdit: undefined }));
-                    setEditingConstantValue('');
-                  }
-                }}
-              />
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button
-                  onClick={() => {
-                    if (editingConstantValue.trim()) {
-                      handleUpdateToken(editingTokenId, editingConstantValue.trim(), 'constant');
-                      setEditingConstantValue('');
-                    }
-                  }}
-                  disabled={!editingConstantValue.trim()}
-                  style={{
-                    flex: 1,
-                    height: '32px',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--border-primary)',
-                    backgroundColor: !editingConstantValue.trim() 
-                      ? 'var(--bg-secondary)' 
-                      : 'var(--bg-primary)',
-                    fontSize: '14px',
-                    color: !editingConstantValue.trim() 
-                      ? 'var(--tertiary)' 
-                      : 'var(--primary)',
-                    cursor: !editingConstantValue.trim() 
-                      ? 'not-allowed' 
-                      : 'pointer',
-                  }}
-                >
-                  Update
-                </button>
-                <button
-                  onClick={() => {
-                    setEditingTokenId(null);
-                    setPickerMode('none');
-                    setPickerPositions(prev => ({ ...prev, tokenEdit: undefined }));
-                    setEditingConstantValue('');
-                  }}
-                  style={{
-                    height: '32px',
-                    padding: '0 16px',
-                    borderRadius: 'var(--radius-md)',
-                    border: '1px solid var(--border-primary)',
-                    backgroundColor: 'var(--bg-primary)',
-                    fontSize: '14px',
-                    color: 'var(--primary)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>,
-        portalContainer
-      );
-    }
 
     const getAllValueOptions = () => {
       const allOptions: Array<{ label: string; valueType?: FormulaToken['valueType']; meta?: FormulaToken['meta'] }> = [];
@@ -3061,20 +2352,9 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
       // Constants
       allOptions.push({ label: 'Constant', valueType: 'constant' });
       
-      // Functions - add wrappers and aggregators with proper meta
-      WRAPPER_FUNCTIONS.forEach(opt => {
-        allOptions.push({ 
-          label: opt.label, 
-          valueType: 'function',
-          meta: { functionType: 'wrapper', functionName: opt.value }
-        });
-      });
-      AGGREGATOR_FUNCTIONS.forEach(opt => {
-        allOptions.push({ 
-          label: opt.label, 
-          valueType: 'function',
-          meta: { functionType: 'aggregator', functionName: opt.value }
-        });
+      // Functions
+      FUNCTION_OPTIONS.forEach(opt => {
+        allOptions.push({ label: opt.label, valueType: 'function' });
       });
       
       return allOptions;
@@ -3085,8 +2365,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         ref={setTokenDropdownRef}
         style={{
           position: 'fixed',
-          top: pickerPositions.tokenEdit.top,
-          left: pickerPositions.tokenEdit.left,
+          top: tokenDropdownPosition.top,
+          left: tokenDropdownPosition.left,
           zIndex: 10000,
         }}
         onClick={(e) => e.stopPropagation()}
@@ -3267,10 +2547,9 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
   const renderConditionRow = (block: ConditionBlockData, condition: ConditionRow, index: number) => {
     const isFirstCondition = index === 0;
     const canDelete = block.conditions.length > 1 || block.type !== 'if';
-    const operatorValue = condition.operator || '>';
-    const operatorLabel = getOperatorLabel(operatorValue);
-    const isBetween = operatorValue === 'between';
-    const isInList = operatorValue === 'in' || operatorValue === 'not-in';
+    const operatorLabel = condition.operator || '>';
+    const isBetween = operatorLabel === 'BETWEEN';
+    const isInList = operatorLabel === 'IN' || operatorLabel === 'NOT IN';
 
     return (
       <div
@@ -3687,7 +2966,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           {state === 'empty' && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
               <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--primary)' }}>{label} =</span>
-              {selectedVariableType && pickerMode === 'valueOptions' && (
+              {selectedVariableType && showSpecificOptionsDropdown && (
                 <>
                   {renderSpecificOptionsDropdown()}
                   <button
@@ -3751,7 +3030,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                 {renderFormulaTokens()}
 
-                {selectedVariableType && pickerMode === 'valueOptions' && (
+                {selectedVariableType && showSpecificOptionsDropdown && (
                   <>
                     {renderSpecificOptionsDropdown()}
                     <button

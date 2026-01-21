@@ -93,6 +93,7 @@ export * from './molecules/ToggleGroup';
 export * from './molecules/List';
 export * from './molecules/HoverCard';
 export * from './molecules/Descriptions';
+export * from './molecules/PercentageOfChargeInput';
 
 
 // CHARTS - Chart.js components with FT Design System styling
