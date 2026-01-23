@@ -314,8 +314,8 @@ export function StoryPreview({
   }, [story.component, story.render, meta.component, mergedArgs, resolvedComponentName]);
 
   return (
-    <div className={cn("group relative flex flex-col space-y-2", className)}>
-      <div className="relative rounded-lg border bg-background shadow-sm overflow-hidden">
+    <div className={cn("group relative flex flex-col space-y-2 h-full", className)}>
+      <div className="relative rounded-lg border bg-background shadow-sm overflow-hidden h-full">
         {/* Header */}
         <div className="flex items-center justify-between border-b p-2">
           <div className="flex items-center gap-2">
@@ -362,7 +362,7 @@ export function StoryPreview({
 
         {/* Content */}
         {view === "preview" && (
-          <div className="p-8 min-h-[200px] bg-background overflow-x-auto flex items-center">
+          <div className="p-8 h-full bg-background overflow-x-auto flex items-center justify-center">
             <div className="min-w-max mx-auto">
               {renderedStory}
             </div>

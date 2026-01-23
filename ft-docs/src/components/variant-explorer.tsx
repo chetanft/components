@@ -271,7 +271,7 @@ export function VariantExplorer({
       {/* Right Pane: Variant Preview */}
       <div className="min-w-0">
         {selectedStory ? (
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col h-full">
             <div>
               <h3 className="text-lg font-medium">
                 {formatStoryName(selectedStory.name)}
