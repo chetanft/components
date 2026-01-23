@@ -52,7 +52,7 @@ export default function DocsLayout({
                             {/* Collapse Toggle Button */}
                             <div className="mb-4 flex justify-end">
                                 <Button
-                                    variant="tertiary"
+                                    variant="ghost"
                                     size="sm"
                                     onClick={toggleSidebar}
                                     aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}

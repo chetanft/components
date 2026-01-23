@@ -364,6 +364,25 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     ? { color: 'var(--button-primary-text)' }
     : undefined;
 
+  // Icon-only buttons: enforce square dimensions and no padding via inline styles
+  // This overrides any external inline styles that might interfere
+  const iconOnlyStyleOverrides: React.CSSProperties | undefined = isIconOnly
+    ? {
+        padding: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
+      }
+    : undefined;
+
+  // For icon-only buttons, filter out conflicting style properties from props.style
+  const getFilteredStyle = (style?: React.CSSProperties): React.CSSProperties | undefined => {
+    if (!isIconOnly || !style) return style;
+    const { padding, paddingTop, paddingBottom, paddingLeft, paddingRight, width, minWidth, ...rest } = style;
+    return rest;
+  };
+
   // Determine accessible name
   const accessibleName = props['aria-label'] ||
     (typeof children === 'string' ? children : undefined) ||
@@ -392,7 +411,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         aria-label={accessibleName}
         aria-busy={loading}
         data-size={size}
-        style={{ ...variantStyleOverrides, ...slotProps.style }}
+        style={{ ...variantStyleOverrides, ...getFilteredStyle(slotProps.style), ...iconOnlyStyleOverrides }}
         {...slotProps}
       >
         {children}
@@ -416,7 +435,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       aria-label={accessibleName}
       aria-busy={loading}
       data-size={size}
-      style={{ ...variantStyleOverrides, ...props.style }}
+      style={{ ...variantStyleOverrides, ...getFilteredStyle(props.style), ...iconOnlyStyleOverrides }}
       {...props}
     >
       {loading && (
