@@ -1,8 +1,8 @@
 # FT Design System - Complete Token Reference
 
 > **Auto-generated from** `src/styles/globals.css`  
-> **Last updated:** 2026-01-20  
-> **Total tokens:** 121
+> **Last updated:** 2026-01-23  
+> **Total tokens:** 141
 
 This document provides a comprehensive reference for all design tokens available in the FT Design System. All tokens are CSS custom properties that can be used in your stylesheets or accessed via JavaScript.
 
@@ -249,75 +249,64 @@ FT Design System uses an 8-point grid system (4px base unit). All spacing tokens
 |-------|-------|--------|----------|
 | `--x0` | `0px` | 0px | No spacing |
 | `--spacing-x0` | `var(--x0)` | 0px | No spacing |
+| `--spacing-x0-rem` | `0rem` | 0px | No spacing |
 | `--x1` | `4px` | 4px | Tight spacing |
 | `--spacing-x1` | `var(--x1)` | 4px | Tight spacing |
+| `--spacing-x1-rem` | `0.286rem` | 4px | Tight spacing |
 | `--x2` | `8px` | 8px | Tight spacing |
 | `--spacing-x2` | `var(--x2)` | 8px | Tight spacing |
+| `--spacing-x2-rem` | `0.571rem` | 8px | Tight spacing |
 | `--x3` | `12px` | 12px | Default spacing |
 | `--spacing-x3` | `var(--x3)` | 12px | Default spacing |
+| `--spacing-x3-rem` | `0.857rem` | 12px | Default spacing |
 | `--x4` | `16px` | 16px | Default spacing |
 | `--spacing-x4` | `var(--x4)` | 16px | Default spacing |
+| `--spacing-x4-rem` | `1.143rem` | 16px | Default spacing |
 | `--x5` | `20px` | 20px | Loose spacing |
 | `--spacing-x5` | `var(--x5)` | 20px | Loose spacing |
+| `--spacing-x5-rem` | `1.429rem` | 20px | Loose spacing |
 | `--x6` | `24px` | 24px | Loose spacing |
 | `--spacing-x6` | `var(--x6)` | 24px | Loose spacing |
+| `--spacing-x6-rem` | `1.714rem` | 24px | Loose spacing |
 | `--x7` | `28px` | 28px | Loose spacing |
 | `--spacing-x7` | `var(--x7)` | 28px | Loose spacing |
+| `--spacing-x7-rem` | `2rem` | 28px | Loose spacing |
 | `--x8` | `32px` | 32px | Loose spacing |
 | `--spacing-x8` | `var(--x8)` | 32px | Loose spacing |
+| `--spacing-x8-rem` | `2.286rem` | 32px | Loose spacing |
 | `--x9` | `36px` | 36px | Extra large spacing |
 | `--spacing-x9` | `var(--x9)` | 36px | Extra large spacing |
+| `--spacing-x9-rem` | `2.571rem` | 36px | Extra large spacing |
 | `--x10` | `40px` | 40px | Extra large spacing |
 | `--spacing-x10` | `var(--x10)` | 40px | Extra large spacing |
+| `--spacing-x10-rem` | `2.857rem` | 40px | Extra large spacing |
 | `--x11` | `44px` | 44px | Extra large spacing |
 | `--spacing-x11` | `var(--x11)` | 44px | Extra large spacing |
+| `--spacing-x11-rem` | `3.143rem` | 44px | Extra large spacing |
 | `--x12` | `48px` | 48px | Extra large spacing |
 | `--spacing-x12` | `var(--x12)` | 48px | Extra large spacing |
+| `--spacing-x12-rem` | `3.429rem` | 48px | Extra large spacing |
 | `--x13` | `52px` | 52px | Extra large spacing |
 | `--spacing-x13` | `var(--x13)` | 52px | Extra large spacing |
+| `--spacing-x13-rem` | `3.714rem` | 52px | Extra large spacing |
 | `--x14` | `56px` | 56px | Extra large spacing |
 | `--spacing-x14` | `var(--x14)` | 56px | Extra large spacing |
+| `--spacing-x14-rem` | `4rem` | 56px | Extra large spacing |
 | `--x15` | `60px` | 60px | Extra large spacing |
 | `--spacing-x15` | `var(--x15)` | 60px | Extra large spacing |
+| `--spacing-x15-rem` | `4.286rem` | 60px | Extra large spacing |
 | `--x16` | `64px` | 64px | Extra large spacing |
 | `--spacing-x16` | `var(--x16)` | 64px | Extra large spacing |
+| `--spacing-x16-rem` | `4.571rem` | 64px | Extra large spacing |
 | `--x20` | `80px` | 80px | Extra large spacing |
 | `--spacing-x20` | `var(--x20)` | 80px | Extra large spacing |
+| `--spacing-x20-rem` | `5.714rem` | 80px | Extra large spacing |
 | `--x24` | `96px` | 96px | Extra large spacing |
 | `--spacing-x24` | `var(--x24)` | 96px | Extra large spacing |
+| `--spacing-x24-rem` | `6.857rem` | 96px | Extra large spacing |
 | `--x38` | `152px` | 152px | Extra large spacing |
 | `--spacing-x38` | `var(--x38)` | 152px | Extra large spacing |
-
-#### Rem-Based Spacing Tokens (Responsive)
-
-Rem-based spacing tokens scale with the root font-size. Use these for spacing that should scale with typography (padding, margins between text elements).
-
-| Token | Rem Value | Base (14px) | Scaled (16px) | Use Case |
-|-------|----------|-------------|---------------|----------|
-| `--spacing-x0-rem` | `0rem` | 0px | 0px | No spacing |
-| `--spacing-x1-rem` | `0.286rem` | 4px | 4.57px | Tight spacing (scalable) |
-| `--spacing-x2-rem` | `0.571rem` | 8px | 9.14px | Tight spacing (scalable) |
-| `--spacing-x3-rem` | `0.857rem` | 12px | 13.71px | Default spacing (scalable) |
-| `--spacing-x4-rem` | `1.143rem` | 16px | 18.29px | Default spacing (scalable) |
-| `--spacing-x5-rem` | `1.429rem` | 20px | 22.86px | Loose spacing (scalable) |
-| `--spacing-x6-rem` | `1.714rem` | 24px | 27.43px | Loose spacing (scalable) |
-| `--spacing-x7-rem` | `2rem` | 28px | 32px | Loose spacing (scalable) |
-| `--spacing-x8-rem` | `2.286rem` | 32px | 36.57px | Extra large spacing (scalable) |
-| `--spacing-x9-rem` | `2.571rem` | 36px | 41.14px | Extra large spacing (scalable) |
-| `--spacing-x10-rem` | `2.857rem` | 40px | 45.71px | Extra large spacing (scalable) |
-| `--spacing-x11-rem` | `3.143rem` | 44px | 50.29px | Extra large spacing (scalable) |
-| `--spacing-x12-rem` | `3.429rem` | 48px | 54.86px | Extra large spacing (scalable) |
-| `--spacing-x13-rem` | `3.714rem` | 52px | 59.43px | Extra large spacing (scalable) |
-| `--spacing-x14-rem` | `4rem` | 56px | 64px | Extra large spacing (scalable) |
-| `--spacing-x15-rem` | `4.286rem` | 60px | 68.57px | Extra large spacing (scalable) |
-| `--spacing-x16-rem` | `4.571rem` | 64px | 73.14px | Extra large spacing (scalable) |
-| `--spacing-x20-rem` | `5.714rem` | 80px | 91.43px | Extra large spacing (scalable) |
-| `--spacing-x24-rem` | `6.857rem` | 96px | 109.71px | Extra large spacing (scalable) |
-| `--spacing-x38-rem` | `10.857rem` | 152px | 173.71px | Extra large spacing (scalable) |
-
-**When to use rem vs px spacing:**
-- **Use px tokens** (`--spacing-x4`) for precise spacing: borders, icons, grid alignment
-- **Use rem tokens** (`--spacing-x4-rem`) for typography-relative spacing: component padding, margins between text elements
+| `--spacing-x38-rem` | `10.857rem` | 152px | Extra large spacing |
 
 ## Typography
 
