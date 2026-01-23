@@ -23,6 +23,10 @@ interface StoryPreviewProps {
   className?: string;
   /** Show the story name as a header */
   showName?: boolean;
+  /** Optional default view (preview/code) */
+  defaultView?: "preview" | "code";
+  /** Optional callback when view changes */
+  onViewChange?: (view: "preview" | "code") => void;
 }
 
 /**
@@ -35,12 +39,27 @@ export function StoryPreview({
   componentName,
   className,
   showName = true,
+  defaultView,
+  onViewChange,
 }: StoryPreviewProps) {
   const { theme, resolvedTheme } = useTheme();
-  const [view, setView] = useState<"preview" | "code">("preview");
+  const [view, setView] = useState<"preview" | "code">(defaultView || "preview");
   const [copied, setCopied] = useState(false);
   const [storySource, setStorySource] = useState<string | null>(null);
   const resolvedComponentName = componentName || meta.component?.displayName || meta.component?.name;
+
+  // Sync with defaultView prop changes
+  useEffect(() => {
+    if (defaultView) {
+      setView(defaultView);
+    }
+  }, [defaultView]);
+
+  // Handle view change
+  const handleViewChange = (newView: "preview" | "code") => {
+    setView(newView);
+    onViewChange?.(newView);
+  };
 
   const currentTheme = resolvedTheme || theme || "light";
   const isDark = currentTheme === "dark" || currentTheme === "night";
@@ -307,7 +326,7 @@ export function StoryPreview({
             )}
             <div className="flex items-center gap-1 ml-2">
               <button
-                onClick={() => setView("preview")}
+                onClick={() => handleViewChange("preview")}
                 className={cn(
                   "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
                   view === "preview"
@@ -319,7 +338,7 @@ export function StoryPreview({
                 Preview
               </button>
               <button
-                onClick={() => setView("code")}
+                onClick={() => handleViewChange("code")}
                 className={cn(
                   "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
                   view === "code"

@@ -14,6 +14,7 @@ export interface SidebarNavItem {
     href: string
     items?: any[]
     badge?: string
+    icon?: string  // FT Icon name
   }[]
 }
 

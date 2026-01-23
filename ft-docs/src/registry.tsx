@@ -131,6 +131,28 @@ import {
 
 export { UserProfile } from "../../src"
 
+// Export components directly for use in ft-docs
+// These are re-exported from the main src/components index
+export {
+    Button,
+    Icon,
+    Tooltip,
+    TooltipTrigger,
+    TooltipContent,
+    TooltipTitle,
+    TooltipDescription,
+    TooltipArrow,
+    Input,
+    Collapsible,
+    CollapsibleTrigger,
+    CollapsibleContent,
+    CollapsibleHeader,
+    CollapsibleTitle,
+    CollapsibleIcon,
+    SegmentedTabs,
+    SegmentedTabItem,
+} from "../../src"
+
 import { Plus as PlusIcon, ArrowRight as ArrowRightIcon, Pencil as PencilIcon } from "lucide-react"
 
 // Sample data for component examples

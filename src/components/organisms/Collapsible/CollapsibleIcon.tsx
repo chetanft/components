@@ -88,7 +88,8 @@ export const CollapsibleIcon = React.forwardRef<HTMLDivElement, CollapsibleIconP
     return (
       <Comp
         ref={ref}
-        className={cn("text-[var(--primary)] shrink-0", className)}
+        className={cn("text-[var(--primary)] shrink-0 transition-transform duration-200", className)}
+        style={{ willChange: 'transform' }}
         {...props}
       >
         {children || <Icon name={icon} size={16} />}

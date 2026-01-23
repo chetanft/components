@@ -59,11 +59,22 @@ export const CollapsibleTrigger = React.forwardRef<HTMLButtonElement, Collapsibl
         aria-expanded={isExpanded}
         aria-disabled={disabled}
         className={cn(
-          "flex items-center gap-[var(--spacing-x2)] px-0 py-[var(--spacing-x5)] w-full cursor-pointer",
-          isExpanded && "border-b border-[var(--border-primary)]",
+          "flex flex-col items-start justify-start gap-[var(--spacing-x2)] px-0 py-3 w-full cursor-pointer",
+          "border-b transition-[border-color] duration-200 ease-in-out",
+          "bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent",
+          "outline-none focus:outline-none focus-visible:outline-none",
+          "appearance-none border-0 border-b",
+          "text-left select-none",
+          "will-change-[border-color]",
+          "touch-action-manipulation",
+          isExpanded ? "border-[var(--border-primary)]" : "border-transparent",
           disabled && "opacity-50 cursor-not-allowed",
           className
         )}
+        style={{
+          WebkitTapHighlightColor: 'transparent',
+          WebkitTouchCallout: 'none',
+        }}
         {...props}
       >
         {children}

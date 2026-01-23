@@ -47,7 +47,7 @@ export const CollapsibleContent = React.forwardRef<HTMLDivElement, CollapsibleCo
       <Comp
         ref={ref}
         className={cn(
-          "px-[var(--spacing-x5)] py-[var(--spacing-x5)]",
+          "py-3",
           type === 'Tertiary' && "pt-0",
           className
         )}
