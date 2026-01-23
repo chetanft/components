@@ -1,3 +1,12 @@
 export { Logo, type LogoName } from './Logo';
 export { FTLogo } from './FTLogo';
-export { TataMotorsLogo } from './TataMotorsLogo'; 
+export { FTLogoWhite } from './FTLogoWhite';
+export { TataMotorsLogo } from './TataMotorsLogo';
+export { MDCLabsLogo } from './MDCLabsLogo';
+export { ShakthiLogisticsLogo } from './ShakthiLogisticsLogo';
+export { GatiLogo } from './GatiLogo';
+export { BirlaPivotLogo } from './BirlaPivotLogo';
+export { DiageoLogo } from './DiageoLogo';
+export { DiageoWhiteLogo } from './DiageoWhiteLogo';
+export { JSWOneLogo } from './JSWOneLogo';
+export { ShadowfaxLogo } from './ShadowfaxLogo'; 
