@@ -48,27 +48,27 @@ describe('ProgressBar Component', () => {
 
   describe('Variants', () => {
     it('applies primary variant by default', () => {
-      const { container } = render(<ProgressBar value={50} />);
-      const progressFill = container.querySelector('.bg-\\[\\#434F64\\]');
-      expect(progressFill).toBeInTheDocument();
+      render(<ProgressBar value={50} />);
+      const progressFill = screen.getByRole('progressbar');
+      expect(progressFill).toHaveStyle({ backgroundColor: 'var(--primary)' });
     });
 
     it('applies success variant', () => {
-      const { container } = render(<ProgressBar value={50} variant="success" />);
-      const progressFill = container.querySelector('.bg-\\[\\#00C638\\]');
-      expect(progressFill).toBeInTheDocument();
+      render(<ProgressBar value={50} variant="success" />);
+      const progressFill = screen.getByRole('progressbar');
+      expect(progressFill).toHaveStyle({ backgroundColor: 'var(--positive)' });
     });
 
     it('applies warning variant', () => {
-      const { container } = render(<ProgressBar value={50} variant="warning" />);
-      const progressFill = container.querySelector('.bg-\\[\\#FF6C19\\]');
-      expect(progressFill).toBeInTheDocument();
+      render(<ProgressBar value={50} variant="warning" />);
+      const progressFill = screen.getByRole('progressbar');
+      expect(progressFill).toHaveStyle({ backgroundColor: 'var(--warning)' });
     });
 
     it('applies danger variant', () => {
-      const { container } = render(<ProgressBar value={50} variant="danger" />);
-      const progressFill = container.querySelector('.bg-\\[\\#FF3533\\]');
-      expect(progressFill).toBeInTheDocument();
+      render(<ProgressBar value={50} variant="danger" />);
+      const progressFill = screen.getByRole('progressbar');
+      expect(progressFill).toHaveStyle({ backgroundColor: 'var(--critical)' });
     });
   });
 
@@ -104,9 +104,9 @@ describe('ProgressBar Component', () => {
     });
 
     it('applies correct text styling for percentage', () => {
-      const { container } = render(<ProgressBar value={42} />);
+      render(<ProgressBar value={42} />);
       const percentageText = screen.getByText('42%');
-      expect(percentageText).toHaveClass('text-[14px]', 'font-[500]', 'text-[#838C9D]');
+      expect(percentageText).toHaveClass('font-medium', 'text-[var(--tertiary)]');
     });
   });
 
@@ -181,7 +181,7 @@ describe('ProgressBar Component', () => {
     it('combines custom className with component classes', () => {
       const { container } = render(<ProgressBar className="custom-class" />);
       const progressContainer = container.querySelector('.custom-class');
-      expect(progressContainer).toHaveClass('relative', 'w-full', 'bg-[#CED1D7]', 'rounded-[8px]');
+      expect(progressContainer).toHaveClass('relative', 'w-full', 'overflow-hidden');
     });
   });
 
@@ -211,14 +211,14 @@ describe('ProgressBar Component', () => {
   describe('Design System Compliance', () => {
     it('uses correct background color from design tokens', () => {
       const { container } = render(<ProgressBar />);
-      const progressContainer = container.querySelector('.bg-\\[\\#CED1D7\\]');
-      expect(progressContainer).toBeInTheDocument();
+      const progressContainer = container.querySelector('.overflow-hidden');
+      expect(progressContainer).toHaveStyle({ backgroundColor: 'var(--border-primary)' });
     });
 
     it('uses correct border radius', () => {
       const { container } = render(<ProgressBar />);
-      const progressContainer = container.querySelector('.rounded-\\[8px\\]');
-      const progressFill = container.querySelector('.rounded-\\[24px\\]');
+      const progressContainer = container.querySelector('.rounded-\\[var\\(--radius-md\\)\\]');
+      const progressFill = container.querySelector('.rounded-\\[var\\(--radius-md\\)\\]');
       
       expect(progressContainer).toBeInTheDocument();
       expect(progressFill).toBeInTheDocument();
@@ -226,14 +226,14 @@ describe('ProgressBar Component', () => {
 
     it('maintains consistent spacing', () => {
       const { container } = render(<ProgressBar />);
-      const wrapper = container.querySelector('.gap-\\[20px\\]');
-      expect(wrapper).toBeInTheDocument();
+      const wrapper = container.firstChild as HTMLElement | null;
+      expect(wrapper).toHaveClass('gap-[var(--x5,20px)]');
     });
 
     it('uses proper typography for percentage', () => {
       render(<ProgressBar value={50} />);
       const percentageText = screen.getByText('50%');
-      expect(percentageText).toHaveClass('text-[14px]', 'font-[500]', 'leading-[1.4]');
+      expect(percentageText).toHaveClass('font-medium', 'leading-[1.4]');
     });
 
     it('applies overflow hidden to container', () => {

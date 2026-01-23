@@ -35,31 +35,46 @@ describe('Badge Component', () => {
     it('applies normal variant by default', () => {
       render(<Badge>Normal</Badge>);
       const badge = screen.getByText('Normal').closest('div');
-      expect(badge).toHaveClass('bg-[var(--badge-normal-bg)]', 'text-[var(--badge-normal-text)]');
+      expect(badge).toHaveStyle({
+        backgroundColor: 'var(--badge-normal-bg)',
+        color: 'var(--badge-normal-text)',
+      });
     });
 
-    it('applies danger variant styles', () => {
-      render(<Badge variant="danger">Error</Badge>);
+    it('applies error variant styles', () => {
+      render(<Badge variant="error">Error</Badge>);
       const badge = screen.getByText('Error').closest('div');
-      expect(badge).toHaveClass('bg-[var(--badge-danger-bg)]', 'text-[var(--badge-danger-text)]');
+      expect(badge).toHaveStyle({
+        backgroundColor: 'var(--badge-danger-bg)',
+        color: 'var(--badge-danger-text)',
+      });
     });
 
     it('applies success variant styles', () => {
       render(<Badge variant="success">Success</Badge>);
       const badge = screen.getByText('Success').closest('div');
-      expect(badge).toHaveClass('bg-[var(--badge-success-bg)]', 'text-[var(--badge-success-text)]');
+      expect(badge).toHaveStyle({
+        backgroundColor: 'var(--badge-success-bg)',
+        color: 'var(--badge-success-text)',
+      });
     });
 
     it('applies warning variant styles', () => {
       render(<Badge variant="warning">Warning</Badge>);
       const badge = screen.getByText('Warning').closest('div');
-      expect(badge).toHaveClass('bg-[var(--badge-warning-bg)]', 'text-[var(--badge-warning-text)]');
+      expect(badge).toHaveStyle({
+        backgroundColor: 'var(--badge-warning-bg)',
+        color: 'var(--badge-warning-text)',
+      });
     });
 
     it('applies neutral variant styles', () => {
       render(<Badge variant="neutral">Info</Badge>);
       const badge = screen.getByText('Info').closest('div');
-      expect(badge).toHaveClass('bg-[var(--badge-neutral-bg)]', 'text-[var(--badge-neutral-text)]');
+      expect(badge).toHaveStyle({
+        backgroundColor: 'var(--badge-neutral-bg)',
+        color: 'var(--badge-neutral-text)',
+      });
     });
   });
 
@@ -100,34 +115,49 @@ describe('Badge Component', () => {
     it('applies interactive styles when interaction prop is true', () => {
       render(<Badge interaction>Interactive</Badge>);
       const badge = screen.getByText('Interactive').closest('div');
-      expect(badge).toHaveClass('border', 'border-[var(--badge-normal-border)]');
+      expect(badge).toHaveStyle({
+        borderColor: 'var(--badge-normal-border)',
+        borderWidth: '1px',
+      });
     });
 
     it('applies interactive styles when onClick is provided', () => {
       const handleClick = jest.fn();
       render(<Badge onClick={handleClick}>Clickable</Badge>);
       const badge = screen.getByText('Clickable').closest('div');
-      expect(badge).toHaveClass('border', 'border-[var(--badge-normal-border)]');
+      expect(badge).toHaveStyle({
+        borderColor: 'var(--badge-normal-border)',
+        borderWidth: '1px',
+      });
     });
 
     it('applies interactive styles when onMouseEnter is provided', () => {
       const handleMouseEnter = jest.fn();
       render(<Badge onMouseEnter={handleMouseEnter}>Hoverable</Badge>);
       const badge = screen.getByText('Hoverable').closest('div');
-      expect(badge).toHaveClass('border', 'border-[var(--badge-normal-border)]');
+      expect(badge).toHaveStyle({
+        borderColor: 'var(--badge-normal-border)',
+        borderWidth: '1px',
+      });
     });
 
     it('applies interactive styles when onFocus is provided', () => {
       const handleFocus = jest.fn();
       render(<Badge onFocus={handleFocus}>Focusable</Badge>);
       const badge = screen.getByText('Focusable').closest('div');
-      expect(badge).toHaveClass('border', 'border-[var(--badge-normal-border)]');
+      expect(badge).toHaveStyle({
+        borderColor: 'var(--badge-normal-border)',
+        borderWidth: '1px',
+      });
     });
 
     it('applies correct border color for danger variant when interactive', () => {
-      render(<Badge variant="danger" interaction>Danger</Badge>);
+      render(<Badge variant="error" interaction>Danger</Badge>);
       const badge = screen.getByText('Danger').closest('div');
-      expect(badge).toHaveClass('border', 'border-[var(--badge-danger-border)]');
+      expect(badge).toHaveStyle({
+        borderColor: 'var(--badge-danger-border)',
+        borderWidth: '1px',
+      });
     });
 
     it('does not apply interactive styles by default', () => {
@@ -215,15 +245,13 @@ describe('Badge Component', () => {
       );
 
       const badge = screen.getByText('Complete').closest('div');
-      expect(badge).toHaveClass(
-        'bg-[var(--badge-success-bg)]',
-        'text-[var(--badge-success-text)]',
-        'px-[var(--x2)]',
-        'py-[2px]',
-        'border',
-        'border-[var(--badge-success-border)]',
-        'custom-class'
-      );
+      expect(badge).toHaveClass('px-2', 'py-0.5', 'gap-1', 'rounded', 'custom-class');
+      expect(badge).toHaveStyle({
+        backgroundColor: 'var(--badge-success-bg)',
+        color: 'var(--badge-success-text)',
+        borderColor: 'var(--badge-success-border)',
+        borderWidth: '1px',
+      });
       expect(screen.getByTestId('icon-add')).toBeInTheDocument();
       expect(screen.getByTestId('icon-chevron-right')).toBeInTheDocument();
 
@@ -251,12 +279,14 @@ describe('Badge Component', () => {
 
   describe('Styling', () => {
     it('uses exact Figma colors for styling', () => {
-      render(<Badge variant="danger">Error Badge</Badge>);
+      render(<Badge variant="error">Error Badge</Badge>);
       const badge = screen.getByText('Error Badge').closest('div');
 
       // Check that exact Figma color classes are applied
-      expect(badge?.className).toContain('bg-[var(--badge-danger-bg)]');
-      expect(badge?.className).toContain('text-[var(--badge-danger-text)]');
+      expect(badge).toHaveStyle({
+        backgroundColor: 'var(--badge-danger-bg)',
+        color: 'var(--badge-danger-text)',
+      });
     });
 
     it('applies correct base styling from Figma', () => {
@@ -264,7 +294,7 @@ describe('Badge Component', () => {
       const badge = screen.getByText('Badge').closest('div');
 
       // Check base styles from Figma design
-      expect(badge).toHaveClass('px-[var(--x2)]', 'py-[2px]', 'gap-[var(--x2)]', 'rounded-[var(--badge-border-radius)]');
+      expect(badge).toHaveClass('px-2', 'py-0.5', 'gap-1', 'rounded');
     });
   });
 });

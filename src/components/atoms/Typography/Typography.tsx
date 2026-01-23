@@ -52,13 +52,13 @@ const variantStyles = {
 };
 
 const colorStyles = {
-  primary: "text-[var(--primary)]",     // Uses CSS variable that adapts per theme
-  secondary: "text-[var(--secondary)]",
-  tertiary: "text-[var(--tertiary)]",
-  muted: "text-[var(--tertiary)]",
-  danger: "text-[var(--critical)]",
-  success: "text-[var(--positive)]",
-  warning: "text-[var(--warning)]",
+  primary: "var(--primary)",     // Uses CSS variable that adapts per theme
+  secondary: "var(--secondary)",
+  tertiary: "var(--tertiary)",
+  muted: "var(--tertiary)",
+  danger: "var(--critical)",
+  success: "var(--positive)",
+  warning: "var(--warning)",
 };
 
 const variantToElement = {
@@ -94,8 +94,6 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
     "font-sans",
     // Variant styles
     variantStyles[variant as keyof typeof variantStyles],
-    // Color
-    colorStyles[color as keyof typeof colorStyles],
     // Custom className
     className
   );
@@ -103,6 +101,7 @@ export const Typography = React.forwardRef<HTMLElement, TypographyProps>(({
   // Font family via inline style to avoid Tailwind arbitrary value issues
   const fontFamilyStyle = {
     fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
+    color: colorStyles[color as keyof typeof colorStyles],
   };
 
   // Use a switch to properly handle JSX rendering

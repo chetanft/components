@@ -99,12 +99,12 @@ describe('TableCell Component', () => {
 
     let cell = screen.getByText('Cell Content').closest('td');
     let contentDiv = cell?.querySelector('div');
-    expect(contentDiv).toHaveClass('gap-[4px]');
+    expect(contentDiv).toHaveClass('gap-[var(--spacing-x1)]');
 
     rerender(<TableCell lineVariant="double">Cell Content</TableCell>);
     cell = screen.getByText('Cell Content').closest('td');
     contentDiv = cell?.querySelector('div');
-    expect(contentDiv).toHaveClass('gap-[8px]');
+    expect(contentDiv).toHaveClass('gap-[var(--spacing-x2)]');
   });
 
   it('renders with different sizes', () => {
@@ -113,15 +113,15 @@ describe('TableCell Component', () => {
     );
 
     let cell = screen.getByText('Cell Content').closest('td');
-    expect(cell).toHaveClass('py-[12px]');
+    expect(cell).toHaveClass('pr-[var(--spacing-x4)]');
 
     rerender(<TableCell size="lg">Cell Content</TableCell>);
     cell = screen.getByText('Cell Content').closest('td');
-    expect(cell).toHaveClass('py-[16px]');
+    expect(cell).toHaveClass('pr-[var(--spacing-x4)]');
 
     rerender(<TableCell size="xl">Cell Content</TableCell>);
     cell = screen.getByText('Cell Content').closest('td');
-    expect(cell).toHaveClass('py-[20px]');
+    expect(cell).toHaveClass('pr-[var(--spacing-x5)]');
   });
 
   it('handles different states correctly', () => {

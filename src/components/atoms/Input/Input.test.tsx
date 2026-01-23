@@ -13,7 +13,8 @@ jest.mock('../Icons', () => ({
     >
       {name}
     </span>
-  )
+  ),
+  AlertInformational: () => <span data-testid="alert-informational" />
 }));
 
 describe('Input Component', () => {
@@ -80,7 +81,7 @@ describe('Input Component', () => {
     it('applies filled variant styles', () => {
       render(<Input variant="filled" placeholder="Filled input" />);
       const input = screen.getByPlaceholderText('Filled input');
-      expect(input).toHaveClass('bg-surface-alt', 'border-2', 'border-transparent');
+      expect(input).toHaveClass('bg-surface-alt', 'border-2', 'border-[var(--border-primary)]');
     });
 
     it('applies outlined variant styles', () => {
@@ -96,7 +97,7 @@ describe('Input Component', () => {
       render(<Input disabled placeholder="Disabled input" />);
       const input = screen.getByPlaceholderText('Disabled input');
       expect(input).toBeDisabled();
-      expect(input).toHaveClass('cursor-not-allowed', 'text-neutral-400');
+      expect(input).toHaveClass('cursor-not-allowed', 'text-input-disabled');
     });
 
     it('handles error state correctly', () => {
@@ -215,15 +216,15 @@ describe('Input Component', () => {
   // className prop support
   describe('Custom className', () => {
     it('applies custom className to input element', () => {
-      render(<Input placeholder="Test" className="custom-class" />);
-      const input = screen.getByPlaceholderText('Test');
-      expect(input).toHaveClass('custom-class');
+      const { container } = render(<Input placeholder="Test" className="custom-class" />);
+      const wrapper = container.querySelector('.custom-class');
+      expect(wrapper).toBeInTheDocument();
     });
 
     it('merges className with existing styles', () => {
-      render(<Input placeholder="Test" className="text-blue-500" />);
-      const input = screen.getByPlaceholderText('Test');
-      expect(input).toHaveClass('text-blue-500');
+      const { container } = render(<Input placeholder="Test" className="text-blue-500" />);
+      const wrapper = container.querySelector('.text-blue-500');
+      expect(wrapper).toBeInTheDocument();
     });
   });
 
@@ -232,7 +233,7 @@ describe('Input Component', () => {
     it('generates unique IDs automatically', () => {
       render(<Input label="Email" />);
       const input = screen.getByLabelText('Email');
-      const label = screen.getByText('Email');
+      const label = screen.getByText('Email').closest('label');
       expect(input).toHaveAttribute('id');
       expect(label).toHaveAttribute('for', input.getAttribute('id'));
     });
@@ -304,19 +305,19 @@ describe('Input Component', () => {
     it('includes dark mode classes for default variant', () => {
       render(<Input placeholder="Dark mode input" />);
       const input = screen.getByPlaceholderText('Dark mode input');
-      expect(input).toHaveClass('dark:bg-neutral-900', 'dark:border-neutral-700', 'dark:text-neutral-100');
+      expect(input).toHaveClass('dark:bg-surface-dark', 'dark:border-border-dark', 'dark:text-[var(--primary)]');
     });
 
     it('includes dark mode classes for filled variant', () => {
       render(<Input variant="filled" placeholder="Dark filled input" />);
       const input = screen.getByPlaceholderText('Dark filled input');
-      expect(input).toHaveClass('dark:bg-neutral-800');
+      expect(input).toHaveClass('dark:bg-surface-alt-dark');
     });
 
     it('includes dark mode classes for disabled state', () => {
       render(<Input disabled placeholder="Dark disabled input" />);
       const input = screen.getByPlaceholderText('Dark disabled input');
-      expect(input).toHaveClass('dark:text-neutral-500');
+      expect(input).toHaveClass('dark:text-input-disabled-dark');
     });
   });
 
@@ -348,15 +349,17 @@ describe('Input Component', () => {
   // Custom className
   describe('Custom Styling', () => {
     it('accepts custom className', () => {
-      render(<Input className="custom-class" placeholder="Custom input" />);
-      const input = screen.getByPlaceholderText('Custom input');
-      expect(input).toHaveClass('custom-class');
+      const { container } = render(<Input className="custom-class" placeholder="Custom input" />);
+      const wrapper = container.querySelector('.custom-class');
+      expect(wrapper).toBeInTheDocument();
     });
 
     it('merges custom className with component classes', () => {
-      render(<Input className="custom-class" placeholder="Merged input" />);
+      const { container } = render(<Input className="custom-class" placeholder="Merged input" />);
+      const wrapper = container.querySelector('.custom-class');
+      expect(wrapper).toHaveClass('w-full');
       const input = screen.getByPlaceholderText('Merged input');
-      expect(input).toHaveClass('custom-class', 'w-full', 'border-2');
+      expect(input).toHaveClass('w-full', 'border-2');
     });
   });
 }); 

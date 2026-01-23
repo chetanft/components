@@ -43,6 +43,7 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
     asChild,
     disabled,
     checked,
+    'aria-describedby': ariaDescribedBy,
     ...props
   }, ref) => {
     const { checkboxId, size, disabled: contextDisabled, hasError, descriptionId } = useCheckboxContext();
@@ -73,7 +74,7 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
     };
 
     const currentSize = sizeConfig[size];
-    const describedBy = descriptionId;
+    const describedBy = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ') || undefined;
 
     const checkboxStyles = cn(
       "relative shrink-0 rounded border-2 transition-all duration-200 cursor-pointer",
@@ -156,4 +157,3 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
 );
 
 CheckboxInput.displayName = 'CheckboxInput';
-

@@ -7,13 +7,13 @@ describe('Calendar Component', () => {
   describe('Rendering', () => {
     it('renders without crashing', () => {
       render(<Calendar />);
-      expect(screen.getByText('Su')).toBeInTheDocument();
-      expect(screen.getByText('Mo')).toBeInTheDocument();
-      expect(screen.getByText('Tu')).toBeInTheDocument();
-      expect(screen.getByText('We')).toBeInTheDocument();
-      expect(screen.getByText('Th')).toBeInTheDocument();
-      expect(screen.getByText('Fr')).toBeInTheDocument();
-      expect(screen.getByText('Sa')).toBeInTheDocument();
+      expect(screen.getByText('Sun')).toBeInTheDocument();
+      expect(screen.getByText('Mon')).toBeInTheDocument();
+      expect(screen.getByText('Tue')).toBeInTheDocument();
+      expect(screen.getByText('Wed')).toBeInTheDocument();
+      expect(screen.getByText('Thu')).toBeInTheDocument();
+      expect(screen.getByText('Fri')).toBeInTheDocument();
+      expect(screen.getByText('Sat')).toBeInTheDocument();
     });
 
     it('renders current month by default', () => {

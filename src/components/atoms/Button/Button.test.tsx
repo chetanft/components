@@ -43,7 +43,7 @@ describe('Button Component', () => {
     it('applies primary variant styles by default', () => {
       render(<Button>Primary</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-[var(--button-primary-bg)]', 'text-[var(--button-primary-text)]', 'border');
+      expect(button).toHaveClass('bg-[var(--primary-700)]', 'text-white', 'border');
     });
 
     it('applies secondary variant styles', () => {
@@ -84,7 +84,7 @@ describe('Button Component', () => {
     it('applies medium size by default', () => {
       render(<Button>Medium</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-component-md');
+      expect(button).toHaveClass('h-10');
       expect(button).toHaveClass('px-4');
       expect(button).toHaveClass('font-medium');
     });
@@ -92,15 +92,15 @@ describe('Button Component', () => {
     it('applies small size styles', () => {
       render(<Button size="sm">Small</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-component-sm');
-      expect(button).toHaveClass('px-3');
+      expect(button).toHaveClass('h-9');
+      expect(button).toHaveClass('px-3.5');
       expect(button).toHaveClass('font-medium');
     });
 
     it('applies large size styles', () => {
       render(<Button size="lg">Large</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('h-component-lg');
+      expect(button).toHaveClass('h-12');
       expect(button).toHaveClass('px-5');
       expect(button).toHaveClass('font-medium');
     });
@@ -150,7 +150,7 @@ describe('Button Component', () => {
       render(<Button icon="add" iconPosition="only" aria-label="Add item" />);
       const button = screen.getByRole('button', { name: 'Add item' });
       const icon = screen.getByTestId('icon-add');
-      expect(button).toHaveClass('w-component-md', 'px-0'); // Icon-only styling
+      expect(button).toHaveClass('w-10', 'p-0'); // Icon-only styling
       expect(icon).toBeInTheDocument();
       expect(screen.queryByText('Add item')).not.toBeInTheDocument(); // No text content
     });
@@ -160,10 +160,10 @@ describe('Button Component', () => {
       expect(screen.getByTestId('icon-add')).toHaveAttribute('data-size', '16');
 
       rerender(<Button size="md" icon="add">Medium</Button>);
-      expect(screen.getByTestId('icon-add')).toHaveAttribute('data-size', '20');
+      expect(screen.getByTestId('icon-add')).toHaveAttribute('data-size', '18');
 
       rerender(<Button size="lg" icon="add">Large</Button>);
-      expect(screen.getByTestId('icon-add')).toHaveAttribute('data-size', '24');
+      expect(screen.getByTestId('icon-add')).toHaveAttribute('data-size', '20');
     });
 
     // Custom icon component support

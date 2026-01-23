@@ -89,7 +89,19 @@ export const PercentageOfChargeInput = React.forwardRef<
     ref
   ) => {
     // Size-based styles
-    const sizeStyles = {
+    const sizeStylesMap: Record<ComponentSize, { height: string; fontSize: string; paddingX: string; paddingY: string }> = {
+      xxs: {
+        height: '16px',
+        fontSize: '12px',
+        paddingX: '6px',
+        paddingY: '0',
+      },
+      xs: {
+        height: '24px',
+        fontSize: '12px',
+        paddingX: '8px',
+        paddingY: '0',
+      },
       sm: {
         height: '32px',
         fontSize: '14px',
@@ -108,9 +120,21 @@ export const PercentageOfChargeInput = React.forwardRef<
         paddingX: '16px',
         paddingY: '0',
       },
-    }[size];
+      xl: {
+        height: '56px',
+        fontSize: '16px',
+        paddingX: '20px',
+        paddingY: '0',
+      },
+      xxl: {
+        height: '64px',
+        fontSize: '18px',
+        paddingX: '24px',
+        paddingY: '0',
+      },
+    };
 
-    const currentStyles = sizeStyles;
+    const currentStyles = sizeStylesMap[size];
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [dropdownPosition, setDropdownPosition] = useState<{ top: number; left: number } | null>(null);

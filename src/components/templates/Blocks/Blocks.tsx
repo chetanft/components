@@ -1338,7 +1338,9 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               },
             ]);
             setState('formula-input');
-            setShowInlinePercentageOfCharge(false);
+            setPickerMode('none');
+            setActiveValueCategory(null);
+            setSelectedVariableType(null);
             setIsDirty(true);
             // Reset after insertion
             setPercentageOfChargeValue('0');
@@ -1508,33 +1510,26 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
       }
     }
     
-    // If last token is opening paren or function start, expect value
-    if (lastToken.tokenType === 'parenOpen' || lastToken.tokenType === 'functionStart') {
-      return 'value';
-    }
-    
-    // If last token is comma, expect value
-    if (lastToken.tokenType === 'comma') {
-      return 'value';
-    }
-    
+    const lastTokenType = lastToken.tokenType;
+
     // If last token is closing paren and we're in a function, expect comma or close
-    if (lastToken.tokenType === 'parenClose' && inFunction) {
+    if (lastTokenType === 'parenClose' && inFunction) {
       return 'comma'; // Can add more args
     }
-    
-    // If last token is a value or closing paren (outside function), expect operator
-    if (lastToken.tokenType === 'value' || lastToken.tokenType === 'parenClose') {
-      return 'operator';
+
+    switch (lastTokenType) {
+      case 'parenOpen':
+      case 'functionStart':
+      case 'comma':
+      case 'operator':
+        return 'value';
+      case 'value':
+      case 'parenClose':
+      case 'functionEnd':
+        return 'operator';
+      default:
+        return 'value';
     }
-    
-    // If last token is an operator, expect value
-    if (lastToken.tokenType === 'operator' || lastToken.tokenType === 'parenOpen') {
-      return 'value';
-    }
-    
-    // Default: expect value
-    return 'value';
   }, []);
 
   const getNextPicker = useCallback(() => {
@@ -1800,7 +1795,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           },
         ]);
       }
-      setShowOperatorPicker(false);
+      setPickerMode('none');
+      setPickerPositions(prev => ({ ...prev, operator: undefined }));
       setIsDirty(true);
       return;
     }
@@ -1816,10 +1812,13 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     type: 'variable' | 'operator' | 'logical'
   ) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    setPopoverPosition({
-      top: rect.bottom + 8,
-      left: rect.left,
-    });
+    setPickerPositions(prev => ({
+      ...prev,
+      condition: {
+        top: rect.bottom + 8,
+        left: rect.left,
+      },
+    }));
     setActiveConditionDropdown({ blockId, conditionId, type });
     setConditionValueTarget(null);
     setPickerMode('condition');
@@ -1932,19 +1931,14 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     setElseBlock({ value: '0' });
     setIsDirty(false);
     setIsValid(null);
-    setShowValuePicker(false);
-    setShowOperatorPicker(false);
+    setPickerMode('none');
+    setPickerPositions({});
     setActiveValueCategory(null);
     setActiveConditionDropdown(null);
     setConditionValueTarget(null);
     // Reset two-step dropdown state
     setSelectedVariableType(null);
-    setShowVariableTypeDropdown(false);
-    setVariableTypeDropdownPosition(null);
-    setShowSpecificOptionsDropdown(false);
-    setIsOptionsListOpen(false);
-    setSpecificOptionsDropdownPosition(null);
-    setShowInlinePercentageOfCharge(false);
+    setActiveSubDropdown(null);
     setPercentageOfChargeValue('0');
     setPercentageOfChargeTarget('');
     onReset?.();
@@ -2115,7 +2109,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               }
               if (e.key === 'Escape') {
                 setSelectedVariableType(null);
-                setShowSpecificOptionsDropdown(false);
+                setPickerMode('none');
+                setPickerPositions(prev => ({ ...prev, valueOptions: undefined }));
               }
             }}
             onBlur={() => {
@@ -2124,7 +2119,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 handleInsertValueToken(constantValue.trim(), 'constant');
               } else {
                 setSelectedVariableType(null);
-                setShowSpecificOptionsDropdown(false);
+                setPickerMode('none');
+                setPickerPositions(prev => ({ ...prev, valueOptions: undefined }));
               }
             }}
             style={{
@@ -2161,7 +2157,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                          selectedVariableType === 'functions' ? 'function' : undefined;
         handleInsertValueToken(selectedOption.label, valueType);
         setSelectedVariableType(null);
-        setShowSpecificOptionsDropdown(false);
+        setPickerMode('none');
+        setPickerPositions(prev => ({ ...prev, valueOptions: undefined }));
       }
     };
 
@@ -2253,7 +2250,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           onClick={() => {
             setActiveValueCategory(null);
             setActiveSubDropdown(null);
-            setSubDropdownPosition(null);
+            setPickerPositions(prev => ({ ...prev, valueOptions: undefined }));
           }}
           style={{
             border: 'none',
@@ -2356,9 +2353,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   onSelect(option.label);
                   setActiveSubDropdown(null);
                   setPickerPositions(prev => ({ ...prev, valueOptions: undefined }));
-                  if (pickerMode === 'valueOptions') {
-                    setPickerMode('none');
-                  }
+                  setPickerMode('none');
                 }}
                 style={{
                   width: '100%',
@@ -2676,8 +2671,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         ref={setPopoverRef}
         style={{
           position: 'fixed',
-          top: popoverPosition.top,
-          left: popoverPosition.left,
+          top: pickerPositions.operator.top,
+          left: pickerPositions.operator.left,
           zIndex: 10000,
         }}
         onClick={(e) => e.stopPropagation()}
@@ -2847,8 +2842,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           ref={setTokenDropdownRef}
           style={{
             position: 'fixed',
-            top: tokenDropdownPosition.top,
-            left: tokenDropdownPosition.left,
+          top: pickerPositions.tokenEdit.top,
+          left: pickerPositions.tokenEdit.left,
             zIndex: 10000,
           }}
           onClick={(e) => e.stopPropagation()}
@@ -2944,8 +2939,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           ref={setTokenDropdownRef}
           style={{
             position: 'fixed',
-            top: tokenDropdownPosition.top,
-            left: tokenDropdownPosition.left,
+          top: pickerPositions.tokenEdit.top,
+          left: pickerPositions.tokenEdit.left,
             zIndex: 10000,
           }}
           onClick={(e) => e.stopPropagation()}
@@ -3786,7 +3781,9 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                     />
                     <button
                       onClick={(e) => {
-                        setShowInlinePercentageOfCharge(false);
+                        setPickerMode('none');
+                        setActiveValueCategory(null);
+                        setSelectedVariableType(null);
                         setPercentageOfChargeValue('0');
                         setPercentageOfChargeTarget('');
                         openPickerForNextToken(e.currentTarget);

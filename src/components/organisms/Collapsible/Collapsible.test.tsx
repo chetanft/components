@@ -11,12 +11,12 @@ describe('Collapsible Component', () => {
   it('toggles between open and closed states when clicked', () => {
     render(<Collapsible header="Test Header">Content</Collapsible>);
     
-    const button = screen.getByRole('button');
-    fireEvent.click(button);
+    const trigger = screen.getByRole('button', { name: /test header/i });
+    fireEvent.click(trigger);
     
     expect(screen.getByText('Content')).toBeInTheDocument();
     
-    fireEvent.click(button);
+    fireEvent.click(trigger);
     expect(screen.queryByText('Content')).not.toBeInTheDocument();
   });
 
@@ -28,8 +28,8 @@ describe('Collapsible Component', () => {
       </Collapsible>
     );
     
-    const button = screen.getByRole('button');
-    fireEvent.click(button);
+    const trigger = screen.getByRole('button', { name: /test header/i });
+    fireEvent.click(trigger);
     
     expect(handleToggle).toHaveBeenCalledWith(true);
   });
@@ -61,8 +61,8 @@ describe('Collapsible Component', () => {
       </Collapsible>
     );
 
-    const button = screen.getByRole('button');
-    fireEvent.click(button);
+    const trigger = screen.getByRole('button', { name: /test header/i });
+    fireEvent.click(trigger);
 
     expect(screen.queryByText('Content')).not.toBeInTheDocument();
   });

@@ -398,7 +398,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             leadingIconClassName={leadingIconClassName}
             trailingIconClassName={trailingIconClassName}
             disabled={disabled}
-            aria-describedby={ariaDescribedBy}
+            aria-describedby={describedBy}
             {...props}
           />
           {error && <InputError>{error}</InputError>}
