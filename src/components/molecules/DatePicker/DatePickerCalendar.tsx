@@ -21,7 +21,6 @@ export interface DatePickerCalendarProps extends ComposableProps<'div'> {
    */
   portalStyle?: React.CSSProperties;
 }
-}
 
 /**
  * DatePickerCalendar Component

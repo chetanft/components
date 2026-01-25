@@ -3,6 +3,7 @@ import { Logo } from '../../atoms/Logos';
 import { Avatar } from '../../atoms/Avatar';
 import { CompanyInfo } from '../../../types/company';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { cn } from '../../../lib/utils';
 
 export interface UserProfileProps extends Omit<ComposableProps<'div'>, 'company' | 'userName' | 'userRole' | 'userLocation' | 'userBadge' | 'userAvatar' | 'companyName' | 'onClick'> {
   company?: CompanyInfo;
