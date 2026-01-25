@@ -1,11 +1,11 @@
 {
   "$schema": "https://ft-design-system.dev/registry-schema.json",
   "name": "ft-design-system",
-  "version": "4.19.0",
+  "version": "4.19.1",
   "description": "Design system built from Figma designs using Code Connect",
   "repository": "https://github.com/chetanft/components.git",
   "license": "MIT",
-  "generatedAt": "2026-01-25T10:11:16.311Z",
+  "generatedAt": "2026-01-25T11:18:42.093Z",
   "coreDependencies": {
     "peer": [
       "react",
@@ -574,6 +574,7 @@
         "DataEntryTableRow.tsx",
         "DataEntryTableRowCell.tsx",
         "DataEntryTableRowCheckbox.tsx",
+        "DataEntryTableTypes.ts",
         "index.ts",
         "useColumnResize.ts"
       ],
@@ -760,6 +761,7 @@
         "DropdownContent.tsx",
         "DropdownContext.tsx",
         "DropdownTrigger.tsx",
+        "DropdownTypes.ts",
         "index.ts",
         "useDropdown.ts"
       ],
@@ -788,6 +790,7 @@
         "DropdownMenuList.tsx",
         "DropdownMenuSearch.tsx",
         "DropdownMenuSeparator.tsx",
+        "DropdownMenuTypes.ts",
         "index.ts"
       ],
       "subComponents": [
@@ -1000,6 +1003,7 @@
       "path": "src/components/organisms/Form",
       "files": [
         "Form.tsx",
+        "FormContext.tsx",
         "FormControl.tsx",
         "FormDescription.tsx",
         "FormError.tsx",
@@ -1008,6 +1012,7 @@
         "index.ts"
       ],
       "subComponents": [
+        "FormContext",
         "FormControl",
         "FormDescription",
         "FormError",
@@ -2341,6 +2346,7 @@
         "TableRowSelect.tsx",
         "TableSelectAll.tsx",
         "TableSelectionContext.tsx",
+        "TableTypes.ts",
         "index.ts"
       ],
       "subComponents": [
@@ -2358,7 +2364,7 @@
         "TableSelectAll",
         "TableSelectionContext"
       ],
-      "description": "Table column definition",
+      "description": "Table component props",
       "dependencies": {
         "internal": [
           "Checkbox",
@@ -2604,6 +2610,7 @@
         "TreeNodeContent.tsx",
         "TreeNodeIcon.tsx",
         "TreeNodeSwitcher.tsx",
+        "TreeTypes.ts",
         "index.ts"
       ],
       "subComponents": [
