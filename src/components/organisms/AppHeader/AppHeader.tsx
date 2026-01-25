@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { UserProfile } from '../UserProfile/UserProfile';
+import { UserProfile, type UserProfileProps } from '../UserProfile/UserProfile';
 import { UserProfileDropdown } from '../UserProfileDropdown/UserProfileDropdown';
 import { Rocket, Bell, ThreeDotMenu } from '../../atoms/Icons';
 import { Logo } from '../../atoms/Logos';
@@ -29,6 +29,10 @@ export interface AppHeaderProps extends Omit<ComposableProps<'header'>, 'childre
   onUserMenuItemClick?: (item: string) => void;
   className?: string;
   leftAddon?: () => React.ReactNode;
+  /**
+   * Pass-through props for UserProfile (e.g., avatarSize/avatarClassName)
+   */
+  userProfileProps?: Partial<UserProfileProps>;
 }
 
 /**
@@ -71,6 +75,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
   onUserMenuItemClick = () => { },
   className,
   leftAddon,
+  userProfileProps,
   asChild,
     ...htmlProps
   } = props;
@@ -122,6 +127,8 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
   const renderUserProfileSection = (options?: UserProfileSectionOptions) => {
     const { companyName = true, triggerClassName } = options ?? {};
 
+    const mergedUserProfileClassName = cn(triggerClassName, userProfileProps?.className);
+
     return (
       <div ref={userProfileRef} className="relative inline-flex w-fit">
         <UserProfile
@@ -133,7 +140,8 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
           userAvatar={user.avatar}
           companyName={companyName}
           onClick={handleUserProfileClick}
-          className={triggerClassName}
+          className={mergedUserProfileClassName}
+          {...userProfileProps}
         />
         <UserProfileDropdown
           isOpen={isUserProfileOpen}

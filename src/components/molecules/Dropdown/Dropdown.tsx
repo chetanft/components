@@ -154,6 +154,31 @@ export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants
    * Dropdown content (for composable API)
    */
   children?: React.ReactNode;
+  /**
+   * Custom portal container for the dropdown menu.
+   * Use this when you need deterministic positioning (e.g., app-level portal node).
+   */
+  portalContainer?: HTMLElement;
+  /**
+   * Optional ID assigned to the portal container.
+   */
+  portalId?: string;
+  /**
+   * Extra class name applied to the portal wrapper.
+   */
+  portalClassName?: string;
+  /**
+   * Additional inline styles applied to the portal wrapper.
+   */
+  portalStyle?: React.CSSProperties;
+  /**
+   * Additional class name applied to the `DropdownMenu`.
+   */
+  menuClassName?: string;
+  /**
+   * Additional inline styles applied to the `DropdownMenu`.
+   */
+  menuStyle?: React.CSSProperties;
 }
 
 interface SizeStyles {
@@ -275,6 +300,12 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       segments,
       selectedSegment,
       onSegmentChange,
+      portalContainer: customPortalContainer,
+      portalId,
+      portalClassName,
+      portalStyle,
+      menuClassName,
+      menuStyle,
       children,
       ...props
     },
@@ -286,19 +317,30 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     const dropdownRef = useRef<HTMLDivElement>(null);
     const menuRef = useRef<HTMLDivElement>(null);
     const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0, width: 0 });
-    const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+    const [internalPortalContainer, setInternalPortalContainer] = useState<HTMLElement | null>(null);
 
     const sizeStyles = sizeStylesMap[size];
 
-    // Create portal container on mount
     useEffect(() => {
+      if (customPortalContainer) {
+        setInternalPortalContainer(null);
+        return;
+      }
+
       const container = document.createElement('div');
+      container.setAttribute('data-dropdown-portal', 'true');
+      if (portalId) {
+        container.id = portalId;
+      }
       document.body.appendChild(container);
-      setPortalContainer(container);
+      setInternalPortalContainer(container);
+
       return () => {
-        document.body.removeChild(container);
+        if (container.parentNode) {
+          container.parentNode.removeChild(container);
+        }
       };
-    }, []);
+    }, [customPortalContainer, portalId]);
 
     // Calculate menu position when it opens or window scrolls/resizes
     useEffect(() => {
@@ -356,6 +398,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     });
 
     const selectedOption = (options || []).find((option: DropdownOption) => option.value === selectedValue);
+    const resolvedPortalContainer = customPortalContainer ?? internalPortalContainer;
 
     const handleSelect = (optionValue: string | number) => {
       setSelectedValue(optionValue);
@@ -398,8 +441,8 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       menuRef,
       menuPosition,
       setMenuPosition,
-      portalContainer,
-      setPortalContainer,
+      portalContainer: resolvedPortalContainer,
+      setPortalContainer: () => {},
       handleSelect,
     };
 
@@ -462,7 +505,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     };
 
     const renderMenu = () => {
-      if (!isOpen || !portalContainer) return null;
+      if (!isOpen || !resolvedPortalContainer) return null;
 
       const hasSegments = Array.isArray(segments) && segments.length > 0;
       const segmentsArray = hasSegments ? segments : [];
@@ -491,16 +534,23 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         property = 'groups';
       }
 
+      const wrapperStyle: React.CSSProperties = {
+        position: 'fixed',
+        top: menuPosition.top,
+        left: menuPosition.left,
+        width: menuPosition.width,
+        zIndex: 9999,
+        ...(portalStyle ?? {})
+      };
+
       return ReactDOM.createPortal(
         <div
           ref={menuRef}
-          style={{
-            position: 'fixed',
-            top: menuPosition.top,
-            left: menuPosition.left,
-            width: menuPosition.width,
-            zIndex: 9999,
-          }}
+          className={cn(
+            portalClassName,
+            "w-full"
+          )}
+          style={wrapperStyle}
           onClick={(e) => e.stopPropagation()}
           id="dropdown-menu"
         >
@@ -516,10 +566,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
                 handleSelect(option.value);
               }
             }}
-            className="w-full"
+            className={cn("w-full", menuClassName)}
+            style={menuStyle}
           />
         </div>,
-        portalContainer
+        resolvedPortalContainer
       );
     };
 

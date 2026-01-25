@@ -14,6 +14,14 @@ export interface UserProfileProps extends Omit<ComposableProps<'div'>, 'company'
   companyName?: boolean;
   onClick?: () => void;
   className?: string;
+  /**
+   * Override avatar size.
+   */
+  avatarSize?: React.ComponentProps<typeof Avatar>['size'];
+  /**
+   * Additional className for avatar container.
+   */
+  avatarClassName?: string;
 }
 
 const baseContainer = 'bg-[var(--bg-primary)] box-border content-stretch flex rounded-[var(--x2,8px)]';
@@ -32,6 +40,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   companyName = true,
   onClick = () => { },
   className,
+  avatarSize,
+  avatarClassName,
   asChild,
   ...props
 }) => {
@@ -66,8 +76,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({
           <Avatar
             src={userAvatar}
             alt={userName}
-            size="md"
-            className={avatarClass}
+            size={avatarSize ?? "md"}
+            className={cn(avatarClass, avatarClassName)}
             onClick={handleAvatarClick}
             onKeyDown={handleAvatarKeyDown}
             role="button"
@@ -78,8 +88,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({
         <Avatar
           src={userAvatar}
           alt={userName}
-          size="md"
-          className={avatarClass}
+          size={avatarSize ?? "md"}
+          className={cn(avatarClass, avatarClassName)}
           onClick={handleAvatarClick}
           onKeyDown={handleAvatarKeyDown}
           role="button"

@@ -1,6 +1,6 @@
 # Component Inventory Report
 
-**Generated**: 2026-01-25T06:04:53.094Z
+**Generated**: 2026-01-25T09:52:37.900Z
 
 ## Summary
 
@@ -728,7 +728,7 @@
 
 #### Public API
 
-- **Props**: 17 (1 required, 16 optional)
+- **Props**: 20 (1 required, 19 optional)
 - **Slots**: 0
 - **Context**: No
 
@@ -768,7 +768,7 @@
 
 #### Public API
 
-- **Props**: 21 (0 required, 21 optional)
+- **Props**: 27 (0 required, 27 optional)
 - **Slots**: 0
 - **Context**: No
 
@@ -1028,7 +1028,7 @@
 
 #### Public API
 
-- **Props**: 4 (0 required, 4 optional)
+- **Props**: 10 (0 required, 10 optional)
 - **Slots**: 1
 - **Context**: No
 
@@ -1648,7 +1648,7 @@
 
 #### Public API
 
-- **Props**: 8 (0 required, 8 optional)
+- **Props**: 9 (0 required, 9 optional)
 - **Slots**: 2
 - **Context**: No
 
@@ -1968,7 +1968,7 @@
 
 #### Public API
 
-- **Props**: 4 (0 required, 4 optional)
+- **Props**: 7 (0 required, 7 optional)
 - **Slots**: 0
 - **Context**: No
 
@@ -2088,7 +2088,7 @@
 
 #### Public API
 
-- **Props**: 8 (0 required, 8 optional)
+- **Props**: 10 (0 required, 10 optional)
 - **Slots**: 1
 - **Context**: No
 

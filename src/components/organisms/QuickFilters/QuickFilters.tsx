@@ -33,6 +33,18 @@ export interface QuickFiltersProps {
   className?: string;
   scrollable?: boolean;
   /**
+   * Additional className for filter chip wrapper.
+   */
+  chipClassName?: string;
+  /**
+   * Additional className for chip label text.
+   */
+  labelClassName?: string;
+  /**
+   * Additional className for count badge text.
+   */
+  countClassName?: string;
+  /**
    * Filter components (for composable API)
    */
   children?: React.ReactNode;
@@ -100,7 +112,10 @@ const FilterChip: React.FC<{
   onRemove?: () => void;
   showBorder?: boolean;
   isMainLabel?: boolean;
-}> = ({ filter, option, isSelected, onSelect, onRemove, showBorder = true, isMainLabel = false }) => {
+  chipClassName?: string;
+  labelClassName?: string;
+  countClassName?: string;
+}> = ({ filter, option, isSelected, onSelect, onRemove, showBorder = true, isMainLabel = false, chipClassName, labelClassName, countClassName }) => {
   const displayLabel = option?.label || filter.label;
   const displayCount = option?.count || filter.count;
   const displayType = option?.type || filter.type || 'normal';
@@ -117,7 +132,8 @@ const FilterChip: React.FC<{
             ? "bg-[var(--color-border-secondary)]"
             : "bg-[var(--color-bg-primary)]",
         // Border: always show border except for main labels without border
-        showBorder && !isMainLabel ? "box-border border border-[var(--color-border-primary)]" : ""
+        showBorder && !isMainLabel ? "box-border border border-[var(--color-border-primary)]" : "",
+        chipClassName
       )}
       onClick={!isMainLabel ? onSelect : undefined}
       role={!isMainLabel ? "button" : undefined}
@@ -153,7 +169,8 @@ const FilterChip: React.FC<{
                   displayType === 'warning' ? "text-[var(--color-warning)]" :
                     displayType === 'success' ? "text-[var(--color-positive)]" :
                       displayType === 'neutral' ? "text-[var(--color-neutral)]" :
-                        "text-[var(--color-primary)]"
+                        "text-[var(--color-primary)]",
+            countClassName
               )
           )}
         >
@@ -162,7 +179,7 @@ const FilterChip: React.FC<{
       )}
 
       {/* Label */}
-      <span className="text-[var(--color-primary)]">
+      <span className={cn("text-[var(--color-primary)]", labelClassName)}>
         {displayLabel}
       </span>
 
@@ -204,7 +221,10 @@ const MultiOptionFilter: React.FC<{
   filter: QuickFilter;
   onFilterClick: (filterId: string, optionId?: string) => void;
   onFilterRemove: (filterId: string, optionId?: string) => void;
-}> = ({ filter, onFilterClick, onFilterRemove }) => {
+  chipClassName?: string;
+  labelClassName?: string;
+  countClassName?: string;
+}> = ({ filter, onFilterClick, onFilterRemove, chipClassName, labelClassName, countClassName }) => {
   return (
     <div className="inline-flex items-center h-[36px] bg-[var(--color-bg-primary)] border border-[var(--color-border-primary)] rounded-[var(--radius-md)] overflow-hidden">
       {/* Main filter section - non-clickable label with gray background */}
@@ -216,6 +236,9 @@ const MultiOptionFilter: React.FC<{
           onRemove={undefined}
           showBorder={false}
           isMainLabel={true}
+          chipClassName={chipClassName}
+          labelClassName={labelClassName}
+          countClassName={countClassName}
         />
       </div>
 
@@ -233,6 +256,9 @@ const MultiOptionFilter: React.FC<{
                 () => onFilterRemove(filter.id, option.id) : undefined
               }
               showBorder={false}
+              chipClassName={chipClassName}
+              labelClassName={labelClassName}
+              countClassName={countClassName}
             />
           </div>
         </React.Fragment>
@@ -247,6 +273,9 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
   onFilterRemove = () => { },
   className,
   scrollable = false,
+  chipClassName,
+  labelClassName,
+  countClassName,
   children,
 }) => {
   // Extract filters from children if using composable API
@@ -328,6 +357,9 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
                 filter={filter}
                 onFilterClick={onFilterClick}
                 onFilterRemove={onFilterRemove}
+                chipClassName={chipClassName}
+                labelClassName={labelClassName}
+                countClassName={countClassName}
               />
             </div>
           );
@@ -351,6 +383,9 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
                 onSelect={() => onFilterClick(filter.id)}
                 onRemove={filter.selected ? () => onFilterRemove(filter.id) : undefined}
                 showBorder={false}
+                chipClassName={chipClassName}
+                labelClassName={labelClassName}
+                countClassName={countClassName}
               />
             </div>
           );

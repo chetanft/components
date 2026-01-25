@@ -270,6 +270,21 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
    * Preset options shown in the range dropdown menu
    */
   dropdownPresets?: string[];
+
+  /**
+   * CSS class applied to the portal container wrapping the calendar popup
+   */
+  portalClassName?: string;
+
+  /**
+   * Inline styles applied to the portal container
+   */
+  portalStyle?: React.CSSProperties;
+
+  /**
+   * Override the portal container element ID (defaults to 'datepicker-portal-container')
+   */
+  portalContainerId?: string;
   
   /**
    * Quick select options shown in the left sidebar (range mode only)
@@ -337,6 +352,9 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   className,
   includeDropdown = false,
   dropdownPresets,
+  portalClassName,
+  portalStyle,
+  portalContainerId,
   quickSelectOptions,
   children
 }, ref) => {
@@ -373,30 +391,27 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   const [isTyping, setIsTyping] = useState(false);
 
   // Create portal container on mount
-  useEffect(() => {
-    // Check if we're in a browser environment
-    if (typeof document !== 'undefined') {
-      // Look for existing container or create one
-      let container = document.getElementById('datepicker-portal-container');
-      if (!container) {
-        container = document.createElement('div');
-        container.id = 'datepicker-portal-container';
-        document.body.appendChild(container);
-      }
-      setPortalContainer(container);
+  const resolvedPortalId = portalContainerId ?? 'datepicker-portal-container';
 
-      // Cleanup on unmount
-      return () => {
-        try {
-          if (container && container.parentNode && container.childNodes.length === 0) {
-            container.parentNode.removeChild(container);
-          }
-        } catch (error) {
-          console.error('Error removing datepicker portal container:', error);
-        }
-      };
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    let container = document.getElementById(resolvedPortalId);
+    let created = false;
+    if (!container) {
+      container = document.createElement('div');
+      container.id = resolvedPortalId;
+      document.body.appendChild(container);
+      created = true;
     }
-  }, []);
+    setPortalContainer(container);
+
+    return () => {
+      if (created && container && container.parentNode && container.childNodes.length === 0) {
+        container.parentNode.removeChild(container);
+      }
+    };
+  }, [resolvedPortalId]);
 
   // Format date consistently
   const formatDateForDisplay = (date: Date | null): string => {
@@ -889,6 +904,9 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     setCalendarPosition,
     portalContainer,
     setPortalContainer,
+    portalClassName,
+    portalStyle,
+    portalContainerId: resolvedPortalId,
     inputValue,
     setInputValue,
     startInputValue,
@@ -1067,10 +1085,11 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
 
             {/* Calendar */}
             <div
-              className="fixed z-[9999]"
+              className={cn("fixed z-[9999]", portalClassName)}
               style={{
                 top: calendarPosition.top,
-                left: calendarPosition.left
+                left: calendarPosition.left,
+                ...(portalStyle ?? {})
               }}
             >
               <Calendar

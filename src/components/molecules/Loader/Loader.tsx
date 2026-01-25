@@ -13,6 +13,18 @@ export interface LoaderProps extends ComposableProps<'div'> {
   showLogo?: boolean;
   /** Custom logo component */
   logo?: React.ReactNode;
+  /** Show progress bar */
+  showProgressBar?: boolean;
+  /** Progress bar height (CSS length or number in px) */
+  progressHeight?: string | number;
+  /** Progress wrapper class name */
+  progressClassName?: string;
+  /** Progress bar class name */
+  progressBarClassName?: string;
+  /** Progress wrapper inline styles */
+  progressStyle?: React.CSSProperties;
+  /** Progress bar inline styles */
+  progressBarStyle?: React.CSSProperties;
 }
 
 /**
@@ -61,6 +73,12 @@ export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
     logoSize = 180,
     showLogo = true,
     logo,
+    showProgressBar = true,
+    progressHeight,
+    progressClassName,
+    progressBarClassName,
+    progressStyle,
+    progressBarStyle,
     className,
     asChild,
     ...props
@@ -89,31 +107,40 @@ export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
         {...props}
       >
         {logo || defaultLogo}
-        
-        <div 
-          className="content-stretch flex flex-col gap-[var(--x2)] items-start relative rounded-full shrink-0 w-full"
-          style={{ 
-            height: 'var(--x2)',
-            backgroundColor: 'var(--border-primary)' 
-          }}
-        >
-          <div
-            className="rounded-full shrink-0 transition-all duration-300 ease-out"
-            style={{
-              width: `${clampedValue}%`,
-              height: 'var(--x2)',
-              backgroundColor: 'var(--primary)',
+
+        {showProgressBar && (
+          <div 
+            className={cn(
+              "content-stretch flex flex-col gap-[var(--x2)] items-start relative rounded-full shrink-0 w-full",
+              progressClassName
+            )}
+            style={{ 
+              height: progressHeight ?? 'var(--x2)',
+              backgroundColor: 'var(--border-primary)',
+              ...(progressStyle || {})
             }}
-            role="progressbar"
-            aria-valuenow={clampedValue}
-            aria-valuemin={0}
-            aria-valuemax={100}
-          />
-        </div>
+          >
+            <div
+              className={cn(
+                "rounded-full shrink-0 transition-all duration-300 ease-out",
+                progressBarClassName
+              )}
+              style={{
+                width: `${clampedValue}%`,
+                height: progressHeight ?? 'var(--x2)',
+                backgroundColor: 'var(--primary)',
+                ...(progressBarStyle || {})
+              }}
+              role="progressbar"
+              aria-valuenow={clampedValue}
+              aria-valuemin={0}
+              aria-valuemax={100}
+            />
+          </div>
+        )}
       </Comp>
     );
   }
 );
 
 Loader.displayName = 'Loader';
-

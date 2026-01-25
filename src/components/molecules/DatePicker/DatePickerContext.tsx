@@ -27,6 +27,9 @@ export interface DatePickerContextType {
   setCalendarPosition: (position: { top: number; left: number }) => void;
   portalContainer: HTMLElement | null;
   setPortalContainer: (container: HTMLElement | null) => void;
+  portalClassName?: string;
+  portalStyle?: React.CSSProperties;
+  portalContainerId?: string;
   inputValue: string;
   setInputValue: (value: string) => void;
   startInputValue: string;
@@ -76,6 +79,9 @@ const createDefaultContext = (): DatePickerContextType => ({
   setCalendarPosition: () => {},
   portalContainer: null,
   setPortalContainer: () => {},
+  portalClassName: undefined,
+  portalStyle: undefined,
+  portalContainerId: undefined,
   inputValue: '',
   setInputValue: () => {},
   startInputValue: '',

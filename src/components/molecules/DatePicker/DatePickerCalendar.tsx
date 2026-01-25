@@ -12,6 +12,15 @@ export interface DatePickerCalendarProps extends ComposableProps<'div'> {
    * Calendar content (optional, defaults to Calendar component).
    */
   children?: React.ReactNode;
+  /**
+   * Portal wrapper class name overrides.
+   */
+  portalClassName?: string;
+  /**
+   * Portal wrapper inline styles.
+   */
+  portalStyle?: React.CSSProperties;
+}
 }
 
 /**
@@ -38,7 +47,10 @@ export interface DatePickerCalendarProps extends ComposableProps<'div'> {
  * - Handles positioning and backdrop automatically
  */
 export const DatePickerCalendar = React.forwardRef<HTMLDivElement, DatePickerCalendarProps>(
-  ({ className, children, asChild, ...props }, ref) => {
+  (
+    { className, children, portalClassName, portalStyle, asChild, ...props },
+    ref
+  ) => {
     const {
       isOpen,
       disabled,
@@ -55,6 +67,8 @@ export const DatePickerCalendar = React.forwardRef<HTMLDivElement, DatePickerCal
       handleCancel,
       handleClear,
       setIsOpen,
+      portalClassName: contextPortalClassName,
+      portalStyle: contextPortalStyle,
     } = useDatePickerContext();
     
     if (!isOpen || disabled || !portalContainer) {
@@ -90,10 +104,15 @@ export const DatePickerCalendar = React.forwardRef<HTMLDivElement, DatePickerCal
         {/* Calendar */}
         <div
           ref={ref}
-          className={cn("fixed z-[9999]", className)}
+          className={cn(
+            "fixed z-[9999]",
+            portalClassName ?? contextPortalClassName,
+            className
+          )}
           style={{
             top: calendarPosition.top,
-            left: calendarPosition.left
+            left: calendarPosition.left,
+            ...(portalStyle ?? contextPortalStyle ?? {})
           }}
           {...props}
         >

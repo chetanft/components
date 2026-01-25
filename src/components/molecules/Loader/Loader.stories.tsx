@@ -66,6 +66,33 @@ export const WithoutLogo: Story = {
   ),
 };
 
+export const NoProgressBar: Story = {
+  args: {
+    value: 60,
+    showProgressBar: false,
+  },
+  render: (args: React.ComponentProps<typeof Loader>) => (
+    <div style={{ width: '500px', height: '200px', padding: '20px' }}>
+      <Loader {...args} />
+    </div>
+  ),
+};
+
+export const CustomProgressBar: Story = {
+  args: {
+    value: 45,
+    progressHeight: 10,
+    progressClassName: "rounded-full bg-[var(--color-border-secondary)]",
+    progressBarClassName: "rounded-full",
+    progressBarStyle: { backgroundColor: 'var(--color-primary)' },
+  },
+  render: (args: React.ComponentProps<typeof Loader>) => (
+    <div style={{ width: '500px', height: '200px', padding: '20px' }}>
+      <Loader {...args} />
+    </div>
+  ),
+};
+
 export const CustomLogo: Story = {
   args: {
     value: 75,
@@ -104,4 +131,3 @@ export const FullWidth: Story = {
     </div>
   ),
 };
-

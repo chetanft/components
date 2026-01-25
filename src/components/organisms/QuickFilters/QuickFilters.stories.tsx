@@ -97,6 +97,27 @@ export function SelectedFilters() {
   );
 }
 
+// Custom label styling
+export function CustomLabelStyling() {
+  const filters: QuickFilter[] = [
+    { id: 'filter-1', label: 'All Items', selected: true },
+    { id: 'filter-2', label: 'Active', count: 12 },
+    { id: 'filter-3', label: 'Pending', count: 5 },
+  ];
+
+  return (
+    <div className="p-6">
+      <QuickFilters
+        filters={filters}
+        onFilterClick={(id) => console.log('Clicked:', id)}
+        onFilterRemove={(id) => console.log('Removed:', id)}
+        labelClassName="text-[var(--color-tertiary)]"
+        chipClassName="bg-[var(--color-bg-secondary)]"
+      />
+    </div>
+  );
+}
+
 // Declarative API - Multi-option filters
 export function DeclarativeMultiOptionFilters() {
   const filters: QuickFilterType[] = [
@@ -364,4 +385,3 @@ export function FigmaDesignExample() {
     </div>
   );
 }
-
