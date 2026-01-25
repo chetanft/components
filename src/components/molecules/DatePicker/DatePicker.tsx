@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
-import { Calendar } from './Calendar';
+import { Calendar, type QuickSelectOption } from './Calendar';
 import { DatePickerProvider } from './DatePickerContext';
 import {
   startOfWeek,
@@ -270,6 +270,10 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
    * Preset options shown in the range dropdown menu
    */
   dropdownPresets?: string[];
+  /**
+   * Callback when dropdown preset changes (range mode only).
+   */
+  onDropdownPresetChange?: (preset: string) => void;
 
   /**
    * CSS class applied to the portal container wrapping the calendar popup
@@ -289,8 +293,9 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
   /**
    * Quick select options shown in the left sidebar (range mode only)
    * @default [{ label: 'This week', value: 'this-week' }, { label: 'Next week', value: 'next-week' }, { label: 'This month', value: 'this-month' }, { label: 'Next month', value: 'next-month' }]
+   * Use `getRange` to provide custom date ranges.
    */
-  quickSelectOptions?: Array<{ label: string; value: string }>;
+  quickSelectOptions?: QuickSelectOption[];
   
   /**
    * DatePicker content (for composable API)
@@ -352,6 +357,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   className,
   includeDropdown = false,
   dropdownPresets,
+  onDropdownPresetChange,
   portalClassName,
   portalStyle,
   portalContainerId,
@@ -894,6 +900,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     placeholder,
     includeDropdown,
     dropdownPresets,
+    onDropdownPresetChange,
     quickSelectOptions,
     onChange,
     onStartChange,
@@ -1101,6 +1108,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
                 onApply={handleApply}
                 onClear={range ? handleClear : undefined}
                 dropdownPresets={dropdownPresets}
+                onDropdownPresetChange={onDropdownPresetChange}
                 quickSelectOptions={quickSelectOptions}
               />
             </div>

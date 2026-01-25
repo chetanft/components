@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from 'react';
+import type { QuickSelectOption } from './Calendar';
 
 export interface DatePickerContextType {
   isOpen: boolean;
@@ -18,6 +19,8 @@ export interface DatePickerContextType {
   placeholder?: string;
   includeDropdown?: boolean;
   dropdownPresets?: string[];
+  onDropdownPresetChange?: (preset: string) => void;
+  quickSelectOptions?: QuickSelectOption[];
   onChange?: (value: string) => void;
   onStartChange?: (value: string) => void;
   onEndChange?: (value: string) => void;
@@ -70,6 +73,8 @@ const createDefaultContext = (): DatePickerContextType => ({
   placeholder: 'Select date',
   includeDropdown: false,
   dropdownPresets: undefined,
+  onDropdownPresetChange: undefined,
+  quickSelectOptions: undefined,
   onChange: undefined,
   onStartChange: undefined,
   onEndChange: undefined,

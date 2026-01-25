@@ -61,6 +61,8 @@ export const DatePickerCalendar = React.forwardRef<HTMLDivElement, DatePickerCal
       startValue,
       endValue,
       dropdownPresets,
+      onDropdownPresetChange,
+      quickSelectOptions,
       handleDateChange,
       handleApply,
       handleCancel,
@@ -89,6 +91,8 @@ export const DatePickerCalendar = React.forwardRef<HTMLDivElement, DatePickerCal
         onApply={handleApply}
         onClear={range ? handleClear : undefined}
         dropdownPresets={dropdownPresets}
+        onDropdownPresetChange={onDropdownPresetChange}
+        quickSelectOptions={quickSelectOptions}
       />
     );
     

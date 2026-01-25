@@ -24,6 +24,11 @@ import {
 export interface QuickSelectOption {
   label: string;
   value: string;
+  /**
+   * Custom range resolver for quick select options.
+   * If provided, this is used instead of built-in presets.
+   */
+  getRange?: (today: Date) => [Date, Date] | { start: Date; end: Date };
 }
 
 interface CalendarProps {
@@ -37,6 +42,10 @@ interface CalendarProps {
   maxDate?: Date;
   maxRangeDays?: number; // Maximum allowed range in days
   dropdownPresets?: string[];
+  /**
+   * Callback when the dropdown preset selection changes.
+   */
+  onDropdownPresetChange?: (preset: string) => void;
   /**
    * Quick select options shown in the left sidebar (range mode only)
    * @default [{ label: 'This week', value: 'this-week' }, { label: 'Next week', value: 'next-week' }, { label: 'This month', value: 'this-month' }, { label: 'Next month', value: 'next-month' }]
@@ -205,6 +214,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   maxDate,
   maxRangeDays,
   dropdownPresets,
+  onDropdownPresetChange,
   quickSelectOptions = DEFAULT_QUICK_SELECT_OPTIONS,
   className
 }, ref) => {
@@ -336,34 +346,46 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
     setRangeError(null);
     const today = startOfToday();
 
+    const matchedOption = quickSelectOptions.find((item) => item.value === option);
+    const resolvedRange = matchedOption?.getRange?.(today);
+    const normalizedRange = Array.isArray(resolvedRange)
+      ? resolvedRange
+      : resolvedRange
+        ? [resolvedRange.start, resolvedRange.end]
+        : null;
+
     let start: Date;
     let end: Date;
 
-    switch (option) {
-      case 'this-week': {
-        start = startOfWeek(today);
-        end = endOfWeek(today);
-        break;
+    if (normalizedRange) {
+      [start, end] = normalizedRange;
+    } else {
+      switch (option) {
+        case 'this-week': {
+          start = startOfWeek(today);
+          end = endOfWeek(today);
+          break;
+        }
+        case 'next-week': {
+          const nextWeekStart = addWeeks(startOfWeek(today), 1);
+          start = nextWeekStart;
+          end = endOfWeek(nextWeekStart);
+          break;
+        }
+        case 'this-month': {
+          start = startOfMonth(today);
+          end = endOfMonth(today);
+          break;
+        }
+        case 'next-month': {
+          const nextMonthStart = startOfMonth(addMonths(today, 1));
+          start = nextMonthStart;
+          end = endOfMonth(nextMonthStart);
+          break;
+        }
+        default:
+          return;
       }
-      case 'next-week': {
-        const nextWeekStart = addWeeks(startOfWeek(today), 1);
-        start = nextWeekStart;
-        end = endOfWeek(nextWeekStart);
-        break;
-      }
-      case 'this-month': {
-        start = startOfMonth(today);
-        end = endOfMonth(today);
-        break;
-      }
-      case 'next-month': {
-        const nextMonthStart = startOfMonth(addMonths(today, 1));
-        start = nextMonthStart;
-        end = endOfMonth(nextMonthStart);
-        break;
-      }
-      default:
-        return;
     }
 
     // Validate preset range
@@ -378,6 +400,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   const handleDateRangeSelect = (option: string) => {
     setSelectedDateRange(option);
     setIsDropdownOpen(false);
+    onDropdownPresetChange?.(option);
   };
 
   const isQuickSelectActive = (option: string) => {
@@ -387,6 +410,14 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
 
     const [start, end] = value;
     const today = startOfToday();
+    const matchedOption = quickSelectOptions.find((item) => item.value === option);
+    const resolvedRange = matchedOption?.getRange?.(today);
+    if (resolvedRange) {
+      const [resolvedStart, resolvedEnd] = Array.isArray(resolvedRange)
+        ? resolvedRange
+        : [resolvedRange.start, resolvedRange.end];
+      return isSameDay(start, resolvedStart) && isSameDay(end, resolvedEnd);
+    }
 
     switch (option) {
       case 'this-week': {
