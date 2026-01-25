@@ -648,7 +648,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
           </div>
         </div>
       )}
-      <div className="flex">
+      <div className="flex gap-5">
         {range && (
           <div className={quickSelectVariants({ range })}>
             {quickSelectOptions.map((option) => (
