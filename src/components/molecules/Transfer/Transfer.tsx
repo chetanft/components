@@ -67,12 +67,18 @@ const TransferList = ({
     showSearch,
     searchPlaceholder,
     disabled,
-    direction: _direction
+    direction,
+    footer,
+    pagination
 }: any) => {
     const [filter, setFilter] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const pageSize = typeof pagination === 'object' ? pagination.pageSize : 10;
 
     const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilter(e.target.value);
+        setCurrentPage(1);
         handleFilter?.(e.target.value);
     };
 
@@ -92,6 +98,24 @@ const TransferList = ({
             checked
         );
     };
+
+    const totalPages = pagination
+        ? Math.max(1, Math.ceil(filteredDataSource.length / pageSize))
+        : 1;
+    const safePage = Math.min(currentPage, totalPages);
+    const startIndex = pagination ? (safePage - 1) * pageSize : 0;
+    const pagedDataSource = pagination
+        ? filteredDataSource.slice(startIndex, startIndex + pageSize)
+        : filteredDataSource;
+
+    const footerContent = footer?.({
+        direction,
+        total: filteredDataSource.length,
+        checkedCount,
+        page: safePage,
+        pageSize,
+        totalPages,
+    });
 
     return (
         <div className="flex flex-col border border-[var(--border-primary)] rounded-md w-[250px] h-[300px] overflow-hidden bg-[var(--color-bg-primary)]">
@@ -123,7 +147,7 @@ const TransferList = ({
             )}
 
             <ul className="flex-1 overflow-y-auto p-0 m-0 list-none">
-                {filteredDataSource.map((item: any) => (
+                {pagedDataSource.map((item: any) => (
                     <li
                         key={item.key}
                         className={cn(
@@ -152,6 +176,37 @@ const TransferList = ({
                     </div>
                 )}
             </ul>
+
+            {(footerContent || pagination) && (
+                <div className="border-t border-[var(--border-primary)] bg-[var(--color-bg-secondary)] px-[var(--spacing-x3)] py-[var(--spacing-x2)] text-xs text-[var(--text-tertiary)]">
+                    {footerContent && (
+                        <div className="mb-[var(--spacing-x2)]">{footerContent}</div>
+                    )}
+                    {pagination && (
+                        <div className="flex items-center justify-between gap-[var(--spacing-x2)]">
+                            <Button
+                                variant="text"
+                                size="sm"
+                                disabled={safePage <= 1}
+                                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                            >
+                                Previous
+                            </Button>
+                            <span>
+                                {safePage} / {totalPages}
+                            </span>
+                            <Button
+                                variant="text"
+                                size="sm"
+                                disabled={safePage >= totalPages}
+                                onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+                            >
+                                Next
+                            </Button>
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 };
@@ -168,6 +223,8 @@ export const Transfer: React.FC<TransferProps> = ({
     showSearch,
     searchPlaceholder,
     oneWay,
+    footer,
+    pagination,
     disabled,
     className,
     onScroll: _onScroll,
@@ -285,6 +342,8 @@ export const Transfer: React.FC<TransferProps> = ({
                 render={render}
                 showSearch={showSearch}
                 searchPlaceholder={searchPlaceholder}
+                footer={footer}
+                pagination={pagination}
                 disabled={disabled}
                 direction="left"
             />
@@ -321,6 +380,8 @@ export const Transfer: React.FC<TransferProps> = ({
                 render={render}
                 showSearch={showSearch}
                 searchPlaceholder={searchPlaceholder}
+                footer={footer}
+                pagination={pagination}
                 disabled={disabled}
                 direction="right"
             />

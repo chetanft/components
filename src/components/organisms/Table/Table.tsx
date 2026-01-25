@@ -297,7 +297,7 @@ export interface TableProps<T extends TableRow = TableRow> extends React.HTMLAtt
   
   /**
    * Enable striped row styling
-   * @default false
+   * @default true
    */
   striped?: boolean;
   

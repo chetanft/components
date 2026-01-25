@@ -17,15 +17,19 @@ export const BarChart: React.FC<BarChartProps> = ({
   className,
   options,
   horizontal = false,
+  defaultColors: customDefaultColors,
   ...props
 }) => {
+  // Use custom defaultColors if provided, otherwise fall back to imported defaultColors
+  const colors = customDefaultColors || defaultColors;
+  
   // Apply default colors to datasets if not provided
   const processedData: ChartData<'bar'> = {
     ...data,
     datasets: data.datasets.map((dataset, index) => ({
       ...dataset,
-      backgroundColor: dataset.backgroundColor || defaultColors[index % defaultColors.length],
-      borderColor: dataset.borderColor || defaultColors[index % defaultColors.length],
+      backgroundColor: dataset.backgroundColor || colors[index % colors.length],
+      borderColor: dataset.borderColor || colors[index % colors.length],
       borderWidth: dataset.borderWidth || 0,
       borderRadius: dataset.borderRadius || 4,
     })),
@@ -40,7 +44,7 @@ export const BarChart: React.FC<BarChartProps> = ({
   };
 
   return (
-    <BaseChart title={title} height={height} className={className} {...props}>
+    <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
       <Bar data={processedData} options={chartOptions} />
     </BaseChart>
   );

@@ -15,15 +15,19 @@ export const BubbleChart: React.FC<BubbleChartProps> = ({
   height = 400,
   className,
   options,
+  defaultColors: customDefaultColors,
   ...props
 }) => {
+  // Use custom defaultColors if provided, otherwise fall back to imported defaultColors
+  const colors = customDefaultColors || defaultColors;
+  
   // Apply default colors to datasets if not provided
   const processedData: ChartData<'bubble'> = {
     ...data,
     datasets: data.datasets.map((dataset, index) => ({
       ...dataset,
-      backgroundColor: dataset.backgroundColor || `${defaultColors[index % defaultColors.length]}80`,
-      borderColor: dataset.borderColor || defaultColors[index % defaultColors.length],
+      backgroundColor: dataset.backgroundColor || `${colors[index % colors.length]}80`,
+      borderColor: dataset.borderColor || colors[index % colors.length],
       borderWidth: dataset.borderWidth || 2,
     })),
   };
@@ -36,7 +40,7 @@ export const BubbleChart: React.FC<BubbleChartProps> = ({
   };
 
   return (
-    <BaseChart title={title} height={height} className={className} {...props}>
+    <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
       <Bubble data={processedData} options={chartOptions} />
     </BaseChart>
   );

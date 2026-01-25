@@ -5,7 +5,7 @@
   "description": "Design system built from Figma designs using Code Connect",
   "repository": "https://github.com/chetanft/components.git",
   "license": "MIT",
-  "generatedAt": "2026-01-23T10:25:35.066Z",
+  "generatedAt": "2026-01-25T08:22:58.647Z",
   "coreDependencies": {
     "peer": [
       "react",

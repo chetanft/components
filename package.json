@@ -118,6 +118,8 @@
     "audit:inventory": "npx tsx scripts/audit/inventory-components.ts",
     "audit:scan": "npx tsx scripts/audit/scan-composable-patterns.ts",
     "audit:rem-spacing": "npx tsx scripts/audit-rem-spacing.ts",
+    "scan:customization-gaps": "node scripts/scan-customization-gaps.cjs",
+    "inventory:comprehensive": "node scripts/inventory-components-comprehensive.cjs",
     "test:rem-scaling": "jest src/__tests__/rem-scaling.test.tsx",
     "build": "npm run sync:version && npm run validate:docs && npm run generate:token-reference && npm run generate:registry && rollup -c",
     "generate:registry": "node scripts/generate-registry.cjs",

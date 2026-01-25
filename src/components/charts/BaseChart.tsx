@@ -8,6 +8,11 @@ export interface BaseChartProps {
   responsive?: boolean;
   maintainAspectRatio?: boolean;
   className?: string;
+  /**
+   * Default color palette for datasets without explicit colors
+   * @default ['#42bdbd', '#0828f7', '#1793e8', '#ff0036', '#ffbe07']
+   */
+  defaultColors?: string[];
   children: React.ReactNode;
 }
 
@@ -15,6 +20,7 @@ export const BaseChart: React.FC<BaseChartProps> = ({
   title,
   height = 400,
   className,
+  defaultColors,
   children,
 }) => {
   return (

@@ -29,13 +29,17 @@ export const LineChart: React.FC<LineChartProps> = ({
   showDots = false,
   dotRadius = 4,
   dotColors,
+  defaultColors: customDefaultColors,
   ...props
 }) => {
+  // Use custom defaultColors if provided, otherwise fall back to imported defaultColors
+  const colors = customDefaultColors || defaultColors;
+  
   // Apply default colors to datasets if not provided
   const processedData: ChartData<'line'> = {
     ...data,
     datasets: data.datasets.map((dataset, index) => {
-      const baseColor = defaultColors[index % defaultColors.length];
+      const baseColor = colors[index % colors.length];
       const dotColor = dotColors?.[index] || baseColor;
 
       return {
@@ -65,7 +69,7 @@ export const LineChart: React.FC<LineChartProps> = ({
   };
 
   return (
-    <BaseChart title={title} height={height} className={className} {...props}>
+    <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
       <Line data={processedData} options={chartOptions} />
     </BaseChart>
   );

@@ -25,13 +25,17 @@ export const RadarChart: React.FC<RadarChartProps> = ({
   labelFormatter,
   gridType = 'default',
   showLegend = true,
+  defaultColors: customDefaultColors,
   ...props
 }) => {
+  // Use custom defaultColors if provided, otherwise fall back to imported defaultColors
+  const colors = customDefaultColors || defaultColors;
+  
   // Apply default colors to datasets if not provided
   const processedData: ChartData<'radar'> = {
     ...data,
     datasets: data.datasets.map((dataset, index) => {
-      const baseColor = defaultColors[index % defaultColors.length];
+      const baseColor = colors[index % colors.length];
       const bgOpacity = gridType === 'filled' ? '80' : '40';
       
       return {
@@ -112,7 +116,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({
   };
 
   return (
-    <BaseChart title={title} height={height} className={className} {...props}>
+    <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
       <Radar data={processedData} options={chartOptions} />
     </BaseChart>
   );

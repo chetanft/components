@@ -27,19 +27,23 @@ export const RadialChart: React.FC<RadialChartProps> = ({
   showLabel = false,
   labelFormatter,
   stacked = false,
+  defaultColors: customDefaultColors,
   ...props
 }) => {
+  // Use custom defaultColors if provided, otherwise fall back to imported defaultColors
+  const colors = customDefaultColors || defaultColors;
+  
   // For radial charts, we typically show a single value as progress
   const processedData: ChartData<'doughnut'> = {
     ...data,
     datasets: data.datasets.map((dataset, index) => {
-      const baseColor = defaultColors[index % defaultColors.length];
+      const baseColor = colors[index % colors.length];
 
       // If stacked, create multiple segments
       if (stacked && Array.isArray(dataset.data)) {
         return {
           ...dataset,
-          backgroundColor: dataset.backgroundColor || defaultColors.slice(0, dataset.data.length),
+          backgroundColor: dataset.backgroundColor || colors.slice(0, dataset.data.length),
           borderColor: dataset.borderColor || '#ffffff',
           borderWidth: dataset.borderWidth ?? 0,
         };
@@ -86,7 +90,7 @@ export const RadialChart: React.FC<RadialChartProps> = ({
       : '';
 
   return (
-    <BaseChart title={title} height={height} className={className} {...props}>
+    <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
         <Doughnut data={processedData} options={chartOptions} />
         {showLabel && displayLabel && (

@@ -620,7 +620,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
     <div className={cn(calendarVariants({ range }), className)} ref={ref}>
       {range && (
         <div className="flex flex-col gap-[var(--spacing-x2)]">
-          <div className="relative w-fit">
+          <div className="relative w-[240px]">
             <div
               className={dropdownVariants({ open: isDropdownOpen })}
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}

@@ -17,14 +17,18 @@ export const DoughnutChart: React.FC<DoughnutChartProps> = ({
   className,
   options,
   innerRadius,
+  defaultColors: customDefaultColors,
   ...props
 }) => {
+  // Use custom defaultColors if provided, otherwise fall back to imported defaultColors
+  const colors = customDefaultColors || defaultColors;
+  
   // Apply default colors to dataset if not provided
   const processedData: ChartData<'doughnut'> = {
     ...data,
     datasets: data.datasets.map((dataset) => ({
       ...dataset,
-      backgroundColor: dataset.backgroundColor || defaultColors,
+      backgroundColor: dataset.backgroundColor || colors,
       borderColor: dataset.borderColor || '#ffffff',
       borderWidth: dataset.borderWidth ?? 2,
     })),
@@ -40,7 +44,7 @@ export const DoughnutChart: React.FC<DoughnutChartProps> = ({
   };
 
   return (
-    <BaseChart title={title} height={height} className={className} {...props}>
+    <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
       <Doughnut data={processedData} options={chartOptions} />
     </BaseChart>
   );

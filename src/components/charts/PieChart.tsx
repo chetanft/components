@@ -27,14 +27,18 @@ export const PieChart: React.FC<PieChartProps> = ({
   labelFormatter,
   showLegend = true,
   donut = false,
+  defaultColors: customDefaultColors,
   ...props
 }) => {
+  // Use custom defaultColors if provided, otherwise fall back to imported defaultColors
+  const colors = customDefaultColors || defaultColors;
+  
   // Apply default colors to dataset if not provided
   const processedData: ChartData<'pie'> = {
     ...data,
     datasets: data.datasets.map((dataset) => ({
       ...dataset,
-      backgroundColor: dataset.backgroundColor || defaultColors,
+      backgroundColor: dataset.backgroundColor || colors,
       borderColor: dataset.borderColor || '#ffffff',
       borderWidth: separatorWidth > 0 ? separatorWidth : 0,
     })),
@@ -73,7 +77,7 @@ export const PieChart: React.FC<PieChartProps> = ({
   };
 
   return (
-    <BaseChart title={title} height={height} className={className} {...props}>
+    <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
       <Pie data={processedData} options={chartOptions} />
     </BaseChart>
   );

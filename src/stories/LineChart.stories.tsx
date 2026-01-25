@@ -174,6 +174,39 @@ export const CustomLabel: Story = {
   },
 };
 
+// Custom Default Colors
+export const CustomDefaultColors: Story = {
+  args: {
+    title: 'Sales Trend with Custom Colors',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [
+        {
+          label: 'Sales',
+          data: [12, 19, 15, 25, 22, 30],
+        },
+        {
+          label: 'Revenue',
+          data: [8, 15, 12, 20, 18, 25],
+        },
+        {
+          label: 'Profit',
+          data: [4, 8, 6, 12, 10, 15],
+        },
+      ],
+    },
+    height: 300,
+    defaultColors: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7'],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'LineChart with custom default color palette. The defaultColors prop allows you to customize the color palette used when datasets don\'t specify explicit colors.',
+      },
+    },
+  },
+};
+
 
 
 

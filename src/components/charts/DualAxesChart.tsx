@@ -1,13 +1,11 @@
 import React from 'react';
 import { Chart } from 'react-chartjs-2';
 import { ChartData, ChartOptions } from 'chart.js';
-import { BaseChart } from './BaseChart';
+import { BaseChart, BaseChartProps } from './BaseChart';
 import { defaultChartOptions, defaultColors } from './chartConfig';
 
-export interface DualAxesChartProps {
+export interface DualAxesChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'bar' | 'line'>;
-  title?: string;
-  height?: number;
   options?: ChartOptions<'bar' | 'line'>;
 }
 
@@ -15,8 +13,13 @@ export const DualAxesChart: React.FC<DualAxesChartProps> = ({
   data,
   title,
   height = 400,
+  className,
   options,
+  defaultColors: customDefaultColors,
+  ...props
 }) => {
+  // Use custom defaultColors if provided, otherwise fall back to imported defaultColors
+  const colors = customDefaultColors || defaultColors;
   const chartOptions: ChartOptions<'bar' | 'line'> = {
     ...defaultChartOptions,
     scales: {
@@ -54,15 +57,15 @@ export const DualAxesChart: React.FC<DualAxesChartProps> = ({
   const chartData = {
     ...data,
     datasets: data.datasets.map((dataset, index) => ({
-      backgroundColor: defaultColors[index % defaultColors.length],
-      borderColor: defaultColors[index % defaultColors.length],
+      backgroundColor: colors[index % colors.length],
+      borderColor: colors[index % colors.length],
       yAxisID: index === 0 ? 'y' : 'y1', // Simplistic assignment, should be passed in data usually
       ...dataset,
     })),
   };
 
   return (
-    <BaseChart title={title} height={height}>
+    <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
       <Chart type='bar' data={chartData} options={chartOptions} />
     </BaseChart>
   );

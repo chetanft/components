@@ -88,4 +88,8 @@ tmp/
 temp/
 
 # Local Netlify folder
-.netlify 
+.netlify
+
+# Generated inventory/scan data
+COMPONENT_INVENTORY.json
+CUSTOMIZATION_GAP_SCAN_RESULTS.json

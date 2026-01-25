@@ -27,13 +27,17 @@ export const AreaChart: React.FC<AreaChartProps> = ({
   showDots = false,
   showLegend = true,
   gradient = false,
+  defaultColors: customDefaultColors,
   ...props
 }) => {
+  // Use custom defaultColors if provided, otherwise fall back to imported defaultColors
+  const colors = customDefaultColors || defaultColors;
+  
   // Apply default colors to datasets if not provided
   const processedData: ChartData<'line'> = {
     ...data,
     datasets: data.datasets.map((dataset, index) => {
-      const baseColor = defaultColors[index % defaultColors.length];
+      const baseColor = colors[index % colors.length];
       const backgroundColor = gradient
         ? `linear-gradient(180deg, ${baseColor}80 0%, ${baseColor}00 100%)`
         : fill
@@ -74,7 +78,7 @@ export const AreaChart: React.FC<AreaChartProps> = ({
   };
 
   return (
-    <BaseChart title={title} height={height} className={className} {...props}>
+    <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
       <Line data={processedData} options={chartOptions} />
     </BaseChart>
   );

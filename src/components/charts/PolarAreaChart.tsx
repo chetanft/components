@@ -15,15 +15,19 @@ export const PolarAreaChart: React.FC<PolarAreaChartProps> = ({
   height = 400,
   className,
   options,
+  defaultColors: customDefaultColors,
   ...props
 }) => {
+  // Use custom defaultColors if provided, otherwise fall back to imported defaultColors
+  const colors = customDefaultColors || defaultColors;
+  
   // Apply default colors to dataset if not provided
   const processedData: ChartData<'polarArea'> = {
     ...data,
     datasets: data.datasets.map((dataset) => ({
       ...dataset,
-      backgroundColor: dataset.backgroundColor || defaultColors.map(color => `${color}80`),
-      borderColor: dataset.borderColor || defaultColors,
+      backgroundColor: dataset.backgroundColor || colors.map(color => `${color}80`),
+      borderColor: dataset.borderColor || colors,
       borderWidth: dataset.borderWidth ?? 2,
     })),
   };
@@ -58,7 +62,7 @@ export const PolarAreaChart: React.FC<PolarAreaChartProps> = ({
   };
 
   return (
-    <BaseChart title={title} height={height} className={className} {...props}>
+    <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
       <PolarArea data={processedData} options={chartOptions} />
     </BaseChart>
   );
