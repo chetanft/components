@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
-import type { DataEntryCellState } from './DataEntryTableCell';
+import type { DataEntryCellState } from './DataEntryTableTypes';
 
 export interface DataEntryTableCellAmountProps {
   value?: string | number;
@@ -213,4 +213,3 @@ export const DataEntryTableCellAmount: React.FC<DataEntryTableCellAmountProps> =
 };
 
 DataEntryTableCellAmount.displayName = 'DataEntryTableCellAmount';
-

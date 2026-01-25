@@ -4,7 +4,7 @@ import React, { useState, useCallback, useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { TableHeaderItem } from './TableHeaderItem';
-import type { TableRow as TableRowType, TableColumn, SortDirection, TableVariant } from './Table';
+import type { TableRow as TableRowType, TableColumn, SortDirection, TableVariant } from './TableTypes';
 
 const CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x9)*2)]';
 const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x10)*2+var(--spacing-x5))]';
@@ -236,4 +236,3 @@ export const TableHeader = <T extends TableRowType = TableRowType>({
 };
 
 TableHeader.displayName = 'TableHeader';
-

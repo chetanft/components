@@ -79,7 +79,7 @@ export const PaginationItem = React.forwardRef<HTMLButtonElement, PaginationItem
     };
     
     // Filter out incompatible props from ComposableProps<'div'>
-    const { onCopy, onCut, onPaste, ...buttonProps } = props as any;
+    const { _onCopy, _onCut, _onPaste, ...buttonProps } = props as any;
     
     return (
       <Button

@@ -43,7 +43,7 @@ export interface DatePickerTriggerProps extends ComposableProps<'button'> {
  */
 export const DatePickerTrigger = React.forwardRef<HTMLButtonElement, DatePickerTriggerProps>(
   ({ className, children, icon = 'calendar', asChild, onClick, ...props }, ref) => {
-    const { isOpen, setIsOpen, disabled, includeDropdown } = useDatePickerContext();
+    const { isOpen: _isOpen, setIsOpen, disabled, includeDropdown } = useDatePickerContext();
     
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (!disabled) {

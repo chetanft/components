@@ -4,7 +4,6 @@ import { Badge } from '../components/atoms/Badge/Badge';
 import { Input } from '../components/atoms/Input/Input';
 import { Drawer } from '../components/organisms/Drawer/Drawer';
 import { Table } from '../components/organisms/Table/Table';
-import { Icon } from '../components/atoms/Icons';
 
 export const FTImprovementDemo = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -20,7 +19,7 @@ export const FTImprovementDemo = () => {
         { 
             key: 'status', 
             title: 'Status', 
-            render: (value: unknown, row: { id: number; name: string; status: string; category: string; }, index: number) => {
+            render: (value: unknown, _row: { id: number; name: string; status: string; category: string; }, _index: number) => {
                 const status = String(value);
                 return <Badge variant={status === 'active' ? 'success' : 'warning'}>{status}</Badge>;
             }
@@ -32,7 +31,9 @@ export const FTImprovementDemo = () => {
         <div className="p-8 space-y-12 bg-gray-50 min-h-screen">
             <header className="mb-8">
                 <h1 className="text-3xl font-bold text-gray-900">FT Design System Improvement Demo</h1>
-                <p className="text-gray-600 mt-2">Comparing "Bad" (Current/Inline) vs "Good" (Improved/Tokens) implementations.</p>
+                <p className="text-gray-600 mt-2">
+                    {'Comparing \"Bad\" (Current/Inline) vs \"Good\" (Improved/Tokens) implementations.'}
+                </p>
             </header>
 
             {/* SECTION 1: TYPOGRAPHY & SPACING */}

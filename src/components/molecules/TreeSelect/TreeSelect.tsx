@@ -158,7 +158,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
     treeCheckable = false,
     showSearch = false,
     placeholder = 'Select...',
-    allowClear = true,
+    allowClear: _allowClear = true,
     showLine = false,
     defaultExpandAll = false,
     placement = 'bottomLeft',
@@ -306,7 +306,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
       }
     }, [isMultiple, handleSelect]);
 
-    const handleClear = useCallback((e: React.MouseEvent) => {
+    const _handleClear = useCallback((e: React.MouseEvent) => {
       e.stopPropagation();
       handleSelect([]);
     }, [handleSelect]);

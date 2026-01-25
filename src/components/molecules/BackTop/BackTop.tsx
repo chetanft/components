@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
-import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 

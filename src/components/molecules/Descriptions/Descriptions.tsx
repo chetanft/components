@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Typography } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { DescriptionsTitle } from './DescriptionsTitle';
 import { DescriptionsExtra } from './DescriptionsExtra';

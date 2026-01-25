@@ -18,7 +18,6 @@ import { SegmentedTabs } from '../../molecules/SegmentedTabs';
 import { Checkbox } from '../../atoms/Checkbox';
 import { Icon } from '../../atoms/Icons';
 import type { IconName } from '../../atoms/Icons';
-import { DropdownMenu } from '../../molecules/DropdownMenu';
 import { PercentageOfChargeInput } from '../../molecules/PercentageOfChargeInput';
 import ReactDOM from 'react-dom';
 
@@ -480,7 +479,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
               // Handle click action here
             }}
           >
-            View ID's
+            View IDs
           </Button>
         </div>
       ),
@@ -1074,7 +1073,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
   );
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
-  const [isValid, setIsValid] = useState<boolean | null>(null);
+  const [_isValid, setIsValid] = useState<boolean | null>(null);
 
   // Formula data - will be migrated in useEffect after getTokenExpressionData is defined
   const [formulaTokens, setFormulaTokens] = useState<FormulaToken[]>(
@@ -1086,7 +1085,6 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     
     const parts: string[] = [];
     let inFunction = false;
-    let functionArgCount = 0;
     
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
@@ -1095,7 +1093,6 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
       switch (token.tokenType) {
         case 'functionStart':
           inFunction = true;
-          functionArgCount = 0;
           parts.push(token.expressionValue);
           break;
           
@@ -1297,9 +1294,9 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
   }, []); // Only run once on mount
 
   // Computed values for backward compatibility (derived from pickerMode)
-  const showValuePicker = pickerMode === 'valueCategory' || pickerMode === 'valueOptions';
-  const showOperatorPicker = pickerMode === 'operator';
-  const showVariableTypeDropdown = pickerMode === 'valueCategory';
+  const _showValuePicker = pickerMode === 'valueCategory' || pickerMode === 'valueOptions';
+  const _showOperatorPicker = pickerMode === 'operator';
+  const _showVariableTypeDropdown = pickerMode === 'valueCategory';
   const showSpecificOptionsDropdown = pickerMode === 'valueOptions';
   const showInlinePercentageOfCharge = pickerMode === 'valueInline' && activeValueCategory === 'percentage-of-charge';
 
@@ -1458,7 +1455,6 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     
     let parenDepth = 0;
     let inFunction = false;
-    let functionArgCount = 0;
     
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
@@ -1466,11 +1462,9 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
       switch (token.tokenType) {
         case 'functionStart':
           inFunction = true;
-          functionArgCount = 0;
           break;
         case 'functionEnd':
           inFunction = false;
-          functionArgCount = 0;
           break;
         case 'parenOpen':
           parenDepth++;
@@ -1479,18 +1473,11 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           parenDepth--;
           if (parenDepth === 0) {
             inFunction = false;
-            functionArgCount = 0;
           }
           break;
         case 'comma':
-          if (inFunction) {
-            functionArgCount++;
-          }
           break;
         case 'value':
-          if (inFunction && parenDepth > 0) {
-            functionArgCount++;
-          }
           break;
       }
     }
@@ -2144,12 +2131,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
       return null;
     }
 
-    const dropdownOptions: DropdownOption[] = options.map(opt => ({
+    const _dropdownOptions: DropdownOption[] = options.map(opt => ({
       value: opt.value,
       label: opt.label,
     }));
 
-    const handleDropdownChange = (value: string | number) => {
+    const _handleDropdownChange = (value: string | number) => {
       const selectedOption = options.find(opt => opt.value === value);
       if (selectedOption) {
         const valueType = selectedVariableType === 'charges' ? 'charge' : 
@@ -2265,7 +2252,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
       </div>
     );
 
-    const renderOptionButton = (label: string, onClick: () => void) => (
+    const _renderOptionButton = (label: string, onClick: () => void) => (
       <button
         key={label}
         onClick={onClick}

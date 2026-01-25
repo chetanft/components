@@ -82,7 +82,7 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
     _tabIndex,
     ...props
   }, ref) => {
-    const { activeTab, onTabChange, type, showLine } = useTabsContext();
+    const { activeTab, onTabChange, type, showLine: _showLine } = useTabsContext();
     const [isHovered, setIsHovered] = useState(false);
     
     // Use the index injected by TabsList, or fallback to 0 if not provided

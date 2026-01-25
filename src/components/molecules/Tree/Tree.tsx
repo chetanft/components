@@ -7,24 +7,7 @@ import { Checkbox } from '../../atoms/Checkbox';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { TreeProvider, useTreeContext } from './TreeContext';
 import { TreeNode } from './TreeNode';
-
-// ============================================================================
-// Types
-// ============================================================================
-
-export interface TreeNodeData {
-  key: string;
-  title: React.ReactNode;
-  children?: TreeNodeData[];
-  icon?: IconName | React.ReactNode;
-  disabled?: boolean;
-  selectable?: boolean;
-  checkable?: boolean;
-  isLeaf?: boolean;
-}
-
-// Keep TreeNode as an alias for backward compatibility
-export type TreeNode = TreeNodeData;
+import type { TreeNodeData } from './TreeTypes';
 
 export interface TreeProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
   /**
@@ -603,3 +586,4 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
 Tree.displayName = 'Tree';
 
 export default Tree;
+export type { TreeNodeData, TreeNode } from './TreeTypes';

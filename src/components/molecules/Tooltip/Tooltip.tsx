@@ -2,8 +2,6 @@
 
 import React from 'react';
 import { Button } from '../../atoms/Button/Button';
-import { Typography } from '../../atoms/Typography';
-import { Icon } from '../../atoms/Icons';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { TooltipProvider } from './TooltipContext';
@@ -132,7 +130,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({
   defaultOpen = false,
   asChild,
   ...props
-}, ref) => {
+}, _ref) => {
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
   const open = controlledOpen ?? internalOpen;
 

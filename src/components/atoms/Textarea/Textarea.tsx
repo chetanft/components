@@ -1,8 +1,7 @@
 "use client";
 
 import React from 'react';
-import { cn, type ComponentSize } from '../../../lib/utils';
-import { Label } from '../Label/Label';
+import type { ComponentSize } from '../../../lib/utils';
 import { TextareaProvider } from './TextareaContext';
 import { TextareaWrapper } from './TextareaWrapper';
 import { TextareaLabel } from './TextareaLabel';
@@ -144,7 +143,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const textareaId = id ?? `textarea-${generatedId}`;
     const errorId = error ? `${textareaId}-error` : undefined;
     const helperId = helperText ? `${textareaId}-helper` : undefined;
-    const describedBy = [errorId, helperId].filter(Boolean).join(' ') || undefined;
+    const _describedBy = [errorId, helperId].filter(Boolean).join(' ') || undefined;
 
     // Size-based styling using FT Design System tokens
     const sizeStyles = {
@@ -185,7 +184,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       },
     };
 
-    const currentSize = sizeStyles[size];
+    const _currentSize = sizeStyles[size];
 
     return (
       <TextareaProvider

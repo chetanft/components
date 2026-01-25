@@ -34,9 +34,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({
     displayName: 'Tata Motors'
   },
   userName = 'Santosh Kumar',
-  userRole,
-  userLocation,
-  userBadge,
+  userRole: _userRole,
+  userLocation: _userLocation,
+  userBadge: _userBadge,
   userAvatar,
   companyName = true,
   onClick = () => { },

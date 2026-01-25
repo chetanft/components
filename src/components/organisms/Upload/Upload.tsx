@@ -7,12 +7,8 @@ import { UploadButton } from '../../molecules/UploadButton/UploadButton';
 import { UploadThumbnail } from '../../molecules/UploadThumbnail/UploadThumbnail';
 import { UploadItem } from '../../molecules/UploadItem';
 import type { UploadFile } from '../../molecules/UploadItem';
-import { FileValidationCard } from '../../molecules/FileValidationCard';
 import type { ValidationStats } from '../../molecules/FileValidationCard';
-import { UploadProvider } from './UploadContext';
-import { UploadTrigger } from './UploadTrigger';
-import { UploadList } from './UploadList';
-import { Slot, type ComposableProps } from '../../../lib/slot';
+import type { ComposableProps } from '../../../lib/slot';
 
 export type UploadType = 'drag-drop' | 'button' | 'thumbnail';
 
@@ -113,8 +109,8 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
     onValidationComplete,
     showValidation = false,
     autoUpload = true,
-    children,
-    asChild,
+    children: _children,
+    asChild: _asChild,
     ...props 
   }, ref) => {
     

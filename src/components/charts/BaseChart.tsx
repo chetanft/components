@@ -20,7 +20,6 @@ export const BaseChart: React.FC<BaseChartProps> = ({
   title,
   height = 400,
   className,
-  defaultColors,
   children,
 }) => {
   return (
@@ -60,4 +59,3 @@ export const BaseChart: React.FC<BaseChartProps> = ({
     </div>
   );
 };
-

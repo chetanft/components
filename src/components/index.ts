@@ -20,7 +20,7 @@ export * from './atoms/Spacer';
 export * from './atoms/Statistic';
 // Import and re-export Icon component and IconName type explicitly
 import { Icon } from './atoms/Icons/Icon';
-import type { IconName } from './atoms/Icons/types';
+import type { IconName } from './atoms/Icons/Icon';
 export { Icon };
 export type { IconName };
 export { iconMap } from './atoms/Icons/iconMap';

@@ -113,7 +113,7 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
       );
     }
     
-    const defaultSeparator = <Icon name="chevron-right" size={16} className="text-[var(--color-tertiary)]" />;
+    const _defaultSeparator = <Icon name="chevron-right" size={16} className="text-[var(--color-tertiary)]" />;
     
     const Comp = asChild ? Slot : 'nav';
     return (

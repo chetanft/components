@@ -1,8 +1,6 @@
 "use client";
 
 import React from 'react';
-import { cn } from '../../../lib/utils';
-import { Icon } from '../Icons';
 import { CheckboxProvider } from './CheckboxContext';
 import { CheckboxWrapper } from './CheckboxWrapper';
 import { CheckboxInput } from './CheckboxInput';

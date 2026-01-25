@@ -54,7 +54,7 @@ export const InputNumberControls = React.forwardRef<HTMLDivElement, InputNumberC
       xxl: { button: 'w-12', icon: 22 },
     };
     
-    const config = sizeConfig[size];
+    const _config = sizeConfig[size];
     
     // If children provided, use them
     if (children) {

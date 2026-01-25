@@ -1,12 +1,9 @@
 "use client";
-import React, { useState, useRef, useEffect } from 'react';
-import { Button } from '../../atoms/Button/Button';
-import { Typography } from '../../atoms/Typography';
-import { Icon, IconName } from '../../atoms/Icons';
+import React, { useState, useRef } from 'react';
+import { IconName } from '../../atoms/Icons';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { PopconfirmProvider } from './PopconfirmContext';
-import { PopconfirmTrigger } from './PopconfirmTrigger';
 import { PopconfirmContent } from './PopconfirmContent';
 import { PopconfirmTitle } from './PopconfirmTitle';
 import { PopconfirmDescription } from './PopconfirmDescription';
@@ -190,27 +187,27 @@ export const Popconfirm: React.FC<PopconfirmProps> = ({
         }
     };
 
-    const handleCancel = (e: React.MouseEvent) => {
+    const _handleCancel = (e: React.MouseEvent) => {
         e.stopPropagation();
         setOpen(false);
         onCancel?.();
     };
 
-    const handleConfirm = (e: React.MouseEvent) => {
+    const _handleConfirm = (e: React.MouseEvent) => {
         e.stopPropagation();
         setOpen(false);
         onConfirm?.();
     };
 
     // Styles based on placement
-    const placementStyles = {
+    const _placementStyles = {
         top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
         bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
         left: 'right-full top-1/2 -translate-y-1/2 mr-2',
         right: 'left-full top-1/2 -translate-y-1/2 ml-2',
     };
 
-    const arrowStyles = {
+    const _arrowStyles = {
         top: 'top-full left-1/2 -translate-x-1/2 border-t-[var(--color-bg-primary)] border-l-transparent border-r-transparent border-b-transparent',
         bottom: 'bottom-full left-1/2 -translate-x-1/2 border-b-[var(--color-bg-primary)] border-l-transparent border-r-transparent border-t-transparent',
         left: 'left-full top-1/2 -translate-y-1/2 border-l-[var(--color-bg-primary)] border-t-transparent border-b-transparent border-r-transparent',

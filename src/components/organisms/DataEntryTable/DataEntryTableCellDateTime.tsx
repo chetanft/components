@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '../../../lib/utils';
-import { Icon } from '../../atoms/Icons';
 import { DatePickerField } from '../../molecules/DatePicker/DatePicker';
-import type { DataEntryCellState } from './DataEntryTableCell';
+import type { DataEntryCellState } from './DataEntryTableTypes';
 
 export interface DataEntryTableCellDateTimeProps {
   value?: string;
@@ -102,4 +101,3 @@ export const DataEntryTableCellDateTime: React.FC<DataEntryTableCellDateTimeProp
 };
 
 DataEntryTableCellDateTime.displayName = 'DataEntryTableCellDateTime';
-

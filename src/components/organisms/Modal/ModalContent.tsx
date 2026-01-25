@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useModalContext } from './ModalContext';
@@ -88,7 +88,7 @@ export const ModalContent = React.forwardRef<HTMLDivElement, ModalContentProps>(
     onClick,
     ...props 
   }, ref) => {
-    const { open, setOpen, onClose } = useModalContext();
+    const { open, setOpen, onClose: _onClose } = useModalContext();
     
     // Prevent body scroll when modal is open
     useEffect(() => {

@@ -156,14 +156,14 @@ export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInpu
       }
     };
     
-    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const handleFocus = (_e: React.FocusEvent<HTMLInputElement>) => {
       setIsTyping(true);
       if (type === 'single') {
         setIsOpen(true);
       }
     };
     
-    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const handleBlur = (_e: React.FocusEvent<HTMLInputElement>) => {
       setIsTyping(false);
       // Format and validate on blur
       const currentValue = getDisplayValue();

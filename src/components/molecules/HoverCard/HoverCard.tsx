@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
-import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { HoverCardProvider } from './HoverCardContext';
 import { HoverCardTrigger } from './HoverCardTrigger';
@@ -81,7 +80,7 @@ export const HoverCard: React.FC<HoverCardProps> = ({
     openDelay = 200,
     closeDelay = 300,
     width = 320,
-    className,
+    className: _className,
     placement = 'bottom',
     asChild,
 }) => {

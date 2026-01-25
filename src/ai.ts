@@ -158,7 +158,7 @@ export const AreaChart = withAIProtection(CoreAreaChart);
 // Non-Component Exports (no wrapping needed)
 // ======================
 export { Icon, iconMap } from './components/atoms/Icons';
-export type { IconName } from './components/atoms/Icons/types';
+export type { IconName } from './components/atoms/Icons';
 export { Logo } from './components/atoms/Logos';
 export { FTProvider, useFTTheme } from './components/FTProvider';
 export type { FTProviderProps } from './components/FTProvider';

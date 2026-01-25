@@ -2,7 +2,6 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { DropdownMenu, type DropdownMenuOption } from '../DropdownMenu';
 import { useDropdownContext } from './DropdownContext';

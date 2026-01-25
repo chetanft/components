@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
 import { DropdownMenuItem } from './DropdownMenuItem';
-import type { DropdownMenuItemProps } from './DropdownMenuItem';
 import { Icon } from '../../atoms/Icons';
 import { SegmentedTabs, type SegmentedTabItem } from '../SegmentedTabs';
 import { DropdownMenuProvider, type DropdownMenuContextType } from './DropdownMenuContext';
@@ -11,7 +10,8 @@ import { DropdownMenuList } from './DropdownMenuList';
 import { DropdownMenuSearch } from './DropdownMenuSearch';
 import { DropdownMenuSeparator } from './DropdownMenuSeparator';
 import { DropdownMenuLabel } from './DropdownMenuLabel';
-import { Slot, type ComposableProps } from '../../../lib/slot';
+import type { ComposableProps } from '../../../lib/slot';
+import type { DropdownMenuOption } from './DropdownMenuTypes';
 
 const dropdownMenuVariants = cva(
   'bg-[var(--color-bg-primary)] border border-solid border-[var(--color-border-primary)] box-border flex flex-col items-start overflow-clip p-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shadow-lg',
@@ -30,13 +30,6 @@ const dropdownMenuVariants = cva(
     },
   }
 );
-
-export interface DropdownMenuOption extends Omit<DropdownMenuItemProps, 'children'> {
-  value: string;
-  label: React.ReactNode;
-  searchValue?: string;
-  group?: string;
-}
 
 export interface DropdownMenuProps
   extends Omit<ComposableProps<'div'>, 'onSelect' | 'property'> {
@@ -127,7 +120,7 @@ const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       selectedSegment,
       onSegmentChange,
       children,
-      asChild,
+      asChild: _asChild,
       ...props
     },
     ref
@@ -469,3 +462,4 @@ type DropdownMenuWithSubcomponents = typeof DropdownMenuBase & {
 // Export with proper typing
 export const DropdownMenu = DropdownMenuBase as DropdownMenuWithSubcomponents;
 export default DropdownMenu;
+export type { DropdownMenuOption } from './DropdownMenuTypes';

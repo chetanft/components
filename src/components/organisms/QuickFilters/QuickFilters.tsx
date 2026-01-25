@@ -416,7 +416,7 @@ QuickFilters.displayName = 'QuickFilters';
  * </QuickFilters>
  * ```
  */
-export const QuickFilter: React.FC<QuickFilterComponentProps> = ({ children, ...props }) => {
+export const QuickFilter: React.FC<QuickFilterComponentProps> = () => {
   // This component is used for composition only - it doesn't render anything itself
   // The QuickFilters component extracts props from QuickFilter children
   return null;
@@ -439,7 +439,7 @@ QuickFilter.displayName = 'QuickFilter';
  * </QuickFilter>
  * ```
  */
-export const FilterOption: React.FC<FilterOptionComponentProps> = ({ children, ...props }) => {
+export const FilterOption: React.FC<FilterOptionComponentProps> = () => {
   // This component is used for composition only - it doesn't render anything itself
   // The QuickFilters component extracts props from FilterOption children
   return null;

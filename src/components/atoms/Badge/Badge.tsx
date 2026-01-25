@@ -4,7 +4,6 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { Icon, IconName } from '../Icons';
-import { Typography } from '../Typography';
 
 /**
  * Badge component props

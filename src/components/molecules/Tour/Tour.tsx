@@ -59,7 +59,7 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
   zIndex = 1000,
   className,
   children,
-}, ref) => {
+}, _ref) => {
   const [internalCurrent, setInternalCurrent] = useState(defaultCurrent);
   const current = controlledCurrent !== undefined ? controlledCurrent : internalCurrent;
   const [position, setPosition] = useState<{ top: number; left: number; width: number; height: number } | null>(null);
@@ -253,7 +253,7 @@ Tour.displayName = 'Tour';
  * </Tour>
  * ```
  */
-export const TourStep: React.FC<TourStepComponentProps> = ({ children, ...props }) => {
+export const TourStep: React.FC<TourStepComponentProps> = () => {
   // This component is used for composition only - it doesn't render anything itself
   // The Tour component extracts props from TourStep children
   return null;

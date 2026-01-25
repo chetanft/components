@@ -79,7 +79,7 @@ export const InputNumberField = React.forwardRef<HTMLInputElement, InputNumberFi
       }
     }, [parser, updateValue, setInputValue]);
     
-    const handleBlurInternal = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+    const handleBlurInternal = useCallback((_e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(false);
 
       if (inputValue === '' || inputValue === '-') {
@@ -97,7 +97,7 @@ export const InputNumberField = React.forwardRef<HTMLInputElement, InputNumberFi
       }
     }, [inputValue, parser, clampValue, updateValue, setIsFocused, setInputValue]);
     
-    const handleFocusInternal = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+    const handleFocusInternal = useCallback((_e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
       if (value !== null) {
         setInputValue(String(value));

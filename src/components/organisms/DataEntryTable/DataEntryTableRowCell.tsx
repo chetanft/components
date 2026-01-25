@@ -5,9 +5,9 @@ import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { DataEntryTableCell } from './DataEntryTableCell';
 import { useDataEntryTableContext } from './DataEntryTableContext';
-import type { DataEntryCellType } from './DataEntryTableCell';
+import type { DataEntryCellType } from './DataEntryTableTypes';
 import type { DropdownOption } from '../../molecules/Dropdown';
-import type { ActionConfig } from './DataEntryTableCell';
+import type { ActionConfig } from './DataEntryTableTypes';
 
 export interface DataEntryTableRowCellProps extends ComposableProps<'td'> {
   /**
@@ -114,7 +114,7 @@ export const DataEntryTableRowCell = React.forwardRef<HTMLTableCellElement, Data
       setFocusedCell,
       setHoveredCell,
       onCellChange,
-      showContextMenu,
+      showContextMenu: _showContextMenu,
       resizable,
       columnWidths,
       cellErrors,
@@ -153,7 +153,7 @@ export const DataEntryTableRowCell = React.forwardRef<HTMLTableCellElement, Data
       setFocusedCell(null);
     };
     
-    const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
+    const handleMouseEnter = (_e: React.MouseEvent<HTMLElement>) => {
       if (unit) {
         // Context menu logic would go here
         setHoveredCell({ rowId, columnKey });
@@ -228,4 +228,3 @@ export const DataEntryTableRowCell = React.forwardRef<HTMLTableCellElement, Data
 );
 
 DataEntryTableRowCell.displayName = 'DataEntryTableRowCell';
-

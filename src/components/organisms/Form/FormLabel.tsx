@@ -3,7 +3,7 @@
 import React from 'react';
 import { Label } from '../../atoms/Label/Label';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { useFormContext } from './Form';
+import { useFormContext } from './FormContext';
 
 export interface FormLabelProps extends Omit<ComposableProps<'label'>, 'htmlFor'> {
   /**
@@ -75,4 +75,3 @@ export const FormLabel = React.forwardRef<HTMLDivElement, FormLabelProps>(
 );
 
 FormLabel.displayName = 'FormLabel';
-

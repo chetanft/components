@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useRef } from 'react';
+import React, { createContext, useContext } from 'react';
 
 export type HoverCardPlacement = 'top' | 'bottom' | 'left' | 'right';
 

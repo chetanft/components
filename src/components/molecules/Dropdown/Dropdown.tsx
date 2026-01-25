@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef, useState, useEffect, useRef, useCallback } from 'react';
+import React, { forwardRef, useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, type ComponentSize } from '../../../lib/utils';
@@ -10,6 +10,7 @@ import { DropdownMenu, type DropdownMenuOption } from '../DropdownMenu';
 import { DropdownProvider } from './DropdownContext';
 import { DropdownTrigger } from './DropdownTrigger';
 import { DropdownContent } from './DropdownContent';
+import type { DropdownOption } from './DropdownTypes';
 
 // Unified dropdown field variants using the design system
 const dropdownFieldVariants = cva(
@@ -44,16 +45,6 @@ const dropdownFieldVariants = cva(
   }
 );
 
-
-export interface DropdownOption {
-  value: string | number;
-  label: React.ReactNode;
-  disabled?: boolean;
-  description?: React.ReactNode;
-  icon?: React.ReactNode;
-  group?: string;
-  searchValue?: string;
-}
 
 export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants> {
   /**
@@ -670,3 +661,4 @@ Dropdown.displayName = "Dropdown";
 export default Dropdown;
 
 export { dropdownFieldVariants }; 
+export type { DropdownOption } from './DropdownTypes';

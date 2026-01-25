@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useCallback } from 'react';
 import { cn } from '../../../lib/utils';
 import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 import { TableCellText } from './TableCellText';
@@ -9,87 +9,7 @@ import { TableHeaderItem } from './TableHeaderItem';
 import { TableHeader } from './TableHeader';
 import { TableRow as TableRowComponent } from './TableRow';
 import { Typography } from '../../atoms/Typography';
-
-// Table types
-export type SortDirection = 'asc' | 'desc' | null;
-export type ColumnType = 'text' | 'number' | 'date' | 'actions';
-export type TableVariant = 'primary' | 'secondary';
-export type TableLayout = 'default' | 'simple';
-
-/**
- * Table column definition
- * 
- * @public
- */
-export interface TableColumn<T = any> {
-  /**
-   * Unique key for the column (required)
-   * Used to access data from row objects
-   */
-  key: string;
-  
-  /**
-   * Column header text
-   * @alias label, header
-   */
-  title?: string;
-  
-  /**
-   * Column header text (alias for title)
-   * @deprecated Use `title` instead
-   */
-  label?: string;
-  
-  /**
-   * Column header text (alias for title)
-   * @deprecated Use `title` instead
-   */
-  header?: string;
-  
-  /**
-   * Column data type for sorting/formatting
-   * @default 'text'
-   */
-  type?: ColumnType;
-  
-  /**
-   * Enable column sorting
-   * @default false
-   */
-  sortable?: boolean;
-  
-  /**
-   * Column width (CSS value)
-   * Example: "200px", "20%", "auto"
-   */
-  width?: string;
-  
-  /**
-   * Custom cell renderer function
-   * @param value - Cell value from row data
-   * @param row - Full row object
-   * @param index - Row index
-   * @returns React node to render in cell
-   */
-  render?: (value: unknown, row: T, index: number) => React.ReactNode;
-}
-
-/**
- * Table row data structure
- * 
- * @public
- */
-export interface TableRow {
-  /**
-   * Unique row identifier (required)
-   */
-  id: string | number;
-  
-  /**
-   * Additional row data properties
-   */
-  [key: string]: any;
-}
+import type { ColumnType, SortDirection, TableColumn, TableLayout, TableRow, TableVariant } from './TableTypes';
 
 /**
  * Table component props
@@ -314,8 +234,8 @@ export interface TableProps<T extends TableRow = TableRow> extends React.HTMLAtt
   onColumnReorder?: (columns: TableColumn<T>[]) => void;
 }
 
-const CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x9)*2)]';
-const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x10)*2+var(--spacing-x5))]';
+const _CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x9)*2)]';
+const _ACTIONS_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x10)*2+var(--spacing-x5))]';
 
 // ColumnCell component for simple layout (extracted from SimpleColumnLayout)
 const ColumnCell = ({
@@ -647,4 +567,6 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(({
 }) as <T extends TableRow = TableRow>(props: TableProps<T> & { ref?: React.Ref<HTMLDivElement> }) => React.ReactElement;
 
 // Assign displayName after the cast
-Object.assign(Table, { displayName: 'Table' }); 
+(Table as any).displayName = 'Table';
+
+export type { ColumnType, SortDirection, TableColumn, TableLayout, TableRow, TableVariant } from './TableTypes';

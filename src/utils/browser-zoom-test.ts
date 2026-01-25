@@ -57,14 +57,14 @@ export function getCurrentZoomLevel(): number {
  */
 export function checkLayoutIntegrity(zoomLevel: number): boolean {
   const originalScrollX = window.scrollX;
-  const originalScrollY = window.scrollY;
+  const _originalScrollY = window.scrollY;
   
   simulateBrowserZoom(zoomLevel);
   
   // Wait for layout to settle
   setTimeout(() => {
     const newScrollX = window.scrollX;
-    const newScrollY = window.scrollY;
+    const _newScrollY = window.scrollY;
     
     resetBrowserZoom();
     
@@ -83,7 +83,7 @@ export function measureElementAtZoom(
   element: HTMLElement,
   zoomLevel: number
 ): { width: number; height: number; fontSize: number } {
-  const originalZoom = getCurrentZoomLevel();
+  const _originalZoom = getCurrentZoomLevel();
   
   simulateBrowserZoom(zoomLevel);
   

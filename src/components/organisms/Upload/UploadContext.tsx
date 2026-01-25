@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 import type { UploadFile } from '../../molecules/UploadItem';
 import type { ValidationStats } from '../../molecules/FileValidationCard';
 

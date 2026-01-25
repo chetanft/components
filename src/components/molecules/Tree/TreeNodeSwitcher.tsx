@@ -4,7 +4,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { useTreeContext } from './TreeContext';
-import type { TreeNodeData } from './Tree';
+import type { TreeNodeData } from './TreeTypes';
 
 export interface TreeNodeSwitcherProps {
   /**
@@ -104,4 +104,3 @@ export const TreeNodeSwitcher: React.FC<TreeNodeSwitcherProps> = ({ nodeKey, isL
 };
 
 TreeNodeSwitcher.displayName = 'TreeNodeSwitcher';
-

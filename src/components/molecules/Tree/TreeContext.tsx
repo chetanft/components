@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext } from 'react';
 import type { IconName } from '../../atoms/Icons';
-import type { TreeNodeData } from './Tree';
+import type { TreeNodeData } from './TreeTypes';
 
 export interface TreeContextType {
   expandedKeys: Set<string>;
@@ -67,4 +67,3 @@ export const TreeProvider: React.FC<TreeProviderProps> = ({ value, children }) =
     </TreeContext.Provider>
   );
 };
-

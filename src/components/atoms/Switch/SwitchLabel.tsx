@@ -36,7 +36,7 @@ export interface SwitchLabelProps extends ComposableProps<'span'> {
  * - Accessible: maintains proper label-input association.
  */
 export const SwitchLabel = React.forwardRef<HTMLSpanElement, SwitchLabelProps>(
-  ({ className, children, asChild, color, ...props }, ref) => {
+  ({ className, children, asChild, color: _color, ...props }, ref) => {
     const { size, disabled: contextDisabled } = useSwitchContext();
     
     const sizeStyles = {

@@ -871,7 +871,7 @@ NavigationPopover.displayName = 'NavigationPopover';
  * </NavigationPopover>
  * ```
  */
-export const NavigationSection: React.FC<NavigationSectionComponentProps> = ({ children, ...props }) => {
+export const NavigationSection: React.FC<NavigationSectionComponentProps> = () => {
   // This component is used for composition only - it doesn't render anything itself
   // The NavigationPopover component extracts props from NavigationSection children
   return null;
@@ -886,7 +886,7 @@ NavigationSection.displayName = 'NavigationSection';
  *
  * @public
  */
-export const NavigationSectionHero: React.FC<NavigationSectionHeroComponentProps> = ({ children, ...props }) => {
+export const NavigationSectionHero: React.FC<NavigationSectionHeroComponentProps> = () => {
   return null;
 };
 
@@ -899,7 +899,7 @@ NavigationSectionHero.displayName = 'NavigationSectionHero';
  *
  * @public
  */
-export const NavigationSectionMetric: React.FC<NavigationSectionMetricComponentProps> = ({ children, ...props }) => {
+export const NavigationSectionMetric: React.FC<NavigationSectionMetricComponentProps> = () => {
   return null;
 };
 
@@ -912,7 +912,7 @@ NavigationSectionMetric.displayName = 'NavigationSectionMetric';
  *
  * @public
  */
-export const NavigationSectionSubCategory: React.FC<NavigationSectionSubCategoryComponentProps> = ({ children, ...props }) => {
+export const NavigationSectionSubCategory: React.FC<NavigationSectionSubCategoryComponentProps> = () => {
   return null;
 };
 
@@ -925,7 +925,7 @@ NavigationSectionSubCategory.displayName = 'NavigationSectionSubCategory';
  *
  * @public
  */
-export const NavigationSectionSubCategoryItem: React.FC<NavigationSectionSubCategoryItemComponentProps> = ({ children, ...props }) => {
+export const NavigationSectionSubCategoryItem: React.FC<NavigationSectionSubCategoryItemComponentProps> = () => {
   return null;
 };
 

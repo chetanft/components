@@ -1,8 +1,6 @@
 "use client";
 
 import React, { createContext, useContext } from 'react';
-import type { DropdownOption } from '../../molecules/Dropdown';
-import type { DataEntryCellType, DataEntryCellState, ActionConfig } from './DataEntryTableCell';
 
 export interface DataEntryTableContextType {
   // Selection state
@@ -92,4 +90,3 @@ export const DataEntryTableProvider: React.FC<DataEntryTableProviderProps> = ({ 
     </DataEntryTableContext.Provider>
   );
 };
-

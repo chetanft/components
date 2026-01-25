@@ -56,7 +56,7 @@ export const RadioItem = React.forwardRef<HTMLLabelElement, RadioItemProps>(
     };
 
     const currentSize = sizeStyles[size];
-    const itemGap = orientation === 'horizontal' ? currentSize.groupGap : currentSize.groupGap;
+    const _itemGap = orientation === 'horizontal' ? currentSize.groupGap : currentSize.groupGap;
     
     const Comp = asChild ? Slot : 'label';
     

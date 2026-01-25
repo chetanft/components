@@ -116,7 +116,7 @@ export const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(({
   isExpanded: controlledIsExpanded,
   onToggle,
   ...props
-}, ref) => {
+}, _ref) => {
   const [internalIsExpanded, setInternalIsExpanded] = useState(false);
   const isExpanded = controlledIsExpanded ?? internalIsExpanded;
 

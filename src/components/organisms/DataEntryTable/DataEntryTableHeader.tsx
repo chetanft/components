@@ -1,7 +1,6 @@
 "use client";
 
 import React from 'react';
-import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface DataEntryTableHeaderProps extends ComposableProps<'thead'> {

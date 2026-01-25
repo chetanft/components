@@ -231,7 +231,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     }, [isDragging, handleMove, actualValue, onChangeComplete]);
 
     // Handle click on rail
-    const handleRailClick = useCallback((e: React.MouseEvent) => {
+    const _handleRailClick = useCallback((e: React.MouseEvent) => {
       if (disabled) return;
 
       const newValue = getValueFromPosition(e.clientX, e.clientY);

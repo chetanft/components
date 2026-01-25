@@ -5,7 +5,7 @@ import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Dropdown } from '../../molecules/Dropdown/Dropdown';
 import type { DropdownOption } from '../../molecules/Dropdown';
-import type { DataEntryCellState } from './DataEntryTableCell';
+import type { DataEntryCellState } from './DataEntryTableTypes';
 
 export interface DataEntryTableCellDropdownProps {
   value?: string | number;
@@ -242,4 +242,3 @@ export const DataEntryTableCellDropdown: React.FC<DataEntryTableCellDropdownProp
 };
 
 DataEntryTableCellDropdown.displayName = 'DataEntryTableCellDropdown';
-

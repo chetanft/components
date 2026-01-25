@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { cn, type ComponentSize } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
-import { Slot, type ComposableProps } from '../../../lib/slot';
+import type { ComposableProps } from '../../../lib/slot';
 import { InputNumberProvider } from './InputNumberContext';
 import { InputNumberWrapper } from './InputNumberWrapper';
 import { InputNumberField } from './InputNumberField';
@@ -144,7 +144,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     parser,
     className,
     children,
-    asChild,
+    asChild: _asChild,
     ...props
   }, ref) => {
     const [internalValue, setInternalValue] = useState<number | null>(
@@ -201,7 +201,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     }, [actualValue, step, disabled, updateValue]);
 
     // Handle input change
-    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const _handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       const rawValue = e.target.value;
       setInputValue(rawValue);
 
@@ -221,7 +221,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     }, [parser, updateValue]);
 
     // Handle blur - finalize value
-    const handleBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+    const _handleBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(false);
 
       if (inputValue === '' || inputValue === '-') {
@@ -242,7 +242,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     }, [inputValue, parser, clampValue, updateValue, props]);
 
     // Handle focus
-    const handleFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+    const _handleFocus = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
       if (actualValue !== null) {
         setInputValue(String(actualValue));
@@ -251,7 +251,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     }, [actualValue, props]);
 
     // Handle keyboard
-    const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
+    const _handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'ArrowUp') {
         e.preventDefault();
         handleIncrement();

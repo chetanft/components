@@ -64,7 +64,7 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
       : width || 'auto';
     
     if (checkbox) {
-      const { draggable, ...restProps } = props as any;
+      const { _draggable, ...restProps } = props as any;
       return (
         <TableHeaderItem
           type="checkbox"

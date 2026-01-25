@@ -3,7 +3,7 @@
 import React from 'react';
 import { Checkbox } from '../../atoms/Checkbox';
 import { useTreeContext } from './TreeContext';
-import type { TreeNodeData } from './Tree';
+import type { TreeNodeData } from './TreeTypes';
 
 export interface TreeNodeCheckboxProps {
   /**
@@ -63,4 +63,3 @@ export const TreeNodeCheckbox: React.FC<TreeNodeCheckboxProps> = ({ nodeKey }) =
 };
 
 TreeNodeCheckbox.displayName = 'TreeNodeCheckbox';
-

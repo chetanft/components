@@ -2,8 +2,7 @@
 
 import React from 'react';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
-import { Icon, IconName } from '../Icons';
-import { Label } from '../Label/Label';
+import { IconName } from '../Icons';
 import { InputProvider } from './InputContext';
 import { InputWrapper } from './InputWrapper';
 import { InputLabel } from './InputLabel';
@@ -314,11 +313,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       xxl: { left: "pl-16", right: "pr-16" }
     };
 
-    const currentIconOffset = iconOffsetMap[size];
-    const currentIconPadding = iconPaddingMap[size];
+    const _currentIconOffset = iconOffsetMap[size];
+    const _currentIconPadding = iconPaddingMap[size];
 
     // Input styles using unified design system
-    const inputStyles = cn(
+    const _inputStyles = cn(
       // Base styles
       "w-full transition-all duration-200",
       "font-sans font-normal",
@@ -350,7 +349,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
 
     // Helper/error/warning/success text styles with dark mode
-    const helperStyles = cn(
+    const _helperStyles = cn(
       "text-sm leading-relaxed mt-1.5",
       error
         ? "text-critical"

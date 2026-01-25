@@ -38,7 +38,7 @@ export interface RadioItemLabelProps extends ComposableProps<'span'> {
  * - Accessible: maintains proper label-input association.
  */
 export const RadioItemLabel = React.forwardRef<HTMLSpanElement, RadioItemLabelProps>(
-  ({ className, children, asChild, color, ...props }, ref) => {
+  ({ className, children, asChild, color: _color, ...props }, ref) => {
     const { size, disabled: groupDisabled } = useRadioGroupContext();
     
     const sizeStyles = {

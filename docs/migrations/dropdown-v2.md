@@ -123,6 +123,8 @@ For ReactNode labels, provide searchValue:
 
 ## Updated Type Definitions
 
+Note: `DropdownOption` now lives in `src/components/molecules/Dropdown/DropdownTypes.ts` for internal imports. Public exports are still available from `Dropdown`.
+
 ```typescript
 interface DropdownOption {
   value: string | number;

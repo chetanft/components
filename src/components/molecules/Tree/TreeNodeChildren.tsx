@@ -42,7 +42,7 @@ export interface TreeNodeChildrenProps extends ComposableProps<'div'> {
  * - Automatically handles indentation and connecting lines.
  */
 export const TreeNodeChildren = React.forwardRef<HTMLDivElement, TreeNodeChildrenProps>(
-  ({ className, children, level, showLine, asChild, ...props }, ref) => {
+  ({ className, children, level: _level, showLine, asChild, ...props }, ref) => {
     const Comp = asChild ? Slot : 'div';
     // Cast children to exclude bigint which Slot doesn't accept
     const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;

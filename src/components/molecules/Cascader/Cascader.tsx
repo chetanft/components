@@ -612,7 +612,7 @@ Cascader.displayName = 'Cascader';
  * </Cascader>
  * ```
  */
-export const CascaderOption: React.FC<CascaderOptionComponentProps> = ({ children, ...props }) => {
+export const CascaderOption: React.FC<CascaderOptionComponentProps> = () => {
   // This component is used for composition only - it doesn't render anything itself
   // The Cascader component extracts props from CascaderOption children
   return null;

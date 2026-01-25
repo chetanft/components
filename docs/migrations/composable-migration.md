@@ -12,6 +12,17 @@ FT Design System v4.x introduces a composable API pattern inspired by Shadcn/ui 
 4. **Type Safety** - Improved TypeScript inference
 5. **Maintainability** - Smaller, focused sub-components
 
+## Type-Only Modules (Internal)
+
+To reduce circular dependencies, several components now keep shared types in dedicated `*Types.ts` files. Public exports are preserved via the component entry points, but internal imports should use the new type modules.
+
+Current type-only modules:
+- `src/components/molecules/Dropdown/DropdownTypes.ts`
+- `src/components/molecules/DropdownMenu/DropdownMenuTypes.ts`
+- `src/components/molecules/Tree/TreeTypes.ts`
+- `src/components/organisms/DataEntryTable/DataEntryTableTypes.ts`
+- `src/components/organisms/Table/TableTypes.ts`
+
 ## General Pattern
 
 ### Before (Declarative - Deprecated)

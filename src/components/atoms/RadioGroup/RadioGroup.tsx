@@ -2,9 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Typography } from '../Typography';
 import { RadioGroupProvider } from './RadioGroupContext';
-import { RadioGroupLabel } from './RadioGroupLabel';
 import { RadioItem } from './RadioItem';
 import { RadioItemInput } from './RadioItemInput';
 import { RadioItemLabel } from './RadioItemLabel';
@@ -268,7 +266,7 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(({
   );
 
   // Get Typography color variant based on state
-  const getLabelColor = (isDisabled: boolean) => {
+  const _getLabelColor = (isDisabled: boolean) => {
     if (isDisabled) return 'muted';
     return 'primary';
   };

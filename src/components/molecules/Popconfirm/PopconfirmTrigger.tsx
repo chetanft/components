@@ -39,7 +39,7 @@ export interface PopconfirmTriggerProps extends ComposableProps<'div'> {
  */
 export const PopconfirmTrigger = React.forwardRef<HTMLDivElement, PopconfirmTriggerProps>(
   ({ className, children, asChild, onClick, ...props }, ref) => {
-    const { open, setOpen, disabled } = usePopconfirmContext();
+    const { open: _open, setOpen, disabled } = usePopconfirmContext();
     
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
       if (!disabled) {

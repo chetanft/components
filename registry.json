@@ -1,11 +1,11 @@
 {
   "$schema": "https://ft-design-system.dev/registry-schema.json",
   "name": "ft-design-system",
-  "version": "4.17.2",
+  "version": "4.19.0",
   "description": "Design system built from Figma designs using Code Connect",
   "repository": "https://github.com/chetanft/components.git",
   "license": "MIT",
-  "generatedAt": "2026-01-25T08:52:13.210Z",
+  "generatedAt": "2026-01-25T10:11:16.311Z",
   "coreDependencies": {
     "peer": [
       "react",
@@ -109,7 +109,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "AppHeader Component",
+      "description": "Pass-through props for UserProfile (e.g., avatarSize/avatarClassName)",
       "dependencies": {
         "internal": [
           "Button",
@@ -2753,7 +2753,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "UserProfile component from FT Design System",
+      "description": "Override avatar size.",
       "dependencies": {
         "internal": [],
         "peer": []

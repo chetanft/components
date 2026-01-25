@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
-import type { DataEntryCellState } from './DataEntryTableCell';
+import type { DataEntryCellState } from './DataEntryTableTypes';
 
 export interface DataEntryTableCellInputProps {
   value?: string | number;
@@ -184,4 +184,3 @@ export const DataEntryTableCellInput: React.FC<DataEntryTableCellInputProps> = (
 };
 
 DataEntryTableCellInput.displayName = 'DataEntryTableCellInput';
-

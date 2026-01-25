@@ -82,6 +82,8 @@ This guide outlines the changes in the Table component API and how to migrate yo
 
 The `TableColumn` interface has been updated:
 
+Note: table-related shared types now live in `src/components/organisms/Table/TableTypes.ts` for internal imports. Public exports are still available from `Table`.
+
 ```typescript
 export interface TableColumn<T = any> {
   key: string;

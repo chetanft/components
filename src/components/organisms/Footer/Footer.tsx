@@ -270,7 +270,7 @@ Footer.displayName = 'Footer';
  * ```
  */
 export const FooterButton = React.forwardRef<HTMLButtonElement, FooterButtonProps>(
-  ({ className, children, variant = 'primary', leftSide, ...props }, ref) => {
+  ({ className, children, variant = 'primary', leftSide: _leftSide, ...props }, ref) => {
     return (
       <Button
         ref={ref}

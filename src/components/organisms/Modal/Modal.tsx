@@ -196,7 +196,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(({
   className,
   onClick,
   ...props
-}, ref) => {
+}, _ref) => {
   // Deprecation warning for dual handlers
   if (process.env.NODE_ENV !== 'production' && onClose && onOpenChange) {
     console.warn(
@@ -207,7 +207,7 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(({
   }
 
   // Unified handler (prefer onOpenChange)
-  const handleOpenChange = React.useCallback((value: boolean) => {
+  const _handleOpenChange = React.useCallback((value: boolean) => {
     onOpenChange?.(value);
     if (!value) {
       onClose?.();

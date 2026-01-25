@@ -3,8 +3,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Button } from '../../atoms/Button/Button';
-import { Icon } from '../../atoms/Icons';
-import type { DataEntryCellState, ActionConfig } from './DataEntryTableCell';
+import type { DataEntryCellState, ActionConfig } from './DataEntryTableTypes';
 
 export interface DataEntryTableCellActionsProps {
   actions?: ActionConfig[];
@@ -82,4 +81,3 @@ export const DataEntryTableCellActions: React.FC<DataEntryTableCellActionsProps>
 };
 
 DataEntryTableCellActions.displayName = 'DataEntryTableCellActions';
-

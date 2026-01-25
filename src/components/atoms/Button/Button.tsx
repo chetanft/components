@@ -379,7 +379,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   // For icon-only buttons, filter out conflicting style properties from props.style
   const getFilteredStyle = (style?: React.CSSProperties): React.CSSProperties | undefined => {
     if (!isIconOnly || !style) return style;
-    const { padding, paddingTop, paddingBottom, paddingLeft, paddingRight, width, minWidth, ...rest } = style;
+    const { padding: _padding, paddingTop: _paddingTop, paddingBottom: _paddingBottom, paddingLeft: _paddingLeft, paddingRight: _paddingRight, width: _width, minWidth: _minWidth, ...rest } = style;
     return rest;
   };
 

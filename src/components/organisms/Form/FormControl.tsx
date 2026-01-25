@@ -3,7 +3,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { useFormContext } from './Form';
+import { useFormContext } from './FormContext';
 
 export interface FormControlProps extends ComposableProps<'div'> {
   /**
@@ -65,4 +65,3 @@ export const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
 );
 
 FormControl.displayName = 'FormControl';
-

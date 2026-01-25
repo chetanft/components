@@ -91,7 +91,7 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(({
     const Comp = asChild ? Slot : 'button';
     
     // Filter out button-specific props when using asChild
-    const { type, disabled: _, onClick: __, ...restProps } = props as any;
+    const { _type, disabled: _, onClick: __, ...restProps } = props as any;
     const buttonProps = asChild ? restProps : { 
         type: 'button' as const, 
         disabled, 

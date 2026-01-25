@@ -1,7 +1,6 @@
 "use client";
 
 import React, { forwardRef } from 'react';
-import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { StepsProvider } from './StepsContext';
 import { StepsList } from './StepsList';

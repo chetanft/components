@@ -17,7 +17,7 @@ import { DataEntryTableRow } from './DataEntryTableRow';
 import { DataEntryTableRowCell } from './DataEntryTableRowCell';
 import { DataEntryTableRowCheckbox } from './DataEntryTableRowCheckbox';
 import type { DropdownOption } from '../../molecules/Dropdown';
-import type { DataEntryCellType, DataEntryCellState, ActionConfig } from './DataEntryTableCell';
+import type { DataEntryCellType, DataEntryCellState, ActionConfig } from './DataEntryTableTypes';
 
 export interface DataEntryColumn {
   key: string;
@@ -396,7 +396,7 @@ export const DataEntryTable = <T extends { id: string | number; [key: string]: a
                 </td>
               </tr>
             ) : (
-              data.map((row, rowIndex) => {
+              data.map((row, _rowIndex) => {
                 const isSelected = selectedRows.includes(row.id);
                 const isHovered = hoveredCell?.rowId === row.id;
 

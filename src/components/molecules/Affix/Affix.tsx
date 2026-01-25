@@ -29,7 +29,7 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
   asChild,
   ...props
 }, _ref) => {
-  const [affixed, setAffixed] = useState(false);
+  const [_affixed, setAffixed] = useState(false);
   const [placeholderStyle, setPlaceholderStyle] = useState<React.CSSProperties>({});
   const [affixStyle, setAffixStyle] = useState<React.CSSProperties>({});
   const placeholderRef = useRef<HTMLDivElement>(null);

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Icon, IconName } from '../../atoms/Icons';
+import { IconName } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { AlertProvider } from './AlertContext';
 import { AlertIcon } from './AlertIcon';

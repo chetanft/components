@@ -1,8 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useState, useRef } from 'react';
+import React, { createContext, useContext } from 'react';
 import type { ComponentSize } from '../../../lib/utils';
-import type { DropdownOption } from './Dropdown';
+import type { DropdownOption } from './DropdownTypes';
 
 export interface DropdownContextType {
   isOpen: boolean;
@@ -81,4 +81,3 @@ export const DropdownProvider: React.FC<DropdownProviderProps> = ({ value, child
     </DropdownContext.Provider>
   );
 };
-

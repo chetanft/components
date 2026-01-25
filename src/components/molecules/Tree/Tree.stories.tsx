@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import type { ComponentProps } from 'react';
 import { Tree, TreeNode } from './index';
-import type { TreeNodeData } from './Tree';
+import type { TreeNodeData } from './TreeTypes';
 import { TreeNodeContent } from './TreeNodeContent';
 import { TreeNodeIcon } from './TreeNodeIcon';
 import { TreeNodeSwitcher } from './TreeNodeSwitcher';

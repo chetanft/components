@@ -6,7 +6,7 @@ import { Slot, type ComposableProps } from '../../../lib/slot';
 import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 import { TableCell } from './TableCell';
 import { TableCellText } from './TableCellText';
-import type { TableRow as TableRowType, TableColumn, TableVariant } from './Table';
+import type { TableRow as TableRowType, TableColumn, TableVariant } from './TableTypes';
 
 const CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x9)*2)]';
 const ACTIONS_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x10)*2+var(--spacing-x5))]';
@@ -290,4 +290,3 @@ export const TableRow = <T extends TableRowType = TableRowType>({
 };
 
 TableRow.displayName = 'TableRow';
-

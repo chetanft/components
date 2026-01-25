@@ -36,7 +36,7 @@ export interface CardDescriptionProps extends ComposableProps<'p'> {
  * - Uses body-secondary-regular variant for subtle styling.
  */
 export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
-  ({ className, children, asChild, color, ...props }, ref) => {
+  ({ className, children, asChild, color: _color, ...props }, ref) => {
     if (asChild) {
       return (
         <Slot ref={ref} {...props}>

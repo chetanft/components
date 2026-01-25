@@ -37,7 +37,7 @@ export interface DescriptionsTitleProps extends ComposableProps<'div'> {
  * - Uses title-secondary variant for prominent styling.
  */
 export const DescriptionsTitle = React.forwardRef<HTMLDivElement, DescriptionsTitleProps>(
-  ({ className, children, asChild, color, ...props }, ref) => {
+  ({ className, children, asChild, color: _color, ...props }, ref) => {
     if (asChild) {
       return (
         <Slot ref={ref} className={className} {...props}>

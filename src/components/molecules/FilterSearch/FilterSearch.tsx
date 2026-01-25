@@ -4,7 +4,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Input, InputField } from '../../atoms/Input';
 import { Button } from '../../atoms/Button/Button';
-import { Icon } from '../../atoms/Icons';
 import { useMediaQuery } from '../../../lib/hooks/useMediaQuery';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 

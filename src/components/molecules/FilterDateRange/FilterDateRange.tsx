@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import { cn } from '../../../lib/utils';
 import { DatePicker } from '../DatePicker/DatePicker';
 import { Button } from '../../atoms/Button/Button';
-import { Icon } from '../../atoms/Icons';
 import { usePageHeaderFiltersOptional } from '../PageHeaderFilters/PageHeaderFiltersContext';
 import { useMediaQuery } from '../../../lib/hooks/useMediaQuery';
 import { Slot, type ComposableProps } from '../../../lib/slot';
@@ -173,7 +172,7 @@ export const FilterDateRange = React.forwardRef<HTMLDivElement, FilterDateRangeP
     };
 
     // Format date range for display
-    const formatDateRange = (start?: string, end?: string): string => {
+    const _formatDateRange = (start?: string, end?: string): string => {
       if (!start && !end) return placeholder || 'Select date range';
       if (!start) return `→ ${formatDate(end!)}`;
       if (!end) return `${formatDate(start)} →`;

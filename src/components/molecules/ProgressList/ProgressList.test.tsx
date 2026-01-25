@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ProgressList } from './ProgressList';
-import { IconName } from '../../atoms/Icons/types';
+import type { IconName } from '../../atoms/Icons/Icon';
 
 describe('ProgressList', () => {
   const mockItems = [

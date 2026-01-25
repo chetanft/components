@@ -272,7 +272,7 @@ StackedBarChart.displayName = 'StackedBarChart';
  * </StackedBarChart>
  * ```
  */
-export const StackedBarChartBar: React.FC<StackedBarChartBarComponentProps> = ({ children, ...props }) => {
+export const StackedBarChartBar: React.FC<StackedBarChartBarComponentProps> = () => {
   // This component is used for composition only - it doesn't render anything itself
   // The StackedBarChart component extracts props from StackedBarChartBar children
   return null;
@@ -295,7 +295,7 @@ StackedBarChartBar.displayName = 'StackedBarChartBar';
  * </StackedBarChartBar>
  * ```
  */
-export const StackedBarChartSegment: React.FC<StackedBarChartSegmentComponentProps> = ({ children, ...props }) => {
+export const StackedBarChartSegment: React.FC<StackedBarChartSegmentComponentProps> = () => {
   // This component is used for composition only - it doesn't render anything itself
   // The StackedBarChart component extracts props from StackedBarChartSegment children
   return null;

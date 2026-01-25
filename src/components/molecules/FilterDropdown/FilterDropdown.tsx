@@ -7,7 +7,7 @@ import { Dropdown } from '../Dropdown';
 import type { DropdownOption } from '../Dropdown';
 import { DropdownMenu, type DropdownMenuOption } from '../DropdownMenu';
 import { Button } from '../../atoms/Button/Button';
-import { Icon, IconName } from '../../atoms/Icons';
+import { IconName } from '../../atoms/Icons';
 import { usePageHeaderFiltersOptional } from '../PageHeaderFilters/PageHeaderFiltersContext';
 import { useMediaQuery } from '../../../lib/hooks/useMediaQuery';
 
@@ -182,7 +182,7 @@ export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownPro
       setOpenFilterId(null);
     };
 
-    const selectedOption = options.find((opt) => opt.value === value);
+    const _selectedOption = options.find((opt) => opt.value === value);
 
     // Convert DropdownOption to DropdownMenuOption
     const menuOptions: DropdownMenuOption[] = options.map((option) => ({

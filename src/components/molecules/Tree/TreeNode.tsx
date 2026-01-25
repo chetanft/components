@@ -9,7 +9,7 @@ import { TreeNodeCheckbox } from './TreeNodeCheckbox';
 import { TreeNodeIcon } from './TreeNodeIcon';
 import { TreeNodeContent } from './TreeNodeContent';
 import { TreeNodeChildren } from './TreeNodeChildren';
-import type { TreeNodeData } from './Tree';
+import type { TreeNodeData } from './TreeTypes';
 
 export interface TreeNodeProps extends Omit<ComposableProps<'div'>, 'title'> {
   /**
@@ -83,9 +83,9 @@ export const TreeNode = React.forwardRef<HTMLDivElement, TreeNodeProps>(
       selectable: treeSelectable,
       showLine,
       blockNode,
-      toggleExpanded,
+      toggleExpanded: _toggleExpanded,
       toggleSelected,
-      toggleChecked,
+      toggleChecked: _toggleChecked,
     } = useTreeContext();
     
     const node: TreeNodeData = {
@@ -101,7 +101,7 @@ export const TreeNode = React.forwardRef<HTMLDivElement, TreeNodeProps>(
     
     const isExpanded = expandedKeys.has(nodeKey);
     const isSelected = selectedKeys.has(nodeKey);
-    const isChecked = checkedKeys.has(nodeKey);
+    const _isChecked = checkedKeys.has(nodeKey);
     const hasChildren = !!children;
     const isNodeLeaf = isLeaf || !hasChildren;
     const isNodeDisabled = disabled;
@@ -149,4 +149,3 @@ export const TreeNode = React.forwardRef<HTMLDivElement, TreeNodeProps>(
 );
 
 TreeNode.displayName = 'TreeNode';
-

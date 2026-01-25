@@ -33,7 +33,7 @@ export interface ListItemDescriptionProps extends ComposableProps<'div'> {
  * - Uses body-secondary-regular variant for secondary text.
  */
 export const ListItemDescription = React.forwardRef<HTMLDivElement, ListItemDescriptionProps>(
-  ({ className, children, asChild, color, ...props }, ref) => {
+  ({ className, children, asChild, color: _color, ...props }, ref) => {
     if (asChild) {
       return (
         <Slot ref={ref} className={className} {...props}>

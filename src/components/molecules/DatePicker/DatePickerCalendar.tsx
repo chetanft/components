@@ -3,7 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
+import type { ComposableProps } from '../../../lib/slot';
 import { Calendar } from './Calendar';
 import { useDatePickerContext } from './DatePickerContext';
 
@@ -47,7 +47,7 @@ export interface DatePickerCalendarProps extends ComposableProps<'div'> {
  */
 export const DatePickerCalendar = React.forwardRef<HTMLDivElement, DatePickerCalendarProps>(
   (
-    { className, children, portalClassName, portalStyle, asChild, ...props },
+    { className, children, portalClassName, portalStyle, asChild: _asChild, ...props },
     ref
   ) => {
     const {

@@ -1,87 +1,20 @@
 "use client";
 
-"use client";
-
-import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import React, { useContext, useState, useCallback, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
-import { Label } from '../../atoms/Label/Label';
-import { Typography } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { FormLabel } from './FormLabel';
 import { FormControl } from './FormControl';
 import { FormHelper } from './FormHelper';
 import { FormError } from './FormError';
 import { FormDescription } from './FormDescription';
-
-// ============================================================================
-// Form Context & Types
-// ============================================================================
-
-export type FormLayout = 'horizontal' | 'vertical' | 'inline';
-
-export interface FormRule {
-  required?: boolean;
-  message?: string;
-  min?: number;
-  max?: number;
-  pattern?: RegExp;
-  validator?: (value: any, formValues: Record<string, any>) => boolean | string | Promise<boolean | string>;
-}
-
-export interface FormFieldState {
-  value: any;
-  error?: string;
-  touched: boolean;
-  validating: boolean;
-}
-
-interface FormContextValue {
-  layout: FormLayout;
-  labelCol?: number;
-  wrapperCol?: number;
-  values: Record<string, any>;
-  errors: Record<string, string>;
-  touched: Record<string, boolean>;
-  setFieldValue: (name: string, value: any) => void;
-  setFieldError: (name: string, error: string | undefined) => void;
-  setFieldTouched: (name: string, touched: boolean) => void;
-  validateField: (name: string, rules?: FormRule[]) => Promise<boolean>;
-  registerField: (name: string, rules?: FormRule[]) => void;
-  unregisterField: (name: string) => void;
-  disabled?: boolean;
-  size?: 'sm' | 'md' | 'lg';
-}
-
-const FormContext = createContext<FormContextValue | null>(null);
-
-export const useFormContext = () => {
-  const context = useContext(FormContext);
-  if (!context) {
-    throw new Error('useFormContext must be used within a Form component');
-  }
-  return context;
-};
-
-export const useFormField = (name: string) => {
-  const context = useContext(FormContext);
-  if (!context) {
-    return {
-      value: undefined,
-      error: undefined,
-      touched: false,
-      onChange: () => {},
-      onBlur: () => {},
-    };
-  }
-
-  return {
-    value: context.values[name],
-    error: context.errors[name],
-    touched: context.touched[name] || false,
-    onChange: (value: any) => context.setFieldValue(name, value),
-    onBlur: () => context.setFieldTouched(name, true),
-  };
-};
+import {
+  FormContext,
+  type FormContextValue,
+  type FormFieldState,
+  type FormLayout,
+  type FormRule,
+} from './FormContext';
 
 // ============================================================================
 // Form Component
@@ -272,6 +205,9 @@ export const Form = React.forwardRef<HTMLFormElement, FormProps>(
 
 Form.displayName = 'Form';
 
+export { useFormContext, useFormField } from './FormContext';
+export type { FormLayout, FormRule, FormFieldState } from './FormContext';
+
 // ============================================================================
 // Form.Item Component
 // ============================================================================
@@ -374,8 +310,8 @@ export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
       
       const context = useContext(FormContext);
       const layout = context?.layout || 'vertical';
-      const labelCol = itemLabelCol ?? context?.labelCol ?? 8;
-      const wrapperCol = itemWrapperCol ?? context?.wrapperCol ?? 16;
+      const _labelCol = itemLabelCol ?? context?.labelCol ?? 8;
+      const _wrapperCol = itemWrapperCol ?? context?.wrapperCol ?? 16;
       
       const containerClasses = cn(
         'w-full',
@@ -473,12 +409,12 @@ export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
       className
     );
 
-    const labelClasses = cn(
+    const _labelClasses = cn(
       layout === 'horizontal' && `flex-shrink-0 text-right pt-[var(--spacing-x2)]`,
       layout === 'horizontal' && `w-[${(labelCol / 24) * 100}%]`,
     );
 
-    const wrapperClasses = cn(
+    const _wrapperClasses = cn(
       'flex-1 flex flex-col gap-[var(--spacing-x1)]',
       layout === 'horizontal' && `w-[${(wrapperCol / 24) * 100}%]`,
     );

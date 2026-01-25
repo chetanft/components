@@ -41,7 +41,7 @@ export interface CollapsibleTriggerProps extends ComposableProps<'button'> {
  */
 export const CollapsibleTrigger = React.forwardRef<HTMLButtonElement, CollapsibleTriggerProps>(
   ({ className, children, asChild, onClick, ...props }, ref) => {
-    const { isExpanded, onToggle, disabled, type } = useCollapsibleContext();
+    const { isExpanded, onToggle, disabled, type: _type } = useCollapsibleContext();
     
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (!disabled) {

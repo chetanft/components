@@ -50,7 +50,7 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
 }, ref) => {
   const isLink = !!href;
   const BaseComponent = isLink ? 'a' : 'button';
-  const Comp = asChild ? Slot : BaseComponent;
+  const _Comp = asChild ? Slot : BaseComponent;
 
   // Use FT Design System Button tokens to match Button component styling exactly
   const variantStyles = type === 'primary'

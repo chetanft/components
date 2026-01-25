@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons/Icon';
 import { Typography } from '../../atoms/Typography';
-import { IconName } from '../../atoms/Icons/types';
+import type { IconName } from '../../atoms/Icons/Icon';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type ProgressItemState = 'completed' | 'current' | 'upcoming';
@@ -587,7 +587,7 @@ ProgressList.displayName = 'ProgressList';
  * ```
  */
 export const ProgressListItem = React.forwardRef<HTMLDivElement, ProgressListItemProps>(
-  (props, ref) => {
+  (_props, _ref) => {
     // This component is used as a marker for ProgressList to identify composable children
     // The actual rendering is handled by ProgressList
     return null;
@@ -613,7 +613,7 @@ ProgressListItem.displayName = 'ProgressListItem';
  * ```
  */
 export const ProgressListDivider = React.forwardRef<HTMLDivElement, ProgressListDividerProps>(
-  ({ id, label, className, ...props }, ref) => {
+  ({ id: _id, label, className, ...props }, ref) => {
     return (
       <div ref={ref} className={cn("flex justify-between items-center gap-[-36px] py-[var(--spacing-x4)] w-full", className)} {...props}>
         <div className="flex-1 h-px border-b border-[var(--border-primary)]" />

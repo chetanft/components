@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useRef, useCallback, useMemo } from 'react';
+import React, { createContext, useContext } from 'react';
 
 export interface SliderMark {
   value: number;

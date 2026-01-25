@@ -1,8 +1,6 @@
 "use client";
 
 import React from 'react';
-import { cn } from '../../../lib/utils';
-import { Typography } from '../Typography';
 import { SwitchProvider } from './SwitchContext';
 import { SwitchWrapper } from './SwitchWrapper';
 import { SwitchInput } from './SwitchInput';

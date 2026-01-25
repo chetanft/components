@@ -33,7 +33,7 @@ export interface PopconfirmDescriptionProps extends ComposableProps<'div'> {
  * - Automatically styled with Typography component.
  */
 export const PopconfirmDescription = React.forwardRef<HTMLDivElement, PopconfirmDescriptionProps>(
-  ({ className, children, asChild, color, ...props }, ref) => {
+  ({ className, children, asChild, color: _color, ...props }, ref) => {
     if (asChild) {
       return (
         <Slot ref={ref} className={className} {...props}>

@@ -19,7 +19,7 @@ export const useColumnResize = (options: UseColumnResizeOptions = {}) => {
   const resizeStartXRef = useRef(0);
   const resizeStartWidthRef = useRef(0);
   const resizingColumnRef = useRef<string | null>(null);
-  const tableRef = useRef<HTMLTableElement>(null);
+  const _tableRef = useRef<HTMLTableElement>(null);
 
   const handleMouseDown = useCallback((columnKey: string, e: React.MouseEvent) => {
     e.preventDefault();

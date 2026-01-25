@@ -3,7 +3,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Button } from '../../atoms/Button/Button';
-import { Icon, IconName } from '../../atoms/Icons';
+import { IconName } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { PageHeaderFiltersProvider } from './PageHeaderFiltersContext';
 

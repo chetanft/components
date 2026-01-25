@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useImperativeHandle, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
+import type { ComposableProps } from '../../../lib/slot';
 
 export interface MentionOption {
   value: string;

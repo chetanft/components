@@ -35,7 +35,7 @@ export interface CardTitleProps extends ComposableProps<'h3'> {
  * - Uses display-primary variant for prominent styling.
  */
 export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
-  ({ className, children, asChild, color, ...props }, ref) => {
+  ({ className, children, asChild, color: _color, ...props }, ref) => {
     if (asChild) {
       return (
         <Slot ref={ref} {...props}>

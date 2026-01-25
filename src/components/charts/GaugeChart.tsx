@@ -69,7 +69,7 @@ export const GaugeChart: React.FC<GaugeChartProps> = ({
 };
 
 // Re-import colors for use inside component since we can't import internal var easily if not exported
-const ftChartColors = {
+const _ftChartColors = {
   text: {
     primary: '#434f64',
   }

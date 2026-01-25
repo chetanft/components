@@ -142,12 +142,12 @@ export function List<T>({
         className
     );
 
-    const headerClasses = cn(
+    const _headerClasses = cn(
         "border-b border-[var(--color-border-secondary)]",
         sizeStyles[size]
     );
 
-    const footerClasses = cn(
+    const _footerClasses = cn(
         "border-t border-[var(--color-border-secondary)]",
         sizeStyles[size]
     );

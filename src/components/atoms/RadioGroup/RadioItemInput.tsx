@@ -84,7 +84,7 @@ export const RadioItemInput = React.forwardRef<HTMLInputElement, RadioItemInputP
     const inputRef = React.useRef<HTMLInputElement>(null);
     React.useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
-    const handleChange = (e?: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (_e?: React.ChangeEvent<HTMLInputElement>) => {
       if (!isDisabled && onChange) {
         onChange(itemValue);
       }

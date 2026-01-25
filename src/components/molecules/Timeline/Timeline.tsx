@@ -81,7 +81,7 @@ export interface TimelineProps extends ComposableProps<'ul'> {
 // Color Mapping
 // ============================================================================
 
-const colorMap = {
+const _colorMap = {
   primary: 'bg-[var(--color-primary)] border-[var(--color-primary)]',
   success: 'bg-[var(--color-positive)] border-[var(--color-positive)]',
   warning: 'bg-[var(--color-warning)] border-[var(--color-warning)]',
@@ -89,7 +89,7 @@ const colorMap = {
   neutral: 'bg-[var(--color-neutral)] border-[var(--color-neutral)]',
 };
 
-const iconColorMap = {
+const _iconColorMap = {
   primary: 'text-[var(--color-primary)]',
   success: 'text-[var(--color-positive)]',
   warning: 'text-[var(--color-warning)]',

@@ -407,7 +407,7 @@ Transfer.displayName = 'Transfer';
  * </Transfer>
  * ```
  */
-export const TransferItem: React.FC<TransferItemComponentProps> = ({ children, ...props }) => {
+export const TransferItem: React.FC<TransferItemComponentProps> = ({ children: _children, ..._props }) => {
     // This component is used for composition only - it doesn't render anything itself
     // The Transfer component extracts props from TransferItem children
     return null;

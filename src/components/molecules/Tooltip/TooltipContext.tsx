@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 export type TooltipAlignment = 'start' | 'center' | 'end';

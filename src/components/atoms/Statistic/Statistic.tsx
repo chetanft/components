@@ -1,6 +1,5 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Typography } from '../Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { StatisticTitle } from './StatisticTitle';
 import { StatisticValue } from './StatisticValue';

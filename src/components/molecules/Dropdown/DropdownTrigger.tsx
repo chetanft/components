@@ -47,7 +47,7 @@ export const DropdownTrigger = React.forwardRef<HTMLDivElement, DropdownTriggerP
       placeholder,
       size,
       state,
-      type,
+      type: _type,
       dropdownRef,
     } = useDropdownContext();
     
