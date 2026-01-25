@@ -52,6 +52,21 @@ describe('Calendar Component', () => {
       expect(screen.getByText('Next month')).toBeInTheDocument();
     });
 
+    it('renders custom quick select options when provided', () => {
+      const customOptions = [
+        { label: 'Last 7 days', value: 'last-7-days' },
+        { label: 'Last 30 days', value: 'last-30-days' },
+        { label: 'This quarter', value: 'this-quarter' },
+      ];
+      render(<Calendar range={true} quickSelectOptions={customOptions} />);
+      expect(screen.getByText('Last 7 days')).toBeInTheDocument();
+      expect(screen.getByText('Last 30 days')).toBeInTheDocument();
+      expect(screen.getByText('This quarter')).toBeInTheDocument();
+      // Default options should not be present
+      expect(screen.queryByText('This week')).not.toBeInTheDocument();
+      expect(screen.queryByText('Next week')).not.toBeInTheDocument();
+    });
+
     it('renders action buttons when range is true', () => {
       render(<Calendar range={true} onApply={() => {}} onCancel={() => {}} />);
       expect(screen.getByText('Apply')).toBeInTheDocument();

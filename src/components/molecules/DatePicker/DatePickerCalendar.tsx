@@ -49,6 +49,7 @@ export const DatePickerCalendar = React.forwardRef<HTMLDivElement, DatePickerCal
       value,
       startValue,
       endValue,
+      dropdownPresets,
       handleDateChange,
       handleApply,
       handleCancel,
@@ -74,6 +75,7 @@ export const DatePickerCalendar = React.forwardRef<HTMLDivElement, DatePickerCal
         onCancel={handleCancel}
         onApply={handleApply}
         onClear={range ? handleClear : undefined}
+        dropdownPresets={dropdownPresets}
       />
     );
     
@@ -104,4 +106,3 @@ export const DatePickerCalendar = React.forwardRef<HTMLDivElement, DatePickerCal
 );
 
 DatePickerCalendar.displayName = 'DatePickerCalendar';
-

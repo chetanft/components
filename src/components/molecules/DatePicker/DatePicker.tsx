@@ -265,6 +265,17 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
    * @default false
    */
   includeDropdown?: boolean;
+
+  /**
+   * Preset options shown in the range dropdown menu
+   */
+  dropdownPresets?: string[];
+  
+  /**
+   * Quick select options shown in the left sidebar (range mode only)
+   * @default [{ label: 'This week', value: 'this-week' }, { label: 'Next week', value: 'next-week' }, { label: 'This month', value: 'this-month' }, { label: 'Next month', value: 'next-month' }]
+   */
+  quickSelectOptions?: Array<{ label: string; value: string }>;
   
   /**
    * DatePicker content (for composable API)
@@ -325,6 +336,8 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   size = 'm',
   className,
   includeDropdown = false,
+  dropdownPresets,
+  quickSelectOptions,
   children
 }, ref) => {
   // Map DatePicker legacy size to unified component styles
@@ -865,6 +878,8 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     size: size ?? undefined,
     placeholder,
     includeDropdown,
+    dropdownPresets,
+    quickSelectOptions,
     onChange,
     onStartChange,
     onEndChange,
@@ -1066,6 +1081,8 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
                 onCancel={handleCancel}
                 onApply={handleApply}
                 onClear={range ? handleClear : undefined}
+                dropdownPresets={dropdownPresets}
+                quickSelectOptions={quickSelectOptions}
               />
             </div>
           </>,

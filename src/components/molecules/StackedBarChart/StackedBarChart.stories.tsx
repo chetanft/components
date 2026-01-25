@@ -90,3 +90,38 @@ export const CustomHeights: Story = {
   },
 };
 
+// Custom Default Colors
+const dataWithoutColors: StackedBarChartProps['data'] = [
+  {
+    label: 'Q1',
+    segments: [
+      { label: 'Product A', value: 30 },
+      { label: 'Product B', value: 45 },
+      { label: 'Product C', value: 25 },
+    ],
+  },
+  {
+    label: 'Q2',
+    segments: [
+      { label: 'Product A', value: 35 },
+      { label: 'Product B', value: 40 },
+      { label: 'Product C', value: 30 },
+    ],
+  },
+];
+
+export const CustomDefaultColors: Story = {
+  args: {
+    title: 'Quarterly Sales',
+    data: dataWithoutColors,
+    defaultColors: ['#42bdbd', '#0828f7', '#1793e8'], // FT Design System colors
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'StackedBarChart with custom default color palette. The defaultColors prop allows you to customize the color palette used for segments that don\'t specify an explicit color, enabling brand-consistent colors across charts.',
+      },
+    },
+  },
+};
+

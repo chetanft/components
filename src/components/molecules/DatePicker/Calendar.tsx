@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useMemo, useState } from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
@@ -21,6 +21,11 @@ import {
   differenceInDays
 } from 'date-fns';
 
+export interface QuickSelectOption {
+  label: string;
+  value: string;
+}
+
 interface CalendarProps {
   range?: boolean;
   value?: Date | [Date, Date] | null;
@@ -31,6 +36,12 @@ interface CalendarProps {
   minDate?: Date;
   maxDate?: Date;
   maxRangeDays?: number; // Maximum allowed range in days
+  dropdownPresets?: string[];
+  /**
+   * Quick select options shown in the left sidebar (range mode only)
+   * @default [{ label: 'This week', value: 'this-week' }, { label: 'Next week', value: 'next-week' }, { label: 'This month', value: 'this-month' }, { label: 'Next month', value: 'next-month' }]
+   */
+  quickSelectOptions?: QuickSelectOption[];
   className?: string;
 }
 
@@ -174,7 +185,9 @@ const dropdownVariants = cva(
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-const QUICK_SELECT_OPTIONS = [
+const DEFAULT_DROPDOWN_PRESETS = ['Created Date', 'Modified Date', 'Due Date'];
+
+const DEFAULT_QUICK_SELECT_OPTIONS: QuickSelectOption[] = [
   { label: 'This week', value: 'this-week' },
   { label: 'Next week', value: 'next-week' },
   { label: 'This month', value: 'this-month' },
@@ -191,6 +204,8 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   minDate,
   maxDate,
   maxRangeDays,
+  dropdownPresets,
+  quickSelectOptions = DEFAULT_QUICK_SELECT_OPTIONS,
   className
 }, ref) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -201,9 +216,22 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   });
   const [activeQuickSelect, setActiveQuickSelect] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedDateRange, setSelectedDateRange] = useState<string>("Created Date");
+  const resolvedDropdownPresets = useMemo(() => (
+    dropdownPresets && dropdownPresets.length > 0
+      ? dropdownPresets
+      : DEFAULT_DROPDOWN_PRESETS
+  ), [dropdownPresets]);
+  const [selectedDateRange, setSelectedDateRange] = useState<string>(() => resolvedDropdownPresets[0] ?? "Created Date");
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
   const [rangeError, setRangeError] = useState<string | null>(null);
+  const presetSeed = resolvedDropdownPresets.join('|');
+
+  useEffect(() => {
+    const fallbackPreset = resolvedDropdownPresets[0] ?? "Created Date";
+    if (!resolvedDropdownPresets.includes(selectedDateRange)) {
+      setSelectedDateRange(fallbackPreset);
+    }
+  }, [presetSeed, selectedDateRange, resolvedDropdownPresets]);
 
   const validateRange = (start: Date, end: Date): string | null => {
     const normalizedStart = startOfDay(start);
@@ -606,7 +634,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               <div className="absolute z-[10000] w-full mt-[var(--spacing-x1)]">
                 <DropdownMenu
                   property="default"
-                  options={["Created Date", "Modified Date", "Due Date"].map((option) => ({
+                  options={resolvedDropdownPresets.map((option) => ({
                     value: option,
                     label: option,
                     prefix: 'none' as const,
@@ -623,7 +651,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
       <div className="flex">
         {range && (
           <div className={quickSelectVariants({ range })}>
-            {QUICK_SELECT_OPTIONS.map((option) => (
+            {quickSelectOptions.map((option) => (
               <button
                 key={option.value}
                 className={cn(

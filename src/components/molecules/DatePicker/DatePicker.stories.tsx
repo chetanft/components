@@ -71,6 +71,27 @@ export const DateRange: Story = {
   },
 };
 
+export const CustomQuickSelectOptions: Story = {
+  args: {
+    label: 'Date Range with Custom Quick Select',
+    range: true,
+    quickSelectOptions: [
+      { label: 'Last 7 days', value: 'last-7-days' },
+      { label: 'Last 30 days', value: 'last-30-days' },
+      { label: 'This quarter', value: 'this-quarter' },
+      { label: 'Last quarter', value: 'last-quarter' },
+      { label: 'This year', value: 'this-year' },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'DatePicker with custom quick select options. The quickSelectOptions prop allows you to customize the preset date ranges shown in the left sidebar when range mode is enabled.',
+      },
+    },
+  },
+};
+
 export const SizeXS: Story = {
   args: {
     label: 'Extra Small (XS)',

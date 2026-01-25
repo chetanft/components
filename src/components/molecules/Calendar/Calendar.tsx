@@ -38,15 +38,34 @@ export interface CalendarProps extends Omit<ComposableProps<'div'>, 'onChange' |
   validRange?: [Date, Date];
   /** Locale */
   locale?: 'en' | 'zh';
+  /**
+   * Custom weekday labels (Sunday to Saturday)
+   * @default Based on locale prop: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] for 'en'
+   */
+  weekdayLabels?: string[];
+  /**
+   * Custom month abbreviations
+   * @default Based on locale prop: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] for 'en'
+   */
+  monthLabels?: string[];
+  /**
+   * Custom full month names
+   * @default Based on locale prop: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] for 'en'
+   */
+  monthLabelsFull?: string[];
 }
 
 // ============================================================================
 // Constants
 // ============================================================================
 
-const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const MONTHS_FULL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const DEFAULT_WEEKDAYS_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const DEFAULT_MONTHS_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const DEFAULT_MONTHS_FULL_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+const DEFAULT_WEEKDAYS_ZH = ['日', '一', '二', '三', '四', '五', '六'];
+const DEFAULT_MONTHS_ZH = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+const DEFAULT_MONTHS_FULL_ZH = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
 
 const COMPACT_NAV_BUTTON_CLASS = "min-w-[30px] min-h-[30px] w-fit h-fit flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--tertiary)] hover:bg-[var(--border-secondary)] transition-colors focus:outline-none";
 
@@ -110,10 +129,17 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     disabledDate,
     headerRender,
     validRange,
-    locale: _locale = 'en',
+    locale = 'en',
+    weekdayLabels,
+    monthLabels,
+    monthLabelsFull,
     asChild,
     ...props
   }, ref) => {
+    // Resolve labels based on locale and props
+    const resolvedWeekdayLabels = weekdayLabels ?? (locale === 'zh' ? DEFAULT_WEEKDAYS_ZH : DEFAULT_WEEKDAYS_EN);
+    const resolvedMonthLabels = monthLabels ?? (locale === 'zh' ? DEFAULT_MONTHS_ZH : DEFAULT_MONTHS_EN);
+    const resolvedMonthLabelsFull = monthLabelsFull ?? (locale === 'zh' ? DEFAULT_MONTHS_FULL_ZH : DEFAULT_MONTHS_FULL_EN);
     const [internalValue, setInternalValue] = useState(controlledValue ?? defaultValue);
     const [internalMode, setInternalMode] = useState<CalendarMode>(controlledMode ?? 'month');
     const [viewDate, setViewDate] = useState(controlledValue ?? defaultValue);
@@ -291,7 +317,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                 mode === 'month' && "underline"
               )}
             >
-              {MONTHS_FULL[viewDate.getMonth()]}
+              {resolvedMonthLabelsFull[viewDate.getMonth()]}
             </button>
             <button
               type="button"
@@ -339,7 +365,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
         return (
           <div className="flex flex-col gap-[var(--spacing-x2)] p-[var(--spacing-x4)]">
             <div className="flex gap-[var(--spacing-x3)]">
-              {WEEKDAYS.map((day) => (
+              {resolvedWeekdayLabels.map((day) => (
                 <div
                   key={day}
                   className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-[var(--tertiary)] font-normal"
@@ -397,7 +423,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       return (
         <div className="p-[var(--spacing-x6)]">
           <div className="grid grid-cols-7 gap-[var(--spacing-x1)] mb-[var(--spacing-x3)]">
-            {WEEKDAYS.map(day => (
+            {resolvedWeekdayLabels.map(day => (
               <div
                 key={day}
                 className="text-center text-[var(--tertiary)] py-[var(--spacing-x3)] text-sm"
@@ -450,7 +476,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
         "grid grid-cols-3 gap-[var(--spacing-x3)]",
         fullscreen ? "p-[var(--spacing-x6)]" : "p-[var(--spacing-x4)]"
       )}>
-        {MONTHS.map((month, index) => {
+        {resolvedMonthLabels.map((month, index) => {
           const monthDate = new Date(viewDate.getFullYear(), index, 1);
           const isSelected = selectedDate &&
             selectedDate.getMonth() === index &&

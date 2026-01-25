@@ -279,7 +279,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const baseStyles = cn(
     // Layout and display
     "inline-flex items-center justify-center",
-    "font-medium transition-all duration-200",
+    "font-semibold transition-all duration-200",
     "focus-visible:outline-none",
     focusRingClass,
     "disabled:cursor-not-allowed",

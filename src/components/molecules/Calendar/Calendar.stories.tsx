@@ -288,3 +288,22 @@ const PanelChangeCallbackComponent = (args: any) => {
 export const PanelChangeCallback: Story = {
   render: (args: React.ComponentProps<typeof Calendar>) => <PanelChangeCallbackComponent {...args} />,
 };
+
+// Custom Labels
+export const CustomLabels: Story = {
+  render: (args: React.ComponentProps<typeof Calendar>) => (
+    <Calendar
+      {...args}
+      weekdayLabels={['S', 'M', 'T', 'W', 'T', 'F', 'S']}
+      monthLabels={['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']}
+      monthLabelsFull={['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']}
+    />
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Calendar with custom weekday and month labels. The weekdayLabels, monthLabels, and monthLabelsFull props allow you to customize the display labels for internationalization or branding purposes.',
+      },
+    },
+  },
+};

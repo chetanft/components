@@ -88,7 +88,18 @@ export interface ColorPickerProps {
    */
   showText?: boolean;
   size?: 'sm' | 'md' | 'lg';
+  /**
+   * Custom color presets to display in the picker grid
+   * @default ['#f5222d', '#fa8c16', '#fadb14', '#8bbb11', '#52c41a', '#13c2c2', '#1677ff', '#2f54eb', '#722ed1', '#eb2f96', '#000000', '#ffffff', '#8c8c8c']
+   */
+  presets?: string[];
 }
+
+const DEFAULT_PRESETS = [
+  '#f5222d', '#fa8c16', '#fadb14', '#8bbb11', '#52c41a',
+  '#13c2c2', '#1677ff', '#2f54eb', '#722ed1', '#eb2f96',
+  '#000000', '#ffffff', '#8c8c8c'
+];
 
 export const ColorPicker: React.FC<ColorPickerProps> = ({
   value: controlledValue,
@@ -99,6 +110,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   className,
   showText,
   size = 'md',
+  presets = DEFAULT_PRESETS,
 }) => {
   const [value, setValue] = useState(controlledValue || defaultValue);
   const [open, setOpen] = useState(false);
@@ -107,13 +119,6 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   useEffect(() => {
       if (controlledValue) setValue(controlledValue);
   }, [controlledValue]);
-
-  // Very basic color list for MVP
-  const presets = [
-    '#f5222d', '#fa8c16', '#fadb14', '#8bbb11', '#52c41a',
-    '#13c2c2', '#1677ff', '#2f54eb', '#722ed1', '#eb2f96',
-    '#000000', '#ffffff', '#8c8c8c'
-  ];
 
   const handleSelect = (color: string) => {
       setValue(color);

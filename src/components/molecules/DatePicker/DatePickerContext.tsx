@@ -17,6 +17,7 @@ export interface DatePickerContextType {
   size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "m" | "l" | null | undefined;
   placeholder?: string;
   includeDropdown?: boolean;
+  dropdownPresets?: string[];
   onChange?: (value: string) => void;
   onStartChange?: (value: string) => void;
   onEndChange?: (value: string) => void;
@@ -65,6 +66,7 @@ const createDefaultContext = (): DatePickerContextType => ({
   size: 'md',
   placeholder: 'Select date',
   includeDropdown: false,
+  dropdownPresets: undefined,
   onChange: undefined,
   onStartChange: undefined,
   onEndChange: undefined,
@@ -117,4 +119,3 @@ export const DatePickerProvider: React.FC<DatePickerProviderProps> = ({ value, c
     </DatePickerContext.Provider>
   );
 };
-

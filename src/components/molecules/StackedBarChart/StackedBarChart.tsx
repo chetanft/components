@@ -3,7 +3,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 
-const DEFAULT_COLORS = ['#ffb3c3', '#ff809a', '#ff6384'] as const;
+const DEFAULT_COLORS = ['#ffb3c3', '#ff809a', '#ff6384'];
 
 export interface StackedBarSegment {
   label: string;
@@ -38,6 +38,11 @@ export interface StackedBarChartProps
    * Explicit chart height in pixels (default taken from Figma)
    */
   barHeight?: number;
+  /**
+   * Default color palette for segments without explicit colors
+   * @default ['#ffb3c3', '#ff809a', '#ff6384']
+   */
+  defaultColors?: string[];
   /**
    * Chart bars (for composable API)
    */
@@ -74,7 +79,7 @@ export interface StackedBarChartSegmentComponentProps {
   color?: string;
 }
 
-const buildLegendFromData = (data: StackedBarData[]): StackedBarLegendItem[] => {
+const buildLegendFromData = (data: StackedBarData[], defaultColors: string[]): StackedBarLegendItem[] => {
   const legendMap = new Map<string, string>();
 
   data.forEach((bar) => {
@@ -84,7 +89,7 @@ const buildLegendFromData = (data: StackedBarData[]): StackedBarLegendItem[] => 
       }
 
       const fallbackColor =
-        segment.color ?? DEFAULT_COLORS[index % DEFAULT_COLORS.length];
+        segment.color ?? defaultColors[index % defaultColors.length];
 
       legendMap.set(segment.label, fallbackColor);
     });
@@ -127,6 +132,7 @@ export const StackedBarChart = React.forwardRef(
       legend,
       maxValue,
       barHeight = 172,
+      defaultColors = DEFAULT_COLORS,
       className,
       children,
       ...props
@@ -174,7 +180,7 @@ export const StackedBarChart = React.forwardRef(
         )
       ) || 1);
 
-    const resolvedLegend = legend ?? buildLegendFromData(allData);
+    const resolvedLegend = legend ?? buildLegendFromData(allData, defaultColors);
 
     return (
       <div
@@ -205,7 +211,7 @@ export const StackedBarChart = React.forwardRef(
                 {bar.segments.map((segment, segmentIndex) => {
                   const color =
                     segment.color ??
-                    DEFAULT_COLORS[segmentIndex % DEFAULT_COLORS.length];
+                    defaultColors[segmentIndex % defaultColors.length];
                   const height = Math.max(
                     0,
                     (segment.value / computedMax) * 100

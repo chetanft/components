@@ -362,7 +362,7 @@ export function StoryPreview({
 
         {/* Content */}
         {view === "preview" && (
-          <div className="p-8 h-full bg-background overflow-x-auto flex items-center justify-center">
+          <div className="p-8 h-full bg-background overflow-x-auto flex items-start justify-start">
             <div className="min-w-max mx-auto">
               {renderedStory}
             </div>
