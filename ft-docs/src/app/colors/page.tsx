@@ -2,6 +2,7 @@
 
 import { designTokens } from "../../../../src/tokens/design-tokens"
 import { SiteHeader } from "@/components/site-header"
+import { Button } from "../../../../src/components/atoms/Button"
 import { useState } from "react"
 
 // Standard Tailwind colors
@@ -421,7 +422,7 @@ export default function ColorsPage() {
         <div className="container mx-auto max-w-7xl px-4 py-12">
           {/* Header */}
           <div className="mb-12 space-y-4">
-            <h1 className="text-4xl font-bold tracking-tight">Tailwind Colors in Every Format</h1>
+            <h1 className="text-4xl font-bold tracking-tight">Colors</h1>
             <p className="text-lg text-muted-foreground">
               The complete color palette in HEX, RGB, HSL, CSS variables, and classes. Ready to copy and paste into your project.
             </p>
@@ -434,17 +435,14 @@ export default function ColorsPage() {
               <label className="text-sm font-semibold text-foreground">Theme:</label>
               <div className="flex flex-wrap gap-2">
                 {(['lightMode', 'darkMode', 'nightMode'] as const).map((mode) => (
-                  <button
+                  <Button
                     key={mode}
                     onClick={() => setSelectedMode(mode)}
-                    className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${selectedMode === mode
-                      ? 'text-foreground'
-                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                      }`}
-                    style={selectedMode === mode ? { backgroundColor: 'var(--primary)' } : undefined}
+                    variant={selectedMode === mode ? 'primary' : 'secondary'}
+                    size="sm"
                   >
                     {mode === 'lightMode' ? 'Light' : mode === 'darkMode' ? 'Dark' : 'Night'}
-                  </button>
+                  </Button>
                 ))}
               </div>
             </div>
@@ -454,17 +452,14 @@ export default function ColorsPage() {
               <label className="text-sm font-semibold text-foreground">Format:</label>
               <div className="flex flex-wrap gap-2">
                 {(['hex', 'rgb', 'hsl', 'css', 'tailwind', 'oklch'] as const).map((format) => (
-                  <button
+                  <Button
                     key={format}
                     onClick={() => setSelectedFormat(format)}
-                    className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${selectedFormat === format
-                      ? 'text-foreground'
-                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                      }`}
-                    style={selectedFormat === format ? { backgroundColor: 'var(--primary)' } : undefined}
+                    variant={selectedFormat === format ? 'primary' : 'secondary'}
+                    size="sm"
                   >
                     {format.toUpperCase()}
-                  </button>
+                  </Button>
                 ))}
               </div>
             </div>

@@ -478,9 +478,6 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
                 />
               ))}
             </div>
-            {showLine && type === 'primary' && (
-              <div className="border-[var(--border-primary)] border-b border-l-0 border-r-0 border-solid border-t-0 flex-[1_0_0] min-h-px min-w-px self-stretch shrink-0" />
-            )}
           </div>
           {overflowBehavior === 'dropdown' && (
             <Button

@@ -64,7 +64,7 @@ export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
     return (
       <Comp
         ref={ref}
-        className={cn("flex items-center gap-[var(--spacing-x3)]", className)}
+        className={cn("flex items-center gap-[12px]", className)}
         role="tablist"
         {...props}
       >
