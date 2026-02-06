@@ -1,7 +1,7 @@
 # FT Design System - Complete Token Reference
 
 > **Auto-generated from** `src/styles/globals.css`  
-> **Last updated:** 2026-01-28  
+> **Last updated:** 2026-02-06  
 > **Total tokens:** 141
 
 This document provides a comprehensive reference for all design tokens available in the FT Design System. All tokens are CSS custom properties that can be used in your stylesheets or accessed via JavaScript.
