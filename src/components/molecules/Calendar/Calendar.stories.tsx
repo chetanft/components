@@ -154,7 +154,7 @@ export const CustomHeader: Story = {
               newDate.setMonth(newDate.getMonth() - 1);
               onChange(newDate);
             }}
-            className="px-3 py-1 bg-[var(--color-primary)] text-[var(--overlay-control-text)] rounded"
+            className="px-3 py-1 border border-[var(--border-primary)] bg-transparent text-[var(--color-primary)] rounded hover:bg-[var(--color-bg-secondary)] transition-colors"
           >
             Prev
           </button>
@@ -167,7 +167,7 @@ export const CustomHeader: Story = {
               newDate.setMonth(newDate.getMonth() + 1);
               onChange(newDate);
             }}
-            className="px-3 py-1 bg-[var(--color-primary)] text-[var(--overlay-control-text)] rounded"
+            className="px-3 py-1 border border-[var(--border-primary)] bg-transparent text-[var(--color-primary)] rounded hover:bg-[var(--color-bg-secondary)] transition-colors"
           >
             Next
           </button>

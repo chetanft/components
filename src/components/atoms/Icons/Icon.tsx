@@ -36,9 +36,6 @@ export const Icon: React.FC<IconProps> = ({
     return null;
   }
 
-  // Check if className contains animation classes that should be applied to the SVG
-  const hasAnimation = className.includes('animate-spin') || className.includes('animate-pulse');
-
   const resolvedSize = typeof size === 'string' && size in sizeMap ? sizeMap[size] : size;
 
   const iconStyle: React.CSSProperties = {
@@ -59,7 +56,6 @@ export const Icon: React.FC<IconProps> = ({
   // Apply color style directly to SVG so currentColor resolves properly
   const renderedIcon = React.isValidElement(iconElement)
     ? React.cloneElement(iconElement as React.ReactElement<React.SVGProps<SVGSVGElement>>, {
-      className: hasAnimation ? className : undefined,
       width: typeof resolvedSize === 'number' ? resolvedSize : resolvedSize,
       height: typeof resolvedSize === 'number' ? resolvedSize : resolvedSize,
       style: {
@@ -74,7 +70,7 @@ export const Icon: React.FC<IconProps> = ({
 
   return (
     <Comp
-      className={`icon inline-flex items-center justify-center ${hasAnimation ? '' : className}`}
+      className={`icon inline-flex items-center justify-center ${className}`}
       style={iconStyle}
       {...props}
     >

@@ -63,6 +63,66 @@ export const extendedColors = [
   chartColors.goldDark,
 ];
 
+// Status colors for semantic data visualization
+export const statusColors = {
+  positive: '#00c638',
+  warning: '#ff6c19',
+  critical: '#ff3533',
+  neutral: '#1890ff',
+};
+
+export const statusColorsArray = [
+  statusColors.positive,
+  statusColors.warning,
+  statusColors.critical,
+  statusColors.neutral,
+];
+
+// Monochrome color scales (primary grays)
+export const monochromeColors = [
+  '#1a2330', // primary900
+  '#434f64', // primary700
+  '#5f697b', // primary500
+  '#838c9d', // primary300
+  '#c5cad3', // primary100
+];
+
+// Neutral (blue) scale colors
+export const neutralScaleColors = [
+  '#002966', // neutral900
+  '#006dd3', // neutral700
+  '#1890ff', // neutral500
+  '#80c1ff', // neutral300
+  '#ecf6ff', // neutral100
+];
+
+// Positive (green) scale colors
+export const positiveScaleColors = [
+  '#004d26', // positive900
+  '#00753d', // positive700
+  '#00c637', // positive500
+  '#4dff88', // positive300
+  '#deffe7', // positive100
+];
+
+// Warning (orange) scale colors
+export const warningScaleColors = [
+  '#7a2f00', // warning900
+  '#dd6a00', // warning700
+  '#ff6c19', // warning500
+  '#ffb366', // warning300
+  '#ffedbc', // warning100
+];
+
+// Danger (red) scale colors
+export const dangerScaleColors = [
+  '#800000', // danger900
+  '#b70100', // danger700
+  '#ff3532', // danger500
+  '#ff9999', // danger300
+  '#ffeafa', // danger100
+];
+
 // FT Design System colors for chart styling
 export const ftChartColors = {
   text: {

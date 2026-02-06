@@ -406,7 +406,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     };
     
     // Check if using composable API (has children with Dropdown sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+    const hasComposableChildren = React.Children.toArray(children || []).some((child: any) => 
         child?.type?.displayName?.startsWith('Dropdown')
     );
     

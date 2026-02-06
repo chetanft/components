@@ -36,9 +36,9 @@ export default function DocsLayout({
     return (
         <div className="relative flex min-h-screen flex-col bg-background">
             <SiteHeader />
-            <div className="flex-1 bg-background">
-                <div className="container max-w-screen-2xl mx-auto">
-                    <div className="flex gap-8 py-8">
+            <div className="flex-1 bg-background flex w-full">
+                <div className="container max-w-screen-2xl mx-auto flex w-full">
+                    <div className="flex gap-8 py-8 w-full">
                         {/* Sidebar */}
                         <aside
                             className={cn(

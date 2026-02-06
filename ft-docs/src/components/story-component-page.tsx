@@ -148,8 +148,8 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
           <div 
             className="rounded-lg p-4 font-mono text-sm pr-12"
             style={{
-              backgroundColor: 'var(--color-tertiary)',
-              color: 'var(--bg-primary)',
+              backgroundColor: 'var(--color-border-secondary)',
+              color: 'var(--color-primary)',
             }}
           >
             {importStatement}

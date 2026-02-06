@@ -36,22 +36,22 @@ type Story = StoryObj<typeof DatePicker>;
 export const Default: Story = {
   args: {
     label: 'Select Date',
-    placeholder: 'MM/DD/YYYY',
+    placeholder: 'DD/MM/YYYY',
   },
 };
 
 export const WithValue: Story = {
   args: {
     label: 'Date with Value',
-    placeholder: 'MM/DD/YYYY',
-    value: '01/15/2024',
+    placeholder: 'DD/MM/YYYY',
+    value: '15/01/2024',
   },
 };
 
 export const ErrorState: Story = {
   args: {
     label: 'Date with Error',
-    placeholder: 'MM/DD/YYYY',
+    placeholder: 'DD/MM/YYYY',
     error: true,
   },
 };
@@ -59,7 +59,7 @@ export const ErrorState: Story = {
 export const Disabled: Story = {
   args: {
     label: 'Disabled DatePicker',
-    placeholder: 'MM/DD/YYYY',
+    placeholder: 'DD/MM/YYYY',
     disabled: true,
   },
 };
@@ -95,7 +95,7 @@ export const CustomQuickSelectOptions: Story = {
 export const SizeXS: Story = {
   args: {
     label: 'Extra Small (XS)',
-    placeholder: 'var(--spacing-x6) height',
+    placeholder: 'DD/MM/YYYY',
     size: 'xs',
   },
 };
@@ -103,7 +103,7 @@ export const SizeXS: Story = {
 export const SizeSM: Story = {
   args: {
     label: 'Small (SM)',
-    placeholder: 'var(--spacing-x8) height',
+    placeholder: 'DD/MM/YYYY',
     size: 'sm',
   },
 };
@@ -111,7 +111,7 @@ export const SizeSM: Story = {
 export const SizeLG: Story = {
   args: {
     label: 'Large (LG)',
-    placeholder: 'var(--spacing-x12) height',
+    placeholder: 'DD/MM/YYYY',
     size: 'lg',
   },
 };
@@ -119,7 +119,7 @@ export const SizeLG: Story = {
 export const SizeXL: Story = {
   args: {
     label: 'Extra Large (XL)',
-    placeholder: 'var(--spacing-x14) height',
+    placeholder: 'DD/MM/YYYY',
     size: 'xl',
   },
 };

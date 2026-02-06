@@ -59,7 +59,7 @@ export const CollapsibleTrigger = React.forwardRef<HTMLButtonElement, Collapsibl
         aria-expanded={isExpanded}
         aria-disabled={disabled}
         className={cn(
-          "flex flex-col items-start justify-start gap-[var(--spacing-x2)] px-0 py-3 w-full cursor-pointer",
+          "flex flex-col items-start justify-start gap-[var(--spacing-x2)] px-[11px] py-3 w-full cursor-pointer",
           "border-b transition-[border-color] duration-200 ease-in-out",
           "bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent",
           "outline-none focus:outline-none focus-visible:outline-none",

@@ -614,20 +614,5 @@ export const docsConfig: DocsConfig = {
         }
       ],
     },
-    {
-      title: "Design System",
-      items: [
-        {
-          title: "ColorSystem",
-          href: "/docs/components/color-system",
-          items: [],
-        },
-        {
-          title: "ThemeSystem",
-          href: "/docs/components/theme-system",
-          items: [],
-        }
-      ],
-    },
   ],
 }

@@ -197,43 +197,47 @@ export const GroupedOptions: Story = {
 };
 
 // Composable API Examples
+function ComposableBasicComponent() {
+  const [value, setValue] = useState<string | number>();
+  return (
+    <Dropdown value={value} onChange={setValue} placeholder="Select an option">
+      <DropdownTrigger />
+      <DropdownContent>
+        <DropdownMenu>
+          <DropdownMenu.DropdownMenuItem value="option1">Option 1</DropdownMenu.DropdownMenuItem>
+          <DropdownMenu.DropdownMenuItem value="option2">Option 2</DropdownMenu.DropdownMenuItem>
+          <DropdownMenu.DropdownMenuItem value="option3">Option 3</DropdownMenu.DropdownMenuItem>
+        </DropdownMenu>
+      </DropdownContent>
+    </Dropdown>
+  );
+}
+
 export const ComposableBasic: Story = {
-  render: () => {
-    const [value, setValue] = useState<string | number>();
-    return (
-      <Dropdown value={value} onChange={setValue} placeholder="Select an option">
+  render: () => <ComposableBasicComponent />,
+};
+
+function ComposableWithLabelComponent() {
+  const [value, setValue] = useState<string | number>();
+  return (
+    <div className="space-y-2">
+      <label className="block text-sm font-medium">Select an Option</label>
+      <Dropdown value={value} onChange={setValue} placeholder="Choose...">
         <DropdownTrigger />
         <DropdownContent>
           <DropdownMenu>
-            <DropdownMenu.DropdownMenuItem value="option1">Option 1</DropdownMenu.DropdownMenuItem>
-            <DropdownMenu.DropdownMenuItem value="option2">Option 2</DropdownMenu.DropdownMenuItem>
-            <DropdownMenu.DropdownMenuItem value="option3">Option 3</DropdownMenu.DropdownMenuItem>
+            <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
+            <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
+            <DropdownMenu.DropdownMenuItem value="cherry">Cherry</DropdownMenu.DropdownMenuItem>
           </DropdownMenu>
         </DropdownContent>
       </Dropdown>
-    );
-  },
-};
+    </div>
+  );
+}
 
 export const ComposableWithLabel: Story = {
-  render: () => {
-    const [value, setValue] = useState<string | number>();
-    return (
-      <div className="space-y-2">
-        <label className="block text-sm font-medium">Select an Option</label>
-        <Dropdown value={value} onChange={setValue} placeholder="Choose...">
-          <DropdownTrigger />
-          <DropdownContent>
-            <DropdownMenu>
-              <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
-              <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
-              <DropdownMenu.DropdownMenuItem value="cherry">Cherry</DropdownMenu.DropdownMenuItem>
-            </DropdownMenu>
-          </DropdownContent>
-        </Dropdown>
-      </div>
-    );
-  },
+  render: () => <ComposableWithLabelComponent />,
 };
 
 function ComposableWithSearchComponent() {
@@ -267,24 +271,26 @@ export const ComposableWithSearch: Story = {
   render: () => <ComposableWithSearchComponent />,
 };
 
+function ComposableWithGroupsComponent() {
+  const [value, setValue] = useState<string | number>();
+  return (
+    <Dropdown value={value} onChange={setValue} type="groups" placeholder="Select a fruit">
+      <DropdownTrigger />
+      <DropdownContent>
+        <DropdownMenu>
+          <DropdownMenu.DropdownMenuLabel>Fruits</DropdownMenu.DropdownMenuLabel>
+          <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
+          <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
+          <DropdownMenu.DropdownMenuSeparator />
+          <DropdownMenu.DropdownMenuLabel>Vegetables</DropdownMenu.DropdownMenuLabel>
+          <DropdownMenu.DropdownMenuItem value="carrot">Carrot</DropdownMenu.DropdownMenuItem>
+          <DropdownMenu.DropdownMenuItem value="broccoli">Broccoli</DropdownMenu.DropdownMenuItem>
+        </DropdownMenu>
+      </DropdownContent>
+    </Dropdown>
+  );
+}
+
 export const ComposableWithGroups: Story = {
-  render: () => {
-    const [value, setValue] = useState<string | number>();
-    return (
-      <Dropdown value={value} onChange={setValue} type="groups" placeholder="Select a fruit">
-        <DropdownTrigger />
-        <DropdownContent>
-          <DropdownMenu>
-            <DropdownMenu.DropdownMenuLabel>Fruits</DropdownMenu.DropdownMenuLabel>
-            <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
-            <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
-            <DropdownMenu.DropdownMenuSeparator />
-            <DropdownMenu.DropdownMenuLabel>Vegetables</DropdownMenu.DropdownMenuLabel>
-            <DropdownMenu.DropdownMenuItem value="carrot">Carrot</DropdownMenu.DropdownMenuItem>
-            <DropdownMenu.DropdownMenuItem value="broccoli">Broccoli</DropdownMenu.DropdownMenuItem>
-          </DropdownMenu>
-        </DropdownContent>
-      </Dropdown>
-    );
-  },
+  render: () => <ComposableWithGroupsComponent />,
 };

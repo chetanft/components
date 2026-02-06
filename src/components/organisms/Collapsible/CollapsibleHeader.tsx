@@ -43,7 +43,7 @@ export const CollapsibleHeader = React.forwardRef<HTMLDivElement, CollapsibleHea
     return (
       <Comp
         ref={ref}
-        className={cn("flex items-center gap-[var(--spacing-x5)] flex-1 w-full", className)}
+        className={cn("flex items-center gap-[var(--spacing-x2)] flex-1 w-full", className)}
         {...props}
       >
         {children}

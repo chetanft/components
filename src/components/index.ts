@@ -43,7 +43,7 @@ export * from './atoms/Toggle';
 export * from './molecules/Chicklet';
 export * from './molecules/ButtonGroup';
 export * from './molecules/DatePicker';
-// export * from './molecules/StackedBarChart'; // Removed duplicate export
+export { StackedBarChartBar, StackedBarChartSegment } from './molecules/StackedBarChart';
 export * from './molecules/SimpleColumnLayout';
 export * from './molecules/Dropdown';
 export * from './molecules/DropdownMenu';

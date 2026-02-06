@@ -1,5 +1,5 @@
 "use client";
-import React, { forwardRef, useState, useRef, useEffect } from 'react';
+import React, { forwardRef, useState, useRef, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
@@ -420,10 +420,10 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   }, [resolvedPortalId]);
 
   // Format date consistently
-  const formatDateForDisplay = (date: Date | null): string => {
+  const formatDateForDisplay = useCallback((date: Date | null): string => {
     if (!date) return '';
     try {
-      return date.toLocaleDateString('en-US', {
+      return date.toLocaleDateString('en-GB', {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit'
@@ -434,31 +434,31 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        return `${month}/${day}/${year}`;
+        return `${day}/${month}/${year}`;
       } catch {
         return '';
       }
     }
-  };
+  }, []);
 
-  // Parse date from various formats (MM/DD/YYYY, DD/MM/YYYY, YYYY-MM-DD, etc.)
-  const parseDateInput = (input: string): Date | null => {
+  // Parse date from various formats (DD/MM/YYYY, MM/DD/YYYY, YYYY-MM-DD, etc.)
+  const parseDateInput = useCallback((input: string): Date | null => {
     if (!input || input.trim() === '') return null;
 
     const trimmed = input.trim();
 
     // Try common formats
     const formats = [
-      'MM/dd/yyyy',
       'dd/MM/yyyy',
+      'MM/dd/yyyy',
       'yyyy-MM-dd',
-      'MM-dd-yyyy',
       'dd-MM-yyyy',
-      'M/d/yyyy',
+      'MM-dd-yyyy',
       'd/M/yyyy',
+      'M/d/yyyy',
       'yyyy/M/d',
-      'M/d/yy',
-      'd/M/yy'
+      'd/M/yy',
+      'M/d/yy'
     ];
 
     for (const fmt of formats) {
@@ -483,7 +483,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
     }
 
     return null;
-  };
+  }, []);
 
   // Sync value prop with internal state for single date
   useEffect(() => {
@@ -498,7 +498,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
         // Invalid date, ignore
       }
     }
-  }, [value, range, isTyping]);
+  }, [value, range, isTyping, formatDateForDisplay]);
 
   // Sync startValue and endValue props with internal state for range
   useEffect(() => {
@@ -530,7 +530,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
         setEndInputValue('');
       }
     }
-  }, [startValue, endValue, range, isTyping]);
+  }, [startValue, endValue, range, isTyping, formatDateForDisplay]);
 
   // Create a value array for the Calendar component when in range mode
   const calendarValue = range && startDate
@@ -873,7 +873,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   };
   
   // Check if using composable API (has children with DatePicker sub-components)
-  const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+  const hasComposableChildren = React.Children.toArray(children || []).some((child: any) => 
       child?.type?.displayName?.startsWith('DatePicker')
   );
   
@@ -1041,7 +1041,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
                 ref={ref}
                 type="text"
                 value={getSingleInputDisplayValue()}
-                placeholder={placeholder?.replace(/\\$/, '') || "MM/DD/YYYY"}
+                placeholder={placeholder?.replace(/\\$/, '') || "DD/MM/YYYY"}
                 disabled={disabled}
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}

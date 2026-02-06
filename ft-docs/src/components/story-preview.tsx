@@ -318,13 +318,13 @@ export function StoryPreview({
       <div className="relative rounded-lg border bg-background shadow-sm overflow-hidden h-full">
         {/* Header */}
         <div className="flex items-center justify-between border-b p-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-start justify-start gap-2 w-fit">
             {showName && (
               <span className="text-sm font-medium text-foreground px-2">
                 {formatStoryName(story.name)}
               </span>
             )}
-            <div className="flex items-center gap-1 ml-2">
+            <div className="flex items-center gap-1">
               <button
                 onClick={() => handleViewChange("preview")}
                 className={cn(

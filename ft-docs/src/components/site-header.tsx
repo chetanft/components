@@ -220,7 +220,7 @@ export function SiteHeader() {
 
     return (
         <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-14 max-w-screen-2xl items-center justify-between gap-0 px-5 w-full">
+            <div className="container flex h-14 items-center justify-between gap-0 px-5 w-full" style={{ width: '100%', maxWidth: '100%' }}>
                 <div className="mr-4 hidden md:flex">
                     <Link href="/" className="mr-6 flex items-center space-x-2">
                         <span className="hidden font-bold sm:inline-block">
@@ -271,7 +271,7 @@ export function SiteHeader() {
                         })}
                     </nav>
                 </div>
-                <div className="flex flex-1 items-center justify-end ml-auto gap-2">
+                <div className="flex items-center justify-end gap-2">
                     <div ref={searchRef} className="relative w-full max-w-md">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
                         <input

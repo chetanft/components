@@ -260,11 +260,6 @@ export const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(({
           <CollapsibleIcon />
           {header && <CollapsibleTitle>{header}</CollapsibleTitle>}
           {extra && <CollapsibleExtra>{extra}</CollapsibleExtra>}
-          {type === 'Secondary' && showArrow && (
-            <div className="text-[var(--primary)]">
-              {isExpanded ? <Icon name="chevron-up" size={16} /> : <Icon name="chevron-down" size={16} />}
-            </div>
-          )}
         </CollapsibleHeader>
       </CollapsibleTrigger>
       {isExpanded && (

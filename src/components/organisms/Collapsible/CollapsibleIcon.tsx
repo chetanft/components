@@ -75,7 +75,7 @@ export const CollapsibleIcon = React.forwardRef<HTMLDivElement, CollapsibleIconP
       return (
         <Comp
           ref={ref}
-          className={cn("text-[var(--primary)] shrink-0", className)}
+          className={cn("flex justify-center items-start text-[var(--primary)] shrink-0", className)}
           {...props}
         >
           {children || <Icon name={icon} size={16} />}
@@ -83,18 +83,20 @@ export const CollapsibleIcon = React.forwardRef<HTMLDivElement, CollapsibleIconP
       );
     }
     
-    // Secondary type
-    const icon = isExpanded ? 'chevron-up' : 'chevron-down';
-    return (
-      <Comp
-        ref={ref}
-        className={cn("text-[var(--primary)] shrink-0 transition-transform duration-200", className)}
-        style={{ willChange: 'transform' }}
-        {...props}
-      >
-        {children || <Icon name={icon} size={16} />}
-      </Comp>
-    );
+    if (type === 'Secondary') {
+      const icon = isExpanded ? 'chevron-down' : 'chevron-right';
+      return (
+        <Comp
+          ref={ref}
+          className={cn("flex justify-center items-start text-[var(--primary)] shrink-0 order-last", className)}
+          {...props}
+        >
+          {children || <Icon name={icon} size={16} />}
+        </Comp>
+      );
+    }
+    
+    return null;
   }
 );
 

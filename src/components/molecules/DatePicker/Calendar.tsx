@@ -14,6 +14,8 @@ import {
   isSameDay,
   addWeeks,
   addMonths,
+  subWeeks,
+  subMonths,
   format,
   startOfDay,
   isAfter,
@@ -197,10 +199,19 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const DEFAULT_DROPDOWN_PRESETS = ['Created Date', 'Modified Date', 'Due Date'];
 
 const DEFAULT_QUICK_SELECT_OPTIONS: QuickSelectOption[] = [
+  // Past periods (furthest to most recent)
+  { label: 'Last 3 months', value: 'last-3-months' },
+  { label: 'Last 1 month', value: 'last-1-month' },
+  { label: 'Last 2 weeks', value: 'last-2-weeks' },
+  { label: 'Last week', value: 'last-week' },
+  // Current periods
   { label: 'This week', value: 'this-week' },
-  { label: 'Next week', value: 'next-week' },
   { label: 'This month', value: 'this-month' },
-  { label: 'Next month', value: 'next-month' }
+  // Future periods (most immediate to furthest)
+  { label: 'Next week', value: 'next-week' },
+  { label: 'Next 2 weeks', value: 'next-2-weeks' },
+  { label: 'Next month', value: 'next-month' },
+  { label: 'Next 3 months', value: 'next-3-months' }
 ];
 
 const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
@@ -372,6 +383,25 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
           end = endOfWeek(nextWeekStart);
           break;
         }
+        case 'last-week': {
+          const lastWeekStart = subWeeks(startOfWeek(today), 1);
+          start = lastWeekStart;
+          end = endOfWeek(lastWeekStart);
+          break;
+        }
+        case 'last-2-weeks': {
+          const twoWeeksAgoStart = subWeeks(startOfWeek(today), 2);
+          start = twoWeeksAgoStart;
+          end = endOfWeek(today);
+          break;
+        }
+        case 'next-2-weeks': {
+          const nextWeekStart = addWeeks(startOfWeek(today), 1);
+          start = nextWeekStart;
+          const twoWeeksLaterEnd = endOfWeek(addWeeks(nextWeekStart, 1));
+          end = twoWeeksLaterEnd;
+          break;
+        }
         case 'this-month': {
           start = startOfMonth(today);
           end = endOfMonth(today);
@@ -381,6 +411,25 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
           const nextMonthStart = startOfMonth(addMonths(today, 1));
           start = nextMonthStart;
           end = endOfMonth(nextMonthStart);
+          break;
+        }
+        case 'last-1-month': {
+          const lastMonthStart = startOfMonth(subMonths(today, 1));
+          start = lastMonthStart;
+          end = endOfMonth(lastMonthStart);
+          break;
+        }
+        case 'last-3-months': {
+          const threeMonthsAgoStart = startOfMonth(subMonths(today, 3));
+          start = threeMonthsAgoStart;
+          end = endOfMonth(today);
+          break;
+        }
+        case 'next-3-months': {
+          const nextMonthStart = startOfMonth(addMonths(today, 1));
+          start = nextMonthStart;
+          const threeMonthsLaterEnd = endOfMonth(addMonths(nextMonthStart, 2));
+          end = threeMonthsLaterEnd;
           break;
         }
         default:
@@ -430,6 +479,21 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
         const nextWeekEnd = endOfWeek(nextWeekStart);
         return isSameDay(start, nextWeekStart) && isSameDay(end, nextWeekEnd);
       }
+      case 'last-week': {
+        const lastWeekStart = subWeeks(startOfWeek(today), 1);
+        const lastWeekEnd = endOfWeek(lastWeekStart);
+        return isSameDay(start, lastWeekStart) && isSameDay(end, lastWeekEnd);
+      }
+      case 'last-2-weeks': {
+        const twoWeeksAgoStart = subWeeks(startOfWeek(today), 2);
+        const weekEnd = endOfWeek(today);
+        return isSameDay(start, twoWeeksAgoStart) && isSameDay(end, weekEnd);
+      }
+      case 'next-2-weeks': {
+        const nextWeekStart = addWeeks(startOfWeek(today), 1);
+        const twoWeeksLaterEnd = endOfWeek(addWeeks(nextWeekStart, 1));
+        return isSameDay(start, nextWeekStart) && isSameDay(end, twoWeeksLaterEnd);
+      }
       case 'this-month': {
         const monthStart = startOfMonth(today);
         const monthEnd = endOfMonth(today);
@@ -439,6 +503,21 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
         const nextMonthStart = startOfMonth(addMonths(today, 1));
         const nextMonthEnd = endOfMonth(nextMonthStart);
         return isSameDay(start, nextMonthStart) && isSameDay(end, nextMonthEnd);
+      }
+      case 'last-1-month': {
+        const lastMonthStart = startOfMonth(subMonths(today, 1));
+        const lastMonthEnd = endOfMonth(lastMonthStart);
+        return isSameDay(start, lastMonthStart) && isSameDay(end, lastMonthEnd);
+      }
+      case 'last-3-months': {
+        const threeMonthsAgoStart = startOfMonth(subMonths(today, 3));
+        const monthEnd = endOfMonth(today);
+        return isSameDay(start, threeMonthsAgoStart) && isSameDay(end, monthEnd);
+      }
+      case 'next-3-months': {
+        const nextMonthStart = startOfMonth(addMonths(today, 1));
+        const threeMonthsLaterEnd = endOfMonth(addMonths(nextMonthStart, 2));
+        return isSameDay(start, nextMonthStart) && isSameDay(end, threeMonthsLaterEnd);
       }
       default:
         return false;

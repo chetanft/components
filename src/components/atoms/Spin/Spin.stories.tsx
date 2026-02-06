@@ -8,7 +8,7 @@ const meta: Meta<typeof Spin> = {
     layout: 'centered',
     docs: {
       description: {
-        component: '🆕 NEW: Loading spinner component built with FT Design System tokens.',
+        component: 'Spinner',
       },
     },
   },
