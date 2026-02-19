@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
+import { useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { IconName } from '../../atoms/Icons';
 import { Alert, AlertVariant } from '../Alert';
 
@@ -14,6 +15,8 @@ export interface NotificationConfig {
   icon?: IconName;
   closable?: boolean;
   onClose?: () => void;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 interface NotificationItem extends NotificationConfig {
@@ -129,6 +132,7 @@ interface NotificationItemProps {
 }
 
 const NotificationItem: React.FC<NotificationItemProps> = ({ notification, onClose }) => {
+  const resolvedGlass = useResolvedGlass(notification.glass);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -152,6 +156,7 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notification, onClo
         icon={notification.icon}
         closable={notification.closable !== false}
         onClose={onClose}
+        glass={resolvedGlass}
       >
         {notification.description}
       </Alert>

@@ -2,6 +2,7 @@
 
 import React, { useCallback } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 import { TableCellText } from './TableCellText';
 import { TableCell } from './TableCell';
@@ -226,12 +227,17 @@ export interface TableProps<T extends TableRow = TableRow> extends React.HTMLAtt
    * @default false
    */
   reorderable?: boolean;
-  
+
   /**
    * Callback when columns are reordered
    * @param columns - Reordered column definitions
    */
   onColumnReorder?: (columns: TableColumn<T>[]) => void;
+
+  /**
+   * Apply glassmorphism effect to the table header
+   */
+  glass?: GlassVariant;
 }
 
 const _CHECKBOX_COLUMN_WIDTH_CLASS = 'w-[calc(var(--spacing-x9)*2)]';
@@ -332,15 +338,18 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(({
   striped = true,
   reorderable = false,
   onColumnReorder,
+  glass,
   children,
   ...props
 }, ref) => {
+  const resolvedGlass = useResolvedGlass(glass);
+
   // If children are provided, use composable API
   if (children) {
     return (
-      <div 
+      <div
         ref={ref}
-        className={cn("border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden bg-[var(--bg-primary)]", className)}
+        className={cn(getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-primary)]"), "rounded-[var(--radius-md)] overflow-hidden", className)}
         {...props}
       >
         <div className="overflow-x-auto">
@@ -363,12 +372,7 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(({
 
   // Show deprecation warning for declarative API
   if (process.env.NODE_ENV !== 'production') {
-    console.warn(
-      'Table: Declarative API (columns + data props) is deprecated. ' +
-      'Please migrate to composable API using TableHeader, TableBody, TableRow, and TableCell components. ' +
-      'See migration guide: docs/migrations/composable-migration.md'
-    );
-  }
+      }
 
   // Defensive programming: ensure all rows have valid IDs
   const validatedData = (data || []).filter((row: any) => {
@@ -500,9 +504,9 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(({
 
   // Default layout rendering (standard table)
   return (
-    <div 
+    <div
       ref={ref}
-      className={cn("border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden bg-[var(--bg-primary)]", className)}
+      className={cn(getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-primary)]"), "rounded-[var(--radius-md)] overflow-hidden", className)}
       {...props}
     >
       <div className="overflow-x-auto">

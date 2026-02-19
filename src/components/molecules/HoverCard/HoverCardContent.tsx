@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useHoverCardContext } from './HoverCardContext';
 
@@ -10,6 +11,11 @@ export interface HoverCardContentProps extends ComposableProps<'div'> {
    * Content.
    */
   children: React.ReactNode;
+  /**
+   * Apply glassmorphism effect to the hover card surface.
+   * @default false
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -38,7 +44,8 @@ export interface HoverCardContentProps extends ComposableProps<'div'> {
  * - Automatically positioned based on placement.
  */
 export const HoverCardContent = React.forwardRef<HTMLDivElement, HoverCardContentProps>(
-  ({ className, children, asChild, onMouseEnter, onMouseLeave, ...props }, ref) => {
+  ({ className, children, glass, asChild, onMouseEnter, onMouseLeave, ...props }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const { open, setOpen, placement, width, closeDelay, openTimeoutRef, closeTimeoutRef } = useHoverCardContext();
     
     const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -76,8 +83,8 @@ export const HoverCardContent = React.forwardRef<HTMLDivElement, HoverCardConten
         ref={ref}
         className={cn(
           "absolute z-50",
-          "bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]",
-          "border border-[var(--color-border-secondary)]",
+          getGlassClasses(resolvedGlass, "bg-[var(--color-bg-primary)]", "border border-[var(--color-border-secondary)]"),
+          "rounded-[var(--radius-md)]",
           "p-[var(--spacing-x4)]",
           placementStyles[placement],
           className

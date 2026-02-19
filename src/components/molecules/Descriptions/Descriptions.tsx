@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { DescriptionsTitle } from './DescriptionsTitle';
 import { DescriptionsExtra } from './DescriptionsExtra';
@@ -17,6 +18,8 @@ export interface DescriptionsItemProps {
 }
 
 export interface DescriptionsProps extends Omit<ComposableProps<'div'>, 'onChange' | 'title'> {
+    /** Glass morphism variant */
+    glass?: GlassVariant;
     /**
      * Title for declarative API (deprecated)
      * @deprecated Use DescriptionsTitle component instead
@@ -98,11 +101,13 @@ export const Descriptions: React.FC<DescriptionsProps> = ({
     layout = 'horizontal',
     size = 'md',
     items,
+    glass,
     className,
     children,
     asChild,
     ...props
 }) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const sizeStyles = {
         sm: 'p-[var(--spacing-x2)]',
         md: 'p-[var(--spacing-x3)]',
@@ -118,12 +123,7 @@ export const Descriptions: React.FC<DescriptionsProps> = ({
     if (hasComposableChildren) {
         // Show deprecation warning if using old props with composable API
         if (process.env.NODE_ENV !== 'production' && (title || extra || items?.length)) {
-            console.warn(
-                'Descriptions: Using deprecated props (title, extra, items) with composable API. ' +
-                'Please use DescriptionsTitle, DescriptionsExtra, and DescriptionsItem components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         const Comp = asChild ? Slot : 'div';
         return (
@@ -137,7 +137,7 @@ export const Descriptions: React.FC<DescriptionsProps> = ({
                 <div
                     className={cn(
                         "grid w-full",
-                        bordered && "border border-[var(--color-border-secondary)] rounded-[var(--radius-md)] overflow-hidden"
+                        bordered && cn(getGlassClasses(resolvedGlass, '', 'border border-[var(--color-border-secondary)]'), "rounded-[var(--radius-md)] overflow-hidden")
                     )}
                     style={{
                         gridTemplateColumns: `repeat(${column}, minmax(0, 1fr))`,
@@ -148,16 +148,11 @@ export const Descriptions: React.FC<DescriptionsProps> = ({
             </Comp>
         );
     }
-    
+
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && items?.length) {
-        console.warn(
-            'Descriptions: Declarative API (items array prop) is deprecated. ' +
-            'Please migrate to composable API using DescriptionsItem, DescriptionsLabel, and DescriptionsValue components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
-    
+            }
+
     const Comp = asChild ? Slot : 'div';
     return (
         <Comp className={cn("w-full", className)} {...props}>
@@ -170,7 +165,8 @@ export const Descriptions: React.FC<DescriptionsProps> = ({
             <div
                 className={cn(
                     "grid w-full",
-                    bordered && "border border-[var(--color-border-secondary)] rounded-[var(--radius-md)] overflow-hidden"
+                    bordered && cn(getGlassClasses(resolvedGlass, '', 'border border-[var(--color-border-secondary)]'), "rounded-[var(--radius-md)] overflow-hidden"),
+                    bordered && !resolvedGlass && "border border-[var(--color-border-secondary)]"
                 )}
                 style={{
                     gridTemplateColumns: `repeat(${column}, minmax(0, 1fr))`,
@@ -191,7 +187,7 @@ export const Descriptions: React.FC<DescriptionsProps> = ({
                             {item.label && (
                                 <DescriptionsLabel className={cn(
                                     sizeStyles[size],
-                                    bordered && "bg-[var(--color-bg-secondary)] font-medium",
+                                    bordered && cn(getGlassInnerBg(resolvedGlass, 'bg-[var(--color-bg-secondary)]', 'bg-transparent'), "font-medium"),
                                     layout === 'horizontal' && bordered && "w-[120px] flex-shrink-0 border-r border-[var(--color-border-secondary)]"
                                 )}>
                                     {item.label}

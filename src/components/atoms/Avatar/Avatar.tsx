@@ -81,12 +81,7 @@ const AvatarBase = React.forwardRef<HTMLDivElement, AvatarProps>(
     // If using composable API, render with sub-components
     if (hasComposableChildren) {
         if (process.env.NODE_ENV !== 'production' && (src || icon)) {
-            console.warn(
-                'Avatar: Using deprecated props (src, icon) with composable API. ' +
-                'Please use AvatarImage and AvatarFallback components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         // Cast children to exclude bigint which Slot doesn't accept
         const safeChildren = children as Exclude<React.ReactNode, bigint>;
@@ -111,12 +106,7 @@ const AvatarBase = React.forwardRef<HTMLDivElement, AvatarProps>(
 
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && (src || icon)) {
-        console.warn(
-            'Avatar: Declarative API (src, icon props) is deprecated. ' +
-            'Please migrate to composable API using AvatarImage and AvatarFallback components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
+            }
 
     // Cast children and other ReactNode values to exclude bigint which Slot doesn't accept
     const safeSrc = src as Exclude<React.ReactNode, bigint> | undefined;

@@ -1,11 +1,14 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons/Icon';
 import { FTLogo } from '../../atoms/Logos/FTLogo';
 import { Spacer } from '../../atoms/Spacer';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface NavigationMenuProps extends ComposableProps<'div'> {
+  /** Glassmorphism variant */
+  glass?: GlassVariant;
   /**
    * Close handler
    */
@@ -28,6 +31,7 @@ export interface NavigationMenuProps extends ComposableProps<'div'> {
 }
 
 export const NavigationMenu: React.FC<NavigationMenuProps> = ({
+  glass,
   onClose,
   onNavigate,
   onFooterButtonClick,
@@ -35,6 +39,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
   asChild,
   ...props
 }) => {
+  const resolvedGlass = useResolvedGlass(glass);
   const handleItemClick = (label: string) => {
     onNavigate?.(label);
   };
@@ -46,7 +51,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
   const Comp = asChild ? Slot : 'div';
 
   return (
-    <Comp className={cn("bg-[var(--color-bg-secondary)] relative rounded-[var(--radius-xl)] size-full", className)} {...props}>
+    <Comp className={cn(getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-secondary)]', ''), "relative rounded-[var(--radius-xl)] size-full", className)} {...props}>
       <div className="box-border content-stretch flex flex-col gap-[var(--spacing-x2)] items-start justify-start overflow-clip p-[var(--spacing-x2)] relative size-full">
         <div className="bg-[var(--color-bg-primary)] h-[568px] relative rounded-[var(--radius-xl)] shrink-0 w-full">
           <div className="content-stretch flex flex-col h-[568px] items-start justify-start overflow-clip relative w-full">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 
 export type FilterType = 'normal' | 'alert' | 'warning' | 'success' | 'neutral';
@@ -44,6 +45,11 @@ export interface QuickFiltersProps {
    * Additional className for count badge text.
    */
   countClassName?: string;
+  /**
+   * Glass morphism variant
+   * When enabled, applies glass/frosted-glass styling to the filter chips
+   */
+  glass?: GlassVariant;
   /**
    * Filter components (for composable API)
    */
@@ -115,7 +121,8 @@ const FilterChip: React.FC<{
   chipClassName?: string;
   labelClassName?: string;
   countClassName?: string;
-}> = ({ filter, option, isSelected, onSelect, onRemove, showBorder = true, isMainLabel = false, chipClassName, labelClassName, countClassName }) => {
+  resolvedGlass?: GlassVariant;
+}> = ({ filter, option, isSelected, onSelect, onRemove, showBorder = true, isMainLabel = false, chipClassName, labelClassName, countClassName, resolvedGlass }) => {
   const displayLabel = option?.label || filter.label;
   const displayCount = option?.count || filter.count;
   const displayType = option?.type || filter.type || 'normal';
@@ -127,10 +134,10 @@ const FilterChip: React.FC<{
         "text-sm font-semibold font-inter",
         // Background based on Figma design
         isMainLabel
-          ? "bg-[var(--color-border-secondary)]" // Main labels in multi-option always have gray background
+          ? getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-white/10")
           : isSelected
-            ? "bg-[var(--color-border-secondary)]"
-            : "bg-[var(--color-bg-primary)]",
+            ? getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-white/10")
+            : getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]"),
         // Border: always show border except for main labels without border
         showBorder && !isMainLabel ? "box-border border border-[var(--color-border-primary)]" : "",
         chipClassName
@@ -156,7 +163,7 @@ const FilterChip: React.FC<{
             // Count badge styling based on state and type
             isSelected
               ? cn(
-                "bg-[var(--color-bg-primary)]",
+                getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]"),
                 displayType === 'alert' ? "text-[var(--color-critical)]" :
                   displayType === 'warning' ? "text-[var(--color-warning)]" :
                     displayType === 'success' ? "text-[var(--color-positive)]" :
@@ -164,7 +171,7 @@ const FilterChip: React.FC<{
                         "text-[var(--color-primary)]"
               )
               : cn(
-                "bg-[var(--color-bg-secondary)]",
+                getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-secondary)]"),
                 displayType === 'alert' ? "text-[var(--color-critical)]" :
                   displayType === 'warning' ? "text-[var(--color-warning)]" :
                     displayType === 'success' ? "text-[var(--color-positive)]" :
@@ -224,11 +231,12 @@ const MultiOptionFilter: React.FC<{
   chipClassName?: string;
   labelClassName?: string;
   countClassName?: string;
-}> = ({ filter, onFilterClick, onFilterRemove, chipClassName, labelClassName, countClassName }) => {
+  resolvedGlass?: GlassVariant;
+}> = ({ filter, onFilterClick, onFilterRemove, chipClassName, labelClassName, countClassName, resolvedGlass }) => {
   return (
-    <div className="inline-flex items-center h-[36px] bg-[var(--color-bg-primary)] border border-[var(--color-border-primary)] rounded-[var(--radius-md)] overflow-hidden">
+    <div className={cn("inline-flex items-center h-[36px] rounded-[var(--radius-md)] overflow-hidden", getGlassClasses(resolvedGlass, "bg-[var(--color-bg-primary)]", "border border-[var(--color-border-primary)]"))}>
       {/* Main filter section - non-clickable label with gray background */}
-      <div className="bg-[var(--color-border-secondary)] h-full flex items-center px-[var(--spacing-x2)]">
+      <div className={cn("h-full flex items-center px-[var(--spacing-x2)]", getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-white/10"))}>
         <FilterChip
           filter={filter}
           isSelected={false}
@@ -239,6 +247,7 @@ const MultiOptionFilter: React.FC<{
           chipClassName={chipClassName}
           labelClassName={labelClassName}
           countClassName={countClassName}
+          resolvedGlass={resolvedGlass}
         />
       </div>
 
@@ -259,6 +268,7 @@ const MultiOptionFilter: React.FC<{
               chipClassName={chipClassName}
               labelClassName={labelClassName}
               countClassName={countClassName}
+              resolvedGlass={resolvedGlass}
             />
           </div>
         </React.Fragment>
@@ -276,8 +286,10 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
   chipClassName,
   labelClassName,
   countClassName,
+  glass,
   children,
 }) => {
+  const resolvedGlass = useResolvedGlass(glass);
   // Extract filters from children if using composable API
   const filtersFromChildren = React.useMemo(() => {
     if (!children) return [];
@@ -321,18 +333,8 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
   // Show deprecation warning
   if (process.env.NODE_ENV !== 'production') {
     if (hasComposableChildren && filters.length > 0) {
-      console.warn(
-        'QuickFilters: Using deprecated props (filters array) with composable API. ' +
-        'Please use QuickFilter components as children instead. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    } else if (!hasComposableChildren && filters.length > 0) {
-      console.warn(
-        'QuickFilters: Declarative API (filters array prop) is deprecated. ' +
-        'Please migrate to composable API using QuickFilter components as children. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          } else if (!hasComposableChildren && filters.length > 0) {
+          }
   }
   return (
     <div
@@ -360,6 +362,7 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
                 chipClassName={chipClassName}
                 labelClassName={labelClassName}
                 countClassName={countClassName}
+                resolvedGlass={resolvedGlass}
               />
             </div>
           );
@@ -372,8 +375,8 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
                 "box-border h-[36px] flex items-center px-[var(--spacing-x1)] py-0 rounded-[var(--radius-md)]",
                 "border border-solid",
                 filter.selected
-                  ? "bg-[var(--color-border-secondary)] border-[var(--color-border-primary)]"
-                  : "bg-[var(--color-bg-primary)] border-[var(--color-border-primary)]",
+                  ? cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-white/10"), "border-[var(--color-border-primary)]")
+                  : cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]"), "border-[var(--color-border-primary)]"),
                 scrollable ? 'flex-shrink-0' : ''
               )}
             >
@@ -386,6 +389,7 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
                 chipClassName={chipClassName}
                 labelClassName={labelClassName}
                 countClassName={countClassName}
+                resolvedGlass={resolvedGlass}
               />
             </div>
           );

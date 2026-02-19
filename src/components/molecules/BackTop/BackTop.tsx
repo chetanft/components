@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Button } from '../../atoms/Button/Button';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
@@ -9,6 +10,8 @@ export interface BackTopProps extends ComposableProps<'div'> {
   visibilityHeight?: number;
   onClick?: React.MouseEventHandler<HTMLElement>;
   children?: React.ReactNode;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -17,11 +20,13 @@ export const BackTop = React.forwardRef<HTMLDivElement, BackTopProps>(({
   visibilityHeight = 400,
   onClick,
   children,
+  glass,
   className,
   style,
   asChild,
   ...props
 }, ref) => {
+  const resolvedGlass = useResolvedGlass(glass);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -52,6 +57,8 @@ export const BackTop = React.forwardRef<HTMLDivElement, BackTopProps>(({
       ref={ref}
       className={cn(
         "fixed right-10 bottom-10 z-50 transition-all duration-300 hover:scale-110",
+        resolvedGlass && "rounded-full",
+        resolvedGlass && getGlassClasses(resolvedGlass),
         className
       )}
       style={style}
@@ -64,7 +71,7 @@ export const BackTop = React.forwardRef<HTMLDivElement, BackTopProps>(({
           size="md"
           icon="arrow-up"
           iconPosition="only"
-          className="rounded-full shadow-lg"
+          className={cn("rounded-full shadow-lg", resolvedGlass && "bg-transparent border-0")}
         />
       )}
     </Comp>

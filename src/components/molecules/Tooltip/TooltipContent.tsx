@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useTooltipContext } from './TooltipContext';
 import { Icon } from '../../atoms/Icons';
@@ -20,6 +21,11 @@ export interface TooltipContentProps extends ComposableProps<'div'> {
    * Close callback
    */
   onClose?: () => void;
+  /**
+   * Apply glassmorphism effect to the tooltip surface.
+   * @default false
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -50,16 +56,20 @@ export interface TooltipContentProps extends ComposableProps<'div'> {
  * - Accessible: includes ARIA attributes for tooltip panels.
  */
 export const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentProps>(
-  ({ className, children, showClose = false, onClose, asChild, ...props }, ref) => {
+  ({ className, children, showClose = false, onClose, glass, asChild, ...props }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const { open, placement, align, color } = useTooltipContext();
-    
+
     if (!open) return null;
-    
+
+    const glassClass = resolvedGlass === 'subtle' ? 'glass-subtle' : resolvedGlass === 'prominent' ? 'glass-prominent' : resolvedGlass ? 'glass' : '';
+
     const tooltipClasses = cn(
       'rounded-[var(--radius-sm)] p-[var(--spacing-x2)] min-w-[var(--spacing-x14)] max-w-[var(--spacing-x38)] relative',
-      color === 'white'
+      glassClass || (color === 'white'
         ? 'bg-[var(--color-bg-primary)] text-[var(--color-primary)]'
-        : 'bg-[var(--color-primary)] text-[var(--color-bg-primary)]'
+        : 'bg-[var(--color-primary)] text-[var(--color-bg-primary)]'),
+      resolvedGlass && 'text-[var(--color-primary)]'
     );
     
     const tipBaseClasses = 'absolute w-0 h-0 border-[var(--spacing-x1)] border-transparent';

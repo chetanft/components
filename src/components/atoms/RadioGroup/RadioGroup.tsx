@@ -147,12 +147,7 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(({
   if (hasComposableChildren) {
     // Show deprecation warning if using old props with composable API
     if (process.env.NODE_ENV !== 'production' && (options.length > 0 || error || helperText)) {
-      console.warn(
-        'RadioGroup: Using deprecated props (options, error, helperText) with composable API. ' +
-        'Please use RadioItem, RadioItemInput, RadioItemLabel, RadioGroupError, RadioGroupHelper components instead. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
 
     const generatedId = React.useId();
     const helperId = helperText ? `radiogroup-${generatedId}-helper` : undefined;
@@ -189,12 +184,7 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(({
 
   // Otherwise use declarative API (deprecated)
   if (process.env.NODE_ENV !== 'production' && options.length > 0) {
-    console.warn(
-      'RadioGroup: Declarative API (options prop) is deprecated. ' +
-      'Please migrate to composable API using RadioItem, RadioItemInput, RadioItemLabel components. ' +
-      'See migration guide: docs/migrations/composable-migration.md'
-    );
-  }
+      }
 
   // Ensure options is always an array
   let optionsArray: RadioOption[] = [];
@@ -301,8 +291,7 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(({
 
 // Legacy compatibility exports
 export const RadioGroupItem = ({ children, ...props }: { children?: React.ReactNode;[key: string]: any }) => {
-  console.warn('RadioGroupItem is deprecated. Use RadioGroup with options prop instead.');
-  return <div {...props}>{children}</div>;
+    return <div {...props}>{children}</div>;
 };
 
 RadioGroup.displayName = 'RadioGroup'; 

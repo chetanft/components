@@ -163,6 +163,7 @@ export { Logo } from './components/atoms/Logos';
 export { FTProvider, useFTTheme } from './components/FTProvider';
 export type { FTProviderProps } from './components/FTProvider';
 export { ThemeProvider, useTheme } from './contexts/ThemeContext';
+export { GlassProvider, useGlass } from './contexts/GlassContext';
 export { ThemeSwitch } from './components/molecules/ThemeSwitch';
 
 // ======================

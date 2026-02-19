@@ -13,14 +13,17 @@ export default function DocsLayout({
 }: {
     children: React.ReactNode
 }) {
-    // Initialize sidebar collapsed state from localStorage
-    const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(() => {
+    const [sidebarCollapsed, setSidebarCollapsed] = useState<boolean>(false);
+
+    // Hydrate persisted collapsed state after mount to avoid SSR/client mismatch
+    useEffect(() => {
         if (typeof window !== "undefined") {
             const stored = localStorage.getItem("ftds_docs_sidebar_collapsed");
-            return stored === "true";
+            if (stored !== null) {
+                setSidebarCollapsed(stored === "true");
+            }
         }
-        return false;
-    });
+    }, []);
 
     // Update localStorage when collapsed state changes
     useEffect(() => {

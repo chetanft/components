@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { usePopconfirmContext } from './PopconfirmContext';
 
@@ -10,6 +11,10 @@ export interface PopconfirmContentProps extends ComposableProps<'div'> {
    * Content (typically PopconfirmTitle, PopconfirmDescription, PopconfirmActions).
    */
   children: React.ReactNode;
+  /**
+   * Glass morphism variant
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -35,7 +40,8 @@ export interface PopconfirmContentProps extends ComposableProps<'div'> {
  * - Automatically handles positioning and click-outside closing.
  */
 export const PopconfirmContent = React.forwardRef<HTMLDivElement, PopconfirmContentProps>(
-  ({ className, children, asChild, ...props }, ref) => {
+  ({ className, children, glass, asChild, ...props }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const { open, setOpen, placement, containerRef } = usePopconfirmContext();
     
     // Close on click outside
@@ -70,8 +76,8 @@ export const PopconfirmContent = React.forwardRef<HTMLDivElement, PopconfirmCont
         ref={ref}
         className={cn(
           "absolute z-50 min-w-[200px] max-w-[300px]",
-          "bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]",
-          "border border-[var(--color-border-secondary)]",
+          "rounded-[var(--radius-md)]",
+          getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--color-border-secondary)]'),
           "p-[var(--spacing-x4)]",
           placementStyles[placement],
           className

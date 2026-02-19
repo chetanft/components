@@ -340,12 +340,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     if (hasComposableChildren) {
         // Show deprecation warning if using old props with composable API
         if (process.env.NODE_ENV !== 'production' && marks) {
-            console.warn(
-                'Slider: Using deprecated props (marks) with composable API. ' +
-                'Please use SliderLabel components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         const Comp = asChild ? Slot : 'div';
         return (
@@ -368,12 +363,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && marks) {
-        console.warn(
-            'Slider: Declarative API (marks prop) is deprecated. ' +
-            'Please migrate to composable API using SliderTrack, SliderRange, SliderThumb, and SliderLabel components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
+            }
     
     // Handle component (for declarative API)
     const Handle = ({ 

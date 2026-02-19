@@ -5,6 +5,7 @@ import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { useSelectContext } from './SelectContext';
 import type { ComponentSize } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 
 export interface SelectTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
@@ -24,6 +25,13 @@ export interface SelectTriggerProps extends React.ButtonHTMLAttributes<HTMLButto
    * @default false
    */
   disabled?: boolean;
+  /**
+   * Enable glassmorphism effect on select trigger background
+   * - `true`: Standard glass effect
+   * - `'subtle'`: Subtle glass effect
+   * - `'prominent'`: Prominent glass effect
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -41,8 +49,10 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
     size = 'md',
     error = false,
     disabled = false,
+    glass,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const { open, onOpenChange, setSize } = useSelectContext();
     const triggerRef = useRef<HTMLButtonElement>(null);
     const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
@@ -95,7 +105,8 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
           onClick={handleClick}
           className={cn(
             'relative w-full border transition-all duration-200 font-sans font-normal',
-            'bg-surface text-[var(--primary)]',
+            resolvedGlass ? getGlassClasses(resolvedGlass, 'bg-surface', '') : 'bg-surface',
+            'text-[var(--primary)]',
             'cursor-pointer flex items-center justify-between',
             sizeStyles[size],
             'rounded-lg',

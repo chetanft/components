@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import { Tree, TreeNodeData } from '../Tree/Tree';
@@ -14,6 +15,8 @@ import { Chicklet } from '../Chicklet/Chicklet';
 // ============================================================================
 
 export interface TreeSelectProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'onChange' | 'value'> {
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   /** Label text */
   label?: string;
   /** Whether the field is mandatory */
@@ -164,9 +167,11 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
     placement = 'bottomLeft',
     disabled,
     id,
+    glass,
     children,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     // Extract treeData from children if using composable API
     const treeDataFromChildren = React.useMemo(() => {
       if (!children) return [];
@@ -182,18 +187,8 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
     // Show deprecation warning
     if (process.env.NODE_ENV !== 'production') {
       if (hasComposableChildren && treeData && treeData.length > 0) {
-        console.warn(
-          'TreeSelect: Using deprecated props (treeData array) with composable API. ' +
-          'Please use TreeNode components as children instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      } else if (!hasComposableChildren && treeData && treeData.length > 0) {
-        console.warn(
-          'TreeSelect: Declarative API (treeData array prop) is deprecated. ' +
-          'Please migrate to composable API using TreeNode components as children. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              } else if (!hasComposableChildren && treeData && treeData.length > 0) {
+              }
     }
     const componentStyles = getComponentStyles(size);
     const [isOpen, setIsOpen] = useState(false);
@@ -437,8 +432,8 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
             />
             <div
               className={cn(
-                "fixed z-[9999] bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]",
-                "border border-[var(--color-border-secondary)]",
+                "fixed z-[9999] rounded-[var(--radius-md)]",
+                getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--color-border-secondary)]'),
                 "max-h-[300px] overflow-auto p-[var(--spacing-x2)]"
               )}
               style={{

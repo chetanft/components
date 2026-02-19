@@ -3,6 +3,7 @@ import React, { forwardRef, useState, useRef, useEffect, useCallback } from 'rea
 import ReactDOM from 'react-dom';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import { Calendar, type QuickSelectOption } from './Calendar';
@@ -301,6 +302,10 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
    * DatePicker content (for composable API)
    */
   children?: React.ReactNode;
+  /**
+   * Glass morphism variant
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -362,8 +367,10 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   portalStyle,
   portalContainerId,
   quickSelectOptions,
+  glass,
   children
 }, ref) => {
+  const resolvedGlass = useResolvedGlass(glass);
   // Map DatePicker legacy size to unified component styles
   const componentSize: ComponentSize =
     size === "m" ? "md" :
@@ -935,12 +942,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   // If using composable API, render with context provider
   if (hasComposableChildren) {
       if (process.env.NODE_ENV !== 'production' && label) {
-          console.warn(
-              'DatePicker: Using deprecated props (label) with composable API. ' +
-              'Please use Label component instead. ' +
-              'See migration guide: docs/migrations/composable-migration.md'
-          );
-      }
+                }
       
       return (
           <DatePickerProvider value={contextValue}>
@@ -962,12 +964,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   
   // Otherwise use declarative API (deprecated)
   if (process.env.NODE_ENV !== 'production' && label) {
-      console.warn(
-          'DatePicker: Declarative API (label prop) is deprecated. ' +
-          'Please migrate to composable API using DatePickerTrigger, DatePickerInput, and DatePickerCalendar components. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-      );
-  }
+        }
 
   return (
       <DatePickerProvider value={contextValue}>
@@ -1092,7 +1089,12 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
 
             {/* Calendar */}
             <div
-              className={cn("fixed z-[9999]", portalClassName)}
+              className={cn(
+                "fixed z-[9999]",
+                getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', ''),
+                "rounded-[var(--radius-md)]",
+                portalClassName
+              )}
               style={{
                 top: calendarPosition.top,
                 left: calendarPosition.left,

@@ -136,6 +136,17 @@ export default {
     'gap-[8px]',
     'gap-[12px]',
     'gap-[16px]',
+
+    // Glass / Glassmorphism utilities
+    'glass',
+    'glass-subtle',
+    'glass-prominent',
+    'backdrop-blur-glass-sm',
+    'backdrop-blur-glass',
+    'backdrop-blur-glass-lg',
+    'backdrop-saturate-glass',
+    'shadow-glass',
+    'shadow-glass-lg',
   ],
   theme: {
     extend: {
@@ -353,6 +364,18 @@ export default {
         'md': 'var(--shadow-md)',
         'lg': 'var(--shadow-lg)',
         'xl': 'var(--shadow-xl)',
+        'glass': 'var(--glass-shadow)',
+        'glass-lg': 'var(--glass-shadow-lg)',
+      },
+
+      // GLASS / GLASSMORPHISM TOKENS
+      backdropBlur: {
+        'glass-sm': 'var(--glass-blur-sm)',
+        'glass': 'var(--glass-blur)',
+        'glass-lg': 'var(--glass-blur-lg)',
+      },
+      backdropSaturate: {
+        'glass': 'var(--glass-saturate)',
       },
 
       // TYPOGRAPHY TOKENS

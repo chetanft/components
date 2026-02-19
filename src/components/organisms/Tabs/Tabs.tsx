@@ -1,6 +1,7 @@
 "use client";
 import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
 import { TabsProvider } from './TabsContext';
@@ -205,6 +206,8 @@ export interface Tab {
 export type TabsOverflowBehavior = 'auto' | 'dropdown';
 
 export interface TabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+  /** Glassmorphism variant */
+  glass?: GlassVariant;
   /**
    * Tabs content (for composable API)
    */
@@ -273,6 +276,7 @@ export interface TabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  */
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   ({
+    glass,
     showLine = true,
     children,
     tabs,
@@ -284,8 +288,9 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     // Check if using composable API (has children with Tabs sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
       child?.type?.displayName?.startsWith('Tabs')
     );
     
@@ -293,12 +298,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && tabs && tabs.length > 0) {
-        console.warn(
-          'Tabs: Using deprecated props (tabs array) with composable API. ' +
-          'Please use TabsList, TabsTrigger, and TabsContent components instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
       const valueToIndexMapRef = useRef<Map<string, number>>(new Map());
@@ -334,7 +334,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
         >
           <Comp
             ref={ref}
-            className={cn("flex flex-col relative", className)}
+            className={cn(getGlassClasses(resolvedGlass, '', ''), "flex flex-col relative", className)}
             {...props}
           >
             {children}
@@ -345,12 +345,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && tabs && tabs.length > 0) {
-      console.warn(
-        'Tabs: Declarative API (tabs array prop) is deprecated. ' +
-        'Please migrate to composable API using TabsList, TabsTrigger, and TabsContent components. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
     const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
     const scrollContainerRef = useRef<HTMLDivElement | null>(null);
     const tabRefs = useRef<(HTMLDivElement | null)[]>([]);

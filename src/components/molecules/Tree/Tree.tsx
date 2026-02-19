@@ -8,6 +8,7 @@ import { Slot, type ComposableProps } from '../../../lib/slot';
 import { TreeProvider, useTreeContext } from './TreeContext';
 import { TreeNode } from './TreeNode';
 import type { TreeNodeData } from './TreeTypes';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 
 export interface TreeProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
   /**
@@ -101,6 +102,13 @@ export interface TreeProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
    */
   blockNode?: boolean;
   /**
+   * Enable glassmorphism effect on tree background
+   * - `true`: Standard glass effect
+   * - `'subtle'`: Subtle glass effect
+   * - `'prominent'`: Prominent glass effect
+   */
+  glass?: GlassVariant;
+  /**
    * Tree content (for composable API)
    */
   children?: React.ReactNode;
@@ -166,6 +174,7 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) =>
     blockNode,
     switcherIcon,
     icon,
+    glass: contextGlass,
     toggleExpanded,
     toggleSelected,
     toggleChecked,
@@ -234,7 +243,7 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) =>
         onClick={handleExpand}
         className={cn(
           "w-[var(--spacing-x6)] h-[var(--spacing-x6)] flex items-center justify-center",
-          "hover:bg-[var(--color-bg-secondary)] rounded transition-colors",
+          contextGlass ? "hover:bg-white/10 dark:hover:bg-white/10 rounded transition-colors" : "hover:bg-[var(--color-bg-secondary)] rounded transition-colors",
           isDisabled && "cursor-not-allowed opacity-50"
         )}
         disabled={isDisabled}
@@ -285,8 +294,8 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) =>
         className={cn(
           "flex items-center py-[var(--spacing-x1)] px-[var(--spacing-x1)]",
           "rounded transition-colors",
-          isSelected && "bg-[var(--color-primary-light)] text-[var(--color-primary)]",
-          !isSelected && !isDisabled && "hover:bg-[var(--color-bg-secondary)]",
+          isSelected && cn(getGlassInnerBg(contextGlass, "bg-[var(--color-primary-light)]", "bg-white/15 dark:bg-white/15"), "text-[var(--color-primary)]"),
+          !isSelected && !isDisabled && (contextGlass ? "hover:bg-white/10 dark:hover:bg-white/10" : "hover:bg-[var(--color-bg-secondary)]"),
           isDisabled && "opacity-50 cursor-not-allowed",
           blockNode && "w-full"
         )}
@@ -396,10 +405,12 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
     icon,
     disabled = false,
     blockNode = false,
+    glass,
     children,
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     // Check if using composable API (has children with TreeNode components)
     const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
         child?.type?.displayName?.startsWith('TreeNode')
@@ -514,31 +525,27 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
       blockNode,
       switcherIcon,
       icon,
+      glass: resolvedGlass,
       toggleExpanded,
       toggleSelected,
       toggleChecked,
     }), [
       expandedKeys, selectedKeys, checkedKeys, checkable, selectable,
       multiple, showLine, showIcon, disabled, blockNode, switcherIcon,
-      icon, toggleExpanded, toggleSelected, toggleChecked
+      icon, resolvedGlass, toggleExpanded, toggleSelected, toggleChecked
     ]);
 
     // If using composable API, render with context provider
     if (hasComposableChildren) {
         if (process.env.NODE_ENV !== 'production' && treeData) {
-            console.warn(
-                'Tree: Using deprecated props (treeData) with composable API. ' +
-                'Please use TreeNode components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         const Comp = asChild ? Slot : 'div';
         return (
             <TreeProvider value={contextValue}>
                 <Comp
                     ref={ref}
-                    className={cn("tree", className)}
+                    className={cn("tree", resolvedGlass && getGlassClasses(resolvedGlass), className)}
                     role="tree"
                     {...props}
                 >
@@ -550,12 +557,7 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && treeData) {
-        console.warn(
-            'Tree: Declarative API (treeData prop) is deprecated. ' +
-            'Please migrate to composable API using TreeNode components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
+            }
     
     if (!treeData || treeData.length === 0) {
         return null;

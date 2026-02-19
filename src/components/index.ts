@@ -149,4 +149,10 @@ export { cn } from '../lib/utils';
 export { ThemeProvider, useTheme } from '../contexts/ThemeContext';
 export { ThemeSwitch } from './molecules/ThemeSwitch';
 export type { Theme, ThemeContextType, ThemeProviderProps } from '../contexts/ThemeContext';
-export type { ThemeSwitchProps } from './molecules/ThemeSwitch'; 
+export type { ThemeSwitchProps } from './molecules/ThemeSwitch';
+
+// Glass System
+export { GlassProvider, useGlass } from '../contexts/GlassContext';
+export type { GlassMode, GlassContextType, GlassProviderProps } from '../contexts/GlassContext';
+export { useResolvedGlass, getGlassClasses } from '../lib/glass';
+export type { GlassVariant } from '../lib/glass';

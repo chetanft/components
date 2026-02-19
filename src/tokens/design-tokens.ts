@@ -389,6 +389,47 @@ export const designTokens = {
         },
       },
     },
+    glass: {
+      light: {
+        bg: 'rgba(255, 255, 255, 0.65)',
+        bgSubtle: 'rgba(255, 255, 255, 0.45)',
+        bgProminent: 'rgba(255, 255, 255, 0.82)',
+        border: 'rgba(255, 255, 255, 0.5)',
+        borderSubtle: 'rgba(255, 255, 255, 0.3)',
+        shadow: '0 4px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)',
+        shadowLg: '0 8px 40px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)',
+        blur: '16px',
+        blurLg: '24px',
+        blurSm: '8px',
+        saturate: '1.8',
+      },
+      dark: {
+        bg: 'rgba(30, 41, 59, 0.65)',
+        bgSubtle: 'rgba(30, 41, 59, 0.45)',
+        bgProminent: 'rgba(30, 41, 59, 0.82)',
+        border: 'rgba(255, 255, 255, 0.12)',
+        borderSubtle: 'rgba(255, 255, 255, 0.08)',
+        shadow: '0 4px 30px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.15)',
+        shadowLg: '0 8px 40px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.2)',
+        blur: '20px',
+        blurLg: '28px',
+        blurSm: '10px',
+        saturate: '1.5',
+      },
+      night: {
+        bg: 'rgba(26, 26, 26, 0.60)',
+        bgSubtle: 'rgba(26, 26, 26, 0.40)',
+        bgProminent: 'rgba(26, 26, 26, 0.80)',
+        border: 'rgba(255, 255, 255, 0.08)',
+        borderSubtle: 'rgba(255, 255, 255, 0.05)',
+        shadow: '0 4px 30px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.2)',
+        shadowLg: '0 8px 40px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.25)',
+        blur: '24px',
+        blurLg: '32px',
+        blurSm: '12px',
+        saturate: '1.3',
+      },
+    },
   },
 
   typography: {
@@ -588,7 +629,20 @@ export const cssVariables = `
     --overlay-control-bg-hover: ${designTokens.colors.overlay.controls.light.hover};
     --overlay-control-divider: ${designTokens.colors.overlay.controls.light.divider};
     --overlay-control-text: ${designTokens.colors.overlay.controls.light.text};
-    
+
+    /* Glass / Glassmorphism */
+    --glass-bg: ${designTokens.colors.glass.light.bg};
+    --glass-bg-subtle: ${designTokens.colors.glass.light.bgSubtle};
+    --glass-bg-prominent: ${designTokens.colors.glass.light.bgProminent};
+    --glass-border: ${designTokens.colors.glass.light.border};
+    --glass-border-subtle: ${designTokens.colors.glass.light.borderSubtle};
+    --glass-shadow: ${designTokens.colors.glass.light.shadow};
+    --glass-shadow-lg: ${designTokens.colors.glass.light.shadowLg};
+    --glass-blur: ${designTokens.colors.glass.light.blur};
+    --glass-blur-lg: ${designTokens.colors.glass.light.blurLg};
+    --glass-blur-sm: ${designTokens.colors.glass.light.blurSm};
+    --glass-saturate: ${designTokens.colors.glass.light.saturate};
+
     /* Typography */
     --font-family-primary: ${designTokens.typography.fontFamily.primary};
     

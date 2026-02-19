@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 type ColorFormat = 'hex' | 'rgb' | 'hsb';
 
@@ -77,6 +78,8 @@ const formatColorValue = (color: string, format: ColorFormat): string => {
 };
 
 export interface ColorPickerProps {
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   value?: string;
   defaultValue?: string;
   defaultFormat?: ColorFormat;
@@ -107,11 +110,13 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   defaultFormat = 'hex',
   onChange,
   disabled,
+  glass,
   className,
   showText,
   size = 'md',
   presets = DEFAULT_PRESETS,
 }) => {
+  const resolvedGlass = useResolvedGlass(glass);
   const [value, setValue] = useState(controlledValue || defaultValue);
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -153,7 +158,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
 
       {open && (
         // Simple popover implementation - in real app would use proper positioning/portal
-        <div className="absolute z-50 mt-2 top-full left-0 bg-[var(--color-bg-primary)] p-3 rounded-lg shadow-xl border border-[var(--border-primary)] min-w-[200px]">
+        <div className={cn("absolute z-50 mt-2 top-full left-0 p-3 rounded-lg shadow-xl min-w-[200px]", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--border-primary)]'))}>
             <div className="grid grid-cols-5 gap-2 mb-3">
                 {presets.map(color => (
                     <button

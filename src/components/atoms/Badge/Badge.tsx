@@ -4,6 +4,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { Icon, IconName } from '../Icons';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 /**
  * Badge component props
@@ -119,6 +120,14 @@ export interface BadgeProps extends ComposableProps<'div'> {
   trailingIcon?: IconName;
   
   /**
+   * Enable glassmorphism effect on badge background
+   * - `true`: Standard glass effect
+   * - `'subtle'`: Subtle glass effect
+   * - `'prominent'`: Prominent glass effect
+   */
+  glass?: GlassVariant;
+
+  /**
    * Enable hover interaction styles
    * @default false
    */
@@ -209,20 +218,21 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     color,
     leadingIcon,
     trailingIcon,
+    glass,
     interaction = false,
     children,
     asChild,
     ...props
   }, ref) => {
 
+    const resolvedGlass = useResolvedGlass(glass);
+
     // Map old variant names to new standard names
     let normalizedVariant = variant;
     if (variant === 'normal') {
-      console.warn('Badge: `variant="normal"` is deprecated. Use `variant="default"` instead.');
-      normalizedVariant = 'default';
+            normalizedVariant = 'default';
     } else if (variant === 'danger') {
-      console.warn('Badge: `variant="danger"` is deprecated. Use `variant="error"` instead.');
-      normalizedVariant = 'error';
+            normalizedVariant = 'error';
     }
 
     // CASE 1: Status Badge (Dot + Text)
@@ -432,16 +442,19 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     // But FT Badge is a Label.
 
     // Let's stick to legacy rendering if no 'status' or 'dot' or 'children+count'
+    const glassClass = resolvedGlass ? getGlassClasses(resolvedGlass, '', '') : undefined;
+
     const Comp = asChild ? Slot : 'div';
-    
+
     return (
       <Comp
         className={cn(
           baseStyles,
           sizeStyles,
+          glassClass,
           className
         )}
-        style={baseStyle}
+        style={resolvedGlass ? { color: baseStyle.color } : baseStyle}
         onMouseEnter={isInteractive ? handleMouseEnter : props.onMouseEnter}
         onMouseLeave={isInteractive ? handleMouseLeave : props.onMouseLeave}
         ref={ref}

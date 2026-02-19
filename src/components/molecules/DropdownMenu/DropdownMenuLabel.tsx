@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { useResolvedGlass, getGlassInnerBg } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface DropdownMenuLabelProps extends ComposableProps<'div'> {
@@ -34,12 +35,14 @@ export interface DropdownMenuLabelProps extends ComposableProps<'div'> {
  */
 export const DropdownMenuLabel = React.forwardRef<HTMLDivElement, DropdownMenuLabelProps>(
   ({ className, children, asChild, ...props }, ref) => {
+    const resolvedGlass = useResolvedGlass();
     const Comp = asChild ? Slot : 'div';
     return (
       <Comp
         ref={ref}
         className={cn(
-          "bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center px-[var(--spacing-x3)] py-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shrink-0 w-full",
+          getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-transparent"),
+          "box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center px-[var(--spacing-x3)] py-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shrink-0 w-full",
           className
         )}
         {...props}

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Button } from '../../atoms/Button/Button';
 import { Icon } from '../../atoms/Icons/Icon';
 import { Slot, type ComposableProps } from '../../../lib/slot';
@@ -55,6 +56,10 @@ export interface PaginationProps extends Omit<ComposableProps<'div'>, 'onChange'
    * @default 'default'
    */
   variant?: 'default' | 'compact';
+  /**
+   * Apply glassmorphism effect to the pagination container
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -109,10 +114,12 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     onChange,
     onShowSizeChange,
     variant = 'default',
+    glass,
     className,
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const totalPages = Math.ceil(total / pageSize);
     
     const handlePageChange = (page: number) => {
@@ -130,12 +137,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && (showSizeChanger || showQuickJumper)) {
-        console.warn(
-          'Pagination: Using deprecated props (showSizeChanger, showQuickJumper) with composable API. ' +
-          'Please use PaginationList, PaginationItem, PaginationPrevious, PaginationNext components instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const Comp = asChild ? Slot : 'div';
       return (
@@ -151,7 +153,12 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
         >
           <Comp
             ref={ref}
-            className={cn("flex items-center gap-[var(--spacing-x2)] flex-wrap", className)}
+            className={cn(
+              resolvedGlass && getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
+              resolvedGlass && 'rounded-[var(--radius-md)] px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
+              "flex items-center gap-[var(--spacing-x2)] flex-wrap",
+              className
+            )}
             {...props}
           >
             {children}
@@ -162,12 +169,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production') {
-      console.warn(
-        'Pagination: Declarative API is deprecated. ' +
-        'Please migrate to composable API using PaginationList, PaginationItem, PaginationPrevious, PaginationNext components. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
     const [jumperValue, setJumperValue] = React.useState('');
 
     const handleSizeChange = (newSize: number) => {
@@ -229,8 +231,7 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
           <div
             className={cn(
               "flex items-center justify-between",
-              "border border-solid border-[var(--border-primary)]",
-              "bg-[var(--bg-primary)]",
+              getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-solid border-[var(--border-primary)]"),
               "rounded-[var(--x2,8px)]",
               "px-[var(--x3,12px)] py-0",
               "h-[var(--spacing-x10)]",
@@ -303,7 +304,12 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
           variant,
         }}
       >
-        <Comp ref={ref} className={cn("flex items-center gap-[var(--spacing-x2)] flex-wrap", className)} {...props}>
+        <Comp ref={ref} className={cn(
+          resolvedGlass && getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
+          resolvedGlass && 'rounded-[var(--radius-md)] px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
+          "flex items-center gap-[var(--spacing-x2)] flex-wrap",
+          className
+        )} {...props}>
           <PaginationList>
             <PaginationPrevious />
 

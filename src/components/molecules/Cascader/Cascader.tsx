@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo, useId } from 'react';
 import ReactDOM from 'react-dom';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 
@@ -58,6 +59,8 @@ export interface CascaderProps extends Omit<React.InputHTMLAttributes<HTMLInputE
    * Cascader options (for composable API)
    */
   children?: React.ReactNode;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 export interface CascaderOptionComponentProps {
@@ -231,6 +234,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
     showSearch = false,
     disabled,
     id,
+    glass,
     children,
     ..._props
   }, ref) => {
@@ -249,20 +253,11 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
     // Show deprecation warning
     if (process.env.NODE_ENV !== 'production') {
       if (hasComposableChildren && options.length > 0) {
-        console.warn(
-          'Cascader: Using deprecated props (options array) with composable API. ' +
-          'Please use CascaderOption components as children instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      } else if (!hasComposableChildren && options.length > 0) {
-        console.warn(
-          'Cascader: Declarative API (options array prop) is deprecated. ' +
-          'Please migrate to composable API using CascaderOption components as children. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              } else if (!hasComposableChildren && options.length > 0) {
+              }
     }
     // All hooks must be called first, before any other logic
+    const resolvedGlass = useResolvedGlass(glass);
     const cascaderId = useId();
     const [isOpen, setIsOpen] = useState(false);
     const [searchValue, setSearchValue] = useState('');
@@ -524,7 +519,8 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
             />
             <div
               className={cn(
-                "fixed z-[9999] bg-[var(--bg-primary)] border border-solid border-[var(--border-primary)]",
+                "fixed z-[9999]",
+                getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-solid border-[var(--border-primary)]'),
                 "box-border flex flex-col items-start overflow-clip p-[var(--x2,8px)]",
                 "rounded-[var(--x2,8px)] shadow-lg"
               )}

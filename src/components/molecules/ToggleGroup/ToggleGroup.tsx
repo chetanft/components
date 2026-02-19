@@ -3,6 +3,7 @@ import { cn } from '../../../lib/utils';
 import { Toggle } from '../../atoms/Toggle';
 import type { ToggleProps } from '../../atoms/Toggle';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 
 export type ToggleGroupType = 'single' | 'multiple';
 
@@ -14,6 +15,13 @@ export interface ToggleGroupProps extends Omit<ComposableProps<'div'>, 'onChange
     disabled?: boolean;
     size?: ToggleProps['size'];
     variant?: ToggleProps['variant'];
+    /**
+     * Enable glassmorphism effect on toggle group background
+     * - `true`: Standard glass effect
+     * - `'subtle'`: Subtle glass effect
+     * - `'prominent'`: Prominent glass effect
+     */
+    glass?: GlassVariant;
     children: React.ReactElement<ToggleProps> | React.ReactElement<ToggleProps>[];
 }
 
@@ -25,11 +33,13 @@ export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(({
     disabled = false,
     size = 'md',
     variant = 'default',
+    glass,
     children,
     className,
     asChild,
     ...props
 }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const [internalValue, setInternalValue] = React.useState<string | string[]>(
         value ?? defaultValue ?? (type === 'multiple' ? [] : '')
     );
@@ -65,7 +75,7 @@ export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(({
     return (
         <Comp
             ref={ref}
-            className={cn("inline-flex bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]", className)}
+            className={cn("inline-flex rounded-[var(--radius-md)]", resolvedGlass ? getGlassClasses(resolvedGlass) : "bg-[var(--color-bg-primary)]", className)}
             role="group"
             {...props}
         >

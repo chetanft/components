@@ -5,6 +5,7 @@ import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useCheckboxContext } from './CheckboxContext';
 import { Icon } from '../Icons';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 
 export interface CheckboxInputProps extends Omit<ComposableProps<'input'>, 'type' | 'size'> {
   /**
@@ -12,6 +13,13 @@ export interface CheckboxInputProps extends Omit<ComposableProps<'input'>, 'type
    * @default false
    */
   indeterminate?: boolean;
+  /**
+   * Enable glassmorphism effect on checkbox background
+   * - `true`: Standard glass effect
+   * - `'subtle'`: Subtle glass effect
+   * - `'prominent'`: Prominent glass effect
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -40,12 +48,16 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
   ({
     className,
     indeterminate = false,
+    glass,
     asChild,
     disabled,
     checked,
     'aria-describedby': ariaDescribedBy,
+    onChange,
+    readOnly,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const { checkboxId, size, disabled: contextDisabled, hasError, descriptionId } = useCheckboxContext();
     const isDisabled = disabled ?? contextDisabled;
     const checkboxRef = React.useRef<HTMLInputElement>(null);
@@ -75,6 +87,8 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
 
     const currentSize = sizeConfig[size];
     const describedBy = [descriptionId, ariaDescribedBy].filter(Boolean).join(' ') || undefined;
+    const isControlledWithoutOnChange = checked !== undefined && !onChange;
+    const effectiveReadOnly = readOnly ?? isControlledWithoutOnChange;
 
     const checkboxStyles = cn(
       "relative shrink-0 rounded border-2 transition-all duration-200 cursor-pointer",
@@ -88,7 +102,7 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
             : "border-critical bg-surface text-critical hover:bg-critical/5"
           : checked || indeterminate
             ? "bg-[var(--primary)] border-[var(--primary)] text-[var(--color-bg-primary)] hover:bg-[var(--primary)]/90 hover:border-[var(--primary)]/90"
-            : "border-[var(--border-primary)] bg-[var(--bg-primary)] hover:bg-[var(--bg-secondary)] hover:border-[var(--border-hover)]",
+            : cn("border-[var(--border-primary)]", resolvedGlass ? "bg-white/10 dark:bg-white/10 hover:bg-white/15 dark:hover:bg-white/15" : "bg-[var(--bg-primary)] hover:bg-[var(--bg-secondary)]", "hover:border-[var(--border-hover)]"),
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)]",
       hasError
         ? "focus-visible:ring-critical/50"
@@ -109,6 +123,8 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
               aria-invalid={hasError ? 'true' : 'false'}
               aria-describedby={describedBy}
               checked={checked}
+              onChange={onChange}
+              readOnly={effectiveReadOnly}
               {...props}
             />
             <div className={checkboxStyles} tabIndex={isDisabled ? -1 : 0}>
@@ -138,6 +154,8 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
             aria-invalid={hasError ? 'true' : 'false'}
             aria-describedby={describedBy}
             checked={checked}
+            onChange={onChange}
+            readOnly={effectiveReadOnly}
             {...props}
           />
           <div className={checkboxStyles} tabIndex={isDisabled ? -1 : 0}>

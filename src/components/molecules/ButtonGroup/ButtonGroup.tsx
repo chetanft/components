@@ -66,12 +66,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && buttons?.length) {
-        console.warn(
-          'ButtonGroup: Using deprecated props (buttons array) with composable API. ' +
-          'Please use ButtonGroupItem components as children instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const Comp = asChild ? Slot : 'div';
       return (
@@ -99,12 +94,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && buttons?.length) {
-      console.warn(
-        'ButtonGroup: Declarative API (buttons array prop) is deprecated. ' +
-        'Please migrate to composable API using ButtonGroupItem components as children. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
     
     if (!buttons?.length) {
       return null;

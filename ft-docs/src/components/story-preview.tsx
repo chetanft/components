@@ -269,7 +269,8 @@ export function StoryPreview({
       }
       // Case 2: Render function story
       else if (story.render) {
-        content = story.render(mergedArgs);
+        const StoryRender = story.render as React.ComponentType<any>;
+        content = <StoryRender {...mergedArgs} />;
       }
       // Case 3: Args-based story - render the component with args
       else if (meta.component) {

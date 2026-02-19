@@ -1,10 +1,11 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { UserProfile, type UserProfileProps } from '../UserProfile/UserProfile';
 import { UserProfileDropdown } from '../UserProfileDropdown/UserProfileDropdown';
-import { Rocket, Bell, ThreeDotMenu } from '../../atoms/Icons';
+import { Rocket, Bell, ThreeDotMenu, Settings } from '../../atoms/Icons';
 import { Logo } from '../../atoms/Logos';
 import { CompanyInfo } from '../../../types/company';
 
@@ -20,6 +21,8 @@ export type AppHeaderSize = 'xl' | 'lg' | 'md' | 'Default';
 export type AppHeaderDevice = 'Desktop' | 'Mobile';
 
 export interface AppHeaderProps extends Omit<ComposableProps<'header'>, 'children'> {
+  /** Glassmorphism variant */
+  glass?: GlassVariant;
   size?: AppHeaderSize;
   device?: AppHeaderDevice;
   user?: User;
@@ -27,12 +30,35 @@ export interface AppHeaderProps extends Omit<ComposableProps<'header'>, 'childre
   onNotificationClick?: (type: 'rocket' | 'bell' | 'menu') => void;
   onUserClick?: () => void;
   onUserMenuItemClick?: (item: string) => void;
+  /** Click handler for optional theme icon shown on the right side. */
+  onThemeIconClick?: () => void;
   className?: string;
   leftAddon?: () => React.ReactNode;
   /**
    * Pass-through props for UserProfile (e.g., avatarSize/avatarClassName)
    */
   userProfileProps?: Partial<UserProfileProps>;
+  /**
+   * Optional custom icon for desktop/tablet primary action slot (defaults to Rocket).
+   */
+  rocketIcon?: React.ReactNode;
+  /**
+   * Optional custom icon for desktop/tablet secondary action slot (defaults to Bell).
+   */
+  bellIcon?: React.ReactNode;
+  /**
+   * Optional custom icon for mobile action slot (defaults to ThreeDotMenu).
+   */
+  menuIcon?: React.ReactNode;
+  /**
+   * Optional custom icon for theme action slot (defaults to Settings).
+   */
+  themeIcon?: React.ReactNode;
+  /**
+   * Whether to show the theme action icon on the right side.
+   * @default false
+   */
+  showThemeIcon?: boolean;
 }
 
 /**
@@ -58,6 +84,7 @@ export interface AppHeaderProps extends Omit<ComposableProps<'header'>, 'childre
  */
 export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, ref) => {
   const {
+  glass,
   size = 'xl',
   device = 'Desktop',
   user = {
@@ -73,12 +100,19 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
   onNotificationClick = () => { },
   onUserClick = () => { },
   onUserMenuItemClick = () => { },
+  onThemeIconClick = () => { },
   className,
   leftAddon,
   userProfileProps,
+  rocketIcon,
+  bellIcon,
+  menuIcon,
+  themeIcon,
+  showThemeIcon = false,
   asChild,
     ...htmlProps
   } = props;
+  const resolvedGlass = useResolvedGlass(glass);
   const Comp = asChild ? Slot : 'header';
   const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
   const userProfileRef = useRef<HTMLDivElement>(null);
@@ -156,13 +190,34 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
     );
   };
 
+  const renderThemeActionIcon = (size: number) => {
+    if (!showThemeIcon) return null;
+
+    return (
+      <div
+        style={{
+          width: `${size}px`,
+          height: `${size}px`,
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'var(--primary)',
+        }}
+        onClick={onThemeIconClick}
+      >
+        {themeIcon ?? <Settings />}
+      </div>
+    );
+  };
+
   // Size xl, Device Desktop (default)
   if (size === 'xl' && device === 'Desktop') {
     return (
       <Comp
         ref={ref}
         className={cn(
-          "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), " flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
           className
         )}
         {...htmlProps}
@@ -206,7 +261,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
               }}
               onClick={() => onNotificationClick('rocket')}
             >
-              <Rocket />
+              {rocketIcon ?? <Rocket />}
             </div>
 
             {/* Bell Icon */}
@@ -222,9 +277,11 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
               }}
               onClick={() => onNotificationClick('bell')}
             >
-              <Bell />
+              {bellIcon ?? <Bell />}
             </div>
           </div>
+
+          {renderThemeActionIcon(24)}
 
           {/* User Profile */}
           {renderUserProfileSection()}
@@ -239,7 +296,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <Comp
         ref={ref}
         className={cn(
-          "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-4 py-[13px] w-full max-w-[1440px] h-16",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), " flex justify-between items-center px-4 py-[13px] w-full max-w-[1440px] h-16",
           className
         )}
         {...htmlProps}
@@ -292,7 +349,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
               }}
               onClick={() => onNotificationClick('rocket')}
             >
-              <Rocket />
+              {rocketIcon ?? <Rocket />}
             </div>
 
             {/* Bell Icon */}
@@ -308,9 +365,11 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
               }}
               onClick={() => onNotificationClick('bell')}
             >
-              <Bell />
+              {bellIcon ?? <Bell />}
             </div>
           </div>
+
+          {renderThemeActionIcon(20)}
 
           {/* User Profile */}
           {renderUserProfileSection()}
@@ -325,7 +384,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <Comp
         ref={ref}
         className={cn(
-          "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-4 py-[13px] w-full max-w-[1200px] h-12",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), " flex justify-between items-center px-4 py-[13px] w-full max-w-[1200px] h-12",
           className
         )}
         {...htmlProps}
@@ -388,7 +447,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
               }}
               onClick={() => onNotificationClick('rocket')}
             >
-              <Rocket />
+              {rocketIcon ?? <Rocket />}
             </div>
 
             {/* Bell Icon */}
@@ -404,9 +463,11 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
               }}
               onClick={() => onNotificationClick('bell')}
             >
-              <Bell />
+              {bellIcon ?? <Bell />}
             </div>
           </div>
+
+          {renderThemeActionIcon(20)}
 
           {/* User Profile */}
           {renderUserProfileSection({ triggerClassName: 'h-[36px]' })}
@@ -421,7 +482,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <Comp
         ref={ref}
         className={cn(
-          "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center p-3 w-full max-w-[360px]",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), " flex justify-between items-center p-3 w-full max-w-[360px]",
           className
         )}
         {...htmlProps}
@@ -464,9 +525,11 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
               }}
               onClick={() => onNotificationClick('menu')}
             >
-              <ThreeDotMenu />
+              {menuIcon ?? <ThreeDotMenu />}
             </div>
           </div>
+
+          {renderThemeActionIcon(24)}
 
           {/* User Profile - Mobile version */}
           {renderUserProfileSection({ companyName: false })}
@@ -480,7 +543,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
     <Comp
       ref={ref}
       className={cn(
-        "bg-[var(--bg-secondary)] border-b border-[var(--border-primary)] flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
+        getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), " flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
         className
       )}
       {...htmlProps}
@@ -520,7 +583,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
             }}
             onClick={() => onNotificationClick('rocket')}
           >
-            <Rocket />
+            {rocketIcon ?? <Rocket />}
           </div>
 
           {/* Bell Icon */}
@@ -536,9 +599,11 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
             }}
             onClick={() => onNotificationClick('bell')}
           >
-            <Bell />
+            {bellIcon ?? <Bell />}
           </div>
         </div>
+
+        {renderThemeActionIcon(24)}
 
         {/* User Profile */}
         {renderUserProfileSection()}

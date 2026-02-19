@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { DropdownMenuItem } from './DropdownMenuItem';
 import { Icon } from '../../atoms/Icons';
 import { SegmentedTabs, type SegmentedTabItem } from '../SegmentedTabs';
@@ -14,7 +15,7 @@ import type { ComposableProps } from '../../../lib/slot';
 import type { DropdownMenuOption } from './DropdownMenuTypes';
 
 const dropdownMenuVariants = cva(
-  'bg-[var(--color-bg-primary)] border border-solid border-[var(--color-border-primary)] box-border flex flex-col items-start overflow-clip p-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shadow-lg',
+  'box-border flex flex-col items-start overflow-clip p-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shadow-lg',
   {
     variants: {
       property: {
@@ -72,6 +73,10 @@ export interface DropdownMenuProps
    * DropdownMenu content (for composable API)
    */
   children?: React.ReactNode;
+  /**
+   * Glass morphism variant
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -120,11 +125,13 @@ const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       selectedSegment,
       onSegmentChange,
       children,
+      glass,
       asChild: _asChild,
       ...props
     },
     ref
   ) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedValue, setSelectedValue] = useState<string | undefined>();
     const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
@@ -220,7 +227,10 @@ const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
 
       return (
         <div className="content-stretch flex flex-col gap-[var(--spacing-x2)] isolate items-start relative shrink-0 w-full">
-          <div className="bg-[var(--color-bg-primary)] border border-[var(--color-border-primary)] border-solid box-border content-stretch flex h-[var(--spacing-x10)] items-center justify-between min-h-[var(--spacing-x10)] px-[var(--spacing-x3)] py-[var(--spacing-x0)] relative rounded-[var(--radius-md)] shrink-0 w-full z-[1]">
+          <div className={cn(
+            resolvedGlass ? "bg-white/5 dark:bg-white/5" : "bg-[var(--color-bg-primary)]",
+            "border border-[var(--color-border-primary)] border-solid box-border content-stretch flex h-[var(--spacing-x10)] items-center justify-between min-h-[var(--spacing-x10)] px-[var(--spacing-x3)] py-[var(--spacing-x0)] relative rounded-[var(--radius-md)] shrink-0 w-full z-[1]"
+          )}>
             <div className="box-border content-stretch flex flex-[1_0_0] gap-[var(--spacing-x1)] h-[var(--spacing-x10)] items-center min-h-px min-w-px px-[var(--spacing-x0)] py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
               <Icon
                 name="search"
@@ -269,7 +279,10 @@ const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       if (property !== 'disabled-info') return null;
 
       return (
-        <div className="bg-[var(--color-bg-primary)] border-[var(--color-border-primary)] border-b-0 border-l-0 border-r-0 border-solid border-t box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center py-[var(--spacing-x5)] px-[var(--spacing-x3)] relative rounded-bl-[var(--radius-md)] rounded-br-[var(--radius-md)] shrink-0 w-full">
+        <div className={cn(
+          resolvedGlass ? "bg-transparent" : "bg-[var(--color-bg-primary)]",
+          "border-[var(--color-border-primary)] border-b-0 border-l-0 border-r-0 border-solid border-t box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center py-[var(--spacing-x5)] px-[var(--spacing-x3)] relative rounded-bl-[var(--radius-md)] rounded-br-[var(--radius-md)] shrink-0 w-full"
+        )}>
           <Icon
             name="data-stack"
             size={16}
@@ -308,7 +321,7 @@ const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
           <div
             ref={ref}
             role="menu"
-            className={cn(dropdownMenuVariants({ property }), className)}
+            className={cn(dropdownMenuVariants({ property }), getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-solid border-[var(--color-border-primary)]'), className)}
             onKeyDown={handleKeyDown}
             {...props}
           >
@@ -320,7 +333,9 @@ const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
 
             {/* List Container - Render children directly */}
             <div className="content-stretch flex gap-[var(--spacing-x4)] items-start relative shrink-0 w-full">
-              {children}
+              <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start min-h-px min-w-px relative shrink-0">
+                {children}
+              </div>
               {/* Scroll Bar */}
               {renderScrollBar()}
             </div>
@@ -335,7 +350,7 @@ const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
         <div
           ref={ref}
           role="menu"
-          className={cn(dropdownMenuVariants({ property }), className)}
+          className={cn(dropdownMenuVariants({ property }), getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-solid border-[var(--color-border-primary)]'), className)}
           onKeyDown={handleKeyDown}
           {...props}
         >
@@ -380,7 +395,10 @@ const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
                       key={groupName}
                       className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start relative shrink-0 w-full"
                     >
-                      <div className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center px-[var(--spacing-x3)] py-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shrink-0 w-full">
+                      <div className={cn(
+                        resolvedGlass ? "bg-transparent" : "bg-[var(--color-bg-primary)]",
+                        "box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center px-[var(--spacing-x3)] py-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shrink-0 w-full"
+                      )}>
                         <p
                           className="font-medium leading-[1.4] relative shrink-0 text-[var(--color-tertiary)]"
                           style={{

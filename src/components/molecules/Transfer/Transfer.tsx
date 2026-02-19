@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 import { Button } from '../../atoms/Button/Button';
 import { Checkbox } from '../../atoms/Checkbox';
 import { Input } from '../../atoms/Input';
@@ -14,6 +15,8 @@ export interface TransferItem {
 }
 
 export interface TransferProps {
+    /** Glass morphism variant */
+    glass?: GlassVariant;
     /**
      * Data source array (for declarative API)
      * @deprecated Use TransferItem components as children instead
@@ -69,7 +72,8 @@ const TransferList = ({
     disabled,
     direction,
     footer,
-    pagination
+    pagination,
+    resolvedGlass
 }: any) => {
     const [filter, setFilter] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
@@ -118,8 +122,8 @@ const TransferList = ({
     });
 
     return (
-        <div className="flex flex-col border border-[var(--border-primary)] rounded-md w-[250px] h-[300px] overflow-hidden bg-[var(--color-bg-primary)]">
-            <div className="flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x2)] border-b border-[var(--border-primary)] bg-[var(--color-bg-secondary)]">
+        <div className={cn("flex flex-col rounded-md w-[250px] h-[300px] overflow-hidden", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--border-primary)]'))}>
+            <div className={cn("flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x2)] border-b border-[var(--border-primary)]", getGlassInnerBg(resolvedGlass, 'bg-[var(--color-bg-secondary)]', 'bg-transparent'))}>
                 <Checkbox
                     checked={allChecked}
                     indeterminate={indeterminate}
@@ -178,7 +182,7 @@ const TransferList = ({
             </ul>
 
             {(footerContent || pagination) && (
-                <div className="border-t border-[var(--border-primary)] bg-[var(--color-bg-secondary)] px-[var(--spacing-x3)] py-[var(--spacing-x2)] text-xs text-[var(--text-tertiary)]">
+                <div className={cn("border-t border-[var(--border-primary)] px-[var(--spacing-x3)] py-[var(--spacing-x2)] text-xs text-[var(--text-tertiary)]", getGlassInnerBg(resolvedGlass, 'bg-[var(--color-bg-secondary)]', 'bg-transparent'))}>
                     {footerContent && (
                         <div className="mb-[var(--spacing-x2)]">{footerContent}</div>
                     )}
@@ -226,11 +230,13 @@ export const Transfer: React.FC<TransferProps> = ({
     footer,
     pagination,
     disabled,
+    glass,
     className,
     onScroll: _onScroll,
     children,
     ...props
 }) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const [sourceSelectedKeys, setSourceSelectedKeys] = useState<string[]>([]);
     const [targetSelectedKeys, setTargetSelectedKeys] = useState<string[]>([]);
 
@@ -262,18 +268,8 @@ export const Transfer: React.FC<TransferProps> = ({
     // Show deprecation warning
     if (process.env.NODE_ENV !== 'production') {
         if (hasComposableChildren && dataSource.length > 0) {
-            console.warn(
-                'Transfer: Using deprecated props (dataSource array) with composable API. ' +
-                'Please use TransferItem components as children instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        } else if (!hasComposableChildren && dataSource.length > 0) {
-            console.warn(
-                'Transfer: Declarative API (dataSource array prop) is deprecated. ' +
-                'Please migrate to composable API using TransferItem components as children. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    } else if (!hasComposableChildren && dataSource.length > 0) {
+                    }
     }
 
     useEffect(() => {
@@ -346,6 +342,7 @@ export const Transfer: React.FC<TransferProps> = ({
                 pagination={pagination}
                 disabled={disabled}
                 direction="left"
+                resolvedGlass={resolvedGlass}
             />
 
             <div className="flex flex-col gap-[var(--spacing-x2)]">
@@ -384,6 +381,7 @@ export const Transfer: React.FC<TransferProps> = ({
                 pagination={pagination}
                 disabled={disabled}
                 direction="right"
+                resolvedGlass={resolvedGlass}
             />
         </div>
     );

@@ -259,12 +259,7 @@ export const DataEntryTable = <T extends { id: string | number; [key: string]: a
   // If using composable API, render with context provider
   if (hasComposableChildren) {
       if (process.env.NODE_ENV !== 'production' && (columns || data)) {
-          console.warn(
-              'DataEntryTable: Using deprecated props (columns, data) with composable API. ' +
-              'Please use DataEntryTableHeader, DataEntryTableBody, DataEntryTableRow, and DataEntryTableRowCell components instead. ' +
-              'See migration guide: docs/migrations/composable-migration.md'
-          );
-      }
+                }
       
       const Comp = asChild ? Slot : 'div';
       return (
@@ -289,12 +284,7 @@ export const DataEntryTable = <T extends { id: string | number; [key: string]: a
   
   // Otherwise use declarative API (deprecated)
   if (process.env.NODE_ENV !== 'production' && (columns || data)) {
-      console.warn(
-          'DataEntryTable: Declarative API (columns, data props) is deprecated. ' +
-          'Please migrate to composable API using DataEntryTableHeader, DataEntryTableBody, DataEntryTableRow, and DataEntryTableRowCell components. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-      );
-  }
+        }
   
   if (!columns || !data) {
       return null;

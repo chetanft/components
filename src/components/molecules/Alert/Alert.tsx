@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { IconName } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { AlertProvider } from './AlertContext';
@@ -53,6 +54,10 @@ export interface AlertProps extends Omit<ComposableProps<'div'>, 'onChange'> {
    * Border radius
    */
   radius?: AlertRadius;
+  /**
+   * Glass morphism variant
+   */
+  glass?: GlassVariant;
   /**
    * Action content (for declarative API)
    * @deprecated Use AlertAction component instead
@@ -106,14 +111,16 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     closable = false,
     banner = false,
     radius,
+    glass,
     action,
     onClose,
     className,
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     // Check if using composable API (has children with Alert sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
       child?.type?.displayName?.startsWith('Alert')
     );
     
@@ -121,12 +128,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && (title || message || icon || action)) {
-        console.warn(
-          'Alert: Using deprecated props (title, message, icon, action) with composable API. ' +
-          'Please use AlertIcon, AlertTitle, AlertDescription, AlertAction components instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const radiusClass = radius === 'none' 
         ? 'rounded-none' 
@@ -181,8 +183,9 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
                 radiusClass,
                 !banner && "border border-solid",
                 banner && "border-b",
-                styles.bg,
-                styles.border,
+                glass
+                  ? getGlassClasses(resolvedGlass, styles.bg, styles.border)
+                  : cn(styles.bg, styles.border),
                 styles.text,
                 className
               )}
@@ -200,12 +203,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && (title || message || icon || action)) {
-      console.warn(
-        'Alert: Declarative API (title, message, icon, action props) is deprecated. ' +
-        'Please migrate to composable API using AlertIcon, AlertTitle, AlertDescription, AlertAction components. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
     // Determine radius class
     const radiusClass = radius === 'none' 
       ? 'rounded-none' 
@@ -269,8 +267,9 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
               radiusClass,
               !banner && "border border-solid",
               banner && "border-b",
-              styles.bg,
-              styles.border,
+              glass
+                ? getGlassClasses(resolvedGlass, styles.bg, styles.border)
+                : cn(styles.bg, styles.border),
               styles.text,
               className
             )}

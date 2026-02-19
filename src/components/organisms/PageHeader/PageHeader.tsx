@@ -1,6 +1,7 @@
 "use client";
 import React, { forwardRef } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import {
   PageHeaderTop,
@@ -28,6 +29,8 @@ import { PageHeaderTabs } from './PageHeaderTabs';
  * @public
  */
 export interface PageHeaderProps extends ComposableProps<'div'> {
+  /** Glassmorphism variant */
+  glass?: GlassVariant;
   /** Children using composable API (PageHeader.Top, PageHeader.Left, etc.) */
   children?: React.ReactNode;
 }
@@ -72,13 +75,14 @@ export interface PageHeaderProps extends ComposableProps<'div'> {
  * - Supports `asChild` prop to merge props with a custom child element
  */
 const PageHeaderBase = forwardRef<HTMLDivElement, PageHeaderProps>(
-  ({ className, children, asChild, ...htmlProps }, ref) => {
+  ({ glass, className, children, asChild, ...htmlProps }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const Comp = asChild ? Slot : 'div';
     return (
       <Comp
         ref={ref}
         className={cn(
-          'bg-[var(--bg-primary)]',
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', ''),
           'box-border',
           'w-full',
           className

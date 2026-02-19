@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 import { Content } from '../../molecules/Content/Content';
 import { Spacer } from '../../atoms/Spacer';
 import { Slot, type ComposableProps } from '../../../lib/slot';
@@ -24,16 +25,24 @@ export interface DisplayBlockProps extends ComposableProps<'div'> {
    * Additional CSS classes
    */
   className?: string;
+
+  /**
+   * Glass morphism variant
+   * When enabled, applies glass/frosted-glass styling to the display block
+   */
+  glass?: GlassVariant;
 }
 
-export const DisplayBlock: React.FC<DisplayBlockProps> = ({ 
+export const DisplayBlock: React.FC<DisplayBlockProps> = ({
   layout = "Horizontal",
-  blocks = "1", 
+  blocks = "1",
   padding = "True",
   className = '',
+  glass,
   asChild,
   ...props
 }) => {
+  const resolvedGlass = useResolvedGlass(glass);
   const contentElement = <Content />;
   const Comp = asChild ? Slot : 'div';
 
@@ -107,7 +116,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <Spacer size="x5" className="bg-[var(--color-bg-primary)]" />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
@@ -128,7 +137,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <Spacer size="x5" className="bg-[var(--color-bg-primary)]" />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
@@ -195,11 +204,11 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <Spacer size="x5" className="bg-[var(--color-bg-primary)]" />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
-        <Spacer size="x5" className="bg-[var(--color-bg-primary)]" />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
@@ -220,11 +229,11 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <Spacer size="x5" className="bg-[var(--color-bg-primary)]" />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
-        <Spacer size="x5" className="bg-[var(--color-bg-primary)]" />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>

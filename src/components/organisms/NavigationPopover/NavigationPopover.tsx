@@ -1,6 +1,7 @@
 "use client";
 import React, { useMemo, useState } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Logo } from '../../atoms/Logos';
 import { Icon, type IconName } from '../../atoms/Icons';
 import { Typography } from '../../atoms/Typography';
@@ -95,6 +96,11 @@ export interface NavigationPopoverProps {
    * Navigation sections (for composable API)
    */
   children?: React.ReactNode;
+  /**
+   * Apply glassmorphism effect to the navigation popover surface.
+   * @default false
+   */
+  glass?: GlassVariant;
 }
 
 export interface NavigationSectionComponentProps {
@@ -658,7 +664,10 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
   heroPlacement = 'auto',
   metricsColumns,
   children,
+  glass,
 }) => {
+  const resolvedGlass = useResolvedGlass(glass);
+
   // Extract sections from children if using composable API
   const sectionsFromChildren = React.useMemo(() => {
     if (!children) return [];
@@ -676,18 +685,8 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
   // Show deprecation warning
   if (process.env.NODE_ENV !== 'production') {
     if (hasComposableChildren && sections && sections.length > 0) {
-      console.warn(
-        'NavigationPopover: Using deprecated props (sections array) with composable API. ' +
-        'Please use NavigationSection components as children instead. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    } else if (!hasComposableChildren && sections && sections.length > 0) {
-      console.warn(
-        'NavigationPopover: Declarative API (sections array prop) is deprecated. ' +
-        'Please migrate to composable API using NavigationSection components as children. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          } else if (!hasComposableChildren && sections && sections.length > 0) {
+          }
   }
 
   const safeInitialId = useMemo(() => {
@@ -764,7 +763,9 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
   return (
     <div
       className={cn(
-        'bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-[var(--x5,20px)] p-[var(--x2,8px)] shadow-lg',
+        glass
+          ? cn(getGlassClasses(resolvedGlass), 'rounded-[var(--x5,20px)] p-[var(--x2,8px)]')
+          : 'bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-[var(--x5,20px)] p-[var(--x2,8px)] shadow-lg',
         className
       )}
       role="dialog"

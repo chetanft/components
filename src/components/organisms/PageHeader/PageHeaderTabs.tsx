@@ -128,12 +128,7 @@ export interface PageHeaderTabsProps extends Omit<PageHeaderTabsBaseProps, 'chil
   onChange?: (value: string) => void;
 }
 
-const warn = (message: string) => {
-  if (process.env.NODE_ENV !== 'production') {
-    // eslint-disable-next-line no-console
-    console.warn(message);
-  }
-};
+const warn = (_message: string) => {};
 
 const PageHeaderTabsComponent = forwardRef<HTMLDivElement, PageHeaderTabsProps>(
   (

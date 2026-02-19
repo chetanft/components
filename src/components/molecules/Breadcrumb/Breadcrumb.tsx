@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon, IconName } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { BreadcrumbList } from './BreadcrumbList';
@@ -31,6 +32,10 @@ export interface BreadcrumbProps extends Omit<ComposableProps<'nav'>, 'onChange'
    * @deprecated Use BreadcrumbSeparator component instead
    */
   separator?: IconName | React.ReactNode;
+  /**
+   * Apply glassmorphism effect to the breadcrumb bar
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -71,10 +76,13 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
     children,
     items,
     separator,
+    glass,
     className,
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
+
     // Check if using composable API (has children with Breadcrumb sub-components)
     const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
       child?.type?.displayName?.startsWith('Breadcrumb')
@@ -84,19 +92,19 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && items && items.length > 0) {
-        console.warn(
-          'Breadcrumb: Using deprecated props (items array) with composable API. ' +
-          'Please use BreadcrumbList, BreadcrumbItem, BreadcrumbLink components instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const Comp = asChild ? Slot : 'nav';
       return (
         <Comp
           ref={ref}
           aria-label="Breadcrumb"
-          className={cn("flex items-center", className)}
+          className={cn(
+            resolvedGlass && getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
+            resolvedGlass && 'rounded-[var(--radius-md)] px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
+            "flex items-center",
+            className
+          )}
           {...props}
         >
           {children}
@@ -106,12 +114,7 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && items && items.length > 0) {
-      console.warn(
-        'Breadcrumb: Declarative API (items array prop) is deprecated. ' +
-        'Please migrate to composable API using BreadcrumbList, BreadcrumbItem, BreadcrumbLink components. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
     
     const _defaultSeparator = <Icon name="chevron-right" size={16} className="text-[var(--color-tertiary)]" />;
     
@@ -120,7 +123,12 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
       <Comp
         ref={ref}
         aria-label="Breadcrumb"
-        className={cn("flex items-center", className)}
+        className={cn(
+          resolvedGlass && getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
+          resolvedGlass && 'rounded-[var(--radius-md)] px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
+          "flex items-center",
+          className
+        )}
         {...props}
       >
         <BreadcrumbList>

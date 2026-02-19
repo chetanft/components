@@ -2,7 +2,9 @@ import React from 'react';
 import { Avatar } from '../../atoms/Avatar';
 import { Typography } from '../../atoms/Typography';
 import { Icon } from '../../atoms/Icons';
+import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface UserProfileDropdownProps extends ComposableProps<'div'> {
   userName?: string;
@@ -14,6 +16,10 @@ export interface UserProfileDropdownProps extends ComposableProps<'div'> {
   onMenuItemClick?: (item: string) => void;
   className?: string;
   style?: React.CSSProperties;
+  /**
+   * Apply glassmorphism effect to the dropdown panel
+   */
+  glass?: GlassVariant;
 }
 
 const menuItems = [
@@ -35,9 +41,12 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
   onMenuItemClick = () => {},
   className = '',
   style,
+  glass,
   asChild,
   ...props
 }) => {
+  const resolvedGlass = useResolvedGlass(glass);
+
   if (!isOpen) {
     return null;
   }
@@ -54,7 +63,11 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
 
   return (
     <Comp
-      className={`bg-[var(--bg-primary)] flex flex-col items-center overflow-hidden px-0 py-[20px] rounded-[var(--x2,8px)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] w-[400px] ${className}`}
+      className={cn(
+        getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', ''),
+        'flex flex-col items-center overflow-hidden px-0 py-[20px] rounded-[var(--x2,8px)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] w-[400px]',
+        className
+      )}
       style={baseStyles}
       {...props}
     >

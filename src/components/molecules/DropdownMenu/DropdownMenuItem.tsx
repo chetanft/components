@@ -2,6 +2,7 @@
 import React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../../../lib/utils';
+import { useResolvedGlass, getGlassInnerBg, getGlassStateLayer } from '../../../lib/glass';
 import { Icon, type IconName } from '../../atoms/Icons';
 import { Checkbox } from '../../atoms/Checkbox';
 
@@ -110,6 +111,7 @@ export const DropdownMenuItem = React.forwardRef<
     },
     ref
   ) => {
+    const resolvedGlass = useResolvedGlass();
     const [isHovered, setIsHovered] = React.useState(false);
     const [isFocused, setIsFocused] = React.useState(false);
 
@@ -197,6 +199,13 @@ export const DropdownMenuItem = React.forwardRef<
         aria-selected={isSelected}
         className={cn(
           dropdownMenuItemVariants({ state: actualState, prefix, suffix }),
+          // When glass is active, override opaque backgrounds from CVA variants
+          resolvedGlass && actualState === 'default' && getGlassInnerBg(resolvedGlass, '', 'bg-transparent'),
+          resolvedGlass && actualState === 'selected' && getGlassStateLayer(resolvedGlass, '', 'bg-white/10 dark:bg-white/15'),
+          resolvedGlass && actualState === 'hover' && getGlassStateLayer(resolvedGlass, '', 'bg-white/15 dark:bg-white/20'),
+          resolvedGlass && actualState === 'focused' && getGlassStateLayer(resolvedGlass, '', 'bg-white/15 dark:bg-white/20'),
+          resolvedGlass && actualState === 'disabled' && getGlassInnerBg(resolvedGlass, '', 'bg-transparent'),
+          resolvedGlass && actualState === 'info' && getGlassInnerBg(resolvedGlass, '', 'bg-transparent'),
           // When selected and hovered/focused, use justify-between to move checkmark to right
           isSelected && prefix === 'none' && !suffix && (isHovered || isFocused) && 'justify-between',
           className

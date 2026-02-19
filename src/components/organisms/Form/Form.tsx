@@ -2,6 +2,7 @@
 
 import React, { useContext, useState, useCallback, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { FormLabel } from './FormLabel';
 import { FormControl } from './FormControl';
@@ -43,6 +44,10 @@ export interface FormProps extends Omit<React.FormHTMLAttributes<HTMLFormElement
   className?: string;
   /** Form children */
   children?: React.ReactNode;
+  /**
+   * Apply glassmorphism effect to the form surface
+   */
+  glass?: GlassVariant;
 }
 
 export const Form = React.forwardRef<HTMLFormElement, FormProps>(
@@ -57,9 +62,11 @@ export const Form = React.forwardRef<HTMLFormElement, FormProps>(
     onValuesChange,
     disabled = false,
     size = 'md',
+    glass,
     children,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const [values, setValues] = useState<Record<string, any>>(initialValues);
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [touched, setTouched] = useState<Record<string, boolean>>({});
@@ -190,6 +197,8 @@ export const Form = React.forwardRef<HTMLFormElement, FormProps>(
         <form
           ref={ref}
           className={cn(
+            resolvedGlass && getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
+            resolvedGlass && 'rounded-[var(--radius-md)] p-[var(--spacing-x4)]',
             layout === 'inline' && 'flex flex-wrap gap-[var(--spacing-x4)]',
             className
           )}
@@ -301,12 +310,7 @@ export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && (label || help)) {
-        console.warn(
-          'FormItem: Using deprecated props (label, help) with composable API. ' +
-          'Please use FormLabel, FormControl, FormError, FormHelper components instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const context = useContext(FormContext);
       const layout = context?.layout || 'vertical';
@@ -333,14 +337,7 @@ export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
       );
     }
     
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production' && (label || help)) {
-      console.warn(
-        'FormItem: Declarative API (label, help props) is deprecated. ' +
-        'Please migrate to composable API using FormLabel, FormControl, FormError, FormHelper components. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+    // Otherwise use declarative API
     const context = useContext(FormContext);
     const layout = context?.layout || 'vertical';
     const labelCol = itemLabelCol ?? context?.labelCol ?? 8;

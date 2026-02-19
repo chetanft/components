@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback, createContext, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon, IconName } from '../../atoms/Icons';
 
 export type MessageType = 'info' | 'success' | 'warning' | 'error' | 'loading';
@@ -20,6 +21,8 @@ export interface MessageConfig {
   onClose?: () => void;
   /** Additional className */
   className?: string;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 interface MessageItem extends MessageConfig {
@@ -42,7 +45,8 @@ const MessageItem: React.FC<{
   item: MessageItem;
   onClose: (id: string) => void;
 }> = ({ item, onClose }) => {
-  const { id, type, content, duration = 3, icon, className } = item;
+  const { id, type, content, duration = 3, icon, className, glass } = item;
+  const resolvedGlass = useResolvedGlass(glass);
 
   useEffect(() => {
     if (duration > 0) {
@@ -102,9 +106,10 @@ const MessageItem: React.FC<{
         "rounded-[var(--radius-md)]",
         "shadow-lg",
         "animate-in fade-in slide-in-from-top-[var(--spacing-x2)] duration-200",
+        resolvedGlass && getGlassClasses(resolvedGlass),
         className
       )}
-      style={{
+      style={resolvedGlass ? undefined : {
         backgroundColor: config.bgColor,
         border: `1px solid ${config.borderColor}`,
       }}
@@ -276,10 +281,13 @@ export interface MessageProps extends Omit<React.HTMLAttributes<HTMLDivElement>,
   icon?: React.ReactNode;
   closable?: boolean;
   onClose?: () => void;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
-  ({ type = 'info', content, icon, closable = false, onClose, className, ...props }, ref) => {
+  ({ type = 'info', content, icon, closable = false, onClose, glass, className, ...props }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const typeConfig: Record<MessageType, {
       icon: IconName;
       color: string;
@@ -327,9 +335,10 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
           "flex items-center gap-[var(--x3)]",
           "px-[var(--x4)] py-[var(--x3)]",
           "rounded-[var(--radius-md)]",
+          resolvedGlass && getGlassClasses(resolvedGlass),
           className
         )}
-        style={{
+        style={resolvedGlass ? undefined : {
           backgroundColor: config.bgColor,
           border: `1px solid ${config.borderColor}`,
         }}

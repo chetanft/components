@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { DrawerContextProvider } from './DrawerContext';
 
@@ -124,6 +125,12 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
   background?: string;
 
   /**
+   * Glass morphism variant
+   * When enabled, applies glass/frosted-glass styling to the drawer
+   */
+  glass?: GlassVariant;
+
+  /**
    * Drawer content
    * @required
    */
@@ -190,43 +197,52 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(({
   maskClosable = true,
   footer,
   background,
+  glass,
   children,
   className,
   ...props
 }, _ref) => {
+  const resolvedGlass = useResolvedGlass(glass);
   // Deprecation warning for dual handlers
   if (process.env.NODE_ENV !== 'production' && onClose && onOpenChange) {
-    console.warn(
-      'Drawer: Both `onClose` and `onOpenChange` provided. ' +
-      '`onClose` is deprecated - use `onOpenChange` only. ' +
-      'onClose will be removed in v4.0.'
-    );
-  }
-
-  // Unified handler (prefer onOpenChange)
-  const _handleOpenChange = React.useCallback((value: boolean) => {
-    onOpenChange?.(value);
-    if (!value) {
-      onClose?.();
-    }
-  }, [onOpenChange, onClose]);
+      }
 
   // Check if using composable API (has DrawerContent, DrawerTrigger, etc. as children)
   const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
     child?.type?.displayName?.startsWith('Drawer')
   );
 
+  // Handle ESC key (declarative API only)
+  useEffect(() => {
+    if (hasComposableChildren || !open) return;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && closable) {
+        onClose?.();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [open, closable, onClose, hasComposableChildren]);
+
+  // Prevent body scroll when drawer is open (declarative API only)
+  useEffect(() => {
+    if (hasComposableChildren) return;
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      if (!hasComposableChildren) {
+        document.body.style.overflow = '';
+      }
+    };
+  }, [open, hasComposableChildren]);
+
   // If using composable API, wrap with context provider
   if (hasComposableChildren) {
-    // Show deprecation warning if using old props with composable API
-    if (process.env.NODE_ENV !== 'production' && (title || footer)) {
-      console.warn(
-        'Drawer: Using deprecated props (title, footer) with composable API. ' +
-        'Please use DrawerTitle, DrawerHeader, DrawerFooter components instead. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
-
     return (
       <DrawerContextProvider
         open={open}
@@ -237,40 +253,6 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(({
       </DrawerContextProvider>
     );
   }
-
-  // Otherwise use declarative API (deprecated)
-  if (process.env.NODE_ENV !== 'production') {
-    console.warn(
-      'Drawer: Declarative API (title, footer props) is deprecated. ' +
-      'Please migrate to composable API using DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerBody, DrawerFooter components. ' +
-      'See migration guide: docs/migrations/composable-migration.md'
-    );
-  }
-  // Handle ESC key
-  useEffect(() => {
-    if (!open) return;
-
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && closable) {
-        onClose?.();
-      }
-    };
-
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [open, closable, onClose]);
-
-  // Prevent body scroll when drawer is open
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [open]);
 
   if (!open) return null;
 
@@ -331,7 +313,7 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(({
         <div
           className={cn(
             "absolute",
-            background || "bg-[var(--bg-primary)]",
+            background || getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", ""),
             "flex flex-col",
             styles.container,
             className
@@ -375,7 +357,7 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(({
           {/* Body */}
           <div className={cn(
             "flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)]",
-            background ? "" : "bg-[var(--bg-secondary)]/30"
+            background ? "" : getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]/30")
           )}>
             {children}
           </div>

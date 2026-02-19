@@ -199,37 +199,57 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(({
 }, _ref) => {
   // Deprecation warning for dual handlers
   if (process.env.NODE_ENV !== 'production' && onClose && onOpenChange) {
-    console.warn(
-      'Modal: Both `onClose` and `onOpenChange` provided. ' +
-      '`onClose` is deprecated - use `onOpenChange` only. ' +
-      'onClose will be removed in v4.0.'
-    );
-  }
-
-  // Unified handler (prefer onOpenChange)
-  const _handleOpenChange = React.useCallback((value: boolean) => {
-    onOpenChange?.(value);
-    if (!value) {
-      onClose?.();
-    }
-  }, [onOpenChange, onClose]);
+      }
 
   // Check if using composable API (has ModalContent, ModalTrigger, etc. as children)
   const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
     child?.type?.displayName?.startsWith('Modal')
   );
 
+  const handleClose = useCallback(() => {
+    if (!closable) return;
+    onOpenChange?.(false);
+    onClose?.();
+  }, [closable, onOpenChange, onClose]);
+
+  // Prevent body scroll when modal is open (declarative API only)
+  useEffect(() => {
+    if (hasComposableChildren) return;
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      if (!hasComposableChildren) {
+        document.body.style.overflow = '';
+      }
+    };
+  }, [open, hasComposableChildren]);
+
+  // Handle ESC key (declarative API only)
+  useEffect(() => {
+    if (hasComposableChildren || !open) return;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && closable) {
+        handleClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [open, closable, handleClose, hasComposableChildren]);
+
+  const handleCloseClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+    handleClose();
+  }, [handleClose]);
+
   // If using composable API, wrap with context provider
   if (hasComposableChildren) {
-    // Show deprecation warning if using old props with composable API
-    if (process.env.NODE_ENV !== 'production' && (title || footer)) {
-      console.warn(
-        'Modal: Using deprecated props (title, footer) with composable API. ' +
-        'Please use ModalTitle, ModalHeader, ModalFooter components instead. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
-
     return (
       <ModalContextProvider
         open={open}
@@ -241,65 +261,13 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(({
     );
   }
 
-  // Otherwise use declarative API (deprecated)
-  if (process.env.NODE_ENV !== 'production') {
-    console.warn(
-      'Modal: Declarative API (title, footer props) is deprecated. ' +
-      'Please migrate to composable API using ModalTrigger, ModalContent, ModalHeader, ModalTitle, ModalBody, ModalFooter components. ' +
-      'See migration guide: docs/migrations/composable-migration.md'
-    );
-  }
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [open]);
-
-  const handleClose = useCallback(() => {
-    if (!closable) return;
-    try {
-      onOpenChange?.(false);
-      onClose?.();
-    } catch (error) {
-      console.error('Error closing modal:', error);
-    }
-  }, [closable, onOpenChange, onClose]);
-
-  // Handle ESC key
-  useEffect(() => {
-    if (!open) return;
-
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && closable) {
-        handleClose();
-      }
-    };
-
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [open, closable, handleClose]);
-
   const handleMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (maskClosable && e.target === e.currentTarget) {
       handleClose();
     }
   };
 
-  const handleCloseClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
-    handleClose();
-  }, [handleClose]);
-
   const handleModalContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Only stop propagation if clicking the modal content itself, not children
     if (e.target === e.currentTarget) {
       e.stopPropagation();
     }

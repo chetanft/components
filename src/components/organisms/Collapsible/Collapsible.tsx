@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '../../atoms/Button/Button';
 import { Icon } from '../../atoms/Icons';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { CollapsibleProvider } from './CollapsibleContext';
 import { CollapsibleTrigger } from './CollapsibleTrigger';
@@ -61,6 +62,10 @@ export interface CollapsibleProps extends Omit<ComposableProps<'div'>, 'onChange
    * @deprecated
    */
   badges?: boolean;
+  /**
+   * Apply glassmorphism effect to the collapsible surface
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -113,10 +118,12 @@ export const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(({
   badges: _badges,
   bg = 'Secondary',
   type = 'Primary',
+  glass,
   isExpanded: controlledIsExpanded,
   onToggle,
   ...props
 }, _ref) => {
+  const resolvedGlass = useResolvedGlass(glass);
   const [internalIsExpanded, setInternalIsExpanded] = useState(false);
   const isExpanded = controlledIsExpanded ?? internalIsExpanded;
 
@@ -139,37 +146,24 @@ export const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(({
   if (hasComposableChildren) {
     // Show deprecation warning if using old props with composable API
     if (process.env.NODE_ENV !== 'production' && (header || extra)) {
-      console.warn(
-        'Collapsible: Using deprecated props (header, extra) with composable API. ' +
-        'Please use CollapsibleTrigger, CollapsibleHeader, CollapsibleTitle, CollapsibleExtra components instead. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
 
     const getBorderRadius = () => {
       return type === 'Tertiary' ? 'rounded-[var(--spacing-x4)]' : 'rounded-[var(--spacing-x2)]';
     };
 
     const getBackgroundStyles = () => {
-      const baseStyles = [];
-      if (bg === 'Primary') {
-        baseStyles.push('bg-[var(--bg-primary)]');
-        if (type === 'Tertiary') {
-          baseStyles.push('border border-[var(--border-primary)]');
-        }
-      } else {
-        baseStyles.push('bg-[var(--bg-secondary)]');
-        if (type === 'Tertiary') {
-          baseStyles.push('border border-[var(--border-secondary)]');
-        }
-      }
-      return baseStyles;
+      const solidBg = bg === 'Primary' ? 'bg-[var(--bg-primary)]' : 'bg-[var(--bg-secondary)]';
+      const solidBorder = type === 'Tertiary'
+        ? (bg === 'Primary' ? 'border border-[var(--border-primary)]' : 'border border-[var(--border-secondary)]')
+        : '';
+      return getGlassClasses(resolvedGlass, solidBg, solidBorder);
     };
 
     const combinedClassName = cn(
       'flex flex-col overflow-hidden',
       getBorderRadius(),
-      ...getBackgroundStyles(),
+      getBackgroundStyles(),
       disabled && "opacity-50 cursor-not-allowed",
       className
     );
@@ -209,12 +203,7 @@ export const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(({
 
   // Otherwise use declarative API (deprecated)
   if (process.env.NODE_ENV !== 'production' && (header || extra)) {
-    console.warn(
-      'Collapsible: Declarative API (header, extra props) is deprecated. ' +
-      'Please migrate to composable API using CollapsibleTrigger, CollapsibleHeader, CollapsibleTitle, CollapsibleExtra components. ' +
-      'See migration guide: docs/migrations/composable-migration.md'
-    );
-  }
+      }
 
   // Reuse existing legacy rendering logic or map to simpler one?
   // For compatibility, let's keep the structure but support "accordion" logic via context if we add it later
@@ -224,21 +213,11 @@ export const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(({
 
   // Background colors and styling based on variant
   const getBackgroundStyles = () => {
-    const baseStyles = [];
-
-    if (bg === 'Primary') {
-      baseStyles.push('bg-[var(--bg-primary)]');
-      if (type === 'Tertiary') {
-        baseStyles.push('border border-[var(--border-primary)]');
-      }
-    } else {
-      baseStyles.push('bg-[var(--bg-secondary)]');
-      if (type === 'Tertiary') {
-        baseStyles.push('border border-[var(--border-secondary)]');
-      }
-    }
-
-    return baseStyles;
+    const solidBg = bg === 'Primary' ? 'bg-[var(--bg-primary)]' : 'bg-[var(--bg-secondary)]';
+    const solidBorder = type === 'Tertiary'
+      ? (bg === 'Primary' ? 'border border-[var(--border-primary)]' : 'border border-[var(--border-secondary)]')
+      : '';
+    return getGlassClasses(resolvedGlass, solidBg, solidBorder);
   };
 
   const getBorderRadius = () => {
@@ -248,7 +227,7 @@ export const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(({
   const combinedClassName = cn(
     'flex flex-col overflow-hidden',
     getBorderRadius(),
-    ...getBackgroundStyles(),
+    getBackgroundStyles(),
     disabled && "opacity-50 cursor-not-allowed",
     className
   );

@@ -58,12 +58,7 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
     // If using composable API, render with sub-components
     if (hasComposableChildren) {
       if (process.env.NODE_ENV !== 'production' && (variant || width || height)) {
-        console.warn(
-          'Skeleton: Using deprecated props (variant, width, height) with composable API. ' +
-          'Please use SkeletonText and SkeletonImage components instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
 
       return (
         <>
@@ -97,12 +92,7 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
 
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && (variant || width || height)) {
-      console.warn(
-        'Skeleton: Declarative API (variant, width, height props) is deprecated. ' +
-        'Please migrate to composable API using SkeletonText and SkeletonImage components. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
 
     const baseStyles = cn(
       "bg-[var(--color-bg-secondary)]",

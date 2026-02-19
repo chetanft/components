@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 import { Button } from '../../atoms/Button/Button';
 import { Badge } from '../../atoms/Badge';
 import { FileTypeIcon } from '../FileTypeIcon';
@@ -43,6 +44,12 @@ export interface FileCardProps extends ComposableProps<'div'> {
 
   // States
   downloadDisabled?: boolean;
+
+  /**
+   * Glass morphism variant
+   * When enabled, applies glass/frosted-glass styling to the file card
+   */
+  glass?: GlassVariant;
 }
 
 export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
@@ -62,9 +69,11 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
     onClose,
     variant = 'compact',
     downloadDisabled = false,
+    glass,
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
 
     // Get status-specific configurations
     const getStatusConfig = () => {
@@ -147,7 +156,8 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
       <Comp
         className={cn(
           // Base styles from Figma
-          "bg-surface border border-border-secondary rounded-component p-[var(--spacing-x5)]",
+          getGlassClasses(resolvedGlass, "bg-surface", "border border-border-secondary"),
+          "rounded-component p-[var(--spacing-x5)]",
           "flex flex-col gap-[var(--spacing-x5)]",
           // Full width for expanded variants
           variant === 'expanded' || variant === 'with-stats' ? "w-full max-w-[calc(var(--spacing-x10)*23.25)]" : "w-full",
@@ -283,19 +293,19 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
         {showStats && (
           <div className="flex items-stretch gap-[var(--spacing-x5)] pl-[calc(var(--spacing-x7)+var(--spacing-x1))]">
             {/* Total */}
-            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]">
+            <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-white/10"))}>
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Total</Typography>
               <Typography variant="display-primary" className="text-[var(--primary)]">{stats?.total || 0}</Typography>
             </div>
 
             {/* Success */}
-            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]">
+            <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-white/10"))}>
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Success</Typography>
               <Typography variant="display-primary" className="text-[var(--positive)]">{stats?.success || 0}</Typography>
             </div>
 
             {/* Invalid */}
-            <div className="flex-1 bg-[var(--bg-secondary)] rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]">
+            <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-white/10"))}>
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Invalid</Typography>
               <Typography variant="display-primary" className="text-[var(--critical)]">{stats?.invalid || 0}</Typography>
             </div>

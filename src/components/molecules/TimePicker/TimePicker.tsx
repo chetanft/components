@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import { Button } from '../../atoms/Button/Button';
@@ -65,6 +66,8 @@ export interface TimePickerProps extends Omit<ComposableProps<'div'>, 'size' | '
   disabledMinutes?: (selectedHour: number) => number[];
   /** Disabled seconds (array of seconds to disable for selected hour and minute) */
   disabledSeconds?: (selectedHour: number, selectedMinute: number) => number[];
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 // ============================================================================
@@ -199,12 +202,14 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
   disabledHours,
   disabledMinutes,
   disabledSeconds,
+  glass,
   disabled: disabledProp = false,
   id,
     'aria-describedby': ariaDescribedBy,
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const componentStyles = getComponentStyles(size);
     const [isOpen, setIsOpen] = useState(false);
     const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
@@ -488,8 +493,8 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
             {/* Dropdown */}
             <div
               className={cn(
-                "fixed z-[9999] bg-[var(--color-bg-primary)] rounded-[var(--radius-md)]",
-                "border border-[var(--color-border-secondary)]",
+                "fixed z-[9999] rounded-[var(--radius-md)]",
+                getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--color-border-secondary)]'),
                 "overflow-hidden"
               )}
               style={{

@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from "@/components/theme-provider"
+import { GlassProvider } from "@/components/glass-provider"
 
 export default function RootLayout({
   children,
@@ -32,6 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-background font-sans text-foreground`}
       >
         <Script
@@ -42,15 +44,22 @@ export default function RootLayout({
               (function() {
                 try {
                   const theme = localStorage.getItem('theme') || 'light';
-                  
+
                   // Remove all theme classes first
                   document.documentElement.classList.remove('light', 'dark', 'night');
-                  
+
                   if (theme === 'dark' || theme === 'night' || theme === 'light') {
                     document.documentElement.classList.add(theme);
                   } else {
                     document.documentElement.classList.add('light');
                   }
+
+                  // Glass mode FOUC prevention
+                  var glass = localStorage.getItem('ft-glass-mode');
+                  document.documentElement.classList.remove('theme-glass', 'theme-glass-subtle', 'theme-glass-prominent');
+                  if (glass === 'true') document.documentElement.classList.add('theme-glass');
+                  else if (glass === 'subtle') document.documentElement.classList.add('theme-glass-subtle');
+                  else if (glass === 'prominent') document.documentElement.classList.add('theme-glass-prominent');
                 } catch (e) {}
               })();
             `,
@@ -63,7 +72,9 @@ export default function RootLayout({
           disableTransitionOnChange
           themes={['light', 'dark', 'night']}
         >
-          {children}
+          <GlassProvider defaultGlass={false} storageKey="ft-glass-mode">
+            {children}
+          </GlassProvider>
         </ThemeProvider>
       </body>
     </html>

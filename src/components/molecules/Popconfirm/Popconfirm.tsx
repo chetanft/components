@@ -155,12 +155,7 @@ export const Popconfirm: React.FC<PopconfirmProps> = ({
     // If using composable API, render with context provider
     if (hasComposableChildren) {
         if (process.env.NODE_ENV !== 'production' && (title || description)) {
-            console.warn(
-                'Popconfirm: Using deprecated props (title, description) with composable API. ' +
-                'Please use PopconfirmTitle and PopconfirmDescription components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         const Comp = asChild ? Slot : 'div';
         return (
@@ -174,12 +169,7 @@ export const Popconfirm: React.FC<PopconfirmProps> = ({
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && title) {
-        console.warn(
-            'Popconfirm: Declarative API (title, description props) is deprecated. ' +
-            'Please migrate to composable API using PopconfirmTrigger, PopconfirmContent, PopconfirmTitle, etc. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
+            }
     
     const handleOpen = () => {
         if (!disabled) {

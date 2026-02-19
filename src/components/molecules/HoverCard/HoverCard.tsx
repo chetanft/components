@@ -115,12 +115,7 @@ export const HoverCard: React.FC<HoverCardProps> = ({
     // If using composable API, render with context provider
     if (hasComposableChildren) {
         if (process.env.NODE_ENV !== 'production' && content) {
-            console.warn(
-                'HoverCard: Using deprecated props (content) with composable API. ' +
-                'Please use HoverCardContent component instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         const Comp = asChild ? Slot : 'div';
         return (
@@ -134,12 +129,7 @@ export const HoverCard: React.FC<HoverCardProps> = ({
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && content) {
-        console.warn(
-            'HoverCard: Declarative API (content prop) is deprecated. ' +
-            'Please migrate to composable API using HoverCardTrigger and HoverCardContent components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
+            }
     
     const handleMouseEnter = () => {
         if (closeTimeoutRef.current) {

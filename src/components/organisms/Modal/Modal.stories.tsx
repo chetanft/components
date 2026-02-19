@@ -53,8 +53,20 @@ type Story = StoryObj<typeof meta>;
 
 // Default modal
 export const Default: Story = {
+  render: function DefaultModal(args) {
+    const [open, setOpen] = React.useState(true);
+    return (
+      <div className="p-6">
+        <Button onClick={() => setOpen(true)}>Open Modal</Button>
+        <Modal
+          {...args}
+          open={open}
+          onClose={() => setOpen(false)}
+        />
+      </div>
+    );
+  },
   args: {
-    open: true,
     title: 'Modal Title',
     closable: true,
     maskClosable: true,

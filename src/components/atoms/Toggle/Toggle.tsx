@@ -2,6 +2,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export type ToggleSize = 'sm' | 'md' | 'lg';
 export type ToggleVariant = 'default' | 'outline';
@@ -14,6 +15,13 @@ export interface ToggleProps extends ComposableProps<'button'> {
     variant?: ToggleVariant;
     disabled?: boolean;
     icon?: IconName;
+    /**
+     * Enable glassmorphism effect on toggle container background
+     * - `true`: Standard glass effect
+     * - `'subtle'`: Subtle glass effect
+     * - `'prominent'`: Prominent glass effect
+     */
+    glass?: GlassVariant;
     children?: React.ReactNode;
 }
 
@@ -44,12 +52,14 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(({
     variant = 'default',
     disabled = false,
     icon,
+    glass,
     children,
     className,
     onClick,
     asChild,
     ...props
 }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const [isPressed, setIsPressed] = React.useState(pressed ?? defaultPressed);
 
     React.useEffect(() => {
@@ -79,12 +89,18 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(({
 
     const variantStyles = {
         default: cn(
-            "bg-transparent hover:bg-[var(--color-bg-secondary)] text-[var(--color-secondary)]",
-            isPressed && "bg-[var(--color-bg-secondary)] text-[var(--color-primary)]"
+            resolvedGlass
+                ? cn(getGlassClasses(resolvedGlass, 'bg-transparent', ''), "text-[var(--color-secondary)]")
+                : cn("bg-transparent hover:bg-[var(--color-bg-secondary)] text-[var(--color-secondary)]"),
+            !resolvedGlass && isPressed && "bg-[var(--color-bg-secondary)] text-[var(--color-primary)]",
+            resolvedGlass && isPressed && "text-[var(--color-primary)]"
         ),
         outline: cn(
-            "border border-[var(--color-border-primary)] bg-transparent hover:bg-[var(--color-bg-secondary)] text-[var(--color-secondary)]",
-            isPressed && "bg-[var(--color-bg-secondary)] text-[var(--color-primary)] border-[var(--color-primary)]"
+            resolvedGlass
+                ? cn(getGlassClasses(resolvedGlass, 'bg-transparent', 'border border-[var(--color-border-primary)]'), "text-[var(--color-secondary)]")
+                : cn("border border-[var(--color-border-primary)] bg-transparent hover:bg-[var(--color-bg-secondary)] text-[var(--color-secondary)]"),
+            !resolvedGlass && isPressed && "bg-[var(--color-bg-secondary)] text-[var(--color-primary)] border-[var(--color-primary)]",
+            resolvedGlass && isPressed && "text-[var(--color-primary)] border-[var(--color-primary)]"
         ),
     };
 

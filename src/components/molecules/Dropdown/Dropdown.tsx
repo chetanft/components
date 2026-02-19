@@ -3,6 +3,7 @@ import React, { forwardRef, useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, type ComponentSize } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
 import type { SegmentedTabItem } from '../SegmentedTabs';
@@ -14,7 +15,7 @@ import type { DropdownOption } from './DropdownTypes';
 
 // Unified dropdown field variants using the design system
 const dropdownFieldVariants = cva(
-  "relative w-full border transition-all duration-200 font-sans font-normal bg-surface text-[var(--primary)]",
+  "relative w-full transition-all duration-200 font-sans font-normal text-[var(--primary)]",
   {
     variants: {
       size: {
@@ -170,6 +171,10 @@ export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants
    * Additional inline styles applied to the `DropdownMenu`.
    */
   menuStyle?: React.CSSProperties;
+  /**
+   * Glass morphism variant
+   */
+  glass?: GlassVariant;
 }
 
 interface SizeStyles {
@@ -297,11 +302,13 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       portalStyle,
       menuClassName,
       menuStyle,
+      glass,
       children,
       ...props
     },
     ref
   ) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const [isOpen, setIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedValue, setSelectedValue] = useState(value);
@@ -398,8 +405,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
 
       // Deprecation warning for onSelect
       if (onSelect) {
-        console.warn('Dropdown: `onSelect` is deprecated. Use `onChange` instead. This prop will be removed in v3.0.0.');
-        onSelect(String(optionValue));
+                onSelect(String(optionValue));
       }
 
       onChange?.(optionValue);
@@ -446,6 +452,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         sizeStyles.padding,
         "cursor-pointer flex items-center justify-between",
         state === "disabled" && "pointer-events-none",
+        getGlassClasses(resolvedGlass, 'bg-surface', 'border border-[var(--border-primary)]'),
         className
       );
 
@@ -581,12 +588,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     // If using composable API, render with context provider
     if (hasComposableChildren) {
         if (process.env.NODE_ENV !== 'production' && (label || options.length > 0)) {
-            console.warn(
-                'Dropdown: Using deprecated props (label, options) with composable API. ' +
-                'Please use DropdownTrigger and DropdownContent components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         return (
             <DropdownProvider value={contextValue}>
@@ -617,12 +619,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && options.length > 0) {
-        console.warn(
-            'Dropdown: Declarative API (options prop) is deprecated. ' +
-            'Please migrate to composable API using DropdownTrigger and DropdownContent components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
+            }
     
     return (
         <DropdownProvider value={contextValue}>

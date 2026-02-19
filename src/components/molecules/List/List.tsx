@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Typography } from '../../atoms/Typography';
 import { Spin } from '../../atoms/Spin';
 import { Slot, type ComposableProps } from '../../../lib/slot';
@@ -11,6 +12,8 @@ import { ListBody } from './ListBody';
 import { ListItem } from './ListItem';
 
 export interface ListProps<T> extends Omit<ComposableProps<'div'>, 'onChange'> {
+    /** Glass morphism variant */
+    glass?: GlassVariant;
     /**
      * Data source for declarative API (deprecated)
      * @deprecated Use ListItem components instead
@@ -125,11 +128,13 @@ export function List<T>({
     loading = false,
     size = 'md',
     grid,
+    glass,
     className,
     children,
     asChild,
     ...props
 }: ListProps<T>) {
+    const resolvedGlass = useResolvedGlass(glass);
     const sizeStyles = {
         sm: 'py-[var(--spacing-x2)] px-[var(--spacing-x3)]',
         md: 'py-[var(--spacing-x3)] px-[var(--spacing-x4)]',
@@ -137,8 +142,10 @@ export function List<T>({
     };
 
     const containerClasses = cn(
-        "flex flex-col text-[var(--color-primary)] bg-[var(--color-bg-primary)]",
-        bordered && "border border-[var(--color-border-secondary)] rounded-[var(--radius-md)]",
+        "flex flex-col text-[var(--color-primary)]",
+        getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', bordered ? 'border border-[var(--color-border-secondary)]' : ''),
+        bordered && !resolvedGlass && "border border-[var(--color-border-secondary)] rounded-[var(--radius-md)]",
+        bordered && resolvedGlass && "rounded-[var(--radius-md)]",
         className
     );
 
@@ -167,12 +174,7 @@ export function List<T>({
     if (hasComposableChildren) {
         // Show deprecation warning if using old props with composable API
         if (process.env.NODE_ENV !== 'production' && (dataSource.length || header || footer)) {
-            console.warn(
-                'List: Using deprecated props (dataSource, header, footer) with composable API. ' +
-                'Please use ListHeader, ListBody, ListFooter, and ListItem components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         const Comp = asChild ? Slot : 'div';
         return (
@@ -189,12 +191,7 @@ export function List<T>({
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && (dataSource.length || renderItem || header || footer)) {
-        console.warn(
-            'List: Declarative API (dataSource, renderItem, header, footer props) is deprecated. ' +
-            'Please migrate to composable API using ListHeader, ListBody, ListFooter, and ListItem components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
+            }
     
     const renderContent = () => {
         if (loading) {

@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useState, useMemo, useRef, useEffect } from "react"
-import { Search, Sun, Moon, MoonStar } from "lucide-react"
+import { Search, Sun, Moon, MoonStar, Layers, Sparkles, Diamond, ChevronDown } from "lucide-react"
+import { useGlass, type GlassMode } from "@/components/glass-provider"
 import { useTheme } from "next-themes"
 import { docsConfig } from "@/config/docs"
 import { cn } from "@/lib/utils"
@@ -24,6 +25,7 @@ export function SiteHeader() {
     const searchRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
     const { theme, setTheme } = useTheme()
+    const { glassMode, setGlassMode } = useGlass()
     const [mounted, setMounted] = useState(false)
     const [currentTheme, setCurrentTheme] = useState<'light' | 'dark' | 'night'>('light')
 
@@ -112,6 +114,31 @@ export function SiteHeader() {
         if (currentTheme === 'dark') return 'Switch to night mode'
         return 'Switch to light mode'
     }
+
+    // Glass style dropdown
+    const [isGlassDropdownOpen, setIsGlassDropdownOpen] = useState(false)
+    const glassDropdownRef = useRef<HTMLDivElement>(null)
+
+    const glassOptions: { value: GlassMode; label: string; icon: typeof Layers }[] = [
+        { value: false, label: 'Normal', icon: Layers },
+        { value: true, label: 'Glass', icon: Sparkles },
+        { value: 'prominent', label: 'Prominent', icon: Diamond },
+    ]
+
+    const currentGlassOption = glassOptions.find(o =>
+        o.value === glassMode
+    ) ?? glassOptions[0]
+
+    // Close glass dropdown on outside click
+    useEffect(() => {
+        const handleClick = (e: MouseEvent) => {
+            if (glassDropdownRef.current && !glassDropdownRef.current.contains(e.target as Node)) {
+                setIsGlassDropdownOpen(false)
+            }
+        }
+        document.addEventListener('mousedown', handleClick)
+        return () => document.removeEventListener('mousedown', handleClick)
+    }, [])
 
     const isActive = (href: string) => {
         if (pathname === href) return true
@@ -309,6 +336,54 @@ export function SiteHeader() {
                         {isSearchOpen && searchQuery.trim() && searchResults.length === 0 && (
                             <div className="absolute top-full right-0 mt-1 bg-background border border-border rounded-md shadow-lg p-4 z-[9999] w-full min-w-[300px]">
                                 <p className="text-sm text-muted-foreground text-center">No results found</p>
+                            </div>
+                        )}
+                    </div>
+                    <div ref={glassDropdownRef} className="relative">
+                        <button
+                            onClick={() => setIsGlassDropdownOpen(prev => !prev)}
+                            disabled={!mounted}
+                            className={cn(
+                                "inline-flex items-center gap-1.5 rounded-md px-2.5 h-9",
+                                "text-foreground/60 hover:text-foreground hover:bg-accent",
+                                "transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+                                "disabled:opacity-50 disabled:cursor-not-allowed text-sm",
+                                glassMode && "text-foreground bg-accent/50"
+                            )}
+                            aria-label="Select style"
+                            aria-expanded={isGlassDropdownOpen}
+                        >
+                            {(() => {
+                                const Icon = currentGlassOption.icon
+                                return <Icon className="h-4 w-4" />
+                            })()}
+                            <span className="hidden sm:inline">{currentGlassOption.label}</span>
+                            <ChevronDown className={cn("h-3 w-3 transition-transform", isGlassDropdownOpen && "rotate-180")} />
+                        </button>
+                        {isGlassDropdownOpen && (
+                            <div className="absolute top-full right-0 mt-1 bg-background border border-border rounded-md shadow-lg z-[9999] min-w-[140px] py-1">
+                                {glassOptions.map((option) => {
+                                    const Icon = option.icon
+                                    const isSelected = option.value === glassMode
+                                    return (
+                                        <button
+                                            key={String(option.value)}
+                                            onClick={() => {
+                                                setGlassMode(option.value)
+                                                setIsGlassDropdownOpen(false)
+                                            }}
+                                            className={cn(
+                                                "flex items-center gap-2 w-full px-3 py-1.5 text-sm transition-colors",
+                                                isSelected
+                                                    ? "bg-accent text-foreground font-medium"
+                                                    : "text-foreground/70 hover:bg-accent hover:text-foreground"
+                                            )}
+                                        >
+                                            <Icon className="h-4 w-4" />
+                                            {option.label}
+                                        </button>
+                                    )
+                                })}
                             </div>
                         )}
                     </div>

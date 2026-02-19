@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Dropdown } from '../Dropdown';
 import type { DropdownOption } from '../Dropdown';
 import { DropdownMenu, type DropdownMenuOption } from '../DropdownMenu';
@@ -44,6 +45,10 @@ export interface FilterDropdownProps {
    * Additional CSS classes
    */
   className?: string;
+  /**
+   * Glass morphism variant
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -75,7 +80,8 @@ export interface FilterDropdownProps {
  * ```
  */
 export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownProps>(
-  ({ id, value, onChange, options, placeholder, icon = 'chevron-down', label, className }, ref) => {
+  ({ id, value, onChange, options, placeholder, icon = 'chevron-down', label, className, glass }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const isMobile = useMediaQuery('(max-width: 1199px)');
     
     // Use context if available, otherwise fall back to local state (standalone mode)
@@ -209,6 +215,7 @@ export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownPro
             placeholder={placeholder}
             size="md"
             state="default"
+            glass={glass}
           />
         </div>
       );
@@ -250,6 +257,7 @@ export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownPro
                   options={menuOptions}
                   onSelect={handleSelect}
                   className="w-full"
+                  glass={glass}
                 />
               </div>,
               portalContainer

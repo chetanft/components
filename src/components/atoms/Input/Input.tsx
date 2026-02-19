@@ -11,6 +11,7 @@ import { InputHelper } from './InputHelper';
 import { InputError } from './InputError';
 import { InputWarning } from './InputWarning';
 import { InputSuccess } from './InputSuccess';
+import { type GlassVariant } from '../../../lib/glass';
 
 /**
  * Input component props
@@ -145,12 +146,20 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   /**
    * Visual style variant
    * @default 'default'
-   * 
+   *
    * - `default`: Standard input with border
    * - `filled`: Filled background style
    * - `outlined`: Outlined border style
    */
   variant?: 'default' | 'filled' | 'outlined';
+
+  /**
+   * Enable glassmorphism effect on input background
+   * - `true`: Standard glass effect
+   * - `'subtle'`: Subtle glass effect
+   * - `'prominent'`: Prominent glass effect
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -218,6 +227,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     trailingIconClassName,
     size = 'md',
     variant = 'default',
+    glass,
     disabled,
     id,
     'aria-describedby': ariaDescribedBy,
@@ -232,12 +242,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && (label || error || warning || success || helperText || leadingIcon || trailingIcon)) {
-        console.warn(
-          'Input: Using deprecated props (label, error, warning, success, helperText, leadingIcon, trailingIcon) with composable API. ' +
-          'Please use InputLabel, InputField, InputError, InputWarning, InputSuccess, InputHelper components instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const generatedId = React.useId();
       const inputId = id ?? `input-${generatedId}`;
@@ -260,6 +265,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             warningId,
             successId,
             helperId,
+            glass,
           }}
         >
           <InputWrapper className={className}>
@@ -269,14 +275,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       );
     }
     
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn(
-        'Input: Declarative API (label, error, warning, success, helperText props) is deprecated. ' +
-        'Please migrate to composable API using InputLabel, InputField, InputError, InputWarning, InputSuccess, InputHelper components. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+    // Otherwise use declarative API
     // Declarative API implementation
     const componentStyles = getComponentStyles(size);
 

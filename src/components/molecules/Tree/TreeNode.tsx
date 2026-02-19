@@ -10,6 +10,7 @@ import { TreeNodeIcon } from './TreeNodeIcon';
 import { TreeNodeContent } from './TreeNodeContent';
 import { TreeNodeChildren } from './TreeNodeChildren';
 import type { TreeNodeData } from './TreeTypes';
+import { getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 
 export interface TreeNodeProps extends Omit<ComposableProps<'div'>, 'title'> {
   /**
@@ -83,6 +84,7 @@ export const TreeNode = React.forwardRef<HTMLDivElement, TreeNodeProps>(
       selectable: treeSelectable,
       showLine,
       blockNode,
+      glass: contextGlass,
       toggleExpanded: _toggleExpanded,
       toggleSelected,
       toggleChecked: _toggleChecked,
@@ -122,8 +124,8 @@ export const TreeNode = React.forwardRef<HTMLDivElement, TreeNodeProps>(
           className={cn(
             "flex items-center py-[var(--spacing-x1)] px-[var(--spacing-x1)]",
             "rounded transition-colors",
-            isSelected && "bg-[var(--color-primary-light)] text-[var(--color-primary)]",
-            !isSelected && !isNodeDisabled && "hover:bg-[var(--color-bg-secondary)]",
+            isSelected && cn(getGlassInnerBg(contextGlass, "bg-[var(--color-primary-light)]", "bg-white/15 dark:bg-white/15"), "text-[var(--color-primary)]"),
+            !isSelected && !isNodeDisabled && (contextGlass ? "hover:bg-white/10 dark:hover:bg-white/10" : "hover:bg-[var(--color-bg-secondary)]"),
             isNodeDisabled && "opacity-50 cursor-not-allowed",
             blockNode && "w-full",
             className

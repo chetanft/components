@@ -1,10 +1,13 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Button } from '../../atoms/Button/Button';
 import { Divider } from '../../atoms/Divider';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface FooterProps extends ComposableProps<'footer'> {
+  /** Glassmorphism variant */
+  glass?: GlassVariant;
   /**
    * Number of buttons to display (1-4) - for declarative API
    * @deprecated Use FooterButton components as children instead
@@ -53,6 +56,7 @@ export interface FooterButtonProps extends React.ButtonHTMLAttributes<HTMLButton
 
 export const Footer = React.forwardRef<HTMLElement, FooterProps>(
   ({
+    glass,
     buttonCount = 1,
     leftSideButton = false,
     buttonTexts = [],
@@ -63,6 +67,7 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     // Check if using composable API (has children)
     const hasComposableChildren = React.Children.count(children) > 0;
     
@@ -70,12 +75,7 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && (buttonTexts.length > 0 || buttonVariants.length > 0 || onButtonClick.length > 0)) {
-        console.warn(
-          'Footer: Using deprecated props (buttonTexts, buttonVariants, onButtonClick) with composable API. ' +
-          'Please use FooterButton components as children instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const Comp = asChild ? Slot : 'footer';
       const childrenArray = React.Children.toArray(children);
@@ -95,7 +95,7 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
         : "flex justify-end items-center";
       
       return (
-        <Comp ref={ref} className={cn("w-full bg-surface max-w-full", className)} {...props}>
+        <Comp ref={ref} className={cn("w-full max-w-full", getGlassClasses(resolvedGlass, 'bg-surface', ''), className)} {...props}>
           <Divider type="primary" className="w-full" />
           <div
             className={cn(
@@ -123,12 +123,7 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && buttonTexts.length > 0) {
-      console.warn(
-        'Footer: Declarative API (buttonTexts, buttonVariants, onButtonClick props) is deprecated. ' +
-        'Please migrate to composable API using FooterButton components as children. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
 
     // Generate default button texts if not provided
     const defaultTexts = Array.from({ length: buttonCount }, (_, i) => buttonTexts[i] || 'Button');
@@ -236,7 +231,7 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
 
     const Comp = asChild ? Slot : 'footer';
     return (
-      <Comp ref={ref} className={cn("w-full bg-surface max-w-full", className)} {...props}>
+      <Comp ref={ref} className={cn("w-full max-w-full", getGlassClasses(resolvedGlass, 'bg-surface', ''), className)} {...props}>
         <Divider type="primary" className="w-full" />
         <div
           className={cn(

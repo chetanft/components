@@ -258,12 +258,7 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
     if (hasComposableChildren) {
         // Show deprecation warning if using old props with composable API
         if (process.env.NODE_ENV !== 'production' && count !== 5) {
-            console.warn(
-                'Rate: Using deprecated props (count) with composable API. ' +
-                'Please use RateItem components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         const Comp = asChild ? Slot : 'div';
         return (
@@ -325,12 +320,7 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production') {
-        console.warn(
-            'Rate: Declarative API (automatic star rendering) is deprecated. ' +
-            'Please migrate to composable API using RateItem and RateIcon components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
+            }
     
     const Comp = asChild ? Slot : 'div';
     return (

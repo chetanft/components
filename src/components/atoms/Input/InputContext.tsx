@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useId } from 'react';
 import type { ComponentSize } from '../../../lib/utils';
+import type { GlassVariant } from '../../../lib/glass';
 
 export interface InputContextType {
   inputId: string;
@@ -15,6 +16,7 @@ export interface InputContextType {
   warningId?: string;
   successId?: string;
   helperId?: string;
+  glass?: GlassVariant;
 }
 
 const InputContext = createContext<InputContextType | undefined>(undefined);
@@ -35,6 +37,7 @@ const createDefaultContext = (fallbackId: string): InputContextType => ({
   warningId: undefined,
   successId: undefined,
   helperId: undefined,
+  glass: undefined,
 });
 
 export const useInputContext = () => {

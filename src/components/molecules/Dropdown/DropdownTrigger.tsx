@@ -5,12 +5,20 @@ import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { Icon } from '../../atoms/Icons';
 import { useDropdownContext } from './DropdownContext';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 
 export interface DropdownTriggerProps extends ComposableProps<'div'> {
   /**
    * Trigger content (optional, defaults to selected option or placeholder).
    */
   children?: React.ReactNode;
+  /**
+   * Enable glassmorphism effect on dropdown trigger background
+   * - `true`: Standard glass effect
+   * - `'subtle'`: Subtle glass effect
+   * - `'prominent'`: Prominent glass effect
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -38,7 +46,8 @@ export interface DropdownTriggerProps extends ComposableProps<'div'> {
  * ⚠️ MUST be used inside a parent Dropdown component. Cannot be used standalone.
  */
 export const DropdownTrigger = React.forwardRef<HTMLDivElement, DropdownTriggerProps>(
-  ({ className, children, asChild, onClick, ...props }, ref) => {
+  ({ className, children, glass, asChild, onClick, ...props }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const {
       isOpen,
       setIsOpen,
@@ -78,7 +87,8 @@ export const DropdownTrigger = React.forwardRef<HTMLDivElement, DropdownTriggerP
       <Comp
         ref={ref || dropdownRef}
         className={cn(
-          "relative w-full border transition-all duration-200 font-sans font-normal bg-surface text-[var(--primary)]",
+          "relative w-full border transition-all duration-200 font-sans font-normal text-[var(--primary)]",
+          resolvedGlass ? getGlassClasses(resolvedGlass, 'bg-surface', '') : "bg-surface",
           sizeStyles.height,
           sizeStyles.fontSize,
           sizeStyles.borderRadius,

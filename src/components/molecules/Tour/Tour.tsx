@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Button } from '../../atoms/Button/Button';
 import { Typography } from '../../atoms/Typography';
 import { Icon } from '../../atoms/Icons';
@@ -33,6 +34,8 @@ export interface TourProps {
   mask?: boolean;
   type?: 'default' | 'primary'; // Style of tour
   zIndex?: number;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   className?: string;
   /**
    * Tour steps (for composable API)
@@ -57,9 +60,11 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
   onFinish,
   mask = true,
   zIndex = 1000,
+  glass,
   className,
   children,
 }, _ref) => {
+  const resolvedGlass = useResolvedGlass(glass);
   const [internalCurrent, setInternalCurrent] = useState(defaultCurrent);
   const current = controlledCurrent !== undefined ? controlledCurrent : internalCurrent;
   const [position, setPosition] = useState<{ top: number; left: number; width: number; height: number } | null>(null);
@@ -92,18 +97,8 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
   // Show deprecation warning
   if (process.env.NODE_ENV !== 'production') {
     if (hasComposableChildren && steps.length > 0) {
-      console.warn(
-        'Tour: Using deprecated props (steps array) with composable API. ' +
-        'Please use TourStep components as children instead. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    } else if (!hasComposableChildren && steps.length > 0) {
-      console.warn(
-        'Tour: Declarative API (steps array prop) is deprecated. ' +
-        'Please migrate to composable API using TourStep components as children. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          } else if (!hasComposableChildren && steps.length > 0) {
+          }
   }
 
   const step = allSteps[current];
@@ -186,7 +181,8 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
       {/* Popover */}
       <div
         className={cn(
-          "absolute bg-[var(--color-bg-primary)] p-4 rounded-lg shadow-xl w-[300px] z-[1002] animate-in fade-in zoom-in-95 duration-200",
+          "absolute p-4 rounded-lg shadow-xl w-[300px] z-[1002] animate-in fade-in zoom-in-95 duration-200",
+          getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', ''),
           className
         )}
         style={{

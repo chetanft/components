@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { useResolvedGlass, getGlassInnerBg } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useDropdownMenuContext } from './DropdownMenuContext';
@@ -43,6 +44,7 @@ export interface DropdownMenuSearchProps extends ComposableProps<'div'> {
  */
 export const DropdownMenuSearch = React.forwardRef<HTMLDivElement, DropdownMenuSearchProps>(
   ({ className, placeholder = 'Search', children, asChild, ...props }, ref) => {
+    const resolvedGlass = useResolvedGlass();
     const { searchQuery, setSearchQuery, property } = useDropdownMenuContext();
     
     const isSearch = property === 'search' || property === 'search-segmented';
@@ -74,7 +76,10 @@ export const DropdownMenuSearch = React.forwardRef<HTMLDivElement, DropdownMenuS
         {...props}
       >
         {children || (
-          <div className="bg-[var(--color-bg-primary)] border border-[var(--color-border-primary)] border-solid box-border content-stretch flex h-[var(--spacing-x10)] items-center justify-between min-h-[var(--spacing-x10)] px-[var(--spacing-x3)] py-[var(--spacing-x0)] relative rounded-[var(--radius-md)] shrink-0 w-full z-[1]">
+          <div className={cn(
+            getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-white/5 dark:bg-white/5"),
+            "border border-[var(--color-border-primary)] border-solid box-border content-stretch flex h-[var(--spacing-x10)] items-center justify-between min-h-[var(--spacing-x10)] px-[var(--spacing-x3)] py-[var(--spacing-x0)] relative rounded-[var(--radius-md)] shrink-0 w-full z-[1]"
+          )}>
             <div className="box-border content-stretch flex flex-[1_0_0] gap-[var(--spacing-x1)] h-[var(--spacing-x10)] items-center min-h-px min-w-px px-[var(--spacing-x0)] py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
               <Icon
                 name="search"

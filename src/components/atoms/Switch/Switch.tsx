@@ -75,12 +75,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && (label || error || helperText)) {
-        console.warn(
-          'Switch: Using deprecated props (label, error, helperText) with composable API. ' +
-          'Please use SwitchInput, SwitchLabel, SwitchHelper, SwitchError components instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const generatedId = React.useId();
       const switchId = id ?? `switch-${generatedId}`;
@@ -107,12 +102,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production') {
-      console.warn(
-        'Switch: Declarative API (label, error, helperText props) is deprecated. ' +
-        'Please migrate to composable API using SwitchInput, SwitchLabel, SwitchHelper, SwitchError components. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
     
     const generatedId = React.useId();
     const switchId = id ?? `switch-${generatedId}`;

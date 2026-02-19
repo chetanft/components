@@ -2,6 +2,7 @@ import React from 'react';
 import { cn, type ComponentSize } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { Icon, IconName } from '../Icons';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 /**
  * Button variant options
@@ -114,6 +115,14 @@ export interface ButtonProps extends Omit<ComposableProps<'button'>, 'children'>
   iconPosition?: IconPosition;
   
   /**
+   * Enable glassmorphism effect (only applies to ghost variant)
+   * - `true`: Standard glass effect
+   * - `'subtle'`: Subtle glass effect
+   * - `'prominent'`: Prominent glass effect
+   */
+  glass?: GlassVariant;
+
+  /**
    * Shows loading spinner and disables button
    * @default false
    */
@@ -189,6 +198,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   iconSize,
   iconClassName,
   iconPosition = 'leading',
+  glass,
   loading = false,
   disabled = false,
   children,
@@ -198,6 +208,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   ...props
 }, ref) => {
   // Core component implementation (AI protection applied at export layer)
+  const resolvedGlass = useResolvedGlass(glass);
   const isIconOnly = iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
   // Icon-only buttons: square by default for all variants
@@ -347,8 +358,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "disabled:text-[var(--border-primary)] disabled:no-underline disabled:pointer-events-none"
     ),
     ghost: cn(
-      "bg-transparent text-[var(--button-primary-bg)] border border-[var(--button-primary-bg)]",
-      "hover:bg-[var(--button-primary-bg)] hover:text-[var(--button-primary-text)]",
+      resolvedGlass
+        ? cn(getGlassClasses(resolvedGlass, 'bg-transparent', 'border border-[var(--button-primary-bg)]'), "text-[var(--button-primary-bg)]")
+        : "bg-transparent text-[var(--button-primary-bg)] border border-[var(--button-primary-bg)]",
+      !resolvedGlass && "hover:bg-[var(--button-primary-bg)] hover:text-[var(--button-primary-text)]",
       "focus-visible:ring-[var(--primary)]",
       "disabled:text-[var(--tertiary)] disabled:border-[var(--tertiary)] disabled:opacity-50"
     ),

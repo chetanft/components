@@ -97,12 +97,7 @@ export const RadioSelector = React.forwardRef<HTMLDivElement, RadioSelectorProps
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && options?.length) {
-        console.warn(
-          'RadioSelector: Using deprecated props (options array) with composable API. ' +
-          'Please use RadioSelectorOption components as children instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const Comp = asChild ? Slot : 'div';
       return (
@@ -131,12 +126,7 @@ export const RadioSelector = React.forwardRef<HTMLDivElement, RadioSelectorProps
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && options?.length) {
-      console.warn(
-        'RadioSelector: Declarative API (options array prop) is deprecated. ' +
-        'Please migrate to composable API using RadioSelectorOption components as children. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
 
     // Validate options is an array
     const validOptions = Array.isArray(options) ? options : [];

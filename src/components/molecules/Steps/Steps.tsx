@@ -1,7 +1,9 @@
 "use client";
 
 import React, { forwardRef } from 'react';
+import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { StepsProvider } from './StepsContext';
 import { StepsList } from './StepsList';
 import { StepItem } from './StepItem';
@@ -63,6 +65,10 @@ export interface StepsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
    * Steps content (for composable API)
    */
   children?: React.ReactNode;
+  /**
+   * Apply glassmorphism effect to the steps container
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -99,9 +105,11 @@ export interface StepsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Steps = forwardRef<HTMLDivElement, StepsProps>(
-  ({ device = "desktop", steps, currentStep = 1, className, direction = 'horizontal', type = 'default', onChange, children, asChild, ...props }, ref) => {
+  ({ device = "desktop", steps, currentStep = 1, className, direction = 'horizontal', type = 'default', onChange, glass, children, asChild, ...props }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
+
     // Check if using composable API (has children with Steps sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
         child?.type?.displayName?.startsWith('Steps') || child?.type?.displayName?.startsWith('Step')
     );
     
@@ -109,12 +117,7 @@ export const Steps = forwardRef<HTMLDivElement, StepsProps>(
     if (hasComposableChildren) {
         // Show deprecation warning if using old props with composable API
         if (process.env.NODE_ENV !== 'production' && steps?.length) {
-            console.warn(
-                'Steps: Using deprecated props (steps array) with composable API. ' +
-                'Please use StepsList and StepItem components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         const Comp = asChild ? Slot : 'div';
         return (
@@ -127,7 +130,11 @@ export const Steps = forwardRef<HTMLDivElement, StepsProps>(
                     onChange,
                 }}
             >
-                <Comp ref={ref} className={className} {...props}>
+                <Comp ref={ref} className={cn(
+                    resolvedGlass && getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
+                    resolvedGlass && 'rounded-[var(--radius-md)] p-[var(--spacing-x3)]',
+                    className
+                )} {...props}>
                     {children}
                 </Comp>
             </StepsProvider>
@@ -136,12 +143,7 @@ export const Steps = forwardRef<HTMLDivElement, StepsProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && steps?.length) {
-        console.warn(
-            'Steps: Declarative API (steps array prop) is deprecated. ' +
-            'Please migrate to composable API using StepsList, StepItem, StepIcon, StepContent, StepTitle, and StepDescription components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
+            }
     
     const Comp = asChild ? Slot : 'div';
     return (
@@ -154,7 +156,11 @@ export const Steps = forwardRef<HTMLDivElement, StepsProps>(
                 onChange,
             }}
         >
-            <Comp ref={ref} className={className} {...props}>
+            <Comp ref={ref} className={cn(
+                resolvedGlass && getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
+                resolvedGlass && 'rounded-[var(--radius-md)] p-[var(--spacing-x3)]',
+                className
+            )} {...props}>
                 <StepsList>
                     {steps?.map((step, index) => {
                         const stepNumber = index + 1;

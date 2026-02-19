@@ -4,6 +4,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 
 // ============================================================================
 // Types
@@ -47,6 +48,13 @@ export interface CarouselProps extends ComposableProps<'div'> {
   pauseOnFocus?: boolean;
   /** Enable swipe gestures */
   swipe?: boolean;
+  /**
+   * Enable glassmorphism effect on carousel background
+   * - `true`: Standard glass effect
+   * - `'subtle'`: Subtle glass effect
+   * - `'prominent'`: Prominent glass effect
+   */
+  glass?: GlassVariant;
   /** Carousel items */
   children?: React.ReactNode;
 }
@@ -75,10 +83,12 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     pauseOnHover = true,
     pauseOnFocus = true,
     swipe = true,
+    glass,
     children,
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const slides = React.Children.toArray(children);
     const totalSlides = slides.length;
     const maxInitialSlide = Math.max(0, totalSlides - slidesToShow);
@@ -175,6 +185,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     // Container classes
     const containerClasses = cn(
       "relative overflow-hidden w-full",
+      resolvedGlass && getGlassClasses(resolvedGlass),
       className
     );
 
@@ -210,11 +221,15 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
     const arrowBaseClasses = cn(
       "absolute z-30 flex items-center justify-center",
       "w-[var(--spacing-x10)] h-[var(--spacing-x10)] rounded-full",
-      "bg-[var(--color-bg-primary)]/90 hover:bg-[var(--color-bg-primary)]",
+      resolvedGlass
+        ? "bg-white/20 dark:bg-white/20 hover:bg-white/30 dark:hover:bg-white/30 backdrop-blur-sm"
+        : "bg-[var(--color-bg-primary)]/90 hover:bg-[var(--color-bg-primary)]",
       "shadow-lg border border-[var(--color-border-primary)]",
       "text-[var(--color-primary)] hover:text-[var(--color-primary)]",
       "transition-all duration-200",
-      "disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-[var(--color-bg-primary)]/90",
+      resolvedGlass
+        ? "disabled:opacity-30 disabled:cursor-not-allowed"
+        : "disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-[var(--color-bg-primary)]/90",
       "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-neutral)]"
     );
 

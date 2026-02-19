@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { useSelectContext } from './SelectContext';
 
 export interface SelectContentProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -15,6 +16,10 @@ export interface SelectContentProps extends React.HTMLAttributes<HTMLDivElement>
    * Portal container (defaults to document.body)
    */
   container?: HTMLElement;
+  /**
+   * Glass morphism variant
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -30,8 +35,10 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
     children,
     className,
     container,
+    glass,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const { open, onOpenChange } = useSelectContext();
     const contentRef = useRef<HTMLDivElement>(null);
     const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
@@ -98,8 +105,8 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
       <div
         ref={contentRef}
         className={cn(
-          'z-50 min-w-[8rem] overflow-hidden rounded-lg border border-[var(--border-primary)]',
-          'bg-[var(--bg-primary)] shadow-lg',
+          'z-50 min-w-[8rem] overflow-hidden rounded-lg shadow-lg',
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-primary)]'),
           className
         )}
         style={{

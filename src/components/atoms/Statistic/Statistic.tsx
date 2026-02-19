@@ -78,12 +78,7 @@ export const Statistic = React.forwardRef<HTMLDivElement, StatisticProps>(
     // If using composable API, render with sub-components
     if (hasComposableChildren) {
         if (process.env.NODE_ENV !== 'production' && (label || value)) {
-            console.warn(
-                'Statistic: Using deprecated props (label, value) with composable API. ' +
-                'Please use StatisticTitle and StatisticValue components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         // Determine order based on labelPlacement
         const orderedChildren = labelPlacement === "Top" 
@@ -106,12 +101,7 @@ export const Statistic = React.forwardRef<HTMLDivElement, StatisticProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && (label || value)) {
-        console.warn(
-            'Statistic: Declarative API (label, value props) is deprecated. ' +
-            'Please migrate to composable API using StatisticTitle and StatisticValue components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
+            }
     
     const renderLabel = () => (
       <StatisticTitle>{label}</StatisticTitle>

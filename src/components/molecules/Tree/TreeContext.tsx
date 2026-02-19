@@ -3,6 +3,7 @@
 import React, { createContext, useContext } from 'react';
 import type { IconName } from '../../atoms/Icons';
 import type { TreeNodeData } from './TreeTypes';
+import type { GlassVariant } from '../../../lib/glass';
 
 export interface TreeContextType {
   expandedKeys: Set<string>;
@@ -17,6 +18,7 @@ export interface TreeContextType {
   blockNode: boolean;
   switcherIcon?: React.ReactNode | ((props: { expanded: boolean }) => React.ReactNode);
   icon?: IconName | ((props: { expanded: boolean; isLeaf: boolean }) => React.ReactNode);
+  glass?: GlassVariant;
   toggleExpanded: (key: string, node: TreeNodeData) => void;
   toggleSelected: (key: string, node: TreeNodeData) => void;
   toggleChecked: (key: string, node: TreeNodeData) => void;
@@ -41,6 +43,7 @@ const createDefaultContext = (): TreeContextType => ({
   blockNode: false,
   switcherIcon: undefined,
   icon: undefined,
+  glass: undefined,
   toggleExpanded: () => {},
   toggleSelected: () => {},
   toggleChecked: () => {},

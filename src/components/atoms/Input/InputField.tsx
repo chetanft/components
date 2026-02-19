@@ -5,6 +5,7 @@ import { cn, getComponentStyles } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useInputContext } from './InputContext';
 import { Icon, IconName } from '../Icons';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface InputFieldProps extends Omit<ComposableProps<'input'>, 'size'> {
   /**
@@ -41,6 +42,13 @@ export interface InputFieldProps extends Omit<ComposableProps<'input'>, 'size'> 
    * Additional inline styles for the wrapper div
    */
   wrapperStyle?: React.CSSProperties;
+  /**
+   * Enable glassmorphism effect on input background
+   * - `true`: Standard glass effect
+   * - `'subtle'`: Subtle glass effect
+   * - `'prominent'`: Prominent glass effect
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -78,12 +86,14 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     trailingIconClassName,
     wrapperClassName,
     wrapperStyle,
+    glass,
     asChild,
     disabled,
     ...props
   }, ref) => {
-    const { inputId, size, variant, disabled: contextDisabled, hasError, hasWarning, hasSuccess, errorId, warningId, successId, helperId } = useInputContext();
+    const { inputId, size, variant, disabled: contextDisabled, hasError, hasWarning, hasSuccess, errorId, warningId, successId, helperId, glass: contextGlass } = useInputContext();
     const isDisabled = disabled ?? contextDisabled;
+    const effectiveGlass = useResolvedGlass(glass ?? contextGlass);
     const componentStyles = getComponentStyles(size);
     
     const inputType = hasError ? 'error' : hasWarning ? 'warning' : hasSuccess ? 'success' : 'normal';
@@ -121,11 +131,13 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       componentStyles.fontSize,
       componentStyles.borderRadius,
       componentStyles.padding,
-      variant === 'filled'
-        ? "bg-surface-alt dark:bg-surface-alt-dark border-2 border-[var(--border-primary)] dark:border-[var(--border-primary)] focus:bg-surface dark:focus:bg-surface-dark focus:border-[var(--primary)] dark:focus:border-[var(--primary)]"
-        : variant === 'outlined'
-          ? "bg-transparent border border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)] focus:border-primary"
-          : "bg-surface dark:bg-surface-dark border-2 border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)]",
+      effectiveGlass
+        ? getGlassClasses(effectiveGlass, 'bg-surface dark:bg-surface-dark', 'border-2 border-border dark:border-border-dark')
+        : variant === 'filled'
+          ? "bg-surface-alt dark:bg-surface-alt-dark border-2 border-[var(--border-primary)] dark:border-[var(--border-primary)] focus:bg-surface dark:focus:bg-surface-dark focus:border-[var(--primary)] dark:focus:border-[var(--primary)]"
+          : variant === 'outlined'
+            ? "bg-transparent border border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)] focus:border-primary"
+            : "bg-surface dark:bg-surface-dark border-2 border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)]",
       isDisabled
         ? "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed"
         : inputType === 'error'

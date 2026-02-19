@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface SegmentedTabItem {
@@ -11,6 +12,8 @@ export interface SegmentedTabItem {
 }
 
 export interface SegmentedTabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+  /** Glassmorphism variant */
+  glass?: GlassVariant;
   /**
    * Items array (for declarative API)
    * @deprecated Use SegmentedTabItem components as children instead
@@ -51,6 +54,7 @@ export interface SegmentedTabItemProps extends React.ButtonHTMLAttributes<HTMLBu
 
 export const SegmentedTabs = React.forwardRef<HTMLDivElement, SegmentedTabsProps>(
   ({
+    glass,
     items = [],
     value,
     defaultValue,
@@ -61,6 +65,7 @@ export const SegmentedTabs = React.forwardRef<HTMLDivElement, SegmentedTabsProps
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const [internalValue, setInternalValue] = React.useState(defaultValue || items[0]?.value || '');
     const currentValue = value !== undefined ? value : internalValue;
 
@@ -78,17 +83,13 @@ export const SegmentedTabs = React.forwardRef<HTMLDivElement, SegmentedTabsProps
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && items?.length) {
-        console.warn(
-          'SegmentedTabs: Using deprecated props (items array) with composable API. ' +
-          'Please use SegmentedTabItem components as children instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const Comp = asChild ? Slot : 'div';
       const containerStyles = cn(
         // Container styles using design tokens
-        "flex gap-[var(--x1,4px)] p-[var(--x2,8px)] bg-[var(--bg-secondary)] rounded-[var(--x2,8px)]",
+        getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', ''),
+        "flex gap-[var(--x1,4px)] p-[var(--x2,8px)] rounded-[var(--x2,8px)]",
         // Width: full for default, fit for icon-only
         variant === 'icon-only' ? "w-fit" : "w-full",
         className
@@ -117,17 +118,13 @@ export const SegmentedTabs = React.forwardRef<HTMLDivElement, SegmentedTabsProps
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && items?.length) {
-      console.warn(
-        'SegmentedTabs: Declarative API (items array prop) is deprecated. ' +
-        'Please migrate to composable API using SegmentedTabItem components as children. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
 
     const Comp = asChild ? Slot : 'div';
     const containerStyles = cn(
       // Container styles using design tokens
-      "flex gap-[var(--x1,4px)] p-[var(--x2,8px)] bg-[var(--bg-secondary)] rounded-[var(--x2,8px)]",
+      getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', ''),
+      "flex gap-[var(--x1,4px)] p-[var(--x2,8px)] rounded-[var(--x2,8px)]",
       // Width: full for default, fit for icon-only
       variant === 'icon-only' ? "w-fit" : "w-full",
       className

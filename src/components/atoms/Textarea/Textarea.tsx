@@ -99,12 +99,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && (label || error || helperText)) {
-        console.warn(
-          'Textarea: Using deprecated props (label, error, helperText) with composable API. ' +
-          'Please use TextareaLabel, TextareaField, TextareaError, TextareaHelper components instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const generatedId = React.useId();
       const textareaId = id ?? `textarea-${generatedId}`;
@@ -131,12 +126,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production') {
-      console.warn(
-        'Textarea: Declarative API (label, error, helperText props) is deprecated. ' +
-        'Please migrate to composable API using TextareaLabel, TextareaField, TextareaError, TextareaHelper components. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
     
     const generatedId = React.useId();
     // Generate IDs for accessibility (ensure consistent hook usage)

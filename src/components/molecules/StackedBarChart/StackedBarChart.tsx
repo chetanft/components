@@ -154,18 +154,8 @@ export const StackedBarChart = React.forwardRef(
     // Show deprecation warning
     if (process.env.NODE_ENV !== 'production') {
       if (hasComposableChildren && data && data.length > 0) {
-        console.warn(
-          'StackedBarChart: Using deprecated props (data array) with composable API. ' +
-          'Please use StackedBarChartBar components as children instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      } else if (!hasComposableChildren && data && data.length > 0) {
-        console.warn(
-          'StackedBarChart: Declarative API (data array prop) is deprecated. ' +
-          'Please migrate to composable API using StackedBarChartBar components as children. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              } else if (!hasComposableChildren && data && data.length > 0) {
+              }
     }
 
     if (!allData.length) {

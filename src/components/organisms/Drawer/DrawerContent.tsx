@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useDrawerContext } from './DrawerContext';
 import type { DrawerPlacement } from './Drawer';
@@ -48,6 +49,12 @@ export interface DrawerContentProps extends ComposableProps<'div'> {
    * Overrides default bg-[var(--bg-primary)]
    */
   background?: string;
+
+  /**
+   * Apply glassmorphism effect to the drawer surface.
+   * @default false
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -89,8 +96,10 @@ export const DrawerContent = React.forwardRef<HTMLDivElement, DrawerContentProps
     height = '100%',
     maskClosable = true,
     background,
-    ...props 
+    glass,
+    ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const { open, setOpen } = useDrawerContext();
     
     // Prevent body scroll when drawer is open
@@ -182,7 +191,7 @@ export const DrawerContent = React.forwardRef<HTMLDivElement, DrawerContentProps
           ref={ref}
           className={cn(
             "absolute",
-            background || "bg-[var(--bg-primary)]",
+            resolvedGlass ? getGlassClasses(resolvedGlass) : (background || "bg-[var(--bg-primary)]"),
             "flex flex-col",
             styles.container,
             className

@@ -320,12 +320,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     if (hasComposableChildren) {
         // Show deprecation warning if using old props with composable API
         if (process.env.NODE_ENV !== 'production' && (prefix || suffix)) {
-            console.warn(
-                'InputNumber: Using deprecated props (prefix, suffix) with composable API. ' +
-                'Please use InputNumberPrefix and InputNumberSuffix components instead. ' +
-                'See migration guide: docs/migrations/composable-migration.md'
-            );
-        }
+                    }
         
         return (
             <InputNumberProvider value={contextValue}>
@@ -336,12 +331,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && (prefix || suffix)) {
-        console.warn(
-            'InputNumber: Declarative API (prefix, suffix props) is deprecated. ' +
-            'Please migrate to composable API using InputNumberWrapper, InputNumberField, InputNumberPrefix, InputNumberSuffix, and InputNumberControls components. ' +
-            'See migration guide: docs/migrations/composable-migration.md'
-        );
-    }
+            }
     
     // Control button component
     const ControlButton = ({

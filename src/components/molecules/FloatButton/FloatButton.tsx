@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
@@ -18,6 +19,8 @@ export interface FloatButtonProps extends Omit<ComposableProps<'button'>, 'onCli
   target?: string;
   badge?: { count?: number; dot?: boolean; color?: string }; // Simplified badge
   onClick?: React.MouseEventHandler<HTMLElement>;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   className?: string;
 }
 
@@ -43,11 +46,13 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
   target,
   badge,
   onClick,
+  glass,
   className,
   children, // If used as a container
   asChild,
   ...props
 }, ref) => {
+  const resolvedGlass = useResolvedGlass(glass);
   const isLink = !!href;
   const BaseComponent = isLink ? 'a' : 'button';
   const _Comp = asChild ? Slot : BaseComponent;
@@ -55,13 +60,19 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
   // Use FT Design System Button tokens to match Button component styling exactly
   const variantStyles = type === 'primary'
     ? cn(
-      "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] border border-[var(--button-primary-border)]",
+      resolvedGlass
+        ? getGlassClasses(resolvedGlass, 'bg-[var(--button-primary-bg)]', 'border border-[var(--button-primary-border)]')
+        : "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] border border-[var(--button-primary-border)]",
+      !resolvedGlass && "text-[var(--button-primary-text)]",
       "hover:bg-[var(--button-primary-hover-bg)] hover:border-[var(--button-primary-hover-bg)] hover:shadow-button",
       "active:transform active:translate-y-px",
       "focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--primary)]"
     )
     : cn(
-      "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-[var(--button-secondary-border)]",
+      resolvedGlass
+        ? getGlassClasses(resolvedGlass, 'bg-[var(--button-secondary-bg)]', 'border border-[var(--button-secondary-border)]')
+        : "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-[var(--button-secondary-border)]",
+      !resolvedGlass && "text-[var(--button-secondary-text)]",
       "hover:bg-[var(--button-secondary-hover-bg)] hover:border-[var(--button-secondary-hover-border)] hover:shadow-button",
       "active:transform active:translate-y-px",
       "focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--primary)]"

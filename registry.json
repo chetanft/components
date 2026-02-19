@@ -1,11 +1,11 @@
 {
   "$schema": "https://ft-design-system.dev/registry-schema.json",
   "name": "ft-design-system",
-  "version": "4.19.6",
+  "version": "4.20.0",
   "description": "Design system built from Figma designs using Code Connect",
   "repository": "https://github.com/chetanft/components.git",
   "license": "MIT",
-  "generatedAt": "2026-02-06T11:02:08.171Z",
+  "generatedAt": "2026-02-18T13:07:02.047Z",
   "coreDependencies": {
     "peer": [
       "react",
@@ -109,7 +109,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Pass-through props for UserProfile (e.g., avatarSize/avatarClassName)",
+      "description": "AppHeader component from FT Design System",
       "dependencies": {
         "internal": [
           "Button",
@@ -657,7 +657,7 @@
         "DescriptionsTitle",
         "DescriptionsValue"
       ],
-      "description": "Title for declarative API (deprecated)",
+      "description": "Descriptions component from FT Design System",
       "dependencies": {
         "internal": [
           "Icon"
@@ -867,7 +867,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "FileCard component from FT Design System",
+      "description": "Glass morphism variant",
       "dependencies": {
         "internal": [
           "Icon",
@@ -991,7 +991,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Number of buttons to display (1-4) - for declarative API",
+      "description": "Footer component from FT Design System",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -1482,7 +1482,7 @@
         "ListItemIcon",
         "ListItemTitle"
       ],
-      "description": "Data source for declarative API (deprecated)",
+      "description": "List component from FT Design System",
       "dependencies": {
         "internal": [
           "Icon"
@@ -1555,7 +1555,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Options array (for declarative API)",
+      "description": "Mentions component from FT Design System",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -1623,7 +1623,7 @@
         "NavigationMenu.tsx"
       ],
       "subComponents": [],
-      "description": "Close handler",
+      "description": "NavigationMenu component from FT Design System",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -1654,7 +1654,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Notification Provider component built using FT Design System tokens.",
+      "description": "Notification component from FT Design System",
       "dependencies": {
         "internal": [
           "Button",
@@ -2040,7 +2040,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Items array (for declarative API)",
+      "description": "SegmentedTabs component from FT Design System",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -2392,7 +2392,7 @@
         "TabsList",
         "TabsTrigger"
       ],
-      "description": "Tabs content (for composable API)",
+      "description": "Tabs component from FT Design System",
       "dependencies": {
         "internal": [
           "Icon"
@@ -2510,7 +2510,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Toggle Component",
+      "description": "Enable glassmorphism effect on toggle container background",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -2525,7 +2525,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "ToggleGroup component from FT Design System",
+      "description": "Enable glassmorphism effect on toggle group background",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -2587,7 +2587,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Data source array (for declarative API)",
+      "description": "Transfer component from FT Design System",
       "dependencies": {
         "internal": [
           "Checkbox",
@@ -2775,7 +2775,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "UserProfileDropdown component from FT Design System",
+      "description": "Apply glassmorphism effect to the dropdown panel",
       "dependencies": {
         "internal": [
           "UserProfile",

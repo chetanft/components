@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useModalContext } from './ModalContext';
 
@@ -46,6 +47,12 @@ export interface ModalContentProps extends ComposableProps<'div'> {
    * @default true
    */
   maskClosable?: boolean;
+
+  /**
+   * Apply glassmorphism effect to the modal surface.
+   * @default false
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -85,9 +92,11 @@ export const ModalContent = React.forwardRef<HTMLDivElement, ModalContentProps>(
     width,
     centered = true,
     maskClosable = true,
+    glass,
     onClick,
-    ...props 
+    ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     const { open, setOpen, onClose: _onClose } = useModalContext();
     
     // Prevent body scroll when modal is open
@@ -165,7 +174,7 @@ export const ModalContent = React.forwardRef<HTMLDivElement, ModalContentProps>(
             "rounded-[var(--radius-lg)]",
             "max-w-[90vw] max-h-[90vh]",
             "flex flex-col",
-            "bg-[var(--bg-primary)] border border-[var(--border-primary)]",
+            getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-primary)]"),
             centered && "mx-auto",
             className
           )}

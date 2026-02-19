@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useImperativeHandle, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import type { ComposableProps } from '../../../lib/slot';
 
 export interface MentionOption {
@@ -10,6 +11,8 @@ export interface MentionOption {
 }
 
 export interface MentionsProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'prefix' | 'onChange' | 'onSelect'> {
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   /**
    * Options array (for declarative API)
    * @deprecated Use MentionOption components as children instead
@@ -52,6 +55,7 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
   onChange,
   onSelect,
   onSearch,
+  glass,
   className,
   value,
   defaultValue,
@@ -59,6 +63,7 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
   children,
   ...props
 }, ref) => {
+  const resolvedGlass = useResolvedGlass(glass);
   const [inputValue, setInputValue] = useState(defaultValue || value || '');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activePrefix, setActivePrefix] = useState('');
@@ -89,18 +94,8 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
   // Show deprecation warning
   if (process.env.NODE_ENV !== 'production') {
     if (hasComposableChildren && options.length > 0) {
-      console.warn(
-        'Mentions: Using deprecated props (options array) with composable API. ' +
-        'Please use MentionOption components as children instead. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    } else if (!hasComposableChildren && options.length > 0) {
-      console.warn(
-        'Mentions: Declarative API (options array prop) is deprecated. ' +
-        'Please migrate to composable API using MentionOption components as children. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          } else if (!hasComposableChildren && options.length > 0) {
+          }
   }
 
   // Handlers for input changes
@@ -179,7 +174,7 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
       {showSuggestions && filteredOptions.length > 0 && (
         // Using Portal or absolute positioning
         <div
-          className="absolute z-50 min-w-[calc(var(--spacing-x10)*5)] overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-border-primary)] bg-[var(--color-bg-primary)] shadow-md animate-in fade-in-0 zoom-in-95"
+          className={cn("absolute z-50 min-w-[calc(var(--spacing-x10)*5)] overflow-hidden rounded-[var(--radius-md)] shadow-md animate-in fade-in-0 zoom-in-95", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--color-border-primary)]'))}
           style={{
             top: "100%", // Simplified: always below for now
             left: 0

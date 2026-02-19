@@ -143,12 +143,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({
   if (hasComposableChildren) {
     // Show deprecation warning if using old props with composable API
     if (process.env.NODE_ENV !== 'production' && (heading || primaryActionText || secondaryActionText)) {
-      console.warn(
-        'Tooltip: Using deprecated props (heading, primaryActionText, secondaryActionText) with composable API. ' +
-        'Please use TooltipTitle, TooltipDescription, and Button components inside TooltipContent instead. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
 
     const Comp = asChild ? Slot : 'div';
     return (
@@ -170,12 +165,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({
 
   // Otherwise use declarative API (deprecated)
   if (process.env.NODE_ENV !== 'production' && (heading || primaryActionText || secondaryActionText)) {
-    console.warn(
-      'Tooltip: Declarative API (heading, primaryActionText, secondaryActionText props) is deprecated. ' +
-      'Please migrate to composable API using TooltipTrigger, TooltipContent, TooltipTitle, TooltipDescription components. ' +
-      'See migration guide: docs/migrations/composable-migration.md'
-    );
-  }
+      }
   const Comp = asChild ? Slot : 'div';
   return (
     <TooltipProvider

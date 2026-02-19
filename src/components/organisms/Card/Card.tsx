@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Typography } from '../../atoms/Typography';
 import { Divider } from '../../atoms/Divider';
 import { Spacer } from '../../atoms/Spacer';
@@ -326,6 +327,15 @@ export interface CardProps extends Omit<ComposableProps<'div'>, 'title' | 'conte
      * @deprecated Use `contentVariant="Advanced"` with `bodySections` or children instead.
      */
     content?: React.ReactNode;
+
+    /**
+     * Apply glassmorphism effect to the card surface.
+     * When true, the card background becomes semi-transparent with a frosted blur effect.
+     * Use 'subtle' for lighter transparency or 'prominent' for more opaque (accessibility-safe).
+     * Requires content behind the card for the effect to be visible.
+     * @default false
+     */
+    glass?: GlassVariant;
 }
 
 /**
@@ -388,12 +398,15 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     footerText,
     footerButton,
     graphic,
+    glass,
     // Legacy
     content,
     ...props
 }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
+
     // Check if using composable API (has children with Card sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
       child?.type?.displayName?.startsWith('Card')
     );
     
@@ -401,19 +414,15 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     if (hasComposableChildren) {
       // Show deprecation warning if using old props with composable API
       if (process.env.NODE_ENV !== 'production' && (title || headerTitle || bodySections || footerText || footerButton || graphic)) {
-        console.warn(
-          'Card: Using deprecated props (title, headerTitle, bodySections, footerText, footerButton, graphic) with composable API. ' +
-          'Please use CardHeader, CardTitle, CardBody, CardFooter, CardActions components instead. ' +
-          'See migration guide: docs/migrations/composable-migration.md'
-        );
-      }
+              }
       
       const Comp = asChild ? Slot : 'div';
       return (
         <Comp
           ref={ref}
           className={cn(
-            "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid relative rounded-lg flex flex-col overflow-hidden",
+            getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-secondary)] border-solid"),
+            "relative rounded-lg flex flex-col overflow-hidden",
             className
           )}
           {...props}
@@ -425,12 +434,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     
     // Otherwise use declarative API (deprecated)
     if (process.env.NODE_ENV !== 'production' && (title || headerTitle || bodySections || footerText || footerButton || graphic)) {
-      console.warn(
-        'Card: Declarative API (title, headerTitle, bodySections, footerText, footerButton props) is deprecated. ' +
-        'Please migrate to composable API using CardHeader, CardTitle, CardBody, CardFooter, CardActions components. ' +
-        'See migration guide: docs/migrations/composable-migration.md'
-      );
-    }
+          }
 
     const isSmall = size === 'sm' || size === 'small';
     const isAdvanced = contentVariant === 'Advanced';
@@ -453,7 +457,8 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
             <Comp
                 ref={ref}
                 className={cn(
-                    "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid relative rounded-lg flex flex-col overflow-hidden",
+                    getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-secondary)] border-solid"),
+                    "relative rounded-lg flex flex-col overflow-hidden",
                     isAdvanced ? "w-full max-w-[549.333px]" : "w-full max-w-[549px]",
                     className
                 )}
@@ -538,9 +543,11 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
         <Comp
             ref={ref}
             className={cn(
-                "bg-[var(--color-bg-primary)] rounded-lg transition-all duration-200 flex flex-col overflow-hidden",
-                bordered ? "border border-[var(--border-primary)]" : "",
-                hoverable ? "hover:shadow-lg cursor-pointer" : "shadow-sm",
+                resolvedGlass
+                  ? getGlassClasses(resolvedGlass)
+                  : cn("bg-[var(--color-bg-primary)]", bordered ? "border border-[var(--border-primary)]" : ""),
+                "rounded-lg transition-all duration-200 flex flex-col overflow-hidden",
+                hoverable ? "hover:shadow-lg cursor-pointer" : !resolvedGlass ? "shadow-sm" : "",
                 className
             )}
             {...props}
