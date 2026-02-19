@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.21.0] - 2025-02-19
+
+### Added
+- **Glassmorphism Support**: Added glass/glassmorphism design tokens, CSS utilities, and `glass` prop across 80+ components
+  - Light, dark, and night mode glass tokens (background, border, shadow, blur, saturate)
+  - CSS utility classes: `.glass`, `.glass-subtle`, `.glass-prominent`
+  - `GlassContext` provider for app-wide glass mode control
+  - Graceful degradation for browsers without `backdrop-filter`
+  - Respects `prefers-reduced-transparency` media query
+
 ## [4.15.0] - 2025-01-XX
 
 ### Added
