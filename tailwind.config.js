@@ -121,6 +121,8 @@ export default {
     'text-lg-rem',
     'text-xl-rem',
     'text-xxl-rem',
+    'text-3xl-rem',
+    'text-4xl-rem',
 
     // Spacing tokens
     'p-[6px]',
@@ -399,6 +401,8 @@ export default {
         'lg-rem': 'var(--font-size-lg-rem)',
         'xl-rem': 'var(--font-size-xl-rem)',
         'xxl-rem': 'var(--font-size-xxl-rem)',
+        '3xl-rem': 'var(--font-size-3xl-rem)',
+        '4xl-rem': 'var(--font-size-4xl-rem)',
         // COMPONENT SYSTEM FONTS (CRITICAL - DO NOT REMOVE)
         // Using rem-based typography (responsive - base: 14px, scales to 16px at >1440px)
         'component-sm': ['var(--font-size-sm-rem)', { fontWeight: '500' }], // 14px → 1rem (responsive)

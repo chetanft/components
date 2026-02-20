@@ -128,10 +128,10 @@ export default function PolarAreaChartsPage() {
   return (
     <div className="space-y-12">
       <div className="mb-12">
-        <h1 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl mb-4">
+        <h1 className="font-heading text-3xl-rem font-bold tracking-tight sm:text-4xl-rem mb-4">
           Polar Area Charts
         </h1>
-        <p className="text-lg text-muted-foreground">
+        <p className="text-lg-rem text-muted-foreground">
           Display multi-dimensional data in a radial format. Each segment extends from the center
           with length proportional to its value, making it easy to compare magnitudes across categories.
         </p>
@@ -141,8 +141,8 @@ export default function PolarAreaChartsPage() {
         {polarAreaChartVariants.map((variant) => (
           <div key={variant.id} id={variant.id} className="scroll-mt-20 space-y-4">
             <div>
-              <h2 className="text-2xl font-semibold mb-2">{variant.name}</h2>
-              <p className="text-sm text-muted-foreground">{variant.description}</p>
+              <h2 className="text-xl-rem font-semibold mb-2">{variant.name}</h2>
+              <p className="text-sm-rem text-muted-foreground">{variant.description}</p>
             </div>
             <ComponentPreview code={variant.code} />
           </div>

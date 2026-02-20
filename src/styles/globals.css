@@ -159,6 +159,10 @@
    /* 24px / 14px */
    --font-size-xxl-rem: 2rem;
    /* 28px / 14px */
+   --font-size-3xl-rem: 2.571rem;
+   /* 36px / 14px */
+   --font-size-4xl-rem: 3.429rem;
+   /* 48px / 14px */
 
    --shadow-sm: 0 1px 2px 0 rgba(67, 79, 100, 0.05);
    --shadow-md: 0 4px 6px -1px rgba(67, 79, 100, 0.1);
@@ -1179,6 +1183,14 @@ body {
 
 .text-xxl-rem {
    font-size: var(--font-size-xxl-rem);
+}
+
+.text-3xl-rem {
+   font-size: var(--font-size-3xl-rem);
+}
+
+.text-4xl-rem {
+   font-size: var(--font-size-4xl-rem);
 }
 
 /* =====================================================

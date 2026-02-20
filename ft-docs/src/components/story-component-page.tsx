@@ -79,11 +79,11 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
   if (error) {
     return (
       <div className="space-y-6">
-        <h1 className="text-5xl font-bold tracking-tight">{componentName}</h1>
+        <h1 className="text-4xl-rem font-bold tracking-tight">{componentName}</h1>
         <div className="bg-destructive/10 text-destructive p-6 rounded-lg border border-destructive/20">
           <p className="font-medium">Failed to load component</p>
-          <p className="text-sm mt-2">{error}</p>
-          <p className="text-sm mt-4 text-muted-foreground">
+          <p className="text-sm-rem mt-2">{error}</p>
+          <p className="text-sm-rem mt-4 text-muted-foreground">
             This component may not have Storybook stories yet.
           </p>
         </div>
@@ -94,7 +94,7 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
   if (!storyModule) {
     return (
       <div className="space-y-6">
-        <h1 className="text-5xl font-bold tracking-tight">{componentName}</h1>
+        <h1 className="text-4xl-rem font-bold tracking-tight">{componentName}</h1>
         <p className="text-muted-foreground">No documentation available for this component.</p>
       </div>
     );
@@ -111,9 +111,9 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
       <div className="flex flex-col space-y-4 w-full">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-5xl font-bold tracking-tight">{componentName}</h1>
+            <h1 className="text-4xl-rem font-bold tracking-tight">{componentName}</h1>
             <p
-              className="text-xl text-zinc-600 dark:text-zinc-400 mt-2"
+              className="text-lg-rem text-zinc-600 dark:text-zinc-400 mt-2"
               style={{ color: "var(--color-secondary)" }}
             >
               {description}
@@ -122,7 +122,7 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
         </div>
         
         {/* Story count and tags */}
-        <div className="flex flex-wrap items-center gap-4 text-sm">
+        <div className="flex flex-wrap items-center gap-4 text-sm-rem">
           <span className="text-muted-foreground">
             <strong>{storyModule.stories.length}</strong> stories
           </span>
@@ -131,7 +131,7 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
               {storyModule.meta.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-0.5 bg-muted text-muted-foreground rounded text-xs"
+                  className="px-2 py-0.5 bg-muted text-muted-foreground rounded text-xs-rem"
                 >
                   {tag}
                 </span>
@@ -143,10 +143,10 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
 
       {/* Installation */}
       <div className="space-y-4">
-        <h2 className="text-2xl font-semibold tracking-tight">Installation</h2>
+        <h2 className="text-xl-rem font-semibold tracking-tight">Installation</h2>
         <div className="relative group">
           <div 
-            className="rounded-lg p-4 font-mono text-sm pr-12"
+            className="rounded-lg p-4 font-mono text-sm-rem pr-12"
             style={{
               backgroundColor: 'var(--color-border-secondary)',
               color: 'var(--color-primary)',
@@ -190,7 +190,7 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
       {/* Props */}
       {storyModule.meta.argTypes && Object.keys(storyModule.meta.argTypes).length > 0 && (
         <div className="space-y-4">
-          <h2 className="text-2xl font-semibold tracking-tight">Props</h2>
+          <h2 className="text-xl-rem font-semibold tracking-tight">Props</h2>
           <div className="overflow-hidden rounded-lg border">
             <PropsTable meta={storyModule.meta} />
           </div>

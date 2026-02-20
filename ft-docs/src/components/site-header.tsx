@@ -254,7 +254,7 @@ export function SiteHeader() {
                             FT Design System
                         </span>
                     </Link>
-                    <nav className="flex items-center gap-6 text-sm">
+                    <nav className="flex items-center gap-6 text-sm-rem">
                         {docsConfig.mainNav.map((item) => {
                             const Icon = item.icon
                             const active = !item.external && isActive(item.href)
@@ -308,7 +308,7 @@ export function SiteHeader() {
                             value={searchQuery}
                             onChange={(e) => handleSearchChange(e.target.value)}
                             onFocus={() => setIsSearchOpen(true)}
-                            className="w-full pl-10 pr-4 py-2 h-9 rounded-md border border-input bg-background text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring placeholder:text-muted-foreground"
+                            className="w-full pl-10 pr-4 py-2 h-9 rounded-md border border-input bg-background text-sm-rem shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring placeholder:text-muted-foreground"
                         />
                         {isSearchOpen && searchResults.length > 0 && (
                             <div className="absolute top-full right-0 mt-1 bg-background border border-border rounded-md shadow-lg max-h-96 overflow-y-auto z-[9999] w-full min-w-[300px]">
@@ -326,8 +326,8 @@ export function SiteHeader() {
                                         )}
                                     >
                                         <div className="flex items-center justify-between">
-                                            <span className="font-medium text-sm">{result.title}</span>
-                                            <span className="text-xs text-muted-foreground">{result.category}</span>
+                                            <span className="font-medium text-sm-rem">{result.title}</span>
+                                            <span className="text-xs-rem text-muted-foreground">{result.category}</span>
                                         </div>
                                     </Link>
                                 ))}
@@ -335,7 +335,7 @@ export function SiteHeader() {
                         )}
                         {isSearchOpen && searchQuery.trim() && searchResults.length === 0 && (
                             <div className="absolute top-full right-0 mt-1 bg-background border border-border rounded-md shadow-lg p-4 z-[9999] w-full min-w-[300px]">
-                                <p className="text-sm text-muted-foreground text-center">No results found</p>
+                                <p className="text-sm-rem text-muted-foreground text-center">No results found</p>
                             </div>
                         )}
                     </div>
@@ -347,7 +347,7 @@ export function SiteHeader() {
                                 "inline-flex items-center gap-1.5 rounded-md px-2.5 h-9",
                                 "text-foreground/60 hover:text-foreground hover:bg-accent",
                                 "transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
-                                "disabled:opacity-50 disabled:cursor-not-allowed text-sm",
+                                "disabled:opacity-50 disabled:cursor-not-allowed text-sm-rem",
                                 glassMode && "text-foreground bg-accent/50"
                             )}
                             aria-label="Select style"
@@ -373,7 +373,7 @@ export function SiteHeader() {
                                                 setIsGlassDropdownOpen(false)
                                             }}
                                             className={cn(
-                                                "flex items-center gap-2 w-full px-3 py-1.5 text-sm transition-colors",
+                                                "flex items-center gap-2 w-full px-3 py-1.5 text-sm-rem transition-colors",
                                                 isSelected
                                                     ? "bg-accent text-foreground font-medium"
                                                     : "text-foreground/70 hover:bg-accent hover:text-foreground"

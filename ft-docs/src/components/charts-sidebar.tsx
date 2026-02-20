@@ -269,7 +269,7 @@ export function ChartsSidebar({ className }: { className?: string }) {
             <Link
               href={category.href}
               className={cn(
-                "group flex w-full items-center rounded-md border border-transparent px-2 py-1 text-sm font-semibold hover:underline",
+                "group flex w-full items-center rounded-md border border-transparent px-2 py-1 text-sm-rem font-semibold hover:underline",
                 isCategoryActive
                   ? "font-medium text-foreground"
                   : "text-muted-foreground hover:text-foreground"
@@ -290,7 +290,7 @@ export function ChartsSidebar({ className }: { className?: string }) {
                         setTimeout(() => setHash(window.location.hash), 0)
                       }}
                       className={cn(
-                        "group flex w-full items-center rounded-md border border-transparent px-2 py-0.5 text-xs hover:underline",
+                        "group flex w-full items-center rounded-md border border-transparent px-2 py-0.5 text-xs-rem hover:underline",
                         isVariantActive
                           ? "text-foreground font-medium"
                           : "text-muted-foreground/70 hover:text-foreground"

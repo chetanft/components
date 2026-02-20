@@ -70,8 +70,8 @@ export default function MigrationsPage() {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-4xl font-bold mb-2">Migration Guides</h1>
-                <p className="text-muted-foreground text-lg">
+                <h1 className="text-3xl-rem font-bold mb-2">Migration Guides</h1>
+                <p className="text-muted-foreground text-lg-rem">
                     Step-by-step guides for migrating to updated component APIs
                 </p>
             </div>
@@ -81,7 +81,7 @@ export default function MigrationsPage() {
                     <AlertTriangle className="h-5 w-5 text-primary mt-0.5" />
                     <div>
                         <h3 className="font-semibold mb-2">Before You Start</h3>
-                        <ul className="space-y-1 text-sm text-muted-foreground">
+                        <ul className="space-y-1 text-sm-rem text-muted-foreground">
                             <li>• Review the breaking changes for each component</li>
                             <li>• Test migrations in a development environment first</li>
                             <li>• All v2 changes include backward compatibility where possible</li>
@@ -92,7 +92,7 @@ export default function MigrationsPage() {
             </div>
 
             <div className="space-y-4">
-                <h2 className="text-2xl font-semibold">Available Migrations</h2>
+                <h2 className="text-xl-rem font-semibold">Available Migrations</h2>
                 <div className="grid gap-4">
                     {migrations.map((migration) => (
                         <div
@@ -103,28 +103,28 @@ export default function MigrationsPage() {
                                 <div className="flex items-center gap-3">
                                     <FileText className="h-5 w-5 text-primary" />
                                     <div>
-                                        <h3 className="text-xl font-semibold">
+                                        <h3 className="text-lg-rem font-semibold">
                                             {migration.component} {migration.version}
                                         </h3>
                                         <div className="flex items-center gap-2 mt-1">
                                             <CheckCircle2 className="h-4 w-4 text-green-600" />
-                                            <span className="text-sm text-muted-foreground">
+                                            <span className="text-sm-rem text-muted-foreground">
                                                 {migration.status === "complete" ? "Complete" : "In Progress"}
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <p className="text-sm text-muted-foreground mb-4">
+                            <p className="text-sm-rem text-muted-foreground mb-4">
                                 {migration.description}
                             </p>
                             <div className="mb-4">
-                                <h4 className="text-sm font-semibold mb-2">Key Changes:</h4>
-                                <ul className="space-y-1 text-sm text-muted-foreground">
+                                <h4 className="text-sm-rem font-semibold mb-2">Key Changes:</h4>
+                                <ul className="space-y-1 text-sm-rem text-muted-foreground">
                                     {migration.changes.map((change, idx) => (
                                         <li key={idx} className="flex items-start gap-2">
                                             <span className="text-primary mt-1">•</span>
-                                            <code className="bg-muted px-1.5 py-0.5 rounded text-xs">
+                                            <code className="bg-muted px-1.5 py-0.5 rounded text-xs-rem">
                                                 {change}
                                             </code>
                                         </li>
@@ -135,7 +135,7 @@ export default function MigrationsPage() {
                                 href={`https://github.com/chetanft/components/blob/main/${migration.file}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-primary hover:underline text-sm inline-flex items-center gap-1"
+                                className="text-primary hover:underline text-sm-rem inline-flex items-center gap-1"
                             >
                                 View full migration guide
                                 <ExternalLink className="h-3 w-3" />
@@ -148,16 +148,16 @@ export default function MigrationsPage() {
             <div className="rounded-lg border bg-muted p-6">
                 <h3 className="font-semibold mb-2">Related Resources</h3>
                 <div className="grid gap-2 md:grid-cols-2">
-                    <Link href="/docs/global-css" className="text-primary hover:underline text-sm">
+                    <Link href="/docs/global-css" className="text-primary hover:underline text-sm-rem">
                         Global CSS & Design Tokens
                     </Link>
-                    <Link href="/docs/components" className="text-primary hover:underline text-sm">
+                    <Link href="/docs/components" className="text-primary hover:underline text-sm-rem">
                         Component Documentation
                     </Link>
-                    <Link href="/docs/ai-prompts" className="text-primary hover:underline text-sm">
+                    <Link href="/docs/ai-prompts" className="text-primary hover:underline text-sm-rem">
                         AI Prompts & Best Practices
                     </Link>
-                    <Link href="/docs/accessibility" className="text-primary hover:underline text-sm">
+                    <Link href="/docs/accessibility" className="text-primary hover:underline text-sm-rem">
                         Accessibility Guidelines
                     </Link>
                 </div>

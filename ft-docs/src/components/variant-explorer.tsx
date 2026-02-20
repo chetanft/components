@@ -224,7 +224,7 @@ export function VariantExplorer({
               >
                 <CollapsibleTrigger>
                   <CollapsibleHeader>
-                    <CollapsibleTitle className="flex flex-1 text-sm font-medium" style={{ color: "var(--primary)" }}>
+                    <CollapsibleTitle className="flex flex-1 text-sm-rem font-medium" style={{ color: "var(--primary)" }}>
                       {group.label}
                     </CollapsibleTitle>
                     <CollapsibleIcon />
@@ -247,7 +247,7 @@ export function VariantExplorer({
                           }}
                           onClick={() => handleStorySelect(item.id)}
                           className={cn(
-                            "w-full text-left px-3 py-2 text-sm rounded-md transition-colors",
+                            "w-full text-left px-3 py-2 text-sm-rem rounded-md transition-colors",
                             isSelected
                               ? "bg-[var(--primary)] text-[var(--bg-primary)]"
                               : "text-[var(--secondary)] hover:bg-[var(--bg-secondary)]"
@@ -273,7 +273,7 @@ export function VariantExplorer({
         {selectedStory ? (
           <div className="space-y-4 flex flex-col h-full">
             <div>
-              <h3 className="text-lg font-medium">
+              <h3 className="text-lg-rem font-medium">
                 {formatStoryName(selectedStory.name)}
               </h3>
             </div>
@@ -288,7 +288,7 @@ export function VariantExplorer({
           </div>
         ) : (
           <div
-            className="flex items-center justify-center h-full text-sm"
+            className="flex items-center justify-center h-full text-sm-rem"
             style={{ color: "var(--secondary)" }}
           >
             Select a variant to preview

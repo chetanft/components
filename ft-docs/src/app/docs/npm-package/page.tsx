@@ -4,7 +4,7 @@ export default function NPMPackagePage() {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-4xl font-bold mb-2">NPM Package</h1>
+                <h1 className="text-3xl-rem font-bold mb-2">NPM Package</h1>
                 <p className="text-muted-foreground">
                     Install and use ft-design-system in your React projects
                 </p>
@@ -20,7 +20,7 @@ export default function NPMPackagePage() {
                     <Package className="h-8 w-8 text-primary" />
                     <div className="flex-1">
                         <h3 className="font-semibold">ft-design-system</h3>
-                        <p className="text-sm text-muted-foreground">View on npmjs.com</p>
+                        <p className="text-sm-rem text-muted-foreground">View on npmjs.com</p>
                     </div>
                     <ExternalLink className="h-4 w-4 text-muted-foreground" />
                 </a>
@@ -29,24 +29,24 @@ export default function NPMPackagePage() {
                     <Package className="h-8 w-8 text-primary" />
                     <div className="flex-1">
                         <h3 className="font-semibold">Version</h3>
-                        <p className="text-sm text-muted-foreground">v4.13.9</p>
+                        <p className="text-sm-rem text-muted-foreground">v4.13.9</p>
                     </div>
                 </div>
             </div>
 
             <div className="space-y-2">
-                <h2 className="text-2xl font-semibold">Installation</h2>
+                <h2 className="text-xl-rem font-semibold">Installation</h2>
                 <div className="rounded-lg border bg-muted p-4">
-                    <pre className="text-sm font-mono">
+                    <pre className="text-sm-rem font-mono">
                         npm install ft-design-system
                     </pre>
                 </div>
             </div>
 
             <div className="space-y-2">
-                <h2 className="text-2xl font-semibold">Setup</h2>
+                <h2 className="text-xl-rem font-semibold">Setup</h2>
                 <div className="rounded-lg border bg-muted p-4">
-                    <pre className="text-sm font-mono whitespace-pre-wrap">
+                    <pre className="text-sm-rem font-mono whitespace-pre-wrap">
                         {`// Import styles
 import 'ft-design-system/styles.css';
 
@@ -60,9 +60,9 @@ import { Button, Input, Table } from 'ft-design-system/core';`}
             </div>
 
             <div className="space-y-2">
-                <h2 className="text-2xl font-semibold">Tailwind Config</h2>
+                <h2 className="text-xl-rem font-semibold">Tailwind Config</h2>
                 <div className="rounded-lg border bg-muted p-4">
-                    <pre className="text-sm font-mono whitespace-pre-wrap">
+                    <pre className="text-sm-rem font-mono whitespace-pre-wrap">
                         {`// tailwind.config.js
 module.exports = {
   content: [
@@ -76,7 +76,7 @@ module.exports = {
 
             <div className="rounded-lg border bg-surface p-4">
                 <h3 className="font-semibold mb-2">Package Includes</h3>
-                <ul className="space-y-1 text-sm">
+                <ul className="space-y-1 text-sm-rem">
                     <li>• 50+ production-ready React components</li>
                     <li>• 190+ custom icons with TypeScript support</li>
                     <li>• Full TypeScript definitions</li>

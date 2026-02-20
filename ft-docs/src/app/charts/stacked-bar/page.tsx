@@ -151,16 +151,16 @@ export default function StackedBarChartsPage() {
   return (
     <div className="space-y-12">
       <div className="mb-12">
-        <h1 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl mb-4">
+        <h1 className="font-heading text-3xl-rem font-bold tracking-tight sm:text-4xl-rem mb-4">
           Stacked Bar Chart
         </h1>
-        <p className="text-lg text-muted-foreground">
+        <p className="text-lg-rem text-muted-foreground">
           A lightweight, CSS-based stacked bar chart component. Unlike Chart.js-based charts,
           this component uses pure React and Tailwind CSS for rendering, making it ideal for
           simple stacked visualizations without additional dependencies.
         </p>
         <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-blue-800">
+          <p className="text-sm-rem text-blue-800">
             <strong>Note:</strong> This is a CSS-based component from the molecules folder.
             For Chart.js-based stacked bars with more features, use the BarChart component
             with <code className="bg-blue-100 px-1 rounded">stacked=&#123;true&#125;</code>.
@@ -172,8 +172,8 @@ export default function StackedBarChartsPage() {
         {stackedBarChartVariants.map((variant) => (
           <div key={variant.id} id={variant.id} className="scroll-mt-20 space-y-4">
             <div>
-              <h2 className="text-2xl font-semibold mb-2">{variant.name}</h2>
-              <p className="text-sm text-muted-foreground">{variant.description}</p>
+              <h2 className="text-xl-rem font-semibold mb-2">{variant.name}</h2>
+              <p className="text-sm-rem text-muted-foreground">{variant.description}</p>
             </div>
             <ComponentPreview code={variant.code} />
           </div>

@@ -17,11 +17,11 @@ export function SiteSidebar({ className, collapsed }: { className?: string; coll
         <>
             {docsConfig.sidebarNav.map((item, index) => (
                 <div key={index} className="pb-4">
-                    <h4 className="mb-1 rounded-md px-2 py-1 text-sm font-semibold">
+                    <h4 className="mb-1 rounded-md px-2 py-1 text-sm-rem font-semibold">
                         {item.title}
                     </h4>
                     {item.items?.length && (
-                        <div className="grid grid-flow-row auto-rows-max text-sm">
+                        <div className="grid grid-flow-row auto-rows-max text-sm-rem">
                             {item.items.map((navItem) => {
                                 const isActive = pathname === navItem.href;
                                 return (

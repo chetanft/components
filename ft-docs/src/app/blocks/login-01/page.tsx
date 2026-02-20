@@ -34,7 +34,7 @@ export default function Login01Page() {
               </PageHeader.Top>
             </PageHeader>
             <p
-              className="px-6 pb-6 text-sm md:text-base"
+              className="px-6 pb-6 text-sm-rem md:text-md-rem"
               style={{ color: "var(--secondary)" }}
             >
               Uses FT Button, Input, and Card primitives so authentication screens remain consistent
@@ -54,7 +54,7 @@ export default function Login01Page() {
               style={{ borderColor: "var(--border-secondary)" }}
             >
               <h2
-                className="text-base font-semibold"
+                className="text-md-rem font-semibold"
                 style={{ color: "var(--primary)" }}
               >
                 Preview

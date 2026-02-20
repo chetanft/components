@@ -99,7 +99,7 @@ function BlockCard({ block }: { block: typeof blocks[0] }) {
             style={{ backgroundColor: "var(--bg-secondary)" }}
           >
             <span
-              className="text-sm font-semibold uppercase tracking-wider"
+              className="text-sm-rem font-semibold uppercase tracking-wider"
               style={{ color: "var(--secondary)" }}
             >
               {block.category}
@@ -119,13 +119,13 @@ function BlockCard({ block }: { block: typeof blocks[0] }) {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h3
-                  className="text-lg font-semibold leading-6"
+                  className="text-lg-rem font-semibold leading-6"
                   style={{ color: "var(--primary)" }}
                 >
                   {block.title}
                 </h3>
                 <p
-                  className="mt-2 text-sm leading-relaxed"
+                  className="mt-2 text-sm-rem leading-relaxed"
                   style={{ color: "var(--secondary)" }}
                 >
                   {block.description}
@@ -140,7 +140,7 @@ function BlockCard({ block }: { block: typeof blocks[0] }) {
             </div>
 
             <div
-              className="flex items-center justify-between text-sm"
+              className="flex items-center justify-between text-sm-rem"
               style={{ color: "var(--tertiary)" }}
             >
               <span>Preview blueprint</span>

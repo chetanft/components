@@ -208,7 +208,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                             <button
                                 onClick={() => setView("preview")}
                                 className={cn(
-                                    "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+                                    "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm-rem font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
                                     view === "preview" ? "bg-muted text-foreground shadow-sm" : "text-muted-foreground hover:bg-muted/50"
                                 )}
                             >
@@ -217,7 +217,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                             <button
                                 onClick={() => setView("code")}
                                 className={cn(
-                                    "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+                                    "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm-rem font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
                                     view === "code" ? "bg-muted text-foreground shadow-sm" : "text-muted-foreground hover:bg-muted/50"
                                 )}
                             >
@@ -227,7 +227,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                         </div>
                         <button
                             onClick={onCopy}
-                            className="inline-flex h-8 w-8 items-center justify-center rounded-md border bg-background text-sm font-medium transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-md border bg-background text-sm-rem font-medium transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                         >
                             {copied ? (
                                 <Check className="h-4 w-4" />
@@ -249,7 +249,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                     {view === "code" && (
                         <div className="relative bg-[var(--bg-secondary)] p-4">
                             <LiveEditor
-                                className="font-mono text-sm"
+                                className="font-mono text-sm-rem"
                                 disabled
                                 style={{
                                     backgroundColor: "transparent",
@@ -259,7 +259,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                         </div>
                     )}
 
-                    <LiveError className="rounded-b-md bg-destructive/10 p-4 text-sm text-destructive" />
+                    <LiveError className="rounded-b-md bg-destructive/10 p-4 text-sm-rem text-destructive" />
                 </div>
             </LiveProvider>
         </div>

@@ -422,8 +422,8 @@ export default function ColorsPage() {
         <div className="container mx-auto max-w-7xl px-4 py-12">
           {/* Header */}
           <div className="mb-12 space-y-4">
-            <h1 className="text-4xl font-bold tracking-tight">Colors</h1>
-            <p className="text-lg text-muted-foreground">
+            <h1 className="text-3xl-rem font-bold tracking-tight">Colors</h1>
+            <p className="text-lg-rem text-muted-foreground">
               The complete color palette in HEX, RGB, HSL, CSS variables, and classes. Ready to copy and paste into your project.
             </p>
           </div>
@@ -432,7 +432,7 @@ export default function ColorsPage() {
           <div className="mb-8 space-y-4">
             {/* Theme Mode Selector */}
             <div className="flex flex-wrap items-center gap-3">
-              <label className="text-sm font-semibold text-foreground">Theme:</label>
+              <label className="text-sm-rem font-semibold text-foreground">Theme:</label>
               <div className="flex flex-wrap gap-2">
                 {(['lightMode', 'darkMode', 'nightMode'] as const).map((mode) => (
                   <Button
@@ -449,7 +449,7 @@ export default function ColorsPage() {
 
             {/* Format Selector */}
             <div className="flex flex-wrap items-center gap-3">
-              <label className="text-sm font-semibold text-foreground">Format:</label>
+              <label className="text-sm-rem font-semibold text-foreground">Format:</label>
               <div className="flex flex-wrap gap-2">
                 {(['hex', 'rgb', 'hsl', 'css', 'tailwind', 'oklch'] as const).map((format) => (
                   <Button
@@ -471,7 +471,7 @@ export default function ColorsPage() {
               const swatches = colorScales[family.name as keyof typeof colorScales] || []
               return (
                 <div key={family.name} className="space-y-4">
-                  <h2 className="text-2xl font-semibold capitalize">{family.label}</h2>
+                  <h2 className="text-xl-rem font-semibold capitalize">{family.label}</h2>
                   <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-11">
                     {swatches.map((swatch) => {
                       const displayValue = getDisplayValue(swatch)
@@ -489,7 +489,7 @@ export default function ColorsPage() {
                           >
                             <div className="absolute inset-0 flex flex-col items-center justify-center rounded-md">
                               <span
-                                className="text-lg font-semibold"
+                                className="text-lg-rem font-semibold"
                                 style={{ color: getContrastColor(swatch.hex) }}
                               >
                                 {shade}
@@ -498,7 +498,7 @@ export default function ColorsPage() {
                                 className="mt-1 opacity-0 transition-opacity group-hover:opacity-100"
                               >
                                 <span
-                                  className="text-xs font-medium"
+                                  className="text-xs-rem font-medium"
                                   style={{ color: getContrastColor(swatch.hex) }}
                                 >
                                   {isCopied ? 'Copied!' : 'Click'}
@@ -507,8 +507,8 @@ export default function ColorsPage() {
                             </div>
                           </div>
                           <div className="space-y-1">
-                            <div className="text-sm font-medium">{swatch.name}</div>
-                            <div className="font-mono text-xs text-muted-foreground break-all">
+                            <div className="text-sm-rem font-medium">{swatch.name}</div>
+                            <div className="font-mono text-xs-rem text-muted-foreground break-all">
                               {displayValue}
                             </div>
                           </div>

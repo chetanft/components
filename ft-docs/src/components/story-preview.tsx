@@ -321,7 +321,7 @@ export function StoryPreview({
         <div className="flex items-center justify-between border-b p-2">
           <div className="flex items-start justify-start gap-2 w-fit">
             {showName && (
-              <span className="text-sm font-medium text-foreground px-2">
+              <span className="text-sm-rem font-medium text-foreground px-2">
                 {formatStoryName(story.name)}
               </span>
             )}
@@ -329,7 +329,7 @@ export function StoryPreview({
               <button
                 onClick={() => handleViewChange("preview")}
                 className={cn(
-                  "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                  "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm-rem font-medium transition-colors",
                   view === "preview"
                     ? "bg-muted text-foreground shadow-sm"
                     : "text-muted-foreground hover:bg-muted/50"
@@ -341,7 +341,7 @@ export function StoryPreview({
               <button
                 onClick={() => handleViewChange("code")}
                 className={cn(
-                  "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                  "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm-rem font-medium transition-colors",
                   view === "code"
                     ? "bg-muted text-foreground shadow-sm"
                     : "text-muted-foreground hover:bg-muted/50"
@@ -354,7 +354,7 @@ export function StoryPreview({
           </div>
           <button
             onClick={onCopy}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md border bg-background text-sm font-medium transition-colors hover:bg-muted"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md border bg-background text-sm-rem font-medium transition-colors hover:bg-muted"
             title="Copy code"
           >
             {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
@@ -377,7 +377,7 @@ export function StoryPreview({
                 const isSingleLine = tokens.length === 1;
                 return (
                   <pre
-                    className={cn(className, "p-4 text-sm font-mono overflow-x-auto")}
+                    className={cn(className, "p-4 text-sm-rem font-mono overflow-x-auto")}
                     style={{ 
                       ...style, 
                       margin: 0, 
@@ -388,7 +388,7 @@ export function StoryPreview({
                     {tokens.map((line, i) => (
                       <div key={i} {...getLineProps({ line })}>
                         {!isSingleLine && (
-                          <span className="select-none opacity-50 w-8 inline-block text-right mr-4 text-xs">
+                          <span className="select-none opacity-50 w-8 inline-block text-right mr-4 text-xs-rem">
                             {i + 1}
                           </span>
                         )}
@@ -472,7 +472,7 @@ export function StoryTabs({ stories, meta, className }: StoryTabsProps) {
             key={story.name}
             onClick={() => setActiveStory(story.name)}
             className={cn(
-              "px-3 py-1.5 text-sm font-medium rounded-md transition-colors",
+              "px-3 py-1.5 text-sm-rem font-medium rounded-md transition-colors",
               activeStory === story.name
                 ? "bg-primary text-primary-foreground"
                 : "text-muted-foreground hover:bg-muted"

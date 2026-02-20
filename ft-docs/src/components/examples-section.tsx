@@ -114,7 +114,7 @@ export function ExamplesSection({
   return (
     <div className="space-y-6 w-full flex flex-col">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h2 className="text-2xl font-semibold tracking-tight">Examples</h2>
+        <h2 className="text-xl-rem font-semibold tracking-tight">Examples</h2>
 
         <div className="flex items-center gap-4">
           {/* Filter buttons */}
@@ -125,7 +125,7 @@ export function ExamplesSection({
                   key={filter}
                   onClick={() => setStoryFilter(filter)}
                   className={cn(
-                    "px-3 py-1 text-xs font-medium rounded-md transition-colors",
+                    "px-3 py-1 text-xs-rem font-medium rounded-md transition-colors",
                     storyFilter === filter
                       ? "bg-[var(--primary)] text-[var(--bg-primary)]"
                       : "bg-[var(--bg-secondary)] text-[var(--secondary)] hover:bg-[var(--color-divider)]"
@@ -158,11 +158,11 @@ export function ExamplesSection({
               const story = normStory.story;
               return (
                 <div key={normStory.id} className="space-y-3">
-                  <h3 className="text-lg font-medium flex items-center gap-2">
+                  <h3 className="text-lg-rem font-medium flex items-center gap-2">
                     {formatStoryName(story.name)}
                     {story.component && (
                       <span
-                        className="px-1.5 py-0.5 text-xs rounded"
+                        className="px-1.5 py-0.5 text-xs-rem rounded"
                         style={{
                           backgroundColor: "var(--info-light)",
                           color: "var(--info-dark)",
@@ -187,7 +187,7 @@ export function ExamplesSection({
           {totalStories > 5 && (
             <button
               onClick={() => setShowAllStories(!showAllStories)}
-              className="flex items-center gap-2 mx-auto px-4 py-2 text-sm font-medium transition-colors"
+              className="flex items-center gap-2 mx-auto px-4 py-2 text-sm-rem font-medium transition-colors"
               style={{
                 color: "var(--secondary)",
               }}

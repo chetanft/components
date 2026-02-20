@@ -85,7 +85,7 @@ import { Button } from 'ft-design-system/core';
 ### 3. Use component props, not utility classes
 \`\`\`tsx
 // ❌ WRONG - Tailwind classes ignored on FT components
-<Button className="h-16 text-xl">Big Button</Button>
+<Button className="h-16 text-lg-rem">Big Button</Button>
 
 // ✅ CORRECT - use size prop
 <Button size="lg">Big Button</Button>

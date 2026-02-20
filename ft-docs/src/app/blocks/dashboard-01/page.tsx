@@ -36,7 +36,7 @@ export default function Dashboard01Page() {
               </PageHeader.Top>
             </PageHeader>
             <p
-              className="px-6 pb-6 text-sm md:text-base"
+              className="px-6 pb-6 text-sm-rem md:text-md-rem"
               style={{ color: "var(--secondary)" }}
             >
               Every surface below inherits FT Design System tokens for backgrounds, borders, and
@@ -56,7 +56,7 @@ export default function Dashboard01Page() {
               style={{ borderColor: "var(--border-secondary)" }}
             >
               <h2
-                className="text-base font-semibold"
+                className="text-md-rem font-semibold"
                 style={{ color: "var(--primary)" }}
               >
                 Preview

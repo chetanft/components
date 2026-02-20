@@ -5,8 +5,8 @@ export default function ForDesignersPage() {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-4xl font-bold mb-2">For Designers</h1>
-                <p className="text-muted-foreground text-lg">
+                <h1 className="text-3xl-rem font-bold mb-2">For Designers</h1>
+                <p className="text-muted-foreground text-lg-rem">
                     Resources and guidelines for designers working with the FT Design System
                 </p>
             </div>
@@ -15,12 +15,12 @@ export default function ForDesignersPage() {
                 <div className="rounded-lg border bg-surface p-6">
                     <div className="flex items-center gap-3 mb-4">
                         <Figma className="h-6 w-6 text-primary" />
-                        <h2 className="text-xl font-semibold">Figma Design Files</h2>
+                        <h2 className="text-lg-rem font-semibold">Figma Design Files</h2>
                     </div>
-                    <p className="text-sm text-muted-foreground mb-4">
+                    <p className="text-sm-rem text-muted-foreground mb-4">
                         Access the latest design files and component specifications in Figma.
                     </p>
-                    <ul className="space-y-2 text-sm">
+                    <ul className="space-y-2 text-sm-rem">
                         <li>• Component library with all variants</li>
                         <li>• Design tokens and color system</li>
                         <li>• Spacing and typography guidelines</li>
@@ -31,12 +31,12 @@ export default function ForDesignersPage() {
                 <div className="rounded-lg border bg-surface p-6">
                     <div className="flex items-center gap-3 mb-4">
                         <Palette className="h-6 w-6 text-primary" />
-                        <h2 className="text-xl font-semibold">Design Tokens</h2>
+                        <h2 className="text-lg-rem font-semibold">Design Tokens</h2>
                     </div>
-                    <p className="text-sm text-muted-foreground mb-4">
+                    <p className="text-sm-rem text-muted-foreground mb-4">
                         Use consistent design tokens when creating new designs.
                     </p>
-                    <ul className="space-y-2 text-sm">
+                    <ul className="space-y-2 text-sm-rem">
                         <li>• Color palette (primary, secondary, tertiary)</li>
                         <li>• Spacing system (8px grid)</li>
                         <li>• Typography scale</li>
@@ -44,7 +44,7 @@ export default function ForDesignersPage() {
                     </ul>
                     <Link 
                         href="/docs/global-css" 
-                        className="text-primary hover:underline text-sm mt-4 inline-block"
+                        className="text-primary hover:underline text-sm-rem mt-4 inline-block"
                     >
                         View all design tokens →
                     </Link>
@@ -53,12 +53,12 @@ export default function ForDesignersPage() {
                 <div className="rounded-lg border bg-surface p-6">
                     <div className="flex items-center gap-3 mb-4">
                         <Code className="h-6 w-6 text-primary" />
-                        <h2 className="text-xl font-semibold">Component Specifications</h2>
+                        <h2 className="text-lg-rem font-semibold">Component Specifications</h2>
                     </div>
-                    <p className="text-sm text-muted-foreground mb-4">
+                    <p className="text-sm-rem text-muted-foreground mb-4">
                         Understand how designs translate to code components.
                     </p>
-                    <ul className="space-y-2 text-sm">
+                    <ul className="space-y-2 text-sm-rem">
                         <li>• Component naming conventions</li>
                         <li>• Props and variants mapping</li>
                         <li>• Responsive behavior</li>
@@ -66,7 +66,7 @@ export default function ForDesignersPage() {
                     </ul>
                     <Link 
                         href="/docs/components/button" 
-                        className="text-primary hover:underline text-sm mt-4 inline-block"
+                        className="text-primary hover:underline text-sm-rem mt-4 inline-block"
                     >
                         Browse components →
                     </Link>
@@ -75,12 +75,12 @@ export default function ForDesignersPage() {
                 <div className="rounded-lg border bg-surface p-6">
                     <div className="flex items-center gap-3 mb-4">
                         <FileText className="h-6 w-6 text-primary" />
-                        <h2 className="text-xl font-semibold">Design Guidelines</h2>
+                        <h2 className="text-lg-rem font-semibold">Design Guidelines</h2>
                     </div>
-                    <p className="text-sm text-muted-foreground mb-4">
+                    <p className="text-sm-rem text-muted-foreground mb-4">
                         Best practices for creating designs that align with the system.
                     </p>
-                    <ul className="space-y-2 text-sm">
+                    <ul className="space-y-2 text-sm-rem">
                         <li>• Component composition patterns</li>
                         <li>• Layout and spacing rules</li>
                         <li>• Color usage guidelines</li>
@@ -90,7 +90,7 @@ export default function ForDesignersPage() {
             </div>
 
             <div className="rounded-lg border bg-muted p-6">
-                <h2 className="text-2xl font-semibold mb-4">Quick Links</h2>
+                <h2 className="text-xl-rem font-semibold mb-4">Quick Links</h2>
                 <div className="grid gap-3 md:grid-cols-2">
                     <Link 
                         href="/docs/global-css" 
@@ -125,7 +125,7 @@ export default function ForDesignersPage() {
 
             <div className="rounded-lg border border-primary/20 bg-primary/5 p-6">
                 <h3 className="font-semibold mb-2">Design Handoff Process</h3>
-                <ol className="space-y-2 text-sm list-decimal list-inside">
+                <ol className="space-y-2 text-sm-rem list-decimal list-inside">
                     <li>Create designs using FT Design System components in Figma</li>
                     <li>Use design tokens for colors, spacing, and typography</li>
                     <li>Annotate component variants and states</li>

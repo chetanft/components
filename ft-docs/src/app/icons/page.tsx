@@ -670,11 +670,11 @@ export default function IconsPage() {
                           />
                         </div>
                         <div className="w-full space-y-1 text-center">
-                          <div className="text-xs font-medium leading-tight break-words">
+                          <div className="text-xs-rem font-medium leading-tight break-words">
                             {iconName}
                           </div>
                           {isCopied && (
-                            <div className="text-xs text-primary font-medium">Copied!</div>
+                            <div className="text-xs-rem text-primary font-medium">Copied!</div>
                           )}
                         </div>
                       </div>
@@ -756,8 +756,8 @@ export default function IconsPage() {
                       />
                     </div>
                     <div className="text-center w-full">
-                      <h2 className="text-3xl font-bold mb-2">{selectedIcon}</h2>
-                      <p className="text-sm text-muted-foreground">
+                      <h2 className="text-xxl-rem font-bold mb-2">{selectedIcon}</h2>
+                      <p className="text-sm-rem text-muted-foreground">
                         {viewMode === "categories" && selectedCategory !== "All"
                           ? `Category: ${selectedCategory}`
                           : "Icon from design system"}
@@ -815,16 +815,16 @@ export default function IconsPage() {
                     {/* Usage Tab */}
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <h3 className="text-lg font-semibold">Usage</h3>
+                        <h3 className="text-lg-rem font-semibold">Usage</h3>
                         <button
                           onClick={() => copyToClipboard(getIconImport(selectedIcon), "jsx")}
-                          className="px-3 py-1.5 text-sm border border-border rounded-md hover:bg-muted transition-colors"
+                          className="px-3 py-1.5 text-sm-rem border border-border rounded-md hover:bg-muted transition-colors"
                         >
                           Copy
                         </button>
                       </div>
                       <div className="p-4 bg-muted/50 rounded-lg border border-border">
-                        <pre className="text-sm font-mono overflow-x-auto">
+                        <pre className="text-sm-rem font-mono overflow-x-auto">
                           <code>{getIconImport(selectedIcon)}</code>
                         </pre>
                       </div>
@@ -850,7 +850,7 @@ export default function IconsPage() {
                       >
                         <span>Copy Name</span>
                         {copiedIcon === selectedIcon && (
-                          <span className="text-xs">✓</span>
+                          <span className="text-xs-rem">✓</span>
                         )}
                       </button>
                     </div>
@@ -879,18 +879,18 @@ export default function IconsPage() {
 
                     {/* Properties */}
                     <div className="pt-4 border-t border-border">
-                      <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div className="grid grid-cols-2 gap-4 text-sm-rem">
                         <div>
                           <span className="text-muted-foreground">Size:</span>
                           <span className="ml-2 font-medium">{iconSize}px</span>
                         </div>
                         <div>
                           <span className="text-muted-foreground">Color:</span>
-                          <span className="ml-2 font-medium font-mono text-xs">{iconColor}</span>
+                          <span className="ml-2 font-medium font-mono text-xs-rem">{iconColor}</span>
                         </div>
                       </div>
-                      <div className="mt-4 text-xs text-muted-foreground">
-                        Press <kbd className="px-1.5 py-0.5 bg-muted rounded text-xs">ESC</kbd> to close
+                      <div className="mt-4 text-xs-rem text-muted-foreground">
+                        Press <kbd className="px-1.5 py-0.5 bg-muted rounded text-xs-rem">ESC</kbd> to close
                       </div>
                     </div>
                   </div>
