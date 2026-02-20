@@ -37,14 +37,16 @@ const sampleItems = [
 ];
 
 // Default breadcrumb
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     items: sampleItems,
   },
 };
 
 // Simple story - separate preview for simple breadcrumb
-export function Simple() {
+/** @deprecated Use composable API instead. */
+export function LegacySimple() {
   return (
     <div className="p-6">
       <Breadcrumb items={[
@@ -56,7 +58,8 @@ export function Simple() {
 }
 
 // With Icons story - separate preview for breadcrumb with icons
-export function WithIcons() {
+/** @deprecated Use composable API instead. */
+export function LegacyWithIcons() {
   return (
     <div className="p-6">
       <Breadcrumb items={[
@@ -69,7 +72,8 @@ export function WithIcons() {
 }
 
 // Long Breadcrumb story - separate preview for long breadcrumb
-export function LongBreadcrumb() {
+/** @deprecated Use composable API instead. */
+export function LegacyLongBreadcrumb() {
   return (
     <div className="p-6">
       <Breadcrumb items={[
@@ -84,7 +88,7 @@ export function LongBreadcrumb() {
 }
 
 // Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <div className="p-6">
       <Breadcrumb>
@@ -113,7 +117,7 @@ export const ComposableBasic: Story = {
   },
 };
 
-export const ComposableWithIcons: Story = {
+export const WithIcons: Story = {
   render: () => (
     <div className="p-6">
       <Breadcrumb>
@@ -142,7 +146,7 @@ export const ComposableWithIcons: Story = {
   },
 };
 
-export const ComposableCustomSeparator: Story = {
+export const CustomSeparator: Story = {
   render: () => (
     <div className="p-6">
       <Breadcrumb>
@@ -174,7 +178,8 @@ export const ComposableCustomSeparator: Story = {
 };
 
 // Mark deprecated examples
-export const DefaultWithItems: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefaultWithItems: Story = {
   args: {
     items: sampleItems,
   },
@@ -186,4 +191,3 @@ export const DefaultWithItems: Story = {
     },
   },
 };
-

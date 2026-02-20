@@ -75,14 +75,15 @@ export default meta;
 type Story = StoryObj<typeof TreeSelect>;
 
 // Declarative API
-export const DeclarativeDefault: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeDefault: Story = {
   args: {
     helperText: 'Use search to quickly filter nodes',
   },
 };
 
 // Composable API
-export const ComposableDefault: Story = {
+export const Default: Story = {
   render: () => (
     <TreeSelect
       label="Select organization unit"
@@ -109,7 +110,8 @@ export const ComposableDefault: Story = {
   ),
 };
 
-export const MultipleSelection: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyMultipleSelection: Story = {
   args: {
     multiple: true,
     treeCheckable: true,
@@ -119,7 +121,8 @@ export const MultipleSelection: Story = {
   },
 };
 
-export const WithError: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithError: Story = {
   args: {
     error: 'Please choose at least one team',
     allowClear: false,

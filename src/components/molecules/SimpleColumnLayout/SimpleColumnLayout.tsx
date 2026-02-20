@@ -3,6 +3,8 @@
 import React from 'react';
 import { Table } from '../../organisms/Table';
 import type { TableColumn, TableRowData } from '../../organisms/Table';
+import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface SimpleColumnCell {
   title: React.ReactNode;
@@ -29,6 +31,8 @@ export interface SimpleColumnLayoutProps
    * Alternate row backgrounds to match Figma visual
    */
   striped?: boolean;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 /**
@@ -49,11 +53,13 @@ export const SimpleColumnLayout = React.forwardRef<
       headerRight = 'Column header',
       rows,
       striped = true,
+      glass,
       className,
       ...props
     },
     ref
   ) => {
+    const resolvedGlass = useResolvedGlass(glass);
     if (!rows?.length) {
       return null;
     }
@@ -117,7 +123,7 @@ export const SimpleColumnLayout = React.forwardRef<
     ];
 
     return (
-      <div ref={ref} className={className} {...props}>
+      <div ref={ref} className={cn(getGlassClasses(resolvedGlass, '', ''), className)} {...props}>
         <Table
           columns={columns}
           data={tableData}

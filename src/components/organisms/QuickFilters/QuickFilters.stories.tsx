@@ -20,7 +20,8 @@ export default meta;
 type Story = StoryObj<typeof QuickFilters>;
 
 // Declarative API - Single filters
-export function DeclarativeSingleFilters() {
+/** @deprecated Use composable API instead. */
+export function LegacyDeclarativeSingleFilters() {
   const filters: QuickFilterType[] = [
     { id: 'filter-1', label: 'All Items' },
     { id: 'filter-2', label: 'Active', count: 12 },
@@ -40,7 +41,7 @@ export function DeclarativeSingleFilters() {
 }
 
 // Composable API - Single filters
-export function ComposableSingleFilters() {
+export function Default() {
   return (
     <div className="p-6">
       <QuickFilters
@@ -57,7 +58,8 @@ export function ComposableSingleFilters() {
 }
 
 // Single filters with types
-export function SingleFiltersWithTypes() {
+/** @deprecated Use composable API instead. */
+export function LegacySingleFiltersWithTypes() {
   const filters: QuickFilter[] = [
     { id: 'filter-1', label: 'Alert', count: 19, type: 'alert' },
     { id: 'filter-2', label: 'Warning', count: 5, type: 'warning' },
@@ -78,7 +80,8 @@ export function SingleFiltersWithTypes() {
 }
 
 // Selected filters
-export function SelectedFilters() {
+/** @deprecated Use composable API instead. */
+export function LegacySelectedFilters() {
   const filters: QuickFilter[] = [
     { id: 'filter-1', label: 'All Items', selected: true },
     { id: 'filter-2', label: 'Active', count: 12, selected: true },
@@ -98,7 +101,8 @@ export function SelectedFilters() {
 }
 
 // Custom label styling
-export function CustomLabelStyling() {
+/** @deprecated Use composable API instead. */
+export function LegacyCustomLabelStyling() {
   const filters: QuickFilter[] = [
     { id: 'filter-1', label: 'All Items', selected: true },
     { id: 'filter-2', label: 'Active', count: 12 },
@@ -119,7 +123,8 @@ export function CustomLabelStyling() {
 }
 
 // Declarative API - Multi-option filters
-export function DeclarativeMultiOptionFilters() {
+/** @deprecated Use composable API instead. */
+export function LegacyDeclarativeMultiOptionFilters() {
   const filters: QuickFilterType[] = [
     {
       id: 'duration',
@@ -154,7 +159,7 @@ export function DeclarativeMultiOptionFilters() {
 }
 
 // Composable API - Multi-option filters
-export function ComposableMultiOptionFilters() {
+export function MultiOptionFilters() {
   return (
     <div className="p-6">
       <QuickFilters
@@ -177,7 +182,8 @@ export function ComposableMultiOptionFilters() {
 }
 
 // Mixed filters (single + multi-option)
-export function MixedFilters() {
+/** @deprecated Use composable API instead. */
+export function LegacyMixedFilters() {
   const filters: QuickFilter[] = [
     { id: 'long-stoppage', label: 'Long Stoppage', count: 19, type: 'alert', selected: true },
     { id: 'route-deviation', label: 'Route Deviation', count: 19, type: 'warning' },
@@ -206,7 +212,8 @@ export function MixedFilters() {
 }
 
 // Multi-option with types
-export function MultiOptionWithTypes() {
+/** @deprecated Use composable API instead. */
+export function LegacyMultiOptionWithTypes() {
   const filters: QuickFilter[] = [
     {
       id: 'alerts',
@@ -232,7 +239,8 @@ export function MultiOptionWithTypes() {
 }
 
 // Interactive example
-export function Interactive() {
+/** @deprecated Use composable API instead. */
+export function LegacyInteractive() {
   const [filters, setFilters] = React.useState<QuickFilter[]>([
     { id: 'filter-1', label: 'All Items', selected: true },
     { id: 'filter-2', label: 'Active', count: 12 },
@@ -300,7 +308,8 @@ export function Interactive() {
 }
 
 // Figma design example with horizontal scroll
-export function FigmaDesignExample() {
+/** @deprecated Use composable API instead. */
+export function LegacyFigmaDesignExample() {
   const [filters, setFilters] = React.useState<QuickFilter[]>([
     { id: 'long-stoppage', label: 'Long Stoppage', count: 19, type: 'alert', selected: true },
     { id: 'route-deviation', label: 'Route Deviation', count: 19, type: 'alert' },

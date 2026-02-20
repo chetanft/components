@@ -55,13 +55,15 @@ const ControlledRateStory = (props: RateStoryProps) => {
   );
 };
 
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     defaultValue: 3,
   },
 };
 
-export const Sizes: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySizes: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4">
@@ -96,28 +98,32 @@ export const Sizes: Story = {
   ),
 };
 
-export const HalfStars: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyHalfStars: Story = {
   args: {
     allowHalf: true,
     defaultValue: 2.5,
   },
 };
 
-export const WithTooltips: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithTooltips: Story = {
   args: {
     tooltips: ['Terrible', 'Bad', 'Normal', 'Good', 'Excellent'],
     defaultValue: 3,
   },
 };
 
-export const Disabled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDisabled: Story = {
   args: {
     disabled: true,
     defaultValue: 4,
   },
 };
 
-export const ReadOnly: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyReadOnly: Story = {
   args: {
     readOnly: true,
     defaultValue: 4.5,
@@ -125,14 +131,16 @@ export const ReadOnly: Story = {
   },
 };
 
-export const CustomCount: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyCustomCount: Story = {
   args: {
     count: 10,
     defaultValue: 7,
   },
 };
 
-export const Controlled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyControlled: Story = {
   render: (args: React.ComponentProps<typeof Rate>) => <ControlledRateStory {...args} />,
 };
 
@@ -150,7 +158,7 @@ function ComposableBasicComponent() {
   );
 }
 
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => <ComposableBasicComponent />,
 };
 
@@ -167,7 +175,7 @@ function ComposableWithHalfStarsComponent() {
   );
 }
 
-export const ComposableWithHalfStars: Story = {
+export const WithHalfStars: Story = {
   render: () => <ComposableWithHalfStarsComponent />,
 };
 
@@ -185,7 +193,7 @@ function ComposableWithTooltipsComponent() {
   );
 }
 
-export const ComposableWithTooltips: Story = {
+export const WithTooltips: Story = {
   render: () => <ComposableWithTooltipsComponent />,
 };
 
@@ -202,11 +210,11 @@ function ComposableCustomCharacterComponent() {
   );
 }
 
-export const ComposableCustomCharacter: Story = {
+export const CustomCharacter: Story = {
   render: () => <ComposableCustomCharacterComponent />,
 };
 
-export const ComposableDisabled: Story = {
+export const Disabled: Story = {
   render: () => (
     <Rate value={4} count={5} size="md" disabled>
       {Array.from({ length: 5 }, (_, i) => (

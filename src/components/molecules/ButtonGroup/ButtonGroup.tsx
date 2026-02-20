@@ -5,6 +5,7 @@ import { Button } from '../../atoms/Button';
 import type { ButtonProps } from '../../atoms/Button';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface ButtonGroupItem {
   id?: string;
@@ -29,6 +30,8 @@ export interface ButtonGroupProps extends ComposableProps<'div'> {
   buttons?: ButtonGroupItem[];
   equalWidth?: boolean;
   wrap?: boolean;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   /**
    * Button group content (for composable API)
    */
@@ -52,6 +55,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
       buttons,
       equalWidth = false,
       wrap = false,
+      glass,
       className,
       children,
       asChild,
@@ -59,6 +63,8 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
     },
     ref
   ) => {
+    const resolvedGlass = useResolvedGlass(glass);
+
     // Check if using composable API (has children)
     const hasComposableChildren = React.Children.count(children) > 0;
     
@@ -76,6 +82,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
             'inline-flex items-center gap-[var(--spacing-x2)]',
             wrap ? 'flex-wrap' : 'flex-nowrap',
             equalWidth && 'w-full',
+            getGlassClasses(resolvedGlass, '', ''),
             className
           )}
           {...props}
@@ -108,6 +115,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
           'inline-flex items-center gap-[var(--spacing-x2)]',
           wrap ? 'flex-wrap' : 'flex-nowrap',
           equalWidth && 'w-full',
+          getGlassClasses(resolvedGlass, '', ''),
           className
         )}
         {...props}

@@ -19,7 +19,8 @@ export default meta;
 type Story = StoryObj<typeof Mentions>;
 
 // Declarative API Examples
-export const DeclarativeBasic: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeBasic: Story = {
   render: () => (
     <Mentions
       style={{ width: '100%', height: 100 }}
@@ -33,7 +34,8 @@ export const DeclarativeBasic: Story = {
   ),
 };
 
-export const DeclarativeCustomPrefix: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeCustomPrefix: Story = {
   render: () => (
     <Mentions
       style={{ width: '100%', height: 100 }}
@@ -49,7 +51,7 @@ export const DeclarativeCustomPrefix: Story = {
 };
 
 // Composable API Examples
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <Mentions
       style={{ width: '100%', height: 100 }}
@@ -62,7 +64,7 @@ export const ComposableBasic: Story = {
   ),
 };
 
-export const ComposableCustomPrefix: Story = {
+export const CustomPrefix: Story = {
   render: () => (
     <Mentions
       style={{ width: '100%', height: 100 }}
@@ -76,7 +78,7 @@ export const ComposableCustomPrefix: Story = {
   ),
 };
 
-export const ComposableWithRichContent: Story = {
+export const WithRichContent: Story = {
   render: () => (
     <Mentions
       style={{ width: '100%', height: 100 }}

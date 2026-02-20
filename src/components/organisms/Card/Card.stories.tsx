@@ -30,7 +30,7 @@ export const Default: Story = {
   },
 };
 
-export const ComposableBasic: Story = {
+export const Basic: Story = {
   render: () => (
     <Card>
       <CardHeader>
@@ -46,7 +46,7 @@ export const ComposableBasic: Story = {
   ),
 };
 
-export const ComposableWithFooter: Story = {
+export const WithFooter: Story = {
   render: () => (
     <Card>
       <CardHeader>
@@ -68,7 +68,7 @@ export const ComposableWithFooter: Story = {
   ),
 };
 
-export const ComposableWithMeta: Story = {
+export const WithMeta: Story = {
   render: () => (
     <Card>
       <CardHeader>
@@ -91,7 +91,7 @@ export const ComposableWithMeta: Story = {
   ),
 };
 
-export const ComposableWithBadges: Story = {
+export const WithBadges: Story = {
   render: () => (
     <Card>
       <CardHeader>
@@ -118,7 +118,7 @@ export const ComposableWithBadges: Story = {
   ),
 };
 
-export const ComposableComplex: Story = {
+export const Complex: Story = {
   render: () => (
     <Card>
       <CardHeader>

@@ -27,7 +27,8 @@ export default meta;
 type Story = StoryObj<typeof SegmentedTabs>;
 
 // Declarative API Examples
-export const DeclarativeDefault: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeDefault: Story = {
   args: {
     items: [
       { label: 'Tab 1', value: 'tab1' },
@@ -38,7 +39,8 @@ export const DeclarativeDefault: Story = {
   },
 };
 
-export const DeclarativeWithIcons: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeWithIcons: Story = {
   args: {
     items: [
       { label: 'Home', value: 'home', icon: <Icon name="home" size={16} /> },
@@ -49,7 +51,8 @@ export const DeclarativeWithIcons: Story = {
   },
 };
 
-export const DeclarativeIconOnly: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeIconOnly: Story = {
   args: {
     variant: 'icon-only',
     items: [
@@ -73,7 +76,7 @@ function ComposableBasicComponent() {
   );
 }
 
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => <ComposableBasicComponent />,
 };
 
@@ -100,7 +103,7 @@ function ComposableWithIconsComponent() {
   );
 }
 
-export const ComposableWithIcons: Story = {
+export const WithIcons: Story = {
   render: () => <ComposableWithIconsComponent />,
 };
 
@@ -127,7 +130,7 @@ function ComposableIconOnlyComponent() {
   );
 }
 
-export const ComposableIconOnly: Story = {
+export const IconOnly: Story = {
   render: () => <ComposableIconOnlyComponent />,
 };
 
@@ -147,7 +150,7 @@ function ComposableControlledComponent() {
   );
 }
 
-export const ComposableControlled: Story = {
+export const Controlled: Story = {
   render: () => <ComposableControlledComponent />,
 };
 

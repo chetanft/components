@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface AnchorLinkProps {
   href: string;
@@ -29,6 +30,8 @@ export interface AnchorProps {
   onChange?: (currentActiveLink: string) => void;
   onClick?: (e: React.MouseEvent<HTMLElement>, link: { title: React.ReactNode; href: string }) => void;
   direction?: 'vertical' | 'horizontal';
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   /** Anchor links (for composable API) */
   children?: React.ReactNode; // Can be used for custom link rendering structure
   className?: string;
@@ -79,12 +82,14 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
   onChange,
   onClick,
   direction = 'vertical',
+  glass,
   children,
   className,
   style,
   ...props
 }, ref) => {
   const [activeLink, setActiveLink] = useState<string>('');
+  const resolvedGlass = useResolvedGlass(glass);
   
   // Helper to render links recursively
   const renderLinks = (links: AnchorLinkProps[]) => {
@@ -163,9 +168,10 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
     <div 
       ref={ref} 
       className={cn(
-        "ft-anchor relative", 
+        "ft-anchor relative",
         affix ? "sticky top-4" : "", // Simple sticky implementation for 'affix'
         direction === 'horizontal' ? "flex flex-row space-x-4" : "flex flex-col",
+        getGlassClasses(resolvedGlass, '', ''),
         className
       )}
       style={style}

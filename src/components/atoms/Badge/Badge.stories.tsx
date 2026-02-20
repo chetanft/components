@@ -16,49 +16,56 @@ const meta: Meta<typeof Badge> = {
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     children: 'Badge',
     variant: 'normal',
   },
 };
 
-export const Normal: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyNormal: Story = {
   args: {
     children: 'Normal',
     variant: 'normal',
   },
 };
 
-export const Danger: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDanger: Story = {
   args: {
     children: 'Danger',
     variant: 'danger',
   },
 };
 
-export const Success: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySuccess: Story = {
   args: {
     children: 'Success',
     variant: 'success',
   },
 };
 
-export const Warning: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWarning: Story = {
   args: {
     children: 'Warning',
     variant: 'warning',
   },
 };
 
-export const Neutral: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyNeutral: Story = {
   args: {
     children: 'Neutral',
     variant: 'neutral',
   },
 };
 
-export const AllVariants: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyAllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Badge variant="normal">Normal</Badge>
@@ -70,7 +77,8 @@ export const AllVariants: Story = {
   ),
 };
 
-export const NotificationDot: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyNotificationDot: Story = {
     render: () => (
         <Badge dot>
             <div style={{ width: 40, height: 40, background: '#eee', borderRadius: 4 }} />
@@ -78,7 +86,8 @@ export const NotificationDot: Story = {
     )
 };
 
-export const NotificationCount: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyNotificationCount: Story = {
     render: () => (
         <div className="flex gap-4">
             <Badge count={5}>
@@ -91,7 +100,8 @@ export const NotificationCount: Story = {
     )
 };
 
-export const Status: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyStatus: Story = {
     render: () => (
         <div className="flex flex-col gap-2">
             <Badge status="success" text="Success" />
@@ -103,7 +113,8 @@ export const Status: Story = {
     )
 };
 
-export const WithRibbon: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithRibbon: Story = {
     render: () => (
         <Ribbon text="Hippies">
             <div style={{ width: 300, height: 100, border: '1px solid #eee', padding: 10 }}>
@@ -113,7 +124,8 @@ export const WithRibbon: Story = {
     )
 };
 
-export function Sizes() {
+/** @deprecated Use composable API instead. */
+export function LegacySizes() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex flex-col gap-2">
@@ -137,7 +149,7 @@ export function Sizes() {
 }
 
 // Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Badge variant="success">
@@ -167,7 +179,7 @@ export const ComposableBasic: Story = {
   },
 };
 
-export const ComposableWithCustomIcon: Story = {
+export const WithCustomIcon: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Badge variant="success">
@@ -192,7 +204,7 @@ export const ComposableWithCustomIcon: Story = {
   },
 };
 
-export const ComposableTextOnly: Story = {
+export const TextOnly: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Badge variant="success">

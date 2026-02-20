@@ -8,6 +8,7 @@ import { Icon } from '../../atoms/Icons';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import { Typography } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export type UploadItemType = 'card' | 'text' | 'thumbnail';
 export type UploadItemState = 'uploading' | 'uploaded' | 'saved' | 'error';
@@ -28,6 +29,8 @@ export interface UploadItemProps extends ComposableProps<'div'> {
   file: UploadFile;
   onDelete?: () => void;
   onRetry?: () => void;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
@@ -38,9 +41,11 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
     file,
     onDelete,
     onRetry,
+    glass,
     asChild,
-    ...props 
+    ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     
     // Determine file icon type
     const getFileIconType = () => {
@@ -131,7 +136,7 @@ export const UploadItem = React.forwardRef<HTMLDivElement, UploadItemProps>(
         {...props}
       >
         <div className={cn(
-          "w-full bg-[var(--bg-primary)] border border-[var(--border-secondary)]",
+          "w-full", getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
           "rounded-[var(--radius-md)] overflow-hidden"
         )}>
           {/* Spacer */}

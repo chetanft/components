@@ -51,31 +51,119 @@ const meta: Meta<typeof Modal> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Default modal
+function DefaultModalRender() {
+  return (
+    <div className="p-6">
+      <Modal>
+        <ModalTrigger asChild>
+          <Button>Open Modal</Button>
+        </ModalTrigger>
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>Modal Title</ModalTitle>
+          </ModalHeader>
+          <ModalBody>
+            <p>Modal content goes here</p>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </div>
+  );
+}
+
+// Default modal using composable API
 export const Default: Story = {
-  render: function DefaultModal(args) {
-    const [open, setOpen] = React.useState(true);
-    return (
-      <div className="p-6">
-        <Button onClick={() => setOpen(true)}>Open Modal</Button>
-        <Modal
-          {...args}
-          open={open}
-          onClose={() => setOpen(false)}
-        />
-      </div>
-    );
-  },
-  args: {
-    title: 'Modal Title',
-    closable: true,
-    maskClosable: true,
-    children: 'Modal content goes here',
-  },
+  render: () => <DefaultModalRender />,
 };
 
-// Basic Modal story
+// --- Composable API stories ---
+
+// Basic modal with composable API
 export function BasicModal() {
+  return (
+    <div className="p-6">
+      <Modal>
+        <ModalTrigger asChild>
+          <Button>Open Modal</Button>
+        </ModalTrigger>
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>Basic Modal</ModalTitle>
+          </ModalHeader>
+          <ModalBody>
+            <p>This is a basic modal with a title and close button.</p>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </div>
+  );
+}
+
+// Modal with footer using composable API
+export function WithFooter() {
+  return (
+    <div className="p-6">
+      <Modal>
+        <ModalTrigger asChild>
+          <Button>Open Modal</Button>
+        </ModalTrigger>
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>Modal with Footer</ModalTitle>
+          </ModalHeader>
+          <ModalBody>
+            <p>This modal has a footer with action buttons.</p>
+          </ModalBody>
+          <ModalFooter>
+            <ModalClose asChild>
+              <Button variant="secondary">Cancel</Button>
+            </ModalClose>
+            <Button variant="primary">Confirm</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </div>
+  );
+}
+
+// Modal sizes using composable API
+export function Sizes() {
+  return (
+    <div className="p-6 space-y-4">
+      <h3 className="text-lg font-semibold mb-4">Modal Sizes</h3>
+      <div className="flex flex-wrap gap-4">
+        {(['sm', 'md', 'lg', 'xl', 'full'] as const).map((size) => (
+          <Modal key={size}>
+            <ModalTrigger asChild>
+              <Button>{size.toUpperCase()}</Button>
+            </ModalTrigger>
+            <ModalContent size={size}>
+              <ModalHeader>
+                <ModalTitle>Modal Size: {size}</ModalTitle>
+              </ModalHeader>
+              <ModalBody>
+                <p>This modal is using the <strong>{size}</strong> size preset.</p>
+                <p className="mt-2 text-gray-500">
+                  Content adapts to the width of the modal.
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <ModalClose asChild>
+                  <Button variant="secondary">Close</Button>
+                </ModalClose>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// --- Legacy declarative API stories ---
+
+/** @deprecated Use BasicModal (composable API) instead. */
+export function LegacyBasicModal() {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -92,8 +180,8 @@ export function BasicModal() {
   );
 }
 
-// Without Title story
-export function WithoutTitle() {
+/** @deprecated Use composable API instead. */
+export function LegacyWithoutTitle() {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -110,8 +198,8 @@ export function WithoutTitle() {
   );
 }
 
-// With Footer story
-export function WithFooter() {
+/** @deprecated Use WithFooter (composable API) instead. */
+export function LegacyWithFooter() {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -134,8 +222,8 @@ export function WithFooter() {
   );
 }
 
-// Interactive Demo - all variants shown together and interactable
-export function InteractiveDemo() {
+/** @deprecated Use composable API instead. */
+export function LegacyInteractiveDemo() {
   const [basicOpen, setBasicOpen] = React.useState(false);
   const [footerOpen, setFooterOpen] = React.useState(false);
   const [noTitleOpen, setNoTitleOpen] = React.useState(false);
@@ -209,8 +297,8 @@ export function InteractiveDemo() {
   );
 }
 
-// Sizes story
-export function Sizes() {
+/** @deprecated Use Sizes (composable API) instead. */
+export function LegacySizes() {
   const [open, setOpen] = React.useState(false);
   const [size, setSize] = React.useState<'sm' | 'md' | 'lg' | 'xl' | 'full'>('md');
 
@@ -246,4 +334,3 @@ export function Sizes() {
     </div>
   );
 }
-

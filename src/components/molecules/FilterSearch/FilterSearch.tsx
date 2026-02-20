@@ -6,6 +6,7 @@ import { Input, InputField } from '../../atoms/Input';
 import { Button } from '../../atoms/Button/Button';
 import { useMediaQuery } from '../../../lib/hooks/useMediaQuery';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface FilterSearchProps extends Omit<ComposableProps<'div'>, 'onChange'> {
   /**
@@ -32,6 +33,8 @@ export interface FilterSearchProps extends Omit<ComposableProps<'div'>, 'onChang
    * Additional CSS classes
    */
   className?: string;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 /**
@@ -52,8 +55,9 @@ export interface FilterSearchProps extends Omit<ComposableProps<'div'>, 'onChang
  * ```
  */
 export const FilterSearch = React.forwardRef<HTMLDivElement, FilterSearchProps>(
-  ({ value, onChange, placeholder = 'Search', onExpand, onCollapse, className, asChild, ...props }, ref) => {
+  ({ value, onChange, placeholder = 'Search', onExpand, onCollapse, className, glass, asChild, ...props }, ref) => {
     const isMobile = useMediaQuery('(max-width: 1199px)');
+    const resolvedGlass = useResolvedGlass(glass);
     const [isExpanded, setIsExpanded] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -127,7 +131,7 @@ export const FilterSearch = React.forwardRef<HTMLDivElement, FilterSearchProps>(
     // Desktop: render full input
     if (!isMobile) {
       return (
-        <Comp ref={ref} className={cn('w-full', className)} {...props}>
+        <Comp ref={ref} className={cn('w-full', getGlassClasses(resolvedGlass, '', ''), className)} {...props}>
           <Input size="md" variant="default">
             <InputField
               type="text"
@@ -148,6 +152,7 @@ export const FilterSearch = React.forwardRef<HTMLDivElement, FilterSearchProps>(
         className={cn(
           'filter-search-container flex items-center gap-[var(--x2,8px)] transition-all duration-200',
           isExpanded ? 'flex-1' : '',
+          getGlassClasses(resolvedGlass, '', ''),
           className
         )}
         {...props}

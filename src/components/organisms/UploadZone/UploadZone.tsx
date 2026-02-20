@@ -4,6 +4,7 @@ import React, { useState, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
 import { Typography } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export type UploadZoneType = 'drag-drop' | 'button' | 'thumbnail';
 export type UploadZoneState = 'default' | 'hover' | 'disabled';
@@ -16,6 +17,8 @@ export interface UploadZoneProps extends ComposableProps<'div'> {
   maxFileSize?: number;
   disabled?: boolean;
   multiple?: boolean;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
@@ -28,11 +31,13 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
     maxFileSize = 10,
     disabled = false,
     multiple = false,
+    glass,
     asChild,
-    ...props 
+    ...props
   }, ref) => {
-    
+
     const [isDragActive, setIsDragActive] = useState(false);
+    const resolvedGlass = useResolvedGlass(glass);
     const isDisabled = disabled || state === 'disabled';
     const isHover = state === 'hover' || isDragActive;
     
@@ -104,11 +109,9 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
           className={cn(
             // Base styles from Figma
             "flex flex-col items-center justify-center gap-[var(--spacing-x5)] px-[var(--spacing-x5)] py-[var(--spacing-x3)]",
-            "border border-dashed rounded-[var(--radius-md)]",
+            "border-dashed rounded-[var(--radius-md)]",
             "cursor-pointer transition-all duration-200",
-            "bg-[var(--bg-secondary)]",
-            // Default state
-            "border-[var(--border-primary)]",
+            getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border border-[var(--border-primary)]'),
             // Hover/Active state
             isHover && !isDisabled && "border-[var(--primary)]",
             // Disabled state

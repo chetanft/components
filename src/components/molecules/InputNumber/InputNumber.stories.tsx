@@ -36,7 +36,7 @@ export default meta;
 type Story = StoryObj<typeof InputNumber>;
 
 // Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <div className="p-6">
       <InputNumber defaultValue={0}>
@@ -56,7 +56,7 @@ export const ComposableBasic: Story = {
   },
 };
 
-export const ComposableWithPrefix: Story = {
+export const WithPrefix: Story = {
   render: () => (
     <div className="p-6">
       <InputNumber defaultValue={100}>
@@ -77,7 +77,7 @@ export const ComposableWithPrefix: Story = {
   },
 };
 
-export const ComposableWithSuffix: Story = {
+export const WithSuffix: Story = {
   render: () => (
     <div className="p-6">
       <InputNumber defaultValue={50}>
@@ -99,7 +99,8 @@ export const ComposableWithSuffix: Story = {
 };
 
 // Mark deprecated examples
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     defaultValue: 0,
   },
@@ -112,7 +113,8 @@ export const Default: Story = {
   },
 };
 
-export const Sizes: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySizes: Story = {
   render: () => (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
@@ -161,7 +163,8 @@ export const Sizes: Story = {
   ),
 };
 
-export const WithMinMax: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithMinMax: Story = {
   args: {
     min: 0,
     max: 100,
@@ -169,7 +172,8 @@ export const WithMinMax: Story = {
   },
 };
 
-export const WithStep: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithStep: Story = {
   args: {
     step: 10,
     defaultValue: 0,
@@ -178,7 +182,8 @@ export const WithStep: Story = {
   },
 };
 
-export const WithPrecision: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithPrecision: Story = {
   args: {
     precision: 2,
     step: 0.1,
@@ -186,14 +191,16 @@ export const WithPrecision: Story = {
   },
 };
 
-export const ControlsBoth: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyControlsBoth: Story = {
   args: {
     controlsPosition: 'both',
     defaultValue: 50,
   },
 };
 
-export const WithPrefixSuffix: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithPrefixSuffix: Story = {
   args: {
     prefix: '$',
     suffix: 'USD',
@@ -201,28 +208,32 @@ export const WithPrefixSuffix: Story = {
   },
 };
 
-export const Disabled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDisabled: Story = {
   args: {
     disabled: true,
     defaultValue: 25,
   },
 };
 
-export const Error: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyError: Story = {
   args: {
     error: true,
     defaultValue: -5,
   },
 };
 
-export const NoControls: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyNoControls: Story = {
   args: {
     controls: false,
     defaultValue: 42,
   },
 };
 
-export const WithFormatter: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithFormatter: Story = {
   args: {
     defaultValue: 1000,
     formatter: (value?: number) =>
@@ -245,6 +256,7 @@ const ControlledInputNumberStory = () => {
   );
 };
 
-export const Controlled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyControlled: Story = {
   render: () => <ControlledInputNumberStory />,
 };

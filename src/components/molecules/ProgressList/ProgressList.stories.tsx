@@ -26,7 +26,8 @@ export default meta;
 type Story = StoryObj<typeof ProgressList>;
 
 // Declarative API Examples
-export const DeclarativeBasic: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeBasic: Story = {
   args: {
     items: [
       {
@@ -57,7 +58,8 @@ export const DeclarativeBasic: Story = {
   },
 };
 
-export const DeclarativeWithTime: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeWithTime: Story = {
   args: {
     showTime: true,
     items: [
@@ -86,7 +88,8 @@ export const DeclarativeWithTime: Story = {
   },
 };
 
-export const DeclarativeWithBadges: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeWithBadges: Story = {
   args: {
     items: [
       {
@@ -114,7 +117,7 @@ export const DeclarativeWithBadges: Story = {
 };
 
 // Composable API Examples
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <ProgressList>
       <ProgressListItem
@@ -145,7 +148,7 @@ export const ComposableBasic: Story = {
   ),
 };
 
-export const ComposableWithTime: Story = {
+export const WithTime: Story = {
   render: () => (
     <ProgressList showTime>
       <ProgressListItem
@@ -173,7 +176,7 @@ export const ComposableWithTime: Story = {
   ),
 };
 
-export const ComposableWithIcons: Story = {
+export const WithIcons: Story = {
   render: () => (
     <ProgressList>
       <ProgressListItem
@@ -207,7 +210,7 @@ export const ComposableWithIcons: Story = {
   ),
 };
 
-export const ComposableWithBadges: Story = {
+export const WithBadges: Story = {
   render: () => (
     <ProgressList>
       <ProgressListItem
@@ -234,7 +237,7 @@ export const ComposableWithBadges: Story = {
   ),
 };
 
-export const ComposableWithDivider: Story = {
+export const WithDivider: Story = {
   render: () => (
     <ProgressList>
       <ProgressListItem
@@ -274,7 +277,7 @@ export const ComposableWithDivider: Story = {
   ),
 };
 
-export const ComposableCollapsible: Story = {
+export const Collapsible: Story = {
   render: () => (
     <ProgressList>
       <ProgressListItem

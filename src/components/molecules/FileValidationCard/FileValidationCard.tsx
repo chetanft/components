@@ -7,6 +7,7 @@ import { LoadingSpinner } from '../../atoms/Icons/LoadingSpinner';
 import { Icon } from '../../atoms/Icons';
 import { Badge } from '../../atoms/Badge/Badge';
 import { Typography } from '../../atoms/Typography';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export type ValidationStatus = 'validating' | 'success' | 'failed' | 'partial';
 
@@ -25,6 +26,8 @@ export interface FileValidationCardProps extends React.HTMLAttributes<HTMLDivEle
   onDelete?: () => void;
   onDownload?: () => void;
   onViewDetails?: () => void;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidationCardProps>(
@@ -38,8 +41,10 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
     onDelete,
     onDownload,
     onViewDetails,
-    ...props 
+    glass,
+    ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     
     // Format date
     const formatDate = (date?: Date) => {
@@ -101,7 +106,8 @@ export const FileValidationCard = React.forwardRef<HTMLDivElement, FileValidatio
         {...props}
       >
         <div className={cn(
-          "w-full bg-[var(--bg-primary)] border border-[var(--border-secondary)]",
+          "w-full",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
           "rounded-[var(--radius-md)] overflow-hidden"
         )}>
           {/* Spacer */}

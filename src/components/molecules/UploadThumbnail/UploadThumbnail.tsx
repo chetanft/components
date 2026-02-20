@@ -5,6 +5,7 @@ import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Typography } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface UploadThumbnailProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
   preview?: string | null;
@@ -16,6 +17,8 @@ export interface UploadThumbnailProps extends Omit<ComposableProps<'div'>, 'onSe
   multiple?: boolean;
   disabled?: boolean;
   showFileName?: boolean;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailProps>(
@@ -30,10 +33,12 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
     multiple = false,
     disabled = false,
     showFileName = true,
+    glass,
     asChild,
-    ...props 
+    ...props
   }, ref) => {
     const inputRef = useRef<HTMLInputElement>(null);
+    const resolvedGlass = useResolvedGlass(glass);
     const isDisabled = disabled || state === 'disabled';
     
     const handleClick = () => {
@@ -135,7 +140,7 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
             "transition-all duration-200",
             "cursor-pointer",
             // Default state
-            "border-[var(--color-border-primary)] bg-transparent",
+            getGlassClasses(resolvedGlass, 'bg-transparent', 'border-[var(--color-border-primary)]'),
             // Hover state
             !isDisabled && "hover:border-[var(--color-primary)]",
             // Disabled state

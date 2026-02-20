@@ -30,21 +30,24 @@ export default meta;
 type Story = StoryObj<typeof Footer>;
 
 // Declarative API Examples
-export const DeclarativeSingleButton: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeSingleButton: Story = {
   args: {
     buttonCount: 1,
     buttonTexts: ['Save'],
   },
 };
 
-export const DeclarativeTwoButtons: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeTwoButtons: Story = {
   args: {
     buttonCount: 2,
     buttonTexts: ['Cancel', 'Save'],
   },
 };
 
-export const DeclarativeThreeButtons: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeThreeButtons: Story = {
   args: {
     buttonCount: 3,
     buttonTexts: ['Cancel', 'Save Draft', 'Publish'],
@@ -52,7 +55,8 @@ export const DeclarativeThreeButtons: Story = {
   },
 };
 
-export const DeclarativeFourButtons: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeFourButtons: Story = {
   args: {
     buttonCount: 4,
     buttonTexts: ['Delete', 'Cancel', 'Save Draft', 'Publish'],
@@ -60,7 +64,7 @@ export const DeclarativeFourButtons: Story = {
 };
 
 // Composable API Examples
-export const ComposableSingleButton: Story = {
+export const Default: Story = {
   render: () => (
     <Footer>
       <FooterButton variant="primary">Save</FooterButton>
@@ -68,7 +72,7 @@ export const ComposableSingleButton: Story = {
   ),
 };
 
-export const ComposableTwoButtons: Story = {
+export const TwoButtons: Story = {
   render: () => (
     <Footer>
       <FooterButton variant="secondary">Cancel</FooterButton>
@@ -77,7 +81,7 @@ export const ComposableTwoButtons: Story = {
   ),
 };
 
-export const ComposableThreeButtons: Story = {
+export const ThreeButtons: Story = {
   render: () => (
     <Footer>
       <FooterButton variant="text">Cancel</FooterButton>
@@ -87,7 +91,7 @@ export const ComposableThreeButtons: Story = {
   ),
 };
 
-export const ComposableWithLeftSide: Story = {
+export const WithLeftSide: Story = {
   render: () => (
     <Footer>
       <FooterButton variant="text" leftSide>Delete</FooterButton>
@@ -97,7 +101,7 @@ export const ComposableWithLeftSide: Story = {
   ),
 };
 
-export const ComposableFourButtons: Story = {
+export const FourButtons: Story = {
   render: () => (
     <Footer>
       <FooterButton variant="text" leftSide>Delete</FooterButton>
@@ -108,7 +112,7 @@ export const ComposableFourButtons: Story = {
   ),
 };
 
-export const ComposableCustomButtons: Story = {
+export const CustomButtons: Story = {
   render: () => (
     <Footer>
       <FooterButton variant="text" leftSide>

@@ -45,7 +45,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Default collapsible
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     header: 'Collapsible Header',
     children: 'Collapsible content goes here',
@@ -55,7 +56,8 @@ export const Default: Story = {
 };
 
 // Primary Type story
-export function PrimaryType() {
+/** @deprecated Use composable API instead. */
+export function LegacyPrimaryType() {
   return (
     <div className="p-6 space-y-4">
       <Collapsible
@@ -70,7 +72,8 @@ export function PrimaryType() {
 }
 
 // Secondary Type story
-export function SecondaryType() {
+/** @deprecated Use composable API instead. */
+export function LegacySecondaryType() {
   return (
     <div className="p-6 space-y-4">
       <Collapsible
@@ -85,7 +88,8 @@ export function SecondaryType() {
 }
 
 // Tertiary Type story
-export function TertiaryType() {
+/** @deprecated Use composable API instead. */
+export function LegacyTertiaryType() {
   return (
     <div className="p-6 space-y-4">
       <Collapsible
@@ -100,7 +104,8 @@ export function TertiaryType() {
 }
 
 // With Badges story
-export function WithBadges() {
+/** @deprecated Use composable API instead. */
+export function LegacyWithBadges() {
   return (
     <div className="p-6 space-y-4">
       <Collapsible
@@ -116,7 +121,8 @@ export function WithBadges() {
 }
 
 // Interactive Demo - all variants shown together and interactable
-export function InteractiveDemo() {
+/** @deprecated Use composable API instead. */
+export function LegacyInteractiveDemo() {
   const [expanded1, setExpanded1] = React.useState(false);
   const [expanded2, setExpanded2] = React.useState(false);
   const [expanded3, setExpanded3] = React.useState(false);
@@ -174,7 +180,7 @@ export function InteractiveDemo() {
 }
 
 // Composable API Examples
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <Collapsible type="Primary" bg="Secondary">
       <CollapsibleTrigger>
@@ -190,7 +196,7 @@ export const ComposableBasic: Story = {
   ),
 };
 
-export const ComposableWithExtra: Story = {
+export const WithExtra: Story = {
   render: () => (
     <Collapsible type="Primary" bg="Secondary">
       <CollapsibleTrigger>
@@ -255,11 +261,11 @@ function ComposableMultipleComponent() {
   );
 }
 
-export const ComposableMultiple: Story = {
+export const Multiple: Story = {
   render: () => <ComposableMultipleComponent />,
 };
 
-export const ComposableCustomContent: Story = {
+export const CustomContent: Story = {
   render: () => (
     <Collapsible type="Tertiary" bg="Secondary">
       <CollapsibleTrigger>

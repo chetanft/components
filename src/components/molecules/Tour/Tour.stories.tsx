@@ -92,11 +92,12 @@ const ComposableTourDemo = () => {
     );
 };
 
-export const DeclarativeBasic: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeBasic: Story = {
   render: () => <DeclarativeTourDemo />,
 };
 
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => <ComposableTourDemo />,
 };
 

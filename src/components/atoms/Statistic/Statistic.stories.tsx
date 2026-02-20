@@ -39,7 +39,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Default statistic
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     label: 'Total Users',
     value: '1,234',
@@ -48,7 +49,8 @@ export const Default: Story = {
 };
 
 // Label on top
-export const LabelOnTop: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyLabelOnTop: Story = {
   args: {
     label: 'Revenue',
     value: '$45,678',
@@ -57,7 +59,8 @@ export const LabelOnTop: Story = {
 };
 
 // Large number
-export const LargeNumber: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyLargeNumber: Story = {
   args: {
     label: 'Page Views',
     value: '2,456,789',
@@ -66,7 +69,8 @@ export const LargeNumber: Story = {
 };
 
 // Percentage
-export const Percentage: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyPercentage: Story = {
   args: {
     label: 'Growth Rate',
     value: '23.5%',
@@ -75,7 +79,8 @@ export const Percentage: Story = {
 };
 
 // Currency
-export const Currency: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyCurrency: Story = {
   args: {
     label: 'Monthly Revenue',
     value: '$12,345',
@@ -84,7 +89,8 @@ export const Currency: Story = {
 };
 
 // Time duration
-export const Duration: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDuration: Story = {
   args: {
     label: 'Average Session',
     value: '4m 32s',
@@ -93,46 +99,47 @@ export const Duration: Story = {
 };
 
 // All placements showcase
-export const AllPlacements: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyAllPlacements: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
         <h3 className="font-semibold mb-4">Label Below (Default)</h3>
         <div className="flex gap-8">
-          <Statistic 
-            label="Active Users" 
-            value="1,234" 
+          <Statistic
+            label="Active Users"
+            value="1,234"
             labelPlacement="Below"
           />
-          <Statistic 
-            label="Revenue" 
-            value="$45,678" 
+          <Statistic
+            label="Revenue"
+            value="$45,678"
             labelPlacement="Below"
           />
-          <Statistic 
-            label="Conversion Rate" 
-            value="3.2%" 
+          <Statistic
+            label="Conversion Rate"
+            value="3.2%"
             labelPlacement="Below"
           />
         </div>
       </div>
-      
+
       <div>
         <h3 className="font-semibold mb-4">Label On Top</h3>
         <div className="flex gap-8">
-          <Statistic 
-            label="New Signups" 
-            value="89" 
+          <Statistic
+            label="New Signups"
+            value="89"
             labelPlacement="Top"
           />
-          <Statistic 
-            label="Total Orders" 
-            value="456" 
+          <Statistic
+            label="Total Orders"
+            value="456"
             labelPlacement="Top"
           />
-          <Statistic 
-            label="Bounce Rate" 
-            value="12.3%" 
+          <Statistic
+            label="Bounce Rate"
+            value="12.3%"
             labelPlacement="Top"
           />
         </div>
@@ -142,49 +149,50 @@ export const AllPlacements: Story = {
 };
 
 // Dashboard example
-export const DashboardExample: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDashboardExample: Story = {
   render: () => (
     <div className="space-y-6">
       <h3 className="font-semibold">Dashboard Statistics</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <Statistic 
-          label="Total Users" 
-          value="12,345" 
+        <Statistic
+          label="Total Users"
+          value="12,345"
           labelPlacement="Below"
         />
-        <Statistic 
-          label="Monthly Revenue" 
-          value="$98,765" 
+        <Statistic
+          label="Monthly Revenue"
+          value="$98,765"
           labelPlacement="Below"
         />
-        <Statistic 
-          label="Active Sessions" 
-          value="1,234" 
+        <Statistic
+          label="Active Sessions"
+          value="1,234"
           labelPlacement="Below"
         />
-        <Statistic 
-          label="Conversion Rate" 
-          value="4.2%" 
+        <Statistic
+          label="Conversion Rate"
+          value="4.2%"
           labelPlacement="Below"
         />
-        <Statistic 
-          label="Page Views" 
-          value="456,789" 
+        <Statistic
+          label="Page Views"
+          value="456,789"
           labelPlacement="Top"
         />
-        <Statistic 
-          label="Avg. Session Duration" 
-          value="3m 45s" 
+        <Statistic
+          label="Avg. Session Duration"
+          value="3m 45s"
           labelPlacement="Top"
         />
-        <Statistic 
-          label="New Customers" 
-          value="234" 
+        <Statistic
+          label="New Customers"
+          value="234"
           labelPlacement="Top"
         />
-        <Statistic 
-          label="Support Tickets" 
-          value="12" 
+        <Statistic
+          label="Support Tickets"
+          value="12"
           labelPlacement="Top"
         />
       </div>
@@ -193,7 +201,7 @@ export const DashboardExample: Story = {
 };
 
 // Composable API Examples
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <Statistic>
       <StatisticValue>1,234</StatisticValue>
@@ -202,7 +210,7 @@ export const ComposableBasic: Story = {
   ),
 };
 
-export const ComposableLabelOnTop: Story = {
+export const LabelOnTop: Story = {
   render: () => (
     <Statistic labelPlacement="Top">
       <StatisticTitle>Revenue</StatisticTitle>
@@ -211,7 +219,7 @@ export const ComposableLabelOnTop: Story = {
   ),
 };
 
-export const ComposableWithCustomStyling: Story = {
+export const WithCustomStyling: Story = {
   render: () => (
     <div className="space-y-4">
       <Statistic>
@@ -226,7 +234,7 @@ export const ComposableWithCustomStyling: Story = {
   ),
 };
 
-export const ComposableDashboard: Story = {
+export const Dashboard: Story = {
   render: () => (
     <div className="space-y-6">
       <h3 className="font-semibold">Dashboard Statistics (Composable API)</h3>

@@ -1,22 +1,28 @@
 "use client";
 
 import React from 'react';
+import { cn } from '../../../lib/utils';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { SegmentedTabs } from '../SegmentedTabs/SegmentedTabs';
 import type { SegmentedTabItem } from '../SegmentedTabs/SegmentedTabs';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface ThemeSwitchProps {
   className?: string;
   variant?: 'segmented' | 'dropdown';
   showLabels?: boolean;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
-export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ 
+export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
   className,
   variant = 'segmented',
-  showLabels = true
+  showLabels = true,
+  glass
 }) => {
   const { theme, setTheme } = useTheme();
+  const resolvedGlass = useResolvedGlass(glass);
 
   const themeItems: SegmentedTabItem[] = [
     {
@@ -45,7 +51,7 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
         items={themeItems}
         value={theme}
         onChange={handleThemeChange}
-        className={className}
+        className={cn(getGlassClasses(resolvedGlass, '', ''), className)}
       />
     );
   }

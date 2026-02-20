@@ -4,6 +4,7 @@ import { Avatar } from '../../atoms/Avatar';
 import { CompanyInfo } from '../../../types/company';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { cn } from '../../../lib/utils';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface UserProfileProps extends Omit<ComposableProps<'div'>, 'company' | 'userName' | 'userRole' | 'userLocation' | 'userBadge' | 'userAvatar' | 'companyName' | 'onClick'> {
   company?: CompanyInfo;
@@ -15,6 +16,8 @@ export interface UserProfileProps extends Omit<ComposableProps<'div'>, 'company'
   companyName?: boolean;
   onClick?: () => void;
   className?: string;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   /**
    * Override avatar size.
    */
@@ -41,12 +44,14 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   companyName = true,
   onClick = () => { },
   className,
+  glass,
   avatarSize,
   avatarClassName,
   asChild,
   ...props
 }) => {
-  const containerClassName = `${baseContainer} ${companyName ? 'gap-[15px] items-center p-[var(--x2,8px)]' : 'gap-[10px] items-center justify-center overflow-clip p-[var(--x2,8px)]'}${className ? ` ${className}` : ''}`;
+  const resolvedGlass = useResolvedGlass(glass);
+  const containerClassName = cn(baseContainer, getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', ''), companyName ? 'gap-[15px] items-center p-[var(--x2,8px)]' : 'gap-[10px] items-center justify-center overflow-clip p-[var(--x2,8px)]', className);
   const Comp = asChild ? Slot : 'div';
 
   const handleAvatarClick = (e: React.MouseEvent) => {

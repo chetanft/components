@@ -366,7 +366,9 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(({
 
   // Otherwise use declarative API (deprecated)
   if (!columns || !data) {
-    console.warn('Table: Either provide children (composable API) or columns + data (declarative API)');
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('Table: Either provide children (composable API) or columns + data (declarative API)');
+    }
     return null;
   }
 
@@ -377,7 +379,9 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(({
   // Defensive programming: ensure all rows have valid IDs
   const validatedData = (data || []).filter((row: any) => {
     if (row.id === undefined || row.id === null) {
-      console.warn('Table: Row missing required "id" property:', row);
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('Table: Row missing required "id" property:', row);
+      }
       return false;
     }
     return true;
@@ -408,7 +412,7 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(({
   // Simple layout rendering (2-column label-value pairs)
   if (layout === 'simple') {
     // For simple layout, we expect exactly 2 columns
-    if (columns.length !== 2) {
+    if (columns.length !== 2 && process.env.NODE_ENV !== 'production') {
       console.warn('Table: Simple layout requires exactly 2 columns');
     }
 

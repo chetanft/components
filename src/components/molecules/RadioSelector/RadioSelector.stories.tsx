@@ -26,7 +26,8 @@ export default meta;
 type Story = StoryObj<typeof RadioSelector>;
 
 // Declarative API Examples
-export const DeclarativeBasic: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeBasic: Story = {
   args: {
     name: 'choice',
     options: [
@@ -49,7 +50,8 @@ export const DeclarativeBasic: Story = {
   },
 };
 
-export const DeclarativeWithIcons: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeWithIcons: Story = {
   args: {
     name: 'choice',
     options: [
@@ -69,7 +71,8 @@ export const DeclarativeWithIcons: Story = {
   },
 };
 
-export const DeclarativeWithoutRadio: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeWithoutRadio: Story = {
   args: {
     name: 'choice',
     options: [
@@ -113,7 +116,7 @@ function ComposableBasicComponent() {
   );
 }
 
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => <ComposableBasicComponent />,
 };
 
@@ -143,7 +146,7 @@ function ComposableWithIconsComponent() {
   );
 }
 
-export const ComposableWithIcons: Story = {
+export const WithIcons: Story = {
   render: () => <ComposableWithIconsComponent />,
 };
 
@@ -167,7 +170,7 @@ function ComposableWithoutRadioComponent() {
   );
 }
 
-export const ComposableWithoutRadio: Story = {
+export const WithoutRadio: Story = {
   render: () => <ComposableWithoutRadioComponent />,
 };
 
@@ -195,7 +198,7 @@ function ComposableWithDisabledComponent() {
   );
 }
 
-export const ComposableWithDisabled: Story = {
+export const WithDisabled: Story = {
   render: () => <ComposableWithDisabledComponent />,
 };
 
@@ -222,7 +225,7 @@ function ComposableControlledComponent() {
   );
 }
 
-export const ComposableControlled: Story = {
+export const Controlled: Story = {
   render: () => <ComposableControlledComponent />,
 };
 

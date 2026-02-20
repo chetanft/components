@@ -5,6 +5,7 @@ import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
 import { Typography } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export type ResultStatus = 'success' | 'error' | 'info' | 'warning' | '404' | '403' | '500';
 
@@ -33,6 +34,8 @@ export interface ResultProps extends Omit<ComposableProps<'div'>, 'title'> {
   extra?: React.ReactNode;
   /** Additional content below extra */
   children?: React.ReactNode;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 /**
@@ -55,9 +58,11 @@ export const Result = React.forwardRef<HTMLDivElement, ResultProps>(
     extra,
     children,
     className,
+    glass,
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     // Status configurations
     const statusConfig: Record<ResultStatus, {
       icon: IconName;
@@ -175,6 +180,7 @@ export const Result = React.forwardRef<HTMLDivElement, ResultProps>(
           "flex flex-col items-center justify-center",
           "py-[var(--x12)] px-[var(--x8)]",
           "text-center",
+          getGlassClasses(resolvedGlass, '', ''),
           className
         )}
         {...props}

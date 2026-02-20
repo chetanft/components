@@ -127,7 +127,8 @@ const locationOptions: CascaderOption[] = [
 ];
 
 // Declarative API - Basic Cascader
-export const DeclarativeDefault: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeDefault: Story = {
   args: {
     label: 'Select Location',
     options: locationOptions,
@@ -136,7 +137,7 @@ export const DeclarativeDefault: Story = {
 };
 
 // Composable API - Basic Cascader
-export const ComposableDefault: Story = {
+export const Default: Story = {
   render: () => (
     <Cascader label="Select Location" placeholder="Select a location">
       <CascaderOption value="usa" label="United States">
@@ -186,7 +187,8 @@ const ControlledCascaderStory = (args: React.ComponentProps<typeof Cascader>) =>
 };
 
 // Controlled Cascader
-export const Controlled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyControlled: Story = {
   render: (args: React.ComponentProps<typeof Cascader>) => <ControlledCascaderStory {...args} />,
   args: {
     label: 'Controlled Cascader',
@@ -195,7 +197,8 @@ export const Controlled: Story = {
 };
 
 // Hover to Expand
-export const HoverExpand: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyHoverExpand: Story = {
   args: {
     label: 'Hover to Expand',
     options: locationOptions,
@@ -205,7 +208,8 @@ export const HoverExpand: Story = {
 };
 
 // With Search
-export const WithSearch: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithSearch: Story = {
   args: {
     label: 'Searchable Cascader',
     options: locationOptions,
@@ -231,7 +235,8 @@ const ChangeOnSelectStory = (args: React.ComponentProps<typeof Cascader>) => {
 };
 
 // Change on Select
-export const ChangeOnSelect: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyChangeOnSelect: Story = {
   render: (args: React.ComponentProps<typeof Cascader>) => <ChangeOnSelectStory {...args} />,
   args: {
     label: 'Change on Any Level',
@@ -242,7 +247,8 @@ export const ChangeOnSelect: Story = {
 };
 
 // Custom Display
-export const CustomDisplay: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyCustomDisplay: Story = {
   args: {
     label: 'Custom Display',
     options: locationOptions,
@@ -252,7 +258,8 @@ export const CustomDisplay: Story = {
 };
 
 // Different Sizes
-export const Sizes: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySizes: Story = {
   render: () => (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -276,7 +283,8 @@ export const Sizes: Story = {
 };
 
 // With States
-export const WithStates: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithStates: Story = {
   render: () => (
     <div className="space-y-4">
       <Cascader label="Normal" options={locationOptions} placeholder="Select location" />
@@ -287,7 +295,8 @@ export const WithStates: Story = {
 };
 
 // With Disabled Options
-export const DisabledOptions: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDisabledOptions: Story = {
   args: {
     label: 'With Disabled Options',
     options: [
@@ -312,7 +321,8 @@ export const DisabledOptions: Story = {
 };
 
 // Category Selection
-export const CategorySelection: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyCategorySelection: Story = {
   args: {
     label: 'Product Category',
     options: [

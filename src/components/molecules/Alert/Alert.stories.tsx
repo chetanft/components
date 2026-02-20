@@ -27,8 +27,58 @@ const meta: Meta<typeof Alert> = {
 export default meta;
 type Story = StoryObj<typeof Alert>;
 
-// Deprecated API Examples (for backward compatibility)
+// Composable API Examples (Recommended)
 export const Default: Story = {
+    render: () => (
+        <Alert variant="info" radius="md">
+            <AlertIcon />
+            <AlertTitle>Information</AlertTitle>
+            <AlertDescription>This is an info alert message using the composable API.</AlertDescription>
+        </Alert>
+    ),
+};
+
+export const WithAction: Story = {
+    render: () => (
+        <Alert variant="success" radius="md">
+            <AlertIcon />
+            <AlertTitle>Success</AlertTitle>
+            <AlertDescription>Your changes have been saved successfully.</AlertDescription>
+            <AlertAction>
+                <Button size="sm" variant="primary">View Details</Button>
+            </AlertAction>
+        </Alert>
+    ),
+};
+
+export const Closable: Story = {
+    render: () => (
+        <Alert variant="warning" radius="md">
+            <AlertIcon />
+            <AlertTitle>Warning</AlertTitle>
+            <AlertDescription>This alert can be dismissed.</AlertDescription>
+            <AlertClose />
+        </Alert>
+    ),
+};
+
+export const Complete: Story = {
+    render: () => (
+        <Alert variant="danger" radius="md">
+            <AlertIcon />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>Something went wrong. Please try again.</AlertDescription>
+            <AlertAction>
+                <Button size="sm" variant="destructive">Retry</Button>
+            </AlertAction>
+            <AlertClose />
+        </Alert>
+    ),
+};
+
+// Legacy API Examples (for backward compatibility)
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     message: 'This is an alert message',
     variant: 'info',
@@ -42,35 +92,40 @@ export const Default: Story = {
   },
 };
 
-export const Info: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyInfo: Story = {
   args: {
     message: 'This is an info alert message',
     variant: 'info',
   },
 };
 
-export const Success: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySuccess: Story = {
   args: {
     message: 'This is a success alert message',
     variant: 'success',
   },
 };
 
-export const Warning: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWarning: Story = {
   args: {
     message: 'This is a warning alert message',
     variant: 'warning',
   },
 };
 
-export const Danger: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDanger: Story = {
   args: {
     message: 'This is a danger alert message',
     variant: 'danger',
   },
 };
 
-export const Banner: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyBanner: Story = {
     args: {
         message: 'This is a banner alert',
         banner: true,
@@ -78,10 +133,11 @@ export const Banner: Story = {
     }
 };
 
-export const WithAction: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithAction: Story = {
     render: () => (
-        <Alert 
-            message="Error Text" 
+        <Alert
+            message="Error Text"
             variant="danger"
             action={
                 <Button size="sm" variant="destructive">
@@ -92,7 +148,8 @@ export const WithAction: Story = {
     )
 };
 
-export const RadiusSmall: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyRadiusSmall: Story = {
     args: {
         message: 'Alert with small radius',
         variant: 'info',
@@ -100,7 +157,8 @@ export const RadiusSmall: Story = {
     },
 };
 
-export const RadiusMedium: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyRadiusMedium: Story = {
     args: {
         message: 'Alert with medium radius (default)',
         variant: 'success',
@@ -108,7 +166,8 @@ export const RadiusMedium: Story = {
     },
 };
 
-export const RadiusLarge: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyRadiusLarge: Story = {
     args: {
         message: 'Alert with large radius',
         variant: 'warning',
@@ -116,59 +175,11 @@ export const RadiusLarge: Story = {
     },
 };
 
-export const RadiusNone: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyRadiusNone: Story = {
     args: {
         message: 'Alert with no radius',
         variant: 'danger',
         radius: 'none',
     },
-};
-
-// Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
-    render: () => (
-        <Alert variant="info" radius="md">
-            <AlertIcon />
-            <AlertTitle>Information</AlertTitle>
-            <AlertDescription>This is an info alert message using the composable API.</AlertDescription>
-        </Alert>
-    ),
-};
-
-export const ComposableWithAction: Story = {
-    render: () => (
-        <Alert variant="success" radius="md">
-            <AlertIcon />
-            <AlertTitle>Success</AlertTitle>
-            <AlertDescription>Your changes have been saved successfully.</AlertDescription>
-            <AlertAction>
-                <Button size="sm" variant="primary">View Details</Button>
-            </AlertAction>
-        </Alert>
-    ),
-};
-
-export const ComposableClosable: Story = {
-    render: () => (
-        <Alert variant="warning" radius="md">
-            <AlertIcon />
-            <AlertTitle>Warning</AlertTitle>
-            <AlertDescription>This alert can be dismissed.</AlertDescription>
-            <AlertClose />
-        </Alert>
-    ),
-};
-
-export const ComposableComplete: Story = {
-    render: () => (
-        <Alert variant="danger" radius="md">
-            <AlertIcon />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>Something went wrong. Please try again.</AlertDescription>
-            <AlertAction>
-                <Button size="sm" variant="destructive">Retry</Button>
-            </AlertAction>
-            <AlertClose />
-        </Alert>
-    ),
 };

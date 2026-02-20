@@ -51,7 +51,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Interactive Demo - all variants shown together and interactable (FIRST per plan)
-export function InteractiveDemo() {
+/** @deprecated Use composable API instead. */
+export function LegacyInteractiveDemo() {
   const [checked1, setChecked1] = React.useState(false);
   const [checked2, setChecked2] = React.useState(true);
   const [checked3, setChecked3] = React.useState(false);
@@ -128,7 +129,8 @@ export function InteractiveDemo() {
 }
 
 // Default checkbox (unchecked state)
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     label: 'Accept terms and conditions',
     size: 'md',
@@ -136,7 +138,8 @@ export const Default: Story = {
 };
 
 // Checked state
-export const Checked: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyChecked: Story = {
   args: {
     label: 'Agreed to terms',
     size: 'md',
@@ -145,7 +148,8 @@ export const Checked: Story = {
 };
 
 // Indeterminate state
-export const Indeterminate: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyIndeterminate: Story = {
   args: {
     label: 'Select all items',
     size: 'md',
@@ -154,7 +158,8 @@ export const Indeterminate: Story = {
 };
 
 // With description
-export const WithDescription: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithDescription: Story = {
   args: {
     label: 'Newsletter subscription',
     size: 'md',
@@ -163,7 +168,8 @@ export const WithDescription: Story = {
 };
 
 // Error state
-export const Error: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyError: Story = {
   args: {
     label: 'Required field',
     size: 'md',
@@ -173,7 +179,8 @@ export const Error: Story = {
 };
 
 // Disabled state
-export const Disabled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDisabled: Story = {
   args: {
     label: 'Disabled option',
     size: 'md',
@@ -182,7 +189,8 @@ export const Disabled: Story = {
 };
 
 // Disabled checked state
-export const DisabledChecked: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDisabledChecked: Story = {
   args: {
     label: 'Permanently enabled',
     size: 'md',
@@ -192,7 +200,8 @@ export const DisabledChecked: Story = {
 };
 
 // Normal States story - separate preview for normal states
-export function NormalStates() {
+/** @deprecated Use composable API instead. */
+export function LegacyNormalStates() {
   return (
     <div className="p-6 space-y-2">
       <Checkbox label="Unchecked" />
@@ -203,7 +212,8 @@ export function NormalStates() {
 }
 
 // With Descriptions story - separate preview for descriptions
-export function WithDescriptions() {
+/** @deprecated Use composable API instead. */
+export function LegacyWithDescriptions() {
   return (
     <div className="p-6 space-y-2">
       <Checkbox
@@ -220,7 +230,8 @@ export function WithDescriptions() {
 }
 
 // Error State story - separate preview for error state
-export function ErrorState() {
+/** @deprecated Use composable API instead. */
+export function LegacyErrorState() {
   return (
     <div className="p-6">
       <Checkbox
@@ -233,7 +244,8 @@ export function ErrorState() {
 }
 
 // Disabled States story - separate preview for disabled states
-export function DisabledStates() {
+/** @deprecated Use composable API instead. */
+export function LegacyDisabledStates() {
   return (
     <div className="p-6 space-y-2">
       <Checkbox label="Disabled unchecked" disabled />
@@ -243,7 +255,8 @@ export function DisabledStates() {
 }
 
 // Sizes story - separate preview for sizes
-export function Sizes() {
+/** @deprecated Use composable API instead. */
+export function LegacySizes() {
   return (
     <div className="p-6 space-y-4">
       <div className="flex flex-col gap-2">
@@ -269,7 +282,7 @@ function ComposableBasicComponent() {
   );
 }
 
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => <ComposableBasicComponent />,
 };
 
@@ -284,7 +297,7 @@ function ComposableWithHelperComponent() {
   );
 }
 
-export const ComposableWithHelper: Story = {
+export const WithHelper: Story = {
   render: () => <ComposableWithHelperComponent />,
 };
 
@@ -299,7 +312,7 @@ function ComposableWithErrorComponent() {
   );
 }
 
-export const ComposableWithError: Story = {
+export const WithError: Story = {
   render: () => <ComposableWithErrorComponent />,
 };
 
@@ -308,21 +321,20 @@ function ComposableIndeterminateComponent() {
   const [indeterminate, setIndeterminate] = React.useState(true);
   return (
     <Checkbox size="md">
-      <CheckboxInput 
-        checked={checked} 
+      <CheckboxInput
+        checked={checked}
         indeterminate={indeterminate}
         onChange={(e) => {
           setChecked(e.target.checked);
           setIndeterminate(false);
-        }} 
+        }}
       />
       <CheckboxLabel>Select all items</CheckboxLabel>
     </Checkbox>
   );
 }
 
-export const ComposableIndeterminate: Story = {
+export const Indeterminate: Story = {
   render: () => <ComposableIndeterminateComponent />,
 };
-
 

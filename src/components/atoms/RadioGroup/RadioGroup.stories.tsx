@@ -32,7 +32,8 @@ const meta: Meta<typeof RadioGroup> = {
 export default meta;
 type Story = StoryObj<typeof RadioGroup>;
 
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     name: 'default-radio',
     options: [
@@ -46,7 +47,8 @@ export const Default: Story = {
   },
 };
 
-export const Horizontal: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyHorizontal: Story = {
   args: {
     name: 'horizontal-radio',
     options: [
@@ -60,7 +62,8 @@ export const Horizontal: Story = {
   },
 };
 
-export const Small: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySmall: Story = {
   args: {
     name: 'small-radio',
     options: [
@@ -91,7 +94,8 @@ const InteractiveDemoComponent = () => {
   );
 };
 
-export const InteractiveDemo: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyInteractiveDemo: Story = {
   render: () => <InteractiveDemoComponent />,
 };
 
@@ -117,7 +121,7 @@ function ComposableBasicComponent() {
   );
 }
 
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => <ComposableBasicComponent />,
 };
 
@@ -141,7 +145,7 @@ function ComposableHorizontalComponent() {
   );
 }
 
-export const ComposableHorizontal: Story = {
+export const Horizontal: Story = {
   render: () => <ComposableHorizontalComponent />,
 };
 
@@ -163,7 +167,7 @@ function ComposableWithHelperComponent() {
   );
 }
 
-export const ComposableWithHelper: Story = {
+export const WithHelper: Story = {
   render: () => <ComposableWithHelperComponent />,
 };
 
@@ -185,6 +189,6 @@ function ComposableWithErrorComponent() {
   );
 }
 
-export const ComposableWithError: Story = {
+export const WithError: Story = {
   render: () => <ComposableWithErrorComponent />,
 };

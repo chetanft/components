@@ -33,7 +33,8 @@ export default meta;
 type Story = StoryObj<typeof DataEntryTable>;
 
 // Declarative API Examples
-export const DeclarativeBasic: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeBasic: Story = {
   args: {
     columns: [
       { key: 'name', title: 'Name', cellType: 'input', placeholder: 'Enter name' },
@@ -106,7 +107,7 @@ function ComposableBasicComponent() {
   );
 }
 
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => <ComposableBasicComponent />,
 };
 
@@ -163,7 +164,7 @@ function ComposableWithSelectionComponent() {
   );
 }
 
-export const ComposableWithSelection: Story = {
+export const WithSelection: Story = {
   render: () => <ComposableWithSelectionComponent />,
 };
 
@@ -232,7 +233,7 @@ function ComposableWithActionsComponent() {
   );
 }
 
-export const ComposableWithActions: Story = {
+export const WithActions: Story = {
   render: () => <ComposableWithActionsComponent />,
 };
 
@@ -299,7 +300,7 @@ function ComposableWithMultipleCellTypesComponent() {
   );
 }
 
-export const ComposableWithMultipleCellTypes: Story = {
+export const WithMultipleCellTypes: Story = {
   render: () => <ComposableWithMultipleCellTypesComponent />,
 };
 

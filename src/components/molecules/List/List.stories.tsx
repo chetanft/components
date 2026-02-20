@@ -23,7 +23,7 @@ const data = [
 ];
 
 // Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
+export const Default: Story = {
     render: () => (
         <div className="p-6">
             <List bordered>
@@ -59,7 +59,7 @@ export const ComposableBasic: Story = {
     },
 };
 
-export const ComposableWithIcons: Story = {
+export const WithIcons: Story = {
     render: () => (
         <div className="p-6">
             <List bordered>
@@ -95,7 +95,7 @@ export const ComposableWithIcons: Story = {
     },
 };
 
-export const ComposableWithActions: Story = {
+export const WithActions: Story = {
     render: () => (
         <div className="p-6">
             <List bordered>
@@ -131,8 +131,10 @@ export const ComposableWithActions: Story = {
     },
 };
 
-// Mark deprecated examples
-export const Default: Story = {
+// Legacy declarative API (deprecated)
+
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
     args: {
         header: <Typography variant="body-primary-semibold">Header</Typography>,
         footer: <Typography variant="body-secondary-regular">Footer</Typography>,
@@ -151,7 +153,8 @@ export const Default: Story = {
     },
 };
 
-export const Small: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySmall: Story = {
     args: {
         size: 'sm',
         bordered: true,
@@ -162,7 +165,8 @@ export const Small: Story = {
     },
 };
 
-export const Grid: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyGrid: Story = {
     args: {
         grid: { gutter: 16, column: 4 },
         dataSource: data,
@@ -174,7 +178,8 @@ export const Grid: Story = {
     },
 };
 
-export const WithActions: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithActions: Story = {
     args: {
         bordered: true,
         dataSource: data,

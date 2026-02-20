@@ -132,7 +132,9 @@ export const Logo: React.FC<LogoProps> = ({
         <ShadowfaxLogo width={width} height={height} className={className} />
       );
     default:
-      console.warn(`Logo "${name}" not found`);
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn(`Logo "${name}" not found`);
+      }
       return null;
   }
 };

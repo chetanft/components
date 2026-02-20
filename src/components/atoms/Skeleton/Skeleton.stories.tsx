@@ -36,7 +36,7 @@ export default meta;
 type Story = StoryObj<typeof Skeleton>;
 
 // Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <div className="p-6 space-y-4">
       <Skeleton>
@@ -54,7 +54,7 @@ export const ComposableBasic: Story = {
   },
 };
 
-export const ComposableCard: Story = {
+export const Card: Story = {
   render: () => (
     <div className="p-6">
       <Skeleton>
@@ -77,7 +77,7 @@ export const ComposableCard: Story = {
   },
 };
 
-export const ComposableList: Story = {
+export const List: Story = {
   render: () => (
     <div className="p-6 space-y-3">
       {[1, 2, 3].map((i) => (
@@ -103,7 +103,8 @@ export const ComposableList: Story = {
 };
 
 // Mark deprecated examples
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     variant: 'rectangular',
     animation: 'pulse',
@@ -118,14 +119,16 @@ export const Default: Story = {
   },
 };
 
-export const Text: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyText: Story = {
   args: {
     variant: 'text',
     width: '200px',
   },
 };
 
-export const Circular: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyCircular: Story = {
   args: {
     variant: 'circular',
     width: '64px',
@@ -149,7 +152,8 @@ const ShowcaseContent = (props: SkeletonProps) => (
   </div>
 );
 
-export const Showcase: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyShowcase: Story = {
   render: (args: SkeletonProps) => <ShowcaseContent {...args} />,
   args: {
     animation: 'pulse',

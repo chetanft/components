@@ -27,7 +27,7 @@ const items = [
 ];
 
 // Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
+export const Default: Story = {
     render: () => (
         <div className="p-6">
             <Descriptions bordered column={2}>
@@ -59,7 +59,7 @@ export const ComposableBasic: Story = {
     },
 };
 
-export const ComposableWithBadge: Story = {
+export const WithBadge: Story = {
     render: () => (
         <div className="p-6">
             <Descriptions bordered column={3}>
@@ -82,7 +82,8 @@ export const ComposableWithBadge: Story = {
 };
 
 // Mark deprecated examples
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
     args: {
         title: 'User Info',
         items: items,
@@ -96,7 +97,8 @@ export const Default: Story = {
     },
 };
 
-export const Bordered: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyBordered: Story = {
     args: {
         title: 'User Info',
         bordered: true,
@@ -104,7 +106,8 @@ export const Bordered: Story = {
     },
 };
 
-export const Vertical: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyVertical: Story = {
     args: {
         title: 'User Info',
         layout: 'vertical',

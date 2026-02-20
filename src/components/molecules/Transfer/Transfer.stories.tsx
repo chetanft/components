@@ -102,18 +102,20 @@ const ComposableOneWayTransferStory = () => {
   );
 };
 
-export const DeclarativeBasic: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeBasic: Story = {
   render: () => <DeclarativeTransferDemo />,
 };
 
-export const DeclarativeOneWay: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeOneWay: Story = {
   render: () => <DeclarativeOneWayTransferStory />
 };
 
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => <ComposableTransferDemo />,
 };
 
-export const ComposableOneWay: Story = {
+export const OneWay: Story = {
   render: () => <ComposableOneWayTransferStory />
 };

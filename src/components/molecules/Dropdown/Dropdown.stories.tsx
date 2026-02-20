@@ -36,7 +36,109 @@ const meta: Meta<typeof Dropdown> = {
 export default meta;
 type Story = StoryObj<typeof Dropdown>;
 
+// Composable API Examples
+function DefaultComponent() {
+  const [value, setValue] = useState<string | number>();
+  return (
+    <Dropdown value={value} onChange={setValue} placeholder="Select an option">
+      <DropdownTrigger />
+      <DropdownContent>
+        <DropdownMenu>
+          <DropdownMenu.DropdownMenuItem value="option1">Option 1</DropdownMenu.DropdownMenuItem>
+          <DropdownMenu.DropdownMenuItem value="option2">Option 2</DropdownMenu.DropdownMenuItem>
+          <DropdownMenu.DropdownMenuItem value="option3">Option 3</DropdownMenu.DropdownMenuItem>
+        </DropdownMenu>
+      </DropdownContent>
+    </Dropdown>
+  );
+}
+
 export const Default: Story = {
+  render: () => <DefaultComponent />,
+};
+
+function WithLabelComponent() {
+  const [value, setValue] = useState<string | number>();
+  return (
+    <div className="space-y-2">
+      <label className="block text-sm font-medium">Select an Option</label>
+      <Dropdown value={value} onChange={setValue} placeholder="Choose...">
+        <DropdownTrigger />
+        <DropdownContent>
+          <DropdownMenu>
+            <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
+            <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
+            <DropdownMenu.DropdownMenuItem value="cherry">Cherry</DropdownMenu.DropdownMenuItem>
+          </DropdownMenu>
+        </DropdownContent>
+      </Dropdown>
+    </div>
+  );
+}
+
+export const WithLabel: Story = {
+  render: () => <WithLabelComponent />,
+};
+
+function WithSearchComponent() {
+  const [value, setValue] = useState<string | number>();
+  const [searchQuery, setSearchQuery] = useState('');
+  return (
+    <Dropdown
+      value={value}
+      onChange={setValue}
+      type="search"
+      placeholder="Search options..."
+      onSearch={setSearchQuery}
+    >
+      <DropdownTrigger />
+      <DropdownContent>
+        <DropdownMenu>
+          {['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry']
+              .filter(option => option.toLowerCase().includes(searchQuery.toLowerCase()))
+              .map(option => (
+                <DropdownMenu.DropdownMenuItem key={option} value={option.toLowerCase()}>
+                  {option}
+                </DropdownMenu.DropdownMenuItem>
+              ))}
+          </DropdownMenu>
+        </DropdownContent>
+      </Dropdown>
+  );
+}
+
+export const WithSearch: Story = {
+  render: () => <WithSearchComponent />,
+};
+
+function WithGroupsComponent() {
+  const [value, setValue] = useState<string | number>();
+  return (
+    <Dropdown value={value} onChange={setValue} type="groups" placeholder="Select a fruit">
+      <DropdownTrigger />
+      <DropdownContent>
+        <DropdownMenu>
+          <DropdownMenu.DropdownMenuLabel>Fruits</DropdownMenu.DropdownMenuLabel>
+          <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
+          <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
+          <DropdownMenu.DropdownMenuSeparator />
+          <DropdownMenu.DropdownMenuLabel>Vegetables</DropdownMenu.DropdownMenuLabel>
+          <DropdownMenu.DropdownMenuItem value="carrot">Carrot</DropdownMenu.DropdownMenuItem>
+          <DropdownMenu.DropdownMenuItem value="broccoli">Broccoli</DropdownMenu.DropdownMenuItem>
+        </DropdownMenu>
+      </DropdownContent>
+    </Dropdown>
+  );
+}
+
+export const WithGroups: Story = {
+  render: () => <WithGroupsComponent />,
+};
+
+// Legacy Declarative API Examples
+
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     label: 'Label',
     placeholder: 'Select an option',
@@ -48,7 +150,8 @@ export const Default: Story = {
   },
 };
 
-export const WithValue: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithValue: Story = {
   args: {
     label: 'Dropdown with Value',
     placeholder: 'Select an option',
@@ -61,7 +164,8 @@ export const WithValue: Story = {
   },
 };
 
-export const Error: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyError: Story = {
   args: {
     label: 'Dropdown with Error',
     placeholder: 'Select an option',
@@ -75,7 +179,8 @@ export const Error: Story = {
   },
 };
 
-export const Disabled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDisabled: Story = {
   args: {
     label: 'Disabled Dropdown',
     placeholder: 'Cannot select',
@@ -88,7 +193,8 @@ export const Disabled: Story = {
   },
 };
 
-export const SearchWithSegments: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySearchWithSegments: Story = {
   args: {
     label: 'Search with Segments',
     type: 'search',
@@ -106,7 +212,8 @@ export const SearchWithSegments: Story = {
   },
 };
 
-export const SizeXS: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySizeXS: Story = {
   args: {
     label: 'Extra Small (XS)',
     size: 'xs',
@@ -118,7 +225,8 @@ export const SizeXS: Story = {
   },
 };
 
-export const SizeSM: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySizeSM: Story = {
   args: {
     label: 'Small (SM)',
     size: 'sm',
@@ -130,7 +238,8 @@ export const SizeSM: Story = {
   },
 };
 
-export const SizeMD: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySizeMD: Story = {
   args: {
     label: 'Medium (MD)',
     size: 'md',
@@ -142,7 +251,8 @@ export const SizeMD: Story = {
   },
 };
 
-export const SizeLG: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySizeLG: Story = {
   args: {
     label: 'Large (LG)',
     size: 'lg',
@@ -154,7 +264,8 @@ export const SizeLG: Story = {
   },
 };
 
-export const RichOptions: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyRichOptions: Story = {
   args: {
     label: 'Rich Options',
     placeholder: 'Select a user',
@@ -182,7 +293,8 @@ export const RichOptions: Story = {
   },
 };
 
-export const GroupedOptions: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyGroupedOptions: Story = {
   args: {
     label: 'Grouped Options',
     placeholder: 'Select a fruit',
@@ -194,103 +306,4 @@ export const GroupedOptions: Story = {
       { value: 'broccoli', label: 'Broccoli', group: 'Vegetables' },
     ],
   },
-};
-
-// Composable API Examples
-function ComposableBasicComponent() {
-  const [value, setValue] = useState<string | number>();
-  return (
-    <Dropdown value={value} onChange={setValue} placeholder="Select an option">
-      <DropdownTrigger />
-      <DropdownContent>
-        <DropdownMenu>
-          <DropdownMenu.DropdownMenuItem value="option1">Option 1</DropdownMenu.DropdownMenuItem>
-          <DropdownMenu.DropdownMenuItem value="option2">Option 2</DropdownMenu.DropdownMenuItem>
-          <DropdownMenu.DropdownMenuItem value="option3">Option 3</DropdownMenu.DropdownMenuItem>
-        </DropdownMenu>
-      </DropdownContent>
-    </Dropdown>
-  );
-}
-
-export const ComposableBasic: Story = {
-  render: () => <ComposableBasicComponent />,
-};
-
-function ComposableWithLabelComponent() {
-  const [value, setValue] = useState<string | number>();
-  return (
-    <div className="space-y-2">
-      <label className="block text-sm font-medium">Select an Option</label>
-      <Dropdown value={value} onChange={setValue} placeholder="Choose...">
-        <DropdownTrigger />
-        <DropdownContent>
-          <DropdownMenu>
-            <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
-            <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
-            <DropdownMenu.DropdownMenuItem value="cherry">Cherry</DropdownMenu.DropdownMenuItem>
-          </DropdownMenu>
-        </DropdownContent>
-      </Dropdown>
-    </div>
-  );
-}
-
-export const ComposableWithLabel: Story = {
-  render: () => <ComposableWithLabelComponent />,
-};
-
-function ComposableWithSearchComponent() {
-  const [value, setValue] = useState<string | number>();
-  const [searchQuery, setSearchQuery] = useState('');
-  return (
-    <Dropdown 
-      value={value} 
-      onChange={setValue} 
-      type="search"
-      placeholder="Search options..."
-      onSearch={setSearchQuery}
-    >
-      <DropdownTrigger />
-      <DropdownContent>
-        <DropdownMenu>
-          {['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry']
-              .filter(option => option.toLowerCase().includes(searchQuery.toLowerCase()))
-              .map(option => (
-                <DropdownMenu.DropdownMenuItem key={option} value={option.toLowerCase()}>
-                  {option}
-                </DropdownMenu.DropdownMenuItem>
-              ))}
-          </DropdownMenu>
-        </DropdownContent>
-      </Dropdown>
-  );
-}
-
-export const ComposableWithSearch: Story = {
-  render: () => <ComposableWithSearchComponent />,
-};
-
-function ComposableWithGroupsComponent() {
-  const [value, setValue] = useState<string | number>();
-  return (
-    <Dropdown value={value} onChange={setValue} type="groups" placeholder="Select a fruit">
-      <DropdownTrigger />
-      <DropdownContent>
-        <DropdownMenu>
-          <DropdownMenu.DropdownMenuLabel>Fruits</DropdownMenu.DropdownMenuLabel>
-          <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
-          <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
-          <DropdownMenu.DropdownMenuSeparator />
-          <DropdownMenu.DropdownMenuLabel>Vegetables</DropdownMenu.DropdownMenuLabel>
-          <DropdownMenu.DropdownMenuItem value="carrot">Carrot</DropdownMenu.DropdownMenuItem>
-          <DropdownMenu.DropdownMenuItem value="broccoli">Broccoli</DropdownMenu.DropdownMenuItem>
-        </DropdownMenu>
-      </DropdownContent>
-    </Dropdown>
-  );
-}
-
-export const ComposableWithGroups: Story = {
-  render: () => <ComposableWithGroupsComponent />,
 };

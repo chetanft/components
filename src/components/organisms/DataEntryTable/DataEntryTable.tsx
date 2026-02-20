@@ -3,6 +3,7 @@
 import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Checkbox } from '../../atoms/Checkbox/Checkbox';
 import { TableHeaderItem } from '../Table/TableHeaderItem';
 import { DataEntryTableCell } from './DataEntryTableCell';
@@ -87,6 +88,8 @@ export interface DataEntryTableProps<T extends { id: string | number; [key: stri
    * Table content (for composable API)
    */
   children?: React.ReactNode;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 /**
@@ -141,9 +144,11 @@ export const DataEntryTable = <T extends { id: string | number; [key: string]: a
   className,
   cellErrors = {},
   children,
+  glass,
   asChild,
   ...props
 }: DataEntryTableProps<T>) => {
+  const resolvedGlass = useResolvedGlass(glass);
   const [focusedCell, setFocusedCell] = useState<{ rowId: string | number; columnKey: string } | null>(null);
   const [hoveredCell, setHoveredCell] = useState<{ rowId: string | number; columnKey: string } | null>(null);
   const [contextMenu, setContextMenu] = useState<{
@@ -264,7 +269,7 @@ export const DataEntryTable = <T extends { id: string | number; [key: string]: a
       const Comp = asChild ? Slot : 'div';
       return (
           <DataEntryTableProvider value={contextValue}>
-              <Comp className={cn("relative", className)} {...props}>
+              <Comp className={cn("relative", getGlassClasses(resolvedGlass, '', ''), className)} {...props}>
                   <div className="overflow-x-auto">
                       <table ref={tableRef} className="w-full border-collapse">
                           {children}
@@ -293,7 +298,7 @@ export const DataEntryTable = <T extends { id: string | number; [key: string]: a
   const Comp = asChild ? Slot : 'div';
   return (
     <DataEntryTableProvider value={contextValue}>
-      <Comp className={cn("relative", className)} {...props}>
+      <Comp className={cn("relative", getGlassClasses(resolvedGlass, '', ''), className)} {...props}>
         <div className="overflow-x-auto">
           <table ref={tableRef} className="w-full border-collapse">
             {/* Header Row - 50px height, bg-secondary, border-secondary */}

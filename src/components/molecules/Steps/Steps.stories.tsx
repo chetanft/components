@@ -28,14 +28,16 @@ const stepsData = [
     { label: 'Complete', description: 'Success' },
 ];
 
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     steps: stepsData,
     currentStep: 1,
   },
 };
 
-export const Vertical: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyVertical: Story = {
   args: {
     steps: stepsData,
     currentStep: 2,
@@ -43,7 +45,8 @@ export const Vertical: Story = {
   },
 };
 
-export const DotStyle: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDotStyle: Story = {
     args: {
         steps: stepsData,
         currentStep: 2,
@@ -51,7 +54,8 @@ export const DotStyle: Story = {
     },
 };
 
-export const VerticalDot: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyVerticalDot: Story = {
     args: {
         steps: stepsData,
         currentStep: 2,
@@ -60,7 +64,7 @@ export const VerticalDot: Story = {
     },
 };
 
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <Steps currentStep={1} direction="horizontal" type="default">
       <StepsList>
@@ -90,7 +94,7 @@ export const ComposableBasic: Story = {
   ),
 };
 
-export const ComposableVertical: Story = {
+export const Vertical: Story = {
   render: () => (
     <Steps currentStep={2} direction="vertical" type="default">
       <StepsList>
@@ -120,7 +124,7 @@ export const ComposableVertical: Story = {
   ),
 };
 
-export const ComposableDotStyle: Story = {
+export const DotStyle: Story = {
   render: () => (
     <Steps currentStep={2} direction="horizontal" type="dot">
       <StepsList>

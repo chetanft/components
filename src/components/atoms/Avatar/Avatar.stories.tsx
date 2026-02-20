@@ -22,7 +22,7 @@ export default meta;
 type Story = StoryObj<typeof Avatar>;
 
 // Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <div className="p-6 flex gap-4 items-center">
       <Avatar size="md" shape="circle">
@@ -43,7 +43,7 @@ export const ComposableBasic: Story = {
   },
 };
 
-export const ComposableWithFallback: Story = {
+export const WithFallback: Story = {
   render: () => (
     <div className="p-6 flex gap-4 items-center">
       <Avatar size="md" shape="circle">
@@ -65,7 +65,8 @@ export const ComposableWithFallback: Story = {
 };
 
 // Mark deprecated examples
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     size: 'md',
   },
@@ -78,14 +79,16 @@ export const Default: Story = {
   },
 };
 
-export const WithImage: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithImage: Story = {
   args: {
     src: 'https://i.pravatar.cc/300',
     size: 'md',
   },
 };
 
-export const Square: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySquare: Story = {
     args: {
       shape: 'square',
       children: 'A',
@@ -93,7 +96,8 @@ export const Square: Story = {
     },
 };
 
-export const Group: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyGroup: Story = {
     render: () => (
         <AvatarGroup maxCount={3} size="md">
             <Avatar src="https://i.pravatar.cc/300?img=1" />

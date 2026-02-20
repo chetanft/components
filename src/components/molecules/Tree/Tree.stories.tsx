@@ -90,7 +90,8 @@ const sampleTreeData: TreeNodeData[] = [
 ];
 
 // Basic Tree
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     treeData: sampleTreeData,
     defaultExpandAll: true,
@@ -115,7 +116,8 @@ const WithCheckboxesStory = (props: TreeStoryProps) => {
 };
 
 // With Checkboxes
-export const WithCheckboxes: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithCheckboxes: Story = {
   render: (args: React.ComponentProps<typeof Tree>) => <WithCheckboxesStory {...args} />,
   args: {
     treeData: sampleTreeData,
@@ -142,7 +144,8 @@ const WithSelectionStory = (props: TreeStoryProps) => {
 };
 
 // With Selection
-export const WithSelection: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithSelection: Story = {
   render: (args: React.ComponentProps<typeof Tree>) => <WithSelectionStory {...args} />,
   args: {
     treeData: sampleTreeData,
@@ -152,7 +155,8 @@ export const WithSelection: Story = {
 };
 
 // With Lines
-export const WithLines: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithLines: Story = {
   args: {
     treeData: sampleTreeData,
     showLine: true,
@@ -161,7 +165,8 @@ export const WithLines: Story = {
 };
 
 // With Icons
-export const WithIcons: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithIcons: Story = {
   args: {
     treeData: sampleTreeData,
     showIcon: true,
@@ -170,7 +175,8 @@ export const WithIcons: Story = {
 };
 
 // Directory Tree
-export const DirectoryTree: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDirectoryTree: Story = {
   args: {
     treeData: [
       {
@@ -227,7 +233,8 @@ const MultipleSelectionStory = (props: TreeStoryProps) => {
 };
 
 // Multiple Selection
-export const MultipleSelection: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyMultipleSelection: Story = {
   render: (args: React.ComponentProps<typeof Tree>) => <MultipleSelectionStory {...args} />,
   args: {
     treeData: sampleTreeData,
@@ -238,7 +245,8 @@ export const MultipleSelection: Story = {
 };
 
 // Disabled Nodes
-export const DisabledNodes: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDisabledNodes: Story = {
   args: {
     treeData: [
       {
@@ -293,7 +301,8 @@ const ControlledExpansionStory = (props: TreeStoryProps) => {
 };
 
 // Controlled Expansion
-export const ControlledExpansion: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyControlledExpansion: Story = {
   render: (args: React.ComponentProps<typeof Tree>) => <ControlledExpansionStory {...args} />,
   args: {
     treeData: sampleTreeData,
@@ -301,7 +310,7 @@ export const ControlledExpansion: Story = {
 };
 
 // Composable API Examples
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <Tree defaultExpandAll>
       <TreeNode nodeKey="0-0" title="Parent 0">
@@ -321,7 +330,7 @@ export const ComposableBasic: Story = {
   ),
 };
 
-export const ComposableWithIcons: Story = {
+export const WithIcons: Story = {
   render: () => (
     <Tree defaultExpandAll showIcon>
       <TreeNode 
@@ -369,7 +378,7 @@ const ComposableWithCheckboxesComponent = () => {
   );
 };
 
-export const ComposableWithCheckboxes: Story = {
+export const WithCheckboxes: Story = {
   render: () => <ComposableWithCheckboxesComponent />,
 };
 
@@ -398,11 +407,11 @@ const ComposableWithSelectionComponent = () => {
   );
 };
 
-export const ComposableWithSelection: Story = {
+export const WithSelection: Story = {
   render: () => <ComposableWithSelectionComponent />,
 };
 
-export const ComposableDirectoryTree: Story = {
+export const DirectoryTree: Story = {
   render: () => (
     <Tree defaultExpandAll showIcon showLine>
       <TreeNode 

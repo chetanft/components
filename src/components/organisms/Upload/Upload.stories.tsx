@@ -41,7 +41,8 @@ export default meta;
 type Story = StoryObj<typeof Upload>;
 
 // Declarative API Examples
-export const DragDrop: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDragDrop: Story = {
   args: {
     type: 'drag-drop',
     maxFiles: 5,
@@ -50,7 +51,8 @@ export const DragDrop: Story = {
   },
 };
 
-export const ButtonUpload: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyButtonUpload: Story = {
   args: {
     type: 'button',
     maxFiles: 10,
@@ -59,7 +61,8 @@ export const ButtonUpload: Story = {
   },
 };
 
-export const ThumbnailUpload: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyThumbnailUpload: Story = {
   args: {
     type: 'thumbnail',
     maxFiles: 5,
@@ -69,7 +72,7 @@ export const ThumbnailUpload: Story = {
 };
 
 // Composable API Examples
-export const ComposableDragDrop: Story = {
+export const Default: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadFile[]>([]);
     
@@ -88,7 +91,7 @@ export const ComposableDragDrop: Story = {
   },
 };
 
-export const ComposableButton: Story = {
+export const ButtonUpload: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadFile[]>([]);
     
@@ -107,7 +110,7 @@ export const ComposableButton: Story = {
   },
 };
 
-export const ComposableWithCustomTrigger: Story = {
+export const WithCustomTrigger: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadFile[]>([]);
     
@@ -130,7 +133,7 @@ export const ComposableWithCustomTrigger: Story = {
   },
 };
 
-export const ComposableWithCustomList: Story = {
+export const WithCustomList: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadFile[]>([]);
     
@@ -159,7 +162,7 @@ export const ComposableWithCustomList: Story = {
   },
 };
 
-export const ComposableWithValidation: Story = {
+export const WithValidation: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadFile[]>([]);
     
@@ -179,7 +182,7 @@ export const ComposableWithValidation: Story = {
   },
 };
 
-export const ComposableThumbnail: Story = {
+export const Thumbnail: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadFile[]>([]);
     

@@ -52,7 +52,8 @@ const legend = [
 ];
 
 // Declarative API
-export const DeclarativeDefault: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDeclarativeDefault: Story = {
   args: {
     title: 'Ageing',
     data: sampleData,
@@ -61,7 +62,7 @@ export const DeclarativeDefault: Story = {
 };
 
 // Composable API
-export const ComposableDefault: Story = {
+export const Default: Story = {
   render: () => (
     <StackedBarChart title="Ageing">
       <StackedBarChartBar label="4+ hrs">
@@ -83,9 +84,10 @@ export const ComposableDefault: Story = {
   ),
 };
 
-export const CustomHeights: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyCustomHeights: Story = {
   args: {
-    ...DeclarativeDefault.args,
+    ...LegacyDeclarativeDefault.args,
     barHeight: 220,
   },
 };
@@ -110,7 +112,8 @@ const dataWithoutColors: StackedBarChartProps['data'] = [
   },
 ];
 
-export const CustomDefaultColors: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyCustomDefaultColors: Story = {
   args: {
     title: 'Quarterly Sales',
     data: dataWithoutColors,

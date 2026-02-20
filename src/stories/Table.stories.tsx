@@ -265,8 +265,8 @@ const rowActionButtons = () => (
   </>
 );
 
-// Basic table story
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     columns: basicColumns,
     data: sampleUsers
@@ -285,7 +285,8 @@ const WithSelectionStoryComponent = (args: React.ComponentProps<UserTable>) => {
   );
 };
 
-export const WithSelection: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithSelection: Story = {
   render: (args: React.ComponentProps<UserTable>) => <WithSelectionStoryComponent {...args} />,
   args: {
     columns: basicColumns,
@@ -332,7 +333,8 @@ const WithSortingStoryComponent = (args: React.ComponentProps<UserTable>) => {
   );
 };
 
-export const WithSorting: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithSorting: Story = {
   render: (args: React.ComponentProps<UserTable>) => <WithSortingStoryComponent {...args} />,
   args: {
     columns: basicColumns,
@@ -352,7 +354,8 @@ const WithAtomicComponentsStoryComponent = (args: React.ComponentProps<UserTable
   );
 };
 
-export const WithAtomicComponents: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithAtomicComponents: Story = {
   render: (args: React.ComponentProps<UserTable>) => <WithAtomicComponentsStoryComponent {...args} />,
   args: {
     columns: atomicColumns,
@@ -380,7 +383,8 @@ const WithAccessoryAndActionsStoryComponent = (args: React.ComponentProps<UserTa
   );
 };
 
-export const WithAccessoryAndActions: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithAccessoryAndActions: Story = {
   render: (args: React.ComponentProps<UserTable>) => <WithAccessoryAndActionsStoryComponent {...args} />,
   args: {
     columns: basicColumns,
@@ -392,8 +396,8 @@ export const WithAccessoryAndActions: Story = {
   },
 };
 
-// VariantsPrimary story - separate preview for primary variant
-export function VariantsPrimary() {
+/** @deprecated Use composable API instead. */
+export function LegacyVariantsPrimary() {
   const [selectedRowsPrimary, setSelectedRowsPrimary] = useState<(string | number)[]>(['2', '4']);
 
   const figmaColumns: TableColumn<User>[] = [
@@ -475,8 +479,8 @@ export function VariantsPrimary() {
   );
 }
 
-// VariantsSecondary story - separate preview for secondary variant
-export function VariantsSecondary() {
+/** @deprecated Use composable API instead. */
+export function LegacyVariantsSecondary() {
   const [selectedRowsSecondary, setSelectedRowsSecondary] = useState<(string | number)[]>(['1']);
 
   const figmaColumns: TableColumn<User>[] = [
@@ -1115,12 +1119,13 @@ function JourneyTableComponent() {
     );
 }
 
-export const JourneyTable: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyJourneyTable: Story = {
   render: () => <JourneyTableComponent />
 };
 
-// Secondary header variant story
-export const SecondaryVariant: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySecondaryVariant: Story = {
   args: {
     columns: basicColumns,
     data: sampleUsers,
@@ -1149,7 +1154,8 @@ const WithColumnReorderStoryComponent = (args: React.ComponentProps<UserTable>) 
   );
 };
 
-export const WithColumnReorder: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithColumnReorder: Story = {
   render: (args: React.ComponentProps<UserTable>) => <WithColumnReorderStoryComponent {...args} />,
   args: {
     columns: basicColumns,
@@ -1179,7 +1185,8 @@ const SecondaryWithReorderStoryComponent = (args: React.ComponentProps<UserTable
   );
 };
 
-export const SecondaryVariantWithReorder: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySecondaryVariantWithReorder: Story = {
   render: (args: React.ComponentProps<UserTable>) => <SecondaryWithReorderStoryComponent {...args} />,
   args: {
     columns: basicColumns,
@@ -1196,7 +1203,7 @@ export const SecondaryVariantWithReorder: Story = {
 };
 
 // Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <div className="p-6">
       <Table>
@@ -1306,7 +1313,7 @@ function ComposableWithSortingComponent() {
   );
 }
 
-export const ComposableWithSorting: Story = {
+export const WithSorting: Story = {
   render: () => <ComposableWithSortingComponent />,
   parameters: {
     docs: {
@@ -1317,7 +1324,7 @@ export const ComposableWithSorting: Story = {
   },
 };
 
-export const ComposableWithFooter: Story = {
+export const WithFooter: Story = {
   render: () => (
     <div className="p-6">
       <Table>

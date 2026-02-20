@@ -4,6 +4,7 @@ import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { FileTypeIcon } from '../FileTypeIcon/FileTypeIcon';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface FileThumbnailProps extends ComposableProps<'div'> {
   fileName: string;
@@ -11,6 +12,8 @@ export interface FileThumbnailProps extends ComposableProps<'div'> {
   showFileName?: boolean; // Whether to show filename below thumbnail
   onPreview?: () => void; // Preview/view action
   onDownload?: () => void; // Download action
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 // Extract file extension from fileName
@@ -27,10 +30,12 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
     showFileName = false,
     onPreview,
     onDownload,
+    glass,
     asChild,
-    ...props 
+    ...props
   }, ref) => {
     const [isHovered, setIsHovered] = React.useState(false);
+    const resolvedGlass = useResolvedGlass(glass);
     const fileExtension = getFileExtension(fileName);
     const hasActions = (onPreview || onDownload) && imageUrl;
     const Comp = asChild ? Slot : 'div';
@@ -40,6 +45,7 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
         ref={ref}
         className={cn(
           "flex flex-col gap-[4px] items-start w-[80px]",
+          getGlassClasses(resolvedGlass, '', ''),
           className
         )}
         onMouseEnter={() => setIsHovered(true)}

@@ -38,7 +38,8 @@ export default meta;
 type Story = StoryObj<typeof Timeline>;
 
 // Basic Timeline
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   render: (args: React.ComponentProps<typeof Timeline>) => (
     <Timeline {...args}>
       <TimelineItem>Create a services site 2015-09-01</TimelineItem>
@@ -50,7 +51,8 @@ export const Default: Story = {
 };
 
 // With Colors
-export const WithColors: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithColors: Story = {
   render: () => (
     <Timeline>
       <TimelineItem color="success">Create a services site 2015-09-01</TimelineItem>
@@ -62,7 +64,8 @@ export const WithColors: Story = {
 };
 
 // With Custom Icons
-export const WithCustomIcons: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithCustomIcons: Story = {
   render: () => (
     <Timeline>
       <TimelineItem dot="check" color="success">
@@ -86,7 +89,8 @@ export const WithCustomIcons: Story = {
 };
 
 // Alternate Mode
-export const AlternateMode: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyAlternateMode: Story = {
   render: () => (
     <Timeline mode="alternate">
       <TimelineItem label="2015-09-01">Create a services site</TimelineItem>
@@ -98,7 +102,8 @@ export const AlternateMode: Story = {
 };
 
 // Right Mode
-export const RightMode: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyRightMode: Story = {
   render: () => (
     <Timeline mode="right">
       <TimelineItem>Create a services site 2015-09-01</TimelineItem>
@@ -110,7 +115,8 @@ export const RightMode: Story = {
 };
 
 // With Pending
-export const WithPending: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithPending: Story = {
   render: () => (
     <Timeline pending="Recording...">
       <TimelineItem>Create a services site 2015-09-01</TimelineItem>
@@ -121,7 +127,8 @@ export const WithPending: Story = {
 };
 
 // Reversed
-export const Reversed: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyReversed: Story = {
   render: () => (
     <Timeline reverse>
       <TimelineItem>Create a services site 2015-09-01</TimelineItem>
@@ -133,7 +140,8 @@ export const Reversed: Story = {
 };
 
 // Complex Content
-export const ComplexContent: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyComplexContent: Story = {
   render: () => (
     <Timeline>
       <TimelineItem color="success" dot="check">
@@ -162,7 +170,7 @@ export const ComplexContent: Story = {
 };
 
 // Composable API Examples
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <Timeline>
       <TimelineItem>
@@ -190,7 +198,7 @@ export const ComposableBasic: Story = {
   ),
 };
 
-export const ComposableAlternate: Story = {
+export const Alternate: Story = {
   render: () => (
     <Timeline mode="alternate">
       <TimelineItem>
@@ -221,7 +229,7 @@ export const ComposableAlternate: Story = {
   ),
 };
 
-export const ComposableWithCustomContent: Story = {
+export const WithCustomContent: Story = {
   render: () => (
     <Timeline>
       <TimelineItem>

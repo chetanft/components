@@ -5,6 +5,7 @@ import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Typography } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface UploadButtonProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
   onFileSelect?: (files: FileList) => void;
@@ -13,6 +14,8 @@ export interface UploadButtonProps extends Omit<ComposableProps<'div'>, 'onSelec
   disabled?: boolean;
   multiple?: boolean;
   state?: 'default' | 'hover' | 'disabled';
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 export const UploadButton = React.forwardRef<HTMLDivElement, UploadButtonProps>(
@@ -24,10 +27,12 @@ export const UploadButton = React.forwardRef<HTMLDivElement, UploadButtonProps>(
     disabled = false,
     multiple = false,
     state = 'default',
+    glass,
     asChild,
-    ...props 
+    ...props
   }, ref) => {
     const inputRef = useRef<HTMLInputElement>(null);
+    const resolvedGlass = useResolvedGlass(glass);
     
     const isDisabled = disabled || state === 'disabled';
     
@@ -80,7 +85,7 @@ export const UploadButton = React.forwardRef<HTMLDivElement, UploadButtonProps>(
             "transition-all duration-200",
             "cursor-pointer",
             // Default state
-            "border-[var(--border-primary)] bg-transparent",
+            getGlassClasses(resolvedGlass, 'bg-transparent', 'border-[var(--border-primary)]'),
             // Hover state
             !isDisabled && "hover:border-[var(--primary)]",
             // Disabled state

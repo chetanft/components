@@ -8,6 +8,7 @@ import { Button } from '../../atoms/Button/Button';
 import { usePageHeaderFiltersOptional } from '../PageHeaderFilters/PageHeaderFiltersContext';
 import { useMediaQuery } from '../../../lib/hooks/useMediaQuery';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface FilterDateRangeProps extends ComposableProps<'div'> {
   /**
@@ -38,6 +39,8 @@ export interface FilterDateRangeProps extends ComposableProps<'div'> {
    * Additional CSS classes
    */
   className?: string;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 /**
@@ -69,8 +72,9 @@ export interface FilterDateRangeProps extends ComposableProps<'div'> {
  * ```
  */
 export const FilterDateRange = React.forwardRef<HTMLDivElement, FilterDateRangeProps>(
-  ({ id, startValue, endValue, onStartChange, onEndChange, placeholder, className, asChild, ...props }, ref) => {
+  ({ id, startValue, endValue, onStartChange, onEndChange, placeholder, className, glass, asChild, ...props }, ref) => {
     const isMobile = useMediaQuery('(max-width: 1199px)');
+    const resolvedGlass = useResolvedGlass(glass);
     
     // Use context if available, otherwise fall back to local state (standalone mode)
     const context = usePageHeaderFiltersOptional();
@@ -197,7 +201,7 @@ export const FilterDateRange = React.forwardRef<HTMLDivElement, FilterDateRangeP
     // Desktop: render full date picker
     if (!isMobile) {
       return (
-        <Comp ref={ref} className={cn('w-full', className)} {...props}>
+        <Comp ref={ref} className={cn('w-full', getGlassClasses(resolvedGlass, '', ''), className)} {...props}>
           <DatePicker
             range
             startValue={startValue}

@@ -20,7 +20,8 @@ const meta: Meta<typeof ButtonGroup> = {
 export default meta;
 type Story = StoryObj<typeof ButtonGroup>;
 
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     buttons: [
       { id: 'text', label: 'Text', variant: 'text' },
@@ -31,7 +32,8 @@ export const Default: Story = {
 };
 
 // All Variants showcase
-export function AllVariants() {
+/** @deprecated Use composable API instead. */
+export function LegacyAllVariants() {
   return (
     <div className="space-y-4 p-6">
       <div>
@@ -67,7 +69,8 @@ export function AllVariants() {
 }
 
 // With Icons - uses sampleButtons from registry
-export const WithIcons: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithIcons: Story = {
   args: {
     buttons: [
       { id: 'add', label: 'Add', variant: 'primary', icon: 'add', iconPosition: 'leading' },
@@ -78,7 +81,8 @@ export const WithIcons: Story = {
 };
 
 // With Disabled - uses story args format
-export const WithDisabled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithDisabled: Story = {
   args: {
     buttons: [
       { id: 'enabled', label: 'Enabled', variant: 'primary' },
@@ -89,7 +93,7 @@ export const WithDisabled: Story = {
 };
 
 // Composable API Examples
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <ButtonGroup>
       <ButtonGroupItem>
@@ -105,7 +109,7 @@ export const ComposableBasic: Story = {
   ),
 };
 
-export const ComposableEqualWidth: Story = {
+export const EqualWidth: Story = {
   render: () => (
     <ButtonGroup equalWidth>
       <ButtonGroupItem>
@@ -121,7 +125,7 @@ export const ComposableEqualWidth: Story = {
   ),
 };
 
-export const ComposableWithIcons: Story = {
+export const WithIcons: Story = {
   render: () => (
     <ButtonGroup>
       <ButtonGroupItem>
@@ -137,7 +141,7 @@ export const ComposableWithIcons: Story = {
   ),
 };
 
-export const ComposableWrapped: Story = {
+export const Wrapped: Story = {
   render: () => (
     <ButtonGroup wrap className="max-w-md">
       <ButtonGroupItem>

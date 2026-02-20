@@ -19,83 +19,14 @@ const meta: Meta<typeof Tabs> = {
   },
 };
 
-const overflowTabs = Array.from({ length: 20 }).map((_, index) => ({
-  label: `Tab ${index + 1}`,
-  children: `Content of Tab ${index + 1}`,
-}));
-
-export const OverflowDropdown: Story = {
-  args: {
-    tabs: overflowTabs,
-    type: 'primary',
-    overflowBehavior: 'dropdown',
-  },
-};
-
 export default meta;
 type Story = StoryObj<typeof Tabs>;
 
-const tabsData = [
-    { label: 'Tab 1', children: 'Content of Tab 1' },
-    { label: 'Tab 2', children: 'Content of Tab 2' },
-    { label: 'Tab 3', children: 'Content of Tab 3' },
-];
+// ---------------------------------------------------------------------------
+// Composable stories (recommended API)
+// ---------------------------------------------------------------------------
 
-export const Primary: Story = {
-  args: {
-    tabs: tabsData,
-    type: 'primary',
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    tabs: tabsData,
-    type: 'secondary',
-  },
-};
-
-export const Tertiary: Story = {
-  args: {
-    tabs: tabsData,
-    type: 'tertiary',
-  },
-};
-
-export const WithBadges: Story = {
-  args: {
-    tabs: [
-      { label: 'Tab 1', badge: true, badgeCount: '56', children: 'Content of Tab 1' },
-      { label: 'Tab 2', badge: true, badgeCount: '12', children: 'Content of Tab 2' },
-      { label: 'Tab 3', children: 'Content of Tab 3' },
-    ],
-    type: 'primary',
-  },
-};
-
-export const WithNotifications: Story = {
-  args: {
-    tabs: [
-      { label: 'Tab 1', notification: true, children: 'Content of Tab 1' },
-      { label: 'Tab 2', notification: true, children: 'Content of Tab 2' },
-      { label: 'Tab 3', children: 'Content of Tab 3' },
-    ],
-    type: 'primary',
-  },
-};
-
-export const WithIcons: Story = {
-  args: {
-    tabs: [
-      { label: 'Tab 1', icon: true, children: 'Content of Tab 1' },
-      { label: 'Tab 2', icon: true, children: 'Content of Tab 2' },
-      { label: 'Tab 3', children: 'Content of Tab 3' },
-    ],
-    type: 'primary',
-  },
-};
-
-function ComposableBasicComponent() {
+function DefaultComponent() {
   const [activeTab, setActiveTab] = React.useState(0);
   return (
     <Tabs activeTab={activeTab} onTabChange={setActiveTab} type="primary">
@@ -111,11 +42,11 @@ function ComposableBasicComponent() {
   );
 }
 
-export const ComposableBasic: Story = {
-  render: () => <ComposableBasicComponent />,
+export const Default: Story = {
+  render: () => <DefaultComponent />,
 };
 
-function ComposableWithBadgesComponent() {
+function WithBadgesComponent() {
   const [activeTab, setActiveTab] = React.useState(0);
   return (
     <Tabs activeTab={activeTab} onTabChange={setActiveTab} type="primary">
@@ -135,11 +66,11 @@ function ComposableWithBadgesComponent() {
   );
 }
 
-export const ComposableWithBadges: Story = {
-  render: () => <ComposableWithBadgesComponent />,
+export const WithBadges: Story = {
+  render: () => <WithBadgesComponent />,
 };
 
-function ComposableSecondaryComponent() {
+function SecondaryComponent() {
   const [activeTab, setActiveTab] = React.useState(0);
   return (
     <Tabs activeTab={activeTab} onTabChange={setActiveTab} type="secondary">
@@ -155,11 +86,11 @@ function ComposableSecondaryComponent() {
   );
 }
 
-export const ComposableSecondary: Story = {
-  render: () => <ComposableSecondaryComponent />,
+export const Secondary: Story = {
+  render: () => <SecondaryComponent />,
 };
 
-function ComposableTertiaryComponent() {
+function TertiaryComponent() {
   const [activeTab, setActiveTab] = React.useState(0);
   return (
     <Tabs activeTab={activeTab} onTabChange={setActiveTab} type="tertiary">
@@ -175,6 +106,90 @@ function ComposableTertiaryComponent() {
   );
 }
 
-export const ComposableTertiary: Story = {
-  render: () => <ComposableTertiaryComponent />,
+export const Tertiary: Story = {
+  render: () => <TertiaryComponent />,
+};
+
+// ---------------------------------------------------------------------------
+// Legacy declarative stories (deprecated)
+// ---------------------------------------------------------------------------
+
+const tabsData = [
+  { label: 'Tab 1', children: 'Content of Tab 1' },
+  { label: 'Tab 2', children: 'Content of Tab 2' },
+  { label: 'Tab 3', children: 'Content of Tab 3' },
+];
+
+const overflowTabs = Array.from({ length: 20 }).map((_, index) => ({
+  label: `Tab ${index + 1}`,
+  children: `Content of Tab ${index + 1}`,
+}));
+
+/** @deprecated Use the `Default` story instead. */
+export const LegacyPrimary: Story = {
+  args: {
+    tabs: tabsData,
+    type: 'primary',
+  },
+};
+
+/** @deprecated Use the `Secondary` story instead. */
+export const LegacySecondary: Story = {
+  args: {
+    tabs: tabsData,
+    type: 'secondary',
+  },
+};
+
+/** @deprecated Use the `Tertiary` story instead. */
+export const LegacyTertiary: Story = {
+  args: {
+    tabs: tabsData,
+    type: 'tertiary',
+  },
+};
+
+/** @deprecated Use the `WithBadges` story instead. */
+export const LegacyWithBadges: Story = {
+  args: {
+    tabs: [
+      { label: 'Tab 1', badge: true, badgeCount: '56', children: 'Content of Tab 1' },
+      { label: 'Tab 2', badge: true, badgeCount: '12', children: 'Content of Tab 2' },
+      { label: 'Tab 3', children: 'Content of Tab 3' },
+    ],
+    type: 'primary',
+  },
+};
+
+/** @deprecated Use composable API instead. */
+export const LegacyWithNotifications: Story = {
+  args: {
+    tabs: [
+      { label: 'Tab 1', notification: true, children: 'Content of Tab 1' },
+      { label: 'Tab 2', notification: true, children: 'Content of Tab 2' },
+      { label: 'Tab 3', children: 'Content of Tab 3' },
+    ],
+    type: 'primary',
+  },
+};
+
+/** @deprecated Use composable API instead. */
+export const LegacyWithIcons: Story = {
+  args: {
+    tabs: [
+      { label: 'Tab 1', icon: true, children: 'Content of Tab 1' },
+      { label: 'Tab 2', icon: true, children: 'Content of Tab 2' },
+      { label: 'Tab 3', children: 'Content of Tab 3' },
+    ],
+    type: 'primary',
+  },
+};
+
+/** @deprecated Use composable API instead. */
+export const LegacyOverflowDropdown: Story = {
+  args: {
+    tabs: overflowTabs,
+    type: 'primary',
+    overflowBehavior: 'dropdown',
+  },
 };

@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 // import { getWindow } from '../../../lib/dom'; // Removed unused import
 
 export interface AffixProps extends Omit<ComposableProps<'div'>, 'onChange'> {
@@ -11,6 +12,8 @@ export interface AffixProps extends Omit<ComposableProps<'div'>, 'onChange'> {
   target?: () => Window | HTMLElement | null;
   onChange?: (affixed?: boolean) => void;
   children: React.ReactNode;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -24,12 +27,14 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
   target = getDefaultTarget,
   onChange,
   children,
+  glass,
   className,
   style,
   asChild,
   ...props
 }, _ref) => {
   const [_affixed, setAffixed] = useState(false);
+  const resolvedGlass = useResolvedGlass(glass);
   const [placeholderStyle, setPlaceholderStyle] = useState<React.CSSProperties>({});
   const [affixStyle, setAffixStyle] = useState<React.CSSProperties>({});
   const placeholderRef = useRef<HTMLDivElement>(null);
@@ -124,7 +129,7 @@ export const Affix = React.forwardRef<HTMLDivElement, AffixProps>(({
     <div ref={placeholderRef} style={placeholderStyle}>
       <Comp
         ref={fixedNodeRef}
-        className={cn(className)}
+        className={cn(getGlassClasses(resolvedGlass, '', ''), className)}
         style={{ ...style, ...affixStyle }}
         {...props}
       >

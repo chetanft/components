@@ -3,6 +3,7 @@ import React, { forwardRef, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Typography } from '../../atoms/Typography';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export type ChickletVariant = 'rounded' | 'rectangular';
 export type ChickletState = 'default' | 'hover';
@@ -34,6 +35,8 @@ export interface ChickletProps {
   className?: string;
   children?: React.ReactNode;
   color?: string; // Custom color support
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
@@ -49,9 +52,11 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
     className,
     children,
     color,
-    ...props 
+    glass,
+    ...props
   }, ref) => {
     const [isHovered, setIsHovered] = useState(false);
+    const resolvedGlass = useResolvedGlass(glass);
     const [visible, setVisible] = useState(true);
     
     // Get current state
@@ -68,16 +73,14 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
       "transition-all duration-200 cursor-pointer",
       // Disabled state
       disabled && "opacity-50 cursor-not-allowed pointer-events-none",
-      
+
       // Border radius based on variant - exact from Figma
       variant === 'rectangular' && "rounded-[4px]", // 4px border radius
       variant === 'rounded' && "rounded-[100px]", // 100px border radius (pill)
-      
+
       // Background colors based on state - use CSS variables instead of hardcoded
-      currentState === 'default' && "bg-[var(--border-secondary)]", // Default background
-      currentState === 'hover' && "bg-[var(--border-primary)]", // Hover background
-      
-      bordered && "border border-[var(--border-primary)] bg-transparent",
+      getGlassClasses(resolvedGlass, currentState === 'default' ? "bg-[var(--border-secondary)]" : "bg-[var(--border-primary)]", bordered ? "border border-[var(--border-primary)]" : ''),
+      !resolvedGlass && bordered && "bg-transparent",
 
       className
     );

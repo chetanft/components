@@ -29,7 +29,7 @@ export default meta;
 type Story = StoryObj<typeof Slider>;
 
 // Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <div className="p-6">
       <Slider defaultValue={30} className="w-[300px]">
@@ -49,7 +49,7 @@ export const ComposableBasic: Story = {
   },
 };
 
-export const ComposableRange: Story = {
+export const Range: Story = {
   render: () => (
     <div className="p-6">
       <Slider range defaultValue={[20, 80]} className="w-[300px]">
@@ -70,7 +70,7 @@ export const ComposableRange: Story = {
   },
 };
 
-export const ComposableWithLabels: Story = {
+export const WithLabels: Story = {
   render: () => (
     <div className="p-6">
       <Slider defaultValue={50} className="w-[300px]">
@@ -95,7 +95,8 @@ export const ComposableWithLabels: Story = {
 };
 
 // Mark deprecated examples
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     defaultValue: 30,
     className: 'w-[300px]',
@@ -109,7 +110,8 @@ export const Default: Story = {
   },
 };
 
-export const Range: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyRange: Story = {
   args: {
     range: true,
     defaultValue: [20, 80],
@@ -117,7 +119,8 @@ export const Range: Story = {
   },
 };
 
-export const WithMarks: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithMarks: Story = {
   args: {
     defaultValue: 50,
     marks: [
@@ -130,7 +133,8 @@ export const WithMarks: Story = {
   },
 };
 
-export const WithStep: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithStep: Story = {
   args: {
     defaultValue: 50,
     step: 10,
@@ -139,7 +143,8 @@ export const WithStep: Story = {
   },
 };
 
-export const Disabled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDisabled: Story = {
   args: {
     defaultValue: 50,
     disabled: true,
@@ -147,7 +152,8 @@ export const Disabled: Story = {
   },
 };
 
-export const CustomColors: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyCustomColors: Story = {
   args: {
     defaultValue: 70,
     trackColor: 'var(--positive)',
@@ -155,7 +161,8 @@ export const CustomColors: Story = {
   },
 };
 
-export const Vertical: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyVertical: Story = {
   args: {
     vertical: true,
     defaultValue: 40,
@@ -163,7 +170,8 @@ export const Vertical: Story = {
   },
 };
 
-export const VerticalRange: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyVerticalRange: Story = {
   args: {
     vertical: true,
     range: true,
@@ -172,7 +180,8 @@ export const VerticalRange: Story = {
   },
 };
 
-export function Controlled() {
+/** @deprecated Use composable API instead. */
+export function LegacyControlled() {
   const [value, setValue] = useState(50);
   return (
     <div className="flex flex-col gap-4 items-center w-[300px]">
@@ -184,7 +193,8 @@ export function Controlled() {
   );
 }
 
-export function ControlledRange() {
+/** @deprecated Use composable API instead. */
+export function LegacyControlledRange() {
   const [value, setValue] = useState<[number, number]>([20, 80]);
   return (
     <div className="flex flex-col gap-4 items-center w-[300px]">

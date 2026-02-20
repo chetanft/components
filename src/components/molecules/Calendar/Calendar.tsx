@@ -6,6 +6,7 @@ import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 // ============================================================================
 // Types
@@ -38,6 +39,8 @@ export interface CalendarProps extends Omit<ComposableProps<'div'>, 'onChange' |
   validRange?: [Date, Date];
   /** Locale */
   locale?: 'en' | 'zh';
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   /**
    * Custom weekday labels (Sunday to Saturday)
    * @default Based on locale prop: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] for 'en'
@@ -133,9 +136,12 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
     weekdayLabels,
     monthLabels,
     monthLabelsFull,
+    glass,
     asChild,
     ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
+
     // Resolve labels based on locale and props
     const resolvedWeekdayLabels = weekdayLabels ?? (locale === 'zh' ? DEFAULT_WEEKDAYS_ZH : DEFAULT_WEEKDAYS_EN);
     const resolvedMonthLabels = monthLabels ?? (locale === 'zh' ? DEFAULT_MONTHS_ZH : DEFAULT_MONTHS_EN);
@@ -555,8 +561,8 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
       <Comp
         ref={ref}
         className={cn(
-          "bg-[var(--bg-primary)] rounded-[var(--radius-md)]",
-          "border border-[var(--border-secondary)]",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
+          "rounded-[var(--radius-md)]",
           fullscreen ? "w-full" : "w-fit",
           className
         )}

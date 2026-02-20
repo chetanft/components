@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Form, FormItem } from './Form';
+import { Form, FormItem, FormLabel, FormControl, FormHelper, FormError } from './index';
 import { Input } from '../../atoms/Input/Input';
 import { Button } from '../../atoms/Button/Button';
 import { Checkbox } from '../../atoms/Checkbox';
@@ -38,8 +38,184 @@ const meta: Meta<typeof Form> = {
 export default meta;
 type Story = StoryObj<typeof Form>;
 
-// Basic Form
+// Basic Form using composable API
 export const Default: Story = {
+  render: (args: React.ComponentProps<typeof Form>) => (
+    <Form
+      {...args}
+      onFinish={(values) => console.log('Form submitted:', values)}
+      onFinishFailed={(errors) => console.log('Validation failed:', errors)}
+    >
+      <FormItem name="username" required>
+        <FormLabel>Username</FormLabel>
+        <FormControl>
+          <Input placeholder="Enter username" />
+        </FormControl>
+      </FormItem>
+      <FormItem name="email" required rules={[{ pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Please enter a valid email' }]}>
+        <FormLabel>Email</FormLabel>
+        <FormControl>
+          <Input type="email" placeholder="Enter email" />
+        </FormControl>
+        <FormError>Please enter a valid email</FormError>
+      </FormItem>
+      <FormItem name="password" required rules={[{ min: 8, message: 'Password must be at least 8 characters' }]}>
+        <FormLabel>Password</FormLabel>
+        <FormControl>
+          <Input type="password" placeholder="Enter password" />
+        </FormControl>
+        <FormError>Password must be at least 8 characters</FormError>
+      </FormItem>
+      <FormItem>
+        <Button type="submit" variant="primary">Submit</Button>
+      </FormItem>
+    </Form>
+  ),
+  args: {
+    layout: 'vertical',
+  },
+};
+
+// Horizontal Layout using composable API
+export const HorizontalLayout: Story = {
+  render: (args: React.ComponentProps<typeof Form>) => (
+    <Form
+      {...args}
+      onFinish={(values) => console.log('Form submitted:', values)}
+    >
+      <FormItem name="firstName" required>
+        <FormLabel>First Name</FormLabel>
+        <FormControl>
+          <Input placeholder="Enter first name" />
+        </FormControl>
+      </FormItem>
+      <FormItem name="lastName" required>
+        <FormLabel>Last Name</FormLabel>
+        <FormControl>
+          <Input placeholder="Enter last name" />
+        </FormControl>
+      </FormItem>
+      <FormItem name="email">
+        <FormLabel>Email</FormLabel>
+        <FormControl>
+          <Input type="email" placeholder="Enter email" />
+        </FormControl>
+      </FormItem>
+      <FormItem>
+        <Button type="submit" variant="primary">Submit</Button>
+      </FormItem>
+    </Form>
+  ),
+  args: {
+    layout: 'horizontal',
+    labelCol: 6,
+    wrapperCol: 18,
+  },
+};
+
+// With Validation using composable API
+export const WithValidation: Story = {
+  render: (args: React.ComponentProps<typeof Form>) => (
+    <Form
+      {...args}
+      onFinish={(values) => {
+        alert('Form submitted successfully!\n' + JSON.stringify(values, null, 2));
+      }}
+      onFinishFailed={(errors) => {
+        console.log('Validation errors:', errors);
+      }}
+    >
+      <FormItem
+        name="username"
+        required
+        rules={[
+          { min: 3, message: 'Username must be at least 3 characters' },
+          { max: 20, message: 'Username must be at most 20 characters' },
+        ]}
+      >
+        <FormLabel>Username</FormLabel>
+        <FormControl>
+          <Input placeholder="Enter username" />
+        </FormControl>
+        <FormHelper>Username must be 3-20 characters</FormHelper>
+        <FormError>Username must be between 3 and 20 characters</FormError>
+      </FormItem>
+      <FormItem
+        name="email"
+        required
+        rules={[
+          { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Please enter a valid email address' },
+        ]}
+      >
+        <FormLabel>Email</FormLabel>
+        <FormControl>
+          <Input type="email" placeholder="Enter email" />
+        </FormControl>
+        <FormError>Please enter a valid email address</FormError>
+      </FormItem>
+      <FormItem
+        name="password"
+        required
+        rules={[
+          { min: 8, message: 'Password must be at least 8 characters' },
+          { pattern: /[A-Z]/, message: 'Password must contain at least one uppercase letter' },
+          { pattern: /[0-9]/, message: 'Password must contain at least one number' },
+        ]}
+      >
+        <FormLabel>Password</FormLabel>
+        <FormControl>
+          <Input type="password" placeholder="Enter password" />
+        </FormControl>
+        <FormHelper>At least 8 characters with uppercase and number</FormHelper>
+        <FormError>Password does not meet requirements</FormError>
+      </FormItem>
+      <FormItem
+        name="confirmPassword"
+        required
+        rules={[
+          {
+            validator: async (value, formValues) => {
+              if (value !== formValues.password) {
+                return 'Passwords do not match';
+              }
+              return true;
+            },
+          },
+        ]}
+      >
+        <FormLabel>Confirm Password</FormLabel>
+        <FormControl>
+          <Input type="password" placeholder="Confirm password" />
+        </FormControl>
+        <FormError>Passwords do not match</FormError>
+      </FormItem>
+      <FormItem name="terms" required rules={[{ validator: (value) => value === true || 'You must accept the terms' }]}>
+        <FormControl>
+          <Checkbox>I accept the terms and conditions</Checkbox>
+        </FormControl>
+        <FormError>You must accept the terms</FormError>
+      </FormItem>
+      <FormItem>
+        <div className="flex gap-2">
+          <Button type="submit" variant="primary">Register</Button>
+          <Button type="reset" variant="secondary">Reset</Button>
+        </div>
+      </FormItem>
+    </Form>
+  ),
+  args: {
+    layout: 'vertical',
+  },
+};
+
+// ============================================================================
+// Legacy stories (declarative API)
+// ============================================================================
+
+/**
+ * @deprecated Use the Default story with composable API instead.
+ */
+export const LegacyDefault: Story = {
   render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
@@ -65,8 +241,10 @@ export const Default: Story = {
   },
 };
 
-// Horizontal Layout
-export const HorizontalLayout: Story = {
+/**
+ * @deprecated Use the HorizontalLayout story with composable API instead.
+ */
+export const LegacyHorizontalLayout: Story = {
   render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
@@ -93,8 +271,10 @@ export const HorizontalLayout: Story = {
   },
 };
 
-// Inline Layout
-export const InlineLayout: Story = {
+/**
+ * @deprecated Use the InlineLayout composable API when available.
+ */
+export const LegacyInlineLayout: Story = {
   render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
@@ -116,8 +296,10 @@ export const InlineLayout: Story = {
   },
 };
 
-// With Validation
-export const WithValidation: Story = {
+/**
+ * @deprecated Use the WithValidation story with composable API instead.
+ */
+export const LegacyWithValidation: Story = {
   render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
@@ -196,8 +378,10 @@ export const WithValidation: Story = {
   },
 };
 
-// With Initial Values
-export const WithInitialValues: Story = {
+/**
+ * @deprecated Use composable API with initialValues instead.
+ */
+export const LegacyWithInitialValues: Story = {
   render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
@@ -227,8 +411,10 @@ export const WithInitialValues: Story = {
   },
 };
 
-// Disabled Form
-export const DisabledForm: Story = {
+/**
+ * @deprecated Use composable API with disabled prop instead.
+ */
+export const LegacyDisabledForm: Story = {
   render: (args: React.ComponentProps<typeof Form>) => (
     <Form
       {...args}
@@ -254,8 +440,10 @@ export const DisabledForm: Story = {
   },
 };
 
-// Complex Form
-export const ComplexForm: Story = {
+/**
+ * @deprecated Use composable API for complex forms instead.
+ */
+export const LegacyComplexForm: Story = {
   render: (args: React.ComponentProps<typeof Form>) => (
     <div className="max-w-2xl">
       <Typography variant="title-secondary" className="mb-4">Contact Information</Typography>
@@ -299,4 +487,3 @@ export const ComplexForm: Story = {
     layout: 'vertical',
   },
 };
-

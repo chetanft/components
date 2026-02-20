@@ -20,7 +20,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Composable API Examples
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <PageHeader>
       <PageHeader.Top>
@@ -73,7 +73,7 @@ const ComposableWithTabsComponent = () => {
   );
 };
 
-export const ComposableWithTabs: Story = {
+export const WithTabs: Story = {
   render: () => <ComposableWithTabsComponent />,
 };
 
@@ -108,7 +108,7 @@ const ComposableWithSegmentedTabsComponent = () => {
   );
 };
 
-export const ComposableWithSegmentedTabs: Story = {
+export const WithSegmentedTabs: Story = {
   render: () => <ComposableWithSegmentedTabsComponent />,
 };
 
@@ -168,11 +168,11 @@ const ComposableWithFiltersComponent = () => {
   );
 };
 
-export const ComposableWithFilters: Story = {
+export const WithFilters: Story = {
   render: () => <ComposableWithFiltersComponent />,
 };
 
-export const ComposableMinimal: Story = {
+export const Minimal: Story = {
   render: () => (
     <PageHeader>
       <PageHeader.Top>

@@ -39,8 +39,8 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Default primary button
-export const Primary: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyPrimary: Story = {
   args: {
     variant: 'primary',
     size: 'md',
@@ -48,8 +48,8 @@ export const Primary: Story = {
   },
 };
 
-// Secondary variant
-export const Secondary: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySecondary: Story = {
   args: {
     variant: 'secondary',
     size: 'md',
@@ -57,8 +57,8 @@ export const Secondary: Story = {
   },
 };
 
-// Destructive variant
-export const Destructive: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDestructive: Story = {
   args: {
     variant: 'destructive',
     size: 'md',
@@ -66,8 +66,8 @@ export const Destructive: Story = {
   },
 };
 
-// Text variant
-export const Text: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyText: Story = {
   args: {
     variant: 'text',
     size: 'md',
@@ -75,8 +75,8 @@ export const Text: Story = {
   },
 };
 
-// Link variant
-export const Link: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyLink: Story = {
   args: {
     variant: 'link',
     size: 'md',
@@ -84,8 +84,8 @@ export const Link: Story = {
   },
 };
 
-// With leading icon
-export const WithLeadingIcon: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithLeadingIcon: Story = {
   args: {
     variant: 'primary',
     size: 'md',
@@ -95,8 +95,8 @@ export const WithLeadingIcon: Story = {
   },
 };
 
-// With trailing icon
-export const WithTrailingIcon: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithTrailingIcon: Story = {
   args: {
     variant: 'primary',
     size: 'md',
@@ -106,8 +106,8 @@ export const WithTrailingIcon: Story = {
   },
 };
 
-// Icon only
-export const IconOnly: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyIconOnly: Story = {
   args: {
     variant: 'secondary',
     size: 'md',
@@ -116,8 +116,8 @@ export const IconOnly: Story = {
   },
 };
 
-// Disabled state
-export const Disabled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDisabled: Story = {
   args: {
     variant: 'primary',
     size: 'md',
@@ -128,8 +128,8 @@ export const Disabled: Story = {
   },
 };
 
-// Sizes story - all sizes in one preview
-export function Sizes() {
+/** @deprecated Use composable API instead. */
+export function LegacySizes() {
   return (
     <div className="p-6">
       <div className="flex flex-col gap-4">
@@ -166,8 +166,8 @@ export function Sizes() {
   );
 }
 
-// States story - separate preview for states
-export function States() {
+/** @deprecated Use composable API instead. */
+export function LegacyStates() {
   return (
     <div className="p-6">
       <div className="flex gap-4">
@@ -178,8 +178,8 @@ export function States() {
   );
 }
 
-// Icon Positions story - separate preview for icon positions
-export function IconPositions() {
+/** @deprecated Use composable API instead. */
+export function LegacyIconPositions() {
   return (
     <div className="p-6">
       <div className="flex gap-4">
@@ -191,8 +191,8 @@ export function IconPositions() {
   );
 }
 
-// Circular buttons showcase - special showcase story
-export function CircularButtons() {
+/** @deprecated Use composable API instead. */
+export function LegacyCircularButtons() {
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* Circular button sizes */}
@@ -259,7 +259,7 @@ export function CircularButtons() {
 }
 
 // Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Button variant="primary">
@@ -284,7 +284,7 @@ export const ComposableBasic: Story = {
   },
 };
 
-export const ComposableWithTrailingIcon: Story = {
+export const WithTrailingIcon: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Button variant="primary">
@@ -306,7 +306,7 @@ export const ComposableWithTrailingIcon: Story = {
   },
 };
 
-export const ComposableIconOnly: Story = {
+export const IconOnly: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Button variant="secondary">
@@ -329,7 +329,7 @@ export const ComposableIconOnly: Story = {
   },
 };
 
-export const ComposableTextOnly: Story = {
+export const TextOnly: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Button variant="primary">

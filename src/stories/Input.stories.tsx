@@ -23,8 +23,8 @@ const meta: Meta<typeof Input> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Default input (empty, MD size)
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     label: 'Input Label',
     placeholder: 'Enter value',
@@ -33,8 +33,8 @@ export const Default: Story = {
   },
 };
 
-// Interactive Demo - typeable input with controls (per plan)
-export function InteractiveDemo() {
+/** @deprecated Use composable API instead. */
+export function LegacyInteractiveDemo() {
   const [normalValue, setNormalValue] = React.useState('');
   const [errorValue, setErrorValue] = React.useState('');
   const [warningValue, setWarningValue] = React.useState('');
@@ -131,7 +131,7 @@ function ComposableBasicComponent() {
   );
 }
 
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => <ComposableBasicComponent />,
 };
 
@@ -163,7 +163,7 @@ function ComposableWithErrorComponent() {
   );
 }
 
-export const ComposableWithError: Story = {
+export const WithError: Story = {
   render: () => <ComposableWithErrorComponent />,
 };
 
@@ -183,7 +183,7 @@ function ComposableWithIconsComponent() {
   );
 }
 
-export const ComposableWithIcons: Story = {
+export const WithIcons: Story = {
   render: () => <ComposableWithIconsComponent />,
 };
 
@@ -203,7 +203,7 @@ function ComposableWithSuccessComponent() {
   );
 }
 
-export const ComposableWithSuccess: Story = {
+export const WithSuccess: Story = {
   render: () => <ComposableWithSuccessComponent />,
 };
 
@@ -223,12 +223,12 @@ function ComposableWithWarningComponent() {
   );
 }
 
-export const ComposableWithWarning: Story = {
+export const WithWarning: Story = {
   render: () => <ComposableWithWarningComponent />,
 };
 
-// Filled variant (with value)
-export const Filled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyFilled: Story = {
   args: {
     label: 'Filled Input',
     placeholder: 'Enter value',
@@ -238,8 +238,8 @@ export const Filled: Story = {
   },
 };
 
-// Error state
-export const Error: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyError: Story = {
   args: {
     label: 'Input with Error',
     placeholder: 'Enter value',
@@ -249,8 +249,8 @@ export const Error: Story = {
   },
 };
 
-// Warning state
-export const Warning: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWarning: Story = {
   args: {
     label: 'Input with Warning',
     placeholder: 'Enter value',
@@ -260,8 +260,8 @@ export const Warning: Story = {
   },
 };
 
-// Success state
-export const Success: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacySuccess: Story = {
   args: {
     label: 'Input with Success',
     placeholder: 'Enter value',
@@ -271,8 +271,8 @@ export const Success: Story = {
   },
 };
 
-// Disabled state
-export const Disabled: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDisabled: Story = {
   args: {
     label: 'Disabled Input',
     placeholder: 'Cannot type here',
@@ -282,8 +282,8 @@ export const Disabled: Story = {
   },
 };
 
-// Sizes story - separate preview for all sizes
-export function Sizes() {
+/** @deprecated Use composable API instead. */
+export function LegacySizes() {
   const sizes: Array<'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'> = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
   
   return (
@@ -297,8 +297,8 @@ export function Sizes() {
   );
 }
 
-// States story - separate preview for all states
-export function States() {
+/** @deprecated Use composable API instead. */
+export function LegacyStates() {
   return (
     <div className="p-6 space-y-3">
       <Input label="Normal" placeholder="Value" size="md" variant="default" />

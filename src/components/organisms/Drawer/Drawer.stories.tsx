@@ -1,6 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Drawer } from './Drawer';
+import {
+    Drawer,
+    DrawerTrigger,
+    DrawerContent,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerDescription,
+    DrawerBody,
+    DrawerFooter,
+    DrawerClose,
+} from './index';
 import { Button } from '../../atoms/Button/Button';
 import { Typography } from '../../atoms/Typography';
 import { Input } from '../../atoms/Input';
@@ -45,7 +55,181 @@ const meta: Meta<typeof Drawer> = {
 export default meta;
 type Story = StoryObj<typeof Drawer>;
 
-const DefaultDrawerStory = (args: React.ComponentProps<typeof Drawer>) => {
+// ---------------------------------------------------------------------------
+// Composable API Stories
+// ---------------------------------------------------------------------------
+
+// Default (Composable)
+export function Default() {
+    return (
+        <div className="p-6">
+            <Drawer>
+                <DrawerTrigger asChild>
+                    <Button variant="primary">Open Drawer</Button>
+                </DrawerTrigger>
+                <DrawerContent placement="right" width={400}>
+                    <DrawerHeader>
+                        <DrawerTitle>Drawer Title</DrawerTitle>
+                        <DrawerDescription>
+                            This is the drawer content. You can place any content here.
+                        </DrawerDescription>
+                    </DrawerHeader>
+                    <DrawerBody>
+                        <Typography variant="body-primary-regular">
+                            This is the drawer content. You can place any content here.
+                        </Typography>
+                    </DrawerBody>
+                    <DrawerFooter>
+                        <DrawerClose asChild>
+                            <Button variant="secondary">Cancel</Button>
+                        </DrawerClose>
+                        <Button variant="primary">Submit</Button>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
+        </div>
+    );
+}
+
+// Left Placement (Composable)
+export function LeftPlacement() {
+    return (
+        <div className="p-6">
+            <Drawer>
+                <DrawerTrigger asChild>
+                    <Button variant="primary">Open Left Drawer</Button>
+                </DrawerTrigger>
+                <DrawerContent placement="left" width={300}>
+                    <DrawerHeader>
+                        <DrawerTitle>Menu</DrawerTitle>
+                    </DrawerHeader>
+                    <DrawerBody>
+                        <div className="space-y-2">
+                            {['Dashboard', 'Projects', 'Team', 'Settings', 'Help'].map((item) => (
+                                <div
+                                    key={item}
+                                    className="p-3 rounded-md hover:bg-[var(--color-bg-secondary)] cursor-pointer transition-colors"
+                                >
+                                    <Typography variant="body-primary-medium">{item}</Typography>
+                                </div>
+                            ))}
+                        </div>
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
+        </div>
+    );
+}
+
+// Top Placement (Composable)
+export function TopPlacement() {
+    return (
+        <div className="p-6">
+            <Drawer>
+                <DrawerTrigger asChild>
+                    <Button variant="primary">Open Top Drawer</Button>
+                </DrawerTrigger>
+                <DrawerContent placement="top" height={200}>
+                    <DrawerHeader>
+                        <DrawerTitle>Notification</DrawerTitle>
+                    </DrawerHeader>
+                    <DrawerBody>
+                        <div className="text-center">
+                            <Typography variant="display-primary" className="mb-2">
+                                Announcement
+                            </Typography>
+                            <Typography variant="body-primary-regular">
+                                This is an important announcement that slides in from the top.
+                            </Typography>
+                        </div>
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
+        </div>
+    );
+}
+
+// Bottom Placement (Composable)
+export function BottomPlacement() {
+    return (
+        <div className="p-6">
+            <Drawer>
+                <DrawerTrigger asChild>
+                    <Button variant="primary">Open Bottom Drawer</Button>
+                </DrawerTrigger>
+                <DrawerContent placement="bottom" height={300}>
+                    <DrawerHeader>
+                        <DrawerTitle>Quick Actions</DrawerTitle>
+                    </DrawerHeader>
+                    <DrawerBody>
+                        <div className="grid grid-cols-3 gap-3">
+                            {['Action 1', 'Action 2', 'Action 3', 'Action 4', 'Action 5', 'Action 6'].map((action) => (
+                                <Button key={action} variant="secondary" className="w-full">
+                                    {action}
+                                </Button>
+                            ))}
+                        </div>
+                    </DrawerBody>
+                </DrawerContent>
+            </Drawer>
+        </div>
+    );
+}
+
+// Form Example (Composable)
+export function FormExample() {
+    return (
+        <div className="p-6">
+            <Drawer>
+                <DrawerTrigger asChild>
+                    <Button variant="primary">Create New Item</Button>
+                </DrawerTrigger>
+                <DrawerContent placement="right" width={450}>
+                    <DrawerHeader>
+                        <DrawerTitle>Create New Item</DrawerTitle>
+                        <DrawerDescription>
+                            Fill out the form below to create a new item.
+                        </DrawerDescription>
+                    </DrawerHeader>
+                    <DrawerBody>
+                        <div className="space-y-4">
+                            <div>
+                                <Typography variant="body-secondary-medium" className="mb-2">
+                                    Name
+                                </Typography>
+                                <Input placeholder="Enter name" />
+                            </div>
+                            <div>
+                                <Typography variant="body-secondary-medium" className="mb-2">
+                                    Email
+                                </Typography>
+                                <Input type="email" placeholder="Enter email" />
+                            </div>
+                            <div>
+                                <Typography variant="body-secondary-medium" className="mb-2">
+                                    Description
+                                </Typography>
+                                <Input placeholder="Enter description" />
+                            </div>
+                        </div>
+                    </DrawerBody>
+                    <DrawerFooter>
+                        <DrawerClose asChild>
+                            <Button variant="secondary" className="flex-1">Cancel</Button>
+                        </DrawerClose>
+                        <Button variant="primary" className="flex-1">Create</Button>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
+        </div>
+    );
+}
+
+// ---------------------------------------------------------------------------
+// Legacy Declarative API Stories
+// ---------------------------------------------------------------------------
+
+const LegacyDefaultDrawerStory = (args: React.ComponentProps<typeof Drawer>) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -75,7 +259,20 @@ const DefaultDrawerStory = (args: React.ComponentProps<typeof Drawer>) => {
     );
 };
 
-export function CustomBackground() {
+/** @deprecated Use the `Default` composable story instead. */
+export const LegacyDefault: Story = {
+    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyDefaultDrawerStory {...args} />,
+    args: {
+        title: 'Drawer Title',
+        placement: 'right',
+        width: 400,
+        closable: true,
+        maskClosable: true,
+    },
+};
+
+/** @deprecated Use the composable `CustomBackground` pattern instead. */
+export function LegacyCustomBackground() {
     const [open, setOpen] = useState(false);
 
     return (
@@ -97,7 +294,8 @@ export function CustomBackground() {
     );
 }
 
-export function BackgroundWithClassName() {
+/** @deprecated Use the composable `BackgroundWithClassName` pattern instead. */
+export function LegacyBackgroundWithClassName() {
     const [open, setOpen] = useState(false);
 
     return (
@@ -120,19 +318,7 @@ export function BackgroundWithClassName() {
     );
 }
 
-// Basic Drawer (Right)
-export const Default: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <DefaultDrawerStory {...args} />,
-    args: {
-        title: 'Drawer Title',
-        placement: 'right',
-        width: 400,
-        closable: true,
-        maskClosable: true,
-    },
-};
-
-const LeftPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
+const LegacyLeftPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -159,9 +345,9 @@ const LeftPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
     );
 };
 
-// Left Placement
-export const LeftPlacement: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <LeftPlacementStory {...args} />,
+/** @deprecated Use the composable `LeftPlacement` story instead. */
+export const LegacyLeftPlacement: Story = {
+    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyLeftPlacementStory {...args} />,
     args: {
         title: 'Menu',
         placement: 'left',
@@ -171,7 +357,7 @@ export const LeftPlacement: Story = {
     },
 };
 
-const TopPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
+const LegacyTopPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -193,9 +379,9 @@ const TopPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
     );
 };
 
-// Top Placement
-export const TopPlacement: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <TopPlacementStory {...args} />,
+/** @deprecated Use the composable `TopPlacement` story instead. */
+export const LegacyTopPlacement: Story = {
+    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyTopPlacementStory {...args} />,
     args: {
         title: 'Notification',
         placement: 'top',
@@ -205,7 +391,7 @@ export const TopPlacement: Story = {
     },
 };
 
-const BottomPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
+const LegacyBottomPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -229,9 +415,9 @@ const BottomPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
     );
 };
 
-// Bottom Placement
-export const BottomPlacement: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <BottomPlacementStory {...args} />,
+/** @deprecated Use the composable `BottomPlacement` story instead. */
+export const LegacyBottomPlacement: Story = {
+    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyBottomPlacementStory {...args} />,
     args: {
         title: 'Actions',
         placement: 'bottom',
@@ -241,7 +427,7 @@ export const BottomPlacement: Story = {
     },
 };
 
-const LargeDrawerStory = (args: React.ComponentProps<typeof Drawer>) => {
+const LegacyLargeDrawerStory = (args: React.ComponentProps<typeof Drawer>) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -272,9 +458,9 @@ const LargeDrawerStory = (args: React.ComponentProps<typeof Drawer>) => {
     );
 };
 
-// Large Drawer
-export const LargeDrawer: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <LargeDrawerStory {...args} />,
+/** @deprecated Use the composable API instead. */
+export const LegacyLargeDrawer: Story = {
+    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyLargeDrawerStory {...args} />,
     args: {
         title: 'Details',
         placement: 'right',
@@ -284,7 +470,7 @@ export const LargeDrawer: Story = {
     },
 };
 
-const NoTitleStory = (args: React.ComponentProps<typeof Drawer>) => {
+const LegacyNoTitleStory = (args: React.ComponentProps<typeof Drawer>) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -301,9 +487,9 @@ const NoTitleStory = (args: React.ComponentProps<typeof Drawer>) => {
     );
 };
 
-// No Title
-export const NoTitle: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <NoTitleStory {...args} />,
+/** @deprecated Use the composable API instead. */
+export const LegacyNoTitle: Story = {
+    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyNoTitleStory {...args} />,
     args: {
         placement: 'right',
         width: 400,
@@ -312,7 +498,7 @@ export const NoTitle: Story = {
     },
 };
 
-const NotClosableStory = (args: React.ComponentProps<typeof Drawer>) => {
+const LegacyNotClosableStory = (args: React.ComponentProps<typeof Drawer>) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -333,9 +519,9 @@ const NotClosableStory = (args: React.ComponentProps<typeof Drawer>) => {
     );
 };
 
-// Not Closable
-export const NotClosable: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <NotClosableStory {...args} />,
+/** @deprecated Use the composable API instead. */
+export const LegacyNotClosable: Story = {
+    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyNotClosableStory {...args} />,
     args: {
         title: 'Important',
         placement: 'right',
@@ -345,7 +531,7 @@ export const NotClosable: Story = {
     },
 };
 
-const FormExampleStory = (args: React.ComponentProps<typeof Drawer>) => {
+const LegacyFormExampleStory = (args: React.ComponentProps<typeof Drawer>) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -353,9 +539,9 @@ const FormExampleStory = (args: React.ComponentProps<typeof Drawer>) => {
             <Button variant="primary" onClick={() => setOpen(true)}>
                 Create New Item
             </Button>
-            <Drawer 
-                {...args} 
-                open={open} 
+            <Drawer
+                {...args}
+                open={open}
                 onClose={() => setOpen(false)}
                 footer={
                     <div className="flex gap-2">
@@ -393,9 +579,9 @@ const FormExampleStory = (args: React.ComponentProps<typeof Drawer>) => {
     );
 };
 
-// Form Example
-export const FormExample: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <FormExampleStory {...args} />,
+/** @deprecated Use the composable `FormExample` story instead. */
+export const LegacyFormExample: Story = {
+    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyFormExampleStory {...args} />,
     args: {
         title: 'Create New Item',
         placement: 'right',

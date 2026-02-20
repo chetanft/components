@@ -31,7 +31,7 @@ export default meta;
 type Story = StoryObj<typeof DropdownMenu>;
 
 // Composable API Examples (Recommended)
-export const ComposableBasic: Story = {
+export const Default: Story = {
   render: () => (
     <div className="p-6">
       <DropdownMenu property="default">
@@ -53,7 +53,7 @@ export const ComposableBasic: Story = {
   },
 };
 
-export const ComposableWithSearch: Story = {
+export const WithSearch: Story = {
   render: () => (
     <div className="p-6">
       <DropdownMenu property="search">
@@ -75,7 +75,7 @@ export const ComposableWithSearch: Story = {
   },
 };
 
-export const ComposableWithLabels: Story = {
+export const WithLabels: Story = {
   render: () => (
     <div className="p-6">
       <DropdownMenu property="default">
@@ -100,7 +100,8 @@ export const ComposableWithLabels: Story = {
 };
 
 // Mark deprecated examples
-export const Default: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDefault: Story = {
   args: {
     property: 'default',
     options: [
@@ -125,7 +126,8 @@ export const Default: Story = {
   },
 };
 
-export const WithScrollBar: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithScrollBar: Story = {
   args: {
     property: 'default',
     showScrollBar: true,
@@ -144,7 +146,8 @@ export const WithScrollBar: Story = {
   },
 };
 
-export const WithSearch: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithSearch: Story = {
   args: {
     property: 'search',
     options: [
@@ -157,7 +160,8 @@ export const WithSearch: Story = {
   },
 };
 
-export const WithSearchAndSegments: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithSearchAndSegments: Story = {
   args: {
     property: 'search-segmented',
     segments: [
@@ -175,7 +179,8 @@ export const WithSearchAndSegments: Story = {
   },
 };
 
-export const WithGroups: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyWithGroups: Story = {
   args: {
     property: 'groups',
     options: [
@@ -187,7 +192,8 @@ export const WithGroups: Story = {
   },
 };
 
-export const DisabledWithInfo: Story = {
+/** @deprecated Use composable API instead. */
+export const LegacyDisabledWithInfo: Story = {
   args: {
     property: 'disabled-info',
     options: [
@@ -200,29 +206,35 @@ export const DisabledWithInfo: Story = {
   },
 };
 
-export const MenuItemDefault: StoryObj<typeof DropdownMenuItem> = {
-  render: () => <DropdownMenuItem state="default" label="Dropdown menu" />, 
+/** @deprecated Use composable API instead. */
+export const LegacyMenuItemDefault: StoryObj<typeof DropdownMenuItem> = {
+  render: () => <DropdownMenuItem state="default" label="Dropdown menu" />,
 };
 
-export const MenuItemSelected: StoryObj<typeof DropdownMenuItem> = {
+/** @deprecated Use composable API instead. */
+export const LegacyMenuItemSelected: StoryObj<typeof DropdownMenuItem> = {
   render: () => (
     <DropdownMenuItem state="selected" label="Dropdown menu" showCheckmark />
   ),
 };
 
-export const MenuItemHover: StoryObj<typeof DropdownMenuItem> = {
+/** @deprecated Use composable API instead. */
+export const LegacyMenuItemHover: StoryObj<typeof DropdownMenuItem> = {
   render: () => <DropdownMenuItem state="hover" label="Dropdown menu" />,
 };
 
-export const MenuItemFocused: StoryObj<typeof DropdownMenuItem> = {
+/** @deprecated Use composable API instead. */
+export const LegacyMenuItemFocused: StoryObj<typeof DropdownMenuItem> = {
   render: () => <DropdownMenuItem state="focused" label="Dropdown menu" />,
 };
 
-export const MenuItemDisabled: StoryObj<typeof DropdownMenuItem> = {
+/** @deprecated Use composable API instead. */
+export const LegacyMenuItemDisabled: StoryObj<typeof DropdownMenuItem> = {
   render: () => <DropdownMenuItem state="disabled" label="Dropdown menu" />,
 };
 
-export const MenuItemWithCheckbox: StoryObj<typeof DropdownMenuItem> = {
+/** @deprecated Use composable API instead. */
+export const LegacyMenuItemWithCheckbox: StoryObj<typeof DropdownMenuItem> = {
   render: () => (
     <DropdownMenuItem
       state="selected"
@@ -232,13 +244,15 @@ export const MenuItemWithCheckbox: StoryObj<typeof DropdownMenuItem> = {
   ),
 };
 
-export const MenuItemWithRadio: StoryObj<typeof DropdownMenuItem> = {
+/** @deprecated Use composable API instead. */
+export const LegacyMenuItemWithRadio: StoryObj<typeof DropdownMenuItem> = {
   render: () => (
     <DropdownMenuItem state="selected" prefix="radio" label="Dropdown menu" />
   ),
 };
 
-export const MenuItemWithIcon: StoryObj<typeof DropdownMenuItem> = {
+/** @deprecated Use composable API instead. */
+export const LegacyMenuItemWithIcon: StoryObj<typeof DropdownMenuItem> = {
   render: () => (
     <DropdownMenuItem
       state="default"
@@ -249,7 +263,8 @@ export const MenuItemWithIcon: StoryObj<typeof DropdownMenuItem> = {
   ),
 };
 
-export const MenuItemWithSuffix: StoryObj<typeof DropdownMenuItem> = {
+/** @deprecated Use composable API instead. */
+export const LegacyMenuItemWithSuffix: StoryObj<typeof DropdownMenuItem> = {
   render: () => (
     <DropdownMenuItem
       state="default"
@@ -259,7 +274,8 @@ export const MenuItemWithSuffix: StoryObj<typeof DropdownMenuItem> = {
   ),
 };
 
-export const MenuItemInfo: StoryObj<typeof DropdownMenuItem> = {
+/** @deprecated Use composable API instead. */
+export const LegacyMenuItemInfo: StoryObj<typeof DropdownMenuItem> = {
   render: () => (
     <DropdownMenuItem state="info" label="Select rows first to use bulk actions" />
   ),

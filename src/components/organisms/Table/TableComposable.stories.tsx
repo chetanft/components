@@ -20,7 +20,7 @@ const meta: Meta<typeof Table> = {
 export default meta;
 type Story = StoryObj<typeof Table>;
 
-export function ComposableBasic() {
+export function Default() {
   return (
     <div className="border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden">
       <Table>
@@ -56,7 +56,7 @@ export function ComposableBasic() {
   );
 }
 
-export function ComposableWithCustomCells() {
+export function WithCustomCells() {
   return (
     <div className="border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden">
       <Table>
@@ -122,7 +122,7 @@ export function ComposableWithCustomCells() {
   );
 }
 
-export function ComposableWithTableHead() {
+export function WithTableHead() {
   return (
     <div className="border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden">
       <Table>

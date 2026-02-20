@@ -9,6 +9,7 @@ import { UploadItem } from '../../molecules/UploadItem';
 import type { UploadFile } from '../../molecules/UploadItem';
 import type { ValidationStats } from '../../molecules/FileValidationCard';
 import type { ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export type UploadType = 'drag-drop' | 'button' | 'thumbnail';
 
@@ -64,6 +65,8 @@ export interface UploadProps extends Omit<ComposableProps<'div'>, 'onFilesChange
    * Upload content (for composable API)
    */
   children?: React.ReactNode;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
 }
 
 /**
@@ -109,10 +112,12 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
     onValidationComplete,
     showValidation = false,
     autoUpload = true,
+    glass,
     children: _children,
     asChild: _asChild,
-    ...props 
+    ...props
   }, ref) => {
+    const resolvedGlass = useResolvedGlass(glass);
     
     const [files, setFiles] = useState<UploadFile[]>([]);
     const [fileMap, setFileMap] = useState<Map<string, File>>(new Map());
@@ -205,7 +210,9 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
         
         // Check file size
         if (file.size > maxFileSize * 1024 * 1024) {
-          console.warn(`File ${file.name} exceeds max size of ${maxFileSize}MB`);
+          if (process.env.NODE_ENV !== 'production') {
+            console.warn(`File ${file.name} exceeds max size of ${maxFileSize}MB`);
+          }
           continue;
         }
         
@@ -339,6 +346,7 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
           "flex flex-col items-start gap-[var(--spacing-x4)]",
           type === 'drag-drop' && "w-full max-w-[calc(var(--spacing-x10)*21.75)]",
           type === 'button' && "w-full max-w-[calc(var(--spacing-x8)*3.85)]",
+          getGlassClasses(resolvedGlass, '', ''),
           className
         )}
         {...props}

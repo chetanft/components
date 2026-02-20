@@ -32,7 +32,9 @@ export const Icon: React.FC<IconProps> = ({
   const IconComponent = iconMap[name];
 
   if (!IconComponent) {
-    console.warn(`Icon "${name}" not found`);
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(`Icon "${name}" not found`);
+    }
     return null;
   }
 

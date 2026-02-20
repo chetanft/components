@@ -3,6 +3,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface RadioSelectorOption {
   value: string;
@@ -23,6 +24,8 @@ export interface RadioSelectorProps extends Omit<ComposableProps<'div'>, 'onChan
    */
   options?: RadioSelectorOption[];
   onChange?: (value: string) => void;
+  /** Glass morphism variant */
+  glass?: GlassVariant;
   /**
    * Radio selector content (for composable API)
    */
@@ -75,12 +78,14 @@ export const RadioSelector = React.forwardRef<HTMLDivElement, RadioSelectorProps
     defaultValue,
     options = [],
     onChange,
+    glass,
     className,
     children,
     asChild,
     ...props
   }, ref) => {
     const [internalValue, setInternalValue] = React.useState(defaultValue || '');
+    const resolvedGlass = useResolvedGlass(glass);
     const currentValue = value !== undefined ? value : internalValue;
 
     const handleChange = (optionValue: string) => {
@@ -105,6 +110,7 @@ export const RadioSelector = React.forwardRef<HTMLDivElement, RadioSelectorProps
           ref={ref}
           className={cn(
             "flex flex-col gap-[var(--spacing-x4)]",
+            getGlassClasses(resolvedGlass, '', ''),
             className
           )}
           role="radiogroup"
@@ -137,6 +143,7 @@ export const RadioSelector = React.forwardRef<HTMLDivElement, RadioSelectorProps
         ref={ref}
         className={cn(
           "flex flex-col gap-[var(--spacing-x4)]",
+          getGlassClasses(resolvedGlass, '', ''),
           className
         )}
         role="radiogroup"

@@ -161,7 +161,9 @@ export const TableRow = <T extends TableRowType = TableRowType>({
           );
       }
     } catch (error) {
-      console.warn('Table: Error rendering cell content:', error, { column, value, row });
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('Table: Error rendering cell content:', error, { column, value, row });
+      }
       return (
         <TableCellText type="primary">
           -
