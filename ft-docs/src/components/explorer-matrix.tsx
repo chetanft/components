@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from "react"
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
 import type { StoryMeta, StoryDefinition } from "@/lib/story-loader"
 import { formatStoryName } from "@/lib/story-loader"
-import type { ExplorerConfig } from "@/types/explorer"
+import type { ExplorerConfig, ExplorerScenario } from "@/types/explorer"
 import { StoryPreview } from "@/components/story-preview"
 import { cn } from "@/lib/utils"
 import {
@@ -49,7 +49,7 @@ export function ExplorerMatrix({
       {
         id: "all-variants",
         label: "All Variants",
-        scenarios: stories.map((story) => ({
+        scenarios: stories.map((story): ExplorerScenario => ({
           id: story.name,
           label: formatStoryName(story.name),
           story: story.name,
