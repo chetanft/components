@@ -200,7 +200,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
             >
               <Icon name="subtract" size={20} />
             </button>
-            <span className="text-[var(--overlay-control-text)] text-sm min-w-[60px] text-center">
+            <span className="text-[var(--overlay-control-text)] text-sm min-w-[var(--spacing-x15)] text-center">
               {Math.round(scale * 100)}%
             </span>
             <button

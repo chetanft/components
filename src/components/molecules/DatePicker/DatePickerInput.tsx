@@ -173,7 +173,7 @@ export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInpu
               ? "text-[var(--primary)] dark:text-[var(--primary)]"
               : "text-placeholder dark:text-placeholder-dark",
             "placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
-            type === 'single' ? "flex-1" : "inline-block w-auto pr-[12px]",
+            type === 'single' ? "flex-1" : "inline-block w-auto pr-[var(--spacing-x3)]",
             className
           )}
           {...props}
@@ -201,7 +201,7 @@ export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInpu
             ? "text-[var(--primary)] dark:text-[var(--primary)]"
             : "text-placeholder dark:text-placeholder-dark",
           "placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
-          type === 'single' ? "flex-1" : "inline-block w-auto pr-[12px]",
+          type === 'single' ? "flex-1" : "inline-block w-auto pr-[var(--spacing-x3)]",
           className
         )}
         {...props}

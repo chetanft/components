@@ -98,14 +98,14 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
         : "justify-center";
 
     const baseStyles = cn(
-      "relative flex flex-col gap-[10px] items-start transition-all cursor-pointer flex-shrink-0",
+      "relative flex flex-col gap-[0.625rem] items-start transition-all cursor-pointer flex-shrink-0",
       disabled && "opacity-50 cursor-not-allowed pointer-events-none",
       type === 'primary'
         ? "px-[var(--spacing-x8)] py-[var(--spacing-x3)]"
         : "px-[var(--spacing-x4)] py-[var(--spacing-x2)]",
       type === 'primary' && "rounded-none",
       type === 'secondary' && "rounded-lg",
-      type === 'tertiary' && "rounded-[100px]",
+      type === 'tertiary' && "rounded-full",
       type === 'primary' && [
         "border-l-0 border-r-0 border-t-0 border-solid",
         currentState === 'selected'
@@ -176,14 +176,14 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
               {safeChildren}
             </span>
             {badge && (
-              <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[24px] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
+              <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[var(--spacing-x6)] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
                 <span className="font-semibold leading-[1.4] relative shrink-0 text-[var(--primary)] text-sm">
                   {badgeCount}
                 </span>
               </div>
             )}
             {notification && (
-              <div className="relative shrink-0 size-[6px]">
+              <div className="relative shrink-0 size-[0.375rem]">
                 <div className="absolute inset-0 bg-[var(--critical)] rounded-full" />
               </div>
             )}
@@ -222,14 +222,14 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
             {children}
           </span>
           {badge && (
-            <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[24px] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
+            <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[var(--spacing-x6)] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
               <span className="font-semibold leading-[1.4] relative shrink-0 text-[var(--primary)] text-sm">
                 {badgeCount}
               </span>
             </div>
           )}
           {notification && (
-            <div className="relative shrink-0 size-[6px]">
+            <div className="relative shrink-0 size-[0.375rem]">
               <div className="absolute inset-0 bg-[var(--critical)] rounded-full" />
             </div>
           )}

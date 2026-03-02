@@ -182,7 +182,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
 
   const renderDivider = (item: DividerItem) => {
     return (
-      <div key={item.id} className="flex justify-between items-center gap-[-36px] py-[var(--spacing-x4)] w-full">
+      <div key={item.id} className="flex justify-between items-center gap-[-2.25rem] py-[var(--spacing-x4)] w-full">
         <div className="flex-1 h-px border-b border-[var(--border-primary)]" />
         <div className={cn("flex items-center justify-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] border border-[var(--border-primary)] rounded-full shadow-sm", getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-[var(--glass-hover)]"))}>
           <Typography
@@ -210,7 +210,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
             <div key={idx} className="flex items-center justify-center">
               {point.type === 'label' && (
                 <div className="flex items-center justify-center w-[var(--spacing-x4)] h-[var(--spacing-x4)] rounded-full bg-[var(--primary)]">
-                  <span className="text-[var(--color-bg-primary)] text-[10px] font-medium leading-none text-center">
+                  <span className="text-[var(--color-bg-primary)] text-[0.625rem] font-medium leading-none text-center">
                     {point.label || 'OR'}
                   </span>
                 </div>
@@ -276,7 +276,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
             ${isActive ? 'bg-[var(--primary)]' : 'bg-[var(--border-primary)]'}
           `}>
             <span className={`
-              text-[10px] font-medium leading-none text-center
+              text-[0.625rem] font-medium leading-none text-center
               ${isActive ? 'text-[var(--color-bg-primary)]' : 'text-[var(--primary)]'}
             `}>
               {item.pointLabel || 'OR'}
@@ -301,9 +301,9 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
           className="w-px flex-1"
           style={{ 
             backgroundImage: `linear-gradient(to bottom, ${lineColor} 50%, transparent 50%)`,
-            backgroundSize: '1px 8px',
+            backgroundSize: '1px var(--spacing-x2)',
             backgroundRepeat: 'repeat-y',
-            minHeight: '24px'
+            minHeight: 'var(--spacing-x6)'
           }} 
         />
       );
@@ -312,7 +312,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
     return (
       <div
         className="w-px flex-1"
-        style={{ backgroundColor: lineColor, minHeight: '24px' }}
+        style={{ backgroundColor: lineColor, minHeight: 'var(--spacing-x6)' }}
       />
     );
   };
@@ -398,7 +398,6 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
                   key={index}
                   className={`
                     flex items-center gap-2 px-2 py-0.5 rounded text-sm-rem font-semibold
-                    {/* 14px → 1rem (responsive) */}
                     ${badge.variant === 'danger'
                       ? 'bg-[var(--critical-light)] text-[var(--critical)]'
                       : 'bg-[var(--border-secondary)] text-[var(--primary)]'
@@ -459,7 +458,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
           {renderPoint(item)}
 
           {/* Line */}
-          <div className="flex-1 w-full flex flex-col items-center mb-[-8px]">
+          <div className="flex-1 w-full flex flex-col items-center mb-[calc(var(--spacing-x2)*-1)]">
             {renderLine(item, isLast)}
           </div>
         </div>
@@ -574,7 +573,7 @@ ProgressListItem.displayName = 'ProgressListItem';
 export const ProgressListDivider = React.forwardRef<HTMLDivElement, ProgressListDividerProps>(
   ({ id: _id, label, className, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn("flex justify-between items-center gap-[-36px] py-[var(--spacing-x4)] w-full", className)} {...props}>
+      <div ref={ref} className={cn("flex justify-between items-center gap-[-2.25rem] py-[var(--spacing-x4)] w-full", className)} {...props}>
         <div className="flex-1 h-px border-b border-[var(--border-primary)]" />
         <div className="flex items-center justify-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] bg-[var(--color-bg-primary)] border border-[var(--border-primary)] rounded-full shadow-sm">
           <Typography

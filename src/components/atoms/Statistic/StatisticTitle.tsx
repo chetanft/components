@@ -38,7 +38,7 @@ export const StatisticTitle = React.forwardRef<HTMLDivElement, StatisticTitlePro
     return (
       <Comp
         ref={ref}
-        className={cn("content-stretch flex gap-[4px] items-center justify-start relative shrink-0", className)}
+        className={cn("content-stretch flex gap-[var(--spacing-x1)] items-center justify-start relative shrink-0", className)}
         {...props}
       >
         <Typography variant="body-secondary-medium" color="secondary" className="relative shrink-0 text-nowrap whitespace-pre">

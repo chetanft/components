@@ -165,7 +165,7 @@ const CascaderColumn: React.FC<CascaderColumnProps> = ({
             )} style={{
               fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
               fontWeight: '400',
-              fontSize: '16px',
+              fontSize: 'var(--font-size-md-rem)',
             }}>
               {option.label}
             </span>
@@ -529,7 +529,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
                         <span className="font-normal leading-[1.4] relative shrink-0 text-[var(--primary)]" style={{
                           fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
                           fontWeight: '400',
-                          fontSize: '16px',
+                          fontSize: 'var(--font-size-md-rem)',
                         }}>
                           {path.map(opt => opt.label).join(' / ')}
                         </span>
@@ -539,7 +539,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
                     <div className="px-[var(--x3,12px)] py-[var(--x4,16px)] text-center text-[var(--tertiary)] font-normal leading-[1.4]" style={{
                       fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
                       fontWeight: '400',
-                      fontSize: '16px',
+                      fontSize: 'var(--font-size-md-rem)',
                     }}>
                       No results found
                     </div>

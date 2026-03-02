@@ -89,11 +89,11 @@ export const FileIcon: React.FC<FileIconProps> = ({
     >
       <path 
         d="M20.625 0H4.125C1.84766 0 0 1.84766 0 4.125V35.875C0 38.1523 1.84766 40 4.125 40H28.875C31.1523 40 33 38.1523 33 35.875V12.375L20.625 0Z" 
-        fill="#838C9D"
+        fill="var(--tertiary)"
       />
       <path 
         d="M20.625 0V8.25C20.625 10.5273 22.4727 12.375 24.75 12.375H33L20.625 0Z" 
-        fill="#5F697B"
+        fill="var(--secondary)"
       />
     </svg>
   );

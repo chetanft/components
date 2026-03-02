@@ -28,6 +28,19 @@ ChartJS.register(
   Title
 );
 
+/**
+ * Resolve a CSS custom property to its computed value at runtime.
+ * Falls back to the provided fallback string when running outside a browser
+ * (e.g. SSR / tests) or when the variable is not defined.
+ */
+export function getCssVar(name: string, fallback: string): string {
+  if (typeof document === 'undefined') return fallback;
+  const value = getComputedStyle(document.documentElement)
+    .getPropertyValue(name)
+    .trim();
+  return value || fallback;
+}
+
 // FT Design System Chart Colors - Main Palette
 export const chartColors = {
   teal: '#42bdbd',
@@ -65,10 +78,10 @@ export const extendedColors = [
 
 // Status colors for semantic data visualization
 export const statusColors = {
-  positive: '#00c638',
-  warning: '#ff6c19',
-  critical: '#ff3533',
-  neutral: '#1890ff',
+  positive: getCssVar('--positive', '#00c638'),
+  warning: getCssVar('--warning', '#ff6c19'),
+  critical: getCssVar('--critical', '#ff3533'),
+  neutral: getCssVar('--neutral', '#1890ff'),
 };
 
 export const statusColorsArray = [
@@ -80,63 +93,63 @@ export const statusColorsArray = [
 
 // Monochrome color scales (primary grays)
 export const monochromeColors = [
-  '#1a2330', // primary900
-  '#434f64', // primary700
-  '#5f697b', // primary500
-  '#838c9d', // primary300
-  '#c5cad3', // primary100
+  '#1a2330', // primary900 – no standard CSS var
+  getCssVar('--primary', '#434f64'), // primary700
+  getCssVar('--secondary', '#5f697b'), // primary500
+  getCssVar('--tertiary', '#838c9d'), // primary300
+  '#c5cad3', // primary100 – no standard CSS var
 ];
 
 // Neutral (blue) scale colors
 export const neutralScaleColors = [
   '#002966', // neutral900
-  '#006dd3', // neutral700
-  '#1890ff', // neutral500
+  getCssVar('--neutral-dark', '#006dd3'), // neutral700
+  getCssVar('--neutral', '#1890ff'), // neutral500
   '#80c1ff', // neutral300
-  '#ecf6ff', // neutral100
+  getCssVar('--neutral-light', '#ecf6ff'), // neutral100
 ];
 
 // Positive (green) scale colors
 export const positiveScaleColors = [
   '#004d26', // positive900
-  '#00753d', // positive700
-  '#00c637', // positive500
+  getCssVar('--positive-dark', '#00753d'), // positive700
+  getCssVar('--positive', '#00c637'), // positive500
   '#4dff88', // positive300
-  '#deffe7', // positive100
+  getCssVar('--positive-light', '#deffe7'), // positive100
 ];
 
 // Warning (orange) scale colors
 export const warningScaleColors = [
   '#7a2f00', // warning900
-  '#dd6a00', // warning700
-  '#ff6c19', // warning500
+  getCssVar('--warning-dark', '#dd6a00'), // warning700
+  getCssVar('--warning', '#ff6c19'), // warning500
   '#ffb366', // warning300
-  '#ffedbc', // warning100
+  getCssVar('--warning-light', '#ffedbc'), // warning100
 ];
 
 // Danger (red) scale colors
 export const dangerScaleColors = [
   '#800000', // danger900
-  '#b70100', // danger700
-  '#ff3532', // danger500
+  getCssVar('--critical-dark', '#b70100'), // danger700
+  getCssVar('--critical', '#ff3532'), // danger500
   '#ff9999', // danger300
-  '#ffeafa', // danger100
+  getCssVar('--critical-light', '#ffeafa'), // danger100
 ];
 
 // FT Design System colors for chart styling
 export const ftChartColors = {
   text: {
-    primary: '#434f64',
-    secondary: '#5f697b',
-    muted: '#838c9d',
+    primary: getCssVar('--primary', '#434f64'),
+    secondary: getCssVar('--secondary', '#5f697b'),
+    muted: getCssVar('--tertiary', '#838c9d'),
   },
   border: {
-    primary: '#ced1d7',
-    secondary: '#f0f1f7',
+    primary: getCssVar('--border-primary', '#ced1d7'),
+    secondary: getCssVar('--border-secondary', '#f0f1f7'),
   },
   background: {
-    primary: '#ffffff',
-    secondary: '#f8f8f9',
+    primary: getCssVar('--bg-primary', '#ffffff'),
+    secondary: getCssVar('--bg-secondary', '#f8f8f9'),
   },
   grid: '#e1e2e4',
 };

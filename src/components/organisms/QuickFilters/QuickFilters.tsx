@@ -125,7 +125,7 @@ const FilterChip: React.FC<{
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] h-[34px] rounded-[var(--radius-md)] cursor-pointer transition-all duration-200",
+        "inline-flex items-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] h-[2.125rem] rounded-[var(--radius-md)] cursor-pointer transition-all duration-200",
         "text-sm font-semibold font-inter",
         // Background based on Figma design
         isMainLabel
@@ -187,7 +187,7 @@ const FilterChip: React.FC<{
 
       {/* Space for tick icon - only show when not a main label */}
       {!isMainLabel && (
-        <div className="flex items-center justify-center w-[14px] h-full ml-[var(--spacing-x1)]">
+        <div className="flex items-center justify-center w-[0.875rem] h-full ml-[var(--spacing-x1)]">
           {isSelected && onRemove && (
             <div
               className="cursor-pointer flex items-center justify-center"
@@ -229,7 +229,7 @@ const MultiOptionFilter: React.FC<{
   resolvedGlass?: GlassVariant;
 }> = ({ filter, onFilterClick, onFilterRemove, chipClassName, labelClassName, countClassName, resolvedGlass }) => {
   return (
-    <div className={cn("inline-flex items-center h-[36px] rounded-[var(--radius-md)] overflow-hidden", getGlassClasses(resolvedGlass, "bg-[var(--color-bg-primary)]", "border border-[var(--color-border-primary)]"))}>
+    <div className={cn("inline-flex items-center h-[2.25rem] rounded-[var(--radius-md)] overflow-hidden", getGlassClasses(resolvedGlass, "bg-[var(--color-bg-primary)]", "border border-[var(--color-border-primary)]"))}>
       {/* Main filter section - non-clickable label with gray background */}
       <div className={cn("h-full flex items-center px-[var(--spacing-x2)]", getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-[var(--glass-selected)]"))}>
         <FilterChip
@@ -249,7 +249,7 @@ const MultiOptionFilter: React.FC<{
       {/* Options section with separators */}
       {filter.options?.map((option, index) => (
         <React.Fragment key={option.id}>
-          {index > 0 && <div className="w-px h-[36px] bg-[var(--color-border-primary)]" />}
+          {index > 0 && <div className="w-px h-[2.25rem] bg-[var(--color-border-primary)]" />}
           <div className="px-[var(--spacing-x1)] h-full flex items-center">
             <FilterChip
               filter={filter}
@@ -355,7 +355,7 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
             <div
               key={filter.id}
               className={cn(
-                "box-border h-[36px] flex items-center px-[var(--spacing-x1)] py-0 rounded-[var(--radius-md)]",
+                "box-border h-[2.25rem] flex items-center px-[var(--spacing-x1)] py-0 rounded-[var(--radius-md)]",
                 "border border-solid",
                 filter.selected
                   ? cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-[var(--glass-selected)]"), "border-[var(--color-border-primary)]")

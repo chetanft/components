@@ -264,8 +264,8 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
               className={cn(
                 "absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2",
                 "flex items-center justify-center text-xs-rem font-normal",
-                dot ? "w-2 h-2 p-0 rounded-full min-w-0" : "h-5 px-1.5 rounded-full min-w-[20px]",
-                (size === 'sm' || size === 'xs') && !dot && "h-4 min-w-[16px] px-1",
+                dot ? "w-2 h-2 p-0 rounded-full min-w-0" : "h-5 px-1.5 rounded-full min-w-[var(--spacing-x5)]",
+                (size === 'sm' || size === 'xs') && !dot && "h-4 min-w-[var(--spacing-x4)] px-1",
                 (size === 'sm' || size === 'xs') && !dot && "text-xs-rem",
                 (size === 'lg') && !dot && "h-6 px-2 text-sm-rem"
               )}
@@ -291,17 +291,17 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
 
     // Reduced padding to hug content tightly
     const sizeStylesMap: Record<string, string> = {
-      xs: "px-1 py-0 gap-0.5 rounded", // Minimal padding to hug content
-      sm: "px-1.5 py-0 gap-1 rounded", // Minimal padding to hug content
-      md: "px-2 py-0.5 gap-1 rounded", // Minimal padding to hug content
-      lg: "px-2.5 py-0.5 gap-1.5 rounded" // Minimal padding to hug content
+      xs: "px-1 py-0 gap-0.5 rounded",
+      sm: "px-1.5 py-0 gap-1 rounded",
+      md: "px-2 py-0.5 gap-1 rounded",
+      lg: "px-2.5 py-0.5 gap-1.5 rounded"
     };
 
     const fontSizeMap: Record<string, string> = {
-      xs: "text-[0.714rem]", // 10px
-      sm: "text-[0.857rem]", // 12px
-      md: "text-[1rem]", // 14px
-      lg: "text-[1.143rem]" // 16px
+      xs: "text-[0.714rem]",
+      sm: "text-[0.857rem]",
+      md: "text-[1rem]",
+      lg: "text-[1.143rem]"
     };
 
     const sizeStyles = sizeStylesMap[size] || sizeStylesMap.md;

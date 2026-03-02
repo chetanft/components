@@ -29,7 +29,7 @@ export const TableCellItem: React.FC<TableCellItemProps> = ({
   return (
     <div
       className={cn(
-        // Base layout from Figma: row with center alignment and 8px gap
+        // Base layout from Figma: row with center alignment and x2 gap
         "flex items-center gap-[var(--spacing-x2)]",
         className
       )}

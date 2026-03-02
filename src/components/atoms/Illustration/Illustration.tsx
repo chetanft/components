@@ -27,14 +27,14 @@ const sizeClasses: Record<IllustrationSize, string> = {
   sm: 'w-32 h-32',
   md: 'w-48 h-48',
   lg: 'w-64 h-64',
-  xl: 'w-[352px] h-[352px]',
+  xl: 'w-[22rem] h-[22rem]',
 };
 
 const roundedClasses = {
   none: 'rounded-none',
-  sm: 'rounded-[12px]',
-  md: 'rounded-[16px]',
-  lg: 'rounded-[20px]',
+  sm: 'rounded-[0.75rem]',
+  md: 'rounded-[1rem]',
+  lg: 'rounded-[1.25rem]',
 };
 
 export const Illustration: React.FC<IllustrationProps> = ({

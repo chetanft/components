@@ -37,7 +37,7 @@ export const DataEntryTableCellActions: React.FC<DataEntryTableCellActionsProps>
             iconPosition="leading"
             disabled={isDisabled}
             className="px-[var(--x2)] py-[var(--x0)] rounded-[var(--radius-sm)]"
-            style={{ height: 'var(--x6, 24px)' }}
+            style={{ height: 'var(--x6)' }}
           >
             Button
           </Button>
@@ -69,7 +69,7 @@ export const DataEntryTableCellActions: React.FC<DataEntryTableCellActionsProps>
               disabled={isDisabled}
               onClick={action.onClick}
               className="px-[var(--x2)] py-[var(--x0)] rounded-[var(--radius-sm)]"
-              style={{ height: 'var(--x6, 24px)' }}
+              style={{ height: 'var(--x6)' }}
             >
               {action.label}
             </Button>

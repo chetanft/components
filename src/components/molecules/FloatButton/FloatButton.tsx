@@ -103,7 +103,7 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
     <Slot ref={ref as any} className={commonClassName} onClick={onClick as any} {...props}>
       <div className="flex flex-col items-center justify-center">
         {icon || children}
-        {description && <span className="text-[10px] leading-tight mt-0.5">{description}</span>}
+        {description && <span className="text-[0.625rem] leading-tight mt-0.5">{description}</span>}
       </div>
       {badgeElement}
     </Slot>
@@ -118,7 +118,7 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
     >
       <div className="flex flex-col items-center justify-center">
         {icon || children}
-        {description && <span className="text-[10px] leading-tight mt-0.5">{description}</span>}
+        {description && <span className="text-[0.625rem] leading-tight mt-0.5">{description}</span>}
       </div>
       {badgeElement}
     </a>
@@ -132,7 +132,7 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
     >
       <div className="flex flex-col items-center justify-center">
         {icon || children}
-        {description && <span className="text-[10px] leading-tight mt-0.5">{description}</span>}
+        {description && <span className="text-[0.625rem] leading-tight mt-0.5">{description}</span>}
       </div>
       {badgeElement}
     </button>

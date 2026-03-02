@@ -31,13 +31,13 @@ export interface AvatarGroupProps {
 }
 
 const sizeMap: Record<string, string> = {
-  xxs: "size-[16px] text-[8px]",
-  xs: "size-[24px] text-[10px]",
-  sm: "size-[32px] text-xs",
-  md: "size-[40px] text-sm",
-  lg: "size-[48px] text-base",
-  xl: "size-[56px] text-lg",
-  xxl: "size-[64px] text-xl",
+  xxs: "size-[var(--spacing-x4)] text-[0.571rem]",
+  xs: "size-[var(--spacing-x6)] text-[0.714rem]",
+  sm: "size-[var(--spacing-x8)] text-xs",
+  md: "size-[var(--spacing-x10)] text-sm",
+  lg: "size-[var(--spacing-x12)] text-base",
+  xl: "size-[var(--spacing-x14)] text-lg",
+  xxl: "size-[var(--spacing-x16)] text-xl",
 };
 
 /**

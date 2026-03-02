@@ -35,7 +35,7 @@ export const BaseChart: React.FC<BaseChartProps> = ({
       {title && (
         <h3
           style={{
-            fontSize: '16px',
+            fontSize: 'var(--font-size-text-md-rem)',
             fontWeight: '600',
             fontFamily: 'Inter, system-ui, sans-serif',
             color: ftChartColors.text.primary,
@@ -47,8 +47,8 @@ export const BaseChart: React.FC<BaseChartProps> = ({
       )}
       <div
         style={{
-          height: `${height}px`,
-          minHeight: `${height}px`,
+          height: `${height / 16}rem`,
+          minHeight: `${height / 16}rem`,
           width: '100%',
           position: 'relative',
           display: 'block',

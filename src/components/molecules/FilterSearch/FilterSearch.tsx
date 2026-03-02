@@ -164,7 +164,7 @@ export const FilterSearch = React.forwardRef<HTMLDivElement, FilterSearchProps>(
             icon="search"
             iconPosition="only"
             onClick={handleExpand}
-            className="size-[40px] rounded-[var(--x2,8px)] shrink-0"
+            className="size-[var(--spacing-x10)] rounded-[var(--x2,8px)] shrink-0"
             aria-label="Search"
           />
         ) : (

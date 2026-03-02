@@ -53,14 +53,14 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, SwitchInputProps>(
     
     const sizeStyles = {
       sm: {
-        track: "w-[30px] h-[16px]",
-        thumb: "w-[14px] h-[14px]",
-        gap: "gap-[6px]",
+        track: "w-[1.875rem] h-[var(--spacing-x4)]",
+        thumb: "w-[0.875rem] h-[0.875rem]",
+        gap: "gap-[0.375rem]",
       },
       md: {
-        track: "w-[34px] h-[14px]",
-        thumb: "w-[20px] h-[20px]",
-        gap: "gap-[8px]",
+        track: "w-[2.125rem] h-[0.875rem]",
+        thumb: "w-[var(--spacing-x5)] h-[var(--spacing-x5)]",
+        gap: "gap-[var(--spacing-x2)]",
       }
     };
 
@@ -84,8 +84,8 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, SwitchInputProps>(
       "absolute top-1/2 transform -translate-y-1/2 rounded-full transition-all duration-200 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.35)]",
       currentSize.thumb,
       checked
-        ? "translate-x-[14px]"
-        : "translate-x-[-3px]",
+        ? "translate-x-[0.875rem]"
+        : "translate-x-[-0.1875rem]",
       isDisabled
         ? checked
           ? "bg-[var(--switch-disabled-thumb-on)]"

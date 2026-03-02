@@ -55,7 +55,7 @@ export const DataEntryTableCellContextMenu: React.FC<DataEntryTableCellContextMe
         "border border-[var(--border-primary)]",
         "rounded-[var(--radius-md)]",
         "shadow-lg",
-        "min-w-[var(--x20,80px)]",
+        "min-w-[var(--x20)]",
         "overflow-hidden"
       )}
       style={{

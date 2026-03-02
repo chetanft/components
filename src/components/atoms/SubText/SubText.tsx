@@ -23,13 +23,13 @@ export const SubText: React.FC<SubTextProps> = ({
     return (
       <div 
         className={cn(
-          "content-stretch flex gap-[8px] items-center relative size-full", 
+          "content-stretch flex gap-[var(--spacing-x2)] items-center relative size-full",
           className
         )}
         data-name="Icon=Yes"
       >
-        <div className="relative shrink-0 size-[16px]">
-          <Icon name="check-fill" size={16} className="text-[#5f697b]" />
+        <div className="relative shrink-0 size-[var(--spacing-x4)]">
+          <Icon name="check-fill" size={16} className="text-[var(--secondary)]" />
         </div>
         <Typography 
           variant="body-secondary-regular" 
@@ -45,7 +45,7 @@ export const SubText: React.FC<SubTextProps> = ({
   return (
     <div 
       className={cn(
-        "content-stretch flex gap-[10px] items-center justify-center relative size-full", 
+        "content-stretch flex gap-[0.625rem] items-center justify-center relative size-full",
         className
       )}
       data-name="Icon=No"

@@ -66,7 +66,7 @@ const textStyles = {
             {/* Shade label and hex value */}
             <div className="mt-1 text-center">
               <Typography variant="body-secondary-regular" className="font-mono">{color.shade}</Typography>
-              <Typography variant="body-secondary-regular" className="font-mono text-[10px] opacity-70">{color.hex}</Typography>
+              <Typography variant="body-secondary-regular" className="font-mono text-[0.625rem] opacity-70">{color.hex}</Typography>
             </div>
           </div>
         ))}
@@ -81,7 +81,7 @@ export function Colors() {
   return (
     <div className="w-full space-y-10">
       <div className="flex justify-between items-center">
-        <Typography variant="title-primary" className="text-[40px]">Color System</Typography>
+        <Typography variant="title-primary" className="text-[2.5rem]">Color System</Typography>
         <div className="flex items-center gap-4">
           <Typography variant="body-secondary-medium">Current Theme: {theme}</Typography>
           <Typography variant="body-secondary-regular" className="text-gray-500">

@@ -108,13 +108,13 @@ export const DataEntryTableCellDropdown: React.FC<DataEntryTableCellDropdownProp
         return {
           border: 'border-[var(--primary)]',
           bg: 'bg-[var(--bg-primary)]',
-          boxShadow: '0px 0px 0px 2px var(--border-primary)',
+          boxShadow: '0 0 0 0.125rem var(--border-primary)',
         };
       case 'error-filled':
         return {
           border: 'border-[var(--critical)]',
           bg: 'bg-[var(--bg-primary)]',
-          boxShadow: '0px 0px 0px 2px var(--critical-light)',
+          boxShadow: '0 0 0 0.125rem var(--critical-light)',
         };
       case 'disabled':
       case 'pre-filled':
@@ -209,7 +209,7 @@ export const DataEntryTableCellDropdown: React.FC<DataEntryTableCellDropdownProp
             width: `${dropdownPosition.width}px`,
           }}
         >
-          <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--radius-md)] shadow-lg overflow-y-auto" style={{ maxHeight: 'var(--x20, 80px)' }}>
+          <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--radius-md)] shadow-lg overflow-y-auto" style={{ maxHeight: 'var(--x20)' }}>
             {options.map((option) => (
               <button
                 key={String(option.value)}

@@ -87,8 +87,8 @@ export interface ButtonProps extends Omit<ComposableProps<'button'>, 'children'>
    * Button size
    * @default 'md'
    * 
-   * Available sizes: `xxs` (24px), `xs` (32px), `sm` (36px), `md` (40px), 
-   * `lg` (48px), `xl` (56px), `xxl` (64px)
+   * Available sizes: `xxs` (x6), `xs` (x8), `sm` (x9), `md` (x10),
+   * `lg` (x12), `xl` (x14), `xxl` (x16)
    */
   size?: ButtonSize;
   
@@ -125,7 +125,7 @@ export interface ButtonProps extends Omit<ComposableProps<'button'>, 'children'>
    * @default 'default'
    *
    * - `default`: Component radius token
-   * - `rounded`: Rounded corners (12px)
+   * - `rounded`: Rounded corners (x3)
    */
   shape?: ButtonShape;
   
@@ -241,59 +241,59 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const buttonSizing = {
     xxs: {
       padding: 'px-1.5 py-0.5', // Increased padding
-      fontSize: 'text-xs-rem', // 12px → 0.857rem (responsive)
+      fontSize: 'text-xs-rem', // text-xs-rem → 0.857rem (responsive)
       iconSize: 12,
       borderRadius: 'rounded-component',
       height: 'h-6', // Increased height
-      width: 'w-6', // 24px for icon-only
+      width: 'w-6', // x6 for icon-only
     },
     xs: {
       padding: 'px-2.5 py-1', // Increased padding
-      fontSize: 'text-sm-rem', // 14px → 1rem (responsive)
+      fontSize: 'text-sm-rem', // text-sm-rem → 1rem (responsive)
       iconSize: 14, // Slightly larger icon
       borderRadius: 'rounded-component',
       height: 'h-8', // Increased height
-      width: 'w-8', // 32px for icon-only
+      width: 'w-8', // x8 for icon-only
     },
     sm: {
       padding: 'px-3.5 py-1.5', // Increased padding
-      fontSize: 'text-md-rem', // 16px → 1.143rem (responsive)
+      fontSize: 'text-md-rem', // text-md-rem → 1.143rem (responsive)
       iconSize: 16,
       borderRadius: 'rounded-component',
       height: 'h-9', // Increased height
-      width: 'w-9', // 36px for icon-only
+      width: 'w-9', // x9 for icon-only
     },
     md: {
       padding: 'px-4 py-2', // Increased padding
-      fontSize: 'text-md-rem', // 16px → 1.143rem (responsive)
+      fontSize: 'text-md-rem', // text-md-rem → 1.143rem (responsive)
       iconSize: 18, // Larger icon
       borderRadius: 'rounded-component',
-      height: 'h-10', // 40px
-      width: 'w-10', // 40px for icon-only
+      height: 'h-10', // x10
+      width: 'w-10', // x10 for icon-only
     },
     lg: {
       padding: 'px-5 py-2.5', // Increased padding
-      fontSize: 'text-lg-rem', // 20px → 1.429rem (responsive)
+      fontSize: 'text-lg-rem', // text-lg-rem → 1.429rem (responsive)
       iconSize: 20, // Larger icon
       borderRadius: 'rounded-component',
-      height: 'h-12', // 48px
-      width: 'w-12', // 48px for icon-only
+      height: 'h-12', // x12
+      width: 'w-12', // x12 for icon-only
     },
     xl: {
       padding: 'px-6 py-3', // Increased padding
-      fontSize: 'text-xl-rem', // 24px → 1.714rem (responsive)
+      fontSize: 'text-xl-rem', // text-xl-rem → 1.714rem (responsive)
       iconSize: 24,
       borderRadius: 'rounded-component',
-      height: 'h-14', // 56px
-      width: 'w-14', // 56px for icon-only
+      height: 'h-14', // x14
+      width: 'w-14', // x14 for icon-only
     },
     xxl: {
       padding: 'px-7 py-3.5', // Increased padding
-      fontSize: 'text-xxl-rem', // 28px → 2rem (responsive)
+      fontSize: 'text-xxl-rem', // text-xxl-rem → 2rem (responsive)
       iconSize: 24,
       borderRadius: 'rounded-component',
-      height: 'h-16', // 64px
-      width: 'w-16', // 64px for icon-only
+      height: 'h-16', // x16
+      width: 'w-16', // x16 for icon-only
     },
   };
 
@@ -326,7 +326,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const sizeStyles = !isLink ? cn(
     buttonSize.height,
     buttonSize.fontSize,
-    "gap-2", // 8px gap consistent across all sizes
+    "gap-2", // x2 gap consistent across all sizes
     // Apply border radius based on button type
     !isIconOnly && buttonSize.borderRadius,
     // Icon-only buttons: square dimensions with no padding

@@ -123,7 +123,7 @@ export const SegmentedTabItem = React.forwardRef<HTMLButtonElement, SegmentedTab
   ({ className, label, icon, selected, variant = 'default', ...props }, ref) => {
     const tabStyles = cn(
       // Base styles using design tokens
-      "flex items-center justify-center gap-[var(--x2,8px)] py-[var(--x2,8px)] h-[32px] rounded-[var(--x1,4px)] transition-all duration-200 cursor-pointer relative z-10",
+      "flex items-center justify-center gap-[var(--x2,8px)] py-[var(--x2,8px)] h-[var(--spacing-x8)] rounded-[var(--x1,4px)] transition-all duration-200 cursor-pointer relative z-10",
       // Flex: flex-1 for default (fill space), auto for icon-only (hug content)
       variant === 'icon-only' ? "flex-none" : "flex-1",
       // Padding based on variant
@@ -157,8 +157,8 @@ export const SegmentedTabItem = React.forwardRef<HTMLButtonElement, SegmentedTab
         {...props}
       >
         {icon && (
-          <span className="flex items-center justify-center shrink-0 w-[24px] h-[24px]">
-            <span className="w-[16px] h-[16px]">
+          <span className="flex items-center justify-center shrink-0 w-[var(--spacing-x6)] h-[var(--spacing-x6)]">
+            <span className="w-[var(--spacing-x4)] h-[var(--spacing-x4)]">
               {icon}
             </span>
           </span>

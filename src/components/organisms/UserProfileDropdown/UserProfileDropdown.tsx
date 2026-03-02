@@ -53,7 +53,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
 
   const baseStyles: React.CSSProperties = {
     position: 'absolute',
-    top: 'calc(100% + 12px)',
+    top: 'calc(100% + var(--spacing-x3))',
     right: 0,
     left: 'auto',
     zIndex: 1000,
@@ -65,27 +65,27 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
     <Comp
       className={cn(
         getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', ''),
-        'flex flex-col items-center overflow-hidden px-0 py-[20px] rounded-[var(--x2,8px)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] w-[400px]',
+        'flex flex-col items-center overflow-hidden px-0 py-[var(--spacing-x5)] rounded-[var(--x2,8px)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] w-[25rem]',
         className
       )}
       style={baseStyles}
       {...props}
     >
       {/* User Info Section */}
-      <div className="flex flex-col gap-[20px] items-start justify-center px-[var(--x5,20px)] py-0 w-full">
+      <div className="flex flex-col gap-[var(--spacing-x5)] items-start justify-center px-[var(--x5,20px)] py-0 w-full">
         <div className="flex gap-[var(--x5,20px)] items-center w-full">
           <Avatar 
             src={userAvatar}
             alt={userName}
             size="xl"
-            className="flex items-center justify-center size-[56px] shrink-0"
+            className="flex items-center justify-center size-[var(--spacing-x14)] shrink-0"
           />
           <div className="flex flex-1 flex-col gap-[var(--x2,8px)] items-start min-w-0">
             <div className="flex items-center justify-between w-full">
               <Typography variant="display-primary" color="primary">
                 {userName}
               </Typography>
-              <div className="bg-[var(--border-secondary)] flex gap-[8px] items-center justify-center px-[8px] py-[2px] rounded-[var(--x1,4px)] shrink-0">
+              <div className="bg-[var(--border-secondary)] flex gap-[var(--spacing-x2)] items-center justify-center px-[var(--spacing-x2)] py-[0.125rem] rounded-[var(--x1,4px)] shrink-0">
                 <Typography variant="body-secondary-semibold" color="primary">
                   {userBadge}
                 </Typography>
@@ -104,21 +104,21 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
       </div>
 
       {/* Divider */}
-      <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
-        <div className="flex-1 h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
+      <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[var(--spacing-x9)] py-[var(--x5,20px)] relative shrink-0 w-full">
+        <div className="flex-1 h-0 min-h-px min-w-px mr-[calc(var(--spacing-x9)*-1)] relative shrink-0">
           <div className="absolute inset-[-0.5px_-0.13%]" style={{ borderTop: '1px solid var(--border-primary)' }} />
         </div>
       </div>
 
       {/* Menu Items */}
-      <div className="box-border content-stretch flex flex-col gap-[16px] items-start px-[var(--x5,20px)] py-0 relative shrink-0 w-full">
+      <div className="box-border content-stretch flex flex-col gap-[var(--spacing-x4)] items-start px-[var(--x5,20px)] py-0 relative shrink-0 w-full">
         {menuItems.map(({ id, label, iconName }) => (
           <button
             key={id}
             onClick={() => onMenuItemClick(id)}
-            className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
+            className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[0.625rem] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
           >
-            <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
+            <div className="max-h-[var(--spacing-x7)] max-w-[var(--spacing-x7)] min-h-[var(--spacing-x4)] min-w-[var(--spacing-x4)] relative shrink-0 size-[var(--spacing-x4)]">
               <Icon
                 name={iconName}
                 size={16}
@@ -127,7 +127,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
               />
             </div>
             <p className="font-[family-name:var(--font-family-primary,'Inter',sans-serif)] font-[var(--font-weight-regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--primary)]" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-              {/* 16px → 1.143rem (responsive) */}
+              {/* text-md-rem (responsive) */}
               {label}
             </p>
           </button>
@@ -135,8 +135,8 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
       </div>
 
       {/* Divider before Logout */}
-      <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
-        <div className="flex-1 h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
+      <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[var(--spacing-x9)] py-[var(--x5,20px)] relative shrink-0 w-full">
+        <div className="flex-1 h-0 min-h-px min-w-px mr-[calc(var(--spacing-x9)*-1)] relative shrink-0">
           <div className="absolute inset-[-0.5px_-0.13%]" style={{ borderTop: '1px solid var(--border-primary)' }} />
         </div>
       </div>
@@ -144,9 +144,9 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
       {/* Logout Item */}
       <button
         onClick={() => onMenuItemClick(logoutItem.id)}
-        className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[10px] items-center px-[32px] py-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
+        className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[0.625rem] items-center px-[var(--spacing-x8)] py-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
       >
-        <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip relative shrink-0 size-[16px]">
+        <div className="max-h-[var(--spacing-x7)] max-w-[var(--spacing-x7)] min-h-[var(--spacing-x4)] min-w-[var(--spacing-x4)] overflow-clip relative shrink-0 size-[var(--spacing-x4)]">
           <Icon
             name={logoutItem.iconName}
             size={16}
@@ -155,7 +155,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
           />
         </div>
         <p className="font-[family-name:var(--font-family-primary,'Inter',sans-serif)] font-[var(--font-weight-regular,normal)] font-normal leading-[1.4] relative shrink-0 text-[color:var(--critical)]" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-          {/* 16px → 1.143rem (responsive) */}
+          {/* text-md-rem (responsive) */}
           {logoutItem.label}
         </p>
       </button>

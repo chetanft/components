@@ -5,7 +5,7 @@ figma.connect(DatePicker, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/C
   props: {
     size: figma.enum('Size', {
       xl: 'xl',
-      'lg-52px': 'lg',
+      'lg-52px': 'lg', // Figma enum key (h-component-lg)
       lg: 'lg',
       md: 'md',
       sm: 'sm',

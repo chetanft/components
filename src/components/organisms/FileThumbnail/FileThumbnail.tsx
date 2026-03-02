@@ -44,7 +44,7 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
       <Comp
         ref={ref}
         className={cn(
-          "flex flex-col gap-[4px] items-start w-[80px]",
+          "flex flex-col gap-[var(--spacing-x1)] items-start w-[var(--spacing-x20)]",
           getGlassClasses(resolvedGlass, '', ''),
           className
         )}
@@ -53,22 +53,22 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
         {...props}
       >
         {/* Thumbnail Container */}
-        <div className="relative shrink-0 size-[80px] rounded-[8px] overflow-hidden group">
+        <div className="relative shrink-0 size-[var(--spacing-x20)] rounded-[var(--spacing-x2)] overflow-hidden group">
           {/* Image Preview or File Type Icon */}
           {imageUrl ? (
             <div className="relative size-full">
               <img 
                 src={imageUrl}
                 alt={fileName}
-                className="absolute inset-0 max-w-none object-cover object-center pointer-events-none rounded-[8px] size-full"
+                className="absolute inset-0 max-w-none object-cover object-center pointer-events-none rounded-[var(--spacing-x2)] size-full"
               />
               {/* Hover Overlay */}
               {isHovered && hasActions && (
-                <div className="absolute inset-0 bg-[rgba(67,79,100,0.8)] rounded-[8px] pointer-events-none" />
+                <div className="absolute inset-0 bg-[rgba(67,79,100,0.8)] rounded-[var(--spacing-x2)] pointer-events-none" />
               )}
             </div>
           ) : (
-            <div className="flex items-center justify-center size-full px-[16px] py-[14px]">
+            <div className="flex items-center justify-center size-full px-[var(--spacing-x4)] py-[0.875rem]">
               <FileTypeIcon 
                 fileType={fileExtension || 'FILE'} 
                 size="lg"
@@ -86,7 +86,7 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
                     e.stopPropagation();
                     onPreview();
                   }}
-                  className="absolute left-[calc(50%-15px)] top-[calc(50%-12px)] translate-x-[-50%] translate-y-[-50%] size-[20px] flex items-center justify-center z-10 hover:opacity-80 transition-opacity text-[var(--overlay-control-text)]"
+                  className="absolute left-[calc(50%-0.9375rem)] top-[calc(50%-0.75rem)] translate-x-[-50%] translate-y-[-50%] size-[var(--spacing-x5)] flex items-center justify-center z-10 hover:opacity-80 transition-opacity text-[var(--overlay-control-text)]"
                   aria-label="Preview file"
                 >
                   <Icon name="preview" size={20} />
@@ -98,7 +98,7 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
                     e.stopPropagation();
                     onDownload();
                   }}
-                  className="absolute left-[calc(50%+15px)] top-[calc(50%-12px)] translate-x-[-50%] translate-y-[-50%] size-[20px] flex items-center justify-center z-10 hover:opacity-80 transition-opacity text-[var(--overlay-control-text)]"
+                  className="absolute left-[calc(50%+0.9375rem)] top-[calc(50%-0.75rem)] translate-x-[-50%] translate-y-[-50%] size-[var(--spacing-x5)] flex items-center justify-center z-10 hover:opacity-80 transition-opacity text-[var(--overlay-control-text)]"
                   aria-label="Download file"
                 >
                   <Icon name="download" size={20} />
@@ -111,7 +111,6 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
         {/* Filename (optional) */}
         {showFileName && (
           <p className="font-normal leading-[1.4] overflow-ellipsis overflow-hidden relative shrink-0 text-sm-rem text-[var(--secondary)] text-center w-full">
-            {/* 14px → 1rem (responsive) */}
             {fileName}
           </p>
         )}

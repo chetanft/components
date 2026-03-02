@@ -44,7 +44,7 @@ export const RadialChart: React.FC<RadialChartProps> = ({
         return {
           ...dataset,
           backgroundColor: dataset.backgroundColor || colors.slice(0, dataset.data.length),
-          borderColor: dataset.borderColor || '#ffffff',
+          borderColor: dataset.borderColor || ftChartColors.background.primary,
           borderWidth: dataset.borderWidth ?? 0,
         };
       }
@@ -52,7 +52,7 @@ export const RadialChart: React.FC<RadialChartProps> = ({
       return {
         ...dataset,
         backgroundColor: dataset.backgroundColor || [baseColor, ftChartColors.border.secondary],
-        borderColor: dataset.borderColor || '#ffffff',
+        borderColor: dataset.borderColor || ftChartColors.background.primary,
         borderWidth: dataset.borderWidth ?? 0,
       };
     }),
@@ -106,7 +106,7 @@ export const RadialChart: React.FC<RadialChartProps> = ({
           >
             <div
               style={{
-                fontSize: '24px',
+                fontSize: 'var(--spacing-x6)',
                 fontWeight: 600,
                 color: ftChartColors.text.primary,
                 fontFamily: 'Inter, system-ui, sans-serif',

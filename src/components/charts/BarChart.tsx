@@ -2,7 +2,7 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { ChartData, ChartOptions } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions } from './chartConfig';
+import { defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
 
 export interface BarChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'bar'>;
@@ -11,9 +11,9 @@ export interface BarChartProps extends Omit<BaseChartProps, 'children'> {
   horizontal?: boolean;
   /** Enable stacked bars */
   stacked?: boolean;
-  /** Bar thickness in pixels */
+  /** Bar thickness */
   barThickness?: number;
-  /** Maximum bar thickness in pixels */
+  /** Maximum bar thickness */
   maxBarThickness?: number;
   /** Border radius for bars (default: 4) */
   borderRadius?: number;
@@ -79,7 +79,7 @@ export const BarChart: React.FC<BarChartProps> = ({
       ...(showLabels && {
         datalabels: {
           display: true,
-          color: '#434f64',
+          color: ftChartColors.text.primary,
           font: {
             family: 'Inter, system-ui, sans-serif',
             size: 12,

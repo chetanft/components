@@ -56,12 +56,12 @@ export const RadioItemInput = React.forwardRef<HTMLInputElement, RadioItemInputP
     
     const sizeStyles = {
       sm: {
-        radio: "w-[16px] h-[16px]",
-        dot: "w-[6px] h-[6px]",
+        radio: "w-[var(--spacing-x4)] h-[var(--spacing-x4)]",
+        dot: "w-[0.375rem] h-[0.375rem]",
       },
       md: {
         radio: "w-[var(--radio-size)] h-[var(--radio-size)]",
-        dot: "w-[10px] h-[10px]",
+        dot: "w-[0.625rem] h-[0.625rem]",
       }
     };
 

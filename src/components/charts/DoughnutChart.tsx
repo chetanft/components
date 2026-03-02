@@ -2,7 +2,7 @@ import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { ChartData, ChartOptions } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions } from './chartConfig';
+import { defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
 
 export interface DoughnutChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'doughnut'>;
@@ -29,7 +29,7 @@ export const DoughnutChart: React.FC<DoughnutChartProps> = ({
     datasets: data.datasets.map((dataset) => ({
       ...dataset,
       backgroundColor: dataset.backgroundColor || colors,
-      borderColor: dataset.borderColor || '#ffffff',
+      borderColor: dataset.borderColor || ftChartColors.background.primary,
       borderWidth: dataset.borderWidth ?? 2,
     })),
   };

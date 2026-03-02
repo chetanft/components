@@ -45,37 +45,37 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
     const [imageError, setImageError] = React.useState(false);
     
     // Size configurations - matching Figma design structure
-    // Figma sizes: xxs (13×16), xs (20×24), sm (26×32), md (33×40), lg (39×48), xl (46×56), xxl (52×64)
+    // Figma sizes: xxs (0.8125rem x 1rem), xs (x5 x x6), sm (1.625rem x x8), md (2.0625rem x x10), lg (2.4375rem x x12), xl (2.875rem x x14), xxl (x13 x x16)
     const sizeStyles = {
-      xxs: "w-[13px] h-[16px]",
-      xs: "w-[20px] h-[24px]",
-      sm: "w-[26px] h-[32px]",
-      md: "w-[33px] h-[40px]",
-      lg: "w-[39px] h-[48px]",
-      xl: "w-[46px] h-[56px]",
-      xxl: "w-[52px] h-[64px]"
+      xxs: "w-[0.8125rem] h-[1rem]",
+      xs: "w-[var(--spacing-x5)] h-[var(--spacing-x6)]",
+      sm: "w-[1.625rem] h-[var(--spacing-x8)]",
+      md: "w-[2.0625rem] h-[var(--spacing-x10)]",
+      lg: "w-[2.4375rem] h-[var(--spacing-x12)]",
+      xl: "w-[2.875rem] h-[var(--spacing-x14)]",
+      xxl: "w-[var(--spacing-x13)] h-[var(--spacing-x16)]"
     };
     
     // Triangle sizes based on container size - proportional to icon size
     const triangleSizes = {
-      xxs: '6px',
-      xs: '8px',
-      sm: '10px',
-      md: '13px',
-      lg: '16px',
-      xl: '18px',
-      xxl: '20px'
+      xxs: '0.375rem',
+      xs: 'var(--spacing-x2)',
+      sm: '0.625rem',
+      md: '0.8125rem',
+      lg: 'var(--spacing-x4)',
+      xl: '1.125rem',
+      xxl: 'var(--spacing-x5)'
     };
     
     // Text sizes based on container size
     const textSizes = {
-      xxs: 'text-[8px]', // Non-standard size, keeping px
-      xs: 'text-[10px]', // Non-standard size, keeping px
-      sm: 'text-xs-rem', // 12px → 0.857rem (responsive)
-      md: 'text-sm-rem', // 14px → 1rem (responsive)
-      lg: 'text-md-rem', // 16px → 1.143rem (responsive)
-      xl: 'text-[18px]', // Non-standard size, keeping px
-      xxl: 'text-lg-rem' // 20px → 1.429rem (responsive)
+      xxs: 'text-[0.5rem]',
+      xs: 'text-[0.625rem]',
+      sm: 'text-xs-rem',
+      md: 'text-sm-rem',
+      lg: 'text-md-rem',
+      xl: 'text-[1.125rem]',
+      xxl: 'text-lg-rem'
     };
     
     // Get image source - prefer provided src, then file type mapping
@@ -89,7 +89,7 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
     // If no image source available or image failed to load, fallback to CSS-based design with folded corner triangle
     if (!imageSrc || imageError) {
       // File type colors matching design - using gradients like the SVG
-      // Folded corner is always #CED1D7 (border-primary) per design
+      // Folded corner is always border-primary per design
       const getFileTypeStyles = (type: string) => {
         const normalizedType = type.toUpperCase();
         
@@ -145,13 +145,13 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
       
       // Bottom padding scales with size
       const bottomPadding = {
-        xxs: 'bottom-[2px]',
-        xs: 'bottom-[3px]',
-        sm: 'bottom-[4px]',
-        md: 'bottom-[6px]',
-        lg: 'bottom-[7px]',
-        xl: 'bottom-[8px]',
-        xxl: 'bottom-[10px]'
+        xxs: 'bottom-[0.125rem]',
+        xs: 'bottom-[0.1875rem]',
+        sm: 'bottom-[var(--spacing-x1)]',
+        md: 'bottom-[0.375rem]',
+        lg: 'bottom-[0.4375rem]',
+        xl: 'bottom-[var(--spacing-x2)]',
+        xxl: 'bottom-[0.625rem]'
       };
       
       const Comp = asChild ? Slot : 'div';

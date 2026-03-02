@@ -176,7 +176,7 @@ export const StackedBarChart = React.forwardRef(
               className="flex flex-1 min-w-0 flex-col items-center gap-[var(--x2,8px)]"
             >
               <div
-                className="flex w-full flex-col justify-end rounded-[6px]"
+                className="flex w-full flex-col justify-end rounded-[0.375rem]"
                 style={{ height: barHeight }}
               >
                 {bar.segments.map((segment, segmentIndex) => {
@@ -198,7 +198,7 @@ export const StackedBarChart = React.forwardRef(
                   );
                 })}
               </div>
-              <span className="text-center text-[10px] font-normal leading-[1.4] text-[var(--primary)]">
+              <span className="text-center text-[0.625rem] font-normal leading-[1.4] text-[var(--primary)]">
                 {bar.label}
               </span>
             </div>
@@ -206,11 +206,11 @@ export const StackedBarChart = React.forwardRef(
         </div>
 
         {!!resolvedLegend.length && (
-          <div className="flex flex-wrap gap-4 text-[10px] text-[var(--primary)]">
+          <div className="flex flex-wrap gap-4 text-[0.625rem] text-[var(--primary)]">
             {resolvedLegend.map((item) => (
               <div key={item.label} className="flex items-center gap-2">
                 <span
-                  className="inline-flex size-3 rounded-[2px]"
+                  className="inline-flex size-3 rounded-[0.125rem]"
                   style={{ backgroundColor: item.color }}
                   aria-hidden="true"
                 />

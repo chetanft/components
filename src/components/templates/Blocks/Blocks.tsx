@@ -116,7 +116,7 @@ export const DashboardBlock: React.FC<DashboardBlockProps> = ({
     <div className={cn("flex flex-col gap-6", className)}>
       <AppHeader user={user} />
 
-      <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
+      <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(13.75rem,1fr))]">
         {metrics.map((metric) => (
           <Card key={metric.id}>
             <div className="p-4 flex flex-col gap-1.5">
@@ -278,7 +278,7 @@ export interface LoginBlockProps {
 export const LoginBlock: React.FC<LoginBlockProps> = ({ onSubmit }) => {
   return (
     <div className="flex justify-center p-6">
-      <div className="flex flex-col gap-5 w-full max-w-[360px]">
+      <div className="flex flex-col gap-5 w-full max-w-[22.5rem]">
         <div className="flex items-center gap-2 justify-center">
           <div className="w-6 h-6 rounded-lg bg-[var(--primary)] text-[var(--bg-primary)] flex items-center justify-center font-semibold">
             FT
@@ -559,7 +559,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
               );
             }}
           />
-          <Icon name="star" style={{ width: '16px', height: '16px', color: 'var(--secondary)' }} />
+          <Icon name="star" style={{ width: 'var(--spacing-x4)', height: 'var(--spacing-x4)', color: 'var(--secondary)' }} />
         </div>
       ),
     },
@@ -627,7 +627,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
         <div className="flex flex-col gap-1 min-w-0">
           <div className="flex items-center gap-1 min-w-0">
             <span className="text-sm font-medium truncate text-[var(--primary)]">{journey.vehicle_id}</span>
-            <Icon name={"help-circle" as any} style={{ width: '14px', height: '14px' }} className="flex-shrink-0" />
+            <Icon name={"help-circle" as any} style={{ width: 'var(--spacing-x3-5)', height: 'var(--spacing-x3-5)' }} className="flex-shrink-0" />
           </div>
           <span className="text-xs" style={{ color: 'var(--secondary)' }}>
             {journey.transporter} &gt;
@@ -644,8 +644,8 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
             <Icon
               name="truck"
               style={{
-                width: '16px',
-                height: '16px',
+                width: 'var(--spacing-x4)',
+                height: 'var(--spacing-x4)',
                 color: journey.sla_status === 'delayed' ? 'var(--critical)' : 'var(--primary)',
               }}
               className="flex-shrink-0"
@@ -797,7 +797,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
                           onClick={() => toggleCompactFilter(key)}
                           aria-label={label}
                           aria-pressed={activeCompactFilter === key}
-                          className="rounded-[8px]"
+                          className="rounded-lg"
                         />
                       ))}
                     </div>
@@ -806,13 +806,13 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
                       size="md"
                       icon="add"
                       iconPosition="leading"
-                      className="rounded-[8px]"
+                      className="rounded-lg"
                     >
                       Add Journey
                     </Button>
                   </div>
                   {activeCompactFilter && (
-                    <div className="w-full max-w-[360px] mt-2">
+                    <div className="w-full max-w-[22.5rem] mt-2">
                       {renderCompactFilterContent()}
                     </div>
                   )}
@@ -856,7 +856,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
                     leadingIcon="search"
                     value={searchTerm}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(event.target.value)}
-                    className="w-[280px]"
+                    className="w-[17.5rem]"
                   />
                   <Button variant="primary" icon="add" size="md">
                     Add Journey
@@ -933,13 +933,13 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
         )}
 
         {/* Journey count and action buttons line */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '20px', marginBottom: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x3,12px)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'var(--spacing-x5)', marginBottom: 'var(--spacing-x3)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-x3)' }}>
             <Typography variant="body-primary-semibold" className="text-[var(--primary)]">
               {filteredJourneys.length} Journeys available
             </Typography>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.125rem' }}>
             <Button variant="text" size="md" icon="star" iconPosition="only" />
             <Button variant="text" size="md" icon="bundle" iconPosition="only" />
             <Button variant="text" size="md" icon="chevron-down" iconPosition="only" />
@@ -948,39 +948,39 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
             <div style={{
               backgroundColor: 'var(--bg-primary)',
               border: '1px solid var(--border-primary)',
-              borderRadius: 'var(--x2,8px)',
+              borderRadius: 'var(--spacing-x2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              height: '40px',
-              width: '100px',
-              padding: '0 var(--x3,12px)'
+              height: 'var(--spacing-x10)',
+              width: '6.25rem',
+              padding: '0 var(--spacing-x3)'
             }}>
-              <Button variant="text" size="sm" icon="chevron-left" iconPosition="only" style={{ width: '16px', height: '16px', padding: 0 }} />
+              <Button variant="text" size="sm" icon="chevron-left" iconPosition="only" style={{ width: 'var(--spacing-x4)', height: 'var(--spacing-x4)', padding: 0 }} />
               <Typography variant="body-primary-regular" className="text-[var(--tertiary)]" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                {/* 16px → 1.143rem (responsive) */}
+                {/* x4 → 1.143rem (responsive) */}
                 1
               </Typography>
-              <Button variant="text" size="sm" icon="chevron-right" iconPosition="only" style={{ width: '16px', height: '16px', padding: 0 }} />
+              <Button variant="text" size="sm" icon="chevron-right" iconPosition="only" style={{ width: 'var(--spacing-x4)', height: 'var(--spacing-x4)', padding: 0 }} />
             </div>
           </div>
         </div>
 
-        <div style={{ marginTop: '20px' }}>
+        <div style={{ marginTop: 'var(--spacing-x5)' }}>
           {!isMobile ? (
             <div className="journeys-table-wrapper" style={{ border: '1px solid var(--border-primary)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
               <ComposableDataTable columns={tableColumns} data={tableData} />
             </div>
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x4)' }}>
               {filteredJourneys.map((journey) => (
                 <Card key={journey.journey_id}>
-                  <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ padding: 'var(--spacing-x4)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x3)' }}>
                     <Typography variant="body-primary-medium" className="text-[var(--primary)]">
                       {journey.feed_unique_id}
                     </Typography>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 'var(--spacing-x3)' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x1)' }}>
                         <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">
                           {journey.origin_company_display}
                         </Typography>
@@ -988,7 +988,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
                           {journey.origin_display}
                         </Typography>
                       </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', textAlign: 'right' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x1)', textAlign: 'right' }}>
                         <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">
                           {journey.destination_company_display}
                         </Typography>
@@ -1018,11 +1018,11 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
             icon="add"
             style={{
               position: 'fixed',
-              bottom: '20px',
-              right: '20px',
-              width: '48px',
-              height: '48px',
-              borderRadius: '12px',
+              bottom: 'var(--spacing-x5)',
+              right: 'var(--spacing-x5)',
+              width: 'var(--spacing-x12)',
+              height: 'var(--spacing-x12)',
+              borderRadius: 'var(--spacing-x3)',
             }}
           />
         )}
@@ -2128,8 +2128,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
             border: '1px solid var(--border-primary)',
             borderRadius: 'var(--radius-md)',
             boxShadow: 'var(--shadow-md)',
-            minWidth: '200px',
-            maxHeight: '300px',
+            minWidth: '12.5rem',
+            maxHeight: '18.75rem',
             overflowY: 'auto',
           }}
         >
@@ -2155,12 +2155,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               }}
               style={{
                 width: '100%',
-                padding: '10px 16px',
+                padding: 'var(--spacing-x2-5) var(--spacing-x4)',
                 border: 'none',
                 backgroundColor: 'transparent',
                 textAlign: 'left',
                 cursor: 'pointer',
-                fontSize: '14px',
+                fontSize: 'var(--font-size-sm-rem)',
                 color: 'var(--primary)',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}
@@ -2241,13 +2241,13 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               }
             }}
             style={{
-              height: '32px',
+              height: 'var(--spacing-x8)',
               borderRadius: 'var(--radius-md)',
               border: '1px solid var(--border-primary)',
-              padding: '0 12px',
-              fontSize: '14px',
+              padding: '0 var(--spacing-x3)',
+              fontSize: 'var(--font-size-sm-rem)',
               color: 'var(--primary)',
-              minWidth: '150px',
+              minWidth: '9.375rem',
             }}
             placeholder={getPlaceholderText()}
             autoFocus
@@ -2296,9 +2296,9 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
             border: '1px solid var(--border-primary)',
             borderRadius: 'var(--radius-md)',
             boxShadow: 'var(--shadow-md)',
-            padding: '8px 0',
-            minWidth: '200px',
-            maxHeight: '260px',
+            padding: 'var(--spacing-x2) 0',
+            minWidth: '12.5rem',
+            maxHeight: '16.25rem',
             overflowY: 'auto',
           }}
         >
@@ -2327,12 +2327,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 }}
                 style={{
                   width: '100%',
-                  padding: '10px 16px',
+                  padding: 'var(--spacing-x2-5) var(--spacing-x4)',
                   border: 'none',
                   backgroundColor: 'transparent',
                   textAlign: 'left',
                   cursor: 'pointer',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}
@@ -2356,11 +2356,11 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
     const renderCategoryHeader = (title: string) => (
       <div
         style={{
-          padding: '10px 16px',
+          padding: 'var(--spacing-x2-5) var(--spacing-x4)',
           borderBottom: '1px solid var(--border-secondary)',
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
+          gap: 'var(--spacing-x2)',
         }}
       >
         <button
@@ -2378,7 +2378,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         >
           ←
         </button>
-        <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--primary)' }}>{title}</span>
+        <span style={{ fontSize: 'var(--font-size-sm-rem)', fontWeight: 600, color: 'var(--primary)' }}>{title}</span>
       </div>
     );
 
@@ -2388,12 +2388,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         onClick={onClick}
         style={{
           width: '100%',
-          padding: '10px 16px',
+          padding: 'var(--spacing-x2-5) var(--spacing-x4)',
           border: 'none',
           backgroundColor: 'transparent',
           textAlign: 'left',
           cursor: 'pointer',
-          fontSize: '14px',
+          fontSize: 'var(--font-size-sm-rem)',
           color: 'var(--primary)',
         }}
         onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}
@@ -2413,8 +2413,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         onClick={onClick}
         style={{
           width: '100%',
-          padding: '10px 16px',
-          margin: '8px 16px',
+          padding: 'var(--spacing-x2-5) var(--spacing-x4)',
+          margin: 'var(--spacing-x2) var(--spacing-x4)',
           border: '1px solid var(--border-primary)',
           borderRadius: 'var(--radius-md)',
           backgroundColor: 'var(--bg-primary)',
@@ -2422,7 +2422,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           alignItems: 'center',
           justifyContent: 'space-between',
           cursor: 'pointer',
-          fontSize: '14px',
+          fontSize: 'var(--font-size-sm-rem)',
           color: selectedValue ? 'var(--primary)' : 'var(--tertiary)',
         }}
         onMouseEnter={(e) => {
@@ -2458,8 +2458,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               border: '1px solid var(--border-primary)',
               borderRadius: 'var(--radius-md)',
               boxShadow: 'var(--shadow-md)',
-              minWidth: '200px',
-              maxHeight: '300px',
+              minWidth: '12.5rem',
+              maxHeight: '18.75rem',
               overflowY: 'auto',
             }}
           >
@@ -2474,12 +2474,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 }}
                 style={{
                   width: '100%',
-                  padding: '10px 16px',
+                  padding: 'var(--spacing-x2-5) var(--spacing-x4)',
                   border: 'none',
                   backgroundColor: 'transparent',
                   textAlign: 'left',
                   cursor: 'pointer',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}
@@ -2504,12 +2504,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 onClick={() => setActiveValueCategory(category.id)}
                 style={{
                   width: '100%',
-                  padding: '10px 16px',
+                  padding: 'var(--spacing-x2-5) var(--spacing-x4)',
                   border: 'none',
                   backgroundColor: 'transparent',
                   textAlign: 'left',
                   cursor: 'pointer',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}
@@ -2578,7 +2578,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         return (
           <>
             {renderCategoryHeader('Percentage of Value')}
-            <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ padding: 'var(--spacing-x3) var(--spacing-x4)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x3)' }}>
               <PercentageOfChargeInput
                 value={percentageOfChargeValue}
                 selectedCharge={percentageOfChargeTarget || undefined}
@@ -2603,13 +2603,13 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 }}
                 disabled={!percentageOfChargeValue || !percentageOfChargeTarget}
                 style={{
-                  height: '32px',
+                  height: 'var(--spacing-x8)',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border-primary)',
                   backgroundColor: (!percentageOfChargeValue || !percentageOfChargeTarget) 
                     ? 'var(--bg-secondary)' 
                     : 'var(--bg-primary)',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: (!percentageOfChargeValue || !percentageOfChargeTarget) 
                     ? 'var(--tertiary)' 
                     : 'var(--primary)',
@@ -2629,17 +2629,17 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         return (
           <>
             {renderCategoryHeader('Percentage of Dimensions')}
-            <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ padding: 'var(--spacing-x3) var(--spacing-x4)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2-5)' }}>
               <input
                 type="text"
                 value={percentageOfDimensionValue}
                 onChange={(e) => setPercentageOfDimensionValue(e.target.value)}
                 style={{
-                  height: '32px',
+                  height: 'var(--spacing-x8)',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border-primary)',
-                  padding: '0 10px',
-                  fontSize: '14px',
+                  padding: '0 var(--spacing-x2-5)',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                 }}
               />
@@ -2647,11 +2647,11 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 value={percentageOfDimensionTarget}
                 onChange={(e) => setPercentageOfDimensionTarget(e.target.value)}
                 style={{
-                  height: '32px',
+                  height: 'var(--spacing-x8)',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border-primary)',
-                  padding: '0 10px',
-                  fontSize: '14px',
+                  padding: '0 var(--spacing-x2-5)',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                 }}
               >
@@ -2670,11 +2670,11 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   )
                 }
                 style={{
-                  height: '32px',
+                  height: 'var(--spacing-x8)',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border-primary)',
                   backgroundColor: 'var(--bg-primary)',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                   cursor: 'pointer',
                 }}
@@ -2690,28 +2690,28 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         return (
           <>
             {renderCategoryHeader('Constant')}
-            <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div style={{ padding: 'var(--spacing-x3) var(--spacing-x4)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2-5)' }}>
               <input
                 type="text"
                 value={constantValue}
                 onChange={(e) => setConstantValue(e.target.value)}
                 style={{
-                  height: '32px',
+                  height: 'var(--spacing-x8)',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border-primary)',
-                  padding: '0 10px',
-                  fontSize: '14px',
+                  padding: '0 var(--spacing-x2-5)',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                 }}
               />
               <button
                 onClick={() => handleInsertValueToken(constantValue || '0', 'constant')}
                 style={{
-                  height: '32px',
+                  height: 'var(--spacing-x8)',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border-primary)',
                   backgroundColor: 'var(--bg-primary)',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                   cursor: 'pointer',
                 }}
@@ -2742,8 +2742,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
             border: '1px solid var(--border-primary)',
             borderRadius: 'var(--radius-md)',
             boxShadow: 'var(--shadow-md)',
-            minWidth: '240px',
-            maxHeight: '320px',
+            minWidth: '15rem',
+            maxHeight: '20rem',
             overflowY: 'auto',
           }}
         >
@@ -2798,31 +2798,31 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           style={{
             backgroundColor: 'var(--bg-primary)',
             borderRadius: 'var(--radius-md)',
-            padding: '16px',
+            padding: 'var(--spacing-x4)',
             boxShadow: 'var(--shadow-md)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '16px',
-            minWidth: '280px',
+            gap: 'var(--spacing-x4)',
+            minWidth: '17.5rem',
           }}
         >
           {/* Mathematical operators */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--tertiary)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)' }}>
+            <span style={{ fontSize: 'var(--font-size-sm-rem)', fontWeight: 600, color: 'var(--tertiary)' }}>
               Mathematical operators
             </span>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-x3)' }}>
               {MATH_OPERATORS.map((op) => (
                 <button
                   key={op}
                   onClick={() => handleOperatorPickerSelect('operator', op)}
                   style={{
-                    width: '40px',
-                    height: '40px',
+                    width: 'var(--spacing-x10)',
+                    height: 'var(--spacing-x10)',
                     borderRadius: 'var(--radius-md)',
                     border: '1px solid var(--border-primary)',
                     backgroundColor: 'var(--bg-primary)',
-                    fontSize: '16px',
+                    fontSize: 'var(--font-size-md-rem)',
                     color: 'var(--primary)',
                     cursor: 'pointer',
                     display: 'flex',
@@ -2840,19 +2840,19 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
 
           {/* Conditions - only show when not inside function */}
           {!insideFunc && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--tertiary)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)' }}>
+              <span style={{ fontSize: 'var(--font-size-sm-rem)', fontWeight: 600, color: 'var(--tertiary)' }}>
                 Conditions
               </span>
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: 'var(--spacing-x3)', flexWrap: 'wrap' }}>
                 <button
                   onClick={() => handleOperatorPickerSelect('if-else')}
                   style={{
-                    padding: '8px 16px',
+                    padding: 'var(--spacing-x2) var(--spacing-x4)',
                     borderRadius: 'var(--radius-md)',
                     border: '1px solid var(--border-primary)',
                     backgroundColor: 'var(--bg-primary)',
-                    fontSize: '14px',
+                    fontSize: 'var(--font-size-sm-rem)',
                     color: 'var(--primary)',
                     cursor: 'pointer',
                   }}
@@ -2895,9 +2895,9 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
             border: '1px solid var(--border-primary)',
             borderRadius: 'var(--radius-md)',
             boxShadow: 'var(--shadow-md)',
-            padding: '8px 0',
-            minWidth: '200px',
-            maxHeight: '260px',
+            padding: 'var(--spacing-x2) 0',
+            minWidth: '12.5rem',
+            maxHeight: '16.25rem',
             overflowY: 'auto',
           }}
         >
@@ -2924,12 +2924,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               }}
               style={{
                 width: '100%',
-                padding: '10px 16px',
+                padding: 'var(--spacing-x2-5) var(--spacing-x4)',
                 border: 'none',
                 backgroundColor: 'transparent',
                 textAlign: 'left',
                 cursor: 'pointer',
-                fontSize: '14px',
+                fontSize: 'var(--font-size-sm-rem)',
                 color: 'var(--primary)',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}
@@ -2971,14 +2971,14 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               border: '1px solid var(--border-primary)',
               borderRadius: 'var(--radius-md)',
               boxShadow: 'var(--shadow-lg)',
-              padding: '12px 16px',
-              minWidth: '280px',
+              padding: 'var(--spacing-x3) var(--spacing-x4)',
+              minWidth: '17.5rem',
             }}
           >
-            <div style={{ marginBottom: '12px', fontSize: '14px', fontWeight: 600, color: 'var(--primary)' }}>
+            <div style={{ marginBottom: 'var(--spacing-x3)', fontSize: 'var(--font-size-sm-rem)', fontWeight: 600, color: 'var(--primary)' }}>
               Edit Percentage
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x3)' }}>
               <PercentageOfChargeInput
                 value={editingPercentageValue}
                 selectedCharge={editingPercentageTarget || undefined}
@@ -2988,7 +2988,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 placeholder="Select charge"
                 size="md"
               />
-              <div style={{ display: 'flex', gap: '8px' }}>
+              <div style={{ display: 'flex', gap: 'var(--spacing-x2)' }}>
                 <button
                   onClick={() => {
                     if (editingPercentageValue && editingPercentageTarget) {
@@ -3002,13 +3002,13 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   disabled={!editingPercentageValue || !editingPercentageTarget}
                   style={{
                     flex: 1,
-                    height: '32px',
+                    height: 'var(--spacing-x8)',
                     borderRadius: 'var(--radius-md)',
                     border: '1px solid var(--border-primary)',
                     backgroundColor: (!editingPercentageValue || !editingPercentageTarget) 
                       ? 'var(--bg-secondary)' 
                       : 'var(--bg-primary)',
-                    fontSize: '14px',
+                    fontSize: 'var(--font-size-sm-rem)',
                     color: (!editingPercentageValue || !editingPercentageTarget) 
                       ? 'var(--tertiary)' 
                       : 'var(--primary)',
@@ -3028,12 +3028,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                     setEditingPercentageTarget('');
                   }}
                   style={{
-                    height: '32px',
-                    padding: '0 16px',
+                    height: 'var(--spacing-x8)',
+                    padding: '0 var(--spacing-x4)',
                     borderRadius: 'var(--radius-md)',
                     border: '1px solid var(--border-primary)',
                     backgroundColor: 'var(--bg-primary)',
-                    fontSize: '14px',
+                    fontSize: 'var(--font-size-sm-rem)',
                     color: 'var(--primary)',
                     cursor: 'pointer',
                   }}
@@ -3068,24 +3068,24 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               border: '1px solid var(--border-primary)',
               borderRadius: 'var(--radius-md)',
               boxShadow: 'var(--shadow-lg)',
-              padding: '12px 16px',
-              minWidth: '200px',
+              padding: 'var(--spacing-x3) var(--spacing-x4)',
+              minWidth: '12.5rem',
             }}
           >
-            <div style={{ marginBottom: '12px', fontSize: '14px', fontWeight: 600, color: 'var(--primary)' }}>
+            <div style={{ marginBottom: 'var(--spacing-x3)', fontSize: 'var(--font-size-sm-rem)', fontWeight: 600, color: 'var(--primary)' }}>
               Edit Constant
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x3)' }}>
               <input
                 type="text"
                 value={editingConstantValue}
                 onChange={(e) => setEditingConstantValue(e.target.value)}
                 style={{
-                  height: '32px',
+                  height: 'var(--spacing-x8)',
                   borderRadius: 'var(--radius-md)',
                   border: '1px solid var(--border-primary)',
-                  padding: '0 10px',
-                  fontSize: '14px',
+                  padding: '0 var(--spacing-x2-5)',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                 }}
                 onKeyDown={(e) => {
@@ -3101,7 +3101,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   }
                 }}
               />
-              <div style={{ display: 'flex', gap: '8px' }}>
+              <div style={{ display: 'flex', gap: 'var(--spacing-x2)' }}>
                 <button
                   onClick={() => {
                     if (editingConstantValue.trim()) {
@@ -3112,13 +3112,13 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   disabled={!editingConstantValue.trim()}
                   style={{
                     flex: 1,
-                    height: '32px',
+                    height: 'var(--spacing-x8)',
                     borderRadius: 'var(--radius-md)',
                     border: '1px solid var(--border-primary)',
                     backgroundColor: !editingConstantValue.trim() 
                       ? 'var(--bg-secondary)' 
                       : 'var(--bg-primary)',
-                    fontSize: '14px',
+                    fontSize: 'var(--font-size-sm-rem)',
                     color: !editingConstantValue.trim() 
                       ? 'var(--tertiary)' 
                       : 'var(--primary)',
@@ -3137,12 +3137,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                     setEditingConstantValue('');
                   }}
                   style={{
-                    height: '32px',
-                    padding: '0 16px',
+                    height: 'var(--spacing-x8)',
+                    padding: '0 var(--spacing-x4)',
                     borderRadius: 'var(--radius-md)',
                     border: '1px solid var(--border-primary)',
                     backgroundColor: 'var(--bg-primary)',
-                    fontSize: '14px',
+                    fontSize: 'var(--font-size-sm-rem)',
                     color: 'var(--primary)',
                     cursor: 'pointer',
                   }}
@@ -3209,8 +3209,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
             border: '1px solid var(--border-primary)',
             borderRadius: 'var(--radius-lg)',
             boxShadow: 'var(--shadow-lg)',
-            minWidth: '200px',
-            maxHeight: '300px',
+            minWidth: '12.5rem',
+            maxHeight: '18.75rem',
             overflowY: 'auto',
           }}
         >
@@ -3220,12 +3220,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               onClick={() => handleUpdateToken(editingTokenId, option.label, option.valueType, option.meta)}
               style={{
                 width: '100%',
-                padding: '10px 16px',
+                padding: 'var(--spacing-x2-5) var(--spacing-x4)',
                 border: 'none',
                 backgroundColor: 'transparent',
                 textAlign: 'left',
                 cursor: 'pointer',
-                fontSize: '14px',
+                fontSize: 'var(--font-size-sm-rem)',
                 color: 'var(--primary)',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}
@@ -3242,7 +3242,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
 
   const renderFormulaTokens = () => {
     if (formulaTokens.length === 0) {
-      return <span style={{ fontSize: '14px', color: 'var(--tertiary)' }}>Add a value</span>;
+      return <span style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--tertiary)' }}>Add a value</span>;
     }
 
     return (
@@ -3266,23 +3266,23 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   value={token.meta.percentageValue}
                   readOnly
                   style={{
-                    width: '56px',
-                    height: '34px',
+                    width: 'var(--spacing-x14)',
+                    height: '2.125rem',
                     border: 'none',
-                    padding: '0 10px',
-                    fontSize: '14px',
+                    padding: '0 var(--spacing-x2-5)',
+                    fontSize: 'var(--font-size-sm-rem)',
                     color: 'var(--primary)',
                   }}
                 />
                 <div
                   style={{
-                    height: '34px',
-                    padding: '0 10px',
+                    height: '2.125rem',
+                    padding: '0 var(--spacing-x2-5)',
                     display: 'flex',
                     alignItems: 'center',
                     borderLeft: '1px solid var(--border-primary)',
                     borderRight: '1px solid var(--border-primary)',
-                    fontSize: '14px',
+                    fontSize: 'var(--font-size-sm-rem)',
                     color: 'var(--secondary)',
                     backgroundColor: 'var(--bg-secondary)',
                   }}
@@ -3292,17 +3292,17 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 <button
                   type="button"
                   style={{
-                    height: '34px',
-                    padding: '0 12px',
+                    height: '2.125rem',
+                    padding: '0 var(--spacing-x3)',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
+                    gap: 'var(--spacing-x2)',
                     border: 'none',
                     backgroundColor: 'var(--bg-primary)',
                     cursor: 'pointer',
                   }}
                 >
-                  <span style={{ fontSize: '14px', color: 'var(--primary)' }}>
+                  <span style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--primary)' }}>
                     {token.meta.percentageTarget || 'Invoice value'}
                   </span>
                   <Icon name="chevron-down" size={14} style={{ color: 'var(--secondary)' }} />
@@ -3321,19 +3321,19 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '10px',
-                  padding: '0px 12px',
-                  borderRadius: '8px',
+                  gap: 'var(--spacing-x2-5)',
+                  padding: '0 var(--spacing-x3)',
+                  borderRadius: 'var(--spacing-x2)',
                   backgroundColor: 'var(--bg-primary)',
                   border: '1px solid var(--border-primary)',
                   cursor: 'pointer',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                   fontWeight: 400,
                   lineHeight: '1.4',
                   whiteSpace: 'nowrap',
                   transition: 'all 0.2s',
-                  height: '36px',
+                  height: 'var(--spacing-x9)',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
@@ -3342,7 +3342,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   e.currentTarget.style.backgroundColor = 'var(--bg-primary)';
                 }}
               >
-                <span style={{ fontSize: '14px', color: 'var(--primary)', fontWeight: 400 }}>{token.label}</span>
+                <span style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--primary)', fontWeight: 400 }}>{token.label}</span>
                 <Icon name="chevron-down" size={14} style={{ color: 'var(--secondary)', flexShrink: 0 }} />
               </button>
             );
@@ -3357,14 +3357,14 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
                 alignItems: 'center',
-                padding: '6px 10px',
+                padding: 'var(--spacing-x1-5) var(--spacing-x2-5)',
                 borderRadius: 'var(--radius-md)',
                 backgroundColor: 'var(--bg-secondary)',
-                fontSize: '14px',
+                fontSize: 'var(--font-size-sm-rem)',
                 color: 'var(--primary)',
                 border: '1px solid var(--border-primary)',
-                height: '32px',
-                width: '32px',
+                height: 'var(--spacing-x8)',
+                width: 'var(--spacing-x8)',
               }}
             >
               {token.label}
@@ -3393,14 +3393,14 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           borderRadius: 'var(--radius-md)',
           display: 'flex',
           alignItems: 'center',
-          paddingRight: '8px',
+          paddingRight: 'var(--spacing-x2)',
         }}
       >
         {/* Drag Handle */}
         <div
           style={{
             borderRight: '1px solid var(--border-primary)',
-            padding: '8px',
+            padding: 'var(--spacing-x2)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -3412,18 +3412,18 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         </div>
 
         {/* Content */}
-        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '8px', padding: '8px', flexWrap: 'wrap' }}>
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 'var(--spacing-x2)', padding: 'var(--spacing-x2)', flexWrap: 'wrap' }}>
           {/* Logical Operator */}
           {!isFirstCondition && (
             <button
               onClick={(event) => handleOpenConditionDropdown(event, block.id, condition.id, 'logical')}
               style={{
-                minWidth: '70px',
-                height: '32px',
+                minWidth: '4.375rem',
+                height: 'var(--spacing-x8)',
                 backgroundColor: 'var(--bg-primary)',
                 border: '1px solid var(--border-primary)',
                 borderRadius: 'var(--radius-md)',
-                padding: '0 8px',
+                padding: '0 var(--spacing-x2)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -3431,7 +3431,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 boxShadow: 'var(--shadow-sm)',
               }}
             >
-              <span style={{ fontSize: '14px', color: 'var(--primary)' }}>{condition.logicalOperator || 'And'}</span>
+              <span style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--primary)' }}>{condition.logicalOperator || 'And'}</span>
               <Icon name="chevron-down" size={14} style={{ color: 'var(--primary)' }} />
             </button>
           )}
@@ -3440,12 +3440,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           <button
             onClick={(event) => handleOpenConditionDropdown(event, block.id, condition.id, 'variable')}
             style={{
-              minWidth: '130px',
-              height: '32px',
+              minWidth: '8.125rem',
+              height: 'var(--spacing-x8)',
               backgroundColor: 'var(--bg-primary)',
               border: '1px solid var(--border-primary)',
               borderRadius: 'var(--radius-md)',
-              padding: '0 8px',
+              padding: '0 var(--spacing-x2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -3453,7 +3453,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               boxShadow: 'var(--shadow-sm)',
             }}
           >
-            <span style={{ fontSize: '14px', color: 'var(--primary)' }}>
+            <span style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--primary)' }}>
               {CONDITION_VARIABLES.find(v => v.value === condition.variable)?.label || 'Select'}
             </span>
             <Icon name="chevron-down" size={14} style={{ color: 'var(--primary)' }} />
@@ -3463,12 +3463,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           <button
             onClick={(event) => handleOpenConditionDropdown(event, block.id, condition.id, 'operator')}
             style={{
-              minWidth: '50px',
-              height: '32px',
+              minWidth: '3.125rem',
+              height: 'var(--spacing-x8)',
               backgroundColor: 'var(--bg-primary)',
               border: '1px solid var(--border-primary)',
               borderRadius: 'var(--radius-md)',
-              padding: '0 8px',
+              padding: '0 var(--spacing-x2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -3476,7 +3476,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               boxShadow: 'var(--shadow-sm)',
             }}
           >
-            <span style={{ fontSize: '14px', color: 'var(--primary)' }}>{operatorLabel}</span>
+            <span style={{ fontSize: 'var(--font-size-sm-rem)', color: 'var(--primary)' }}>{operatorLabel}</span>
             <Icon name="chevron-down" size={14} style={{ color: 'var(--primary)' }} />
           </button>
 
@@ -3486,12 +3486,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px',
+                gap: 'var(--spacing-x1-5)',
                 backgroundColor: 'var(--bg-primary)',
                 border: '1px solid var(--border-primary)',
                 borderRadius: 'var(--radius-md)',
-                padding: '0 8px',
-                height: '32px',
+                padding: '0 var(--spacing-x2)',
+                height: 'var(--spacing-x8)',
                 boxShadow: 'var(--shadow-sm)',
               }}
             >
@@ -3501,24 +3501,24 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 onChange={(e) => handleUpdateCondition(block.id, condition.id, 'value', e.target.value)}
                 placeholder="Value 1"
                 style={{
-                  width: '60px',
+                  width: 'var(--spacing-x15)',
                   border: 'none',
                   outline: 'none',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                 }}
               />
-              <span style={{ fontSize: '12px', color: 'var(--tertiary)' }}>AND</span>
+              <span style={{ fontSize: 'var(--font-size-xs-rem)', color: 'var(--tertiary)' }}>AND</span>
               <input
                 type="text"
                 value={condition.valueTo || ''}
                 onChange={(e) => handleUpdateCondition(block.id, condition.id, 'valueTo', e.target.value)}
                 placeholder="Value 2"
                 style={{
-                  width: '60px',
+                  width: 'var(--spacing-x15)',
                   border: 'none',
                   outline: 'none',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                 }}
               />
@@ -3531,8 +3531,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 backgroundColor: 'var(--bg-primary)',
                 border: '1px solid var(--border-primary)',
                 borderRadius: 'var(--radius-md)',
-                padding: '0 8px',
-                height: '32px',
+                padding: '0 var(--spacing-x2)',
+                height: 'var(--spacing-x8)',
                 boxShadow: 'var(--shadow-sm)',
               }}
             >
@@ -3542,10 +3542,10 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 onChange={(e) => handleUpdateCondition(block.id, condition.id, 'value', e.target.value)}
                 placeholder="item1, item2"
                 style={{
-                  width: '140px',
+                  width: '8.75rem',
                   border: 'none',
                   outline: 'none',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
                 }}
               />
@@ -3568,13 +3568,13 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 onChange={(e) => handleUpdateCondition(block.id, condition.id, 'value', e.target.value)}
                 placeholder="Enter value"
                 style={{
-                  width: '110px',
-                  height: '32px',
+                  width: '6.875rem',
+                  height: 'var(--spacing-x8)',
                   border: 'none',
                   outline: 'none',
-                  fontSize: '14px',
+                  fontSize: 'var(--font-size-sm-rem)',
                   color: 'var(--primary)',
-                  padding: '0 8px',
+                  padding: '0 var(--spacing-x2)',
                 }}
               />
             </div>
@@ -3584,8 +3584,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           <button
             onClick={(event) => handleOpenConditionValuePicker(event, block.id, condition.id)}
             style={{
-              width: '32px',
-              height: '32px',
+              width: 'var(--spacing-x8)',
+              height: 'var(--spacing-x8)',
               borderRadius: 'var(--radius-md)',
               backgroundColor: 'var(--bg-secondary)',
               border: '1px solid var(--border-primary)',
@@ -3603,8 +3603,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         <button
           onClick={() => canDelete && handleDeleteCondition(block.id, condition.id)}
           style={{
-            width: '32px',
-            height: '32px',
+            width: 'var(--spacing-x8)',
+            height: 'var(--spacing-x8)',
             background: 'transparent',
             border: 'none',
             cursor: canDelete ? 'pointer' : 'default',
@@ -3631,35 +3631,35 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         style={{
           backgroundColor: 'var(--bg-secondary)',
           borderRadius: 'var(--radius-md)',
-          padding: '20px',
+          padding: 'var(--spacing-x5)',
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x4)' }}>
           {/* Header */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span style={{ fontSize: '16px', fontWeight: 600, color: 'var(--primary)' }}>{blockLabel}</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: 'var(--font-size-md-rem)', fontWeight: 600, color: 'var(--primary)' }}>{blockLabel}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-x2)' }}>
               <button
                 onClick={() => handleAddCondition(block.id)}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px',
-                  padding: '8px 16px',
+                  gap: 'var(--spacing-x2)',
+                  padding: 'var(--spacing-x2) var(--spacing-x4)',
                   backgroundColor: 'transparent',
                   border: 'none',
                   cursor: 'pointer',
                 }}
               >
                 <Icon name="add" size={16} style={{ color: 'var(--primary)' }} />
-                <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--primary)' }}>Add Condition</span>
+                <span style={{ fontSize: 'var(--font-size-sm-rem)', fontWeight: 500, color: 'var(--primary)' }}>Add Condition</span>
               </button>
               {canDelete && (
                 <button
                   onClick={() => handleDeleteBlock(block.id)}
                   style={{
-                    width: '32px',
-                    height: '32px',
+                    width: 'var(--spacing-x8)',
+                    height: 'var(--spacing-x8)',
                     background: 'transparent',
                     border: 'none',
                     cursor: 'pointer',
@@ -3695,21 +3695,21 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
         style={{
           backgroundColor: 'var(--bg-secondary)',
           borderBottom: isCollapsed ? 'none' : '1px solid var(--border-primary)',
-          padding: '16px 20px',
+          padding: 'var(--spacing-x4) var(--spacing-x5)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '16px',
+          gap: 'var(--spacing-x4)',
           flexWrap: 'wrap',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: '200px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-x4)', flex: 1, minWidth: '12.5rem' }}>
           {/* Collapse Button */}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
             style={{
-              width: '40px',
-              height: '40px',
+              width: 'var(--spacing-x10)',
+              height: 'var(--spacing-x10)',
               borderRadius: 'var(--radius-md)',
               border: '1px solid var(--border-primary)',
               backgroundColor: 'var(--bg-secondary)',
@@ -3720,12 +3720,12 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
               flexShrink: 0,
             }}
           >
-            <span style={{ fontSize: '18px', color: 'var(--primary)', fontWeight: 400 }}>{isCollapsed ? '+' : '−'}</span>
+            <span style={{ fontSize: 'var(--font-size-lg-rem)', color: 'var(--primary)', fontWeight: 400 }}>{isCollapsed ? '+' : '−'}</span>
           </button>
           {/* Formula Text */}
           <span
             style={{
-              fontSize: '14px',
+              fontSize: 'var(--font-size-sm-rem)',
               fontWeight: 600,
               color: 'var(--primary)',
               lineHeight: '1.4',
@@ -3739,23 +3739,23 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
           </span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-x2)', flexWrap: 'wrap' }}>
           {/* Reset Button */}
           <button
             onClick={handleReset}
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '6px',
-              padding: '8px 12px',
+              gap: 'var(--spacing-x1-5)',
+              padding: 'var(--spacing-x2) var(--spacing-x3)',
               background: 'transparent',
               border: 'none',
-              borderRadius: '1000px',
+              borderRadius: '62.5rem',
               cursor: 'pointer',
             }}
           >
             <Icon name="refresh" size={16} style={{ color: 'var(--critical)' }} />
-            <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--critical)' }}>Reset</span>
+            <span style={{ fontSize: 'var(--font-size-sm-rem)', fontWeight: 500, color: 'var(--critical)' }}>Reset</span>
           </button>
           {/* Validate Button */}
           <button
@@ -3763,29 +3763,29 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '6px',
-              padding: '8px 12px',
+              gap: 'var(--spacing-x1-5)',
+              padding: 'var(--spacing-x2) var(--spacing-x3)',
               background: 'transparent',
               border: 'none',
-              borderRadius: '1000px',
+              borderRadius: '62.5rem',
               cursor: 'pointer',
             }}
           >
             <Icon name="check" size={16} style={{ color: 'var(--primary)' }} />
-            <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--primary)' }}>Validate</span>
+            <span style={{ fontSize: 'var(--font-size-sm-rem)', fontWeight: 500, color: 'var(--primary)' }}>Validate</span>
           </button>
           {/* Save Charge Button */}
           <button
             onClick={handleSave}
             style={{
-              padding: '8px 12px',
+              padding: 'var(--spacing-x2) var(--spacing-x3)',
               background: 'transparent',
               border: 'none',
-              borderRadius: '1000px',
+              borderRadius: '62.5rem',
               cursor: isDirty ? 'pointer' : 'default',
             }}
           >
-            <span style={{ fontSize: '14px', fontWeight: 500, color: isDirty ? 'var(--primary)' : 'var(--border-primary)' }}>
+            <span style={{ fontSize: 'var(--font-size-sm-rem)', fontWeight: 500, color: isDirty ? 'var(--primary)' : 'var(--border-primary)' }}>
               Save Charge
             </span>
           </button>
@@ -3794,11 +3794,11 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
 
       {/* Main Content - Collapsible */}
       {!isCollapsed && (
-        <div style={{ padding: '20px' }}>
+        <div style={{ padding: 'var(--spacing-x5)' }}>
           {/* EMPTY STATE */}
           {state === 'empty' && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--primary)' }}>{label} =</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-x3)', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 'var(--font-size-xl-rem)', fontWeight: 600, color: 'var(--primary)' }}>{label} =</span>
               {selectedVariableType && pickerMode === 'valueOptions' && (
                 <>
                   {renderSpecificOptionsDropdown()}
@@ -3806,8 +3806,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                     ref={addButtonRef}
                     onClick={(e) => openPickerForNextToken(e.currentTarget)}
                     style={{
-                      width: '36px',
-                      height: '36px',
+                      width: 'var(--spacing-x9)',
+                      height: 'var(--spacing-x9)',
                       borderRadius: 'var(--radius-md)',
                       backgroundColor: 'var(--bg-secondary)',
                       border: '1px solid var(--border-primary)',
@@ -3815,7 +3815,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                       alignItems: 'center',
                       justifyContent: 'center',
                       cursor: 'pointer',
-                      marginLeft: '12px',
+                      marginLeft: 'var(--spacing-x3)',
                     }}
                   >
                     <Icon name="edit" size={16} style={{ color: 'var(--primary)' }} />
@@ -3838,8 +3838,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   ref={addButtonRef}
                   onClick={(e) => openPickerForNextToken(e.currentTarget)}
                   style={{
-                    width: '36px',
-                    height: '36px',
+                    width: 'var(--spacing-x9)',
+                    height: 'var(--spacing-x9)',
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: 'var(--bg-secondary)',
                     border: '1px solid var(--border-primary)',
@@ -3857,10 +3857,10 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
 
           {/* FORMULA INPUT STATE */}
           {state === 'formula-input' && (
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--primary)', lineHeight: '32px' }}>{label} =</span>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--spacing-x4)', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 'var(--font-size-xl-rem)', fontWeight: 600, color: 'var(--primary)', lineHeight: 'var(--spacing-x8)' }}>{label} =</span>
               
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-x2)', flexWrap: 'wrap' }}>
                 {renderFormulaTokens()}
 
                 {selectedVariableType && pickerMode === 'valueOptions' && (
@@ -3869,8 +3869,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                     <button
                       onClick={(e) => openPickerForNextToken(e.currentTarget)}
                       style={{
-                        width: '32px',
-                        height: '32px',
+                        width: 'var(--spacing-x8)',
+                        height: 'var(--spacing-x8)',
                         borderRadius: 'var(--radius-md)',
                         backgroundColor: 'var(--bg-secondary)',
                         border: '1px solid var(--border-primary)',
@@ -3878,7 +3878,7 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        marginLeft: '12px',
+                        marginLeft: 'var(--spacing-x3)',
                       }}
                     >
                       <Icon name="edit" size={14} style={{ color: 'var(--primary)' }} />
@@ -3906,8 +3906,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                         openPickerForNextToken(e.currentTarget);
                       }}
                       style={{
-                        width: '32px',
-                        height: '32px',
+                        width: 'var(--spacing-x8)',
+                        height: 'var(--spacing-x8)',
                         borderRadius: 'var(--radius-md)',
                         backgroundColor: 'var(--bg-secondary)',
                         border: '1px solid var(--border-primary)',
@@ -3925,8 +3925,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   <button
                     onClick={(e) => openPickerForNextToken(e.currentTarget)}
                     style={{
-                      width: '32px',
-                      height: '32px',
+                      width: 'var(--spacing-x8)',
+                      height: 'var(--spacing-x8)',
                       borderRadius: 'var(--radius-md)',
                       backgroundColor: 'var(--bg-secondary)',
                       border: '1px solid var(--border-primary)',
@@ -3945,10 +3945,10 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
 
           {/* WITH CONDITIONS STATE */}
           {state === 'with-conditions' && (
-            <div style={{ display: 'flex', gap: '16px' }}>
+            <div style={{ display: 'flex', gap: 'var(--spacing-x4)' }}>
               {/* Label */}
               <div style={{ flexShrink: 0 }}>
-                <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--primary)', lineHeight: '1.4' }}>
+                <span style={{ fontSize: 'var(--font-size-xl-rem)', fontWeight: 600, color: 'var(--primary)', lineHeight: '1.4' }}>
                   {label.split(' ').map((word, i) => (
                     <span key={i}>
                       {word}
@@ -3956,13 +3956,13 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                     </span>
                   ))}
                 </span>
-                <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--primary)' }}> =</span>
+                <span style={{ fontSize: 'var(--font-size-xl-rem)', fontWeight: 600, color: 'var(--primary)' }}> =</span>
               </div>
 
               {/* Content */}
-              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x4)' }}>
                 {/* Formula Input */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-x2)', flexWrap: 'wrap' }}>
                   {renderFormulaTokens()}
                   {showInlinePercentageOfCharge && (
                     <PercentageOfChargeInput
@@ -3979,8 +3979,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                     <button
                       onClick={(e) => openPickerForNextToken(e.currentTarget)}
                       style={{
-                        width: '32px',
-                        height: '32px',
+                        width: 'var(--spacing-x8)',
+                        height: 'var(--spacing-x8)',
                         borderRadius: 'var(--radius-md)',
                         backgroundColor: 'var(--bg-secondary)',
                         border: '1px solid var(--border-primary)',
@@ -4003,20 +4003,20 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   onClick={handleAddElseIf}
                   style={{
                     width: 'fit-content',
-                    height: '40px',
+                    height: 'var(--spacing-x10)',
                     backgroundColor: 'transparent',
                     border: '1px solid var(--border-primary)',
                     borderRadius: 'var(--radius-md)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: '8px',
-                    padding: '0 20px',
+                    gap: 'var(--spacing-x2)',
+                    padding: '0 var(--spacing-x5)',
                     cursor: 'pointer',
                   }}
                 >
                   <Icon name="add" size={16} style={{ color: 'var(--primary)' }} />
-                  <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--primary)' }}>Add Else If</span>
+                  <span style={{ fontSize: 'var(--font-size-sm-rem)', fontWeight: 500, color: 'var(--primary)' }}>Add Else If</span>
                 </button>
 
                 {/* Else Block */}
@@ -4024,17 +4024,17 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                   style={{
                     backgroundColor: 'var(--bg-secondary)',
                     borderRadius: 'var(--radius-md)',
-                    padding: '20px',
+                    padding: 'var(--spacing-x5)',
                   }}
                 >
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x4)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: '16px', fontWeight: 600, color: 'var(--primary)' }}>Else</span>
+                      <span style={{ fontSize: 'var(--font-size-md-rem)', fontWeight: 600, color: 'var(--primary)' }}>Else</span>
                     </div>
 
                     {/* Else Value */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <span style={{ fontSize: '16px', fontWeight: 600, color: 'var(--primary)' }}>{label} =</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-x2)' }}>
+                      <span style={{ fontSize: 'var(--font-size-md-rem)', fontWeight: 600, color: 'var(--primary)' }}>{label} =</span>
                       <input
                         type="text"
                         value={elseBlock.value}
@@ -4043,21 +4043,21 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                           setIsDirty(true);
                         }}
                         style={{
-                          width: '60px',
-                          height: '32px',
+                          width: 'var(--spacing-x15)',
+                          height: 'var(--spacing-x8)',
                           backgroundColor: 'var(--bg-primary)',
                           border: '1px solid var(--border-primary)',
                           borderRadius: 'var(--radius-md)',
-                          padding: '0 8px',
-                          fontSize: '14px',
+                          padding: '0 var(--spacing-x2)',
+                          fontSize: 'var(--font-size-sm-rem)',
                           color: 'var(--primary)',
                           outline: 'none',
                         }}
                       />
                       <button
                         style={{
-                          width: '32px',
-                          height: '32px',
+                          width: 'var(--spacing-x8)',
+                          height: 'var(--spacing-x8)',
                           borderRadius: 'var(--radius-md)',
                           backgroundColor: 'var(--bg-secondary)',
                           border: '1px solid var(--border-primary)',
@@ -4076,8 +4076,8 @@ export const FormulaBuilderBlock: React.FC<FormulaBuilderBlockProps> = ({
                 {/* Bottom Edit Button */}
                 <button
                   style={{
-                    width: '32px',
-                    height: '32px',
+                    width: 'var(--spacing-x8)',
+                    height: 'var(--spacing-x8)',
                     borderRadius: 'var(--radius-md)',
                     backgroundColor: 'var(--bg-secondary)',
                     border: '1px solid var(--border-primary)',

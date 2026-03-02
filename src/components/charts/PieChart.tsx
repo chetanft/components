@@ -2,7 +2,7 @@ import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import { ChartData, ChartOptions } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions } from './chartConfig';
+import { defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
 
 export interface PieChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'pie'>;
@@ -39,7 +39,7 @@ export const PieChart: React.FC<PieChartProps> = ({
     datasets: data.datasets.map((dataset) => ({
       ...dataset,
       backgroundColor: dataset.backgroundColor || colors,
-      borderColor: dataset.borderColor || '#ffffff',
+      borderColor: dataset.borderColor || ftChartColors.background.primary,
       borderWidth: separatorWidth > 0 ? separatorWidth : 0,
     })),
   };

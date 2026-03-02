@@ -162,8 +162,8 @@ export const Shadowfax: Story = {
 
 export const DocsAllLogos: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '20px' }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x6)', padding: 'var(--spacing-x5)' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-x4)', alignItems: 'center' }}>
         <Logo name="ft" />
         <Logo name="ft-white" />
         <Logo name="tata-motors" />

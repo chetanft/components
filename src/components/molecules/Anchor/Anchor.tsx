@@ -178,7 +178,7 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
       {...props}
     >
       {direction === 'vertical' && (
-        <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[var(--border-primary)] opacity-50 ml-[1px]" />
+        <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[var(--border-primary)] opacity-50 ml-px" />
       )}
 
       <div className={cn("relative z-10", direction === 'horizontal' ? "flex gap-2" : "flex flex-col gap-1")}>

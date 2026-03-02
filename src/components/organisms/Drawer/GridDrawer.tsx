@@ -21,9 +21,9 @@ export interface GridDrawerProps extends React.HTMLAttributes<HTMLDivElement> {
  * Uses a 24-column grid system with responsive margins and gaps.
  * 
  * Grid specifications:
- * - Desktop (>1440px): 20px margin, 20px gaps
- * - Tablet (<1440px): 16px margin, 16px gaps
- * - Mobile: 4-column grid, 16px gaps and margin
+ * - Desktop (>1440): x5 margin, x5 gaps
+ * - Tablet (<1440): x4 margin, x4 gaps
+ * - Mobile: 4-column grid, x4 gaps and margin
  * 
  * Available sizes:
  * - 16 columns (66.67% width)
@@ -92,8 +92,8 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
     style.id = styleId;
     style.textContent = `
       .grid-drawer-container {
-        --drawer-margin: 20px;
-        --drawer-gap: 20px;
+        --drawer-margin: var(--spacing-x5);
+        --drawer-gap: var(--spacing-x5);
       }
       
       .grid-drawer-container .grid-drawer-16 {
@@ -110,15 +110,15 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
       
       @media (max-width: 1440px) {
         .grid-drawer-container {
-          --drawer-margin: 16px;
-          --drawer-gap: 16px;
+          --drawer-margin: var(--spacing-x4);
+          --drawer-gap: var(--spacing-x4);
         }
       }
-      
+
       @media (max-width: 768px) {
         .grid-drawer-container {
-          --drawer-margin: 16px;
-          --drawer-gap: 16px;
+          --drawer-margin: var(--spacing-x4);
+          --drawer-gap: var(--spacing-x4);
         }
         
         .grid-drawer-container .grid-drawer-16,
@@ -167,7 +167,7 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
         )}
         style={{
           backgroundColor: 'var(--bg-primary)',
-          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
+          boxShadow: '0 0.625rem 2.5rem rgba(0, 0, 0, 0.1)',
           borderRadius: 'var(--radius-md)',
           marginRight: 'var(--drawer-margin)',
           marginTop: 'var(--drawer-margin)',

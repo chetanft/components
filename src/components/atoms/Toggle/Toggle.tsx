@@ -80,9 +80,9 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(({
     };
 
     const sizeStyles = {
-        sm: 'h-8 px-2 min-w-[32px] text-sm',
-        md: 'h-10 px-3 min-w-[40px] text-base',
-        lg: 'h-12 px-4 min-w-[48px] text-lg',
+        sm: 'h-8 px-2 min-w-[var(--spacing-x8)] text-sm',
+        md: 'h-10 px-3 min-w-[var(--spacing-x10)] text-base',
+        lg: 'h-12 px-4 min-w-[var(--spacing-x12)] text-lg',
     };
 
     const baseStyles = "inline-flex items-center justify-center rounded-[var(--radius-md)] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:pointer-events-none disabled:opacity-50";

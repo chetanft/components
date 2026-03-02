@@ -68,7 +68,7 @@ export function ResultStatusIcon({ status = 'info' }: { status?: ResultStatus })
     return (
       <div className="relative">
         <span
-          className="text-[72px] font-bold leading-none"
+          className="text-[4.5rem] font-bold leading-none"
           style={{ color: config.color, opacity: 0.2 }}
         >
           {status}

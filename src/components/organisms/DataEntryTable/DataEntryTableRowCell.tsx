@@ -220,7 +220,7 @@ export const DataEntryTableRowCell = React.forwardRef<HTMLTableCellElement, Data
           </div>
         </Comp>
         {resizable && (
-          <td className="bg-transparent p-0" style={{ width: 'var(--x1, 4px)' }} />
+          <td className="bg-transparent p-0" style={{ width: 'var(--x1)' }} />
         )}
       </>
     );

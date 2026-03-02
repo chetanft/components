@@ -39,7 +39,7 @@ export const SwitchHelper = React.forwardRef<HTMLParagraphElement, SwitchHelperP
   ({ className, children, asChild, ...props }, ref) => {
     const { helperId, size } = useSwitchContext();
     const Comp = asChild ? Slot : 'p';
-    const trackWidth = size === 'sm' ? '30px' : '34px';
+    const trackWidth = size === 'sm' ? '1.875rem' : '2.125rem';
     
     return (
       <Comp

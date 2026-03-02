@@ -38,10 +38,10 @@ export const CardSkeleton: React.FC<CardSkeletonProps> = ({ size, className }) =
 
     return (
         <div className={cn(padding, className)}>
-            <Skeleton height="24px" width="30%" className="mb-4" />
-            <Skeleton height="16px" className="mb-2" />
-            <Skeleton height="16px" className="mb-2" />
-            <Skeleton height="16px" width="80%" />
+            <Skeleton height="var(--spacing-x6)" width="30%" className="mb-4" />
+            <Skeleton height="var(--spacing-x4)" className="mb-2" />
+            <Skeleton height="var(--spacing-x4)" className="mb-2" />
+            <Skeleton height="var(--spacing-x4)" width="80%" />
         </div>
     );
 };

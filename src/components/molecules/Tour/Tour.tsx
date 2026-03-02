@@ -162,7 +162,7 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
       {/* Popover */}
       <div
         className={cn(
-          "absolute p-4 rounded-lg shadow-xl w-[300px] z-[1002] animate-in fade-in zoom-in-95 duration-200",
+          "absolute p-4 rounded-lg shadow-xl w-[18.75rem] z-[1002] animate-in fade-in zoom-in-95 duration-200",
           getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', ''),
           className
         )}

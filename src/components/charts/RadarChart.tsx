@@ -2,7 +2,7 @@ import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import { ChartData, ChartOptions } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions } from './chartConfig';
+import { defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
 
 export interface RadarChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'radar'>;
@@ -46,9 +46,9 @@ export const RadarChart: React.FC<RadarChartProps> = ({
         pointRadius: showDots ? (dataset.pointRadius ?? 4) : 0,
         pointHoverRadius: showDots ? (dataset.pointHoverRadius ?? 6) : 0,
         pointBackgroundColor: dataset.pointBackgroundColor || baseColor,
-        pointBorderColor: dataset.pointBorderColor || '#ffffff',
+        pointBorderColor: dataset.pointBorderColor || ftChartColors.background.primary,
         pointHoverBackgroundColor: dataset.pointHoverBackgroundColor || baseColor,
-        pointHoverBorderColor: dataset.pointHoverBorderColor || '#ffffff',
+        pointHoverBorderColor: dataset.pointHoverBorderColor || ftChartColors.background.primary,
       };
     }),
   };
@@ -82,14 +82,14 @@ export const RadarChart: React.FC<RadarChartProps> = ({
         grid: getGridConfig(),
         ticks: {
           display: gridType !== 'none',
-          color: '#5f697b',
+          color: ftChartColors.text.secondary,
           font: {
             family: 'Inter, system-ui, sans-serif',
             size: 12,
           },
         },
         pointLabels: {
-          color: '#5f697b',
+          color: ftChartColors.text.secondary,
           font: {
             family: 'Inter, system-ui, sans-serif',
             size: 12,

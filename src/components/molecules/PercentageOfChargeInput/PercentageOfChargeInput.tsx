@@ -91,45 +91,45 @@ export const PercentageOfChargeInput = React.forwardRef<
     // Size-based styles
     const sizeStylesMap: Record<ComponentSize, { height: string; fontSize: string; paddingX: string; paddingY: string }> = {
       xxs: {
-        height: '16px',
-        fontSize: '12px',
-        paddingX: '6px',
+        height: 'var(--spacing-x4)',
+        fontSize: 'var(--font-size-xs-rem)',
+        paddingX: 'var(--spacing-x1-5)',
         paddingY: '0',
       },
       xs: {
-        height: '24px',
-        fontSize: '12px',
-        paddingX: '8px',
+        height: 'var(--spacing-x6)',
+        fontSize: 'var(--font-size-xs-rem)',
+        paddingX: 'var(--spacing-x2)',
         paddingY: '0',
       },
       sm: {
-        height: '32px',
-        fontSize: '14px',
-        paddingX: '10px',
+        height: 'var(--spacing-x8)',
+        fontSize: 'var(--font-size-sm-rem)',
+        paddingX: 'var(--spacing-x2-5)',
         paddingY: '0',
       },
       md: {
-        height: '40px',
-        fontSize: '14px',
-        paddingX: '12px',
+        height: 'var(--spacing-x10)',
+        fontSize: 'var(--font-size-sm-rem)',
+        paddingX: 'var(--spacing-x3)',
         paddingY: '0',
       },
       lg: {
-        height: '48px',
-        fontSize: '16px',
-        paddingX: '16px',
+        height: 'var(--spacing-x12)',
+        fontSize: 'var(--font-size-md-rem)',
+        paddingX: 'var(--spacing-x4)',
         paddingY: '0',
       },
       xl: {
-        height: '56px',
-        fontSize: '16px',
-        paddingX: '20px',
+        height: 'var(--spacing-x14)',
+        fontSize: 'var(--font-size-md-rem)',
+        paddingX: 'var(--spacing-x5)',
         paddingY: '0',
       },
       xxl: {
-        height: '64px',
-        fontSize: '18px',
-        paddingX: '24px',
+        height: 'var(--spacing-x16)',
+        fontSize: 'var(--font-size-lg-rem)',
+        paddingX: 'var(--spacing-x6)',
         paddingY: '0',
       },
     };
@@ -199,7 +199,7 @@ export const PercentageOfChargeInput = React.forwardRef<
           ref={ref}
           className={cn('flex items-stretch', className)}
           style={{
-            height: '36px',
+            height: 'var(--spacing-x9)',
             borderRadius: 'var(--radius-md)',
             border: state === 'error' 
               ? '1px solid var(--critical)' 
@@ -248,7 +248,7 @@ export const PercentageOfChargeInput = React.forwardRef<
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    paddingRight: '8px',
+                    paddingRight: 'var(--spacing-x2)',
                     flex: '0 0 auto',
                   }}
                   style={{
@@ -340,7 +340,7 @@ export const PercentageOfChargeInput = React.forwardRef<
                     ? 'var(--tertiary)' 
                     : 'var(--secondary)',
                   flexShrink: 0,
-                  marginLeft: '8px',
+                  marginLeft: 'var(--spacing-x2)',
                   transform: isDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                   transition: 'transform 0.2s',
                 }} 
@@ -368,8 +368,8 @@ export const PercentageOfChargeInput = React.forwardRef<
                   border: '1px solid var(--border-primary)',
                   borderRadius: 'var(--radius-md)',
                   boxShadow: 'var(--shadow-md)',
-                  minWidth: '200px',
-                  maxHeight: '300px',
+                  minWidth: '12.5rem',
+                  maxHeight: '18.75rem',
                   overflowY: 'auto',
                 }}
               >
@@ -379,12 +379,12 @@ export const PercentageOfChargeInput = React.forwardRef<
                     onClick={() => handleSelectCharge(option.label)}
                     style={{
                       width: '100%',
-                      padding: '10px 16px',
+                      padding: 'var(--spacing-x2-5) var(--spacing-x4)',
                       border: 'none',
                       backgroundColor: 'transparent',
                       textAlign: 'left',
                       cursor: 'pointer',
-                      fontSize: '14px',
+                      fontSize: 'var(--font-size-sm-rem)',
                       color: 'var(--primary)',
                     }}
                     onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--bg-secondary)')}

@@ -8,17 +8,17 @@ import { Slot, type ComposableProps } from "../../../lib/slot";
 
 export type TypographyVariant =
   // Figma Design System Variants
-  | 'title-primary'             // 28px, Regular, 140%
-  | 'title-secondary'           // 24px, Semibold, 140%
-  | 'display-primary'           // 20px, Semibold, 140%
-  | 'button'                    // 20px, Medium, 140%
-  | 'body-primary-semibold'     // 16px, Semibold, 140%
-  | 'body-primary-medium'       // 16px, Medium, 140%
-  | 'body-primary-italic'       // 16px, Italic, 140%
-  | 'body-primary-regular'      // 16px, Regular, 140%
-  | 'body-secondary-semibold'   // 14px, Semibold, 140%
-  | 'body-secondary-medium'     // 14px, Medium, 140%
-  | 'body-secondary-regular';   // 14px, Regular, 140%
+  | 'title-primary'             // xxl-rem, Regular, 140%
+  | 'title-secondary'           // xl-rem, Semibold, 140%
+  | 'display-primary'           // lg-rem, Semibold, 140%
+  | 'button'                    // lg-rem, Medium, 140%
+  | 'body-primary-semibold'     // md-rem, Semibold, 140%
+  | 'body-primary-medium'       // md-rem, Medium, 140%
+  | 'body-primary-italic'       // md-rem, Italic, 140%
+  | 'body-primary-regular'      // md-rem, Regular, 140%
+  | 'body-secondary-semibold'   // sm-rem, Semibold, 140%
+  | 'body-secondary-medium'     // sm-rem, Medium, 140%
+  | 'body-secondary-regular';   // sm-rem, Regular, 140%
 
 export type TypographyColor =
   | 'primary'
@@ -38,17 +38,17 @@ export interface TypographyProps extends Omit<ComposableProps<'div'>, 'as'> {
 
 const variantStyles = {
   // Figma Design System - Rem-based values (responsive)
-  'title-primary': "text-xxl-rem font-normal leading-[1.4]",                    // Title Primary: 28px → 2rem (responsive)
-  'title-secondary': "text-xl-rem font-semibold leading-[1.4]",                // Title Secondary: 24px → 1.714rem (responsive)
-  'display-primary': "text-lg-rem font-semibold leading-[1.4]",                // Display Primary: 20px → 1.429rem (responsive)
-  'button': "text-lg-rem font-medium leading-[1.4] tracking-[0.0264px]",       // Btn: 20px → 1.429rem (responsive)
-  'body-primary-semibold': "text-md-rem font-semibold leading-[1.4]",          // Body Primary Semibold: 16px → 1.143rem (responsive)
-  'body-primary-medium': "text-md-rem font-medium leading-[1.4]",              // Body Primary Medium: 16px → 1.143rem (responsive)
-  'body-primary-italic': "text-md-rem font-normal italic leading-[1.4]",       // Body Primary Italic: 16px → 1.143rem (responsive)
-  'body-primary-regular': "text-md-rem font-normal leading-[1.4]",             // Body Primary Regular: 16px → 1.143rem (responsive)
-  'body-secondary-semibold': "text-sm-rem font-semibold leading-[1.4]",        // Body Secondary Semibold: 14px → 1rem (responsive)
-  'body-secondary-medium': "text-sm-rem font-medium leading-[1.4]",            // Body Secondary Medium: 14px → 1rem (responsive)
-  'body-secondary-regular': "text-sm-rem font-normal leading-[1.4]",           // Body Secondary Regular: 14px → 1rem (responsive)
+  'title-primary': "text-xxl-rem font-normal leading-[1.4]",                    // Title Primary: xxl-rem, 2rem (responsive)
+  'title-secondary': "text-xl-rem font-semibold leading-[1.4]",                // Title Secondary: xl-rem, 1.714rem (responsive)
+  'display-primary': "text-lg-rem font-semibold leading-[1.4]",                // Display Primary: lg-rem, 1.429rem (responsive)
+  'button': "text-lg-rem font-medium leading-[1.4] tracking-[0.0019rem]",      // Btn: lg-rem, 1.429rem (responsive)
+  'body-primary-semibold': "text-md-rem font-semibold leading-[1.4]",          // Body Primary Semibold: md-rem, 1.143rem (responsive)
+  'body-primary-medium': "text-md-rem font-medium leading-[1.4]",              // Body Primary Medium: md-rem, 1.143rem (responsive)
+  'body-primary-italic': "text-md-rem font-normal italic leading-[1.4]",       // Body Primary Italic: md-rem, 1.143rem (responsive)
+  'body-primary-regular': "text-md-rem font-normal leading-[1.4]",             // Body Primary Regular: md-rem, 1.143rem (responsive)
+  'body-secondary-semibold': "text-sm-rem font-semibold leading-[1.4]",        // Body Secondary Semibold: sm-rem, 1rem (responsive)
+  'body-secondary-medium': "text-sm-rem font-medium leading-[1.4]",            // Body Secondary Medium: sm-rem, 1rem (responsive)
+  'body-secondary-regular': "text-sm-rem font-normal leading-[1.4]",           // Body Secondary Regular: sm-rem, 1rem (responsive)
 };
 
 const colorStyles = {

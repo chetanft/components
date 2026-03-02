@@ -50,8 +50,8 @@ export const DataEntryTableRowCheckbox: React.FC<DataEntryTableRowCheckboxProps>
     <td
       className="relative shrink-0 p-0"
       style={{
-        width: 'var(--x12, 48px)',
-        height: 'var(--component-height-md, 40px)',
+        width: 'var(--x12)',
+        height: 'var(--component-height-md)',
         paddingLeft: 'var(--x5)',
         paddingRight: 'var(--x5)',
         verticalAlign: 'middle',
@@ -68,7 +68,7 @@ export const DataEntryTableRowCheckbox: React.FC<DataEntryTableRowCheckboxProps>
     >
       <div 
         className="flex gap-[var(--x2)] items-center relative shrink-0" 
-        style={{ height: '19px' }}
+        style={{ height: '1.1875rem' }}
         onClick={(e) => {
           e.stopPropagation();
         }}

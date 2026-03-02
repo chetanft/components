@@ -29,7 +29,7 @@ export const FigmaBadge: React.FC<FigmaBadgeProps> = ({ className, asChild, ...p
       title="Figma design not available - Component built using FT Design System tokens"
       {...props}
     >
-      <span className="text-[10px]">⚠️</span>
+      <span className="text-[0.625rem]">⚠️</span>
       <span>Figma design not available</span>
     </Comp>
   );

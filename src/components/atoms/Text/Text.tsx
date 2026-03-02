@@ -41,15 +41,15 @@ export const Text: React.FC<TextProps> = ({
   const getVariant = (): TypographyVariant => {
     switch (size) {
       case "sm":
-        return "body-secondary-regular"; // 14px, Regular
+        return "body-secondary-regular";
       case "md":
-        return "body-primary-regular";   // 16px, Regular
+        return "body-primary-regular";
       case "lg":
-        return "body-primary-semibold";  // 16px, Semibold
+        return "body-primary-semibold";
       case "xl":
-        return "display-primary";        // 20px, Semibold
+        return "display-primary";
       case "xx":
-        return "title-secondary";        // 24px, Semibold
+        return "title-secondary";
       default:
         return "body-secondary-regular";
     }
@@ -78,9 +78,9 @@ export const Text: React.FC<TextProps> = ({
    * Determine container width based on configuration (matching Figma design)
    * Width constraints ensure consistent layout across different configurations:
    * - Leading icons: no width constraint (content-based)
-   * - Subtext + trailing icon: varies by size (xl: 68px, xx: 75px, others: 57px)
-   * - Subtext only: 58px
-   * - No subtext: 57px
+   * - Subtext + trailing icon: varies by size
+   * - Subtext only: fixed width
+   * - No subtext: fixed width
    */
   const getContainerWidth = (): string => {
     // Cases with leading icon: no width constraint
@@ -90,28 +90,28 @@ export const Text: React.FC<TextProps> = ({
 
     // Subtext + trailing icon: width varies by size
     if (hasSubText && hasTrailingIcon) {
-      if (size === "xl") return "w-[68px]";
-      if (size === "xx") return "w-[75px]";
-      return "w-[57px]";
+      if (size === "xl") return "w-[4.25rem]";
+      if (size === "xx") return "w-[4.6875rem]";
+      return "w-[3.5625rem]";
     }
 
     // Subtext without icons
     if (hasSubText && !hasTrailingIcon) {
-      return "w-[58px]";
+      return "w-[3.625rem]";
     }
 
     // No subtext cases (with or without trailing icon)
-    return "w-[57px]";
+    return "w-[3.5625rem]";
   };
 
   // Determine subtext width based on size and icon configuration
   const getSubTextWidth = (): string => {
     if (hasSubText && hasTrailingIcon && !hasLeadingIcon) {
-      if (size === "xl") return "w-[68px]";
-      if (size === "xx") return "w-[75px]";
-      return "w-[56px]";
+      if (size === "xl") return "w-[4.25rem]";
+      if (size === "xx") return "w-[4.6875rem]";
+      return "w-[3.5rem]";
     }
-    return "w-[56px]";
+    return "w-[3.5rem]";
   };
 
   // Subtext element
@@ -151,7 +151,7 @@ export const Text: React.FC<TextProps> = ({
     }
 
     return (
-      <div className="content-stretch flex gap-[var(--spacing-x2)] h-[22px] items-center relative shrink-0" data-name="Text">
+      <div className="content-stretch flex gap-[var(--spacing-x2)] h-[1.375rem] items-center relative shrink-0" data-name="Text">
         {rowContent}
       </div>
     );

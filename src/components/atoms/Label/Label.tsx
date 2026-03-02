@@ -65,9 +65,9 @@ export const Label: React.FC<LabelProps> = ({
   const baseStyles = {
     display: 'flex',
     alignItems: 'center',
-    gap: '4px',
+    gap: 'var(--spacing-x1)',
     fontFamily: 'Inter, sans-serif',
-    fontSize: 'var(--font-size-sm-rem)', // 14px → 1rem (responsive)
+    fontSize: 'var(--font-size-sm-rem)',
     fontWeight: '500',
     lineHeight: '1.4',
     color: 'var(--tertiary)',
@@ -85,7 +85,7 @@ export const Label: React.FC<LabelProps> = ({
     >
       <path
         d="M4 0L4.94 2.94L8 4L4.94 5.06L4 8L3.06 5.06L0 4L3.06 2.94L4 0Z"
-        fill="#FF3533"
+        fill="var(--critical)"
       />
     </svg>
   );
@@ -94,10 +94,10 @@ export const Label: React.FC<LabelProps> = ({
     <span
       style={{
         fontFamily: 'Inter, sans-serif',
-        fontSize: 'var(--font-size-xs-rem)', // 12px → 0.857rem (responsive)
+        fontSize: 'var(--font-size-xs-rem)',
         fontWeight: '400',
         lineHeight: '1.4',
-        color: '#838C9D',
+        color: 'var(--tertiary)',
       }}
     >
       (Optional)
@@ -105,7 +105,7 @@ export const Label: React.FC<LabelProps> = ({
   );
 
   const suffixIconElement = icon || (
-    <div style={{ width: '16px', height: '16px', color: 'var(--primary)', flexShrink: 0 }}>
+    <div style={{ width: 'var(--spacing-x4)', height: 'var(--spacing-x4)', color: 'var(--primary)', flexShrink: 0 }}>
       <AlertInformational />
     </div>
   );

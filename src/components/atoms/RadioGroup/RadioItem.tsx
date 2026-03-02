@@ -51,8 +51,8 @@ export const RadioItem = React.forwardRef<HTMLLabelElement, RadioItemProps>(
     const { size, orientation } = useRadioGroupContext();
     
     const sizeStyles = {
-      sm: { gap: "gap-[6px]", groupGap: "gap-[12px]" },
-      md: { gap: "gap-[var(--radio-gap)]", groupGap: "gap-[16px]" }
+      sm: { gap: "gap-[0.375rem]", groupGap: "gap-[var(--spacing-x3)]" },
+      md: { gap: "gap-[var(--radio-gap)]", groupGap: "gap-[var(--spacing-x4)]" }
     };
 
     const currentSize = sizeStyles[size];

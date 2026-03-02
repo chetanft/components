@@ -89,9 +89,9 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
     // ==================== LINE TYPE ====================
     if (type === 'line') {
       const sizeStyles = {
-        sm: "h-[4px]",
-        md: "h-[8px]",
-        lg: "h-[12px]"
+        sm: "h-[var(--spacing-x1)]",
+        md: "h-[var(--spacing-x2)]",
+        lg: "h-[var(--spacing-x3)]"
       };
 
       // Steps mode
@@ -126,7 +126,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
         );
       }
 
-      // Default line progress - Figma: 8px height, 8px rounded corners
+      // Default line progress - Figma: x2 height, x2 rounded corners
       return (
         <div className="flex items-center gap-[var(--x5,20px)] w-full" ref={ref} {...props}>
           <div

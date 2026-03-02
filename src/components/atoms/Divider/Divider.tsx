@@ -134,7 +134,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
             plain ? "font-normal" : "font-medium"
           )}>
             {typeof labelContent === 'string' ? (
-              <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid rounded-full px-[8px] py-[2px] shrink-0">
+              <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid rounded-full px-[var(--spacing-x2)] py-[0.125rem] shrink-0">
                 <Typography variant="body-secondary-medium" color="tertiary">
                   {labelContent}
                 </Typography>

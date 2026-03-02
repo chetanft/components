@@ -154,7 +154,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
 
       {open && (
         // Simple popover implementation - in real app would use proper positioning/portal
-        <div className={cn("absolute z-50 mt-2 top-full left-0 p-3 rounded-lg shadow-xl min-w-[200px]", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--border-primary)]'))}>
+        <div className={cn("absolute z-50 mt-2 top-full left-0 p-3 rounded-lg shadow-xl min-w-[12.5rem]", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--border-primary)]'))}>
             <div className="grid grid-cols-5 gap-2 mb-3">
                 {presets.map(color => (
                     <button

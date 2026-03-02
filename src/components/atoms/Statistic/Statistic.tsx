@@ -44,7 +44,7 @@ export const Statistic = React.forwardRef<HTMLDivElement, StatisticProps>(
   }, ref) => {
     const Comp = asChild ? Slot : 'div';
     const containerClasses = cn(
-      "content-stretch flex flex-col gap-[8px] items-start justify-center relative size-full",
+      "content-stretch flex flex-col gap-[var(--spacing-x2)] items-start justify-center relative size-full",
       className
     );
 

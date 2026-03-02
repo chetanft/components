@@ -44,7 +44,7 @@ export const TextareaHelper = React.forwardRef<HTMLParagraphElement, TextareaHel
       <Comp
         ref={ref}
         id={helperId}
-        className={cn("mt-1 text-sm text-[#838c9d]", className)}
+        className={cn("mt-1 text-sm text-[var(--tertiary)]", className)}
         {...props}
       >
         {children}

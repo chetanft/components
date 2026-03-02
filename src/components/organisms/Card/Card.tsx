@@ -183,8 +183,8 @@ const CardElements: React.FC<CardElementsProps> = ({
 //
 // Figma structure:
 //   <div.card_footer>              ← flex-col, w-full
-//     <Divider>                    ← full-width line, py-x4 (16px)
-//     <Spacer size="x5">          ← 20px gap
+//     <Divider>                    ← full-width line, py-x4
+//     <Spacer size="x5">          ← x5 gap
 //     <div.footer-container>       ← flex, gap-x4, items-center, px-x5 (if padding)
 //       <div.display-block-left>   ← flex-1, text content
 //       <div.display-block-right>  ← flex-1, text/button content
@@ -248,10 +248,10 @@ const CardFooterInternal: React.FC<CardFooterInternalProps> = ({
 // CardGraphic — Figma ".card_graphic" component
 //
 // Figma structure:
-//   Image (no padding): bg #f6f5fa, h-175px, full-bleed
-//   Image (padding):    bg white, border, h-175px, px-x4, rounded top corners, image rounded-x2
+//   Image (no padding): bg secondary, h-10.9375rem, full-bleed
+//   Image (padding):    bg white, border, h-10.9375rem, px-x4, rounded top corners, image rounded-x2
 //   Logo (padding):     bg white, border, flex-center, courier text
-//   Icon (padding):     bg white, border, pt-x4 px-x4, small 16px icon
+//   Icon (padding):     bg white, border, pt-x4 px-x4, small x4 icon
 //   overlayAction:      absolute-positioned star button in top-right
 // ---------------------------------------------------------------------------
 
@@ -284,8 +284,8 @@ const CardGraphic: React.FC<CardGraphicProps> = ({
         <div className={cn(
             "border border-[var(--border-secondary)] border-solid flex flex-col justify-center relative w-full",
             // Image variants
-            isImage && !padding && "bg-[#f6f5fa] h-[175px] items-center",
-            isImage && padding && "bg-[var(--bg-primary)] h-[175px] items-center pt-0 px-[var(--spacing-x4)] rounded-tl-[var(--radius-md)] rounded-tr-[var(--radius-md)]",
+            isImage && !padding && "bg-[var(--bg-secondary)] h-[10.9375rem] items-center",
+            isImage && padding && "bg-[var(--bg-primary)] h-[10.9375rem] items-center pt-0 px-[var(--spacing-x4)] rounded-tl-[var(--radius-md)] rounded-tr-[var(--radius-md)]",
             // Logo variant
             isLogo && padding && "bg-[var(--bg-primary)] h-16 items-start pt-[var(--spacing-x4)] px-[var(--spacing-x4)] rounded-tl-[var(--radius-md)] rounded-tr-[var(--radius-md)]",
             isLogo && !padding && "bg-[var(--bg-primary)] items-center justify-center",
@@ -454,10 +454,10 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
 
     const renderLoading = () => (
         <div className="p-6">
-            <Skeleton height="24px" width="30%" className="mb-4" />
-            <Skeleton height="16px" className="mb-2" />
-            <Skeleton height="16px" className="mb-2" />
-            <Skeleton height="16px" />
+            <Skeleton height="var(--spacing-x6)" width="30%" className="mb-4" />
+            <Skeleton height="var(--spacing-x4)" className="mb-2" />
+            <Skeleton height="var(--spacing-x4)" className="mb-2" />
+            <Skeleton height="var(--spacing-x4)" />
         </div>
     );
 
@@ -472,7 +472,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
                 className={cn(
                     getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-secondary)] border-solid"),
                     "relative rounded-[var(--spacing-x2)] flex flex-col gap-0 items-start justify-end overflow-clip p-0",
-                    isAdvanced && "shadow-[0px_4px_8px_0px_rgba(0,0,0,0.1)]",
+                    isAdvanced && "shadow-[0_0.25rem_0.5rem_0_rgba(0,0,0,0.1)]",
                     className
                 )}
                 {...props}

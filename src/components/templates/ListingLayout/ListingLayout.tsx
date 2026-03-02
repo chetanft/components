@@ -61,43 +61,43 @@ const baseSectionClasses: Record<
   appHeader: cn(horizontalInset, 'pt-6'),
   hero: cn(
     horizontalInset,
-    'grid gap-[var(--x3,12px)] rounded-[28px] bg-[var(--bg-primary)] py-[var(--x4,16px)] sm:grid-cols-2 lg:grid-cols-4'
+    'grid gap-[var(--x3)] rounded-[1.75rem] bg-[var(--bg-primary)] py-[var(--x4)] sm:grid-cols-2 lg:grid-cols-4'
   ),
-  pageHeader: cn(horizontalInset, 'flex flex-col gap-[var(--x2,8px)]'),
+  pageHeader: cn(horizontalInset, 'flex flex-col gap-[var(--x2)]'),
   toolbar: cn(
     horizontalInset,
-    'flex flex-wrap items-center justify-between gap-[var(--x3,12px)] rounded-[24px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x3,12px)]'
+    'flex flex-wrap items-center justify-between gap-[var(--x3)] rounded-[1.5rem] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x3)]'
   ),
-  tabs: cn(horizontalInset, 'flex flex-col gap-[var(--x1,4px)]'),
-  subTabs: cn(horizontalInset, 'flex flex-wrap gap-[var(--x1,4px)]'),
+  tabs: cn(horizontalInset, 'flex flex-col gap-[var(--x1)]'),
+  subTabs: cn(horizontalInset, 'flex flex-wrap gap-[var(--x1)]'),
   quickFilters: cn(
     horizontalInset,
-    'flex flex-wrap gap-[var(--x2,8px)] rounded-[24px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x3,12px)]'
+    'flex flex-wrap gap-[var(--x2)] rounded-[1.5rem] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x3)]'
   ),
   actionBar: cn(
     horizontalInset,
-    'flex flex-wrap items-center justify-between gap-[var(--x3,12px)] rounded-[28px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x4,16px)]'
+    'flex flex-wrap items-center justify-between gap-[var(--x3)] rounded-[1.75rem] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x4)]'
   ),
-  footer: cn(horizontalInset, 'pt-[var(--x4,16px)] pb-[var(--x8,32px)]'),
+  footer: cn(horizontalInset, 'pt-[var(--x4)] pb-[var(--x8)]'),
 };
 
 const contentLayoutClasses: Record<ListingLayoutLayout, string> = {
-  stack: cn(horizontalInset, 'w-full pb-[var(--x8,32px)]'),
+  stack: cn(horizontalInset, 'w-full pb-[var(--x8)]'),
   grid: cn(
     horizontalInset,
-    'grid w-full gap-[var(--x4,16px)] pb-[var(--x8,32px)] sm:grid-cols-2 xl:grid-cols-3'
+    'grid w-full gap-[var(--x4)] pb-[var(--x8)] sm:grid-cols-2 xl:grid-cols-3'
   ),
   split: cn(
     horizontalInset,
-    'grid w-full gap-[var(--x4,16px)] pb-[var(--x8,32px)] lg:grid-cols-[minmax(300px,360px)_1fr]'
+    'grid w-full gap-[var(--x4)] pb-[var(--x8)] lg:grid-cols-[minmax(18.75rem,22.5rem)_1fr]'
   ),
 };
 
 const variantSurfaceClasses: Record<ListingLayoutVariant, string> = {
   table:
-    'flex flex-col gap-[var(--x2,8px)] rounded-[24px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-[var(--x4,16px)] shadow-[0px_1px_3px_rgba(15,23,42,0.08)]',
-  card: 'flex flex-col gap-[var(--x3,12px)]',
-  custom: 'flex flex-col gap-[var(--x3,12px)]',
+    'flex flex-col gap-[var(--x2)] rounded-[1.5rem] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-[var(--x4)] shadow-[0_1px_3px_rgba(15,23,42,0.08)]',
+  card: 'flex flex-col gap-[var(--x3)]',
+  custom: 'flex flex-col gap-[var(--x3)]',
 };
 
 const sectionsOrder: Array<
@@ -212,12 +212,12 @@ export const ListingLayout = React.forwardRef<
             className={cn(contentLayoutClasses.split, contentClassName)}
             {...contentAttrs}
           >
-            <div className="flex min-w-0 flex-col gap-[var(--x3,12px)]">
+            <div className="flex min-w-0 flex-col gap-[var(--x3)]">
               {primary}
             </div>
             <div
               className={cn(
-                'flex min-w-0 flex-col gap-[var(--x3,12px)]',
+                'flex min-w-0 flex-col gap-[var(--x3)]',
                 secondaryClassName
               )}
               {...secondaryAttrs}
@@ -269,7 +269,7 @@ export const ListingLayout = React.forwardRef<
       <Comp
         ref={ref}
         data-variant={variant}
-        className={cn('flex w-full flex-col gap-[var(--x5,20px)]', className)}
+        className={cn('flex w-full flex-col gap-[var(--x5)]', className)}
         {...props}
       >
         {sectionsOrder.map(renderSection)}

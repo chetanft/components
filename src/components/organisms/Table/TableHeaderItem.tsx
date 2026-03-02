@@ -104,7 +104,7 @@ export const TableHeaderItem: React.FC<TableHeaderItemProps> = ({
   return (
     <th
       className={cn(
-        // Base styles from Figma - Responsive height: 40px default, 48px for >= 1440px
+        // Base styles from Figma - Responsive height: x10 default, x12 for >= 1440
         "text-left transition-colors box-border",
         // Size-based padding
         getPadding(),

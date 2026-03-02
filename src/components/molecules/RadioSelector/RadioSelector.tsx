@@ -155,7 +155,7 @@ export const RadioSelectorOption = React.forwardRef<HTMLLabelElement, RadioSelec
       // Layout based on variant
       showRadio
         ? "flex gap-[var(--spacing-x3)] p-[var(--spacing-x3)]"
-        : "flex flex-col items-center justify-center p-[var(--spacing-x3)] min-h-[109px]",
+        : "flex flex-col items-center justify-center p-[var(--spacing-x3)] min-h-[6.8125rem]",
       // Background and border styles based on state
       disabled
         ? "bg-[var(--bg-secondary)] cursor-not-allowed"
@@ -204,11 +204,11 @@ export const RadioSelectorOption = React.forwardRef<HTMLLabelElement, RadioSelec
 
         <div className={contentContainerStyles}>
           {showRadio && (
-            <div className="relative shrink-0 mt-[2px]">
+            <div className="relative shrink-0 mt-[0.125rem]">
               <div className={radioStyles}>
                 {selected && (
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="size-[10px] rounded-full bg-[var(--primary)]" />
+                    <div className="size-[0.625rem] rounded-full bg-[var(--primary)]" />
                   </div>
                 )}
               </div>

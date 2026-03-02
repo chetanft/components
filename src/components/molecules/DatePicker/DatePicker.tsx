@@ -361,7 +361,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
 
   // Size-specific vertical padding for inner content
   const verticalPaddingMap: Record<ComponentSize, string> = {
-    xxs: "py-[2px]",
+    xxs: "py-[0.125rem]",
     xs: "py-[var(--spacing-x1)]",
     sm: "py-[var(--spacing-x2)]",
     md: "py-[var(--spacing-x3)]",
@@ -971,7 +971,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
                       ? "text-[var(--primary)] dark:text-[var(--primary)]"
                       : "text-placeholder dark:text-placeholder-dark",
                     "placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
-                    "inline-block w-auto pr-[12px]"
+                    "inline-block w-auto pr-[var(--spacing-x3)]"
                   )}
                 />
                 <span className="text-base font-normal leading-[1.4] text-placeholder dark:text-placeholder-dark flex-shrink-0">
@@ -993,7 +993,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
                       ? "text-[var(--primary)] dark:text-[var(--primary)]"
                       : "text-placeholder dark:text-placeholder-dark",
                     "placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
-                    "inline-block w-auto pr-[12px]"
+                    "inline-block w-auto pr-[var(--spacing-x3)]"
                   )}
                 />
               </>

@@ -383,7 +383,7 @@ const isStatMetric = (metric: NavigationSectionMetric): metric is StatMetric =>
   !metric.variant || metric.variant === 'stat';
 
 const HeroBlock = ({ hero }: { hero: NavigationSectionHero }) => (
-  <div className="w-full lg:w-[452px]">
+  <div className="w-full lg:w-[28.25rem]">
     {hero.image || hero.illustrationVariant ? (
       <Illustration
         variant={hero.illustrationVariant}
@@ -394,7 +394,7 @@ const HeroBlock = ({ hero }: { hero: NavigationSectionHero }) => (
         className="w-full"
       />
     ) : (
-      <div className="border border-[var(--border-primary)] rounded-[var(--x4,16px)] bg-[var(--bg-secondary)] p-[var(--x4,16px)] min-h-[352px]" />
+      <div className="border border-[var(--border-primary)] rounded-[var(--x4,16px)] bg-[var(--bg-secondary)] p-[var(--x4,16px)] min-h-[22rem]" />
     )}
   </div>
 );
@@ -703,7 +703,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
 
   const defaultHeader = (
     <>
-      <div className="h-[36px] w-[190px]">
+      <div className="h-[var(--spacing-x9)] w-[11.875rem]">
         <Logo name="ft" width={190} height={36} />
       </div>
       <div className="flex items-center gap-[var(--x2,8px)]">
@@ -734,7 +734,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
         <Typography variant="button" color="primary">
           <span className="font-semibold">New: Workspace automation&nbsp;</span>
           <span className="font-normal" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-            {/* 16px → 1.143rem (responsive) */}
+            {/* text-md-rem (responsive) */}
             Connect data sources and share updates automatically.
           </span>
         </Typography>
@@ -762,8 +762,8 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
         </div>
 
         <div className="flex flex-col lg:flex-row gap-[var(--x5,20px)] px-[var(--x5,20px)] py-[var(--x5,20px)]">
-          <div className="w-full lg:w-[263px] flex-shrink-0">
-            <nav aria-label="Primary navigation" className="flex flex-col gap-[12px] max-h-[472px] overflow-y-auto pr-1">
+          <div className="w-full lg:w-[16.4375rem] flex-shrink-0">
+            <nav aria-label="Primary navigation" className="flex flex-col gap-[var(--spacing-x3)] max-h-[29.5rem] overflow-y-auto pr-1">
               {availableSections.map((section) => {
                 const isActive = section.id === activeSection.id;
                 const showChevron = section.showChevron ?? Boolean(section.subCategories?.length);
@@ -798,7 +798,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
 
           <div className="hidden lg:block w-px bg-[var(--border-primary)] rounded-full" />
 
-          <div className="flex-1 min-h-[320px]">
+          <div className="flex-1 min-h-[20rem]">
             {hasSubCategories ? (
               <SubCategoryPanel categories={activeSection.subCategories} />
             ) : (

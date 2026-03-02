@@ -44,7 +44,7 @@ export interface DataEntryTableHeaderCellProps extends ComposableProps<'th'> {
  * @example
  * ```tsx
  * <DataEntryTableHeaderRow>
- *   <DataEntryTableHeaderCell columnKey="name" width="200px">
+ *   <DataEntryTableHeaderCell columnKey="name" width="12.5rem">
  *     Name
  *   </DataEntryTableHeaderCell>
  * </DataEntryTableHeaderRow>
@@ -77,10 +77,10 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
           className={cn("relative shrink-0", className)}
           {...restProps}
           style={{
-            width: 'var(--x12, 48px)',
-            height: '50px',
-            paddingLeft: 'var(--x5, 20px)',
-            paddingRight: 'var(--x2, 8px)',
+            width: 'var(--x12)',
+            height: '3.125rem',
+            paddingLeft: 'var(--x5)',
+            paddingRight: 'var(--x2)',
           }}
           {...props}
         />
@@ -98,7 +98,7 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
           )}
           style={{
             width: effectiveWidth,
-            height: '50px',
+            height: '3.125rem',
             paddingLeft: 'var(--x2)',
             paddingRight: 'var(--x2)',
           }}
@@ -109,7 +109,7 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
         {resizable && columnKey && (
           <th
             className="bg-transparent p-0 cursor-col-resize relative group"
-            style={{ width: 'var(--x1, 4px)' }}
+            style={{ width: 'var(--x1)' }}
             onMouseDown={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -121,7 +121,7 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
                 "absolute inset-y-0 w-full pointer-events-none",
                 "group-hover:bg-[var(--primary)]"
               )}
-              style={{ width: 'var(--x1, 4px)' }}
+              style={{ width: 'var(--x1)' }}
             />
           </th>
         )}

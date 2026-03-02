@@ -70,7 +70,7 @@ const DEFAULT_WEEKDAYS_ZH = ['日', '一', '二', '三', '四', '五', '六'];
 const DEFAULT_MONTHS_ZH = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
 const DEFAULT_MONTHS_FULL_ZH = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
 
-const COMPACT_NAV_BUTTON_CLASS = "min-w-[30px] min-h-[30px] w-fit h-fit flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--tertiary)] hover:bg-[var(--border-secondary)] transition-colors focus:outline-none";
+const COMPACT_NAV_BUTTON_CLASS = "min-w-[1.875rem] min-h-[1.875rem] w-fit h-fit flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--tertiary)] hover:bg-[var(--border-secondary)] transition-colors focus:outline-none";
 
 // ============================================================================
 // Helper Functions
@@ -374,7 +374,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
               {resolvedWeekdayLabels.map((day) => (
                 <div
                   key={day}
-                  className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-[var(--tertiary)] font-normal"
+                  className="w-[1.875rem] h-[1.875rem] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-[var(--tertiary)] font-normal"
                   style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
                 >
                   {day}
@@ -397,7 +397,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                         onClick={() => handleDateSelect(date)}
                         disabled={disabled}
                         className={cn(
-                          "w-[30px] h-[30px] flex-shrink-0 flex items-center justify-center p-[var(--spacing-x2)] rounded-[var(--radius-sm)] transition-colors",
+                          "w-[1.875rem] h-[1.875rem] flex-shrink-0 flex items-center justify-center p-[var(--spacing-x2)] rounded-[var(--radius-sm)] transition-colors",
                           "bg-[var(--bg-primary)]",
                           !disabled && !isSelected && "hover:bg-[var(--border-primary)]",
                           isSelected && !disabled && "bg-[var(--border-secondary)]",

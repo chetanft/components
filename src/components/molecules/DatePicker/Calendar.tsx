@@ -125,7 +125,7 @@ const dateGridVariants = cva(
 );
 
 const dateButtonVariants = cva(
-  "w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] rounded-[var(--radius-sm)] transition-colors",
+  "w-[1.875rem] h-[1.875rem] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] rounded-[var(--radius-sm)] transition-colors",
   {
     variants: {
       type: {
@@ -154,7 +154,7 @@ const quickSelectVariants = cva(
   {
     variants: {
       range: {
-        true: "w-[170px] h-[331px]",
+        true: "w-[10.625rem] h-[20.6875rem]",
         false: "hidden"
       }
     },
@@ -527,7 +527,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
   };
 
   const renderMonth = (date: Date) => (
-    <div className={cn("flex-1 flex flex-col gap-[var(--spacing-x2)]", range ? "w-[282px] flex-shrink-0" : "w-full")}>
+    <div className={cn("flex-1 flex flex-col gap-[var(--spacing-x2)]", range ? "w-[17.625rem] flex-shrink-0" : "w-full")}>
       <div className={monthHeaderVariants({ range })}>
         <div className="flex items-center gap-[var(--spacing-x2)]">
           <button
@@ -573,7 +573,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
             <Icon name="chevron-left" size={16} />
           </button>
         </div>
-        <span className="text-sm-rem font-medium text-[var(--primary)]">{/* 14px → 1rem (responsive) */}{format(date, 'MMM yyyy')}</span>
+        <span className="text-sm-rem font-medium text-[var(--primary)]">{/* text-sm-rem → 1rem (responsive) */}{format(date, 'MMM yyyy')}</span>
         <div className="flex items-center gap-[var(--spacing-x2)]">
           <button
             className={navigationButtonVariants()}
@@ -618,8 +618,8 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
 
       <div className={weekDayVariants({ range })}>
         {WEEKDAYS.map((day) => (
-          <div key={day} className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-sm-rem text-[var(--tertiary)] font-normal">
-            {/* 14px → 1rem (responsive) */}
+          <div key={day} className="w-[1.875rem] h-[1.875rem] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-sm-rem text-[var(--tertiary)] font-normal">
+            {/* text-sm-rem → 1rem (responsive) */}
             {day}
           </div>
         ))}
@@ -630,7 +630,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
           <div key={weekIndex} className="flex gap-[var(--spacing-x3)] items-center">
             {week.map((day, dayIndex) => {
               if (!day) {
-                return <div key={`${weekIndex}-${dayIndex}`} className="w-[30px] h-[30px] flex-shrink-0" />;
+                return <div key={`${weekIndex}-${dayIndex}`} className="w-[1.875rem] h-[1.875rem] flex-shrink-0" />;
               }
 
               const isRangeValue = value && Array.isArray(value) && value.length === 2;
@@ -712,7 +712,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
                   disabled={isDisabled}
                 >
                   <span className={cn(
-                    "text-sm-rem leading-[normal]", // 14px → 1rem (responsive)
+                    "text-sm-rem leading-[normal]", // text-sm-rem → 1rem (responsive)
                     (isStartDate || isEndDate || (isSelected && !isRangeValue))
                       ? "font-medium"
                       : "font-normal"
@@ -732,13 +732,13 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
     <div className={cn(calendarVariants({ range }), className)} ref={ref}>
       {range && (
         <div className="flex flex-col gap-[var(--spacing-x2)]">
-          <div className="relative w-[240px]">
+          <div className="relative w-[15rem]">
             <div
               className={dropdownVariants({ open: isDropdownOpen })}
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <div className="flex flex-1 items-center gap-[var(--spacing-x1)] w-full">
-                <span className="flex-1 font-normal leading-[1.4] text-[var(--tertiary)] overflow-ellipsis overflow-hidden whitespace-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>{/* 16px → 1.143rem (responsive) */}{selectedDateRange}</span>
+                <span className="flex-1 font-normal leading-[1.4] text-[var(--tertiary)] overflow-ellipsis overflow-hidden whitespace-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>{/* text-md-rem → 1.143rem (responsive) */}{selectedDateRange}</span>
                 <Icon name="chevron-down" size={16} className="text-[var(--primary)] flex-shrink-0" />
               </div>
             </div>
@@ -777,7 +777,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
                     selected: isQuickSelectActive(option.value)
                   })
                 )}
-                style={{ fontSize: 'var(--font-size-md-rem)' }} // 16px → 1.143rem (responsive)
+                style={{ fontSize: 'var(--font-size-md-rem)' }} // text-md-rem → 1.143rem (responsive)
                 onClick={() => handleQuickSelect(option.value)}
               >
                 {option.label}

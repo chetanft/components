@@ -49,7 +49,7 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
     return (
       <Comp 
         className={cn(
-          "content-stretch flex gap-[8px] items-center relative w-[82px]", 
+          "content-stretch flex gap-[var(--spacing-x2)] items-center relative w-[5.125rem]", 
           className
         )}
         {...props}
@@ -73,14 +73,14 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
     return (
       <Comp 
         className={cn(
-          "content-stretch flex gap-[8px] items-center relative w-[102px]", 
+          "content-stretch flex gap-[var(--spacing-x2)] items-center relative w-[6.375rem]", 
           className
         )}
         {...props}
       >
         <div className="content-stretch flex gap-[var(--x1,4px)] items-center relative shrink-0">
-          <div className="relative shrink-0 size-[16px]" data-name="Check- fill">
-            <Icon name="check-fill" size={16} color="#5f697b" />
+          <div className="relative shrink-0 size-[var(--spacing-x4)]" data-name="Check- fill">
+            <Icon name="check-fill" size={16} color="var(--secondary)" />
           </div>
           <div className="content-stretch flex gap-[var(--x1,4px)] items-center relative shrink-0" data-name="Label">
             <Typography variant="body-secondary-medium" color="secondary" className="relative shrink-0 whitespace-nowrap">
@@ -102,14 +102,14 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
     return (
       <Comp 
         className={cn(
-          "content-stretch flex gap-[var(--x2,8px)] items-start relative w-[183px]", 
+          "content-stretch flex gap-[var(--x2,8px)] items-start relative w-[11.4375rem]", 
           className
         )}
         {...props}
       >
-        <div className="box-border content-stretch flex gap-[10px] items-center pb-0 pt-[2px] px-0 relative shrink-0">
-          <div className="relative shrink-0 size-[16px]" data-name="Check- fill">
-            <Icon name="check-fill" size={16} color="#5f697b" />
+        <div className="box-border content-stretch flex gap-[0.625rem] items-center pb-0 pt-[0.125rem] px-0 relative shrink-0">
+          <div className="relative shrink-0 size-[var(--spacing-x4)]" data-name="Check- fill">
+            <Icon name="check-fill" size={16} color="var(--secondary)" />
           </div>
         </div>
         <div className="content-stretch flex flex-1 flex-col gap-[var(--x2,8px)] items-start min-h-px min-w-px relative shrink-0">
@@ -132,7 +132,7 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
   return (
     <Comp 
       className={cn(
-        "content-stretch flex flex-col gap-[var(--x2,8px)] items-start relative w-[183px]", 
+        "content-stretch flex flex-col gap-[var(--x2,8px)] items-start relative w-[11.4375rem]", 
         className
       )}
       {...props}
@@ -142,7 +142,7 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
           {label}
         </Typography>
       </div>
-      <div className="content-stretch flex flex-col gap-[var(--x1,4px)] items-start justify-center relative shrink-0 w-[183px]" data-name="Text">
+      <div className="content-stretch flex flex-col gap-[var(--x1,4px)] items-start justify-center relative shrink-0 w-[11.4375rem]" data-name="Text">
         <Typography variant="body-primary-regular" color="primary" className="relative shrink-0 whitespace-nowrap">
           {value}
         </Typography>

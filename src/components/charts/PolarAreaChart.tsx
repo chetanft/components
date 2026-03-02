@@ -2,7 +2,7 @@ import React from 'react';
 import { PolarArea } from 'react-chartjs-2';
 import { ChartData, ChartOptions } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions } from './chartConfig';
+import { defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
 
 export interface PolarAreaChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'polarArea'>;
@@ -40,14 +40,14 @@ export const PolarAreaChart: React.FC<PolarAreaChartProps> = ({
           color: '#e1e2e4',
         },
         ticks: {
-          color: '#5f697b',
+          color: ftChartColors.text.secondary,
           font: {
             family: 'Inter, system-ui, sans-serif',
             size: 12,
           },
         },
         pointLabels: {
-          color: '#5f697b',
+          color: ftChartColors.text.secondary,
           font: {
             family: 'Inter, system-ui, sans-serif',
             size: 12,

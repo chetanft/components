@@ -38,7 +38,7 @@ export const StatisticValue = React.forwardRef<HTMLDivElement, StatisticValuePro
     return (
       <Comp
         ref={ref}
-        className={cn("content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-[57px]", className)}
+        className={cn("content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-[3.5625rem]", className)}
         {...props}
       >
         <Typography variant="body-primary-regular" color="primary" className="relative shrink-0 text-nowrap whitespace-pre">

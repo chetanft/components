@@ -48,7 +48,7 @@ export const PopconfirmArrow = React.forwardRef<HTMLDivElement, PopconfirmArrowP
     return (
       <Comp
         ref={ref}
-        className={cn("absolute w-0 h-0 border-[6px]", arrowStyles[placement], className)}
+        className={cn("absolute w-0 h-0 border-[0.375rem]", arrowStyles[placement], className)}
         {...props}
       >
         {children}

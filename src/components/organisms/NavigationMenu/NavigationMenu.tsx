@@ -53,12 +53,12 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
   return (
     <Comp className={cn(getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-secondary)]', ''), "relative rounded-[var(--radius-xl)] size-full", className)} {...props}>
       <div className="box-border content-stretch flex flex-col gap-[var(--spacing-x2)] items-start justify-start overflow-clip p-[var(--spacing-x2)] relative size-full">
-        <div className="bg-[var(--color-bg-primary)] h-[568px] relative rounded-[var(--radius-xl)] shrink-0 w-full">
-          <div className="content-stretch flex flex-col h-[568px] items-start justify-start overflow-clip relative w-full">
+        <div className="bg-[var(--color-bg-primary)] h-[35.5rem] relative rounded-[var(--radius-xl)] shrink-0 w-full">
+          <div className="content-stretch flex flex-col h-[35.5rem] items-start justify-start overflow-clip relative w-full">
 
             {/* Header */}
             <div className="box-border content-stretch flex items-center justify-between p-[var(--spacing-x5)] relative shrink-0 w-full">
-              <div className="h-[var(--spacing-x9)] relative shrink-0 w-[218px]">
+              <div className="h-[var(--spacing-x9)] relative shrink-0 w-[13.625rem]">
                 <FTLogo width={218} height={36} />
               </div>
               <button
@@ -70,12 +70,12 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
             </div>
 
             {/* Main Content */}
-            <div className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x5)] h-[492px] items-start justify-start px-[var(--spacing-x5)] py-0 relative shrink-0 w-full">
-              <div aria-hidden="true" className="absolute border-[var(--color-border-primary)] border-[1px_0px_0px] border-solid inset-0 pointer-events-none" />
+            <div className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x5)] h-[30.75rem] items-start justify-start px-[var(--spacing-x5)] py-0 relative shrink-0 w-full">
+              <div aria-hidden="true" className="absolute border-[var(--color-border-primary)] border-[1px_0_0] border-solid inset-0 pointer-events-none" />
 
               {/* Left Sidebar */}
-              <div className="box-border content-stretch flex flex-col gap-[var(--spacing-x3)] h-[492px] items-start justify-start overflow-clip px-0 py-[var(--spacing-x5)] relative shrink-0 w-[263px]">
-                <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] h-[472px] items-start justify-start overflow-x-clip overflow-y-auto relative shrink-0 w-full">
+              <div className="box-border content-stretch flex flex-col gap-[var(--spacing-x3)] h-[30.75rem] items-start justify-start overflow-clip px-0 py-[var(--spacing-x5)] relative shrink-0 w-[16.4375rem]">
+                <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] h-[29.5rem] items-start justify-start overflow-x-clip overflow-y-auto relative shrink-0 w-full">
 
                   {/* Summary Page */}
                   <div
@@ -86,7 +86,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   >
                     <Icon name="dashboard" size={16} className="text-[var(--color-primary)]" />
                     <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                      {/* 16px → 1.143rem (responsive) */}
+
                       <p className="leading-[1.4] whitespace-pre">Summary Page</p>
                     </div>
                   </div>
@@ -101,7 +101,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="planning" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Planning</p>
                       </div>
                     </div>
@@ -115,7 +115,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="truck" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Full Truck Load</p>
                       </div>
                     </div>
@@ -130,7 +130,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     <div className="content-stretch flex gap-[var(--spacing-x3)] items-center justify-start relative shrink-0">
                       <Icon name="part-truck-load" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Part Truck Load</p>
                       </div>
                     </div>
@@ -138,14 +138,14 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   </button>
 
                   {/* Control Tower */}
-                  <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-[263px]">
+                  <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-[16.4375rem]">
                     <div
                       className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
                       onClick={() => handleItemClick('Control Tower')}
                     >
                       <Icon name="control-tower" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Control Tower</p>
                       </div>
                     </div>
@@ -159,7 +159,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     <div className="content-stretch flex gap-[var(--spacing-x3)] items-center justify-start relative shrink-0">
                       <Icon name="dashboard" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Dashboard</p>
                       </div>
                     </div>
@@ -167,14 +167,14 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   </div>
 
                   {/* Reports */}
-                  <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-[263px]">
+                  <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-[16.4375rem]">
                     <div
                       className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
                       onClick={() => handleItemClick('Reports')}
                     >
                       <Icon name="reports" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Reports</p>
                       </div>
                     </div>
@@ -188,7 +188,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     <div className="content-stretch flex gap-[var(--spacing-x3)] items-center justify-start relative shrink-0">
                       <Icon name="data-stack" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Onboarding</p>
                       </div>
                     </div>
@@ -202,7 +202,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   >
                     <Icon name="user" size={16} className="text-[var(--color-primary)]" />
                     <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                      {/* 16px → 1.143rem (responsive) */}
+
                       <p className="leading-[1.4] whitespace-pre">Support</p>
                     </div>
                   </div>
@@ -213,7 +213,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
               </div>
 
               {/* Vertical Divider */}
-              <div className="flex h-[550px] items-center justify-center relative shrink-0 w-[1px]">
+              <div className="flex h-[34.375rem] items-center justify-center relative shrink-0 w-[1px]">
                 <div className="h-full w-[1px] bg-[var(--color-border-primary)]"></div>
               </div>
 
@@ -224,7 +224,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                 <div className="basis-0 bg-[var(--color-bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0">
                   <div className="box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-center pl-[var(--spacing-x3)] pr-0 py-0 relative shrink-0">
                     <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-tertiary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
-                      {/* 14px → 1rem (responsive) */}
+                      
                       <p className="leading-[1.4]">INDENT</p>
                     </div>
                   </div>
@@ -235,7 +235,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="indent" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">My Indents</p>
                       </div>
                     </div>
@@ -245,7 +245,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="vehicle" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Assigned Vehicles</p>
                       </div>
                     </div>
@@ -256,7 +256,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                 <div className="basis-0 bg-[var(--color-bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0">
                   <div className="box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-center pl-[var(--spacing-x3)] pr-0 py-0 relative shrink-0">
                     <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-tertiary)]  text-nowrap" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
-                      {/* 14px → 1rem (responsive) */}
+                      
                       <p className="leading-[1.4] whitespace-pre">TRACKING</p>
                     </div>
                   </div>
@@ -267,7 +267,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="my-trip" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">My Journeys</p>
                       </div>
                     </button>
@@ -278,7 +278,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="time" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">History</p>
                       </div>
                     </div>
@@ -289,7 +289,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="location" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Live View</p>
                       </div>
                     </div>
@@ -298,7 +298,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                       <div className="content-stretch flex gap-[var(--spacing-x3)] items-center justify-start relative shrink-0">
                         <Icon name="warehouse" size={16} className="text-[var(--color-tertiary)]" />
                         <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-tertiary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                          {/* 16px → 1.143rem (responsive) */}
+    
                           <p className="leading-[1.4] whitespace-pre">Yard Management</p>
                         </div>
                       </div>
@@ -311,7 +311,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="vehicle" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Dedicated Vehicles</p>
                       </div>
                     </div>
@@ -322,7 +322,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                 <div className="basis-0 bg-[var(--color-bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0">
                   <div className="box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-center pl-[var(--spacing-x3)] pr-0 py-0 relative shrink-0">
                     <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-tertiary)]  text-nowrap" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
-                      {/* 14px → 1rem (responsive) */}
+                      
                       <p className="leading-[1.4] whitespace-pre">FREIGHT INVOICING</p>
                     </div>
                   </div>
@@ -333,7 +333,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="document" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Freight Bill</p>
                       </div>
                     </div>
@@ -344,7 +344,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="reconciliation" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Reconcilation</p>
                       </div>
                     </div>
@@ -355,7 +355,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="alert-critical" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Dispute Management</p>
                       </div>
                     </div>
@@ -366,7 +366,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                     >
                       <Icon name="contracted-bill" size={16} className="text-[var(--color-primary)]" />
                       <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-                        {/* 16px → 1.143rem (responsive) */}
+  
                         <p className="leading-[1.4] whitespace-pre">Contracts</p>
                       </div>
                     </div>
@@ -385,7 +385,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
             className="box-border content-stretch flex gap-[var(--spacing-x2)] h-[var(--spacing-x12)] items-center justify-center px-[var(--spacing-x6)] py-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
             onClick={() => handleFooterButtonClick('announcement')}
           >
-            <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--color-primary)] text-[0px] text-nowrap tracking-[0.0264px]">
+            <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--color-primary)] text-[0rem] text-nowrap tracking-[0.00165rem]">
               <p className="leading-[1.4] whitespace-pre">
                 <span className="">{`New: Google drive integration  `}</span>
                 <span className="font-['Inter:Regular',_sans-serif] font-normal not-italic ">Store reports directly in google drive</span>
@@ -396,8 +396,8 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
             className="content-stretch flex gap-[var(--spacing-x2)] items-center justify-start relative rounded-[var(--radius-md)] shrink-0 cursor-pointer transition-colors hover:bg-[var(--color-neutral-light)] px-[var(--spacing-x2)] py-[var(--spacing-x1)]"
             onClick={() => handleFooterButtonClick('releases')}
           >
-            <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--color-neutral)] text-nowrap tracking-[0.0264px]" style={{ fontSize: 'var(--font-size-lg-rem)' }}>
-              {/* 20px → 1.429rem (responsive) */}
+            <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--color-neutral)] text-nowrap tracking-[0.00165rem]" style={{ fontSize: 'var(--font-size-lg-rem)' }}>
+              
               <p className="leading-[1.4] whitespace-pre">New Releases</p>
             </div>
           </button>

@@ -27,7 +27,7 @@ const TabContent = ({
   state: TabState;
   type: TabType;
 }) => {
-  // Determine gap based on content - 8px for most, 4px when notification is present
+  // Determine gap based on content - x2 for most, x1 when notification is present
   const gapClass = notification ? "gap-[var(--spacing-x1)]" : "gap-[var(--spacing-x2)]";
 
   // Container alignment - center for selected primary, start for others
@@ -61,14 +61,14 @@ const TabContent = ({
         {label}
       </p>
       {badge && (
-        <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[24px] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
+        <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[var(--spacing-x6)] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
           <p className="font-semibold leading-[1.4] relative shrink-0 text-[var(--primary)] text-sm">
             {badgeCount}
           </p>
         </div>
       )}
       {notification && (
-        <div className="relative shrink-0 size-[6px]">
+        <div className="relative shrink-0 size-[0.375rem]">
           <div className="absolute inset-0 bg-[var(--critical)] rounded-full" />
         </div>
       )}
@@ -112,7 +112,7 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
 
     // Base styles matching Figma design exactly using FT design system tokens
     const baseStyles = cn(
-      "relative flex flex-col gap-[10px] items-start transition-all cursor-pointer flex-shrink-0",
+      "relative flex flex-col gap-[0.625rem] items-start transition-all cursor-pointer flex-shrink-0",
       disabled && "opacity-50 cursor-not-allowed pointer-events-none",
 
       // Padding based on type - using FT design system spacing tokens
@@ -123,7 +123,7 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
       // Border radius based on type - using FT design system tokens
       type === 'primary' && "rounded-none",
       type === 'secondary' && "rounded-lg",
-      type === 'tertiary' && "rounded-[100px]",
+      type === 'tertiary' && "rounded-full",
 
       // Border styles based on state and type - using FT design system tokens
       type === 'primary' && [

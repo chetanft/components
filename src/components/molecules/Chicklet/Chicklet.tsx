@@ -53,18 +53,18 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
     
     // Base styles using exact Figma specifications
     const baseStyles = cn(
-      // Layout from Figma: row with center alignment and 8px gap
-      "inline-flex items-center justify-center gap-[8px]",
-      // Padding from Figma: 2px 8px
-      "px-[8px] py-[2px]",
+      // Layout from Figma: row with center alignment and x2 gap
+      "inline-flex items-center justify-center gap-[var(--spacing-x2)]",
+      // Padding from Figma
+      "px-[var(--spacing-x2)] py-[0.125rem]",
       // Transitions
       "transition-all duration-200 cursor-pointer",
       // Disabled state
       disabled && "opacity-50 cursor-not-allowed pointer-events-none",
 
       // Border radius based on variant - exact from Figma
-      variant === 'rectangular' && "rounded-[4px]", // 4px border radius
-      variant === 'rounded' && "rounded-[100px]", // 100px border radius (pill)
+      variant === 'rectangular' && "rounded-[var(--spacing-x1)]",
+      variant === 'rounded' && "rounded-full",
 
       // Background colors based on state - use CSS variables instead of hardcoded
       getGlassClasses(resolvedGlass, currentState === 'default' ? "bg-[var(--border-secondary)]" : "bg-[var(--border-primary)]", bordered ? "border border-[var(--border-primary)]" : ''),
@@ -113,8 +113,7 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
           <button
             type="button"
             className={cn(
-              // Size from Figma: 14x14px
-              "w-[14px] h-[14px] flex items-center justify-center",
+              "w-[var(--spacing-x3)] h-[var(--spacing-x3)] flex items-center justify-center",
               // Remove default button styles
               "border-0 bg-transparent p-0 m-0",
               // Hover and focus states

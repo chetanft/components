@@ -25,8 +25,8 @@ export interface CardFooterProps extends ComposableProps<'div'> {
  * Renders a divider line followed by footer content.
  *
  * Matches Figma `.card_footer`:
- * - Full-width divider with py-x4 (16px) vertical rhythm
- * - Spacer (x5 = 20px)
+ * - Full-width divider with py-x4 vertical rhythm
+ * - Spacer (x5)
  * - Footer container with optional px-x5 padding
  *
  * @public
@@ -43,7 +43,7 @@ export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
         )}
         {...props}
       >
-        {/* Divider — matches Figma py-x4 (16px) rhythm */}
+        {/* Divider — matches Figma py-x4 rhythm */}
         <div className="flex items-center justify-between py-[var(--spacing-x4)] w-full">
           <Divider type="primary" className="flex-1" />
         </div>

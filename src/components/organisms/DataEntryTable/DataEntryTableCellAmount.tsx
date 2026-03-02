@@ -97,13 +97,13 @@ export const DataEntryTableCellAmount: React.FC<DataEntryTableCellAmountProps> =
         return {
           border: 'border-[var(--primary)]',
           bg: 'bg-[var(--bg-primary)]',
-          boxShadow: '0px 0px 0px 2px var(--border-primary)',
+          boxShadow: '0 0 0 0.125rem var(--border-primary)',
         };
       case 'error-filled':
         return {
           border: 'border-[var(--critical)]',
           bg: 'bg-[var(--bg-primary)]',
-          boxShadow: '0px 0px 0px 2px var(--critical-light)',
+          boxShadow: '0 0 0 0.125rem var(--critical-light)',
         };
       case 'disabled':
       case 'pre-filled':

@@ -138,8 +138,8 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
    * Input size
    * @default 'md'
    * 
-   * Available sizes: `xxs` (16px), `xs` (24px), `sm` (32px), `md` (40px), 
-   * `lg` (48px), `xl` (56px), `xxl` (64px)
+   * Available sizes: `xxs` (x4), `xs` (x6), `sm` (x8), `md` (x10),
+   * `lg` (x12), `xl` (x14), `xxl` (x16)
    */
   size?: ComponentSize;
   

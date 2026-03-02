@@ -142,10 +142,10 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
     }
 
     switch (size) {
-      case 'md': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // 8px left, 16px right
-      case 'lg': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // 8px left, 16px right
-      case 'xl': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x5)]"; // 8px left, 24px right
-      default: return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // 8px left, 16px right
+      case 'md': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // x2 left, x4 right
+      case 'lg': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // x2 left, x4 right
+      case 'xl': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x5)]"; // x2 left, x6 right
+      default: return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // x2 left, x4 right
     }
   };
 
@@ -199,7 +199,7 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
         lineVariant === 'single' && "gap-[var(--spacing-x1)]",
         lineVariant === 'double' && "gap-[var(--spacing-x2)]",
         // Size affects min-height
-        "min-h-[19px]"
+        "min-h-[1.1875rem]"
       )}>
         {processedChildren}
       </div>
