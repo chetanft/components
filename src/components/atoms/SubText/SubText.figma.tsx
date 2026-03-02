@@ -8,5 +8,5 @@ figma.connect(SubText, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Comp
       No: 'No',
     }),
   },
-  example: (props) => <SubText icon={props.icon}>Sub text content</SubText>,
+  example: (props) => <SubText icon={props.icon} />,
 });

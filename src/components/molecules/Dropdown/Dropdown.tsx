@@ -202,6 +202,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       portalContainer: customPortalContainer,
       portalId,
       children,
+      glass,
       ...props
     },
     ref

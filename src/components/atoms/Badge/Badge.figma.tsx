@@ -19,8 +19,8 @@ figma.connect(Badge, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Compon
   example: (props) => (
     <Badge
       variant={props.variant}
-      leadingIcon={props.hasLeadingIcon ? 'placeholder' : undefined}
-      trailingIcon={props.hasTrailingIcon ? 'placeholder' : undefined}
+      leadingIcon={props.hasLeadingIcon ? 'add' : undefined}
+      trailingIcon={props.hasTrailingIcon ? 'add' : undefined}
       interaction={props.interaction}
     >
       {props.hasLabel ? props.label : undefined}

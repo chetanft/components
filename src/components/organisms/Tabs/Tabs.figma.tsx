@@ -50,7 +50,7 @@ figma.connect(TabItem, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Comp
       active={props.active}
       badge={props.hasBadge}
       notification={props.hasNotification}
-      icon={props.hasIcon ? 'placeholder' : undefined}
+      icon={props.hasIcon}
     />
   ),
 });

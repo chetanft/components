@@ -24,8 +24,6 @@ figma.connect(Text, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Compone
       subText={props.hasSubText}
       leadingIcon={props.hasLeadingIcon}
       trailingIcon={props.hasTrailingIcon}
-    >
-      Text content
-    </Text>
+    />
   ),
 });
