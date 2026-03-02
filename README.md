@@ -12,6 +12,13 @@ A comprehensive React component library built from Figma designs, featuring a mo
 - 🔍 **TypeScript**: Full TypeScript support with proper type definitions
 - 📚 **Storybook**: Complete documentation and component playground
 
+## 📐 Implementation Contract
+
+- Canonical design/implementation contracts now live in [`specs/`](./specs/).
+- Before changing UI code, read the relevant `specs/*` files.
+- Before commit/PR, run token checks:
+  - `npm run check:tokens`
+
 ## 📥 Installation
 
 ```bash

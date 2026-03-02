@@ -258,6 +258,20 @@ The contracts report measures **API prop coverage**: what percentage of a compon
 
 - **Coverage = Covered / Total** where Total = number of distinct prop values across size, variant, orientation, etc.
 - Components showing `—` have no typed enum props detected (coverage not applicable).
+
+## 15. Token Audit Governance
+
+UI quality governance is now baseline-driven:
+
+- `npm run check:tokens` is the required PR gate.
+- The token audit runs in CI using a pinned baseline file:
+  - `docs/audits/token-audit-baseline-2026-03-02.json`
+- PRs must not introduce regressions:
+  - no increases in category totals
+  - no increases by file/category
+  - no new files with token issues
+
+Legacy debt is tracked and reduced incrementally. CI blocks new debt immediately while allowing staged cleanup of existing violations.
 - Low coverage (< 50%) means the explorer doesn't demonstrate the component's full API surface.
 - 100% coverage means every typed prop value has a corresponding explorer chip.
 

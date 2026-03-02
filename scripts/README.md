@@ -2,6 +2,26 @@
 
 This directory contains utility scripts for the FT Design System.
 
+## Token Audit (`audit-hardcoded-tokens.cjs`)
+
+Run a full hardcoded-token scan:
+
+```bash
+npm run check:token-audit
+```
+
+CI no-regression mode (baseline-aware):
+
+```bash
+npm run check:token-audit:ci
+```
+
+Primary UI gate:
+
+```bash
+npm run check:tokens
+```
+
 ## PX Literal Detection (`check-px-literals.js`)
 
 This script automatically scans the codebase for pixel literals that should be replaced with FT design system tokens.

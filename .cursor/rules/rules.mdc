@@ -1,9 +1,12 @@
 ---
-description: Don't built placeholders. 
-Don't built generic components.
-Never use hardcoded values unless specified by user
-Don't deviate from figma design
-Don't create variations which are not in figma design
-globs: 
+description: FT Design System implementation guardrails
+globs:
 alwaysApply: true
 ---
+
+- Read relevant files in `specs/` before writing or modifying UI code.
+- Do not build placeholders or generic components.
+- Do not deviate from Figma-backed design contracts.
+- Do not create unsupported variations.
+- Never use hardcoded visual values unless explicitly requested and documented.
+- Run token checks before commit: `npm run check:tokens`.

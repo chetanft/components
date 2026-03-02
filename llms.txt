@@ -1,12 +1,17 @@
 # FT Design System - AI Context
 # Machine-readable rules for LLMs and AI coding assistants
-# Version: 4.15.14
+# Version: 4.22.0
 
 ## IDENTITY
 name: ft-design-system
 type: react-component-library
 package: ft-design-system
-version: 4.15.14
+version: 4.22.0
+
+## WORKFLOW CONTRACT (MANDATORY)
+- Before writing or modifying any UI code, read the relevant files under `specs/`.
+- Before commit or PR, run `npm run check:tokens`.
+- Do not add hardcoded visual values unless explicitly approved and documented.
 
 ## IMPORTS (CRITICAL - USE EXACTLY AS SHOWN)
 css: import 'ft-design-system/styles';

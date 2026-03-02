@@ -1,0 +1,2990 @@
+
+> ft-design-system@4.22.0 check:px
+> node scripts/check-px-literals.js
+
+🔍 Checking for px literals in the codebase...
+❌ Found px literals that should be replaced with FT design tokens:
+
+  src/utils/browser-zoom-test.ts:37
+    // Check if we're at a breakpoint that uses 16px base
+
+  src/utils/browser-zoom-test.ts:148
+    // At 200% zoom, base text should be at least 24px (14px * 2 * 0.857 for smallest)
+
+  src/components/molecules/TreeSelect/TreeSelect.tsx:394
+    isMultiple && selectedKeys.length > 0 ? "flex-1 min-w-[120px]" : "w-full"
+
+  src/components/molecules/TreeSelect/TreeSelect.tsx:439
+    "max-h-[300px] overflow-auto p-[var(--spacing-x2)]"
+
+  src/components/molecules/Tree/TreeNodeChildren.tsx:54
+    showLine && "border-l border-[var(--color-border-secondary)] ml-[calc(var(--spacing-x3)-1px)]",
+
+  src/components/molecules/FloatButton/FloatButton.tsx:106
+    {description && <span className="text-[10px] leading-tight mt-0.5">{description}</span>}
+
+  src/components/molecules/FloatButton/FloatButton.tsx:121
+    {description && <span className="text-[10px] leading-tight mt-0.5">{description}</span>}
+
+  src/components/molecules/FloatButton/FloatButton.tsx:135
+    {description && <span className="text-[10px] leading-tight mt-0.5">{description}</span>}
+
+  src/components/molecules/Calendar/Calendar.tsx:73
+    const COMPACT_NAV_BUTTON_CLASS = "min-w-[30px] min-h-[30px] w-fit h-fit flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--tertiary)] hover:bg-[var(--border-secondary)] transition-colors focus:outline-none";
+
+  src/components/molecules/Calendar/Calendar.tsx:248
+    {/* 14px → 1rem (responsive) */}
+
+  src/components/molecules/Calendar/Calendar.tsx:377
+    className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-[var(--tertiary)] font-normal"
+
+  src/components/molecules/Calendar/Calendar.tsx:378
+    style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
+
+  src/components/molecules/Calendar/Calendar.tsx:400
+    "w-[30px] h-[30px] flex-shrink-0 flex items-center justify-center p-[var(--spacing-x2)] rounded-[var(--radius-sm)] transition-colors",
+
+  src/components/molecules/Calendar/Calendar.tsx:415
+    style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
+
+  src/components/molecules/Empty/Empty.tsx:217
+    className="text-[var(--tertiary)] max-w-[256px]"
+
+  src/components/molecules/DropdownMenu/DropdownMenuItem.tsx:156
+    fontSize: 'var(--font-size-md-rem, 1.143rem)', // 16px → 1.143rem (responsive)
+
+  src/components/molecules/DropdownMenu/DropdownMenuItem.tsx:161
+    fontSize: 'var(--font-size-md-rem, 1.143rem)', // 16px → 1.143rem (responsive)
+
+  src/components/molecules/DropdownMenu/DropdownMenuItem.tsx:314
+    <div className="text-xs text-[var(--color-tertiary)] truncate mt-[2px]">
+
+  src/components/molecules/Popconfirm/PopconfirmContent.tsx:78
+    "absolute z-50 min-w-[200px] max-w-[300px]",
+
+  src/components/molecules/Popconfirm/PopconfirmArrow.tsx:51
+    className={cn("absolute w-0 h-0 border-[6px]", arrowStyles[placement], className)}
+
+  src/components/molecules/RadioSelector/RadioSelector.tsx:158
+    : "flex flex-col items-center justify-center p-[var(--spacing-x3)] min-h-[109px]",
+
+  src/components/molecules/RadioSelector/RadioSelector.tsx:166
+    "hover:bg-[var(--border-secondary)] hover:shadow-[0px_0px_0px_2px_rgba(206,209,215,1)]",
+
+  src/components/molecules/RadioSelector/RadioSelector.tsx:167
+    "focus-visible:bg-[var(--border-primary)] focus-visible:shadow-[0px_0px_0px_2px_rgba(0,0,0,0.25)]"
+
+  src/components/molecules/RadioSelector/RadioSelector.tsx:207
+    <div className="relative shrink-0 mt-[2px]">
+
+  src/components/molecules/RadioSelector/RadioSelector.tsx:211
+    <div className="size-[10px] rounded-full bg-[var(--primary)]" />
+
+  src/components/molecules/PageHeaderFilters/PageHeaderFilters.tsx:38
+    * On desktop (≥1200px), filters are displayed in a horizontal row.
+
+  src/components/molecules/PageHeaderFilters/PageHeaderFilters.tsx:39
+    * On mobile (<1200px), filters convert to icon buttons with dropdown menus.
+
+  src/components/molecules/PageHeaderFilters/PageHeaderFilters.tsx:62
+    'content-stretch flex gap-[var(--x5,20px)] items-center relative shrink-0',
+
+  src/components/molecules/PageHeaderFilters/PageHeaderFilters.tsx:69
+    <div className="content-stretch flex gap-[var(--x3,12px)] items-center overflow-clip relative rounded-[var(--x2,8px)] shrink-0">
+
+  src/components/molecules/PageHeaderFilters/PageHeaderFilters.tsx:81
+    className="rounded-[var(--x2,8px)] shrink-0"
+
+  src/components/molecules/DatePicker/DatePicker.tsx:364
+    xxs: "py-[2px]",
+
+  src/components/molecules/DatePicker/DatePicker.tsx:974
+    "inline-block w-auto pr-[12px]"
+
+  src/components/molecules/DatePicker/DatePicker.tsx:996
+    "inline-block w-auto pr-[12px]"
+
+  src/components/molecules/DatePicker/Calendar.tsx:62
+    "bg-[var(--bg-primary)] rounded-[var(--radius-md)] shadow-[0px_6px_6px_0px_rgba(0,0,0,0.16)] flex flex-col",
+
+  src/components/molecules/DatePicker/Calendar.tsx:128
+    "w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] rounded-[var(--radius-sm)] transition-colors",
+
+  src/components/molecules/DatePicker/Calendar.tsx:530
+    <div className={cn("flex-1 flex flex-col gap-[var(--spacing-x2)]", range ? "w-[282px] flex-shrink-0" : "w-full")}>
+
+  src/components/molecules/DatePicker/Calendar.tsx:576
+    <span className="text-sm-rem font-medium text-[var(--primary)]">{/* 14px → 1rem (responsive) */}{format(date, 'MMM yyyy')}</span>
+
+  src/components/molecules/DatePicker/Calendar.tsx:621
+    <div key={day} className="w-[30px] h-[30px] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-sm-rem text-[var(--tertiary)] font-normal">
+
+  src/components/molecules/DatePicker/Calendar.tsx:622
+    {/* 14px → 1rem (responsive) */}
+
+  src/components/molecules/DatePicker/Calendar.tsx:633
+    return <div key={`${weekIndex}-${dayIndex}`} className="w-[30px] h-[30px] flex-shrink-0" />;
+
+  src/components/molecules/DatePicker/Calendar.tsx:715
+    "text-sm-rem leading-[normal]", // 14px → 1rem (responsive)
+
+  src/components/molecules/DatePicker/Calendar.tsx:735
+    <div className="relative w-[240px]">
+
+  src/components/molecules/DatePicker/Calendar.tsx:741
+    <span className="flex-1 font-normal leading-[1.4] text-[var(--tertiary)] overflow-ellipsis overflow-hidden whitespace-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>{/* 16px → 1.143rem (responsive) */}{selectedDateRange}</span>
+
+  src/components/molecules/DatePicker/Calendar.tsx:780
+    style={{ fontSize: 'var(--font-size-md-rem)' }} // 16px → 1.143rem (responsive)
+
+  src/components/molecules/DatePicker/DatePickerInput.tsx:176
+    type === 'single' ? "flex-1" : "inline-block w-auto pr-[12px]",
+
+  src/components/molecules/DatePicker/DatePickerInput.tsx:204
+    type === 'single' ? "flex-1" : "inline-block w-auto pr-[12px]",
+
+  src/components/molecules/DatePicker/DatePicker.figma.tsx:8
+    'lg-52px': 'lg',
+
+  src/components/molecules/FilterSearch/FilterSearch.tsx:43
+    * A responsive search filter that shows full input on desktop (≥1200px)
+
+  src/components/molecules/FilterSearch/FilterSearch.tsx:44
+    * and icon button that expands inline to input field on mobile (<1200px).
+
+  src/components/molecules/FilterSearch/FilterSearch.tsx:59
+    const isMobile = useMediaQuery('(max-width: 1199px)');
+
+  src/components/molecules/FilterSearch/FilterSearch.tsx:153
+    'filter-search-container flex items-center gap-[var(--x2,8px)] transition-all duration-200',
+
+  src/components/molecules/FilterSearch/FilterSearch.tsx:167
+    className="size-[40px] rounded-[var(--x2,8px)] shrink-0"
+
+  src/components/molecules/StackedBarChart/StackedBarChart.tsx:160
+    'flex w-full flex-col gap-[var(--x3,12px)] text-left',
+
+  src/components/molecules/StackedBarChart/StackedBarChart.tsx:167
+    {/* 12px → 0.857rem (responsive) */}
+
+  src/components/molecules/StackedBarChart/StackedBarChart.tsx:172
+    <div className="flex gap-[var(--x5,20px)]" role="img" aria-label={title}>
+
+  src/components/molecules/StackedBarChart/StackedBarChart.tsx:176
+    className="flex flex-1 min-w-0 flex-col items-center gap-[var(--x2,8px)]"
+
+  src/components/molecules/StackedBarChart/StackedBarChart.tsx:179
+    className="flex w-full flex-col justify-end rounded-[6px]"
+
+  src/components/molecules/StackedBarChart/StackedBarChart.tsx:201
+    <span className="text-center text-[10px] font-normal leading-[1.4] text-[var(--primary)]">
+
+  src/components/molecules/StackedBarChart/StackedBarChart.tsx:209
+    <div className="flex flex-wrap gap-4 text-[10px] text-[var(--primary)]">
+
+  src/components/molecules/StackedBarChart/StackedBarChart.tsx:213
+    className="inline-flex size-3 rounded-[2px]"
+
+  src/components/molecules/Cascader/Cascader.tsx:154
+    "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--x3,12px)] rounded-[var(--x2,8px)]",
+
+  src/components/molecules/Cascader/Cascader.tsx:168
+    fontSize: '16px',
+
+  src/components/molecules/Cascader/Cascader.tsx:507
+    "box-border flex flex-col items-start overflow-clip p-[var(--x2,8px)]",
+
+  src/components/molecules/Cascader/Cascader.tsx:508
+    "rounded-[var(--x2,8px)] shadow-lg"
+
+  src/components/molecules/Cascader/Cascader.tsx:524
+    "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--x3,12px)] rounded-[var(--x2,8px)]",
+
+  src/components/molecules/Cascader/Cascader.tsx:532
+    fontSize: '16px',
+
+  src/components/molecules/Cascader/Cascader.tsx:539
+    <div className="px-[var(--x3,12px)] py-[var(--x4,16px)] text-center text-[var(--tertiary)] font-normal leading-[1.4]" style={{
+
+  src/components/molecules/Cascader/Cascader.tsx:542
+    fontSize: '16px',
+
+  src/components/molecules/Transfer/Transfer.tsx:116
+    <div className={cn("flex flex-col rounded-md w-[250px] h-[300px] overflow-hidden", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--border-primary)]'))}>
+
+  src/components/molecules/Mentions/Mentions.tsx:157
+    style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
+
+  src/components/molecules/ProgressBar/ProgressBar.tsx:92
+    sm: "h-[4px]",
+
+  src/components/molecules/ProgressBar/ProgressBar.tsx:93
+    md: "h-[8px]",
+
+  src/components/molecules/ProgressBar/ProgressBar.tsx:94
+    lg: "h-[12px]"
+
+  src/components/molecules/ProgressBar/ProgressBar.tsx:102
+    <div className="flex items-center gap-[var(--x5,20px)] w-full" ref={ref} {...props}>
+
+  src/components/molecules/ProgressBar/ProgressBar.tsx:129
+    // Default line progress - Figma: 8px height, 8px rounded corners
+
+  src/components/molecules/ProgressBar/ProgressBar.tsx:131
+    <div className="flex items-center gap-[var(--x5,20px)] w-full" ref={ref} {...props}>
+
+  src/components/molecules/Image/Image.tsx:203
+    <span className="text-[var(--overlay-control-text)] text-sm min-w-[60px] text-center">
+
+  src/components/molecules/FilterDropdown/FilterDropdown.tsx:61
+    * A responsive dropdown filter that shows full dropdown on desktop (≥1200px)
+
+  src/components/molecules/FilterDropdown/FilterDropdown.tsx:62
+    * and icon button with dropdown menu on mobile (<1200px).
+
+  src/components/molecules/FilterDropdown/FilterDropdown.tsx:89
+    const isMobile = useMediaQuery('(max-width: 1199px)');
+
+  src/components/molecules/FilterDropdown/FilterDropdown.tsx:251
+    'size-[40px] rounded-[var(--x2,8px)]',
+
+  src/components/molecules/Loader/Loader.tsx:104
+    "content-stretch flex flex-col gap-[var(--x5,20px)] items-center relative size-full",
+
+  src/components/molecules/ColorPicker/ColorPicker.tsx:157
+    <div className={cn("absolute z-50 mt-2 top-full left-0 p-3 rounded-lg shadow-xl min-w-[200px]", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--border-primary)]'))}>
+
+  src/components/molecules/Tour/Tour.tsx:151
+    className="absolute transition-all duration-300 pointer-events-none border-2 border-[var(--primary)] rounded-md shadow-[0_0_0_9999px_rgba(0,0,0,0.5)]"
+
+  src/components/molecules/Tour/Tour.tsx:165
+    "absolute p-4 rounded-lg shadow-xl w-[300px] z-[1002] animate-in fade-in zoom-in-95 duration-200",
+
+  src/components/molecules/Graphs/Graphs.tsx:19
+    <div className="flex flex-col font-semibold justify-end leading-[0] not-italic relative shrink-0 text-[12px] text-[var(--color-secondary)] whitespace-nowrap" data-node-id="4026:14360">
+
+  src/components/molecules/Graphs/Graphs.tsx:23
+    {/* Spacer 1 - 12px after title */}
+
+  src/components/molecules/Graphs/Graphs.tsx:29
+    <div className="bg-[#ffb3c3] h-[27px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14364" />
+
+  src/components/molecules/Graphs/Graphs.tsx:30
+    <div className="bg-[#ff809a] h-[43px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14365" />
+
+  src/components/molecules/Graphs/Graphs.tsx:31
+    <div className="bg-[#ff6384] h-[48px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14366" />
+
+  src/components/molecules/Graphs/Graphs.tsx:34
+    <div className="bg-[#ffb3c3] h-[25px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14368" />
+
+  src/components/molecules/Graphs/Graphs.tsx:35
+    <div className="bg-[#ff809a] h-[35px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14369" />
+
+  src/components/molecules/Graphs/Graphs.tsx:36
+    <div className="bg-[#ff6384] h-[36px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14370" />
+
+  src/components/molecules/Graphs/Graphs.tsx:39
+    <div className="bg-[#ffb3c3] h-[27px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14372" />
+
+  src/components/molecules/Graphs/Graphs.tsx:40
+    <div className="bg-[#ff809a] h-[33px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14373" />
+
+  src/components/molecules/Graphs/Graphs.tsx:41
+    <div className="bg-[#ff6384] h-[23px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14374" />
+
+  src/components/molecules/Graphs/Graphs.tsx:45
+    {/* Spacer 2 - 12px after bar chart */}
+
+  src/components/molecules/Graphs/Graphs.tsx:49
+    <div className="content-stretch flex font-normal gap-[var(--spacing-x5)] items-start leading-[0] relative shrink-0 text-[10px] text-[var(--color-primary)] text-center w-full" data-name="Time Label" data-node-id="4026:14375">
+
+  src/components/molecules/Graphs/Graphs.tsx:61
+    {/* Spacer 3 - 20px after x-axis labels */}
+
+  src/components/molecules/Graphs/Graphs.tsx:70
+    <div className="font-normal leading-[0] not-italic relative shrink-0 text-[10px] text-[var(--color-primary)] whitespace-nowrap" data-node-id="4026:14382">
+
+  src/components/molecules/Graphs/Graphs.tsx:78
+    <div className="font-normal leading-[0] not-italic relative shrink-0 text-[10px] text-[var(--color-primary)] whitespace-nowrap" data-node-id="4026:14385">
+
+  src/components/molecules/Graphs/Graphs.tsx:86
+    <div className="font-normal leading-[0] not-italic relative shrink-0 text-[10px] text-[var(--color-primary)] whitespace-nowrap" data-node-id="4026:14388">
+
+  src/components/molecules/Select/SelectContent.tsx:117
+    maxHeight: '300px',
+
+  src/components/molecules/SegmentedTabs/SegmentedTabs.tsx:77
+    "flex gap-[var(--x1,4px)] p-[var(--x2,8px)] rounded-[var(--x2,8px)]",
+
+  src/components/molecules/SegmentedTabs/SegmentedTabs.tsx:126
+    "flex items-center justify-center gap-[var(--x2,8px)] py-[var(--x2,8px)] h-[32px] rounded-[var(--x1,4px)] transition-all duration-200 cursor-pointer relative z-10",
+
+  src/components/molecules/SegmentedTabs/SegmentedTabs.tsx:131
+    ? "px-[var(--x2,8px)]"
+
+  src/components/molecules/SegmentedTabs/SegmentedTabs.tsx:132
+    : "px-[var(--x4,16px)]",
+
+  src/components/molecules/SegmentedTabs/SegmentedTabs.tsx:133
+    // Typography - 14px → 1rem (responsive) medium from Figma (only when not icon-only)
+
+  src/components/molecules/SegmentedTabs/SegmentedTabs.tsx:140
+    "shadow-[0px_4px_4px_0px_rgba(0,0,0,0.08)]"
+
+  src/components/molecules/SegmentedTabs/SegmentedTabs.tsx:160
+    <span className="flex items-center justify-center shrink-0 w-[24px] h-[24px]">
+
+  src/components/molecules/SegmentedTabs/SegmentedTabs.tsx:161
+    <span className="w-[16px] h-[16px]">
+
+  src/components/molecules/FilterDateRange/FilterDateRange.tsx:49
+    * A responsive date range filter that shows full date picker on desktop (≥1200px)
+
+  src/components/molecules/FilterDateRange/FilterDateRange.tsx:50
+    * and icon button with date picker dropdown on mobile (<1200px).
+
+  src/components/molecules/FilterDateRange/FilterDateRange.tsx:76
+    const isMobile = useMediaQuery('(max-width: 1199px)');
+
+  src/components/molecules/FilterDateRange/FilterDateRange.tsx:229
+    'size-[40px] rounded-[var(--x2,8px)]',
+
+  src/components/molecules/ProgressList/ProgressList.tsx:185
+    <div key={item.id} className="flex justify-between items-center gap-[-36px] py-[var(--spacing-x4)] w-full">
+
+  src/components/molecules/ProgressList/ProgressList.tsx:213
+    <span className="text-[var(--color-bg-primary)] text-[10px] font-medium leading-none text-center">
+
+  src/components/molecules/ProgressList/ProgressList.tsx:279
+    text-[10px] font-medium leading-none text-center
+
+  src/components/molecules/ProgressList/ProgressList.tsx:304
+    backgroundSize: '1px 8px',
+
+  src/components/molecules/ProgressList/ProgressList.tsx:306
+    minHeight: '24px'
+
+  src/components/molecules/ProgressList/ProgressList.tsx:315
+    style={{ backgroundColor: lineColor, minHeight: '24px' }}
+
+  src/components/molecules/ProgressList/ProgressList.tsx:401
+    {/* 14px → 1rem (responsive) */}
+
+  src/components/molecules/ProgressList/ProgressList.tsx:462
+    <div className="flex-1 w-full flex flex-col items-center mb-[-8px]">
+
+  src/components/molecules/ProgressList/ProgressList.tsx:577
+    <div ref={ref} className={cn("flex justify-between items-center gap-[-36px] py-[var(--spacing-x4)] w-full", className)} {...props}>
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:94
+    height: '16px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:95
+    fontSize: '12px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:96
+    paddingX: '6px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:100
+    height: '24px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:101
+    fontSize: '12px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:102
+    paddingX: '8px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:106
+    height: '32px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:107
+    fontSize: '14px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:108
+    paddingX: '10px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:112
+    height: '40px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:113
+    fontSize: '14px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:114
+    paddingX: '12px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:118
+    height: '48px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:119
+    fontSize: '16px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:120
+    paddingX: '16px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:124
+    height: '56px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:125
+    fontSize: '16px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:126
+    paddingX: '20px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:130
+    height: '64px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:131
+    fontSize: '18px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:132
+    paddingX: '24px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:202
+    height: '36px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:251
+    paddingRight: '8px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:259
+    borderWidth: '1px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:343
+    marginLeft: '8px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:371
+    minWidth: '200px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:372
+    maxHeight: '300px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:382
+    padding: '10px 16px',
+
+  src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx:387
+    fontSize: '14px',
+
+  src/components/molecules/Chicklet/Chicklet.tsx:56
+    // Layout from Figma: row with center alignment and 8px gap
+
+  src/components/molecules/Chicklet/Chicklet.tsx:57
+    "inline-flex items-center justify-center gap-[8px]",
+
+  src/components/molecules/Chicklet/Chicklet.tsx:58
+    // Padding from Figma: 2px 8px
+
+  src/components/molecules/Chicklet/Chicklet.tsx:59
+    "px-[8px] py-[2px]",
+
+  src/components/molecules/Chicklet/Chicklet.tsx:66
+    variant === 'rectangular' && "rounded-[4px]", // 4px border radius
+
+  src/components/molecules/Chicklet/Chicklet.tsx:67
+    variant === 'rounded' && "rounded-[100px]", // 100px border radius (pill)
+
+  src/components/molecules/Chicklet/Chicklet.tsx:116
+    // Size from Figma: 14x14px
+
+  src/components/molecules/Chicklet/Chicklet.tsx:117
+    "w-[14px] h-[14px] flex items-center justify-center",
+
+  src/components/atoms/RadioGroup/RadioItem.tsx:54
+    sm: { gap: "gap-[6px]", groupGap: "gap-[12px]" },
+
+  src/components/atoms/RadioGroup/RadioItem.tsx:55
+    md: { gap: "gap-[var(--radio-gap)]", groupGap: "gap-[16px]" }
+
+  src/components/atoms/RadioGroup/RadioItemInput.tsx:59
+    radio: "w-[16px] h-[16px]",
+
+  src/components/atoms/RadioGroup/RadioItemInput.tsx:60
+    dot: "w-[6px] h-[6px]",
+
+  src/components/atoms/RadioGroup/RadioItemInput.tsx:64
+    dot: "w-[10px] h-[10px]",
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:52
+    "content-stretch flex gap-[8px] items-center relative w-[82px]",
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:57
+    <div className="content-stretch flex gap-[var(--x1,4px)] items-center relative shrink-0" data-name="Label">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:62
+    <div className="content-stretch flex flex-1 flex-col gap-[var(--x1,4px)] items-start justify-center min-h-px min-w-px relative shrink-0" data-name="Text">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:76
+    "content-stretch flex gap-[8px] items-center relative w-[102px]",
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:81
+    <div className="content-stretch flex gap-[var(--x1,4px)] items-center relative shrink-0">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:82
+    <div className="relative shrink-0 size-[16px]" data-name="Check- fill">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:85
+    <div className="content-stretch flex gap-[var(--x1,4px)] items-center relative shrink-0" data-name="Label">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:91
+    <div className="content-stretch flex flex-1 flex-col gap-[var(--x1,4px)] items-start justify-center min-h-px min-w-px relative shrink-0" data-name="Text">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:105
+    "content-stretch flex gap-[var(--x2,8px)] items-start relative w-[183px]",
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:110
+    <div className="box-border content-stretch flex gap-[10px] items-center pb-0 pt-[2px] px-0 relative shrink-0">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:111
+    <div className="relative shrink-0 size-[16px]" data-name="Check- fill">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:115
+    <div className="content-stretch flex flex-1 flex-col gap-[var(--x2,8px)] items-start min-h-px min-w-px relative shrink-0">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:116
+    <div className="content-stretch flex gap-[var(--x1,4px)] items-center relative shrink-0" data-name="Label">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:121
+    <div className="content-stretch flex flex-col gap-[var(--x1,4px)] items-start justify-center relative shrink-0 w-full" data-name="Text">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:135
+    "content-stretch flex flex-col gap-[var(--x2,8px)] items-start relative w-[183px]",
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:140
+    <div className="content-stretch flex gap-[var(--x1,4px)] items-center relative shrink-0" data-name="Label">
+
+  src/components/atoms/ReadOnly/ReadOnly.tsx:145
+    <div className="content-stretch flex flex-col gap-[var(--x1,4px)] items-start justify-center relative shrink-0 w-[183px]" data-name="Text">
+
+  src/components/atoms/Input/Input.tsx:141
+    * Available sizes: `xxs` (16px), `xs` (24px), `sm` (32px), `md` (40px),
+
+  src/components/atoms/Input/Input.tsx:142
+    * `lg` (48px), `xl` (56px), `xxl` (64px)
+
+  src/components/atoms/Label/Label.tsx:68
+    gap: '4px',
+
+  src/components/atoms/Label/Label.tsx:70
+    fontSize: 'var(--font-size-sm-rem)', // 14px → 1rem (responsive)
+
+  src/components/atoms/Label/Label.tsx:97
+    fontSize: 'var(--font-size-xs-rem)', // 12px → 0.857rem (responsive)
+
+  src/components/atoms/Label/Label.tsx:108
+    <div style={{ width: '16px', height: '16px', color: 'var(--primary)', flexShrink: 0 }}>
+
+  src/components/atoms/Spacer/Spacer.tsx:23
+    x1: 'h-[var(--x1,4px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:24
+    x2: 'h-[var(--x2,8px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:25
+    x3: 'h-[var(--x3,12px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:26
+    x4: 'h-[var(--x4,16px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:27
+    x5: 'h-[var(--x5,20px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:28
+    x6: 'h-[var(--x6,24px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:29
+    x7: 'h-[var(--x7,28px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:30
+    x8: 'h-[var(--x8,32px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:31
+    x9: 'h-[var(--x9,36px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:32
+    x10: 'h-[var(--x10,40px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:33
+    x11: 'h-[var(--x11,44px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:34
+    x12: 'h-[var(--x12,48px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:38
+    x1: 'w-[var(--x1,4px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:39
+    x2: 'w-[var(--x2,8px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:40
+    x3: 'w-[var(--x3,12px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:41
+    x4: 'w-[var(--x4,16px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:42
+    x5: 'w-[var(--x5,20px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:43
+    x6: 'w-[var(--x6,24px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:44
+    x7: 'w-[var(--x7,28px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:45
+    x8: 'w-[var(--x8,32px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:46
+    x9: 'w-[var(--x9,36px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:47
+    x10: 'w-[var(--x10,40px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:48
+    x11: 'w-[var(--x11,44px)]',
+
+  src/components/atoms/Spacer/Spacer.tsx:49
+    x12: 'w-[var(--x12,48px)]',
+
+  src/components/atoms/Toggle/Toggle.tsx:83
+    sm: 'h-8 px-2 min-w-[32px] text-sm',
+
+  src/components/atoms/Toggle/Toggle.tsx:84
+    md: 'h-10 px-3 min-w-[40px] text-base',
+
+  src/components/atoms/Toggle/Toggle.tsx:85
+    lg: 'h-12 px-4 min-w-[48px] text-lg',
+
+  src/components/atoms/Textarea/TextareaField.tsx:53
+    minHeight: 'min-h-[32px]',
+
+  src/components/atoms/Textarea/TextareaField.tsx:58
+    minHeight: 'min-h-[40px]',
+
+  src/components/atoms/Textarea/TextareaField.tsx:63
+    minHeight: 'min-h-[48px]',
+
+  src/components/atoms/Textarea/TextareaField.tsx:68
+    minHeight: 'min-h-[56px]',
+
+  src/components/atoms/Textarea/TextareaField.tsx:73
+    minHeight: 'min-h-[64px]',
+
+  src/components/atoms/Textarea/TextareaField.tsx:78
+    minHeight: 'min-h-[72px]',
+
+  src/components/atoms/Textarea/TextareaField.tsx:83
+    minHeight: 'min-h-[80px]',
+
+  src/components/atoms/Button/Button.tsx:90
+    * Available sizes: `xxs` (24px), `xs` (32px), `sm` (36px), `md` (40px),
+
+  src/components/atoms/Button/Button.tsx:91
+    * `lg` (48px), `xl` (56px), `xxl` (64px)
+
+  src/components/atoms/Button/Button.tsx:128
+    * - `rounded`: Rounded corners (12px)
+
+  src/components/atoms/Button/Button.tsx:244
+    fontSize: 'text-xs-rem', // 12px → 0.857rem (responsive)
+
+  src/components/atoms/Button/Button.tsx:248
+    width: 'w-6', // 24px for icon-only
+
+  src/components/atoms/Button/Button.tsx:252
+    fontSize: 'text-sm-rem', // 14px → 1rem (responsive)
+
+  src/components/atoms/Button/Button.tsx:256
+    width: 'w-8', // 32px for icon-only
+
+  src/components/atoms/Button/Button.tsx:260
+    fontSize: 'text-md-rem', // 16px → 1.143rem (responsive)
+
+  src/components/atoms/Button/Button.tsx:264
+    width: 'w-9', // 36px for icon-only
+
+  src/components/atoms/Button/Button.tsx:268
+    fontSize: 'text-md-rem', // 16px → 1.143rem (responsive)
+
+  src/components/atoms/Button/Button.tsx:271
+    height: 'h-10', // 40px
+
+  src/components/atoms/Button/Button.tsx:272
+    width: 'w-10', // 40px for icon-only
+
+  src/components/atoms/Button/Button.tsx:276
+    fontSize: 'text-lg-rem', // 20px → 1.429rem (responsive)
+
+  src/components/atoms/Button/Button.tsx:279
+    height: 'h-12', // 48px
+
+  src/components/atoms/Button/Button.tsx:280
+    width: 'w-12', // 48px for icon-only
+
+  src/components/atoms/Button/Button.tsx:284
+    fontSize: 'text-xl-rem', // 24px → 1.714rem (responsive)
+
+  src/components/atoms/Button/Button.tsx:287
+    height: 'h-14', // 56px
+
+  src/components/atoms/Button/Button.tsx:288
+    width: 'w-14', // 56px for icon-only
+
+  src/components/atoms/Button/Button.tsx:292
+    fontSize: 'text-xxl-rem', // 28px → 2rem (responsive)
+
+  src/components/atoms/Button/Button.tsx:295
+    height: 'h-16', // 64px
+
+  src/components/atoms/Button/Button.tsx:296
+    width: 'w-16', // 64px for icon-only
+
+  src/components/atoms/Button/Button.tsx:329
+    "gap-2", // 8px gap consistent across all sizes
+
+  src/components/atoms/Illustration/Illustration.tsx:30
+    xl: 'w-[352px] h-[352px]',
+
+  src/components/atoms/Illustration/Illustration.tsx:35
+    sm: 'rounded-[12px]',
+
+  src/components/atoms/Illustration/Illustration.tsx:36
+    md: 'rounded-[16px]',
+
+  src/components/atoms/Illustration/Illustration.tsx:37
+    lg: 'rounded-[20px]',
+
+  src/components/atoms/Colors/Colors.tsx:69
+    <Typography variant="body-secondary-regular" className="font-mono text-[10px] opacity-70">{color.hex}</Typography>
+
+  src/components/atoms/Colors/Colors.tsx:84
+    <Typography variant="title-primary" className="text-[40px]">Color System</Typography>
+
+  src/components/atoms/Divider/Divider.tsx:115
+    'py-[var(--x4,16px)]',
+
+  src/components/atoms/Divider/Divider.tsx:137
+    <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid rounded-full px-[8px] py-[2px] shrink-0">
+
+  src/components/atoms/Divider/Divider.tsx:162
+    'py-[var(--x4,16px)]',
+
+  src/components/atoms/Avatar/Avatar.tsx:34
+    xxs: "size-[16px] text-[8px]",
+
+  src/components/atoms/Avatar/Avatar.tsx:35
+    xs: "size-[24px] text-[10px]",
+
+  src/components/atoms/Avatar/Avatar.tsx:36
+    sm: "size-[32px] text-xs",
+
+  src/components/atoms/Avatar/Avatar.tsx:37
+    md: "size-[40px] text-sm",
+
+  src/components/atoms/Avatar/Avatar.tsx:38
+    lg: "size-[48px] text-base",
+
+  src/components/atoms/Avatar/Avatar.tsx:39
+    xl: "size-[56px] text-lg",
+
+  src/components/atoms/Avatar/Avatar.tsx:40
+    xxl: "size-[64px] text-xl",
+
+  src/components/atoms/Typography/Typography.tsx:11
+    | 'title-primary'             // 28px, Regular, 140%
+
+  src/components/atoms/Typography/Typography.tsx:12
+    | 'title-secondary'           // 24px, Semibold, 140%
+
+  src/components/atoms/Typography/Typography.tsx:13
+    | 'display-primary'           // 20px, Semibold, 140%
+
+  src/components/atoms/Typography/Typography.tsx:14
+    | 'button'                    // 20px, Medium, 140%
+
+  src/components/atoms/Typography/Typography.tsx:15
+    | 'body-primary-semibold'     // 16px, Semibold, 140%
+
+  src/components/atoms/Typography/Typography.tsx:16
+    | 'body-primary-medium'       // 16px, Medium, 140%
+
+  src/components/atoms/Typography/Typography.tsx:17
+    | 'body-primary-italic'       // 16px, Italic, 140%
+
+  src/components/atoms/Typography/Typography.tsx:18
+    | 'body-primary-regular'      // 16px, Regular, 140%
+
+  src/components/atoms/Typography/Typography.tsx:19
+    | 'body-secondary-semibold'   // 14px, Semibold, 140%
+
+  src/components/atoms/Typography/Typography.tsx:20
+    | 'body-secondary-medium'     // 14px, Medium, 140%
+
+  src/components/atoms/Typography/Typography.tsx:21
+    | 'body-secondary-regular';   // 14px, Regular, 140%
+
+  src/components/atoms/Typography/Typography.tsx:41
+    'title-primary': "text-xxl-rem font-normal leading-[1.4]",                    // Title Primary: 28px → 2rem (responsive)
+
+  src/components/atoms/Typography/Typography.tsx:42
+    'title-secondary': "text-xl-rem font-semibold leading-[1.4]",                // Title Secondary: 24px → 1.714rem (responsive)
+
+  src/components/atoms/Typography/Typography.tsx:43
+    'display-primary': "text-lg-rem font-semibold leading-[1.4]",                // Display Primary: 20px → 1.429rem (responsive)
+
+  src/components/atoms/Typography/Typography.tsx:44
+    'button': "text-lg-rem font-medium leading-[1.4] tracking-[0.0264px]",       // Btn: 20px → 1.429rem (responsive)
+
+  src/components/atoms/Typography/Typography.tsx:45
+    'body-primary-semibold': "text-md-rem font-semibold leading-[1.4]",          // Body Primary Semibold: 16px → 1.143rem (responsive)
+
+  src/components/atoms/Typography/Typography.tsx:46
+    'body-primary-medium': "text-md-rem font-medium leading-[1.4]",              // Body Primary Medium: 16px → 1.143rem (responsive)
+
+  src/components/atoms/Typography/Typography.tsx:47
+    'body-primary-italic': "text-md-rem font-normal italic leading-[1.4]",       // Body Primary Italic: 16px → 1.143rem (responsive)
+
+  src/components/atoms/Typography/Typography.tsx:48
+    'body-primary-regular': "text-md-rem font-normal leading-[1.4]",             // Body Primary Regular: 16px → 1.143rem (responsive)
+
+  src/components/atoms/Typography/Typography.tsx:49
+    'body-secondary-semibold': "text-sm-rem font-semibold leading-[1.4]",        // Body Secondary Semibold: 14px → 1rem (responsive)
+
+  src/components/atoms/Typography/Typography.tsx:50
+    'body-secondary-medium': "text-sm-rem font-medium leading-[1.4]",            // Body Secondary Medium: 14px → 1rem (responsive)
+
+  src/components/atoms/Typography/Typography.tsx:51
+    'body-secondary-regular': "text-sm-rem font-normal leading-[1.4]",           // Body Secondary Regular: 14px → 1rem (responsive)
+
+  src/components/atoms/Switch/SwitchHelper.tsx:42
+    const trackWidth = size === 'sm' ? '30px' : '34px';
+
+  src/components/atoms/Switch/SwitchError.tsx:42
+    const trackWidth = size === 'sm' ? '30px' : '34px';
+
+  src/components/atoms/Switch/SwitchInput.tsx:56
+    track: "w-[30px] h-[16px]",
+
+  src/components/atoms/Switch/SwitchInput.tsx:57
+    thumb: "w-[14px] h-[14px]",
+
+  src/components/atoms/Switch/SwitchInput.tsx:58
+    gap: "gap-[6px]",
+
+  src/components/atoms/Switch/SwitchInput.tsx:61
+    track: "w-[34px] h-[14px]",
+
+  src/components/atoms/Switch/SwitchInput.tsx:62
+    thumb: "w-[20px] h-[20px]",
+
+  src/components/atoms/Switch/SwitchInput.tsx:63
+    gap: "gap-[8px]",
+
+  src/components/atoms/Switch/SwitchInput.tsx:84
+    "absolute top-1/2 transform -translate-y-1/2 rounded-full transition-all duration-200 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.35)]",
+
+  src/components/atoms/Switch/SwitchInput.tsx:87
+    ? "translate-x-[14px]"
+
+  src/components/atoms/Switch/SwitchInput.tsx:88
+    : "translate-x-[-3px]",
+
+  src/components/atoms/SubText/SubText.tsx:26
+    "content-stretch flex gap-[8px] items-center relative size-full",
+
+  src/components/atoms/SubText/SubText.tsx:31
+    <div className="relative shrink-0 size-[16px]">
+
+  src/components/atoms/SubText/SubText.tsx:48
+    "content-stretch flex gap-[10px] items-center justify-center relative size-full",
+
+  src/components/atoms/Text/Text.tsx:44
+    return "body-secondary-regular"; // 14px, Regular
+
+  src/components/atoms/Text/Text.tsx:46
+    return "body-primary-regular";   // 16px, Regular
+
+  src/components/atoms/Text/Text.tsx:48
+    return "body-primary-semibold";  // 16px, Semibold
+
+  src/components/atoms/Text/Text.tsx:50
+    return "display-primary";        // 20px, Semibold
+
+  src/components/atoms/Text/Text.tsx:52
+    return "title-secondary";        // 24px, Semibold
+
+  src/components/atoms/Text/Text.tsx:81
+    * - Subtext + trailing icon: varies by size (xl: 68px, xx: 75px, others: 57px)
+
+  src/components/atoms/Text/Text.tsx:82
+    * - Subtext only: 58px
+
+  src/components/atoms/Text/Text.tsx:83
+    * - No subtext: 57px
+
+  src/components/atoms/Text/Text.tsx:93
+    if (size === "xl") return "w-[68px]";
+
+  src/components/atoms/Text/Text.tsx:94
+    if (size === "xx") return "w-[75px]";
+
+  src/components/atoms/Text/Text.tsx:95
+    return "w-[57px]";
+
+  src/components/atoms/Text/Text.tsx:100
+    return "w-[58px]";
+
+  src/components/atoms/Text/Text.tsx:104
+    return "w-[57px]";
+
+  src/components/atoms/Text/Text.tsx:110
+    if (size === "xl") return "w-[68px]";
+
+  src/components/atoms/Text/Text.tsx:111
+    if (size === "xx") return "w-[75px]";
+
+  src/components/atoms/Text/Text.tsx:112
+    return "w-[56px]";
+
+  src/components/atoms/Text/Text.tsx:114
+    return "w-[56px]";
+
+  src/components/atoms/Text/Text.tsx:154
+    <div className="content-stretch flex gap-[var(--spacing-x2)] h-[22px] items-center relative shrink-0" data-name="Text">
+
+  src/components/atoms/Statistic/StatisticTitle.tsx:41
+    className={cn("content-stretch flex gap-[4px] items-center justify-start relative shrink-0", className)}
+
+  src/components/atoms/Statistic/StatisticValue.tsx:41
+    className={cn("content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-[57px]", className)}
+
+  src/components/atoms/Statistic/Statistic.tsx:47
+    "content-stretch flex flex-col gap-[8px] items-start justify-center relative size-full",
+
+  src/components/atoms/Badge/Badge.tsx:267
+    dot ? "w-2 h-2 p-0 rounded-full min-w-0" : "h-5 px-1.5 rounded-full min-w-[20px]",
+
+  src/components/atoms/Badge/Badge.tsx:268
+    (size === 'sm' || size === 'xs') && !dot && "h-4 min-w-[16px] px-1",
+
+  src/components/atoms/Badge/Badge.tsx:276
+    borderWidth: '1px',
+
+  src/components/atoms/Badge/Badge.tsx:301
+    xs: "text-[0.714rem]", // 10px
+
+  src/components/atoms/Badge/Badge.tsx:302
+    sm: "text-[0.857rem]", // 12px
+
+  src/components/atoms/Badge/Badge.tsx:303
+    md: "text-[1rem]", // 14px
+
+  src/components/atoms/Badge/Badge.tsx:304
+    lg: "text-[1.143rem]" // 16px
+
+  src/components/atoms/Badge/Badge.tsx:416
+    borderWidth: '1px',
+
+  src/components/atoms/FigmaBadge/FigmaBadge.tsx:32
+    <span className="text-[10px]">⚠️</span>
+
+  src/components/charts/RadialChart.tsx:109
+    fontSize: '24px',
+
+  src/components/charts/BaseChart.tsx:38
+    fontSize: '16px',
+
+  src/components/templates/Blocks/Blocks.tsx:119
+    <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
+
+  src/components/templates/Blocks/Blocks.tsx:281
+    <div className="flex flex-col gap-5 w-full max-w-[360px]">
+
+  src/components/templates/Blocks/Blocks.tsx:562
+    <Icon name="star" style={{ width: '16px', height: '16px', color: 'var(--secondary)' }} />
+
+  src/components/templates/Blocks/Blocks.tsx:630
+    <Icon name={"help-circle" as any} style={{ width: '14px', height: '14px' }} className="flex-shrink-0" />
+
+  src/components/templates/Blocks/Blocks.tsx:647
+    width: '16px',
+
+  src/components/templates/Blocks/Blocks.tsx:648
+    height: '16px',
+
+  src/components/templates/Blocks/Blocks.tsx:800
+    className="rounded-[8px]"
+
+  src/components/templates/Blocks/Blocks.tsx:809
+    className="rounded-[8px]"
+
+  src/components/templates/Blocks/Blocks.tsx:815
+    <div className="w-full max-w-[360px] mt-2">
+
+  src/components/templates/Blocks/Blocks.tsx:859
+    className="w-[280px]"
+
+  src/components/templates/Blocks/Blocks.tsx:936
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '20px', marginBottom: '12px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:937
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--x3,12px)' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:942
+    <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:951
+    borderRadius: 'var(--x2,8px)',
+
+  src/components/templates/Blocks/Blocks.tsx:955
+    height: '40px',
+
+  src/components/templates/Blocks/Blocks.tsx:956
+    width: '100px',
+
+  src/components/templates/Blocks/Blocks.tsx:957
+    padding: '0 var(--x3,12px)'
+
+  src/components/templates/Blocks/Blocks.tsx:959
+    <Button variant="text" size="sm" icon="chevron-left" iconPosition="only" style={{ width: '16px', height: '16px', padding: 0 }} />
+
+  src/components/templates/Blocks/Blocks.tsx:961
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/templates/Blocks/Blocks.tsx:964
+    <Button variant="text" size="sm" icon="chevron-right" iconPosition="only" style={{ width: '16px', height: '16px', padding: 0 }} />
+
+  src/components/templates/Blocks/Blocks.tsx:969
+    <div style={{ marginTop: '20px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:975
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:978
+    <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:982
+    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '12px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:983
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:991
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', textAlign: 'right' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:1021
+    bottom: '20px',
+
+  src/components/templates/Blocks/Blocks.tsx:1022
+    right: '20px',
+
+  src/components/templates/Blocks/Blocks.tsx:1023
+    width: '48px',
+
+  src/components/templates/Blocks/Blocks.tsx:1024
+    height: '48px',
+
+  src/components/templates/Blocks/Blocks.tsx:1025
+    borderRadius: '12px',
+
+  src/components/templates/Blocks/Blocks.tsx:2131
+    minWidth: '200px',
+
+  src/components/templates/Blocks/Blocks.tsx:2132
+    maxHeight: '300px',
+
+  src/components/templates/Blocks/Blocks.tsx:2158
+    padding: '10px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2163
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2244
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:2247
+    padding: '0 12px',
+
+  src/components/templates/Blocks/Blocks.tsx:2248
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2250
+    minWidth: '150px',
+
+  src/components/templates/Blocks/Blocks.tsx:2299
+    padding: '8px 0',
+
+  src/components/templates/Blocks/Blocks.tsx:2300
+    minWidth: '200px',
+
+  src/components/templates/Blocks/Blocks.tsx:2301
+    maxHeight: '260px',
+
+  src/components/templates/Blocks/Blocks.tsx:2330
+    padding: '10px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2335
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2359
+    padding: '10px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2363
+    gap: '8px',
+
+  src/components/templates/Blocks/Blocks.tsx:2381
+    <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--primary)' }}>{title}</span>
+
+  src/components/templates/Blocks/Blocks.tsx:2391
+    padding: '10px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2396
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2416
+    padding: '10px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2417
+    margin: '8px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2425
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2461
+    minWidth: '200px',
+
+  src/components/templates/Blocks/Blocks.tsx:2462
+    maxHeight: '300px',
+
+  src/components/templates/Blocks/Blocks.tsx:2477
+    padding: '10px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2482
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2507
+    padding: '10px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2512
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2581
+    <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:2606
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:2612
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2632
+    <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:2638
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:2641
+    padding: '0 10px',
+
+  src/components/templates/Blocks/Blocks.tsx:2642
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2650
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:2653
+    padding: '0 10px',
+
+  src/components/templates/Blocks/Blocks.tsx:2654
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2673
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:2677
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2693
+    <div style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:2699
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:2702
+    padding: '0 10px',
+
+  src/components/templates/Blocks/Blocks.tsx:2703
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2710
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:2714
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2745
+    minWidth: '240px',
+
+  src/components/templates/Blocks/Blocks.tsx:2746
+    maxHeight: '320px',
+
+  src/components/templates/Blocks/Blocks.tsx:2801
+    padding: '16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2805
+    gap: '16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2806
+    minWidth: '280px',
+
+  src/components/templates/Blocks/Blocks.tsx:2810
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:2811
+    <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--tertiary)' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:2814
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:2820
+    width: '40px',
+
+  src/components/templates/Blocks/Blocks.tsx:2821
+    height: '40px',
+
+  src/components/templates/Blocks/Blocks.tsx:2825
+    fontSize: '16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2843
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:2844
+    <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--tertiary)' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:2847
+    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:2851
+    padding: '8px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2855
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2898
+    padding: '8px 0',
+
+  src/components/templates/Blocks/Blocks.tsx:2899
+    minWidth: '200px',
+
+  src/components/templates/Blocks/Blocks.tsx:2900
+    maxHeight: '260px',
+
+  src/components/templates/Blocks/Blocks.tsx:2927
+    padding: '10px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2932
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:2974
+    padding: '12px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:2975
+    minWidth: '280px',
+
+  src/components/templates/Blocks/Blocks.tsx:2978
+    <div style={{ marginBottom: '12px', fontSize: '14px', fontWeight: 600, color: 'var(--primary)' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:2981
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:2991
+    <div style={{ display: 'flex', gap: '8px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3005
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3011
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3031
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3032
+    padding: '0 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:3036
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3071
+    padding: '12px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:3072
+    minWidth: '200px',
+
+  src/components/templates/Blocks/Blocks.tsx:3075
+    <div style={{ marginBottom: '12px', fontSize: '14px', fontWeight: 600, color: 'var(--primary)' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3078
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3084
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3087
+    padding: '0 10px',
+
+  src/components/templates/Blocks/Blocks.tsx:3088
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3104
+    <div style={{ display: 'flex', gap: '8px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3115
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3121
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3140
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3141
+    padding: '0 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:3145
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3212
+    minWidth: '200px',
+
+  src/components/templates/Blocks/Blocks.tsx:3213
+    maxHeight: '300px',
+
+  src/components/templates/Blocks/Blocks.tsx:3223
+    padding: '10px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:3228
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3245
+    return <span style={{ fontSize: '14px', color: 'var(--tertiary)' }}>Add a value</span>;
+
+  src/components/templates/Blocks/Blocks.tsx:3269
+    width: '56px',
+
+  src/components/templates/Blocks/Blocks.tsx:3270
+    height: '34px',
+
+  src/components/templates/Blocks/Blocks.tsx:3272
+    padding: '0 10px',
+
+  src/components/templates/Blocks/Blocks.tsx:3273
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3279
+    height: '34px',
+
+  src/components/templates/Blocks/Blocks.tsx:3280
+    padding: '0 10px',
+
+  src/components/templates/Blocks/Blocks.tsx:3285
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3295
+    height: '34px',
+
+  src/components/templates/Blocks/Blocks.tsx:3296
+    padding: '0 12px',
+
+  src/components/templates/Blocks/Blocks.tsx:3299
+    gap: '8px',
+
+  src/components/templates/Blocks/Blocks.tsx:3305
+    <span style={{ fontSize: '14px', color: 'var(--primary)' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3324
+    gap: '10px',
+
+  src/components/templates/Blocks/Blocks.tsx:3325
+    padding: '0px 12px',
+
+  src/components/templates/Blocks/Blocks.tsx:3326
+    borderRadius: '8px',
+
+  src/components/templates/Blocks/Blocks.tsx:3330
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3336
+    height: '36px',
+
+  src/components/templates/Blocks/Blocks.tsx:3345
+    <span style={{ fontSize: '14px', color: 'var(--primary)', fontWeight: 400 }}>{token.label}</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3360
+    padding: '6px 10px',
+
+  src/components/templates/Blocks/Blocks.tsx:3363
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3366
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3367
+    width: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3396
+    paddingRight: '8px',
+
+  src/components/templates/Blocks/Blocks.tsx:3403
+    padding: '8px',
+
+  src/components/templates/Blocks/Blocks.tsx:3415
+    <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '8px', padding: '8px', flexWrap: 'wrap' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3421
+    minWidth: '70px',
+
+  src/components/templates/Blocks/Blocks.tsx:3422
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3426
+    padding: '0 8px',
+
+  src/components/templates/Blocks/Blocks.tsx:3434
+    <span style={{ fontSize: '14px', color: 'var(--primary)' }}>{condition.logicalOperator || 'And'}</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3443
+    minWidth: '130px',
+
+  src/components/templates/Blocks/Blocks.tsx:3444
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3448
+    padding: '0 8px',
+
+  src/components/templates/Blocks/Blocks.tsx:3456
+    <span style={{ fontSize: '14px', color: 'var(--primary)' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3466
+    minWidth: '50px',
+
+  src/components/templates/Blocks/Blocks.tsx:3467
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3471
+    padding: '0 8px',
+
+  src/components/templates/Blocks/Blocks.tsx:3479
+    <span style={{ fontSize: '14px', color: 'var(--primary)' }}>{operatorLabel}</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3489
+    gap: '6px',
+
+  src/components/templates/Blocks/Blocks.tsx:3493
+    padding: '0 8px',
+
+  src/components/templates/Blocks/Blocks.tsx:3494
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3504
+    width: '60px',
+
+  src/components/templates/Blocks/Blocks.tsx:3507
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3511
+    <span style={{ fontSize: '12px', color: 'var(--tertiary)' }}>AND</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3518
+    width: '60px',
+
+  src/components/templates/Blocks/Blocks.tsx:3521
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3534
+    padding: '0 8px',
+
+  src/components/templates/Blocks/Blocks.tsx:3535
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3545
+    width: '140px',
+
+  src/components/templates/Blocks/Blocks.tsx:3548
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3571
+    width: '110px',
+
+  src/components/templates/Blocks/Blocks.tsx:3572
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3575
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3577
+    padding: '0 8px',
+
+  src/components/templates/Blocks/Blocks.tsx:3587
+    width: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3588
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3606
+    width: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3607
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3634
+    padding: '20px',
+
+  src/components/templates/Blocks/Blocks.tsx:3637
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3640
+    <span style={{ fontSize: '16px', fontWeight: 600, color: 'var(--primary)' }}>{blockLabel}</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3641
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3647
+    gap: '8px',
+
+  src/components/templates/Blocks/Blocks.tsx:3648
+    padding: '8px 16px',
+
+  src/components/templates/Blocks/Blocks.tsx:3655
+    <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--primary)' }}>Add Condition</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3661
+    width: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3662
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3698
+    padding: '16px 20px',
+
+  src/components/templates/Blocks/Blocks.tsx:3702
+    gap: '16px',
+
+  src/components/templates/Blocks/Blocks.tsx:3706
+    <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1, minWidth: '200px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3711
+    width: '40px',
+
+  src/components/templates/Blocks/Blocks.tsx:3712
+    height: '40px',
+
+  src/components/templates/Blocks/Blocks.tsx:3723
+    <span style={{ fontSize: '18px', color: 'var(--primary)', fontWeight: 400 }}>{isCollapsed ? '+' : '−'}</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3728
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:3742
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3749
+    gap: '6px',
+
+  src/components/templates/Blocks/Blocks.tsx:3750
+    padding: '8px 12px',
+
+  src/components/templates/Blocks/Blocks.tsx:3753
+    borderRadius: '1000px',
+
+  src/components/templates/Blocks/Blocks.tsx:3758
+    <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--critical)' }}>Reset</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3766
+    gap: '6px',
+
+  src/components/templates/Blocks/Blocks.tsx:3767
+    padding: '8px 12px',
+
+  src/components/templates/Blocks/Blocks.tsx:3770
+    borderRadius: '1000px',
+
+  src/components/templates/Blocks/Blocks.tsx:3775
+    <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--primary)' }}>Validate</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3781
+    padding: '8px 12px',
+
+  src/components/templates/Blocks/Blocks.tsx:3784
+    borderRadius: '1000px',
+
+  src/components/templates/Blocks/Blocks.tsx:3788
+    <span style={{ fontSize: '14px', fontWeight: 500, color: isDirty ? 'var(--primary)' : 'var(--border-primary)' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3797
+    <div style={{ padding: '20px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3800
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3801
+    <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--primary)' }}>{label} =</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3809
+    width: '36px',
+
+  src/components/templates/Blocks/Blocks.tsx:3810
+    height: '36px',
+
+  src/components/templates/Blocks/Blocks.tsx:3818
+    marginLeft: '12px',
+
+  src/components/templates/Blocks/Blocks.tsx:3841
+    width: '36px',
+
+  src/components/templates/Blocks/Blocks.tsx:3842
+    height: '36px',
+
+  src/components/templates/Blocks/Blocks.tsx:3860
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3861
+    <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--primary)', lineHeight: '32px' }}>{label} =</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3863
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3872
+    width: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3873
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3881
+    marginLeft: '12px',
+
+  src/components/templates/Blocks/Blocks.tsx:3909
+    width: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3910
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3928
+    width: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3929
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3948
+    <div style={{ display: 'flex', gap: '16px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3951
+    <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--primary)', lineHeight: '1.4' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3959
+    <span style={{ fontSize: '20px', fontWeight: 600, color: 'var(--primary)' }}> =</span>
+
+  src/components/templates/Blocks/Blocks.tsx:3963
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3965
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:3982
+    width: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:3983
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:4006
+    height: '40px',
+
+  src/components/templates/Blocks/Blocks.tsx:4013
+    gap: '8px',
+
+  src/components/templates/Blocks/Blocks.tsx:4014
+    padding: '0 20px',
+
+  src/components/templates/Blocks/Blocks.tsx:4019
+    <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--primary)' }}>Add Else If</span>
+
+  src/components/templates/Blocks/Blocks.tsx:4027
+    padding: '20px',
+
+  src/components/templates/Blocks/Blocks.tsx:4030
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:4032
+    <span style={{ fontSize: '16px', fontWeight: 600, color: 'var(--primary)' }}>Else</span>
+
+  src/components/templates/Blocks/Blocks.tsx:4036
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+
+  src/components/templates/Blocks/Blocks.tsx:4037
+    <span style={{ fontSize: '16px', fontWeight: 600, color: 'var(--primary)' }}>{label} =</span>
+
+  src/components/templates/Blocks/Blocks.tsx:4046
+    width: '60px',
+
+  src/components/templates/Blocks/Blocks.tsx:4047
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:4051
+    padding: '0 8px',
+
+  src/components/templates/Blocks/Blocks.tsx:4052
+    fontSize: '14px',
+
+  src/components/templates/Blocks/Blocks.tsx:4059
+    width: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:4060
+    height: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:4079
+    width: '32px',
+
+  src/components/templates/Blocks/Blocks.tsx:4080
+    height: '32px',
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:64
+    'grid gap-[var(--x3,12px)] rounded-[28px] bg-[var(--bg-primary)] py-[var(--x4,16px)] sm:grid-cols-2 lg:grid-cols-4'
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:66
+    pageHeader: cn(horizontalInset, 'flex flex-col gap-[var(--x2,8px)]'),
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:69
+    'flex flex-wrap items-center justify-between gap-[var(--x3,12px)] rounded-[24px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x3,12px)]'
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:71
+    tabs: cn(horizontalInset, 'flex flex-col gap-[var(--x1,4px)]'),
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:72
+    subTabs: cn(horizontalInset, 'flex flex-wrap gap-[var(--x1,4px)]'),
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:75
+    'flex flex-wrap gap-[var(--x2,8px)] rounded-[24px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x3,12px)]'
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:79
+    'flex flex-wrap items-center justify-between gap-[var(--x3,12px)] rounded-[28px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x4,16px)]'
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:81
+    footer: cn(horizontalInset, 'pt-[var(--x4,16px)] pb-[var(--x8,32px)]'),
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:85
+    stack: cn(horizontalInset, 'w-full pb-[var(--x8,32px)]'),
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:88
+    'grid w-full gap-[var(--x4,16px)] pb-[var(--x8,32px)] sm:grid-cols-2 xl:grid-cols-3'
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:92
+    'grid w-full gap-[var(--x4,16px)] pb-[var(--x8,32px)] lg:grid-cols-[minmax(300px,360px)_1fr]'
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:98
+    'flex flex-col gap-[var(--x2,8px)] rounded-[24px] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-[var(--x4,16px)] shadow-[0px_1px_3px_rgba(15,23,42,0.08)]',
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:99
+    card: 'flex flex-col gap-[var(--x3,12px)]',
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:100
+    custom: 'flex flex-col gap-[var(--x3,12px)]',
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:215
+    <div className="flex min-w-0 flex-col gap-[var(--x3,12px)]">
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:220
+    'flex min-w-0 flex-col gap-[var(--x3,12px)]',
+
+  src/components/templates/ListingLayout/ListingLayout.tsx:272
+    className={cn('flex w-full flex-col gap-[var(--x5,20px)]', className)}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:56
+    <div className="bg-[var(--color-bg-primary)] h-[568px] relative rounded-[var(--radius-xl)] shrink-0 w-full">
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:57
+    <div className="content-stretch flex flex-col h-[568px] items-start justify-start overflow-clip relative w-full">
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:61
+    <div className="h-[var(--spacing-x9)] relative shrink-0 w-[218px]">
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:73
+    <div className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x5)] h-[492px] items-start justify-start px-[var(--spacing-x5)] py-0 relative shrink-0 w-full">
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:77
+    <div className="box-border content-stretch flex flex-col gap-[var(--spacing-x3)] h-[492px] items-start justify-start overflow-clip px-0 py-[var(--spacing-x5)] relative shrink-0 w-[263px]">
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:78
+    <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] h-[472px] items-start justify-start overflow-x-clip overflow-y-auto relative shrink-0 w-full">
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:89
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:104
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:118
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:133
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:141
+    <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-[263px]">
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:148
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:162
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:170
+    <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-[263px]">
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:177
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:191
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:205
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:227
+    {/* 14px → 1rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:238
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:248
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:259
+    {/* 14px → 1rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:270
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:281
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:292
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:301
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:314
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:325
+    {/* 14px → 1rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:336
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:347
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:358
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:369
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:388
+    <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--color-primary)] text-[0px] text-nowrap tracking-[0.0264px]">
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:399
+    <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--color-neutral)] text-nowrap tracking-[0.0264px]" style={{ fontSize: 'var(--font-size-lg-rem)' }}>
+
+  src/components/organisms/NavigationMenu/NavigationMenu.tsx:400
+    {/* 20px → 1.429rem (responsive) */}
+
+  src/components/organisms/Tabs/Tabs.tsx:30
+    // Determine gap based on content - 8px for most, 4px when notification is present
+
+  src/components/organisms/Tabs/Tabs.tsx:64
+    <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[24px] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
+
+  src/components/organisms/Tabs/Tabs.tsx:71
+    <div className="relative shrink-0 size-[6px]">
+
+  src/components/organisms/Tabs/Tabs.tsx:115
+    "relative flex flex-col gap-[10px] items-start transition-all cursor-pointer flex-shrink-0",
+
+  src/components/organisms/Tabs/Tabs.tsx:126
+    type === 'tertiary' && "rounded-[100px]",
+
+  src/components/organisms/Tabs/TabsTrigger.tsx:101
+    "relative flex flex-col gap-[10px] items-start transition-all cursor-pointer flex-shrink-0",
+
+  src/components/organisms/Tabs/TabsTrigger.tsx:108
+    type === 'tertiary' && "rounded-[100px]",
+
+  src/components/organisms/Tabs/TabsTrigger.tsx:179
+    <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[24px] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
+
+  src/components/organisms/Tabs/TabsTrigger.tsx:186
+    <div className="relative shrink-0 size-[6px]">
+
+  src/components/organisms/Tabs/TabsTrigger.tsx:225
+    <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[24px] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
+
+  src/components/organisms/Tabs/TabsTrigger.tsx:232
+    <div className="relative shrink-0 size-[6px]">
+
+  src/components/organisms/Tabs/TabsList.tsx:67
+    className={cn("flex items-center gap-[12px]", className)}
+
+  src/components/organisms/Drawer/GridDrawer.tsx:24
+    * - Desktop (>1440px): 20px margin, 20px gaps
+
+  src/components/organisms/Drawer/GridDrawer.tsx:25
+    * - Tablet (<1440px): 16px margin, 16px gaps
+
+  src/components/organisms/Drawer/GridDrawer.tsx:26
+    * - Mobile: 4-column grid, 16px gaps and margin
+
+  src/components/organisms/Drawer/GridDrawer.tsx:95
+    --drawer-margin: 20px;
+
+  src/components/organisms/Drawer/GridDrawer.tsx:96
+    --drawer-gap: 20px;
+
+  src/components/organisms/Drawer/GridDrawer.tsx:111
+    @media (max-width: 1440px) {
+
+  src/components/organisms/Drawer/GridDrawer.tsx:113
+    --drawer-margin: 16px;
+
+  src/components/organisms/Drawer/GridDrawer.tsx:114
+    --drawer-gap: 16px;
+
+  src/components/organisms/Drawer/GridDrawer.tsx:118
+    @media (max-width: 768px) {
+
+  src/components/organisms/Drawer/GridDrawer.tsx:120
+    --drawer-margin: 16px;
+
+  src/components/organisms/Drawer/GridDrawer.tsx:121
+    --drawer-gap: 16px;
+
+  src/components/organisms/Drawer/GridDrawer.tsx:170
+    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
+
+  src/components/organisms/Drawer/DrawerContent.tsx:29
+    * CSS value (e.g., "400px", "50%") or number (pixels)
+
+  src/components/organisms/Drawer/DrawerContent.tsx:36
+    * CSS value (e.g., "300px", "50vh") or number (pixels)
+
+  src/components/organisms/Footer/Footer.tsx:63
+    "px-5 py-4 gap-[366px] max-w-full overflow-x-auto",
+
+  src/components/organisms/Footer/Footer.tsx:111
+    className={cn("min-w-[188px] h-12", className)}
+
+  src/components/organisms/QuickFilters/QuickFilters.tsx:128
+    "inline-flex items-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] h-[34px] rounded-[var(--radius-md)] cursor-pointer transition-all duration-200",
+
+  src/components/organisms/QuickFilters/QuickFilters.tsx:190
+    <div className="flex items-center justify-center w-[14px] h-full ml-[var(--spacing-x1)]">
+
+  src/components/organisms/QuickFilters/QuickFilters.tsx:232
+    <div className={cn("inline-flex items-center h-[36px] rounded-[var(--radius-md)] overflow-hidden", getGlassClasses(resolvedGlass, "bg-[var(--color-bg-primary)]", "border border-[var(--color-border-primary)]"))}>
+
+  src/components/organisms/QuickFilters/QuickFilters.tsx:252
+    {index > 0 && <div className="w-px h-[36px] bg-[var(--color-border-primary)]" />}
+
+  src/components/organisms/QuickFilters/QuickFilters.tsx:358
+    "box-border h-[36px] flex items-center px-[var(--spacing-x1)] py-0 rounded-[var(--radius-md)]",
+
+  src/components/organisms/Result/Result.tsx:71
+    className="text-[72px] font-bold leading-none"
+
+  src/components/organisms/Card/sub-components/CardSkeleton.tsx:41
+    <Skeleton height="24px" width="30%" className="mb-4" />
+
+  src/components/organisms/Card/sub-components/CardSkeleton.tsx:42
+    <Skeleton height="16px" className="mb-2" />
+
+  src/components/organisms/Card/sub-components/CardSkeleton.tsx:43
+    <Skeleton height="16px" className="mb-2" />
+
+  src/components/organisms/Card/sub-components/CardSkeleton.tsx:44
+    <Skeleton height="16px" width="80%" />
+
+  src/components/organisms/Card/Card.tsx:186
+    //     <Divider>                    ← full-width line, py-x4 (16px)
+
+  src/components/organisms/Card/Card.tsx:187
+    //     <Spacer size="x5">          ← 20px gap
+
+  src/components/organisms/Card/Card.tsx:251
+    //   Image (no padding): bg #f6f5fa, h-175px, full-bleed
+
+  src/components/organisms/Card/Card.tsx:252
+    //   Image (padding):    bg white, border, h-175px, px-x4, rounded top corners, image rounded-x2
+
+  src/components/organisms/Card/Card.tsx:254
+    //   Icon (padding):     bg white, border, pt-x4 px-x4, small 16px icon
+
+  src/components/organisms/Card/Card.tsx:287
+    isImage && !padding && "bg-[#f6f5fa] h-[175px] items-center",
+
+  src/components/organisms/Card/Card.tsx:288
+    isImage && padding && "bg-[var(--bg-primary)] h-[175px] items-center pt-0 px-[var(--spacing-x4)] rounded-tl-[var(--radius-md)] rounded-tr-[var(--radius-md)]",
+
+  src/components/organisms/Card/Card.tsx:457
+    <Skeleton height="24px" width="30%" className="mb-4" />
+
+  src/components/organisms/Card/Card.tsx:458
+    <Skeleton height="16px" className="mb-2" />
+
+  src/components/organisms/Card/Card.tsx:459
+    <Skeleton height="16px" className="mb-2" />
+
+  src/components/organisms/Card/Card.tsx:460
+    <Skeleton height="16px" />
+
+  src/components/organisms/Card/Card.tsx:475
+    isAdvanced && "shadow-[0px_4px_8px_0px_rgba(0,0,0,0.1)]",
+
+  src/components/organisms/Card/CardFooter.tsx:28
+    * - Full-width divider with py-x4 (16px) vertical rhythm
+
+  src/components/organisms/Card/CardFooter.tsx:29
+    * - Spacer (x5 = 20px)
+
+  src/components/organisms/Card/CardFooter.tsx:46
+    {/* Divider — matches Figma py-x4 (16px) rhythm */}
+
+  src/components/organisms/FileCard/FileCard.tsx:296
+    <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-[var(--glass-hover)]"))}>
+
+  src/components/organisms/FileCard/FileCard.tsx:302
+    <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-[var(--glass-hover)]"))}>
+
+  src/components/organisms/FileCard/FileCard.tsx:308
+    <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-[var(--glass-hover)]"))}>
+
+  src/components/organisms/FileThumbnail/FileThumbnail.tsx:47
+    "flex flex-col gap-[4px] items-start w-[80px]",
+
+  src/components/organisms/FileThumbnail/FileThumbnail.tsx:56
+    <div className="relative shrink-0 size-[80px] rounded-[8px] overflow-hidden group">
+
+  src/components/organisms/FileThumbnail/FileThumbnail.tsx:63
+    className="absolute inset-0 max-w-none object-cover object-center pointer-events-none rounded-[8px] size-full"
+
+  src/components/organisms/FileThumbnail/FileThumbnail.tsx:67
+    <div className="absolute inset-0 bg-[rgba(67,79,100,0.8)] rounded-[8px] pointer-events-none" />
+
+  src/components/organisms/FileThumbnail/FileThumbnail.tsx:71
+    <div className="flex items-center justify-center size-full px-[16px] py-[14px]">
+
+  src/components/organisms/FileThumbnail/FileThumbnail.tsx:89
+    className="absolute left-[calc(50%-15px)] top-[calc(50%-12px)] translate-x-[-50%] translate-y-[-50%] size-[20px] flex items-center justify-center z-10 hover:opacity-80 transition-opacity text-[var(--overlay-control-text)]"
+
+  src/components/organisms/FileThumbnail/FileThumbnail.tsx:101
+    className="absolute left-[calc(50%+15px)] top-[calc(50%-12px)] translate-x-[-50%] translate-y-[-50%] size-[20px] flex items-center justify-center z-10 hover:opacity-80 transition-opacity text-[var(--overlay-control-text)]"
+
+  src/components/organisms/FileThumbnail/FileThumbnail.tsx:114
+    {/* 14px → 1rem (responsive) */}
+
+  src/components/organisms/AppHeader/AppHeader.tsx:220
+    getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
+
+  src/components/organisms/AppHeader/AppHeader.tsx:232
+    <div className="bg-[var(--bg-primary)] rounded-full p-4 flex items-center justify-center w-[54px] h-[54px]">
+
+  src/components/organisms/AppHeader/AppHeader.tsx:240
+    <div className="h-7 w-[190.242px]">
+
+  src/components/organisms/AppHeader/AppHeader.tsx:254
+    width: '24px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:255
+    height: '24px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:270
+    width: '24px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:271
+    height: '24px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:299
+    getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-4 py-[13px] w-full max-w-[1440px] h-16",
+
+  src/components/organisms/AppHeader/AppHeader.tsx:308
+    gap: '20px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:322
+    <div className="h-7 w-[163px]">
+
+  src/components/organisms/AppHeader/AppHeader.tsx:331
+    gap: '16px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:337
+    gap: '36px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:342
+    width: '20px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:343
+    height: '20px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:358
+    width: '20px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:359
+    height: '20px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:387
+    getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-4 py-[13px] w-full max-w-[1200px] h-12",
+
+  src/components/organisms/AppHeader/AppHeader.tsx:396
+    gap: '20px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:404
+    borderRadius: '100px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:405
+    padding: '16px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:409
+    width: '32px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:410
+    height: '32px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:420
+    <div className="h-[18px] w-[142px]">
+
+  src/components/organisms/AppHeader/AppHeader.tsx:429
+    gap: '16px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:435
+    gap: '36px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:440
+    width: '20px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:441
+    height: '20px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:456
+    width: '20px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:457
+    height: '20px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:473
+    {renderUserProfileSection({ triggerClassName: 'h-[36px]' })}
+
+  src/components/organisms/AppHeader/AppHeader.tsx:485
+    getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center p-3 w-full max-w-[360px]",
+
+  src/components/organisms/AppHeader/AppHeader.tsx:501
+    <div className="h-7 w-[186.242px]">
+
+  src/components/organisms/AppHeader/AppHeader.tsx:513
+    gap: '36px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:518
+    width: '24px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:519
+    height: '24px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:546
+    getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
+
+  src/components/organisms/AppHeader/AppHeader.tsx:555
+    <div className="bg-[var(--bg-primary)] rounded-full p-4 flex items-center justify-center w-[54px] h-[54px]">
+
+  src/components/organisms/AppHeader/AppHeader.tsx:562
+    <div className="h-7 w-[190.242px]">
+
+  src/components/organisms/AppHeader/AppHeader.tsx:576
+    width: '24px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:577
+    height: '24px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:592
+    width: '24px',
+
+  src/components/organisms/AppHeader/AppHeader.tsx:593
+    height: '24px',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:50
+    xxs: "w-[13px] h-[16px]",
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:51
+    xs: "w-[20px] h-[24px]",
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:52
+    sm: "w-[26px] h-[32px]",
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:53
+    md: "w-[33px] h-[40px]",
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:54
+    lg: "w-[39px] h-[48px]",
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:55
+    xl: "w-[46px] h-[56px]",
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:56
+    xxl: "w-[52px] h-[64px]"
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:61
+    xxs: '6px',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:62
+    xs: '8px',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:63
+    sm: '10px',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:64
+    md: '13px',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:65
+    lg: '16px',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:66
+    xl: '18px',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:67
+    xxl: '20px'
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:72
+    xxs: 'text-[8px]', // Non-standard size, keeping px
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:73
+    xs: 'text-[10px]', // Non-standard size, keeping px
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:74
+    sm: 'text-xs-rem', // 12px → 0.857rem (responsive)
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:75
+    md: 'text-sm-rem', // 14px → 1rem (responsive)
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:76
+    lg: 'text-md-rem', // 16px → 1.143rem (responsive)
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:77
+    xl: 'text-[18px]', // Non-standard size, keeping px
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:78
+    xxl: 'text-lg-rem' // 20px → 1.429rem (responsive)
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:148
+    xxs: 'bottom-[2px]',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:149
+    xs: 'bottom-[3px]',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:150
+    sm: 'bottom-[4px]',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:151
+    md: 'bottom-[6px]',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:152
+    lg: 'bottom-[7px]',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:153
+    xl: 'bottom-[8px]',
+
+  src/components/organisms/FileTypeIcon/FileTypeIcon.tsx:154
+    xxl: 'bottom-[10px]'
+
+  src/components/organisms/DataEntryTable/DataEntryTableCellInput.tsx:96
+    boxShadow: '0px 0px 0px 2px var(--border-primary)',
+
+  src/components/organisms/DataEntryTable/DataEntryTableCellInput.tsx:102
+    boxShadow: '0px 0px 0px 2px var(--critical-light)',
+
+  src/components/organisms/DataEntryTable/DataEntryTableCellDropdown.tsx:111
+    boxShadow: '0px 0px 0px 2px var(--border-primary)',
+
+  src/components/organisms/DataEntryTable/DataEntryTableCellDropdown.tsx:117
+    boxShadow: '0px 0px 0px 2px var(--critical-light)',
+
+  src/components/organisms/DataEntryTable/DataEntryTableCellDropdown.tsx:212
+    <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--radius-md)] shadow-lg overflow-y-auto" style={{ maxHeight: 'var(--x20, 80px)' }}>
+
+  src/components/organisms/DataEntryTable/DataEntryTableCellContextMenu.tsx:58
+    "min-w-[var(--x20,80px)]",
+
+  src/components/organisms/DataEntryTable/DataEntryTableRowCell.tsx:223
+    <td className="bg-transparent p-0" style={{ width: 'var(--x1, 4px)' }} />
+
+  src/components/organisms/DataEntryTable/DataEntryTableHeaderCell.tsx:47
+    *   <DataEntryTableHeaderCell columnKey="name" width="200px">
+
+  src/components/organisms/DataEntryTable/DataEntryTableHeaderCell.tsx:80
+    width: 'var(--x12, 48px)',
+
+  src/components/organisms/DataEntryTable/DataEntryTableHeaderCell.tsx:81
+    height: '50px',
+
+  src/components/organisms/DataEntryTable/DataEntryTableHeaderCell.tsx:82
+    paddingLeft: 'var(--x5, 20px)',
+
+  src/components/organisms/DataEntryTable/DataEntryTableHeaderCell.tsx:83
+    paddingRight: 'var(--x2, 8px)',
+
+  src/components/organisms/DataEntryTable/DataEntryTableHeaderCell.tsx:101
+    height: '50px',
+
+  src/components/organisms/DataEntryTable/DataEntryTableHeaderCell.tsx:112
+    style={{ width: 'var(--x1, 4px)' }}
+
+  src/components/organisms/DataEntryTable/DataEntryTableHeaderCell.tsx:124
+    style={{ width: 'var(--x1, 4px)' }}
+
+  src/components/organisms/DataEntryTable/DataEntryTableCellActions.tsx:40
+    style={{ height: 'var(--x6, 24px)' }}
+
+  src/components/organisms/DataEntryTable/DataEntryTableCellActions.tsx:72
+    style={{ height: 'var(--x6, 24px)' }}
+
+  src/components/organisms/DataEntryTable/DataEntryTableRowCheckbox.tsx:53
+    width: 'var(--x12, 48px)',
+
+  src/components/organisms/DataEntryTable/DataEntryTableRowCheckbox.tsx:54
+    height: 'var(--component-height-md, 40px)',
+
+  src/components/organisms/DataEntryTable/DataEntryTableRowCheckbox.tsx:71
+    style={{ height: '19px' }}
+
+  src/components/organisms/DataEntryTable/DataEntryTableCellAmount.tsx:100
+    boxShadow: '0px 0px 0px 2px var(--border-primary)',
+
+  src/components/organisms/DataEntryTable/DataEntryTableCellAmount.tsx:106
+    boxShadow: '0px 0px 0px 2px var(--critical-light)',
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:53
+    "box-border content-stretch flex gap-[20px] items-start px-[0px] py-0 relative size-full",
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:70
+    "box-border content-stretch flex gap-[20px] items-start px-[20px] py-0 relative size-full",
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:90
+    "box-border content-stretch flex gap-[20px] items-start px-[0px] py-0 relative size-full",
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:96
+    <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:99
+    <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:110
+    "box-border content-stretch flex flex-col gap-[0px] items-start px-[20px] py-0 relative size-full",
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:116
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:120
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:131
+    "box-border content-stretch flex flex-col gap-[0px] items-start px-[0px] py-0 relative size-full",
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:137
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:141
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:152
+    "box-border content-stretch flex gap-[20px] items-start px-[20px] py-0 relative size-full",
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:158
+    <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:161
+    <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:164
+    <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:175
+    "box-border content-stretch flex gap-[20px] items-start px-[0px] py-0 relative size-full",
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:181
+    <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:184
+    <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:187
+    <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:198
+    "box-border content-stretch flex flex-col gap-[0px] items-start px-[20px] py-0 relative size-full",
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:204
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:208
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:212
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:223
+    "box-border content-stretch flex flex-col gap-[0px] items-start px-[0px] py-0 relative size-full",
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:229
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:233
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:237
+    <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0 w-full">
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:248
+    "box-border content-stretch flex gap-[20px] items-start px-[20px] py-0 relative size-full",
+
+  src/components/organisms/DisplayBlock/DisplayBlock.tsx:254
+    <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:386
+    <div className="w-full lg:w-[452px]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:397
+    <div className="border border-[var(--border-primary)] rounded-[var(--x4,16px)] bg-[var(--bg-secondary)] p-[var(--x4,16px)] min-h-[352px]" />
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:403
+    <div className="border border-[var(--border-secondary)] rounded-[var(--x2,8px)] px-[var(--x5,20px)] py-[var(--x3,12px)] flex flex-col gap-[var(--x2,8px)] bg-[var(--bg-primary)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:425
+    <div className="border border-[var(--border-secondary)] rounded-[var(--x2,8px)] px-[var(--x5,20px)] py-[var(--x3,12px)] flex items-center justify-between gap-4 bg-[var(--bg-primary)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:426
+    <div className="flex flex-col gap-[var(--x1,4px)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:441
+    <div className="border border-[var(--border-secondary)] rounded-[var(--x2,8px)] px-[var(--x5,20px)] py-[var(--x3,12px)] flex flex-col gap-[var(--x2,8px)] bg-[var(--bg-primary)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:459
+    <div className="flex flex-col gap-[var(--x4,16px)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:460
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-[var(--x3,12px)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:464
+    className="bg-[var(--bg-primary)] rounded-[var(--x2,8px)] p-[var(--x3,12px)] flex flex-col gap-[var(--x3,12px)]"
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:471
+    <div className="flex flex-col gap-[var(--x2,8px)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:478
+    'flex items-center justify-between rounded-[var(--x2,8px)] px-[var(--x3,12px)] py-[var(--x2,8px)] transition-colors text-left',
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:485
+    <div className="flex flex-col gap-[var(--x1,4px)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:486
+    <div className="flex items-center gap-[var(--x2,8px)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:534
+    <div className="flex flex-col gap-[var(--x4,16px)] flex-1">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:536
+    <div className="flex flex-col gap-[var(--x3,12px)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:543
+    <div className={cn('grid gap-[var(--x3,12px)] grid-cols-1', columnClass)}>
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:706
+    <div className="h-[36px] w-[190px]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:709
+    <div className="flex items-center gap-[var(--x2,8px)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:737
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:751
+    ? cn(getGlassClasses(resolvedGlass), 'rounded-[var(--x5,20px)] p-[var(--x2,8px)]')
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:752
+    : 'bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-[var(--x5,20px)] p-[var(--x2,8px)] shadow-lg',
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:759
+    <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--x4,16px)] flex flex-col">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:760
+    <div className="flex items-center justify-between px-[var(--x5,20px)] py-[var(--x5,20px)] border-b border-[var(--border-primary)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:764
+    <div className="flex flex-col lg:flex-row gap-[var(--x5,20px)] px-[var(--x5,20px)] py-[var(--x5,20px)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:765
+    <div className="w-full lg:w-[263px] flex-shrink-0">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:766
+    <nav aria-label="Primary navigation" className="flex flex-col gap-[12px] max-h-[472px] overflow-y-auto pr-1">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:776
+    'flex items-center justify-between rounded-[var(--x2,8px)] px-[var(--x3,12px)] py-[var(--x3,12px)] transition-colors text-left',
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:783
+    <div className="flex items-center gap-[var(--x2,8px)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:801
+    <div className="flex-1 min-h-[320px]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:807
+    'flex flex-col gap-[var(--x5,20px)]',
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:812
+    <div className="flex-1 flex flex-col gap-[var(--x3,12px)]">
+
+  src/components/organisms/NavigationPopover/NavigationPopover.tsx:831
+    <div className="px-[var(--x5,20px)] py-[var(--x3,12px)] flex items-center justify-between gap-[var(--x2,8px)] flex-wrap">
+
+  src/components/organisms/NavigationPopover/NavigationLauncher.tsx:59
+    className="rounded-full border border-[var(--border-primary)] p-[10px] bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)] transition"
+
+  src/components/organisms/NavigationPopover/NavigationLauncher.tsx:90
+    className="max-w-[1200px] w-full"
+
+  src/components/organisms/Table/TableCell.tsx:145
+    case 'md': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // 8px left, 16px right
+
+  src/components/organisms/Table/TableCell.tsx:146
+    case 'lg': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // 8px left, 16px right
+
+  src/components/organisms/Table/TableCell.tsx:147
+    case 'xl': return "pl-[var(--spacing-x2)] pr-[var(--spacing-x5)]"; // 8px left, 24px right
+
+  src/components/organisms/Table/TableCell.tsx:148
+    default: return "pl-[var(--spacing-x2)] pr-[var(--spacing-x4)]"; // 8px left, 16px right
+
+  src/components/organisms/Table/TableCell.tsx:202
+    "min-h-[19px]"
+
+  src/components/organisms/Table/TableTypes.ts:31
+    * Example: "200px", "20%", "auto"
+
+  src/components/organisms/Table/TableHeaderItem.tsx:107
+    // Base styles from Figma - Responsive height: 40px default, 48px for >= 1440px
+
+  src/components/organisms/Table/TableCellItem.tsx:32
+    // Base layout from Figma: row with center alignment and 8px gap
+
+  src/components/organisms/UserProfile/UserProfile.tsx:31
+    const baseContainer = 'bg-[var(--bg-primary)] box-border content-stretch flex rounded-[var(--x2,8px)]';
+
+  src/components/organisms/UserProfile/UserProfile.tsx:32
+    const avatarClass = 'content-stretch flex gap-[12px] items-center justify-center relative shrink-0 size-[40px] cursor-pointer';
+
+  src/components/organisms/UserProfile/UserProfile.tsx:54
+    const containerClassName = cn(baseContainer, getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', ''), companyName ? 'gap-[15px] items-center p-[var(--x2,8px)]' : 'gap-[10px] items-center justify-center overflow-clip p-[var(--x2,8px)]', className);
+
+  src/components/organisms/UserProfile/UserProfile.tsx:78
+    <div className="h-[26px] relative shrink-0 w-[155px] flex items-center">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:56
+    top: 'calc(100% + 12px)',
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:68
+    'flex flex-col items-center overflow-hidden px-0 py-[20px] rounded-[var(--x2,8px)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] w-[400px]',
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:75
+    <div className="flex flex-col gap-[20px] items-start justify-center px-[var(--x5,20px)] py-0 w-full">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:76
+    <div className="flex gap-[var(--x5,20px)] items-center w-full">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:81
+    className="flex items-center justify-center size-[56px] shrink-0"
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:83
+    <div className="flex flex-1 flex-col gap-[var(--x2,8px)] items-start min-w-0">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:88
+    <div className="bg-[var(--border-secondary)] flex gap-[8px] items-center justify-center px-[8px] py-[2px] rounded-[var(--x1,4px)] shrink-0">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:107
+    <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:108
+    <div className="flex-1 h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:114
+    <div className="box-border content-stretch flex flex-col gap-[16px] items-start px-[var(--x5,20px)] py-0 relative shrink-0 w-full">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:119
+    className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[10px] items-center p-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:121
+    <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] relative shrink-0 size-[16px]">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:130
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:138
+    <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:139
+    <div className="flex-1 h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:147
+    className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[10px] items-center px-[32px] py-[var(--x3,12px)] relative rounded-[var(--x2,8px)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:149
+    <div className="max-h-[28px] max-w-[28px] min-h-[16px] min-w-[16px] overflow-clip relative shrink-0 size-[16px]">
+
+  src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx:158
+    {/* 16px → 1.143rem (responsive) */}
+
+  src/components/organisms/Modal/ModalContent.tsx:10
+    sm: '400px',
+
+  src/components/organisms/Modal/ModalContent.tsx:11
+    md: '520px',
+
+  src/components/organisms/Modal/ModalContent.tsx:12
+    lg: '720px',
+
+  src/components/organisms/Modal/ModalContent.tsx:13
+    xl: '960px',
+
+  src/lib/hooks/useMediaQuery.ts:8
+    * @param query - Media query string (e.g., "(max-width: 1200px)")
+
+  src/lib/hooks/useMediaQuery.ts:13
+    * const isMobile = useMediaQuery('(max-width: 1200px)');
+
+  src/showcase/FTImprovementDemo.tsx:52
+    <label style={{ fontSize: '12px', fontWeight: 600, color: '#6a6a6a', marginBottom: '6px', display: 'block' }}>
+
+  src/showcase/FTImprovementDemo.tsx:55
+    <div style={{ fontSize: '14px', color: '#1a1a1a' }}>
+
+  src/showcase/FTImprovementDemo.tsx:62
+    padding: '8px 16px',
+
+  src/showcase/FTImprovementDemo.tsx:65
+    borderRadius: '4px',
+
+  src/showcase/FTImprovementDemo.tsx:69
+    gap: '8px'
+
+  src/showcase/FTImprovementDemo.tsx:71
+    <span style={{ fontSize: '16px' }}>+</span>
+
+  src/showcase/FTImprovementDemo.tsx:99
+    <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }}>🔍</span>
+
+  src/showcase/FTImprovementDemo.tsx:104
+    paddingLeft: '36px',
+
+  src/showcase/FTImprovementDemo.tsx:105
+    paddingRight: '12px',
+
+  src/showcase/FTImprovementDemo.tsx:106
+    paddingTop: '8px',
+
+  src/showcase/FTImprovementDemo.tsx:107
+    paddingBottom: '8px',
+
+  src/showcase/FTImprovementDemo.tsx:109
+    borderRadius: '4px',
+
+  src/tokens/design-tokens.ts:399
+    shadow: '0 4px 30px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04)',
+
+  src/tokens/design-tokens.ts:400
+    shadowLg: '0 8px 40px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06)',
+
+  src/tokens/design-tokens.ts:401
+    blur: '16px',
+
+  src/tokens/design-tokens.ts:402
+    blurLg: '24px',
+
+  src/tokens/design-tokens.ts:403
+    blurSm: '8px',
+
+  src/tokens/design-tokens.ts:412
+    shadow: '0 4px 30px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.15)',
+
+  src/tokens/design-tokens.ts:413
+    shadowLg: '0 8px 40px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.2)',
+
+  src/tokens/design-tokens.ts:414
+    blur: '20px',
+
+  src/tokens/design-tokens.ts:415
+    blurLg: '28px',
+
+  src/tokens/design-tokens.ts:416
+    blurSm: '10px',
+
+  src/tokens/design-tokens.ts:425
+    shadow: '0 4px 30px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.2)',
+
+  src/tokens/design-tokens.ts:426
+    shadowLg: '0 8px 40px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.25)',
+
+  src/tokens/design-tokens.ts:427
+    blur: '24px',
+
+  src/tokens/design-tokens.ts:428
+    blurLg: '32px',
+
+  src/tokens/design-tokens.ts:429
+    blurSm: '12px',
+
+  src/tokens/design-tokens.ts:446
+    // Desktop (>1440px)
+
+  src/tokens/design-tokens.ts:448
+    sm: '14px',
+
+  src/tokens/design-tokens.ts:449
+    md: '16px',
+
+  src/tokens/design-tokens.ts:450
+    lg: '20px',
+
+  src/tokens/design-tokens.ts:451
+    xl: '24px',
+
+  src/tokens/design-tokens.ts:452
+    xxl: '28px',
+
+  src/tokens/design-tokens.ts:454
+    // Tablet (1440-800px)
+
+  src/tokens/design-tokens.ts:456
+    sm: '12px',
+
+  src/tokens/design-tokens.ts:457
+    md: '14px',
+
+  src/tokens/design-tokens.ts:458
+    lg: '18px',
+
+  src/tokens/design-tokens.ts:459
+    xl: '21px',
+
+  src/tokens/design-tokens.ts:460
+    xxl: '26px',
+
+  src/tokens/design-tokens.ts:462
+    // Rem values (responsive - base: 14px, scales to 16px at >1440px)
+
+  src/tokens/design-tokens.ts:464
+    xs: '0.857rem',   // 12px / 14px
+
+  src/tokens/design-tokens.ts:465
+    sm: '1rem',       // 14px / 14px
+
+  src/tokens/design-tokens.ts:466
+    md: '1.143rem',   // 16px / 14px
+
+  src/tokens/design-tokens.ts:467
+    lg: '1.429rem',   // 20px / 14px
+
+  src/tokens/design-tokens.ts:468
+    xl: '1.714rem',   // 24px / 14px
+
+  src/tokens/design-tokens.ts:469
+    xxl: '2rem',      // 28px / 14px
+
+  src/tokens/design-tokens.ts:481
+    x0: '0px',
+
+  src/tokens/design-tokens.ts:482
+    x1: '4px',
+
+  src/tokens/design-tokens.ts:483
+    x2: '8px',
+
+  src/tokens/design-tokens.ts:484
+    x3: '12px',
+
+  src/tokens/design-tokens.ts:485
+    x4: '16px',
+
+  src/tokens/design-tokens.ts:486
+    x5: '20px',
+
+  src/tokens/design-tokens.ts:487
+    x6: '24px',
+
+  src/tokens/design-tokens.ts:488
+    x7: '28px',
+
+  src/tokens/design-tokens.ts:489
+    x8: '32px',
+
+  src/tokens/design-tokens.ts:490
+    x9: '36px',
+
+  src/tokens/design-tokens.ts:491
+    x10: '40px',
+
+  src/tokens/design-tokens.ts:492
+    x11: '44px',
+
+  src/tokens/design-tokens.ts:493
+    x12: '48px',
+
+  src/tokens/design-tokens.ts:494
+    x13: '52px',
+
+  src/tokens/design-tokens.ts:495
+    x14: '56px',
+
+  src/tokens/design-tokens.ts:496
+    x15: '60px',
+
+  src/tokens/design-tokens.ts:497
+    x16: '64px',
+
+  src/tokens/design-tokens.ts:498
+    x20: '80px',
+
+  src/tokens/design-tokens.ts:499
+    x24: '96px',
+
+  src/tokens/design-tokens.ts:500
+    x38: '152px',
+
+  src/tokens/design-tokens.ts:501
+    // Rem values (responsive - base: 14px, scales to 16px at >1440px)
+
+  src/tokens/design-tokens.ts:504
+    x0: '0rem',        // 0px / 14px
+
+  src/tokens/design-tokens.ts:505
+    x1: '0.286rem',    // 4px / 14px
+
+  src/tokens/design-tokens.ts:506
+    x2: '0.571rem',    // 8px / 14px
+
+  src/tokens/design-tokens.ts:507
+    x3: '0.857rem',    // 12px / 14px
+
+  src/tokens/design-tokens.ts:508
+    x4: '1.143rem',    // 16px / 14px
+
+  src/tokens/design-tokens.ts:509
+    x5: '1.429rem',    // 20px / 14px
+
+  src/tokens/design-tokens.ts:510
+    x6: '1.714rem',    // 24px / 14px
+
+  src/tokens/design-tokens.ts:511
+    x7: '2rem',        // 28px / 14px
+
+  src/tokens/design-tokens.ts:512
+    x8: '2.286rem',    // 32px / 14px
+
+  src/tokens/design-tokens.ts:513
+    x9: '2.571rem',    // 36px / 14px
+
+  src/tokens/design-tokens.ts:514
+    x10: '2.857rem',   // 40px / 14px
+
+  src/tokens/design-tokens.ts:515
+    x11: '3.143rem',   // 44px / 14px
+
+  src/tokens/design-tokens.ts:516
+    x12: '3.429rem',   // 48px / 14px
+
+  src/tokens/design-tokens.ts:517
+    x13: '3.714rem',   // 52px / 14px
+
+  src/tokens/design-tokens.ts:518
+    x14: '4rem',       // 56px / 14px
+
+  src/tokens/design-tokens.ts:519
+    x15: '4.286rem',   // 60px / 14px
+
+  src/tokens/design-tokens.ts:520
+    x16: '4.571rem',   // 64px / 14px
+
+  src/tokens/design-tokens.ts:521
+    x20: '5.714rem',   // 80px / 14px
+
+  src/tokens/design-tokens.ts:522
+    x24: '6.857rem',   // 96px / 14px
+
+  src/tokens/design-tokens.ts:523
+    x38: '10.857rem',  // 152px / 14px
+
+  src/tokens/design-tokens.ts:528
+    none: '0px',
+
+  src/tokens/design-tokens.ts:529
+    sm: '4px',
+
+  src/tokens/design-tokens.ts:530
+    md: '8px',
+
+  src/tokens/design-tokens.ts:531
+    lg: '12px',
+
+  src/tokens/design-tokens.ts:532
+    xl: '16px',
+
+  src/tokens/design-tokens.ts:533
+    full: '9999px',
+
+  src/tokens/design-tokens.ts:538
+    sm: '0 1px 2px 0 rgba(67, 79, 100, 0.05)',
+
+  src/tokens/design-tokens.ts:539
+    md: '0 4px 6px -1px rgba(67, 79, 100, 0.1)',
+
+  src/tokens/design-tokens.ts:540
+    lg: '0 10px 15px -3px rgba(67, 79, 100, 0.1)',
+
+  src/tokens/design-tokens.ts:541
+    xl: '0 20px 25px -5px rgba(67, 79, 100, 0.1)',
+
+  src/tokens/design-tokens.ts:552
+    xxl: '1600px',
+
+  src/tokens/design-tokens.ts:553
+    xl: '1440px',
+
+  src/tokens/design-tokens.ts:554
+    lg: '1280px',
+
+  src/tokens/design-tokens.ts:555
+    md: '1024px',
+
+  src/tokens/design-tokens.ts:556
+    sm: '768px',
+
+  src/tokens/design-tokens.ts:557
+    xs: '480px',
+
+  src/tokens/design-tokens.ts:560
+    desktop: { columns: 24, gutter: '20px', margin: '20px' },
+
+  src/tokens/design-tokens.ts:561
+    laptop: { columns: 24, gutter: '16px', margin: '16px' },
+
+  src/tokens/design-tokens.ts:562
+    mobile: { columns: 4, gutter: '16px', margin: '16px' },
+
+💡 Replace these with appropriate FT design tokens:
+  - Spacing: var(--spacing-xN)
+  - Widths: calc(var(--spacing-xN) * multiplier)
+  - Heights: var(--component-height-*)
+  - Borders: 1px is allowed, but consider var(--border-width)
+
+If this is a legitimate exception, add the pattern to ALLOWED_PATTERNS in scripts/check-px-literals.js

@@ -1,7 +1,7 @@
 # FT Design System - AI Context
 
 > **Single-file reference for AI tools to generate correct code.**
-> Version: 4.15.14 | Last Updated: 2024-12
+> Version: 4.22.0 | Last Updated: 2026-03-02
 
 ## Quick Start
 
@@ -19,6 +19,12 @@ import { Button, Input, Table } from 'ft-design-system/core';
 import { FTProvider } from 'ft-design-system';
 <FTProvider><App /></FTProvider>
 ```
+
+## Workflow Contract (Mandatory)
+
+- Before writing or modifying UI code, read relevant files in `specs/`.
+- Before commit or PR, run `npm run check:tokens`.
+- Do not introduce hardcoded visual values unless approved and documented.
 
 ## Tailwind Configuration
 

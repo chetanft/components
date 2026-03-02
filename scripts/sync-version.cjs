@@ -18,6 +18,8 @@ const projectRoot = path.join(__dirname, '..');
 const rootPackageJsonPath = path.join(projectRoot, 'package.json');
 const docsPackageJsonPath = path.join(projectRoot, 'ft-docs', 'package.json');
 const changelogPath = path.join(projectRoot, 'CHANGELOG.md');
+const llmsPath = path.join(projectRoot, 'llms.txt');
+const aiContextPath = path.join(projectRoot, 'AI_CONTEXT.md');
 
 // Colors for console output
 const colors = {
@@ -51,6 +53,28 @@ function writeJsonFile(filePath, data) {
     log(`❌ Error writing ${filePath}: ${error.message}`, 'red');
     return false;
   }
+}
+
+function syncTextVersion(filePath, patterns, sourceVersion) {
+  if (!fs.existsSync(filePath)) {
+    log(`   ⚠️  ${path.relative(projectRoot, filePath)} not found, skipping`, 'yellow');
+    return true;
+  }
+
+  const original = fs.readFileSync(filePath, 'utf8');
+  let updated = original;
+  patterns.forEach(({ regex, replacer }) => {
+    updated = updated.replace(regex, replacer(sourceVersion));
+  });
+
+  if (updated !== original) {
+    fs.writeFileSync(filePath, updated, 'utf8');
+    log(`   ✅ Updated ${path.relative(projectRoot, filePath)} to ${sourceVersion}`, 'green');
+  } else {
+    log(`   ✅ ${path.relative(projectRoot, filePath)} already synced`, 'green');
+  }
+
+  return true;
 }
 
 function syncVersion() {
@@ -89,8 +113,18 @@ function syncVersion() {
     log(`   ⚠️  ft-docs/package.json not found, skipping`, 'yellow');
   }
 
-  // Step 3: Validate version consistency
-  log('\n3️⃣ Validating version consistency...', 'blue');
+  // Step 3: Sync AI context/versioned docs
+  log('\n3️⃣ Syncing AI context files...', 'blue');
+  syncTextVersion(llmsPath, [
+    { regex: /# Version: .*/m, replacer: (v) => `# Version: ${v}` },
+    { regex: /version: .*/m, replacer: (v) => `version: ${v}` },
+  ], sourceVersion);
+  syncTextVersion(aiContextPath, [
+    { regex: /^> Version: .*$/m, replacer: (v) => `> Version: ${v} | Last Updated: 2026-03-02` },
+  ], sourceVersion);
+
+  // Step 4: Validate version consistency
+  log('\n4️⃣ Validating version consistency...', 'blue');
   const docsPackage = readJsonFile(docsPackageJsonPath);
   if (docsPackage && docsPackage.version !== sourceVersion) {
     log(`   ❌ Version mismatch detected!`, 'red');
@@ -101,8 +135,8 @@ function syncVersion() {
 
   log(`   ✅ All versions synchronized: ${sourceVersion}`, 'green');
 
-  // Step 4: Check CHANGELOG.md (informational only)
-  log('\n4️⃣ Checking CHANGELOG.md...', 'blue');
+  // Step 5: Check CHANGELOG.md (informational only)
+  log('\n5️⃣ Checking CHANGELOG.md...', 'blue');
   if (fs.existsSync(changelogPath)) {
     const changelogContent = fs.readFileSync(changelogPath, 'utf8');
     const versionRegex = /^## \[([^\]]+)\]/m;
@@ -136,8 +170,6 @@ if (require.main === module) {
 }
 
 module.exports = { syncVersion };
-
-
 
 
 
