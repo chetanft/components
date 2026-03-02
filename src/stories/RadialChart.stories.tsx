@@ -10,7 +10,28 @@ const meta: Meta<typeof RadialChart> = {
       description: {
         component: 'Radial chart component for displaying progress and single value metrics. Supports labels, custom formatting, and stacked segments.'
       }
-    }
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'chart',
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Basic',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Basic', label: 'Basic', story: 'Basic' as const },
+            { id: 'WithLabel', label: 'WithLabel', story: 'WithLabel' as const },
+            { id: 'WithGrid', label: 'WithGrid', story: 'WithGrid' as const },
+            { id: 'WithText', label: 'WithText', story: 'WithText' as const },
+            { id: 'DifferentShape', label: 'DifferentShape', story: 'DifferentShape' as const },
+            { id: 'Stacked', label: 'Stacked', story: 'Stacked' as const },
+          ],
+        },
+      ],
+    },
   },
   argTypes: {
     title: {

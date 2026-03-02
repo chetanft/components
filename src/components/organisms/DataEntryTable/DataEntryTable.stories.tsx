@@ -14,6 +14,25 @@ const meta: Meta<typeof DataEntryTable> = {
         component: 'A composable component for editable data entry tables. Supports both composable API (recommended) and declarative API (deprecated).',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'layout',
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'Default' as const },
+            { id: 'WithSelection', label: 'WithSelection', story: 'WithSelection' as const },
+            { id: 'WithActions', label: 'WithActions', story: 'WithActions' as const },
+            { id: 'WithMultipleCellTypes', label: 'WithMultipleCellTypes', story: 'WithMultipleCellTypes' as const },
+          ],
+        },
+      ],
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -31,25 +50,6 @@ const meta: Meta<typeof DataEntryTable> = {
 
 export default meta;
 type Story = StoryObj<typeof DataEntryTable>;
-
-// Declarative API Examples
-/** @deprecated Use composable API instead. */
-export const LegacyDeclarativeBasic: Story = {
-  args: {
-    columns: [
-      { key: 'name', title: 'Name', cellType: 'input', placeholder: 'Enter name' },
-      { key: 'email', title: 'Email', cellType: 'input', placeholder: 'Enter email' },
-      { key: 'role', title: 'Role', cellType: 'dropdown', options: [
-        { value: 'admin', label: 'Admin' },
-        { value: 'user', label: 'User' },
-      ]},
-    ],
-    data: [
-      { id: 1, name: 'John Doe', email: 'john@example.com', role: 'admin' },
-      { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'user' },
-    ],
-  },
-};
 
 // Composable API Examples
 function ComposableBasicComponent() {

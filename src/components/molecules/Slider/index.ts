@@ -1,5 +1,5 @@
 export { Slider } from './Slider';
-export type { SliderProps, SliderMark } from './Slider';
+export type { SliderProps } from './Slider';
 
 export { SliderProvider, useSliderContext } from './SliderContext';
 export type { SliderContextType } from './SliderContext';

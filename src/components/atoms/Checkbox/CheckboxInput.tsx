@@ -5,7 +5,7 @@ import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useCheckboxContext } from './CheckboxContext';
 import { Icon } from '../Icons';
-import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
+import { getGlassClasses, useResolvedGlass, getGlassInnerBg, getGlassStateLayer, type GlassVariant } from '../../../lib/glass';
 
 export interface CheckboxInputProps extends Omit<ComposableProps<'input'>, 'type' | 'size'> {
   /**
@@ -102,7 +102,7 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
             : "border-critical bg-surface text-critical hover:bg-critical/5"
           : checked || indeterminate
             ? "bg-[var(--primary)] border-[var(--primary)] text-[var(--color-bg-primary)] hover:bg-[var(--primary)]/90 hover:border-[var(--primary)]/90"
-            : cn("border-[var(--border-primary)]", resolvedGlass ? "bg-white/10 dark:bg-white/10 hover:bg-white/15 dark:hover:bg-white/15" : "bg-[var(--bg-primary)] hover:bg-[var(--bg-secondary)]", "hover:border-[var(--border-hover)]"),
+            : cn("border-[var(--border-primary)]", resolvedGlass ? cn("bg-transparent", "hover:bg-[var(--glass-hover)]") : "bg-[var(--bg-primary)] hover:bg-[var(--bg-secondary)]", "hover:border-[var(--border-hover)]"),
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)]",
       hasError
         ? "focus-visible:ring-critical/50"

@@ -1,7 +1,5 @@
 export { Tree } from './Tree';
-export type { TreeProps, TreeNodeData } from './Tree';
-export type { TreeNode as TreeNodeType } from './TreeTypes';
-// TreeNode type alias is available but not re-exported to avoid conflict with TreeNode component
+export type { TreeProps } from './Tree';
 
 export { TreeProvider, useTreeContext } from './TreeContext';
 export type { TreeContextType } from './TreeContext';

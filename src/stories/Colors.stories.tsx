@@ -28,6 +28,7 @@ const meta = {
   title: 'Design System/Colors',
   component: Colors,
   parameters: {
+    docsOnly: true,
     layout: 'fullscreen',
     docs: {
       description: {

@@ -7,6 +7,24 @@ const meta: Meta<typeof ToggleGroup> = {
     component: ToggleGroup,
     parameters: {
         layout: 'centered',
+        explorer: {
+            mode: 'matrix' as const,
+            behavior: 'inline' as const,
+            previewMode: 'inline' as const,
+            rows: [
+                {
+                    id: 'type',
+                    label: 'Type',
+                    scenarios: [
+                        { id: 'single', label: 'Single', story: 'Single' },
+                        { id: 'multiple', label: 'Multiple', story: 'Multiple' },
+                        { id: 'outline', label: 'Outline', story: 'Outline' },
+                    ],
+                },
+            ],
+            defaultRowId: 'type',
+            defaultScenarioId: 'single',
+        },
     },
     tags: ['autodocs'],
 };

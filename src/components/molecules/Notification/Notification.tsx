@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
 import { useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { IconName } from '../../atoms/Icons';
-import { Alert, AlertVariant } from '../Alert';
+import { Alert, AlertVariant, AlertIcon, AlertTitle, AlertDescription, AlertClose } from '../Alert';
 
 export interface NotificationConfig {
   key?: string;
@@ -150,15 +150,11 @@ const NotificationItem: React.FC<NotificationItemProps> = ({ notification, onClo
         isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full"
       )}
     >
-      <Alert
-        variant={notification.type}
-        title={notification.message}
-        icon={notification.icon}
-        closable={notification.closable !== false}
-        onClose={onClose}
-        glass={resolvedGlass}
-      >
-        {notification.description}
+      <Alert variant={notification.type} glass={resolvedGlass}>
+        <AlertIcon icon={notification.icon} />
+        <AlertTitle>{notification.message}</AlertTitle>
+        {notification.description ? <AlertDescription>{notification.description}</AlertDescription> : null}
+        {notification.closable !== false ? <AlertClose onClose={onClose} /> : null}
       </Alert>
     </div>
   );

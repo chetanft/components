@@ -5,13 +5,41 @@ import { DropdownMenu, DropdownMenuList, DropdownMenuItem, DropdownMenuSeparator
 const meta: Meta<typeof DropdownMenu> = {
   title: 'Molecules/DropdownMenu',
   component: DropdownMenu,
+  tags: ['autodocs'],
   parameters: {
     layout: 'centered',
     docs: {
       description: {
         component:
-          'DropdownMenu component built from Figma designs with support for various states, prefixes, and layouts.',
+          'A dropdown menu component for displaying lists of actions or options. Supports search, grouping, and custom item prefixes.',
       },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'anchored' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { property: 'default', withSearch: false, withLabels: false, itemStates: false } },
+            { id: 'with-search', label: 'With Search', story: 'ExplorerBase', args: { property: 'search', withSearch: true, withLabels: false } },
+            { id: 'with-labels', label: 'With Labels', story: 'ExplorerBase', args: { property: 'default', withLabels: true } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { itemStates: true } },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+      supportsGlass: true,
     },
   },
   argTypes: {
@@ -29,6 +57,25 @@ const meta: Meta<typeof DropdownMenu> = {
 
 export default meta;
 type Story = StoryObj<typeof DropdownMenu>;
+
+export const ExplorerBase: Story = {
+  render: (args: any) => (
+    <div className="p-6">
+      <DropdownMenu property={args.property ?? 'default'} glass={args.glass}>
+        {args.withSearch ? <DropdownMenuSearch /> : null}
+        <DropdownMenuList>
+          {args.withLabels ? <DropdownMenuLabel>Section 1</DropdownMenuLabel> : null}
+          <DropdownMenuItem value="1" state={args.itemStates ? 'default' : 'default'}>Option 1</DropdownMenuItem>
+          <DropdownMenuItem value="2" state={args.itemStates ? 'selected' : 'default'}>Option 2</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          {args.withLabels ? <DropdownMenuLabel>Section 2</DropdownMenuLabel> : null}
+          <DropdownMenuItem value="3" state={args.itemStates ? 'hover' : 'default'}>Option 3</DropdownMenuItem>
+          {args.itemStates ? <DropdownMenuItem value="4" state="disabled">Disabled</DropdownMenuItem> : null}
+        </DropdownMenuList>
+      </DropdownMenu>
+    </div>
+  ),
+};
 
 // Composable API Examples (Recommended)
 export const Default: Story = {
@@ -75,7 +122,7 @@ export const WithSearch: Story = {
   },
 };
 
-export const WithLabels: Story = {
+export const DocsWithLabels: Story = {
   render: () => (
     <div className="p-6">
       <DropdownMenu property="default">
@@ -91,6 +138,8 @@ export const WithLabels: Story = {
     </div>
   ),
   parameters: {
+
+    docsOnly: true,
     docs: {
       description: {
         story: 'Use DropdownMenuLabel for grouped menu items.',
@@ -99,184 +148,42 @@ export const WithLabels: Story = {
   },
 };
 
-// Mark deprecated examples
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
-  args: {
-    property: 'default',
-    options: [
-      { value: '1', label: 'Dropdown menu', state: 'default' },
-      { value: '2', label: 'Dropdown menu', state: 'default' },
-      { value: '3', label: 'Dropdown menu', state: 'default' },
-      { value: '4', label: 'Dropdown menu', state: 'default' },
-      { value: '5', label: 'Dropdown menu', state: 'default' },
-      { value: '6', label: 'Dropdown menu', state: 'default' },
-      { value: '7', label: 'Dropdown menu', state: 'default' },
-      { value: '8', label: 'Dropdown menu', state: 'default' },
-      { value: '9', label: 'Dropdown menu', state: 'default' },
-      { value: '10', label: 'Dropdown menu', state: 'default' },
-    ],
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: '⚠️ **Deprecated**: This uses the deprecated `options` prop. Use the composable API with DropdownMenuList and DropdownMenuItem instead.',
-      },
-    },
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithScrollBar: Story = {
-  args: {
-    property: 'default',
-    showScrollBar: true,
-    options: [
-      { value: '1', label: 'Dropdown menu', state: 'default' },
-      { value: '2', label: 'Dropdown menu', state: 'default' },
-      { value: '3', label: 'Dropdown menu', state: 'default' },
-      { value: '4', label: 'Dropdown menu', state: 'default' },
-      { value: '5', label: 'Dropdown menu', state: 'default' },
-      { value: '6', label: 'Dropdown menu', state: 'default' },
-      { value: '7', label: 'Dropdown menu', state: 'default' },
-      { value: '8', label: 'Dropdown menu', state: 'default' },
-      { value: '9', label: 'Dropdown menu', state: 'default' },
-      { value: '10', label: 'Dropdown menu', state: 'default' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithSearch: Story = {
-  args: {
-    property: 'search',
-    options: [
-      { value: 'all', label: 'All Groups' },
-      { value: '1', label: 'Group 1' },
-      { value: '2', label: 'Group 2' },
-      { value: '3', label: 'Group 3' },
-      { value: '4', label: 'Group 4' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithSearchAndSegments: Story = {
-  args: {
-    property: 'search-segmented',
-    segments: [
-      { label: 'Group', value: 'group' },
-      { label: 'Branch', value: 'branch' },
-    ],
-    selectedSegment: 'group',
-    options: [
-      { value: 'all', label: 'All Groups' },
-      { value: '1', label: 'Group 1' },
-      { value: '2', label: 'Group 2' },
-      { value: '3', label: 'Group 3' },
-      { value: '4', label: 'Group 4' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithGroups: Story = {
-  args: {
-    property: 'groups',
-    options: [
-      { value: '1', label: 'Dropdown menu', prefix: 'icon', iconName: 'data-stack', group: 'Group 1' },
-      { value: '2', label: 'Dropdown menu', prefix: 'icon', iconName: 'data-stack', group: 'Group 1' },
-      { value: '3', label: 'Dropdown menu', prefix: 'icon', iconName: 'data-stack', group: 'Group 1' },
-      { value: '4', label: 'Dropdown menu', prefix: 'icon', iconName: 'data-stack', group: 'Group 2' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDisabledWithInfo: Story = {
-  args: {
-    property: 'disabled-info',
-    options: [
-      { value: '1', label: 'Dropdown menu', prefix: 'icon', iconName: 'data-stack', state: 'disabled' },
-      { value: '2', label: 'Dropdown menu', prefix: 'icon', iconName: 'data-stack', state: 'disabled' },
-      { value: '3', label: 'Dropdown menu', prefix: 'icon', iconName: 'data-stack', state: 'disabled' },
-      { value: '4', label: 'Dropdown menu', prefix: 'icon', iconName: 'data-stack', state: 'disabled' },
-      { value: '5', label: 'Dropdown menu', prefix: 'icon', iconName: 'data-stack', state: 'disabled' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyMenuItemDefault: StoryObj<typeof DropdownMenuItem> = {
-  render: () => <DropdownMenuItem state="default" label="Dropdown menu" />,
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyMenuItemSelected: StoryObj<typeof DropdownMenuItem> = {
+export const DocsVariants: Story = {
   render: () => (
-    <DropdownMenuItem state="selected" label="Dropdown menu" showCheckmark />
+    <div className="flex gap-6 p-6">
+      <div>
+        <p className="text-sm font-medium mb-2">Default</p>
+        <DropdownMenu property="default">
+          <DropdownMenuList>
+            <DropdownMenuItem value="1" state="default">Option 1</DropdownMenuItem>
+            <DropdownMenuItem value="2" state="default">Option 2</DropdownMenuItem>
+          </DropdownMenuList>
+        </DropdownMenu>
+      </div>
+      <div>
+        <p className="text-sm font-medium mb-2">With Search</p>
+        <DropdownMenu property="search">
+          <DropdownMenuSearch />
+          <DropdownMenuList>
+            <DropdownMenuItem value="1" state="default">Option 1</DropdownMenuItem>
+            <DropdownMenuItem value="2" state="default">Option 2</DropdownMenuItem>
+          </DropdownMenuList>
+        </DropdownMenu>
+      </div>
+      <div>
+        <p className="text-sm font-medium mb-2">With Groups</p>
+        <DropdownMenu property="default">
+          <DropdownMenuList>
+            <DropdownMenuLabel>Group A</DropdownMenuLabel>
+            <DropdownMenuItem value="1" state="default">Item 1</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>Group B</DropdownMenuLabel>
+            <DropdownMenuItem value="2" state="default">Item 2</DropdownMenuItem>
+          </DropdownMenuList>
+        </DropdownMenu>
+      </div>
+    </div>
   ),
-};
 
-/** @deprecated Use composable API instead. */
-export const LegacyMenuItemHover: StoryObj<typeof DropdownMenuItem> = {
-  render: () => <DropdownMenuItem state="hover" label="Dropdown menu" />,
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyMenuItemFocused: StoryObj<typeof DropdownMenuItem> = {
-  render: () => <DropdownMenuItem state="focused" label="Dropdown menu" />,
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyMenuItemDisabled: StoryObj<typeof DropdownMenuItem> = {
-  render: () => <DropdownMenuItem state="disabled" label="Dropdown menu" />,
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyMenuItemWithCheckbox: StoryObj<typeof DropdownMenuItem> = {
-  render: () => (
-    <DropdownMenuItem
-      state="selected"
-      prefix="checkbox"
-      label="Dropdown menu"
-    />
-  ),
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyMenuItemWithRadio: StoryObj<typeof DropdownMenuItem> = {
-  render: () => (
-    <DropdownMenuItem state="selected" prefix="radio" label="Dropdown menu" />
-  ),
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyMenuItemWithIcon: StoryObj<typeof DropdownMenuItem> = {
-  render: () => (
-    <DropdownMenuItem
-      state="default"
-      prefix="icon"
-      iconName="data-stack"
-      label="Dropdown menu"
-    />
-  ),
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyMenuItemWithSuffix: StoryObj<typeof DropdownMenuItem> = {
-  render: () => (
-    <DropdownMenuItem
-      state="default"
-      suffix={true}
-      label="Dropdown menu"
-    />
-  ),
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyMenuItemInfo: StoryObj<typeof DropdownMenuItem> = {
-  render: () => (
-    <DropdownMenuItem state="info" label="Select rows first to use bulk actions" />
-  ),
-};
+  parameters: { docsOnly: true },
+}

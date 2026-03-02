@@ -2,27 +2,33 @@
 
 import React from 'react';
 import { SelectContextProvider } from './SelectContext';
+import type { GlassVariant } from '../../../lib/glass';
 
 export interface SelectProps {
   /**
    * Selected value
    */
   value?: string;
-  
+
   /**
    * Callback when value changes
    */
   onValueChange?: (value: string) => void;
-  
+
   /**
    * Select content
    */
   children: React.ReactNode;
-  
+
   /**
    * Default value (uncontrolled)
    */
   defaultValue?: string;
+
+  /**
+   * Apply glassmorphism effect
+   */
+  glass?: GlassVariant;
 }
 
 /**
@@ -50,7 +56,8 @@ export const Select: React.FC<SelectProps> = ({
   value,
   onValueChange,
   children,
-  defaultValue
+  defaultValue,
+  glass,
 }) => {
   const [internalValue, setInternalValue] = React.useState<string | undefined>(defaultValue);
   const isControlled = value !== undefined;
@@ -67,6 +74,7 @@ export const Select: React.FC<SelectProps> = ({
     <SelectContextProvider
       value={currentValue}
       onValueChange={handleValueChange}
+      glass={glass}
     >
       {children}
     </SelectContextProvider>

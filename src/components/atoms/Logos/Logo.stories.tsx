@@ -11,6 +11,33 @@ const meta: Meta<typeof Logo> = {
         component: 'Logo component for displaying company logos.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'brand',
+          label: 'Brand',
+          scenarios: [
+            { id: 'default', label: 'Default (FT)', story: 'Default' },
+            { id: 'ft-white', label: 'FT White', story: 'FTWhite' },
+            { id: 'tata-motors', label: 'Tata Motors', story: 'TataMotors' },
+          ],
+        },
+        {
+          id: 'size',
+          label: 'Size',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'Default' },
+            { id: 'custom', label: 'Custom Size', story: 'CustomSize' },
+            { id: 'large', label: 'Large', story: 'TataMotorsLarge' },
+          ],
+        },
+      ],
+      defaultRowId: 'brand',
+      defaultScenarioId: 'default',
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -133,7 +160,7 @@ export const Shadowfax: Story = {
   },
 };
 
-export const AllLogos: Story = {
+export const DocsAllLogos: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', padding: '20px' }}>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
@@ -151,4 +178,6 @@ export const AllLogos: Story = {
       </div>
     </div>
   ),
-};
+
+  parameters: { docsOnly: true },
+}

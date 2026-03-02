@@ -76,16 +76,26 @@ export function getGlassInnerBg(
 
 /**
  * Returns state-layer classes (hover, selected, active) appropriate for glass mode.
- * In glass mode, uses translucent white/black overlays instead of opaque theme colors.
+ * In glass mode, uses tokenized translucent overlays via CSS variables.
+ * In non-glass mode, uses the provided solid theme color classes.
  *
  * @param glass - The resolved glass variant
  * @param solidClass - Opaque class(es) used when glass is off (e.g. 'bg-[var(--color-bg-secondary)]')
- * @param glassClass - Translucent class used when glass is on (default: 'bg-white/10 dark:bg-white/10')
+ * @param glassClass - Translucent class used when glass is on — defaults to hover token
  */
 export function getGlassStateLayer(
   glass: GlassVariant | undefined,
   solidClass: string,
-  glassClass: string = 'bg-white/10 dark:bg-white/10'
+  glassClass: string = 'bg-[var(--glass-hover)]'
 ): string {
   return glass ? glassClass : solidClass;
+}
+
+/**
+ * Returns the glass-item class for elements inside glass surfaces.
+ * The glass-item class handles hover/active/selected states via CSS.
+ * When glass is off, returns an empty string so components use their normal styles.
+ */
+export function getGlassItemClass(glass: GlassVariant | undefined): string {
+  return glass ? 'glass-item' : '';
 }

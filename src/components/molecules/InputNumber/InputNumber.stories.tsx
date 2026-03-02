@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
+import React from 'react';
 import { InputNumber, InputNumberWrapper, InputNumberField, InputNumberControls, InputNumberPrefix, InputNumberSuffix } from './index';
 
 const meta: Meta<typeof InputNumber> = {
@@ -11,6 +11,34 @@ const meta: Meta<typeof InputNumber> = {
       description: {
         component: '🆕 NEW: Numeric input with increment/decrement controls built with FT Design System tokens.',
       },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { typeVariant: 'default' } },
+            { id: 'prefix', label: 'With Prefix', story: 'ExplorerBase', args: { typeVariant: 'prefix' } },
+            { id: 'suffix', label: 'With Suffix', story: 'ExplorerBase', args: { typeVariant: 'suffix' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { disabled: false, error: false } },
+            { id: 'disabled', label: 'Disabled', story: 'ExplorerBase', args: { disabled: true } },
+            { id: 'error', label: 'Error', story: 'ExplorerBase', args: { error: true } },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
     },
   },
   tags: ['autodocs'],
@@ -34,6 +62,21 @@ const meta: Meta<typeof InputNumber> = {
 
 export default meta;
 type Story = StoryObj<typeof InputNumber>;
+
+export const ExplorerBase: Story = {
+  render: (args: any) => (
+    <div className="p-6">
+      <InputNumber defaultValue={args.error ? -5 : args.typeVariant === 'prefix' ? 100 : args.typeVariant === 'suffix' ? 50 : 0} disabled={Boolean(args.disabled)} error={Boolean(args.error)}>
+        <InputNumberWrapper>
+          {args.typeVariant === 'prefix' ? <InputNumberPrefix>$</InputNumberPrefix> : null}
+          <InputNumberField />
+          {args.typeVariant === 'suffix' ? <InputNumberSuffix>%</InputNumberSuffix> : null}
+          <InputNumberControls />
+        </InputNumberWrapper>
+      </InputNumber>
+    </div>
+  ),
+};
 
 // Composable API Examples (Recommended)
 export const Default: Story = {
@@ -98,165 +141,127 @@ export const WithSuffix: Story = {
   },
 };
 
-// Mark deprecated examples
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
-  args: {
-    defaultValue: 0,
-  },
+export const DocsVariants: Story = {
+  render: () => (
+    <div className="p-6 flex flex-col gap-8">
+      <div>
+        <p className="text-sm font-semibold mb-2">Default (with controls)</p>
+        <InputNumber defaultValue={0}>
+          <InputNumberWrapper>
+            <InputNumberField />
+            <InputNumberControls />
+          </InputNumberWrapper>
+        </InputNumber>
+      </div>
+      <div>
+        <p className="text-sm font-semibold mb-2">With Prefix</p>
+        <InputNumber defaultValue={100}>
+          <InputNumberWrapper>
+            <InputNumberPrefix>$</InputNumberPrefix>
+            <InputNumberField />
+            <InputNumberControls />
+          </InputNumberWrapper>
+        </InputNumber>
+      </div>
+      <div>
+        <p className="text-sm font-semibold mb-2">With Suffix</p>
+        <InputNumber defaultValue={50}>
+          <InputNumberWrapper>
+            <InputNumberField />
+            <InputNumberSuffix>%</InputNumberSuffix>
+            <InputNumberControls />
+          </InputNumberWrapper>
+        </InputNumber>
+      </div>
+      <div>
+        <p className="text-sm font-semibold mb-2">With Prefix & Suffix</p>
+        <InputNumber defaultValue={250}>
+          <InputNumberWrapper>
+            <InputNumberPrefix>$</InputNumberPrefix>
+            <InputNumberField />
+            <InputNumberSuffix>USD</InputNumberSuffix>
+            <InputNumberControls />
+          </InputNumberWrapper>
+        </InputNumber>
+      </div>
+    </div>
+  ),
   parameters: {
+
+    docsOnly: true,
     docs: {
       description: {
-        story: '⚠️ **Deprecated**: This uses the deprecated declarative API. Use the composable API with InputNumberWrapper, InputNumberField, and InputNumberControls instead.',
+        story: 'All visual variants of the InputNumber component shown side-by-side: default, with prefix, suffix, and both.',
       },
     },
   },
 };
 
-/** @deprecated Use composable API instead. */
-export const LegacySizes: Story = {
+export const DocsStates: Story = {
   render: () => (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-4">
-          <span className="w-16 text-sm text-[var(--tertiary)]">XXS</span>
-          <InputNumber size="xxs" defaultValue={10} />
-        </div>
-        <p className="text-sm text-muted-foreground ml-20">Font: 0.857rem (12px)</p>
+    <div className="p-6 flex flex-col gap-8">
+      <div>
+        <p className="text-sm font-semibold mb-2">Default</p>
+        <InputNumber defaultValue={25}>
+          <InputNumberWrapper>
+            <InputNumberField />
+            <InputNumberControls />
+          </InputNumberWrapper>
+        </InputNumber>
       </div>
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-4">
-          <span className="w-16 text-sm text-[var(--tertiary)]">XS</span>
-          <InputNumber size="xs" defaultValue={10} />
-        </div>
-        <p className="text-sm text-muted-foreground ml-20">Font: 1rem (14px)</p>
+      <div>
+        <p className="text-sm font-semibold mb-2">Disabled</p>
+        <InputNumber defaultValue={25} disabled>
+          <InputNumberWrapper>
+            <InputNumberField />
+            <InputNumberControls />
+          </InputNumberWrapper>
+        </InputNumber>
       </div>
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-4">
-          <span className="w-16 text-sm text-[var(--tertiary)]">SM</span>
-          <InputNumber size="sm" defaultValue={10} />
-        </div>
-        <p className="text-sm text-muted-foreground ml-20">Font: 1rem (14px)</p>
+      <div>
+        <p className="text-sm font-semibold mb-2">Error</p>
+        <InputNumber defaultValue={-5} error>
+          <InputNumberWrapper>
+            <InputNumberField />
+            <InputNumberControls />
+          </InputNumberWrapper>
+        </InputNumber>
       </div>
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-4">
-          <span className="w-16 text-sm text-[var(--tertiary)]">MD</span>
-          <InputNumber size="md" defaultValue={10} />
-        </div>
-        <p className="text-sm text-muted-foreground ml-20">Font: 1.143rem (16px)</p>
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-4">
-          <span className="w-16 text-sm text-[var(--tertiary)]">LG</span>
-          <InputNumber size="lg" defaultValue={10} />
-        </div>
-        <p className="text-sm text-muted-foreground ml-20">Font: 1.429rem (20px)</p>
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-4">
-          <span className="w-16 text-sm text-[var(--tertiary)]">XL</span>
-          <InputNumber size="xl" defaultValue={10} />
-        </div>
-        <p className="text-sm text-muted-foreground ml-20">Font: 1.714rem (24px)</p>
-      </div>
+    </div>
+  ),
+  parameters: {
+
+    docsOnly: true,
+    docs: {
+      description: {
+        story: 'InputNumber states: default, disabled, and error.',
+      },
+    },
+  },
+};
+
+export const DisabledState: Story = {
+  render: () => (
+    <div className="p-6">
+      <InputNumber defaultValue={25} disabled>
+        <InputNumberWrapper>
+          <InputNumberField />
+          <InputNumberControls />
+        </InputNumberWrapper>
+      </InputNumber>
     </div>
   ),
 };
 
-/** @deprecated Use composable API instead. */
-export const LegacyWithMinMax: Story = {
-  args: {
-    min: 0,
-    max: 100,
-    defaultValue: 50,
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithStep: Story = {
-  args: {
-    step: 10,
-    defaultValue: 0,
-    min: 0,
-    max: 100,
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithPrecision: Story = {
-  args: {
-    precision: 2,
-    step: 0.1,
-    defaultValue: 0.00,
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyControlsBoth: Story = {
-  args: {
-    controlsPosition: 'both',
-    defaultValue: 50,
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithPrefixSuffix: Story = {
-  args: {
-    prefix: '$',
-    suffix: 'USD',
-    defaultValue: 100,
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDisabled: Story = {
-  args: {
-    disabled: true,
-    defaultValue: 25,
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyError: Story = {
-  args: {
-    error: true,
-    defaultValue: -5,
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyNoControls: Story = {
-  args: {
-    controls: false,
-    defaultValue: 42,
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithFormatter: Story = {
-  args: {
-    defaultValue: 1000,
-    formatter: (value?: number) =>
-      typeof value === 'number'
-        ? `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        : '',
-    parser: (displayValue: string) => parseFloat(displayValue.replace(/,/g, '')),
-  },
-};
-
-const ControlledInputNumberStory = () => {
-  const [value, setValue] = useState<number | null>(25);
-  return (
-    <div className="flex flex-col gap-4 items-center">
-      <InputNumber value={value} onChange={setValue} min={0} max={100} />
-      <p className="text-sm text-[var(--secondary)]">
-        Current value: {value ?? 'null'}
-      </p>
+export const ErrorState: Story = {
+  render: () => (
+    <div className="p-6">
+      <InputNumber defaultValue={-5} error>
+        <InputNumberWrapper>
+          <InputNumberField />
+          <InputNumberControls />
+        </InputNumberWrapper>
+      </InputNumber>
     </div>
-  );
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyControlled: Story = {
-  render: () => <ControlledInputNumberStory />,
+  ),
 };

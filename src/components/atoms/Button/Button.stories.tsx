@@ -1,13 +1,79 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button, ButtonIcon, ButtonText } from './index';
-import { Icon } from '../Icons';
+
 
 const meta: Meta<typeof Button> = {
   title: 'Design System/Button',
   component: Button,
   parameters: {
     layout: 'centered',
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'style',
+          label: 'Style',
+          values: { style: 'style' },
+          scenarios: [
+            { id: 'primary', label: 'Primary', args: { variant: 'primary' } },
+            { id: 'secondary', label: 'Outline', args: { variant: 'secondary' } },
+            { id: 'danger', label: 'Danger', args: { variant: 'destructive' } },
+            { id: 'text', label: 'Text', args: { variant: 'text' } },
+            { id: 'link', label: 'Link', args: { variant: 'link' } },
+          ],
+        },
+        {
+          id: 'content',
+          label: 'Content',
+          values: { content: 'icon' },
+          scenarios: [
+            { id: 'leading-icon', label: 'Leading Icon', args: { icon: 'add', iconPosition: 'leading', children: 'Add Item' } },
+            { id: 'trailing-icon', label: 'Trailing Icon', args: { icon: 'send', iconPosition: 'trailing', children: 'Send' } },
+            { id: 'icon-only', label: 'Icon Only', args: { icon: 'edit', iconPosition: 'only', children: undefined } },
+            { id: 'text-only', label: 'Label Only', args: { icon: undefined, iconPosition: 'leading', children: 'Button' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          values: { state: 'state' },
+          scenarios: [
+            { id: 'default-state', label: 'Default', args: { disabled: false, loading: false } },
+            { id: 'disabled-state', label: 'Disabled', args: { disabled: true, loading: false } },
+            { id: 'loading-state', label: 'Loading', args: { disabled: false, loading: true } },
+          ],
+        },
+        {
+          id: 'size',
+          label: 'Size',
+          values: { size: 'size' },
+          scenarios: [
+            { id: 'size-xxs', label: 'XXS', args: { size: 'xxs' } },
+            { id: 'size-xs', label: 'XS', args: { size: 'xs' } },
+            { id: 'size-sm', label: 'SM', args: { size: 'sm' } },
+            { id: 'size-md', label: 'MD', args: { size: 'md' } },
+            { id: 'size-lg', label: 'LG', args: { size: 'lg' } },
+            { id: 'size-xl', label: 'XL', args: { size: 'xl' } },
+            { id: 'size-xxl', label: 'XXL', args: { size: 'xxl' } },
+          ],
+        },
+        {
+          id: 'shape',
+          label: 'Shape',
+          values: { shape: 'shape' },
+          scenarios: [
+            { id: 'shape-default', label: 'Default', args: { shape: 'default' } },
+            { id: 'shape-rounded', label: 'Rounded', args: { shape: 'rounded' } },
+          ],
+        },
+      ],
+      defaultRowId: 'style',
+      defaultScenarioId: 'primary',
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -30,233 +96,25 @@ const meta: Meta<typeof Button> = {
     disabled: {
       control: { type: 'boolean' },
     },
+    loading: {
+      control: { type: 'boolean' },
+    },
+    shape: {
+      control: { type: 'select' },
+      options: ['default', 'rounded'],
+    },
     children: {
       control: { type: 'text' },
+    },
+    glass: {
+      control: { type: 'select' },
+      options: [false, true, 'subtle', 'prominent'],
     },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
-/** @deprecated Use composable API instead. */
-export const LegacyPrimary: Story = {
-  args: {
-    variant: 'primary',
-    size: 'md',
-    children: 'Button',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacySecondary: Story = {
-  args: {
-    variant: 'secondary',
-    size: 'md',
-    children: 'Button',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDestructive: Story = {
-  args: {
-    variant: 'destructive',
-    size: 'md',
-    children: 'Button',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyText: Story = {
-  args: {
-    variant: 'text',
-    size: 'md',
-    children: 'Button',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyLink: Story = {
-  args: {
-    variant: 'link',
-    size: 'md',
-    children: 'Button',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithLeadingIcon: Story = {
-  args: {
-    variant: 'primary',
-    size: 'md',
-    icon: 'add',
-    iconPosition: 'leading',
-    children: 'Button',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithTrailingIcon: Story = {
-  args: {
-    variant: 'primary',
-    size: 'md',
-    icon: 'send',
-    iconPosition: 'trailing',
-    children: 'Button',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyIconOnly: Story = {
-  args: {
-    variant: 'secondary',
-    size: 'md',
-    icon: 'edit',
-    iconPosition: 'only',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDisabled: Story = {
-  args: {
-    variant: 'primary',
-    size: 'md',
-    icon: 'add',
-    iconPosition: 'leading',
-    disabled: true,
-    children: 'Button',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export function LegacySizes() {
-  return (
-    <div className="p-6">
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
-          <Button variant="primary" size="xxs">XXS - 0.857rem (12px)</Button>
-          <p className="text-sm text-muted-foreground">Height: 16px | Font: 0.857rem (12px)</p>
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant="primary" size="xs">XS - 1rem (14px)</Button>
-          <p className="text-sm text-muted-foreground">Height: 24px | Font: 1rem (14px)</p>
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant="primary" size="sm">SM - 1.143rem (16px)</Button>
-          <p className="text-sm text-muted-foreground">Height: 32px | Font: 1.143rem (16px)</p>
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant="primary" size="md">MD - 1.143rem (16px)</Button>
-          <p className="text-sm text-muted-foreground">Height: 40px | Font: 1.143rem (16px)</p>
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant="primary" size="lg">LG - 1.429rem (20px)</Button>
-          <p className="text-sm text-muted-foreground">Height: 48px | Font: 1.429rem (20px)</p>
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant="primary" size="xl">XL - 1.714rem (24px)</Button>
-          <p className="text-sm text-muted-foreground">Height: 56px | Font: 1.714rem (24px)</p>
-        </div>
-        <div className="flex flex-col gap-2">
-          <Button variant="primary" size="xxl">XXL - 2rem (28px)</Button>
-          <p className="text-sm text-muted-foreground">Height: 64px | Font: 2rem (28px)</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/** @deprecated Use composable API instead. */
-export function LegacyStates() {
-  return (
-    <div className="p-6">
-      <div className="flex gap-4">
-        <Button variant="primary" size="md">Normal</Button>
-        <Button variant="primary" size="md" disabled>Disabled</Button>
-      </div>
-    </div>
-  );
-}
-
-/** @deprecated Use composable API instead. */
-export function LegacyIconPositions() {
-  return (
-    <div className="p-6">
-      <div className="flex gap-4">
-        <Button variant="primary" size="md" icon="add" iconPosition="leading">Leading Icon</Button>
-        <Button variant="primary" size="md" icon="send" iconPosition="trailing">Trailing Icon</Button>
-        <Button variant="secondary" size="md" icon="edit" iconPosition="only" />
-      </div>
-    </div>
-  );
-}
-
-/** @deprecated Use composable API instead. */
-export function LegacyCircularButtons() {
-  return (
-    <div className="flex flex-col gap-6 p-6">
-      {/* Circular button sizes */}
-      <div>
-        <h4 className="text-base font-medium mb-3">Sizes</h4>
-        <div className="flex items-center gap-4">
-          <Button variant="secondary" size="sm" className="rounded-full" icon="edit" iconPosition="only" />
-          <Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />
-          <Button variant="secondary" size="lg" className="rounded-full" icon="edit" iconPosition="only" />
-        </div>
-        <div className="text-xs text-gray-500 mt-2">
-          Small: 36×36px | Medium: 40×40px | Large: 52×52px
-        </div>
-      </div>
-      
-      {/* Circular button variants */}
-      <div>
-        <h4 className="text-base font-medium mb-3">Circular Variants</h4>
-        <div className="flex items-center gap-4">
-          <Button variant="primary" size="md" className="rounded-full" icon="add" iconPosition="only" />
-          <Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />
-          <Button variant="destructive" size="md" className="rounded-full" icon="delete" iconPosition="only" />
-        </div>
-      </div>
-      
-      {/* Circular icon-only buttons (text variant uses secondary styling) */}
-      <div>
-        <h4 className="text-base font-medium mb-3">Circular Icon-Only Buttons</h4>
-        <div className="flex items-center gap-4">
-          <Button variant="text" size="sm" icon="more" iconPosition="only" />
-          <Button variant="text" size="md" icon="more" iconPosition="only" />
-          <Button variant="text" size="lg" icon="more" iconPosition="only" />
-        </div>
-      </div>
-      
-      {/* Common use cases */}
-      <div>
-        <h4 className="text-base font-medium mb-3">Common Use Cases</h4>
-        <div className="flex items-center gap-4">
-          <Button variant="secondary" size="sm" className="rounded-full" icon="more" iconPosition="only" />
-          <Button variant="secondary" size="sm" className="rounded-full" icon="share" iconPosition="only" />
-          <Button variant="secondary" size="sm" className="rounded-full" icon="copy" iconPosition="only" />
-        </div>
-      </div>
-      
-      {/* Comparison */}
-      <div>
-        <h4 className="text-base font-medium mb-3">Comparison</h4>
-        <div className="flex items-center gap-6">
-          <div className="flex flex-col items-center gap-2">
-            <Button variant="secondary" size="md">
-              <Icon name="edit" size={16} />
-            </Button>
-            <div className="text-xs text-gray-500">Standard</div>
-          </div>
-          <div className="flex flex-col items-center gap-2">
-            <Button variant="secondary" size="md" className="rounded-full" icon="edit" iconPosition="only" />
-            <div className="text-xs text-gray-500">Circular</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // Composable API Examples (Recommended)
 export const Default: Story = {
@@ -284,7 +142,7 @@ export const Default: Story = {
   },
 };
 
-export const WithTrailingIcon: Story = {
+export const DocsWithTrailingIcon: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Button variant="primary">
@@ -298,6 +156,8 @@ export const WithTrailingIcon: Story = {
     </div>
   ),
   parameters: {
+
+    docsOnly: true,
     docs: {
       description: {
         story: 'Composable API allows flexible icon positioning.',
@@ -306,7 +166,7 @@ export const WithTrailingIcon: Story = {
   },
 };
 
-export const IconOnly: Story = {
+export const DocsIconOnly: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Button variant="secondary">
@@ -321,6 +181,8 @@ export const IconOnly: Story = {
     </div>
   ),
   parameters: {
+
+    docsOnly: true,
     docs: {
       description: {
         story: 'Use ButtonIcon alone for icon-only buttons.',
@@ -329,7 +191,7 @@ export const IconOnly: Story = {
   },
 };
 
-export const TextOnly: Story = {
+export const DocsTextOnly: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Button variant="primary">
@@ -344,10 +206,88 @@ export const TextOnly: Story = {
     </div>
   ),
   parameters: {
+
+    docsOnly: true,
     docs: {
       description: {
         story: 'Use ButtonText alone when you only need text content.',
       },
     },
+  },
+};
+
+// Shape Variants
+export const DocsShapeDefault: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Button variant="primary">
+        <ButtonIcon icon="add" />
+        <ButtonText>Default</ButtonText>
+      </Button>
+      <Button variant="secondary">
+        <ButtonText>Default</ButtonText>
+      </Button>
+    </div>
+  ),
+  parameters: {
+
+    docsOnly: true,
+    docs: {
+      description: { story: 'Default button shape (square corners with component radius).' },
+    },
+  },
+};
+
+export const DocsShapeRounded: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Button variant="primary" shape="rounded">
+        <ButtonIcon icon="add" />
+        <ButtonText>Rounded</ButtonText>
+      </Button>
+      <Button variant="secondary" shape="rounded">
+        <ButtonText>Rounded</ButtonText>
+      </Button>
+    </div>
+  ),
+  parameters: {
+
+    docsOnly: true,
+    docs: {
+      description: { story: 'Rounded shape via `shape="rounded"`.' },
+    },
+  },
+};
+
+export const ExplorerBase: Story = {
+  args: {
+    variant: 'primary',
+    icon: 'add',
+    iconPosition: 'leading',
+    shape: 'default',
+    size: 'md',
+    disabled: false,
+    loading: false,
+    children: 'Add Item',
+  },
+  render: (args) => {
+    const isIconOnly = args.iconPosition === 'only' || args.shape === 'circle';
+    const resolvedIcon = isIconOnly ? (args.icon ?? 'add') : args.icon;
+    return (
+      <div className="w-full h-[55vh] flex items-center justify-center">
+        <Button
+          variant={args.variant}
+          size={args.size}
+          icon={resolvedIcon}
+          iconPosition={isIconOnly ? 'only' : args.iconPosition}
+          shape={args.shape}
+          disabled={args.disabled}
+          loading={args.loading}
+          glass={args.glass}
+        >
+          {isIconOnly ? undefined : args.children}
+        </Button>
+      </div>
+    );
   },
 };

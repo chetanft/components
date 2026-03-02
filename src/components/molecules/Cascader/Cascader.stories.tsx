@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Cascader, CascaderOption } from './Cascader';
-import { useState, type ReactNode } from 'react';
+
 
 const meta: Meta<typeof Cascader> = {
   title: 'Molecules/Cascader',
@@ -11,6 +11,38 @@ const meta: Meta<typeof Cascader> = {
       description: {
         component: 'A cascading selector component for selecting from hierarchical data.',
       },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'anchored' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      rows: [
+        {
+          id: 'size',
+          label: 'Size',
+          scenarios: [
+            { id: 'xxs', label: 'XXS', story: 'ExplorerBase', args: { size: 'xxs' } },
+            { id: 'xs', label: 'XS', story: 'ExplorerBase', args: { size: 'xs' } },
+            { id: 'sm', label: 'SM', story: 'ExplorerBase', args: { size: 'sm' } },
+            { id: 'md', label: 'MD', story: 'ExplorerBase', args: { size: 'md' } },
+            { id: 'lg', label: 'LG', story: 'ExplorerBase', args: { size: 'lg' } },
+            { id: 'xl', label: 'XL', story: 'ExplorerBase', args: { size: 'xl' } },
+            { id: 'xxl', label: 'XXL', story: 'ExplorerBase', args: { size: 'xxl' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { disabled: false } },
+            { id: 'disabled', label: 'Disabled', story: 'ExplorerBase', args: { disabled: true } },
+          ],
+        },
+      ],
+      defaultRowId: 'size',
+      defaultScenarioId: 'default',
+      supportsGlass: true,
     },
   },
   tags: ['autodocs'],
@@ -41,339 +73,80 @@ const meta: Meta<typeof Cascader> = {
       control: 'boolean',
       description: 'Disable the cascader',
     },
+    label: { table: { disable: true } },
+    error: { table: { disable: true } },
+    helperText: { table: { disable: true } },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Cascader>;
 
-const locationOptions: CascaderOption[] = [
-  {
-    value: 'usa',
-    label: 'United States',
-    children: [
-      {
-        value: 'california',
-        label: 'California',
-        children: [
-          { value: 'san-francisco', label: 'San Francisco' },
-          { value: 'los-angeles', label: 'Los Angeles' },
-          { value: 'san-diego', label: 'San Diego' },
-        ],
-      },
-      {
-        value: 'new-york',
-        label: 'New York',
-        children: [
-          { value: 'new-york-city', label: 'New York City' },
-          { value: 'buffalo', label: 'Buffalo' },
-        ],
-      },
-      {
-        value: 'texas',
-        label: 'Texas',
-        children: [
-          { value: 'houston', label: 'Houston' },
-          { value: 'dallas', label: 'Dallas' },
-          { value: 'austin', label: 'Austin' },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'canada',
-    label: 'Canada',
-    children: [
-      {
-        value: 'ontario',
-        label: 'Ontario',
-        children: [
-          { value: 'toronto', label: 'Toronto' },
-          { value: 'ottawa', label: 'Ottawa' },
-        ],
-      },
-      {
-        value: 'british-columbia',
-        label: 'British Columbia',
-        children: [
-          { value: 'vancouver', label: 'Vancouver' },
-          { value: 'victoria', label: 'Victoria' },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'uk',
-    label: 'United Kingdom',
-    children: [
-      {
-        value: 'england',
-        label: 'England',
-        children: [
-          { value: 'london', label: 'London' },
-          { value: 'manchester', label: 'Manchester' },
-        ],
-      },
-      {
-        value: 'scotland',
-        label: 'Scotland',
-        children: [
-          { value: 'edinburgh', label: 'Edinburgh' },
-          { value: 'glasgow', label: 'Glasgow' },
-        ],
-      },
-    ],
-  },
-];
-
-// Declarative API - Basic Cascader
-/** @deprecated Use composable API instead. */
-export const LegacyDeclarativeDefault: Story = {
-  args: {
-    label: 'Select Location',
-    options: locationOptions,
-    placeholder: 'Select a location',
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const size = args.size ?? 'md';
+    const disabled = Boolean(args.disabled);
+    const syncKey = JSON.stringify({ size, disabled, glass: args.glass });
+    return (
+      <div key={syncKey}>
+        <Cascader label="Select Location" placeholder="Select a location" size={size} disabled={disabled} glass={args.glass}>
+          <CascaderOption value="usa" label="United States">
+            <CascaderOption value="california" label="California">
+              <CascaderOption value="san-francisco" label="San Francisco" />
+              <CascaderOption value="los-angeles" label="Los Angeles" />
+            </CascaderOption>
+            <CascaderOption value="new-york" label="New York">
+              <CascaderOption value="new-york-city" label="New York City" />
+            </CascaderOption>
+          </CascaderOption>
+          <CascaderOption value="canada" label="Canada">
+            <CascaderOption value="ontario" label="Ontario">
+              <CascaderOption value="toronto" label="Toronto" />
+            </CascaderOption>
+          </CascaderOption>
+        </Cascader>
+      </div>
+    );
   },
 };
 
-// Composable API - Basic Cascader
-export const Default: Story = {
-  render: () => (
-    <Cascader label="Select Location" placeholder="Select a location">
-      <CascaderOption value="usa" label="United States">
-        <CascaderOption value="california" label="California">
-          <CascaderOption value="san-francisco" label="San Francisco" />
-          <CascaderOption value="los-angeles" label="Los Angeles" />
-          <CascaderOption value="san-diego" label="San Diego" />
-        </CascaderOption>
-        <CascaderOption value="new-york" label="New York">
-          <CascaderOption value="new-york-city" label="New York City" />
-          <CascaderOption value="buffalo" label="Buffalo" />
-        </CascaderOption>
-        <CascaderOption value="texas" label="Texas">
-          <CascaderOption value="houston" label="Houston" />
-          <CascaderOption value="dallas" label="Dallas" />
-          <CascaderOption value="austin" label="Austin" />
-        </CascaderOption>
-      </CascaderOption>
-      <CascaderOption value="canada" label="Canada">
-        <CascaderOption value="ontario" label="Ontario">
-          <CascaderOption value="toronto" label="Toronto" />
-          <CascaderOption value="ottawa" label="Ottawa" />
-        </CascaderOption>
-        <CascaderOption value="british-columbia" label="British Columbia">
-          <CascaderOption value="vancouver" label="Vancouver" />
-          <CascaderOption value="victoria" label="Victoria" />
-        </CascaderOption>
-      </CascaderOption>
-    </Cascader>
-  ),
-};
-
-const ControlledCascaderStory = (args: React.ComponentProps<typeof Cascader>) => {
-  const [value, setValue] = useState<string[]>(['usa', 'california', 'san-francisco']);
-  return (
-    <div className="space-y-4">
-      <Cascader
-        {...args}
-        value={value}
-        onChange={(val) => setValue(val as string[])}
-      />
-      <p className="text-sm text-[var(--color-tertiary)]">
-        Selected: {value.join(' / ') || 'None'}
-      </p>
-    </div>
-  );
-};
-
-// Controlled Cascader
-/** @deprecated Use composable API instead. */
-export const LegacyControlled: Story = {
-  render: (args: React.ComponentProps<typeof Cascader>) => <ControlledCascaderStory {...args} />,
-  args: {
-    label: 'Controlled Cascader',
-    options: locationOptions,
-  },
-};
-
-// Hover to Expand
-/** @deprecated Use composable API instead. */
-export const LegacyHoverExpand: Story = {
-  args: {
-    label: 'Hover to Expand',
-    options: locationOptions,
-    expandTrigger: 'hover',
-    placeholder: 'Hover over options to expand',
-  },
-};
-
-// With Search
-/** @deprecated Use composable API instead. */
-export const LegacyWithSearch: Story = {
-  args: {
-    label: 'Searchable Cascader',
-    options: locationOptions,
-    showSearch: true,
-    placeholder: 'Search locations...',
-  },
-};
-
-const ChangeOnSelectStory = (args: React.ComponentProps<typeof Cascader>) => {
-  const [value, setValue] = useState<string[]>([]);
-  return (
-    <div className="space-y-4">
-      <Cascader
-        {...args}
-        value={value}
-        onChange={(val) => setValue(val as string[])}
-      />
-      <p className="text-sm text-[var(--color-tertiary)]">
-        Selected path: {value.join(' / ') || 'None'}
-      </p>
-    </div>
-  );
-};
-
-// Change on Select
-/** @deprecated Use composable API instead. */
-export const LegacyChangeOnSelect: Story = {
-  render: (args: React.ComponentProps<typeof Cascader>) => <ChangeOnSelectStory {...args} />,
-  args: {
-    label: 'Change on Any Level',
-    options: locationOptions,
-    changeOnSelect: true,
-    helperText: 'Selection updates at any level, not just leaf nodes',
-  },
-};
-
-// Custom Display
-/** @deprecated Use composable API instead. */
-export const LegacyCustomDisplay: Story = {
-  args: {
-    label: 'Custom Display',
-    options: locationOptions,
-    displayRender: (labels: ReactNode[]) => labels.join(' > '),
-    placeholder: 'Select location',
-  },
-};
-
-// Different Sizes
-/** @deprecated Use composable API instead. */
-export const LegacySizes: Story = {
+export const DocsVariants: Story = {
   render: () => (
     <div className="space-y-6">
       <div className="space-y-2">
-        <Cascader size="xs" label="Extra Small - 1rem (14px)" options={locationOptions} placeholder="XS" />
-        <p className="text-sm text-muted-foreground ml-2">Font: 1rem (14px)</p>
+        <p className="text-sm font-medium">Extra Small</p>
+        <Cascader size="xs" placeholder="XS Cascader">
+          <CascaderOption value="usa" label="United States">
+            <CascaderOption value="california" label="California" />
+          </CascaderOption>
+        </Cascader>
       </div>
       <div className="space-y-2">
-        <Cascader size="sm" label="Small - 1rem (14px)" options={locationOptions} placeholder="SM" />
-        <p className="text-sm text-muted-foreground ml-2">Font: 1rem (14px)</p>
+        <p className="text-sm font-medium">Small</p>
+        <Cascader size="sm" placeholder="SM Cascader">
+          <CascaderOption value="usa" label="United States">
+            <CascaderOption value="california" label="California" />
+          </CascaderOption>
+        </Cascader>
       </div>
       <div className="space-y-2">
-        <Cascader size="md" label="Medium (Default) - 1.143rem (16px)" options={locationOptions} placeholder="MD" />
-        <p className="text-sm text-muted-foreground ml-2">Font: 1.143rem (16px)</p>
+        <p className="text-sm font-medium">Medium (Default)</p>
+        <Cascader size="md" placeholder="MD Cascader">
+          <CascaderOption value="usa" label="United States">
+            <CascaderOption value="california" label="California" />
+          </CascaderOption>
+        </Cascader>
       </div>
       <div className="space-y-2">
-        <Cascader size="lg" label="Large - 1.429rem (20px)" options={locationOptions} placeholder="LG" />
-        <p className="text-sm text-muted-foreground ml-2">Font: 1.429rem (20px)</p>
+        <p className="text-sm font-medium">Large</p>
+        <Cascader size="lg" placeholder="LG Cascader">
+          <CascaderOption value="usa" label="United States">
+            <CascaderOption value="california" label="California" />
+          </CascaderOption>
+        </Cascader>
       </div>
     </div>
   ),
-};
 
-// With States
-/** @deprecated Use composable API instead. */
-export const LegacyWithStates: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <Cascader label="Normal" options={locationOptions} placeholder="Select location" />
-      <Cascader label="With Error" options={locationOptions} error="Please select a location" placeholder="Select location" />
-      <Cascader label="Disabled" options={locationOptions} disabled placeholder="Select location" />
-    </div>
-  ),
-};
-
-// With Disabled Options
-/** @deprecated Use composable API instead. */
-export const LegacyDisabledOptions: Story = {
-  args: {
-    label: 'With Disabled Options',
-    options: [
-      {
-        value: 'available',
-        label: 'Available Region',
-        children: [
-          { value: 'city1', label: 'City 1' },
-          { value: 'city2', label: 'City 2' },
-        ],
-      },
-      {
-        value: 'unavailable',
-        label: 'Unavailable Region',
-        disabled: true,
-        children: [
-          { value: 'city3', label: 'City 3' },
-        ],
-      },
-    ],
-  },
-};
-
-// Category Selection
-/** @deprecated Use composable API instead. */
-export const LegacyCategorySelection: Story = {
-  args: {
-    label: 'Product Category',
-    options: [
-      {
-        value: 'electronics',
-        label: 'Electronics',
-        children: [
-          {
-            value: 'phones',
-            label: 'Phones',
-            children: [
-              { value: 'iphone', label: 'iPhone' },
-              { value: 'samsung', label: 'Samsung' },
-              { value: 'google', label: 'Google Pixel' },
-            ],
-          },
-          {
-            value: 'laptops',
-            label: 'Laptops',
-            children: [
-              { value: 'macbook', label: 'MacBook' },
-              { value: 'dell', label: 'Dell' },
-              { value: 'lenovo', label: 'Lenovo' },
-            ],
-          },
-        ],
-      },
-      {
-        value: 'clothing',
-        label: 'Clothing',
-        children: [
-          {
-            value: 'mens',
-            label: "Men's",
-            children: [
-              { value: 'shirts', label: 'Shirts' },
-              { value: 'pants', label: 'Pants' },
-            ],
-          },
-          {
-            value: 'womens',
-            label: "Women's",
-            children: [
-              { value: 'dresses', label: 'Dresses' },
-              { value: 'skirts', label: 'Skirts' },
-            ],
-          },
-        ],
-      },
-    ],
-    showSearch: true,
-    placeholder: 'Select a category',
-  },
-};
+  parameters: { docsOnly: true },
+}

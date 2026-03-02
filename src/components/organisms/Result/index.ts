@@ -1,3 +1,10 @@
-export { Result } from './Result';
+export { Result, ResultStatusIcon } from './Result';
 export type { ResultProps, ResultStatus } from './Result';
-
+export { ResultIcon } from './ResultIcon';
+export type { ResultIconProps } from './ResultIcon';
+export { ResultTitle } from './ResultTitle';
+export type { ResultTitleProps } from './ResultTitle';
+export { ResultSubtitle } from './ResultSubtitle';
+export type { ResultSubtitleProps } from './ResultSubtitle';
+export { ResultExtra } from './ResultExtra';
+export type { ResultExtraProps } from './ResultExtra';

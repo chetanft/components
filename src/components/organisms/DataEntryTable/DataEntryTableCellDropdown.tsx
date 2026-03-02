@@ -171,9 +171,9 @@ export const DataEntryTableCellDropdown: React.FC<DataEntryTableCellDropdownProp
           }
         }}
       >
-        <div className="box-border flex flex-[1_0_0] gap-[var(--x1)] h-[var(--component-height-md)] items-center min-h-px min-w-px px-[var(--x0)] py-[var(--x5)] relative rounded-[var(--radius-md)] shrink-0">
+        <div className="box-border flex flex-1 gap-[var(--x1)] h-[var(--component-height-md)] items-center min-h-px min-w-px px-[var(--x0)] py-[var(--x5)] relative rounded-[var(--radius-md)] shrink-0">
           <p className={cn(
-            "flex-[1_0_0] font-normal leading-[1.4] min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 whitespace-nowrap",
+            "flex-1 font-normal leading-[1.4] min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 whitespace-nowrap",
             hasValue ? "text-[var(--primary)]" : "text-[var(--tertiary)]",
             effectiveState === 'disabled' && "text-[var(--tertiary)]"
           )}

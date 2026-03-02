@@ -1,11 +1,11 @@
 {
   "$schema": "https://ft-design-system.dev/registry-schema.json",
   "name": "ft-design-system",
-  "version": "4.20.0",
+  "version": "4.21.1",
   "description": "Design system built from Figma designs using Code Connect",
   "repository": "https://github.com/chetanft/components.git",
   "license": "MIT",
-  "generatedAt": "2026-02-18T13:07:02.047Z",
+  "generatedAt": "2026-02-28T15:36:08.499Z",
   "coreDependencies": {
     "peer": [
       "react",
@@ -76,7 +76,7 @@
         "AlertIcon",
         "AlertTitle"
       ],
-      "description": "Alert content (for composable API)",
+      "description": "Alert content (composable API)",
       "dependencies": {
         "internal": [
           "Button",
@@ -94,7 +94,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Anchor items array (for declarative API)",
+      "description": "Anchor component from FT Design System",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -328,7 +328,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Buttons array (for declarative API)",
+      "description": "ButtonGroup component from FT Design System",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -498,7 +498,7 @@
         "CollapsibleTitle",
         "CollapsibleTrigger"
       ],
-      "description": "Collapsible content (for composable API)",
+      "description": "Collapsible content (composable API)",
       "dependencies": {
         "internal": [
           "Icon"
@@ -595,7 +595,7 @@
         "DataEntryTableRowCell",
         "DataEntryTableRowCheckbox"
       ],
-      "description": "Columns configuration (for declarative API)",
+      "description": "Callback when cell value changes",
       "dependencies": {
         "internal": [
           "Input",
@@ -770,7 +770,7 @@
         "DropdownContext",
         "DropdownTrigger"
       ],
-      "description": "Options array (for declarative API)",
+      "description": "Selected value",
       "dependencies": {
         "internal": [],
         "peer": [
@@ -790,7 +790,6 @@
         "DropdownMenuList.tsx",
         "DropdownMenuSearch.tsx",
         "DropdownMenuSeparator.tsx",
-        "DropdownMenuTypes.ts",
         "index.ts"
       ],
       "subComponents": [
@@ -1111,7 +1110,7 @@
         "HoverCardContext",
         "HoverCardTrigger"
       ],
-      "description": "Trigger content (for declarative API)",
+      "description": "HoverCard children (composable API sub-components)",
       "dependencies": {
         "internal": [],
         "peer": [
@@ -1639,7 +1638,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Sections array (for declarative API)",
+      "description": "Navigation sections (composable API)",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -1819,7 +1818,7 @@
         "PopconfirmTitle",
         "PopconfirmTrigger"
       ],
-      "description": "Title text (for declarative API)",
+      "description": "Confirm handler",
       "dependencies": {
         "internal": [
           "Button",
@@ -1854,7 +1853,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Items array (for declarative API)",
+      "description": "Enable glassmorphism effect on progress list background",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -1869,7 +1868,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Filters array (for declarative API)",
+      "description": "Additional className for filter chip wrapper.",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -1951,7 +1950,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Options array (for declarative API)",
+      "description": "RadioSelector component from FT Design System",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -2002,9 +2001,18 @@
       "path": "src/components/organisms/Result",
       "files": [
         "Result.tsx",
+        "ResultExtra.tsx",
+        "ResultIcon.tsx",
+        "ResultSubtitle.tsx",
+        "ResultTitle.tsx",
         "index.ts"
       ],
-      "subComponents": [],
+      "subComponents": [
+        "ResultExtra",
+        "ResultIcon",
+        "ResultSubtitle",
+        "ResultTitle"
+      ],
       "description": "Result component from FT Design System",
       "dependencies": {
         "internal": [
@@ -2207,7 +2215,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Chart data (for declarative API)",
+      "description": "Force the maximum value used for scaling (defaults to the largest bar sum)",
       "dependencies": {
         "internal": [],
         "peer": [
@@ -2247,7 +2255,7 @@
         "StatisticTitle",
         "StatisticValue"
       ],
-      "description": "The label text (for declarative API)",
+      "description": "Label placement relative to value",
       "dependencies": {
         "internal": [
           "Icon"
@@ -2274,7 +2282,7 @@
         "StepsContext",
         "StepsList"
       ],
-      "description": "Steps array for declarative API (deprecated)",
+      "description": "Current step number (1-based)",
       "dependencies": {
         "internal": [
           "Icon"
@@ -2475,7 +2483,7 @@
         "TimelineDot",
         "TimelineLabel"
       ],
-      "description": "Custom dot element or icon name (for declarative API)",
+      "description": "Whether this item is pending (shows dashed connector + reduced opacity)",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -2572,7 +2580,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Steps array (for declarative API)",
+      "description": "Tour component from FT Design System",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -2622,7 +2630,7 @@
         "TreeNodeIcon",
         "TreeNodeSwitcher"
       ],
-      "description": "Tree data (for declarative API)",
+      "description": "Expanded keys (controlled)",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -2760,7 +2768,7 @@
         "index.ts"
       ],
       "subComponents": [],
-      "description": "Override avatar size.",
+      "description": "UserProfile component from FT Design System",
       "dependencies": {
         "internal": [],
         "peer": []

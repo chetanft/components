@@ -13,6 +13,23 @@ const meta: Meta<typeof Spacer> = {
         component: 'A spacing component for creating consistent vertical or horizontal spacing between elements.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline',
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'Default' },
+            { id: 'horizontal', label: 'Horizontal', story: 'Horizontal' },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+    },
   },
   argTypes: {
     size: {
@@ -62,7 +79,7 @@ export const Horizontal: Story = {
 };
 
 // All sizes showcase
-export function AllSizes() {
+export function DocsAllSizes() {
   const sizes: SpacerSize[] = ['x1', 'x2', 'x3', 'x4', 'x6', 'x8', 'x12'];
   const sizeMap: Record<SpacerSize, string> = {
     x1: '4px',

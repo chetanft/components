@@ -11,8 +11,40 @@ const meta: Meta<typeof UploadItem> = {
         component: 'Upload item component for displaying file upload status with progress tracking.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'Default' as const },
+            { id: 'TextType', label: 'Text Type', story: 'TextType' as const },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'Default' as const },
+            { id: 'Uploading', label: 'Uploading', story: 'Uploading' as const },
+            { id: 'Uploaded', label: 'Uploaded', story: 'Uploaded' as const },
+            { id: 'Saved', label: 'Saved', story: 'Saved' as const },
+            { id: 'Error', label: 'Error', story: 'Error' as const },
+          ],
+        },
+      ],
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
+  args: {
+    glass: true,
+  },
   argTypes: {
     type: {
       control: 'select',
@@ -23,6 +55,11 @@ const meta: Meta<typeof UploadItem> = {
       control: 'select',
       options: ['uploading', 'uploaded', 'saved', 'error'],
       description: 'Current upload state',
+    },
+    glass: {
+      control: 'select',
+      options: [false, true, 'subtle', 'prominent'],
+      description: 'Glass style variant',
     },
   },
 };

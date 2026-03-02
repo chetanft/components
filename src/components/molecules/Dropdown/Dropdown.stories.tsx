@@ -13,7 +13,38 @@ const meta: Meta<typeof Dropdown> = {
         component: 'Dropdown component for selecting from a list of options with support for search and segments.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'anchored' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { explorerMode: 'default' } },
+            { id: 'with-search', label: 'Searchable', story: 'ExplorerBase', args: { explorerMode: 'search' } },
+            { id: 'with-groups', label: 'Grouped', story: 'ExplorerBase', args: { explorerMode: 'groups' } },
+            { id: 'with-label', label: 'With Label', story: 'ExplorerBase', args: { explorerMode: 'label' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { state: 'default' } },
+            { id: 'error', label: 'Error', story: 'ExplorerBase', args: { state: 'error' } },
+            { id: 'disabled', label: 'Disabled', story: 'ExplorerBase', args: { state: 'disabled' } },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+      supportsGlass: true,
+    },
   },
+  tags: ['autodocs'],
   argTypes: {
     type: {
       control: 'select',
@@ -35,6 +66,75 @@ const meta: Meta<typeof Dropdown> = {
 
 export default meta;
 type Story = StoryObj<typeof Dropdown>;
+
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const [value, setValue] = React.useState<string | number>();
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const mode = args.explorerMode ?? 'default';
+    const state = args.state ?? 'default';
+
+    const dropdown = (
+      <Dropdown
+        value={value}
+        onChange={setValue}
+        type={mode === 'search' ? 'search' : mode === 'groups' ? 'groups' : 'default'}
+        state={state}
+        placeholder={
+          state === 'disabled'
+            ? 'Cannot select'
+            : mode === 'search'
+              ? 'Search options...'
+              : mode === 'label'
+                ? 'Choose...'
+                : mode === 'groups'
+                  ? 'Select a fruit'
+                  : 'Select an option'
+        }
+        onSearch={mode === 'search' ? setSearchQuery : undefined}
+      >
+        <DropdownTrigger />
+        <DropdownContent>
+          <DropdownMenu>
+            {mode === 'groups' ? (
+              <>
+                <DropdownMenu.DropdownMenuLabel>Fruits</DropdownMenu.DropdownMenuLabel>
+                <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
+                <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
+                <DropdownMenu.DropdownMenuSeparator />
+                <DropdownMenu.DropdownMenuLabel>Vegetables</DropdownMenu.DropdownMenuLabel>
+                <DropdownMenu.DropdownMenuItem value="carrot">Carrot</DropdownMenu.DropdownMenuItem>
+                <DropdownMenu.DropdownMenuItem value="broccoli">Broccoli</DropdownMenu.DropdownMenuItem>
+              </>
+            ) : (
+              <>
+                {(mode === 'search'
+                  ? ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'].filter((option) =>
+                      option.toLowerCase().includes(searchQuery.toLowerCase())
+                    )
+                  : ['Option 1', 'Option 2', 'Option 3']
+                ).map((option) => (
+                  <DropdownMenu.DropdownMenuItem key={option} value={option.toLowerCase()}>
+                    {option}
+                  </DropdownMenu.DropdownMenuItem>
+                ))}
+              </>
+            )}
+          </DropdownMenu>
+        </DropdownContent>
+      </Dropdown>
+    );
+
+    return mode === 'label' ? (
+      <div className="space-y-2">
+        <label className="block text-sm font-medium">Select an Option</label>
+        {dropdown}
+      </div>
+    ) : (
+      dropdown
+    );
+  },
+};
 
 // Composable API Examples
 function DefaultComponent() {
@@ -76,234 +176,8 @@ function WithLabelComponent() {
   );
 }
 
-export const WithLabel: Story = {
+export const DocsWithLabel: Story = {
   render: () => <WithLabelComponent />,
-};
 
-function WithSearchComponent() {
-  const [value, setValue] = useState<string | number>();
-  const [searchQuery, setSearchQuery] = useState('');
-  return (
-    <Dropdown
-      value={value}
-      onChange={setValue}
-      type="search"
-      placeholder="Search options..."
-      onSearch={setSearchQuery}
-    >
-      <DropdownTrigger />
-      <DropdownContent>
-        <DropdownMenu>
-          {['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry']
-              .filter(option => option.toLowerCase().includes(searchQuery.toLowerCase()))
-              .map(option => (
-                <DropdownMenu.DropdownMenuItem key={option} value={option.toLowerCase()}>
-                  {option}
-                </DropdownMenu.DropdownMenuItem>
-              ))}
-          </DropdownMenu>
-        </DropdownContent>
-      </Dropdown>
-  );
+  parameters: { docsOnly: true },
 }
-
-export const WithSearch: Story = {
-  render: () => <WithSearchComponent />,
-};
-
-function WithGroupsComponent() {
-  const [value, setValue] = useState<string | number>();
-  return (
-    <Dropdown value={value} onChange={setValue} type="groups" placeholder="Select a fruit">
-      <DropdownTrigger />
-      <DropdownContent>
-        <DropdownMenu>
-          <DropdownMenu.DropdownMenuLabel>Fruits</DropdownMenu.DropdownMenuLabel>
-          <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
-          <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
-          <DropdownMenu.DropdownMenuSeparator />
-          <DropdownMenu.DropdownMenuLabel>Vegetables</DropdownMenu.DropdownMenuLabel>
-          <DropdownMenu.DropdownMenuItem value="carrot">Carrot</DropdownMenu.DropdownMenuItem>
-          <DropdownMenu.DropdownMenuItem value="broccoli">Broccoli</DropdownMenu.DropdownMenuItem>
-        </DropdownMenu>
-      </DropdownContent>
-    </Dropdown>
-  );
-}
-
-export const WithGroups: Story = {
-  render: () => <WithGroupsComponent />,
-};
-
-// Legacy Declarative API Examples
-
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
-  args: {
-    label: 'Label',
-    placeholder: 'Select an option',
-    options: [
-      { value: 'option1', label: 'Option 1' },
-      { value: 'option2', label: 'Option 2' },
-      { value: 'option3', label: 'Option 3' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithValue: Story = {
-  args: {
-    label: 'Dropdown with Value',
-    placeholder: 'Select an option',
-    value: 'option1',
-    options: [
-      { value: 'option1', label: 'Option 1' },
-      { value: 'option2', label: 'Option 2' },
-      { value: 'option3', label: 'Option 3' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyError: Story = {
-  args: {
-    label: 'Dropdown with Error',
-    placeholder: 'Select an option',
-    state: 'error',
-    error: 'This field has an error',
-    options: [
-      { value: 'option1', label: 'Option 1' },
-      { value: 'option2', label: 'Option 2' },
-      { value: 'option3', label: 'Option 3' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDisabled: Story = {
-  args: {
-    label: 'Disabled Dropdown',
-    placeholder: 'Cannot select',
-    state: 'disabled',
-    options: [
-      { value: 'option1', label: 'Option 1' },
-      { value: 'option2', label: 'Option 2' },
-      { value: 'option3', label: 'Option 3' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacySearchWithSegments: Story = {
-  args: {
-    label: 'Search with Segments',
-    type: 'search',
-    placeholder: 'Search...',
-    segments: [
-      { label: 'Group', value: 'group' },
-      { label: 'Branch', value: 'branch' },
-    ],
-    selectedSegment: 'group',
-    options: [
-      { value: 'option1', label: 'Option 1' },
-      { value: 'option2', label: 'Option 2' },
-      { value: 'option3', label: 'Option 3' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacySizeXS: Story = {
-  args: {
-    label: 'Extra Small (XS)',
-    size: 'xs',
-    placeholder: '24px height',
-    options: [
-      { value: 'option1', label: 'Option 1' },
-      { value: 'option2', label: 'Option 2' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacySizeSM: Story = {
-  args: {
-    label: 'Small (SM)',
-    size: 'sm',
-    placeholder: '32px height',
-    options: [
-      { value: 'option1', label: 'Option 1' },
-      { value: 'option2', label: 'Option 2' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacySizeMD: Story = {
-  args: {
-    label: 'Medium (MD)',
-    size: 'md',
-    placeholder: '40px height',
-    options: [
-      { value: 'option1', label: 'Option 1' },
-      { value: 'option2', label: 'Option 2' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacySizeLG: Story = {
-  args: {
-    label: 'Large (LG)',
-    size: 'lg',
-    placeholder: '48px height',
-    options: [
-      { value: 'option1', label: 'Option 1' },
-      { value: 'option2', label: 'Option 2' },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyRichOptions: Story = {
-  args: {
-    label: 'Rich Options',
-    placeholder: 'Select a user',
-    options: [
-      {
-        value: 'user1',
-        label: 'John Doe',
-        description: 'Software Engineer',
-        icon: <div className="w-4 h-4 rounded-full bg-blue-500" />
-      },
-      {
-        value: 'user2',
-        label: 'Jane Smith',
-        description: 'Product Manager',
-        icon: <div className="w-4 h-4 rounded-full bg-green-500" />
-      },
-      {
-        value: 'admin',
-        label: <span className="font-bold">Admin User</span>,
-        description: 'System Administrator',
-        icon: <div className="w-4 h-4 rounded-full bg-red-500" />,
-        group: 'System'
-      },
-    ],
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyGroupedOptions: Story = {
-  args: {
-    label: 'Grouped Options',
-    placeholder: 'Select a fruit',
-    type: 'groups',
-    options: [
-      { value: 'apple', label: 'Apple', group: 'Fruits' },
-      { value: 'banana', label: 'Banana', group: 'Fruits' },
-      { value: 'carrot', label: 'Carrot', group: 'Vegetables' },
-      { value: 'broccoli', label: 'Broccoli', group: 'Vegetables' },
-    ],
-  },
-};

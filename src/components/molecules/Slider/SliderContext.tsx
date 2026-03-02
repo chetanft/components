@@ -2,11 +2,6 @@
 
 import React, { createContext, useContext } from 'react';
 
-export interface SliderMark {
-  value: number;
-  label?: React.ReactNode;
-}
-
 export interface SliderContextType {
   value: number | [number, number];
   setValue: (value: number | [number, number]) => void;
@@ -16,7 +11,6 @@ export interface SliderContextType {
   range: boolean;
   vertical: boolean;
   disabled: boolean;
-  marks?: SliderMark[] | boolean;
   tooltip?: boolean | { formatter?: (value: number) => React.ReactNode };
   trackColor?: string;
   railColor?: string;
@@ -47,7 +41,6 @@ const createDefaultContext = (): SliderContextType => ({
   range: false,
   vertical: false,
   disabled: false,
-  marks: undefined,
   tooltip: true,
   trackColor: undefined,
   railColor: undefined,

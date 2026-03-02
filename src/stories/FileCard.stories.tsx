@@ -11,6 +11,34 @@ const meta: Meta<typeof FileCard> = {
         component: 'File management card component for displaying file information and processing states.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'Default' as const },
+            { id: 'CSV', label: 'CSV', story: 'CSV' as const },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'Default' as const },
+            { id: 'Uploading', label: 'Uploading', story: 'Uploading' as const },
+            { id: 'Validating', label: 'Validating', story: 'Validating' as const },
+            { id: 'Processed', label: 'Processed', story: 'Processed' as const },
+            { id: 'Failed', label: 'Failed', story: 'Failed' as const },
+          ],
+        },
+      ],
+    },
   },
   argTypes: {
     fileName: {

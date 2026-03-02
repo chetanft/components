@@ -7,16 +7,12 @@ import { Typography } from '../../atoms/Typography';
 import { Divider } from '../../atoms/Divider';
 import { Spacer } from '../../atoms/Spacer';
 import { Button } from '../../atoms/Button/Button';
-import { Icon } from '../../atoms/Icons';
 import { Skeleton } from '../../atoms/Skeleton';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { CardHeader } from './CardHeader';
-import { CardTitle } from './CardTitle';
-import { CardDescription } from './CardDescription';
-import { CardBody } from './CardBody';
-import { CardFooter as CardFooterComposable } from './CardFooter';
-import { CardActions } from './CardActions';
-import { CardMeta as CardMetaComposable } from './CardMeta';
+
+// ---------------------------------------------------------------------------
+// CardMeta (legacy)
+// ---------------------------------------------------------------------------
 
 export interface CardMetaProps {
     avatar?: React.ReactNode;
@@ -40,24 +36,52 @@ const CardMeta: React.FC<CardMetaProps> = ({ avatar, title, description, classNa
     </div>
 );
 
+// ---------------------------------------------------------------------------
+// CardElements — Figma ".card_elements" component
+//
+// Figma structure (all 3 types):
+//   <div.card_elements>           ← full-width, flex, items-center, justify-between
+//     <div.display-block>         ← flex-1, gap-x5, px-x5
+//       <div.content-left>        ← flex-1, flex-col
+//       <div.content-right>       ← flex-1, flex-col
+//
+// Three types:
+//   Eyebrow — left/right each hold a text or badge (body-primary-regular md)
+//   Header  — left holds title (display-primary lg 600) + sub-text (body-secondary-regular sm)
+//             right holds secondary text
+//   Body    — left holds statistic value (display-primary lg) + label (body-secondary-medium sm)
+//             right holds read-only label (body-secondary-medium sm) + text (body-primary-regular md)
+// ---------------------------------------------------------------------------
+
 export interface CardElementsProps {
     type?: 'Eyebrow' | 'Header' | 'Body';
-    eyebrowBadges?: React.ReactNode[];
+    /** Eyebrow: left content */
+    leftContent?: React.ReactNode;
+    /** Eyebrow: right content */
+    rightContent?: React.ReactNode;
+    /** Header: main title (lg, semibold) */
     headerTitle?: React.ReactNode;
+    /** Header: sub text below title */
     headerSubText?: React.ReactNode;
-    /**
-     * @deprecated Use conditional rendering instead: `{showArrow && <Icon name="arrow-right" />}`
-     */
+    /** Header: arrow icon on right */
     showArrowIcon?: boolean;
+    /** Body: large value text (left column) */
     statisticValue?: React.ReactNode;
+    /** Body: label below value (left column) */
     statisticLabel?: React.ReactNode;
+    /** Body: label text (right column) */
     readOnlyLabel?: React.ReactNode;
+    /** Body: value text (right column) */
     readOnlyText?: React.ReactNode;
     className?: string;
+    /** @deprecated Use leftContent/rightContent instead */
+    eyebrowBadges?: React.ReactNode[];
 }
 
 const CardElements: React.FC<CardElementsProps> = ({
     type = 'Eyebrow',
+    leftContent,
+    rightContent,
     eyebrowBadges,
     headerTitle,
     headerSubText,
@@ -68,29 +92,28 @@ const CardElements: React.FC<CardElementsProps> = ({
     readOnlyText,
     className
 }) => {
-    const isBody = type === 'Body';
-    const isEyebrow = type === 'Eyebrow';
-    const isHeader = type === 'Header';
+    // Backward compat: map eyebrowBadges to left/right content
+    const resolvedLeft = leftContent ?? (eyebrowBadges?.[0] ?? null);
+    const resolvedRight = rightContent ?? (eyebrowBadges?.[1] ?? null);
 
     return (
         <div className={cn(
-            "flex items-center justify-between w-full px-[var(--spacing-x5)]",
+            "flex items-center justify-between w-full",
             className
         )}>
-            {/* Left Content */}
-            <div className={cn(
-                "flex flex-[1_0_0] gap-[var(--spacing-x5)] items-start min-h-px min-w-px py-0 relative shrink-0"
-            )}>
-                <div className={cn(
-                    "flex flex-[1_0_0] items-start min-h-px min-w-px relative shrink-0",
-                    isEyebrow ? "flex-row gap-[var(--spacing-x2)] justify-start" : "flex-col justify-center",
-                    ['Header', 'Body'].includes(type) ? "gap-[var(--spacing-x1)]" : ""
-                )}>
-                    {isEyebrow && eyebrowBadges && eyebrowBadges.length > 0 && (
-                        <React.Fragment>{eyebrowBadges[0]}</React.Fragment>
+            {/* Display block — the two-column Figma pattern */}
+            <div className="flex flex-1 gap-[var(--spacing-x5)] items-start min-h-px min-w-px px-[var(--spacing-x5)]">
+                {/* Left content column */}
+                <div className="flex flex-1 flex-col gap-[var(--spacing-x1)] items-start justify-center min-h-px min-w-px">
+                    {type === 'Eyebrow' && resolvedLeft && (
+                        <div className="flex flex-col gap-0 items-start justify-center w-full">
+                            <Typography variant="body-primary-regular" className="text-[var(--primary)]">
+                                {resolvedLeft}
+                            </Typography>
+                        </div>
                     )}
-                    {isHeader && (
-                        <div className="flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
+                    {type === 'Header' && (
+                        <div className="flex flex-col gap-[var(--spacing-x1)] items-start justify-center w-full">
                             {headerTitle && (
                                 <Typography variant="display-primary" className="text-[var(--primary)]">
                                     {headerTitle}
@@ -103,10 +126,10 @@ const CardElements: React.FC<CardElementsProps> = ({
                             )}
                         </div>
                     )}
-                    {isBody && (
-                        <div className="flex flex-col gap-[var(--spacing-x2)] items-start justify-center p-0 relative shrink-0 w-full">
+                    {type === 'Body' && (
+                        <div className="flex flex-col gap-[var(--spacing-x2)] items-start justify-center w-full">
                             {statisticValue && (
-                                <Typography variant="body-primary-regular" className="text-[var(--primary)]">
+                                <Typography variant="display-primary" className="text-[var(--primary)]">
                                     {statisticValue}
                                 </Typography>
                             )}
@@ -118,98 +141,128 @@ const CardElements: React.FC<CardElementsProps> = ({
                         </div>
                     )}
                 </div>
-            </div>
 
-            {/* Right Content */}
-            <div className={cn(
-                "flex flex-[1_0_0] min-h-px min-w-px py-0 relative shrink-0",
-                isEyebrow ? "flex-row items-end justify-end" : isHeader ? "gap-[var(--spacing-x5)] items-center justify-end" : isBody ? "flex-col gap-[var(--spacing-x1)] items-end justify-center" : ""
-            )}>
-                {isEyebrow && eyebrowBadges && eyebrowBadges.length > 1 && (
-                    <div className="flex items-end">
-                        {eyebrowBadges[1]}
-                    </div>
-                )}
-                {isHeader && showArrowIcon && (
-                    <Icon name="arrow-top-right" size={16} className="text-[var(--primary)]" />
-                )}
-                {isBody && readOnlyLabel && (
-                    <div className="flex flex-col gap-[var(--spacing-x2)] items-start relative shrink-0 w-full">
-                        <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">
-                            {readOnlyLabel}
-                        </Typography>
-                        {readOnlyText && (
+                {/* Right content column */}
+                <div className="flex flex-1 flex-col gap-[var(--spacing-x1)] items-start justify-center min-h-px min-w-px">
+                    {type === 'Eyebrow' && resolvedRight && (
+                        <div className="flex flex-col gap-0 items-start justify-center w-full">
                             <Typography variant="body-primary-regular" className="text-[var(--primary)]">
-                                {readOnlyText}
+                                {resolvedRight}
                             </Typography>
-                        )}
-                    </div>
-                )}
+                        </div>
+                    )}
+                    {type === 'Header' && showArrowIcon && (
+                        <div className="flex items-center justify-end w-full">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-[var(--primary)]">
+                                <path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </div>
+                    )}
+                    {type === 'Body' && (readOnlyLabel || readOnlyText) && (
+                        <div className="flex flex-col gap-[var(--spacing-x2)] items-start justify-center w-full">
+                            {readOnlyLabel && (
+                                <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">
+                                    {readOnlyLabel}
+                                </Typography>
+                            )}
+                            {readOnlyText && (
+                                <Typography variant="body-primary-regular" className="text-[var(--primary)]">
+                                    {readOnlyText}
+                                </Typography>
+                            )}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
 };
 
-export interface CardFooterProps {
+// ---------------------------------------------------------------------------
+// CardFooterInternal — Figma ".card_footer" component
+//
+// Figma structure:
+//   <div.card_footer>              ← flex-col, w-full
+//     <Divider>                    ← full-width line, py-x4 (16px)
+//     <Spacer size="x5">          ← 20px gap
+//     <div.footer-container>       ← flex, gap-x4, items-center, px-x5 (if padding)
+//       <div.display-block-left>   ← flex-1, text content
+//       <div.display-block-right>  ← flex-1, text/button content
+// ---------------------------------------------------------------------------
+
+export interface CardFooterInternalProps {
     padding?: boolean;
     footerText?: React.ReactNode;
     footerButton?: React.ReactNode;
     className?: string;
 }
 
-const CardFooter: React.FC<CardFooterProps> = ({
-    padding = false,
+const CardFooterInternal: React.FC<CardFooterInternalProps> = ({
+    padding = true,
     footerText,
     footerButton,
     className
 }) => {
     return (
         <div className={cn(
-            "flex flex-col items-start pb-0 pt-0 relative w-full",
-            padding ? "px-[var(--spacing-x5)]" : "px-0",
+            "flex flex-col items-start pt-0 relative w-full",
             className
         )}>
-            <Divider type="primary" />
+            {/* Divider — full-width horizontal line */}
+            <div className="flex items-center justify-between py-[var(--spacing-x4)] w-full">
+                <Divider type="primary" className="flex-1" />
+            </div>
+
             <Spacer size="x5" />
+
+            {/* Footer Container — two-column display block */}
             <div className={cn(
-                "flex gap-[var(--spacing-x4)] items-center relative shrink-0 w-full",
-                padding ? "px-[var(--spacing-x5)] py-0" : ""
+                "flex gap-[var(--spacing-x4)] items-center w-full",
+                padding ? "px-[var(--spacing-x5)]" : ""
             )}>
-                {footerText && (
-                    <div className="flex flex-[1_0_0] gap-[var(--spacing-x5)] items-center justify-center min-h-px min-w-px px-0 py-0 relative shrink-0">
-                        <div className="flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-center justify-center min-h-px min-w-px relative shrink-0">
-                            <div className="flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
-                                <Typography variant="body-primary-medium" className="text-[var(--primary)] font-bold">
-                                    {footerText}
-                                </Typography>
-                            </div>
+                {/* Left display block */}
+                <div className="flex flex-1 gap-0 items-start min-h-px min-w-px px-0">
+                    {footerText && (
+                        <div className="flex flex-col gap-0 items-start justify-center">
+                            <Typography variant="body-primary-regular" className="text-[var(--primary)]">
+                                {footerText}
+                            </Typography>
                         </div>
-                    </div>
-                )}
-                {footerButton && (
-                    <div className={cn(
-                        "flex flex-[1_0_0] gap-[var(--spacing-x5)] items-center min-h-px min-w-px px-0 py-0 relative shrink-0",
-                        padding ? "justify-center" : "justify-end"
-                    )}>
-                        <div className={cn(
-                            "flex gap-[var(--spacing-x5)] items-center relative shrink-0",
-                            padding ? "flex-[1_0_0] justify-end min-h-px min-w-px" : "justify-center"
-                        )}>
+                    )}
+                </div>
+
+                {/* Right display block */}
+                <div className="flex flex-1 gap-0 items-start justify-end min-h-px min-w-px px-0">
+                    {footerButton && (
+                        <div className="flex flex-col gap-0 items-end justify-center">
                             {footerButton}
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
         </div>
     );
 };
 
+// ---------------------------------------------------------------------------
+// CardGraphic — Figma ".card_graphic" component
+//
+// Figma structure:
+//   Image (no padding): bg #f6f5fa, h-175px, full-bleed
+//   Image (padding):    bg white, border, h-175px, px-x4, rounded top corners, image rounded-x2
+//   Logo (padding):     bg white, border, flex-center, courier text
+//   Icon (padding):     bg white, border, pt-x4 px-x4, small 16px icon
+//   overlayAction:      absolute-positioned star button in top-right
+// ---------------------------------------------------------------------------
+
 export interface CardGraphicProps {
     padding?: boolean;
     overlayAction?: boolean;
-    graphic?: 'Image' | 'Logo';
+    graphic?: 'Image' | 'Logo' | 'Icon';
     imageUrl?: string;
     logo?: React.ReactNode;
+    icon?: React.ReactNode;
+    overlayButton?: React.ReactNode;
     className?: string;
 }
 
@@ -219,177 +272,139 @@ const CardGraphic: React.FC<CardGraphicProps> = ({
     graphic = 'Image',
     imageUrl,
     logo,
+    icon,
+    overlayButton,
     className
 }) => {
     const isImage = graphic === 'Image';
     const isLogo = graphic === 'Logo';
+    const isIcon = graphic === 'Icon';
 
     return (
         <div className={cn(
-            "border border-[var(--border-secondary)] border-solid box-border flex flex-col gap-[var(--spacing-x2)] justify-center relative w-full",
-            isImage && !padding ? "bg-[var(--color-bg-secondary)] h-[175px] items-center" : "",
-            isImage && padding ? "bg-[var(--bg-primary)] h-[175px] items-center pb-0 pt-0 px-[var(--spacing-x4)] rounded-tl-[var(--radius-md)] rounded-tr-[var(--radius-md)]" : "",
-            isLogo && padding ? "bg-[var(--bg-primary)] items-start pb-0 pt-[var(--spacing-x4)] px-[var(--spacing-x4)] rounded-tl-[var(--radius-md)] rounded-tr-[var(--radius-md)]" : "",
+            "border border-[var(--border-secondary)] border-solid flex flex-col justify-center relative w-full",
+            // Image variants
+            isImage && !padding && "bg-[#f6f5fa] h-[175px] items-center",
+            isImage && padding && "bg-[var(--bg-primary)] h-[175px] items-center pt-0 px-[var(--spacing-x4)] rounded-tl-[var(--radius-md)] rounded-tr-[var(--radius-md)]",
+            // Logo variant
+            isLogo && padding && "bg-[var(--bg-primary)] h-16 items-start pt-[var(--spacing-x4)] px-[var(--spacing-x4)] rounded-tl-[var(--radius-md)] rounded-tr-[var(--radius-md)]",
+            isLogo && !padding && "bg-[var(--bg-primary)] items-center justify-center",
+            // Icon variant
+            isIcon && padding && "bg-[var(--bg-primary)] items-start pt-[var(--spacing-x4)] px-[var(--spacing-x4)] rounded-tl-[var(--radius-md)] rounded-tr-[var(--radius-md)]",
+            isIcon && !padding && "bg-[var(--bg-primary)] items-start",
             className
         )}>
+            {/* Image graphic */}
             {isImage && imageUrl && (
                 <div className={cn(
-                    "flex-[1_0_0] min-h-px min-w-px relative shrink-0 w-full",
-                    padding ? "rounded-[var(--radius-md)]" : ""
+                    "flex-1 min-h-px min-w-px relative w-full",
+                    padding && "rounded-[var(--radius-md)]"
                 )}>
                     <div className={cn(
                         "absolute inset-0 overflow-hidden pointer-events-none",
-                        padding ? "rounded-[var(--radius-md)]" : ""
+                        padding && "rounded-[var(--radius-md)]"
                     )}>
                         <img
                             src={imageUrl}
                             alt=""
-                            className="absolute h-[188.27%] left-0 max-w-none top-0 w-full object-cover"
+                            className="absolute h-full left-0 max-w-none top-0 w-full object-cover"
                         />
                     </div>
                 </div>
             )}
-            {overlayAction && (
+
+            {/* Overlay action button */}
+            {overlayAction && isImage && (
                 <div className={cn(
-                    "absolute box-border flex gap-[var(--spacing-x2)] items-center justify-center px-[var(--spacing-x6)] py-[var(--spacing-x3)] rounded-[var(--radius-full)] size-[var(--spacing-x10)]",
-                    !padding ? "left-[501px] top-[var(--spacing-x2)]" : "left-[485px] top-[var(--spacing-x6)]"
+                    "absolute flex items-center justify-center rounded-full size-[var(--spacing-x10)]",
+                    padding ? "right-[var(--spacing-x6)] top-[var(--spacing-x6)]" : "right-[var(--spacing-x2)] top-[var(--spacing-x2)]"
                 )}>
-                    <Button variant="primary" size="md" icon="add" iconPosition="only" />
+                    {overlayButton ?? (
+                        <Button variant="primary" size="md" icon="add" iconPosition="only" />
+                    )}
                 </div>
             )}
+
+            {/* Logo graphic */}
             {isLogo && logo && (
-                <div className="overflow-clip relative shrink-0 size-[var(--spacing-x18)]">
+                <div className="flex flex-1 flex-col items-center justify-center min-h-px min-w-px w-full">
                     {logo}
+                </div>
+            )}
+
+            {/* Icon graphic */}
+            {isIcon && icon && (
+                <div className="overflow-clip shrink-0 size-4">
+                    {icon}
                 </div>
             )}
         </div>
     );
 };
 
+// ---------------------------------------------------------------------------
+// Card — main component
+// ---------------------------------------------------------------------------
+
 export interface CardProps extends Omit<ComposableProps<'div'>, 'title' | 'content'> {
-  /**
-   * Card content (for composable API)
-   */
-  children?: React.ReactNode;
-    // Classic props
-    /**
-     * @deprecated Use `headerTitle` instead.
-     */
-    title?: React.ReactNode;
+    children?: React.ReactNode;
     extra?: React.ReactNode;
     bordered?: boolean;
     hoverable?: boolean;
     loading?: boolean;
-    /**
-     * The size of the card.
-     * @default 'md'
-     */
-    size?: 'sm' | 'md' | 'default' | 'small';
-    /**
-     * @deprecated Use `size="md"` instead.
-     */
-    // default is included above
-    /**
-     * @deprecated Use `size="sm"` instead.
-     */
-    // small is included above
+    size?: 'sm' | 'md';
     actions?: React.ReactNode[];
     cover?: React.ReactNode;
 
-    // New Figma-based props
-    /**
-     * @deprecated Use conditional rendering instead: `{showEyebrow && <CardElements type="Eyebrow" />}`
-     */
-    showEyebrow?: boolean;
-    /**
-     * @deprecated Use conditional rendering instead: `{showFooter && <CardFooter>...</CardFooter>}`
-     */
-    showFooter?: boolean;
+    /** Card content variant matching Figma */
     contentVariant?: 'Basic' | 'Advanced';
 
-    // Card sections
-    eyebrowBadges?: React.ReactNode[];
+    // Figma card sections
+    /** Eyebrow: left content (badge, text, etc.) */
+    eyebrowLeft?: React.ReactNode;
+    /** Eyebrow: right content (badge, text, etc.) */
+    eyebrowRight?: React.ReactNode;
+    /** Header: main title text */
     headerTitle?: React.ReactNode;
+    /** Header: sub text below title */
     headerSubText?: React.ReactNode;
+    /** Header: show arrow icon on right */
     showArrowIcon?: boolean;
+    /** Body sections: array of statistic/read-only row pairs */
     bodySections?: Array<{
         statisticValue?: React.ReactNode;
         statisticLabel?: React.ReactNode;
         readOnlyLabel?: React.ReactNode;
         readOnlyText?: React.ReactNode;
     }>;
+    /** Footer: left text */
     footerText?: React.ReactNode;
+    /** Footer: right button/element */
     footerButton?: React.ReactNode;
+    /** Show footer section */
+    showFooter?: boolean;
+    /** Show eyebrow section */
+    showEyebrow?: boolean;
+    /** Graphic configuration (Advanced variant) */
     graphic?: CardGraphicProps;
-
-    // Legacy props (kept for compatibility)
-    /**
-     * @deprecated Use `contentVariant="Advanced"` with `bodySections` or children instead.
-     */
-    content?: React.ReactNode;
-
-    /**
-     * Apply glassmorphism effect to the card surface.
-     * When true, the card background becomes semi-transparent with a frosted blur effect.
-     * Use 'subtle' for lighter transparency or 'prominent' for more opaque (accessibility-safe).
-     * Requires content behind the card for the effect to be visible.
-     * @default false
-     */
+    /** Glass effect */
     glass?: GlassVariant;
+
+    /** @deprecated Use eyebrowLeft/eyebrowRight instead */
+    eyebrowBadges?: React.ReactNode[];
 }
 
-/**
- * Card Component
- * 
- * A versatile card component for displaying content in a contained format.
- * Supports both composable API (recommended) and declarative API (deprecated).
- * 
- * @public
- * 
- * @example
- * ```tsx
- * // Composable API (recommended)
- * <Card>
- *   <CardHeader>
- *     <CardTitle>Card Title</CardTitle>
- *     <CardDescription>Card description</CardDescription>
- *   </CardHeader>
- *   <CardBody>
- *     <p>Card content</p>
- *   </CardBody>
- *   <CardFooter>
- *     <CardActions>
- *       <Button>Action</Button>
- *     </CardActions>
- *   </CardFooter>
- * </Card>
- * 
- * // Declarative API (deprecated)
- * <Card title="Card Title" content={<p>Content</p>} />
- * ```
- * 
- * @remarks
- * - Composable API provides maximum flexibility and control
- * - All sub-components (CardHeader, CardTitle, CardBody, etc.) support `asChild`
- * - Supports various card layouts and content structures
- * - Declarative API is deprecated but still functional for backward compatibility
- */
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
-    title,
-    extra,
     bordered = true,
     hoverable = false,
     loading = false,
     size = 'md',
-    actions,
-    cover,
     className,
     children,
     asChild,
-    // New props
-    showEyebrow = true,
-    showFooter = true,
     contentVariant = 'Basic',
+    eyebrowLeft,
+    eyebrowRight,
     eyebrowBadges,
     headerTitle,
     headerSubText,
@@ -397,47 +412,45 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     bodySections,
     footerText,
     footerButton,
+    showFooter = true,
+    showEyebrow = true,
     graphic,
     glass,
-    // Legacy
-    content,
     ...props
 }, ref) => {
     const resolvedGlass = useResolvedGlass(glass);
 
+    // Backward compat: map eyebrowBadges to left/right
+    const resolvedEyebrowLeft = eyebrowLeft ?? eyebrowBadges?.[0] ?? null;
+    const resolvedEyebrowRight = eyebrowRight ?? eyebrowBadges?.[1] ?? null;
+    const hasEyebrow = showEyebrow && (resolvedEyebrowLeft || resolvedEyebrowRight);
+    const hasFooter = showFooter && (footerText || footerButton);
+    const isAdvanced = contentVariant === 'Advanced';
+
     // Check if using composable API (has children with Card sub-components)
     const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
-      child?.type?.displayName?.startsWith('Card')
+        child?.type?.displayName?.startsWith('Card')
     );
-    
-    // If using composable API, render composable structure
-    if (hasComposableChildren) {
-      // Show deprecation warning if using old props with composable API
-      if (process.env.NODE_ENV !== 'production' && (title || headerTitle || bodySections || footerText || footerButton || graphic)) {
-              }
-      
-      const Comp = asChild ? Slot : 'div';
-      return (
-        <Comp
-          ref={ref}
-          className={cn(
-            getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-secondary)] border-solid"),
-            "relative rounded-lg flex flex-col overflow-hidden",
-            className
-          )}
-          {...props}
-        >
-          {children}
-        </Comp>
-      );
-    }
-    
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production' && (title || headerTitle || bodySections || footerText || footerButton || graphic)) {
-          }
 
-    const isSmall = size === 'sm' || size === 'small';
-    const isAdvanced = contentVariant === 'Advanced';
+    // Composable API path
+    if (hasComposableChildren) {
+        const Comp = asChild ? Slot : 'div';
+        return (
+            <Comp
+                ref={ref}
+                className={cn(
+                    getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-secondary)] border-solid"),
+                    "relative rounded-[var(--spacing-x2)] flex flex-col overflow-hidden",
+                    className
+                )}
+                {...props}
+            >
+                {children}
+            </Comp>
+        );
+    }
+
+    const isSmall = size === 'sm';
 
     const renderLoading = () => (
         <div className="p-6">
@@ -448,8 +461,8 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
         </div>
     );
 
-    // Render new Figma-based structure if new props are provided
-    const hasNewStructure = eyebrowBadges || headerTitle || bodySections || footerText || footerButton || graphic;
+    // Figma-aligned declarative structure
+    const hasNewStructure = hasEyebrow || headerTitle || bodySections || hasFooter || graphic;
 
     if (hasNewStructure) {
         const Comp = asChild ? Slot : 'div';
@@ -458,147 +471,107 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
                 ref={ref}
                 className={cn(
                     getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-secondary)] border-solid"),
-                    "relative rounded-lg flex flex-col overflow-hidden",
-                    isAdvanced ? "w-full max-w-[549.333px]" : "w-full max-w-[549px]",
+                    "relative rounded-[var(--spacing-x2)] flex flex-col gap-0 items-start justify-end overflow-clip p-0",
+                    isAdvanced && "shadow-[0px_4px_8px_0px_rgba(0,0,0,0.1)]",
                     className
                 )}
                 {...props}
             >
-                <div className="flex flex-col gap-[var(--x0,0px)] items-start justify-end overflow-clip p-[var(--x0,0px)] relative rounded-[inherit] w-full">
-                    <Spacer size="x5" />
+                {/* --- Advanced: Graphic at top --- */}
+                {isAdvanced && graphic && (
+                    <>
+                        <CardGraphic {...graphic} />
+                        <Spacer size="x5" />
+                    </>
+                )}
 
-                    {/* Eyebrow Section */}
-                    {showEyebrow && eyebrowBadges && (
-                        <>
-                            <CardElements
-                                type="Eyebrow"
-                                eyebrowBadges={eyebrowBadges}
-                            />
-                            <Spacer size="x5" />
-                        </>
-                    )}
+                {/* --- Basic: leading spacer --- */}
+                {!isAdvanced && <Spacer size="x5" />}
 
-                    {/* Graphic Section (Advanced only) */}
-                    {isAdvanced && graphic && (
-                        <>
-                            <CardGraphic {...graphic} />
-                            <Spacer size="x5" />
-                        </>
-                    )}
+                {/* --- Eyebrow Section --- */}
+                {hasEyebrow && (
+                    <>
+                        <CardElements
+                            type="Eyebrow"
+                            leftContent={resolvedEyebrowLeft}
+                            rightContent={resolvedEyebrowRight}
+                        />
+                        <Spacer size="x5" />
+                    </>
+                )}
 
-                    {/* Header Section */}
-                    {headerTitle && (
-                        <>
-                            <CardElements
-                                type="Header"
-                                headerTitle={headerTitle}
-                                headerSubText={headerSubText}
-                                showArrowIcon={showArrowIcon}
-                            />
-                            <Spacer size="x5" />
-                        </>
-                    )}
+                {/* --- Advanced: eyebrow after graphic, then spacer --- */}
+                {isAdvanced && !hasEyebrow && <Spacer size="x5" />}
 
-                    {/* Body Sections */}
-                    {bodySections && bodySections.map((section, idx) => (
-                        <React.Fragment key={idx}>
-                            <CardElements
-                                type="Body"
-                                statisticValue={section.statisticValue}
-                                statisticLabel={section.statisticLabel}
-                                readOnlyLabel={section.readOnlyLabel}
-                                readOnlyText={section.readOnlyText}
-                            />
-                            {idx < bodySections.length - 1 && <Spacer size="x5" />}
-                        </React.Fragment>
-                    ))}
+                {/* --- Header Section --- */}
+                {headerTitle && (
+                    <>
+                        <CardElements
+                            type="Header"
+                            headerTitle={headerTitle}
+                            headerSubText={headerSubText}
+                            showArrowIcon={showArrowIcon}
+                        />
+                        <Spacer size="x5" />
+                    </>
+                )}
 
-                    {/* Footer Section */}
-                    {showFooter && (footerText || footerButton) && (
-                        <>
-                            <Spacer size="x5" />
-                            <CardFooter
-                                padding={true}
-                                footerText={footerText}
-                                footerButton={footerButton}
-                            />
-                            <Spacer size="x5" />
-                        </>
-                    )}
+                {/* --- Body Sections --- */}
+                {bodySections && bodySections.map((section, idx) => (
+                    <React.Fragment key={idx}>
+                        <CardElements
+                            type="Body"
+                            statisticValue={section.statisticValue}
+                            statisticLabel={section.statisticLabel}
+                            readOnlyLabel={section.readOnlyLabel}
+                            readOnlyText={section.readOnlyText}
+                        />
+                        <Spacer size="x5" />
+                    </React.Fragment>
+                ))}
 
-                    {/* Fallback for children if no structured content */}
-                    {!hasNewStructure && children && (
-                        <div className={cn("flex-1", isSmall ? "p-3" : "p-6")}>
-                            {loading ? renderLoading() : children}
-                        </div>
-                    )}
-                </div>
+                {/* --- Footer Section --- */}
+                {hasFooter && (
+                    <>
+                        <CardFooterInternal
+                            padding={true}
+                            footerText={footerText}
+                            footerButton={footerButton}
+                        />
+                        <Spacer size="x5" />
+                    </>
+                )}
             </Comp>
         );
     }
 
-    // Legacy structure (for backward compatibility)
+    // Simple card with body content only
     const Comp = asChild ? Slot : 'div';
     return (
         <Comp
             ref={ref}
             className={cn(
                 resolvedGlass
-                  ? getGlassClasses(resolvedGlass)
-                  : cn("bg-[var(--color-bg-primary)]", bordered ? "border border-[var(--border-primary)]" : ""),
-                "rounded-lg transition-all duration-200 flex flex-col overflow-hidden",
+                    ? getGlassClasses(resolvedGlass)
+                    : cn("bg-[var(--color-bg-primary)]", bordered ? "border border-[var(--border-primary)]" : ""),
+                "rounded-[var(--spacing-x2)] transition-all duration-200 flex flex-col overflow-hidden",
                 hoverable ? "hover:shadow-lg cursor-pointer" : !resolvedGlass ? "shadow-sm" : "",
                 className
             )}
             {...props}
         >
-            {/* Cover Image */}
-            {cover && <div className="w-full">{cover}</div>}
-
-            {/* Header */}
-            {(title || extra) && (
-                <div className={cn(
-                    "flex items-center justify-between border-b border-[var(--border-primary)]",
-                    isSmall ? "px-3 py-2" : "px-6 py-4"
-                )}>
-                    <div className={cn("font-semibold text-[var(--primary)]", isSmall ? "text-sm" : "text-lg")}>
-                        {title}
-                    </div>
-                    {extra && <div className="text-sm text-[var(--primary)]">{extra}</div>}
-                </div>
-            )}
-
-            {/* Body */}
             <div className={cn("flex-1", isSmall ? "p-3" : "p-6")}>
-                {loading ? renderLoading() : (content || children)}
+                {loading ? renderLoading() : children}
             </div>
-
-            {/* Actions */}
-            {actions && actions.length > 0 && (
-                <div className="flex items-center border-t border-[var(--border-primary)] bg-[var(--color-bg-secondary)]">
-                    {actions.map((action, index) => (
-                        <div
-                            key={index}
-                            className={cn(
-                                "flex-1 flex items-center justify-center py-3 text-[var(--secondary)] hover:text-[var(--primary)] transition-colors cursor-pointer",
-                                index < actions.length - 1 ? "border-r border-[var(--border-primary)]" : ""
-                            )}
-                        >
-                            {action}
-                        </div>
-                    ))}
-                </div>
-            )}
         </Comp>
     );
 });
-
 Card.displayName = 'Card';
 
 // Legacy exports (kept for backward compatibility)
 (Card as any).Meta = CardMeta;
 (Card as any).Elements = CardElements;
-(Card as any).Footer = CardFooter;
+(Card as any).Footer = CardFooterInternal;
 (Card as any).Graphic = CardGraphic;
 
-export { CardMeta, CardElements, CardFooter, CardGraphic };
+export { CardMeta, CardElements, CardFooterInternal as CardFooter, CardGraphic };

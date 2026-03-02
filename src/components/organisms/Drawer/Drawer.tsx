@@ -1,26 +1,22 @@
 "use client";
 
-import React, { useEffect } from 'react';
-import { cn } from '../../../lib/utils';
-import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
-import { Icon } from '../../atoms/Icons';
+import React from 'react';
 import { DrawerContextProvider } from './DrawerContext';
 
 /**
  * Drawer placement position
- * 
+ *
  * @public
  */
 export type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom';
 
 /**
  * Drawer component props
- * 
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
- * // Composable API (recommended)
  * <Drawer open={open} onOpenChange={setOpen}>
  *   <DrawerTrigger>
  *     <Button>Open Drawer</Button>
@@ -38,18 +34,6 @@ export type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom';
  *     </DrawerFooter>
  *   </DrawerContent>
  * </Drawer>
- * 
- * // Declarative API (deprecated)
- * <Drawer
- *   open={open}
- *   onClose={() => setOpen(false)}
- *   title="Settings"
- *   placement="right"
- *   width={400}
- *   footer={<Button onClick={() => setOpen(false)}>Close</Button>}
- * >
- *   <p>Drawer content goes here</p>
- * </Drawer>
  * ```
  */
 export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -61,74 +45,9 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
 
   /**
    * Callback when drawer open state changes
-   * Use this for controlled drawers with composable API
+   * Use this for controlled drawers
    */
   onOpenChange?: (open: boolean) => void;
-
-  /**
-   * Callback when drawer should close
-   * Called on close button click, mask click (if maskClosable), or ESC key
-   * @deprecated Use onOpenChange instead for composable API
-   */
-  onClose?: () => void;
-
-  /**
-   * Drawer title displayed in header (for declarative API)
-   * @deprecated Use DrawerTitle component within DrawerHeader instead
-   */
-  title?: string;
-
-  /**
-   * Side from which drawer slides in
-   * @default 'right'
-   */
-  placement?: DrawerPlacement;
-
-  /**
-   * Drawer width (for left/right placement)
-   * CSS value (e.g., "400px", "50%") or number (pixels)
-   * @default 400
-   */
-  width?: string | number;
-
-  /**
-   * Drawer height (for top/bottom placement)
-   * CSS value (e.g., "300px", "50vh") or number (pixels)
-   * @default '100%'
-   */
-  height?: string | number;
-
-  /**
-   * Show close button in header
-   * @default true
-   */
-  closable?: boolean;
-
-  /**
-   * Allow closing drawer by clicking the backdrop/mask
-   * @default true
-   */
-  maskClosable?: boolean;
-
-  /**
-   * Footer content (typically action buttons) (for declarative API)
-   * Rendered at bottom of drawer
-   * @deprecated Use DrawerFooter component instead
-   */
-  footer?: React.ReactNode;
-
-  /**
-   * Custom background color class
-   * Overrides default bg-[var(--bg-primary)]
-   * Example: "bg-white", "bg-gray-100"
-   */
-  background?: string;
-
-  /**
-   * Glass morphism variant
-   * When enabled, applies glass/frosted-glass styling to the drawer
-   */
-  glass?: GlassVariant;
 
   /**
    * Drawer content
@@ -139,21 +58,20 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * Drawer Component
- * 
+ *
  * A composable slide-out panel component that displays content from the side of the screen.
- * Supports both composable API (recommended) and declarative API (deprecated).
+ * Uses sub-components (DrawerTrigger, DrawerContent, DrawerHeader, etc.) for maximum flexibility.
  * Useful for settings panels, filters, navigation menus, and supplementary content.
- * 
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
- * // Composable API (recommended)
  * import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerBody, DrawerFooter, Button } from 'ft-design-system';
- * 
+ *
  * function MyComponent() {
  *   const [open, setOpen] = useState(false);
- * 
+ *
  *   return (
  *     <Drawer open={open} onOpenChange={setOpen}>
  *       <DrawerTrigger>
@@ -175,201 +93,25 @@ export interface DrawerProps extends React.HTMLAttributes<HTMLDivElement> {
  *   );
  * }
  * ```
- * 
+ *
  * @remarks
- * - Composable API provides maximum flexibility and control
  * - All sub-components (DrawerTrigger, DrawerContent, DrawerHeader, etc.) support `asChild`
  * - Slides in from specified side (left, right, top, bottom)
  * - Prevents body scroll when open
  * - Closes on ESC key press and backdrop click
  * - Accessible: includes ARIA attributes and focus management
- * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(({
   open,
   onOpenChange,
-  onClose,
-  title,
-  placement = 'right',
-  width = 400,
-  height = '100%',
-  closable = true,
-  maskClosable = true,
-  footer,
-  background,
-  glass,
   children,
-  className,
-  ...props
 }, _ref) => {
-  const resolvedGlass = useResolvedGlass(glass);
-  // Deprecation warning for dual handlers
-  if (process.env.NODE_ENV !== 'production' && onClose && onOpenChange) {
-      }
-
-  // Check if using composable API (has DrawerContent, DrawerTrigger, etc. as children)
-  const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
-    child?.type?.displayName?.startsWith('Drawer')
-  );
-
-  // Handle ESC key (declarative API only)
-  useEffect(() => {
-    if (hasComposableChildren || !open) return;
-
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && closable) {
-        onClose?.();
-      }
-    };
-
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [open, closable, onClose, hasComposableChildren]);
-
-  // Prevent body scroll when drawer is open (declarative API only)
-  useEffect(() => {
-    if (hasComposableChildren) return;
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      if (!hasComposableChildren) {
-        document.body.style.overflow = '';
-      }
-    };
-  }, [open, hasComposableChildren]);
-
-  // If using composable API, wrap with context provider
-  if (hasComposableChildren) {
-    return (
-      <DrawerContextProvider
-        open={open}
-        onOpenChange={onOpenChange || (onClose ? () => onClose() : undefined)}
-        onClose={onClose}
-      >
-        {children}
-      </DrawerContextProvider>
-    );
-  }
-
-  if (!open) return null;
-
-  const handleMaskClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (maskClosable && e.target === e.currentTarget) {
-      onOpenChange?.(false);
-      onClose?.();
-    }
-  };
-
-  const handleClose = () => {
-    if (!closable) return;
-    onOpenChange?.(false);
-    onClose?.();
-  };
-
-  const placementStyles = {
-    left: {
-      container: 'left-0 top-0 bottom-0',
-      width: typeof width === 'number' ? `${width}px` : width,
-      height: '100%',
-    },
-    right: {
-      container: 'right-0 top-0 bottom-0',
-      width: typeof width === 'number' ? `${width}px` : width,
-      height: '100%',
-    },
-    top: {
-      container: 'top-0 left-0 right-0',
-      width: '100%',
-      height: typeof height === 'number' ? `${height}px` : height,
-    },
-    bottom: {
-      container: 'bottom-0 left-0 right-0',
-      width: '100%',
-      height: typeof height === 'number' ? `${height}px` : height,
-    },
-  };
-
-  const styles = placementStyles[placement];
-
   return (
-    <DrawerContextProvider open={open} onOpenChange={onOpenChange || (onClose ? () => onClose() : undefined)} onClose={onClose}>
-      <div
-        className="fixed inset-0 z-50"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={title ? 'drawer-title' : undefined}
-      >
-        {/* Backdrop */}
-        <div
-          className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
-          onClick={handleMaskClick}
-          aria-hidden="true"
-        />
-
-        {/* Drawer Content */}
-        <div
-          className={cn(
-            "absolute",
-            background || getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", ""),
-            "flex flex-col",
-            styles.container,
-            className
-          )}
-          style={{
-            width: styles.width,
-            height: styles.height,
-            boxShadow: 'var(--shadow-xl)',
-          }}
-          {...props}
-        >
-          {/* Header */}
-          {(title || closable) && (
-            <div className="flex items-center justify-between px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-b border-[var(--color-border-secondary)] flex-shrink-0">
-              {title && (
-                <h2
-                  id="drawer-title"
-                  className="text-xl font-semibold text-[var(--color-primary)]"
-                >
-                  {title}
-                </h2>
-              )}
-              {closable && (
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  className={cn(
-                    "p-[var(--spacing-x1)] rounded-[var(--radius-sm)]",
-                    "hover:bg-[var(--color-bg-secondary)]",
-                    "transition-colors duration-[var(--transition-fast)]",
-                    "focus:outline-none focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20"
-                  )}
-                  aria-label="Close drawer"
-                >
-                  <Icon name="cross" size={20} className="text-[var(--color-tertiary)]" />
-                </button>
-              )}
-            </div>
-          )}
-
-          {/* Body */}
-          <div className={cn(
-            "flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)]",
-            background ? "" : getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]/30")
-          )}>
-            {children}
-          </div>
-
-          {/* Footer */}
-          {footer && (
-            <div className="flex-shrink-0 px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-t border-[var(--color-border-secondary)]">
-              {footer}
-            </div>
-          )}
-        </div>
-      </div>
+    <DrawerContextProvider
+      open={open}
+      onOpenChange={onOpenChange}
+    >
+      {children}
     </DrawerContextProvider>
   );
 });

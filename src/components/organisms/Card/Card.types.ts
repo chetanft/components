@@ -4,7 +4,7 @@ import { ComposableProps } from '../../../lib/slot';
 /**
  * Card Component Props
  */
-export interface CardProps extends Omit<ComposableProps<'div'>, 'title' | 'content'> {
+export interface CardProps extends Omit<ComposableProps<'div'>, 'title'> {
     /** Card content (for composable API) */
     children?: React.ReactNode;
     /** Visual style variant */
@@ -17,18 +17,6 @@ export interface CardProps extends Omit<ComposableProps<'div'>, 'title' | 'conte
     hoverable?: boolean;
     /** Loading state - shows skeleton */
     loading?: boolean;
-
-    // Legacy props (deprecated - will be removed in v4.0)
-    /** @deprecated Use CardHeader > CardTitle instead */
-    title?: React.ReactNode;
-    /** @deprecated Use children inside CardBody instead */
-    content?: React.ReactNode;
-    /** @deprecated Use CardFooter > CardActions instead */
-    actions?: React.ReactNode[];
-    /** @deprecated Use CardImage component instead */
-    cover?: React.ReactNode;
-    /** @deprecated Use composition instead */
-    extra?: React.ReactNode;
 }
 
 /**

@@ -1,15 +1,9 @@
 "use client";
 
 import React from 'react';
-import { Button } from '../../atoms/Button/Button';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { TooltipProvider } from './TooltipContext';
-import { TooltipTrigger } from './TooltipTrigger';
-import { TooltipContent } from './TooltipContent';
-import { TooltipTitle } from './TooltipTitle';
-import { TooltipDescription } from './TooltipDescription';
-import { TooltipArrow } from './TooltipArrow';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 export type TooltipAlignment = 'start' | 'center' | 'end';
@@ -21,11 +15,6 @@ export interface TooltipProps extends Omit<ComposableProps<'div'>, 'onChange'> {
    */
   children?: React.ReactNode;
   /**
-   * The heading text (for declarative API)
-   * @deprecated Use TooltipTitle component instead
-   */
-  heading?: string;
-  /**
    * Whether to show the close button
    * @default false
    */
@@ -34,24 +23,6 @@ export interface TooltipProps extends Omit<ComposableProps<'div'>, 'onChange'> {
    * Callback when close button is clicked
    */
   onClose?: () => void;
-  /**
-   * Primary action button text (for declarative API)
-   * @deprecated Use Button components inside TooltipContent instead
-   */
-  primaryActionText?: string;
-  /**
-   * Primary action callback
-   */
-  onPrimaryAction?: () => void;
-  /**
-   * Secondary action button text (for declarative API)
-   * @deprecated Use Button components inside TooltipContent instead
-   */
-  secondaryActionText?: string;
-  /**
-   * Secondary action callback
-   */
-  onSecondaryAction?: () => void;
   /**
    * Tooltip placement relative to target
    * @default 'top'
@@ -82,13 +53,12 @@ export interface TooltipProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  * Tooltip Component
  * 
  * A versatile tooltip component for displaying contextual information.
- * Supports both composable API (recommended) and declarative API (deprecated).
- * 
+ * Uses composable API with sub-components for maximum flexibility.
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
- * // Composable API (recommended)
  * <Tooltip placement="top" align="center" color="white">
  *   <TooltipTrigger>
  *     <Button>Hover me</Button>
@@ -99,29 +69,17 @@ export interface TooltipProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  *     <TooltipArrow />
  *   </TooltipContent>
  * </Tooltip>
- * 
- * // Declarative API (deprecated)
- * <Tooltip heading="Title" primaryActionText="Action">
- *   Content
- * </Tooltip>
  * ```
- * 
+ *
  * @remarks
- * - Composable API provides maximum flexibility and control
  * - All sub-components (TooltipTrigger, TooltipContent, TooltipTitle, etc.) support `asChild`
  * - Supports multiple placements and alignments
  * - Accessible: includes ARIA attributes and keyboard navigation
- * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({
   children,
-  heading,
   showClose = false,
-  onClose,
-  primaryActionText,
-  onPrimaryAction,
-  secondaryActionText,
-  onSecondaryAction,
+  onClose: _onClose,
   placement = 'top',
   align = 'center',
   color = 'white',
@@ -134,38 +92,6 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
   const open = controlledOpen ?? internalOpen;
 
-  // Check if using composable API (has children with Tooltip sub-components)
-  const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
-    child?.type?.displayName?.startsWith('Tooltip')
-  );
-
-  // If using composable API, wrap with context provider
-  if (hasComposableChildren) {
-    // Show deprecation warning if using old props with composable API
-    if (process.env.NODE_ENV !== 'production' && (heading || primaryActionText || secondaryActionText)) {
-          }
-
-    const Comp = asChild ? Slot : 'div';
-    return (
-      <TooltipProvider
-        value={{
-          open,
-          setOpen: setInternalOpen,
-          placement,
-          align,
-          color,
-        }}
-      >
-        <Comp className={cn("relative inline-flex flex-col", className)} {...props}>
-          {children}
-        </Comp>
-      </TooltipProvider>
-    );
-  }
-
-  // Otherwise use declarative API (deprecated)
-  if (process.env.NODE_ENV !== 'production' && (heading || primaryActionText || secondaryActionText)) {
-      }
   const Comp = asChild ? Slot : 'div';
   return (
     <TooltipProvider
@@ -178,32 +104,7 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({
       }}
     >
       <Comp className={cn("relative inline-flex flex-col", className)} {...props}>
-        <TooltipContent showClose={showClose} onClose={onClose}>
-          {heading && <TooltipTitle>{heading}</TooltipTitle>}
-          <TooltipDescription>{children}</TooltipDescription>
-          {(primaryActionText || secondaryActionText) && (
-            <div className="flex gap-[var(--spacing-x2)] mt-[var(--spacing-x6)] justify-end">
-              {secondaryActionText && (
-                <Button
-                  variant="text"
-                  size="sm"
-                  onClick={onSecondaryAction}
-                >
-                  {secondaryActionText}
-                </Button>
-              )}
-              {primaryActionText && (
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={onPrimaryAction}
-                >
-                  {primaryActionText}
-                </Button>
-              )}
-            </div>
-          )}
-        </TooltipContent>
+        {children}
       </Comp>
     </TooltipProvider>
   );

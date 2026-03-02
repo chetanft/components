@@ -218,7 +218,7 @@ export const TableHeader = <T extends TableRowType = TableRowType>({
             onDrop={(e) => handleDrop(index, e)}
             onDragEnd={handleDragEnd}
           >
-            {column.title || column.label || column.header}
+            {column.title}
           </TableHeaderItem>
         ))}
         {hasRowActions && (

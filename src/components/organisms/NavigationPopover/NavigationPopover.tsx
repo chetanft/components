@@ -78,11 +78,6 @@ export interface MetricsColumnsConfig {
 export interface NavigationPopoverProps {
   open?: boolean;
   onClose?: () => void;
-  /**
-   * Sections array (for declarative API)
-   * @deprecated Use NavigationSection components as children instead
-   */
-  sections?: NavigationSection[];
   initialSectionId?: string;
   onSectionChange?: (itemId: string) => void;
   className?: string;
@@ -93,7 +88,7 @@ export interface NavigationPopoverProps {
   heroPlacement?: HeroPlacement;
   metricsColumns?: MetricsColumnsConfig;
   /**
-   * Navigation sections (for composable API)
+   * Navigation sections (composable API)
    */
   children?: React.ReactNode;
   /**
@@ -653,7 +648,6 @@ const extractSectionsFromChildren = (children: React.ReactNode): NavigationSecti
 export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
   open = true,
   onClose,
-  sections,
   initialSectionId,
   onSectionChange,
   className,
@@ -674,20 +668,10 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
     return extractSectionsFromChildren(children);
   }, [children]);
 
-  // Use children sections if available, otherwise use sections prop
-  const availableSections = sectionsFromChildren.length > 0 
-    ? sectionsFromChildren 
-    : (sections?.length ? sections : DEFAULT_SECTIONS);
-
-  // Check if using composable API
-  const hasComposableChildren = React.Children.count(children) > 0 && sectionsFromChildren.length > 0;
-
-  // Show deprecation warning
-  if (process.env.NODE_ENV !== 'production') {
-    if (hasComposableChildren && sections && sections.length > 0) {
-          } else if (!hasComposableChildren && sections && sections.length > 0) {
-          }
-  }
+  // Use children sections if available, otherwise use default sections
+  const availableSections = sectionsFromChildren.length > 0
+    ? sectionsFromChildren
+    : DEFAULT_SECTIONS;
 
   const safeInitialId = useMemo(() => {
     if (initialSectionId && availableSections.some((section) => section.id === initialSectionId)) {

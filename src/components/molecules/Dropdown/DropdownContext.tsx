@@ -3,6 +3,7 @@
 import React, { createContext, useContext } from 'react';
 import type { ComponentSize } from '../../../lib/utils';
 import type { DropdownOption } from './DropdownTypes';
+import type { GlassVariant } from '../../../lib/glass';
 
 export interface DropdownContextType {
   isOpen: boolean;
@@ -25,6 +26,7 @@ export interface DropdownContextType {
   portalContainer: HTMLElement | null;
   setPortalContainer: (container: HTMLElement | null) => void;
   handleSelect: (value: string | number) => void;
+  glass?: GlassVariant;
 }
 
 const DropdownContext = createContext<DropdownContextType | undefined>(undefined);
@@ -54,6 +56,7 @@ const createDefaultContext = (): DropdownContextType => ({
   portalContainer: null,
   setPortalContainer: () => {},
   handleSelect: () => {},
+  glass: undefined,
 });
 
 /**

@@ -9,6 +9,23 @@ const meta: Meta<typeof BackTop> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'basic', label: 'Basic', story: 'Basic' as const },
+            { id: 'custom-content', label: 'CustomContent', story: 'CustomContent' as const },
+          ],
+        },
+      ],
+      defaultRowId: 'type' as const,
+      defaultScenarioId: 'basic' as const,
+    },
   },
 };
 

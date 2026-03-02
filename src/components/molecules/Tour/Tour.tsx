@@ -20,11 +20,6 @@ export interface TourStepProps {
 }
 
 export interface TourProps {
-  /**
-   * Steps array (for declarative API)
-   * @deprecated Use TourStep components as children instead
-   */
-  steps?: TourStepProps[];
   open?: boolean;
   defaultCurrent?: number;
   current?: number;
@@ -51,7 +46,6 @@ export interface TourStepComponentProps extends TourStepProps {
 }
 
 export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
-  steps = [],
   open = false,
   defaultCurrent = 0,
   current: controlledCurrent,
@@ -88,20 +82,7 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
       }));
   }, [children]);
 
-  // Use children steps if available, otherwise use steps prop
-  const allSteps = stepsFromChildren.length > 0 ? stepsFromChildren : steps;
-
-  // Check if using composable API
-  const hasComposableChildren = React.Children.count(children) > 0 && stepsFromChildren.length > 0;
-
-  // Show deprecation warning
-  if (process.env.NODE_ENV !== 'production') {
-    if (hasComposableChildren && steps.length > 0) {
-          } else if (!hasComposableChildren && steps.length > 0) {
-          }
-  }
-
-  const step = allSteps[current];
+  const step = stepsFromChildren[current];
 
   // Calculate position based on target
   useEffect(() => {
@@ -133,7 +114,7 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
   }, [open, step]);
 
   const handleNext = () => {
-    if (current < allSteps.length - 1) {
+    if (current < stepsFromChildren.length - 1) {
       const next = current + 1;
       setInternalCurrent(next);
       onChange?.(next);
@@ -207,7 +188,7 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
 
         <div className="flex justify-between items-center mt-4">
           <div className="flex gap-1 text-xs text-[var(--text-tertiary)]">
-            {allSteps.map((_, idx) => (
+            {stepsFromChildren.map((_, idx) => (
               <span key={idx} className={cn("w-2 h-2 rounded-full", idx === current ? "bg-[var(--primary)]" : "bg-[var(--neutral-200)]")} />
             ))}
           </div>
@@ -216,7 +197,7 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
               <Button size="xs" variant="secondary" onClick={handlePrev}>Previous</Button>
             )}
             <Button size="xs" variant="primary" onClick={handleNext}>
-              {current === allSteps.length - 1 ? 'Finish' : 'Next'}
+              {current === stepsFromChildren.length - 1 ? 'Finish' : 'Next'}
             </Button>
           </div>
         </div>

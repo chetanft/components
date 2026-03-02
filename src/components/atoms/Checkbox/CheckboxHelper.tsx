@@ -53,7 +53,7 @@ export const CheckboxHelper = React.forwardRef<HTMLParagraphElement, CheckboxHel
         ref={ref}
         id={descriptionId}
         className={cn(
-          "text-sm leading-relaxed mt-1",
+          "basis-full w-full text-sm leading-relaxed mt-1",
           contextDisabled
             ? "text-[var(--secondary)]"
             : hasError
@@ -71,4 +71,3 @@ export const CheckboxHelper = React.forwardRef<HTMLParagraphElement, CheckboxHel
 );
 
 CheckboxHelper.displayName = 'CheckboxHelper';
-

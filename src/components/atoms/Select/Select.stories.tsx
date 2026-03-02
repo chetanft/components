@@ -39,7 +39,7 @@ export const Default: Story = {
     ),
 };
 
-export const WithScroll: Story = {
+export const DocsWithScroll: Story = {
     render: () => (
         <Select>
             <SelectTrigger className="w-[280px]">
@@ -90,4 +90,6 @@ export const WithScroll: Story = {
             </SelectContent>
         </Select>
     ),
-};
+
+  parameters: { docsOnly: true },
+}

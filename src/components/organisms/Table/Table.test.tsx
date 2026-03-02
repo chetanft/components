@@ -1,24 +1,42 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Table } from './Table';
-import type { TableColumn } from './Table';
+import { TableHeader } from './TableHeader';
+import { TableBody } from './TableBody';
+import { TableRow } from './TableRow';
+import { TableHead } from './TableHead';
 import { TableCell } from './TableCell';
 
 describe('Table Component', () => {
-  const columns: TableColumn[] = [
-    { key: 'name', title: 'Name', type: 'text' },
-    { key: 'age', title: 'Age', type: 'number' },
-    { key: 'location', title: 'Location', type: 'text' },
-  ];
-
-  const data = [
-    { id: 1, name: 'John Doe', age: 30, location: 'New York' },
-    { id: 2, name: 'Jane Smith', age: 25, location: 'San Francisco' },
-    { id: 3, name: 'Bob Johnson', age: 40, location: 'Chicago' },
-  ];
-
-  it('renders correctly with the provided data', () => {
-    render(<Table columns={columns} data={data} />);
+  it('renders correctly with composable children', () => {
+    render(
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Age</TableHead>
+            <TableHead>Location</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>John Doe</TableCell>
+            <TableCell>30</TableCell>
+            <TableCell>New York</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Jane Smith</TableCell>
+            <TableCell>25</TableCell>
+            <TableCell>San Francisco</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Bob Johnson</TableCell>
+            <TableCell>40</TableCell>
+            <TableCell>Chicago</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    );
 
     // Check if column headers are rendered
     expect(screen.getByText('Name')).toBeInTheDocument();
@@ -30,78 +48,44 @@ describe('Table Component', () => {
     expect(screen.getByText('30')).toBeInTheDocument();
     expect(screen.getByText('New York')).toBeInTheDocument();
   });
-
-  it('handles row selection correctly', () => {
-    const handleSelectionChange = jest.fn();
-
-    render(
-      <Table
-        columns={columns}
-        data={data}
-        selectable
-        onSelectionChange={handleSelectionChange}
-      />
-    );
-
-    // Find all checkboxes (one for header and one for each row)
-    const checkboxes = screen.getAllByRole('checkbox');
-    expect(checkboxes.length).toBe(4); // 3 rows + header
-
-    // Select the first row
-    fireEvent.click(checkboxes[1]);
-    expect(handleSelectionChange).toHaveBeenCalledWith([1]);
-  });
-
-  it('applies different cell sizes based on data length', () => {
-    // Test with small dataset (should use xl size)
-    const { rerender } = render(<Table columns={columns} data={[data[0]]} />);
-
-    // Test with medium dataset (should use lg size)
-    const mediumData = Array(15).fill(null).map((_, i) => ({
-      id: i,
-      name: `Person ${i}`,
-      age: 20 + i,
-      location: 'Location'
-    }));
-
-    rerender(<Table columns={columns} data={mediumData} />);
-
-    // Test with large dataset (should use md size)
-    const largeData = Array(25).fill(null).map((_, i) => ({
-      id: i,
-      name: `Person ${i}`,
-      age: 20 + i,
-      location: 'Location'
-    }));
-
-    rerender(<Table columns={columns} data={largeData} />);
-  });
 });
 
 describe('TableCell Component', () => {
   it('renders with different background colors', () => {
     const { rerender } = render(
-      <TableCell backgroundColor="white">Cell Content</TableCell>
+      <table><tbody><tr>
+        <TableCell backgroundColor="white">Cell Content</TableCell>
+      </tr></tbody></table>
     );
 
     let cell = screen.getByText('Cell Content').closest('td');
     expect(cell).toHaveClass('bg-[var(--bg-primary)]');
 
-    rerender(<TableCell backgroundColor="bg">Cell Content</TableCell>);
+    rerender(
+      <table><tbody><tr>
+        <TableCell backgroundColor="bg">Cell Content</TableCell>
+      </tr></tbody></table>
+    );
     cell = screen.getByText('Cell Content').closest('td');
     expect(cell).toHaveClass('bg-[var(--bg-secondary)]');
   });
 
   it('renders with different line variants', () => {
     const { rerender } = render(
-      <TableCell lineVariant="single">Cell Content</TableCell>
+      <table><tbody><tr>
+        <TableCell lineVariant="single">Cell Content</TableCell>
+      </tr></tbody></table>
     );
 
     let cell = screen.getByText('Cell Content').closest('td');
     let contentDiv = cell?.querySelector('div');
     expect(contentDiv).toHaveClass('gap-[var(--spacing-x1)]');
 
-    rerender(<TableCell lineVariant="double">Cell Content</TableCell>);
+    rerender(
+      <table><tbody><tr>
+        <TableCell lineVariant="double">Cell Content</TableCell>
+      </tr></tbody></table>
+    );
     cell = screen.getByText('Cell Content').closest('td');
     contentDiv = cell?.querySelector('div');
     expect(contentDiv).toHaveClass('gap-[var(--spacing-x2)]');
@@ -109,32 +93,52 @@ describe('TableCell Component', () => {
 
   it('renders with different sizes', () => {
     const { rerender } = render(
-      <TableCell size="md">Cell Content</TableCell>
+      <table><tbody><tr>
+        <TableCell size="md">Cell Content</TableCell>
+      </tr></tbody></table>
     );
 
     let cell = screen.getByText('Cell Content').closest('td');
     expect(cell).toHaveClass('pr-[var(--spacing-x4)]');
 
-    rerender(<TableCell size="lg">Cell Content</TableCell>);
+    rerender(
+      <table><tbody><tr>
+        <TableCell size="lg">Cell Content</TableCell>
+      </tr></tbody></table>
+    );
     cell = screen.getByText('Cell Content').closest('td');
     expect(cell).toHaveClass('pr-[var(--spacing-x4)]');
 
-    rerender(<TableCell size="xl">Cell Content</TableCell>);
+    rerender(
+      <table><tbody><tr>
+        <TableCell size="xl">Cell Content</TableCell>
+      </tr></tbody></table>
+    );
     cell = screen.getByText('Cell Content').closest('td');
     expect(cell).toHaveClass('pr-[var(--spacing-x5)]');
   });
 
   it('handles different states correctly', () => {
     const { rerender } = render(
-      <TableCell state="default">Cell Content</TableCell>
+      <table><tbody><tr>
+        <TableCell state="default">Cell Content</TableCell>
+      </tr></tbody></table>
     );
 
-    rerender(<TableCell state="hover">Cell Content</TableCell>);
+    rerender(
+      <table><tbody><tr>
+        <TableCell state="hover">Cell Content</TableCell>
+      </tr></tbody></table>
+    );
     let cell = screen.getByText('Cell Content').closest('td');
     expect(cell).toHaveClass('bg-[var(--border-secondary)]');
 
-    rerender(<TableCell state="selected">Cell Content</TableCell>);
+    rerender(
+      <table><tbody><tr>
+        <TableCell state="selected">Cell Content</TableCell>
+      </tr></tbody></table>
+    );
     cell = screen.getByText('Cell Content').closest('td');
     expect(cell).toHaveClass('bg-[var(--border-secondary)]');
   });
-}); 
+});

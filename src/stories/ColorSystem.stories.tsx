@@ -10,6 +10,25 @@ const meta = {
         component: 'Complete color system showing primary, secondary, and semantic colors organized by theme mode.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      rows: [
+        {
+          id: 'theme',
+          label: 'Theme',
+          scenarios: [
+            { id: 'light', label: 'Light Mode', story: 'ExplorerBase', args: { theme: 'light' } },
+            { id: 'dark', label: 'Dark Mode', story: 'ExplorerBase', args: { theme: 'dark' } },
+            { id: 'night', label: 'Night Mode', story: 'ExplorerBase', args: { theme: 'night' } },
+          ],
+        },
+      ],
+      defaultRowId: 'theme',
+      defaultScenarioId: 'light',
+    },
   },
 } satisfies Meta;
 
@@ -163,7 +182,70 @@ const statusColors = {
   ]
 };
 
-export const LightMode: Story = {
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const theme = args.theme ?? 'light';
+    const syncKey = JSON.stringify({ theme });
+    return (
+      <div key={syncKey}>
+        {theme === 'dark' ? (
+          <div className="p-8 bg-slate-900 min-h-screen">
+            <div className="max-w-6xl mx-auto">
+              <div className="mb-8">
+                <h1 className="text-3xl font-bold text-white mb-2">Color System - Dark Mode</h1>
+                <p className="text-slate-300">Selected colors adapted for dark theme</p>
+              </div>
+              <div className="space-y-6">
+                <ColorScale title="Primary Colors" colors={selectedColors.primary.dark} theme="dark" />
+                <ColorScale title="Secondary Colors" colors={selectedColors.secondary.dark} theme="dark" />
+                <ColorScale title="Tertiary Colors" colors={selectedColors.tertiary.dark} theme="dark" />
+                <ColorScale title="Border Colors" colors={selectedColors.borders.dark} theme="dark" />
+                <ColorScale title="Background Colors" colors={selectedColors.backgrounds.dark} theme="dark" />
+                <ColorScale title="Semantic Status Colors" colors={statusColors.dark} theme="dark" />
+              </div>
+            </div>
+          </div>
+        ) : theme === 'night' ? (
+          <div className="p-8 bg-black min-h-screen">
+            <div className="max-w-6xl mx-auto">
+              <div className="mb-8">
+                <h1 className="text-3xl font-bold text-white mb-2">Color System - Night Mode</h1>
+                <p className="text-gray-300">High contrast selected colors for accessibility</p>
+              </div>
+              <div className="space-y-6">
+                <ColorScale title="Primary Colors" colors={selectedColors.primary.night} theme="night" />
+                <ColorScale title="Secondary Colors" colors={selectedColors.secondary.night} theme="night" />
+                <ColorScale title="Tertiary Colors" colors={selectedColors.tertiary.night} theme="night" />
+                <ColorScale title="Border Colors" colors={selectedColors.borders.night} theme="night" />
+                <ColorScale title="Background Colors" colors={selectedColors.backgrounds.night} theme="night" />
+                <ColorScale title="Semantic Status Colors" colors={statusColors.night} theme="night" />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="p-8 bg-gray-50 min-h-screen">
+            <div className="max-w-6xl mx-auto">
+              <div className="mb-8">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">Color System - Light Mode</h1>
+                <p className="text-gray-600">Selected colors from base color scales that components actually use</p>
+              </div>
+              <div className="space-y-6">
+                <ColorScale title="Primary Colors" colors={selectedColors.primary.light} theme="light" />
+                <ColorScale title="Secondary Colors" colors={selectedColors.secondary.light} theme="light" />
+                <ColorScale title="Tertiary Colors" colors={selectedColors.tertiary.light} theme="light" />
+                <ColorScale title="Border Colors" colors={selectedColors.borders.light} theme="light" />
+                <ColorScale title="Background Colors" colors={selectedColors.backgrounds.light} theme="light" />
+                <ColorScale title="Semantic Status Colors" colors={statusColors.light} theme="light" />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  },
+};
+
+export const DocsLightMode: Story = {
   render: () => (
     <div className="p-8 bg-gray-50 min-h-screen">
       <div className="max-w-6xl mx-auto">
@@ -214,110 +296,6 @@ export const LightMode: Story = {
       </div>
     </div>
   ),
-};
 
-export const DarkMode: Story = {
-  render: () => (
-    <div className="p-8 bg-slate-900 min-h-screen">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Color System - Dark Mode</h1>
-          <p className="text-slate-300">Selected colors adapted for dark theme</p>
-        </div>
-        
-        <div className="space-y-6">
-          <ColorScale 
-            title="Primary Colors" 
-            colors={selectedColors.primary.dark}
-            theme="dark"
-          />
-          <ColorScale 
-            title="Secondary Colors" 
-            colors={selectedColors.secondary.dark}
-            theme="dark"
-          />
-          <ColorScale 
-            title="Tertiary Colors" 
-            colors={selectedColors.tertiary.dark}
-            theme="dark"
-          />
-          <ColorScale 
-            title="Border Colors" 
-            colors={selectedColors.borders.dark}
-            theme="dark"
-          />
-          <ColorScale 
-            title="Background Colors" 
-            colors={selectedColors.backgrounds.dark}
-            theme="dark"
-          />
-          <ColorScale 
-            title="Semantic Status Colors" 
-            colors={statusColors.dark}
-            theme="dark"
-          />
-        </div>
-        
-        <div className="mt-12 p-4 bg-slate-800 border border-slate-700 rounded-lg">
-          <h3 className="font-semibold text-slate-100 mb-2">Automatic Theme Switching</h3>
-          <p className="text-slate-300 text-sm">
-            Same CSS variables, different values. Colors automatically adapt when <code className="bg-slate-700 px-1 rounded">.dark</code> class is applied.
-          </p>
-        </div>
-      </div>
-    </div>
-  ),
-};
-
-export const NightMode: Story = {
-  render: () => (
-    <div className="p-8 bg-black min-h-screen">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Color System - Night Mode</h1>
-          <p className="text-gray-300">High contrast selected colors for accessibility</p>
-        </div>
-        
-        <div className="space-y-6">
-          <ColorScale 
-            title="Primary Colors" 
-            colors={selectedColors.primary.night}
-            theme="night"
-          />
-          <ColorScale 
-            title="Secondary Colors" 
-            colors={selectedColors.secondary.night}
-            theme="night"
-          />
-          <ColorScale 
-            title="Tertiary Colors" 
-            colors={selectedColors.tertiary.night}
-            theme="night"
-          />
-          <ColorScale 
-            title="Border Colors" 
-            colors={selectedColors.borders.night}
-            theme="night"
-          />
-          <ColorScale 
-            title="Background Colors" 
-            colors={selectedColors.backgrounds.night}
-            theme="night"
-          />
-          <ColorScale 
-            title="Semantic Status Colors" 
-            colors={statusColors.night}
-            theme="night"
-          />
-        </div>
-        
-        <div className="mt-12 p-4 bg-gray-900 border border-gray-700 rounded-lg">
-          <h3 className="font-semibold text-gray-100 mb-2">Accessibility Focus</h3>
-          <p className="text-gray-300 text-sm">
-            Night mode provides maximum contrast ratios for users with visual impairments. True black backgrounds with pure white text.
-          </p>
-        </div>
-      </div>
-    </div>
-  ),
-};
+  parameters: { docsOnly: true },
+}

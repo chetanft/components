@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { SegmentedTabs } from '../components/molecules/SegmentedTabs';
+import { SegmentedTabs, SegmentedTabItem } from '../components/molecules/SegmentedTabs';
 
 const meta: Meta<typeof SegmentedTabs> = {
-  title: 'Molecules/SegmentedTabs',
+  title: 'Stories/SegmentedTabs',
   component: SegmentedTabs,
   parameters: {
+    docsOnly: true,
     layout: 'centered',
     docs: {
       description: {
@@ -19,34 +20,65 @@ export default meta;
 type Story = StoryObj<typeof SegmentedTabs>;
 
 export const Default: Story = {
-  args: {
-    items: [
-      { label: 'Tab 1', value: 'tab1' },
-      { label: 'Tab 2', value: 'tab2' },
-      { label: 'Tab 3', value: 'tab3' },
-    ],
-    defaultValue: 'tab1',
-  },
+  render: () => (
+    <SegmentedTabs defaultValue="tab1">
+      <SegmentedTabItem value="tab1">Tab 1</SegmentedTabItem>
+      <SegmentedTabItem value="tab2">Tab 2</SegmentedTabItem>
+      <SegmentedTabItem value="tab3">Tab 3</SegmentedTabItem>
+    </SegmentedTabs>
+  ),
 };
 
 export const TwoTabs: Story = {
-  args: {
-    items: [
-      { label: 'First', value: 'first' },
-      { label: 'Second', value: 'second' },
-    ],
-    defaultValue: 'first',
-  },
+  render: () => (
+    <SegmentedTabs defaultValue="first">
+      <SegmentedTabItem value="first">First</SegmentedTabItem>
+      <SegmentedTabItem value="second">Second</SegmentedTabItem>
+    </SegmentedTabs>
+  ),
 };
 
 export const FourTabs: Story = {
-  args: {
-    items: [
-      { label: 'Tab 1', value: 'tab1' },
-      { label: 'Tab 2', value: 'tab2' },
-      { label: 'Tab 3', value: 'tab3' },
-      { label: 'Tab 4', value: 'tab4' },
-    ],
-    defaultValue: 'tab1',
-  },
+  render: () => (
+    <SegmentedTabs defaultValue="tab1">
+      <SegmentedTabItem value="tab1">Tab 1</SegmentedTabItem>
+      <SegmentedTabItem value="tab2">Tab 2</SegmentedTabItem>
+      <SegmentedTabItem value="tab3">Tab 3</SegmentedTabItem>
+      <SegmentedTabItem value="tab4">Tab 4</SegmentedTabItem>
+    </SegmentedTabs>
+  ),
 };
+
+export const DocsVariants: Story = {
+  name: 'Variants',
+  render: () => (
+    <div className="space-y-6">
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Two Tabs</p>
+        <SegmentedTabs defaultValue="first">
+          <SegmentedTabItem value="first">First</SegmentedTabItem>
+          <SegmentedTabItem value="second">Second</SegmentedTabItem>
+        </SegmentedTabs>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Three Tabs</p>
+        <SegmentedTabs defaultValue="tab1">
+          <SegmentedTabItem value="tab1">Tab 1</SegmentedTabItem>
+          <SegmentedTabItem value="tab2">Tab 2</SegmentedTabItem>
+          <SegmentedTabItem value="tab3">Tab 3</SegmentedTabItem>
+        </SegmentedTabs>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Four Tabs</p>
+        <SegmentedTabs defaultValue="tab1">
+          <SegmentedTabItem value="tab1">Tab 1</SegmentedTabItem>
+          <SegmentedTabItem value="tab2">Tab 2</SegmentedTabItem>
+          <SegmentedTabItem value="tab3">Tab 3</SegmentedTabItem>
+          <SegmentedTabItem value="tab4">Tab 4</SegmentedTabItem>
+        </SegmentedTabs>
+      </div>
+    </div>
+  ),
+
+  parameters: { docsOnly: true },
+}

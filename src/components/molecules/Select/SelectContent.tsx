@@ -38,8 +38,8 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
     glass,
     ...props
   }, ref) => {
-    const resolvedGlass = useResolvedGlass(glass);
-    const { open, onOpenChange } = useSelectContext();
+    const { open, onOpenChange, glass: contextGlass } = useSelectContext();
+    const resolvedGlass = useResolvedGlass(glass ?? contextGlass);
     const contentRef = useRef<HTMLDivElement>(null);
     const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
     const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });

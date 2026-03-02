@@ -7,6 +7,41 @@ const meta: Meta<typeof Tabs> = {
   title: 'Organisms/Tabs',
   component: Tabs,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: 'A tabs component for organizing content into switchable panels. Supports primary, secondary, and tertiary styles with badges and overflow handling.',
+      },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'style',
+          label: 'Style',
+          scenarios: [
+            { id: 'primary', label: 'Primary', story: 'ExplorerBase', args: { type: 'primary' } },
+            { id: 'secondary', label: 'Secondary', story: 'ExplorerBase', args: { type: 'secondary' } },
+            { id: 'tertiary', label: 'Tertiary', story: 'ExplorerBase', args: { type: 'tertiary' } },
+          ],
+        },
+        {
+          id: 'content',
+          label: 'Content',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { withBadges: false } },
+            { id: 'badges', label: 'Badges', story: 'ExplorerBase', args: { withBadges: true } },
+          ],
+        },
+      ],
+      defaultRowId: 'style',
+      defaultScenarioId: 'primary',
+      supportsGlass: true,
+    },
+  },
   argTypes: {
     type: {
       control: { type: 'select' },
@@ -21,6 +56,26 @@ const meta: Meta<typeof Tabs> = {
 
 export default meta;
 type Story = StoryObj<typeof Tabs>;
+
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const [activeTab, setActiveTab] = React.useState(0);
+    const type = args.type ?? 'primary';
+    const withBadges = Boolean(args.withBadges);
+    return (
+      <Tabs activeTab={activeTab} onTabChange={setActiveTab} type={type}>
+        <TabsList>
+          <TabsTrigger value="tab1" {...(withBadges ? { badge: true, badgeCount: '56' } : {})}>Tab 1</TabsTrigger>
+          <TabsTrigger value="tab2" {...(withBadges ? { badge: true, badgeCount: '12' } : {})}>Tab 2</TabsTrigger>
+          <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+        </TabsList>
+        <TabsContent value="tab1">Content of Tab 1</TabsContent>
+        <TabsContent value="tab2">Content of Tab 2</TabsContent>
+        <TabsContent value="tab3">Content of Tab 3</TabsContent>
+      </Tabs>
+    );
+  },
+};
 
 // ---------------------------------------------------------------------------
 // Composable stories (recommended API)
@@ -66,130 +121,49 @@ function WithBadgesComponent() {
   );
 }
 
-export const WithBadges: Story = {
-  render: () => <WithBadgesComponent />,
-};
+export const DocsVariants: Story = {
+  render: () => {
+    function VariantsDemo() {
+      const [primary, setPrimary] = React.useState(0);
+      const [secondary, setSecondary] = React.useState(0);
+      const [tertiary, setTertiary] = React.useState(0);
+      return (
+        <div className="space-y-8">
+          <div>
+            <p className="text-sm font-medium mb-2">Primary</p>
+            <Tabs activeTab={primary} onTabChange={setPrimary} type="primary">
+              <TabsList>
+                <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+                <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+                <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+          <div>
+            <p className="text-sm font-medium mb-2">Secondary</p>
+            <Tabs activeTab={secondary} onTabChange={setSecondary} type="secondary">
+              <TabsList>
+                <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+                <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+                <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+          <div>
+            <p className="text-sm font-medium mb-2">Tertiary</p>
+            <Tabs activeTab={tertiary} onTabChange={setTertiary} type="tertiary">
+              <TabsList>
+                <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+                <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+                <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+        </div>
+      );
+    }
+    return <VariantsDemo />;
+  },
 
-function SecondaryComponent() {
-  const [activeTab, setActiveTab] = React.useState(0);
-  return (
-    <Tabs activeTab={activeTab} onTabChange={setActiveTab} type="secondary">
-      <TabsList>
-        <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-        <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-        <TabsTrigger value="tab3">Tab 3</TabsTrigger>
-      </TabsList>
-      <TabsContent value="tab1">Content of Tab 1</TabsContent>
-      <TabsContent value="tab2">Content of Tab 2</TabsContent>
-      <TabsContent value="tab3">Content of Tab 3</TabsContent>
-    </Tabs>
-  );
+  parameters: { docsOnly: true },
 }
-
-export const Secondary: Story = {
-  render: () => <SecondaryComponent />,
-};
-
-function TertiaryComponent() {
-  const [activeTab, setActiveTab] = React.useState(0);
-  return (
-    <Tabs activeTab={activeTab} onTabChange={setActiveTab} type="tertiary">
-      <TabsList>
-        <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-        <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-        <TabsTrigger value="tab3">Tab 3</TabsTrigger>
-      </TabsList>
-      <TabsContent value="tab1">Content of Tab 1</TabsContent>
-      <TabsContent value="tab2">Content of Tab 2</TabsContent>
-      <TabsContent value="tab3">Content of Tab 3</TabsContent>
-    </Tabs>
-  );
-}
-
-export const Tertiary: Story = {
-  render: () => <TertiaryComponent />,
-};
-
-// ---------------------------------------------------------------------------
-// Legacy declarative stories (deprecated)
-// ---------------------------------------------------------------------------
-
-const tabsData = [
-  { label: 'Tab 1', children: 'Content of Tab 1' },
-  { label: 'Tab 2', children: 'Content of Tab 2' },
-  { label: 'Tab 3', children: 'Content of Tab 3' },
-];
-
-const overflowTabs = Array.from({ length: 20 }).map((_, index) => ({
-  label: `Tab ${index + 1}`,
-  children: `Content of Tab ${index + 1}`,
-}));
-
-/** @deprecated Use the `Default` story instead. */
-export const LegacyPrimary: Story = {
-  args: {
-    tabs: tabsData,
-    type: 'primary',
-  },
-};
-
-/** @deprecated Use the `Secondary` story instead. */
-export const LegacySecondary: Story = {
-  args: {
-    tabs: tabsData,
-    type: 'secondary',
-  },
-};
-
-/** @deprecated Use the `Tertiary` story instead. */
-export const LegacyTertiary: Story = {
-  args: {
-    tabs: tabsData,
-    type: 'tertiary',
-  },
-};
-
-/** @deprecated Use the `WithBadges` story instead. */
-export const LegacyWithBadges: Story = {
-  args: {
-    tabs: [
-      { label: 'Tab 1', badge: true, badgeCount: '56', children: 'Content of Tab 1' },
-      { label: 'Tab 2', badge: true, badgeCount: '12', children: 'Content of Tab 2' },
-      { label: 'Tab 3', children: 'Content of Tab 3' },
-    ],
-    type: 'primary',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithNotifications: Story = {
-  args: {
-    tabs: [
-      { label: 'Tab 1', notification: true, children: 'Content of Tab 1' },
-      { label: 'Tab 2', notification: true, children: 'Content of Tab 2' },
-      { label: 'Tab 3', children: 'Content of Tab 3' },
-    ],
-    type: 'primary',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithIcons: Story = {
-  args: {
-    tabs: [
-      { label: 'Tab 1', icon: true, children: 'Content of Tab 1' },
-      { label: 'Tab 2', icon: true, children: 'Content of Tab 2' },
-      { label: 'Tab 3', children: 'Content of Tab 3' },
-    ],
-    type: 'primary',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyOverflowDropdown: Story = {
-  args: {
-    tabs: overflowTabs,
-    type: 'primary',
-    overflowBehavior: 'dropdown',
-  },
-};

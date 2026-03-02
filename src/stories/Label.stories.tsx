@@ -13,6 +13,34 @@ const meta: Meta<typeof Label> = {
         component: 'Form label component with support for mandatory indicators, optional text, and suffix icons. Based on Figma design specifications.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: {} },
+            { id: 'mandatory', label: 'Mandatory', story: 'ExplorerBase', args: { mandatory: true } },
+            { id: 'optional', label: 'Optional', story: 'ExplorerBase', args: { optional: true } },
+          ],
+        },
+        {
+          id: 'content',
+          label: 'Content',
+          scenarios: [
+            { id: 'default', label: 'Basic', story: 'ExplorerBase', args: {} },
+            { id: 'icon', label: 'With Icon', story: 'ExplorerBase', args: { suffixIcon: true } },
+            { id: 'form', label: 'Form Example', story: 'ExplorerBase', args: { mandatory: true, suffixIcon: true } },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+    },
   },
   argTypes: {
     children: {
@@ -50,6 +78,22 @@ const meta: Meta<typeof Label> = {
 export default meta;
 type Story = StoryObj<typeof Label>;
 
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const mandatory = Boolean(args.mandatory);
+    const optional = Boolean(args.optional);
+    const suffixIcon = Boolean(args.suffixIcon);
+    const syncKey = JSON.stringify({ mandatory, optional, suffixIcon });
+    return (
+      <div key={syncKey}>
+        <Label mandatory={mandatory} optional={optional} suffixIcon={suffixIcon}>
+          Label
+        </Label>
+      </div>
+    );
+  },
+};
+
 // Basic label (Mandatory=False, Suffix icon=False, Optional=False)
 export const Default: Story = {
   args: {
@@ -58,7 +102,7 @@ export const Default: Story = {
 };
 
 // Interactive Demo - changeable props (per plan)
-export function InteractiveDemo() {
+export function DocsInteractiveDemo() {
   const [formData, setFormData] = React.useState({
     email: '',
     password: '',
@@ -138,239 +182,11 @@ export function InteractiveDemo() {
 }
 
 // Label with suffix icon (Mandatory=False, Suffix icon=True, Optional=False)
-export const WithSuffixIcon: Story = {
+export const DocsWithSuffixIcon: Story = {
   args: {
     children: 'Label',
     suffixIcon: true,
   },
-};
 
-// Optional label (Mandatory=False, Suffix icon=False, Optional=True)
-export const Optional: Story = {
-  args: {
-    children: 'Label',
-    optional: true,
-  },
-};
-
-// Optional with icon (Mandatory=False, Suffix icon=True, Optional=True)
-export const OptionalWithIcon: Story = {
-  args: {
-    children: 'Label',
-    optional: true,
-    suffixIcon: true,
-  },
-};
-
-// Mandatory label (Mandatory=True, Suffix icon=False, Optional=False)
-export const Mandatory: Story = {
-  args: {
-    children: 'Label',
-    mandatory: true,
-  },
-};
-
-// Mandatory with icon (Mandatory=True, Suffix icon=True, Optional=False)
-export const MandatoryWithIcon: Story = {
-  args: {
-    children: 'Label',
-    mandatory: true,
-    suffixIcon: true,
-  },
-};
-
-// Custom icon example
-export const CustomIcon: Story = {
-  args: {
-    children: 'Custom Icon Label',
-    suffixIcon: true,
-    icon: <AlertInformational />,
-  },
-};
-
-// Long label text
-export const LongText: Story = {
-  args: {
-    children: 'This is a very long label text that might wrap to multiple lines',
-    mandatory: true,
-    suffixIcon: true,
-  },
-};
-
-// Form field example
-export const FormField: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)', minWidth: 'calc(var(--spacing-x10) * 7.5)' }}>
-      <Label htmlFor="email" mandatory>
-        Email Address
-      </Label>
-      <input
-        id="email"
-        type="email"
-        placeholder="Enter your email"
-        style={{
-          padding: 'var(--spacing-x2) var(--spacing-x3)',
-          border: '1px solid var(--border-primary)',
-          borderRadius: 'var(--radius-sm)',
-          fontSize: 'var(--font-size-sm)',
-        }}
-      />
-    </div>
-  ),
-};
-
-// Form with multiple field types
-export const FormExample: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x6)', minWidth: 'calc(var(--spacing-x10) * 10)' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)' }}>
-        <Label htmlFor="name" mandatory>
-          Full Name
-        </Label>
-        <input
-          id="name"
-          type="text"
-          placeholder="Enter your full name"
-          style={{
-            padding: 'var(--spacing-x2) var(--spacing-x3)',
-            border: '1px solid var(--border-primary)',
-            borderRadius: 'var(--radius-sm)',
-            fontSize: 'var(--font-size-sm)',
-          }}
-        />
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)' }}>
-        <Label htmlFor="phone" suffixIcon>
-          Phone Number
-        </Label>
-        <input
-          id="phone"
-          type="tel"
-          placeholder="Enter your phone number"
-          style={{
-            padding: 'var(--spacing-x2) var(--spacing-x3)',
-            border: '1px solid var(--border-primary)',
-            borderRadius: 'var(--radius-sm)',
-            fontSize: 'var(--font-size-sm)',
-          }}
-        />
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)' }}>
-        <Label htmlFor="company" optional>
-          Company Name
-        </Label>
-        <input
-          id="company"
-          type="text"
-          placeholder="Enter your company name"
-          style={{
-            padding: 'var(--spacing-x2) var(--spacing-x3)',
-            border: '1px solid var(--border-primary)',
-            borderRadius: 'var(--radius-sm)',
-            fontSize: 'var(--font-size-sm)',
-          }}
-        />
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x2)' }}>
-        <Label htmlFor="bio" optional suffixIcon>
-          Bio
-        </Label>
-        <textarea
-          id="bio"
-          placeholder="Tell us about yourself"
-          rows={3}
-          style={{
-            padding: 'var(--spacing-x2) var(--spacing-x3)',
-            border: '1px solid var(--border-primary)',
-            borderRadius: 'var(--radius-sm)',
-            fontSize: 'var(--font-size-sm)',
-            resize: 'vertical',
-          }}
-        />
-      </div>
-    </div>
-  ),
-};
-
-// All variations showcase
-export const AllVariations: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x5)', padding: 'var(--spacing-x5)' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--spacing-x5)' }}>
-        <div>
-          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
-            Basic Label
-          </h3>
-          <Label>Label</Label>
-        </div>
-
-        <div>
-          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
-            With Suffix Icon
-          </h3>
-          <Label suffixIcon>Label</Label>
-        </div>
-
-        <div>
-          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
-            Optional
-          </h3>
-          <Label optional>Label</Label>
-        </div>
-
-        <div>
-          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
-            Optional with Icon
-          </h3>
-          <Label optional suffixIcon>Label</Label>
-        </div>
-
-        <div>
-          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
-            Mandatory
-          </h3>
-          <Label mandatory>Label</Label>
-        </div>
-
-        <div>
-          <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)', color: 'var(--primary)' }}>
-            Mandatory with Icon
-          </h3>
-          <Label mandatory suffixIcon>Label</Label>
-        </div>
-      </div>
-    </div>
-  ),
-};
-
-
-// Different HTML elements
-export const AsElements: Story = {
-  render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x4)' }}>
-      <div>
-        <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)' }}>
-          As Label Element (default)
-        </h3>
-        <Label mandatory>Form Label</Label>
-      </div>
-
-      <div>
-        <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)' }}>
-          As Span Element
-        </h3>
-        <Label as="span" suffixIcon>Inline Label</Label>
-      </div>
-
-      <div>
-        <h3 style={{ fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', marginBottom: 'var(--spacing-x2)' }}>
-          As Div Element
-        </h3>
-        <Label as="div" optional>Block Label</Label>
-      </div>
-    </div>
-  ),
-}; 
+  parameters: { docsOnly: true },
+}

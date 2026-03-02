@@ -4,22 +4,62 @@ import React, { useEffect, useMemo, useState, useCallback, useRef } from 'react'
 import { cn } from '../../../lib/utils';
 import { AppHeader, type User as AppHeaderUser } from '../../organisms/AppHeader';
 import { Card } from '../../organisms/Card';
-import { Table } from '../../organisms/Table';
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '../../organisms/Table';
 import type { TableColumn, TableRowData } from '../../organisms/Table';
 import { Button } from '../../atoms/Button/Button';
 import { Badge } from '../../atoms/Badge';
 import { Typography } from '../../atoms/Typography';
-import { QuickFilters, type QuickFilter } from '../../organisms/QuickFilters';
+import { QuickFilters, QuickFilter, FilterOption, type QuickFilterType } from '../../organisms/QuickFilters';
 import { Input } from '../../atoms/Input';
 import { Dropdown, type DropdownOption } from '../../molecules/Dropdown';
+import { DropdownTrigger } from '../../molecules/Dropdown/DropdownTrigger';
+import { DropdownContent } from '../../molecules/Dropdown/DropdownContent';
+import { DropdownMenu } from '../../molecules/DropdownMenu';
+import { DropdownMenuList } from '../../molecules/DropdownMenu/DropdownMenuList';
+import { DropdownMenuItem } from '../../molecules/DropdownMenu/DropdownMenuItem';
 import { DatePicker } from '../../molecules/DatePicker';
-import { Tabs, type Tab } from '../../organisms/Tabs';
-import { SegmentedTabs } from '../../molecules/SegmentedTabs';
+import { Tabs, TabsList, TabsTrigger, type Tab } from '../../organisms/Tabs';
+import { SegmentedTabs, SegmentedTabItem } from '../../molecules/SegmentedTabs';
 import { Checkbox } from '../../atoms/Checkbox';
 import { Icon } from '../../atoms/Icons';
 import type { IconName } from '../../atoms/Icons';
 import { PercentageOfChargeInput } from '../../molecules/PercentageOfChargeInput';
 import ReactDOM from 'react-dom';
+
+function ComposableDataTable<T extends TableRowData>({
+  columns,
+  data,
+}: {
+  columns: TableColumn<T>[];
+  data: T[];
+}) {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          {columns.map((column) => (
+            <TableHead key={String(column.key)}>
+              {String((column as { title?: string; label?: string; header?: string }).title ?? (column as { label?: string }).label ?? (column as { header?: string }).header ?? column.key)}
+            </TableHead>
+          ))}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {data.map((row, rowIndex) => (
+          <TableRow key={String(row.id)}>
+            {columns.map((column) => (
+              <TableCell key={`${String(row.id)}-${String(column.key)}`}>
+                {column.render
+                  ? column.render((row as Record<string, unknown>)[String(column.key)], row, rowIndex)
+                  : String((row as Record<string, unknown>)[String(column.key)] ?? '')}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
 
 const DEFAULT_DASHBOARD_USER: AppHeaderUser = {
   name: 'John Doe',
@@ -101,7 +141,7 @@ export const DashboardBlock: React.FC<DashboardBlockProps> = ({
               Add User
             </Button>
           </div>
-          <Table<DashboardRow> columns={columns} data={rows} />
+          <ComposableDataTable<DashboardRow> columns={columns} data={rows} />
         </div>
       </Card>
     </div>
@@ -123,7 +163,7 @@ const DEFAULT_LISTING_ROWS = [
 
 type ListingRow = typeof DEFAULT_LISTING_ROWS[number];
 
-const DEFAULT_LISTING_FILTERS: QuickFilter[] = [
+const DEFAULT_LISTING_FILTERS: QuickFilterType[] = [
   { id: 'all', label: 'All', selected: true },
   { id: 'active', label: 'Active', count: 1 },
   { id: 'pending', label: 'Pending', count: 1 },
@@ -133,9 +173,44 @@ const DEFAULT_LISTING_FILTERS: QuickFilter[] = [
 export interface ListingBlockProps {
   user?: AppHeaderUser;
   rows?: ListingRow[];
-  filters?: QuickFilter[];
+  filters?: QuickFilterType[];
   onCreate?: () => void;
 }
+
+const renderQuickFilters = (
+  filters: QuickFilterType[],
+  onFilterClick?: (filterId: string, optionId?: string) => void,
+  onFilterRemove?: (filterId: string, optionId?: string) => void,
+  options?: { scrollable?: boolean }
+) => (
+  <QuickFilters
+    scrollable={options?.scrollable}
+    onFilterClick={onFilterClick}
+    onFilterRemove={onFilterRemove}
+  >
+    {filters.map((filter) => (
+      <QuickFilter
+        key={filter.id}
+        id={filter.id}
+        label={filter.label}
+        count={filter.count}
+        type={filter.type}
+        selected={filter.selected}
+        selectedOption={filter.selectedOption}
+      >
+        {filter.options?.map((option) => (
+          <FilterOption
+            key={option.id}
+            id={option.id}
+            label={option.label}
+            count={option.count}
+            type={option.type}
+          />
+        ))}
+      </QuickFilter>
+    ))}
+  </QuickFilters>
+);
 
 export const ListingBlock: React.FC<ListingBlockProps> = ({
   user = DEFAULT_LISTING_USER,
@@ -186,12 +261,12 @@ export const ListingBlock: React.FC<ListingBlockProps> = ({
         </Button>
       </div>
 
-      <QuickFilters
-        filters={filters.map((filter) => ({ ...filter, selected: filter.id === activeFilter }))}
-        onFilterClick={(filterId: string) => setActiveFilter(filterId)}
-      />
+      {renderQuickFilters(
+        filters.map((filter) => ({ ...filter, selected: filter.id === activeFilter })),
+        (filterId: string) => setActiveFilter(filterId)
+      )}
 
-      <Table<ListingRow> columns={columns} data={filteredRows} />
+      <ComposableDataTable<ListingRow> columns={columns} data={filteredRows} />
     </div>
   );
 };
@@ -324,7 +399,7 @@ const DEFAULT_JOURNEYS: Journey[] = [
   },
 ];
 
-const DEFAULT_JOURNEY_FILTERS: QuickFilter[] = [
+const DEFAULT_JOURNEY_FILTERS: QuickFilterType[] = [
   { id: 'long-stoppage', label: 'Long Stoppage', count: 19, type: 'alert' },
   { id: 'route-deviation', label: 'Route Deviation', count: 19, type: 'alert' },
   {
@@ -365,6 +440,29 @@ const JOURNEY_TABS: Tab[] = [
   { label: 'Delivered', badge: true, badgeCount: 56 },
 ];
 
+const renderJourneyTabs = (
+  tabs: Tab[],
+  activeTab: number,
+  onTabChange: (index: number) => void
+) => (
+  <Tabs activeTab={activeTab} onTabChange={onTabChange} overflowBehavior="dropdown">
+    <TabsList>
+      {tabs.map((tab, index) => (
+        <TabsTrigger
+          key={`${tab.label}-${index}`}
+          value={`journey-tab-${index}`}
+          disabled={tab.disabled}
+          badge={tab.badge}
+          badgeCount={tab.badgeCount}
+          notification={tab.notification}
+        >
+          {tab.label}
+        </TabsTrigger>
+      ))}
+    </TabsList>
+  </Tabs>
+);
+
 const JOURNEY_STATUS_MAP: Record<number, string> = {
   0: 'planned',
   1: 'en-route-loading',
@@ -377,7 +475,7 @@ const JOURNEY_STATUS_MAP: Record<number, string> = {
 
 export interface JourneysBlockProps {
   journeys?: Journey[];
-  filters?: QuickFilter[];
+  filters?: QuickFilterType[];
   companyOptions?: DropdownOption[];
   directionOptions?: DropdownOption[];
 }
@@ -617,10 +715,18 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
     switch (activeCompactFilter) {
       case 'company':
         return (
-          <Dropdown
-            options={companyOptions}
-            placeholder="Select company"
-          />
+          <Dropdown placeholder="Select company">
+            <DropdownTrigger />
+            <DropdownContent>
+              <DropdownMenu property="default" className="w-full">
+                <DropdownMenuList>
+                  {companyOptions.map((opt) => (
+                    <DropdownMenuItem key={String(opt.value)} value={String(opt.value)} label={opt.label} />
+                  ))}
+                </DropdownMenuList>
+              </DropdownMenu>
+            </DropdownContent>
+          </Dropdown>
         );
       case 'dates':
         return (
@@ -635,10 +741,18 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
         );
       case 'direction':
         return (
-          <Dropdown
-            options={directionOptions}
-            placeholder="Direction"
-          />
+          <Dropdown placeholder="Direction">
+            <DropdownTrigger />
+            <DropdownContent>
+              <DropdownMenu property="default" className="w-full">
+                <DropdownMenuList>
+                  {directionOptions.map((opt) => (
+                    <DropdownMenuItem key={String(opt.value)} value={String(opt.value)} label={opt.label} />
+                  ))}
+                </DropdownMenuList>
+              </DropdownMenu>
+            </DropdownContent>
+          </Dropdown>
         );
       case 'search':
         return (
@@ -705,7 +819,18 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
                 </>
               ) : (
                 <div className="flex items-center gap-4">
-                  <Dropdown options={companyOptions} placeholder="Select company" />
+                  <Dropdown placeholder="Select company">
+                    <DropdownTrigger />
+                    <DropdownContent>
+                      <DropdownMenu property="default" className="w-full">
+                        <DropdownMenuList>
+                          {companyOptions.map((opt) => (
+                            <DropdownMenuItem key={String(opt.value)} value={String(opt.value)} label={opt.label} />
+                          ))}
+                        </DropdownMenuList>
+                      </DropdownMenu>
+                    </DropdownContent>
+                  </Dropdown>
                   <DatePicker
                     range
                     startValue={dateRangeStart}
@@ -714,7 +839,18 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
                     onEndChange={(value) => setDateRangeEnd(value)}
                     placeholder="12 Aug, 2024 → 12 Sep 2024"
                   />
-                  <Dropdown options={directionOptions} placeholder="Direction" />
+                  <Dropdown placeholder="Direction">
+                    <DropdownTrigger />
+                    <DropdownContent>
+                      <DropdownMenu property="default" className="w-full">
+                        <DropdownMenuList>
+                          {directionOptions.map((opt) => (
+                            <DropdownMenuItem key={String(opt.value)} value={String(opt.value)} label={opt.label} />
+                          ))}
+                        </DropdownMenuList>
+                      </DropdownMenu>
+                    </DropdownContent>
+                  </Dropdown>
                   <Input
                     placeholder="Search My Journeys"
                     leadingIcon="search"
@@ -733,36 +869,29 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
 
         <div className="flex gap-4 items-center flex-nowrap mb-5 overflow-hidden">
           <div className="flex-1 min-w-0">
-            <Tabs
-              tabs={JOURNEY_TABS}
-              activeTab={selectedTab}
-              onTabChange={setSelectedTab}
-              overflowBehavior="dropdown"
-            />
+            {renderJourneyTabs(JOURNEY_TABS, selectedTab, setSelectedTab)}
           </div>
           {!isMobile && (
             <div className="shrink-0">
               <SegmentedTabs
                 variant="icon-only"
-                items={[
-                  { value: 'list', label: 'List view', icon: <Icon name="hamburger-menu" className="w-4 h-4" /> },
-                  { value: 'map', label: 'Map view', icon: <Icon name="map" className="w-4 h-4" /> },
-                ]}
                 value={viewMode}
                 onChange={(value: string) => setViewMode(value as 'list' | 'map')}
-              />
+              >
+                <SegmentedTabItem value="list" label="List view" icon={<Icon name="hamburger-menu" className="w-4 h-4" />} />
+                <SegmentedTabItem value="map" label="Map view" icon={<Icon name="map" className="w-4 h-4" />} />
+              </SegmentedTabs>
             </div>
           )}
         </div>
 
         {!isMobile && (
           <div className="w-full overflow-hidden">
-            <QuickFilters
-              scrollable={true}
-              filters={filters.map((filter) => {
+            {renderQuickFilters(
+              filters.map((filter) => {
                 if (filter.options && filter.options.length > 0) {
                   // Multi-option filter - check if any option is selected
-                  const selectedOption = filter.options.find(opt => {
+                  const selectedOption = filter.options.find((opt) => {
                     const key = `${filter.id}:${opt.id}`;
                     return activeFilters.has(key);
                   });
@@ -770,15 +899,15 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
                     ...filter,
                     selectedOption: selectedOption?.id,
                   };
-                } else {
-                  // Single filter - check if selected
-                  return {
-                    ...filter,
-                    selected: activeFilters.has(filter.id),
-                  };
                 }
-              })}
-              onFilterClick={(filterId: string, optionId?: string) => {
+
+                // Single filter - check if selected
+                return {
+                  ...filter,
+                  selected: activeFilters.has(filter.id),
+                };
+              }),
+              (filterId: string, optionId?: string) => {
                 const key = optionId ? `${filterId}:${optionId}` : filterId;
                 setActiveFilters((prev) => {
                   const next = new Set(prev);
@@ -789,16 +918,17 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
                   }
                   return next;
                 });
-              }}
-              onFilterRemove={(filterId: string, optionId?: string) => {
+              },
+              (filterId: string, optionId?: string) => {
                 const key = optionId ? `${filterId}:${optionId}` : filterId;
                 setActiveFilters((prev) => {
                   const next = new Set(prev);
                   next.delete(key);
                   return next;
                 });
-              }}
-            />
+              },
+              { scrollable: true }
+            )}
           </div>
         )}
 
@@ -839,7 +969,7 @@ export const JourneysBlock: React.FC<JourneysBlockProps> = ({
         <div style={{ marginTop: '20px' }}>
           {!isMobile ? (
             <div className="journeys-table-wrapper" style={{ border: '1px solid var(--border-primary)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
-              <Table columns={tableColumns} data={tableData} />
+              <ComposableDataTable columns={tableColumns} data={tableData} />
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

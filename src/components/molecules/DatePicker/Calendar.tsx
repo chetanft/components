@@ -5,6 +5,8 @@ import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { Button } from '../../atoms/Button/Button';
 import { DropdownMenu } from '../DropdownMenu';
+import { DropdownMenuList } from '../DropdownMenu/DropdownMenuList';
+import { DropdownMenuItem } from '../DropdownMenu/DropdownMenuItem';
 import {
   startOfToday,
   startOfWeek,
@@ -744,15 +746,21 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
               <div className="absolute z-[10000] w-full mt-[var(--spacing-x1)]">
                 <DropdownMenu
                   property="default"
-                  options={resolvedDropdownPresets.map((option) => ({
-                    value: option,
-                    label: option,
-                    prefix: 'none' as const,
-                    state: selectedDateRange === option ? 'selected' : 'default' as const,
-                    showCheckmark: true,
-                  }))}
-                  onSelect={(value) => handleDateRangeSelect(value)}
-                />
+                >
+                  <DropdownMenuList>
+                    {resolvedDropdownPresets.map((option) => (
+                      <DropdownMenuItem
+                        key={option}
+                        value={option}
+                        label={option}
+                        prefix="none"
+                        state={selectedDateRange === option ? 'selected' : 'default'}
+                        showCheckmark
+                        onClick={() => handleDateRangeSelect(option)}
+                      />
+                    ))}
+                  </DropdownMenuList>
+                </DropdownMenu>
               </div>
             )}
           </div>

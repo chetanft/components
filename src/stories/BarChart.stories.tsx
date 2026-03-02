@@ -14,6 +14,7 @@ const meta: Meta<typeof BarChart> = {
   title: 'Components/Charts/BarChart',
   component: BarChart,
   parameters: {
+    docsOnly: true,
     layout: 'padded',
     docs: {
       description: {

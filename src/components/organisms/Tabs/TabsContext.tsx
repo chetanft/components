@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext } from 'react';
+import type { GlassVariant } from '../../../lib/glass';
 
 export type TabType = 'primary' | 'secondary' | 'tertiary';
 
@@ -11,6 +12,7 @@ export interface TabsContextType {
   showLine: boolean;
   valueToIndexMap: Map<string, number>;
   registerValue: (value: string, index: number) => void;
+  glass?: GlassVariant;
 }
 
 const TabsContext = createContext<TabsContextType | undefined>(undefined);

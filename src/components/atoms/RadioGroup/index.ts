@@ -1,5 +1,5 @@
 export { RadioGroup, RadioGroupItem } from './RadioGroup';
-export type { RadioGroupProps, RadioOption } from './RadioGroup';
+export type { RadioGroupProps } from './RadioGroup';
 
 export { RadioGroupLabel } from './RadioGroupLabel';
 export type { RadioGroupLabelProps } from './RadioGroupLabel';

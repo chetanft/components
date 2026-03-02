@@ -6,8 +6,6 @@ export default {
     content: [
         './src/**/*.{js,jsx,ts,tsx}',
         '../src/**/*.{js,jsx,ts,tsx}', // Include component library source
-        // Exclude DropdownMenu files that have problematic CSS variable patterns
-        '!../src/components/molecules/DropdownMenu/**/*',
         // Exclude dist and build files
         '!../dist/**/*',
         '!./dist/**/*',
@@ -57,6 +55,16 @@ export default {
                 border: 'var(--docs-border)',
                 input: 'var(--docs-input)',
                 ring: 'var(--docs-ring)',
+            },
+            fontSize: {
+                ...rootConfig.theme?.extend?.fontSize,
+                'display-xl': 'var(--docs-display-xl)',
+                'display-lg': 'var(--docs-display-lg)',
+                'display-sm': 'var(--docs-display-sm)',
+                // Doc page heading scale (calibrated for 14px root)
+                'page-title': ['2.571rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],  // 36px
+                'section':    ['1.714rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],   // 24px
+                'subsection': ['1.286rem', { lineHeight: '1.4' }],                             // 18px
             },
             borderRadius: {
                 ...rootConfig.theme.extend.borderRadius,

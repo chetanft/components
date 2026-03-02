@@ -1,16 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { useState, useEffect, useMemo } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { useState, useMemo } from "react";
+import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import type { StoryDefinition, StoryMeta } from "@/lib/story-loader";
 import { formatStoryName } from "@/lib/story-loader";
 import { StoryPreview } from "@/components/story-preview";
 import { normalizeStories } from "@/lib/variant-grouping";
-import { SegmentedTabs, SegmentedTabItem } from "@/registry";
-import { VariantExplorer } from "@/components/variant-explorer";
+import { VariantExplorerV2 } from "@/components/variant-explorer-v2";
+import { docsConfig } from "@/config/docs";
+import { ComponentUsageOverlay } from "@/components/component-usage-overlay";
+import { Button } from "@/registry";
 
 interface ExamplesSectionProps {
   stories: StoryDefinition[];
@@ -24,153 +26,181 @@ interface ExamplesSectionProps {
  * Manages filter state (All/Args/Interactive), view state (List/Explorer),
  * and renders the appropriate view based on user selection.
  */
+/** Flatten all component items from sidebar nav into an ordered list */
+const allComponentItems = docsConfig.sidebarNav
+  .flatMap((section) => section.items)
+  .filter((item) => item.href.startsWith("/docs/components/"));
+
 export function ExamplesSection({
   stories,
   meta,
   componentName,
 }: ExamplesSectionProps) {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const pathname = usePathname();
-
-  // Initialize view from URL or localStorage
-  const getInitialView = (): "list" | "explorer" => {
-    const urlView = searchParams.get("view");
-    if (urlView === "explorer") return "explorer";
-    if (urlView === "list") return "list";
-    
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("ftds_docs_examples_view");
-      if (stored === "explorer" || stored === "list") {
-        return stored;
-      }
-    }
-    return "list"; // Default
-  };
-
-  const [storyFilter, setStoryFilter] = useState<"all" | "args" | "function">("all");
-  const [view, setView] = useState<"list" | "explorer">(getInitialView);
+  const searchParams = useSearchParams();
+  const [explorerOpen, setExplorerOpen] = useState(() => searchParams.get("explorer") === "true");
+  const [usageOpen, setUsageOpen] = useState(false);
   const [showAllStories, setShowAllStories] = useState(false);
+  const filteredStories = stories;
 
-  // Sync view with URL and localStorage
-  useEffect(() => {
-    const urlView = searchParams.get("view");
-    if (urlView === "explorer" || urlView === "list") {
-      setView(urlView);
-    }
-  }, [searchParams]);
+  // Prev/next component navigation for explorer
+  const currentIndex = allComponentItems.findIndex((item) => {
+    const slug = item.href.replace("/docs/components/", "");
+    const name = slug
+      .split("-")
+      .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+      .join("");
+    return name === componentName;
+  });
+  const prevComponent = currentIndex > 0 ? allComponentItems[currentIndex - 1] : null;
+  const nextComponent = currentIndex < allComponentItems.length - 1 ? allComponentItems[currentIndex + 1] : null;
 
-  // Update URL when view changes
-  const handleViewChange = (newView: "list" | "explorer") => {
-    setView(newView);
-    
-    // Update localStorage
-    if (typeof window !== "undefined") {
-      localStorage.setItem("ftds_docs_examples_view", newView);
-    }
+  function navigateExplorer(href: string) {
+    router.push(href + "?explorer=true");
+  }
 
-    // Update URL
-    const params = new URLSearchParams(searchParams.toString());
-    if (newView === "explorer") {
-      params.set("view", "explorer");
-    } else {
-      params.delete("view");
-    }
-    
-    const newUrl = params.toString() 
-      ? `${pathname}?${params.toString()}`
-      : pathname;
-    router.replace(newUrl, { scroll: false });
-  };
-
-  // Filter stories based on type
-  const filteredStories = useMemo(() => {
-    let filtered = stories;
-
-    if (storyFilter === "args") {
-      filtered = filtered.filter((s) => s.args && !s.component && !s.render);
-    } else if (storyFilter === "function") {
-      filtered = filtered.filter((s) => s.component || s.render);
-    }
-
-    return filtered;
-  }, [stories, storyFilter]);
-
-  // Normalize and deduplicate stories
+  // Normalize and deduplicate stories, then split into canonical vs docs-only
   const normalizedStories = useMemo(() => {
     return normalizeStories(filteredStories, componentName);
   }, [filteredStories, componentName]);
 
-  // For List view: limit to 5 initially unless showAllStories is true
-  const listViewStories = useMemo(() => {
-    if (!showAllStories && normalizedStories.length > 5) {
-      return normalizedStories.slice(0, 5);
+  // Split into canonical (variant) stories vs docs-only (examples/demos)
+  const { canonicalStories, docsStories } = useMemo(() => {
+    const canonical: typeof normalizedStories = [];
+    const docs: typeof normalizedStories = [];
+    for (const s of normalizedStories) {
+      const name = s.story.name;
+      // Filter out ExplorerBase entirely — it's an internal explorer entrypoint
+      if (name === "ExplorerBase") continue;
+      // Docs-prefixed stories go to examples section
+      if (/^Docs[A-Z]/.test(name)) {
+        docs.push(s);
+      } else {
+        canonical.push(s);
+      }
     }
-    return normalizedStories;
-  }, [normalizedStories, showAllStories]);
+    return { canonicalStories: canonical, docsStories: docs };
+  }, [normalizedStories]);
 
-  const totalStories = normalizedStories.length;
+  // For List view: limit canonical to 5 initially unless expanded
+  const listViewCanonical = useMemo(() => {
+    if (!showAllStories && canonicalStories.length > 5) {
+      return canonicalStories.slice(0, 5);
+    }
+    return canonicalStories;
+  }, [canonicalStories, showAllStories]);
+
+  const totalCanonical = canonicalStories.length;
+  const totalStories = canonicalStories.length + docsStories.length;
 
   return (
-    <div className="space-y-6 w-full flex flex-col">
+    <div className="space-y-8 w-full flex flex-col">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h2 className="text-xl-rem font-semibold tracking-tight">Examples</h2>
+        <h2 className="text-section font-semibold">Examples</h2>
 
-        <div className="flex items-center gap-4">
-          {/* Filter buttons */}
-          <div className="flex items-center gap-2">
-            <div className="flex gap-1">
-              {(["all", "args", "function"] as const).map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setStoryFilter(filter)}
-                  className={cn(
-                    "px-3 py-1 text-xs-rem font-medium rounded-md transition-colors",
-                    storyFilter === filter
-                      ? "bg-[var(--primary)] text-[var(--bg-primary)]"
-                      : "bg-[var(--bg-secondary)] text-[var(--secondary)] hover:bg-[var(--color-divider)]"
-                  )}
-                >
-                  {filter === "all" ? "All" : filter === "args" ? "Args" : "Interactive"}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* View toggle */}
-          <SegmentedTabs
-            value={view}
-            onChange={(value) => handleViewChange(value as "list" | "explorer")}
-            variant="default"
-          >
-            <SegmentedTabItem value="list" label="List" />
-            <SegmentedTabItem value="explorer" label="Explorer" />
-          </SegmentedTabs>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary" size="sm" icon="document" onClick={() => setUsageOpen(true)}>
+            Usage
+          </Button>
+          <Button variant="secondary" size="sm" onClick={() => setExplorerOpen(true)}>
+            Explorer
+          </Button>
         </div>
       </div>
 
-      {/* Render appropriate view */}
-      {view === "list" ? (
-        <>
-          {/* Stories grid */}
+      {/* Canonical variant stories */}
+      <div className="space-y-10">
+        {listViewCanonical.map((normStory) => {
+          const story = normStory.story;
+          return (
+            <div key={normStory.id} className="space-y-3">
+              <h3 className="text-subsection font-semibold flex items-center gap-2">
+                {formatStoryName(story.name)}
+                {story.component && (
+                  <span
+                    className="px-1.5 py-0.5 text-xs-rem rounded"
+                    style={{
+                      backgroundColor: "var(--info-light)",
+                      color: "var(--info-dark)",
+                    }}
+                  >
+                    interactive
+                  </span>
+                )}
+              </h3>
+              <StoryPreview
+                story={story}
+                meta={meta}
+                showName={false}
+                componentName={componentName}
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Show more/less button for canonical stories */}
+      {totalCanonical > 5 && (
+        <button
+          onClick={() => setShowAllStories(!showAllStories)}
+          className="flex items-center gap-2 mx-auto px-4 py-2 text-sm-rem font-medium transition-colors"
+          style={{
+            color: "var(--secondary)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = "var(--primary)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = "var(--secondary)";
+          }}
+        >
+          {showAllStories ? (
+            <>
+              <ChevronUp className="h-4 w-4" />
+              Show less
+            </>
+          ) : (
+            <>
+              <ChevronDown className="h-4 w-4" />
+              Show {totalCanonical - 5} more variants
+            </>
+          )}
+        </button>
+      )}
+
+      {/* Docs-only examples section */}
+      {docsStories.length > 0 && (
+        <div className="space-y-6 pt-4 border-t border-[var(--border-primary)]">
+          <h2 className="text-section font-semibold text-[var(--secondary)]">
+            Usage Examples
+            <span
+              className="ml-2 px-1.5 py-0.5 text-xs-rem rounded font-normal"
+              style={{
+                backgroundColor: "var(--bg-secondary)",
+                color: "var(--tertiary)",
+              }}
+            >
+              {docsStories.length}
+            </span>
+          </h2>
           <div className="space-y-8">
-            {listViewStories.map((normStory) => {
+            {docsStories.map((normStory) => {
               const story = normStory.story;
+              // Strip "Docs" prefix for display
+              const displayName = story.name.replace(/^Docs/, "");
               return (
                 <div key={normStory.id} className="space-y-3">
-                  <h3 className="text-lg-rem font-medium flex items-center gap-2">
-                    {formatStoryName(story.name)}
-                    {story.component && (
-                      <span
-                        className="px-1.5 py-0.5 text-xs-rem rounded"
-                        style={{
-                          backgroundColor: "var(--info-light)",
-                          color: "var(--info-dark)",
-                        }}
-                      >
-                        interactive
-                      </span>
-                    )}
+                  <h3 className="text-subsection font-semibold flex items-center gap-2">
+                    {formatStoryName(displayName)}
+                    <span
+                      className="px-1.5 py-0.5 text-xs-rem rounded"
+                      style={{
+                        backgroundColor: "var(--bg-secondary)",
+                        color: "var(--tertiary)",
+                      }}
+                    >
+                      example
+                    </span>
                   </h3>
                   <StoryPreview
                     story={story}
@@ -182,43 +212,81 @@ export function ExamplesSection({
               );
             })}
           </div>
+        </div>
+      )}
 
-          {/* Show more/less button */}
-          {totalStories > 5 && (
-            <button
-              onClick={() => setShowAllStories(!showAllStories)}
-              className="flex items-center gap-2 mx-auto px-4 py-2 text-sm-rem font-medium transition-colors"
-              style={{
-                color: "var(--secondary)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = "var(--primary)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "var(--secondary)";
-              }}
-            >
-              {showAllStories ? (
-                <>
-                  <ChevronUp className="h-4 w-4" />
-                  Show less
-                </>
-              ) : (
-                <>
-                  <ChevronDown className="h-4 w-4" />
-                  Show {totalStories - 5} more stories
-                </>
-              )}
-            </button>
-          )}
-        </>
-      ) : (
-        <VariantExplorer
-          normalizedStories={normalizedStories}
-          meta={meta}
+      {usageOpen && (
+        <ComponentUsageOverlay
           componentName={componentName}
-          filter={storyFilter}
+          meta={meta}
+          stories={filteredStories}
+          onClose={() => setUsageOpen(false)}
         />
+      )}
+
+      {explorerOpen && (
+        <div className="fixed inset-0 z-[70] bg-[var(--bg-primary)] flex flex-col overflow-hidden">
+          {/* Explorer header — fixed height */}
+          <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-primary)] shrink-0">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => {
+                  setExplorerOpen(false);
+                  // Clean explorer param from URL
+                  const url = new URL(window.location.href);
+                  url.searchParams.delete("explorer");
+                  router.replace(url.pathname + url.search, { scroll: false });
+                }}
+                className="inline-flex items-center justify-center rounded-md border p-2 transition-colors bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
+                aria-label="Back to list view"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              <h2 className="text-section font-semibold text-[var(--primary)]">{componentName}</h2>
+            </div>
+
+            {/* Prev / Next navigation */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => prevComponent && navigateExplorer(prevComponent.href)}
+                disabled={!prevComponent}
+                className={cn(
+                  "inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm-rem transition-colors",
+                  prevComponent
+                    ? "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
+                    : "opacity-40 cursor-not-allowed border-[var(--border-primary)] text-[var(--secondary)]"
+                )}
+                aria-label="Previous component"
+              >
+                <ChevronLeft className="h-4 w-4" />
+                {prevComponent && <span className="hidden sm:inline">{prevComponent.title}</span>}
+              </button>
+              <button
+                onClick={() => nextComponent && navigateExplorer(nextComponent.href)}
+                disabled={!nextComponent}
+                className={cn(
+                  "inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm-rem transition-colors",
+                  nextComponent
+                    ? "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
+                    : "opacity-40 cursor-not-allowed border-[var(--border-primary)] text-[var(--secondary)]"
+                )}
+                aria-label="Next component"
+              >
+                {nextComponent && <span className="hidden sm:inline">{nextComponent.title}</span>}
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Explorer body — fills remaining viewport, scrolls internally */}
+          <div className="flex-1 overflow-auto px-4 py-6 min-h-0">
+            <VariantExplorerV2
+              stories={filteredStories}
+              meta={meta}
+              componentName={componentName}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

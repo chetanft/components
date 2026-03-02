@@ -23,11 +23,6 @@ export interface StackedBarLegendItem {
 
 export interface StackedBarChartProps
   extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * Chart data (for declarative API)
-   * @deprecated Use StackedBarChartBar components as children instead
-   */
-  data?: StackedBarData[];
   title?: string;
   legend?: StackedBarLegendItem[];
   /**
@@ -127,7 +122,6 @@ const extractDataFromChildren = (children: React.ReactNode): StackedBarData[] =>
 export const StackedBarChart = React.forwardRef(
   (
     {
-      data,
       title = 'AGEING',
       legend,
       maxValue,
@@ -145,32 +139,19 @@ export const StackedBarChart = React.forwardRef(
       return extractDataFromChildren(children);
     }, [children]);
 
-    // Use children data if available, otherwise use data prop
-    const allData = dataFromChildren.length > 0 ? dataFromChildren : (data || []);
-
-    // Check if using composable API
-    const hasComposableChildren = React.Children.count(children) > 0 && dataFromChildren.length > 0;
-
-    // Show deprecation warning
-    if (process.env.NODE_ENV !== 'production') {
-      if (hasComposableChildren && data && data.length > 0) {
-              } else if (!hasComposableChildren && data && data.length > 0) {
-              }
-    }
-
-    if (!allData.length) {
+    if (!dataFromChildren.length) {
       return null;
     }
 
     const computedMax =
       maxValue ??
       (Math.max(
-        ...allData.map((bar) =>
+        ...dataFromChildren.map((bar) =>
           bar.segments.reduce((sum, segment) => sum + (segment.value || 0), 0)
         )
       ) || 1);
 
-    const resolvedLegend = legend ?? buildLegendFromData(allData, defaultColors);
+    const resolvedLegend = legend ?? buildLegendFromData(dataFromChildren, defaultColors);
 
     return (
       <div
@@ -189,7 +170,7 @@ export const StackedBarChart = React.forwardRef(
         )}
 
         <div className="flex gap-[var(--x5,20px)]" role="img" aria-label={title}>
-          {allData.map((bar, barIndex) => (
+          {dataFromChildren.map((bar, barIndex) => (
             <div
               key={`${bar.label}-${barIndex}`}
               className="flex flex-1 min-w-0 flex-col items-center gap-[var(--x2,8px)]"

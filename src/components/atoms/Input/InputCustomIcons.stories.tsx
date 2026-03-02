@@ -20,7 +20,7 @@ const meta: Meta<typeof Input> = {
 export default meta;
 type Story = StoryObj<typeof Input>;
 
-export function CustomLeadingIcon() {
+export function DocsCustomLeadingIcon() {
   return (
     <div className="space-y-4">
       <Input
@@ -41,7 +41,7 @@ export function CustomLeadingIcon() {
   );
 }
 
-export function CustomTrailingIcon() {
+export function DocsCustomTrailingIcon() {
   return (
     <div className="space-y-4">
       <Input
@@ -59,7 +59,7 @@ export function CustomTrailingIcon() {
   );
 }
 
-export function CustomIconSizing() {
+export function DocsCustomIconSizing() {
   return (
     <div className="space-y-4">
       <Input
@@ -84,7 +84,7 @@ export function CustomIconSizing() {
   );
 }
 
-export function CustomIconStyling() {
+export function DocsCustomIconStyling() {
   return (
     <div className="space-y-4">
       <Input
@@ -109,7 +109,7 @@ export function CustomIconStyling() {
   );
 }
 
-export function MixedIcons() {
+export function DocsMixedIcons() {
   return (
     <div className="space-y-4">
       <Input

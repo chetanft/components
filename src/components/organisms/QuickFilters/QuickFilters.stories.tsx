@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { QuickFilters, QuickFilter, FilterOption, type QuickFilter as QuickFilterType } from './QuickFilters';
+import { QuickFilters, QuickFilter, FilterOption } from './QuickFilters';
 
 const meta: Meta<typeof QuickFilters> = {
   title: 'UI Components/QuickFilters',
@@ -10,8 +10,36 @@ const meta: Meta<typeof QuickFilters> = {
     docs: {
       description: {
         component: 'A flexible filter component that displays quick filter chips with optional counts, types, and multi-option support. Supports both composable API (recommended) and declarative API (deprecated).',
-      }
-    }
+      },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Filter Type',
+          scenarios: [
+            { id: 'single', label: 'Single Filters', story: 'ExplorerBase', args: { filterType: 'single' } },
+            { id: 'multi', label: 'Multi-option', story: 'ExplorerBase', args: { filterType: 'multi' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { selectionMode: 'default' } },
+            { id: 'selected', label: 'Selected', story: 'ExplorerBase', args: { selectionMode: 'selected' } },
+            { id: 'mixed', label: 'Mixed Selection', story: 'ExplorerBase', args: { selectionMode: 'mixed' } },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'single',
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
 };
@@ -19,26 +47,65 @@ const meta: Meta<typeof QuickFilters> = {
 export default meta;
 type Story = StoryObj<typeof QuickFilters>;
 
-// Declarative API - Single filters
-/** @deprecated Use composable API instead. */
-export function LegacyDeclarativeSingleFilters() {
-  const filters: QuickFilterType[] = [
-    { id: 'filter-1', label: 'All Items' },
-    { id: 'filter-2', label: 'Active', count: 12 },
-    { id: 'filter-3', label: 'Pending', count: 5 },
-    { id: 'filter-4', label: 'Completed', count: 23 },
-  ];
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const filterType = args.filterType ?? 'single';
+    const selectionMode = args.selectionMode ?? 'default';
 
-  return (
-    <div className="p-6">
-      <QuickFilters
-        filters={filters}
-        onFilterClick={(id) => console.log('Clicked:', id)}
-        onFilterRemove={(id) => console.log('Removed:', id)}
-      />
-    </div>
-  );
-}
+    if (filterType === 'multi') {
+      return (
+        <div className="p-6">
+          <QuickFilters onFilterClick={() => {}} onFilterRemove={() => {}}>
+            <QuickFilter id="duration" label="Duration" selectedOption={selectionMode !== 'default' ? '0-6' : undefined}>
+              <FilterOption id="0-6" label="0-6 hrs" />
+              <FilterOption id="6-12" label="6-12 hrs" />
+              <FilterOption id="12+" label="12+ hrs" />
+            </QuickFilter>
+            <QuickFilter id="status" label="Status">
+              <FilterOption id="active" label="Active" count={12} />
+              <FilterOption id="pending" label="Pending" count={5} />
+            </QuickFilter>
+          </QuickFilters>
+        </div>
+      );
+    }
+
+    const items =
+      selectionMode === 'selected'
+        ? [
+            { id: 'f1', label: 'Filter A', count: 10, selected: true },
+            { id: 'f2', label: 'Filter B', count: 5, selected: true },
+          ]
+        : selectionMode === 'mixed'
+          ? [
+              { id: 'f1', label: 'Filter A', count: 10, selected: false },
+              { id: 'f2', label: 'Filter B', count: 5, selected: true },
+              { id: 'f3', label: 'Filter C', count: 7, selected: false },
+            ]
+          : [
+              { id: 'f1', label: 'All Items', count: undefined, selected: false },
+              { id: 'f2', label: 'Active', count: 12, selected: false },
+              { id: 'f3', label: 'Pending', count: 5, selected: false },
+              { id: 'f4', label: 'Completed', count: 23, selected: false },
+            ];
+
+    return (
+      <div className="p-6">
+        <QuickFilters onFilterClick={() => {}} onFilterRemove={() => {}}>
+          {items.map((item) => (
+            <QuickFilter
+              key={item.id}
+              id={item.id}
+              label={item.label}
+              count={item.count as any}
+              selected={item.selected}
+            />
+          ))}
+        </QuickFilters>
+      </div>
+    );
+  },
+};
 
 // Composable API - Single filters
 export function Default() {
@@ -53,107 +120,6 @@ export function Default() {
         <QuickFilter id="filter-3" label="Pending" count={5} />
         <QuickFilter id="filter-4" label="Completed" count={23} />
       </QuickFilters>
-    </div>
-  );
-}
-
-// Single filters with types
-/** @deprecated Use composable API instead. */
-export function LegacySingleFiltersWithTypes() {
-  const filters: QuickFilter[] = [
-    { id: 'filter-1', label: 'Alert', count: 19, type: 'alert' },
-    { id: 'filter-2', label: 'Warning', count: 5, type: 'warning' },
-    { id: 'filter-3', label: 'Success', count: 42, type: 'success' },
-    { id: 'filter-4', label: 'Neutral', count: 8, type: 'neutral' },
-    { id: 'filter-5', label: 'Normal', count: 15 },
-  ];
-
-  return (
-    <div className="p-6">
-      <QuickFilters
-        filters={filters}
-        onFilterClick={(id) => console.log('Clicked:', id)}
-        onFilterRemove={(id) => console.log('Removed:', id)}
-      />
-    </div>
-  );
-}
-
-// Selected filters
-/** @deprecated Use composable API instead. */
-export function LegacySelectedFilters() {
-  const filters: QuickFilter[] = [
-    { id: 'filter-1', label: 'All Items', selected: true },
-    { id: 'filter-2', label: 'Active', count: 12, selected: true },
-    { id: 'filter-3', label: 'Pending', count: 5 },
-    { id: 'filter-4', label: 'Completed', count: 23 },
-  ];
-
-  return (
-    <div className="p-6">
-      <QuickFilters
-        filters={filters}
-        onFilterClick={(id) => console.log('Clicked:', id)}
-        onFilterRemove={(id) => console.log('Removed:', id)}
-      />
-    </div>
-  );
-}
-
-// Custom label styling
-/** @deprecated Use composable API instead. */
-export function LegacyCustomLabelStyling() {
-  const filters: QuickFilter[] = [
-    { id: 'filter-1', label: 'All Items', selected: true },
-    { id: 'filter-2', label: 'Active', count: 12 },
-    { id: 'filter-3', label: 'Pending', count: 5 },
-  ];
-
-  return (
-    <div className="p-6">
-      <QuickFilters
-        filters={filters}
-        onFilterClick={(id) => console.log('Clicked:', id)}
-        onFilterRemove={(id) => console.log('Removed:', id)}
-        labelClassName="text-[var(--color-tertiary)]"
-        chipClassName="bg-[var(--color-bg-secondary)]"
-      />
-    </div>
-  );
-}
-
-// Declarative API - Multi-option filters
-/** @deprecated Use composable API instead. */
-export function LegacyDeclarativeMultiOptionFilters() {
-  const filters: QuickFilterType[] = [
-    {
-      id: 'duration',
-      label: 'Duration',
-      options: [
-        { id: '0-6', label: '0-6 hrs' },
-        { id: '6-12', label: '6-12 hrs' },
-        { id: '12+', label: '12+ hrs' },
-      ],
-      selectedOption: '0-6',
-    },
-    {
-      id: 'status',
-      label: 'Status',
-      options: [
-        { id: 'active', label: 'Active', count: 12 },
-        { id: 'pending', label: 'Pending', count: 5 },
-        { id: 'completed', label: 'Completed', count: 23 },
-      ],
-    },
-  ];
-
-  return (
-    <div className="p-6">
-      <QuickFilters
-        filters={filters}
-        onFilterClick={(id, optionId) => console.log('Clicked:', id, optionId)}
-        onFilterRemove={(id, optionId) => console.log('Removed:', id, optionId)}
-      />
     </div>
   );
 }
@@ -181,216 +147,127 @@ export function MultiOptionFilters() {
   );
 }
 
-// Mixed filters (single + multi-option)
-/** @deprecated Use composable API instead. */
-export function LegacyMixedFilters() {
-  const filters: QuickFilter[] = [
-    { id: 'long-stoppage', label: 'Long Stoppage', count: 19, type: 'alert', selected: true },
-    { id: 'route-deviation', label: 'Route Deviation', count: 19, type: 'warning' },
-    { id: 'delayed', label: 'Delayed', count: 51, type: 'warning' },
-    {
-      id: 'duration',
-      label: 'Duration',
-      options: [
-        { id: '0-6', label: '0-6 hrs' },
-        { id: '6-12', label: '6-12 hrs' },
-        { id: '12+', label: '12+ hrs' },
-      ],
-      selectedOption: '0-6',
-    },
-  ];
-
+export function DocsVariants() {
   return (
-    <div className="p-6">
-      <QuickFilters
-        filters={filters}
-        onFilterClick={(id, optionId) => console.log('Clicked:', id, optionId)}
-        onFilterRemove={(id, optionId) => console.log('Removed:', id, optionId)}
-      />
+    <div className="p-6 space-y-6">
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Single Filters</p>
+        <QuickFilters
+          onFilterClick={(id) => console.log('Clicked:', id)}
+          onFilterRemove={(id) => console.log('Removed:', id)}
+        >
+          <QuickFilter id="f-1" label="All Items" />
+          <QuickFilter id="f-2" label="Active" count={12} />
+          <QuickFilter id="f-3" label="Pending" count={5} />
+        </QuickFilters>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">With Types (alert, warning, success, neutral)</p>
+        <QuickFilters
+          onFilterClick={(id) => console.log('Clicked:', id)}
+          onFilterRemove={(id) => console.log('Removed:', id)}
+        >
+          <QuickFilter id="f-a" label="Alert" count={19} type="alert" />
+          <QuickFilter id="f-w" label="Warning" count={5} type="warning" />
+          <QuickFilter id="f-s" label="Success" count={42} type="success" />
+          <QuickFilter id="f-n" label="Neutral" count={8} type="neutral" />
+        </QuickFilters>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Multi-option Filters</p>
+        <QuickFilters
+          onFilterClick={(id, optionId) => console.log('Clicked:', id, optionId)}
+          onFilterRemove={(id, optionId) => console.log('Removed:', id, optionId)}
+        >
+          <QuickFilter id="duration" label="Duration" selectedOption="0-6">
+            <FilterOption id="0-6" label="0-6 hrs" />
+            <FilterOption id="6-12" label="6-12 hrs" />
+            <FilterOption id="12+" label="12+ hrs" />
+          </QuickFilter>
+          <QuickFilter id="status" label="Status">
+            <FilterOption id="active" label="Active" count={12} />
+            <FilterOption id="pending" label="Pending" count={5} />
+          </QuickFilter>
+        </QuickFilters>
+      </div>
     </div>
   );
 }
 
-// Multi-option with types
-/** @deprecated Use composable API instead. */
-export function LegacyMultiOptionWithTypes() {
-  const filters: QuickFilter[] = [
-    {
-      id: 'alerts',
-      label: 'Alerts',
-      options: [
-        { id: 'critical', label: 'Critical', count: 5, type: 'alert' },
-        { id: 'warning', label: 'Warning', count: 12, type: 'warning' },
-        { id: 'info', label: 'Info', count: 8, type: 'neutral' },
-      ],
-      selectedOption: 'critical',
-    },
-  ];
-
-  return (
-    <div className="p-6">
-      <QuickFilters
-        filters={filters}
-        onFilterClick={(id, optionId) => console.log('Clicked:', id, optionId)}
-        onFilterRemove={(id, optionId) => console.log('Removed:', id, optionId)}
-      />
-    </div>
-  );
-}
-
-// Interactive example
-/** @deprecated Use composable API instead. */
-export function LegacyInteractive() {
-  const [filters, setFilters] = React.useState<QuickFilter[]>([
-    { id: 'filter-1', label: 'All Items', selected: true },
-    { id: 'filter-2', label: 'Active', count: 12 },
-    { id: 'filter-3', label: 'Pending', count: 5 },
-    {
-      id: 'duration',
-      label: 'Duration',
-      options: [
-        { id: '0-6', label: '0-6 hrs' },
-        { id: '6-12', label: '6-12 hrs' },
-        { id: '12+', label: '12+ hrs' },
-      ],
-    },
+export function DocsStates() {
+  const [filters, setFilters] = React.useState([
+    { id: 'f1', selected: false },
+    { id: 'f2', selected: true },
+    { id: 'f3', selected: false },
   ]);
 
-  const handleFilterClick = (filterId: string, optionId?: string) => {
-    setFilters(prev => prev.map(filter => {
-      if (filter.id === filterId) {
-        if (optionId) {
-          // Multi-option filter
-          return {
-            ...filter,
-            selectedOption: filter.selectedOption === optionId ? undefined : optionId,
-          };
-        } else {
-          // Single filter
-          return {
-            ...filter,
-            selected: !filter.selected,
-          };
-        }
-      }
-      return filter;
-    }));
-  };
-
-  const handleFilterRemove = (filterId: string, optionId?: string) => {
-    setFilters(prev => prev.map(filter => {
-      if (filter.id === filterId) {
-        if (optionId) {
-          return {
-            ...filter,
-            selectedOption: undefined,
-          };
-        } else {
-          return {
-            ...filter,
-            selected: false,
-          };
-        }
-      }
-      return filter;
-    }));
-  };
-
   return (
-    <div className="p-6">
-      <QuickFilters
-        filters={filters}
-        onFilterClick={handleFilterClick}
-        onFilterRemove={handleFilterRemove}
-      />
+    <div className="p-6 space-y-6">
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Default (unselected)</p>
+        <QuickFilters onFilterClick={() => {}} onFilterRemove={() => {}}>
+          <QuickFilter id="s-1" label="Filter A" count={10} />
+          <QuickFilter id="s-2" label="Filter B" count={5} />
+        </QuickFilters>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Selected</p>
+        <QuickFilters onFilterClick={() => {}} onFilterRemove={() => {}}>
+          <QuickFilter id="s-3" label="Filter A" count={10} selected />
+          <QuickFilter id="s-4" label="Filter B" count={5} selected />
+        </QuickFilters>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Mixed selection (interactive)</p>
+        <QuickFilters
+          onFilterClick={(id) => {
+            setFilters(prev => prev.map(f => f.id === id ? { ...f, selected: !f.selected } : f));
+          }}
+          onFilterRemove={(id) => {
+            setFilters(prev => prev.map(f => f.id === id ? { ...f, selected: false } : f));
+          }}
+        >
+          {filters.map(f => (
+            <QuickFilter key={f.id} id={f.id} label={`Filter ${f.id}`} count={Math.floor(Math.random() * 20)} selected={f.selected} />
+          ))}
+        </QuickFilters>
+      </div>
     </div>
   );
 }
 
-// Figma design example with horizontal scroll
-/** @deprecated Use composable API instead. */
-export function LegacyFigmaDesignExample() {
-  const [filters, setFilters] = React.useState<QuickFilter[]>([
-    { id: 'long-stoppage', label: 'Long Stoppage', count: 19, type: 'alert', selected: true },
-    { id: 'route-deviation', label: 'Route Deviation', count: 19, type: 'alert' },
-    {
-      id: 'delayed',
-      label: 'Delayed',
-      options: [
-        { id: '0-6', label: '0-6 hrs', count: 19, type: 'alert' },
-        { id: '6-12', label: '6-12 hrs', count: 19, type: 'alert' },
-        { id: '12+', label: '12+ hrs', count: 19, type: 'alert' },
-      ],
-      selectedOption: '0-6',
-    },
-    {
-      id: 'eway',
-      label: 'E Way bill',
-      options: [
-        { id: 'expiring', label: 'Expiring in 3 hrs', count: 19, type: 'warning' },
-        { id: 'expired', label: 'Expired', count: 19, type: 'alert' },
-      ],
-    },
-    {
-      id: 'eta',
-      label: 'ETA',
-      options: [
-        { id: '0-6', label: '0-6 hrs', count: 19 },
-        { id: '6-12', label: '6-12 hrs', count: 19 },
-        { id: '12+', label: '12+ hrs', count: 19 },
-      ],
-      selectedOption: '0-6',
-    },
+export function SelectedState() {
+  return (
+    <div className="p-6">
+      <QuickFilters onFilterClick={() => {}} onFilterRemove={() => {}}>
+        <QuickFilter id="s-3" label="Filter A" count={10} selected />
+        <QuickFilter id="s-4" label="Filter B" count={5} selected />
+      </QuickFilters>
+    </div>
+  );
+}
+
+export function MixedSelection() {
+  const [filters, setFilters] = React.useState([
+    { id: 'f1', selected: false },
+    { id: 'f2', selected: true },
+    { id: 'f3', selected: false },
   ]);
 
-  const handleFilterClick = (filterId: string, optionId?: string) => {
-    setFilters(prev => prev.map(filter => {
-      if (filter.id === filterId) {
-        if (optionId) {
-          // Multi-option filter
-          return {
-            ...filter,
-            selectedOption: filter.selectedOption === optionId ? undefined : optionId,
-          };
-        } else {
-          // Single filter
-          return {
-            ...filter,
-            selected: !filter.selected,
-          };
-        }
-      }
-      return filter;
-    }));
-  };
-
-  const handleFilterRemove = (filterId: string, optionId?: string) => {
-    setFilters(prev => prev.map(filter => {
-      if (filter.id === filterId) {
-        if (optionId) {
-          return {
-            ...filter,
-            selectedOption: undefined,
-          };
-        } else {
-          return {
-            ...filter,
-            selected: false,
-          };
-        }
-      }
-      return filter;
-    }));
-  };
-
   return (
-    <div className="w-full overflow-hidden">
+    <div className="p-6">
       <QuickFilters
-        filters={filters}
-        scrollable={true}
-        onFilterClick={handleFilterClick}
-        onFilterRemove={handleFilterRemove}
-      />
+        onFilterClick={(id) => {
+          setFilters(prev => prev.map(f => f.id === id ? { ...f, selected: !f.selected } : f));
+        }}
+        onFilterRemove={(id) => {
+          setFilters(prev => prev.map(f => f.id === id ? { ...f, selected: false } : f));
+        }}
+      >
+        {filters.map(f => (
+          <QuickFilter key={f.id} id={f.id} label={`Filter ${f.id}`} count={10} selected={f.selected} />
+        ))}
+      </QuickFilters>
     </div>
   );
 }

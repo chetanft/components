@@ -12,8 +12,41 @@ const meta: Meta<typeof Calendar> = {
         component: 'A standalone calendar component for date display and selection. Built using FT Design System tokens.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'Default' as const },
+            { id: 'year-mode', label: 'YearMode', story: 'YearMode' as const },
+            { id: 'fullscreen', label: 'Fullscreen', story: 'Fullscreen' as const },
+            { id: 'event-calendar', label: 'EventCalendar', story: 'EventCalendar' as const },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'Default' as const },
+            { id: 'disabled-dates', label: 'DisabledDates', story: 'DisabledDates' as const },
+            { id: 'valid-range', label: 'ValidRange', story: 'ValidRange' as const },
+            { id: 'controlled', label: 'Controlled', story: 'Controlled' as const },
+          ],
+        },
+      ],
+      defaultRowId: 'type' as const,
+      defaultScenarioId: 'default' as const,
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
+  args: {
+    glass: true,
+  },
   argTypes: {
     mode: {
       control: 'select',
@@ -23,6 +56,11 @@ const meta: Meta<typeof Calendar> = {
     fullscreen: {
       control: 'boolean',
       description: 'Full screen mode',
+    },
+    glass: {
+      control: 'select',
+      options: [false, true, 'subtle', 'prominent'],
+      description: 'Glass style variant',
     },
   },
 };
@@ -217,7 +255,7 @@ export const EventCalendar: Story = {
 };
 
 // Month Selection with Events
-export const MonthSelectionWithSummary: Story = {
+export const DocsMonthSelectionWithSummary: Story = {
   render: (args: React.ComponentProps<typeof Calendar>) => {
     const monthEvents: Record<number, number> = {
       0: 5,
@@ -250,60 +288,6 @@ export const MonthSelectionWithSummary: Story = {
       />
     );
   },
-};
 
-// Panel Change Callback
-const PanelChangeCallbackComponent = (args: any) => {
-  const [log, setLog] = useState<string[]>([]);
-
-  return (
-    <div className="space-y-4">
-      <Calendar
-        {...args}
-        onPanelChange={(date, mode) => {
-          setLog(prev => [
-            `Changed to ${mode} view: ${date.toLocaleDateString()}`,
-            ...prev.slice(0, 4),
-          ]);
-        }}
-      />
-      <div className="p-4 bg-[var(--color-bg-secondary)] rounded-lg">
-        <h4 className="font-medium mb-2">Panel Change Log:</h4>
-        {log.length > 0 ? (
-          <ul className="text-sm text-[var(--color-tertiary)] space-y-1">
-            {log.map((entry, i) => (
-              <li key={i}>{entry}</li>
-            ))}
-          </ul>
-        ) : (
-          <p className="text-sm text-[var(--color-tertiary)]">
-            Navigate the calendar to see panel changes
-          </p>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export const PanelChangeCallback: Story = {
-  render: (args: React.ComponentProps<typeof Calendar>) => <PanelChangeCallbackComponent {...args} />,
-};
-
-// Custom Labels
-export const CustomLabels: Story = {
-  render: (args: React.ComponentProps<typeof Calendar>) => (
-    <Calendar
-      {...args}
-      weekdayLabels={['S', 'M', 'T', 'W', 'T', 'F', 'S']}
-      monthLabels={['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']}
-      monthLabelsFull={['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']}
-    />
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Calendar with custom weekday and month labels. The weekdayLabels, monthLabels, and monthLabelsFull props allow you to customize the display labels for internationalization or branding purposes.',
-      },
-    },
-  },
-};
+  parameters: { docsOnly: true },
+}

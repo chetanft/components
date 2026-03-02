@@ -3,7 +3,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { DropdownMenu, type DropdownMenuOption } from '../DropdownMenu';
+import { DropdownMenu } from '../DropdownMenu';
+import { DropdownMenuList } from '../DropdownMenu/DropdownMenuList';
+import { DropdownMenuItem } from '../DropdownMenu/DropdownMenuItem';
 import { useDropdownContext } from './DropdownContext';
 
 export interface DropdownContentProps extends ComposableProps<'div'> {
@@ -55,25 +57,12 @@ export const DropdownContent = React.forwardRef<HTMLDivElement, DropdownContentP
       return null;
     }
     
-    // Convert DropdownOption to DropdownMenuOption
-    const menuOptions: DropdownMenuOption[] = options
-      .filter((option) => {
-        const searchTarget = option.searchValue || (typeof option.label === 'string' ? option.label : String(option.value));
-        return searchTarget.toLowerCase().includes(searchQuery.toLowerCase());
-      })
-      .map((option) => ({
-        value: String(option.value),
-        label: option.label,
-        description: option.description,
-        icon: option.icon,
-        group: option.group,
-        searchValue: option.searchValue,
-        state: option.disabled ? 'disabled' : value === option.value ? 'selected' : 'default',
-        prefix: option.icon ? 'icon' : 'none',
-        suffix: false,
-        showCheckmark: true,
-      }));
-    
+    // Filter options based on search query
+    const filteredOptions = options.filter((option) => {
+      const searchTarget = option.searchValue || (typeof option.label === 'string' ? option.label : String(option.value));
+      return searchTarget.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+
     // Determine property type for DropdownMenu
     let property: 'default' | 'search' | 'search-segmented' | 'groups' = 'default';
     if (type === 'search') {
@@ -81,19 +70,33 @@ export const DropdownContent = React.forwardRef<HTMLDivElement, DropdownContentP
     } else if (type === 'groups') {
       property = 'groups';
     }
-    
+
     const content = children || (
       <DropdownMenu
         property={property}
-        options={menuOptions}
-        onSelect={(val) => {
-          const option = options.find((opt) => String(opt.value) === val);
-          if (option && !option.disabled) {
-            handleSelect(option.value);
-          }
-        }}
         className="w-full"
-      />
+      >
+        <DropdownMenuList>
+          {filteredOptions.map((option) => (
+            <DropdownMenuItem
+              key={String(option.value)}
+              value={String(option.value)}
+              label={option.label}
+              description={option.description}
+              icon={option.icon}
+              state={option.disabled ? 'disabled' : value === option.value ? 'selected' : 'default'}
+              prefix={option.icon ? 'icon' : 'none'}
+              suffix={false}
+              showCheckmark
+              onClick={() => {
+                if (!option.disabled) {
+                  handleSelect(option.value);
+                }
+              }}
+            />
+          ))}
+        </DropdownMenuList>
+      </DropdownMenu>
     );
     
     const Comp = asChild ? Slot : 'div';

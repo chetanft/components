@@ -10,7 +10,36 @@ const meta: Meta<typeof RadarChart> = {
       description: {
         component: 'Radar chart component for comparing multiple variables across different categories. Supports multiple datasets, custom grid types, and label formatting.'
       }
-    }
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'chart',
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Basic',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Basic', label: 'Basic', story: 'Basic' as const },
+            { id: 'WithDots', label: 'WithDots', story: 'WithDots' as const },
+            { id: 'LinesOnly', label: 'LinesOnly', story: 'LinesOnly' as const },
+            { id: 'Multiple', label: 'Multiple', story: 'Multiple' as const },
+            { id: 'WithLegend', label: 'WithLegend', story: 'WithLegend' as const },
+          ],
+        },
+        {
+          id: 'grid',
+          label: 'Grid',
+          scenarios: [
+            { id: 'Basic', label: 'Basic', story: 'Basic' as const },
+            { id: 'GridCircle', label: 'GridCircle', story: 'GridCircle' as const },
+            { id: 'GridFilled', label: 'GridFilled', story: 'GridFilled' as const },
+          ],
+        },
+      ],
+    },
   },
   argTypes: {
     title: {

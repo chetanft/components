@@ -6,7 +6,8 @@ import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { Label } from '../../atoms/Label/Label';
-import { Tree, TreeNodeData } from '../Tree/Tree';
+import { Tree } from '../Tree/Tree';
+import type { TreeNodeData } from '../Tree/TreeTypes';
 import { TreeNode } from '../Tree/TreeNode';
 import { Chicklet } from '../Chicklet/Chicklet';
 
@@ -29,11 +30,6 @@ export interface TreeSelectProps extends Omit<React.InputHTMLAttributes<HTMLInpu
   helperText?: string;
   /** Component size */
   size?: ComponentSize;
-  /**
-   * Tree data (for declarative API)
-   * @deprecated Use TreeNode components as children instead
-   */
-  treeData?: TreeNodeData[];
   /** Selected value(s) */
   value?: string | string[];
   /** Default value(s) */
@@ -140,6 +136,26 @@ const filterTreeData = (nodes: TreeNodeData[], searchValue: string): TreeNodeDat
   return filter(nodes);
 };
 
+/**
+ * Renders an array of TreeNodeData as composable TreeNode components.
+ */
+const renderTreeNodes = (nodes: TreeNodeData[]): React.ReactNode => {
+  return nodes.map(node => (
+    <TreeNode
+      key={node.key}
+      nodeKey={node.key}
+      title={node.title}
+      isLeaf={node.isLeaf || !node.children || node.children.length === 0}
+      disabled={node.disabled}
+      selectable={node.selectable}
+      checkable={node.checkable}
+      icon={node.icon as React.ReactNode}
+    >
+      {node.children && node.children.length > 0 ? renderTreeNodes(node.children) : undefined}
+    </TreeNode>
+  ));
+};
+
 // ============================================================================
 // TreeSelect Component
 // ============================================================================
@@ -153,7 +169,6 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
     error,
     helperText,
     size = 'md',
-    treeData,
     value: controlledValue,
     defaultValue,
     onChange,
@@ -178,18 +193,6 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
       return extractTreeDataFromChildren(children);
     }, [children]);
 
-    // Use children treeData if available, otherwise use treeData prop
-    const allTreeData = treeDataFromChildren.length > 0 ? treeDataFromChildren : (treeData || []);
-
-    // Check if using composable API
-    const hasComposableChildren = React.Children.count(children) > 0 && treeDataFromChildren.length > 0;
-
-    // Show deprecation warning
-    if (process.env.NODE_ENV !== 'production') {
-      if (hasComposableChildren && treeData && treeData.length > 0) {
-              } else if (!hasComposableChildren && treeData && treeData.length > 0) {
-              }
-    }
     const componentStyles = getComponentStyles(size);
     const [isOpen, setIsOpen] = useState(false);
     const [searchValue, setSearchValue] = useState('');
@@ -216,15 +219,15 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
     // Get labels for selected values
     const selectedLabels = useMemo(() => {
       return selectedKeys.map(key => {
-        const node = findNode(allTreeData, key);
+        const node = findNode(treeDataFromChildren, key);
         return node?.title || key;
       });
-    }, [selectedKeys, allTreeData]);
+    }, [selectedKeys, treeDataFromChildren]);
 
     // Filter tree data for search
     const filteredTreeData = useMemo(() =>
-      filterTreeData(allTreeData, searchValue),
-      [allTreeData, searchValue]
+      filterTreeData(treeDataFromChildren, searchValue),
+      [treeDataFromChildren, searchValue]
     );
 
     // Portal setup
@@ -277,7 +280,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
 
     const handleSelect = useCallback((keys: string[]) => {
       const labels = keys.map(key => {
-        const node = findNode(allTreeData, key);
+        const node = findNode(treeDataFromChildren, key);
         return node?.title || key;
       });
 
@@ -291,7 +294,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
         setIsOpen(false);
         setSearchValue('');
       }
-    }, [allTreeData, controlledValue, onChange, isMultiple]);
+    }, [treeDataFromChildren, controlledValue, onChange, isMultiple]);
 
     const handleTreeSelect = useCallback((keys: string[]) => {
       if (isMultiple) {
@@ -361,17 +364,16 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
             {isMultiple && selectedKeys.length > 0 && (
               <div className="flex flex-wrap gap-[var(--spacing-x1)] flex-1 min-w-0">
                 {selectedKeys.map(key => {
-                  const node = findNode(allTreeData, key);
+                  const node = findNode(treeDataFromChildren, key);
                   return (
                     <Chicklet
                       key={key}
                       label={node?.title || key}
-                      showClose={!disabled}
-                      onClose={(e) => {
+                      onClose={!disabled ? (e) => {
                         if (e) {
                           handleRemoveTag(key, e);
                         }
-                      }}
+                      } : undefined}
                       className="shrink-0"
                       variant="rectangular"
                     />
@@ -443,7 +445,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
                 boxShadow: 'var(--shadow-lg)',
               }}
             >
-              {hasComposableChildren ? (
+              {filteredTreeData.length > 0 ? (
                 <Tree
                   selectedKeys={treeCheckable ? undefined : selectedKeys}
                   checkedKeys={treeCheckable ? selectedKeys : undefined}
@@ -455,21 +457,8 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
                   onSelect={(keys) => handleTreeSelect(keys)}
                   onCheck={(keys) => handleTreeSelect(keys)}
                 >
-                  {children}
+                  {renderTreeNodes(filteredTreeData)}
                 </Tree>
-              ) : filteredTreeData.length > 0 ? (
-                <Tree
-                  treeData={filteredTreeData}
-                  selectedKeys={treeCheckable ? undefined : selectedKeys}
-                  checkedKeys={treeCheckable ? selectedKeys : undefined}
-                  checkable={treeCheckable}
-                  selectable={!treeCheckable}
-                  multiple={isMultiple}
-                  showLine={showLine}
-                  defaultExpandAll={defaultExpandAll}
-                  onSelect={(keys) => handleTreeSelect(keys)}
-                  onCheck={(keys) => handleTreeSelect(keys)}
-                />
               ) : (
                 <div className="p-[var(--spacing-x4)] text-center text-[var(--color-tertiary)]">
                   No results found

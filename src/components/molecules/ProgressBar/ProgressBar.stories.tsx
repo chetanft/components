@@ -12,6 +12,47 @@ const meta: Meta<typeof ProgressBar> = {
         component: 'Progress indicator with line, circle, and dashboard types. Built with FT Design System tokens.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase' as const, args: { value: 50, variant: 'primary', type: 'line' } },
+            { id: 'line', label: 'Line', story: 'ExplorerBase' as const, args: { type: 'line', steps: undefined } },
+            { id: 'circle', label: 'Circle', story: 'ExplorerBase' as const, args: { type: 'circle', width: 96 } },
+            { id: 'dashboard', label: 'Dashboard', story: 'ExplorerBase' as const, args: { type: 'dashboard', width: 96 } },
+            { id: 'steps', label: 'Steps', story: 'ExplorerBase' as const, args: { type: 'line', steps: 5 } },
+          ],
+        },
+        {
+          id: 'style',
+          label: 'Style',
+          scenarios: [
+            { id: 'primary', label: 'Primary', story: 'ExplorerBase' as const, args: { variant: 'primary' } },
+            { id: 'success', label: 'Success', story: 'ExplorerBase' as const, args: { variant: 'success' } },
+            { id: 'warning', label: 'Warning', story: 'ExplorerBase' as const, args: { variant: 'warning' } },
+            { id: 'danger', label: 'Danger', story: 'ExplorerBase' as const, args: { variant: 'danger' } },
+            { id: 'active', label: 'Active', story: 'ExplorerBase' as const, args: { variant: 'active' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'not-started', label: 'Not Started', story: 'ExplorerBase' as const, args: { value: 0 } },
+            { id: 'in-progress', label: 'In Progress', story: 'ExplorerBase' as const, args: { value: 23 } },
+            { id: 'completed', label: 'Completed', story: 'ExplorerBase' as const, args: { value: 100 } },
+          ],
+        },
+      ],
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -36,6 +77,27 @@ const meta: Meta<typeof ProgressBar> = {
 export default meta;
 type Story = StoryObj<typeof ProgressBar>;
 
+export const ExplorerBase: Story = {
+  args: {
+    value: 50,
+    variant: 'primary',
+    className: 'w-[300px]',
+    type: 'line',
+  },
+  render: (args) => (
+    <div className={args.type === 'line' ? 'w-[300px]' : ''}>
+      <Progress
+        value={args.value as number}
+        variant={args.variant as any}
+        type={args.type as any}
+        className={args.className as string}
+        steps={args.steps as any}
+        width={args.width as any}
+      />
+    </div>
+  ),
+};
+
 export const Default: Story = {
   args: {
     value: 50,
@@ -54,238 +116,12 @@ export const LineProgress: Story = {
   ),
 };
 
-// Figma Design - State=Not started, Type=Neutral/Critical/Success
-export const FigmaNotStarted: Story = {
-  render: () => (
-    <div className="w-[400px] space-y-6">
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Neutral - Not Started</p>
-        <Progress value={0} showPercentage={false} />
-      </div>
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Critical - Not Started</p>
-        <Progress value={0} variant="danger" showPercentage={false} />
-      </div>
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Success - Not Started</p>
-        <Progress value={0} variant="success" showPercentage={false} />
-      </div>
-    </div>
-  ),
-};
-
-// Figma Design - State=In progress (23%), Type=Neutral/Critical/Success
-export const FigmaInProgress: Story = {
-  render: () => (
-    <div className="w-[400px] space-y-6">
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Neutral - In Progress</p>
-        <Progress value={23} showPercentage={false} />
-      </div>
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Critical - In Progress</p>
-        <Progress value={23} variant="danger" showPercentage={false} />
-      </div>
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Success - In Progress</p>
-        <Progress value={23} variant="success" showPercentage={false} />
-      </div>
-    </div>
-  ),
-};
-
-// Figma Design - State=Completed (100%), Type=Neutral/Critical/Success
-export const FigmaCompleted: Story = {
-  render: () => (
-    <div className="w-[400px] space-y-6">
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Neutral - Completed</p>
-        <Progress value={100} showPercentage={false} />
-      </div>
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Critical - Completed</p>
-        <Progress value={100} variant="danger" showPercentage={false} />
-      </div>
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Success - Completed</p>
-        <Progress value={100} variant="success" showPercentage={false} />
-      </div>
-    </div>
-  ),
-};
-
-// Figma Design - With Percentage Display
-export const FigmaWithPercentage: Story = {
-  render: () => (
-    <div className="w-[400px] space-y-6">
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Neutral - 0%</p>
-        <Progress value={0} showPercentage={true} />
-      </div>
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Neutral - 23%</p>
-        <Progress value={23} showPercentage={true} />
-      </div>
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Neutral - 100%</p>
-        <Progress value={100} showPercentage={true} />
-      </div>
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Critical - 23%</p>
-        <Progress value={23} variant="danger" showPercentage={true} />
-      </div>
-      <div>
-        <p className="text-sm text-[var(--tertiary)] mb-2">Success - 100%</p>
-        <Progress value={100} variant="success" showPercentage={true} />
-      </div>
-    </div>
-  ),
-};
-
-export const Sizes: Story = {
-  render: () => (
-    <div className="w-[300px] space-y-6">
-      <div className="space-y-2">
-        <p className="text-sm text-[var(--tertiary)]">Small - 1rem (14px)</p>
-      <Progress value={50} size="sm" />
-        <p className="text-xs text-muted-foreground">Percentage font: 1rem (14px) - Body Secondary Regular</p>
-      </div>
-      <div className="space-y-2">
-        <p className="text-sm text-[var(--tertiary)]">Medium - 1rem (14px)</p>
-      <Progress value={50} size="md" />
-        <p className="text-xs text-muted-foreground">Percentage font: 1rem (14px) - Body Secondary Regular</p>
-      </div>
-      <div className="space-y-2">
-        <p className="text-sm text-[var(--tertiary)]">Large - 1rem (14px)</p>
-      <Progress value={50} size="lg" />
-        <p className="text-xs text-muted-foreground">Percentage font: 1rem (14px) - Body Secondary Regular</p>
-      </div>
-    </div>
-  ),
-};
-
-export const Circle: Story = {
-  render: () => (
-    <div className="flex gap-8">
-      <Progress type="circle" value={75} />
-      <Progress type="circle" value={50} variant="success" />
-      <Progress type="circle" value={25} variant="warning" width={80} />
-    </div>
-  ),
-};
-
-export const Dashboard: Story = {
-  render: () => (
-    <div className="flex gap-8">
-      <Progress type="dashboard" value={75} />
-      <Progress type="dashboard" value={50} variant="success" gapDegree={90} />
-      <Progress type="dashboard" value={25} variant="danger" gapPosition="top" />
-    </div>
-  ),
-};
-
-export const Steps: Story = {
-  render: () => (
-    <div className="w-[300px] space-y-4">
-      <Progress value={60} steps={5} />
-      <Progress value={40} steps={10} variant="success" />
-      <Progress value={80} steps={8} variant="warning" />
-    </div>
-  ),
-};
-
-export const CustomFormat: Story = {
-  render: () => (
-    <div className="flex gap-8">
-      <Progress 
-        type="circle" 
-        value={100} 
-        variant="success"
-        format={(percent) => 'Done'}
-      />
-      <Progress 
-        type="circle" 
-        value={75} 
-        format={(percent) => `${percent} Days`}
-      />
-      <Progress 
-        type="dashboard" 
-        value={50} 
-        format={(percent) => (
-          <div className="text-center">
-            <div className="text-xl font-bold">{percent}</div>
-            <div className="text-xs text-[var(--tertiary)]">Score</div>
-          </div>
-        )}
-      />
-    </div>
-  ),
-};
-
-const AnimatedProgressStory = () => {
-  const [percent, setPercent] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setPercent((prev) => (prev >= 100 ? 0 : prev + 10));
-    }, 500);
-    return () => clearInterval(timer);
-  }, []);
-
-  return (
-    <div className="flex flex-col items-center gap-8">
-      <Progress value={percent} animated className="w-[300px]" />
-      <div className="flex gap-8">
-        <Progress type="circle" value={percent} animated width={100} />
-        <Progress type="dashboard" value={percent} animated width={100} />
-      </div>
-    </div>
-  );
-};
-
-export const Animated: Story = {
-  render: () => <AnimatedProgressStory />,
-};
-
-export const ActiveStatus: Story = {
+export const DocsPrimaryVariant: Story = {
   args: {
-    value: 60,
-    variant: 'active',
+    value: 50,
+    variant: 'primary',
     className: 'w-[300px]',
   },
-};
 
-export const CircleSizes: Story = {
-  render: () => (
-    <div className="flex gap-8 items-center">
-      <Progress type="circle" value={75} width={60} strokeWidth={4} />
-      <Progress type="circle" value={75} width={80} strokeWidth={5} />
-      <Progress type="circle" value={75} width={100} strokeWidth={6} />
-      <Progress type="circle" value={75} width={120} strokeWidth={8} />
-    </div>
-  ),
-};
-
-export const CustomColors: Story = {
-  render: () => (
-    <div className="flex gap-8">
-      <Progress 
-        type="circle" 
-        value={75} 
-        strokeColor="var(--neutral)"
-        trailColor="var(--neutral-light)"
-      />
-      <Progress 
-        type="circle" 
-        value={50} 
-        strokeColor="#8B5CF6"
-        trailColor="#EDE9FE"
-      />
-      <Progress 
-        type="dashboard" 
-        value={60} 
-        strokeColor="var(--positive)"
-      />
-    </div>
-  ),
-};
+  parameters: { docsOnly: true },
+}

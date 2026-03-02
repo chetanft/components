@@ -3,7 +3,7 @@ import { Calendar } from './Calendar';
 import React, { useState } from 'react';
 
 const meta = {
-  title: 'Molecules/Calendar',
+  title: 'Stories/Calendar',
   component: Calendar,
   parameters: {
     layout: 'centered',

@@ -13,17 +13,39 @@ const meta: Meta<typeof Collapsible> = {
         component: 'A collapsible component that can expand and collapse content. Supports different types and backgrounds.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'primary', label: 'Primary', story: 'ExplorerBase', args: { type: 'Primary' } },
+            { id: 'secondary', label: 'Secondary', story: 'ExplorerBase', args: { type: 'Secondary' } },
+            { id: 'tertiary', label: 'Tertiary', story: 'ExplorerBase', args: { type: 'Tertiary' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'collapsed', label: 'Collapsed', story: 'ExplorerBase', args: { isExpanded: false, withExtra: false } },
+            { id: 'expanded', label: 'Expanded', story: 'ExplorerBase', args: { isExpanded: true, withExtra: false } },
+            { id: 'with-extra', label: 'Extra', story: 'ExplorerBase', args: { withExtra: true } },
+            { id: 'multiple', label: 'Controlled', story: 'ExplorerBase', args: { title: 'Controlled Example', controlledLabel: true } },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
   argTypes: {
-    header: {
-      control: 'text',
-      description: 'Header text'
-    },
-    isExpanded: {
-      control: 'boolean',
-      description: 'Whether the collapsible is expanded'
-    },
     type: {
       control: { type: 'select' },
       options: ['Primary', 'Secondary', 'Tertiary'],
@@ -34,150 +56,36 @@ const meta: Meta<typeof Collapsible> = {
       options: ['Primary', 'Secondary'],
       description: 'Background variant'
     },
-    badges: {
-      control: 'boolean',
-      description: 'Whether to show badges'
-    }
   },
 } satisfies Meta<typeof Collapsible>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Default collapsible
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
-  args: {
-    header: 'Collapsible Header',
-    children: 'Collapsible content goes here',
-    type: 'Primary',
-    bg: 'Secondary',
-  },
+export const ExplorerBase: Story = {
+  render: (args: any) => (
+    <Collapsible type={args.type ?? 'Primary'} bg={args.bg ?? 'Secondary'} isExpanded={args.isExpanded}>
+      <CollapsibleTrigger>
+        <CollapsibleHeader>
+          <CollapsibleIcon />
+          <CollapsibleTitle>{args.title ?? (args.isExpanded ? 'Expanded' : 'Composable Collapsible')}</CollapsibleTitle>
+          {args.withExtra ? (
+            <CollapsibleExtra>
+              <Button size="sm" variant="secondary">{args.controlledLabel ? 'Action' : 'Edit'}</Button>
+            </CollapsibleExtra>
+          ) : null}
+        </CollapsibleHeader>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <p>
+          {args.controlledLabel
+            ? 'Controlled/cross-row preview-safe representation.'
+            : 'This is a basic composable collapsible using sub-components.'}
+        </p>
+      </CollapsibleContent>
+    </Collapsible>
+  ),
 };
-
-// Primary Type story
-/** @deprecated Use composable API instead. */
-export function LegacyPrimaryType() {
-  return (
-    <div className="p-6 space-y-4">
-      <Collapsible
-        header="Primary Collapsible"
-        type="Primary"
-        bg="Secondary"
-      >
-        <p>This is a primary type collapsible with secondary background.</p>
-      </Collapsible>
-    </div>
-  );
-}
-
-// Secondary Type story
-/** @deprecated Use composable API instead. */
-export function LegacySecondaryType() {
-  return (
-    <div className="p-6 space-y-4">
-      <Collapsible
-        header="Secondary Collapsible"
-        type="Secondary"
-        bg="Secondary"
-      >
-        <p>This is a secondary type collapsible.</p>
-      </Collapsible>
-    </div>
-  );
-}
-
-// Tertiary Type story
-/** @deprecated Use composable API instead. */
-export function LegacyTertiaryType() {
-  return (
-    <div className="p-6 space-y-4">
-      <Collapsible
-        header="Tertiary Collapsible"
-        type="Tertiary"
-        bg="Secondary"
-      >
-        <p>This is a tertiary type collapsible.</p>
-      </Collapsible>
-    </div>
-  );
-}
-
-// With Badges story
-/** @deprecated Use composable API instead. */
-export function LegacyWithBadges() {
-  return (
-    <div className="p-6 space-y-4">
-      <Collapsible
-        header="Collapsible with Badges"
-        type="Primary"
-        bg="Secondary"
-        badges={true}
-      >
-        <p>This collapsible shows badges.</p>
-      </Collapsible>
-    </div>
-  );
-}
-
-// Interactive Demo - all variants shown together and interactable
-/** @deprecated Use composable API instead. */
-export function LegacyInteractiveDemo() {
-  const [expanded1, setExpanded1] = React.useState(false);
-  const [expanded2, setExpanded2] = React.useState(false);
-  const [expanded3, setExpanded3] = React.useState(false);
-  const [expanded4, setExpanded4] = React.useState(false);
-
-  return (
-    <div className="p-6 space-y-4">
-      <h3 className="text-lg font-semibold mb-4">All Collapsible Variants - Interactive</h3>
-      <p className="text-sm text-gray-600 mb-6">Click headers to expand/collapse content.</p>
-      
-      <div className="space-y-4">
-        <Collapsible
-          header="Primary Type Collapsible"
-          type="Primary"
-          bg="Secondary"
-          isExpanded={expanded1}
-          onToggle={(isExpanded) => setExpanded1(isExpanded)}
-        >
-          <p>This is a primary type collapsible. Click the header to expand or collapse.</p>
-        </Collapsible>
-
-        <Collapsible
-          header="Secondary Type Collapsible"
-          type="Secondary"
-          bg="Secondary"
-          isExpanded={expanded2}
-          onToggle={(isExpanded) => setExpanded2(isExpanded)}
-        >
-          <p>This is a secondary type collapsible with different styling.</p>
-        </Collapsible>
-
-        <Collapsible
-          header="Tertiary Type Collapsible"
-          type="Tertiary"
-          bg="Secondary"
-          isExpanded={expanded3}
-          onToggle={(isExpanded) => setExpanded3(isExpanded)}
-        >
-          <p>This is a tertiary type collapsible with border styling.</p>
-        </Collapsible>
-
-        <Collapsible
-          header="Collapsible with Badges"
-          type="Primary"
-          bg="Secondary"
-          badges={true}
-          isExpanded={expanded4}
-          onToggle={(isExpanded) => setExpanded4(isExpanded)}
-        >
-          <p>This collapsible shows badges in the header.</p>
-        </Collapsible>
-      </div>
-    </div>
-  );
-}
 
 // Composable API Examples
 export const Default: Story = {
@@ -196,100 +104,55 @@ export const Default: Story = {
   ),
 };
 
-export const WithExtra: Story = {
+export const DocsVariants: Story = {
   render: () => (
-    <Collapsible type="Primary" bg="Secondary">
-      <CollapsibleTrigger>
-        <CollapsibleHeader>
-          <CollapsibleIcon />
-          <CollapsibleTitle>Collapsible with Actions</CollapsibleTitle>
-          <CollapsibleExtra>
-            <Button size="sm" variant="secondary">Edit</Button>
-          </CollapsibleExtra>
-        </CollapsibleHeader>
-      </CollapsibleTrigger>
-      <CollapsibleContent>
-        <p>This collapsible includes extra action buttons in the header.</p>
-      </CollapsibleContent>
-    </Collapsible>
-  ),
-};
-
-function ComposableMultipleComponent() {
-  const [expanded1, setExpanded1] = React.useState(false);
-  const [expanded2, setExpanded2] = React.useState(false);
-  
-  return (
     <div className="space-y-4">
-      <Collapsible 
-        type="Primary" 
-        bg="Secondary"
-        isExpanded={expanded1}
-        onToggle={setExpanded1}
-      >
+      <Collapsible type="Primary" bg="Secondary">
         <CollapsibleTrigger>
           <CollapsibleHeader>
             <CollapsibleIcon />
-            <CollapsibleTitle>Section 1</CollapsibleTitle>
+            <CollapsibleTitle>Primary Type</CollapsibleTitle>
           </CollapsibleHeader>
         </CollapsibleTrigger>
         <CollapsibleContent>
-          <p>Content for section 1 goes here.</p>
+          <p>Primary collapsible content.</p>
         </CollapsibleContent>
       </Collapsible>
-      
-      <Collapsible 
-        type="Secondary" 
-        bg="Secondary"
-        isExpanded={expanded2}
-          onToggle={setExpanded2}
-        >
-          <CollapsibleTrigger>
-            <CollapsibleHeader>
-              <CollapsibleIcon />
-              <CollapsibleTitle>Section 2</CollapsibleTitle>
-              <CollapsibleExtra>
-                <Button size="sm" variant="primary">Action</Button>
-              </CollapsibleExtra>
-            </CollapsibleHeader>
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            <p>Content for section 2 goes here.</p>
-          </CollapsibleContent>
-        </Collapsible>
-      </div>
-  );
-}
-
-export const Multiple: Story = {
-  render: () => <ComposableMultipleComponent />,
-};
-
-export const CustomContent: Story = {
-  render: () => (
-    <Collapsible type="Tertiary" bg="Secondary">
-      <CollapsibleTrigger>
-        <CollapsibleHeader>
-          <CollapsibleIcon />
-          <CollapsibleTitle>Advanced Settings</CollapsibleTitle>
-          <CollapsibleExtra>
-            <Button size="sm" variant="secondary">Reset</Button>
-          </CollapsibleExtra>
-        </CollapsibleHeader>
-      </CollapsibleTrigger>
-      <CollapsibleContent>
-        <div className="space-y-4 p-4 bg-[var(--color-bg-secondary)] rounded-lg">
-          <div>
-            <label className="block text-sm font-medium mb-2">Setting 1</label>
-            <input type="text" className="w-full p-2 border rounded" />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-2">Setting 2</label>
-            <input type="text" className="w-full p-2 border rounded" />
-          </div>
-        </div>
-      </CollapsibleContent>
-    </Collapsible>
+      <Collapsible type="Secondary" bg="Secondary">
+        <CollapsibleTrigger>
+          <CollapsibleHeader>
+            <CollapsibleIcon />
+            <CollapsibleTitle>Secondary Type</CollapsibleTitle>
+          </CollapsibleHeader>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <p>Secondary collapsible content.</p>
+        </CollapsibleContent>
+      </Collapsible>
+      <Collapsible type="Tertiary" bg="Secondary">
+        <CollapsibleTrigger>
+          <CollapsibleHeader>
+            <CollapsibleIcon />
+            <CollapsibleTitle>Tertiary Type</CollapsibleTitle>
+          </CollapsibleHeader>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <p>Tertiary collapsible content.</p>
+        </CollapsibleContent>
+      </Collapsible>
+      <Collapsible type="Primary" bg="Primary">
+        <CollapsibleTrigger>
+          <CollapsibleHeader>
+            <CollapsibleIcon />
+            <CollapsibleTitle>Primary Background</CollapsibleTitle>
+          </CollapsibleHeader>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <p>Collapsible with primary background variant.</p>
+        </CollapsibleContent>
+      </Collapsible>
+    </div>
   ),
-};
 
+  parameters: { docsOnly: true },
+}

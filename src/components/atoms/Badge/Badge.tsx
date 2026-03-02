@@ -4,7 +4,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { Icon, IconName } from '../Icons';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { getGlassClasses, getGlassStateLayer, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 /**
  * Badge component props
@@ -55,13 +55,6 @@ export interface BadgeProps extends ComposableProps<'div'> {
   count?: number | React.ReactNode;
   
   /**
-   * Show count even when it's zero
-   * @default false
-   * @deprecated Use conditional rendering instead: `{count !== 0 && <Badge count={count}>...</Badge>}`
-   */
-  showZero?: boolean;
-  
-  /**
    * Maximum count to display before showing "overflowCount+"
    * @default 99
    */
@@ -96,16 +89,8 @@ export interface BadgeProps extends ComposableProps<'div'> {
    * @default 'md'
    * 
    * Available sizes: `xs`, `sm`, `md`, `lg`
-   * 
-   * @deprecated `default` and `small` are deprecated, use `md` and `sm` instead
    */
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'default' | 'small';
-  
-  /**
-   * Custom color (legacy prop)
-   * @deprecated Use variant prop instead
-   */
-  color?: string;
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   
   /**
    * Icon displayed before badge content
@@ -208,14 +193,12 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     className,
     variant = 'default',
     count,
-    showZero = false,
     overflowCount = 99,
     dot = false,
     offset,
     status,
     text,
     size = 'md',
-    color,
     leadingIcon,
     trailingIcon,
     glass,
@@ -236,9 +219,8 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     }
 
     // CASE 1: Status Badge (Dot + Text)
-    if (status || (color && !children && !count && !dot)) {
+    if (status) {
       const getStatusDotColor = () => {
-        if (color) return color;
         switch (status) {
           case 'success': return 'var(--positive)';
           case 'processing': return 'var(--primary)';
@@ -272,7 +254,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         displayCount = `${overflowCount}+`;
       }
 
-      const isHidden = (count === 0 || count === null) && !showZero && !dot;
+      const isHidden = (count === 0 || count === null) && !dot;
 
       return (
         <span className={cn("relative inline-block", className)} ref={ref} {...props}>
@@ -283,12 +265,12 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
                 "absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2",
                 "flex items-center justify-center text-xs-rem font-normal",
                 dot ? "w-2 h-2 p-0 rounded-full min-w-0" : "h-5 px-1.5 rounded-full min-w-[20px]",
-                (size === 'small' || size === 'sm' || size === 'xs') && !dot && "h-4 min-w-[16px] px-1",
-                (size === 'small' || size === 'sm' || size === 'xs') && !dot && "text-xs-rem",
+                (size === 'sm' || size === 'xs') && !dot && "h-4 min-w-[16px] px-1",
+                (size === 'sm' || size === 'xs') && !dot && "text-xs-rem",
                 (size === 'lg') && !dot && "h-6 px-2 text-sm-rem"
               )}
               style={{
-                backgroundColor: color || 'var(--danger)',
+                backgroundColor: 'var(--danger)',
                 color: 'var(--color-bg-primary)',
                 borderColor: 'var(--color-bg-primary)',
                 borderWidth: '1px',
@@ -311,18 +293,14 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     const sizeStylesMap: Record<string, string> = {
       xs: "px-1 py-0 gap-0.5 rounded", // Minimal padding to hug content
       sm: "px-1.5 py-0 gap-1 rounded", // Minimal padding to hug content
-      small: "px-1.5 py-0 gap-1 rounded", // Alias for sm
       md: "px-2 py-0.5 gap-1 rounded", // Minimal padding to hug content
-      default: "px-2 py-0.5 gap-1 rounded", // Alias for md
       lg: "px-2.5 py-0.5 gap-1.5 rounded" // Minimal padding to hug content
     };
 
     const fontSizeMap: Record<string, string> = {
       xs: "text-[0.714rem]", // 10px
       sm: "text-[0.857rem]", // 12px
-      small: "text-[0.857rem]", // 12px
       md: "text-[1rem]", // 14px
-      default: "text-[1rem]", // 14px
       lg: "text-[1.143rem]" // 16px
     };
 
@@ -426,15 +404,19 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       props.onMouseLeave?.(e);
     };
 
-    const baseStyle: React.CSSProperties = {
-      backgroundColor: isHovered && isInteractive ? getHoverBgColor() : getBgColor(),
-      color: isHovered && isInteractive ? getHoverTextColor() || getTextColor() : getTextColor(),
-      ...(isInteractive && (isHovered ? getHoverBorderColor() : getBorderColor()) ? {
-        borderColor: isHovered && isInteractive ? getHoverBorderColor() : getBorderColor(),
-        borderWidth: '1px',
-        borderStyle: 'solid'
-      } : {}),
-    };
+    const baseStyle: React.CSSProperties = resolvedGlass
+      ? {
+          color: getTextColor(),
+        }
+      : {
+          backgroundColor: isHovered && isInteractive ? getHoverBgColor() : getBgColor(),
+          color: isHovered && isInteractive ? getHoverTextColor() || getTextColor() : getTextColor(),
+          ...(isInteractive && (isHovered ? getHoverBorderColor() : getBorderColor()) ? {
+            borderColor: isHovered && isInteractive ? getHoverBorderColor() : getBorderColor(),
+            borderWidth: '1px',
+            borderStyle: 'solid'
+          } : {}),
+        };
 
     // If count is provided but no children, it renders as a standalone badge (capsule)
     // But here we fallback to Legacy style if not strictly matching notification pattern
@@ -442,7 +424,12 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     // But FT Badge is a Label.
 
     // Let's stick to legacy rendering if no 'status' or 'dot' or 'children+count'
-    const glassClass = resolvedGlass ? getGlassClasses(resolvedGlass, '', '') : undefined;
+    const glassClass = resolvedGlass
+      ? cn(
+          getGlassClasses(resolvedGlass, getBgColor() ? `bg-[${getBgColor()}]` : '', ''),
+          isInteractive && getGlassStateLayer(resolvedGlass, '', 'hover:bg-[var(--glass-hover)]')
+        )
+      : undefined;
 
     const Comp = asChild ? Slot : 'div';
 
@@ -454,7 +441,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
           glassClass,
           className
         )}
-        style={resolvedGlass ? { color: baseStyle.color } : baseStyle}
+        style={baseStyle}
         onMouseEnter={isInteractive ? handleMouseEnter : props.onMouseEnter}
         onMouseLeave={isInteractive ? handleMouseLeave : props.onMouseLeave}
         ref={ref}

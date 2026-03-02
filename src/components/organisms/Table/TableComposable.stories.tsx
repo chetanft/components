@@ -13,6 +13,9 @@ const meta: Meta<typeof Table> = {
         component: 'Shadcn-compatible composable Table API. Use TableHeader, TableHead, TableBody, TableRow, and TableCell for full control over table structure.',
       },
     },
+    explorer: {
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
 };
@@ -118,6 +121,130 @@ export function WithCustomCells() {
           </TableRow>
         </TableBody>
       </Table>
+    </div>
+  );
+}
+
+export function DocsVariants() {
+  return (
+    <div className="space-y-8">
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Basic Table</p>
+        <div className="border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden">
+          <Table>
+            <TableHeader
+              columns={[
+                { key: 'name', title: 'Name' },
+                { key: 'role', title: 'Role' },
+              ]}
+            />
+            <TableBody>
+              <TableRow>
+                <TableCell>Alice</TableCell>
+                <TableCell>Admin</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Bob</TableCell>
+                <TableCell>User</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">With Badges</p>
+        <div className="border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden">
+          <Table>
+            <TableHeader
+              columns={[
+                { key: 'name', title: 'Name' },
+                { key: 'status', title: 'Status' },
+              ]}
+            />
+            <TableBody>
+              <TableRow>
+                <TableCell>John Doe</TableCell>
+                <TableCell><Badge>Active</Badge></TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Jane Smith</TableCell>
+                <TableCell><Badge>Inactive</Badge></TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">With Actions</p>
+        <div className="border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden">
+          <Table>
+            <TableHeader
+              columns={[
+                { key: 'name', title: 'Name' },
+                { key: 'actions', title: 'Actions' },
+              ]}
+            />
+            <TableBody>
+              <TableRow>
+                <TableCell>John Doe</TableCell>
+                <TableCell><Button variant="text" size="sm">Edit</Button></TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function DocsStates() {
+  return (
+    <div className="space-y-8">
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">With Sortable Headers</p>
+        <div className="border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden">
+          <Table>
+            <TableHeader
+              columns={[
+                { key: 'name', title: 'Name', sortable: true },
+                { key: 'status', title: 'Status' },
+              ]}
+              sortColumn="name"
+              sortDirection="asc"
+            />
+            <TableBody>
+              <TableRow>
+                <TableCell>Alice</TableCell>
+                <TableCell><Badge>Active</Badge></TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Bob</TableCell>
+                <TableCell><Badge>Inactive</Badge></TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Empty Table</p>
+        <div className="border border-[var(--border-primary)] rounded-[var(--radius-md)] overflow-hidden">
+          <Table>
+            <TableHeader
+              columns={[
+                { key: 'name', title: 'Name' },
+                { key: 'status', title: 'Status' },
+              ]}
+            />
+            <TableBody>
+              <TableRow>
+                <TableCell colSpan={2} className="text-center text-[var(--secondary)] py-8">
+                  No data available
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </div>
     </div>
   );
 }

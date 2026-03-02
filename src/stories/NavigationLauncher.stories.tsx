@@ -2,15 +2,39 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import {
   NavigationLauncher,
-  DEFAULT_NAVIGATION_SECTIONS,
   AppHeader,
 } from '../components';
+import {
+  NavigationSection,
+  NavigationSectionHero,
+  NavigationSectionMetric,
+  NavigationSectionSubCategory,
+  NavigationSectionSubCategoryItem,
+} from '../components/organisms/NavigationPopover';
 
 const meta: Meta<typeof NavigationLauncher> = {
   title: 'Organisms/NavigationLauncher',
   component: NavigationLauncher,
   parameters: {
     layout: 'fullscreen',
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'anchored' as const,
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'default-launcher',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default-launcher', label: 'DefaultLauncher', story: 'DefaultLauncher' },
+            { id: 'custom-trigger', label: 'CustomTrigger', story: 'CustomTrigger' },
+            { id: 'app-header-integration', label: 'AppHeaderIntegration', story: 'AppHeaderIntegration' },
+          ],
+        },
+      ],
+    },
   },
 };
 
@@ -18,10 +42,28 @@ export default meta;
 
 type Story = StoryObj<typeof NavigationLauncher>;
 
+const SampleSections = () => (
+  <>
+    <NavigationSection id="overview" label="Overview" icon="dashboard">
+      <NavigationSectionHero title="Overview" description="High-level overview of logistics KPIs." />
+      <NavigationSectionMetric label="Active Orders" value="25" />
+      <NavigationSectionMetric label="Pending Shipments" value="12" />
+    </NavigationSection>
+    <NavigationSection id="operations" label="Operations" icon="planning">
+      <NavigationSectionSubCategory title="Operations">
+        <NavigationSectionSubCategoryItem label="Route Planning" icon="planning" />
+        <NavigationSectionSubCategoryItem label="Live Tracking" icon="gps" />
+      </NavigationSectionSubCategory>
+    </NavigationSection>
+  </>
+);
+
 export const DefaultLauncher: Story = {
   render: () => (
     <div className="bg-[var(--bg-secondary)] flex items-center justify-center" style={{ height: 'calc(var(--spacing-x10) * 15)' }}>
-      <NavigationLauncher sections={DEFAULT_NAVIGATION_SECTIONS} />
+      <NavigationLauncher>
+        <SampleSections />
+      </NavigationLauncher>
     </div>
   ),
 };
@@ -30,7 +72,6 @@ export const CustomTrigger: Story = {
   render: () => (
     <div className="bg-[var(--bg-secondary)] flex items-center justify-center" style={{ height: 'calc(var(--spacing-x10) * 15)' }}>
       <NavigationLauncher
-        sections={DEFAULT_NAVIGATION_SECTIONS}
         trigger={({ toggle }) => (
           <button
             type="button"
@@ -40,7 +81,9 @@ export const CustomTrigger: Story = {
             Open Hub
           </button>
         )}
-      />
+      >
+        <SampleSections />
+      </NavigationLauncher>
     </div>
   ),
 };
@@ -51,7 +94,6 @@ export const AppHeaderIntegration: Story = {
       <AppHeader
         leftAddon={() => (
           <NavigationLauncher
-            sections={DEFAULT_NAVIGATION_SECTIONS}
             showBackdrop={false}
             trigger={({ toggle }) => (
               <button
@@ -76,10 +118,11 @@ export const AppHeaderIntegration: Story = {
                 </svg>
               </button>
             )}
-          />
+          >
+            <SampleSections />
+          </NavigationLauncher>
         )}
       />
     </div>
   ),
 };
-

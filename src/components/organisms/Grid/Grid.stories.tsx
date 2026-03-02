@@ -11,6 +11,34 @@ const meta: Meta<typeof Row> = {
         component: '🆕 NEW: 24-column Grid system (Row/Col) built with FT Design System tokens.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'basic', label: 'Basic Grid', story: 'ExplorerBase', args: { contentType: 'basic' } },
+            { id: 'gutter', label: 'Gutter', story: 'ExplorerBase', args: { contentType: 'gutter' } },
+            { id: 'offset', label: 'Offset', story: 'ExplorerBase', args: { contentType: 'offset' } },
+            { id: 'flex', label: 'Flex Layout', story: 'ExplorerBase', args: { contentType: 'flex' } },
+          ],
+        },
+        {
+          id: 'alignment',
+          label: 'Layout',
+          scenarios: [
+            { id: 'align', label: 'Vertical Align', story: 'ExplorerBase', args: { contentType: 'alignment' } },
+            { id: 'justify', label: 'Justify', story: 'ExplorerBase', args: { contentType: 'justify' } },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'basic',
+    },
   },
   tags: ['autodocs'],
 };
@@ -31,7 +59,113 @@ const ColBoxLight = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-export const BasicGrid: Story = {
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const contentType = args.contentType ?? 'basic';
+    const syncKey = JSON.stringify({ contentType });
+    return (
+      <div key={syncKey}>
+        {contentType === 'basic' && (
+          <div className="space-y-4">
+            <Row gutter={16}>
+              <Col span={24}><ColBox>col-24</ColBox></Col>
+            </Row>
+            <Row gutter={16}>
+              <Col span={12}><ColBox>col-12</ColBox></Col>
+              <Col span={12}><ColBoxLight>col-12</ColBoxLight></Col>
+            </Row>
+            <Row gutter={16}>
+              <Col span={8}><ColBox>col-8</ColBox></Col>
+              <Col span={8}><ColBoxLight>col-8</ColBoxLight></Col>
+              <Col span={8}><ColBox>col-8</ColBox></Col>
+            </Row>
+          </div>
+        )}
+        {contentType === 'gutter' && (
+          <div className="space-y-4">
+            <Row gutter={16}>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+            </Row>
+            <Row gutter={[16, 24]}>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+              <Col span={6}><ColBox>col-6</ColBox></Col>
+            </Row>
+          </div>
+        )}
+        {contentType === 'offset' && (
+          <div className="space-y-4">
+            <Row>
+              <Col span={8}><ColBox>col-8</ColBox></Col>
+              <Col span={8} offset={8}><ColBox>col-8 offset-8</ColBox></Col>
+            </Row>
+            <Row>
+              <Col span={6} offset={6}><ColBox>col-6 offset-6</ColBox></Col>
+              <Col span={6} offset={6}><ColBox>col-6 offset-6</ColBox></Col>
+            </Row>
+          </div>
+        )}
+        {contentType === 'flex' && (
+          <div className="space-y-4">
+            <Row>
+              <Col flex={2}><ColBox>2 / 5</ColBox></Col>
+              <Col flex={3}><ColBoxLight>3 / 5</ColBoxLight></Col>
+            </Row>
+            <Row>
+              <Col flex="100px"><ColBox>100px</ColBox></Col>
+              <Col flex="auto"><ColBoxLight>Fill Rest</ColBoxLight></Col>
+            </Row>
+          </div>
+        )}
+        {contentType === 'alignment' && (
+          <div className="space-y-4">
+            <Row align="top" className="bg-[var(--bg-secondary)] p-4">
+              <Col span={4}><ColBox style={{ height: 100 }}>col-4</ColBox></Col>
+              <Col span={4}><ColBox style={{ height: 50 }}>col-4</ColBox></Col>
+              <Col span={4}><ColBox style={{ height: 120 }}>col-4</ColBox></Col>
+            </Row>
+            <Row align="middle" className="bg-[var(--bg-secondary)] p-4">
+              <Col span={4}><ColBox style={{ height: 100 }}>col-4</ColBox></Col>
+              <Col span={4}><ColBox style={{ height: 50 }}>col-4</ColBox></Col>
+              <Col span={4}><ColBox style={{ height: 120 }}>col-4</ColBox></Col>
+            </Row>
+            <Row align="bottom" className="bg-[var(--bg-secondary)] p-4">
+              <Col span={4}><ColBox style={{ height: 100 }}>col-4</ColBox></Col>
+              <Col span={4}><ColBox style={{ height: 50 }}>col-4</ColBox></Col>
+              <Col span={4}><ColBox style={{ height: 120 }}>col-4</ColBox></Col>
+            </Row>
+          </div>
+        )}
+        {contentType === 'justify' && (
+          <div className="space-y-4">
+            <Row justify="start" className="bg-[var(--bg-secondary)] p-4">
+              <Col span={4}><ColBox>col-4</ColBox></Col>
+              <Col span={4}><ColBox>col-4</ColBox></Col>
+            </Row>
+            <Row justify="center" className="bg-[var(--bg-secondary)] p-4">
+              <Col span={4}><ColBox>col-4</ColBox></Col>
+              <Col span={4}><ColBox>col-4</ColBox></Col>
+            </Row>
+            <Row justify="space-between" className="bg-[var(--bg-secondary)] p-4">
+              <Col span={4}><ColBox>col-4</ColBox></Col>
+              <Col span={4}><ColBox>col-4</ColBox></Col>
+            </Row>
+          </div>
+        )}
+      </div>
+    );
+  },
+};
+
+export const DocsBasicGrid: Story = {
   render: () => (
     <div className="space-y-4">
       <Row gutter={16}>
@@ -56,144 +190,6 @@ export const BasicGrid: Story = {
       </Row>
     </div>
   ),
-};
 
-export const Gutter: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <p className="text-sm text-[var(--tertiary)]">Horizontal gutter: var(--spacing-x4)</p>
-      <Row gutter={16}>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-      </Row>
-      
-      <p className="text-sm text-[var(--tertiary)] mt-4">Horizontal & Vertical gutter: [16, 24]</p>
-      <Row gutter={[16, 24]}>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-        <Col span={6}><ColBox>col-6</ColBox></Col>
-      </Row>
-    </div>
-  ),
-};
-
-export const Offset: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <Row>
-        <Col span={8}><ColBox>col-8</ColBox></Col>
-        <Col span={8} offset={8}><ColBox>col-8 offset-8</ColBox></Col>
-      </Row>
-      <Row>
-        <Col span={6} offset={6}><ColBox>col-6 offset-6</ColBox></Col>
-        <Col span={6} offset={6}><ColBox>col-6 offset-6</ColBox></Col>
-      </Row>
-      <Row>
-        <Col span={12} offset={6}><ColBox>col-12 offset-6</ColBox></Col>
-      </Row>
-    </div>
-  ),
-};
-
-export const Alignment: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <p className="text-sm text-[var(--tertiary)]">Align: top</p>
-      <Row align="top" className="bg-[var(--bg-secondary)] p-4">
-        <Col span={4}><ColBox style={{ height: 100 }}>col-4</ColBox></Col>
-        <Col span={4}><ColBox style={{ height: 50 }}>col-4</ColBox></Col>
-        <Col span={4}><ColBox style={{ height: 120 }}>col-4</ColBox></Col>
-        <Col span={4}><ColBox style={{ height: 80 }}>col-4</ColBox></Col>
-      </Row>
-
-      <p className="text-sm text-[var(--tertiary)]">Align: middle</p>
-      <Row align="middle" className="bg-[var(--bg-secondary)] p-4">
-        <Col span={4}><ColBox style={{ height: 100 }}>col-4</ColBox></Col>
-        <Col span={4}><ColBox style={{ height: 50 }}>col-4</ColBox></Col>
-        <Col span={4}><ColBox style={{ height: 120 }}>col-4</ColBox></Col>
-        <Col span={4}><ColBox style={{ height: 80 }}>col-4</ColBox></Col>
-      </Row>
-
-      <p className="text-sm text-[var(--tertiary)]">Align: bottom</p>
-      <Row align="bottom" className="bg-[var(--bg-secondary)] p-4">
-        <Col span={4}><ColBox style={{ height: 100 }}>col-4</ColBox></Col>
-        <Col span={4}><ColBox style={{ height: 50 }}>col-4</ColBox></Col>
-        <Col span={4}><ColBox style={{ height: 120 }}>col-4</ColBox></Col>
-        <Col span={4}><ColBox style={{ height: 80 }}>col-4</ColBox></Col>
-      </Row>
-    </div>
-  ),
-};
-
-export const Justify: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <p className="text-sm text-[var(--tertiary)]">Justify: start</p>
-      <Row justify="start" className="bg-[var(--bg-secondary)] p-4">
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-      </Row>
-
-      <p className="text-sm text-[var(--tertiary)]">Justify: center</p>
-      <Row justify="center" className="bg-[var(--bg-secondary)] p-4">
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-      </Row>
-
-      <p className="text-sm text-[var(--tertiary)]">Justify: end</p>
-      <Row justify="end" className="bg-[var(--bg-secondary)] p-4">
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-      </Row>
-
-      <p className="text-sm text-[var(--tertiary)]">Justify: space-between</p>
-      <Row justify="space-between" className="bg-[var(--bg-secondary)] p-4">
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-      </Row>
-
-      <p className="text-sm text-[var(--tertiary)]">Justify: space-around</p>
-      <Row justify="space-around" className="bg-[var(--bg-secondary)] p-4">
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-        <Col span={4}><ColBox>col-4</ColBox></Col>
-      </Row>
-    </div>
-  ),
-};
-
-export const FlexLayout: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <p className="text-sm text-[var(--tertiary)]">Percentage columns</p>
-      <Row>
-        <Col flex={2}><ColBox>2 / 5</ColBox></Col>
-        <Col flex={3}><ColBoxLight>3 / 5</ColBoxLight></Col>
-      </Row>
-
-      <p className="text-sm text-[var(--tertiary)] mt-4">Fixed + Fill</p>
-      <Row>
-        <Col flex="calc(var(--spacing-x10) * 2.5)"><ColBox>calc(var(--spacing-x10) * 2.5)</ColBox></Col>
-        <Col flex="auto"><ColBoxLight>Fill Rest</ColBoxLight></Col>
-      </Row>
-
-      <p className="text-sm text-[var(--tertiary)] mt-4">Fixed + Fill + Fixed</p>
-      <Row>
-        <Col flex="calc(var(--spacing-x10) * 2.5)"><ColBox>calc(var(--spacing-x10) * 2.5)</ColBox></Col>
-        <Col flex="auto"><ColBoxLight>Fill Rest</ColBoxLight></Col>
-        <Col flex="calc(var(--spacing-x10) * 2.5)"><ColBox>calc(var(--spacing-x10) * 2.5)</ColBox></Col>
-      </Row>
-    </div>
-  ),
-};
+  parameters: { docsOnly: true },
+}

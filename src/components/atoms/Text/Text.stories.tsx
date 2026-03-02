@@ -12,6 +12,37 @@ const meta = {
         component: 'A flexible text component with configurable icons and sub-text. Supports various sizes and icon positions.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      defaultRowId: 'size',
+      defaultScenarioId: 'md',
+      rows: [
+        {
+          id: 'size',
+          label: 'Size',
+          scenarios: [
+            { id: 'sm', label: 'SM', story: 'ExplorerBase', args: { size: 'sm' } },
+            { id: 'md', label: 'MD', story: 'ExplorerBase', args: { size: 'md' } },
+            { id: 'lg', label: 'LG', story: 'ExplorerBase', args: { size: 'lg' } },
+            { id: 'xl', label: 'XL', story: 'ExplorerBase', args: { size: 'xl' } },
+            { id: 'xx', label: 'XX', story: 'ExplorerBase', args: { size: 'xx' } },
+          ],
+        },
+        {
+          id: 'content',
+          label: 'Content',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: {} },
+            { id: 'sub-text', label: 'Sub Text', story: 'ExplorerBase', args: { subText: true } },
+            { id: 'leading-icon', label: 'Leading Icon', story: 'ExplorerBase', args: { leadingIcon: true } },
+            { id: 'trailing-icon', label: 'Trailing Icon', story: 'ExplorerBase', args: { trailingIcon: true } },
+          ],
+        },
+      ],
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -42,6 +73,23 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const size = args.size ?? 'md';
+    const subText = Boolean(args.subText);
+    const leadingIcon = Boolean(args.leadingIcon);
+    const trailingIcon = Boolean(args.trailingIcon);
+    return (
+      <Text
+        size={size}
+        subText={subText}
+        leadingIcon={leadingIcon}
+        trailingIcon={trailingIcon}
+      />
+    );
+  },
+};
+
 // Default text
 export const Default: Story = {
   args: {
@@ -53,184 +101,13 @@ export const Default: Story = {
 };
 
 // Small size
-export const Small: Story = {
+export const DocsSmall: Story = {
   args: {
     size: 'sm',
     subText: false,
     leadingIcon: false,
     trailingIcon: false,
   },
-};
 
-// Large size
-export const Large: Story = {
-  args: {
-    size: 'lg',
-    subText: false,
-    leadingIcon: false,
-    trailingIcon: false,
-  },
-};
-
-// Extra large size
-export const ExtraLarge: Story = {
-  args: {
-    size: 'xl',
-    subText: false,
-    leadingIcon: false,
-    trailingIcon: false,
-  },
-};
-
-// XX large size
-export const XXLarge: Story = {
-  args: {
-    size: 'xx',
-    subText: false,
-    leadingIcon: false,
-    trailingIcon: false,
-  },
-};
-
-// With sub text
-export const WithSubText: Story = {
-  args: {
-    size: 'md',
-    subText: true,
-    leadingIcon: false,
-    trailingIcon: false,
-  },
-};
-
-// With leading icon
-export const WithLeadingIcon: Story = {
-  args: {
-    size: 'md',
-    subText: false,
-    leadingIcon: true,
-    trailingIcon: false,
-  },
-};
-
-// With trailing icon
-export const WithTrailingIcon: Story = {
-  args: {
-    size: 'md',
-    subText: false,
-    leadingIcon: false,
-    trailingIcon: true,
-  },
-};
-
-// With sub text and trailing icon
-export const WithSubTextAndTrailingIcon: Story = {
-  args: {
-    size: 'md',
-    subText: true,
-    leadingIcon: false,
-    trailingIcon: true,
-  },
-};
-
-// With sub text and leading icon
-export const WithSubTextAndLeadingIcon: Story = {
-  args: {
-    size: 'md',
-    subText: true,
-    leadingIcon: true,
-    trailingIcon: false,
-  },
-};
-
-// All sizes showcase
-export const AllSizes: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <div>
-        <h3 className="font-semibold mb-2">Text Sizes</h3>
-        <div className="space-y-4">
-          <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-4">
-              <span className="w-12 text-sm text-muted-foreground">sm:</span>
-            <Text size="sm" />
-            </div>
-            <p className="text-sm text-muted-foreground ml-16">Font: 1rem (14px) - Body Secondary Regular</p>
-          </div>
-          <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-4">
-              <span className="w-12 text-sm text-muted-foreground">md:</span>
-            <Text size="md" />
-            </div>
-            <p className="text-sm text-muted-foreground ml-16">Font: 1.143rem (16px) - Body Primary Regular</p>
-          </div>
-          <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-4">
-              <span className="w-12 text-sm text-muted-foreground">lg:</span>
-            <Text size="lg" />
-            </div>
-            <p className="text-sm text-muted-foreground ml-16">Font: 1.143rem (16px) - Body Primary Semibold</p>
-          </div>
-          <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-4">
-              <span className="w-12 text-sm text-muted-foreground">xl:</span>
-            <Text size="xl" />
-            </div>
-            <p className="text-sm text-muted-foreground ml-16">Font: 1.429rem (20px) - Display Primary</p>
-          </div>
-          <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-4">
-              <span className="w-12 text-sm text-muted-foreground">xx:</span>
-            <Text size="xx" />
-            </div>
-            <p className="text-sm text-muted-foreground ml-16">Font: 1.714rem (24px) - Title Secondary</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-};
-
-// All variants showcase
-export const AllVariants: Story = {
-  render: () => (
-    <div className="space-y-6">
-      <div>
-        <h3 className="font-semibold mb-4">Basic Text</h3>
-        <Text size="md" />
-      </div>
-      
-      <div>
-        <h3 className="font-semibold mb-4">With Sub Text</h3>
-        <Text size="md" subText={true} />
-      </div>
-      
-      <div>
-        <h3 className="font-semibold mb-4">With Icons</h3>
-        <div className="space-y-3">
-          <div>
-            <span className="text-sm text-gray-500 mb-2 block">Leading Icon:</span>
-            <Text size="md" leadingIcon={true} />
-          </div>
-          <div>
-            <span className="text-sm text-gray-500 mb-2 block">Trailing Icon:</span>
-            <Text size="md" trailingIcon={true} />
-          </div>
-        </div>
-      </div>
-      
-      <div>
-        <h3 className="font-semibold mb-4">Combined Variants</h3>
-        <div className="space-y-3">
-          <div>
-            <span className="text-sm text-gray-500 mb-2 block">Sub Text + Leading Icon:</span>
-            <Text size="md" subText={true} leadingIcon={true} />
-          </div>
-          <div>
-            <span className="text-sm text-gray-500 mb-2 block">Sub Text + Trailing Icon:</span>
-            <Text size="md" subText={true} trailingIcon={true} />
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-};
+  parameters: { docsOnly: true },
+}

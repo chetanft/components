@@ -12,6 +12,7 @@ const meta: Meta<typeof HorizontalBarChart> = {
   title: 'Components/Charts/HorizontalBarChart',
   component: HorizontalBarChart,
   parameters: {
+    docsOnly: true,
     layout: 'padded',
     docs: {
       description: {

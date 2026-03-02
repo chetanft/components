@@ -152,7 +152,7 @@ export const DataEntryTableCellAmount: React.FC<DataEntryTableCellAmountProps> =
         }
       }}
     >
-      <div className="box-border flex flex-[1_0_0] font-normal gap-[var(--x1)] h-[var(--component-height-md)] items-center leading-[1.4] min-h-px min-w-px px-[var(--x0)] py-[var(--x5)] relative rounded-[var(--radius-md)] shrink-0 justify-end"
+      <div className="box-border flex flex-1 font-normal gap-[var(--x1)] h-[var(--component-height-md)] items-center leading-[1.4] min-h-px min-w-px px-[var(--x0)] py-[var(--x5)] relative rounded-[var(--radius-md)] shrink-0 justify-end"
       style={{
         fontSize: 'var(--font-size-md)',
         color: hasValue ? 'var(--primary)' : 'var(--tertiary)',
@@ -180,7 +180,7 @@ export const DataEntryTableCellAmount: React.FC<DataEntryTableCellAmountProps> =
           onKeyDown={handleKeyDown}
           onClick={(e) => e.stopPropagation()}
           className={cn(
-            "flex-[1_0_0] border-0 bg-transparent outline-none text-right min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 whitespace-nowrap",
+            "flex-1 border-0 bg-transparent outline-none text-right min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 whitespace-nowrap",
             "leading-[1.4] font-normal",
             hasValue ? "text-[var(--primary)]" : "text-[var(--tertiary)]",
             effectiveState === 'disabled' && "text-[var(--tertiary)] cursor-not-allowed",

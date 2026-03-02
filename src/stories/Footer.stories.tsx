@@ -1,28 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Footer } from '../components/organisms/Footer';
+import { Footer, FooterButton } from '../components/organisms/Footer';
 
 const meta = {
   title: 'Components/Footer',
   component: Footer,
   parameters: {
+    docsOnly: true,
     layout: 'fullscreen',
   },
   tags: ['autodocs'],
-  argTypes: {
-    buttonCount: {
-      control: { type: 'select' },
-      options: [1, 2, 3, 4],
-    },
-    leftSideButton: {
-      control: 'boolean',
-    },
-    buttonTexts: {
-      control: { type: 'object' },
-    },
-    buttonVariants: {
-      control: { type: 'object' },
-    },
-  },
+  argTypes: {},
 } satisfies Meta<typeof Footer>;
 
 export default meta;
@@ -30,85 +17,87 @@ type Story = StoryObj<typeof meta>;
 
 // Single button variant (matching Figma: "Buttons count=1, Left side btn=False")
 export const SingleButton: Story = {
-  args: {
-    buttonCount: 1,
-    leftSideButton: false,
-    buttonTexts: ['Button'],
-  },
+  render: () => (
+    <Footer>
+      <FooterButton variant="primary">Button</FooterButton>
+    </Footer>
+  ),
 };
 
 // Two buttons variant (matching Figma: "Buttons count=2, Left side btn=False")
 export const TwoButtons: Story = {
-  args: {
-    buttonCount: 2,
-    leftSideButton: false,
-    buttonTexts: ['Button', 'Button'],
-  },
+  render: () => (
+    <Footer>
+      <FooterButton variant="secondary">Button</FooterButton>
+      <FooterButton variant="primary">Button</FooterButton>
+    </Footer>
+  ),
 };
 
 // Three buttons variant (matching Figma: "Buttons count=3, Left side btn=False")
 export const ThreeButtons: Story = {
-  args: {
-    buttonCount: 3,
-    leftSideButton: false,
-    buttonTexts: ['Button', 'Button', 'Button'],
-  },
+  render: () => (
+    <Footer>
+      <FooterButton variant="text">Button</FooterButton>
+      <FooterButton variant="secondary">Button</FooterButton>
+      <FooterButton variant="primary">Button</FooterButton>
+    </Footer>
+  ),
 };
 
 // Three buttons with left side button (matching Figma: "Buttons count=3, Left side btn=true")
 export const ThreeButtonsWithLeftSide: Story = {
-  args: {
-    buttonCount: 3,
-    leftSideButton: true,
-    buttonTexts: ['Button', 'Button', 'Button'],
-  },
+  render: () => (
+    <Footer>
+      <FooterButton variant="text" leftSide>Button</FooterButton>
+      <FooterButton variant="secondary">Button</FooterButton>
+      <FooterButton variant="primary">Button</FooterButton>
+    </Footer>
+  ),
 };
 
 // Four buttons with left side button (matching Figma: "Buttons count=4, Left side btn=true")
 export const FourButtonsWithLeftSide: Story = {
-  args: {
-    buttonCount: 4,
-    leftSideButton: true,
-    buttonTexts: ['Button', 'Button', 'Button', 'Button'],
-  },
+  render: () => (
+    <Footer>
+      <FooterButton variant="text" leftSide>Button</FooterButton>
+      <FooterButton variant="text">Button</FooterButton>
+      <FooterButton variant="secondary">Button</FooterButton>
+      <FooterButton variant="primary">Button</FooterButton>
+    </Footer>
+  ),
 };
 
 // Custom example with different button texts and click handlers
 export const CustomFooter: Story = {
-  args: {
-    buttonCount: 3,
-    leftSideButton: true,
-    buttonTexts: ['Cancel', 'Save Draft', 'Publish'],
-    onButtonClick: [
-      () => console.log('Cancel clicked'),
-      () => console.log('Save Draft clicked'),
-      () => console.log('Publish clicked'),
-    ],
-  },
+  render: () => (
+    <Footer>
+      <FooterButton variant="text" leftSide onClick={() => console.log('Cancel clicked')}>Cancel</FooterButton>
+      <FooterButton variant="secondary" onClick={() => console.log('Save Draft clicked')}>Save Draft</FooterButton>
+      <FooterButton variant="primary" onClick={() => console.log('Publish clicked')}>Publish</FooterButton>
+    </Footer>
+  ),
 };
 
 // Example with custom variants
 export const CustomVariants: Story = {
-  args: {
-    buttonCount: 4,
-    leftSideButton: true,
-    buttonTexts: ['Delete', 'Edit', 'Save', 'Submit'],
-    buttonVariants: ['text', 'text', 'secondary', 'primary'],
-    onButtonClick: [
-      () => console.log('Delete clicked'),
-      () => console.log('Edit clicked'),
-      () => console.log('Save clicked'),
-      () => console.log('Submit clicked'),
-    ],
-  },
+  render: () => (
+    <Footer>
+      <FooterButton variant="text" leftSide onClick={() => console.log('Delete clicked')}>Delete</FooterButton>
+      <FooterButton variant="text" onClick={() => console.log('Edit clicked')}>Edit</FooterButton>
+      <FooterButton variant="secondary" onClick={() => console.log('Save clicked')}>Save</FooterButton>
+      <FooterButton variant="primary" onClick={() => console.log('Submit clicked')}>Submit</FooterButton>
+    </Footer>
+  ),
 };
 
 // Test button variations
 export const ButtonVariations: Story = {
-  args: {
-    buttonCount: 3,
-    leftSideButton: true,
-    buttonTexts: ['Cancel', 'Preview', 'Save'],
-    buttonVariants: ['text', 'secondary', 'primary'],
-  },
-}; 
+  render: () => (
+    <Footer>
+      <FooterButton variant="text" leftSide>Cancel</FooterButton>
+      <FooterButton variant="secondary">Preview</FooterButton>
+      <FooterButton variant="primary">Save</FooterButton>
+    </Footer>
+  ),
+};

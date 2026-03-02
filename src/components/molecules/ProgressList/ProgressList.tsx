@@ -49,11 +49,6 @@ export interface DividerItem {
 export type ProgressListItem = ProgressItem | DividerItem;
 
 export interface ProgressListProps extends ComposableProps<'div'> {
-  /**
-   * Items array (for declarative API)
-   * @deprecated Use ProgressListItem and ProgressListDivider components as children instead
-   */
-  items?: ProgressListItem[];
   showTime?: boolean;
   /**
    * Enable glassmorphism effect on progress list background
@@ -168,7 +163,6 @@ export interface ProgressListDividerProps extends React.HTMLAttributes<HTMLDivEl
 
 export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
   ({
-    items = [],
     showTime = false,
     glass,
     className = '',
@@ -190,7 +184,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
     return (
       <div key={item.id} className="flex justify-between items-center gap-[-36px] py-[var(--spacing-x4)] w-full">
         <div className="flex-1 h-px border-b border-[var(--border-primary)]" />
-        <div className={cn("flex items-center justify-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] border border-[var(--border-primary)] rounded-full shadow-sm", getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-white/10 dark:bg-white/10 backdrop-blur-sm"))}>
+        <div className={cn("flex items-center justify-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] border border-[var(--border-primary)] rounded-full shadow-sm", getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-[var(--glass-hover)]"))}>
           <Typography
             variant="body-secondary-medium"
             color="secondary"
@@ -235,8 +229,8 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
             className={cn(
               "flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200",
               isActive
-                ? cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-white/10 dark:bg-white/10 backdrop-blur-sm"), "border-[var(--primary)]")
-                : cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-white/10 dark:bg-white/10 backdrop-blur-sm"), "border-[var(--border-primary)]"),
+                ? cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-[var(--glass-hover)]"), "border-[var(--primary)]")
+                : cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-[var(--glass-hover)]"), "border-[var(--border-primary)]"),
               item.collapsible && "cursor-pointer hover:border-[var(--secondary)] hover:scale-105"
             )}
             onClick={() => item.collapsible && toggleExpand(item.id)}
@@ -269,7 +263,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
           <div className="flex items-center justify-center w-[var(--spacing-x5)] h-[var(--spacing-x5)]">
             <div className={cn(
               "w-3 h-3 rounded-full border-4",
-              getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-white/10 dark:bg-white/10 backdrop-blur-sm"),
+              getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-[var(--glass-hover)]"),
               isActive ? "border-[var(--primary)]" : "border-[var(--border-primary)]"
             )} />
           </div>
@@ -476,85 +470,47 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
     );
   };
 
-    // Check if using composable API (has children)
-    const hasComposableChildren = React.Children.count(children) > 0;
-    
-    // If using composable API, render with children
-    if (hasComposableChildren) {
-      // Show deprecation warning if using old props with composable API
-      if (process.env.NODE_ENV !== 'production' && items?.length) {
-              }
-      
-      const Comp = asChild ? Slot : 'div';
-      const childrenArray = React.Children.toArray(children);
-      
-      return (
-        <Comp ref={ref} className={cn("progress-list flex flex-col", resolvedGlass && getGlassClasses(resolvedGlass), className)} {...props}>
-          {childrenArray.map((child, index) => {
-            if (React.isValidElement(child)) {
-              const isLast = index === childrenArray.length - 1;
-              if (child.type === ProgressListDivider) {
-                const dividerProps = child.props as ProgressListDividerProps;
-                return <ProgressListDivider key={dividerProps.id} {...dividerProps} />;
-              }
-              if (child.type === ProgressListItem) {
-                const itemProps = child.props as ProgressListItemProps;
-                const item: ProgressItem = {
-                  id: itemProps.id,
-                  title: itemProps.title,
-                  description: itemProps.description,
-                  state: itemProps.state,
-                  pointType: itemProps.pointType,
-                  lineType: itemProps.lineType,
-                  startTime: itemProps.startTime,
-                  endTime: itemProps.endTime,
-                  timeLabel: itemProps.timeLabel,
-                  icon: itemProps.icon,
-                  pointLabel: itemProps.pointLabel,
-                  badges: itemProps.badges,
-                  headerType: itemProps.headerType,
-                  showHeaderLine: itemProps.showHeaderLine,
-                  collapsible: itemProps.collapsible,
-                  content: itemProps.children,
-                  multiplePoints: itemProps.multiplePoints,
-                };
-                return (
-                  <div key={item.id}>
-                    {renderProgressItem(item, isLast)}
-                  </div>
-                );
-              }
-            }
-            return child;
-          })}
-        </Comp>
-      );
-    }
-    
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production' && items?.length) {
-          }
-
-    if (!items || items.length === 0) {
-      const Comp = asChild ? Slot : 'div';
-      return (
-        <Comp ref={ref} className={cn("progress-list flex flex-col", resolvedGlass && getGlassClasses(resolvedGlass), className)} {...props}>
-          <div className="text-sm text-gray-500 p-4 text-center">No items to display</div>
-        </Comp>
-      );
-    }
-
     const Comp = asChild ? Slot : 'div';
+    const childrenArray = React.Children.toArray(children);
+
     return (
       <Comp ref={ref} className={cn("progress-list flex flex-col", resolvedGlass && getGlassClasses(resolvedGlass), className)} {...props}>
-        {items.map((item, index) => {
-          const isLast = index === items.length - 1;
-
-          if ('type' in item && item.type === 'divider') {
-            return renderDivider(item);
+        {childrenArray.map((child, index) => {
+          if (React.isValidElement(child)) {
+            const isLast = index === childrenArray.length - 1;
+            if (child.type === ProgressListDivider) {
+              const dividerProps = child.props as ProgressListDividerProps;
+              return <ProgressListDivider key={dividerProps.id} {...dividerProps} />;
+            }
+            if (child.type === ProgressListItem) {
+              const itemProps = child.props as ProgressListItemProps;
+              const item: ProgressItem = {
+                id: itemProps.id,
+                title: itemProps.title,
+                description: itemProps.description,
+                state: itemProps.state,
+                pointType: itemProps.pointType,
+                lineType: itemProps.lineType,
+                startTime: itemProps.startTime,
+                endTime: itemProps.endTime,
+                timeLabel: itemProps.timeLabel,
+                icon: itemProps.icon,
+                pointLabel: itemProps.pointLabel,
+                badges: itemProps.badges,
+                headerType: itemProps.headerType,
+                showHeaderLine: itemProps.showHeaderLine,
+                collapsible: itemProps.collapsible,
+                content: itemProps.children,
+                multiplePoints: itemProps.multiplePoints,
+              };
+              return (
+                <div key={item.id}>
+                  {renderProgressItem(item, isLast)}
+                </div>
+              );
+            }
           }
-
-          return renderProgressItem(item as ProgressItem, isLast);
+          return child;
         })}
       </Comp>
     );

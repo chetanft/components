@@ -46,8 +46,7 @@ export interface DropdownTriggerProps extends ComposableProps<'div'> {
  * ⚠️ MUST be used inside a parent Dropdown component. Cannot be used standalone.
  */
 export const DropdownTrigger = React.forwardRef<HTMLDivElement, DropdownTriggerProps>(
-  ({ className, children, glass, asChild, onClick, ...props }, ref) => {
-    const resolvedGlass = useResolvedGlass(glass);
+  ({ className, children, glass: glassProp, asChild, onClick, ...props }, ref) => {
     const {
       isOpen,
       setIsOpen,
@@ -58,8 +57,10 @@ export const DropdownTrigger = React.forwardRef<HTMLDivElement, DropdownTriggerP
       state,
       type: _type,
       dropdownRef,
+      glass: contextGlass,
     } = useDropdownContext();
-    
+    const resolvedGlass = useResolvedGlass(glassProp ?? contextGlass);
+
     const sizeStylesMap: Record<string, { height: string; fontSize: string; borderRadius: string; padding: string; iconSize: number }> = {
       xxs: { height: "h-component-xxs", fontSize: "text-xs-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x1)]", iconSize: 12 },
       xs: { height: "h-component-xs", fontSize: "text-xs-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x1)] py-[var(--spacing-x1)]", iconSize: 14 },
@@ -88,7 +89,7 @@ export const DropdownTrigger = React.forwardRef<HTMLDivElement, DropdownTriggerP
         ref={ref || dropdownRef}
         className={cn(
           "relative w-full border transition-all duration-200 font-sans font-normal text-[var(--primary)]",
-          resolvedGlass ? getGlassClasses(resolvedGlass, 'bg-surface', '') : "bg-surface",
+          getGlassClasses(resolvedGlass, 'bg-surface', 'border border-[var(--border-primary)]'),
           sizeStyles.height,
           sizeStyles.fontSize,
           sizeStyles.borderRadius,

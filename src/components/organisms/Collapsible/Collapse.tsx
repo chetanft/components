@@ -1,6 +1,14 @@
 "use client";
 import React, { useState } from 'react';
-import { Collapsible } from './Collapsible';
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleHeader,
+  CollapsibleTitle,
+  CollapsibleExtra,
+  CollapsibleContent,
+  CollapsibleIcon,
+} from './index';
 import { cn } from '../../../lib/utils';
 
 export interface CollapseProps {
@@ -71,17 +79,21 @@ export const Collapse: React.FC<CollapseProps> = ({
       {items.map(item => (
         <Collapsible
           key={item.key}
-          header={item.label}
           isExpanded={isActive(item.key)}
           onToggle={() => handleToggle(item.key)}
           disabled={item.disabled}
-          extra={item.extra}
-          showArrow={item.showArrow}
           bg={ghost ? 'Primary' : 'Secondary'} // Use Primary (white) for ghost? Or override styles
           type="Secondary" // Use default generic style
           className={cn(ghost && "bg-transparent border-0")}
         >
-          {item.children}
+          <CollapsibleTrigger>
+            <CollapsibleHeader>
+              {item.showArrow !== false ? <CollapsibleIcon /> : null}
+              <CollapsibleTitle>{item.label}</CollapsibleTitle>
+              {item.extra ? <CollapsibleExtra>{item.extra}</CollapsibleExtra> : null}
+            </CollapsibleHeader>
+          </CollapsibleTrigger>
+          <CollapsibleContent>{item.children}</CollapsibleContent>
         </Collapsible>
       ))}
     </div>

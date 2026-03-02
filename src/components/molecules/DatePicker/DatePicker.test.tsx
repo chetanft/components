@@ -132,10 +132,10 @@ describe('DatePicker Components', () => {
         const user = userEvent.setup();
         const handleChange = jest.fn();
         render(<DatePickerField onChange={handleChange} />);
-        
+
         const input = screen.getByRole('textbox');
         await user.type(input, '2024-01-01');
-        
+
         expect(handleChange).toHaveBeenCalled();
       });
 
@@ -143,10 +143,10 @@ describe('DatePicker Components', () => {
         const user = userEvent.setup();
         const handleFocus = jest.fn();
         render(<DatePickerField onFocus={handleFocus} />);
-        
+
         const input = screen.getByRole('textbox');
         await user.click(input);
-        
+
         expect(handleFocus).toHaveBeenCalledTimes(1);
       });
 
@@ -154,11 +154,11 @@ describe('DatePicker Components', () => {
         const user = userEvent.setup();
         const handleBlur = jest.fn();
         render(<DatePickerField onBlur={handleBlur} />);
-        
+
         const input = screen.getByRole('textbox');
         await user.click(input);
         await user.tab();
-        
+
         expect(handleBlur).toHaveBeenCalledTimes(1);
       });
 
@@ -166,10 +166,10 @@ describe('DatePicker Components', () => {
         const user = userEvent.setup();
         const handleChange = jest.fn();
         render(<DatePickerField disabled onChange={handleChange} />);
-        
+
         const input = screen.getByRole('textbox');
         await user.type(input, '2024-01-01');
-        
+
         expect(handleChange).not.toHaveBeenCalled();
       });
     });
@@ -198,7 +198,7 @@ describe('DatePicker Components', () => {
     describe('Design System Compliance', () => {
       it('uses CSS custom properties for colors', () => {
         const { container } = render(<DatePickerField />);
-        
+
         // Check that the component uses design token classes
         const field = container.querySelector('.border-border');
         expect(field).toBeInTheDocument();
@@ -224,23 +224,6 @@ describe('DatePicker Components', () => {
         render(<DatePicker />);
         const input = screen.getByRole('textbox');
         expect(input).toBeInTheDocument();
-      });
-
-      it('renders with label on top by default', () => {
-        render(<DatePicker label="Select Date" />);
-        expect(screen.getByText('Select Date')).toBeInTheDocument();
-        
-        const container = screen.getByText('Select Date').closest('div');
-        expect(container).toHaveClass('flex-col');
-      });
-
-      it('renders with label on left', () => {
-        render(<DatePicker label="Select Date" labelPosition="left" />);
-        expect(screen.getByText('Select Date')).toBeInTheDocument();
-        
-        const container = screen.getByText('Select Date').closest('div');
-        expect(container).toHaveClass('flex');
-        expect(container).toHaveClass('items-center');
       });
 
       it('does not render label when label is not provided', () => {
@@ -274,11 +257,6 @@ describe('DatePicker Components', () => {
         const { container } = render(<DatePicker />);
         expect(container.querySelector('svg')).toBeInTheDocument();
       });
-
-      it('shows time icon when showTime is true', () => {
-        const { container } = render(<DatePicker showTime />);
-        expect(container.querySelector('svg')).toBeInTheDocument();
-      });
     });
 
     describe('Event Forwarding', () => {
@@ -286,10 +264,10 @@ describe('DatePicker Components', () => {
         const user = userEvent.setup();
         const handleChange = jest.fn();
         render(<DatePicker onChange={handleChange} />);
-        
+
         const input = screen.getByRole('textbox');
         await user.type(input, '2024-01-01');
-        
+
         expect(handleChange).toHaveBeenCalled();
       });
 
@@ -300,15 +278,6 @@ describe('DatePicker Components', () => {
         const ref = React.createRef<HTMLInputElement>();
         render(<DatePicker ref={ref} />);
         expect(ref.current).toBeInstanceOf(HTMLInputElement);
-      });
-
-      it('associates label with input', () => {
-        render(<DatePicker label="Birth Date" />);
-        const input = screen.getByRole('textbox');
-        const label = screen.getByText('Birth Date').closest('label');
-        
-        // The label should be associated with the input
-        expect(label?.tagName).toBe('LABEL');
       });
     });
 
@@ -329,14 +298,13 @@ describe('DatePicker Components', () => {
     describe('State Forwarding', () => {
       it('forwards all DatePickerField props', () => {
         render(
-          <DatePicker 
+          <DatePicker
             value="2024-01-01"
             placeholder="Select date"
             disabled
-            state="disabled"
           />
         );
-        
+
         const input = screen.getByRole('textbox') as HTMLInputElement;
         expect(input.value).toBe('01/01/2024');
         expect(input.placeholder).toBe('Select date');
@@ -359,4 +327,4 @@ describe('DatePicker Components', () => {
       expect(container).toBeInTheDocument();
     });
   });
-}); 
+});

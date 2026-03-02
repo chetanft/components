@@ -1,5 +1,5 @@
 export { Button } from './Button';
-export type { ButtonProps, ButtonVariant, ButtonSize, IconPosition } from './Button';
+export type { ButtonProps, ButtonVariant, ButtonSize, ButtonShape, IconPosition } from './Button';
 
 // Composable Button Components
 export { ButtonIcon } from './ButtonIcon';

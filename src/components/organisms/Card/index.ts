@@ -3,7 +3,7 @@ export type { CardProps, CardElementsProps, CardGraphicProps } from './Card';
 
 // Legacy CardMeta and CardFooter (for declarative API)
 export { CardMeta as CardMetaLegacy, CardFooter as CardFooterLegacy } from './Card';
-export type { CardMetaProps as CardMetaLegacyProps, CardFooterProps as CardFooterLegacyProps } from './Card';
+export type { CardMetaProps as CardMetaLegacyProps, CardFooterInternalProps as CardFooterLegacyProps } from './Card';
 
 // Composable Card components
 export { CardHeader } from './CardHeader';

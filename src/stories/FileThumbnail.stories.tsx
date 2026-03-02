@@ -11,6 +11,27 @@ const meta: Meta<typeof FileThumbnail> = {
         component: 'Compact file thumbnail component for displaying file previews or file type icons.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'Default' as const },
+            { id: 'WithImage', label: 'With Image', story: 'WithImage' as const },
+            { id: 'PDFFile', label: 'PDF File', story: 'PDFFile' as const },
+            { id: 'ExcelFile', label: 'Excel File', story: 'ExcelFile' as const },
+            { id: 'ImagePreview', label: 'Image Preview', story: 'ImagePreview' as const },
+          ],
+        },
+      ],
+      supportsGlass: true,
+    },
   },
   argTypes: {
     fileName: {
@@ -25,6 +46,14 @@ const meta: Meta<typeof FileThumbnail> = {
       control: 'boolean',
       description: 'Whether to display the filename',
     },
+    glass: {
+      control: 'select',
+      options: [false, true, 'subtle', 'prominent'],
+      description: 'Glass style variant',
+    },
+  },
+  args: {
+    glass: true,
   },
 };
 

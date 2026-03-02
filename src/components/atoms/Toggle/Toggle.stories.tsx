@@ -7,12 +7,57 @@ const meta: Meta<typeof Toggle> = {
     component: Toggle,
     parameters: {
         layout: 'centered',
+        docs: {
+            description: {
+                component: 'A toggle button that can be pressed or unpressed. Supports text, icons, and outline variants.',
+            },
+        },
+        explorer: {
+            mode: 'matrix' as const,
+            behavior: 'inline' as const,
+            previewMode: 'inline' as const,
+            rows: [
+                {
+                    id: 'type',
+                    label: 'Type',
+                    scenarios: [
+                        { id: 'default', label: 'Default', story: 'ExplorerBase' },
+                        { id: 'with-icon', label: 'With Icon', story: 'ExplorerBase', args: { icon: 'check', children: 'With Icon' } },
+                        { id: 'icon-only', label: 'Icon Only', story: 'ExplorerBase', args: { icon: 'star', children: undefined } },
+                        { id: 'outline', label: 'Outline', story: 'ExplorerBase', args: { variant: 'outline', children: 'Outline' } },
+                    ],
+                },
+                {
+                    id: 'state',
+                    label: 'State',
+                    scenarios: [
+                        { id: 'default', label: 'Default', story: 'ExplorerBase' },
+                        { id: 'pressed', label: 'Pressed', story: 'ExplorerBase', args: { defaultPressed: true, children: 'Pressed' } },
+                        { id: 'disabled', label: 'Disabled', story: 'ExplorerBase', args: { disabled: true, children: 'Disabled' } },
+                    ],
+                },
+            ],
+            defaultRowId: 'type',
+            defaultScenarioId: 'default',
+        },
     },
     tags: ['autodocs'],
+    argTypes: {
+        variant: {
+            control: 'select',
+            options: ['default', 'outline'],
+        },
+    },
 };
 
 export default meta;
 type Story = StoryObj<typeof Toggle>;
+
+export const ExplorerBase: Story = {
+    args: {
+        children: 'Toggle Me',
+    },
+};
 
 export const Default: Story = {
     args: {
@@ -20,37 +65,15 @@ export const Default: Story = {
     },
 };
 
-export const Pressed: Story = {
-    args: {
-        children: 'Pressed',
-        pressed: true,
-    },
-};
+export const DocsVariants: Story = {
+    render: () => (
+        <div className="flex gap-4">
+            <Toggle>Default</Toggle>
+            <Toggle variant="outline">Outline</Toggle>
+            <Toggle icon="check">With Icon</Toggle>
+            <Toggle icon="star" aria-label="Star" />
+        </div>
+    ),
 
-export const WithIcon: Story = {
-    args: {
-        icon: 'check',
-        children: 'Check',
-    },
-};
-
-export const IconOnly: Story = {
-    args: {
-        icon: 'star',
-        'aria-label': 'Star',
-    },
-};
-
-export const Outline: Story = {
-    args: {
-        variant: 'outline',
-        children: 'Outline',
-    },
-};
-
-export const Disabled: Story = {
-    args: {
-        disabled: true,
-        children: 'Disabled',
-    },
-};
+  parameters: { docsOnly: true },
+}

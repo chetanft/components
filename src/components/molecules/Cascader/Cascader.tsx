@@ -32,11 +32,6 @@ export interface CascaderProps extends Omit<React.InputHTMLAttributes<HTMLInputE
   helperText?: string;
   /** Component size */
   size?: ComponentSize;
-  /**
-   * Cascader options (for declarative API)
-   * @deprecated Use CascaderOption components as children instead
-   */
-  options?: CascaderOption[];
   /** Selected value path */
   value?: string[];
   /** Default value path */
@@ -222,7 +217,6 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
     error,
     helperText,
     size = 'md',
-    options = [],
     value: controlledValue,
     defaultValue,
     onChange,
@@ -244,18 +238,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
       return extractOptionsFromChildren(children);
     }, [children]);
 
-    // Use children options if available, otherwise use options prop
-    const allOptions = optionsFromChildren.length > 0 ? optionsFromChildren : options;
-
-    // Check if using composable API
-    const hasComposableChildren = React.Children.count(children) > 0 && optionsFromChildren.length > 0;
-
-    // Show deprecation warning
-    if (process.env.NODE_ENV !== 'production') {
-      if (hasComposableChildren && options.length > 0) {
-              } else if (!hasComposableChildren && options.length > 0) {
-              }
-    }
+    const allOptions = optionsFromChildren;
     // All hooks must be called first, before any other logic
     const resolvedGlass = useResolvedGlass(glass);
     const cascaderId = useId();
@@ -304,7 +287,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
           typeof opt.label === 'string' && opt.label.toLowerCase().includes(search)
         )
       );
-    }, [options, searchValue]);
+    }, [allOptions, searchValue]);
 
     // Portal setup
     useEffect(() => {
@@ -384,7 +367,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
           setSearchValue('');
         }
       }
-    }, [activeValues, options, controlledValue, onChange, changeOnSelect]);
+    }, [activeValues, allOptions, controlledValue, onChange, changeOnSelect]);
 
     const handleHover = useCallback((option: CascaderOption, columnIndex: number) => {
       if (expandTrigger === 'hover') {
@@ -531,7 +514,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
             >
               {showSearch && searchValue ? (
                 // Search results
-                <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start min-h-px min-w-px relative shrink-0 max-h-[calc(var(--spacing-x16)*4)] overflow-y-auto min-w-[calc(var(--spacing-x10)*5)]">
+                <div className="content-stretch flex flex-1 flex-col gap-[var(--spacing-x1)] items-start min-h-px min-w-px relative shrink-0 max-h-[calc(var(--spacing-x16)*4)] overflow-y-auto min-w-[calc(var(--spacing-x10)*5)]">
                   {searchResults.length > 0 ? (
                     searchResults.map(({ path }, index) => (
                       <div

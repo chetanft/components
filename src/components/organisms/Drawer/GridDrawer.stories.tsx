@@ -127,8 +127,8 @@ export function Size7Columns() {
   );
 }
 
-// All Sizes Comparison
-export function AllSizes() {
+// Size Showcase Comparison
+export function DocsAllSizes() {
   const [open16, setOpen16] = React.useState(false);
   const [open12, setOpen12] = React.useState(false);
   const [open7, setOpen7] = React.useState(false);

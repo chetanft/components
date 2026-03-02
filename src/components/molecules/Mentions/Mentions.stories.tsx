@@ -12,43 +12,29 @@ const meta: Meta<typeof Mentions> = {
         component: 'A textarea component with mention/autocomplete functionality. Supports both composable API (recommended) and declarative API (deprecated).',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'anchored' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default (@)', story: 'Default' },
+            { id: 'custom-prefix', label: 'Custom Prefix (#)', story: 'CustomPrefix' },
+            { id: 'rich-content', label: 'Rich Content', story: 'WithRichContent' },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+    },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Mentions>;
-
-// Declarative API Examples
-/** @deprecated Use composable API instead. */
-export const LegacyDeclarativeBasic: Story = {
-  render: () => (
-    <Mentions
-      style={{ width: '100%', height: 100 }}
-      placeholder="Type @ to see mentions"
-      options={[
-        { value: 'afc163', label: 'afc163' },
-        { value: 'zombieJ', label: 'zombieJ' },
-        { value: 'yesmeck', label: 'yesmeck' },
-      ]}
-    />
-  ),
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDeclarativeCustomPrefix: Story = {
-  render: () => (
-    <Mentions
-      style={{ width: '100%', height: 100 }}
-      placeholder="Type # to see tags"
-      prefix="#"
-      options={[
-        { value: 'react', label: 'React' },
-        { value: 'vue', label: 'Vue' },
-        { value: 'angular', label: 'Angular' },
-      ]}
-    />
-  ),
-};
 
 // Composable API Examples
 export const Default: Story = {
@@ -105,4 +91,3 @@ export const WithRichContent: Story = {
     </Mentions>
   ),
 };
-

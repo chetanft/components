@@ -12,7 +12,34 @@ const meta: Meta<typeof AppHeader> = {
         component: 'Application header component with FreightTiger logo on the left, notifications, and user profile.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'branding',
+          label: 'Branding',
+          scenarios: [
+            { id: 'default', label: 'Tata Motors', story: 'Default' },
+            { id: 'ft', label: 'FreightTiger', story: 'WithFTCompany' },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'theme-on', label: 'Theme On', story: 'Default', args: { showThemeIcon: true } },
+            { id: 'theme-off', label: 'Theme Off', story: 'Default', args: { showThemeIcon: false } },
+          ],
+        },
+      ],
+      defaultRowId: 'branding',
+      defaultScenarioId: 'default',
+      supportsGlass: true,
+    },
   },
+  tags: ['autodocs'],
   decorators: [
     (Story: StoryFn<typeof AppHeader>) => {
       const StoryComponent = Story as React.ComponentType;
@@ -27,6 +54,15 @@ const meta: Meta<typeof AppHeader> = {
     user: {
       control: 'object',
       description: 'User information including name, role, location, and badge',
+    },
+    showThemeIcon: {
+      control: 'boolean',
+      description: 'Show theme action icon on the right side',
+    },
+    glass: {
+      control: { type: 'select' },
+      options: [false, 'subtle', 'glass', 'prominent'],
+      description: 'Glass morphism variant',
     },
   },
 };
@@ -47,6 +83,7 @@ export const Default: Story = {
       name: 'tata-motors',
       displayName: 'Tata Motors',
     },
+    showThemeIcon: true,
   },
 };
 
@@ -63,6 +100,7 @@ export const WithFTCompany: Story = {
       name: 'ft',
       displayName: 'FreightTiger',
     },
+    showThemeIcon: true,
   },
 };
 
@@ -79,5 +117,32 @@ export const OperationsManager: Story = {
       name: 'tata-motors',
       displayName: 'Tata Motors',
     },
+    showThemeIcon: true,
   },
+};
+
+export const DocsVariants: Story = {
+  name: 'Variants',
+  render: () => (
+    <div className="space-y-4">
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Default (Tata Motors)</p>
+        <AppHeader
+          user={{ name: 'Santosh Kumar', role: 'Dispatch Manager', location: 'SPD-Santoshnagar', badge: 'Admin' }}
+          userCompany={{ name: 'tata-motors', displayName: 'Tata Motors' }}
+          showThemeIcon={true}
+        />
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">FreightTiger Company</p>
+        <AppHeader
+          user={{ name: 'Rahul Singh', role: 'Operations Manager', location: 'BLR-Tech Hub', badge: 'Senior' }}
+          userCompany={{ name: 'ft', displayName: 'FreightTiger' }}
+          showThemeIcon={true}
+        />
+      </div>
+    </div>
+  ),
+
+  parameters: { docsOnly: true },
 };

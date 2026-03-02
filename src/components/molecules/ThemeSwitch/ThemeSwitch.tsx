@@ -3,8 +3,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { useTheme } from '../../../contexts/ThemeContext';
-import { SegmentedTabs } from '../SegmentedTabs/SegmentedTabs';
-import type { SegmentedTabItem } from '../SegmentedTabs/SegmentedTabs';
+import { SegmentedTabs, SegmentedTabItem } from '../SegmentedTabs/SegmentedTabs';
 import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 
 export interface ThemeSwitchProps {
@@ -24,21 +23,6 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
   const { theme, setTheme } = useTheme();
   const resolvedGlass = useResolvedGlass(glass);
 
-  const themeItems: SegmentedTabItem[] = [
-    {
-      label: showLabels ? 'Light' : '☀️',
-      value: 'light'
-    },
-    {
-      label: showLabels ? 'Dark' : '🌙',
-      value: 'dark'
-    },
-    {
-      label: showLabels ? 'Night' : '🌃',
-      value: 'night'
-    }
-  ];
-
   const handleThemeChange = (newTheme: string) => {
     if (newTheme === 'light' || newTheme === 'dark' || newTheme === 'night') {
       setTheme(newTheme);
@@ -48,11 +32,14 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
   if (variant === 'segmented') {
     return (
       <SegmentedTabs
-        items={themeItems}
         value={theme}
         onChange={handleThemeChange}
         className={cn(getGlassClasses(resolvedGlass, '', ''), className)}
-      />
+      >
+        <SegmentedTabItem value="light">{showLabels ? 'Light' : '☀️'}</SegmentedTabItem>
+        <SegmentedTabItem value="dark">{showLabels ? 'Dark' : '🌙'}</SegmentedTabItem>
+        <SegmentedTabItem value="night">{showLabels ? 'Night' : '🌃'}</SegmentedTabItem>
+      </SegmentedTabs>
     );
   }
 

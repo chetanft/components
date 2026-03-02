@@ -24,11 +24,6 @@ export interface QuickFilter {
 }
 
 export interface QuickFiltersProps {
-  /**
-   * Filters array (for declarative API)
-   * @deprecated Use QuickFilter components as children instead
-   */
-  filters?: QuickFilter[];
   onFilterClick?: (filterId: string, optionId?: string) => void;
   onFilterRemove?: (filterId: string, optionId?: string) => void;
   className?: string;
@@ -134,9 +129,9 @@ const FilterChip: React.FC<{
         "text-sm font-semibold font-inter",
         // Background based on Figma design
         isMainLabel
-          ? getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-white/10")
+          ? getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-[var(--glass-selected)]")
           : isSelected
-            ? getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-white/10")
+            ? getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-[var(--glass-selected)]")
             : getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]"),
         // Border: always show border except for main labels without border
         showBorder && !isMainLabel ? "box-border border border-[var(--color-border-primary)]" : "",
@@ -236,7 +231,7 @@ const MultiOptionFilter: React.FC<{
   return (
     <div className={cn("inline-flex items-center h-[36px] rounded-[var(--radius-md)] overflow-hidden", getGlassClasses(resolvedGlass, "bg-[var(--color-bg-primary)]", "border border-[var(--color-border-primary)]"))}>
       {/* Main filter section - non-clickable label with gray background */}
-      <div className={cn("h-full flex items-center px-[var(--spacing-x2)]", getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-white/10"))}>
+      <div className={cn("h-full flex items-center px-[var(--spacing-x2)]", getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-[var(--glass-selected)]"))}>
         <FilterChip
           filter={filter}
           isSelected={false}
@@ -278,7 +273,6 @@ const MultiOptionFilter: React.FC<{
 };
 
 export const QuickFilters: React.FC<QuickFiltersProps> = ({
-  filters = [],
   onFilterClick = () => { },
   onFilterRemove = () => { },
   className,
@@ -324,18 +318,7 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
       });
   }, [children]);
 
-  // Use children filters if available, otherwise use filters prop
-  const allFilters: QuickFilter[] = filtersFromChildren.length > 0 ? filtersFromChildren : filters;
-
-  // Check if using composable API
-  const hasComposableChildren = React.Children.count(children) > 0 && filtersFromChildren.length > 0;
-
-  // Show deprecation warning
-  if (process.env.NODE_ENV !== 'production') {
-    if (hasComposableChildren && filters.length > 0) {
-          } else if (!hasComposableChildren && filters.length > 0) {
-          }
-  }
+  const allFilters: QuickFilter[] = filtersFromChildren;
   return (
     <div
       className={cn(
@@ -375,7 +358,7 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
                 "box-border h-[36px] flex items-center px-[var(--spacing-x1)] py-0 rounded-[var(--radius-md)]",
                 "border border-solid",
                 filter.selected
-                  ? cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-white/10"), "border-[var(--color-border-primary)]")
+                  ? cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-[var(--glass-selected)]"), "border-[var(--color-border-primary)]")
                   : cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]"), "border-[var(--color-border-primary)]"),
                 scrollable ? 'flex-shrink-0' : ''
               )}

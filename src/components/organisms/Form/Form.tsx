@@ -4,11 +4,6 @@ import React, { useContext, useState, useCallback, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
 import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { FormLabel } from './FormLabel';
-import { FormControl } from './FormControl';
-import { FormHelper } from './FormHelper';
-import { FormError } from './FormError';
-import { FormDescription } from './FormDescription';
 import {
   FormContext,
   type FormContextValue,
@@ -228,18 +223,10 @@ export interface FormItemProps extends Omit<ComposableProps<'div'>, 'onChange'> 
   children?: React.ReactNode;
   /** Field name for form binding */
   name?: string;
-  /** Label text (for declarative API)
-   * @deprecated Use FormLabel component instead
-   */
-  label?: React.ReactNode;
   /** Whether the field is required */
   required?: boolean;
   /** Validation rules */
   rules?: FormRule[];
-  /** Help text shown below the field (for declarative API)
-   * @deprecated Use FormHelper component instead
-   */
-  help?: React.ReactNode;
   /** Extra content shown below the field */
   extra?: React.ReactNode;
   /** Whether to show the label */
@@ -254,13 +241,12 @@ export interface FormItemProps extends Omit<ComposableProps<'div'>, 'onChange'> 
  * FormItem Component
  * 
  * A versatile form item component for organizing form fields.
- * Supports both composable API (recommended) and declarative API (deprecated).
- * 
+ * Uses composable API with sub-components for maximum flexibility.
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
- * // Composable API (recommended)
  * <Form>
  *   <FormItem name="email">
  *     <FormLabel mandatory>Email</FormLabel>
@@ -271,149 +257,38 @@ export interface FormItemProps extends Omit<ComposableProps<'div'>, 'onChange'> 
  *     <FormHelper>We'll never share your email</FormHelper>
  *   </FormItem>
  * </Form>
- * 
- * // Declarative API (deprecated)
- * <FormItem name="email" label="Email" required>
- *   <Input type="email" />
- * </FormItem>
  * ```
- * 
+ *
  * @remarks
- * - Composable API provides maximum flexibility and control
  * - All sub-components (FormLabel, FormControl, FormError, etc.) support `asChild`
  * - Automatically handles form field binding and validation
  * - Accessible: includes ARIA attributes and proper label associations
- * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
   ({
     className,
     name,
     children,
-    label,
     required,
     rules = [],
-    help,
-    extra,
-    noLabel = false,
+    extra: _extra,
+    noLabel: _noLabel = false,
     labelCol: itemLabelCol,
     wrapperCol: itemWrapperCol,
     asChild,
     ...props
   }, ref) => {
-    // Check if using composable API (has children with Form sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
-      child?.type?.displayName?.startsWith('Form')
-    );
-    
-    // If using composable API, render composable structure
-    if (hasComposableChildren) {
-      // Show deprecation warning if using old props with composable API
-      if (process.env.NODE_ENV !== 'production' && (label || help)) {
-              }
-      
-      const context = useContext(FormContext);
-      const layout = context?.layout || 'vertical';
-      const _labelCol = itemLabelCol ?? context?.labelCol ?? 8;
-      const _wrapperCol = itemWrapperCol ?? context?.wrapperCol ?? 16;
-      
-      const containerClasses = cn(
-        'w-full',
-        layout === 'horizontal' && 'flex items-start gap-[var(--spacing-x4)]',
-        layout === 'inline' && 'flex items-center gap-[var(--spacing-x2)]',
-        layout === 'vertical' && 'flex flex-col gap-[var(--spacing-x2)]',
-        className
-      );
-      
-      const Comp = asChild ? Slot : 'div';
-      return (
-        <Comp
-          ref={ref}
-          className={containerClasses}
-          {...props}
-        >
-          {children}
-        </Comp>
-      );
-    }
-    
-    // Otherwise use declarative API
     const context = useContext(FormContext);
     const layout = context?.layout || 'vertical';
-    const labelCol = itemLabelCol ?? context?.labelCol ?? 8;
-    const wrapperCol = itemWrapperCol ?? context?.wrapperCol ?? 16;
-    
-    const error = name ? context?.errors[name] : undefined;
-    const touched = name ? context?.touched[name] : false;
-    const fieldValue = name ? context?.values[name] : undefined;
+    const _labelCol = itemLabelCol ?? context?.labelCol ?? 8;
+    const _wrapperCol = itemWrapperCol ?? context?.wrapperCol ?? 16;
 
-    // Register field rules on mount
-    const registerFieldFn = context?.registerField;
-    const unregisterFieldFn = context?.unregisterField;
-
-    React.useEffect(() => {
-      if (name && registerFieldFn && unregisterFieldFn) {
-        const allRules = required ? [{ required: true, message: `${label || name} is required` }, ...rules] : rules;
-        registerFieldFn(name, allRules);
-        return () => unregisterFieldFn(name);
-      }
-      return undefined;
-    }, [name, required, rules, label, registerFieldFn, unregisterFieldFn]);
-
-    // Validate on blur
-    const handleBlur = useCallback(() => {
-      if (name && context) {
-        context.setFieldTouched(name, true);
-        context.validateField(name);
-      }
-    }, [name, context]);
-
-    // Clone children and inject form field props
-    const enhancedChildren = React.Children.map(children, (child) => {
-      if (!React.isValidElement(child) || !name) return child;
-
-      const childProps: any = {
-        value: fieldValue,
-        onChange: (e: any) => {
-          const value = e?.target?.value !== undefined ? e.target.value : e;
-          context?.setFieldValue(name, value);
-        },
-        onBlur: handleBlur,
-        disabled: context?.disabled || (child.props as any).disabled,
-        'aria-invalid': error ? 'true' : 'false',
-        'aria-describedby': error ? `${name}-error` : undefined,
-      };
-
-      // Handle different input types
-      if ((child.props as any).type === 'checkbox') {
-        childProps.checked = !!fieldValue;
-        childProps.onChange = (e: any) => {
-          context?.setFieldValue(name, e?.target?.checked ?? e);
-        };
-      }
-
-      return React.cloneElement(child, childProps);
-    });
-
-    const showError = touched && error;
-
-    // Layout classes
     const containerClasses = cn(
       'w-full',
       layout === 'horizontal' && 'flex items-start gap-[var(--spacing-x4)]',
       layout === 'inline' && 'flex items-center gap-[var(--spacing-x2)]',
       layout === 'vertical' && 'flex flex-col gap-[var(--spacing-x2)]',
       className
-    );
-
-    const _labelClasses = cn(
-      layout === 'horizontal' && `flex-shrink-0 text-right pt-[var(--spacing-x2)]`,
-      layout === 'horizontal' && `w-[${(labelCol / 24) * 100}%]`,
-    );
-
-    const _wrapperClasses = cn(
-      'flex-1 flex flex-col gap-[var(--spacing-x1)]',
-      layout === 'horizontal' && `w-[${(wrapperCol / 24) * 100}%]`,
     );
 
     const Comp = asChild ? Slot : 'div';
@@ -423,29 +298,7 @@ export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
         className={containerClasses}
         {...props}
       >
-        {!noLabel && label && (
-          <FormLabel mandatory={required}>
-            {label}
-          </FormLabel>
-        )}
-        <FormControl>
-          {enhancedChildren}
-          {showError && (
-            <FormError id={name ? `${name}-error` : undefined}>
-              {error}
-            </FormError>
-          )}
-          {help && !showError && (
-            <FormHelper>
-              {help}
-            </FormHelper>
-          )}
-          {extra && (
-            <div className="mt-[var(--spacing-x1)]">
-              {extra}
-            </div>
-          )}
-        </FormControl>
+        {children}
       </Comp>
     );
   }

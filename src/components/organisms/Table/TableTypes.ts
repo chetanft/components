@@ -17,16 +17,6 @@ export interface TableColumn<T = any> {
    */
   title?: string;
   /**
-   * Column header text (alias for title)
-   * @deprecated Use `title` instead
-   */
-  label?: string;
-  /**
-   * Column header text (alias for title)
-   * @deprecated Use `title` instead
-   */
-  header?: string;
-  /**
    * Column data type for sorting/formatting
    * @default 'text'
    */

@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Table } from '../../organisms/Table';
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '../../organisms/Table';
 import type { TableColumn, TableRowData } from '../../organisms/Table';
 import { cn } from '../../../lib/utils';
 import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
@@ -124,15 +124,22 @@ export const SimpleColumnLayout = React.forwardRef<
 
     return (
       <div ref={ref} className={cn(getGlassClasses(resolvedGlass, '', ''), className)} {...props}>
-        <Table
-          columns={columns}
-          data={tableData}
-          layout="simple"
-          headerLeft={headerLeft}
-          headerRight={headerRight}
-          striped={striped}
-          className="border-0 rounded-none"
-        />
+        <Table className="border-0 rounded-none">
+          <TableHeader>
+            <TableRow>
+              <TableHead>{String(columns[0]?.title ?? 'Label')}</TableHead>
+              <TableHead>{String(columns[1]?.title ?? 'Value')}</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {tableData.map((item) => (
+              <TableRow key={String(item.id)}>
+                <TableCell>{String(item.left ?? '')}</TableCell>
+                <TableCell>{String(item.right ?? '')}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     );
   }

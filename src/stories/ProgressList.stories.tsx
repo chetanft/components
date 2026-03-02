@@ -1,10 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProgressList } from '../components/molecules/ProgressList/ProgressList';
+import {
+  ProgressList,
+  ProgressListItem,
+  ProgressListDivider,
+  type ProgressListItemType,
+  type ProgressItem,
+  type DividerItem,
+} from '../components/molecules/ProgressList';
 
 const meta: Meta<typeof ProgressList> = {
-  title: 'Molecules/ProgressList',
+  title: 'Stories/ProgressList',
   component: ProgressList,
   parameters: {
+    docsOnly: true,
     layout: 'padded',
     docs: {
       description: {
@@ -12,15 +20,51 @@ const meta: Meta<typeof ProgressList> = {
       },
     },
   },
+  tags: ['autodocs'],
 };
 
 export default meta;
 type Story = StoryObj<typeof ProgressList>;
 
+function isDivider(item: ProgressListItemType): item is DividerItem {
+  return 'type' in item && item.type === 'divider';
+}
+
+const renderProgressItems = (items: ProgressListItemType[]) =>
+  items.map((item) => {
+    if (isDivider(item)) {
+      return <ProgressListDivider key={item.id} id={item.id} label={item.label} />;
+    }
+
+    const progressItem = item as ProgressItem;
+    return (
+      <ProgressListItem
+        key={progressItem.id}
+        id={progressItem.id}
+        title={progressItem.title}
+        description={progressItem.description}
+        state={progressItem.state}
+        pointType={progressItem.pointType}
+        lineType={progressItem.lineType}
+        startTime={progressItem.startTime}
+        endTime={progressItem.endTime}
+        timeLabel={progressItem.timeLabel}
+        icon={progressItem.icon}
+        pointLabel={progressItem.pointLabel}
+        badges={progressItem.badges}
+        headerType={progressItem.headerType}
+        showHeaderLine={progressItem.showHeaderLine}
+        collapsible={progressItem.collapsible}
+        multiplePoints={progressItem.multiplePoints}
+      >
+        {progressItem.content}
+      </ProgressListItem>
+    );
+  });
+
 export const Default: Story = {
-  args: {
-    showTime: false,
-    items: [
+  render: () => {
+    const items: ProgressListItemType[] = [
       {
         id: '1',
         title: 'Order Placed',
@@ -47,14 +91,15 @@ export const Default: Story = {
         lineType: 'dashed',
         pointLabel: 'S',
       },
-    ],
+    ];
+
+    return <ProgressList showTime={false}>{renderProgressItems(items)}</ProgressList>;
   },
 };
 
 export const WithTime: Story = {
-  args: {
-    showTime: true,
-    items: [
+  render: () => {
+    const items: ProgressListItemType[] = [
       {
         id: '1',
         title: 'Order Received',
@@ -87,14 +132,15 @@ export const WithTime: Story = {
         timeLabel: 'ETA',
         startTime: '02:00 PM',
       },
-    ],
+    ];
+
+    return <ProgressList showTime>{renderProgressItems(items)}</ProgressList>;
   },
 };
 
 export const FourSteps: Story = {
-  args: {
-    showTime: false,
-    items: [
+  render: () => {
+    const items: ProgressListItemType[] = [
       {
         id: '1',
         title: 'Step 1 - Complete',
@@ -130,40 +176,34 @@ export const FourSteps: Story = {
         lineType: 'none',
         pointLabel: 'END',
       },
-    ],
+    ];
+
+    return <ProgressList showTime={false}>{renderProgressItems(items)}</ProgressList>;
   },
 };
 
-export const ShipmentTracking: Story = {
-  args: {
-    showTime: false,
-    items: [
-      {
-        id: '1',
-        title: 'Shipment Departed',
-        description: 'Left origin warehouse',
-        state: 'completed',
-        pointType: 'icon',
-        lineType: 'solid',
-        icon: 'check',
-      },
-      {
-        id: '2',
-        title: 'In Transit',
-        description: 'Currently on route',
-        state: 'current',
-        pointType: 'primary',
-        lineType: 'solid',
-      },
-      {
-        id: '3',
-        title: 'Destination',
-        description: 'Final delivery point',
-        state: 'upcoming',
-        pointType: 'label',
-        lineType: 'none',
-        pointLabel: 'D',
-      },
-    ],
-  },
-};
+export const DocsVariants: Story = {
+  name: 'Variants',
+  render: () => (
+    <div className="space-y-8">
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Without Time</p>
+        <ProgressList showTime={false}>
+          <ProgressListItem id="1" title="Step 1" description="Done" state="completed" pointType="icon" lineType="solid" icon="check" />
+          <ProgressListItem id="2" title="Step 2" description="In progress" state="current" pointType="primary" lineType="solid" />
+          <ProgressListItem id="3" title="Step 3" description="Pending" state="upcoming" pointType="label" lineType="none" pointLabel="3" />
+        </ProgressList>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">With Time</p>
+        <ProgressList showTime>
+          <ProgressListItem id="1" title="Received" description="Confirmed" state="completed" pointType="icon" lineType="solid" icon="check" timeLabel="Received" startTime="09:00 AM" />
+          <ProgressListItem id="2" title="In Transit" description="On the way" state="current" pointType="primary" lineType="solid" timeLabel="Started" startTime="10:30 AM" />
+          <ProgressListItem id="3" title="Delivery" description="ETA pending" state="upcoming" pointType="label" lineType="none" pointLabel="D" timeLabel="ETA" startTime="02:00 PM" />
+        </ProgressList>
+      </div>
+    </div>
+  ),
+
+  parameters: { docsOnly: true },
+}

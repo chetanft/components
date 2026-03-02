@@ -4,6 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 const meta = {
   title: 'Design System/Colors/Base Colors',
   parameters: {
+    docsOnly: true,
     layout: 'fullscreen',
     docs: {
       description: {

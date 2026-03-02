@@ -5,8 +5,12 @@ import ReactDOM from 'react-dom';
 import { cn } from '../../../lib/utils';
 import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Dropdown } from '../Dropdown';
+import { DropdownTrigger } from '../Dropdown/DropdownTrigger';
+import { DropdownContent } from '../Dropdown/DropdownContent';
 import type { DropdownOption } from '../Dropdown';
-import { DropdownMenu, type DropdownMenuOption } from '../DropdownMenu';
+import { DropdownMenu } from '../DropdownMenu';
+import { DropdownMenuList } from '../DropdownMenu/DropdownMenuList';
+import { DropdownMenuItem } from '../DropdownMenu/DropdownMenuItem';
 import { Button } from '../../atoms/Button/Button';
 import { IconName } from '../../atoms/Icons';
 import { usePageHeaderFiltersOptional } from '../PageHeaderFilters/PageHeaderFiltersContext';
@@ -190,33 +194,45 @@ export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownPro
 
     const _selectedOption = options.find((opt) => opt.value === value);
 
-    // Convert DropdownOption to DropdownMenuOption
-    const menuOptions: DropdownMenuOption[] = options.map((option) => ({
-      value: String(option.value),
-      label: option.label,
-      description: option.description,
-      icon: option.icon,
-      group: option.group,
-      searchValue: option.searchValue,
-      state: option.disabled ? 'disabled' : value === option.value ? 'selected' : 'default',
-      prefix: option.icon ? 'icon' : 'none',
-      suffix: false,
-      showCheckmark: true,
-    }));
+    // Options are rendered as composable DropdownMenuItem children below
 
-    // Desktop: render full dropdown
+    // Desktop: render full dropdown (composable API)
     if (!isMobile) {
       return (
         <div ref={ref} className={cn('w-full', className)}>
           <Dropdown
             value={value}
             onChange={onChange}
-            options={options}
             placeholder={placeholder}
             size="md"
             state="default"
-            glass={glass}
-          />
+          >
+            <DropdownTrigger glass={glass} />
+            <DropdownContent>
+              <DropdownMenu property="default" className="w-full" glass={glass}>
+                <DropdownMenuList>
+                  {options.map((option) => (
+                    <DropdownMenuItem
+                      key={String(option.value)}
+                      value={String(option.value)}
+                      label={option.label}
+                      description={option.description}
+                      icon={option.icon}
+                      state={option.disabled ? 'disabled' : value === option.value ? 'selected' : 'default'}
+                      prefix={option.icon ? 'icon' : 'none'}
+                      suffix={false}
+                      showCheckmark
+                      onClick={() => {
+                        if (!option.disabled) {
+                          onChange?.(option.value);
+                        }
+                      }}
+                    />
+                  ))}
+                </DropdownMenuList>
+              </DropdownMenu>
+            </DropdownContent>
+          </Dropdown>
         </div>
       );
     }
@@ -254,11 +270,30 @@ export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownPro
               >
                 <DropdownMenu
                   property="default"
-                  options={menuOptions}
-                  onSelect={handleSelect}
                   className="w-full"
                   glass={glass}
-                />
+                >
+                  <DropdownMenuList>
+                    {options.map((option) => (
+                      <DropdownMenuItem
+                        key={String(option.value)}
+                        value={String(option.value)}
+                        label={option.label}
+                        description={option.description}
+                        icon={option.icon}
+                        state={option.disabled ? 'disabled' : value === option.value ? 'selected' : 'default'}
+                        prefix={option.icon ? 'icon' : 'none'}
+                        suffix={false}
+                        showCheckmark
+                        onClick={() => {
+                          if (!option.disabled) {
+                            handleSelect(String(option.value));
+                          }
+                        }}
+                      />
+                    ))}
+                  </DropdownMenuList>
+                </DropdownMenu>
               </div>,
               portalContainer
             )}

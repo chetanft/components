@@ -10,11 +10,6 @@ describe('Switch', () => {
       expect(screen.getByRole('checkbox')).toBeInTheDocument();
     });
 
-    it('renders with label when provided', () => {
-      render(<Switch label="Enable notifications" />);
-      expect(screen.getByText('Enable notifications')).toBeInTheDocument();
-    });
-
     it('renders without label when not provided', () => {
       render(<Switch />);
       expect(screen.getByRole('checkbox')).toBeInTheDocument();
@@ -46,18 +41,6 @@ describe('Switch', () => {
       const track = container.querySelector('.w-\\[34px\\]');
       expect(track).toBeInTheDocument();
     });
-
-    it('applies correct text size for small switch with label', () => {
-      render(<Switch size="sm" label="Small switch" />);
-      const label = screen.getByText('Small switch');
-      expect(label).toHaveClass('font-normal');
-    });
-
-    it('applies correct text size for medium switch with label', () => {
-      render(<Switch size="md" label="Medium switch" />);
-      const label = screen.getByText('Medium switch');
-      expect(label).toHaveClass('font-medium');
-    });
   });
 
   describe('States', () => {
@@ -84,12 +67,6 @@ describe('Switch', () => {
       const track = container.querySelector('.bg-\\[var\\(--switch-disabled-bg\\)\\]');
       expect(track).toBeInTheDocument();
     });
-
-    it('applies disabled styles to label when disabled', () => {
-      render(<Switch disabled label="Disabled switch" />);
-      const label = screen.getByText('Disabled switch');
-      expect(label).toHaveStyle({ color: 'var(--tertiary)' });
-    });
   });
 
   describe('Interactions', () => {
@@ -97,17 +74,6 @@ describe('Switch', () => {
       const user = userEvent.setup();
       const handleChange = jest.fn();
       render(<Switch onChange={handleChange} />);
-
-      const checkbox = screen.getByRole('checkbox');
-      await user.click(checkbox);
-
-      expect(handleChange).toHaveBeenCalledTimes(1);
-    });
-
-    it('calls onChange when label is clicked', async () => {
-      const user = userEvent.setup();
-      const handleChange = jest.fn();
-      render(<Switch label="Click me" onChange={handleChange} />);
 
       const checkbox = screen.getByRole('checkbox');
       await user.click(checkbox);
@@ -183,11 +149,6 @@ describe('Switch', () => {
       expect(screen.getByRole('checkbox')).toBeInTheDocument();
     });
 
-    it('is properly labeled when label is provided', () => {
-      render(<Switch label="Enable feature" />);
-      expect(screen.getByText('Enable feature')).toBeInTheDocument();
-    });
-
     it('is focusable', () => {
       render(<Switch />);
       const checkbox = screen.getByRole('checkbox');
@@ -255,12 +216,6 @@ describe('Switch', () => {
       expect(thumb).toBeInTheDocument();
     });
 
-    it('maintains consistent spacing', () => {
-      const { container } = render(<Switch size="sm" label="Test" />);
-      const wrapper = container.querySelector('.gap-\\[6px\\]');
-      expect(wrapper).toBeInTheDocument();
-    });
-
     it('applies correct transition timing', () => {
       const { container } = render(<Switch />);
       const track = container.querySelector('.duration-200');
@@ -276,4 +231,4 @@ describe('Switch', () => {
       expect(thumb).toBeInTheDocument();
     });
   });
-}); 
+});

@@ -217,7 +217,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <Comp
         ref={ref}
         className={cn(
-          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), " flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
           className
         )}
         {...htmlProps}
@@ -296,7 +296,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <Comp
         ref={ref}
         className={cn(
-          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), " flex justify-between items-center px-4 py-[13px] w-full max-w-[1440px] h-16",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-4 py-[13px] w-full max-w-[1440px] h-16",
           className
         )}
         {...htmlProps}
@@ -384,7 +384,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <Comp
         ref={ref}
         className={cn(
-          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), " flex justify-between items-center px-4 py-[13px] w-full max-w-[1200px] h-12",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-4 py-[13px] w-full max-w-[1200px] h-12",
           className
         )}
         {...htmlProps}
@@ -482,7 +482,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <Comp
         ref={ref}
         className={cn(
-          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), " flex justify-between items-center p-3 w-full max-w-[360px]",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center p-3 w-full max-w-[360px]",
           className
         )}
         {...htmlProps}
@@ -543,7 +543,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
     <Comp
       ref={ref}
       className={cn(
-        getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), " flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
+        getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-5 py-[13px] w-full max-w-[1728px] h-[78px]",
         className
       )}
       {...htmlProps}

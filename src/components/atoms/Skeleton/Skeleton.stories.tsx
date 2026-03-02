@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Skeleton, SkeletonText, SkeletonImage, type SkeletonProps } from './index';
+import { Skeleton, SkeletonText, SkeletonImage } from './index';
 
 const meta = {
   title: 'Atoms/Skeleton',
@@ -54,108 +54,40 @@ export const Default: Story = {
   },
 };
 
-export const Card: Story = {
+export const DocsVariants: Story = {
   render: () => (
-    <div className="p-6">
-      <Skeleton>
-        <div className="flex gap-4">
-          <SkeletonImage width={80} height={80} shape="circular" />
-          <div className="flex-1 space-y-2">
-            <SkeletonText lines={1} width="60%" />
-            <SkeletonText lines={2} width="80%" />
-          </div>
-        </div>
-      </Skeleton>
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Compose skeletons for complex layouts using SkeletonImage and SkeletonText.',
-      },
-    },
-  },
-};
-
-export const List: Story = {
-  render: () => (
-    <div className="p-6 space-y-3">
-      {[1, 2, 3].map((i) => (
-        <Skeleton key={i}>
-          <div className="flex gap-3">
-            <SkeletonImage width={48} height={48} shape="rectangular" />
-            <div className="flex-1 space-y-2">
-              <SkeletonText lines={1} width="40%" />
-              <SkeletonText lines={1} width="60%" />
+    <div className="p-6 space-y-6">
+      <div>
+        <p className="text-sm font-medium mb-2">Text lines</p>
+        <Skeleton>
+          <SkeletonText lines={3} />
+        </Skeleton>
+      </div>
+      <div>
+        <p className="text-sm font-medium mb-2">Image (rectangular)</p>
+        <Skeleton>
+          <SkeletonImage width={200} height={120} />
+        </Skeleton>
+      </div>
+      <div>
+        <p className="text-sm font-medium mb-2">Image (circular)</p>
+        <Skeleton>
+          <SkeletonImage width={64} height={64} shape="circular" />
+        </Skeleton>
+      </div>
+      <div>
+        <p className="text-sm font-medium mb-2">Combined</p>
+        <Skeleton>
+          <div className="flex gap-4">
+            <SkeletonImage width={80} height={80} shape="circular" />
+            <div className="flex-1">
+              <SkeletonText lines={2} />
             </div>
           </div>
         </Skeleton>
-      ))}
-    </div>
-  ),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Use composable API to create skeleton lists.',
-      },
-    },
-  },
-};
-
-// Mark deprecated examples
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
-  args: {
-    variant: 'rectangular',
-    animation: 'pulse',
-    className: 'w-60 h-4',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: '⚠️ **Deprecated**: This uses the deprecated `variant`, `width`, and `height` props. Use the composable API with SkeletonImage and SkeletonText instead.',
-      },
-    },
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyText: Story = {
-  args: {
-    variant: 'text',
-    width: '200px',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyCircular: Story = {
-  args: {
-    variant: 'circular',
-    width: '64px',
-    height: '64px',
-  },
-};
-
-const ShowcaseContent = (props: SkeletonProps) => (
-  <div className="space-y-3">
-    <div className="space-y-2">
-      <Skeleton {...props} variant="text" width="60%" />
-      <Skeleton {...props} variant="text" width="40%" animation="wave" />
-    </div>
-    <div className="flex items-center gap-4">
-      <Skeleton {...props} variant="circular" width="48px" height="48px" />
-      <div className="space-y-2 flex-1">
-        <Skeleton {...props} width="80%" />
-        <Skeleton {...props} width="65%" />
       </div>
     </div>
-  </div>
-);
+  ),
 
-/** @deprecated Use composable API instead. */
-export const LegacyShowcase: Story = {
-  render: (args: SkeletonProps) => <ShowcaseContent {...args} />,
-  args: {
-    animation: 'pulse',
-  },
-};
+  parameters: { docsOnly: true },
+}

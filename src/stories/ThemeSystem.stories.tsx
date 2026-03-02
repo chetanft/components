@@ -6,6 +6,9 @@ import { Badge } from '../components/atoms/Badge/Badge';
 import { Typography } from '../components/atoms/Typography/Typography';
 import { ProgressBar } from '../components/molecules/ProgressBar/ProgressBar';
 import { RadioGroup } from '../components/atoms/RadioGroup/RadioGroup';
+import { RadioItem } from '../components/atoms/RadioGroup/RadioItem';
+import { RadioItemInput } from '../components/atoms/RadioGroup/RadioItemInput';
+import { RadioItemLabel } from '../components/atoms/RadioGroup/RadioItemLabel';
 
 const meta = {
   title: 'Theme System/Multi-Theme Demo',
@@ -16,6 +19,33 @@ const meta = {
       description: {
         component: 'Complete theme system supporting Light, Dark, and Night modes with automatic component adaptation.',
       },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      rows: [
+        {
+          id: 'theme',
+          label: 'Theme Mode',
+          scenarios: [
+            { id: 'interactive', label: 'Interactive Demo', story: 'ExplorerBase', args: { contentType: 'interactive' } },
+            { id: 'light', label: 'Light', story: 'ExplorerBase', args: { contentType: 'light' } },
+            { id: 'dark', label: 'Dark', story: 'ExplorerBase', args: { contentType: 'dark' } },
+            { id: 'night', label: 'Night', story: 'ExplorerBase', args: { contentType: 'night' } },
+          ],
+        },
+        {
+          id: 'comparison',
+          label: 'Comparison',
+          scenarios: [
+            { id: 'comparison', label: 'Side-by-Side', story: 'ExplorerBase', args: { contentType: 'comparison' } },
+          ],
+        },
+      ],
+      defaultRowId: 'theme',
+      defaultScenarioId: 'interactive',
     },
   },
 } satisfies Meta<typeof ThemeSwitch>;
@@ -71,15 +101,20 @@ const ThemeDemo: React.FC = () => {
         {/* Radio Group Section */}
         <div className="mt-6">
           <Typography variant="body-primary-semibold" color="primary" className="mb-3">Form Controls</Typography>
-          <RadioGroup
-            name="demo-options"
-            options={[
-              { label: 'Option 1', value: 'option1' },
-              { label: 'Option 2', value: 'option2' },
-              { label: 'Option 3', value: 'option3' },
-            ]}
-            defaultValue="option1"
-          />
+          <RadioGroup name="demo-options" defaultValue="option1">
+            <RadioItem value="option1">
+              <RadioItemInput />
+              <RadioItemLabel>Option 1</RadioItemLabel>
+            </RadioItem>
+            <RadioItem value="option2">
+              <RadioItemInput />
+              <RadioItemLabel>Option 2</RadioItemLabel>
+            </RadioItem>
+            <RadioItem value="option3">
+              <RadioItemInput />
+              <RadioItemLabel>Option 3</RadioItemLabel>
+            </RadioItem>
+          </RadioGroup>
         </div>
         
         {/* Typography Section */}
@@ -119,13 +154,45 @@ const ThemeWrapper: React.FC<{ children: React.ReactNode; defaultTheme?: 'light'
   </ThemeProvider>
 );
 
-export const InteractiveDemo: Story = {
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const contentType = args.contentType ?? 'interactive';
+    const syncKey = JSON.stringify({ contentType });
+    return (
+      <div key={syncKey}>
+        {contentType === 'comparison' ? (
+          <ThemeComparison />
+        ) : contentType === 'light' ? (
+          <ThemeWrapper defaultTheme="light">
+            <ThemeDemo />
+          </ThemeWrapper>
+        ) : contentType === 'dark' ? (
+          <ThemeWrapper defaultTheme="dark">
+            <ThemeDemo />
+          </ThemeWrapper>
+        ) : contentType === 'night' ? (
+          <ThemeWrapper defaultTheme="night">
+            <ThemeDemo />
+          </ThemeWrapper>
+        ) : (
+          <ThemeWrapper>
+            <ThemeDemo />
+          </ThemeWrapper>
+        )}
+      </div>
+    );
+  },
+};
+
+export const DocsInteractiveDemo: Story = {
   render: () => (
     <ThemeWrapper>
       <ThemeDemo />
     </ThemeWrapper>
   ),
   parameters: {
+
+    docsOnly: true,
     docs: {
       description: {
         story: 'Interactive demo showing all themes. Use the theme switcher in the top right to see how all components adapt.',
@@ -179,7 +246,7 @@ export const NightTheme: Story = {
   },
 };
 
-export const ThemeComparison = () => (
+export const DocsThemeComparison = () => (
   <div className="space-y-8">
     <Typography variant="title-secondary" className="text-center mb-8">Theme Comparison</Typography>
     

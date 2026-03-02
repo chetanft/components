@@ -8,7 +8,6 @@ export interface CollapsibleContextType {
   disabled?: boolean;
   type?: 'Primary' | 'Secondary' | 'Tertiary';
   bg?: 'Primary' | 'Secondary';
-  showArrow?: boolean;
 }
 
 const CollapsibleContext = createContext<CollapsibleContextType | undefined>(undefined);
@@ -23,7 +22,6 @@ const defaultContext: CollapsibleContextType = {
   disabled: false,
   type: 'Primary',
   bg: 'Primary',
-  showArrow: true,
 };
 
 export const useCollapsibleContext = () => {

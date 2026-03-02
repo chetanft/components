@@ -7,12 +7,84 @@ const meta: Meta<typeof Loader> = {
   component: Loader,
   parameters: {
     layout: 'centered',
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { contentType: 'default' } },
+            { id: 'static', label: 'Static', story: 'ExplorerBase', args: { contentType: 'static' } },
+            { id: 'without-logo', label: 'Without Logo', story: 'ExplorerBase', args: { contentType: 'without-logo' } },
+            { id: 'small-logo', label: 'Small Logo', story: 'ExplorerBase', args: { contentType: 'small-logo' } },
+            { id: 'full-width', label: 'Full Width', story: 'ExplorerBase', args: { contentType: 'full-width' } },
+          ],
+        },
+        {
+          id: 'content',
+          label: 'Content',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: {} },
+            { id: 'no-progress-bar', label: 'No Progress Bar', story: 'ExplorerBase', args: { showProgressBar: false } },
+            { id: 'custom-progress-bar', label: 'Custom Progress Bar', story: 'ExplorerBase', args: { contentType: 'custom-progress' } },
+          ],
+        },
+      ],
+    },
   },
   tags: ['autodocs'],
 };
 
 export default meta;
 type Story = StoryObj<typeof Loader>;
+
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const contentType = args.contentType ?? 'default';
+    const showProgressBar = args.showProgressBar !== false;
+    const [progress, setProgress] = useState(0);
+    const syncKey = JSON.stringify({ contentType, showProgressBar });
+
+    useEffect(() => {
+      if (contentType === 'static' || contentType === 'small-logo' || contentType === 'custom-progress') {
+        setProgress(65);
+        return;
+      }
+      setProgress(0);
+      const interval = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 100) { clearInterval(interval); return 100; }
+          return prev + 2;
+        });
+      }, 100);
+      return () => clearInterval(interval);
+    }, [contentType]);
+
+    const width = contentType === 'full-width' ? '100%' : '500px';
+    const height = contentType === 'without-logo' ? '100px' : contentType === 'full-width' ? '400px' : contentType === 'custom-progress' || !showProgressBar ? '200px' : '300px';
+
+    return (
+      <div key={syncKey} style={{ width, height, padding: '20px' }}>
+        <Loader
+          value={progress}
+          showLogo={contentType !== 'without-logo'}
+          showProgressBar={showProgressBar}
+          logoSize={contentType === 'small-logo' ? 120 : undefined}
+          progressHeight={contentType === 'custom-progress' ? 10 : undefined}
+          progressClassName={contentType === 'custom-progress' ? "rounded-full bg-[var(--color-border-secondary)]" : undefined}
+          progressBarClassName={contentType === 'custom-progress' ? "rounded-full" : undefined}
+          progressBarStyle={contentType === 'custom-progress' ? { backgroundColor: 'var(--color-primary)' } : undefined}
+        />
+      </div>
+    );
+  },
+};
 
 // Component for animated progress story
 const AnimatedLoader = () => {

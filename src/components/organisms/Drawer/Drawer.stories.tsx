@@ -25,29 +25,41 @@ const meta: Meta<typeof Drawer> = {
                 component: 'A panel that slides in from the edge of the screen. Built using FT Design System tokens with support for multiple placements and customizable dimensions.',
             },
         },
+        explorer: {
+            mode: 'matrix' as const,
+            baseStory: 'ExplorerBase',
+            behavior: 'right-overlay' as const,
+            previewMode: 'inline' as const,
+            rows: [
+                {
+                    id: 'placement',
+                    label: 'Placement',
+                    scenarios: [
+                        { id: 'right', label: 'Right (Default)', story: 'ExplorerBase', args: { placement: 'right' } },
+                        { id: 'left', label: 'Left', story: 'ExplorerBase', args: { placement: 'left' } },
+                        { id: 'top', label: 'Top', story: 'ExplorerBase', args: { placement: 'top' } },
+                        { id: 'bottom', label: 'Bottom', story: 'ExplorerBase', args: { placement: 'bottom' } },
+                    ],
+                },
+                {
+                    id: 'content',
+                    label: 'Content',
+                    scenarios: [
+                        { id: 'default', label: 'Basic', story: 'ExplorerBase', args: { contentVariant: 'basic' } },
+                        { id: 'form', label: 'Form', story: 'ExplorerBase', args: { contentVariant: 'form' } },
+                    ],
+                },
+            ],
+            defaultRowId: 'placement',
+            defaultScenarioId: 'right',
+            supportsGlass: true,
+        },
     },
     tags: ['autodocs'],
     argTypes: {
-        placement: {
-            control: 'select',
-            options: ['left', 'right', 'top', 'bottom'],
-            description: 'Position from which the drawer slides in',
-        },
-        width: {
-            control: 'text',
-            description: 'Width of the drawer (for left/right placements)',
-        },
-        height: {
-            control: 'text',
-            description: 'Height of the drawer (for top/bottom placements)',
-        },
-        closable: {
+        open: {
             control: 'boolean',
-            description: 'Whether to show close button',
-        },
-        maskClosable: {
-            control: 'boolean',
-            description: 'Whether clicking mask closes the drawer',
+            description: 'Whether the drawer is open',
         },
     },
 };
@@ -55,538 +67,147 @@ const meta: Meta<typeof Drawer> = {
 export default meta;
 type Story = StoryObj<typeof Drawer>;
 
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const placement = args.placement ?? 'right';
+    const contentVariant = args.contentVariant ?? 'basic';
+    const isVertical = placement === 'right' || placement === 'left';
+    const contentProps = isVertical
+      ? { placement, width: contentVariant === 'form' ? 450 : 400 }
+      : { placement, height: contentVariant === 'form' ? 280 : 220 };
+
+    return (
+      <Drawer open onOpenChange={() => {}}>
+        <DrawerContent {...contentProps}>
+          {contentVariant === 'form' ? (
+            <>
+              <DrawerHeader>
+                <DrawerTitle>Create New Item</DrawerTitle>
+                <DrawerDescription>
+                  Fill out the form below to create a new item.
+                </DrawerDescription>
+              </DrawerHeader>
+              <DrawerBody>
+                <div className="space-y-4">
+                  <div>
+                    <Typography variant="body-secondary-medium" className="mb-2">Name</Typography>
+                    <Input placeholder="Enter name" />
+                  </div>
+                  <div>
+                    <Typography variant="body-secondary-medium" className="mb-2">Email</Typography>
+                    <Input type="email" placeholder="Enter email" />
+                  </div>
+                </div>
+              </DrawerBody>
+              <DrawerFooter>
+                <DrawerClose asChild>
+                  <Button variant="secondary" className="flex-1">Cancel</Button>
+                </DrawerClose>
+                <Button variant="primary" className="flex-1">Create</Button>
+              </DrawerFooter>
+            </>
+          ) : (
+            <>
+              <DrawerHeader>
+                <DrawerTitle>Drawer Title</DrawerTitle>
+                <DrawerDescription>
+                  This is the drawer content. You can place any content here.
+                </DrawerDescription>
+              </DrawerHeader>
+              <DrawerBody>
+                <Typography variant="body-primary-regular">
+                  This is the drawer content. You can place any content here.
+                </Typography>
+              </DrawerBody>
+              <DrawerFooter>
+                <DrawerClose asChild>
+                  <Button variant="secondary">Cancel</Button>
+                </DrawerClose>
+                <Button variant="primary">Submit</Button>
+              </DrawerFooter>
+            </>
+          )}
+        </DrawerContent>
+      </Drawer>
+    );
+  },
+};
+
 // ---------------------------------------------------------------------------
 // Composable API Stories
 // ---------------------------------------------------------------------------
 
-// Default (Composable)
-export function Default() {
-    return (
-        <div className="p-6">
-            <Drawer>
-                <DrawerTrigger asChild>
-                    <Button variant="primary">Open Drawer</Button>
-                </DrawerTrigger>
-                <DrawerContent placement="right" width={400}>
-                    <DrawerHeader>
-                        <DrawerTitle>Drawer Title</DrawerTitle>
-                        <DrawerDescription>
-                            This is the drawer content. You can place any content here.
-                        </DrawerDescription>
-                    </DrawerHeader>
-                    <DrawerBody>
-                        <Typography variant="body-primary-regular">
-                            This is the drawer content. You can place any content here.
-                        </Typography>
-                    </DrawerBody>
-                    <DrawerFooter>
-                        <DrawerClose asChild>
-                            <Button variant="secondary">Cancel</Button>
-                        </DrawerClose>
-                        <Button variant="primary">Submit</Button>
-                    </DrawerFooter>
-                </DrawerContent>
-            </Drawer>
-        </div>
-    );
+function VariantsDemo() {
+  const [rightOpen, setRightOpen] = useState(false);
+  const [leftOpen, setLeftOpen] = useState(false);
+  const [topOpen, setTopOpen] = useState(false);
+  const [bottomOpen, setBottomOpen] = useState(false);
+
+  return (
+    <div className="p-6 flex gap-4 flex-wrap">
+      <Drawer open={rightOpen} onOpenChange={setRightOpen}>
+        <DrawerTrigger asChild>
+          <Button variant="primary">Right (Default)</Button>
+        </DrawerTrigger>
+        <DrawerContent placement="right" width={400}>
+          <DrawerHeader>
+            <DrawerTitle>Right Drawer</DrawerTitle>
+          </DrawerHeader>
+          <DrawerBody>
+            <Typography variant="body-primary-regular">Right placement drawer.</Typography>
+          </DrawerBody>
+          <DrawerFooter>
+            <DrawerClose asChild>
+              <Button variant="secondary">Close</Button>
+            </DrawerClose>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+      <Drawer open={leftOpen} onOpenChange={setLeftOpen}>
+        <DrawerTrigger asChild>
+          <Button variant="secondary">Left</Button>
+        </DrawerTrigger>
+        <DrawerContent placement="left" width={300}>
+          <DrawerHeader>
+            <DrawerTitle>Left Drawer</DrawerTitle>
+          </DrawerHeader>
+          <DrawerBody>
+            <Typography variant="body-primary-regular">Left placement drawer.</Typography>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+      <Drawer open={topOpen} onOpenChange={setTopOpen}>
+        <DrawerTrigger asChild>
+          <Button variant="secondary">Top</Button>
+        </DrawerTrigger>
+        <DrawerContent placement="top" height={200}>
+          <DrawerHeader>
+            <DrawerTitle>Top Drawer</DrawerTitle>
+          </DrawerHeader>
+          <DrawerBody>
+            <Typography variant="body-primary-regular">Top placement drawer.</Typography>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+      <Drawer open={bottomOpen} onOpenChange={setBottomOpen}>
+        <DrawerTrigger asChild>
+          <Button variant="secondary">Bottom</Button>
+        </DrawerTrigger>
+        <DrawerContent placement="bottom" height={200}>
+          <DrawerHeader>
+            <DrawerTitle>Bottom Drawer</DrawerTitle>
+          </DrawerHeader>
+          <DrawerBody>
+            <Typography variant="body-primary-regular">Bottom placement drawer.</Typography>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </div>
+  );
 }
 
-// Left Placement (Composable)
-export function LeftPlacement() {
-    return (
-        <div className="p-6">
-            <Drawer>
-                <DrawerTrigger asChild>
-                    <Button variant="primary">Open Left Drawer</Button>
-                </DrawerTrigger>
-                <DrawerContent placement="left" width={300}>
-                    <DrawerHeader>
-                        <DrawerTitle>Menu</DrawerTitle>
-                    </DrawerHeader>
-                    <DrawerBody>
-                        <div className="space-y-2">
-                            {['Dashboard', 'Projects', 'Team', 'Settings', 'Help'].map((item) => (
-                                <div
-                                    key={item}
-                                    className="p-3 rounded-md hover:bg-[var(--color-bg-secondary)] cursor-pointer transition-colors"
-                                >
-                                    <Typography variant="body-primary-medium">{item}</Typography>
-                                </div>
-                            ))}
-                        </div>
-                    </DrawerBody>
-                </DrawerContent>
-            </Drawer>
-        </div>
-    );
+export const DocsVariants: Story = {
+  render: () => <VariantsDemo />,
+
+  parameters: { docsOnly: true },
 }
-
-// Top Placement (Composable)
-export function TopPlacement() {
-    return (
-        <div className="p-6">
-            <Drawer>
-                <DrawerTrigger asChild>
-                    <Button variant="primary">Open Top Drawer</Button>
-                </DrawerTrigger>
-                <DrawerContent placement="top" height={200}>
-                    <DrawerHeader>
-                        <DrawerTitle>Notification</DrawerTitle>
-                    </DrawerHeader>
-                    <DrawerBody>
-                        <div className="text-center">
-                            <Typography variant="display-primary" className="mb-2">
-                                Announcement
-                            </Typography>
-                            <Typography variant="body-primary-regular">
-                                This is an important announcement that slides in from the top.
-                            </Typography>
-                        </div>
-                    </DrawerBody>
-                </DrawerContent>
-            </Drawer>
-        </div>
-    );
-}
-
-// Bottom Placement (Composable)
-export function BottomPlacement() {
-    return (
-        <div className="p-6">
-            <Drawer>
-                <DrawerTrigger asChild>
-                    <Button variant="primary">Open Bottom Drawer</Button>
-                </DrawerTrigger>
-                <DrawerContent placement="bottom" height={300}>
-                    <DrawerHeader>
-                        <DrawerTitle>Quick Actions</DrawerTitle>
-                    </DrawerHeader>
-                    <DrawerBody>
-                        <div className="grid grid-cols-3 gap-3">
-                            {['Action 1', 'Action 2', 'Action 3', 'Action 4', 'Action 5', 'Action 6'].map((action) => (
-                                <Button key={action} variant="secondary" className="w-full">
-                                    {action}
-                                </Button>
-                            ))}
-                        </div>
-                    </DrawerBody>
-                </DrawerContent>
-            </Drawer>
-        </div>
-    );
-}
-
-// Form Example (Composable)
-export function FormExample() {
-    return (
-        <div className="p-6">
-            <Drawer>
-                <DrawerTrigger asChild>
-                    <Button variant="primary">Create New Item</Button>
-                </DrawerTrigger>
-                <DrawerContent placement="right" width={450}>
-                    <DrawerHeader>
-                        <DrawerTitle>Create New Item</DrawerTitle>
-                        <DrawerDescription>
-                            Fill out the form below to create a new item.
-                        </DrawerDescription>
-                    </DrawerHeader>
-                    <DrawerBody>
-                        <div className="space-y-4">
-                            <div>
-                                <Typography variant="body-secondary-medium" className="mb-2">
-                                    Name
-                                </Typography>
-                                <Input placeholder="Enter name" />
-                            </div>
-                            <div>
-                                <Typography variant="body-secondary-medium" className="mb-2">
-                                    Email
-                                </Typography>
-                                <Input type="email" placeholder="Enter email" />
-                            </div>
-                            <div>
-                                <Typography variant="body-secondary-medium" className="mb-2">
-                                    Description
-                                </Typography>
-                                <Input placeholder="Enter description" />
-                            </div>
-                        </div>
-                    </DrawerBody>
-                    <DrawerFooter>
-                        <DrawerClose asChild>
-                            <Button variant="secondary" className="flex-1">Cancel</Button>
-                        </DrawerClose>
-                        <Button variant="primary" className="flex-1">Create</Button>
-                    </DrawerFooter>
-                </DrawerContent>
-            </Drawer>
-        </div>
-    );
-}
-
-// ---------------------------------------------------------------------------
-// Legacy Declarative API Stories
-// ---------------------------------------------------------------------------
-
-const LegacyDefaultDrawerStory = (args: React.ComponentProps<typeof Drawer>) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className="p-6">
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Open Drawer
-            </Button>
-            <Drawer {...args} open={open} onClose={() => setOpen(false)}>
-                <Typography variant="body-primary-regular">
-                    This is the drawer content. You can place any content here.
-                </Typography>
-                <div className="mt-4">
-                    <Typography variant="body-secondary-medium" className="mb-2">
-                        Example Form
-                    </Typography>
-                    <Input placeholder="Enter your name" className="mb-3" />
-                    <Input placeholder="Enter your email" className="mb-3" />
-                    <div className="flex gap-2 mt-4">
-                        <Button variant="primary">Submit</Button>
-                        <Button variant="secondary" onClick={() => setOpen(false)}>
-                            Cancel
-                        </Button>
-                    </div>
-                </div>
-            </Drawer>
-        </div>
-    );
-};
-
-/** @deprecated Use the `Default` composable story instead. */
-export const LegacyDefault: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyDefaultDrawerStory {...args} />,
-    args: {
-        title: 'Drawer Title',
-        placement: 'right',
-        width: 400,
-        closable: true,
-        maskClosable: true,
-    },
-};
-
-/** @deprecated Use the composable `CustomBackground` pattern instead. */
-export function LegacyCustomBackground() {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className="p-6">
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Open Drawer with Custom Background
-            </Button>
-            <Drawer
-                open={open}
-                onClose={() => setOpen(false)}
-                title="Custom Background Drawer"
-                background="bg-white"
-            >
-                <Typography variant="body-primary-regular">
-                    This drawer has a custom white background instead of the default.
-                </Typography>
-            </Drawer>
-        </div>
-    );
-}
-
-/** @deprecated Use the composable `BackgroundWithClassName` pattern instead. */
-export function LegacyBackgroundWithClassName() {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className="p-6">
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Open Drawer with Background Override
-            </Button>
-            <Drawer
-                open={open}
-                onClose={() => setOpen(false)}
-                title="Background Override"
-                background="bg-gray-100"
-                className="border-2 border-blue-500"
-            >
-                <Typography variant="body-primary-regular">
-                    This drawer uses className to add a border while background prop sets the base color.
-                </Typography>
-            </Drawer>
-        </div>
-    );
-}
-
-const LegacyLeftPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className="p-6">
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Open Left Drawer
-            </Button>
-            <Drawer {...args} open={open} onClose={() => setOpen(false)}>
-                <Typography variant="display-primary" className="mb-4">
-                    Navigation Menu
-                </Typography>
-                <div className="space-y-2">
-                    {['Dashboard', 'Projects', 'Team', 'Settings', 'Help'].map((item) => (
-                        <div
-                            key={item}
-                            className="p-3 rounded-md hover:bg-[var(--color-bg-secondary)] cursor-pointer transition-colors"
-                        >
-                            <Typography variant="body-primary-medium">{item}</Typography>
-                        </div>
-                    ))}
-                </div>
-            </Drawer>
-        </div>
-    );
-};
-
-/** @deprecated Use the composable `LeftPlacement` story instead. */
-export const LegacyLeftPlacement: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyLeftPlacementStory {...args} />,
-    args: {
-        title: 'Menu',
-        placement: 'left',
-        width: 300,
-        closable: true,
-        maskClosable: true,
-    },
-};
-
-const LegacyTopPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className="p-6">
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Open Top Drawer
-            </Button>
-            <Drawer {...args} open={open} onClose={() => setOpen(false)}>
-                <div className="text-center">
-                    <Typography variant="display-primary" className="mb-2">
-                        Announcement
-                    </Typography>
-                    <Typography variant="body-primary-regular">
-                        This is an important announcement that slides in from the top.
-                    </Typography>
-                </div>
-            </Drawer>
-        </div>
-    );
-};
-
-/** @deprecated Use the composable `TopPlacement` story instead. */
-export const LegacyTopPlacement: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyTopPlacementStory {...args} />,
-    args: {
-        title: 'Notification',
-        placement: 'top',
-        height: 200,
-        closable: true,
-        maskClosable: true,
-    },
-};
-
-const LegacyBottomPlacementStory = (args: React.ComponentProps<typeof Drawer>) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className="p-6">
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Open Bottom Drawer
-            </Button>
-            <Drawer {...args} open={open} onClose={() => setOpen(false)}>
-                <Typography variant="display-primary" className="mb-4">
-                    Quick Actions
-                </Typography>
-                <div className="grid grid-cols-3 gap-3">
-                    {['Action 1', 'Action 2', 'Action 3', 'Action 4', 'Action 5', 'Action 6'].map((action) => (
-                        <Button key={action} variant="secondary" className="w-full">
-                            {action}
-                        </Button>
-                    ))}
-                </div>
-            </Drawer>
-        </div>
-    );
-};
-
-/** @deprecated Use the composable `BottomPlacement` story instead. */
-export const LegacyBottomPlacement: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyBottomPlacementStory {...args} />,
-    args: {
-        title: 'Actions',
-        placement: 'bottom',
-        height: 300,
-        closable: true,
-        maskClosable: true,
-    },
-};
-
-const LegacyLargeDrawerStory = (args: React.ComponentProps<typeof Drawer>) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className="p-6">
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Open Large Drawer
-            </Button>
-            <Drawer {...args} open={open} onClose={() => setOpen(false)}>
-                <Typography variant="display-primary" className="mb-4">
-                    Detailed Information
-                </Typography>
-                <div className="space-y-4">
-                    {[1, 2, 3, 4, 5].map((section) => (
-                        <div key={section}>
-                            <Typography variant="body-primary-semibold" className="mb-2">
-                                Section {section}
-                            </Typography>
-                            <Typography variant="body-secondary-regular">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris.
-                            </Typography>
-                        </div>
-                    ))}
-                </div>
-            </Drawer>
-        </div>
-    );
-};
-
-/** @deprecated Use the composable API instead. */
-export const LegacyLargeDrawer: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyLargeDrawerStory {...args} />,
-    args: {
-        title: 'Details',
-        placement: 'right',
-        width: 600,
-        closable: true,
-        maskClosable: true,
-    },
-};
-
-const LegacyNoTitleStory = (args: React.ComponentProps<typeof Drawer>) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className="p-6">
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Open Drawer (No Title)
-            </Button>
-            <Drawer {...args} open={open} onClose={() => setOpen(false)}>
-                <Typography variant="body-primary-regular">
-                    This drawer has no title, only a close button.
-                </Typography>
-            </Drawer>
-        </div>
-    );
-};
-
-/** @deprecated Use the composable API instead. */
-export const LegacyNoTitle: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyNoTitleStory {...args} />,
-    args: {
-        placement: 'right',
-        width: 400,
-        closable: true,
-        maskClosable: true,
-    },
-};
-
-const LegacyNotClosableStory = (args: React.ComponentProps<typeof Drawer>) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className="p-6">
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Open Non-Closable Drawer
-            </Button>
-            <Drawer {...args} open={open} onClose={() => setOpen(false)}>
-                <Typography variant="body-primary-regular" className="mb-4">
-                    This drawer cannot be closed by clicking the mask or pressing ESC.
-                    You must use the button below.
-                </Typography>
-                <Button variant="primary" onClick={() => setOpen(false)}>
-                    Close Drawer
-                </Button>
-            </Drawer>
-        </div>
-    );
-};
-
-/** @deprecated Use the composable API instead. */
-export const LegacyNotClosable: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyNotClosableStory {...args} />,
-    args: {
-        title: 'Important',
-        placement: 'right',
-        width: 400,
-        closable: false,
-        maskClosable: false,
-    },
-};
-
-const LegacyFormExampleStory = (args: React.ComponentProps<typeof Drawer>) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className="p-6">
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Create New Item
-            </Button>
-            <Drawer
-                {...args}
-                open={open}
-                onClose={() => setOpen(false)}
-                footer={
-                    <div className="flex gap-2">
-                        <Button variant="primary" className="flex-1">
-                            Create
-                        </Button>
-                        <Button variant="secondary" className="flex-1" onClick={() => setOpen(false)}>
-                            Cancel
-                        </Button>
-                    </div>
-                }
-            >
-                <div className="space-y-4">
-                    <div>
-                        <Typography variant="body-secondary-medium" className="mb-2">
-                            Name
-                        </Typography>
-                        <Input placeholder="Enter name" />
-                    </div>
-                    <div>
-                        <Typography variant="body-secondary-medium" className="mb-2">
-                            Email
-                        </Typography>
-                        <Input type="email" placeholder="Enter email" />
-                    </div>
-                    <div>
-                        <Typography variant="body-secondary-medium" className="mb-2">
-                            Description
-                        </Typography>
-                        <Input placeholder="Enter description" />
-                    </div>
-                </div>
-            </Drawer>
-        </div>
-    );
-};
-
-/** @deprecated Use the composable `FormExample` story instead. */
-export const LegacyFormExample: Story = {
-    render: (args: React.ComponentProps<typeof Drawer>) => <LegacyFormExampleStory {...args} />,
-    args: {
-        title: 'Create New Item',
-        placement: 'right',
-        width: 450,
-        closable: true,
-        maskClosable: true,
-    },
-};

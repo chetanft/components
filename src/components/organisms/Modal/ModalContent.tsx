@@ -97,7 +97,7 @@ export const ModalContent = React.forwardRef<HTMLDivElement, ModalContentProps>(
     ...props
   }, ref) => {
     const resolvedGlass = useResolvedGlass(glass);
-    const { open, setOpen, onClose: _onClose } = useModalContext();
+    const { open, setOpen } = useModalContext();
     
     // Prevent body scroll when modal is open
     useEffect(() => {

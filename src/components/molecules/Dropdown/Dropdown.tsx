@@ -1,17 +1,10 @@
 "use client";
 import React, { forwardRef, useState, useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, type ComponentSize } from '../../../lib/utils';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
-import { Icon } from '../../atoms/Icons';
-import { Label } from '../../atoms/Label/Label';
+import { type GlassVariant } from '../../../lib/glass';
 import type { SegmentedTabItem } from '../SegmentedTabs';
-import { DropdownMenu, type DropdownMenuOption } from '../DropdownMenu';
 import { DropdownProvider } from './DropdownContext';
-import { DropdownTrigger } from './DropdownTrigger';
-import { DropdownContent } from './DropdownContent';
-import type { DropdownOption } from './DropdownTypes';
 
 // Unified dropdown field variants using the design system
 const dropdownFieldVariants = cva(
@@ -49,11 +42,6 @@ const dropdownFieldVariants = cva(
 
 export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants> {
   /**
-   * Options array (for declarative API)
-   * @deprecated Use DropdownContent with DropdownItem components instead
-   */
-  options?: DropdownOption[];
-  /**
    * Selected value
    */
   value?: string | number;
@@ -89,11 +77,6 @@ export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants
    */
   onSearch?: (query: string) => void;
   /**
-   * Label text (for declarative API)
-   * @deprecated Use Label component with composable API
-   */
-  label?: string;
-  /**
    * Label mandatory indicator
    */
   labelMandatory?: boolean;
@@ -126,10 +109,6 @@ export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants
    * Required indicator
    */
   required?: boolean;
-  /**
-   * @deprecated Use `onChange` instead. Will be removed in v3.0.0.
-   */
-  onSelect?: (value: string) => void;
   /**
    * Segments for segmented search
    */
@@ -177,138 +156,56 @@ export interface DropdownProps extends VariantProps<typeof dropdownFieldVariants
   glass?: GlassVariant;
 }
 
-interface SizeStyles {
-  height: string;
-  fontSize: string;
-  borderRadius: string;
-  padding: string;
-  iconSize: number;
-}
-
-const sizeStylesMap: Record<ComponentSize, SizeStyles> = {
-  xxs: {
-    height: "h-component-xxs",
-    fontSize: "text-xs-rem",
-    borderRadius: "rounded-lg",
-    padding: "px-[var(--spacing-x1)]",
-    iconSize: 12,
-  },
-  xs: {
-    height: "h-component-xs",
-    fontSize: "text-xs-rem",
-    borderRadius: "rounded-lg",
-    padding: "px-[var(--spacing-x1)] py-[var(--spacing-x1)]",
-    iconSize: 14,
-  },
-  sm: {
-    height: "h-component-sm",
-    fontSize: "text-sm-rem",
-    borderRadius: "rounded-lg",
-    padding: "px-[var(--spacing-x2)]",
-    iconSize: 16,
-  },
-  md: {
-    height: "h-component-md",
-    fontSize: "text-md-rem",
-    borderRadius: "rounded-lg",
-    padding: "px-[var(--spacing-x2)] py-[var(--spacing-x2)]",
-    iconSize: 18,
-  },
-  lg: {
-    height: "h-component-lg",
-    fontSize: "text-md-rem",
-    borderRadius: "rounded-lg",
-    padding: "px-[var(--spacing-x3)] py-[var(--spacing-x2)]",
-    iconSize: 20,
-  },
-  xl: {
-    height: "h-component-xl",
-    fontSize: "text-md-rem",
-    borderRadius: "rounded-lg",
-    padding: "px-[var(--spacing-x4)] py-[var(--spacing-x3)]",
-    iconSize: 22,
-  },
-  xxl: {
-    height: "h-component-xxl",
-    fontSize: "text-lg-rem",
-    borderRadius: "rounded-lg",
-    padding: "px-[var(--spacing-x5)] py-[var(--spacing-x4)]",
-    iconSize: 24,
-  },
-};
 
 /**
  * Dropdown Component
- * 
+ *
  * A dropdown select component with menu popup.
- * Supports both composable API (maximum control) and declarative API (simple usage).
- * 
+ * Uses composable API for maximum control over layout and rendering.
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
- * // Simple declarative API (most common)
- * <Dropdown
- *   value={selectedValue}
- *   onChange={setValue}
- *   options={options}
- *   placeholder="Select an option"
- * />
- * 
- * // Composable API (for custom layouts)
- * <Dropdown value={selectedValue} onChange={setValue} options={options}>
+ * <Dropdown value={selectedValue} onChange={setValue}>
  *   <DropdownTrigger />
- *   <DropdownContent />
+ *   <DropdownContent>
+ *     <DropdownMenu>
+ *       <DropdownMenuList>
+ *         <DropdownMenuItem value="1" label="Option 1" />
+ *       </DropdownMenuList>
+ *     </DropdownMenu>
+ *   </DropdownContent>
  * </Dropdown>
  * ```
- * 
+ *
  * @remarks
- * - Declarative API: Simple, no composition needed - use for most cases
  * - Composable API: Full control over layout, supports `asChild` prop
  * - Supports search, groups, and segmented tabs
- * 
+ *
  * @important
- * If using DropdownTrigger or DropdownContent sub-components, they MUST be wrapped
- * in a parent <Dropdown>. For simple use cases, use the declarative API instead.
+ * DropdownTrigger and DropdownContent sub-components MUST be wrapped
+ * in a parent <Dropdown>.
  */
 export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
   (
     {
-      options = [],
       value,
       placeholder = "Select an option",
       size = "md",
       state = "default",
       type = "normal",
-      className,
       onChange,
-      onSearch: _onSearch,
-      label,
-      labelMandatory,
-      labelOptional,
-      labelSuffixIcon,
-      labelIcon,
-      labelPosition = "top",
+      onSearch,
       error,
       helperText,
-      required: _required = false,
-      onSelect,
-      segments,
-      selectedSegment,
-      onSegmentChange,
       portalContainer: customPortalContainer,
       portalId,
-      portalClassName,
-      portalStyle,
-      menuClassName,
-      menuStyle,
-      glass,
       children,
       ...props
     },
     ref
   ) => {
-    const resolvedGlass = useResolvedGlass(glass);
     const [isOpen, setIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedValue, setSelectedValue] = useState(value);
@@ -316,8 +213,6 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     const menuRef = useRef<HTMLDivElement>(null);
     const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0, width: 0 });
     const [internalPortalContainer, setInternalPortalContainer] = useState<HTMLElement | null>(null);
-
-    const sizeStyles = sizeStylesMap[size];
 
     useEffect(() => {
       if (customPortalContainer) {
@@ -389,33 +284,15 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       };
     }, [isOpen]);
 
-    // Filter options based on search query
-    const filteredOptions = options.filter((option: DropdownOption) => {
-      const searchTarget = option.searchValue || (typeof option.label === 'string' ? option.label : String(option.value));
-      return searchTarget.toLowerCase().includes(searchQuery.toLowerCase());
-    });
-
-    const selectedOption = (options || []).find((option: DropdownOption) => option.value === selectedValue);
     const resolvedPortalContainer = customPortalContainer ?? internalPortalContainer;
 
     const handleSelect = (optionValue: string | number) => {
       setSelectedValue(optionValue);
       setIsOpen(false);
       setSearchQuery("");
-
-      // Deprecation warning for onSelect
-      if (onSelect) {
-                onSelect(String(optionValue));
-      }
-
       onChange?.(optionValue);
     };
-    
-    // Check if using composable API (has children with Dropdown sub-components)
-    const hasComposableChildren = React.Children.toArray(children || []).some((child: any) => 
-        child?.type?.displayName?.startsWith('Dropdown')
-    );
-    
+
     // Create context value
     const contextValue = {
       isOpen,
@@ -425,7 +302,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
         setSelectedValue(newValue);
         onChange?.(newValue);
       },
-      options,
+      options: [],
       placeholder,
       size,
       state,
@@ -433,7 +310,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       searchQuery,
       setSearchQuery,
       onChange,
-      onSearch: _onSearch,
+      onSearch,
       dropdownRef,
       menuRef,
       menuPosition,
@@ -441,135 +318,7 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       portalContainer: resolvedPortalContainer,
       setPortalContainer: () => {},
       handleSelect,
-    };
-
-    const renderField = () => {
-      const fieldClasses = cn(
-        dropdownFieldVariants({ size, state, type }),
-        sizeStyles.height,
-        sizeStyles.fontSize,
-        sizeStyles.borderRadius,
-        sizeStyles.padding,
-        "cursor-pointer flex items-center justify-between",
-        state === "disabled" && "pointer-events-none",
-        getGlassClasses(resolvedGlass, 'bg-surface', 'border border-[var(--border-primary)]'),
-        className
-      );
-
-      return (
-        <div
-          ref={(node) => {
-            if (dropdownRef) {
-              (dropdownRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
-            }
-            if (typeof ref === 'function') {
-              ref(node);
-            } else if (ref) {
-              ref.current = node;
-            }
-          }}
-          className={fieldClasses}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (state !== "disabled") {
-              setIsOpen(!isOpen);
-            }
-          }}
-          role="combobox"
-          aria-expanded={isOpen}
-          aria-haspopup="listbox"
-          aria-controls={isOpen ? "dropdown-menu" : undefined}
-          aria-disabled={state === "disabled"}
-          data-size={size}
-          {...props}
-        >
-          <span className={cn(
-            selectedOption ? "text-[var(--primary)]" : "text-[var(--tertiary)]",
-            sizeStyles.fontSize
-          )}>
-            {selectedOption ? selectedOption.label : placeholder}
-          </span>
-          <Icon
-            name="chevron-down"
-            size={sizeStyles.iconSize}
-            className={cn(
-              "transition-transform duration-200",
-              isOpen && "rotate-180",
-              state === "disabled" ? "text-input-disabled dark:text-input-disabled-dark" : "text-[var(--primary)]"
-            )}
-          />
-        </div>
-      );
-    };
-
-    const renderMenu = () => {
-      if (!isOpen || !resolvedPortalContainer) return null;
-
-      const hasSegments = Array.isArray(segments) && segments.length > 0;
-      const segmentsArray = hasSegments ? segments : [];
-
-      // Convert DropdownOption to DropdownMenuOption
-      const menuOptions: DropdownMenuOption[] = filteredOptions.map((option) => ({
-        value: String(option.value),
-        label: option.label,
-        description: option.description,
-        icon: option.icon,
-        group: option.group,
-        searchValue: option.searchValue,
-        state: option.disabled ? 'disabled' : selectedValue === option.value ? 'selected' : 'default',
-        prefix: option.icon ? 'icon' : 'none',
-        suffix: false,
-        showCheckmark: true,
-      }));
-
-      // Determine property type for DropdownMenu
-      let property: 'default' | 'search' | 'search-segmented' | 'groups' = 'default';
-      if (type === 'search' && hasSegments) {
-        property = 'search-segmented';
-      } else if (type === 'search') {
-        property = 'search';
-      } else if (type === 'groups') {
-        property = 'groups';
-      }
-
-      const wrapperStyle: React.CSSProperties = {
-        position: 'fixed',
-        top: menuPosition.top,
-        left: menuPosition.left,
-        width: menuPosition.width,
-        zIndex: 9999,
-        ...(portalStyle ?? {})
-      };
-
-      return ReactDOM.createPortal(
-        <div
-          ref={menuRef}
-          className={cn(
-            portalClassName,
-            "w-full"
-          )}
-          style={wrapperStyle}
-          onClick={(e) => e.stopPropagation()}
-          id="dropdown-menu"
-        >
-          <DropdownMenu
-            property={property}
-            options={menuOptions}
-            segments={segmentsArray}
-            selectedSegment={selectedSegment}
-            onSegmentChange={onSegmentChange}
-            onSelect={(value) => {
-              const option = options.find((opt) => String(opt.value) === value);
-              if (option && !option.disabled) {
-                handleSelect(option.value);
-              }
-            }}
-            className={cn("w-full", menuClassName)}
-            style={menuStyle}
-          />
-        </div>,
-        resolvedPortalContainer
-      );
+      glass,
     };
 
     const renderHelperText = () => {
@@ -585,66 +334,11 @@ export const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
       );
     };
 
-    // If using composable API, render with context provider
-    if (hasComposableChildren) {
-        if (process.env.NODE_ENV !== 'production' && (label || options.length > 0)) {
-                    }
-        
-        return (
-            <DropdownProvider value={contextValue}>
-                <div className="w-full space-y-2">
-                    {label && (
-                        <div className={cn(
-                            "flex items-center",
-                            labelPosition === "left" && "mb-0 mr-[var(--spacing-x4)]"
-                        )}>
-                            <Label
-                                mandatory={labelMandatory}
-                                optional={labelOptional}
-                                suffixIcon={labelSuffixIcon}
-                                icon={labelIcon}
-                            >
-                                {label}
-                            </Label>
-                        </div>
-                    )}
-                    <div className="relative">
-                        {children}
-                        {(error || helperText) && renderHelperText()}
-                    </div>
-                </div>
-            </DropdownProvider>
-        );
-    }
-    
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production' && options.length > 0) {
-            }
-    
     return (
         <DropdownProvider value={contextValue}>
             <div className="w-full space-y-2">
-                {/* Label */}
-                {label && (
-                    <div className={cn(
-                        "flex items-center",
-                        labelPosition === "left" && "mb-0 mr-[var(--spacing-x4)]"
-                    )}>
-                        <Label
-                            mandatory={labelMandatory}
-                            optional={labelOptional}
-                            suffixIcon={labelSuffixIcon}
-                            icon={labelIcon}
-                        >
-                            {label}
-                        </Label>
-                    </div>
-                )}
-
-                {/* Main Content */}
                 <div className="relative">
-                    {renderField()}
-                    {renderMenu()}
+                    {children}
                     {(error || helperText) && renderHelperText()}
                 </div>
             </div>

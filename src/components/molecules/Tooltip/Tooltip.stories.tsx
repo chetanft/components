@@ -8,12 +8,88 @@ const meta: Meta<typeof Tooltip> = {
   component: Tooltip,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: 'A tooltip component for displaying contextual information on hover or focus. Supports titles, descriptions, arrows, and action buttons.',
+      },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'anchored' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      rows: [
+        {
+          id: 'content',
+          label: 'Content',
+          scenarios: [
+            { id: 'default', label: 'Basic', story: 'ExplorerBase', args: { contentType: 'default' } },
+            { id: 'with-title', label: 'Title', story: 'ExplorerBase', args: { contentType: 'with-title' } },
+            { id: 'with-arrow', label: 'Arrow', story: 'ExplorerBase', args: { contentType: 'with-arrow' } },
+            { id: 'composed', label: 'Composed', story: 'ExplorerBase', args: { contentType: 'composed' } },
+          ],
+        },
+        {
+          id: 'style',
+          label: 'Style',
+          scenarios: [
+            { id: 'light', label: 'Light', story: 'ExplorerBase', args: { color: 'white' } },
+            { id: 'dark', label: 'Dark', story: 'ExplorerBase', args: { color: 'dark' } },
+          ],
+        },
+      ],
+      defaultRowId: 'content',
+      defaultScenarioId: 'default',
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
+  argTypes: {
+    placement: {
+      control: 'select',
+      options: ['top', 'bottom', 'left', 'right'],
+    },
+    color: {
+      control: 'select',
+      options: ['white', 'dark'],
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Tooltip>;
+
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const contentType = args.contentType ?? 'default';
+    const color = args.color ?? 'white';
+    const syncKey = JSON.stringify({ contentType, color, glass: args.glass });
+    return (
+      <div key={syncKey} className="p-8">
+        <Tooltip placement="top" align="center" color={color}>
+          <TooltipTrigger>
+            <Button>Hover me</Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            {(contentType === 'with-title' || contentType === 'composed') && (
+              <TooltipTitle>Tooltip Title</TooltipTitle>
+            )}
+            <TooltipDescription>
+              {contentType === 'composed'
+                ? 'A tooltip with title, description, and an arrow pointer.'
+                : contentType === 'with-title'
+                ? 'This tooltip has both a title and description'
+                : contentType === 'with-arrow'
+                ? 'This tooltip includes an arrow'
+                : 'This is a basic tooltip using the composable API'}
+            </TooltipDescription>
+            {(contentType === 'with-arrow' || contentType === 'composed') && <TooltipArrow />}
+          </TooltipContent>
+        </Tooltip>
+      </div>
+    );
+  },
+};
 
 // Composable API Examples (Recommended)
 export const Default: Story = {
@@ -84,114 +160,27 @@ export const WithArrow: Story = {
   },
 };
 
-// Legacy Declarative API Examples
-
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
-  args: {
-    children: 'This is a basic tooltip',
-    placement: 'top',
-    align: 'center',
-    color: 'white',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: '⚠️ **Deprecated**: This uses the deprecated children prop directly. Use the composable API with TooltipTrigger and TooltipContent instead.',
-      },
-    },
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyPlacements: Story = {
+export const DocsVariants: Story = {
   render: () => (
-    <div className="p-8">
-      <div className="flex flex-wrap gap-4 items-center justify-center">
-        <Tooltip children="Top left" placement="top" align="start" color="white" />
-        <Tooltip children="Top center" placement="top" align="center" color="white" />
-        <Tooltip children="Top right" placement="top" align="end" color="white" />
-        <Tooltip children="Bottom" placement="bottom" align="center" color="white" />
-        <Tooltip children="Left" placement="left" align="center" color="white" />
-        <Tooltip children="Right" placement="right" align="center" color="white" />
-      </div>
+    <div className="flex gap-8 p-8">
+      <Tooltip placement="top" align="center" color="white">
+        <TooltipTrigger>
+          <Button variant="secondary">Light</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <TooltipDescription>Light tooltip variant</TooltipDescription>
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip placement="top" align="center" color="dark">
+        <TooltipTrigger>
+          <Button variant="secondary">Dark</Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <TooltipDescription>Dark tooltip variant</TooltipDescription>
+        </TooltipContent>
+      </Tooltip>
     </div>
   ),
-};
 
-/** @deprecated Use composable API instead. */
-export const LegacyWithHeading: Story = {
-  render: () => (
-    <div className="p-8">
-      <Tooltip heading="Tooltip Heading" children="This is a tooltip with a heading" placement="top" align="center" color="white" />
-    </div>
-  ),
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithCloseButton: Story = {
-  render: () => (
-    <div className="p-8">
-      <Tooltip heading="Tooltip Heading" children="This is a tooltip with a close button" showClose={true} placement="top" align="center" color="white" />
-    </div>
-  ),
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithActions: Story = {
-  render: () => (
-    <div className="p-8">
-      <Tooltip heading="Tooltip Heading" children="This is a tooltip with action buttons" primaryActionText="Learn more" secondaryActionText="Skip" placement="top" align="center" color="white" />
-    </div>
-  ),
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDarkTheme: Story = {
-  render: () => (
-    <div className="p-8">
-      <Tooltip heading="Dark Tooltip" children="This is a tooltip with dark theme" showClose={true} primaryActionText="Learn more" secondaryActionText="Skip" placement="top" align="center" color="dark" />
-    </div>
-  ),
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyInteractiveDemo: Story = {
-  render: () => (
-    <div className="p-8 space-y-6">
-      <h3 className="text-lg font-semibold mb-4">All Tooltip Variants - Interactive</h3>
-      <p className="text-sm text-gray-600 mb-6">Hover or focus on the elements below to see tooltips appear.</p>
-
-      <div className="flex flex-wrap gap-4 items-center justify-center">
-        <Tooltip children="Top left tooltip" placement="top" align="start" color="white" />
-        <Tooltip children="Top center tooltip" placement="top" align="center" color="white" />
-        <Tooltip children="Top right tooltip" placement="top" align="end" color="white" />
-        <Tooltip children="Bottom tooltip" placement="bottom" align="center" color="white" />
-        <Tooltip children="Left tooltip" placement="left" align="center" color="white" />
-        <Tooltip children="Right tooltip" placement="right" align="center" color="white" />
-      </div>
-
-      <div className="space-y-4">
-        <div>
-          <h4 className="font-medium mb-2">With Heading</h4>
-          <Tooltip heading="Tooltip Heading" children="This is a tooltip with a heading" placement="top" align="center" color="white" />
-        </div>
-
-        <div>
-          <h4 className="font-medium mb-2">With Close Button</h4>
-          <Tooltip heading="Tooltip Heading" children="This is a tooltip with a close button" showClose={true} placement="top" align="center" color="white" />
-        </div>
-
-        <div>
-          <h4 className="font-medium mb-2">With Actions</h4>
-          <Tooltip heading="Tooltip Heading" children="This is a tooltip with action buttons" primaryActionText="Learn more" secondaryActionText="Skip" placement="top" align="center" color="white" />
-        </div>
-
-        <div>
-          <h4 className="font-medium mb-2">Dark Theme</h4>
-          <Tooltip heading="Dark Tooltip" children="This is a tooltip with dark theme" showClose={true} primaryActionText="Learn more" secondaryActionText="Skip" placement="top" align="center" color="dark" />
-        </div>
-      </div>
-    </div>
-  ),
-};
+  parameters: { docsOnly: true },
+}

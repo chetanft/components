@@ -12,16 +12,11 @@ export interface DrawerContextValue {
    * Whether drawer is open
    */
   open: boolean;
-  
+
   /**
    * Open the drawer
    */
   setOpen: (open: boolean) => void;
-  
-  /**
-   * Close the drawer
-   */
-  onClose?: () => void;
 }
 
 const DrawerContext = createContext<DrawerContextValue | undefined>(undefined);
@@ -33,7 +28,6 @@ const DrawerContext = createContext<DrawerContextValue | undefined>(undefined);
 const defaultContext: DrawerContextValue = {
   open: false,
   setOpen: () => {},
-  onClose: undefined,
 };
 
 /**
@@ -59,7 +53,6 @@ interface DrawerContextProviderProps {
   children: React.ReactNode;
   open: boolean;
   onOpenChange?: (open: boolean) => void;
-  onClose?: () => void;
 }
 
 /**
@@ -71,26 +64,22 @@ export function DrawerContextProvider({
   children,
   open: controlledOpen,
   onOpenChange,
-  onClose
 }: DrawerContextProviderProps) {
   const [internalOpen, setInternalOpen] = useState(false);
-  
+
   const isControlled = onOpenChange !== undefined;
   const open = isControlled ? controlledOpen : internalOpen;
-  
+
   const setOpen = useCallback((newOpen: boolean) => {
     if (isControlled) {
       onOpenChange?.(newOpen);
     } else {
       setInternalOpen(newOpen);
     }
-    if (!newOpen) {
-      onClose?.();
-    }
-  }, [isControlled, onOpenChange, onClose]);
-  
+  }, [isControlled, onOpenChange]);
+
   return (
-    <DrawerContext.Provider value={{ open, setOpen, onClose }}>
+    <DrawerContext.Provider value={{ open, setOpen }}>
       {children}
     </DrawerContext.Provider>
   );

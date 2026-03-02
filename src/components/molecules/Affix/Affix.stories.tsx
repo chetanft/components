@@ -6,8 +6,36 @@ const meta: Meta<typeof Affix> = {
   title: 'Molecules/Affix',
   component: Affix,
   tags: ['autodocs'],
+  args: {
+    glass: true,
+  },
   parameters: {
     layout: 'padded',
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'basic', label: 'Basic', story: 'Basic' as const },
+            { id: 'bottom', label: 'Bottom', story: 'Bottom' as const },
+          ],
+        },
+      ],
+      defaultRowId: 'type' as const,
+      defaultScenarioId: 'basic' as const,
+      supportsGlass: true,
+    },
+  },
+  argTypes: {
+    glass: {
+      control: 'select',
+      options: [false, true, 'subtle', 'prominent'],
+      description: 'Glass style variant',
+    },
   },
 };
 
@@ -15,10 +43,10 @@ export default meta;
 type Story = StoryObj<typeof Affix>;
 
 export const Basic: Story = {
-  render: () => (
+  render: (args) => (
     <div style={{ height: '200vh' }}>
       <div style={{ paddingTop: '100px', paddingLeft: '20px' }}>
-        <Affix offsetTop={10}>
+        <Affix offsetTop={10} glass={args.glass}>
           <Button variant="primary">Affix Top (10px)</Button>
         </Affix>
         <br />
@@ -29,14 +57,13 @@ export const Basic: Story = {
 };
 
 export const Bottom: Story = {
-    render: () => (
+    render: (args) => (
       <div style={{ height: '200vh' }}>
         <div style={{ paddingTop: '100px', paddingLeft: '20px' }}>
-          <Affix offsetBottom={10}>
+          <Affix offsetBottom={10} glass={args.glass}>
             <Button variant="primary">Affix Bottom (10px)</Button>
           </Affix>
         </div>
       </div>
     ),
   };
-

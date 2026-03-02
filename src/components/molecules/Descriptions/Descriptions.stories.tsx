@@ -8,23 +8,97 @@ const meta: Meta<typeof Descriptions> = {
     title: 'Molecules/Descriptions',
     component: Descriptions,
     tags: ['autodocs'],
+    parameters: {
+        docs: {
+            description: {
+                component: 'A composable description list component for displaying key-value pairs. Supports bordered and vertical layouts with sub-components for title, extra actions, items, labels, and values.',
+            },
+        },
+        explorer: {
+            mode: 'matrix' as const,
+            behavior: 'layout',
+            previewMode: 'inline' as const,
+            baseStory: 'ExplorerBase',
+            rows: [
+                {
+                    id: 'type',
+                    label: 'Type',
+                    scenarios: [
+                        { id: 'default', label: 'Default', story: 'ExplorerBase', args: { contentType: 'default' } },
+                        { id: 'with-badge', label: 'With Badge', story: 'ExplorerBase', args: { contentType: 'with-badge' } },
+                        { id: 'vertical', label: 'Vertical', story: 'ExplorerBase', args: { contentType: 'vertical' } },
+                    ],
+                },
+                {
+                    id: 'state',
+                    label: 'State',
+                    scenarios: [
+                        { id: 'default', label: 'Default', story: 'ExplorerBase', args: {} },
+                    ],
+                },
+            ],
+            defaultRowId: 'type',
+            defaultScenarioId: 'default',
+        },
+    },
 };
 
 export default meta;
 type Story = StoryObj<typeof Descriptions>;
 
-const items = [
-    { label: 'Product', children: 'Cloud Database' },
-    { label: 'Billing Mode', children: 'Prepaid' },
-    { label: 'Automatic Renewal', children: 'YES' },
-    { label: 'Order time', children: '2018-04-24 18:00:00' },
-    { label: 'Usage Time', children: '2019-04-24 18:00:00', span: 2 },
-    { label: 'Status', children: <Badge variant="success">Running</Badge>, span: 3 },
-    { label: 'Negotiated Amount', children: '$80.00' },
-    { label: 'Discount', children: '$20.00' },
-    { label: 'Official Receipts', children: '$60.00' },
-    { label: 'Config Info', children: 'Data disk type: MongoDB\nDatabase version: 3.4\nPackage: dds.mongo.mid\nStorage space: 10 GB\nReplication factor: 3\nRegion: East China 1', span: 3 },
-];
+export const ExplorerBase: Story = {
+    render: (args: any) => {
+        const contentType = args.contentType ?? 'default';
+        const syncKey = JSON.stringify({ contentType });
+        return (
+            <div key={syncKey} className="p-6">
+                {contentType === 'default' && (
+                    <Descriptions bordered column={2}>
+                        <DescriptionsTitle>User Info</DescriptionsTitle>
+                        <DescriptionsExtra>
+                            <Button size="sm">Edit</Button>
+                        </DescriptionsExtra>
+                        <DescriptionsItem>
+                            <DescriptionsLabel>Product</DescriptionsLabel>
+                            <DescriptionsValue>Cloud Database</DescriptionsValue>
+                        </DescriptionsItem>
+                        <DescriptionsItem>
+                            <DescriptionsLabel>Billing Mode</DescriptionsLabel>
+                            <DescriptionsValue>Prepaid</DescriptionsValue>
+                        </DescriptionsItem>
+                        <DescriptionsItem span={2}>
+                            <DescriptionsLabel>Usage Time</DescriptionsLabel>
+                            <DescriptionsValue>2019-04-24 18:00:00</DescriptionsValue>
+                        </DescriptionsItem>
+                    </Descriptions>
+                )}
+                {contentType === 'with-badge' && (
+                    <Descriptions bordered column={3}>
+                        <DescriptionsItem span={3}>
+                            <DescriptionsLabel>Status</DescriptionsLabel>
+                            <DescriptionsValue>
+                                <Badge variant="success">Running</Badge>
+                            </DescriptionsValue>
+                        </DescriptionsItem>
+                    </Descriptions>
+                )}
+                {contentType === 'vertical' && (
+                    <Descriptions bordered layout="vertical" column={2}>
+                        <DescriptionsTitle>Vertical Layout</DescriptionsTitle>
+                        <DescriptionsItem>
+                            <DescriptionsLabel>Product</DescriptionsLabel>
+                            <DescriptionsValue>Cloud Database</DescriptionsValue>
+                        </DescriptionsItem>
+                        <DescriptionsItem>
+                            <DescriptionsLabel>Billing</DescriptionsLabel>
+                            <DescriptionsValue>Prepaid</DescriptionsValue>
+                        </DescriptionsItem>
+                    </Descriptions>
+                )}
+            </div>
+        );
+    },
+};
 
 // Composable API Examples (Recommended)
 export const Default: Story = {
@@ -81,36 +155,44 @@ export const WithBadge: Story = {
     },
 };
 
-// Mark deprecated examples
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
-    args: {
-        title: 'User Info',
-        items: items,
-    },
-    parameters: {
-        docs: {
-            description: {
-                story: '⚠️ **Deprecated**: This uses the deprecated `items` array prop. Use the composable API with DescriptionsItem, DescriptionsLabel, and DescriptionsValue instead.',
-            },
-        },
-    },
-};
+export const DocsVariants: Story = {
+    render: () => (
+        <div className="flex flex-col gap-8 p-6">
+            <Descriptions bordered column={2}>
+                <DescriptionsTitle>Bordered (Default)</DescriptionsTitle>
+                <DescriptionsItem>
+                    <DescriptionsLabel>Product</DescriptionsLabel>
+                    <DescriptionsValue>Cloud Database</DescriptionsValue>
+                </DescriptionsItem>
+                <DescriptionsItem>
+                    <DescriptionsLabel>Billing</DescriptionsLabel>
+                    <DescriptionsValue>Prepaid</DescriptionsValue>
+                </DescriptionsItem>
+            </Descriptions>
+            <Descriptions column={2}>
+                <DescriptionsTitle>Unbounded</DescriptionsTitle>
+                <DescriptionsItem>
+                    <DescriptionsLabel>Product</DescriptionsLabel>
+                    <DescriptionsValue>Cloud Database</DescriptionsValue>
+                </DescriptionsItem>
+                <DescriptionsItem>
+                    <DescriptionsLabel>Billing</DescriptionsLabel>
+                    <DescriptionsValue>Prepaid</DescriptionsValue>
+                </DescriptionsItem>
+            </Descriptions>
+            <Descriptions bordered layout="vertical" column={2}>
+                <DescriptionsTitle>Vertical Layout</DescriptionsTitle>
+                <DescriptionsItem>
+                    <DescriptionsLabel>Product</DescriptionsLabel>
+                    <DescriptionsValue>Cloud Database</DescriptionsValue>
+                </DescriptionsItem>
+                <DescriptionsItem>
+                    <DescriptionsLabel>Billing</DescriptionsLabel>
+                    <DescriptionsValue>Prepaid</DescriptionsValue>
+                </DescriptionsItem>
+            </Descriptions>
+        </div>
+    ),
 
-/** @deprecated Use composable API instead. */
-export const LegacyBordered: Story = {
-    args: {
-        title: 'User Info',
-        bordered: true,
-        items: items,
-    },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyVertical: Story = {
-    args: {
-        title: 'User Info',
-        layout: 'vertical',
-        items: items,
-    },
-};
+  parameters: { docsOnly: true },
+}

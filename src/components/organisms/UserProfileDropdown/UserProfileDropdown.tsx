@@ -105,7 +105,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
 
       {/* Divider */}
       <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
-        <div className="flex-[1_0_0] h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
+        <div className="flex-1 h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
           <div className="absolute inset-[-0.5px_-0.13%]" style={{ borderTop: '1px solid var(--border-primary)' }} />
         </div>
       </div>
@@ -136,7 +136,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
 
       {/* Divider before Logout */}
       <div className="box-border content-stretch flex items-center justify-between pl-0 pr-[36px] py-[var(--x5,20px)] relative shrink-0 w-full">
-        <div className="flex-[1_0_0] h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
+        <div className="flex-1 h-0 min-h-px min-w-px mr-[-36px] relative shrink-0">
           <div className="absolute inset-[-0.5px_-0.13%]" style={{ borderTop: '1px solid var(--border-primary)' }} />
         </div>
       </div>

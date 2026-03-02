@@ -3,7 +3,12 @@ import React from 'react';
 import {
   NavigationPopover,
   DEFAULT_NAVIGATION_SECTIONS,
-  type NavigationSection,
+  NavigationSection,
+  NavigationSectionHero,
+  NavigationSectionMetric,
+  NavigationSectionSubCategory,
+  NavigationSectionSubCategoryItem,
+  type NavigationSectionType,
 } from '../components/organisms/NavigationPopover';
 import { Button } from '../components/atoms/Button/Button';
 import { Typography } from '../components/atoms/Typography';
@@ -52,13 +57,40 @@ const meta: Meta<typeof NavigationPopover> = {
           'Highly configurable navigation popover that can mix hero illustrations, metric summaries, and deep sub-menus—similar to launchers in modern design systems.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'anchored' as const,
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'insights',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'insights', label: 'Insights', story: 'ExplorerBase', args: { dataset: 'default', initialSectionId: 'insights' } },
+            { id: 'workspace', label: 'Workspace', story: 'ExplorerBase', args: { dataset: 'default', initialSectionId: 'workspace' } },
+            { id: 'reports', label: 'Reports', story: 'ExplorerBase', args: { dataset: 'default', initialSectionId: 'reports' } },
+            { id: 'sub-menu-variant', label: 'SubMenuVariant', story: 'ExplorerBase', args: { dataset: 'noHero', initialSectionId: 'sub-menu' } },
+            { id: 'service-health', label: 'ServiceHealth', story: 'ExplorerBase', args: { dataset: 'default', initialSectionId: 'health' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'metrics-without-hero', label: 'MetricsWithoutHero', story: 'ExplorerBase', args: { dataset: 'noHero', initialSectionId: 'metrics-only' } },
+            { id: 'hero-top-placement', label: 'HeroTopPlacement', story: 'ExplorerBase', args: { dataset: 'default', initialSectionId: 'overview', heroPlacement: 'top' } },
+          ],
+        },
+      ],
+      supportsGlass: true,
+    },
   },
+  tags: ['autodocs'],
   decorators: [popoverCanvas],
   argTypes: {
-    open: {
-      control: 'boolean',
-      description: 'Controls visibility of the popover',
-    },
     initialSectionId: {
       control: 'select',
       options: [
@@ -79,115 +111,76 @@ const meta: Meta<typeof NavigationPopover> = {
 export default meta;
 type Story = StoryObj<typeof NavigationPopover>;
 
-export const Overview: Story = {
-  args: {
-    open: true,
-    sections: DEFAULT_NAVIGATION_SECTIONS,
-    initialSectionId: 'overview',
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const sections = args.dataset === 'noHero' ? noHeroSections : DEFAULT_NAVIGATION_SECTIONS;
+    return (
+      <NavigationPopover
+        open
+        initialSectionId={args.initialSectionId ?? 'overview'}
+        heroPlacement={args.heroPlacement}
+        metricsColumns={args.heroPlacement === 'top' ? { withHero: 3 } : undefined}
+      >
+        {renderSections(sections)}
+      </NavigationPopover>
+    );
   },
 };
 
-export const Insights: Story = {
-  args: {
-    open: true,
-    sections: DEFAULT_NAVIGATION_SECTIONS,
-    initialSectionId: 'insights',
-  },
-};
+const renderSections = (sections: NavigationSectionType[]) =>
+  sections.map((section) => (
+    <NavigationSection
+      key={section.id}
+      id={section.id}
+      label={section.label}
+      icon={section.icon}
+      showChevron={section.showChevron}
+    >
+      {section.hero ? (
+        <NavigationSectionHero
+          title={section.hero.title}
+          description={section.hero.description}
+          image={section.hero.image}
+          illustrationVariant={section.hero.illustrationVariant}
+          alt={section.hero.alt}
+        />
+      ) : null}
+      {section.metrics?.map((metric, metricIndex) => (
+        <NavigationSectionMetric
+          key={`${section.id}-metric-${metricIndex}`}
+          variant={metric.variant === 'highlight' || metric.variant === 'alert' ? metric.variant : 'stat'}
+          title={'title' in metric ? metric.title : undefined}
+          label={'label' in metric ? metric.label : undefined}
+          value={'value' in metric ? metric.value : undefined}
+          description={'description' in metric ? metric.description : undefined}
+          actionLabel={'actionLabel' in metric ? metric.actionLabel : undefined}
+          actionIcon={'actionIcon' in metric ? metric.actionIcon : undefined}
+          badgeVariant={'badgeVariant' in metric ? metric.badgeVariant : undefined}
+        />
+      ))}
+      {section.subCategories?.map((category, categoryIndex) => (
+        <NavigationSectionSubCategory key={`${section.id}-category-${categoryIndex}`} title={category.title}>
+          {category.items.map((item) => (
+            <NavigationSectionSubCategoryItem
+              key={`${section.id}-${categoryIndex}-${item.label}`}
+              label={item.label}
+              icon={item.icon}
+              description={item.description}
+              disabled={item.disabled}
+              status={item.status}
+            />
+          ))}
+        </NavigationSectionSubCategory>
+      ))}
+    </NavigationSection>
+  ));
 
-export const Workspace: Story = {
-  args: {
-    open: true,
-    sections: DEFAULT_NAVIGATION_SECTIONS,
-    initialSectionId: 'workspace',
-  },
-};
+export const DocsOverview: Story = {
+  render: () => (
+    <NavigationPopover open initialSectionId="overview">
+      {renderSections(DEFAULT_NAVIGATION_SECTIONS)}
+    </NavigationPopover>
+  ),
 
-export const ServiceHealth: Story = {
-  args: {
-    open: true,
-    sections: DEFAULT_NAVIGATION_SECTIONS,
-    initialSectionId: 'health',
-  },
-};
-
-export const Reports: Story = {
-  args: {
-    open: true,
-    sections: DEFAULT_NAVIGATION_SECTIONS,
-    initialSectionId: 'reports',
-  },
-};
-
-const noHeroSections: NavigationSection[] = [
-  {
-    id: 'metrics-only',
-    label: 'Metrics Only',
-    icon: 'dashboard',
-    metrics: [
-      { label: 'Pending Orders', value: '42' },
-      { label: 'Delivered Orders', value: '128' },
-    ],
-  },
-  {
-    id: 'sub-menu',
-    label: 'Sub Menu',
-    icon: 'planning',
-    subCategories: [
-      {
-        title: 'Planning',
-        items: [
-          { label: 'Route Allocation', icon: 'planning' },
-          { label: 'Capacity Planner', icon: 'truck' },
-        ],
-      },
-    ],
-  },
-];
-
-export const MetricsWithoutHero: Story = {
-  args: {
-    open: true,
-    sections: noHeroSections,
-    initialSectionId: 'metrics-only',
-  },
-};
-
-export const SubMenuVariant: Story = {
-  args: {
-    open: true,
-    sections: noHeroSections,
-    initialSectionId: 'sub-menu',
-  },
-};
-
-export const HeroTopPlacement: Story = {
-  args: {
-    open: true,
-    sections: DEFAULT_NAVIGATION_SECTIONS,
-    initialSectionId: 'overview',
-    heroPlacement: 'top',
-    metricsColumns: { withHero: 3 },
-  },
-};
-
-export const CustomSlots: Story = {
-  args: {
-    open: true,
-    sections: DEFAULT_NAVIGATION_SECTIONS,
-    initialSectionId: 'workspace',
-    headerSlot: (
-      <Button size="sm" variant="secondary">
-        Launch Console
-      </Button>
-    ),
-    footerSlot: (
-      <div className="flex items-center gap-3">
-        <Typography variant="body-secondary-medium" color="secondary">
-          Need enterprise setup?
-        </Typography>
-        <Button size="sm">Talk to sales</Button>
-      </div>
-    ),
-  },
-};
+  parameters: { docsOnly: true },
+}

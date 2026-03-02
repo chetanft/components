@@ -13,11 +13,6 @@ export interface MentionOption {
 export interface MentionsProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'prefix' | 'onChange' | 'onSelect'> {
   /** Glass morphism variant */
   glass?: GlassVariant;
-  /**
-   * Options array (for declarative API)
-   * @deprecated Use MentionOption components as children instead
-   */
-  options?: MentionOption[];
   prefix?: string | string[];
   split?: string;
   filterOption?: false | ((input: string, option: MentionOption) => boolean);
@@ -48,7 +43,6 @@ export interface MentionOptionProps extends React.HTMLAttributes<HTMLDivElement>
 }
 
 export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
-  options = [],
   prefix = '@',
   split = ' ',
   filterOption,
@@ -85,18 +79,10 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
       }));
   }, [children]);
 
-  // Use children options if available, otherwise use options prop
-  const allOptions = optionsFromChildren.length > 0 ? optionsFromChildren : options;
+  const allOptions = optionsFromChildren;
 
   // Check if using composable API
   const hasComposableChildren = React.Children.count(children) > 0 && optionsFromChildren.length > 0;
-
-  // Show deprecation warning
-  if (process.env.NODE_ENV !== 'production') {
-    if (hasComposableChildren && options.length > 0) {
-          } else if (!hasComposableChildren && options.length > 0) {
-          }
-  }
 
   // Handlers for input changes
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -180,40 +166,25 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
             left: 0
           }}
         >
-          {hasComposableChildren ? (
-            // Render composable children (filtered)
-            React.Children.toArray(children)
-              .filter((child): child is React.ReactElement<MentionOptionProps> => 
-                React.isValidElement(child) && 
-                child.type === MentionOption &&
-                filteredOptions.some(opt => opt.value === child.props.value)
-              )
-              .map(child => {
-                const option = filteredOptions.find(opt => opt.value === child.props.value);
-                if (!option) return null;
-                return (
-                  <MentionOption
-                    key={child.props.value}
-                    value={child.props.value}
-                    onClick={() => handleSelect(option)}
-                  >
-                    {child.props.children || child.props.label || child.props.value}
-                  </MentionOption>
-                );
-              })
-          ) : (
-            // Render declarative options
-            filteredOptions.map(opt => (
-              <div
-                key={opt.value}
-                className="cursor-pointer px-[var(--spacing-x4)] py-[var(--spacing-x2)] hover:bg-[var(--color-neutral-light)]"
-                style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
-                onClick={() => handleSelect(opt)}
-              >
-                {opt.label}
-              </div>
-            ))
-          )}
+          {React.Children.toArray(children)
+            .filter((child): child is React.ReactElement<MentionOptionProps> =>
+              React.isValidElement(child) &&
+              child.type === MentionOption &&
+              filteredOptions.some(opt => opt.value === child.props.value)
+            )
+            .map(child => {
+              const option = filteredOptions.find(opt => opt.value === child.props.value);
+              if (!option) return null;
+              return (
+                <MentionOption
+                  key={child.props.value}
+                  value={child.props.value}
+                  onClick={() => handleSelect(option)}
+                >
+                  {child.props.children || child.props.label || child.props.value}
+                </MentionOption>
+              );
+            })}
         </div>
       )}
     </div>

@@ -3,7 +3,7 @@ import { Upload } from '../components/organisms/Upload';
 import type { UploadFile } from '../components/molecules/UploadItem';
 
 const meta = {
-  title: 'Organisms/Upload',
+  title: 'Stories/Upload',
   component: Upload,
   parameters: {
     layout: 'padded',
@@ -12,8 +12,12 @@ const meta = {
         component: 'A comprehensive upload component supporting drag-and-drop, button, and thumbnail upload types with progress tracking and validation.',
       },
     },
+    docsOnly: true,
   },
   tags: ['autodocs'],
+  args: {
+    glass: true,
+  },
   argTypes: {
     type: {
       control: 'select',
@@ -35,6 +39,11 @@ const meta = {
     autoUpload: {
       control: 'boolean',
       description: 'Automatically upload files when selected',
+    },
+    glass: {
+      control: 'select',
+      options: [false, true, 'subtle', 'prominent'],
+      description: 'Glass style variant',
     },
   },
 } satisfies Meta<typeof Upload>;
@@ -100,3 +109,25 @@ export const SingleFile: Story = {
     autoUpload: true,
   },
 };
+
+export const DocsVariants: Story = {
+  name: 'Variants',
+  render: () => (
+    <div className="space-y-8">
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Drag & Drop</p>
+        <Upload type="drag-drop" maxFiles={5} maxFileSize={10} multiple autoUpload acceptedFileTypes={['Excel', 'CSV']} />
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Button Upload</p>
+        <Upload type="button" maxFiles={5} maxFileSize={10} multiple autoUpload acceptedFileTypes={['Excel', 'CSV']} />
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Thumbnail Upload</p>
+        <Upload type="thumbnail" maxFiles={4} maxFileSize={5} multiple autoUpload acceptedFileTypes={['image/*']} />
+      </div>
+    </div>
+  ),
+
+  parameters: { docsOnly: true },
+}

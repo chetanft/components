@@ -1,29 +1,14 @@
 import { figma } from '@figma/code-connect';
-import { QuickFilters } from './QuickFilters';
+import { QuickFilters, QuickFilter } from './QuickFilters';
 
 // Connect to the main Quick filters component set
 figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Components?node-id=2657-4544', {
   example: () => (
-    <QuickFilters filters={[
-      {
-        id: 'filter-1',
-        label: 'Alert label',
-        selected: false,
-      },
-      {
-        id: 'filter-2', 
-        label: 'Alert label',
-        count: 19,
-        selected: false,
-      },
-      {
-        id: 'filter-3',
-        label: 'Alert label',
-        count: 19,
-        type: 'alert',
-        selected: false,
-      }
-    ]} />
+    <QuickFilters>
+      <QuickFilter id="filter-1" label="Alert label" selected={false} />
+      <QuickFilter id="filter-2" label="Alert label" count={19} selected={false} />
+      <QuickFilter id="filter-3" label="Alert label" count={19} type="alert" selected={false} />
+    </QuickFilters>
   )
 });
 
@@ -31,18 +16,13 @@ figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH
 figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH/Components?node-id=2860-11561', {
   variant: {
     'Type': 'Normal',
-    'State': 'Default', 
+    'State': 'Default',
     'Count': 'False'
   },
   example: () => (
-    <QuickFilters filters={[
-      {
-        id: 'normal-default-no-count',
-        label: 'Alert label',
-        type: 'normal',
-        selected: false,
-      }
-    ]} />
+    <QuickFilters>
+      <QuickFilter id="normal-default-no-count" label="Alert label" type="normal" selected={false} />
+    </QuickFilters>
   )
 });
 
@@ -53,15 +33,9 @@ figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH
     'Count': 'True'
   },
   example: () => (
-    <QuickFilters filters={[
-      {
-        id: 'normal-default-with-count',
-        label: 'Alert label',
-        count: 19,
-        type: 'normal',
-        selected: false,
-      }
-    ]} />
+    <QuickFilters>
+      <QuickFilter id="normal-default-with-count" label="Alert label" count={19} type="normal" selected={false} />
+    </QuickFilters>
   )
 });
 
@@ -72,15 +46,9 @@ figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH
     'Count': 'True'
   },
   example: () => (
-    <QuickFilters filters={[
-      {
-        id: 'normal-selected-with-count',
-        label: 'Alert label',
-        count: 19,
-        type: 'normal',
-        selected: true,
-      }
-    ]} />
+    <QuickFilters>
+      <QuickFilter id="normal-selected-with-count" label="Alert label" count={19} type="normal" selected />
+    </QuickFilters>
   )
 });
 
@@ -91,15 +59,9 @@ figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH
     'Count': 'True'
   },
   example: () => (
-    <QuickFilters filters={[
-      {
-        id: 'alert-default-with-count',
-        label: 'Alert label',
-        count: 19,
-        type: 'alert',
-        selected: false,
-      }
-    ]} />
+    <QuickFilters>
+      <QuickFilter id="alert-default-with-count" label="Alert label" count={19} type="alert" selected={false} />
+    </QuickFilters>
   )
 });
 
@@ -110,14 +72,8 @@ figma.connect(QuickFilters, 'https://www.figma.com/design/HMS1wPnsS1fuPyN1xSEVAH
     'Count': 'True'
   },
   example: () => (
-    <QuickFilters filters={[
-      {
-        id: 'alert-selected-with-count',
-        label: 'Alert label',
-        count: 19,
-        type: 'alert',
-        selected: true,
-      }
-    ]} />
+    <QuickFilters>
+      <QuickFilter id="alert-selected-with-count" label="Alert label" count={19} type="alert" selected />
+    </QuickFilters>
   )
-}); 
+});

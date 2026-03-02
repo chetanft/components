@@ -24,18 +24,18 @@ export const Graphs: React.FC<GraphsProps> = ({ className = '', asChild, ...prop
       <Spacer size="x3" className="w-full shrink-0" data-name="Spacer" data-node-id="4337:17057" />
 
       {/* Bar Chart */}
-      <div className="content-stretch flex flex-[1_0_0] gap-[var(--spacing-x5)] items-end min-h-px min-w-px relative shrink-0 w-full" data-name="Bar" data-node-id="4026:14362">
-        <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-start justify-end min-h-px min-w-px relative shrink-0" data-name="Bar" data-node-id="4026:14363">
+      <div className="content-stretch flex flex-1 gap-[var(--spacing-x5)] items-end min-h-px min-w-px relative shrink-0 w-full" data-name="Bar" data-node-id="4026:14362">
+        <div className="content-stretch flex flex-1 flex-col h-full items-start justify-end min-h-px min-w-px relative shrink-0" data-name="Bar" data-node-id="4026:14363">
           <div className="bg-[#ffb3c3] h-[27px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14364" />
           <div className="bg-[#ff809a] h-[43px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14365" />
           <div className="bg-[#ff6384] h-[48px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14366" />
         </div>
-        <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-start justify-end min-h-px min-w-px relative shrink-0" data-name="Bar" data-node-id="4026:14367">
+        <div className="content-stretch flex flex-1 flex-col h-full items-start justify-end min-h-px min-w-px relative shrink-0" data-name="Bar" data-node-id="4026:14367">
           <div className="bg-[#ffb3c3] h-[25px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14368" />
           <div className="bg-[#ff809a] h-[35px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14369" />
           <div className="bg-[#ff6384] h-[36px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14370" />
         </div>
-        <div className="content-stretch flex flex-[1_0_0] flex-col h-full items-start justify-end min-h-px min-w-px relative shrink-0" data-name="Bar" data-node-id="4026:14371">
+        <div className="content-stretch flex flex-1 flex-col h-full items-start justify-end min-h-px min-w-px relative shrink-0" data-name="Bar" data-node-id="4026:14371">
           <div className="bg-[#ffb3c3] h-[27px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14372" />
           <div className="bg-[#ff809a] h-[33px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14373" />
           <div className="bg-[#ff6384] h-[23px] shrink-0 w-full" data-name="Segment" data-node-id="4026:14374" />
@@ -47,13 +47,13 @@ export const Graphs: React.FC<GraphsProps> = ({ className = '', asChild, ...prop
 
       {/* X-axis Labels */}
       <div className="content-stretch flex font-normal gap-[var(--spacing-x5)] items-start leading-[0] relative shrink-0 text-[10px] text-[var(--color-primary)] text-center w-full" data-name="Time Label" data-node-id="4026:14375">
-        <div className="flex-[1_0_0] min-h-px min-w-px relative shrink-0" data-node-id="4026:14376">
+        <div className="flex-1 min-h-px min-w-px relative shrink-0" data-node-id="4026:14376">
           <p className="leading-[1.4] whitespace-pre-wrap">4+ hrs</p>
         </div>
-        <div className="flex-[1_0_0] min-h-px min-w-px relative shrink-0" data-node-id="4026:14377">
+        <div className="flex-1 min-h-px min-w-px relative shrink-0" data-node-id="4026:14377">
           <p className="leading-[1.4] whitespace-pre-wrap">2-4 hrs</p>
         </div>
-        <div className="flex-[1_0_0] min-h-px min-w-px relative shrink-0" data-node-id="4026:14378">
+        <div className="flex-1 min-h-px min-w-px relative shrink-0" data-node-id="4026:14378">
           <p className="leading-[1.4] whitespace-pre-wrap">{`<2 hrs`}</p>
         </div>
       </div>

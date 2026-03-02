@@ -98,11 +98,6 @@ describe('ProgressBar Component', () => {
       expect(screen.getByText('42%')).toBeInTheDocument();
     });
 
-    it('hides percentage when showPercentage is false', () => {
-      render(<ProgressBar value={42} showPercentage={false} />);
-      expect(screen.queryByText('42%')).not.toBeInTheDocument();
-    });
-
     it('applies correct text styling for percentage', () => {
       render(<ProgressBar value={42} />);
       const percentageText = screen.getByText('42%');
@@ -149,7 +144,7 @@ describe('ProgressBar Component', () => {
     it('has correct ARIA attributes', () => {
       render(<ProgressBar value={75} />);
       const progressbar = screen.getByRole('progressbar');
-      
+
       expect(progressbar).toHaveAttribute('aria-valuenow', '75');
       expect(progressbar).toHaveAttribute('aria-valuemin', '0');
       expect(progressbar).toHaveAttribute('aria-valuemax', '100');
@@ -201,7 +196,7 @@ describe('ProgressBar Component', () => {
     it('supports custom event handlers', () => {
       const handleClick = jest.fn();
       render(<ProgressBar onClick={handleClick} />);
-      
+
       const container = screen.getByRole('progressbar').closest('div');
       container?.click();
       expect(handleClick).toHaveBeenCalledTimes(1);
@@ -219,7 +214,7 @@ describe('ProgressBar Component', () => {
       const { container } = render(<ProgressBar />);
       const progressContainer = container.querySelector('.rounded-\\[var\\(--radius-md\\)\\]');
       const progressFill = container.querySelector('.rounded-\\[var\\(--radius-md\\)\\]');
-      
+
       expect(progressContainer).toBeInTheDocument();
       expect(progressFill).toBeInTheDocument();
     });
@@ -280,7 +275,7 @@ describe('ProgressBar Component', () => {
   describe('Performance', () => {
     it('renders efficiently with multiple re-renders', () => {
       const { rerender } = render(<ProgressBar value={0} />);
-      
+
       for (let i = 1; i <= 100; i += 10) {
         rerender(<ProgressBar value={i} />);
         const progressbar = screen.getByRole('progressbar');
@@ -288,4 +283,4 @@ describe('ProgressBar Component', () => {
       }
     });
   });
-}); 
+});

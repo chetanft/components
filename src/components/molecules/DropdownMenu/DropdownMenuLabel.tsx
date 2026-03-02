@@ -2,8 +2,9 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { useResolvedGlass, getGlassInnerBg } from '../../../lib/glass';
+import { getGlassInnerBg } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { useDropdownMenuContext } from './DropdownMenuContext';
 
 export interface DropdownMenuLabelProps extends ComposableProps<'div'> {
   /**
@@ -35,7 +36,7 @@ export interface DropdownMenuLabelProps extends ComposableProps<'div'> {
  */
 export const DropdownMenuLabel = React.forwardRef<HTMLDivElement, DropdownMenuLabelProps>(
   ({ className, children, asChild, ...props }, ref) => {
-    const resolvedGlass = useResolvedGlass();
+    const { glass: resolvedGlass } = useDropdownMenuContext();
     const Comp = asChild ? Slot : 'div';
     return (
       <Comp

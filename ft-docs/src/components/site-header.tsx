@@ -1,29 +1,18 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
-import { useState, useMemo, useRef, useEffect } from "react"
+import { usePathname } from "next/navigation"
+import { useState, useRef, useEffect } from "react"
 import { Search, Sun, Moon, MoonStar, Layers, Sparkles, Diamond, ChevronDown } from "lucide-react"
+import { CommandDialog } from "@/components/command-dialog"
 import { useGlass, type GlassMode } from "@/components/glass-provider"
 import { useTheme } from "next-themes"
 import { docsConfig } from "@/config/docs"
 import { cn } from "@/lib/utils"
 
-interface SearchResult {
-    title: string
-    href: string
-    category: string
-    type: 'component' | 'page' | 'icon'
-}
-
 export function SiteHeader() {
     const pathname = usePathname()
-    const router = useRouter()
-    const [searchQuery, setSearchQuery] = useState("")
-    const [isSearchOpen, setIsSearchOpen] = useState(false)
-    const [selectedIndex, setSelectedIndex] = useState(0)
-    const searchRef = useRef<HTMLDivElement>(null)
-    const inputRef = useRef<HTMLInputElement>(null)
+    const [cmdkOpen, setCmdkOpen] = useState(false)
     const { theme, setTheme } = useTheme()
     const { glassMode, setGlassMode } = useGlass()
     const [mounted, setMounted] = useState(false)
@@ -157,94 +146,6 @@ export function SiteHeader() {
         return pathname.startsWith(`${href}/`)
     }
 
-    // Build searchable items from config
-    const searchableItems = useMemo(() => {
-        const items: SearchResult[] = []
-        
-        // Add main navigation items
-        docsConfig.mainNav.forEach((item) => {
-            if (!item.external) {
-                items.push({
-                    title: item.title,
-                    href: item.href,
-                    category: 'Navigation',
-                    type: 'page'
-                })
-            }
-        })
-        
-        // Add all sidebar navigation items (components)
-        docsConfig.sidebarNav.forEach((section) => {
-            section.items.forEach((item) => {
-                items.push({
-                    title: item.title,
-                    href: item.href,
-                    category: section.title,
-                    type: 'component'
-                })
-            })
-        })
-        
-        return items
-    }, [])
-
-    // Filter search results
-    const searchResults = useMemo(() => {
-        if (!searchQuery.trim()) return []
-        
-        const query = searchQuery.toLowerCase().trim()
-        return searchableItems
-            .filter(item => 
-                item.title.toLowerCase().includes(query) ||
-                item.category.toLowerCase().includes(query)
-            )
-            .slice(0, 8) // Limit to 8 results
-    }, [searchQuery, searchableItems])
-
-    // Handle keyboard navigation
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (!isSearchOpen) return
-            
-            if (e.key === 'ArrowDown') {
-                e.preventDefault()
-                setSelectedIndex(prev => Math.min(prev + 1, searchResults.length - 1))
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault()
-                setSelectedIndex(prev => Math.max(prev - 1, 0))
-            } else if (e.key === 'Enter' && searchResults[selectedIndex]) {
-                e.preventDefault()
-                router.push(searchResults[selectedIndex].href)
-                setSearchQuery("")
-                setIsSearchOpen(false)
-            } else if (e.key === 'Escape') {
-                setIsSearchOpen(false)
-                inputRef.current?.blur()
-            }
-        }
-        
-        document.addEventListener('keydown', handleKeyDown)
-        return () => document.removeEventListener('keydown', handleKeyDown)
-    }, [isSearchOpen, searchResults, selectedIndex, router])
-
-    // Close search when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
-                setIsSearchOpen(false)
-            }
-        }
-        
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => document.removeEventListener('mousedown', handleClickOutside)
-    }, [])
-
-    const handleSearchChange = (value: string) => {
-        setSearchQuery(value)
-        setSelectedIndex(0)
-        setIsSearchOpen(true)
-    }
-
     return (
         <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container flex h-14 items-center justify-between gap-0 px-5 w-full" style={{ width: '100%', maxWidth: '100%' }}>
@@ -299,46 +200,17 @@ export function SiteHeader() {
                     </nav>
                 </div>
                 <div className="flex items-center justify-end gap-2">
-                    <div ref={searchRef} className="relative w-full max-w-md">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none z-10" />
-                        <input
-                            ref={inputRef}
-                            type="text"
-                            placeholder="Search components, icons, charts..."
-                            value={searchQuery}
-                            onChange={(e) => handleSearchChange(e.target.value)}
-                            onFocus={() => setIsSearchOpen(true)}
-                            className="w-full pl-10 pr-4 py-2 h-9 rounded-md border border-input bg-background text-sm-rem shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring placeholder:text-muted-foreground"
-                        />
-                        {isSearchOpen && searchResults.length > 0 && (
-                            <div className="absolute top-full right-0 mt-1 bg-background border border-border rounded-md shadow-lg max-h-96 overflow-y-auto z-[9999] w-full min-w-[300px]">
-                                {searchResults.map((result, index) => (
-                                    <Link
-                                        key={`${result.href}-${index}`}
-                                        href={result.href}
-                                        onClick={() => {
-                                            setSearchQuery("")
-                                            setIsSearchOpen(false)
-                                        }}
-                                        className={cn(
-                                            "block px-4 py-2 hover:bg-accent transition-colors",
-                                            index === selectedIndex && "bg-accent"
-                                        )}
-                                    >
-                                        <div className="flex items-center justify-between">
-                                            <span className="font-medium text-sm-rem">{result.title}</span>
-                                            <span className="text-xs-rem text-muted-foreground">{result.category}</span>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
-                        )}
-                        {isSearchOpen && searchQuery.trim() && searchResults.length === 0 && (
-                            <div className="absolute top-full right-0 mt-1 bg-background border border-border rounded-md shadow-lg p-4 z-[9999] w-full min-w-[300px]">
-                                <p className="text-sm-rem text-muted-foreground text-center">No results found</p>
-                            </div>
-                        )}
-                    </div>
+                    <button
+                        onClick={() => setCmdkOpen(true)}
+                        className="inline-flex items-center gap-2 rounded-md border border-input bg-background px-3 h-9 text-sm-rem text-muted-foreground shadow-sm transition-colors hover:bg-muted hover:text-foreground w-full max-w-[240px]"
+                    >
+                        <Search className="h-4 w-4 shrink-0" />
+                        <span className="flex-1 text-left hidden sm:inline">Search...</span>
+                        <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+                            <span className="text-xs">⌘</span>K
+                        </kbd>
+                    </button>
+                    <CommandDialog open={cmdkOpen} onOpenChange={setCmdkOpen} />
                     <div ref={glassDropdownRef} className="relative">
                         <button
                             onClick={() => setIsGlassDropdownOpen(prev => !prev)}

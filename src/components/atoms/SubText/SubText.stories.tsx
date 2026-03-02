@@ -12,6 +12,23 @@ const meta = {
         component: 'A sub-text component for displaying secondary information. Can optionally include a check icon.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline',
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'Default' },
+            { id: 'with-icon', label: 'WithIcon', story: 'WithIcon' },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -45,7 +62,7 @@ export const WithIcon: Story = {
 };
 
 // Both variants showcase
-export const AllVariants: Story = {
+export const DocsAllVariants: Story = {
   render: () => (
     <div className="space-y-6">
       <div>
@@ -63,60 +80,6 @@ export const AllVariants: Story = {
       </div>
     </div>
   ),
-};
 
-// Usage examples
-export const UsageExamples: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <div>
-        <h3 className="font-semibold mb-4">Form Field Examples</h3>
-        <div className="space-y-4 max-w-md">
-          <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-900">
-              Email Address
-            </label>
-            <input 
-              type="email" 
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              placeholder="Enter your email"
-            />
-            <SubText icon="No" />
-          </div>
-          
-          <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-900">
-              Password
-            </label>
-            <input 
-              type="password" 
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              placeholder="Enter your password"
-            />
-            <SubText icon="Yes" />
-          </div>
-        </div>
-      </div>
-      
-      <div>
-        <h3 className="font-semibold mb-4">Status Examples</h3>
-        <div className="space-y-3 max-w-sm">
-          <div className="p-3 border rounded-lg">
-            <div className="font-medium text-gray-900 mb-1">Profile Setup</div>
-            <SubText icon="Yes" />
-          </div>
-          
-          <div className="p-3 border rounded-lg">
-            <div className="font-medium text-gray-900 mb-1">Email Verification</div>
-            <SubText icon="No" />
-          </div>
-          
-          <div className="p-3 border rounded-lg">
-            <div className="font-medium text-gray-900 mb-1">Payment Method</div>
-            <SubText icon="Yes" />
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
-};
+  parameters: { docsOnly: true },
+}

@@ -2,20 +2,13 @@
 
 import React, { useState, useCallback, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
-import { Icon, IconName } from '../../atoms/Icons';
-import { Checkbox } from '../../atoms/Checkbox';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { TreeProvider, useTreeContext } from './TreeContext';
-import { TreeNode } from './TreeNode';
+import { TreeProvider } from './TreeContext';
 import type { TreeNodeData } from './TreeTypes';
-import { getGlassClasses, useResolvedGlass, getGlassInnerBg, type GlassVariant } from '../../../lib/glass';
+import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import type { IconName } from '../../atoms/Icons';
 
 export interface TreeProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
-  /**
-   * Tree data (for declarative API)
-   * @deprecated Use TreeNode components instead
-   */
-  treeData?: TreeNodeData[];
   /**
    * Expanded keys (controlled)
    */
@@ -58,7 +51,6 @@ export interface TreeProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
   /**
    * Whether to show connecting lines
    * @default false
-   * @deprecated Use custom styling or conditional rendering for lines
    */
   showLine?: boolean;
   /**
@@ -109,243 +101,10 @@ export interface TreeProps extends Omit<ComposableProps<'div'>, 'onSelect'> {
    */
   glass?: GlassVariant;
   /**
-   * Tree content (for composable API)
+   * Tree content (composable TreeNode children)
    */
   children?: React.ReactNode;
 }
-
-// ============================================================================
-// Tree Context (moved to TreeContext.tsx)
-// ============================================================================
-
-// ============================================================================
-// Helper Functions
-// ============================================================================
-
-const getAllKeys = (nodes: TreeNodeData[]): string[] => {
-  const keys: string[] = [];
-  const traverse = (items: TreeNodeData[]) => {
-    items.forEach(item => {
-      keys.push(item.key);
-      if (item.children) {
-        traverse(item.children);
-      }
-    });
-  };
-  traverse(nodes);
-  return keys;
-};
-
-const getChildKeys = (node: TreeNodeData): string[] => {
-  const keys: string[] = [];
-  const traverse = (items: TreeNodeData[]) => {
-    items.forEach(item => {
-      keys.push(item.key);
-      if (item.children) {
-        traverse(item.children);
-      }
-    });
-  };
-  if (node.children) {
-    traverse(node.children);
-  }
-  return keys;
-};
-
-// ============================================================================
-// TreeNode Component
-// ============================================================================
-
-interface TreeNodeComponentProps {
-  node: TreeNodeData;
-  level: number;
-}
-
-const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) => {
-  const {
-    expandedKeys,
-    selectedKeys,
-    checkedKeys,
-    checkable,
-    selectable,
-    showLine,
-    showIcon,
-    disabled: treeDisabled,
-    blockNode,
-    switcherIcon,
-    icon,
-    glass: contextGlass,
-    toggleExpanded,
-    toggleSelected,
-    toggleChecked,
-  } = useTreeContext();
-
-  const isExpanded = expandedKeys.has(node.key);
-  const isSelected = selectedKeys.has(node.key);
-  const isChecked = checkedKeys.has(node.key);
-  const hasChildren = node.children && node.children.length > 0;
-  const isLeaf = node.isLeaf || !hasChildren;
-  const isDisabled = treeDisabled || node.disabled;
-  const isCheckable = checkable && node.checkable !== false;
-  const isSelectable = selectable && node.selectable !== false;
-
-  // Check if all/some children are checked for indeterminate state
-  const childKeys = hasChildren ? getChildKeys(node) : [];
-  const checkedChildCount = childKeys.filter(k => checkedKeys.has(k)).length;
-  const isIndeterminate = checkedChildCount > 0 && checkedChildCount < childKeys.length;
-
-  const handleExpand = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!isLeaf && !isDisabled) {
-      toggleExpanded(node.key, node);
-    }
-  };
-
-  const handleSelect = () => {
-    if (isSelectable && !isDisabled) {
-      toggleSelected(node.key, node);
-    }
-  };
-
-  const handleCheck = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (isCheckable && !isDisabled) {
-      toggleChecked(node.key, node);
-    }
-  };
-
-  const renderSwitcher = () => {
-    if (isLeaf) {
-      return showLine ? (
-        <span className="w-[var(--spacing-x6)] h-[var(--spacing-x6)] flex items-center justify-center">
-          <span className="w-[calc((var(--spacing-x2)+var(--spacing-x1))/2)] h-[calc((var(--spacing-x2)+var(--spacing-x1))/2)] rounded-full bg-[var(--color-border-primary)]" />
-        </span>
-      ) : (
-        <span className="w-[var(--spacing-x6)]" />
-      );
-    }
-
-    const iconElement = switcherIcon
-      ? typeof switcherIcon === 'function'
-        ? switcherIcon({ expanded: isExpanded })
-        : switcherIcon
-      : (
-        <Icon
-          name={isExpanded ? 'chevron-down' : 'chevron-right'}
-          size={16}
-          className="text-[var(--color-tertiary)] transition-transform"
-        />
-      );
-
-    return (
-      <button
-        type="button"
-        onClick={handleExpand}
-        className={cn(
-          "w-[var(--spacing-x6)] h-[var(--spacing-x6)] flex items-center justify-center",
-          contextGlass ? "hover:bg-white/10 dark:hover:bg-white/10 rounded transition-colors" : "hover:bg-[var(--color-bg-secondary)] rounded transition-colors",
-          isDisabled && "cursor-not-allowed opacity-50"
-        )}
-        disabled={isDisabled}
-        aria-expanded={isExpanded}
-      >
-        {iconElement}
-      </button>
-    );
-  };
-
-  const renderIcon = () => {
-    if (!showIcon) return null;
-
-    let iconElement: React.ReactNode;
-
-    if (node.icon) {
-      if (typeof node.icon === 'string') {
-        iconElement = <Icon name={node.icon as IconName} size={16} className="text-[var(--color-secondary)]" />;
-      } else {
-        iconElement = node.icon;
-      }
-    } else if (icon) {
-      if (typeof icon === 'function') {
-        iconElement = icon({ expanded: isExpanded, isLeaf });
-      } else {
-        iconElement = <Icon name={icon} size={16} className="text-[var(--color-secondary)]" />;
-      }
-    } else {
-      iconElement = (
-        <Icon
-          name={isLeaf ? 'file' : isExpanded ? 'bundle' : 'bundle'}
-          size={16}
-          className="text-[var(--color-secondary)]"
-        />
-      );
-    }
-
-    return (
-      <span className="mr-[var(--spacing-x1)]">
-        {iconElement}
-      </span>
-    );
-  };
-
-  return (
-    <div className="tree-node">
-      <div
-        className={cn(
-          "flex items-center py-[var(--spacing-x1)] px-[var(--spacing-x1)]",
-          "rounded transition-colors",
-          isSelected && cn(getGlassInnerBg(contextGlass, "bg-[var(--color-primary-light)]", "bg-white/15 dark:bg-white/15"), "text-[var(--color-primary)]"),
-          !isSelected && !isDisabled && (contextGlass ? "hover:bg-white/10 dark:hover:bg-white/10" : "hover:bg-[var(--color-bg-secondary)]"),
-          isDisabled && "opacity-50 cursor-not-allowed",
-          blockNode && "w-full"
-        )}
-        style={{ paddingLeft: `calc(${level} * var(--spacing-x6))` }}
-      >
-        {/* Switcher */}
-        {renderSwitcher()}
-
-        {/* Checkbox */}
-        {isCheckable && (
-          <div className="mr-[var(--spacing-x1)]" onClick={handleCheck}>
-            <Checkbox
-              checked={isChecked}
-              indeterminate={isIndeterminate}
-              disabled={isDisabled}
-              size="sm"
-            />
-          </div>
-        )}
-
-        {/* Content */}
-        <div
-          className={cn(
-            "flex items-center flex-1 min-w-0",
-            isSelectable && !isDisabled && "cursor-pointer"
-          )}
-          onClick={handleSelect}
-        >
-          {renderIcon()}
-          <span className="truncate text-[var(--color-primary)]">
-            {node.title}
-          </span>
-        </div>
-      </div>
-
-      {/* Children */}
-      {hasChildren && isExpanded && (
-        <div className={cn(showLine && "border-l border-[var(--color-border-secondary)] ml-[calc(var(--spacing-x3)-1px)]")}>
-          {node.children!.map(child => (
-            <TreeNodeComponent
-              key={child.key}
-              node={child}
-              level={level + 1}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
 
 // ============================================================================
 // Tree Component
@@ -353,39 +112,29 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({ node, level }) =>
 
 /**
  * Tree Component
- * 
+ *
  * A tree component for displaying hierarchical data.
- * Supports both composable API (recommended) and declarative API (deprecated).
- * 
+ * Uses composable TreeNode sub-components for maximum flexibility.
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
- * // Composable API (recommended)
  * <Tree checkable selectable>
  *   <TreeNode nodeKey="1" title="Node 1">
  *     <TreeNode nodeKey="1-1" title="Child 1" />
  *   </TreeNode>
  * </Tree>
- * 
- * // Declarative API (deprecated)
- * <Tree
- *   treeData={treeData}
- *   checkable
- *   onCheck={handleCheck}
- * />
  * ```
- * 
+ *
  * @remarks
  * - Composable API provides maximum flexibility and control
  * - All sub-components (TreeNode, TreeNodeSwitcher, etc.) support `asChild`
  * - Supports selection, checking, and expansion
- * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
   ({
     className,
-    treeData,
     expandedKeys: controlledExpandedKeys,
     defaultExpandedKeys = [],
     selectedKeys: controlledSelectedKeys,
@@ -411,18 +160,9 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
     ...props
   }, ref) => {
     const resolvedGlass = useResolvedGlass(glass);
-    // Check if using composable API (has children with TreeNode components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
-        child?.type?.displayName?.startsWith('TreeNode')
-    );
-    
-    // Initialize expanded keys
-    const initialExpandedKeys = defaultExpandAll && treeData
-      ? getAllKeys(treeData)
-      : defaultExpandedKeys;
 
     const [internalExpandedKeys, setInternalExpandedKeys] = useState<Set<string>>(
-      new Set(controlledExpandedKeys || initialExpandedKeys)
+      new Set(controlledExpandedKeys || defaultExpandedKeys)
     );
     const [internalSelectedKeys, setInternalSelectedKeys] = useState<Set<string>>(
       new Set(controlledSelectedKeys || defaultSelectedKeys)
@@ -496,14 +236,8 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
 
       if (wasChecked) {
         newChecked.delete(key);
-        // Uncheck all children
-        const childKeys = getChildKeys(node);
-        childKeys.forEach(k => newChecked.delete(k));
       } else {
         newChecked.add(key);
-        // Check all children
-        const childKeys = getChildKeys(node);
-        childKeys.forEach(k => newChecked.add(k));
       }
 
       if (!controlledCheckedKeys) {
@@ -535,52 +269,18 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
       icon, resolvedGlass, toggleExpanded, toggleSelected, toggleChecked
     ]);
 
-    // If using composable API, render with context provider
-    if (hasComposableChildren) {
-        if (process.env.NODE_ENV !== 'production' && treeData) {
-                    }
-        
-        const Comp = asChild ? Slot : 'div';
-        return (
-            <TreeProvider value={contextValue}>
-                <Comp
-                    ref={ref}
-                    className={cn("tree", resolvedGlass && getGlassClasses(resolvedGlass), className)}
-                    role="tree"
-                    {...props}
-                >
-                    {children}
-                </Comp>
-            </TreeProvider>
-        );
-    }
-    
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production' && treeData) {
-            }
-    
-    if (!treeData || treeData.length === 0) {
-        return null;
-    }
-    
     const Comp = asChild ? Slot : 'div';
     return (
-        <TreeProvider value={contextValue}>
-            <Comp
-                ref={ref}
-                className={cn("tree", className)}
-                role="tree"
-                {...props}
-            >
-                {treeData.map(node => (
-                    <TreeNodeComponent
-                        key={node.key}
-                        node={node}
-                        level={0}
-                    />
-                ))}
-            </Comp>
-        </TreeProvider>
+      <TreeProvider value={contextValue}>
+        <Comp
+          ref={ref}
+          className={cn("tree", resolvedGlass && getGlassClasses(resolvedGlass), className)}
+          role="tree"
+          {...props}
+        >
+          {children}
+        </Comp>
+      </TreeProvider>
     );
   }
 );
@@ -588,4 +288,3 @@ export const Tree = React.forwardRef<HTMLDivElement, TreeProps>(
 Tree.displayName = 'Tree';
 
 export default Tree;
-export type { TreeNodeData, TreeNode } from './TreeTypes';

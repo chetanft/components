@@ -12,6 +12,43 @@ const meta: Meta<typeof Illustration> = {
         component: 'Illustration component for displaying images with various sizes and styling options.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'overview', label: 'Overview', story: 'ExplorerBase', args: { variant: 'overview' } },
+            { id: 'insights', label: 'Insights', story: 'ExplorerBase', args: { variant: 'insights' } },
+            { id: 'workspace', label: 'Workspace', story: 'ExplorerBase', args: { variant: 'workspace' } },
+            { id: 'reports', label: 'Reports', story: 'ExplorerBase', args: { variant: 'reports' } },
+          ],
+        },
+        {
+          id: 'size',
+          label: 'Size',
+          scenarios: [
+            { id: 'sm', label: 'SM', story: 'ExplorerBase', args: { size: 'sm' } },
+            { id: 'md', label: 'MD', story: 'ExplorerBase', args: { size: 'md' } },
+            { id: 'lg', label: 'LG', story: 'ExplorerBase', args: { size: 'lg' } },
+            { id: 'xl', label: 'XL', story: 'ExplorerBase', args: { size: 'xl' } },
+          ],
+        },
+        {
+          id: 'gallery',
+          label: 'Content',
+          scenarios: [
+            { id: 'single', label: 'Single Preview', story: 'ExplorerBase' },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'overview',
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -41,6 +78,13 @@ const meta: Meta<typeof Illustration> = {
 export default meta;
 type Story = StoryObj<typeof Illustration>;
 
+export const ExplorerBase: Story = {
+  args: {
+    variant: 'overview',
+    size: 'lg',
+  },
+};
+
 export const Default: Story = {
   args: {
     variant: 'overview',
@@ -48,91 +92,11 @@ export const Default: Story = {
   },
 };
 
-export const Overview: Story = {
+export const DocsOverview: Story = {
   args: {
     variant: 'overview',
     size: 'lg',
   },
-};
 
-export const Insights: Story = {
-  args: {
-    variant: 'insights',
-    size: 'lg',
-  },
-};
-
-export const Workspace: Story = {
-  args: {
-    variant: 'workspace',
-    size: 'lg',
-  },
-};
-
-export const Reports: Story = {
-  args: {
-    variant: 'reports',
-    size: 'lg',
-  },
-};
-
-// Sizes showcase
-export function Sizes() {
-  return (
-    <div className="flex flex-wrap gap-4 items-end p-6">
-      <div className="text-center">
-        <Illustration variant="overview" size="sm" />
-        <p className="mt-2 text-[var(--secondary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
-          {/* 14px → 1rem (responsive) */}
-          Small
-        </p>
-      </div>
-      <div className="text-center">
-        <Illustration variant="overview" size="md" />
-        <p className="mt-2 text-[var(--secondary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
-          {/* 14px → 1rem (responsive) */}
-          Medium
-        </p>
-      </div>
-      <div className="text-center">
-        <Illustration variant="overview" size="lg" />
-        <p className="mt-2 text-[var(--secondary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
-          {/* 14px → 1rem (responsive) */}
-          Large
-        </p>
-      </div>
-      <div className="text-center">
-        <Illustration variant="overview" size="xl" />
-        <p className="mt-2 text-[var(--secondary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
-          {/* 14px → 1rem (responsive) */}
-          Extra Large
-        </p>
-      </div>
-    </div>
-  );
+  parameters: { docsOnly: true },
 }
-
-// All Variants showcase
-export function AllVariants() {
-  return (
-    <div className="grid grid-cols-2 gap-6 p-6">
-      <div className="text-center">
-        <Illustration variant="overview" size="md" />
-        <p className="mt-2 text-sm text-gray-600">Overview</p>
-      </div>
-      <div className="text-center">
-        <Illustration variant="insights" size="md" />
-        <p className="mt-2 text-sm text-gray-600">Insights</p>
-      </div>
-      <div className="text-center">
-        <Illustration variant="workspace" size="md" />
-        <p className="mt-2 text-sm text-gray-600">Workspace</p>
-      </div>
-      <div className="text-center">
-        <Illustration variant="reports" size="md" />
-        <p className="mt-2 text-sm text-gray-600">Reports</p>
-      </div>
-    </div>
-  );
-}
-

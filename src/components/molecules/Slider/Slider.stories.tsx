@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
+import React from 'react';
 import { Slider, SliderTrack, SliderRange, SliderThumb, SliderLabel } from './index';
 
 const meta: Meta<typeof Slider> = {
@@ -9,8 +9,35 @@ const meta: Meta<typeof Slider> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Range slider component built with FT Design System tokens. Supports single value and range modes, vertical/horizontal orientation, marks, tooltips, and custom colors.',
+        component: 'Range slider component built with FT Design System tokens. Supports single value and range modes, vertical/horizontal orientation, labels, tooltips, and custom colors.',
       },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Single', story: 'ExplorerBase', args: { contentType: 'default' } },
+            { id: 'range', label: 'Range', story: 'ExplorerBase', args: { contentType: 'range' } },
+            { id: 'labels', label: 'Labels', story: 'ExplorerBase', args: { contentType: 'labels' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: {} },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+      supportsGlass: true,
     },
   },
   tags: ['autodocs'],
@@ -27,6 +54,46 @@ const meta: Meta<typeof Slider> = {
 
 export default meta;
 type Story = StoryObj<typeof Slider>;
+
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const contentType = args.contentType ?? 'default';
+    const syncKey = JSON.stringify({ contentType });
+    return (
+      <div key={syncKey} className="p-6">
+        {contentType === 'default' && (
+          <Slider defaultValue={30} className="w-[300px]">
+            <SliderTrack>
+              <SliderRange />
+            </SliderTrack>
+            <SliderThumb value={30} type="end" />
+          </Slider>
+        )}
+        {contentType === 'range' && (
+          <Slider range defaultValue={[20, 80]} className="w-[300px]">
+            <SliderTrack>
+              <SliderRange />
+            </SliderTrack>
+            <SliderThumb value={20} type="start" />
+            <SliderThumb value={80} type="end" />
+          </Slider>
+        )}
+        {contentType === 'labels' && (
+          <Slider defaultValue={50} className="w-[300px]">
+            <SliderTrack>
+              <SliderRange />
+            </SliderTrack>
+            <SliderThumb value={50} type="end" />
+            <SliderLabel value={0}>0°C</SliderLabel>
+            <SliderLabel value={26}>26°C</SliderLabel>
+            <SliderLabel value={37}>37°C</SliderLabel>
+            <SliderLabel value={100}>100°C</SliderLabel>
+          </Slider>
+        )}
+      </div>
+    );
+  },
+};
 
 // Composable API Examples (Recommended)
 export const Default: Story = {
@@ -70,7 +137,7 @@ export const Range: Story = {
   },
 };
 
-export const WithLabels: Story = {
+export const DocsWithLabels: Story = {
   render: () => (
     <div className="p-6">
       <Slider defaultValue={50} className="w-[300px]">
@@ -86,6 +153,8 @@ export const WithLabels: Story = {
     </div>
   ),
   parameters: {
+
+    docsOnly: true,
     docs: {
       description: {
         story: 'Use SliderLabel components for marks/labels on the slider track.',
@@ -94,119 +163,92 @@ export const WithLabels: Story = {
   },
 };
 
-// Mark deprecated examples
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
-  args: {
-    defaultValue: 30,
-    className: 'w-[300px]',
-  },
+export const DocsVariants: Story = {
+  render: () => (
+    <div className="p-6 flex flex-col gap-10">
+      <div>
+        <p className="text-sm font-semibold mb-2">Single Value</p>
+        <Slider defaultValue={30} className="w-[300px]">
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb value={30} type="end" />
+        </Slider>
+      </div>
+      <div>
+        <p className="text-sm font-semibold mb-2">Range</p>
+        <Slider range defaultValue={[20, 80]} className="w-[300px]">
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb value={20} type="start" />
+          <SliderThumb value={80} type="end" />
+        </Slider>
+      </div>
+      <div>
+        <p className="text-sm font-semibold mb-2">With Labels</p>
+        <Slider defaultValue={50} className="w-[300px]">
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb value={50} type="end" />
+          <SliderLabel value={0}>0</SliderLabel>
+          <SliderLabel value={50}>50</SliderLabel>
+          <SliderLabel value={100}>100</SliderLabel>
+        </Slider>
+      </div>
+      <div style={{ height: 220 }}>
+        <p className="text-sm font-semibold mb-2">Vertical</p>
+        <Slider vertical defaultValue={40} className="h-[200px]">
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb value={40} type="end" />
+        </Slider>
+      </div>
+    </div>
+  ),
   parameters: {
+
+    docsOnly: true,
     docs: {
       description: {
-        story: '⚠️ **Deprecated**: This uses the deprecated declarative API. Use the composable API with SliderTrack, SliderRange, and SliderThumb instead.',
+        story: 'All visual variants of the Slider component shown side-by-side: single value, range, with labels, and vertical orientation.',
       },
     },
   },
 };
 
-/** @deprecated Use composable API instead. */
-export const LegacyRange: Story = {
-  args: {
-    range: true,
-    defaultValue: [20, 80],
-    className: 'w-[300px]',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithMarks: Story = {
-  args: {
-    defaultValue: 50,
-    marks: [
-      { value: 0, label: '0°C' },
-      { value: 26, label: '26°C' },
-      { value: 37, label: '37°C' },
-      { value: 100, label: '100°C' },
-    ],
-    className: 'w-[300px]',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWithStep: Story = {
-  args: {
-    defaultValue: 50,
-    step: 10,
-    marks: true,
-    className: 'w-[300px]',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDisabled: Story = {
-  args: {
-    defaultValue: 50,
-    disabled: true,
-    className: 'w-[300px]',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyCustomColors: Story = {
-  args: {
-    defaultValue: 70,
-    trackColor: 'var(--positive)',
-    className: 'w-[300px]',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyVertical: Story = {
-  args: {
-    vertical: true,
-    defaultValue: 40,
-    className: 'h-[200px]',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyVerticalRange: Story = {
-  args: {
-    vertical: true,
-    range: true,
-    defaultValue: [20, 60],
-    className: 'h-[200px]',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export function LegacyControlled() {
-  const [value, setValue] = useState(50);
-  return (
-    <div className="flex flex-col gap-4 items-center w-[300px]">
-      <Slider value={value} onChange={(v) => setValue(v as number)} />
-      <p className="text-sm text-[var(--secondary)]">
-        Value: {value}
-      </p>
+export const DocsStates: Story = {
+  render: () => (
+    <div className="p-6 flex flex-col gap-10">
+      <div>
+        <p className="text-sm font-semibold mb-2">Default</p>
+        <Slider defaultValue={50} className="w-[300px]">
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb value={50} type="end" />
+        </Slider>
+      </div>
+      <div>
+        <p className="text-sm font-semibold mb-2">Disabled</p>
+        <Slider defaultValue={50} disabled className="w-[300px]">
+          <SliderTrack>
+            <SliderRange />
+          </SliderTrack>
+          <SliderThumb value={50} type="end" />
+        </Slider>
+      </div>
     </div>
-  );
-}
+  ),
+  parameters: {
 
-/** @deprecated Use composable API instead. */
-export function LegacyControlledRange() {
-  const [value, setValue] = useState<[number, number]>([20, 80]);
-  return (
-    <div className="flex flex-col gap-4 items-center w-[300px]">
-      <Slider 
-        range 
-        value={value} 
-        onChange={(v) => setValue(v as [number, number])} 
-      />
-      <p className="text-sm text-[var(--secondary)]">
-        Range: {value[0]} - {value[1]}
-      </p>
-    </div>
-  );
-}
-
+    docsOnly: true,
+    docs: {
+      description: {
+        story: 'Slider states: default and disabled.',
+      },
+    },
+  },
+};

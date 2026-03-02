@@ -52,7 +52,7 @@ export const CheckboxError = React.forwardRef<HTMLParagraphElement, CheckboxErro
       <Comp
         ref={ref}
         role="alert"
-        className={cn("text-sm leading-relaxed mt-1 text-critical", className)}
+        className={cn("basis-full w-full text-sm leading-relaxed mt-1 text-critical", className)}
         style={{ marginLeft, ...props.style }}
         {...props}
       >
@@ -63,4 +63,3 @@ export const CheckboxError = React.forwardRef<HTMLParagraphElement, CheckboxErro
 );
 
 CheckboxError.displayName = 'CheckboxError';
-

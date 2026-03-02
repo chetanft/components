@@ -124,8 +124,8 @@ export const TreeNode = React.forwardRef<HTMLDivElement, TreeNodeProps>(
           className={cn(
             "flex items-center py-[var(--spacing-x1)] px-[var(--spacing-x1)]",
             "rounded transition-colors",
-            isSelected && cn(getGlassInnerBg(contextGlass, "bg-[var(--color-primary-light)]", "bg-white/15 dark:bg-white/15"), "text-[var(--color-primary)]"),
-            !isSelected && !isNodeDisabled && (contextGlass ? "hover:bg-white/10 dark:hover:bg-white/10" : "hover:bg-[var(--color-bg-secondary)]"),
+            isSelected && cn(getGlassInnerBg(contextGlass, "bg-[var(--color-primary-light)]", "bg-[var(--glass-selected)]"), "text-[var(--color-primary)]"),
+            !isSelected && !isNodeDisabled && (contextGlass ? "hover:bg-[var(--glass-hover)]" : "hover:bg-[var(--color-bg-secondary)]"),
             isNodeDisabled && "opacity-50 cursor-not-allowed",
             blockNode && "w-full",
             className

@@ -1,5 +1,5 @@
 export { Steps } from './Steps';
-export type { StepsProps, Step } from './Steps';
+export type { StepsProps } from './Steps';
 
 export { StepsProvider, useStepsContext } from './StepsContext';
 export type { StepsContextType, StepState, StepDevice, StepDirection, StepType } from './StepsContext';

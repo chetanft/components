@@ -11,8 +11,32 @@ const meta: Meta<typeof FileValidationCard> = {
         component: 'A card component displaying file validation status and statistics.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'Default' as const },
+            { id: 'Success', label: 'Success', story: 'Success' as const },
+            { id: 'Failed', label: 'Failed', story: 'Failed' as const },
+            { id: 'Partial', label: 'Partial', story: 'Partial' as const },
+            { id: 'CSV', label: 'CSV', story: 'CSV' as const },
+          ],
+        },
+      ],
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
+  args: {
+    glass: true,
+  },
   argTypes: {
     validationStatus: {
       control: 'select',
@@ -23,6 +47,11 @@ const meta: Meta<typeof FileValidationCard> = {
       control: 'select',
       options: ['excel', 'csv', 'generic'],
       description: 'The file type icon to display',
+    },
+    glass: {
+      control: 'select',
+      options: [false, true, 'subtle', 'prominent'],
+      description: 'Glass style variant',
     },
   },
 };

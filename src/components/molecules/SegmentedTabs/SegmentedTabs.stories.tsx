@@ -10,8 +10,36 @@ const meta: Meta<typeof SegmentedTabs> = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Segmented tabs component for switching between related options. Supports both composable API (recommended) and declarative API (deprecated).',
+        component: 'Segmented tabs component for switching between related options using composable API.',
       },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { contentType: 'default' } },
+            { id: 'with-icons', label: 'Icons', story: 'ExplorerBase', args: { contentType: 'with-icons' } },
+            { id: 'icon-only', label: 'Icon Only', story: 'ExplorerBase', args: { contentType: 'icon-only' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: {} },
+            { id: 'controlled', label: 'Controlled', story: 'ExplorerBase', args: { contentType: 'controlled' } },
+          ],
+        },
+      ],
+      supportsGlass: true,
     },
   },
   tags: ['autodocs'],
@@ -26,41 +54,36 @@ const meta: Meta<typeof SegmentedTabs> = {
 export default meta;
 type Story = StoryObj<typeof SegmentedTabs>;
 
-// Declarative API Examples
-/** @deprecated Use composable API instead. */
-export const LegacyDeclarativeDefault: Story = {
-  args: {
-    items: [
-      { label: 'Tab 1', value: 'tab1' },
-      { label: 'Tab 2', value: 'tab2' },
-      { label: 'Tab 3', value: 'tab3' },
-    ],
-    defaultValue: 'tab1',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDeclarativeWithIcons: Story = {
-  args: {
-    items: [
-      { label: 'Home', value: 'home', icon: <Icon name="home" size={16} /> },
-      { label: 'Settings', value: 'settings', icon: <Icon name="settings" size={16} /> },
-      { label: 'Profile', value: 'profile', icon: <Icon name="user" size={16} /> },
-    ],
-    defaultValue: 'home',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDeclarativeIconOnly: Story = {
-  args: {
-    variant: 'icon-only',
-    items: [
-      { label: 'Home', value: 'home', icon: <Icon name="home" size={16} /> },
-      { label: 'Settings', value: 'settings', icon: <Icon name="settings" size={16} /> },
-      { label: 'Profile', value: 'profile', icon: <Icon name="user" size={16} /> },
-    ],
-    defaultValue: 'home',
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const contentType = args.contentType ?? 'default';
+    const [value, setValue] = useState(contentType === 'icon-only' || contentType === 'with-icons' ? 'home' : 'tab1');
+    const syncKey = JSON.stringify({ contentType, glass: args.glass });
+    return (
+      <div key={syncKey}>
+        {(contentType === 'with-icons') && (
+          <SegmentedTabs value={value} onChange={setValue}>
+            <SegmentedTabItem value="home" label="Home" icon={<Icon name="home" size={16} />} />
+            <SegmentedTabItem value="settings" label="Settings" icon={<Icon name="settings" size={16} />} />
+            <SegmentedTabItem value="profile" label="Profile" icon={<Icon name="user" size={16} />} />
+          </SegmentedTabs>
+        )}
+        {contentType === 'icon-only' && (
+          <SegmentedTabs value={value} onChange={setValue} variant="icon-only">
+            <SegmentedTabItem value="home" label="Home" icon={<Icon name="home" size={16} />} />
+            <SegmentedTabItem value="settings" label="Settings" icon={<Icon name="settings" size={16} />} />
+            <SegmentedTabItem value="profile" label="Profile" icon={<Icon name="user" size={16} />} />
+          </SegmentedTabs>
+        )}
+        {(contentType === 'default' || contentType === 'controlled') && (
+          <SegmentedTabs value={value} onChange={setValue}>
+            <SegmentedTabItem value="tab1" label="Tab 1" />
+            <SegmentedTabItem value="tab2" label="Tab 2" />
+            <SegmentedTabItem value="tab3" label="Tab 3" />
+          </SegmentedTabs>
+        )}
+      </div>
+    );
   },
 };
 
@@ -103,54 +126,8 @@ function ComposableWithIconsComponent() {
   );
 }
 
-export const WithIcons: Story = {
+export const DocsWithIcons: Story = {
   render: () => <ComposableWithIconsComponent />,
-};
 
-function ComposableIconOnlyComponent() {
-  const [value, setValue] = useState('home');
-  return (
-    <SegmentedTabs value={value} onChange={setValue} variant="icon-only">
-      <SegmentedTabItem 
-        value="home" 
-        label="Home" 
-        icon={<Icon name="home" size={16} />}
-      />
-      <SegmentedTabItem 
-        value="settings" 
-        label="Settings" 
-        icon={<Icon name="settings" size={16} />}
-      />
-      <SegmentedTabItem 
-        value="profile" 
-        label="Profile" 
-        icon={<Icon name="user" size={16} />}
-      />
-    </SegmentedTabs>
-  );
+  parameters: { docsOnly: true },
 }
-
-export const IconOnly: Story = {
-  render: () => <ComposableIconOnlyComponent />,
-};
-
-function ComposableControlledComponent() {
-  const [value, setValue] = useState('option1');
-  return (
-    <div className="space-y-4">
-      <SegmentedTabs value={value} onChange={setValue}>
-        <SegmentedTabItem value="option1" label="Option 1" />
-        <SegmentedTabItem value="option2" label="Option 2" />
-        <SegmentedTabItem value="option3" label="Option 3" />
-      </SegmentedTabs>
-      <p className="text-sm text-[var(--color-tertiary)]">
-        Selected: {value}
-      </p>
-    </div>
-  );
-}
-
-export const Controlled: Story = {
-  render: () => <ComposableControlledComponent />,
-};
-

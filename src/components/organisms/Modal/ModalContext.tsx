@@ -12,16 +12,11 @@ export interface ModalContextValue {
    * Whether modal is open
    */
   open: boolean;
-  
+
   /**
    * Open the modal
    */
   setOpen: (open: boolean) => void;
-  
-  /**
-   * Close the modal
-   */
-  onClose?: () => void;
 }
 
 const ModalContext = createContext<ModalContextValue | undefined>(undefined);
@@ -33,7 +28,6 @@ const ModalContext = createContext<ModalContextValue | undefined>(undefined);
 const defaultContext: ModalContextValue = {
   open: false,
   setOpen: () => {},
-  onClose: undefined,
 };
 
 /**
@@ -59,7 +53,6 @@ interface ModalContextProviderProps {
   children: React.ReactNode;
   open: boolean;
   onOpenChange?: (open: boolean) => void;
-  onClose?: () => void;
 }
 
 /**
@@ -71,26 +64,22 @@ export function ModalContextProvider({
   children,
   open: controlledOpen,
   onOpenChange,
-  onClose
 }: ModalContextProviderProps) {
   const [internalOpen, setInternalOpen] = useState(false);
-  
+
   const isControlled = onOpenChange !== undefined;
   const open = isControlled ? controlledOpen : internalOpen;
-  
+
   const setOpen = useCallback((newOpen: boolean) => {
     if (isControlled) {
       onOpenChange?.(newOpen);
     } else {
       setInternalOpen(newOpen);
     }
-    if (!newOpen) {
-      onClose?.();
-    }
-  }, [isControlled, onOpenChange, onClose]);
-  
+  }, [isControlled, onOpenChange]);
+
   return (
-    <ModalContext.Provider value={{ open, setOpen, onClose }}>
+    <ModalContext.Provider value={{ open, setOpen }}>
       {children}
     </ModalContext.Provider>
   );

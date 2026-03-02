@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Modal, ModalTrigger, ModalContent, ModalHeader, ModalTitle, ModalDescription, ModalBody, ModalFooter, ModalClose } from './index';
 import { Button } from '../../atoms/Button/Button';
@@ -13,48 +13,88 @@ const meta: Meta<typeof Modal> = {
         component: 'A modal component for displaying content in an overlay. Supports open/close, ESC key, and outside click.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'center-overlay' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'basic', label: 'Basic', story: 'ExplorerBase', args: { contentVariant: 'basic' } },
+            { id: 'with-footer', label: 'Footer', story: 'ExplorerBase', args: { contentVariant: 'with-footer' } },
+          ],
+        },
+        {
+          id: 'size',
+          label: 'Size',
+          scenarios: [
+            { id: 'sm', label: 'Small', story: 'ExplorerBase', args: { size: 'sm' } },
+            { id: 'md', label: 'Medium', story: 'ExplorerBase', args: { size: 'md' } },
+            { id: 'lg', label: 'Large', story: 'ExplorerBase', args: { size: 'lg' } },
+            { id: 'xl', label: 'Extra Large', story: 'ExplorerBase', args: { size: 'xl' } },
+            { id: 'full', label: 'Full', story: 'ExplorerBase', args: { size: 'full' } },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'basic',
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
   argTypes: {
     open: {
       control: 'boolean',
-      description: 'Whether the modal is open'
+      description: 'Whether the modal is open',
     },
-    title: {
-      control: 'text',
-      description: 'Modal title'
-    },
-    closable: {
-      control: 'boolean',
-      description: 'Whether the modal can be closed'
-    },
-    maskClosable: {
-      control: 'boolean',
-      description: 'Whether clicking outside closes the modal'
-    },
-    centered: {
-      control: 'boolean',
-      description: 'Whether to center the modal'
-    },
-    width: {
-      control: 'text',
-      description: 'Modal width'
-    },
-    size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg', 'xl', 'full'],
-      description: 'Modal size preset'
-    }
   },
-} satisfies Meta<typeof Modal>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Modal>;
+
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const size = args.size ?? 'md';
+    const contentVariant = args.contentVariant ?? 'basic';
+    return (
+      <Modal open onOpenChange={() => {}}>
+        <ModalContent size={size}>
+          <ModalHeader>
+            <ModalTitle>{contentVariant === 'with-footer' ? 'Modal with Footer' : 'Basic Modal'}</ModalTitle>
+            {contentVariant === 'with-footer' ? (
+              <ModalDescription>This modal has a footer with action buttons.</ModalDescription>
+            ) : null}
+          </ModalHeader>
+          <ModalBody>
+            <p>
+              {contentVariant === 'with-footer'
+                ? 'This modal has a footer with action buttons.'
+                : 'This is a basic modal with a title and close button.'}
+            </p>
+          </ModalBody>
+          {contentVariant === 'with-footer' ? (
+            <ModalFooter>
+              <ModalClose asChild>
+                <Button variant="secondary">Cancel</Button>
+              </ModalClose>
+              <Button variant="primary">Confirm</Button>
+            </ModalFooter>
+          ) : null}
+        </ModalContent>
+      </Modal>
+    );
+  },
+};
 
 function DefaultModalRender() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="p-6">
-      <Modal>
+      <Modal open={open} onOpenChange={setOpen}>
         <ModalTrigger asChild>
           <Button>Open Modal</Button>
         </ModalTrigger>
@@ -80,9 +120,10 @@ export const Default: Story = {
 
 // Basic modal with composable API
 export function BasicModal() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="p-6">
-      <Modal>
+      <Modal open={open} onOpenChange={setOpen}>
         <ModalTrigger asChild>
           <Button>Open Modal</Button>
         </ModalTrigger>
@@ -101,9 +142,10 @@ export function BasicModal() {
 
 // Modal with footer using composable API
 export function WithFooter() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="p-6">
-      <Modal>
+      <Modal open={open} onOpenChange={setOpen}>
         <ModalTrigger asChild>
           <Button>Open Modal</Button>
         </ModalTrigger>
@@ -127,210 +169,87 @@ export function WithFooter() {
 }
 
 // Modal sizes using composable API
-export function Sizes() {
+export function DocsSizes() {
   return (
     <div className="p-6 space-y-4">
       <h3 className="text-lg font-semibold mb-4">Modal Sizes</h3>
       <div className="flex flex-wrap gap-4">
-        {(['sm', 'md', 'lg', 'xl', 'full'] as const).map((size) => (
-          <Modal key={size}>
-            <ModalTrigger asChild>
-              <Button>{size.toUpperCase()}</Button>
-            </ModalTrigger>
-            <ModalContent size={size}>
-              <ModalHeader>
-                <ModalTitle>Modal Size: {size}</ModalTitle>
-              </ModalHeader>
-              <ModalBody>
-                <p>This modal is using the <strong>{size}</strong> size preset.</p>
-                <p className="mt-2 text-gray-500">
-                  Content adapts to the width of the modal.
-                </p>
-              </ModalBody>
-              <ModalFooter>
-                <ModalClose asChild>
-                  <Button variant="secondary">Close</Button>
-                </ModalClose>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-        ))}
+        {(['sm', 'md', 'lg', 'xl', 'full'] as const).map((size) => {
+          function SizeModalDemo() {
+            const [open, setOpen] = useState(false);
+            return (
+              <Modal open={open} onOpenChange={setOpen}>
+                <ModalTrigger asChild>
+                  <Button>{size.toUpperCase()}</Button>
+                </ModalTrigger>
+                <ModalContent size={size}>
+                  <ModalHeader>
+                    <ModalTitle>Modal Size: {size}</ModalTitle>
+                  </ModalHeader>
+                  <ModalBody>
+                    <p>This modal is using the <strong>{size}</strong> size preset.</p>
+                    <p className="mt-2 text-gray-500">
+                      Content adapts to the width of the modal.
+                    </p>
+                  </ModalBody>
+                  <ModalFooter>
+                    <ModalClose asChild>
+                      <Button variant="secondary">Close</Button>
+                    </ModalClose>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
+            );
+          }
+          return <SizeModalDemo key={size} />;
+        })}
       </div>
     </div>
   );
 }
 
-// --- Legacy declarative API stories ---
-
-/** @deprecated Use BasicModal (composable API) instead. */
-export function LegacyBasicModal() {
-  const [open, setOpen] = React.useState(false);
-
+function ModalSizeDemo({ size }: { size: 'sm' | 'md' | 'lg' | 'xl' | 'full' }) {
+  const [open, setOpen] = useState(false);
   return (
     <div className="p-6">
-      <Button onClick={() => setOpen(true)}>Open Modal</Button>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        title="Basic Modal"
-      >
-        <p>This is a basic modal with a title and close button.</p>
+      <Modal open={open} onOpenChange={setOpen}>
+        <ModalTrigger asChild>
+          <Button>Open {size.toUpperCase()}</Button>
+        </ModalTrigger>
+        <ModalContent size={size}>
+          <ModalHeader>
+            <ModalTitle>Modal Size: {size}</ModalTitle>
+          </ModalHeader>
+          <ModalBody>
+            <p>This modal is using the <strong>{size}</strong> size preset.</p>
+          </ModalBody>
+          <ModalFooter>
+            <ModalClose asChild>
+              <Button variant="secondary">Close</Button>
+            </ModalClose>
+          </ModalFooter>
+        </ModalContent>
       </Modal>
     </div>
   );
 }
 
-/** @deprecated Use composable API instead. */
-export function LegacyWithoutTitle() {
-  const [open, setOpen] = React.useState(false);
+export const Small: Story = {
+  render: () => <ModalSizeDemo size="sm" />,
+};
 
-  return (
-    <div className="p-6">
-      <Button onClick={() => setOpen(true)}>Open Modal</Button>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        closable={true}
-      >
-        <p>This modal has no title but still has a close button.</p>
-      </Modal>
-    </div>
-  );
-}
+export const Medium: Story = {
+  render: () => <ModalSizeDemo size="md" />,
+};
 
-/** @deprecated Use WithFooter (composable API) instead. */
-export function LegacyWithFooter() {
-  const [open, setOpen] = React.useState(false);
+export const Large: Story = {
+  render: () => <ModalSizeDemo size="lg" />,
+};
 
-  return (
-    <div className="p-6">
-      <Button onClick={() => setOpen(true)}>Open Modal</Button>
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        title="Modal with Footer"
-        footer={
-          <div className="flex gap-2">
-            <Button variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
-            <Button variant="primary" onClick={() => setOpen(false)}>Confirm</Button>
-          </div>
-        }
-      >
-        <p>This modal has a footer with action buttons.</p>
-      </Modal>
-    </div>
-  );
-}
+export const ExtraLarge: Story = {
+  render: () => <ModalSizeDemo size="xl" />,
+};
 
-/** @deprecated Use composable API instead. */
-export function LegacyInteractiveDemo() {
-  const [basicOpen, setBasicOpen] = React.useState(false);
-  const [footerOpen, setFooterOpen] = React.useState(false);
-  const [noTitleOpen, setNoTitleOpen] = React.useState(false);
-  const [noCloseOpen, setNoCloseOpen] = React.useState(false);
-
-  return (
-    <div className="p-6 space-y-4">
-      <h3 className="text-lg font-semibold mb-4">All Modal Variants - Interactive</h3>
-      <p className="text-sm text-gray-600 mb-6">Click buttons to open modals. Close with X button, ESC key, or clicking outside.</p>
-
-      <div className="flex flex-wrap gap-4">
-        <Button onClick={() => setBasicOpen(true)}>Basic Modal</Button>
-        <Button onClick={() => setFooterOpen(true)}>Modal with Footer</Button>
-        <Button onClick={() => setNoTitleOpen(true)}>Modal without Title</Button>
-        <Button onClick={() => setNoCloseOpen(true)}>Modal without Close Button</Button>
-      </div>
-
-      <Modal
-        open={basicOpen}
-        onClose={() => setBasicOpen(false)}
-        title="Basic Modal"
-        closable={true}
-        maskClosable={true}
-      >
-        <p>This is a basic modal. You can close it by:</p>
-        <ul className="list-disc list-inside mt-2 space-y-1">
-          <li>Clicking the X button</li>
-          <li>Pressing ESC key</li>
-          <li>Clicking outside the modal</li>
-        </ul>
-      </Modal>
-
-      <Modal
-        open={footerOpen}
-        onClose={() => setFooterOpen(false)}
-        title="Modal with Footer"
-        closable={true}
-        maskClosable={true}
-        footer={
-          <div className="flex gap-2">
-            <Button variant="secondary" onClick={() => setFooterOpen(false)}>Cancel</Button>
-            <Button variant="primary" onClick={() => setFooterOpen(false)}>Confirm</Button>
-          </div>
-        }
-      >
-        <p>This modal has a footer with action buttons.</p>
-      </Modal>
-
-      <Modal
-        open={noTitleOpen}
-        onClose={() => setNoTitleOpen(false)}
-        closable={true}
-        maskClosable={true}
-      >
-        <p>This modal has no title but still has a close button.</p>
-      </Modal>
-
-      <Modal
-        open={noCloseOpen}
-        onClose={() => setNoCloseOpen(false)}
-        title="Modal without Close Button"
-        closable={false}
-        maskClosable={true}
-        footer={
-          <Button variant="primary" onClick={() => setNoCloseOpen(false)}>Close</Button>
-        }
-      >
-        <p>This modal has no X button. You can only close it by clicking outside or using the footer button.</p>
-      </Modal>
-    </div>
-  );
-}
-
-/** @deprecated Use Sizes (composable API) instead. */
-export function LegacySizes() {
-  const [open, setOpen] = React.useState(false);
-  const [size, setSize] = React.useState<'sm' | 'md' | 'lg' | 'xl' | 'full'>('md');
-
-  const openModal = (s: 'sm' | 'md' | 'lg' | 'xl' | 'full') => {
-    setSize(s);
-    setOpen(true);
-  };
-
-  return (
-    <div className="p-6 space-y-4">
-      <h3 className="text-lg font-semibold mb-4">Modal Sizes</h3>
-      <div className="flex flex-wrap gap-4">
-        <Button onClick={() => openModal('sm')}>Small (sm)</Button>
-        <Button onClick={() => openModal('md')}>Medium (md)</Button>
-        <Button onClick={() => openModal('lg')}>Large (lg)</Button>
-        <Button onClick={() => openModal('xl')}>Extra Large (xl)</Button>
-        <Button onClick={() => openModal('full')}>Full Width (full)</Button>
-      </div>
-
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        title={`Modal Size: ${size}`}
-        size={size}
-        closable={true}
-        maskClosable={true}
-      >
-        <p>This modal is using the <strong>{size}</strong> size preset.</p>
-        <p className="mt-2 text-gray-500">
-          Content adapts to the width of the modal.
-        </p>
-      </Modal>
-    </div>
-  );
-}
+export const Full: Story = {
+  render: () => <ModalSizeDemo size="full" />,
+};

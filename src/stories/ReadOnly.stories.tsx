@@ -11,6 +11,31 @@ const meta: Meta<typeof ReadOnly> = {
         component: 'A read-only field display component for showing label-value pairs in different layouts. Based on Figma design specifications.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'vertical', label: 'Vertical', story: 'VerticalBasic' },
+            { id: 'horizontal', label: 'Horizontal', story: 'HorizontalBasic' },
+          ],
+        },
+        {
+          id: 'content',
+          label: 'Content',
+          scenarios: [
+            { id: 'basic', label: 'Basic', story: 'VerticalBasic' },
+            { id: 'icon', label: 'With Icon', story: 'VerticalWithIcon' },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'vertical',
+    },
   },
   argTypes: {
     label: {

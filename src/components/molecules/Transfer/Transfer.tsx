@@ -17,11 +17,6 @@ export interface TransferItem {
 export interface TransferProps {
     /** Glass morphism variant */
     glass?: GlassVariant;
-    /**
-     * Data source array (for declarative API)
-     * @deprecated Use TransferItem components as children instead
-     */
-    dataSource?: TransferItem[];
     titles?: [React.ReactNode, React.ReactNode];
     operations?: [string, string];
     targetKeys?: string[];
@@ -31,10 +26,6 @@ export interface TransferProps {
     onScroll?: (direction: 'left' | 'right', e: React.SyntheticEvent<HTMLUListElement>) => void;
     render?: (item: TransferItem) => React.ReactNode;
     footer?: (props: any) => React.ReactNode;
-    /**
-     * @deprecated Use conditional rendering: `{showSearch && <Input />}`
-     */
-    showSearch?: boolean;
     filterOption?: (inputValue: string, item: TransferItem) => boolean;
     searchPlaceholder?: string;
     oneWay?: boolean;
@@ -216,7 +207,6 @@ const TransferList = ({
 };
 
 export const Transfer: React.FC<TransferProps> = ({
-    dataSource = [],
     titles = ['', ''],
     operations = ['', ''],
     targetKeys = [],
@@ -224,7 +214,6 @@ export const Transfer: React.FC<TransferProps> = ({
     onChange,
     onSelectChange,
     render,
-    showSearch,
     searchPlaceholder,
     oneWay,
     footer,
@@ -258,19 +247,6 @@ export const Transfer: React.FC<TransferProps> = ({
                 };
             });
     }, [children]);
-
-    // Use children items if available, otherwise use dataSource prop
-    const allItems = itemsFromChildren.length > 0 ? itemsFromChildren : dataSource;
-
-    // Check if using composable API
-    const hasComposableChildren = React.Children.count(children) > 0 && itemsFromChildren.length > 0;
-
-    // Show deprecation warning
-    if (process.env.NODE_ENV !== 'production') {
-        if (hasComposableChildren && dataSource.length > 0) {
-                    } else if (!hasComposableChildren && dataSource.length > 0) {
-                    }
-    }
 
     useEffect(() => {
         // Sync internal state with props if provided
@@ -324,8 +300,8 @@ export const Transfer: React.FC<TransferProps> = ({
         else setTargetSelectedKeys([]);
     };
 
-    const leftDataSource = allItems.filter(item => !targetKeys.includes(item.key));
-    const rightDataSource = allItems.filter(item => targetKeys.includes(item.key));
+    const leftDataSource = itemsFromChildren.filter(item => !targetKeys.includes(item.key));
+    const rightDataSource = itemsFromChildren.filter(item => targetKeys.includes(item.key));
 
     return (
         <div className={cn("flex items-center gap-[var(--spacing-x4)]", className)} {...props}>
@@ -336,7 +312,6 @@ export const Transfer: React.FC<TransferProps> = ({
                 onItemSelect={(key: string, checked: boolean) => handleSelect('left', key, checked)}
                 onItemSelectAll={(keys: string[], checked: boolean) => handleSelectAll('left', keys, checked)}
                 render={render}
-                showSearch={showSearch}
                 searchPlaceholder={searchPlaceholder}
                 footer={footer}
                 pagination={pagination}
@@ -375,7 +350,6 @@ export const Transfer: React.FC<TransferProps> = ({
                 onItemSelect={(key: string, checked: boolean) => handleSelect('right', key, checked)}
                 onItemSelectAll={(keys: string[], checked: boolean) => handleSelectAll('right', keys, checked)}
                 render={render}
-                showSearch={showSearch}
                 searchPlaceholder={searchPlaceholder}
                 footer={footer}
                 pagination={pagination}

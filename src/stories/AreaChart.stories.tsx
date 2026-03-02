@@ -10,7 +10,28 @@ const meta: Meta<typeof AreaChart> = {
       description: {
         component: 'Area chart component with filled areas underneath the line. Supports multiple datasets, gradients, and various interpolation modes.'
       }
-    }
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'chart',
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Basic',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Basic', label: 'Basic', story: 'Basic' as const },
+            { id: 'Linear', label: 'Linear', story: 'Linear' as const },
+            { id: 'Step', label: 'Step', story: 'Step' as const },
+            { id: 'Stacked', label: 'Stacked', story: 'Stacked' as const },
+            { id: 'Gradient', label: 'Gradient', story: 'Gradient' as const },
+            { id: 'WithAxes', label: 'WithAxes', story: 'WithAxes' as const },
+          ],
+        },
+      ],
+    },
   },
   argTypes: {
     title: {

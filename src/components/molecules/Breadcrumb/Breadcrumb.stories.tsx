@@ -12,82 +12,34 @@ const meta = {
         component: 'A breadcrumb navigation component for showing the current page location within a hierarchy.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'Default' as const },
+            { id: 'with-icons', label: 'Icons', story: 'WithIcons' as const },
+            { id: 'custom-separator', label: 'Custom Separator', story: 'CustomSeparator' as const },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
-  argTypes: {
-    items: {
-      control: false,
-      description: 'Array of breadcrumb items',
-    },
-    separator: {
-      control: false,
-      description: 'Custom separator between items',
-    },
-  },
+  argTypes: {},
 } satisfies Meta<typeof Breadcrumb>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const sampleItems = [
-  { label: 'Home', href: '/' },
-  { label: 'Products', href: '/products' },
-  { label: 'Electronics', href: '/products/electronics' },
-  { label: 'Current Page' },
-];
-
-// Default breadcrumb
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
-  args: {
-    items: sampleItems,
-  },
-};
-
-// Simple story - separate preview for simple breadcrumb
-/** @deprecated Use composable API instead. */
-export function LegacySimple() {
-  return (
-    <div className="p-6">
-      <Breadcrumb items={[
-        { label: 'Home', href: '/' },
-        { label: 'Current Page' },
-      ]} />
-    </div>
-  );
-}
-
-// With Icons story - separate preview for breadcrumb with icons
-/** @deprecated Use composable API instead. */
-export function LegacyWithIcons() {
-  return (
-    <div className="p-6">
-      <Breadcrumb items={[
-        { label: 'Home', href: '/', icon: 'home' },
-        { label: 'Settings', href: '/settings', icon: 'settings' },
-        { label: 'Profile' },
-      ]} />
-    </div>
-  );
-}
-
-// Long Breadcrumb story - separate preview for long breadcrumb
-/** @deprecated Use composable API instead. */
-export function LegacyLongBreadcrumb() {
-  return (
-    <div className="p-6">
-      <Breadcrumb items={[
-        { label: 'Home', href: '/' },
-        { label: 'Category', href: '/category' },
-        { label: 'Subcategory', href: '/category/subcategory' },
-        { label: 'Item', href: '/category/subcategory/item' },
-        { label: 'Details' },
-      ]} />
-    </div>
-  );
-}
-
-// Composable API Examples (Recommended)
+// Composable API Examples
 export const Default: Story = {
   render: () => (
     <div className="p-6">
@@ -111,7 +63,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: '✅ **Composable API**: Use BreadcrumbList, BreadcrumbItem, BreadcrumbLink, and BreadcrumbSeparator sub-components for flexible breadcrumb composition.',
+        story: 'Use BreadcrumbList, BreadcrumbItem, BreadcrumbLink, and BreadcrumbSeparator sub-components for flexible breadcrumb composition.',
       },
     },
   },
@@ -172,21 +124,6 @@ export const CustomSeparator: Story = {
     docs: {
       description: {
         story: 'Custom separators can be provided using BreadcrumbSeparator with custom icon or children.',
-      },
-    },
-  },
-};
-
-// Mark deprecated examples
-/** @deprecated Use composable API instead. */
-export const LegacyDefaultWithItems: Story = {
-  args: {
-    items: sampleItems,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: '⚠️ **Deprecated**: This uses the deprecated `items` prop. Use the composable API with BreadcrumbList, BreadcrumbItem, and BreadcrumbLink instead.',
       },
     },
   },

@@ -11,8 +11,38 @@ const meta: Meta<typeof UploadThumbnail> = {
         component: 'Upload thumbnail component for image uploads with preview support.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'Default' as const },
+            { id: 'WithPreview', label: 'With Preview', story: 'WithPreview' as const },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'Default' as const },
+            { id: 'Disabled', label: 'Disabled', story: 'Disabled' as const },
+            { id: 'HoverState', label: 'Hover State', story: 'HoverState' as const },
+          ],
+        },
+      ],
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
+  args: {
+    glass: true,
+  },
   argTypes: {
     state: {
       control: 'select',
@@ -26,6 +56,11 @@ const meta: Meta<typeof UploadThumbnail> = {
     disabled: {
       control: 'boolean',
       description: 'Whether the thumbnail is disabled',
+    },
+    glass: {
+      control: 'select',
+      options: [false, true, 'subtle', 'prominent'],
+      description: 'Glass style variant',
     },
   },
 };

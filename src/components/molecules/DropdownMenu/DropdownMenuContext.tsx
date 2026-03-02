@@ -1,12 +1,11 @@
 "use client";
 
 import React, { createContext, useContext } from 'react';
-import type { DropdownMenuOption } from './DropdownMenuTypes';
 import type { SegmentedTabItem } from '../SegmentedTabs';
+import type { GlassVariant } from '../../../lib/glass';
 
 export interface DropdownMenuContextType {
   property: 'default' | 'search' | 'search-segmented' | 'disabled-info' | 'groups';
-  options: DropdownMenuOption[];
   selectedValue?: string;
   setSelectedValue: (value: string) => void;
   searchQuery: string;
@@ -18,6 +17,7 @@ export interface DropdownMenuContextType {
   selectedSegment?: string;
   onSegmentChange?: (value: string) => void;
   showScrollBar: boolean;
+  glass?: GlassVariant;
 }
 
 const DropdownMenuContext = createContext<DropdownMenuContextType | undefined>(undefined);
@@ -28,7 +28,6 @@ const DropdownMenuContext = createContext<DropdownMenuContextType | undefined>(u
  */
 const defaultContext: DropdownMenuContextType = {
   property: 'default',
-  options: [],
   selectedValue: undefined,
   setSelectedValue: () => {},
   searchQuery: '',
@@ -40,6 +39,7 @@ const defaultContext: DropdownMenuContextType = {
   selectedSegment: undefined,
   onSegmentChange: undefined,
   showScrollBar: false,
+  glass: undefined,
 };
 
 export const useDropdownMenuContext = () => {

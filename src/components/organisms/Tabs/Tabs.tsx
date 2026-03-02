@@ -1,13 +1,9 @@
 "use client";
 import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '../../../lib/utils';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { getGlassClasses, getGlassStateLayer, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
-import { Button } from '../../atoms/Button/Button';
-import { TabsProvider } from './TabsContext';
-import { TabsList } from './TabsList';
-import { TabsTrigger } from './TabsTrigger';
-import { TabsContent } from './TabsContent';
+import { TabsProvider, useTabsContext } from './TabsContext';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type TabType = 'primary' | 'secondary' | 'tertiary';
@@ -108,6 +104,8 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
     ...props
   }, ref) => {
     const [isHovered, setIsHovered] = useState(false);
+    const tabsContext = useTabsContext();
+    const glass = tabsContext.glass;
 
     // Get current state
     const currentState: TabState = active ? 'selected' : (isHovered ? 'hover' : 'unselected');
@@ -146,14 +144,14 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
             : "border-[var(--tertiary)]"
       ],
 
-      // Background colors based on state and type - using FT design system tokens
+      // Background colors based on state and type - glass-aware using FT design system tokens
       currentState === 'selected' && [
-        (type === 'secondary' || type === 'tertiary') && "bg-[var(--border-secondary)]"
+        (type === 'secondary' || type === 'tertiary') && getGlassStateLayer(glass, "bg-[var(--border-secondary)]", "bg-[var(--glass-selected)]")
       ],
 
       currentState === 'hover' && [
-        type === 'primary' && "bg-[var(--border-secondary)]",
-        (type === 'secondary' || type === 'tertiary') && "bg-[var(--bg-secondary)]"
+        type === 'primary' && getGlassStateLayer(glass, "bg-[var(--border-secondary)]", "bg-[var(--glass-hover)]"),
+        (type === 'secondary' || type === 'tertiary') && getGlassStateLayer(glass, "bg-[var(--bg-secondary)]", "bg-[var(--glass-hover)]")
       ],
 
       currentState === 'unselected' && "bg-transparent",
@@ -213,16 +211,11 @@ export interface TabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
    */
   children?: React.ReactNode;
   /**
-   * Tabs array (for declarative API)
-   * @deprecated Use TabsList, TabsTrigger, and TabsContent components instead
-   */
-  tabs?: Tab[];
-  /**
-   * Active tab index (for declarative API)
+   * Active tab index
    */
   activeTab?: number;
   /**
-   * Callback when tab changes (for declarative API)
+   * Callback when tab changes
    */
   onTabChange?: (index: number) => void;
   /**
@@ -230,12 +223,6 @@ export interface TabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
    * @default 'primary'
    */
   type?: TabType;
-  /**
-   * Show line below tabs
-   * @default true
-   * @deprecated Use conditional rendering or CSS classes instead. Consider using a wrapper div with border styling.
-   */
-  showLine?: boolean;
   /**
    * Overflow behavior
    * @default 'auto'
@@ -247,14 +234,13 @@ export interface TabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  * Tabs Component
  * 
  * A versatile tabs component for organizing content into multiple panels.
- * Supports both composable API (recommended) and declarative API (deprecated).
- * 
+ * Uses composable API with sub-components for maximum flexibility.
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
- * // Composable API (recommended)
- * <Tabs type="primary" showLine>
+ * <Tabs type="primary">
  *   <TabsList>
  *     <TabsTrigger value="tab1">Tab 1</TabsTrigger>
  *     <TabsTrigger value="tab2">Tab 2</TabsTrigger>
@@ -262,24 +248,17 @@ export interface TabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  *   <TabsContent value="tab1">Content 1</TabsContent>
  *   <TabsContent value="tab2">Content 2</TabsContent>
  * </Tabs>
- * 
- * // Declarative API (deprecated)
- * <Tabs tabs={tabs} activeTab={0} onTabChange={handleChange} />
  * ```
- * 
+ *
  * @remarks
- * - Composable API provides maximum flexibility and control
  * - All sub-components (TabsList, TabsTrigger, TabsContent) support `asChild`
  * - Supports multiple tab types: primary, secondary, tertiary
  * - Accessible: includes ARIA attributes and keyboard navigation
- * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   ({
     glass,
-    showLine = true,
     children,
-    tabs,
     activeTab = 0,
     onTabChange,
     type = 'primary',
@@ -289,70 +268,11 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     ...props
   }, ref) => {
     const resolvedGlass = useResolvedGlass(glass);
-    // Check if using composable API (has children with Tabs sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
-      child?.type?.displayName?.startsWith('Tabs')
-    );
-    
-    // If using composable API, wrap with context provider
-    if (hasComposableChildren) {
-      // Show deprecation warning if using old props with composable API
-      if (process.env.NODE_ENV !== 'production' && tabs && tabs.length > 0) {
-              }
-      
-      const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
-      const valueToIndexMapRef = useRef<Map<string, number>>(new Map());
-      // Reset the map on each render so registrations reflect the latest tree
-      valueToIndexMapRef.current = new Map();
-      
-      useEffect(() => {
-        if (activeTab !== undefined) {
-          setInternalActiveTab(activeTab);
-        }
-      }, [activeTab]);
-      
-      const handleTabChange = useCallback((index: number) => {
-        setInternalActiveTab(index);
-        onTabChange?.(index);
-      }, [onTabChange]);
-      
-      const registerValue = useCallback((value: string, index: number) => {
-        valueToIndexMapRef.current.set(value, index);
-      }, []);
-      
-      const Comp = asChild ? Slot : 'div';
-      return (
-        <TabsProvider
-          value={{
-            activeTab: internalActiveTab,
-            onTabChange: handleTabChange,
-            type,
-            showLine,
-            valueToIndexMap: valueToIndexMapRef.current,
-            registerValue,
-          }}
-        >
-          <Comp
-            ref={ref}
-            className={cn(getGlassClasses(resolvedGlass, '', ''), "flex flex-col relative", className)}
-            {...props}
-          >
-            {children}
-          </Comp>
-        </TabsProvider>
-      );
-    }
-    
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production' && tabs && tabs.length > 0) {
-          }
+
     const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
-    const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-    const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const dropdownTriggerRef = useRef<HTMLButtonElement | null>(null);
-    const dropdownMenuRef = useRef<HTMLDivElement | null>(null);
-    const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
+    const valueToIndexMapRef = useRef<Map<string, number>>(new Map());
+    // Reset the map on each render so registrations reflect the latest tree
+    valueToIndexMapRef.current = new Map();
 
     useEffect(() => {
       if (activeTab !== undefined) {
@@ -360,166 +280,36 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       }
     }, [activeTab]);
 
-    const handleTabSelect = useCallback((index: number) => {
+    const handleTabChange = useCallback((index: number) => {
       setInternalActiveTab(index);
       onTabChange?.(index);
     }, [onTabChange]);
 
-    const scrollToTab = useCallback((index: number) => {
-      const node = tabRefs.current[index];
-      if (!node) return;
-      try {
-        node.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      } catch {
-        const container = scrollContainerRef.current;
-        if (!container) return;
-        const offset = node.offsetLeft - container.clientWidth / 2 + node.clientWidth / 2;
-        container.scrollTo({ left: offset, behavior: 'smooth' });
-      }
+    const registerValue = useCallback((value: string, index: number) => {
+      valueToIndexMapRef.current.set(value, index);
     }, []);
 
-    const handleDropdownSelect = (index: number) => {
-      if (!tabs) return;
-      const tab = tabs[index];
-      if (!tab || tab.disabled) return;
-      handleTabSelect(index);
-      scrollToTab(index);
-      setDropdownOpen(false);
-    };
-
-    useEffect(() => {
-      if (!dropdownOpen) return;
-      const updatePosition = () => {
-        const rect = dropdownTriggerRef.current?.getBoundingClientRect();
-        if (rect) {
-          setMenuPosition({ top: rect.bottom + 8, left: rect.left });
-        }
-      };
-      updatePosition();
-      window.addEventListener('resize', updatePosition);
-      window.addEventListener('scroll', updatePosition, true);
-      return () => {
-        window.removeEventListener('resize', updatePosition);
-        window.removeEventListener('scroll', updatePosition, true);
-      };
-    }, [dropdownOpen]);
-
-    useEffect(() => {
-      if (!dropdownOpen) return;
-      const handleClick = (event: MouseEvent) => {
-        if (
-          dropdownTriggerRef.current?.contains(event.target as Node) ||
-          dropdownMenuRef.current?.contains(event.target as Node)
-        ) {
-          return;
-        }
-        setDropdownOpen(false);
-      };
-      const handleKey = (event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
-          setDropdownOpen(false);
-        }
-      };
-      document.addEventListener('mousedown', handleClick);
-      document.addEventListener('keydown', handleKey);
-      return () => {
-        document.removeEventListener('mousedown', handleClick);
-        document.removeEventListener('keydown', handleKey);
-      };
-    }, [dropdownOpen]);
-
-    const scrollContainerClasses = cn(
-      "flex items-start relative w-full overflow-x-auto min-w-0",
-      (type === 'secondary' || type === 'tertiary') && "gap-[var(--spacing-x2)]",
-      className
-    );
-
+    const Comp = asChild ? Slot : 'div';
     return (
-      <div className="flex flex-col relative">
-        <div className="flex items-start gap-[var(--spacing-x3)] w-full">
-          <div className="flex-1 min-w-0">
-            <div
-              ref={(node) => {
-                scrollContainerRef.current = node;
-                if (typeof ref === 'function') {
-                  ref(node);
-                } else if (ref) {
-                  ref.current = node;
-                }
-              }}
-              className={scrollContainerClasses}
-              {...props}
-            >
-              {tabs?.map((tab, index) => (
-                <TabItem
-                  key={index}
-                  label={tab.label}
-                  badge={tab.badge}
-                  badgeCount={tab.badgeCount}
-                  notification={tab.notification}
-                  icon={tab.icon}
-                  type={type}
-                  active={index === internalActiveTab}
-                  disabled={tab.disabled}
-                  onSelect={() => {
-                    if (!tab.disabled) {
-                      handleTabSelect(index);
-                      scrollToTab(index);
-                    }
-                  }}
-                  ref={(node) => {
-                    tabRefs.current[index] = node;
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-          {overflowBehavior === 'dropdown' && (
-            <Button
-              ref={dropdownTriggerRef}
-              variant="text"
-              size="md"
-              icon="more"
-              iconPosition="only"
-              aria-label="More tabs"
-              aria-pressed={dropdownOpen}
-              className={cn(
-                "shrink-0",
-                type === 'primary'
-                  ? "h-[calc(var(--spacing-x3)*2+1.4*1rem)] w-[calc(var(--spacing-x3)*2+1.4*1rem)]"
-                  : "h-[calc(var(--spacing-x2)*2+1.4*1rem)] w-[calc(var(--spacing-x2)*2+1.4*1rem)]"
-              )}
-              onClick={() => setDropdownOpen((prev) => !prev)}
-            />
-          )}
-        </div>
-        {overflowBehavior === 'dropdown' && dropdownOpen && (
-          <div
-            ref={dropdownMenuRef}
-            className="fixed z-50 rounded-lg border border-[var(--border-secondary)] bg-[var(--bg-primary)] shadow-lg min-w-[200px] py-[var(--spacing-x2)]"
-            style={{ top: menuPosition.top, left: menuPosition.left }}
-          >
-            {tabs?.map((tab, index) => (
-              <button
-                key={`all-tabs-${index}`}
-                className={cn(
-                  "w-full text-left px-[var(--spacing-x4)] py-[var(--spacing-x2)] text-[var(--primary)] hover:bg-[var(--bg-secondary)] transition-colors",
-                  index === internalActiveTab && "font-semibold",
-                  tab.disabled && "opacity-50 cursor-not-allowed"
-                )}
-                onClick={(event) => {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  handleDropdownSelect(index);
-                }}
-                disabled={tab.disabled}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
+      <TabsProvider
+        value={{
+          activeTab: internalActiveTab,
+          onTabChange: handleTabChange,
+          type,
+          showLine: true,
+          valueToIndexMap: valueToIndexMapRef.current,
+          registerValue,
+          glass: resolvedGlass,
+        }}
+      >
+        <Comp
+          ref={ref}
+          className={cn(getGlassClasses(resolvedGlass, '', ''), "flex flex-col relative", className)}
+          {...props}
+        >
+          {children}
+        </Comp>
+      </TabsProvider>
     );
   }
 );

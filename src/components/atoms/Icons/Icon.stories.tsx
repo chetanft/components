@@ -1,22 +1,62 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Icon, type IconName } from './Icon';
+import { iconMap } from './iconMap';
 
 const meta = {
   title: 'Components/Icon',
   component: Icon,
   parameters: {
-    layout: 'padded',
+    layout: 'centered',
     docs: {
       description: {
         component: 'Icon component with proper alignment and centering. Fixed issues with cropping and misalignment.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'category',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { name: 'check', size: 16, color: 'currentColor' } },
+            { id: 'navigation', label: 'Navigation', story: 'ExplorerBase', args: { name: 'chevron-right' } },
+            { id: 'action', label: 'Action', story: 'ExplorerBase', args: { name: 'edit' } },
+            { id: 'status', label: 'Status', story: 'ExplorerBase', args: { name: 'success', color: '#22c55e' } },
+          ],
+        },
+        {
+          id: 'size',
+          label: 'Size',
+          scenarios: [
+            { id: 'size-12', label: '12', story: 'ExplorerBase', args: { size: 12 } },
+            { id: 'size-16', label: '16', story: 'ExplorerBase', args: { size: 16 } },
+            { id: 'size-24', label: '24', story: 'ExplorerBase', args: { size: 24 } },
+            { id: 'size-32', label: '32', story: 'ExplorerBase', args: { size: 32 } },
+            { id: 'size-48', label: '48', story: 'ExplorerBase', args: { size: 48 } },
+          ],
+        },
+        {
+          id: 'style',
+          label: 'Style',
+          scenarios: [
+            { id: 'colors', label: 'Colors', story: 'ExplorerBase', args: { name: 'star', size: 24, color: '#f59e0b' } },
+            { id: 'brand', label: 'Brand', story: 'ExplorerBase', args: { name: 'ft-colour', size: 32 } },
+          ],
+        },
+      ],
+      defaultRowId: 'category',
+      defaultScenarioId: 'default',
+    },
   },
+  tags: ['autodocs'],
   argTypes: {
     name: {
       control: 'select',
-      options: ['add', 'edit', 'delete', 'download', 'preview', 'refresh', 'cross-icon'],
+      options: Object.keys(iconMap) as IconName[],
       description: 'Icon name',
     },
     size: {
@@ -33,6 +73,14 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const ExplorerBase: Story = {
+  args: {
+    name: 'check',
+    size: 16,
+    color: 'currentColor',
+  },
+};
+
 export const Default: Story = {
   args: {
     name: 'edit',
@@ -41,7 +89,7 @@ export const Default: Story = {
   },
 };
 
-export const IconAlignment = () => (
+export const DocsIconAlignment = () => (
   <div className="space-y-8">
     <div>
       <h3 className="text-lg font-semibold mb-4">Icon Alignment Test</h3>
@@ -115,7 +163,7 @@ export const IconAlignment = () => (
   </div>
 );
 
-export const AllIcons = () => {
+export const DocsAllIcons = () => {
   const commonIcons = [
     'add', 'edit', 'delete', 'download', 'preview', 'refresh', 'cross-icon',
     'chevron-left', 'chevron-right', 'chevron-up', 'chevron-down',

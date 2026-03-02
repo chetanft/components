@@ -2,20 +2,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { HoverCardProvider } from './HoverCardContext';
-import { HoverCardTrigger } from './HoverCardTrigger';
-import { HoverCardContent } from './HoverCardContent';
 
-export interface HoverCardProps extends Omit<ComposableProps<'div'>, 'children' | 'content'> {
+export interface HoverCardProps extends Omit<ComposableProps<'div'>, 'children'> {
     /**
-     * Trigger content (for declarative API)
-     * @deprecated Use HoverCardTrigger component instead
+     * HoverCard children (composable API sub-components)
      */
     children?: React.ReactNode;
-    /**
-     * Card content (for declarative API)
-     * @deprecated Use HoverCardContent component instead
-     */
-    content?: React.ReactNode;
     /**
      * Open delay in milliseconds
      * @default 200
@@ -46,13 +38,12 @@ export interface HoverCardProps extends Omit<ComposableProps<'div'>, 'children' 
  * HoverCard Component
  * 
  * A card that appears on hover with customizable content.
- * Supports both composable API (recommended) and declarative API (deprecated).
- * 
+ * Uses composable API with sub-components for maximum flexibility.
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
- * // Composable API (recommended)
  * <HoverCard openDelay={200} closeDelay={300}>
  *   <HoverCardTrigger>
  *     <Button>Hover me</Button>
@@ -61,22 +52,14 @@ export interface HoverCardProps extends Omit<ComposableProps<'div'>, 'children' 
  *     <p>Card content</p>
  *   </HoverCardContent>
  * </HoverCard>
- * 
- * // Declarative API (deprecated)
- * <HoverCard content={<p>Card content</p>}>
- *   <Button>Hover me</Button>
- * </HoverCard>
  * ```
- * 
+ *
  * @remarks
- * - Composable API provides maximum flexibility and control
  * - All sub-components (HoverCardTrigger, HoverCardContent) support `asChild`
  * - Supports custom delays and placement
- * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const HoverCard: React.FC<HoverCardProps> = ({
     children,
-    content,
     openDelay = 200,
     closeDelay = 300,
     width = 320,
@@ -87,12 +70,7 @@ export const HoverCard: React.FC<HoverCardProps> = ({
     const [open, setOpen] = useState(false);
     const openTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    
-    // Check if using composable API (has children with HoverCard sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
-        child?.type?.displayName?.startsWith('HoverCard')
-    );
-    
+
     // Create context value
     const contextValue = {
         open,
@@ -104,69 +82,20 @@ export const HoverCard: React.FC<HoverCardProps> = ({
         openTimeoutRef,
         closeTimeoutRef,
     };
-    
+
     useEffect(() => {
         return () => {
             if (openTimeoutRef.current) clearTimeout(openTimeoutRef.current);
             if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
         };
     }, []);
-    
-    // If using composable API, render with context provider
-    if (hasComposableChildren) {
-        if (process.env.NODE_ENV !== 'production' && content) {
-                    }
-        
-        const Comp = asChild ? Slot : 'div';
-        return (
-            <HoverCardProvider value={contextValue}>
-                <Comp className="relative inline-block">
-                    {children}
-                </Comp>
-            </HoverCardProvider>
-        );
-    }
-    
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production' && content) {
-            }
-    
-    const handleMouseEnter = () => {
-        if (closeTimeoutRef.current) {
-            clearTimeout(closeTimeoutRef.current);
-            closeTimeoutRef.current = null;
-        }
-        if (!open) {
-            openTimeoutRef.current = setTimeout(() => {
-                setOpen(true);
-            }, openDelay);
-        }
-    };
 
-    const handleMouseLeave = () => {
-        if (openTimeoutRef.current) {
-            clearTimeout(openTimeoutRef.current);
-            openTimeoutRef.current = null;
-        }
-        if (open) {
-            closeTimeoutRef.current = setTimeout(() => {
-                setOpen(false);
-            }, closeDelay);
-        }
-    };
-
+    const Comp = asChild ? Slot : 'div';
     return (
         <HoverCardProvider value={contextValue}>
-            <div
-                className="relative inline-block"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-            >
-                <div className="inline-block">
-                    {children}
-                </div>
-                {content && <HoverCardContent>{content}</HoverCardContent>}
-            </div>
+            <Comp className="relative inline-block">
+                {children}
+            </Comp>
         </HoverCardProvider>
     );
 };

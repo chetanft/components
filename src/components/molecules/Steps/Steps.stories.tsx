@@ -6,6 +6,40 @@ import { StepsList, StepItem, StepIcon, StepContent, StepTitle, StepDescription 
 const meta: Meta<typeof Steps> = {
   title: 'Molecules/Steps',
   component: Steps,
+  parameters: {
+    docs: {
+      description: {
+        component: 'Step indicator component supporting horizontal and vertical directions, default and dot styles. Use composable sub-components (StepsList, StepItem, StepIcon, StepContent, StepTitle, StepDescription) for flexible composition.',
+      },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { direction: 'horizontal', type: 'default' } },
+            { id: 'vertical', label: 'Vertical', story: 'ExplorerBase', args: { direction: 'vertical', type: 'default' } },
+            { id: 'dot-style', label: 'Dot Style', story: 'ExplorerBase', args: { direction: 'horizontal', type: 'dot' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: {} },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+      supportsGlass: true,
+    },
+  },
   tags: ['autodocs'],
   argTypes: {
     direction: {
@@ -22,46 +56,41 @@ const meta: Meta<typeof Steps> = {
 export default meta;
 type Story = StoryObj<typeof Steps>;
 
-const stepsData = [
-    { label: 'Login', description: 'Enter credentials' },
-    { label: 'Verification', description: 'Check email' },
-    { label: 'Complete', description: 'Success' },
-];
-
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
-  args: {
-    steps: stepsData,
-    currentStep: 1,
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const direction = args.direction ?? 'horizontal';
+    const type = args.type ?? 'default';
+    const syncKey = JSON.stringify({ direction, type });
+    return (
+      <div key={syncKey}>
+        <Steps currentStep={1} direction={direction} type={type}>
+          <StepsList>
+            <StepItem value={1}>
+              <StepIcon />
+              <StepContent>
+                <StepTitle>Login</StepTitle>
+                <StepDescription>Enter credentials</StepDescription>
+              </StepContent>
+            </StepItem>
+            <StepItem value={2}>
+              <StepIcon />
+              <StepContent>
+                <StepTitle>Verification</StepTitle>
+                <StepDescription>Check email</StepDescription>
+              </StepContent>
+            </StepItem>
+            <StepItem value={3}>
+              <StepIcon />
+              <StepContent>
+                <StepTitle>Complete</StepTitle>
+                <StepDescription>Success</StepDescription>
+              </StepContent>
+            </StepItem>
+          </StepsList>
+        </Steps>
+      </div>
+    );
   },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyVertical: Story = {
-  args: {
-    steps: stepsData,
-    currentStep: 2,
-    direction: 'vertical',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDotStyle: Story = {
-    args: {
-        steps: stepsData,
-        currentStep: 2,
-        type: 'dot',
-    },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyVerticalDot: Story = {
-    args: {
-        steps: stepsData,
-        currentStep: 2,
-        direction: 'vertical',
-        type: 'dot',
-    },
 };
 
 export const Default: Story = {
@@ -94,7 +123,7 @@ export const Default: Story = {
   ),
 };
 
-export const Vertical: Story = {
+export const DocsVertical: Story = {
   render: () => (
     <Steps currentStep={2} direction="vertical" type="default">
       <StepsList>
@@ -122,34 +151,6 @@ export const Vertical: Story = {
       </StepsList>
     </Steps>
   ),
-};
 
-export const DotStyle: Story = {
-  render: () => (
-    <Steps currentStep={2} direction="horizontal" type="dot">
-      <StepsList>
-        <StepItem value={1}>
-          <StepIcon />
-          <StepContent>
-            <StepTitle>Login</StepTitle>
-            <StepDescription>Enter credentials</StepDescription>
-          </StepContent>
-        </StepItem>
-        <StepItem value={2}>
-          <StepIcon />
-          <StepContent>
-            <StepTitle>Verification</StepTitle>
-            <StepDescription>Check email</StepDescription>
-          </StepContent>
-        </StepItem>
-        <StepItem value={3}>
-          <StepIcon />
-          <StepContent>
-            <StepTitle>Complete</StepTitle>
-            <StepDescription>Success</StepDescription>
-          </StepContent>
-        </StepItem>
-      </StepsList>
-    </Steps>
-  ),
-};
+  parameters: { docsOnly: true },
+}

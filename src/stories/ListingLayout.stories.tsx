@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { ListingLayout } from '../components/templates/ListingLayout';
 import { AppHeader } from '../components/organisms/AppHeader';
-import { Tabs, type Tab } from '../components/organisms/Tabs';
+import { Tabs, TabsList, TabsTrigger, type Tab } from '../components/organisms/Tabs';
 import {
   QuickFilters,
-  type QuickFilter,
+  QuickFilter,
+  FilterOption,
+  type QuickFilterType,
 } from '../components/organisms/QuickFilters';
-import { Table } from '../components/organisms/Table';
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '../components/organisms/Table';
 import type { TableColumn } from '../components/organisms/Table';
 import { Button } from '../components/atoms/Button/Button';
 import { Typography } from '../components/atoms/Typography';
@@ -49,6 +51,7 @@ const meta: Meta<typeof ListingLayout> = {
   title: 'Templates/ListingLayout',
   component: ListingLayout,
   parameters: {
+    docsOnly: true,
     layout: 'fullscreen',
     docs: {
       description: {
@@ -76,7 +79,35 @@ const subTabsData: Tab[] = [
   { label: 'Yard Ops' },
 ];
 
-const quickFiltersData: QuickFilter[] = [
+const renderComposableTabs = (
+  tabs: Tab[],
+  activeTab: number,
+  type: 'primary' | 'secondary' | 'tertiary',
+  options?: { className?: string }
+) => (
+  <Tabs
+    activeTab={activeTab}
+    type={type}
+    className={options?.className}
+  >
+    <TabsList>
+      {tabs.map((tab, index) => (
+        <TabsTrigger
+          key={`${tab.label}-${index}`}
+          value={`tab-${index}`}
+          disabled={tab.disabled}
+          badge={tab.badge}
+          badgeCount={tab.badgeCount}
+          notification={tab.notification}
+        >
+          {tab.label}
+        </TabsTrigger>
+      ))}
+    </TabsList>
+  </Tabs>
+);
+
+const quickFiltersData: QuickFilterType[] = [
   { id: 'long-stoppage', label: 'Long Stoppage', count: 19, type: 'alert', selected: true },
   { id: 'route-deviation', label: 'Route Deviation', count: 19, type: 'warning' },
   { id: 'delayed', label: 'Delayed', count: 51, type: 'warning' },
@@ -91,6 +122,36 @@ const quickFiltersData: QuickFilter[] = [
     selectedOption: '0-6',
   },
 ];
+
+const renderQuickFilters = (
+  filters: QuickFilterType[],
+  onFilterClick?: (id: string, optionId?: string) => void,
+  onFilterRemove?: (id: string, optionId?: string) => void
+) => (
+  <QuickFilters onFilterClick={onFilterClick} onFilterRemove={onFilterRemove}>
+    {filters.map((filter) => (
+      <QuickFilter
+        key={filter.id}
+        id={filter.id}
+        label={filter.label}
+        count={filter.count}
+        type={filter.type}
+        selected={filter.selected}
+        selectedOption={filter.selectedOption}
+      >
+        {filter.options?.map((option) => (
+          <FilterOption
+            key={option.id}
+            id={option.id}
+            label={option.label}
+            count={option.count}
+            type={option.type}
+          />
+        ))}
+      </QuickFilter>
+    ))}
+  </QuickFilters>
+);
 
 const heroStats = [
   { label: 'Long Stoppages', value: '19', trend: '+2% vs last week' },
@@ -370,32 +431,12 @@ const toolbarNode = (
   </div>
 );
 
-const tabsNode = (
-  <Tabs
-    tabs={tabsData}
-    activeTab={3}
-    type="tertiary"
-    showLine={false}
-    className="flex-wrap gap-2"
-  />
-);
+const tabsNode = renderComposableTabs(tabsData, 3, 'tertiary', { className: 'flex-wrap gap-2' });
 
-const subTabsNode = (
-  <Tabs
-    tabs={subTabsData}
-    activeTab={1}
-    type="secondary"
-    showLine={false}
-    className="flex-wrap gap-2"
-  />
-);
+const subTabsNode = renderComposableTabs(subTabsData, 1, 'secondary', { className: 'flex-wrap gap-2' });
 
 const quickFiltersNode = (
-  <QuickFilters
-    filters={quickFiltersData}
-    onFilterClick={() => {}}
-    onFilterRemove={() => {}}
-  />
+  renderQuickFilters(quickFiltersData, () => {}, () => {})
 );
 
 const actionBarNode = (
@@ -422,7 +463,26 @@ const actionBarNode = (
 );
 
 const TableContent = () => (
-  <Table columns={journeyColumns} data={journeyRows} variant="secondary" selectable={false} />
+  <Table>
+    <TableHeader>
+      <TableRow>
+        {journeyColumns.map((column) => (
+          <TableHead key={String(column.key)}>{column.title ?? String(column.key)}</TableHead>
+        ))}
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      {journeyRows.map((row) => (
+        <TableRow key={row.id}>
+          {journeyColumns.map((column) => (
+            <TableCell key={`${row.id}-${String(column.key)}`}>
+              {column.render ? column.render((row as Record<string, unknown>)[String(column.key)], row) : String((row as Record<string, unknown>)[String(column.key)] ?? '')}
+            </TableCell>
+          ))}
+        </TableRow>
+      ))}
+    </TableBody>
+  </Table>
 );
 
 const journeyCards = (
@@ -714,28 +774,21 @@ export const JourneyDetails: Story = {
     ...baseArgs,
     layout: 'split',
     variant: 'custom',
-    tabs: (
-      <Tabs
-        tabs={[
-          { label: 'Tracking' },
-          { label: 'Loads', badge: true, badgeCount: '5' },
-          { label: 'Escalations' },
-          { label: 'Yard Ops' },
-        ]}
-        activeTab={1}
-        type="tertiary"
-        className="flex-wrap gap-2"
-      />
-    ),
+    tabs: renderComposableTabs([
+      { label: 'Tracking' },
+      { label: 'Loads', badge: true, badgeCount: '5' },
+      { label: 'Escalations' },
+      { label: 'Yard Ops' },
+    ], 1, 'tertiary', { className: 'flex-wrap gap-2' }),
     quickFilters: (
-      <QuickFilters
-        filters={[
+      renderQuickFilters(
+        [
           { id: 'delivery-status', label: 'Delivery Status', count: 5 },
           { id: 'consignee', label: 'Consignee' },
           { id: 'consignor', label: 'Consignor' },
-        ]}
-        onFilterClick={() => {}}
-      />
+        ],
+        () => {}
+      )
     ),
     content: (
       <>
@@ -775,29 +828,21 @@ export const ReportsGrid: Story = {
         </Button>
       </div>
     ),
-    tabs: (
-      <Tabs
-        tabs={[
-          { label: 'Performance', badge: true, badgeCount: '56' },
-          { label: 'Operational', badge: true, badgeCount: '56' },
-          { label: 'Exceptions', badge: true, badgeCount: '56' },
-          { label: 'Custom', badge: true, badgeCount: '56' },
-        ]}
-        activeTab={0}
-        type="tertiary"
-        showLine={false}
-        className="flex-wrap gap-2"
-      />
-    ),
+    tabs: renderComposableTabs([
+      { label: 'Performance', badge: true, badgeCount: '56' },
+      { label: 'Operational', badge: true, badgeCount: '56' },
+      { label: 'Exceptions', badge: true, badgeCount: '56' },
+      { label: 'Custom', badge: true, badgeCount: '56' },
+    ], 0, 'tertiary', { className: 'flex-wrap gap-2' }),
     quickFilters: (
-      <QuickFilters
-        filters={[
+      renderQuickFilters(
+        [
           { id: 'owner', label: 'Owner', count: 4 },
           { id: 'status', label: 'Scheduled', count: 12 },
           { id: 'alerts', label: 'Alerts', count: 8 },
-        ]}
-        onFilterClick={() => {}}
-      />
+        ],
+        () => {}
+      )
     ),
     actionBar: undefined,
     layout: 'grid',
@@ -805,4 +850,3 @@ export const ReportsGrid: Story = {
     content: reportsGrid,
   },
 };
-

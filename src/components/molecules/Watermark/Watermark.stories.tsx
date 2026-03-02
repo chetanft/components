@@ -6,8 +6,37 @@ const meta: Meta<typeof Watermark> = {
   title: 'Molecules/Watermark',
   component: Watermark,
   tags: ['autodocs'],
+  args: {
+    glass: true,
+  },
   parameters: {
     layout: 'padded',
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Basic',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Basic', label: 'Basic', story: 'Basic' as const },
+            { id: 'MultiLine', label: 'Multi Line', story: 'MultiLine' as const },
+            { id: 'CustomStyle', label: 'Custom Style', story: 'CustomStyle' as const },
+          ],
+        },
+      ],
+      supportsGlass: true,
+    },
+  },
+  argTypes: {
+    glass: {
+      control: 'select',
+      options: [false, true, 'subtle', 'prominent'],
+      description: 'Glass style variant',
+    },
   },
 };
 
@@ -15,8 +44,8 @@ export default meta;
 type Story = StoryObj<typeof Watermark>;
 
 export const Basic: Story = {
-  render: () => (
-    <Watermark content="FT Design System">
+  render: (args) => (
+    <Watermark content="FT Design System" glass={args.glass}>
       <div style={{ height: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f5f5f5' }}>
         <Typography variant="title-secondary">Confidential Content</Typography>
       </div>
@@ -25,22 +54,22 @@ export const Basic: Story = {
 };
 
 export const MultiLine: Story = {
-  render: () => (
-    <Watermark content={['Confidential', 'Do Not Share']}>
+  render: (args) => (
+    <Watermark content={['Confidential', 'Do Not Share']} glass={args.glass}>
       <div style={{ height: 500, backgroundColor: '#fff' }} />
     </Watermark>
   ),
 };
 
 export const CustomStyle: Story = {
-  render: () => (
+  render: (args) => (
     <Watermark
       content="Draft"
       font={{ color: 'rgba(255, 0, 0, 0.15)', fontSize: 24 }}
       rotate={-45}
+      glass={args.glass}
     >
       <div style={{ height: 500, backgroundColor: '#fff' }} />
     </Watermark>
   ),
 };
-

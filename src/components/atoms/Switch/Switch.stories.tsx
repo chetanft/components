@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Switch } from './Switch';
+import { Switch, SwitchInput, SwitchLabel, SwitchHelper, SwitchError } from './index';
 
 const meta = {
   title: 'Atoms/Switch',
@@ -12,13 +12,46 @@ const meta = {
         component: 'A toggle switch component with exact Figma specifications. Supports different sizes and states.',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'content',
+          label: 'Content',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { contentType: 'default' } },
+            { id: 'with-helper', label: 'Helper Text', story: 'ExplorerBase', args: { contentType: 'helper' } },
+            { id: 'icon-only', label: 'Icon Only', story: 'ExplorerBase', args: { contentType: 'icon-only' } },
+          ],
+        },
+        {
+          id: 'size',
+          label: 'Size',
+          scenarios: [
+            { id: 'sm', label: 'SM', story: 'ExplorerBase', args: { size: 'sm' } },
+            { id: 'md', label: 'MD', story: 'ExplorerBase', args: { size: 'md' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'off', label: 'Off', story: 'ExplorerBase', args: { checked: false, disabled: false, errorText: undefined } },
+            { id: 'on', label: 'On', story: 'ExplorerBase', args: { checked: true, disabled: false, errorText: undefined } },
+            { id: 'disabled', label: 'Disabled', story: 'ExplorerBase', args: { disabled: true } },
+            { id: 'error', label: 'Error', story: 'ExplorerBase', args: { errorText: 'This setting is required' } },
+          ],
+        },
+      ],
+      defaultRowId: 'content',
+      defaultScenarioId: 'default',
+    },
   },
   tags: ['autodocs'],
   argTypes: {
-    label: {
-      control: 'text',
-      description: 'Label text for the switch'
-    },
     size: {
       control: { type: 'select' },
       options: ['sm', 'md'],
@@ -28,171 +61,65 @@ const meta = {
       control: 'boolean',
       description: 'Whether the switch is disabled'
     },
-    checked: {
-      control: 'boolean',
-      description: 'Whether the switch is checked/on'
-    }
   },
 } satisfies Meta<typeof Switch>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// Interactive Demo - all variants shown together and interactable (FIRST per plan)
-export function InteractiveDemo() {
-  const [switch1, setSwitch1] = React.useState(false);
-  const [switch2, setSwitch2] = React.useState(true);
-  const [switch3, setSwitch3] = React.useState(false);
-  const [switch4, setSwitch4] = React.useState(true);
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const [checked, setChecked] = React.useState(Boolean(args.checked));
+    const size = args.size ?? 'md';
+    const disabled = Boolean(args.disabled);
+    const contentType = args.contentType ?? 'default';
+    const errorText = args.errorText;
+    const syncKey = JSON.stringify({ size, disabled, checked: Boolean(args.checked), contentType, errorText });
 
-  return (
-    <div className="p-6 space-y-4">
-      <h3 className="text-lg font-semibold mb-4">All Switch Variants - Interactive</h3>
-
-      <div className="space-y-4">
-        <div className="space-y-3">
-          <h4 className="font-medium">Normal States</h4>
-          <Switch
-            label="Off state"
-            checked={switch1}
-            onChange={(e) => setSwitch1(e.target.checked)}
-          />
-          <Switch
-            label="On state"
-            checked={switch2}
-            onChange={(e) => setSwitch2(e.target.checked)}
-          />
-        </div>
-
-        <div className="space-y-3">
-          <h4 className="font-medium">Small Size</h4>
-          <Switch
-            label="Small switch"
-            size="sm"
-            checked={switch3}
-            onChange={(e) => setSwitch3(e.target.checked)}
-          />
-        </div>
-
-        <div className="space-y-3">
-          <h4 className="font-medium">Medium Size</h4>
-          <Switch
-            label="Medium switch"
-            size="md"
-            checked={switch4}
-            onChange={(e) => setSwitch4(e.target.checked)}
-          />
-        </div>
-
-        <div className="space-y-3">
-          <h4 className="font-medium">Without Labels</h4>
-          <div className="flex items-center gap-4">
-            <Switch size="sm" />
-            <Switch size="md" />
-            <Switch size="md" defaultChecked />
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <h4 className="font-medium">Disabled States</h4>
-          <Switch label="Disabled off" disabled />
-          <Switch label="Disabled on" disabled defaultChecked />
-        </div>
+    return (
+      <div key={syncKey}>
+        <Switch size={size} disabled={disabled}>
+          <SwitchInput checked={checked} disabled={disabled} onChange={(e) => setChecked(e.target.checked)} />
+          {contentType !== 'icon-only' ? <SwitchLabel>{contentType === 'helper' ? 'Notifications' : 'Enable notifications'}</SwitchLabel> : null}
+          {contentType === 'helper' ? <SwitchHelper>Receive system alerts</SwitchHelper> : null}
+          {errorText ? <SwitchError>{errorText}</SwitchError> : null}
+        </Switch>
       </div>
-    </div>
+    );
+  },
+};
+
+function DefaultComponent() {
+  const [checked, setChecked] = React.useState(false);
+  return (
+    <Switch size="md">
+      <SwitchInput checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+      <SwitchLabel>Enable notifications</SwitchLabel>
+    </Switch>
   );
 }
 
-// Default switch (unchecked/off state)
 export const Default: Story = {
-  args: {
-    label: 'Enable notifications',
-    size: 'md',
-  },
+  render: () => <DefaultComponent />,
 };
 
-// Checked/on state
-export const Checked: Story = {
-  args: {
-    label: 'Notifications enabled',
-    size: 'md',
-    checked: true,
-  },
-};
-
-// Disabled unchecked state
-export const DisabledUnchecked: Story = {
-  args: {
-    label: 'Feature unavailable',
-    size: 'md',
-    disabled: true,
-  },
-};
-
-// Disabled checked state
-export const DisabledChecked: Story = {
-  args: {
-    label: 'Always enabled',
-    size: 'md',
-    disabled: true,
-    checked: true,
-  },
-};
-
-// Without label
-export const WithoutLabel: Story = {
-  args: {
-    size: 'md',
-  },
-};
-
-// Normal States story - separate preview for normal states
-export function NormalStates() {
-  return (
-    <div className="p-6 space-y-2">
-      <Switch label="Off state" />
-      <Switch label="On state" defaultChecked />
+export const DocsVariants: Story = {
+  render: () => (
+    <div className="space-y-3 p-4">
+      <Switch size="md">
+        <SwitchInput />
+        <SwitchLabel>Basic switch</SwitchLabel>
+      </Switch>
+      <Switch size="md">
+        <SwitchInput defaultChecked />
+        <SwitchLabel>With helper text</SwitchLabel>
+        <SwitchHelper>Additional context for this setting</SwitchHelper>
+      </Switch>
+      <Switch size="md">
+        <SwitchInput />
+      </Switch>
     </div>
-  );
+  ),
+
+  parameters: { docsOnly: true },
 }
-
-// Sizes story - separate preview for sizes
-export function Sizes() {
-  return (
-    <div className="p-6 space-y-4">
-      <div className="flex flex-col gap-2">
-        <Switch label="Small switch - 1rem (14px)" size="sm" />
-        <p className="text-sm text-muted-foreground ml-10">Font: 1rem (14px) - Body Secondary Regular</p>
-      </div>
-      <div className="flex flex-col gap-2">
-        <Switch label="Medium switch - 1rem (14px)" size="md" />
-        <p className="text-sm text-muted-foreground ml-10">Font: 1rem (14px) - Body Secondary Medium</p>
-      </div>
-    </div>
-  );
-}
-
-// Without Labels story - separate preview for switches without labels
-export function WithoutLabels() {
-  return (
-    <div className="p-6">
-      <div className="flex items-center gap-4">
-        <Switch size="sm" />
-        <Switch size="md" />
-        <Switch size="md" defaultChecked />
-      </div>
-    </div>
-  );
-}
-
-// Disabled States story - separate preview for disabled states
-export function DisabledStates() {
-  return (
-    <div className="p-6 space-y-2">
-      <Switch label="Disabled off" disabled />
-      <Switch label="Disabled on" disabled defaultChecked />
-    </div>
-  );
-}
-
-

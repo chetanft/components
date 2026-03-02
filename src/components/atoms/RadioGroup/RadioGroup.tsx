@@ -3,17 +3,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { RadioGroupProvider } from './RadioGroupContext';
-import { RadioItem } from './RadioItem';
-import { RadioItemInput } from './RadioItemInput';
-import { RadioItemLabel } from './RadioItemLabel';
-import { RadioGroupHelper } from './RadioGroupHelper';
-import { RadioGroupError } from './RadioGroupError';
-
-export interface RadioOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}
 
 export interface RadioGroupProps {
   /**
@@ -41,11 +30,6 @@ export interface RadioGroupProps {
    */
   children?: React.ReactNode;
   /**
-   * Options array (for declarative API)
-   * @deprecated Use RadioItem components instead
-   */
-  options?: RadioOption[];
-  /**
    * Custom className
    */
   className?: string;
@@ -64,16 +48,6 @@ export interface RadioGroupProps {
    * @default false
    */
   disabled?: boolean;
-  /**
-   * Error state (for declarative API)
-   * @deprecated Use RadioGroupError component instead
-   */
-  error?: boolean;
-  /**
-   * Helper text (for declarative API)
-   * @deprecated Use RadioGroupHelper component instead
-   */
-  helperText?: string;
 }
 
 /**
@@ -100,31 +74,25 @@ export interface RadioGroupProps {
  *   <RadioGroupError>Please select an option</RadioGroupError>
  * </RadioGroup>
  * 
- * // Declarative API (deprecated)
- * <RadioGroup name="choice" options={options} value={value} onChange={setValue} />
  * ```
- * 
+ *
  * @remarks
  * - Composable API provides maximum flexibility and control
  * - All sub-components (RadioItem, RadioItemInput, RadioItemLabel, etc.) support `asChild`
  * - Supports controlled and uncontrolled modes
  * - Automatically generates accessible IDs for labels and error messages
  * - Accessible: includes ARIA attributes and keyboard navigation
- * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(({
   name,
   value,
   defaultValue,
-  options = [],
   onChange,
   onValueChange,
   className,
   size = 'md',
   orientation = 'vertical',
   disabled = false,
-  error = false,
-  helperText,
   children,
 }, ref) => {
   const [internalValue, setInternalValue] = React.useState(defaultValue || '');
@@ -138,129 +106,6 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(({
     handleChange?.(optionValue);
   };
 
-  // Check if using composable API (has children with RadioGroup sub-components)
-  const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
-    child?.type?.displayName?.startsWith('Radio')
-  );
-
-  // If using composable API, wrap with context provider
-  if (hasComposableChildren) {
-    // Show deprecation warning if using old props with composable API
-    if (process.env.NODE_ENV !== 'production' && (options.length > 0 || error || helperText)) {
-          }
-
-    const generatedId = React.useId();
-    const helperId = helperText ? `radiogroup-${generatedId}-helper` : undefined;
-    const errorId = error ? `radiogroup-${generatedId}-error` : undefined;
-
-    return (
-      <RadioGroupProvider
-        value={{
-          name,
-          value: currentValue,
-          onChange: handleValueChange,
-          size,
-          orientation,
-          disabled,
-          hasError: !!error,
-          helperId,
-          errorId,
-        }}
-      >
-        <div
-          ref={ref}
-          className={cn(
-            "flex",
-            orientation === 'horizontal' ? "flex-row gap-[var(--spacing-x4)]" : "flex-col gap-[var(--spacing-x4)]",
-            className
-          )}
-          role="radiogroup"
-        >
-          {children}
-        </div>
-      </RadioGroupProvider>
-    );
-  }
-
-  // Otherwise use declarative API (deprecated)
-  if (process.env.NODE_ENV !== 'production' && options.length > 0) {
-      }
-
-  // Ensure options is always an array
-  let optionsArray: RadioOption[] = [];
-  if (Array.isArray(options)) {
-    optionsArray = options;
-  } else if (options && typeof options === 'object' && 'length' in options) {
-    optionsArray = Array.from(options as any);
-  }
-
-  // If no options provided and no children, render empty state
-  if (!optionsArray || optionsArray.length === 0) {
-    if (children) {
-      const generatedId = React.useId();
-      const helperId = helperText ? `radiogroup-${generatedId}-helper` : undefined;
-      const errorId = error ? `radiogroup-${generatedId}-error` : undefined;
-
-      return (
-        <RadioGroupProvider
-          value={{
-            name,
-            value: currentValue,
-            onChange: handleValueChange,
-            size,
-            orientation,
-            disabled,
-            hasError: !!error,
-            helperId,
-            errorId,
-          }}
-        >
-          <div className={cn("flex flex-col gap-4", className)} role="radiogroup">
-            {children}
-          </div>
-        </RadioGroupProvider>
-      );
-    }
-    return null;
-  }
-
-  const generatedId = React.useId();
-  const helperId = helperText ? `radiogroup-${generatedId}-helper` : undefined;
-  const errorId = error ? `radiogroup-${generatedId}-error` : undefined;
-
-  // Size styles - exact Figma specifications
-  const sizeStyles = {
-    sm: {
-      radio: "w-[16px] h-[16px]",
-      dot: "w-[6px] h-[6px]",
-      gap: "gap-[6px]",
-      variant: "body-secondary-regular" as const, // 12px → 14px closest
-      groupGap: "gap-[12px]"
-    },
-    md: {
-      radio: "w-[var(--radio-size)] h-[var(--radio-size)]", // 20px from Figma
-      dot: "w-[10px] h-[10px]", // 10px inner dot from Figma
-      gap: "gap-[var(--radio-gap)]", // 8px spacing
-      variant: "body-secondary-medium" as const, // 14px font size from Figma
-      groupGap: "gap-[16px]"
-    }
-  };
-
-  const currentSize = sizeStyles[size];
-
-  // Container styles
-  const groupStyles = cn(
-    "flex",
-    orientation === 'horizontal' ? `flex-row ${currentSize.groupGap}` : `flex-col ${currentSize.groupGap}`,
-    className
-  );
-
-  // Get Typography color variant based on state
-  const _getLabelColor = (isDisabled: boolean) => {
-    if (isDisabled) return 'muted';
-    return 'primary';
-  };
-
   return (
     <RadioGroupProvider
       value={{
@@ -270,20 +115,21 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(({
         size,
         orientation,
         disabled,
-        hasError: !!error,
-        helperId,
-        errorId,
+        hasError: false,
+        helperId: undefined,
+        errorId: undefined,
       }}
     >
-      <div className={groupStyles} role="radiogroup">
-        {optionsArray.map((option) => (
-          <RadioItem key={option.value} value={option.value} disabled={option.disabled}>
-            <RadioItemInput />
-            {option.label && <RadioItemLabel>{option.label}</RadioItemLabel>}
-          </RadioItem>
-        ))}
-        {error && <RadioGroupError>Please select an option</RadioGroupError>}
-        {helperText && !error && <RadioGroupHelper>{helperText}</RadioGroupHelper>}
+      <div
+        ref={ref}
+        className={cn(
+          "flex",
+          orientation === 'horizontal' ? "flex-row gap-[var(--spacing-x4)]" : "flex-col gap-[var(--spacing-x4)]",
+          className
+        )}
+        role="radiogroup"
+      >
+        {children}
       </div>
     </RadioGroupProvider>
   );

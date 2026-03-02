@@ -10,7 +10,28 @@ const meta: Meta<typeof PieChart> = {
       description: {
         component: 'Pie chart component for showing proportions and percentages. Supports donut style, custom labels, and legends.'
       }
-    }
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'chart',
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Basic',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Basic', label: 'Basic', story: 'Basic' as const },
+            { id: 'WithLabels', label: 'WithLabels', story: 'WithLabels' as const },
+            { id: 'Donut', label: 'Donut', story: 'Donut' as const },
+            { id: 'DonutWithText', label: 'DonutWithText', story: 'DonutWithText' as const },
+            { id: 'Stacked', label: 'Stacked', story: 'Stacked' as const },
+            { id: 'WithLegend', label: 'WithLegend', story: 'WithLegend' as const },
+          ],
+        },
+      ],
+    },
   },
   argTypes: {
     title: {

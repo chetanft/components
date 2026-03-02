@@ -300,6 +300,7 @@ const meta: Meta = {
   title: 'Design System/Design Guidelines',
   component: DesignGuidelinesPage,
   parameters: {
+    docsOnly: true,
     layout: 'fullscreen',
     docs: {
       page: () => <DesignGuidelinesPage />,

@@ -8,6 +8,24 @@ const meta: Meta<typeof FloatButton> = {
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'basic', label: 'Basic', story: 'Basic' as const },
+            { id: 'with-type', label: 'WithType', story: 'WithType' as const },
+            { id: 'group', label: 'Group', story: 'Group' as const },
+          ],
+        },
+      ],
+      defaultRowId: 'type' as const,
+      defaultScenarioId: 'basic' as const,
+    },
   },
 };
 

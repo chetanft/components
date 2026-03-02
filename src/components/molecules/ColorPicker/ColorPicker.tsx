@@ -86,10 +86,6 @@ export interface ColorPickerProps {
   onChange?: (value: string, hex: string) => void;
   disabled?: boolean;
   className?: string;
-  /**
-   * @deprecated Use conditional rendering instead: `{showText && <span>{formattedValue}</span>}`
-   */
-  showText?: boolean;
   size?: 'sm' | 'md' | 'lg';
   /**
    * Custom color presets to display in the picker grid
@@ -112,7 +108,6 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   disabled,
   glass,
   className,
-  showText,
   size = 'md',
   presets = DEFAULT_PRESETS,
 }) => {
@@ -131,7 +126,8 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
       setOpen(false);
   };
 
-  const displayValue = showText ? formatColorValue(value, defaultFormat) : null;
+  // Always show text value (showText is deprecated and ignored — text is always shown)
+  const displayValue = formatColorValue(value, defaultFormat);
 
   return (
     <div className={cn("inline-flex items-center gap-2", className)} ref={containerRef}>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { useResolvedGlass, getGlassInnerBg } from '../../../lib/glass';
+import { getGlassInnerBg } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useDropdownMenuContext } from './DropdownMenuContext';
@@ -44,8 +44,7 @@ export interface DropdownMenuSearchProps extends ComposableProps<'div'> {
  */
 export const DropdownMenuSearch = React.forwardRef<HTMLDivElement, DropdownMenuSearchProps>(
   ({ className, placeholder = 'Search', children, asChild, ...props }, ref) => {
-    const resolvedGlass = useResolvedGlass();
-    const { searchQuery, setSearchQuery, property } = useDropdownMenuContext();
+    const { searchQuery, setSearchQuery, property, glass: resolvedGlass } = useDropdownMenuContext();
     
     const isSearch = property === 'search' || property === 'search-segmented';
     
@@ -77,10 +76,10 @@ export const DropdownMenuSearch = React.forwardRef<HTMLDivElement, DropdownMenuS
       >
         {children || (
           <div className={cn(
-            getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-white/5 dark:bg-white/5"),
+            getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-transparent"),
             "border border-[var(--color-border-primary)] border-solid box-border content-stretch flex h-[var(--spacing-x10)] items-center justify-between min-h-[var(--spacing-x10)] px-[var(--spacing-x3)] py-[var(--spacing-x0)] relative rounded-[var(--radius-md)] shrink-0 w-full z-[1]"
           )}>
-            <div className="box-border content-stretch flex flex-[1_0_0] gap-[var(--spacing-x1)] h-[var(--spacing-x10)] items-center min-h-px min-w-px px-[var(--spacing-x0)] py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
+            <div className="box-border content-stretch flex flex-1 gap-[var(--spacing-x1)] h-[var(--spacing-x10)] items-center min-h-px min-w-px px-[var(--spacing-x0)] py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
               <Icon
                 name="search"
                 size={16}
@@ -92,7 +91,7 @@ export const DropdownMenuSearch = React.forwardRef<HTMLDivElement, DropdownMenuS
                 placeholder={placeholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-[1_0_0] font-normal leading-[1.4] min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[var(--color-tertiary)] whitespace-nowrap bg-transparent border-none outline-none"
+                className="flex-1 font-normal leading-[1.4] min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[var(--color-tertiary)] whitespace-nowrap bg-transparent border-none outline-none"
                 style={{
                   fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
                   fontWeight: 'var(--font-weight-regular, 400)',

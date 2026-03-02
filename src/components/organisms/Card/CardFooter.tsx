@@ -12,7 +12,7 @@ export interface CardFooterProps extends ComposableProps<'div'> {
    */
   children?: React.ReactNode;
   /**
-   * Whether to add padding
+   * Whether to add horizontal padding to the footer container.
    * @default true
    */
   padding?: boolean;
@@ -22,25 +22,14 @@ export interface CardFooterProps extends ComposableProps<'div'> {
  * CardFooter Component
  *
  * A composable component for the footer section of a Card.
- * Typically contains action buttons or additional information.
+ * Renders a divider line followed by footer content.
+ *
+ * Matches Figma `.card_footer`:
+ * - Full-width divider with py-x4 (16px) vertical rhythm
+ * - Spacer (x5 = 20px)
+ * - Footer container with optional px-x5 padding
  *
  * @public
- *
- * @example
- * ```tsx
- * <Card>
- *   <CardBody>...</CardBody>
- *   <CardFooter>
- *     <Button>Action</Button>
- *   </CardFooter>
- * </Card>
- * ```
- *
- * @remarks
- * - Wraps the HTML `<div>` element by default.
- * - Supports `asChild` prop to merge props with a custom child element.
- * - Automatically includes a divider above the footer.
- * - Provides default padding and spacing.
  */
 export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
   ({ className, children, padding = true, asChild, ...props }, ref) => {
@@ -49,17 +38,22 @@ export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
       <Comp
         ref={ref}
         className={cn(
-          "flex flex-col items-start pb-0 pt-0 relative w-full",
-          padding ? "px-[var(--spacing-x5)]" : "px-0",
+          "flex flex-col items-start pt-0 relative w-full",
           className
         )}
         {...props}
       >
-        <Divider type="primary" />
+        {/* Divider — matches Figma py-x4 (16px) rhythm */}
+        <div className="flex items-center justify-between py-[var(--spacing-x4)] w-full">
+          <Divider type="primary" className="flex-1" />
+        </div>
+
         <Spacer size="x5" />
+
+        {/* Footer container */}
         <div className={cn(
           "flex gap-[var(--spacing-x4)] items-center relative shrink-0 w-full",
-          padding ? "px-[var(--spacing-x5)] py-0" : ""
+          padding ? "px-[var(--spacing-x5)]" : ""
         )}>
           {children}
         </div>
@@ -69,4 +63,3 @@ export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
 );
 
 CardFooter.displayName = 'CardFooter';
-

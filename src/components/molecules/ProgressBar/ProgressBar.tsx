@@ -24,11 +24,6 @@ export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   trailColor?: string;
   /** 🆕 NEW: Stroke color (overrides variant) */
   strokeColor?: string;
-  /** Show percentage text */
-  /**
-   * @deprecated Use conditional rendering instead: `{showPercentage && <span>{percentage}%</span>}`
-   */
-  showPercentage?: boolean;
   /** 🆕 NEW: Custom format function for percentage */
   format?: (percent: number) => React.ReactNode;
   /** Enable animation */
@@ -61,7 +56,6 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
     strokeWidth,
     trailColor,
     strokeColor,
-    showPercentage = true,
     format,
     animated = false,
     gapDegree = 75,
@@ -121,15 +115,13 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
                 />
               ))}
             </div>
-            {showPercentage && (
-              <Typography
-                variant="body-secondary-medium"
-                as="span"
-                className="text-[var(--tertiary)] whitespace-nowrap"
-              >
-                {formatPercent()}
-              </Typography>
-            )}
+            <Typography
+              variant="body-secondary-medium"
+              as="span"
+              className="text-[var(--tertiary)] whitespace-nowrap"
+            >
+              {formatPercent()}
+            </Typography>
           </div>
         );
       }
@@ -161,15 +153,13 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
               aria-valuemax={100}
             />
           </div>
-          {showPercentage && (
-            <Typography
-              variant="body-secondary-medium"
-              as="span"
-              className="text-[var(--tertiary)] whitespace-nowrap"
-            >
-              {formatPercent()}
-            </Typography>
-          )}
+          <Typography
+            variant="body-secondary-medium"
+            as="span"
+            className="text-[var(--tertiary)] whitespace-nowrap"
+          >
+            {formatPercent()}
+          </Typography>
         </div>
       );
     }
@@ -251,17 +241,15 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
         </svg>
 
         {/* Center content */}
-        {showPercentage && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Typography
-              variant={width >= 100 ? "body-primary-semibold" : "body-secondary-medium"}
-              as="span"
-              className="text-[var(--primary)]"
-            >
-              {formatPercent()}
-            </Typography>
-          </div>
-        )}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Typography
+            variant={width >= 100 ? "body-primary-semibold" : "body-secondary-medium"}
+            as="span"
+            className="text-[var(--primary)]"
+          >
+            {formatPercent()}
+          </Typography>
+        </div>
       </div>
     );
   }

@@ -4,6 +4,12 @@
 > **Date:** 2026-02-20
 > **Purpose:** Document all deprecated declarative API code paths to inform future removal decisions.
 
+Related planning docs:
+- `docs/LEGACY_MIGRATION_MATRIX.md`
+- `docs/LEGACY_REMOVAL_EXECUTION_BOARD.md`
+- `docs/API_CONTRACT.md`
+- `docs/STORY_CONTRACT.md`
+
 ---
 
 ## Summary
@@ -252,6 +258,54 @@ Remove least-used, simplest-to-migrate paths first. Components are ordered by co
   <TabsContent value="tab1"><Content /></TabsContent>
 </Tabs>
 ```
+
+---
+
+## Cross-Component Inconsistencies
+
+These inconsistencies must be resolved as part of the v5 canonical API contract (`docs/API_CONTRACT.md`).
+
+### Variant Naming
+
+| Component | Current Prop | Target |
+|---|---|---|
+| Tooltip | `color?: 'white' \| 'dark'` | `variant?: 'light' \| 'dark'` |
+| Dropdown | `type?: 'normal' \| 'search' \| 'groups'` | `variant` or split components |
+| Card | `contentVariant?: 'Basic' \| 'Advanced'` | `variant?: 'basic' \| 'advanced'` |
+
+### Size Scale
+
+| Component | Issue |
+|---|---|
+| Badge | Type includes deprecated `'default'`, `'small'` aliases |
+| Card | Type includes deprecated `'default'`, `'small'` aliases |
+| DatePicker | Default is `'m'` (legacy); type includes `'m'`, `'l'` |
+| Switch | Only `'sm' \| 'md'` — subset of standard scale |
+| Modal | Uses `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` — non-standard `'full'` |
+
+### State Encoding
+
+| Component | Issue |
+|---|---|
+| Dropdown | `state?: 'default' \| 'error' \| 'disabled'` — encodes disabled in state prop |
+| DatePicker | cva `state` exposes `'focused' \| 'hover' \| 'typing' \| 'prefilled'` publicly |
+| DatePicker | `error?: boolean` — should be `string` for message |
+
+### Semantic Color Vocabulary
+
+| Component | Uses | Should Use |
+|---|---|---|
+| Alert | `variant="danger"` | `variant="error"` |
+| Badge | `'danger'` (silently remapped) | Remove from type union |
+| Badge | `'normal'` (silently remapped) | Remove from type union |
+
+### Behavioral Patterns
+
+| Component | Issue |
+|---|---|
+| Modal, Drawer | `onClose` deprecated alongside `onOpenChange` |
+| Dropdown | `onSelect` deprecated alongside `onChange` (slightly different type signature) |
+| Card, Badge | Sub-components attached as `(Component as any).X` — should be named exports |
 
 ---
 

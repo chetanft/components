@@ -7,38 +7,31 @@ import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../l
 export interface AnchorLinkProps {
   href: string;
   title: React.ReactNode;
-  children?: React.ReactNode; // For nested links
+  children?: React.ReactNode;
   className?: string;
   target?: string;
 }
 
 export interface AnchorProps {
-  /**
-   * Anchor items array (for declarative API)
-   * @deprecated Use AnchorLink components as children instead
-   */
-  items?: AnchorLinkProps[]; // Simplified data structure
   affix?: boolean;
   bounds?: number;
   offsetTarget?: () => HTMLElement | Window;
   targetOffset?: number;
-  /**
-   * Show ink in fixed mode
-   * @deprecated This prop is not fully implemented and will be removed. Use custom styling for ink.
-   */
-  showInkInFixed?: boolean;
   onChange?: (currentActiveLink: string) => void;
   onClick?: (e: React.MouseEvent<HTMLElement>, link: { title: React.ReactNode; href: string }) => void;
   direction?: 'vertical' | 'horizontal';
   /** Glass morphism variant */
   glass?: GlassVariant;
   /** Anchor links (for composable API) */
-  children?: React.ReactNode; // Can be used for custom link rendering structure
+  children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
 }
 
-const AnchorLink: React.FC<AnchorLinkProps & { active?: boolean; onClick?: (e: React.MouseEvent<HTMLElement>, href: string) => void }> = ({
+/**
+ * AnchorLink — used as a child of Anchor for the composable API.
+ */
+export const AnchorLink: React.FC<AnchorLinkProps & { active?: boolean; onClick?: (e: React.MouseEvent<HTMLElement>, href: string) => void }> = ({
   href,
   title,
   children,
@@ -56,8 +49,8 @@ const AnchorLink: React.FC<AnchorLinkProps & { active?: boolean; onClick?: (e: R
       <a
         className={cn(
           "block relative transition-all duration-300 py-1 px-4 text-sm rounded-md",
-          active 
-            ? "text-[var(--primary)] font-medium bg-[var(--primary-bg-subtle)]" 
+          active
+            ? "text-[var(--primary)] font-medium bg-[var(--primary-bg-subtle)]"
             : "text-[var(--text-secondary)] hover:text-[var(--primary)]"
         )}
         href={href}
@@ -72,13 +65,29 @@ const AnchorLink: React.FC<AnchorLinkProps & { active?: boolean; onClick?: (e: R
   );
 };
 
+AnchorLink.displayName = 'AnchorLink';
+
+/** Extract hrefs from AnchorLink children (for scroll-spy in composable mode) */
+function extractHrefsFromChildren(children: React.ReactNode): string[] {
+  const hrefs: string[] = [];
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child) && (child.type as any)?.displayName === 'AnchorLink') {
+      const href = (child.props as AnchorLinkProps).href;
+      if (href) hrefs.push(href);
+      // Recurse into nested AnchorLink children
+      if (child.props.children) {
+        hrefs.push(...extractHrefsFromChildren(child.props.children));
+      }
+    }
+  });
+  return hrefs;
+}
+
 export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
-  items,
   affix = true,
   bounds = 5,
   offsetTarget: _offsetTarget,
   targetOffset = 0,
-  showInkInFixed: _showInkInFixed = false, // Not fully implemented in this simple version
   onChange,
   onClick,
   direction = 'vertical',
@@ -90,64 +99,38 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
 }, ref) => {
   const [activeLink, setActiveLink] = useState<string>('');
   const resolvedGlass = useResolvedGlass(glass);
-  
-  // Helper to render links recursively
-  const renderLinks = (links: AnchorLinkProps[]) => {
-    return links.map(link => (
-      <AnchorLink
-        key={link.href}
-        {...link}
-        active={activeLink === link.href}
-        onClick={(e, href) => {
-          onClick?.(e, { title: link.title, href });
-          // Handle scroll manually if needed or let default behavior work
-        }}
-      >
-        {link.children ? renderLinks(link.children as any) : null}
-      </AnchorLink>
-    ));
-  };
+
+  // Detect composable children
+  const hasComposableChildren = React.Children.toArray(children).some(
+    (child) =>
+      React.isValidElement(child) &&
+      (child.type as any)?.displayName === 'AnchorLink'
+  );
 
   // Scroll spy logic
   useEffect(() => {
+    const allHrefs = extractHrefsFromChildren(children);
+
+    if (allHrefs.length === 0) return;
+
     const handleScroll = () => {
-      // Simple implementation: find the element that is closest to the top of the viewport
-      if (!items) return;
-      
-      const flattenItems = (arr: AnchorLinkProps[]): string[] => {
-        return arr.reduce((acc, item) => {
-          acc.push(item.href);
-          if (item.children) {
-            // @ts-expect-error - recursive children typing
-            acc.push(...flattenItems(item.children));
-          }
-          return acc;
-        }, [] as string[]);
-      };
-
-      const allHrefs = flattenItems(items);
-
-      // If we found a candidate, verify it's the "best" one. 
-      // Actually simple loop: find the one closest to top but still passed it.
-      // Let's iterate and find the one with rect.top <= offset + bounds with the largest rect.top (closest to top line)
       let maxTop = -Infinity;
       let bestCandidate = '';
-      
+
       for (const href of allHrefs) {
-         if (!href.startsWith('#')) continue;
-         const element = document.getElementById(href.substring(1));
-         if (element) {
-            const rect = element.getBoundingClientRect();
-            if (rect.top <= (targetOffset + bounds + 50)) {
-               if (rect.top > maxTop) {
-                  maxTop = rect.top;
-                  bestCandidate = href;
-               }
+        if (!href.startsWith('#')) continue;
+        const element = document.getElementById(href.substring(1));
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= (targetOffset + bounds + 50)) {
+            if (rect.top > maxTop) {
+              maxTop = rect.top;
+              bestCandidate = href;
             }
-         }
+          }
+        }
       }
 
-      // Use functional update to avoid dependency on 'activeLink' state
       if (bestCandidate) {
         setActiveLink((prevActiveLink) => {
           if (bestCandidate !== prevActiveLink) {
@@ -160,16 +143,33 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [items, bounds, targetOffset, onChange]);
+  }, [children, bounds, targetOffset, onChange]);
+
+  // Inject active/onClick into composable AnchorLink children
+  const renderComposableChildren = (nodes: React.ReactNode): React.ReactNode => {
+    return React.Children.map(nodes, (child) => {
+      if (React.isValidElement(child) && (child.type as any)?.displayName === 'AnchorLink') {
+        const linkProps = child.props as AnchorLinkProps;
+        return React.cloneElement(child as React.ReactElement<any>, {
+          active: activeLink === linkProps.href,
+          onClick: (e: React.MouseEvent<HTMLElement>, href: string) => {
+            onClick?.(e, { title: linkProps.title, href });
+          },
+          children: linkProps.children ? renderComposableChildren(linkProps.children) : undefined,
+        });
+      }
+      return child;
+    });
+  };
 
   return (
-    <div 
-      ref={ref} 
+    <div
+      ref={ref}
       className={cn(
         "ft-anchor relative",
-        affix ? "sticky top-4" : "", // Simple sticky implementation for 'affix'
+        affix ? "sticky top-4" : "",
         direction === 'horizontal' ? "flex flex-row space-x-4" : "flex flex-col",
         getGlassClasses(resolvedGlass, '', ''),
         className
@@ -180,10 +180,12 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
       {direction === 'vertical' && (
         <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[var(--border-primary)] opacity-50 ml-[1px]" />
       )}
-      {/* Ink bar could be implemented here */}
-      
+
       <div className={cn("relative z-10", direction === 'horizontal' ? "flex gap-2" : "flex flex-col gap-1")}>
-        {items ? renderLinks(items) : children}
+        {hasComposableChildren
+          ? renderComposableChildren(children)
+          : children
+        }
       </div>
     </div>
   );

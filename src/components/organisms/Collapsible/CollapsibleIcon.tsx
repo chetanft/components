@@ -43,10 +43,8 @@ export interface CollapsibleIconProps extends ComposableProps<'div'> {
  */
 export const CollapsibleIcon = React.forwardRef<HTMLDivElement, CollapsibleIconProps>(
   ({ className, children, asChild, ...props }, ref) => {
-    const { isExpanded, type, showArrow = true } = useCollapsibleContext();
-    
-    if (!showArrow) return null;
-    
+    const { isExpanded, type } = useCollapsibleContext();
+
     const Comp = asChild ? Slot : 'div';
     
     if (type === 'Primary') {

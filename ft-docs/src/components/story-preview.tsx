@@ -3,14 +3,14 @@
 import * as React from "react";
 import { useState, useMemo, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Copy, Check, Terminal, Eye, ExternalLink } from "lucide-react";
+import { Terminal, Eye, BookOpen } from "lucide-react";
 import type { StoryDefinition, StoryMeta } from "@/lib/story-loader";
 import { formatStoryName } from "@/lib/story-loader";
-import { Highlight, themes } from "prism-react-renderer";
+import { CodeBlock } from "@/components/code-block";
 import { extractStorySource } from "@/lib/story-source";
 import { getStorySource } from "@/app/actions/get-story-source";
-import { UserProfile } from "@/registry";
-import { useTheme } from "next-themes";
+import { UserProfile, Badge } from "@/registry";
+import { getComponentGuideline } from "@/data/designer-guidelines";
 
 interface StoryPreviewProps {
   /** The story definition to render */
@@ -27,6 +27,10 @@ interface StoryPreviewProps {
   defaultView?: "preview" | "code";
   /** Optional callback when view changes */
   onViewChange?: (view: "preview" | "code") => void;
+  /** Render without preview/code chrome */
+  chromeless?: boolean;
+  /** Optional arg overrides (playground controls) */
+  overrideArgs?: Record<string, unknown>;
 }
 
 /**
@@ -41,12 +45,13 @@ export function StoryPreview({
   showName = true,
   defaultView,
   onViewChange,
+  chromeless = false,
+  overrideArgs,
 }: StoryPreviewProps) {
-  const { theme, resolvedTheme } = useTheme();
-  const [view, setView] = useState<"preview" | "code">(defaultView || "preview");
-  const [copied, setCopied] = useState(false);
+  const [view, setView] = useState<"preview" | "code" | "usage">(defaultView || "preview");
   const [storySource, setStorySource] = useState<string | null>(null);
   const resolvedComponentName = componentName || meta.component?.displayName || meta.component?.name;
+  const guideline = resolvedComponentName ? getComponentGuideline(resolvedComponentName) : undefined;
 
   // Sync with defaultView prop changes
   useEffect(() => {
@@ -56,25 +61,21 @@ export function StoryPreview({
   }, [defaultView]);
 
   // Handle view change
-  const handleViewChange = (newView: "preview" | "code") => {
+  const handleViewChange = (newView: "preview" | "code" | "usage") => {
     setView(newView);
-    onViewChange?.(newView);
+    if (newView === "preview" || newView === "code") {
+      onViewChange?.(newView);
+    }
   };
 
-  const currentTheme = resolvedTheme || theme || "light";
-  const isDark = currentTheme === "dark" || currentTheme === "night";
-
-  // Use a prism theme that matches the mode
-  // Using nightOwl for dark/night and github for light
-  const prismTheme = isDark ? themes.nightOwl : themes.github;
-
-  // Merge default args with story args
+  // Merge default args with story args and optional overrides
   const mergedArgs = useMemo(() => {
     return {
       ...meta.args,
       ...story.args,
+      ...overrideArgs,
     };
-  }, [meta.args, story.args]);
+  }, [meta.args, story.args, overrideArgs]);
 
   // Load story source for function-based stories
   useEffect(() => {
@@ -251,12 +252,6 @@ export function StoryPreview({
     return `<${displayName}\n  ${props.join("\n  ")}\n/>`;
   }, [story, meta, mergedArgs, storySource, resolvedComponentName]);
 
-  const onCopy = () => {
-    navigator.clipboard.writeText(codeString);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   // Render the actual story - ensure consistent rendering to prevent hook order issues
   const renderedStory = React.useMemo(() => {
     try {
@@ -314,6 +309,10 @@ export function StoryPreview({
     }
   }, [story.component, story.render, meta.component, mergedArgs, resolvedComponentName]);
 
+  if (chromeless) {
+    return <div className={cn(className)}>{renderedStory}</div>;
+  }
+
   return (
     <div className={cn("group relative flex flex-col space-y-2 h-full", className)}>
       <div className="relative rounded-lg border bg-background shadow-sm overflow-hidden h-full">
@@ -350,60 +349,128 @@ export function StoryPreview({
                 <Terminal className="mr-1.5 h-3.5 w-3.5" />
                 Code
               </button>
+              {guideline && (
+                <button
+                  onClick={() => handleViewChange("usage")}
+                  className={cn(
+                    "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm-rem font-medium transition-colors",
+                    view === "usage"
+                      ? "bg-muted text-foreground shadow-sm"
+                      : "text-muted-foreground hover:bg-muted/50"
+                  )}
+                >
+                  <BookOpen className="mr-1.5 h-3.5 w-3.5" />
+                  Usage
+                </button>
+              )}
             </div>
           </div>
-          <button
-            onClick={onCopy}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-md border bg-background text-sm-rem font-medium transition-colors hover:bg-muted"
-            title="Copy code"
-          >
-            {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-          </button>
         </div>
 
         {/* Content */}
         {view === "preview" && (
-          <div className="p-8 h-full bg-background overflow-x-auto flex items-start justify-start">
-            <div className="min-w-max mx-auto">
+          <div
+            className="p-10 min-h-[350px] bg-background overflow-x-auto flex items-center justify-center"
+          >
+            <div className="min-w-max">
               {renderedStory}
             </div>
           </div>
         )}
 
         {view === "code" && (
-          <div className="relative overflow-x-auto bg-[var(--bg-secondary)]">
-            <Highlight theme={prismTheme} code={codeString} language="tsx">
-              {({ className, style, tokens, getLineProps, getTokenProps }) => {
-                const isSingleLine = tokens.length === 1;
-                return (
-                  <pre
-                    className={cn(className, "p-4 text-sm-rem font-mono overflow-x-auto")}
-                    style={{ 
-                      ...style, 
-                      margin: 0, 
-                      borderRadius: 0,
-                      backgroundColor: "transparent" // Let the container handle the background
-                    }}
-                  >
-                    {tokens.map((line, i) => (
-                      <div key={i} {...getLineProps({ line })}>
-                        {!isSingleLine && (
-                          <span className="select-none opacity-50 w-8 inline-block text-right mr-4 text-xs-rem">
-                            {i + 1}
-                          </span>
-                        )}
-                        {line.map((token, key) => (
-                          <span key={key} {...getTokenProps({ token })} />
-                        ))}
-                      </div>
-                    ))}
-                  </pre>
-                );
-              }}
-            </Highlight>
-          </div>
+          <CodeBlock code={codeString} lang="tsx" />
+        )}
+
+        {view === "usage" && guideline && (
+          <VariantUsagePanel
+            storyName={story.name}
+            guideline={guideline}
+          />
         )}
       </div>
+    </div>
+  );
+}
+
+/**
+ * Inline usage panel shown in the "Usage" tab of a variant preview.
+ * Shows the variant match from guidelines if available, plus quick do/don't tips.
+ */
+function VariantUsagePanel({
+  storyName,
+  guideline,
+}: {
+  storyName: string;
+  guideline: import("@/data/designer-guidelines").ComponentGuideline;
+}) {
+  const nameLower = storyName.toLowerCase();
+
+  // Try to match this story to a specific variant guideline
+  const matchedVariant = guideline.variants?.find((v) => {
+    const vLower = v.name.toLowerCase();
+    return nameLower.includes(vLower) || nameLower === vLower;
+  });
+
+  // Pick a relevant do/don't (rotate based on story name hash)
+  const hashCode = storyName.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
+  const doPair = guideline.designDosAndDonts[hashCode % guideline.designDosAndDonts.length];
+
+  return (
+    <div className="p-5 space-y-4 text-sm-rem" style={{ backgroundColor: "var(--bg-secondary)" }}>
+      {matchedVariant ? (
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Badge variant="default" size="sm">{matchedVariant.name}</Badge>
+            <span style={{ color: "var(--secondary)" }}>{matchedVariant.description}</span>
+          </div>
+          <p style={{ color: "var(--tertiary)" }}>
+            <strong style={{ color: "var(--secondary)" }}>Use case:</strong> {matchedVariant.useCase}
+          </p>
+        </div>
+      ) : (
+        <p style={{ color: "var(--secondary)" }}>{guideline.description}</p>
+      )}
+
+      {/* When to use / not to use */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="space-y-1.5">
+          <p className="font-medium" style={{ color: "var(--positive-dark, #16a34a)" }}>When to use</p>
+          <ul className="space-y-1" style={{ color: "var(--secondary)" }}>
+            {guideline.whenToUse.slice(0, 2).map((item, i) => (
+              <li key={i} className="flex items-start gap-1.5">
+                <span style={{ color: "var(--positive, #22c55e)" }}>+</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="space-y-1.5">
+          <p className="font-medium" style={{ color: "var(--critical, #ef4444)" }}>When not to use</p>
+          <ul className="space-y-1" style={{ color: "var(--secondary)" }}>
+            {guideline.whenNotToUse.slice(0, 2).map((item, i) => (
+              <li key={i} className="flex items-start gap-1.5">
+                <span style={{ color: "var(--critical, #ef4444)" }}>−</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* Quick do/don't */}
+      {doPair && (
+        <div className="flex gap-3 pt-2 border-t" style={{ borderColor: "var(--border-primary)" }}>
+          <div className="flex-1 flex items-start gap-2">
+            <span className="mt-0.5 shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--positive-light, #dcfce7)", color: "var(--positive-dark, #16a34a)" }}>✓</span>
+            <span style={{ color: "var(--secondary)" }}>{doPair.do}</span>
+          </div>
+          <div className="flex-1 flex items-start gap-2">
+            <span className="mt-0.5 shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--critical-light, #fef2f2)", color: "var(--critical, #ef4444)" }}>✗</span>
+            <span style={{ color: "var(--secondary)" }}>{doPair.dont}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

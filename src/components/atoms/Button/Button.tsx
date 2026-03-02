@@ -17,6 +17,12 @@ export type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'text' | '
 export type ButtonSize = ComponentSize;
 
 /**
+ * Button shape options
+ * @public
+ */
+export type ButtonShape = 'default' | 'rounded';
+
+/**
  * Icon position relative to button text
  * @public
  */
@@ -113,9 +119,18 @@ export interface ButtonProps extends Omit<ComposableProps<'button'>, 'children'>
    * - `only`: Icon-only button (no text)
    */
   iconPosition?: IconPosition;
+
+  /**
+   * Button shape
+   * @default 'default'
+   *
+   * - `default`: Component radius token
+   * - `rounded`: Rounded corners (12px)
+   */
+  shape?: ButtonShape;
   
   /**
-   * Enable glassmorphism effect (only applies to ghost variant)
+   * Enable glassmorphism effect (applies to secondary, text, and ghost variants)
    * - `true`: Standard glass effect
    * - `'subtle'`: Subtle glass effect
    * - `'prominent'`: Prominent glass effect
@@ -198,6 +213,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   iconSize,
   iconClassName,
   iconPosition = 'leading',
+  shape,
   glass,
   loading = false,
   disabled = false,
@@ -209,11 +225,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
 }, ref) => {
   // Core component implementation (AI protection applied at export layer)
   const resolvedGlass = useResolvedGlass(glass);
-  const isIconOnly = iconPosition === 'only' || (!children && icon);
+  const classNameHasRoundedFull = className?.includes('rounded-full') ?? false;
+  type ResolvedButtonShape = ButtonShape | 'pill' | 'circle';
+  const legacyShape: ResolvedButtonShape | undefined = classNameHasRoundedFull
+    ? (iconPosition === 'only' || (!children && icon) ? 'circle' : 'pill')
+    : undefined;
+  const resolvedShape: ResolvedButtonShape = shape ?? legacyShape ?? 'default';
+  const isIconOnly = resolvedShape === 'circle' || iconPosition === 'only' || (!children && icon);
   const isDisabled = disabled || loading;
-  // Icon-only buttons: square by default for all variants
-  // Only circular if rounded-full is explicitly in className
-  const shouldBeCircular = className?.includes('rounded-full');
   const isLink = variant === 'link';
   // Text variant icon-only buttons should keep text variant styling (borderless) per Figma design
   const effectiveVariant = variant;
@@ -299,8 +318,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     // Interaction states
     !isLink && !isDisabled && interactiveClass,
     isDisabled && "opacity-disabled",
-    // Icon-only buttons: circular only if shouldBeCircular is true
-    isIconOnly && shouldBeCircular && "!rounded-full"
+    // Circle shape stays circular regardless of custom classes
+    resolvedShape === 'circle' && "!rounded-full"
   );
 
   // Use button-specific sizing from Figma design
@@ -314,8 +333,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     isIconOnly && buttonSize.height,
     isIconOnly && buttonSize.width,
     isIconOnly && "p-0",
-    // Icon-only buttons: rounded corners by default (unless rounded-full is specified)
-    isIconOnly && !shouldBeCircular && buttonSize.borderRadius,
+    // Icon-only buttons: rounded corners by default unless circle shape is selected
+    isIconOnly && resolvedShape !== 'circle' && buttonSize.borderRadius,
     // Regular buttons: use padding
     !isIconOnly && buttonSize.padding
   ) : cn(
@@ -332,8 +351,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "disabled:bg-[var(--tertiary)] disabled:border-[var(--tertiary)] disabled:text-white disabled:opacity-50 disabled:shadow-none"
     ),
     secondary: cn(
-      "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-[var(--button-secondary-border)]",
-      "hover:bg-[var(--button-secondary-hover-bg)] hover:border-[var(--button-secondary-hover-border)]",
+      resolvedGlass
+        ? cn(getGlassClasses(resolvedGlass, '', ''), "text-[var(--button-secondary-text)] border border-[var(--button-secondary-border)]")
+        : "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] border border-[var(--button-secondary-border)]",
+      resolvedGlass
+        ? "hover:bg-[var(--glass-hover)]"
+        : "hover:bg-[var(--button-secondary-hover-bg)] hover:border-[var(--button-secondary-hover-border)]",
       "focus-visible:ring-[var(--primary)]",
       "disabled:text-[var(--tertiary)] disabled:border-[var(--border-primary)]"
     ),
@@ -344,8 +367,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
       "disabled:bg-[var(--critical)]/50 disabled:border-[var(--critical)]/50 disabled:text-[var(--button-destructive-text)] disabled:opacity-50"
     ),
     text: cn(
-      "bg-[var(--button-text-bg)] text-[var(--button-text-text)] border-[var(--button-text-border)]",
-      "hover:bg-[var(--button-text-hover-bg)] hover:text-[var(--button-text-text)]",
+      resolvedGlass
+        ? cn(getGlassClasses(resolvedGlass, '', ''), "text-[var(--button-text-text)]")
+        : "bg-[var(--button-text-bg)] text-[var(--button-text-text)] border-[var(--button-text-border)]",
+      resolvedGlass
+        ? "hover:bg-[var(--glass-hover)]"
+        : "hover:bg-[var(--button-text-hover-bg)] hover:text-[var(--button-text-text)]",
       "focus-visible:ring-[var(--primary)]",
       "disabled:text-[var(--tertiary)]"
     ),
@@ -401,10 +428,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     (typeof children === 'string' ? children : undefined) ||
     (isIconOnly ? 'Button' : undefined);
 
-  // Remove conflicting border-radius classes from className for icon-only circular buttons
-  const cleanedClassName = isIconOnly && shouldBeCircular && className
+  // Remove conflicting border-radius classes when explicitly forcing circle
+  const cleanedClassName = resolvedShape === 'circle' && className
     ? className.replace(/\brounded-\[?[^\s\]]+\]?|\brounded-(none|sm|md|lg|xl|2xl|3xl|full)\b/g, '').trim()
     : className;
+
+  const shapeStyleOverrides: React.CSSProperties | undefined = (() => {
+    if (resolvedShape === 'rounded') {
+      // Figma rounded buttons are pill-shaped across content modes.
+      return { borderRadius: 9999 };
+    }
+    if (resolvedShape === 'pill' || resolvedShape === 'circle') return { borderRadius: 9999 };
+    return undefined;
+  })();
 
   if (asChild) {
     // Filter out button-specific props that Slot doesn't accept
@@ -419,12 +455,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
           sizeStyles,
           variantStyles[effectiveVariant],
           cleanedClassName,
-          isIconOnly && shouldBeCircular && "!rounded-full"
+          resolvedShape === 'circle' && "!rounded-full"
         )}
         aria-label={accessibleName}
         aria-busy={loading}
         data-size={size}
-        style={{ ...variantStyleOverrides, ...getFilteredStyle(slotProps.style), ...iconOnlyStyleOverrides }}
+        style={{ ...variantStyleOverrides, ...getFilteredStyle(slotProps.style), ...iconOnlyStyleOverrides, ...shapeStyleOverrides }}
         {...slotProps}
       >
         {children}
@@ -443,12 +479,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         variantStyles[effectiveVariant],
         cleanedClassName,
         // Ensure rounded-full is always last for circular icon-only buttons
-        isIconOnly && shouldBeCircular && "!rounded-full"
+        resolvedShape === 'circle' && "!rounded-full"
       )}
       aria-label={accessibleName}
       aria-busy={loading}
       data-size={size}
-      style={{ ...variantStyleOverrides, ...getFilteredStyle(props.style), ...iconOnlyStyleOverrides }}
+      style={{ ...variantStyleOverrides, ...getFilteredStyle(props.style), ...iconOnlyStyleOverrides, ...shapeStyleOverrides }}
       {...props}
     >
       {loading && (

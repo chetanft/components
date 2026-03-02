@@ -153,13 +153,13 @@ export const docsConfig: DocsConfig = {
           icon: "image",
         },
         {
-          title: "RadioGroup",
+          title: "Radio Group",
           href: "/docs/components/radio-group",
           items: [],
           icon: "check",
         },
         {
-          title: "ReadOnly",
+          title: "Read Only",
           href: "/docs/components/read-only",
           items: [],
           icon: "eye-invisible",
@@ -180,7 +180,6 @@ export const docsConfig: DocsConfig = {
           title: "Spin",
           href: "/docs/components/spin",
           items: [],
-          badge: "New",
           icon: "loading",
         },
         {
@@ -190,7 +189,7 @@ export const docsConfig: DocsConfig = {
           icon: "data-stack",
         },
         {
-          title: "SubText",
+          title: "Sub Text",
           href: "/docs/components/sub-text",
           items: [],
           icon: "document",
@@ -234,19 +233,16 @@ export const docsConfig: DocsConfig = {
           title: "Anchor",
           href: "/docs/components/anchor",
           items: [],
-          badge: "New",
         },
         {
           title: "Affix",
           href: "/docs/components/affix",
           items: [],
-          badge: "New",
         },
         {
-          title: "BackTop",
+          title: "Back Top",
           href: "/docs/components/back-top",
           items: [],
-          badge: "New",
         },
         {
           title: "Breadcrumb",
@@ -254,7 +250,7 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "ButtonGroup",
+          title: "Button Group",
           href: "/docs/components/button-group",
           items: [],
         },
@@ -262,19 +258,16 @@ export const docsConfig: DocsConfig = {
           title: "Calendar",
           href: "/docs/components/calendar",
           items: [],
-          badge: "New",
         },
         {
           title: "Carousel",
           href: "/docs/components/carousel",
           items: [],
-          badge: "New",
         },
         {
           title: "Cascader",
           href: "/docs/components/cascader",
           items: [],
-          badge: "New",
         },
         {
           title: "Chicklet",
@@ -282,13 +275,12 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "ColorPicker",
+          title: "Color Picker",
           href: "/docs/components/color-picker",
           items: [],
-          badge: "New",
         },
         {
-          title: "DatePicker",
+          title: "Date Picker",
           href: "/docs/components/date-picker",
           items: [],
         },
@@ -303,50 +295,44 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "DropdownMenu",
+          title: "Dropdown Menu",
           href: "/docs/components/dropdown-menu",
           items: [],
-          badge: "New",
         },
         {
           title: "Empty",
           href: "/docs/components/empty",
           items: [],
-          badge: "New",
         },
         {
-          title: "FileValidationCard",
+          title: "File Validation Card",
           href: "/docs/components/file-validation-card",
           items: [],
         },
         {
-          title: "FloatButton",
+          title: "Float Button",
           href: "/docs/components/float-button",
           items: [],
-          badge: "New",
         },
         {
           title: "Image",
           href: "/docs/components/image",
           items: [],
-          badge: "New",
         },
         {
-          title: "HoverCard",
+          title: "Hover Card",
           href: "/docs/components/hover-card",
           items: [],
         },
         {
-          title: "InputNumber",
+          title: "Input Number",
           href: "/docs/components/input-number",
           items: [],
-          badge: "New",
         },
         {
           title: "Mentions",
           href: "/docs/components/mentions",
           items: [],
-          badge: "New",
         },
         {
           title: "Notification",
@@ -364,7 +350,7 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "ProgressBar",
+          title: "Progress Bar",
           href: "/docs/components/progress-bar",
           items: [],
         },
@@ -379,12 +365,12 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "ProgressList",
+          title: "Progress List",
           href: "/docs/components/progress-list",
           items: [],
         },
         {
-          title: "RadioSelector",
+          title: "Radio Selector",
           href: "/docs/components/radio-selector",
           items: [],
         },
@@ -392,15 +378,14 @@ export const docsConfig: DocsConfig = {
           title: "Rate",
           href: "/docs/components/rate",
           items: [],
-          badge: "New",
         },
         {
-          title: "SegmentedTabs",
+          title: "Segmented Tabs",
           href: "/docs/components/segmented-tabs",
           items: [],
         },
         {
-          title: "SimpleColumnLayout",
+          title: "Simple Column Layout",
           href: "/docs/components/simple-column-layout",
           items: [],
         },
@@ -408,7 +393,6 @@ export const docsConfig: DocsConfig = {
           title: "Slider",
           href: "/docs/components/slider",
           items: [],
-          badge: "New",
         },
         {
           title: "Steps",
@@ -419,13 +403,11 @@ export const docsConfig: DocsConfig = {
           title: "Timeline",
           href: "/docs/components/timeline",
           items: [],
-          badge: "New",
         },
         {
-          title: "TimePicker",
+          title: "Time Picker",
           href: "/docs/components/time-picker",
           items: [],
-          badge: "New",
         },
         {
           title: "Tooltip",
@@ -438,7 +420,7 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "ToggleGroup",
+          title: "Toggle Group",
           href: "/docs/components/toggle-group",
           items: [],
         },
@@ -446,38 +428,34 @@ export const docsConfig: DocsConfig = {
           title: "Tour",
           href: "/docs/components/tour",
           items: [],
-          badge: "New",
         },
         {
           title: "Transfer",
           href: "/docs/components/transfer",
           items: [],
-          badge: "New",
         },
         {
           title: "Tree",
           href: "/docs/components/tree",
           items: [],
-          badge: "New",
         },
         {
-          title: "TreeSelect",
+          title: "Tree Select",
           href: "/docs/components/tree-select",
           items: [],
-          badge: "New",
         },
         {
-          title: "UploadButton",
+          title: "Upload Button",
           href: "/docs/components/upload-button",
           items: [],
         },
         {
-          title: "UploadItem",
+          title: "Upload Item",
           href: "/docs/components/upload-item",
           items: [],
         },
         {
-          title: "UploadThumbnail",
+          title: "Upload Thumbnail",
           href: "/docs/components/upload-thumbnail",
           items: [],
         },
@@ -485,7 +463,6 @@ export const docsConfig: DocsConfig = {
           title: "Watermark",
           href: "/docs/components/watermark",
           items: [],
-          badge: "New",
         },
       ],
     },
@@ -493,7 +470,7 @@ export const docsConfig: DocsConfig = {
       title: "Organisms",
       items: [
         {
-          title: "AppHeader",
+          title: "App Header",
           href: "/docs/components/app-header",
           items: [],
         },
@@ -508,10 +485,9 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "DataEntryTable",
+          title: "Data Entry Table",
           href: "/docs/components/data-entry-table",
           items: [],
-          badge: "New",
         },
         {
           title: "Drawer",
@@ -519,17 +495,17 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "FileCard",
+          title: "File Card",
           href: "/docs/components/file-card",
           items: [],
         },
         {
-          title: "FileThumbnail",
+          title: "File Thumbnail",
           href: "/docs/components/file-thumbnail",
           items: [],
         },
         {
-          title: "FileTypeIcon",
+          title: "File Type Icon",
           href: "/docs/components/file-type-icon",
           items: [],
         },
@@ -542,13 +518,11 @@ export const docsConfig: DocsConfig = {
           title: "Form",
           href: "/docs/components/form",
           items: [],
-          badge: "New",
         },
         {
           title: "Grid",
           href: "/docs/components/grid",
           items: [],
-          badge: "New",
         },
         {
           title: "Modal",
@@ -556,23 +530,22 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "PageHeader",
+          title: "Page Header",
           href: "/docs/components/page-header",
           items: [],
-          badge: "New",
         },
         {
-          title: "NavigationLauncher",
+          title: "Navigation Launcher",
           href: "/docs/components/navigation-launcher",
           items: [],
         },
         {
-          title: "NavigationPopover",
+          title: "Navigation Popover",
           href: "/docs/components/navigation-popover",
           items: [],
         },
         {
-          title: "QuickFilters",
+          title: "Quick Filters",
           href: "/docs/components/quick-filters",
           items: [],
         },
@@ -580,7 +553,6 @@ export const docsConfig: DocsConfig = {
           title: "Result",
           href: "/docs/components/result",
           items: [],
-          badge: "New",
         },
         {
           title: "Table",
@@ -598,17 +570,17 @@ export const docsConfig: DocsConfig = {
           items: [],
         },
         {
-          title: "UploadZone",
+          title: "Upload Zone",
           href: "/docs/components/upload-zone",
           items: [],
         },
         {
-          title: "UserProfile",
+          title: "User Profile",
           href: "/docs/components/user-profile",
           items: [],
         },
         {
-          title: "UserProfileDropdown",
+          title: "User Profile Dropdown",
           href: "/docs/components/user-profile-dropdown",
           items: [],
         }

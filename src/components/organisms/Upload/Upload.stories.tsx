@@ -15,6 +15,35 @@ const meta: Meta<typeof Upload> = {
         component: 'File upload component with drag-drop, button, and thumbnail support. Supports both composable API (recommended) and declarative API (deprecated).',
       },
     },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'ExplorerBase' as const, args: { uploadType: 'drag-drop', customTrigger: false } },
+            { id: 'ButtonUpload', label: 'Button Upload', story: 'ExplorerBase' as const, args: { uploadType: 'button', customTrigger: false } },
+            { id: 'Thumbnail', label: 'Thumbnail', story: 'ExplorerBase' as const, args: { uploadType: 'thumbnail', acceptedFileTypes: ['Image'] } },
+            { id: 'WithCustomTrigger', label: 'Custom Trigger', story: 'ExplorerBase' as const, args: { uploadType: 'button', customTrigger: true } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'ExplorerBase' as const, args: { showValidation: false, maxFiles: 5, multiple: true } },
+            { id: 'WithValidation', label: 'With Validation', story: 'ExplorerBase' as const, args: { showValidation: true, maxFiles: 5, multiple: true } },
+            { id: 'SingleFileOnly', label: 'Single File Only', story: 'ExplorerBase' as const, args: { maxFiles: 1, multiple: false } },
+          ],
+        },
+      ],
+    },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -40,34 +69,35 @@ const meta: Meta<typeof Upload> = {
 export default meta;
 type Story = StoryObj<typeof Upload>;
 
-// Declarative API Examples
-/** @deprecated Use composable API instead. */
-export const LegacyDragDrop: Story = {
-  args: {
-    type: 'drag-drop',
-    maxFiles: 5,
-    acceptedFileTypes: ['Excel', 'CSV'],
-    multiple: true,
-  },
-};
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const [files, setFiles] = useState<UploadFile[]>([]);
+    const type = args.uploadType ?? 'drag-drop';
+    const maxFiles = args.maxFiles ?? 5;
+    const multiple = args.multiple ?? true;
+    const acceptedFileTypes = args.acceptedFileTypes ?? ['Excel', 'CSV'];
+    const showValidation = Boolean(args.showValidation);
+    const customTrigger = Boolean(args.customTrigger);
 
-/** @deprecated Use composable API instead. */
-export const LegacyButtonUpload: Story = {
-  args: {
-    type: 'button',
-    maxFiles: 10,
-    acceptedFileTypes: ['Excel', 'CSV'],
-    multiple: true,
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyThumbnailUpload: Story = {
-  args: {
-    type: 'thumbnail',
-    maxFiles: 5,
-    acceptedFileTypes: ['Image'],
-    multiple: true,
+    return (
+      <Upload
+        type={type}
+        maxFiles={maxFiles}
+        acceptedFileTypes={acceptedFileTypes}
+        multiple={multiple}
+        showValidation={showValidation}
+        onFilesChange={setFiles}
+      >
+        <UploadTrigger>
+          {customTrigger ? (
+            <Button variant="primary" size="lg">
+              Choose Files to Upload
+            </Button>
+          ) : undefined}
+        </UploadTrigger>
+        {type !== 'thumbnail' ? <UploadList /> : null}
+      </Upload>
+    );
   },
 };
 
@@ -133,7 +163,7 @@ export const WithCustomTrigger: Story = {
   },
 };
 
-export const WithCustomList: Story = {
+export const DocsWithCustomList: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadFile[]>([]);
     
@@ -160,43 +190,6 @@ export const WithCustomList: Story = {
       </Upload>
     );
   },
-};
 
-export const WithValidation: Story = {
-  render: () => {
-    const [files, setFiles] = useState<UploadFile[]>([]);
-    
-    return (
-      <Upload
-        type="drag-drop"
-        maxFiles={5}
-        acceptedFileTypes={['Excel', 'CSV']}
-        multiple={true}
-        showValidation={true}
-        onFilesChange={setFiles}
-      >
-        <UploadTrigger />
-        <UploadList />
-      </Upload>
-    );
-  },
-};
-
-export const Thumbnail: Story = {
-  render: () => {
-    const [files, setFiles] = useState<UploadFile[]>([]);
-    
-    return (
-      <Upload
-        type="thumbnail"
-        maxFiles={5}
-        acceptedFileTypes={['Image']}
-        multiple={true}
-        onFilesChange={setFiles}
-      >
-        <UploadTrigger />
-      </Upload>
-    );
-  },
-};
-
+  parameters: { docsOnly: true },
+}

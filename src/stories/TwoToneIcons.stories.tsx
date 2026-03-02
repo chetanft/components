@@ -5,6 +5,7 @@ import { Icon, type IconName } from '../components/atoms/Icons/Icon';
 const meta = {
   title: 'Components/TwoToneIcons',
   parameters: {
+    docsOnly: true,
     layout: 'padded',
     docs: {
       description: {

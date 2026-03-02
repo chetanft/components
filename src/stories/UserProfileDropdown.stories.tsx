@@ -50,6 +50,7 @@ const meta = {
   title: 'Components/UserProfile/Dropdown',
   component: UserProfileDropdown,
   parameters: {
+    docsOnly: true,
     layout: 'fullscreen',
     docs: {
       description: {

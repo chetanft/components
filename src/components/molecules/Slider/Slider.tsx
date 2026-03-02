@@ -10,11 +10,6 @@ import { SliderRange } from './SliderRange';
 import { SliderThumb } from './SliderThumb';
 import { SliderLabel } from './SliderLabel';
 
-export interface SliderMark {
-  value: number;
-  label?: React.ReactNode;
-}
-
 export interface SliderProps extends Omit<ComposableProps<'div'>, 'onChange' | 'defaultValue'> {
   /**
    * Current value (single or range) (controlled)
@@ -56,11 +51,6 @@ export interface SliderProps extends Omit<ComposableProps<'div'>, 'onChange' | '
    */
   disabled?: boolean;
   /**
-   * Show marks (for declarative API)
-   * @deprecated Use SliderLabel components instead
-   */
-  marks?: SliderMark[] | boolean;
-  /**
    * Show tooltip
    * @default true
    */
@@ -91,7 +81,7 @@ export interface SliderProps extends Omit<ComposableProps<'div'>, 'onChange' | '
  * Slider Component
  * 
  * A range input component for selecting values along a track.
- * Supports both composable API (recommended) and declarative API (deprecated).
+ * Supports composable API with sub-components for flexible composition.
  * 
  * @public
  * 
@@ -107,15 +97,12 @@ export interface SliderProps extends Omit<ComposableProps<'div'>, 'onChange' | '
  *   <SliderLabel value={100}>Max</SliderLabel>
  * </Slider>
  * 
- * // Declarative API (deprecated)
- * <Slider value={50} marks={true} />
  * ```
- * 
+ *
  * @remarks
  * - Composable API provides maximum flexibility and control
  * - All sub-components (SliderTrack, SliderRange, SliderThumb, etc.) support `asChild`
  * - Supports single value and range modes, vertical/horizontal orientations
- * - Declarative API is deprecated but still functional for backward compatibility
  * - Uses FT Design System tokens: var(--primary) for track, var(--border-secondary) for rail
  */
 export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
@@ -128,7 +115,6 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     range = false,
     vertical = false,
     disabled = false,
-    marks = false,
     tooltip = true,
     trackColor,
     railColor,
@@ -249,54 +235,6 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       }
     }, [disabled, range, rangeValue, getValueFromPosition, updateValue]);
 
-    // Generate marks
-    const renderMarks = () => {
-      if (!marks) return null;
-
-      let markItems: SliderMark[] = [];
-
-      if (marks === true) {
-        // Auto-generate marks at min and max
-        markItems = [
-          { value: min },
-          { value: max },
-        ];
-      } else {
-        markItems = marks;
-      }
-
-      return (
-        <div className={cn(
-          "absolute",
-          vertical 
-            ? "left-full ml-[var(--spacing-x2)] top-0 bottom-0" 
-            : "top-full mt-[var(--spacing-x2)] left-0 right-0"
-        )}>
-          {markItems.map((mark) => {
-            const percent = getPercent(mark.value);
-            return (
-              <div
-                key={mark.value}
-                className={cn(
-                  "absolute text-[var(--tertiary)]",
-                  vertical ? "-translate-y-1/2" : "-translate-x-1/2"
-                )}
-                style={{
-                  fontSize: 'var(--font-size-sm-rem)', // 14px → 1rem (responsive)
-                  ...(vertical 
-                  ? { bottom: `${percent}%` }
-                    : { left: `${percent}%` })
-                }
-                }
-              >
-                {mark.label ?? mark.value}
-              </div>
-            );
-          })}
-        </div>
-      );
-    };
-
     const startPercent = getPercent(rangeValue[0]);
     const endPercent = getPercent(rangeValue[1]);
     
@@ -320,7 +258,6 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       range,
       vertical,
       disabled,
-      marks,
       tooltip,
       trackColor,
       railColor,
@@ -338,10 +275,6 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     
     // If using composable API, render with context provider
     if (hasComposableChildren) {
-        // Show deprecation warning if using old props with composable API
-        if (process.env.NODE_ENV !== 'production' && marks) {
-                    }
-        
         const Comp = asChild ? Slot : 'div';
         return (
             <SliderProvider value={contextValue}>
@@ -361,10 +294,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
         );
     }
     
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production' && marks) {
-            }
-    
+    // Otherwise use declarative API
     // Handle component (for declarative API)
     const Handle = ({ 
       position, 
@@ -450,8 +380,6 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
                 )}
                 <Handle position={endPercent} value={rangeValue[1]} type="end" />
 
-                {/* Marks */}
-                {renderMarks()}
             </Comp>
         </SliderProvider>
     );

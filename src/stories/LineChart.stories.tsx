@@ -10,7 +10,28 @@ const meta: Meta<typeof LineChart> = {
       description: {
         component: 'Line chart component for displaying trends and changes over time. Supports multiple datasets, custom dots, and various interpolation modes.'
       }
-    }
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'chart',
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Basic',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Basic', label: 'Basic', story: 'Basic' as const },
+            { id: 'Multiple', label: 'Multiple', story: 'Multiple' as const },
+            { id: 'Linear', label: 'Linear', story: 'Linear' as const },
+            { id: 'Step', label: 'Step', story: 'Step' as const },
+            { id: 'WithDots', label: 'WithDots', story: 'WithDots' as const },
+            { id: 'WithLabels', label: 'WithLabels', story: 'WithLabels' as const },
+          ],
+        },
+      ],
+    },
   },
   argTypes: {
     title: {

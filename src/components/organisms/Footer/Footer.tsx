@@ -9,32 +9,7 @@ export interface FooterProps extends ComposableProps<'footer'> {
   /** Glassmorphism variant */
   glass?: GlassVariant;
   /**
-   * Number of buttons to display (1-4) - for declarative API
-   * @deprecated Use FooterButton components as children instead
-   */
-  buttonCount?: 1 | 2 | 3 | 4;
-  /**
-   * Whether to show the left side button (only for 3+ button layouts) - for declarative API
-   * @deprecated Use FooterButton components as children instead
-   */
-  leftSideButton?: boolean;
-  /**
-   * Custom button texts - if not provided, defaults to "Button" - for declarative API
-   * @deprecated Use FooterButton components as children instead
-   */
-  buttonTexts?: string[];
-  /**
-   * Custom button variants for each button - for declarative API
-   * @deprecated Use FooterButton components as children instead
-   */
-  buttonVariants?: Array<'primary' | 'secondary' | 'text' | 'link'>;
-  /**
-   * Custom click handlers for each button - for declarative API
-   * @deprecated Use FooterButton components as children instead
-   */
-  onButtonClick?: Array<() => void>;
-  /**
-   * Footer content (for composable API)
+   * Footer content
    */
   children?: React.ReactNode;
 }
@@ -57,189 +32,51 @@ export interface FooterButtonProps extends React.ButtonHTMLAttributes<HTMLButton
 export const Footer = React.forwardRef<HTMLElement, FooterProps>(
   ({
     glass,
-    buttonCount = 1,
-    leftSideButton = false,
-    buttonTexts = [],
-    buttonVariants = [],
-    onButtonClick = [],
     className,
     children,
     asChild,
     ...props
   }, ref) => {
     const resolvedGlass = useResolvedGlass(glass);
-    // Check if using composable API (has children)
-    const hasComposableChildren = React.Children.count(children) > 0;
-    
-    // If using composable API, render with children
-    if (hasComposableChildren) {
-      // Show deprecation warning if using old props with composable API
-      if (process.env.NODE_ENV !== 'production' && (buttonTexts.length > 0 || buttonVariants.length > 0 || onButtonClick.length > 0)) {
-              }
-      
-      const Comp = asChild ? Slot : 'footer';
-      const childrenArray = React.Children.toArray(children);
-      const footerButtons = childrenArray.filter(child => 
-        React.isValidElement(child) && child.type === FooterButton
-      );
-      const leftSideButtons = footerButtons.filter((child): child is React.ReactElement<FooterButtonProps> => 
-        React.isValidElement<FooterButtonProps>(child) && child.props.leftSide === true
-      );
-      const rightSideButtons = footerButtons.filter((child): child is React.ReactElement<FooterButtonProps> => 
-        React.isValidElement<FooterButtonProps>(child) && child.props.leftSide !== true
-      );
-      
-      const hasLeftSide = leftSideButtons.length > 0;
-      const layoutClasses = hasLeftSide 
-        ? "flex justify-between items-center"
-        : "flex justify-end items-center";
-      
-      return (
-        <Comp ref={ref} className={cn("w-full max-w-full", getGlassClasses(resolvedGlass, 'bg-surface', ''), className)} {...props}>
-          <Divider type="primary" className="w-full" />
-          <div
-            className={cn(
-              "px-5 py-4 gap-[366px] max-w-full overflow-x-auto",
-              layoutClasses
-            )}
-          >
-            {hasLeftSide && (
-              <div className="flex items-center gap-5">
-                {leftSideButtons}
-              </div>
-            )}
-            {rightSideButtons.length > 0 && (
-              <div className="flex items-center gap-5">
-                {rightSideButtons}
-              </div>
-            )}
-            {childrenArray.filter(child => 
-              !React.isValidElement(child) || child.type !== FooterButton
-            )}
-          </div>
-        </Comp>
-      );
-    }
-    
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production' && buttonTexts.length > 0) {
-          }
-
-    // Generate default button texts if not provided
-    const defaultTexts = Array.from({ length: buttonCount }, (_, i) => buttonTexts[i] || 'Button');
-
-    // Generate default button variants based on Figma design patterns
-    const getDefaultVariants = () => {
-      const variants: Array<'primary' | 'secondary' | 'text' | 'link'> = [];
-
-      if (buttonCount === 1) {
-        variants.push('primary');
-      } else if (buttonCount === 2) {
-        variants.push('secondary', 'primary');
-      } else if (buttonCount === 3) {
-        if (leftSideButton) {
-          variants.push('text', 'secondary', 'primary');
-        } else {
-          variants.push('text', 'secondary', 'primary');
-        }
-      } else if (buttonCount === 4) {
-        variants.push('text', 'text', 'secondary', 'primary');
-      }
-
-      return variants;
-    };
-
-    const finalVariants = buttonVariants.length > 0 ? buttonVariants : getDefaultVariants();
-
-    // Render buttons with proper layout
-    const renderButtons = () => {
-      const buttons = defaultTexts.map((text, index) => (
-        <Button
-          key={index}
-          variant={finalVariants[index] || 'primary'}
-          size="lg"
-          icon="add"
-          iconPosition="leading"
-          onClick={onButtonClick[index]}
-          className="min-w-[188px] h-12"
-        >
-          {text}
-        </Button>
-      ));
-
-      // Layout logic based on Figma design
-      if (buttonCount === 1) {
-        return buttons[0];
-      }
-
-      if (buttonCount === 2) {
-        return (
-          <div className="flex items-center gap-5">
-            {buttons}
-          </div>
-        );
-      }
-
-      if (buttonCount === 3) {
-        if (leftSideButton) {
-          return (
-            <>
-              {buttons[0]}
-              <div className="flex items-center gap-5">
-                {buttons[1]}
-                {buttons[2]}
-              </div>
-            </>
-          );
-        } else {
-          return (
-            <div className="flex items-center gap-5">
-              {buttons}
-            </div>
-          );
-        }
-      }
-
-      if (buttonCount === 4) {
-        return (
-          <>
-            {buttons[0]}
-            <div className="flex items-center gap-5">
-              {buttons[1]}
-              {buttons[2]}
-              {buttons[3]}
-            </div>
-          </>
-        );
-      }
-
-      return null;
-    };
-
-    // Layout classes based on button configuration
-    const getLayoutClasses = () => {
-      if (buttonCount === 1) {
-        return "flex justify-end items-center";
-      }
-
-      if (buttonCount >= 3 && leftSideButton) {
-        return "flex justify-between items-center";
-      }
-
-      return "flex justify-end items-center";
-    };
-
     const Comp = asChild ? Slot : 'footer';
+    const childrenArray = React.Children.toArray(children);
+    const footerButtons = childrenArray.filter(child =>
+      React.isValidElement(child) && child.type === FooterButton
+    );
+    const leftSideButtons = footerButtons.filter((child): child is React.ReactElement<FooterButtonProps> =>
+      React.isValidElement<FooterButtonProps>(child) && child.props.leftSide === true
+    );
+    const rightSideButtons = footerButtons.filter((child): child is React.ReactElement<FooterButtonProps> =>
+      React.isValidElement<FooterButtonProps>(child) && child.props.leftSide !== true
+    );
+
+    const hasLeftSide = leftSideButtons.length > 0;
+    const layoutClasses = hasLeftSide
+      ? "flex justify-between items-center"
+      : "flex justify-end items-center";
+
     return (
       <Comp ref={ref} className={cn("w-full max-w-full", getGlassClasses(resolvedGlass, 'bg-surface', ''), className)} {...props}>
         <Divider type="primary" className="w-full" />
         <div
           className={cn(
-            "px-5 py-4 gap-[366px] max-w-full overflow-x-auto", // Large gap as specified in Figma design
-            getLayoutClasses()
+            "px-5 py-4 gap-[366px] max-w-full overflow-x-auto",
+            layoutClasses
           )}
         >
-          {renderButtons()}
+          {hasLeftSide && (
+            <div className="flex items-center gap-5">
+              {leftSideButtons}
+            </div>
+          )}
+          {rightSideButtons.length > 0 && (
+            <div className="flex items-center gap-5">
+              {rightSideButtons}
+            </div>
+          )}
+          {childrenArray.filter(child =>
+            !React.isValidElement(child) || child.type !== FooterButton
+          )}
         </div>
       </Comp>
     );

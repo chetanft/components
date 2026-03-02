@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import type { ComponentSize } from '../../../lib/utils';
+import type { GlassVariant } from '../../../lib/glass';
 
 export interface SelectContextValue {
   value?: string;
@@ -12,6 +13,7 @@ export interface SelectContextValue {
   setSelectedLabel: (label: string) => void;
   size?: ComponentSize;
   setSize: (size: ComponentSize) => void;
+  glass?: GlassVariant;
 }
 
 const SelectContext = createContext<SelectContextValue | undefined>(undefined);
@@ -29,6 +31,7 @@ const defaultContext: SelectContextValue = {
   setSelectedLabel: () => {},
   size: 'md',
   setSize: () => {},
+  glass: undefined,
 };
 
 export const useSelectContext = () => {
@@ -43,12 +46,14 @@ export const useSelectContext = () => {
 export interface SelectContextProviderProps {
   value?: string;
   onValueChange?: (value: string) => void;
+  glass?: GlassVariant;
   children: React.ReactNode;
 }
 
 export const SelectContextProvider: React.FC<SelectContextProviderProps> = ({
   value,
   onValueChange,
+  glass,
   children
 }) => {
   const [open, setOpen] = useState(false);
@@ -71,7 +76,8 @@ export const SelectContextProvider: React.FC<SelectContextProviderProps> = ({
     selectedLabel,
     setSelectedLabel,
     size,
-    setSize: handleSetSize
+    setSize: handleSetSize,
+    glass,
   };
 
   return (

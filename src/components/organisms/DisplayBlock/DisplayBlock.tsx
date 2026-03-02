@@ -56,7 +56,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         data-name="Layout=Horizontal, Blocks=1, Padding=False"
         {...props}
       >
-        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start justify-center min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex flex-1 flex-col gap-[var(--spacing-x1)] items-start justify-center min-h-px min-w-px relative shrink-0">
           {contentElement}
         </div>
       </Comp>
@@ -73,10 +73,10 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         data-name="Layout=Horizontal, Blocks=2, Padding=True"
         {...props}
       >
-        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start justify-center min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex flex-1 flex-col gap-[var(--spacing-x1)] items-start justify-center min-h-px min-w-px relative shrink-0">
           {contentElement}
         </div>
-        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start justify-center min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex flex-1 flex-col gap-[var(--spacing-x1)] items-start justify-center min-h-px min-w-px relative shrink-0">
           <Content />
         </div>
       </Comp>
@@ -93,10 +93,10 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         data-name="Layout=Horizontal, Blocks=2, Padding=False"
         {...props}
       >
-        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
           {contentElement}
         </div>
-        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
           <Content />
         </div>
       </Comp>
@@ -155,13 +155,13 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         data-name="Layout=Horizontal, Blocks=3, Padding=True"
         {...props}
       >
-        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
           {contentElement}
         </div>
-        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
           <Content />
         </div>
-        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
           <Content />
         </div>
       </Comp>
@@ -178,13 +178,13 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         data-name="Layout=Horizontal, Blocks=3, Padding=False"
         {...props}
       >
-        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
           {contentElement}
         </div>
-        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
           <Content />
         </div>
-        <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+        <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
           <Content />
         </div>
       </Comp>
@@ -251,7 +251,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
       data-name="Layout=Horizontal, Blocks=1, Padding=True"
       {...props}
     >
-      <div className="content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
+      <div className="content-stretch flex flex-1 flex-col gap-[4px] items-start justify-center min-h-px min-w-px relative shrink-0">
         {contentElement}
       </div>
     </Comp>

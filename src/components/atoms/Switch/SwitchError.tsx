@@ -37,15 +37,17 @@ export interface SwitchErrorProps extends ComposableProps<'p'> {
  */
 export const SwitchError = React.forwardRef<HTMLParagraphElement, SwitchErrorProps>(
   ({ className, children, asChild, ...props }, ref) => {
-    const { errorId } = useSwitchContext();
+    const { errorId, size } = useSwitchContext();
     const Comp = asChild ? Slot : 'p';
+    const trackWidth = size === 'sm' ? '30px' : '34px';
     
     return (
       <Comp
         ref={ref}
         id={errorId}
         role="alert"
-        className={cn("mt-1 text-sm text-critical", className)}
+        className={cn("basis-full w-full mt-1 text-sm text-critical", className)}
+        style={{ marginLeft: `calc(${trackWidth} + var(--spacing-x2))`, ...props.style }}
         {...props}
       >
         {children}
@@ -55,4 +57,3 @@ export const SwitchError = React.forwardRef<HTMLParagraphElement, SwitchErrorPro
 );
 
 SwitchError.displayName = 'SwitchError';
-

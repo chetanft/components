@@ -1,5 +1,5 @@
 export { Descriptions } from './Descriptions';
-export type { DescriptionsProps, DescriptionsItemProps } from './Descriptions';
+export type { DescriptionsProps } from './Descriptions';
 
 export { DescriptionsTitle } from './DescriptionsTitle';
 export type { DescriptionsTitleProps } from './DescriptionsTitle';

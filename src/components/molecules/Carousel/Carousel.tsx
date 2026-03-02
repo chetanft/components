@@ -222,7 +222,7 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       "absolute z-30 flex items-center justify-center",
       "w-[var(--spacing-x10)] h-[var(--spacing-x10)] rounded-full",
       resolvedGlass
-        ? "bg-white/20 dark:bg-white/20 hover:bg-white/30 dark:hover:bg-white/30 backdrop-blur-sm"
+        ? "bg-[var(--glass-hover)] hover:bg-[var(--glass-selected)]"
         : "bg-[var(--color-bg-primary)]/90 hover:bg-[var(--color-bg-primary)]",
       "shadow-lg border border-[var(--color-border-primary)]",
       "text-[var(--color-primary)] hover:text-[var(--color-primary)]",

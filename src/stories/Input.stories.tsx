@@ -7,7 +7,51 @@ const meta: Meta<typeof Input> = {
   component: Input,
   parameters: {
     layout: 'padded',
+    docs: {
+      description: {
+        component: 'Composable input component with support for labels, helper text, error/warning/success states, and icons. Use InputLabel, InputField, InputHelper, InputError, InputWarning, InputSuccess sub-components for flexible composition.',
+      },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      rows: [
+        {
+          id: 'style',
+          label: 'Style',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { variant: 'default' } },
+            { id: 'filled', label: 'Filled', story: 'ExplorerBase', args: { variant: 'filled' } },
+            { id: 'outlined', label: 'Outlined', story: 'ExplorerBase', args: { variant: 'outlined' } },
+          ],
+        },
+        {
+          id: 'content',
+          label: 'Content',
+          scenarios: [
+            { id: 'default', label: 'Basic', story: 'ExplorerBase', args: { explorerContent: 'basic' } },
+            { id: 'icons', label: 'With Icons', story: 'ExplorerBase', args: { explorerContent: 'icons' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { explorerState: 'default' } },
+            { id: 'error', label: 'Error', story: 'ExplorerBase', args: { explorerState: 'error' } },
+            { id: 'warning', label: 'Warning', story: 'ExplorerBase', args: { explorerState: 'warning' } },
+            { id: 'success', label: 'Success', story: 'ExplorerBase', args: { explorerState: 'success' } },
+            { id: 'disabled', label: 'Disabled', story: 'ExplorerBase', args: { explorerState: 'disabled' } },
+          ],
+        },
+      ],
+      defaultRowId: 'style',
+      defaultScenarioId: 'default',
+    },
   },
+  tags: ['autodocs'],
   argTypes: {
     variant: {
       control: { type: 'select' },
@@ -23,96 +67,45 @@ const meta: Meta<typeof Input> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
+type ExplorerInputState = 'default' | 'error' | 'warning' | 'success' | 'disabled';
+type ExplorerInputContent = 'basic' | 'icons';
+
+export const ExplorerBase: Story = {
   args: {
-    label: 'Input Label',
-    placeholder: 'Enter value',
-    size: 'md',
     variant: 'default',
+    explorerState: 'default' as ExplorerInputState,
+    explorerContent: 'basic' as ExplorerInputContent,
+  } as any,
+  render: (args: any) => {
+    const variant = (args.variant ?? 'default') as 'default' | 'filled' | 'outlined';
+    const explorerState = (args.explorerState ?? 'default') as ExplorerInputState;
+    const explorerContent = (args.explorerContent ?? 'basic') as ExplorerInputContent;
+    const disabled = explorerState === 'disabled';
+
+    const error = explorerState === 'error' ? 'Please enter a valid email address' : undefined;
+    const warning = explorerState === 'warning' ? 'Please verify your email address' : undefined;
+    const success = explorerState === 'success' ? 'Email is valid' : undefined;
+
+    return (
+      <div className="w-[320px]">
+        <Input size="md" variant={variant} disabled={disabled} error={error} warning={warning} success={success}>
+          <InputLabel mandatory>Email Address</InputLabel>
+          <InputField
+            type="email"
+            defaultValue={explorerState === 'success' ? 'user@example.com' : explorerState === 'warning' ? 'user@example' : ''}
+            placeholder={disabled ? 'Disabled input' : 'Enter your email'}
+            disabled={disabled}
+            leadingIcon={explorerContent === 'icons' ? 'search' : undefined}
+          />
+          {error && <InputError>{error}</InputError>}
+          {warning && <InputWarning>{warning}</InputWarning>}
+          {success && <InputSuccess>{success}</InputSuccess>}
+          {explorerState === 'default' && <InputHelper>We'll never share your email</InputHelper>}
+        </Input>
+      </div>
+    );
   },
 };
-
-/** @deprecated Use composable API instead. */
-export function LegacyInteractiveDemo() {
-  const [normalValue, setNormalValue] = React.useState('');
-  const [errorValue, setErrorValue] = React.useState('');
-  const [warningValue, setWarningValue] = React.useState('');
-  const [successValue, setSuccessValue] = React.useState('');
-
-  return (
-    <div className="p-6 space-y-4">
-      <h3 className="text-lg font-semibold mb-4">All Input Variants - Interactive</h3>
-      
-      <div className="space-y-4">
-        <Input 
-          label="Normal Input" 
-          placeholder="Type here..."
-          size="md" 
-          variant="default"
-          value={normalValue}
-          onChange={(e) => setNormalValue(e.target.value)}
-        />
-        
-        <Input 
-          label="Error State" 
-          placeholder="Type here..."
-          size="md" 
-          variant="default"
-          error="This field has an error"
-          value={errorValue}
-          onChange={(e) => setErrorValue(e.target.value)}
-        />
-        
-        <Input 
-          label="Warning State" 
-          placeholder="Type here..."
-          size="md" 
-          variant="default"
-          warning="Please review your input"
-          value={warningValue}
-          onChange={(e) => setWarningValue(e.target.value)}
-        />
-        
-        <Input 
-          label="Success State" 
-          placeholder="Type here..."
-          size="md" 
-          variant="default"
-          success="Input is valid"
-          value={successValue}
-          onChange={(e) => setSuccessValue(e.target.value)}
-        />
-        
-        <Input 
-          label="Disabled Input" 
-          placeholder="Cannot type here"
-          size="md" 
-          variant="default"
-          disabled
-        />
-        
-        <Input 
-          label="Filled Variant" 
-          placeholder="Type here..."
-          size="md" 
-          variant="filled"
-          value={normalValue}
-          onChange={(e) => setNormalValue(e.target.value)}
-        />
-        
-        <Input 
-          label="Outlined Variant" 
-          placeholder="Type here..."
-          size="md" 
-          variant="outlined"
-          value={normalValue}
-          onChange={(e) => setNormalValue(e.target.value)}
-        />
-      </div>
-    </div>
-  );
-}
 
 // Composable API Examples
 function ComposableBasicComponent() {
@@ -227,87 +220,127 @@ export const WithWarning: Story = {
   render: () => <ComposableWithWarningComponent />,
 };
 
-/** @deprecated Use composable API instead. */
-export const LegacyFilled: Story = {
-  args: {
-    label: 'Filled Input',
-    placeholder: 'Enter value',
-    size: 'md',
-    variant: 'filled',
-    defaultValue: 'Pre-filled value',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyError: Story = {
-  args: {
-    label: 'Input with Error',
-    placeholder: 'Enter value',
-    size: 'md',
-    variant: 'default',
-    error: 'This field has an error',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyWarning: Story = {
-  args: {
-    label: 'Input with Warning',
-    placeholder: 'Enter value',
-    size: 'md',
-    variant: 'default',
-    warning: 'Please review your input',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacySuccess: Story = {
-  args: {
-    label: 'Input with Success',
-    placeholder: 'Enter value',
-    size: 'md',
-    variant: 'default',
-    success: 'Input is valid',
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export const LegacyDisabled: Story = {
-  args: {
-    label: 'Disabled Input',
-    placeholder: 'Cannot type here',
-    size: 'md',
-    variant: 'default',
-    disabled: true,
-  },
-};
-
-/** @deprecated Use composable API instead. */
-export function LegacySizes() {
-  const sizes: Array<'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'> = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
-  
+function ComposableFilledComponent() {
+  const [value, setValue] = React.useState('');
   return (
-    <div className="p-6 space-y-4">
-      {sizes.map(size => (
-        <div key={size}>
-          <Input label={`Size: ${size.toUpperCase()}`} placeholder="Value" size={size} variant="default" />
-        </div>
-      ))}
+    <Input size="md" variant="filled">
+      <InputLabel>Email Address</InputLabel>
+      <InputField
+        type="email"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Enter your email"
+      />
+    </Input>
+  );
+}
+
+export const Filled: Story = {
+  render: () => <ComposableFilledComponent />,
+};
+
+function ComposableOutlinedComponent() {
+  const [value, setValue] = React.useState('');
+  return (
+    <Input size="md" variant="outlined">
+      <InputLabel>Email Address</InputLabel>
+      <InputField
+        type="email"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Enter your email"
+      />
+    </Input>
+  );
+}
+
+export const Outlined: Story = {
+  render: () => <ComposableOutlinedComponent />,
+};
+
+function ComposableDisabledComponent() {
+  return (
+    <Input size="md" variant="default" disabled>
+      <InputLabel>Email Address</InputLabel>
+      <InputField type="email" placeholder="Disabled input" disabled />
+    </Input>
+  );
+}
+
+export const Disabled: Story = {
+  render: () => <ComposableDisabledComponent />,
+};
+
+export function DocsVariants() {
+  return (
+    <div className="p-6 space-y-6">
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Default Variant</p>
+        <Input size="md" variant="default">
+          <InputLabel>Default</InputLabel>
+          <InputField placeholder="Enter value" />
+        </Input>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Filled Variant</p>
+        <Input size="md" variant="filled">
+          <InputLabel>Filled</InputLabel>
+          <InputField placeholder="Enter value" />
+        </Input>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Outlined Variant</p>
+        <Input size="md" variant="outlined">
+          <InputLabel>Outlined</InputLabel>
+          <InputField placeholder="Enter value" />
+        </Input>
+      </div>
     </div>
   );
 }
 
-/** @deprecated Use composable API instead. */
-export function LegacyStates() {
+export function DocsStates() {
   return (
-    <div className="p-6 space-y-3">
-      <Input label="Normal" placeholder="Value" size="md" variant="default" />
-      <Input label="Error" placeholder="Value" size="md" variant="default" error="Error message" />
-      <Input label="Warning" placeholder="Value" size="md" variant="default" warning="Warning message" />
-      <Input label="Success" placeholder="Value" size="md" variant="default" success="Success message" />
-      <Input label="Disabled" placeholder="Value" size="md" variant="default" disabled />
-      <Input label="Prefilled" placeholder="Value" size="md" variant="default" defaultValue="Pre-filled value" />
+    <div className="p-6 space-y-6">
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Normal</p>
+        <Input size="md" variant="default">
+          <InputLabel>Email</InputLabel>
+          <InputField placeholder="Enter email" />
+          <InputHelper>We will not share your email</InputHelper>
+        </Input>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Error</p>
+        <Input size="md" variant="default" error="Invalid email address">
+          <InputLabel mandatory>Email</InputLabel>
+          <InputField placeholder="Enter email" />
+          <InputError>Invalid email address</InputError>
+        </Input>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Warning</p>
+        <Input size="md" variant="default" warning="Please verify">
+          <InputLabel>Email</InputLabel>
+          <InputField placeholder="Enter email" />
+          <InputWarning>Please verify your email</InputWarning>
+        </Input>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Success</p>
+        <Input size="md" variant="default" success="Valid">
+          <InputLabel>Email</InputLabel>
+          <InputField placeholder="Enter email" />
+          <InputSuccess>Email is valid</InputSuccess>
+        </Input>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-[var(--secondary)] mb-2">Disabled</p>
+        <Input size="md" variant="default" disabled>
+          <InputLabel>Email</InputLabel>
+          <InputField placeholder="Cannot type here" />
+        </Input>
+      </div>
     </div>
   );
 }
-

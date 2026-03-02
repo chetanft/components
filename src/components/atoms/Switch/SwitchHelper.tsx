@@ -37,14 +37,16 @@ export interface SwitchHelperProps extends ComposableProps<'p'> {
  */
 export const SwitchHelper = React.forwardRef<HTMLParagraphElement, SwitchHelperProps>(
   ({ className, children, asChild, ...props }, ref) => {
-    const { helperId } = useSwitchContext();
+    const { helperId, size } = useSwitchContext();
     const Comp = asChild ? Slot : 'p';
+    const trackWidth = size === 'sm' ? '30px' : '34px';
     
     return (
       <Comp
         ref={ref}
         id={helperId}
-        className={cn("mt-1 text-sm text-[var(--secondary)]", className)}
+        className={cn("basis-full w-full mt-1 text-sm text-[var(--secondary)]", className)}
+        style={{ marginLeft: `calc(${trackWidth} + var(--spacing-x2))`, ...props.style }}
         {...props}
       >
         {children}
@@ -54,4 +56,3 @@ export const SwitchHelper = React.forwardRef<HTMLParagraphElement, SwitchHelperP
 );
 
 SwitchHelper.displayName = 'SwitchHelper';
-

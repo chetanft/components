@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { Button } from '../components/atoms/Button/Button';
 import { Badge } from '../components/atoms/Badge/Badge';
 import { Input } from '../components/atoms/Input/Input';
-import { Drawer } from '../components/organisms/Drawer/Drawer';
-import { Table } from '../components/organisms/Table/Table';
+import {
+    Drawer,
+    DrawerContent,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerBody,
+} from '../components/organisms/Drawer';
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '../components/organisms/Table';
 
 export const FTImprovementDemo = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -126,42 +132,61 @@ export const FTImprovementDemo = () => {
 
                 <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <h3 className="text-lg font-semibold mb-4">Table Component</h3>
-                    <Table
-                        columns={columns}
-                        data={data}
-                        variant="primary"
-                    />
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                {columns.map((column) => (
+                                    <TableHead key={String(column.key)}>{String(column.title)}</TableHead>
+                                ))}
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {data.map((row) => (
+                                <TableRow key={row.id}>
+                                    {columns.map((column) => (
+                                        <TableCell key={`${row.id}-${String(column.key)}`}>
+                                            {column.render
+                                                ? column.render((row as Record<string, unknown>)[String(column.key)], row, 0)
+                                                : String((row as Record<string, unknown>)[String(column.key)] ?? '')}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
                 </div>
             </section>
 
-            <Drawer
-                title="Asset Details"
-                open={drawerOpen}
-                onClose={() => setDrawerOpen(false)}
-                width={500}
-            >
-                <div className="space-y-6">
-                    <div className="p-4 bg-blue-50 rounded-md border border-blue-100 text-blue-800">
-                        <p className="text-sm">
-                            <strong>Note:</strong> This drawer content should have a subtle background tint if implemented correctly,
-                            distinguishing it from the white drawer surface if desired, or the drawer itself should handle it.
-                        </p>
-                    </div>
-
-                    <div>
-                        <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Information</h4>
-                        <div className="grid grid-cols-2 gap-6">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-500 mb-1">Name</label>
-                                <div className="text-base font-medium text-gray-900">Asset 1</div>
+            <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+                <DrawerContent width={500}>
+                    <DrawerHeader>
+                        <DrawerTitle>Asset Details</DrawerTitle>
+                    </DrawerHeader>
+                    <DrawerBody>
+                        <div className="space-y-6">
+                            <div className="p-4 bg-blue-50 rounded-md border border-blue-100 text-blue-800">
+                                <p className="text-sm">
+                                    <strong>Note:</strong> This drawer content should have a subtle background tint if implemented correctly,
+                                    distinguishing it from the white drawer surface if desired, or the drawer itself should handle it.
+                                </p>
                             </div>
+
                             <div>
-                                <label className="block text-sm font-medium text-gray-500 mb-1">Category</label>
-                                <div className="text-base font-medium text-gray-900">Equity</div>
+                                <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Information</h4>
+                                <div className="grid grid-cols-2 gap-6">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-500 mb-1">Name</label>
+                                        <div className="text-base font-medium text-gray-900">Asset 1</div>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-500 mb-1">Category</label>
+                                        <div className="text-base font-medium text-gray-900">Equity</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </DrawerBody>
+                </DrawerContent>
             </Drawer>
         </div>
     );

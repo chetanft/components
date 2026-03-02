@@ -5,38 +5,8 @@ import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { StepsProvider } from './StepsContext';
-import { StepsList } from './StepsList';
-import { StepItem } from './StepItem';
-import { StepIcon } from './StepIcon';
-import { StepContent } from './StepContent';
-import { StepTitle } from './StepTitle';
-import { StepDescription } from './StepDescription';
-
-// Keep StepsItem for backward compatibility (deprecated)
-export interface StepsItemProps {
-  label?: React.ReactNode;
-  description?: React.ReactNode;
-  state: 'selected' | 'unselected' | 'completed' | 'error';
-  device: 'desktop' | 'mobile';
-  className?: string;
-  direction?: 'horizontal' | 'vertical';
-  type?: 'default' | 'dot' | 'navigation';
-}
-
-export interface Step {
-  label: React.ReactNode;
-  description?: React.ReactNode;
-  completed?: boolean;
-  status?: 'wait' | 'process' | 'finish' | 'error';
-  disabled?: boolean;
-}
 
 export interface StepsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
-  /**
-   * Steps array for declarative API (deprecated)
-   * @deprecated Use StepItem components instead
-   */
-  steps?: Step[];
   /**
    * Current step number (1-based)
    * @default 1
@@ -75,13 +45,12 @@ export interface StepsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  * Steps Component
  * 
  * A component for displaying step-by-step progress indicators.
- * Supports both composable API (recommended) and declarative API (deprecated).
- * 
+ * Uses composable sub-components for flexible composition.
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
- * // Composable API (recommended)
  * <Steps currentStep={1} device="desktop" direction="horizontal" type="default">
  *   <StepsList>
  *     <StepItem value={1}>
@@ -93,59 +62,18 @@ export interface StepsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  *     </StepItem>
  *   </StepsList>
  * </Steps>
- * 
- * // Declarative API (deprecated)
- * <Steps steps={[{label: 'Step 1', description: 'Description'}]} currentStep={1} />
  * ```
- * 
+ *
  * @remarks
  * - Composable API provides maximum flexibility and control
  * - All sub-components (StepsList, StepItem, StepIcon, etc.) support `asChild`
  * - Supports multiple types (default, dot, navigation) and directions
- * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Steps = forwardRef<HTMLDivElement, StepsProps>(
-  ({ device = "desktop", steps, currentStep = 1, className, direction = 'horizontal', type = 'default', onChange, glass, children, asChild, ...props }, ref) => {
+  ({ device = "desktop", currentStep = 1, className, direction = 'horizontal', type = 'default', onChange, glass, children, asChild, ...props }, ref) => {
     const resolvedGlass = useResolvedGlass(glass);
-
-    // Check if using composable API (has children with Steps sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
-        child?.type?.displayName?.startsWith('Steps') || child?.type?.displayName?.startsWith('Step')
-    );
-    
-    // If using composable API, render with context provider
-    if (hasComposableChildren) {
-        // Show deprecation warning if using old props with composable API
-        if (process.env.NODE_ENV !== 'production' && steps?.length) {
-                    }
-        
-        const Comp = asChild ? Slot : 'div';
-        return (
-            <StepsProvider
-                value={{
-                    currentStep,
-                    device,
-                    direction,
-                    type,
-                    onChange,
-                }}
-            >
-                <Comp ref={ref} className={cn(
-                    resolvedGlass && getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
-                    resolvedGlass && 'rounded-[var(--radius-md)] p-[var(--spacing-x3)]',
-                    className
-                )} {...props}>
-                    {children}
-                </Comp>
-            </StepsProvider>
-        );
-    }
-    
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production' && steps?.length) {
-            }
-    
     const Comp = asChild ? Slot : 'div';
+
     return (
         <StepsProvider
             value={{
@@ -157,29 +85,11 @@ export const Steps = forwardRef<HTMLDivElement, StepsProps>(
             }}
         >
             <Comp ref={ref} className={cn(
-                resolvedGlass && getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
+                getGlassClasses(resolvedGlass, '', ''),
                 resolvedGlass && 'rounded-[var(--radius-md)] p-[var(--spacing-x3)]',
                 className
             )} {...props}>
-                <StepsList>
-                    {steps?.map((step, index) => {
-                        const stepNumber = index + 1;
-                        return (
-                            <StepItem
-                                key={index}
-                                value={stepNumber}
-                                disabled={step.disabled}
-                                status={step.status}
-                            >
-                                <StepIcon />
-                                <StepContent>
-                                    <StepTitle>{step.label}</StepTitle>
-                                    {step.description && <StepDescription>{step.description}</StepDescription>}
-                                </StepContent>
-                            </StepItem>
-                        );
-                    })}
-                </StepsList>
+                {children}
             </Comp>
         </StepsProvider>
     );

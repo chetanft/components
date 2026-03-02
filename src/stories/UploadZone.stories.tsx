@@ -11,7 +11,34 @@ const meta: Meta<typeof UploadZone> = {
       description: {
         component: 'Drag and drop upload zone component for file selection and upload. Supports file validation, multiple file selection, and interactive states with customizable file type restrictions.'
       }
-    }
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      defaultRowId: 'type',
+      defaultScenarioId: 'Default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'Default' as const },
+            { id: 'MultipleFiles', label: 'Multiple Files', story: 'MultipleFiles' as const },
+            { id: 'DifferentFileTypes', label: 'Different File Types', story: 'DifferentFileTypes' as const },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'Default', label: 'Default', story: 'Default' as const },
+            { id: 'Disabled', label: 'Disabled', story: 'Disabled' as const },
+          ],
+        },
+      ],
+      supportsGlass: true,
+    },
   },
   argTypes: {
     acceptedFileTypes: {
@@ -29,7 +56,15 @@ const meta: Meta<typeof UploadZone> = {
     multiple: {
       control: 'boolean',
       description: 'Whether multiple files can be selected'
+    },
+    glass: {
+      control: 'select',
+      options: [false, true, 'subtle', 'prominent'],
+      description: 'Glass style variant'
     }
+  },
+  args: {
+    glass: true
   }
 };
 
@@ -110,6 +145,8 @@ const UploadZoneInteractiveDemo = () => {
   );
 };
 
-export const InteractiveDemo: Story = {
+export const DocsInteractiveDemo: Story = {
   render: () => <UploadZoneInteractiveDemo />
-};
+,
+  parameters: { docsOnly: true },
+}

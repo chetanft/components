@@ -5,7 +5,6 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn, getComponentStyles, type ComponentSize } from '../../../lib/utils';
 import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
-import { Label } from '../../atoms/Label/Label';
 import { Calendar, type QuickSelectOption } from './Calendar';
 import { DatePickerProvider } from './DatePickerContext';
 import {
@@ -152,8 +151,6 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
 
 DatePickerField.displayName = "DatePickerField";
 
-// Using unified Label component from atoms
-
 // Main DatePicker component
 /**
  * DatePicker component props
@@ -180,12 +177,6 @@ DatePickerField.displayName = "DatePickerField";
  * ```
  */
 export interface DatePickerProps extends VariantProps<typeof datePickerFieldVariants> {
-  /**
-   * Label text displayed above or beside the input (for declarative API)
-   * @deprecated Use Label component with composable API
-   */
-  label?: string;
-  
   /**
    * Label position relative to input
    * @default 'top'
@@ -220,13 +211,6 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
    * @default false
    */
   error?: boolean;
-  
-  /**
-   * Show time picker (not currently implemented)
-   * @default false
-   * @deprecated Time picker functionality not yet available
-   */
-  showTime?: boolean;
   
   /**
    * Enable date range selection
@@ -320,15 +304,13 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
  * ```tsx
  * // Simple single date picker
  * <DatePicker
- *   label="Select Date"
  *   value={date}
  *   onChange={setDate}
  *   placeholder="Choose a date"
  * />
- * 
+ *
  * // Date range picker
  * <DatePicker
- *   label="Select Range"
  *   range
  *   startValue={startDate}
  *   endValue={endDate}
@@ -345,14 +327,12 @@ export interface DatePickerProps extends VariantProps<typeof datePickerFieldVari
  * - DatePicker manages all internals - sub-components (DatePickerInput, etc.) are internal only
  */
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
-  label,
   labelPosition = 'top',
   placeholder,
   value,
   onChange,
   disabled,
   error,
-  showTime: _showTime,
   range,
   startValue,
   endValue,
@@ -941,9 +921,6 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   
   // If using composable API, render with context provider
   if (hasComposableChildren) {
-      if (process.env.NODE_ENV !== 'production' && label) {
-                }
-      
       return (
           <DatePickerProvider value={contextValue}>
               <div className={cn(
@@ -951,21 +928,13 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
                   labelPosition === 'left' ? "flex-row items-center gap-4" : "flex-col items-start gap-2",
                   className
               )}>
-                  {label && (
-                      <Label>
-                          {label}
-                      </Label>
-                  )}
                   {children}
               </div>
           </DatePickerProvider>
       );
   }
-  
-  // Otherwise use declarative API (deprecated)
-  if (process.env.NODE_ENV !== 'production' && label) {
-        }
 
+  // Declarative rendering
   return (
       <DatePickerProvider value={contextValue}>
     <div className={cn(
@@ -973,11 +942,6 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       labelPosition === 'left' ? "flex-row items-center gap-4" : "flex-col items-start gap-2",
       className
     )}>
-      {label && (
-        <Label>
-          {label}
-        </Label>
-      )}
       <div className="relative" ref={containerRef}>
         <div
           className={cn(

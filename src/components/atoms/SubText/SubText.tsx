@@ -34,7 +34,7 @@ export const SubText: React.FC<SubTextProps> = ({
         <Typography 
           variant="body-secondary-regular" 
           color="secondary"
-          className="flex-[1_0_0] min-h-px min-w-px relative shrink-0 whitespace-pre-wrap"
+          className="flex-1 min-h-px min-w-px relative shrink-0 whitespace-pre-wrap"
         >
           Sub text
         </Typography>
@@ -53,7 +53,7 @@ export const SubText: React.FC<SubTextProps> = ({
       <Typography 
         variant="body-secondary-regular" 
         color="secondary"
-        className="flex-[1_0_0] min-h-px min-w-px relative shrink-0 whitespace-pre-wrap"
+        className="flex-1 min-h-px min-w-px relative shrink-0 whitespace-pre-wrap"
       >
         Sub text
       </Typography>

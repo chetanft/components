@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { useResolvedGlass, getGlassClasses, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useTooltipContext } from './TooltipContext';
 import { Icon } from '../../atoms/Icons';
@@ -62,13 +62,15 @@ export const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentPro
 
     if (!open) return null;
 
-    const glassClass = resolvedGlass === 'subtle' ? 'glass-subtle' : resolvedGlass === 'prominent' ? 'glass-prominent' : resolvedGlass ? 'glass' : '';
+    const bgClass = resolvedGlass
+      ? getGlassClasses(resolvedGlass, '', '')
+      : (color === 'white'
+        ? 'bg-[var(--color-bg-primary)] text-[var(--color-primary)]'
+        : 'bg-[var(--color-primary)] text-[var(--color-bg-primary)]');
 
     const tooltipClasses = cn(
       'rounded-[var(--radius-sm)] p-[var(--spacing-x2)] min-w-[var(--spacing-x14)] max-w-[var(--spacing-x38)] relative',
-      glassClass || (color === 'white'
-        ? 'bg-[var(--color-bg-primary)] text-[var(--color-primary)]'
-        : 'bg-[var(--color-primary)] text-[var(--color-bg-primary)]'),
+      bgClass,
       resolvedGlass && 'text-[var(--color-primary)]'
     );
     

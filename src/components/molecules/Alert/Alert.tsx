@@ -3,21 +3,15 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
-import { IconName } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { AlertProvider } from './AlertContext';
-import { AlertIcon } from './AlertIcon';
-import { AlertTitle } from './AlertTitle';
-import { AlertDescription } from './AlertDescription';
-import { AlertAction } from './AlertAction';
-import { AlertClose } from './AlertClose';
 
 export type AlertVariant = 'info' | 'success' | 'warning' | 'danger';
 export type AlertRadius = 'none' | 'sm' | 'md' | 'lg';
 
 export interface AlertProps extends Omit<ComposableProps<'div'>, 'onChange'> {
   /**
-   * Alert content (for composable API)
+   * Alert content (composable API)
    */
   children?: React.ReactNode;
   /**
@@ -25,21 +19,6 @@ export interface AlertProps extends Omit<ComposableProps<'div'>, 'onChange'> {
    * @default 'info'
    */
   variant?: AlertVariant;
-  /**
-   * Title text (for declarative API)
-   * @deprecated Use AlertTitle component instead
-   */
-  title?: string;
-  /**
-   * Message content (for declarative API)
-   * @deprecated Use AlertDescription component instead
-   */
-  message?: React.ReactNode;
-  /**
-   * Icon name (for declarative API)
-   * @deprecated Use AlertIcon component instead
-   */
-  icon?: IconName;
   /**
    * Show close button
    * @default false
@@ -59,11 +38,6 @@ export interface AlertProps extends Omit<ComposableProps<'div'>, 'onChange'> {
    */
   glass?: GlassVariant;
   /**
-   * Action content (for declarative API)
-   * @deprecated Use AlertAction component instead
-   */
-  action?: React.ReactNode;
-  /**
    * Close callback
    */
   onClose?: () => void;
@@ -71,15 +45,14 @@ export interface AlertProps extends Omit<ComposableProps<'div'>, 'onChange'> {
 
 /**
  * Alert Component
- * 
+ *
  * A versatile alert component for displaying important messages to users.
- * Supports both composable API (recommended) and declarative API (deprecated).
- * 
+ * Uses a composable API with sub-components for maximum flexibility.
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
- * // Composable API (recommended)
  * <Alert variant="info" radius="md">
  *   <AlertIcon />
  *   <AlertTitle>Information</AlertTitle>
@@ -89,167 +62,64 @@ export interface AlertProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  *   </AlertAction>
  *   <AlertClose />
  * </Alert>
- * 
- * // Declarative API (deprecated)
- * <Alert variant="info" title="Info" message="Message" action={<Button>Action</Button>} />
  * ```
- * 
+ *
  * @remarks
- * - Composable API provides maximum flexibility and control
  * - All sub-components (AlertIcon, AlertTitle, AlertDescription, etc.) support `asChild`
  * - Supports multiple variants: info, success, warning, danger
  * - Accessible: includes ARIA attributes and proper role
- * - Declarative API is deprecated but still functional for backward compatibility
  */
 export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
   ({
     variant = 'info',
     children,
-    title,
-    message,
-    icon,
     closable = false,
     banner = false,
     radius,
     glass,
-    action,
     onClose,
     className,
     asChild,
     ...props
   }, ref) => {
     const resolvedGlass = useResolvedGlass(glass);
-    // Check if using composable API (has children with Alert sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
-      child?.type?.displayName?.startsWith('Alert')
-    );
-    
-    // If using composable API, wrap with context provider
-    if (hasComposableChildren) {
-      // Show deprecation warning if using old props with composable API
-      if (process.env.NODE_ENV !== 'production' && (title || message || icon || action)) {
-              }
-      
-      const radiusClass = radius === 'none' 
-        ? 'rounded-none' 
-        : radius === 'sm'
-        ? 'rounded-sm'
-        : radius === 'lg'
-        ? 'rounded-lg'
-        : banner
-        ? 'rounded-none'
-        : 'rounded-md';
-      
-      const variantStyles = {
-        info: {
-          bg: 'bg-[var(--neutral-light)]',
-          border: 'border-[var(--neutral)]',
-          text: 'text-[var(--neutral-dark)]',
-        },
-        success: {
-          bg: 'bg-[var(--positive-light)]',
-          border: 'border-[var(--positive)]',
-          text: 'text-[var(--positive-dark)]',
-        },
-        warning: {
-          bg: 'bg-[var(--warning-light)]',
-          border: 'border-[var(--warning)]',
-          text: 'text-[var(--warning-dark)]',
-        },
-        danger: {
-          bg: 'bg-[var(--danger-100)]',
-          border: 'border-[var(--danger-500)]',
-          text: 'text-[var(--danger-500)]',
-        },
-      };
-      
-      const styles = variantStyles[variant];
-      
-      const Comp = asChild ? Slot : 'div';
-      return (
-        <AlertProvider
-          value={{
-            variant,
-            radius,
-            banner,
-            closable,
-            onClose,
-          }}
-        >
-          <div ref={ref} {...props}>
-            <Comp
-              className={cn(
-                "relative flex items-center gap-2 p-4",
-                radiusClass,
-                !banner && "border border-solid",
-                banner && "border-b",
-                glass
-                  ? getGlassClasses(resolvedGlass, styles.bg, styles.border)
-                  : cn(styles.bg, styles.border),
-                styles.text,
-                className
-              )}
-              style={{
-                fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
-              }}
-              role="alert"
-            >
-              {children}
-            </Comp>
-          </div>
-        </AlertProvider>
-      );
-    }
-    
-    // Otherwise use declarative API (deprecated)
-    if (process.env.NODE_ENV !== 'production' && (title || message || icon || action)) {
-          }
-    // Determine radius class
-    const radiusClass = radius === 'none' 
-      ? 'rounded-none' 
+
+    const radiusClass = radius === 'none'
+      ? 'rounded-none'
       : radius === 'sm'
       ? 'rounded-sm'
       : radius === 'lg'
       ? 'rounded-lg'
       : banner
-      ? 'rounded-none' // Default for banner: no radius
-      : 'rounded-md'; // Default for regular alerts: medium radius
+      ? 'rounded-none'
+      : 'rounded-md';
 
-    // Variant styles using FT Design System tokens
     const variantStyles = {
       info: {
         bg: 'bg-[var(--neutral-light)]',
         border: 'border-[var(--neutral)]',
         text: 'text-[var(--neutral-dark)]',
-        icon: 'alert-informational' as IconName,
-        iconColor: 'text-[var(--neutral)]',
       },
       success: {
         bg: 'bg-[var(--positive-light)]',
         border: 'border-[var(--positive)]',
         text: 'text-[var(--positive-dark)]',
-        icon: 'check' as IconName,
-        iconColor: 'text-[var(--positive)]',
       },
       warning: {
         bg: 'bg-[var(--warning-light)]',
         border: 'border-[var(--warning)]',
         text: 'text-[var(--warning-dark)]',
-        icon: 'triangle-alert' as IconName,
-        iconColor: 'text-[var(--warning)]',
       },
       danger: {
         bg: 'bg-[var(--danger-100)]',
         border: 'border-[var(--danger-500)]',
         text: 'text-[var(--danger-500)]',
-        icon: 'alert-critical' as IconName,
-        iconColor: 'text-[var(--danger-500)]',
       },
     };
 
     const styles = variantStyles[variant];
-    const displayIcon = icon || styles.icon;
-    
+
+    const Comp = asChild ? Slot : 'div';
     return (
       <AlertProvider
         value={{
@@ -261,7 +131,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         }}
       >
         <div ref={ref} {...props}>
-          <div
+          <Comp
             className={cn(
               "relative flex items-center gap-2 p-4",
               radiusClass,
@@ -278,18 +148,8 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
             }}
             role="alert"
           >
-            {displayIcon && <AlertIcon icon={displayIcon} />}
-            <div className="flex-1 min-w-0">
-              {title && <AlertTitle>{title}</AlertTitle>}
-              {(message || children) && (
-                <AlertDescription className={title ? "mt-1" : ""}>
-                  {message || children}
-                </AlertDescription>
-              )}
-            </div>
-            {action && <AlertAction>{action}</AlertAction>}
-            {closable && <AlertClose />}
-          </div>
+            {children}
+          </Comp>
         </div>
       </AlertProvider>
     );

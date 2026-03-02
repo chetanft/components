@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Textarea } from './Textarea';
+import { Textarea, TextareaLabel, TextareaField, TextareaHelper, TextareaError } from './index';
 
 const meta: Meta<typeof Textarea> = {
   title: 'Atoms/Textarea',
@@ -9,16 +9,44 @@ const meta: Meta<typeof Textarea> = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'A textarea component with support for labels, error states, and different sizes.',
+        component: 'A textarea component using composable API with TextareaLabel, TextareaField, TextareaHelper, and TextareaError sub-components.',
       },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'inline' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'size',
+          label: 'Size',
+          scenarios: [
+            { id: 'xxs', label: 'XXS', story: 'ExplorerBase', args: { size: 'xxs' } },
+            { id: 'xs', label: 'XS', story: 'ExplorerBase', args: { size: 'xs' } },
+            { id: 'sm', label: 'SM', story: 'ExplorerBase', args: { size: 'sm' } },
+            { id: 'md', label: 'MD', story: 'ExplorerBase', args: { size: 'md' } },
+            { id: 'lg', label: 'LG', story: 'ExplorerBase', args: { size: 'lg' } },
+            { id: 'xl', label: 'XL', story: 'ExplorerBase', args: { size: 'xl' } },
+            { id: 'xxl', label: 'XXL', story: 'ExplorerBase', args: { size: 'xxl' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { textareaState: 'default' } },
+            { id: 'error', label: 'Error', story: 'ExplorerBase', args: { textareaState: 'error' } },
+            { id: 'disabled', label: 'Disabled', story: 'ExplorerBase', args: { textareaState: 'disabled' } },
+          ],
+        },
+      ],
+      defaultRowId: 'size',
+      defaultScenarioId: 'md',
     },
   },
   tags: ['autodocs'],
   argTypes: {
-    label: {
-      control: 'text',
-      description: 'Label text for the textarea'
-    },
     size: {
       control: { type: 'select' },
       options: ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
@@ -28,178 +56,68 @@ const meta: Meta<typeof Textarea> = {
       control: 'boolean',
       description: 'Whether the textarea is disabled'
     },
-    error: {
-      control: 'text',
-      description: 'Error message to display'
-    },
-    helperText: {
-      control: 'text',
-      description: 'Helper text to display'
-    },
-    rows: {
-      control: 'number',
-      description: 'Number of rows'
-    }
-  },
-} satisfies Meta<typeof Textarea>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-// Default textarea
-export const Default: Story = {
-  args: {
-    label: 'Description',
-    placeholder: 'Enter your description here...',
-    size: 'md',
-    rows: 4,
   },
 };
 
-// Normal States story - separate preview for normal states
-export function NormalStates() {
-  return (
-    <div className="p-6 space-y-4">
-      <Textarea 
-        label="Normal textarea" 
-        placeholder="Type here..."
-        size="md"
-      />
-      <Textarea 
-        label="With helper text" 
-        placeholder="Type here..."
-        helperText="This is helper text"
-        size="md"
-      />
+export default meta;
+type Story = StoryObj<typeof Textarea>;
+
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const size = args.size ?? 'md';
+    const textareaState = args.textareaState ?? 'default';
+    const disabled = textareaState === 'disabled';
+
+    return (
+      <Textarea size={size} disabled={disabled}>
+        <TextareaLabel>
+          {textareaState === 'error' ? 'Textarea with error' : disabled ? 'Disabled textarea' : 'Description'}
+        </TextareaLabel>
+        <TextareaField
+          placeholder={disabled ? 'Cannot type here' : `Textarea ${String(size).toUpperCase()}`}
+          rows={4}
+          disabled={disabled}
+        />
+        {textareaState === 'error' ? <TextareaError>This field has an error</TextareaError> : null}
+        {textareaState === 'default' && args.helperText ? <TextareaHelper>{args.helperText}</TextareaHelper> : null}
+      </Textarea>
+    );
+  },
+};
+
+// Default textarea using composable API
+export const Default: Story = {
+  render: () => (
+    <Textarea size="md">
+      <TextareaLabel>Description</TextareaLabel>
+      <TextareaField placeholder="Enter your description here..." rows={4} />
+    </Textarea>
+  ),
+};
+
+export const DocsStates: Story = {
+  render: () => (
+    <div className="p-6 space-y-4" style={{ maxWidth: 400 }}>
+      <Textarea size="md">
+        <TextareaLabel>Default</TextareaLabel>
+        <TextareaField placeholder="Type here..." />
+      </Textarea>
+      <Textarea size="md">
+        <TextareaLabel>With helper</TextareaLabel>
+        <TextareaField placeholder="Type here..." />
+        <TextareaHelper>Helper text</TextareaHelper>
+      </Textarea>
+      <Textarea size="md">
+        <TextareaLabel>Error</TextareaLabel>
+        <TextareaField placeholder="Type here..." />
+        <TextareaError>This field has an error</TextareaError>
+      </Textarea>
+      <Textarea size="md" disabled>
+        <TextareaLabel>Disabled</TextareaLabel>
+        <TextareaField placeholder="Cannot type here" disabled />
+      </Textarea>
     </div>
-  );
+  ),
+
+  parameters: { docsOnly: true },
 }
-
-// Error State story - separate preview for error state
-export function ErrorState() {
-  return (
-    <div className="p-6">
-      <Textarea 
-        label="Textarea with error" 
-        placeholder="Type here..."
-        error="This field has an error"
-        size="md"
-      />
-    </div>
-  );
-}
-
-// Disabled States story - separate preview for disabled states
-export function DisabledStates() {
-  return (
-    <div className="p-6 space-y-4">
-      <Textarea 
-        label="Disabled textarea" 
-        placeholder="Cannot type here"
-        disabled
-        size="md"
-      />
-    </div>
-  );
-}
-
-// Sizes story - separate preview for sizes
-export function Sizes() {
-  return (
-    <div className="p-6 space-y-6">
-      <div className="space-y-2">
-        <Textarea label="XXS - 0.857rem (12px)" size="xxs" placeholder="XXS textarea" />
-        <p className="text-sm text-muted-foreground">Font: 0.857rem (12px)</p>
-      </div>
-      <div className="space-y-2">
-        <Textarea label="XS - 1rem (14px)" size="xs" placeholder="XS textarea" />
-        <p className="text-sm text-muted-foreground">Font: 1rem (14px)</p>
-      </div>
-      <div className="space-y-2">
-        <Textarea label="SM - 1rem (14px)" size="sm" placeholder="Small textarea" />
-        <p className="text-sm text-muted-foreground">Font: 1rem (14px)</p>
-      </div>
-      <div className="space-y-2">
-        <Textarea label="MD - 1rem (14px)" size="md" placeholder="Medium textarea" />
-        <p className="text-sm text-muted-foreground">Font: 1rem (14px)</p>
-      </div>
-      <div className="space-y-2">
-        <Textarea label="LG - 1.429rem (20px)" size="lg" placeholder="Large textarea" />
-        <p className="text-sm text-muted-foreground">Font: 1.429rem (20px)</p>
-      </div>
-      <div className="space-y-2">
-        <Textarea label="XL - 1.714rem (24px)" size="xl" placeholder="XL textarea" />
-        <p className="text-sm text-muted-foreground">Font: 1.714rem (24px)</p>
-      </div>
-      <div className="space-y-2">
-        <Textarea label="XXL - 2rem (28px)" size="xxl" placeholder="XXL textarea" />
-        <p className="text-sm text-muted-foreground">Font: 2rem (28px)</p>
-      </div>
-    </div>
-  );
-}
-
-// Interactive Demo - all variants shown together and interactable
-export function InteractiveDemo() {
-  const [normalValue, setNormalValue] = React.useState('');
-  const [errorValue, setErrorValue] = React.useState('');
-  const [helperValue, setHelperValue] = React.useState('');
-
-  return (
-    <div className="p-6 space-y-4">
-      <h3 className="text-lg font-semibold mb-4">All Textarea Variants - Interactive</h3>
-      
-      <div className="space-y-4">
-        <Textarea 
-          label="Normal Textarea" 
-          placeholder="Type here..."
-          size="md"
-          value={normalValue}
-          onChange={(e) => setNormalValue(e.target.value)}
-        />
-        
-        <Textarea 
-          label="With Helper Text" 
-          placeholder="Type here..."
-          helperText="This is helper text"
-          size="md"
-          value={helperValue}
-          onChange={(e) => setHelperValue(e.target.value)}
-        />
-        
-        <Textarea 
-          label="Error State" 
-          placeholder="Type here..."
-          error="This field has an error"
-          size="md"
-          value={errorValue}
-          onChange={(e) => setErrorValue(e.target.value)}
-        />
-        
-        <Textarea 
-          label="Disabled Textarea" 
-          placeholder="Cannot type here"
-          disabled
-          size="md"
-        />
-        
-        <Textarea 
-          label="Small Size" 
-          placeholder="Type here..."
-          size="sm"
-          value={normalValue}
-          onChange={(e) => setNormalValue(e.target.value)}
-        />
-        
-        <Textarea 
-          label="Large Size" 
-          placeholder="Type here..."
-          size="lg"
-          value={normalValue}
-          onChange={(e) => setNormalValue(e.target.value)}
-        />
-      </div>
-    </div>
-  );
-}
-

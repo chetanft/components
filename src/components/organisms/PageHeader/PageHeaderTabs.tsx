@@ -12,15 +12,6 @@ import React, {
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
-/**
- * Represents a tab entry for the deprecated declarative API.
- */
-export interface PageHeaderTab {
-  label: string;
-  key: string;
-  disabled?: boolean;
-}
-
 const TabsContext = createContext<{
   value: string;
   setValue: (nextValue: string) => void;
@@ -45,12 +36,6 @@ export interface PageHeaderTabsBaseProps extends Omit<ComposableProps<'div'>, 'o
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   children: React.ReactNode;
-}
-
-interface LegacyProps {
-  items: PageHeaderTab[];
-  variant?: 'underline' | 'segmented';
-  defaultValue?: string;
 }
 
 const PageHeaderTabsBase = forwardRef<HTMLDivElement, PageHeaderTabsBaseProps>(
@@ -120,52 +105,18 @@ PageHeaderTabsBase.displayName = 'PageHeaderTabsBase';
 
 export interface PageHeaderTabsProps extends Omit<PageHeaderTabsBaseProps, 'children'> {
   children?: React.ReactNode;
-  /** @deprecated Compose tabs as children instead. */
-  items?: PageHeaderTab[];
-  /** @deprecated Choose `<PageHeaderTabs.List>` or `<PageHeaderTabs.SegmentedList>`. */
-  variant?: 'underline' | 'segmented';
-  /** @deprecated Renamed to `onValueChange`. */
-  onChange?: (value: string) => void;
 }
-
-const warn = (_message: string) => {};
 
 const PageHeaderTabsComponent = forwardRef<HTMLDivElement, PageHeaderTabsProps>(
   (
-    { items, variant = 'underline', onChange, onValueChange, children, defaultValue, ...props },
+    { onValueChange, children, defaultValue, ...props },
     ref
   ) => {
-    const hasLegacyItems = Array.isArray(items) && items.length > 0;
-
-    if (hasLegacyItems) {
-      warn('PageHeaderTabs: `items` + `variant` are deprecated. Compose triggers as children.');
-      return (
-        <LegacyPageHeaderTabsRenderer
-          ref={ref}
-          items={items}
-          variant={variant}
-          defaultValue={defaultValue ?? items?.[0]?.key}
-          onValueChange={(value) => {
-            onValueChange?.(value);
-            onChange?.(value);
-          }}
-          {...props}
-        />
-      );
-    }
-
-    if (onChange) {
-      warn('PageHeaderTabs: `onChange` is deprecated. Use `onValueChange`.');
-    }
-
     return (
       <PageHeaderTabsBase
         ref={ref}
         defaultValue={defaultValue}
-        onValueChange={(value) => {
-          onValueChange?.(value);
-          onChange?.(value);
-        }}
+        onValueChange={onValueChange}
         {...props}
       >
         {children}
@@ -336,33 +287,6 @@ export const PageHeaderTabsTrigger = forwardRef<HTMLButtonElement, PageHeaderTab
 );
 
 PageHeaderTabsTrigger.displayName = 'PageHeaderTabsTrigger';
-
-const LegacyPageHeaderTabsRenderer = forwardRef<
-  HTMLDivElement,
-  PageHeaderTabsProps & LegacyProps & { onValueChange?: (value: string) => void }
->(({ items, variant = 'underline', onValueChange, defaultValue, ...props }, ref) => (
-  <PageHeaderTabsBase ref={ref} defaultValue={defaultValue} onValueChange={onValueChange} {...props}>
-    {variant === 'segmented' ? (
-      <PageHeaderTabsSegmentedList>
-        {items.map((tab) => (
-          <PageHeaderTabsTrigger key={tab.key} value={tab.key} disabled={tab.disabled}>
-            {tab.label}
-          </PageHeaderTabsTrigger>
-        ))}
-      </PageHeaderTabsSegmentedList>
-    ) : (
-      <PageHeaderTabsList>
-        {items.map((tab) => (
-          <PageHeaderTabsTrigger key={tab.key} value={tab.key} disabled={tab.disabled}>
-            {tab.label}
-          </PageHeaderTabsTrigger>
-        ))}
-      </PageHeaderTabsList>
-    )}
-  </PageHeaderTabsBase>
-));
-
-LegacyPageHeaderTabsRenderer.displayName = 'LegacyPageHeaderTabsRenderer';
 
 export const PageHeaderTabs = Object.assign(PageHeaderTabsComponent, {
   List: PageHeaderTabsList,

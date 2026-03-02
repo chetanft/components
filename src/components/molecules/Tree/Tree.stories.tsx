@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
-import type { ComponentProps } from 'react';
 import { Tree, TreeNode } from './index';
-import type { TreeNodeData } from './TreeTypes';
 import { TreeNodeContent } from './TreeNodeContent';
 import { TreeNodeIcon } from './TreeNodeIcon';
 import { TreeNodeSwitcher } from './TreeNodeSwitcher';
@@ -18,6 +16,35 @@ const meta: Meta<typeof Tree> = {
       description: {
         component: 'A tree component for displaying hierarchical data with expand/collapse, selection, and checkbox support. Built using FT Design System tokens.',
       },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      baseStory: 'ExplorerBase',
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { contentType: 'default' } },
+            { id: 'with-icons', label: 'Icons', story: 'ExplorerBase', args: { contentType: 'with-icons' } },
+            { id: 'with-checkboxes', label: 'Checkboxes', story: 'ExplorerBase', args: { contentType: 'with-checkboxes' } },
+            { id: 'directory-tree', label: 'Directory', story: 'ExplorerBase', args: { contentType: 'directory' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: {} },
+            { id: 'with-selection', label: 'Selection', story: 'ExplorerBase', args: { contentType: 'with-selection' } },
+          ],
+        },
+      ],
+      supportsGlass: true,
     },
   },
   tags: ['autodocs'],
@@ -55,257 +82,174 @@ const meta: Meta<typeof Tree> = {
 
 export default meta;
 type Story = StoryObj<typeof Tree>;
-type TreeStoryProps = ComponentProps<typeof Tree>;
 
-const sampleTreeData: TreeNodeData[] = [
-  {
-    key: '0-0',
-    title: 'Parent 0',
-    children: [
-      {
-        key: '0-0-0',
-        title: 'Child 0-0',
-        children: [
-          { key: '0-0-0-0', title: 'Leaf 0-0-0' },
-          { key: '0-0-0-1', title: 'Leaf 0-0-1' },
-        ],
-      },
-      {
-        key: '0-0-1',
-        title: 'Child 0-1',
-        children: [
-          { key: '0-0-1-0', title: 'Leaf 0-1-0' },
-        ],
-      },
-    ],
-  },
-  {
-    key: '0-1',
-    title: 'Parent 1',
-    children: [
-      { key: '0-1-0', title: 'Child 1-0' },
-      { key: '0-1-1', title: 'Child 1-1' },
-    ],
-  },
-];
-
-// Basic Tree
-/** @deprecated Use composable API instead. */
-export const LegacyDefault: Story = {
-  args: {
-    treeData: sampleTreeData,
-    defaultExpandAll: true,
-  },
-};
-
-const WithCheckboxesStory = (props: TreeStoryProps) => {
-  const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
-
-  return (
-    <div className="space-y-4">
-      <Tree
-        {...props}
-        checkedKeys={checkedKeys}
-        onCheck={(keys) => setCheckedKeys(keys)}
-      />
-      <p className="text-sm text-[var(--color-tertiary)]">
-        Checked: {checkedKeys.join(', ') || 'None'}
-      </p>
-    </div>
-  );
-};
-
-// With Checkboxes
-/** @deprecated Use composable API instead. */
-export const LegacyWithCheckboxes: Story = {
-  render: (args: React.ComponentProps<typeof Tree>) => <WithCheckboxesStory {...args} />,
-  args: {
-    treeData: sampleTreeData,
-    checkable: true,
-    defaultExpandAll: true,
-  },
-};
-
-const WithSelectionStory = (props: TreeStoryProps) => {
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-
-  return (
-    <div className="space-y-4">
-      <Tree
-        {...props}
-        selectedKeys={selectedKeys}
-        onSelect={(keys) => setSelectedKeys(keys)}
-      />
-      <p className="text-sm text-[var(--color-tertiary)]">
-        Selected: {selectedKeys.join(', ') || 'None'}
-      </p>
-    </div>
-  );
-};
-
-// With Selection
-/** @deprecated Use composable API instead. */
-export const LegacyWithSelection: Story = {
-  render: (args: React.ComponentProps<typeof Tree>) => <WithSelectionStory {...args} />,
-  args: {
-    treeData: sampleTreeData,
-    selectable: true,
-    defaultExpandAll: true,
-  },
-};
-
-// With Lines
-/** @deprecated Use composable API instead. */
-export const LegacyWithLines: Story = {
-  args: {
-    treeData: sampleTreeData,
-    showLine: true,
-    defaultExpandAll: true,
-  },
-};
-
-// With Icons
-/** @deprecated Use composable API instead. */
-export const LegacyWithIcons: Story = {
-  args: {
-    treeData: sampleTreeData,
-    showIcon: true,
-    defaultExpandAll: true,
-  },
-};
-
-// Directory Tree
-/** @deprecated Use composable API instead. */
-export const LegacyDirectoryTree: Story = {
-  args: {
-    treeData: [
-      {
-        key: 'src',
-        title: 'src',
-        icon: 'document',
-        children: [
-          {
-            key: 'components',
-            title: 'components',
-            icon: 'document',
-            children: [
-              { key: 'Button.tsx', title: 'Button.tsx', icon: 'file', isLeaf: true },
-              { key: 'Input.tsx', title: 'Input.tsx', icon: 'file', isLeaf: true },
-              { key: 'Modal.tsx', title: 'Modal.tsx', icon: 'file', isLeaf: true },
-            ],
-          },
-          {
-            key: 'utils',
-            title: 'utils',
-            icon: 'document',
-            children: [
-              { key: 'helpers.ts', title: 'helpers.ts', icon: 'file', isLeaf: true },
-              { key: 'constants.ts', title: 'constants.ts', icon: 'file', isLeaf: true },
-            ],
-          },
-          { key: 'index.ts', title: 'index.ts', icon: 'file', isLeaf: true },
-        ],
-      },
-      { key: 'package.json', title: 'package.json', icon: 'file', isLeaf: true },
-      { key: 'README.md', title: 'README.md', icon: 'file', isLeaf: true },
-    ],
-    showIcon: true,
-    showLine: true,
-    defaultExpandAll: true,
-  },
-};
-
-const MultipleSelectionStory = (props: TreeStoryProps) => {
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-
-  return (
-    <div className="space-y-4">
-      <Tree
-        {...props}
-        selectedKeys={selectedKeys}
-        onSelect={(keys) => setSelectedKeys(keys)}
-      />
-      <p className="text-sm text-[var(--color-tertiary)]">
-        Selected: {selectedKeys.join(', ') || 'None'}
-      </p>
-    </div>
-  );
-};
-
-// Multiple Selection
-/** @deprecated Use composable API instead. */
-export const LegacyMultipleSelection: Story = {
-  render: (args: React.ComponentProps<typeof Tree>) => <MultipleSelectionStory {...args} />,
-  args: {
-    treeData: sampleTreeData,
-    selectable: true,
-    multiple: true,
-    defaultExpandAll: true,
-  },
-};
-
-// Disabled Nodes
-/** @deprecated Use composable API instead. */
-export const LegacyDisabledNodes: Story = {
-  args: {
-    treeData: [
-      {
-        key: '0-0',
-        title: 'Parent 0',
-        children: [
-          { key: '0-0-0', title: 'Enabled Node' },
-          { key: '0-0-1', title: 'Disabled Node', disabled: true },
-          { key: '0-0-2', title: 'Enabled Node' },
-        ],
-      },
-      {
-        key: '0-1',
-        title: 'Disabled Parent',
-        disabled: true,
-        children: [
-          { key: '0-1-0', title: 'Child Node' },
-        ],
-      },
-    ],
-    checkable: true,
-    defaultExpandAll: true,
-  },
-};
-
-const ControlledExpansionStory = (props: TreeStoryProps) => {
-  const [expandedKeys, setExpandedKeys] = useState<string[]>(['0-0']);
-
-  return (
-    <div className="space-y-4">
-      <div className="flex gap-2">
-        <button
-          className="px-3 py-1 bg-[var(--color-primary)] text-[var(--overlay-control-text)] rounded text-sm"
-          onClick={() => setExpandedKeys(['0-0', '0-0-0', '0-0-1', '0-1'])}
-        >
-          Expand All
-        </button>
-        <button
-          className="px-3 py-1 bg-[var(--color-bg-secondary)] text-[var(--color-primary)] rounded text-sm"
-          onClick={() => setExpandedKeys([])}
-        >
-          Collapse All
-        </button>
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const contentType = args.contentType ?? 'default';
+    const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
+    const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+    const syncKey = JSON.stringify({ contentType, glass: args.glass });
+    return (
+      <div key={syncKey}>
+        {contentType === 'with-icons' ? (
+          <Tree defaultExpandAll showIcon>
+            <TreeNode nodeKey="src" title="src" icon={<Icon name="document" size={16} />}>
+              <TreeNode nodeKey="components" title="components" icon={<Icon name="document" size={16} />}>
+                <TreeNode nodeKey="Button.tsx" title="Button.tsx" isLeaf icon={<Icon name="file" size={16} />} />
+                <TreeNode nodeKey="Input.tsx" title="Input.tsx" isLeaf icon={<Icon name="file" size={16} />} />
+              </TreeNode>
+              <TreeNode nodeKey="index.ts" title="index.ts" isLeaf icon={<Icon name="file" size={16} />} />
+            </TreeNode>
+          </Tree>
+        ) : contentType === 'with-checkboxes' ? (
+          <Tree checkable defaultExpandAll checkedKeys={checkedKeys} onCheck={setCheckedKeys}>
+            <TreeNode nodeKey="0-0" title="Parent 0">
+              <TreeNode nodeKey="0-0-0" title="Child 0-0" isLeaf />
+              <TreeNode nodeKey="0-0-1" title="Child 0-1" isLeaf />
+            </TreeNode>
+            <TreeNode nodeKey="0-1" title="Parent 1">
+              <TreeNode nodeKey="0-1-0" title="Child 1-0" isLeaf />
+            </TreeNode>
+          </Tree>
+        ) : contentType === 'directory' ? (
+          <Tree defaultExpandAll showIcon showLine>
+            <TreeNode nodeKey="src" title="src" icon={<Icon name="document" size={16} />}>
+              <TreeNode nodeKey="components" title="components" icon={<Icon name="document" size={16} />}>
+                <TreeNode nodeKey="Button.tsx" title="Button.tsx" isLeaf icon={<Icon name="file" size={16} />} />
+                <TreeNode nodeKey="Input.tsx" title="Input.tsx" isLeaf icon={<Icon name="file" size={16} />} />
+              </TreeNode>
+              <TreeNode nodeKey="index.ts" title="index.ts" isLeaf icon={<Icon name="file" size={16} />} />
+            </TreeNode>
+            <TreeNode nodeKey="package.json" title="package.json" isLeaf icon={<Icon name="file" size={16} />} />
+          </Tree>
+        ) : contentType === 'with-selection' ? (
+          <Tree selectable defaultExpandAll selectedKeys={selectedKeys} onSelect={setSelectedKeys}>
+            <TreeNode nodeKey="0-0" title="Parent 0">
+              <TreeNode nodeKey="0-0-0" title="Child 0-0" isLeaf />
+              <TreeNode nodeKey="0-0-1" title="Child 0-1" isLeaf />
+            </TreeNode>
+            <TreeNode nodeKey="0-1" title="Parent 1">
+              <TreeNode nodeKey="0-1-0" title="Child 1-0" isLeaf />
+            </TreeNode>
+          </Tree>
+        ) : (
+          <Tree defaultExpandAll>
+            <TreeNode nodeKey="0-0" title="Parent 0">
+              <TreeNode nodeKey="0-0-0" title="Child 0-0">
+                <TreeNode nodeKey="0-0-0-0" title="Leaf 0-0-0" isLeaf />
+                <TreeNode nodeKey="0-0-0-1" title="Leaf 0-0-1" isLeaf />
+              </TreeNode>
+              <TreeNode nodeKey="0-0-1" title="Child 0-1">
+                <TreeNode nodeKey="0-0-1-0" title="Leaf 0-1-0" isLeaf />
+              </TreeNode>
+            </TreeNode>
+            <TreeNode nodeKey="0-1" title="Parent 1">
+              <TreeNode nodeKey="0-1-0" title="Child 1-0" isLeaf />
+              <TreeNode nodeKey="0-1-1" title="Child 1-1" isLeaf />
+            </TreeNode>
+          </Tree>
+        )}
       </div>
-      <Tree
-        {...props}
-        expandedKeys={expandedKeys}
-        onExpand={(keys) => setExpandedKeys(keys)}
-      />
-    </div>
-  );
+    );
+  },
 };
 
-// Controlled Expansion
-/** @deprecated Use composable API instead. */
-export const LegacyControlledExpansion: Story = {
-  render: (args: React.ComponentProps<typeof Tree>) => <ControlledExpansionStory {...args} />,
-  args: {
-    treeData: sampleTreeData,
+export const DocsVariants: Story = {
+  render: () => (
+    <div className="p-6 flex flex-col gap-10">
+      <div>
+        <p className="text-sm font-semibold mb-2">Default</p>
+        <Tree defaultExpandAll>
+          <TreeNode nodeKey="v-0" title="Parent">
+            <TreeNode nodeKey="v-0-0" title="Child A" isLeaf />
+            <TreeNode nodeKey="v-0-1" title="Child B" isLeaf />
+          </TreeNode>
+        </Tree>
+      </div>
+      <div>
+        <p className="text-sm font-semibold mb-2">With Lines</p>
+        <Tree defaultExpandAll showLine>
+          <TreeNode nodeKey="vl-0" title="Parent">
+            <TreeNode nodeKey="vl-0-0" title="Child A" isLeaf />
+            <TreeNode nodeKey="vl-0-1" title="Child B" isLeaf />
+          </TreeNode>
+        </Tree>
+      </div>
+      <div>
+        <p className="text-sm font-semibold mb-2">With Icons</p>
+        <Tree defaultExpandAll showIcon>
+          <TreeNode nodeKey="vi-0" title="Folder" icon={<Icon name="document" size={16} />}>
+            <TreeNode nodeKey="vi-0-0" title="File A" isLeaf icon={<Icon name="file" size={16} />} />
+            <TreeNode nodeKey="vi-0-1" title="File B" isLeaf icon={<Icon name="file" size={16} />} />
+          </TreeNode>
+        </Tree>
+      </div>
+      <div>
+        <p className="text-sm font-semibold mb-2">With Checkboxes</p>
+        <Tree defaultExpandAll checkable>
+          <TreeNode nodeKey="vc-0" title="Parent">
+            <TreeNode nodeKey="vc-0-0" title="Child A" isLeaf />
+            <TreeNode nodeKey="vc-0-1" title="Child B" isLeaf />
+          </TreeNode>
+        </Tree>
+      </div>
+      <div>
+        <p className="text-sm font-semibold mb-2">Selectable</p>
+        <Tree defaultExpandAll selectable>
+          <TreeNode nodeKey="vs-0" title="Parent">
+            <TreeNode nodeKey="vs-0-0" title="Child A" isLeaf />
+            <TreeNode nodeKey="vs-0-1" title="Child B" isLeaf />
+          </TreeNode>
+        </Tree>
+      </div>
+    </div>
+  ),
+  parameters: {
+
+    docsOnly: true,
+    docs: {
+      description: {
+        story: 'All visual variants of the Tree component shown side-by-side: default, with lines, icons, checkboxes, and selectable.',
+      },
+    },
+  },
+};
+
+export const DocsStates: Story = {
+  render: () => (
+    <div className="p-6 flex flex-col gap-10">
+      <div>
+        <p className="text-sm font-semibold mb-2">Disabled Tree</p>
+        <Tree defaultExpandAll disabled>
+          <TreeNode nodeKey="sd-0" title="Disabled Parent">
+            <TreeNode nodeKey="sd-0-0" title="Disabled Child A" isLeaf />
+            <TreeNode nodeKey="sd-0-1" title="Disabled Child B" isLeaf />
+          </TreeNode>
+        </Tree>
+      </div>
+      <div>
+        <p className="text-sm font-semibold mb-2">Mixed Disabled Nodes</p>
+        <Tree defaultExpandAll checkable>
+          <TreeNode nodeKey="sm-0" title="Enabled Parent">
+            <TreeNode nodeKey="sm-0-0" title="Enabled Node" isLeaf />
+            <TreeNode nodeKey="sm-0-1" title="Disabled Node" isLeaf disabled />
+            <TreeNode nodeKey="sm-0-2" title="Enabled Node" isLeaf />
+          </TreeNode>
+          <TreeNode nodeKey="sm-1" title="Disabled Parent" disabled>
+            <TreeNode nodeKey="sm-1-0" title="Child Node" isLeaf />
+          </TreeNode>
+        </Tree>
+      </div>
+    </div>
+  ),
+  parameters: {
+
+    docsOnly: true,
+    docs: {
+      description: {
+        story: 'Tree states: fully disabled tree and mixed disabled nodes.',
+      },
+    },
   },
 };
 
@@ -330,16 +274,16 @@ export const Default: Story = {
   ),
 };
 
-export const WithIcons: Story = {
+export const DocsWithIcons: Story = {
   render: () => (
     <Tree defaultExpandAll showIcon>
-      <TreeNode 
-        nodeKey="src" 
+      <TreeNode
+        nodeKey="src"
         title="src"
         icon={<Icon name="document" size={16} />}
       >
-        <TreeNode 
-          nodeKey="components" 
+        <TreeNode
+          nodeKey="components"
           title="components"
           icon={<Icon name="document" size={16} />}
         >
@@ -351,95 +295,6 @@ export const WithIcons: Story = {
       <TreeNode nodeKey="package.json" title="package.json" isLeaf icon={<Icon name="file" size={16} />} />
     </Tree>
   ),
-};
 
-const ComposableWithCheckboxesComponent = () => {
-  const [checkedKeys, setCheckedKeys] = useState<string[]>([]);
-  return (
-    <div className="space-y-4">
-      <Tree 
-        checkable 
-        defaultExpandAll
-        checkedKeys={checkedKeys}
-        onCheck={setCheckedKeys}
-      >
-        <TreeNode nodeKey="0-0" title="Parent 0">
-          <TreeNode nodeKey="0-0-0" title="Child 0-0" isLeaf />
-          <TreeNode nodeKey="0-0-1" title="Child 0-1" isLeaf />
-        </TreeNode>
-        <TreeNode nodeKey="0-1" title="Parent 1">
-          <TreeNode nodeKey="0-1-0" title="Child 1-0" isLeaf />
-        </TreeNode>
-      </Tree>
-      <p className="text-sm text-[var(--color-tertiary)]">
-        Checked: {checkedKeys.join(', ') || 'None'}
-      </p>
-    </div>
-  );
-};
-
-export const WithCheckboxes: Story = {
-  render: () => <ComposableWithCheckboxesComponent />,
-};
-
-const ComposableWithSelectionComponent = () => {
-  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
-  return (
-    <div className="space-y-4">
-      <Tree 
-        selectable 
-        defaultExpandAll
-        selectedKeys={selectedKeys}
-        onSelect={setSelectedKeys}
-      >
-        <TreeNode nodeKey="0-0" title="Parent 0">
-          <TreeNode nodeKey="0-0-0" title="Child 0-0" isLeaf />
-          <TreeNode nodeKey="0-0-1" title="Child 0-1" isLeaf />
-        </TreeNode>
-        <TreeNode nodeKey="0-1" title="Parent 1">
-          <TreeNode nodeKey="0-1-0" title="Child 1-0" isLeaf />
-        </TreeNode>
-      </Tree>
-      <p className="text-sm text-[var(--color-tertiary)]">
-        Selected: {selectedKeys.join(', ') || 'None'}
-      </p>
-    </div>
-  );
-};
-
-export const WithSelection: Story = {
-  render: () => <ComposableWithSelectionComponent />,
-};
-
-export const DirectoryTree: Story = {
-  render: () => (
-    <Tree defaultExpandAll showIcon showLine>
-      <TreeNode 
-        nodeKey="src" 
-        title="src"
-        icon={<Icon name="document" size={16} />}
-      >
-        <TreeNode 
-          nodeKey="components" 
-          title="components"
-          icon={<Icon name="document" size={16} />}
-        >
-          <TreeNode nodeKey="Button.tsx" title="Button.tsx" isLeaf icon={<Icon name="file" size={16} />} />
-          <TreeNode nodeKey="Input.tsx" title="Input.tsx" isLeaf icon={<Icon name="file" size={16} />} />
-          <TreeNode nodeKey="Modal.tsx" title="Modal.tsx" isLeaf icon={<Icon name="file" size={16} />} />
-        </TreeNode>
-        <TreeNode 
-          nodeKey="utils" 
-          title="utils"
-          icon={<Icon name="document" size={16} />}
-        >
-          <TreeNode nodeKey="helpers.ts" title="helpers.ts" isLeaf icon={<Icon name="file" size={16} />} />
-          <TreeNode nodeKey="constants.ts" title="constants.ts" isLeaf icon={<Icon name="file" size={16} />} />
-        </TreeNode>
-        <TreeNode nodeKey="index.ts" title="index.ts" isLeaf icon={<Icon name="file" size={16} />} />
-      </TreeNode>
-      <TreeNode nodeKey="package.json" title="package.json" isLeaf icon={<Icon name="file" size={16} />} />
-      <TreeNode nodeKey="README.md" title="README.md" isLeaf icon={<Icon name="file" size={16} />} />
-    </Tree>
-  ),
-};
+  parameters: { docsOnly: true },
+}

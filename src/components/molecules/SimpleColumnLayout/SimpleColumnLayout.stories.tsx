@@ -1,16 +1,44 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { SimpleColumnLayout } from './SimpleColumnLayout';
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '../../organisms/Table';
 
 const meta: Meta<typeof SimpleColumnLayout> = {
   title: 'Molecules/SimpleColumnLayout',
   component: SimpleColumnLayout,
   tags: ['autodocs'],
+  args: {
+    glass: true,
+  },
   parameters: {
     layout: 'padded',
     docs: {
       description: {
         component: 'Simple two-column layout component for displaying label-value pairs.',
       },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      behavior: 'layout' as const,
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'Default' },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
+      supportsGlass: true,
+    },
+  },
+  argTypes: {
+    glass: {
+      control: 'select',
+      options: [false, true, 'subtle', 'prominent'],
+      description: 'Glass style variant',
     },
   },
 };
@@ -19,76 +47,30 @@ export default meta;
 type Story = StoryObj<typeof SimpleColumnLayout>;
 
 export const Default: Story = {
-  args: {
-    rows: [
-      {
-        left: { title: 'Label', subtitle: 'Description' },
-        right: { title: 'Value', subtitle: 'Details', align: 'end' as const },
-      },
-      {
-        left: { title: 'Label', subtitle: 'Description' },
-        right: { title: 'Value', subtitle: 'Details', align: 'end' as const },
-      },
-      {
-        left: { title: 'Label', subtitle: 'Description' },
-        right: { title: 'Value', subtitle: 'Details', align: 'end' as const },
-      },
-    ],
-  },
+  render: () => (
+    <div>
+      <p className="text-sm text-[var(--tertiary)] mb-4">
+        SimpleColumnLayout is deprecated. Use Table directly instead:
+      </p>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Label</TableHead>
+            <TableHead>Value</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>Label</TableCell>
+            <TableCell>Value</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Label</TableCell>
+            <TableCell>Value</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
+  ),
 };
 
-export const WithStripes: Story = {
-  args: {
-    striped: true,
-    rows: [
-      {
-        left: { title: 'Order ID', subtitle: 'Reference number' },
-        right: { title: '#12345', subtitle: 'Active', align: 'end' as const },
-      },
-      {
-        left: { title: 'Customer', subtitle: 'Company name' },
-        right: { title: 'ABC Corp', subtitle: 'Verified', align: 'end' as const },
-      },
-      {
-        left: { title: 'Status', subtitle: 'Current state' },
-        right: { title: 'Completed', subtitle: 'Updated today', align: 'end' as const },
-      },
-    ],
-  },
-};
-
-export const NoStripes: Story = {
-  args: {
-    striped: false,
-    rows: [
-      {
-        left: { title: 'Name', subtitle: 'Full name' },
-        right: { title: 'John Doe', subtitle: 'Primary', align: 'end' as const },
-      },
-      {
-        left: { title: 'Email', subtitle: 'Contact' },
-        right: { title: 'john@example.com', subtitle: 'Verified', align: 'end' as const },
-      },
-    ],
-  },
-};
-
-export const OrderDetails: Story = {
-  args: {
-    striped: true,
-    rows: [
-      {
-        left: { title: 'Order ID', subtitle: 'Reference' },
-        right: { title: '#12345', subtitle: 'Active', align: 'end' as const },
-      },
-      {
-        left: { title: 'Customer', subtitle: 'Company' },
-        right: { title: 'ABC Corp', subtitle: 'Verified', align: 'end' as const },
-      },
-      {
-        left: { title: 'Amount', subtitle: 'Total' },
-        right: { title: '$1,234.00', subtitle: 'Paid', align: 'end' as const },
-      },
-    ],
-  },
-};

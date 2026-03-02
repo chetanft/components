@@ -42,7 +42,7 @@ export const DropdownMenuList = React.forwardRef<HTMLDivElement, DropdownMenuLis
       <Comp
         ref={ref}
         className={cn(
-          "content-stretch flex flex-[1_0_0] flex-col gap-[var(--spacing-x1)] items-start min-h-px min-w-px relative shrink-0",
+          "content-stretch flex flex-1 flex-col gap-[var(--spacing-x1)] items-start min-w-0 w-full relative shrink-0",
           className
         )}
         {...props}

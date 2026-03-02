@@ -13,8 +13,14 @@ const meta = {
         component: 'A user profile trigger component that pairs with the `UserProfileDropdown` for expanded actions.',
       },
     },
+    explorer: {
+      supportsGlass: true,
+    },
   },
   tags: ['autodocs'],
+  args: {
+    glass: true,
+  },
   argTypes: {
     userName: {
       control: 'text',
@@ -39,6 +45,11 @@ const meta = {
     onClick: {
       action: 'clicked',
       description: 'Triggered when the profile trigger is clicked',
+    },
+    glass: {
+      control: 'select',
+      options: [false, true, 'subtle', 'prominent'],
+      description: 'Glass style variant',
     },
   },
 } satisfies Meta<typeof UserProfile>;

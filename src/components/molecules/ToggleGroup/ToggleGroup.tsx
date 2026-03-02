@@ -99,6 +99,7 @@ export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(({
                     disabled: disabled || child.props.disabled,
                     size: size || child.props.size,
                     variant: variant || child.props.variant,
+                    glass: glass || child.props.glass,
                     className: cn(child.props.className, "first:rounded-l-[var(--radius-md)] last:rounded-r-[var(--radius-md)] rounded-none border-l-0 first:border-l"),
                 } as ToggleProps);
             })}

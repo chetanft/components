@@ -8,22 +8,12 @@ export interface TableCellItemProps {
   textType?: CellTextType;
   /**
    * Icon to display before the text.
-   * Replaces `prefixIcon`.
    */
   leadingIcon?: IconName;
   /**
    * Icon to display after the text.
-   * Replaces `suffixIcon`.
    */
   trailingIcon?: IconName;
-  /**
-   * @deprecated Use `leadingIcon` instead.
-   */
-  prefixIcon?: IconName;
-  /**
-   * @deprecated Use `trailingIcon` instead.
-   */
-  suffixIcon?: IconName;
   badge?: React.ReactNode;
   className?: string;
 }
@@ -33,14 +23,9 @@ export const TableCellItem: React.FC<TableCellItemProps> = ({
   textType = 'primary',
   leadingIcon,
   trailingIcon,
-  prefixIcon,
-  suffixIcon,
   badge,
   className
 }) => {
-  const finalLeadingIcon = leadingIcon || prefixIcon;
-  const finalTrailingIcon = trailingIcon || suffixIcon;
-
   return (
     <div
       className={cn(
@@ -50,9 +35,9 @@ export const TableCellItem: React.FC<TableCellItemProps> = ({
       )}
     >
       {/* Leading Icon */}
-      {finalLeadingIcon && (
+      {leadingIcon && (
         <Icon
-          name={finalLeadingIcon}
+          name={leadingIcon}
           size={14}
           color="var(--color-primary)" // --color-dark-100 from Figma
         />
@@ -69,9 +54,9 @@ export const TableCellItem: React.FC<TableCellItemProps> = ({
       {badge}
 
       {/* Trailing Icon */}
-      {finalTrailingIcon && (
+      {trailingIcon && (
         <Icon
-          name={finalTrailingIcon}
+          name={trailingIcon}
           size={16}
           color="var(--color-primary)" // --color-dark-100 from Figma
         />

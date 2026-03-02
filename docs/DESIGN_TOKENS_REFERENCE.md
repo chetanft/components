@@ -1,8 +1,8 @@
 # FT Design System - Complete Token Reference
 
 > **Auto-generated from** `src/styles/globals.css`  
-> **Last updated:** 2026-02-18  
-> **Total tokens:** 141
+> **Last updated:** 2026-02-28  
+> **Total tokens:** 143
 
 This document provides a comprehensive reference for all design tokens available in the FT Design System. All tokens are CSS custom properties that can be used in your stylesheets or accessed via JavaScript.
 
@@ -313,6 +313,8 @@ FT Design System uses an 8-point grid system (4px base unit). All spacing tokens
 | Token | Value | Description |
 |-------|-------|------------|
 | `--font-family-primary` | `'Inter', sans-serif` | Primary font family |
+| `--font-size-3xl-rem` | `2.571rem` | Responsive font size |
+| `--font-size-4xl-rem` | `3.429rem` | Responsive font size |
 | `--font-size-lg` | `20px` | Fixed font size |
 | `--font-size-lg-rem` | `1.429rem` | Responsive font size |
 | `--font-size-md` | `16px` | Fixed font size |

@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { Spin } from './Spin';
 
@@ -10,6 +11,33 @@ const meta: Meta<typeof Spin> = {
       description: {
         component: 'Spinner',
       },
+    },
+    explorer: {
+      mode: 'matrix' as const,
+      baseStory: 'ExplorerBase',
+      behavior: 'inline',
+      previewMode: 'inline' as const,
+      rows: [
+        {
+          id: 'type',
+          label: 'Type',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { variant: 'default' } },
+            { id: 'with-tip', label: 'WithTip', story: 'ExplorerBase', args: { variant: 'with-tip' } },
+            { id: 'with-content', label: 'WithContent', story: 'ExplorerBase', args: { variant: 'with-content' } },
+          ],
+        },
+        {
+          id: 'state',
+          label: 'State',
+          scenarios: [
+            { id: 'default', label: 'Default', story: 'ExplorerBase', args: { variant: 'default' } },
+            { id: 'delayed', label: 'Delayed', story: 'ExplorerBase', args: { variant: 'delayed' } },
+          ],
+        },
+      ],
+      defaultRowId: 'type',
+      defaultScenarioId: 'default',
     },
   },
   tags: ['autodocs'],
@@ -33,13 +61,60 @@ const meta: Meta<typeof Spin> = {
 export default meta;
 type Story = StoryObj<typeof Spin>;
 
+export const ExplorerBase: Story = {
+  render: (args: any) => {
+    const variant = args.variant ?? 'default';
+    const syncKey = JSON.stringify({ variant });
+
+    if (variant === 'with-content') {
+      return (
+        <div key={syncKey}>
+          <Spin spinning tip="Loading data...">
+            <div className="p-8 bg-[var(--bg-secondary)] rounded-lg">
+              <h3 className="text-lg font-semibold text-[var(--primary)] mb-2">
+                Content Title
+              </h3>
+              <p className="text-[var(--secondary)]">
+                This content will be dimmed while loading.
+              </p>
+            </div>
+          </Spin>
+        </div>
+      );
+    }
+
+    if (variant === 'with-tip') {
+      return (
+        <div key={syncKey}>
+          <Spin spinning tip="Loading..." size="lg" />
+        </div>
+      );
+    }
+
+    if (variant === 'delayed') {
+      return (
+        <div key={syncKey}>
+          <Spin spinning delay={1000} tip="This appears after 1 second" size="lg" />
+        </div>
+      );
+    }
+
+    // default
+    return (
+      <div key={syncKey}>
+        <Spin spinning />
+      </div>
+    );
+  },
+};
+
 export const Default: Story = {
   args: {
     spinning: true,
   },
 };
 
-export const Sizes: Story = {
+export const DocsSizes: Story = {
   render: () => (
     <div className="flex items-center gap-8">
       <div className="text-center">
@@ -72,37 +147,6 @@ export const Sizes: Story = {
       </div>
     </div>
   ),
-};
 
-export const WithTip: Story = {
-  args: {
-    spinning: true,
-    tip: 'Loading...',
-    size: 'lg',
-  },
-};
-
-export const WithContent: Story = {
-  render: () => (
-    <Spin spinning tip="Loading data...">
-      <div className="p-8 bg-[var(--bg-secondary)] rounded-lg">
-        <h3 className="text-lg font-semibold text-[var(--primary)] mb-2">
-          Content Title
-        </h3>
-        <p className="text-[var(--secondary)]">
-          This content will be dimmed while loading.
-        </p>
-      </div>
-    </Spin>
-  ),
-};
-
-export const DelayedSpin: Story = {
-  args: {
-    spinning: true,
-    delay: 1000,
-    tip: 'This appears after 1 second',
-    size: 'lg',
-  },
-};
-
+  parameters: { docsOnly: true },
+}

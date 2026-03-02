@@ -272,7 +272,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
           <ProgressBar
             value={progress}
             variant={statusConfig.progressVariant}
-            showPercentage={true}
+            
             animated={status === 'uploading'}
           />
         )}
@@ -293,19 +293,19 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
         {showStats && (
           <div className="flex items-stretch gap-[var(--spacing-x5)] pl-[calc(var(--spacing-x7)+var(--spacing-x1))]">
             {/* Total */}
-            <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-white/10"))}>
+            <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-[var(--glass-hover)]"))}>
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Total</Typography>
               <Typography variant="display-primary" className="text-[var(--primary)]">{stats?.total || 0}</Typography>
             </div>
 
             {/* Success */}
-            <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-white/10"))}>
+            <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-[var(--glass-hover)]"))}>
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Success</Typography>
               <Typography variant="display-primary" className="text-[var(--positive)]">{stats?.success || 0}</Typography>
             </div>
 
             {/* Invalid */}
-            <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-white/10"))}>
+            <div className={cn("flex-1 rounded-[var(--radius-md)] p-[12px_20px] flex flex-col gap-[var(--spacing-x1)] min-h-[74px]", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]", "bg-[var(--glass-hover)]"))}>
               <Typography variant="body-secondary-medium" className="text-[var(--secondary)]">Invalid</Typography>
               <Typography variant="display-primary" className="text-[var(--critical)]">{stats?.invalid || 0}</Typography>
             </div>

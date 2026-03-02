@@ -52,8 +52,8 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
     glass,
     ...props
   }, ref) => {
-    const resolvedGlass = useResolvedGlass(glass);
-    const { open, onOpenChange, setSize } = useSelectContext();
+    const { open, onOpenChange, setSize, glass: contextGlass } = useSelectContext();
+    const resolvedGlass = useResolvedGlass(glass ?? contextGlass);
     const triggerRef = useRef<HTMLButtonElement>(null);
     const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
 

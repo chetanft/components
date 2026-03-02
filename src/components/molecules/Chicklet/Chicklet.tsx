@@ -13,16 +13,6 @@ export interface ChickletProps {
   label?: React.ReactNode;
   /** Whether the chicklet has rounded corners (pill) or rectangular corners */
   variant?: ChickletVariant;
-  /**
-   * Whether to show the close (cross) icon
-   * @deprecated Use conditional rendering instead: `{onClose && <CloseButton />}`
-   */
-  showClose?: boolean;
-  /**
-   * Alias for showClose
-   * @deprecated Use conditional rendering instead: `{onClose && <CloseButton />}`
-   */
-  closable?: boolean;
   /** Whether to show border */
   bordered?: boolean;
   /** Callback when the close icon is clicked */
@@ -43,8 +33,6 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
   ({ 
     label,
     variant = 'rectangular',
-    showClose,
-    closable,
     bordered = false,
     onClose,
     onClick,
@@ -61,7 +49,7 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
     
     // Get current state
     const currentState: ChickletState = isHovered ? 'hover' : 'default';
-    const isClosable = closable || showClose;
+    const isClosable = !!onClose;
     
     // Base styles using exact Figma specifications
     const baseStyles = cn(
