@@ -4,6 +4,7 @@ import { Icon } from "../../../../src/components/atoms/Icons/Icon"
 import type { IconName } from "../../../../src/components/atoms/Icons/Icon"
 import { SiteHeader } from "@/components/site-header"
 import { useState, useMemo, useEffect } from "react"
+import { useViewMode } from "@/components/view-mode-context"
 
 // All available icon names - manually maintained to avoid importing all icon components
 const iconNames: IconName[] = [
@@ -77,6 +78,7 @@ type CategoryName = keyof typeof iconCategories
 type StyleCategoryName = keyof typeof iconStyleCategories
 
 export default function IconsPage() {
+  const { viewMode: globalViewMode } = useViewMode()
   const [copiedIcon, setCopiedIcon] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<CategoryName>("All")
@@ -318,6 +320,37 @@ export default function IconsPage() {
       document.body.style.overflow = ''
     }
   }, [bottomSheetOpen])
+
+  // Machine mode: plain-text icon list
+  if (globalViewMode === 'machine') {
+    const machineSpec = [
+      '# FT Design System — Icons',
+      `TOTAL: ${iconNames.length}`,
+      'IMPORT: import { Icon } from "ft-design-system";',
+      'USAGE: <Icon name="icon-name" size={24} />',
+      '',
+      '## All Icon Names',
+      iconNames.join(', '),
+      '',
+      '## By Category',
+      ...Object.entries(iconCategories).filter(([k]) => k !== 'All').map(([cat, names]) =>
+        `### ${cat}\n${(names as readonly string[]).join(', ')}`
+      ),
+      '',
+      '## By Style',
+      ...Object.entries(iconStyleCategories).filter(([k]) => k !== 'All').map(([style, names]) =>
+        `### ${style}\n${(names as readonly string[]).join(', ')}`
+      ),
+    ].join('\n')
+
+    return (
+      <div className="min-h-screen bg-background px-6 py-10 max-w-[860px] mx-auto">
+        <pre className="whitespace-pre-wrap font-mono" style={{ fontSize: 'var(--font-size-xs-rem)', color: 'var(--primary)', lineHeight: 1.7 }}>
+          {machineSpec}
+        </pre>
+      </div>
+    )
+  }
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">

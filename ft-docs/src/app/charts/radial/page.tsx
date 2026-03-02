@@ -1,6 +1,6 @@
 "use client"
 
-import { ComponentPreview } from "@/components/component-preview"
+import { ChartPage } from "@/components/chart-page"
 
 const radialChartVariants = [
   {
@@ -148,29 +148,6 @@ const data = {
 ]
 
 export default function RadialChartsPage() {
-  return (
-    <div className="space-y-12">
-      <div className="mb-12">
-        <h1 className="font-heading text-3xl-rem font-bold tracking-tight sm:text-4xl-rem mb-4">
-          Radial Charts
-        </h1>
-        <p className="text-lg-rem text-muted-foreground">
-          Display progress and single value metrics with radial charts.
-        </p>
-      </div>
-
-      <div className="space-y-12">
-        {radialChartVariants.map((variant) => (
-          <div key={variant.id} id={variant.id} className="scroll-mt-20 space-y-4">
-            <div>
-              <h2 className="text-xl-rem font-semibold mb-2">{variant.name}</h2>
-              <p className="text-sm-rem text-muted-foreground">{variant.description}</p>
-            </div>
-            <ComponentPreview code={variant.code} />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+  return <ChartPage title="Radial Charts" description="Display progress and single value metrics with radial charts." variants={radialChartVariants} />
 }
 

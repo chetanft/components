@@ -3,7 +3,8 @@
 import { designTokens } from "../../../../src/tokens/design-tokens"
 import { SiteHeader } from "@/components/site-header"
 import { Button } from "../../../../src/components/atoms/Button"
-import { useState } from "react"
+import { useState, useMemo } from "react"
+import { useViewMode } from "@/components/view-mode-context"
 
 // Standard Tailwind colors
 const standardTailwindColors = {
@@ -379,8 +380,48 @@ export default function ColorsPage() {
   const [selectedFormat, setSelectedFormat] = useState<'hex' | 'rgb' | 'hsl' | 'css' | 'tailwind' | 'oklch'>('hex')
   const [selectedMode, setSelectedMode] = useState<'lightMode' | 'darkMode' | 'nightMode'>('lightMode')
   const [copiedValue, setCopiedValue] = useState<string | null>(null)
+  const { viewMode } = useViewMode()
 
   const colorScales = extractColorScales(selectedMode)
+
+  // Machine mode: plain-text color tokens
+  const machineSpec = useMemo(() => {
+    const lines: string[] = ['# FT Design System — Color Tokens', '']
+    for (const mode of ['lightMode', 'darkMode', 'nightMode'] as const) {
+      const label = mode === 'lightMode' ? 'Light' : mode === 'darkMode' ? 'Dark' : 'Night'
+      lines.push(`## ${label} Mode`)
+      const scales = extractColorScales(mode)
+      for (const family of colorFamilies) {
+        const swatches = scales[family.name as keyof typeof scales] || []
+        if (swatches.length === 0) continue
+        lines.push(`### ${family.label}`)
+        for (const s of swatches) {
+          lines.push(`${s.name}: ${s.hex}  css: var(${s.cssVar})  tw: ${s.tailwindClass}`)
+        }
+        lines.push('')
+      }
+    }
+    // Standard Tailwind colors
+    lines.push('## Standard Tailwind Colors')
+    for (const [name, shades] of Object.entries(standardTailwindColors)) {
+      lines.push(`### ${name}`)
+      for (const [shade, hex] of Object.entries(shades).sort(([a], [b]) => Number(b) - Number(a))) {
+        lines.push(`${name}-${shade}: ${hex}  tw: bg-${name}-${shade}`)
+      }
+      lines.push('')
+    }
+    return lines.join('\n')
+  }, [])
+
+  if (viewMode === 'machine') {
+    return (
+      <div className="min-h-screen bg-background px-6 py-10 max-w-[860px] mx-auto">
+        <pre className="whitespace-pre-wrap font-mono" style={{ fontSize: 'var(--font-size-xs-rem)', color: 'var(--primary)', lineHeight: 1.7 }}>
+          {machineSpec}
+        </pre>
+      </div>
+    )
+  }
 
   const copyToClipboard = (value: string) => {
     navigator.clipboard.writeText(value)

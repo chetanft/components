@@ -1,6 +1,6 @@
 "use client"
 
-import { ComponentPreview } from "@/components/component-preview"
+import { ChartPage } from "@/components/chart-page"
 
 const areaChartVariants = [
   {
@@ -283,28 +283,5 @@ const data = {
 ]
 
 export default function ChartsPage() {
-  return (
-    <div className="space-y-12">
-      <div className="mb-12">
-        <h1 className="font-heading text-3xl-rem font-bold tracking-tight sm:text-4xl-rem mb-4">
-          Area Charts
-        </h1>
-        <p className="text-lg-rem text-muted-foreground">
-          Display trends with filled areas underneath the line.
-        </p>
-      </div>
-
-      <div className="space-y-12">
-        {areaChartVariants.map((variant) => (
-          <div key={variant.id} id={variant.id} className="scroll-mt-20 space-y-4">
-            <div>
-              <h2 className="text-xl-rem font-semibold mb-2">{variant.name}</h2>
-              <p className="text-sm-rem text-muted-foreground">{variant.description}</p>
-            </div>
-            <ComponentPreview code={variant.code} />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+  return <ChartPage title="Area Charts" description="Display trends with filled areas underneath the line." variants={areaChartVariants} />
 }

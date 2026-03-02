@@ -1,6 +1,45 @@
+"use client"
+
 import { Package, ExternalLink } from "lucide-react"
+import { useViewMode } from "@/components/view-mode-context"
+
+const machineSpec = `# FT Design System — NPM Package
+PACKAGE: ft-design-system
+REGISTRY: https://www.npmjs.com/package/ft-design-system
+
+## Install
+npm install ft-design-system
+
+## Setup
+import 'ft-design-system/styles.css';
+import { Button, Input, Table } from 'ft-design-system';
+
+## Tailwind Config
+module.exports = {
+  content: [
+    './src/**/*.{js,jsx,ts,tsx}',
+    './node_modules/ft-design-system/**/*.{js,jsx,ts,tsx}'
+  ],
+}
+
+## Package Includes
+- 50+ production-ready React components
+- 190+ custom icons with TypeScript support
+- Full TypeScript definitions
+- AI-protected components for coding assistants
+- WCAG AA accessibility compliant`
 
 export default function NPMPackagePage() {
+    const { viewMode } = useViewMode()
+
+    if (viewMode === 'machine') {
+        return (
+            <pre className="whitespace-pre-wrap font-mono" style={{ fontSize: 'var(--font-size-xs-rem)', color: 'var(--primary)', lineHeight: 1.7 }}>
+                {machineSpec}
+            </pre>
+        )
+    }
+
     return (
         <div className="space-y-6">
             <div>

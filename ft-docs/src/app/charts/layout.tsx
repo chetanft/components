@@ -1,11 +1,25 @@
+"use client"
+
 import { SiteHeader } from "@/components/site-header"
 import { ChartsSidebar } from "@/components/charts-sidebar"
+import { useViewMode } from "@/components/view-mode-context"
 
 export default function ChartsLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const { viewMode } = useViewMode()
+  const isMachine = viewMode === "machine"
+
+  if (isMachine) {
+    return (
+      <div className="min-h-screen bg-background px-6 py-10 max-w-[860px] mx-auto">
+        <main>{children}</main>
+      </div>
+    )
+  }
+
   return (
     <div className="relative flex min-h-screen flex-col">
       <SiteHeader />

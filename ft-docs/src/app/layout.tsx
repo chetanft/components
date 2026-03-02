@@ -24,6 +24,8 @@ export const metadata: Metadata = {
 
 import { ThemeProvider } from "@/components/theme-provider"
 import { GlassProvider } from "@/components/glass-provider"
+import { ViewModeProvider } from "@/components/view-mode-context"
+import { FloatingViewToggle } from "@/components/floating-view-toggle"
 
 export default function RootLayout({
   children,
@@ -73,7 +75,10 @@ export default function RootLayout({
           themes={['light', 'dark', 'night']}
         >
           <GlassProvider defaultGlass={false} storageKey="ft-glass-mode">
-            {children}
+            <ViewModeProvider>
+              {children}
+              <FloatingViewToggle />
+            </ViewModeProvider>
           </GlassProvider>
         </ThemeProvider>
       </body>

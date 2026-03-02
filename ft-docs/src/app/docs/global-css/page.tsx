@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Check, Copy, Download } from "lucide-react"
+import { useViewMode } from "@/components/view-mode-context"
 
 const globalCssContent = `/* =====================================================
    FT DESIGN SYSTEM - COMPREHENSIVE GLOBAL CSS
@@ -558,6 +559,7 @@ body {
 `
 
 export default function GlobalCSSPage() {
+    const { viewMode } = useViewMode()
     const [copied, setCopied] = useState(false)
 
     const copyToClipboard = () => {
@@ -576,6 +578,14 @@ export default function GlobalCSSPage() {
         a.click()
         document.body.removeChild(a)
         URL.revokeObjectURL(url)
+    }
+
+    if (viewMode === 'machine') {
+        return (
+            <pre className="whitespace-pre-wrap font-mono" style={{ fontSize: 'var(--font-size-xs-rem)', color: 'var(--primary)', lineHeight: 1.7 }}>
+                {globalCssContent}
+            </pre>
+        )
     }
 
     return (

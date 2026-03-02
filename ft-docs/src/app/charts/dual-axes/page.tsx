@@ -1,6 +1,6 @@
 "use client"
 
-import { ComponentPreview } from "@/components/component-preview"
+import { ChartPage } from "@/components/chart-page"
 
 const dualAxesChartVariants = [
   {
@@ -147,29 +147,5 @@ const data = {
 ]
 
 export default function DualAxesChartsPage() {
-  return (
-    <div className="space-y-12">
-      <div className="mb-12">
-        <h1 className="font-heading text-3xl-rem font-bold tracking-tight sm:text-4xl-rem mb-4">
-          Dual Axes Charts
-        </h1>
-        <p className="text-lg-rem text-muted-foreground">
-          Combine different chart types with two Y-axes to compare metrics with different scales.
-          Ideal for showing relationships between volume and rate metrics.
-        </p>
-      </div>
-
-      <div className="space-y-12">
-        {dualAxesChartVariants.map((variant) => (
-          <div key={variant.id} id={variant.id} className="scroll-mt-20 space-y-4">
-            <div>
-              <h2 className="text-xl-rem font-semibold mb-2">{variant.name}</h2>
-              <p className="text-sm-rem text-muted-foreground">{variant.description}</p>
-            </div>
-            <ComponentPreview code={variant.code} />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+  return <ChartPage title="Dual Axes Charts" description="Combine different chart types with two Y-axes to compare metrics with different scales. Ideal for showing relationships between volume and rate metrics." variants={dualAxesChartVariants} />
 }

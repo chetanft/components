@@ -3,8 +3,11 @@
 import Link from "next/link"
 import { Copy, Check } from "lucide-react"
 import { useState } from "react"
+import { useViewMode } from "@/components/view-mode-context"
 
 export default function AIPromptsPage() {
+    const { viewMode } = useViewMode()
+
     // Machine-readable format (recommended for AI tools)
     const machineReadablePrompt = `# FT Design System - AI Rules
 # Version: 4.15.14 | Components: 124
@@ -33,7 +36,7 @@ provider: import { FTProvider } from 'ft-design-system';
 Button: variant=primary|secondary|destructive|text|link|ghost|dashed, size=sm|md|lg
 Input: label, placeholder, error, helperText, size=sm|md|lg
 Badge: variant=primary|secondary|danger|success|warning|neutral (NOT 'error')
-Table: columns=[{key,title}], data=[{id,...}]
+Table: compose with TableHeader/TableBody/TableRow/TableHead/TableCell
 Modal: open, onOpenChange, children=ModalContent
 
 ## COLORS (use Tailwind classes)
@@ -48,7 +51,7 @@ text-lg-rem=20px, text-xl-rem=24px, text-xxl-rem=28px
 ## EXAMPLES
 <Button variant="primary" size="md">Save</Button>
 <Input label="Email" size="md" />
-<Table columns={[{key:'name',title:'Name'}]} data={[{id:1,name:'John'}]} />
+<Table><TableHeader><TableRow><TableHead>Name</TableHead></TableRow></TableHeader><TableBody><TableRow><TableCell>John</TableCell></TableRow></TableBody></Table>
 <Badge variant="danger">Error</Badge>`
 
     // Human-readable format (detailed explanations)
@@ -143,6 +146,14 @@ Use FT Design System for all UI components.
             case 'human': return humanReadablePrompt
             case 'cursor': return cursorRulesFormat
         }
+    }
+
+    if (viewMode === 'machine') {
+        return (
+            <pre className="whitespace-pre-wrap font-mono" style={{ fontSize: 'var(--font-size-xs-rem)', color: 'var(--primary)', lineHeight: 1.7 }}>
+                {machineReadablePrompt}
+            </pre>
+        )
     }
 
     return (
