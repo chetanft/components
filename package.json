@@ -170,7 +170,9 @@
     "generate:schema": "node scripts/generate-component-schema.cjs",
     "generate:examples": "node scripts/generate-examples.cjs",
     "find:arbitrary-classes": "node scripts/find-arbitrary-classes.cjs",
-    "build:sync": "npm run sync:source-to-docs"
+    "build:sync": "npm run sync:source-to-docs",
+    "check:drift": "node scripts/detect-upstream-drift.cjs --check",
+    "drift:snapshot": "node scripts/detect-upstream-drift.cjs --snapshot"
   },
   "dependencies": {
     "@figma/code-connect": "^1.3.3",

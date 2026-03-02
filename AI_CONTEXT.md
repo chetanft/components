@@ -25,6 +25,7 @@ import { FTProvider } from 'ft-design-system';
 - Before writing or modifying UI code, read relevant files in `specs/`.
 - Before commit or PR, run `npm run check:tokens`.
 - Do not introduce hardcoded visual values unless approved and documented.
+- For PR reviews, follow the checklist at `specs/review-checklist.md`.
 
 ## Tailwind Configuration
 

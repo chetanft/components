@@ -1,0 +1,17 @@
+{
+  "description": "Maps upstream packages to spec files that may need updating when the package changes",
+  "mappings": {
+    "@radix-ui/react-checkbox": ["specs/components/checkbox.md"],
+    "@radix-ui/react-dropdown-menu": ["specs/components/dropdown.md"],
+    "@radix-ui/react-radio-group": ["specs/components/radio.md"],
+    "@radix-ui/react-select": ["specs/components/select.md"],
+    "@radix-ui/react-slot": ["specs/foundations/principles.md"],
+    "@radix-ui/react-switch": ["specs/components/switch.md"],
+    "chart.js": ["specs/components/charts.md"],
+    "react-chartjs-2": ["specs/components/charts.md"],
+    "lucide-react": ["specs/tokens/icons.md"],
+    "date-fns": ["specs/components/datepicker.md", "specs/components/calendar.md"],
+    "tailwindcss": ["specs/tokens/colors.md", "specs/tokens/spacing.md", "specs/tokens/typography.md", "specs/tokens/radius.md"],
+    "class-variance-authority": ["specs/foundations/principles.md"]
+  }
+}

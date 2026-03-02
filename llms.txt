@@ -12,6 +12,7 @@ version: 4.22.0
 - Before writing or modifying any UI code, read the relevant files under `specs/`.
 - Before commit or PR, run `npm run check:tokens`.
 - Do not add hardcoded visual values unless explicitly approved and documented.
+- For PR reviews, follow the checklist at `specs/review-checklist.md`.
 
 ## IMPORTS (CRITICAL - USE EXACTLY AS SHOWN)
 css: import 'ft-design-system/styles';
