@@ -74,7 +74,7 @@ export const SegmentedTabs = React.forwardRef<HTMLDivElement, SegmentedTabsProps
     const containerStyles = cn(
       // Container styles using design tokens
       getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', ''),
-      "flex gap-[var(--x1,4px)] p-[var(--x2,8px)] rounded-[var(--x2,8px)]",
+      "flex gap-[var(--spacing-x1)] p-[var(--spacing-x2)] rounded-[var(--spacing-x2)]",
       // Width: full for default, fit for icon-only
       variant === 'icon-only' ? "w-fit" : "w-full",
       className
@@ -123,14 +123,14 @@ export const SegmentedTabItem = React.forwardRef<HTMLButtonElement, SegmentedTab
   ({ className, label, icon, selected, variant = 'default', ...props }, ref) => {
     const tabStyles = cn(
       // Base styles using design tokens
-      "flex items-center justify-center gap-[var(--x2,8px)] py-[var(--x2,8px)] h-[var(--spacing-x8)] rounded-[var(--x1,4px)] transition-all duration-200 cursor-pointer relative z-10",
+      "flex items-center justify-center gap-[var(--spacing-x2)] py-[var(--spacing-x2)] h-[var(--spacing-x8)] rounded-[var(--spacing-x1)] transition-all duration-200 cursor-pointer relative z-10",
       // Flex: flex-1 for default (fill space), auto for icon-only (hug content)
       variant === 'icon-only' ? "flex-none" : "flex-1",
       // Padding based on variant
       variant === 'icon-only' 
-        ? "px-[var(--x2,8px)]"
-        : "px-[var(--x4,16px)]",
-      // Typography - 14px → 1rem (responsive) medium from Figma (only when not icon-only)
+        ? "px-[var(--spacing-x2)]"
+        : "px-[var(--spacing-x4)]",
+      // Typography - text-sm-rem medium from Figma (only when not icon-only)
       variant === 'default' && "text-sm-rem font-medium leading-[1.4]",
       // State-specific styles using design tokens
       selected

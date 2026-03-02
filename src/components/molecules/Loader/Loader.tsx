@@ -101,7 +101,7 @@ export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
       <Comp
         ref={ref}
         className={cn(
-          "content-stretch flex flex-col gap-[var(--x5,20px)] items-center relative size-full",
+          "content-stretch flex flex-col gap-[var(--spacing-x5)] items-center relative size-full",
           className
         )}
         {...props}

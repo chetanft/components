@@ -121,7 +121,7 @@ export const TableCellText: React.FC<TableCellTextProps> = ({
 
   if (isMultiLine) {
     // Split into multiple Typography components for multi-line display
-    // First line uses primary color, second line uses primary-500 (#5f697b)
+    // First line uses primary color, second line uses var(--tertiary)
     return (
       <>
         {children.split('\n').map((line, index) => (

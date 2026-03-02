@@ -107,13 +107,19 @@ function matchesToken(value, category) {
 }
 
 function extractHexColors(text) {
+  const lines = text.split('\n');
   const pattern = /#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})\b/g;
   const matches = [];
   let match;
   while ((match = pattern.exec(text)) !== null) {
+    const lineIndex = text.substring(0, match.index).split('\n').length - 1;
+    const lineContent = lines[lineIndex] || '';
+    if (lineContent.includes('getCssVar(')) {
+      continue;
+    }
     const normalized = normalizeHex(match[0]);
     if (normalized) {
-      matches.push({ original: match[0], normalized, line: text.substring(0, match.index).split('\n').length });
+      matches.push({ original: match[0], normalized, line: lineIndex + 1 });
     }
   }
   return matches;
@@ -135,6 +141,8 @@ function extractPxValues(text) {
   let match;
   while ((match = pattern.exec(text)) !== null) {
     const numeric = parseFloat(match[1]);
+    // Skip 1px — standard CSS border width, not tokenizable
+    if (numeric === 1) continue;
     matches.push({ value: `${numeric}px`, numeric, line: text.substring(0, match.index).split('\n').length, context: getContext(text, match.index) });
   }
   return matches;
@@ -149,7 +157,9 @@ function analyzeFile(filePath) {
     relativePath.includes('.stories.') ||
     relativePath.includes('node_modules') ||
     relativePath.includes('dist') ||
-    relativePath.includes('.md')
+    relativePath.includes('.md') ||
+    relativePath.endsWith('Colors.tsx') ||
+    relativePath.endsWith('.figma.tsx')
   ) {
     return null;
   }

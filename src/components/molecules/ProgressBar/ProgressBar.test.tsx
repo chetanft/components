@@ -222,7 +222,7 @@ describe('ProgressBar Component', () => {
     it('maintains consistent spacing', () => {
       const { container } = render(<ProgressBar />);
       const wrapper = container.firstChild as HTMLElement | null;
-      expect(wrapper).toHaveClass('gap-[var(--x5,20px)]');
+      expect(wrapper).toHaveClass('gap-[var(--spacing-x5)]');
     });
 
     it('uses proper typography for percentage', () => {

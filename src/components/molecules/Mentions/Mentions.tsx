@@ -154,7 +154,7 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
           status === 'error' && "border-[var(--color-critical)] focus:ring-[var(--color-critical)]",
           status === 'warning' && "border-[var(--color-warning)] focus:ring-[var(--color-warning)]"
         )}
-        style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
+        style={{ fontSize: 'var(--font-size-sm-rem)' }}
         {...props}
       />
       {showSuggestions && filteredOptions.length > 0 && (

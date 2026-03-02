@@ -245,7 +245,6 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
             </div>
 
             <div className="flex items-center gap-[var(--spacing-x2)] font-medium text-[var(--primary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
-              {/* 14px → 1rem (responsive) */}
               <button
                 type="button"
                 onClick={() => handleModeChange('month')}
@@ -375,7 +374,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                 <div
                   key={day}
                   className="w-[1.875rem] h-[1.875rem] flex-shrink-0 flex flex-col items-center justify-center p-[var(--spacing-x2)] text-[var(--tertiary)] font-normal"
-                  style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
+                  style={{ fontSize: 'var(--font-size-sm-rem)' }}
                 >
                   {day}
                 </div>
@@ -412,7 +411,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                             disabled ? "text-[var(--border-secondary)]" : "text-[var(--primary)]",
                             !isCurrentMonth && !isSelected && !disabled && "text-[var(--tertiary)]"
                           )}
-                          style={{ fontSize: 'var(--font-size-sm-rem)' }} // 14px → 1rem (responsive)
+                          style={{ fontSize: 'var(--font-size-sm-rem)' }}
                         >
                           {date.getDate()}
                         </span>

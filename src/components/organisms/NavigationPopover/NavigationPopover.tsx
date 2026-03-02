@@ -394,13 +394,13 @@ const HeroBlock = ({ hero }: { hero: NavigationSectionHero }) => (
         className="w-full"
       />
     ) : (
-      <div className="border border-[var(--border-primary)] rounded-[var(--x4,16px)] bg-[var(--bg-secondary)] p-[var(--x4,16px)] min-h-[22rem]" />
+      <div className="border border-[var(--border-primary)] rounded-[var(--spacing-x4)] bg-[var(--bg-secondary)] p-[var(--spacing-x4)] min-h-[22rem]" />
     )}
   </div>
 );
 
 const HighlightCard = ({ metric }: { metric: HighlightMetric }) => (
-  <div className="border border-[var(--border-secondary)] rounded-[var(--x2,8px)] px-[var(--x5,20px)] py-[var(--x3,12px)] flex flex-col gap-[var(--x2,8px)] bg-[var(--bg-primary)]">
+  <div className="border border-[var(--border-secondary)] rounded-[var(--spacing-x2)] px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex flex-col gap-[var(--spacing-x2)] bg-[var(--bg-primary)]">
     <Typography variant="display-primary" color="primary">
       {metric.title}
     </Typography>
@@ -422,8 +422,8 @@ const HighlightCard = ({ metric }: { metric: HighlightMetric }) => (
 );
 
 const StatCard = ({ metric }: { metric: StatMetric }) => (
-  <div className="border border-[var(--border-secondary)] rounded-[var(--x2,8px)] px-[var(--x5,20px)] py-[var(--x3,12px)] flex items-center justify-between gap-4 bg-[var(--bg-primary)]">
-    <div className="flex flex-col gap-[var(--x1,4px)]">
+  <div className="border border-[var(--border-secondary)] rounded-[var(--spacing-x2)] px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex items-center justify-between gap-4 bg-[var(--bg-primary)]">
+    <div className="flex flex-col gap-[var(--spacing-x1)]">
       <Typography variant="display-primary" color="primary">
         {metric.value}
       </Typography>
@@ -438,7 +438,7 @@ const StatCard = ({ metric }: { metric: StatMetric }) => (
 );
 
 const AlertCard = ({ metric }: { metric: AlertMetric }) => (
-  <div className="border border-[var(--border-secondary)] rounded-[var(--x2,8px)] px-[var(--x5,20px)] py-[var(--x3,12px)] flex flex-col gap-[var(--x2,8px)] bg-[var(--bg-primary)]">
+  <div className="border border-[var(--border-secondary)] rounded-[var(--spacing-x2)] px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex flex-col gap-[var(--spacing-x2)] bg-[var(--bg-primary)]">
     <div className="flex items-center justify-between">
       <Typography variant="display-primary" color="primary">
         {metric.value}
@@ -456,34 +456,34 @@ const AlertCard = ({ metric }: { metric: AlertMetric }) => (
 const SubCategoryPanel = ({ categories }: { categories?: NavigationSectionSubCategory[] }) => {
   if (!categories?.length) return null;
   return (
-    <div className="flex flex-col gap-[var(--x4,16px)]">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-[var(--x3,12px)]">
+    <div className="flex flex-col gap-[var(--spacing-x4)]">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-[var(--spacing-x3)]">
         {categories.map((category, index) => (
           <div
             key={`${category.title ?? 'category'}-${index}`}
-            className="bg-[var(--bg-primary)] rounded-[var(--x2,8px)] p-[var(--x3,12px)] flex flex-col gap-[var(--x3,12px)]"
+            className="bg-[var(--bg-primary)] rounded-[var(--spacing-x2)] p-[var(--spacing-x3)] flex flex-col gap-[var(--spacing-x3)]"
           >
             {category.title && (
               <Typography variant="body-secondary-semibold" color="muted">
                 {category.title}
               </Typography>
             )}
-            <div className="flex flex-col gap-[var(--x2,8px)]">
+            <div className="flex flex-col gap-[var(--spacing-x2)]">
               {category.items.map((item) => (
                 <button
                   type="button"
                   key={item.label}
                   disabled={item.disabled}
                   className={cn(
-                    'flex items-center justify-between rounded-[var(--x2,8px)] px-[var(--x3,12px)] py-[var(--x2,8px)] transition-colors text-left',
+                    'flex items-center justify-between rounded-[var(--spacing-x2)] px-[var(--spacing-x3)] py-[var(--spacing-x2)] transition-colors text-left',
                     item.status === 'active'
                       ? 'bg-[var(--bg-secondary)]'
                       : 'bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)]',
                     item.disabled && 'opacity-50 cursor-not-allowed'
                   )}
                 >
-                  <div className="flex flex-col gap-[var(--x1,4px)]">
-                    <div className="flex items-center gap-[var(--x2,8px)]">
+                  <div className="flex flex-col gap-[var(--spacing-x1)]">
+                    <div className="flex items-center gap-[var(--spacing-x2)]">
                       {item.icon && (
                         <span className="w-6 h-6 rounded-full border border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]">
                           <Icon name={item.icon} size={16} />
@@ -531,16 +531,16 @@ const MetricsPanel = ({
   const alertMetrics = metrics.filter(isAlertMetric);
 
   return (
-    <div className="flex flex-col gap-[var(--x4,16px)] flex-1">
+    <div className="flex flex-col gap-[var(--spacing-x4)] flex-1">
       {highlightMetrics.length > 0 && (
-        <div className="flex flex-col gap-[var(--x3,12px)]">
+        <div className="flex flex-col gap-[var(--spacing-x3)]">
           {highlightMetrics.map((metric) => (
             <HighlightCard key={metric.title} metric={metric} />
           ))}
         </div>
       )}
       {(statMetrics.length > 0 || alertMetrics.length > 0) && (
-        <div className={cn('grid gap-[var(--x3,12px)] grid-cols-1', columnClass)}>
+        <div className={cn('grid gap-[var(--spacing-x3)] grid-cols-1', columnClass)}>
           {statMetrics.map((metric) => (
             <StatCard key={metric.label} metric={metric} />
           ))}
@@ -706,7 +706,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
       <div className="h-[var(--spacing-x9)] w-[11.875rem]">
         <Logo name="ft" width={190} height={36} />
       </div>
-      <div className="flex items-center gap-[var(--x2,8px)]">
+      <div className="flex items-center gap-[var(--spacing-x2)]">
         {headerSlot}
         <button
           type="button"
@@ -748,20 +748,20 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
     <div
       className={cn(
         glass
-          ? cn(getGlassClasses(resolvedGlass), 'rounded-[var(--x5,20px)] p-[var(--x2,8px)]')
-          : 'bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-[var(--x5,20px)] p-[var(--x2,8px)] shadow-lg',
+          ? cn(getGlassClasses(resolvedGlass), 'rounded-[var(--spacing-x5)] p-[var(--spacing-x2)]')
+          : 'bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-[var(--spacing-x5)] p-[var(--spacing-x2)] shadow-lg',
         className
       )}
       role="dialog"
       aria-modal="true"
       aria-label="Navigation menu"
     >
-      <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--x4,16px)] flex flex-col">
-        <div className="flex items-center justify-between px-[var(--x5,20px)] py-[var(--x5,20px)] border-b border-[var(--border-primary)]">
+      <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--spacing-x4)] flex flex-col">
+        <div className="flex items-center justify-between px-[var(--spacing-x5)] py-[var(--spacing-x5)] border-b border-[var(--border-primary)]">
           {headerContent}
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-[var(--x5,20px)] px-[var(--x5,20px)] py-[var(--x5,20px)]">
+        <div className="flex flex-col lg:flex-row gap-[var(--spacing-x5)] px-[var(--spacing-x5)] py-[var(--spacing-x5)]">
           <div className="w-full lg:w-[16.4375rem] flex-shrink-0">
             <nav aria-label="Primary navigation" className="flex flex-col gap-[var(--spacing-x3)] max-h-[29.5rem] overflow-y-auto pr-1">
               {availableSections.map((section) => {
@@ -773,14 +773,14 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
                     key={section.id}
                     onClick={() => handleSelect(section.id)}
                     className={cn(
-                      'flex items-center justify-between rounded-[var(--x2,8px)] px-[var(--x3,12px)] py-[var(--x3,12px)] transition-colors text-left',
+                      'flex items-center justify-between rounded-[var(--spacing-x2)] px-[var(--spacing-x3)] py-[var(--spacing-x3)] transition-colors text-left',
                       isActive
                         ? 'bg-[var(--bg-secondary)]'
                         : 'bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)]'
                     )}
                     aria-current={isActive ? 'page' : undefined}
                   >
-                    <div className="flex items-center gap-[var(--x2,8px)]">
+                    <div className="flex items-center gap-[var(--spacing-x2)]">
                       <span className="w-6 h-6 rounded-full border border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]">
                         <Icon name={section.icon} size={16} />
                       </span>
@@ -804,12 +804,12 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
             ) : (
               <div
                 className={cn(
-                  'flex flex-col gap-[var(--x5,20px)]',
+                  'flex flex-col gap-[var(--spacing-x5)]',
                   resolvedHeroPlacement === 'left' && shouldShowHero && 'lg:flex-row'
                 )}
               >
                 {heroVisual}
-                <div className="flex-1 flex flex-col gap-[var(--x3,12px)]">
+                <div className="flex-1 flex flex-col gap-[var(--spacing-x3)]">
                   {showDefaultHeroHeading && activeSection.hero && (
                     <div>
                       <Typography variant="title-secondary" color="primary">
@@ -828,7 +828,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
         </div>
         <div className="bg-[var(--bg-secondary)] rounded-b-[inherit]">
           <Divider type="primary" className="w-full" />
-          <div className="px-[var(--x5,20px)] py-[var(--x3,12px)] flex items-center justify-between gap-[var(--x2,8px)] flex-wrap">
+          <div className="px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex items-center justify-between gap-[var(--spacing-x2)] flex-wrap">
             {footerContent}
           </div>
         </div>

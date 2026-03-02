@@ -10,7 +10,7 @@ export interface LoadingSpinnerProps {
 export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 
   size = 12, 
   className = '',
-  color = '#1890FF'
+  color = 'currentColor'
 }) => {
   return (
     <svg

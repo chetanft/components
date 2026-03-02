@@ -59,14 +59,14 @@ export const PageHeaderFilters = React.forwardRef<HTMLDivElement, PageHeaderFilt
         <Comp
           ref={ref}
           className={cn(
-            'content-stretch flex gap-[var(--x5,20px)] items-center relative shrink-0',
+            'content-stretch flex gap-[var(--spacing-x5)] items-center relative shrink-0',
             getGlassClasses(resolvedGlass, '', ''),
             className
           )}
           {...props}
         >
           {/* Filter Container */}
-          <div className="content-stretch flex gap-[var(--x3,12px)] items-center overflow-clip relative rounded-[var(--x2,8px)] shrink-0">
+          <div className="content-stretch flex gap-[var(--spacing-x3)] items-center overflow-clip relative rounded-[var(--spacing-x2)] shrink-0">
             {children}
           </div>
 
@@ -78,7 +78,7 @@ export const PageHeaderFilters = React.forwardRef<HTMLDivElement, PageHeaderFilt
               icon={primaryAction.icon || 'add'}
               iconPosition="leading"
               onClick={primaryAction.onClick}
-              className="rounded-[var(--x2,8px)] shrink-0"
+              className="rounded-[var(--spacing-x2)] shrink-0"
             >
               {primaryAction.label}
             </Button>

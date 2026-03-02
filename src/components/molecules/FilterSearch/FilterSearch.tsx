@@ -150,7 +150,7 @@ export const FilterSearch = React.forwardRef<HTMLDivElement, FilterSearchProps>(
       <Comp
         ref={ref}
         className={cn(
-          'filter-search-container flex items-center gap-[var(--x2,8px)] transition-all duration-200',
+          'filter-search-container flex items-center gap-[var(--spacing-x2)] transition-all duration-200',
           isExpanded ? 'flex-1' : '',
           getGlassClasses(resolvedGlass, '', ''),
           className
@@ -164,7 +164,7 @@ export const FilterSearch = React.forwardRef<HTMLDivElement, FilterSearchProps>(
             icon="search"
             iconPosition="only"
             onClick={handleExpand}
-            className="size-[var(--spacing-x10)] rounded-[var(--x2,8px)] shrink-0"
+            className="size-[var(--spacing-x10)] rounded-[var(--spacing-x2)] shrink-0"
             aria-label="Search"
           />
         ) : (

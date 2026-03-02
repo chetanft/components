@@ -151,7 +151,7 @@ const CascaderColumn: React.FC<CascaderColumnProps> = ({
             key={option.value}
             className={cn(
               "box-border flex items-center relative transition-colors duration-200",
-              "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--x3,12px)] rounded-[var(--x2,8px)]",
+              "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--spacing-x3)] rounded-[var(--spacing-x2)]",
               isSelected && "bg-[var(--bg-secondary)]",
               !isSelected && !option.disabled && "hover:bg-[var(--border-secondary)] cursor-pointer",
               option.disabled && "bg-[var(--bg-primary)] cursor-not-allowed opacity-60"
@@ -504,8 +504,8 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
               className={cn(
                 "fixed z-[9999]",
                 getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-solid border-[var(--border-primary)]'),
-                "box-border flex flex-col items-start overflow-clip p-[var(--x2,8px)]",
-                "rounded-[var(--x2,8px)] shadow-lg"
+                "box-border flex flex-col items-start overflow-clip p-[var(--spacing-x2)]",
+                "rounded-[var(--spacing-x2)] shadow-lg"
               )}
               style={{
                 top: dropdownPosition.top,
@@ -521,7 +521,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
                         key={index}
                         className={cn(
                           "box-border flex items-center relative transition-colors duration-200",
-                          "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--x3,12px)] rounded-[var(--x2,8px)]",
+                          "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--spacing-x3)] rounded-[var(--spacing-x2)]",
                           "hover:bg-[var(--border-secondary)] cursor-pointer"
                         )}
                         onClick={() => handleSearchSelect(path)}
@@ -536,7 +536,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
                       </div>
                     ))
                   ) : (
-                    <div className="px-[var(--x3,12px)] py-[var(--x4,16px)] text-center text-[var(--tertiary)] font-normal leading-[1.4]" style={{
+                    <div className="px-[var(--spacing-x3)] py-[var(--spacing-x4)] text-center text-[var(--tertiary)] font-normal leading-[1.4]" style={{
                       fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
                       fontWeight: '400',
                       fontSize: 'var(--font-size-md-rem)',

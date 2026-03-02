@@ -20,7 +20,7 @@ export const DiageoWhiteLogo: React.FC<DiageoWhiteLogoProps> = ({
     className={className}
   >
     {/* DIAGEO logo - White */}
-    <text x="0" y="22" fontSize="20" fontWeight="700" fill="#FFFFFF" letterSpacing="1">DIAGEO</text>
+    <text x="0" y="22" fontSize="20" fontWeight="700" fill="currentColor" letterSpacing="1">DIAGEO</text>
   </svg>
 );
 

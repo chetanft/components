@@ -112,7 +112,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
           ref={ref}
           className={cn(
             "box-border flex items-center justify-between w-full m-0 p-0",
-            'py-[var(--x4,16px)]',
+            'py-[var(--spacing-x4)]',
             orientation === 'left' && "justify-start",
             orientation === 'right' && "justify-end",
             orientation === 'center' && "justify-between",
@@ -159,7 +159,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
         ref={ref}
         className={cn(
           "box-border flex items-center w-full m-0 p-0",
-          'py-[var(--x4,16px)]',
+          'py-[var(--spacing-x4)]',
           className
         )}
         {...props}

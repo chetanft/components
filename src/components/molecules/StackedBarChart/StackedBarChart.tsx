@@ -157,23 +157,22 @@ export const StackedBarChart = React.forwardRef(
       <div
         ref={ref}
         className={cn(
-          'flex w-full flex-col gap-[var(--x3,12px)] text-left',
+          'flex w-full flex-col gap-[var(--spacing-x3)] text-left',
           className
         )}
         {...props}
       >
         {title && (
           <span className="text-xs-rem font-semibold tracking-[0.08em] text-[var(--secondary)]">
-            {/* 12px → 0.857rem (responsive) */}
             {title}
           </span>
         )}
 
-        <div className="flex gap-[var(--x5,20px)]" role="img" aria-label={title}>
+        <div className="flex gap-[var(--spacing-x5)]" role="img" aria-label={title}>
           {dataFromChildren.map((bar, barIndex) => (
             <div
               key={`${bar.label}-${barIndex}`}
-              className="flex flex-1 min-w-0 flex-col items-center gap-[var(--x2,8px)]"
+              className="flex flex-1 min-w-0 flex-col items-center gap-[var(--spacing-x2)]"
             >
               <div
                 className="flex w-full flex-col justify-end rounded-[0.375rem]"

@@ -99,7 +99,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
         const filledSteps = Math.floor((clampedValue / 100) * steps);
 
         return (
-          <div className="flex items-center gap-[var(--x5,20px)] w-full" ref={ref} {...props}>
+          <div className="flex items-center gap-[var(--spacing-x5)] w-full" ref={ref} {...props}>
             <div className={cn("flex gap-1 w-full", className)}>
               {Array.from({ length: steps }, (_, i) => (
                 <div
@@ -128,7 +128,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
 
       // Default line progress - Figma: x2 height, x2 rounded corners
       return (
-        <div className="flex items-center gap-[var(--x5,20px)] w-full" ref={ref} {...props}>
+        <div className="flex items-center gap-[var(--spacing-x5)] w-full" ref={ref} {...props}>
           <div
             className={cn(
               "relative w-full rounded-[var(--radius-md)] overflow-hidden",
