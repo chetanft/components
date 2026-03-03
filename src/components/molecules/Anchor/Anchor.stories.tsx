@@ -74,7 +74,7 @@ export const ExplorerBase: Story = {
 };
 
 export const Default: Story = {
-  render: (args) => (
+  render: (args: any) => (
     <div style={{ display: 'flex' }}>
       <div style={{ flex: 1 }}>
         <DemoSection id="part-1" title="Part 1" />
@@ -93,7 +93,7 @@ export const Default: Story = {
 };
 
 export const DocsVariants: Story = {
-  render: (args) => (
+  render: (args: any) => (
     <div>
       <div style={{ marginBottom: '20px' }}>
         <Typography variant="title-secondary" as="h4">Vertical (default)</Typography>

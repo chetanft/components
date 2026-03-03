@@ -78,7 +78,7 @@ export const ExplorerBase: Story = {
       <Dropdown
         value={value}
         onChange={setValue}
-        type={mode === 'search' ? 'search' : mode === 'groups' ? 'groups' : 'default'}
+        type={mode === 'search' ? 'search' : mode === 'groups' ? 'groups' : 'normal'}
         state={state}
         placeholder={
           state === 'disabled'

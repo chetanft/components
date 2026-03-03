@@ -113,7 +113,7 @@ type Story = StoryObj<typeof NavigationPopover>;
 
 export const ExplorerBase: Story = {
   render: (args: any) => {
-    const sections = args.dataset === 'noHero' ? noHeroSections : DEFAULT_NAVIGATION_SECTIONS;
+    const sections = args.dataset === 'noHero' ? DEFAULT_NAVIGATION_SECTIONS.map((s) => ({ ...s, hero: undefined })) : DEFAULT_NAVIGATION_SECTIONS;
     return (
       <NavigationPopover
         open

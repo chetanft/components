@@ -43,7 +43,7 @@ export default meta;
 type Story = StoryObj<typeof Affix>;
 
 export const Basic: Story = {
-  render: (args) => (
+  render: (args: any) => (
     <div style={{ height: '200vh' }}>
       <div style={{ paddingTop: '100px', paddingLeft: '20px' }}>
         <Affix offsetTop={10} glass={args.glass}>
@@ -57,7 +57,7 @@ export const Basic: Story = {
 };
 
 export const Bottom: Story = {
-    render: (args) => (
+    render: (args: any) => (
       <div style={{ height: '200vh' }}>
         <div style={{ paddingTop: '100px', paddingLeft: '20px' }}>
           <Affix offsetBottom={10} glass={args.glass}>

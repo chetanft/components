@@ -270,7 +270,7 @@ export const ExplorerBase: Story = {
     loading: false,
     children: 'Add Item',
   },
-  render: (args) => {
+  render: (args: any) => {
     const isIconOnly = args.iconPosition === 'only' || args.shape === 'circle';
     const resolvedIcon = isIconOnly ? (args.icon ?? 'add') : args.icon;
     return (

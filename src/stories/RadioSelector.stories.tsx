@@ -42,7 +42,7 @@ const renderOptions = (options: RadioSelectorOptionType[]) =>
   ));
 
 export const Default: Story = {
-  render: (args) => {
+  render: (args: any) => {
     const options: RadioSelectorOptionType[] = [
       {
         value: 'option1',
@@ -65,7 +65,7 @@ export const Default: Story = {
 };
 
 export const WithSelection: Story = {
-  render: (args) => {
+  render: (args: any) => {
     const options: RadioSelectorOptionType[] = [
       {
         value: 'option1',
@@ -88,7 +88,7 @@ export const WithSelection: Story = {
 };
 
 export const ThreeOptions: Story = {
-  render: (args) => {
+  render: (args: any) => {
     const options: RadioSelectorOptionType[] = [
       {
         value: 'basic',
@@ -116,7 +116,7 @@ export const ThreeOptions: Story = {
 };
 
 export const PlanSelector: Story = {
-  render: (args) => {
+  render: (args: any) => {
     const options: RadioSelectorOptionType[] = [
       {
         value: 'basic',
@@ -145,7 +145,7 @@ export const PlanSelector: Story = {
 
 export const DocsVariants: Story = {
   name: 'Variants',
-  render: (args) => (
+  render: (args: any) => (
     <div className="space-y-6">
       <div>
         <p className="text-sm font-medium text-[var(--secondary)] mb-2">Two Options</p>

@@ -84,7 +84,7 @@ export const ExplorerBase: Story = {
     className: 'w-[300px]',
     type: 'line',
   },
-  render: (args) => (
+  render: (args: any) => (
     <div className={args.type === 'line' ? 'w-[300px]' : ''}>
       <Progress
         value={args.value as number}

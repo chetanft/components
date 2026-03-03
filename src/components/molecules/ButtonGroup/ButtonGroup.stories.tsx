@@ -101,7 +101,7 @@ export const ExplorerBase: Story = {
 
 // Composable API Examples
 export const Default: Story = {
-  render: (args) => (
+  render: (args: any) => (
     <ButtonGroup glass={args.glass}>
       <ButtonGroupItem>
         <Button variant="text">Text</Button>
@@ -117,7 +117,7 @@ export const Default: Story = {
 };
 
 export const DocsEqualWidth: Story = {
-  render: (args) => (
+  render: (args: any) => (
     <ButtonGroup equalWidth glass={args.glass}>
       <ButtonGroupItem>
         <Button variant="text" className="w-full">Cancel</Button>

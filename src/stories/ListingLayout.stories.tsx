@@ -476,7 +476,7 @@ const TableContent = () => (
         <TableRow key={row.id}>
           {journeyColumns.map((column) => (
             <TableCell key={`${row.id}-${String(column.key)}`}>
-              {column.render ? column.render((row as Record<string, unknown>)[String(column.key)], row) : String((row as Record<string, unknown>)[String(column.key)] ?? '')}
+              {column.render ? column.render((row as Record<string, unknown>)[String(column.key)], row, 0) : String((row as Record<string, unknown>)[String(column.key)] ?? '')}
             </TableCell>
           ))}
         </TableRow>

@@ -161,7 +161,7 @@ export const ExplorerBase: Story = {
     return (
       <div key={syncKey}>
         {contentType === 'comparison' ? (
-          <ThemeComparison />
+          <DocsThemeComparison />
         ) : contentType === 'light' ? (
           <ThemeWrapper defaultTheme="light">
             <ThemeDemo />

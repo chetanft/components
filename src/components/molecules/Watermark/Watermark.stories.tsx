@@ -44,7 +44,7 @@ export default meta;
 type Story = StoryObj<typeof Watermark>;
 
 export const Basic: Story = {
-  render: (args) => (
+  render: (args: any) => (
     <Watermark content="FT Design System" glass={args.glass}>
       <div style={{ height: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f5f5f5' }}>
         <Typography variant="title-secondary">Confidential Content</Typography>
@@ -54,7 +54,7 @@ export const Basic: Story = {
 };
 
 export const MultiLine: Story = {
-  render: (args) => (
+  render: (args: any) => (
     <Watermark content={['Confidential', 'Do Not Share']} glass={args.glass}>
       <div style={{ height: 500, backgroundColor: '#fff' }} />
     </Watermark>
@@ -62,7 +62,7 @@ export const MultiLine: Story = {
 };
 
 export const CustomStyle: Story = {
-  render: (args) => (
+  render: (args: any) => (
     <Watermark
       content="Draft"
       font={{ color: 'rgba(255, 0, 0, 0.15)', fontSize: 24 }}
