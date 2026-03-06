@@ -34,7 +34,7 @@ export interface RowProps extends ComposableProps<'div'> {
  * Row component - Grid row container built with FT Design System tokens.
  * 
  * Uses:
- * - Spacing: var(--x1) to var(--x12) for gutters
+ * - Spacing: var(--spacing-x1) to var(--spacing-x12) for gutters
  * - Flex layout for alignment
  */
 export const Row = React.forwardRef<HTMLDivElement, RowProps>(

@@ -18,6 +18,15 @@ const meta: Meta<typeof Modal> = {
       baseStory: 'ExplorerBase',
       behavior: 'center-overlay' as const,
       previewMode: 'inline' as const,
+                                                                                                                                                                                                                                                                                                                                                                                                inspector: {
+                                                                                                                                                                                                  enabled: true,
+                                                                                                                                                                                                  defaultMode: 'token-spacing' as const,
+                                                                                                                                                                                                  spacingHints: {
+                                                                                                                                                                                                    outerXToken: 'x6',
+                                                                                                                                                                                                    outerYToken: 'x3',
+                                                                                                                                                                                                    innerGapToken: 'x2',
+                                                                                                                                                                                                  },
+                                                                                                                                                                                                },
       rows: [
         {
           id: 'type',

@@ -93,11 +93,11 @@ export const statusColorsArray = [
 
 // Monochrome color scales (primary grays)
 export const monochromeColors = [
-  '#1a2330', // primary900 – no standard CSS var
+  getCssVar('--primary-900', '#1a2330'), // primary900
   getCssVar('--primary', '#434f64'), // primary700
   getCssVar('--secondary', '#5f697b'), // primary500
   getCssVar('--tertiary', '#838c9d'), // primary300
-  '#c5cad3', // primary100 – no standard CSS var
+  getCssVar('--primary-100', '#c5cad3'), // primary100
 ];
 
 // Neutral (blue) scale colors

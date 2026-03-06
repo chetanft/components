@@ -1,9 +1,12 @@
 "use client";
 
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import { cn } from '../../../lib/utils';
 import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+
+export const DescriptionsContext = createContext<{ bordered: boolean }>({ bordered: false });
+export const useDescriptionsContext = () => useContext(DescriptionsContext);
 
 export interface DescriptionsProps extends Omit<ComposableProps<'div'>, 'onChange' | 'title'> {
     /** Glass morphism variant */
@@ -77,19 +80,24 @@ export const Descriptions: React.FC<DescriptionsProps> = ({
 
     const Comp = asChild ? Slot : 'div';
     return (
-        <Comp className={cn("w-full", className)} {...props}>
-            <div
-                className={cn(
-                    "grid w-full",
-                    bordered && cn(getGlassClasses(resolvedGlass, '', 'border border-[var(--color-border-secondary)]'), "rounded-[var(--radius-md)] overflow-hidden")
-                )}
-                style={{
-                    gridTemplateColumns: `repeat(${column}, minmax(0, 1fr))`,
-                }}
-            >
-                {children}
-            </div>
-        </Comp>
+        <DescriptionsContext.Provider value={{ bordered }}>
+            <Comp className={cn("w-full", className)} {...props}>
+                <div
+                    className={cn(
+                        "grid w-full",
+                        bordered && cn(
+                            getGlassClasses(resolvedGlass, '', 'border border-[var(--color-border-secondary)]'),
+                            "rounded-[var(--radius-md)] overflow-hidden"
+                        )
+                    )}
+                    style={{
+                        gridTemplateColumns: `repeat(${column}, minmax(0, 1fr))`,
+                    }}
+                >
+                    {children}
+                </div>
+            </Comp>
+        </DescriptionsContext.Provider>
     );
 };
 

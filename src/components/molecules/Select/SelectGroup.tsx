@@ -24,7 +24,7 @@ export const SelectGroup = React.forwardRef<HTMLDivElement, SelectGroupProps>(
       <div
         ref={ref}
         role="group"
-        className={cn('p-1', className)}
+        className={cn('p-[var(--spacing-x1)]', className)}
         {...props}
       >
         {children}

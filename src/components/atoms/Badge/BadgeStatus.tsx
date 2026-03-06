@@ -44,7 +44,7 @@ export const BadgeStatus = React.forwardRef<HTMLSpanElement, BadgeStatusProps>(
         return (
             <Comp
                 ref={ref}
-                className={cn("inline-flex items-center gap-2", className)}
+                className={cn("inline-flex items-center gap-[var(--spacing-x2)]", className)}
                 {...props}
             >
                 {[

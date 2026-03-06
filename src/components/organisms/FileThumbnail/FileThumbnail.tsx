@@ -64,7 +64,7 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
               />
               {/* Hover Overlay */}
               {isHovered && hasActions && (
-                <div className="absolute inset-0 bg-[rgba(67,79,100,0.8)] rounded-[var(--spacing-x2)] pointer-events-none" />
+                <div className="absolute inset-0 bg-[var(--overlay-strong)] rounded-[var(--spacing-x2)] pointer-events-none" />
               )}
             </div>
           ) : (

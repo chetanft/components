@@ -16,7 +16,7 @@ export const ResultTitle = React.forwardRef<HTMLDivElement, ResultTitleProps>(
       <Comp ref={ref} {...props}>
         <Typography
           variant="title-secondary"
-          className={cn("text-[var(--primary)] mb-[var(--x3)]", className)}
+          className={cn("text-[var(--primary)] mb-[var(--spacing-x3)]", className)}
         >
           {children}
         </Typography>

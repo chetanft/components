@@ -1,16 +1,16 @@
 # List Story Normalization Audit
 
-> Generated 2026-02-23
+> Generated 2026-03-03
 
 ## Summary
 
 | Metric | Count |
 |--------|-------|
-| Total story files | 123 |
-| Total story exports | 586 |
-| A: Canonical (ok) | 208 |
+| Total story files | 129 |
+| Total story exports | 595 |
+| A: Canonical (ok) | 219 |
 | B: Needs Docs rename | 0 |
-| C: Already Docs (ok) | 251 |
+| C: Already Docs (ok) | 249 |
 | D: Needs split | 0 |
 | E: Duplicate candidate | 63 |
 | F: Internal (hide) | 64 |
@@ -26,7 +26,7 @@
 
 ## Action Board
 
-97 components need attention out of 123 total.
+97 components need attention out of 129 total.
 
 ### Molecules/Loader
 `src/components/molecules/Loader/Loader.stories.tsx` | Explorer: Yes
@@ -272,8 +272,6 @@
 | `DocsTextOnly` | **C**: OK | Already Docs-prefixed or docsOnly marked |
 | `DocsShapeDefault` | **C**: OK | Already Docs-prefixed or docsOnly marked |
 | `DocsShapeRounded` | **C**: OK | Already Docs-prefixed or docsOnly marked |
-| `DocsShapePill` | **C**: OK | Already Docs-prefixed or docsOnly marked |
-| `DocsShapeCircle` | **C**: OK | Already Docs-prefixed or docsOnly marked |
 | `ExplorerBase` | **F**: Hide | ExplorerBase (internal, hide from list) |
 
 ### Atoms/Checkbox

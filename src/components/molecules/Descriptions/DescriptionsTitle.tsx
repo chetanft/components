@@ -4,6 +4,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Typography, type TypographyColor } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { useDescriptionsContext } from './Descriptions';
 
 export interface DescriptionsTitleProps extends ComposableProps<'div'> {
   /**
@@ -38,19 +39,21 @@ export interface DescriptionsTitleProps extends ComposableProps<'div'> {
  */
 export const DescriptionsTitle = React.forwardRef<HTMLDivElement, DescriptionsTitleProps>(
   ({ className, children, asChild, color: _color, ...props }, ref) => {
+    const { bordered } = useDescriptionsContext();
+    const paddingClass = bordered ? "px-[var(--spacing-x4)] pt-[var(--spacing-x3)] pb-[var(--spacing-x2)]" : "";
     if (asChild) {
       return (
-        <Slot ref={ref} className={className} {...props}>
+        <Slot ref={ref} className={cn(paddingClass, className)} {...props}>
           <Typography variant="title-secondary" className="font-semibold text-[var(--color-primary)]">
             {children}
           </Typography>
         </Slot>
       );
     }
-    
+
     const { color: _, ...restProps } = props as any;
     return (
-      <Typography variant="title-secondary" className={cn("font-semibold text-[var(--color-primary)]", className)} ref={ref as any} {...restProps}>
+      <Typography variant="title-secondary" className={cn("font-semibold text-[var(--color-primary)]", paddingClass, className)} ref={ref as any} {...restProps}>
         {children}
       </Typography>
     );

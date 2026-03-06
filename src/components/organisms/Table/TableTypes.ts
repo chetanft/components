@@ -28,7 +28,7 @@ export interface TableColumn<T = any> {
   sortable?: boolean;
   /**
    * Column width (CSS value)
-   * Example: "200px", "20%", "auto"
+   * Example: "12.5rem", "20%", "auto"
    */
   width?: string;
   /**

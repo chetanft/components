@@ -19,8 +19,8 @@ Summary: 97 components with explorer config, 633 chips audited, 0 error chips, 0
 
 | Row | Chip | Story | Args | Export Kind | Connection | Status |
 |---|---|---|---|---|---|---|
-| Type | Basic | Basic | No | render | connected-via-first-row-story | OK |
-| Type | Bottom | Bottom | No | render | connected-via-first-row-story | OK |
+| Type | Basic | Basic | No | render+args | connected-via-selected-story-args | OK |
+| Type | Bottom | Bottom | No | render+args | connected-via-selected-story-args | OK |
 
 ## Alert
 - Story file: `src/components/molecules/Alert/Alert.stories.tsx`
@@ -1513,6 +1513,6 @@ Summary: 97 components with explorer config, 633 chips audited, 0 error chips, 0
 
 | Row | Chip | Story | Args | Export Kind | Connection | Status |
 |---|---|---|---|---|---|---|
-| Type | Basic | Basic | No | render | connected-via-first-row-story | OK |
-| Type | Multi Line | MultiLine | No | render | connected-via-first-row-story | OK |
-| Type | Custom Style | CustomStyle | No | render | connected-via-first-row-story | OK |
+| Type | Basic | Basic | No | render+args | connected-via-selected-story-args | OK |
+| Type | Multi Line | MultiLine | No | render+args | connected-via-selected-story-args | OK |
+| Type | Custom Style | CustomStyle | No | render+args | connected-via-selected-story-args | OK |

@@ -45,7 +45,7 @@ export const ListBody = React.forwardRef<HTMLUListElement, ListBodyProps>(
         ref={ref}
         className={cn(
           "m-0 p-0 list-none",
-          "flex flex-col gap-3 pt-2 pb-2 px-4",
+          "flex flex-col gap-[var(--spacing-x3)] py-[var(--spacing-x3)] px-[var(--spacing-x4)]",
           className
         )}
         {...props}
@@ -57,4 +57,3 @@ export const ListBody = React.forwardRef<HTMLUListElement, ListBodyProps>(
 );
 
 ListBody.displayName = 'ListBody';
-

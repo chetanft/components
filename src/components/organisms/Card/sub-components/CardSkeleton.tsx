@@ -31,16 +31,16 @@ export const CardSkeleton: React.FC<CardSkeletonProps> = ({ size, className }) =
     const cardSize = size ?? context?.size ?? 'md';
 
     const padding = {
-        sm: 'p-3',
-        md: 'p-6',
-        lg: 'p-8',
+        sm: 'p-[var(--spacing-x3)]',
+        md: 'p-[var(--spacing-x6)]',
+        lg: 'p-[var(--spacing-x8)]',
     }[cardSize];
 
     return (
         <div className={cn(padding, className)}>
-            <Skeleton height="var(--spacing-x6)" width="30%" className="mb-4" />
-            <Skeleton height="var(--spacing-x4)" className="mb-2" />
-            <Skeleton height="var(--spacing-x4)" className="mb-2" />
+            <Skeleton height="var(--spacing-x6)" width="30%" className="mb-[var(--spacing-x4)]" />
+            <Skeleton height="var(--spacing-x4)" className="mb-[var(--spacing-x2)]" />
+            <Skeleton height="var(--spacing-x4)" className="mb-[var(--spacing-x2)]" />
             <Skeleton height="var(--spacing-x4)" width="80%" />
         </div>
     );

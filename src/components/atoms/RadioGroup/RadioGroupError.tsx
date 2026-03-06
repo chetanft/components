@@ -45,7 +45,7 @@ export const RadioGroupError = React.forwardRef<HTMLParagraphElement, RadioGroup
         ref={ref}
         id={errorId}
         role="alert"
-        className={cn("mt-2 text-sm text-critical", className)}
+        className={cn("mt-[var(--spacing-x2)] text-sm text-critical", className)}
         {...props}
       >
         {children}

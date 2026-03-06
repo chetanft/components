@@ -1,0 +1,3163 @@
+{
+  "generatedAt": "2026-03-06T02:59:15.546Z",
+  "summary": {
+    "filesWithIssues": 110,
+    "totalIssues": 387,
+    "categories": {
+      "missingDirectPadding": 375,
+      "spacerInFlexCol": 12
+    },
+    "files": {
+      "src/components/atoms/Avatar/Avatar.tsx": {
+        "missingDirectPadding": 3,
+        "spacerInFlexCol": 0,
+        "totalIssues": 3
+      },
+      "src/components/atoms/Badge/BadgeCount.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/atoms/Colors/Colors.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/atoms/Divider/Divider.tsx": {
+        "missingDirectPadding": 10,
+        "spacerInFlexCol": 0,
+        "totalIssues": 10
+      },
+      "src/components/atoms/FigmaBadge/FigmaBadge.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/atoms/Illustration/Illustration.tsx": {
+        "missingDirectPadding": 3,
+        "spacerInFlexCol": 0,
+        "totalIssues": 3
+      },
+      "src/components/atoms/RadioGroup/RadioItemInput.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/atoms/Select/Select.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/atoms/Skeleton/SkeletonText.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/atoms/Spin/Spin.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/Alert/Alert.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/Alert/AlertClose.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/Anchor/Anchor.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/BackTop/BackTop.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/Calendar/Calendar.tsx": {
+        "missingDirectPadding": 14,
+        "spacerInFlexCol": 0,
+        "totalIssues": 14
+      },
+      "src/components/molecules/Carousel/Carousel.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/Cascader/Cascader.tsx": {
+        "missingDirectPadding": 10,
+        "spacerInFlexCol": 0,
+        "totalIssues": 10
+      },
+      "src/components/molecules/Chicklet/Chicklet.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/ColorPicker/ColorPicker.tsx": {
+        "missingDirectPadding": 5,
+        "spacerInFlexCol": 0,
+        "totalIssues": 5
+      },
+      "src/components/molecules/DatePicker/DatePicker.tsx": {
+        "missingDirectPadding": 5,
+        "spacerInFlexCol": 0,
+        "totalIssues": 5
+      },
+      "src/components/molecules/DatePicker/DatePickerCalendar.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/DatePicker/DatePickerInput.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/Dropdown/DropdownTrigger.tsx": {
+        "missingDirectPadding": 6,
+        "spacerInFlexCol": 0,
+        "totalIssues": 6
+      },
+      "src/components/molecules/DropdownMenu/DropdownMenu.tsx": {
+        "missingDirectPadding": 4,
+        "spacerInFlexCol": 0,
+        "totalIssues": 4
+      },
+      "src/components/molecules/DropdownMenu/DropdownMenuItem.tsx": {
+        "missingDirectPadding": 6,
+        "spacerInFlexCol": 0,
+        "totalIssues": 6
+      },
+      "src/components/molecules/DropdownMenu/DropdownMenuLabel.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/DropdownMenu/DropdownMenuSearch.tsx": {
+        "missingDirectPadding": 3,
+        "spacerInFlexCol": 0,
+        "totalIssues": 3
+      },
+      "src/components/molecules/DropdownMenu/DropdownMenuSeparator.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/FileValidationCard/FileValidationCard.tsx": {
+        "missingDirectPadding": 5,
+        "spacerInFlexCol": 0,
+        "totalIssues": 5
+      },
+      "src/components/molecules/FilterDateRange/FilterDateRange.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/FilterDropdown/FilterDropdown.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/Graphs/Graphs.tsx": {
+        "missingDirectPadding": 0,
+        "spacerInFlexCol": 2,
+        "totalIssues": 2
+      },
+      "src/components/molecules/HoverCard/HoverCardContent.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/Image/Image.tsx": {
+        "missingDirectPadding": 7,
+        "spacerInFlexCol": 0,
+        "totalIssues": 7
+      },
+      "src/components/molecules/InputNumber/InputNumberButton.tsx": {
+        "missingDirectPadding": 8,
+        "spacerInFlexCol": 0,
+        "totalIssues": 8
+      },
+      "src/components/molecules/InputNumber/InputNumberControls.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/InputNumber/InputNumberField.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/InputNumber/InputNumberWrapper.tsx": {
+        "missingDirectPadding": 6,
+        "spacerInFlexCol": 0,
+        "totalIssues": 6
+      },
+      "src/components/molecules/Mentions/Mentions.tsx": {
+        "missingDirectPadding": 5,
+        "spacerInFlexCol": 0,
+        "totalIssues": 5
+      },
+      "src/components/molecules/Pagination/PaginationQuickJumper.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/Popconfirm/PopconfirmArrow.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/Popconfirm/PopconfirmContent.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/ProgressList/ProgressList.tsx": {
+        "missingDirectPadding": 22,
+        "spacerInFlexCol": 0,
+        "totalIssues": 22
+      },
+      "src/components/molecules/RadioSelector/RadioSelector.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/Select/SelectContent.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/Select/SelectItem.tsx": {
+        "missingDirectPadding": 3,
+        "spacerInFlexCol": 0,
+        "totalIssues": 3
+      },
+      "src/components/molecules/Select/SelectSeparator.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/Select/SelectTrigger.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/SimpleColumnLayout/SimpleColumnLayout.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/Slider/Slider.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/Slider/SliderThumb.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/Steps/StepIcon.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/Timeline/Timeline.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/Timeline/TimelineDot.tsx": {
+        "missingDirectPadding": 3,
+        "spacerInFlexCol": 0,
+        "totalIssues": 3
+      },
+      "src/components/molecules/TimePicker/TimePicker.tsx": {
+        "missingDirectPadding": 6,
+        "spacerInFlexCol": 0,
+        "totalIssues": 6
+      },
+      "src/components/molecules/ToggleGroup/ToggleGroup.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/Tour/Tour.tsx": {
+        "missingDirectPadding": 5,
+        "spacerInFlexCol": 0,
+        "totalIssues": 5
+      },
+      "src/components/molecules/Transfer/Transfer.tsx": {
+        "missingDirectPadding": 7,
+        "spacerInFlexCol": 0,
+        "totalIssues": 7
+      },
+      "src/components/molecules/Tree/TreeNode.tsx": {
+        "missingDirectPadding": 4,
+        "spacerInFlexCol": 0,
+        "totalIssues": 4
+      },
+      "src/components/molecules/Tree/TreeNodeChildren.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/molecules/Tree/TreeNodeSwitcher.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/TreeSelect/TreeSelect.tsx": {
+        "missingDirectPadding": 3,
+        "spacerInFlexCol": 0,
+        "totalIssues": 3
+      },
+      "src/components/molecules/UploadButton/UploadButton.tsx": {
+        "missingDirectPadding": 6,
+        "spacerInFlexCol": 0,
+        "totalIssues": 6
+      },
+      "src/components/molecules/UploadItem/UploadItem.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/molecules/UploadThumbnail/UploadThumbnail.tsx": {
+        "missingDirectPadding": 8,
+        "spacerInFlexCol": 0,
+        "totalIssues": 8
+      },
+      "src/components/organisms/AppHeader/AppHeader.tsx": {
+        "missingDirectPadding": 10,
+        "spacerInFlexCol": 0,
+        "totalIssues": 10
+      },
+      "src/components/organisms/Card/Card.tsx": {
+        "missingDirectPadding": 10,
+        "spacerInFlexCol": 2,
+        "totalIssues": 12
+      },
+      "src/components/organisms/Card/sub-components/CardImage.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/Collapsible/Collapse.tsx": {
+        "missingDirectPadding": 4,
+        "spacerInFlexCol": 0,
+        "totalIssues": 4
+      },
+      "src/components/organisms/Collapsible/CollapsibleIcon.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/Collapsible/CollapsibleTrigger.tsx": {
+        "missingDirectPadding": 6,
+        "spacerInFlexCol": 0,
+        "totalIssues": 6
+      },
+      "src/components/organisms/DataEntryTable/DataEntryTable.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/DataEntryTable/DataEntryTableCell.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/DataEntryTable/DataEntryTableCellActions.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/organisms/DataEntryTable/DataEntryTableCellAmount.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/organisms/DataEntryTable/DataEntryTableCellContextMenu.tsx": {
+        "missingDirectPadding": 4,
+        "spacerInFlexCol": 0,
+        "totalIssues": 4
+      },
+      "src/components/organisms/DataEntryTable/DataEntryTableCellDropdown.tsx": {
+        "missingDirectPadding": 5,
+        "spacerInFlexCol": 0,
+        "totalIssues": 5
+      },
+      "src/components/organisms/DataEntryTable/DataEntryTableCellInput.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/organisms/DataEntryTable/DataEntryTableHeaderCell.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/organisms/DataEntryTable/DataEntryTableRow.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/organisms/DataEntryTable/DataEntryTableRowCell.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/DisplayBlock/DisplayBlock.tsx": {
+        "missingDirectPadding": 0,
+        "spacerInFlexCol": 6,
+        "totalIssues": 6
+      },
+      "src/components/organisms/Drawer/DrawerClose.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/Drawer/DrawerContent.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/organisms/FileCard/FileCard.tsx": {
+        "missingDirectPadding": 8,
+        "spacerInFlexCol": 0,
+        "totalIssues": 8
+      },
+      "src/components/organisms/FileThumbnail/FileThumbnail.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/FileTypeIcon/FileTypeIcon.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/Footer/Footer.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/Form/Form.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/organisms/Modal/ModalClose.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/Modal/ModalContent.tsx": {
+        "missingDirectPadding": 3,
+        "spacerInFlexCol": 0,
+        "totalIssues": 3
+      },
+      "src/components/organisms/NavigationMenu/NavigationMenu.tsx": {
+        "missingDirectPadding": 10,
+        "spacerInFlexCol": 1,
+        "totalIssues": 11
+      },
+      "src/components/organisms/NavigationPopover/NavigationLauncher.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/organisms/NavigationPopover/NavigationPopover.tsx": {
+        "missingDirectPadding": 11,
+        "spacerInFlexCol": 1,
+        "totalIssues": 12
+      },
+      "src/components/organisms/PageHeader/PageHeader.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/PageHeader/PageHeaderSubcomponents.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/PageHeader/PageHeaderTabs.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/QuickFilters/QuickFilters.tsx": {
+        "missingDirectPadding": 19,
+        "spacerInFlexCol": 0,
+        "totalIssues": 19
+      },
+      "src/components/organisms/Table/SkeletonRow.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/Table/Table.tsx": {
+        "missingDirectPadding": 3,
+        "spacerInFlexCol": 0,
+        "totalIssues": 3
+      },
+      "src/components/organisms/Table/TableCell.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/Table/TableHeader.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/Table/TableHeaderItem.tsx": {
+        "missingDirectPadding": 7,
+        "spacerInFlexCol": 0,
+        "totalIssues": 7
+      },
+      "src/components/organisms/Tabs/Tabs.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/organisms/Tabs/TabsTrigger.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/organisms/UploadZone/UploadZone.tsx": {
+        "missingDirectPadding": 8,
+        "spacerInFlexCol": 0,
+        "totalIssues": 8
+      },
+      "src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      },
+      "src/components/templates/Blocks/JourneysBlock/JourneysBlock.tsx": {
+        "missingDirectPadding": 2,
+        "spacerInFlexCol": 0,
+        "totalIssues": 2
+      },
+      "src/components/templates/Blocks/LoginBlock.tsx": {
+        "missingDirectPadding": 1,
+        "spacerInFlexCol": 0,
+        "totalIssues": 1
+      }
+    }
+  },
+  "results": [
+    {
+      "file": "src/components/atoms/Avatar/Avatar.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 182,
+          "classes": "cursor-pointer bg-[var(--bg-tertiary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 96,
+          "classes": "bg-[var(--bg-secondary)] text-[var(--secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 122,
+          "classes": "bg-[var(--bg-secondary)] text-[var(--secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/atoms/Badge/BadgeCount.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 51,
+          "classes": "bg-[var(--danger)] text-white",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/atoms/Colors/Colors.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 51,
+          "classes": "w-12 h-12 border border-gray-300 flex items-center justify-center",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 58,
+          "classes": "w-6 h-6 rounded-full border-2",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/atoms/Divider/Divider.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 95,
+          "classes": "inline-block w-px h-[0.9em] mx-[var(--spacing-x2)] align-middle border-l",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 98,
+          "classes": "border-dashed",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 113,
+          "classes": "box-border flex items-center justify-between w-full m-0 p-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 126,
+          "classes": "h-px flex-1 border-t",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 127,
+          "classes": "border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 148,
+          "classes": "h-px flex-1 border-t",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 149,
+          "classes": "border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 160,
+          "classes": "box-border flex items-center w-full m-0 p-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 168,
+          "classes": "h-px w-full border-t",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 171,
+          "classes": "border-dashed",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/atoms/FigmaBadge/FigmaBadge.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 21,
+          "classes": "bg-[var(--color-warning-light)] text-[var(--color-warning)] border border-[var(--color-warning)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/atoms/Illustration/Illustration.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 56,
+          "classes": "overflow-hidden border border-[var(--border-primary)] flex items-center justify-center",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 58,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 58,
+          "classes": "bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/atoms/RadioGroup/RadioItemInput.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 136,
+          "classes": "rounded-full bg-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 176,
+          "classes": "rounded-full bg-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/atoms/Select/Select.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 78,
+          "classes": "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border border-[var(--border-primary)] bg-[var(--bg-primary)] text-[var(--primary)] shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 143,
+          "classes": "-mx-[var(--spacing-x1)] my-[var(--spacing-x1)] h-px bg-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/atoms/Skeleton/SkeletonText.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 56,
+          "classes": "h-4 bg-[var(--color-bg-secondary)] rounded-[var(--radius-md)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/atoms/Spin/Spin.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 150,
+          "classes": "absolute inset-0 flex items-center justify-center bg-[var(--bg-primary)]/50",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 106,
+          "classes": "bg-[var(--bg-primary)]/80 backdrop-blur-sm",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Alert/Alert.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 138,
+          "classes": "border border-solid",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 139,
+          "classes": "border-b",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Alert/AlertClose.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 57,
+          "classes": "hover:bg-black/5",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Anchor/Anchor.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 181,
+          "classes": "absolute left-0 top-0 bottom-0 w-0.5 bg-[var(--border-primary)] opacity-50 ml-px",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 53,
+          "classes": "text-[var(--primary)] font-medium bg-[var(--primary-bg-subtle)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/BackTop/BackTop.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 74,
+          "classes": "bg-transparent border-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Calendar/Calendar.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 400,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 401,
+          "classes": "hover:bg-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 402,
+          "classes": "bg-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 403,
+          "classes": "border border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 411,
+          "classes": "text-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 456,
+          "classes": "bg-[var(--primary)] text-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 457,
+          "classes": "border border-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 458,
+          "classes": "hover:bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 501,
+          "classes": "bg-[var(--primary)] text-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 502,
+          "classes": "hover:bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 545,
+          "classes": "bg-[var(--primary)] text-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 546,
+          "classes": "hover:bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 563,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 563,
+          "classes": "border border-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Carousel/Carousel.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 347,
+          "classes": "bg-[var(--color-primary)] w-[var(--spacing-x6)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 348,
+          "classes": "bg-[var(--color-border-primary)] hover:bg-[var(--color-border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Cascader/Cascader.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 144,
+          "classes": "min-w-[calc(var(--spacing-x20)*2)] max-h-[calc(var(--spacing-x16)*4)] overflow-y-auto border-r border-solid border-[var(--border-primary)] last:border-r-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 456,
+          "classes": "w-full bg-transparent border-none outline-none",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 153,
+          "classes": "box-border flex items-center relative transition-colors duration-200",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 155,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 156,
+          "classes": "hover:bg-[var(--border-secondary)] cursor-pointer",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 157,
+          "classes": "bg-[var(--bg-primary)] cursor-not-allowed opacity-60",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 506,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 506,
+          "classes": "border border-solid border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 523,
+          "classes": "box-border flex items-center relative transition-colors duration-200",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 525,
+          "classes": "hover:bg-[var(--border-secondary)] cursor-pointer",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Chicklet/Chicklet.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 118,
+          "classes": "border-0 bg-transparent p-0 m-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/ColorPicker/ColorPicker.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 147,
+          "classes": "w-5 h-5 rounded border border-[var(--border-secondary)] shadow-sm",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 140,
+          "classes": "cursor-not-allowed opacity-50 bg-[var(--color-bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 157,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 157,
+          "classes": "border border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 163,
+          "classes": "w-6 h-6 rounded border border-transparent hover:scale-110 transition-transform",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/DatePicker/DatePicker.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 1017,
+          "classes": "flex-1 bg-transparent border-none outline-none text-base font-normal leading-[1.4] text-[var(--primary)] dark:text-[var(--primary)] placeholder:text-placeholder dark:placeholder:text-placeholder-dark",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 1050,
+          "classes": "fixed inset-0 bg-overlay z-[9998]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 969,
+          "classes": "bg-transparent border-none outline-none text-base font-normal leading-[1.4]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 991,
+          "classes": "bg-transparent border-none outline-none text-base font-normal leading-[1.4]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 1058,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/DatePicker/DatePickerCalendar.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 103,
+          "classes": "fixed inset-0 bg-overlay z-[9998]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/DatePicker/DatePickerInput.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 170,
+          "classes": "bg-transparent border-none outline-none text-base font-normal leading-[1.4]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 198,
+          "classes": "bg-transparent border-none outline-none text-base font-normal leading-[1.4]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Dropdown/DropdownTrigger.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 90,
+          "classes": "relative w-full border transition-all duration-200 font-sans font-normal text-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 92,
+          "classes": "bg-surface",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 92,
+          "classes": "border border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 98,
+          "classes": "border-[var(--border-primary)] dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)] focus-within:border-primary dark:focus-within:border-primary-dark",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 99,
+          "classes": "border-critical focus-within:border-critical",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 100,
+          "classes": "bg-surface-alt dark:bg-surface-alt-dark border-border-disabled dark:border-border-disabled-dark text-input-disabled dark:text-input-disabled-dark cursor-not-allowed pointer-events-none",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/DropdownMenu/DropdownMenu.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 162,
+          "classes": "w-full h-full bg-[var(--color-border-secondary)] rounded-full",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 163,
+          "classes": "w-full h-[40%] bg-[var(--color-border-primary)] rounded-full",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 174,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 174,
+          "classes": "border border-solid border-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/DropdownMenu/DropdownMenuItem.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 203,
+          "classes": "!bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 204,
+          "classes": "!bg-[var(--glass-selected)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 205,
+          "classes": "!bg-[var(--glass-hover)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 206,
+          "classes": "!bg-[var(--glass-hover)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 207,
+          "classes": "!bg-transparent opacity-50",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 208,
+          "classes": "!bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/DropdownMenu/DropdownMenuLabel.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 45,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 45,
+          "classes": "bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/DropdownMenu/DropdownMenuSearch.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 94,
+          "classes": "flex-1 font-normal leading-[1.4] min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 text-[var(--color-tertiary)] whitespace-nowrap bg-transparent border-none outline-none",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 79,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 79,
+          "classes": "bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/DropdownMenu/DropdownMenuSeparator.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 48,
+          "classes": "flex-1 h-px bg-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/FileValidationCard/FileValidationCard.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 110,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 110,
+          "classes": "border border-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 177,
+          "classes": "hover:bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 191,
+          "classes": "hover:bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 205,
+          "classes": "hover:bg-[var(--critical-light)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/FilterDateRange/FilterDateRange.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 230,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/FilterDropdown/FilterDropdown.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 252,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Graphs/Graphs.tsx",
+      "missingDirectPadding": [],
+      "spacerInFlexCol": [
+        {
+          "line": 24,
+          "snippet": "<Spacer size=\"x3\" className=\"w-full shrink-0\" data-name=\"Spacer\" data-node-id=\"4337:17057\" />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        },
+        {
+          "line": 46,
+          "snippet": "<Spacer size=\"x3\" className=\"w-full shrink-0\" data-name=\"Spacer\" data-node-id=\"4337:17142\" />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        }
+      ]
+    },
+    {
+      "file": "src/components/molecules/HoverCard/HoverCardContent.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 86,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 86,
+          "classes": "border border-[var(--color-border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Image/Image.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 218,
+          "classes": "w-px h-6 bg-[var(--overlay-control-divider)] mx-[var(--spacing-x2)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 237,
+          "classes": "w-px h-6 bg-[var(--overlay-control-divider)] mx-[var(--spacing-x2)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 179,
+          "classes": "bg-black/80",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 188,
+          "classes": "bg-gradient-to-b from-[var(--overlay-strong)] to-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 381,
+          "classes": "bg-[var(--color-bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 393,
+          "classes": "bg-[var(--color-bg-secondary)] text-[var(--color-tertiary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 424,
+          "classes": "bg-transparent hover:bg-[var(--overlay-control-bg-hover)] transition-colors",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/InputNumber/InputNumberButton.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 81,
+          "classes": "hover:bg-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 82,
+          "classes": "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 84,
+          "classes": "border-l border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 87,
+          "classes": "border-b border-[var(--border-primary)] flex-1",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 116,
+          "classes": "hover:bg-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 117,
+          "classes": "disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 119,
+          "classes": "border-l border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 122,
+          "classes": "border-b border-[var(--border-primary)] flex-1",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/InputNumber/InputNumberControls.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 72,
+          "classes": "flex flex-col h-full border-l border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/InputNumber/InputNumberField.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 123,
+          "classes": "flex-1 min-w-0 bg-transparent border-none outline-none",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 150,
+          "classes": "flex-1 min-w-0 bg-transparent border-none outline-none",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/InputNumber/InputNumberWrapper.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 59,
+          "classes": "border-2 rounded-[var(--radius-md)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 60,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 65,
+          "classes": "border-[var(--critical)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 67,
+          "classes": "border-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 68,
+          "classes": "border-[var(--border-primary)] hover:border-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 69,
+          "classes": "bg-[var(--border-secondary)] cursor-not-allowed opacity-60",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Mentions/Mentions.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 150,
+          "classes": "flex w-full rounded-[var(--radius-md)] border border-[var(--color-border-primary)] bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 154,
+          "classes": "border-[var(--color-critical)] focus:ring-[var(--color-critical)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 155,
+          "classes": "border-[var(--color-warning)] focus:ring-[var(--color-warning)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 163,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 163,
+          "classes": "border border-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Pagination/PaginationQuickJumper.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 84,
+          "classes": "border border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 87,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 227,
+          "classes": "h-full border-0 rounded-none focus:ring-0 focus:ring-offset-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 230,
+          "classes": "w-full h-full border-0 rounded-none focus:ring-0 focus:ring-offset-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Popconfirm/PopconfirmArrow.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 51,
+          "classes": "absolute w-0 h-0 border-[var(--spacing-x1-5)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Popconfirm/PopconfirmContent.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 80,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 80,
+          "classes": "border border-[var(--color-border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/ProgressList/ProgressList.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 186,
+          "classes": "flex-1 h-px border-b border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 196,
+          "classes": "flex-1 h-px border-b border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 212,
+          "classes": "flex items-center justify-center w-[var(--spacing-x4)] h-[var(--spacing-x4)] rounded-full bg-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 213,
+          "classes": "text-[var(--color-bg-primary)] text-xxs-rem font-medium leading-none text-center",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 370,
+          "classes": "flex-1 h-0 border-b border-[var(--tertiary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 577,
+          "classes": "flex-1 h-px border-b border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 587,
+          "classes": "flex-1 h-px border-b border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 187,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 187,
+          "classes": "bg-[var(--glass-hover)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 230,
+          "classes": "flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 232,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 232,
+          "classes": "bg-[var(--glass-hover)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 232,
+          "classes": "border-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 233,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 233,
+          "classes": "bg-[var(--glass-hover)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 233,
+          "classes": "border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 234,
+          "classes": "cursor-pointer hover:border-[var(--secondary)] hover:scale-105",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 265,
+          "classes": "w-3 h-3 rounded-full border-4",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 266,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 266,
+          "classes": "bg-[var(--glass-hover)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 267,
+          "classes": "border-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 267,
+          "classes": "border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/RadioSelector/RadioSelector.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 211,
+          "classes": "size-[0.625rem] rounded-full bg-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Select/SelectContent.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 109,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 109,
+          "classes": "border border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Select/SelectItem.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 69,
+          "classes": "focus:bg-[var(--bg-secondary)] focus:text-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 73,
+          "classes": "hover:bg-[var(--bg-secondary)] hover:text-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 74,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Select/SelectSeparator.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 27,
+          "classes": "-mx-[var(--spacing-x1)] my-[var(--spacing-x1)] h-px bg-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Select/SelectTrigger.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 106,
+          "classes": "relative w-full border transition-all duration-200 font-sans font-normal",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 108,
+          "classes": "bg-surface",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/SimpleColumnLayout/SimpleColumnLayout.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 127,
+          "classes": "border-0 rounded-none",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Slider/Slider.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 315,
+          "classes": "rounded-full bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 316,
+          "classes": "border-2 border-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Slider/SliderThumb.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 86,
+          "classes": "rounded-full bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 87,
+          "classes": "border-2 border-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Steps/StepIcon.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 58,
+          "classes": "bg-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 59,
+          "classes": "bg-[var(--tertiary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Timeline/Timeline.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 134,
+          "classes": "border-l border-dashed border-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 135,
+          "classes": "bg-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Timeline/TimelineDot.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 49,
+          "classes": "flex items-center justify-center w-6 h-6 rounded-full bg-[var(--color-bg-primary)] border-2",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 69,
+          "classes": "flex items-center justify-center w-6 h-6 rounded-full bg-[var(--color-bg-primary)] border-2",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 84,
+          "classes": "w-2.5 h-2.5 rounded-full border-2",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/TimePicker/TimePicker.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 144,
+          "classes": "flex flex-col h-[calc(var(--spacing-x10)*5)] overflow-y-auto scrollbar-thin scrollbar-thumb-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 145,
+          "classes": "border-r border-[var(--color-border-secondary)] last:border-r-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 161,
+          "classes": "text-[var(--color-primary)] hover:bg-[var(--color-bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 162,
+          "classes": "bg-[var(--color-primary)] text-[var(--color-bg-primary)] hover:bg-[var(--color-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 497,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 497,
+          "classes": "border border-[var(--color-border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/ToggleGroup/ToggleGroup.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 78,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Tour/Tour.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 142,
+          "classes": "absolute inset-0 bg-overlay transition-all duration-300",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 151,
+          "classes": "absolute transition-all duration-300 pointer-events-none border-2 border-[var(--primary)] rounded-md shadow-[0_0_0_9999px_var(--overlay-medium)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 166,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 192,
+          "classes": "bg-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 192,
+          "classes": "bg-[var(--neutral-200)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Transfer/Transfer.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 116,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 116,
+          "classes": "border border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 117,
+          "classes": "bg-[var(--color-bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 117,
+          "classes": "bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 150,
+          "classes": "bg-[var(--color-bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 176,
+          "classes": "bg-[var(--color-bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 176,
+          "classes": "bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Tree/TreeNode.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 127,
+          "classes": "bg-[var(--color-primary-light)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 127,
+          "classes": "bg-[var(--glass-selected)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 128,
+          "classes": "hover:bg-[var(--glass-hover)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 128,
+          "classes": "hover:bg-[var(--color-bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Tree/TreeNodeChildren.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 54,
+          "classes": "border-l border-[var(--color-border-secondary)] ml-[calc(var(--spacing-x3)-1px)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/Tree/TreeNodeSwitcher.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 70,
+          "classes": "w-[calc((var(--spacing-x2)+var(--spacing-x1))/2)] h-[calc((var(--spacing-x2)+var(--spacing-x1))/2)] rounded-full bg-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 94,
+          "classes": "hover:bg-[var(--color-bg-secondary)] rounded transition-colors",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/TreeSelect/TreeSelect.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 393,
+          "classes": "bg-transparent border-none outline-none",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 438,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 438,
+          "classes": "border border-[var(--color-border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/UploadButton/UploadButton.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 83,
+          "classes": "border border-solid",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 88,
+          "classes": "bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 88,
+          "classes": "border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 90,
+          "classes": "hover:border-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 94,
+          "classes": "border-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 111,
+          "classes": "text-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/UploadItem/UploadItem.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 139,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 139,
+          "classes": "border border-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/molecules/UploadThumbnail/UploadThumbnail.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 93,
+          "classes": "bg-[var(--color-bg-secondary)] rounded-[var(--radius-full)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 96,
+          "classes": "hover:bg-[var(--color-critical-light)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 138,
+          "classes": "border border-solid",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 143,
+          "classes": "bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 143,
+          "classes": "border-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 145,
+          "classes": "hover:border-[var(--color-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 149,
+          "classes": "border-[var(--color-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 158,
+          "classes": "text-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/AppHeader/AppHeader.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 220,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 220,
+          "classes": "border-b border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 299,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 299,
+          "classes": "border-b border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 387,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 387,
+          "classes": "border-b border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 485,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 485,
+          "classes": "border-b border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 546,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 546,
+          "classes": "border-b border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Card/Card.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 278,
+          "classes": "border border-[var(--border-secondary)] border-solid flex flex-col justify-center relative w-full",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 281,
+          "classes": "bg-[var(--bg-secondary)] h-[10.9375rem] items-center",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 285,
+          "classes": "bg-[var(--bg-primary)] items-center justify-center",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 288,
+          "classes": "bg-[var(--bg-primary)] items-start",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 437,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 437,
+          "classes": "border border-[var(--border-secondary)] border-solid",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 469,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 469,
+          "classes": "border border-[var(--border-secondary)] border-solid",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 553,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 553,
+          "classes": "border border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": [
+        {
+          "line": 480,
+          "snippet": "<Spacer size=\"x5\" />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        },
+        {
+          "line": 485,
+          "snippet": "<Spacer size=\"x5\" />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        }
+      ]
+    },
+    {
+      "file": "src/components/organisms/Card/sub-components/CardImage.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 81,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Collapsible/Collapse.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 75,
+          "classes": "bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 75,
+          "classes": "bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 76,
+          "classes": "border-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 87,
+          "classes": "bg-transparent border-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Collapsible/CollapsibleIcon.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 64,
+          "classes": "!w-[var(--spacing-x10)] !h-[var(--spacing-x10)] !p-0 flex items-center justify-center rounded-lg shrink-0 border border-[var(--border-primary)] pointer-events-none",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Collapsible/CollapsibleTrigger.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 62,
+          "classes": "border-b transition-[border-color] duration-200 ease-in-out",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 63,
+          "classes": "bg-transparent hover:bg-transparent focus:bg-transparent active:bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 65,
+          "classes": "appearance-none border-0 border-b",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 67,
+          "classes": "will-change-[border-color]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 70,
+          "classes": "border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 70,
+          "classes": "border-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/DataEntryTable/DataEntryTable.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 158,
+          "classes": "w-full border-collapse",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/DataEntryTable/DataEntryTableCell.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 58,
+          "classes": "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid box-border",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/DataEntryTable/DataEntryTableCellActions.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 26,
+          "classes": "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid box-border",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 53,
+          "classes": "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid box-border",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/DataEntryTable/DataEntryTableCellAmount.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 137,
+          "classes": "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid box-border",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 182,
+          "classes": "flex-1 border-0 bg-transparent outline-none text-right min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 whitespace-nowrap",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/DataEntryTable/DataEntryTableCellContextMenu.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 53,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 54,
+          "classes": "border border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 77,
+          "classes": "hover:bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 79,
+          "classes": "border-0 bg-transparent cursor-pointer",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/DataEntryTable/DataEntryTableCellDropdown.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 212,
+          "classes": "bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--radius-md)] shadow-lg overflow-y-auto",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 157,
+          "classes": "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid box-border",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 227,
+          "classes": "hover:bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 229,
+          "classes": "border-0 bg-transparent cursor-pointer",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 231,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/DataEntryTable/DataEntryTableCellInput.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 133,
+          "classes": "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid box-border",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 163,
+          "classes": "flex-1 border-0 bg-transparent outline-none min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 whitespace-nowrap",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/DataEntryTable/DataEntryTableHeaderCell.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 111,
+          "classes": "bg-transparent p-0 cursor-col-resize relative group",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 122,
+          "classes": "group-hover:bg-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/DataEntryTable/DataEntryTableRow.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 53,
+          "classes": "bg-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 54,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/DataEntryTable/DataEntryTableRowCell.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 223,
+          "classes": "bg-transparent p-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/DisplayBlock/DisplayBlock.tsx",
+      "missingDirectPadding": [],
+      "spacerInFlexCol": [
+        {
+          "line": 119,
+          "snippet": "<Spacer size=\"x5\" className={getGlassInnerBg(resolvedGlass, \"bg-[var(--color-bg-primary)]\")} />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        },
+        {
+          "line": 140,
+          "snippet": "<Spacer size=\"x5\" className={getGlassInnerBg(resolvedGlass, \"bg-[var(--color-bg-primary)]\")} />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        },
+        {
+          "line": 207,
+          "snippet": "<Spacer size=\"x5\" className={getGlassInnerBg(resolvedGlass, \"bg-[var(--color-bg-primary)]\")} />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        },
+        {
+          "line": 211,
+          "snippet": "<Spacer size=\"x5\" className={getGlassInnerBg(resolvedGlass, \"bg-[var(--color-bg-primary)]\")} />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        },
+        {
+          "line": 232,
+          "snippet": "<Spacer size=\"x5\" className={getGlassInnerBg(resolvedGlass, \"bg-[var(--color-bg-primary)]\")} />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        },
+        {
+          "line": 236,
+          "snippet": "<Spacer size=\"x5\" className={getGlassInnerBg(resolvedGlass, \"bg-[var(--color-bg-primary)]\")} />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        }
+      ]
+    },
+    {
+      "file": "src/components/organisms/Drawer/DrawerClose.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 78,
+          "classes": "hover:bg-[var(--color-bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Drawer/DrawerContent.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 184,
+          "classes": "absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 194,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/FileCard/FileCard.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 159,
+          "classes": "bg-surface",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 159,
+          "classes": "border border-border-secondary",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 296,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 296,
+          "classes": "bg-[var(--glass-hover)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 302,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 302,
+          "classes": "bg-[var(--glass-hover)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 308,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 308,
+          "classes": "bg-[var(--glass-hover)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/FileThumbnail/FileThumbnail.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 67,
+          "classes": "absolute inset-0 bg-[var(--overlay-strong)] rounded-[var(--spacing-x2)] pointer-events-none",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/FileTypeIcon/FileTypeIcon.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 186,
+          "classes": "text-[var(--color-bg-primary)] font-semibold",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Footer/Footer.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 59,
+          "classes": "bg-surface",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Form/Form.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 195,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 195,
+          "classes": "border border-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Modal/ModalClose.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 85,
+          "classes": "hover:bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Modal/ModalContent.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 164,
+          "classes": "absolute inset-0 bg-overlay backdrop-blur-sm",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 177,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 177,
+          "classes": "border border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/NavigationMenu/NavigationMenu.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 56,
+          "classes": "bg-[var(--color-bg-primary)] h-[35.5rem] relative rounded-[var(--radius-xl)] shrink-0 w-full",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 74,
+          "classes": "absolute border-[var(--color-border-primary)] border-[1px_0_0] border-solid inset-0 pointer-events-none",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 211,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 217,
+          "classes": "h-full w-[1px] bg-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 224,
+          "classes": "basis-0 bg-[var(--color-bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 256,
+          "classes": "basis-0 bg-[var(--color-bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 322,
+          "classes": "basis-0 bg-[var(--color-bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 379,
+          "classes": "absolute border border-[var(--color-border-primary)] border-solid inset-0 pointer-events-none rounded-[var(--radius-xl)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 408,
+          "classes": "absolute border border-[var(--color-border-primary)] border-solid inset-0 pointer-events-none rounded-[var(--radius-xl)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 54,
+          "classes": "bg-[var(--color-bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": [
+        {
+          "line": 211,
+          "snippet": "<Spacer size=\"x5\" className=\"bg-[var(--color-bg-primary)]\" />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        }
+      ]
+    },
+    {
+      "file": "src/components/organisms/NavigationPopover/NavigationLauncher.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 82,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 82,
+          "classes": "bg-transparent",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/NavigationPopover/NavigationPopover.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 434,
+          "classes": "w-10 h-10 rounded-full border border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 488,
+          "classes": "w-6 h-6 rounded-full border border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 715,
+          "classes": "w-6 h-6 rounded-full border border-transparent hover:border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 759,
+          "classes": "bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--spacing-x4)] flex flex-col",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 784,
+          "classes": "w-6 h-6 rounded-full border border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 799,
+          "classes": "hidden lg:block w-px bg-[var(--border-primary)] rounded-full",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 829,
+          "classes": "bg-[var(--bg-secondary)] rounded-b-[inherit]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 480,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 481,
+          "classes": "bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 778,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 779,
+          "classes": "bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": [
+        {
+          "line": 795,
+          "snippet": "<Spacer size=\"x5\" aria-hidden=\"true\" />",
+          "note": "Spacer used inside/near flex-col context; review if direct container padding/gap is preferable."
+        }
+      ]
+    },
+    {
+      "file": "src/components/organisms/PageHeader/PageHeader.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 85,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/PageHeader/PageHeaderSubcomponents.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 188,
+          "classes": "transition-colors hover:bg-[var(--bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] focus-visible:ring-offset-2",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/PageHeader/PageHeaderTabs.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 157,
+          "classes": "relative flex w-full items-end gap-[var(--spacing-x1)] border-b border-[var(--border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/QuickFilters/QuickFilters.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 252,
+          "classes": "w-px h-[2.25rem] bg-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 132,
+          "classes": "bg-[var(--color-border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 132,
+          "classes": "bg-[var(--glass-selected)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 134,
+          "classes": "bg-[var(--color-border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 134,
+          "classes": "bg-[var(--glass-selected)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 135,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 137,
+          "classes": "box-border border border-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 161,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 169,
+          "classes": "bg-[var(--color-bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 232,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 232,
+          "classes": "border border-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 234,
+          "classes": "bg-[var(--color-border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 234,
+          "classes": "bg-[var(--glass-selected)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 359,
+          "classes": "border border-solid",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 361,
+          "classes": "bg-[var(--color-border-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 361,
+          "classes": "bg-[var(--glass-selected)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 361,
+          "classes": "border-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 362,
+          "classes": "bg-[var(--color-bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 362,
+          "classes": "border-[var(--color-border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Table/SkeletonRow.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 17,
+          "classes": "h-4 bg-[var(--color-border-secondary)] rounded",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Table/Table.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 252,
+          "classes": "w-full border-collapse",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 248,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 248,
+          "classes": "border border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Table/TableCell.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 169,
+          "classes": "transition-colors duration-200 border-b border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Table/TableHeader.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 213,
+          "classes": "border-t-2 border-t-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Table/TableHeaderItem.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 107,
+          "classes": "text-left transition-colors box-border",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 143,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 143,
+          "classes": "bg-[var(--secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 144,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 144,
+          "classes": "bg-[var(--secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 145,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 145,
+          "classes": "bg-[var(--secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Tabs/Tabs.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 72,
+          "classes": "absolute inset-0 bg-[var(--critical)] rounded-full",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/Tabs/TabsTrigger.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 187,
+          "classes": "absolute inset-0 bg-[var(--critical)] rounded-full",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 233,
+          "classes": "absolute inset-0 bg-[var(--critical)] rounded-full",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/UploadZone/UploadZone.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 111,
+          "classes": "border-dashed rounded-[var(--radius-md)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 114,
+          "classes": "bg-[var(--bg-secondary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 114,
+          "classes": "border border-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 116,
+          "classes": "border-[var(--primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 118,
+          "classes": "border-[var(--border-primary)] opacity-50 cursor-not-allowed",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 161,
+          "classes": "text-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 167,
+          "classes": "text-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 180,
+          "classes": "text-[var(--border-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 67,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/templates/Blocks/JourneysBlock/JourneysBlock.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 161,
+          "classes": "bg-[var(--bg-secondary)] w-full rounded-[var(--radius-lg)] overflow-hidden",
+          "note": "Container has border/background utility but no direct padding utility."
+        },
+        {
+          "line": 164,
+          "classes": "bg-[var(--bg-primary)]",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    },
+    {
+      "file": "src/components/templates/Blocks/LoginBlock.tsx",
+      "missingDirectPadding": [
+        {
+          "line": 18,
+          "classes": "w-6 h-6 rounded-lg bg-[var(--primary)] text-[var(--bg-primary)] flex items-center justify-center font-semibold",
+          "note": "Container has border/background utility but no direct padding utility."
+        }
+      ],
+      "spacerInFlexCol": []
+    }
+  ]
+}

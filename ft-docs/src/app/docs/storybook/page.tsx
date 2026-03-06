@@ -1,56 +1,42 @@
-import { BookOpen, ExternalLink } from "lucide-react"
+import { BookOpen } from "lucide-react"
+import { DocPageHeader, DocSection, DocCodeBlock, DocLinkCard, DocCard, DocBottomNav } from "@/components/docs"
 
 export default function StorybookPage() {
     return (
-        <div className="space-y-6">
-            <div>
-                <h1 className="text-3xl-rem font-bold mb-2">Storybook</h1>
-                <p className="text-muted-foreground">
-                    Interactive component playground for the FT Design System
-                </p>
-            </div>
+        <div className="space-y-8">
+            <DocPageHeader
+                title="Storybook"
+                description="Interactive component playground for the FT Design System"
+            />
 
-            <a
+            <DocLinkCard
                 href="http://localhost:6006"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-lg border border-border bg-surface p-6 transition-all hover:border-primary hover:shadow-lg"
-            >
-                <BookOpen className="h-10 w-10 text-primary" />
-                <div className="flex-1">
-                    <h3 className="font-semibold text-lg-rem">Open Storybook</h3>
-                    <p className="text-sm-rem text-muted-foreground">http://localhost:6006</p>
-                </div>
-                <ExternalLink className="h-5 w-5 text-muted-foreground" />
-            </a>
+                title="Open Storybook"
+                subtitle="http://localhost:6006"
+                icon={<BookOpen className="h-6 w-6" />}
+                external={true}
+            />
 
-            <div className="space-y-2">
-                <h2 className="text-xl-rem font-semibold">Run Locally</h2>
-                <div className="rounded-lg border bg-muted p-4 space-y-3">
-                    <div>
-                        <p className="text-sm-rem mb-2">Navigate to design system directory:</p>
-                        <pre className="text-xs-rem bg-surface p-2 rounded font-mono">
-                            cd /path/to/components
-                        </pre>
-                    </div>
-                    <div>
-                        <p className="text-sm-rem mb-2">Start Storybook:</p>
-                        <pre className="text-xs-rem bg-surface p-2 rounded font-mono">
-                            npm run storybook
-                        </pre>
-                    </div>
-                </div>
-            </div>
+            <DocSection title="Run Locally">
+                <p className="text-sm-rem text-muted-foreground mb-2">Navigate to design system directory:</p>
+                <DocCodeBlock code="cd /path/to/components" lang="bash" />
+                <p className="text-sm-rem text-muted-foreground mb-2 mt-4">Start Storybook:</p>
+                <DocCodeBlock code="npm run storybook" lang="bash" />
+            </DocSection>
 
-            <div className="rounded-lg border bg-surface p-4">
-                <h3 className="font-semibold mb-2">What You'll Find</h3>
+            <DocCard title="What You'll Find" description="Explore the full component library interactively.">
                 <ul className="space-y-1 text-sm-rem">
                     <li>• Interactive playground for all 50+ components</li>
                     <li>• Live prop controls and variant testing</li>
                     <li>• Code examples for copy/paste</li>
                     <li>• Component documentation and usage guidelines</li>
                 </ul>
-            </div>
+            </DocCard>
+
+            <DocBottomNav
+                prev={{ label: "For Developers", href: "/docs/for-developers" }}
+                next={{ label: "NPM Package", href: "/docs/npm-package" }}
+            />
         </div>
     )
 }

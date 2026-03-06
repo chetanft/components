@@ -41,7 +41,7 @@ export const RadioGroupLabel = React.forwardRef<HTMLLabelElement, RadioGroupLabe
     return (
       <Comp
         ref={ref}
-        className={cn("block text-sm font-medium text-[var(--primary)] mb-2", className)}
+        className={cn("block text-sm font-medium text-[var(--primary)] mb-[var(--spacing-x2)]", className)}
         {...props}
       >
         {children}

@@ -62,13 +62,13 @@ export const DropdownTrigger = React.forwardRef<HTMLDivElement, DropdownTriggerP
     const resolvedGlass = useResolvedGlass(glassProp ?? contextGlass);
 
     const sizeStylesMap: Record<string, { height: string; fontSize: string; borderRadius: string; padding: string; iconSize: number }> = {
-      xxs: { height: "h-component-xxs", fontSize: "text-xs-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x1)]", iconSize: 12 },
-      xs: { height: "h-component-xs", fontSize: "text-xs-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x1)] py-[var(--spacing-x1)]", iconSize: 14 },
-      sm: { height: "h-component-sm", fontSize: "text-sm-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x2)]", iconSize: 16 },
-      md: { height: "h-component-md", fontSize: "text-md-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x2)] py-[var(--spacing-x2)]", iconSize: 18 },
-      lg: { height: "h-component-lg", fontSize: "text-md-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x3)] py-[var(--spacing-x2)]", iconSize: 20 },
-      xl: { height: "h-component-xl", fontSize: "text-md-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x4)] py-[var(--spacing-x3)]", iconSize: 22 },
-      xxl: { height: "h-component-xxl", fontSize: "text-lg-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x5)] py-[var(--spacing-x4)]", iconSize: 24 },
+      xxs: { height: "h-component-xxs", fontSize: "text-xs-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x1-5)] py-[var(--spacing-x0-5)]", iconSize: 12 },
+      xs: { height: "h-component-xs", fontSize: "text-xs-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x2)] py-[var(--spacing-x1)]", iconSize: 14 },
+      sm: { height: "h-component-sm", fontSize: "text-sm-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x3)] py-[var(--spacing-x2)]", iconSize: 16 },
+      md: { height: "h-component-md", fontSize: "text-sm-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x4)] py-[var(--spacing-x3)]", iconSize: 18 },
+      lg: { height: "h-component-lg", fontSize: "text-md-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x5)] py-[var(--spacing-x4)]", iconSize: 20 },
+      xl: { height: "h-component-xl", fontSize: "text-md-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x6)] py-[var(--spacing-x5)]", iconSize: 22 },
+      xxl: { height: "h-component-xxl", fontSize: "text-lg-rem", borderRadius: "rounded-lg", padding: "px-[var(--spacing-x7)] py-[var(--spacing-x6)]", iconSize: 24 },
     };
     
     const sizeStyles = sizeStylesMap[size] || sizeStylesMap.md;
@@ -134,4 +134,3 @@ export const DropdownTrigger = React.forwardRef<HTMLDivElement, DropdownTriggerP
 );
 
 DropdownTrigger.displayName = 'DropdownTrigger';
-

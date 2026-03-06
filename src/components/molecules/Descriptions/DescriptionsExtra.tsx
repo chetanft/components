@@ -1,7 +1,9 @@
 "use client";
 
 import React from 'react';
+import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { useDescriptionsContext } from './Descriptions';
 
 export interface DescriptionsExtraProps extends ComposableProps<'div'> {
   /**
@@ -35,9 +37,10 @@ export interface DescriptionsExtraProps extends ComposableProps<'div'> {
  */
 export const DescriptionsExtra = React.forwardRef<HTMLDivElement, DescriptionsExtraProps>(
   ({ className, children, asChild, ...props }, ref) => {
+    const { bordered } = useDescriptionsContext();
     const Comp = asChild ? Slot : 'div';
     return (
-      <Comp ref={ref} className={className} {...props}>
+      <Comp ref={ref} className={cn(bordered && "px-[var(--spacing-x4)] pt-[var(--spacing-x3)] pb-[var(--spacing-x2)] flex items-center justify-end", className)} {...props}>
         {children}
       </Comp>
     );

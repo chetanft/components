@@ -148,7 +148,7 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
       {/* Highlight Target (Simple simulation using box-shadow or transparent hole) */}
       {position && (
         <div
-          className="absolute transition-all duration-300 pointer-events-none border-2 border-[var(--primary)] rounded-md shadow-[0_0_0_9999px_rgba(0,0,0,0.5)]"
+          className="absolute transition-all duration-300 pointer-events-none border-2 border-[var(--primary)] rounded-md shadow-[0_0_0_9999px_var(--overlay-medium)]"
           style={{
             top: position.top - 4, // Padding
             left: position.left - 4,
@@ -162,7 +162,7 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
       {/* Popover */}
       <div
         className={cn(
-          "absolute p-4 rounded-lg shadow-xl w-[18.75rem] z-[1002] animate-in fade-in zoom-in-95 duration-200",
+          "absolute p-[var(--spacing-x4)] rounded-lg shadow-xl w-[18.75rem] z-[1002] animate-in fade-in zoom-in-95 duration-200",
           getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', ''),
           className
         )}
@@ -173,7 +173,7 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
           transform: position ? 'none' : 'translate(-50%, -50%)'
         }}
       >
-        <div className="flex justify-between items-start mb-2">
+        <div className="flex justify-between items-start mb-[var(--spacing-x2)]">
           <Typography variant="body-primary-semibold" className="m-0 text-base">{step.title}</Typography>
           <button onClick={onClose} className="text-[var(--text-tertiary)] hover:text-[var(--text-primary)]">
             <Icon name="cross" size={16} />
@@ -181,18 +181,18 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
         </div>
 
         {step.description && (
-          <div className="mb-4 text-sm text-[var(--text-secondary)]">
+          <div className="mb-[var(--spacing-x4)] text-sm text-[var(--text-secondary)]">
             {step.description}
           </div>
         )}
 
-        <div className="flex justify-between items-center mt-4">
-          <div className="flex gap-1 text-xs text-[var(--text-tertiary)]">
+        <div className="flex justify-between items-center mt-[var(--spacing-x4)]">
+          <div className="flex gap-[var(--spacing-x1)] text-xs text-[var(--text-tertiary)]">
             {stepsFromChildren.map((_, idx) => (
               <span key={idx} className={cn("w-2 h-2 rounded-full", idx === current ? "bg-[var(--primary)]" : "bg-[var(--neutral-200)]")} />
             ))}
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-[var(--spacing-x2)]">
             {current > 0 && (
               <Button size="xs" variant="secondary" onClick={handlePrev}>Previous</Button>
             )}

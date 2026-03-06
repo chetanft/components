@@ -51,13 +51,13 @@ export const InputNumberField = React.forwardRef<HTMLInputElement, InputNumberFi
     } = useInputNumberContext();
     
     const sizeConfig = {
-      xxs: { padding: 'px-1.5', text: 'text-xs' },
-      xs: { padding: 'px-2', text: 'text-sm' },
-      sm: { padding: 'px-2.5', text: 'text-sm' },
-      md: { padding: 'px-3', text: 'text-base' },
-      lg: { padding: 'px-4', text: 'text-lg' },
-      xl: { padding: 'px-5', text: 'text-xl' },
-      xxl: { padding: 'px-6', text: 'text-2xl' },
+      xxs: { padding: 'px-[var(--spacing-x1-5)]', text: 'text-xs-rem' },
+      xs: { padding: 'px-[var(--spacing-x2)]', text: 'text-xs-rem' },
+      sm: { padding: 'px-[var(--spacing-x3)]', text: 'text-sm-rem' },
+      md: { padding: 'px-[var(--spacing-x4)]', text: 'text-sm-rem' },
+      lg: { padding: 'px-[var(--spacing-x5)]', text: 'text-md-rem' },
+      xl: { padding: 'px-[var(--spacing-x6)]', text: 'text-md-rem' },
+      xxl: { padding: 'px-[var(--spacing-x7)]', text: 'text-lg-rem' },
     };
     
     const config = sizeConfig[size];
@@ -163,4 +163,3 @@ export const InputNumberField = React.forwardRef<HTMLInputElement, InputNumberFi
 );
 
 InputNumberField.displayName = 'InputNumberField';
-

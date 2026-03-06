@@ -39,7 +39,7 @@ export const AlertTitle = React.forwardRef<HTMLHeadingElement, AlertTitleProps>(
     return (
       <Comp
         ref={ref}
-        className={cn("font-semibold mb-1 text-md-rem", className)}
+        className={cn("font-semibold mb-[var(--spacing-x1)] text-md-rem", className)}
         {...props}
       >
         {children}

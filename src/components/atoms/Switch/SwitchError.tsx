@@ -46,7 +46,7 @@ export const SwitchError = React.forwardRef<HTMLParagraphElement, SwitchErrorPro
         ref={ref}
         id={errorId}
         role="alert"
-        className={cn("basis-full w-full mt-1 text-sm text-critical", className)}
+        className={cn("basis-full w-full mt-[var(--spacing-x1)] text-sm text-critical", className)}
         style={{ marginLeft: `calc(${trackWidth} + var(--spacing-x2))`, ...props.style }}
         {...props}
       >

@@ -55,7 +55,7 @@ export const TextareaLabel = React.forwardRef<HTMLDivElement, TextareaLabelProps
             htmlFor={textareaId}
             mandatory={mandatory}
             optional={optional}
-            className="mb-2"
+            className="mb-[var(--spacing-x2)]"
           >
             {children}
           </Label>
@@ -70,7 +70,7 @@ export const TextareaLabel = React.forwardRef<HTMLDivElement, TextareaLabelProps
           htmlFor={textareaId}
           mandatory={mandatory}
           optional={optional}
-          className="mb-2"
+          className="mb-[var(--spacing-x2)]"
           onClick={onClick as (() => void) | undefined}
           {...restProps}
         >

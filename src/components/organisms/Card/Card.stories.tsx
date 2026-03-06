@@ -19,6 +19,15 @@ const meta: Meta<typeof Card> = {
       },
     },
     explorer: {
+                                                                                                                                                                                                                                                                                                                                                                                                inspector: {
+                                                                                                                                                                                                  enabled: true,
+                                                                                                                                                                                                  defaultMode: 'token-spacing' as const,
+                                                                                                                                                                                                  spacingHints: {
+                                                                                                                                                                                                    outerXToken: 'x6',
+                                                                                                                                                                                                    outerYToken: 'x3',
+                                                                                                                                                                                                    innerGapToken: 'x2',
+                                                                                                                                                                                                  },
+                                                                                                                                                                                                },
       mode: 'matrix' as const,
       baseStory: 'ExplorerBase',
       behavior: 'inline',

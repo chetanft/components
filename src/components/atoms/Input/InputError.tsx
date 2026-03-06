@@ -45,7 +45,7 @@ export const InputError = React.forwardRef<HTMLParagraphElement, InputErrorProps
         ref={ref}
         id={errorId}
         role="alert"
-        className={cn("text-sm leading-relaxed mt-1.5 text-critical", className)}
+        className={cn("text-sm leading-relaxed mt-[var(--spacing-x1-5)] text-critical", className)}
         {...props}
       >
         {children}

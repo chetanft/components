@@ -6,6 +6,7 @@ import {
   getComponentGuideline,
   type ComponentGuideline,
 } from "@/data/designer-guidelines";
+import { cn } from "@/lib/utils";
 import { Button, Badge } from "@/registry";
 
 interface ComponentUsageOverlayProps {
@@ -13,12 +14,14 @@ interface ComponentUsageOverlayProps {
   meta: StoryMeta;
   stories: StoryDefinition[];
   onClose: () => void;
+  visible?: boolean;
 }
 
 export function ComponentUsageOverlay({
   componentName,
   meta,
   onClose,
+  visible = true,
 }: ComponentUsageOverlayProps) {
   const guideline = getComponentGuideline(componentName);
 
@@ -28,7 +31,10 @@ export function ComponentUsageOverlay({
     `${componentName} component`;
 
   return (
-    <div className="fixed inset-0 z-[70] bg-[var(--bg-primary)] flex flex-col overflow-hidden">
+    <div className={cn(
+      "fixed inset-0 z-[70] bg-[var(--bg-primary)] flex flex-col overflow-hidden transition-transform duration-300 ease-out",
+      visible ? "translate-y-0" : "translate-y-full"
+    )}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-primary)] shrink-0">
         <div className="flex items-center gap-3">

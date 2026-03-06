@@ -44,8 +44,8 @@ High-risk chips (aggregate/gallery or missing export): 0
 
 | Row | Chip | Story | Args | Export | Classification | Risk | explorer_mode | baseStory | is_compound |
 |---|---|---|---|---|---|---|---|---|---|
-| Type | Basic | Basic | No | render | Direct single story | medium | direct | — | no |
-| Type | Bottom | Bottom | No | render | Direct single story | medium | direct | — | no |
+| Type | Basic | Basic | No | render+args | Direct single story | low | direct | — | no |
+| Type | Bottom | Bottom | No | render+args | Direct single story | low | direct | — | no |
 
 ## Alert
 - Story file: `src/components/molecules/Alert/Alert.stories.tsx`
@@ -1442,6 +1442,6 @@ High-risk chips (aggregate/gallery or missing export): 0
 
 | Row | Chip | Story | Args | Export | Classification | Risk | explorer_mode | baseStory | is_compound |
 |---|---|---|---|---|---|---|---|---|---|
-| Type | Basic | Basic | No | render | Direct single story | medium | direct | — | no |
-| Type | Multi Line | MultiLine | No | render | Direct single story | medium | direct | — | no |
-| Type | Custom Style | CustomStyle | No | render | Direct single story | medium | direct | — | no |
+| Type | Basic | Basic | No | render+args | Direct single story | low | direct | — | no |
+| Type | Multi Line | MultiLine | No | render+args | Direct single story | low | direct | — | no |
+| Type | Custom Style | CustomStyle | No | render+args | Direct single story | low | direct | — | no |

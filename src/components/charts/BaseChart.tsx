@@ -25,7 +25,7 @@ export const BaseChart: React.FC<BaseChartProps> = ({
   return (
     <div
       className={cn(
-        'flex flex-col gap-4 w-full',
+        'flex flex-col gap-[var(--spacing-x4)] w-full',
         className
       )}
       style={{
@@ -35,7 +35,7 @@ export const BaseChart: React.FC<BaseChartProps> = ({
       {title && (
         <h3
           style={{
-            fontSize: 'var(--font-size-text-md-rem)',
+            fontSize: 'var(--font-size-md-rem)',
             fontWeight: '600',
             fontFamily: 'Inter, system-ui, sans-serif',
             color: ftChartColors.text.primary,

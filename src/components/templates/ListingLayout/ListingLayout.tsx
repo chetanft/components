@@ -52,52 +52,52 @@ export interface ListingLayoutProps
   sectionProps?: ListingLayoutSectionProps;
 }
 
-const horizontalInset = 'px-4 sm:px-6 lg:px-10 xl:px-12';
+const horizontalInset = 'px-[var(--spacing-x4)] sm:px-[var(--spacing-x6)] lg:px-[var(--spacing-x10)] xl:px-[var(--spacing-x12)]';
 
 const baseSectionClasses: Record<
   Exclude<ListingLayoutSection, 'content' | 'contentSecondary'>,
   string
 > = {
-  appHeader: cn(horizontalInset, 'pt-6'),
+  appHeader: cn(horizontalInset, 'pt-[var(--spacing-x6)]'),
   hero: cn(
     horizontalInset,
-    'grid gap-[var(--x3)] rounded-[1.75rem] bg-[var(--bg-primary)] py-[var(--x4)] sm:grid-cols-2 lg:grid-cols-4'
+    'grid gap-[var(--spacing-x3)] rounded-[var(--radius-4xl)] bg-[var(--bg-primary)] py-[var(--spacing-x4)] sm:grid-cols-2 lg:grid-cols-4'
   ),
-  pageHeader: cn(horizontalInset, 'flex flex-col gap-[var(--x2)]'),
+  pageHeader: cn(horizontalInset, 'flex flex-col gap-[var(--spacing-x2)]'),
   toolbar: cn(
     horizontalInset,
-    'flex flex-wrap items-center justify-between gap-[var(--x3)] rounded-[1.5rem] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x3)]'
+    'flex flex-wrap items-center justify-between gap-[var(--spacing-x3)] rounded-[var(--radius-3xl)] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--spacing-x3)]'
   ),
-  tabs: cn(horizontalInset, 'flex flex-col gap-[var(--x1)]'),
-  subTabs: cn(horizontalInset, 'flex flex-wrap gap-[var(--x1)]'),
+  tabs: cn(horizontalInset, 'flex flex-col gap-[var(--spacing-x1)]'),
+  subTabs: cn(horizontalInset, 'flex flex-wrap gap-[var(--spacing-x1)]'),
   quickFilters: cn(
     horizontalInset,
-    'flex flex-wrap gap-[var(--x2)] rounded-[1.5rem] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x3)]'
+    'flex flex-wrap gap-[var(--spacing-x2)] rounded-[var(--radius-3xl)] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--spacing-x3)]'
   ),
   actionBar: cn(
     horizontalInset,
-    'flex flex-wrap items-center justify-between gap-[var(--x3)] rounded-[1.75rem] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--x4)]'
+    'flex flex-wrap items-center justify-between gap-[var(--spacing-x3)] rounded-[var(--radius-4xl)] border border-[var(--border-secondary)] bg-[var(--bg-primary)] py-[var(--spacing-x4)]'
   ),
-  footer: cn(horizontalInset, 'pt-[var(--x4)] pb-[var(--x8)]'),
+  footer: cn(horizontalInset, 'pt-[var(--spacing-x4)] pb-[var(--spacing-x8)]'),
 };
 
 const contentLayoutClasses: Record<ListingLayoutLayout, string> = {
-  stack: cn(horizontalInset, 'w-full pb-[var(--x8)]'),
+  stack: cn(horizontalInset, 'w-full pb-[var(--spacing-x8)]'),
   grid: cn(
     horizontalInset,
-    'grid w-full gap-[var(--x4)] pb-[var(--x8)] sm:grid-cols-2 xl:grid-cols-3'
+    'grid w-full gap-[var(--spacing-x4)] pb-[var(--spacing-x8)] sm:grid-cols-2 xl:grid-cols-3'
   ),
   split: cn(
     horizontalInset,
-    'grid w-full gap-[var(--x4)] pb-[var(--x8)] lg:grid-cols-[minmax(18.75rem,22.5rem)_1fr]'
+    'grid w-full gap-[var(--spacing-x4)] pb-[var(--spacing-x8)] lg:grid-cols-[minmax(18.75rem,22.5rem)_1fr]'
   ),
 };
 
 const variantSurfaceClasses: Record<ListingLayoutVariant, string> = {
   table:
-    'flex flex-col gap-[var(--x2)] rounded-[1.5rem] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-[var(--x4)] shadow-[0_1px_3px_rgba(15,23,42,0.08)]',
-  card: 'flex flex-col gap-[var(--x3)]',
-  custom: 'flex flex-col gap-[var(--x3)]',
+    'flex flex-col gap-[var(--spacing-x2)] rounded-[var(--radius-3xl)] border border-[var(--border-secondary)] bg-[var(--bg-primary)] p-[var(--spacing-x4)] shadow-[var(--shadow-sm)]',
+  card: 'flex flex-col gap-[var(--spacing-x3)]',
+  custom: 'flex flex-col gap-[var(--spacing-x3)]',
 };
 
 const sectionsOrder: Array<
@@ -212,12 +212,12 @@ export const ListingLayout = React.forwardRef<
             className={cn(contentLayoutClasses.split, contentClassName)}
             {...contentAttrs}
           >
-            <div className="flex min-w-0 flex-col gap-[var(--x3)]">
+            <div className="flex min-w-0 flex-col gap-[var(--spacing-x3)]">
               {primary}
             </div>
             <div
               className={cn(
-                'flex min-w-0 flex-col gap-[var(--x3)]',
+                'flex min-w-0 flex-col gap-[var(--spacing-x3)]',
                 secondaryClassName
               )}
               {...secondaryAttrs}
@@ -269,7 +269,7 @@ export const ListingLayout = React.forwardRef<
       <Comp
         ref={ref}
         data-variant={variant}
-        className={cn('flex w-full flex-col gap-[var(--x5)]', className)}
+        className={cn('flex w-full flex-col gap-[var(--spacing-x5)]', className)}
         {...props}
       >
         {sectionsOrder.map(renderSection)}
@@ -283,5 +283,4 @@ export const ListingLayout = React.forwardRef<
 ListingLayout.displayName = 'ListingLayout';
 
 export default ListingLayout;
-
 

@@ -17,6 +17,7 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 const { syncVersion } = require('./sync-version.cjs');
+const { syncDocsData } = require('./sync-docs-data.cjs');
 
 const projectRoot = path.join(__dirname, '..');
 
@@ -68,17 +69,28 @@ function syncAll() {
     process.exit(1);
   }
 
-  // Step 2: Validate component exports
+  // Step 2: Sync documentation data (tokens → generated TS, llms.txt, AI_CONTEXT.md)
   log('\n═══════════════════════════════════════', 'blue');
-  log('STEP 2: Component Export Validation', 'bold');
+  log('STEP 2: Documentation Data Sync', 'bold');
+  log('═══════════════════════════════════════', 'blue');
+  try {
+    syncDocsData();
+  } catch (error) {
+    log(`❌ Docs data sync failed: ${error.message}`, 'red');
+    process.exit(1);
+  }
+
+  // Step 3: Validate component exports
+  log('\n═══════════════════════════════════════', 'blue');
+  log('STEP 3: Component Export Validation', 'bold');
   log('═══════════════════════════════════════', 'blue');
   execCommand('npm run validate:docs', 'Validating component exports', {
     continueOnError: false,
   });
 
-  // Step 3: Sync component changes to docs
+  // Step 4: Sync component changes to docs
   log('\n═══════════════════════════════════════', 'blue');
-  log('STEP 3: Syncing Components to Docs', 'bold');
+  log('STEP 4: Syncing Components to Docs', 'bold');
   log('═══════════════════════════════════════', 'blue');
   
   // Update components.json from Storybook files (if needed)
@@ -98,9 +110,9 @@ function syncAll() {
     log('ℹ️  Extract script not found, skipping components.json update', 'cyan');
   }
 
-  // Step 4: Validate Storybook stories (informational)
+  // Step 5: Validate Storybook stories (informational)
   log('\n═══════════════════════════════════════', 'blue');
-  log('STEP 4: Storybook Validation', 'bold');
+  log('STEP 5: Storybook Validation', 'bold');
   log('═══════════════════════════════════════', 'blue');
   const storiesPath = path.join(projectRoot, 'src', 'stories');
   if (fs.existsSync(storiesPath)) {
@@ -112,9 +124,9 @@ function syncAll() {
     log('   ⚠️  Stories directory not found', 'yellow');
   }
 
-  // Step 5: Build npm package
+  // Step 6: Build npm package
   log('\n═══════════════════════════════════════', 'blue');
-  log('STEP 5: Building NPM Package', 'bold');
+  log('STEP 6: Building NPM Package', 'bold');
   log('═══════════════════════════════════════', 'blue');
   execCommand('npm run build', 'Building npm package', {
     continueOnError: false,

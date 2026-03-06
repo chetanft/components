@@ -112,7 +112,7 @@ export const TabItem = forwardRef<HTMLDivElement, TabItemProps>(
 
     // Base styles matching Figma design exactly using FT design system tokens
     const baseStyles = cn(
-      "relative flex flex-col gap-[0.625rem] items-start transition-all cursor-pointer flex-shrink-0",
+      "relative flex flex-col gap-[var(--spacing-x2-5)] items-start transition-all cursor-pointer flex-shrink-0",
       disabled && "opacity-50 cursor-not-allowed pointer-events-none",
 
       // Padding based on type - using FT design system spacing tokens

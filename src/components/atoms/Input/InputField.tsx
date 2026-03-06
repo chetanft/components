@@ -109,13 +109,13 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     };
 
     const iconPaddingMap = {
-      xxs: { left: "pl-6", right: "pr-6" },
-      xs: { left: "pl-7", right: "pr-7" },
-      sm: { left: "pl-9", right: "pr-9" },
-      md: { left: "pl-11", right: "pr-11" },
-      lg: { left: "pl-12", right: "pr-12" },
-      xl: { left: "pl-14", right: "pr-14" },
-      xxl: { left: "pl-16", right: "pr-16" }
+      xxs: { left: "pl-[var(--spacing-x6)]", right: "pr-[var(--spacing-x6)]" },
+      xs: { left: "pl-[var(--spacing-x7)]", right: "pr-[var(--spacing-x7)]" },
+      sm: { left: "pl-[var(--spacing-x9)]", right: "pr-[var(--spacing-x9)]" },
+      md: { left: "pl-[var(--spacing-x11)]", right: "pr-[var(--spacing-x11)]" },
+      lg: { left: "pl-[var(--spacing-x12)]", right: "pr-[var(--spacing-x12)]" },
+      xl: { left: "pl-[var(--spacing-x14)]", right: "pr-[var(--spacing-x14)]" },
+      xxl: { left: "pl-[var(--spacing-x16)]", right: "pr-[var(--spacing-x16)]" }
     };
 
     const currentIconOffset = iconOffsetMap[size];

@@ -1,0 +1,198 @@
+{
+  "generatedAt": "2026-03-03T07:48:27.286Z",
+  "summary": {
+    "totalIssues": 15,
+    "totalFilesWithIssues": 15,
+    "byRule": {
+      "hardcoded_px_literal": 15
+    },
+    "bySeverity": {
+      "error": 0,
+      "warn": 15
+    },
+    "byFile": {
+      "src/components/molecules/TreeSelect/TreeSelect.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/molecules/Empty/Empty.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/molecules/Popconfirm/PopconfirmContent.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/molecules/PageHeaderFilters/PageHeaderFilters.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/molecules/FilterSearch/FilterSearch.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/molecules/Transfer/Transfer.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/molecules/FilterDropdown/FilterDropdown.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/molecules/Steps/StepIcon.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/molecules/Select/SelectContent.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/molecules/FilterDateRange/FilterDateRange.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/organisms/Drawer/GridDrawer.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/organisms/Drawer/DrawerContent.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/organisms/Footer/Footer.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/organisms/Table/TableTypes.ts": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
+      "src/components/organisms/Modal/ModalContent.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      }
+    }
+  },
+  "issues": [
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/molecules/Empty/Empty.tsx",
+      "message": "1 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/molecules/FilterDateRange/FilterDateRange.tsx",
+      "message": "3 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/molecules/FilterDropdown/FilterDropdown.tsx",
+      "message": "3 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/molecules/FilterSearch/FilterSearch.tsx",
+      "message": "3 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/molecules/PageHeaderFilters/PageHeaderFilters.tsx",
+      "message": "2 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/molecules/Popconfirm/PopconfirmContent.tsx",
+      "message": "2 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/molecules/Select/SelectContent.tsx",
+      "message": "1 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/molecules/Steps/StepIcon.tsx",
+      "message": "1 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/molecules/Transfer/Transfer.tsx",
+      "message": "2 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/molecules/TreeSelect/TreeSelect.tsx",
+      "message": "2 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/organisms/Drawer/DrawerContent.tsx",
+      "message": "2 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/organisms/Drawer/GridDrawer.tsx",
+      "message": "2 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/organisms/Footer/Footer.tsx",
+      "message": "2 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/organisms/Modal/ModalContent.tsx",
+      "message": "4 hardcoded px literal(s) found"
+    },
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/organisms/Table/TableTypes.ts",
+      "message": "1 hardcoded px literal(s) found"
+    }
+  ]
+}

@@ -19,6 +19,15 @@ const meta: Meta<typeof Alert> = {
       },
     },
     explorer: {
+                                                                                                                                                                                                                                                                                                                                                                                                inspector: {
+                                                                                                                                                                                                  enabled: true,
+                                                                                                                                                                                                  defaultMode: 'token-spacing' as const,
+                                                                                                                                                                                                  spacingHints: {
+                                                                                                                                                                                                    outerXToken: 'x6',
+                                                                                                                                                                                                    outerYToken: 'x3',
+                                                                                                                                                                                                    innerGapToken: 'x2',
+                                                                                                                                                                                                  },
+                                                                                                                                                                                                },
       mode: 'both' as const,
       baseStory: 'ExplorerBase',
       behavior: 'top-overlay' as const,

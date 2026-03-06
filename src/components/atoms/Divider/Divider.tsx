@@ -93,7 +93,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
         <Comp
           ref={ref}
           className={cn(
-            "inline-block w-px h-[0.9em] mx-2 align-middle border-l",
+            "inline-block w-px h-[0.9em] mx-[var(--spacing-x2)] align-middle border-l",
             borderColorClass,
             isDashed && "border-dashed",
             className
@@ -134,7 +134,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
             plain ? "font-normal" : "font-medium"
           )}>
             {typeof labelContent === 'string' ? (
-              <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid rounded-full px-[var(--spacing-x2)] py-[0.125rem] shrink-0">
+              <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid rounded-full px-[var(--spacing-x2)] py-[var(--spacing-x0-5)] shrink-0">
                 <Typography variant="body-secondary-medium" color="tertiary">
                   {labelContent}
                 </Typography>

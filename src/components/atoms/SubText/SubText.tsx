@@ -45,7 +45,7 @@ export const SubText: React.FC<SubTextProps> = ({
   return (
     <div 
       className={cn(
-        "content-stretch flex gap-[0.625rem] items-center justify-center relative size-full",
+        "content-stretch flex gap-[var(--spacing-x2-5)] items-center justify-center relative size-full",
         className
       )}
       data-name="Icon=No"

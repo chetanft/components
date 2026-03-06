@@ -53,7 +53,7 @@ export const Watermark: React.FC<WatermarkProps> = ({
     const ratio = window.devicePixelRatio || 1;
     
     const config = {
-      color: 'rgba(0, 0, 0, 0.15)',
+      color: 'rgba(0, 0, 0, 0.15)', /* audit:ok - watermark needs fixed low opacity independent of theme */
       fontSize: 16,
       fontWeight: 'normal',
       fontStyle: 'normal',

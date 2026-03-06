@@ -53,8 +53,8 @@ export const AlertClose = React.forwardRef<HTMLButtonElement, AlertCloseProps>(
         type="button"
         onClick={handleClick}
         className={cn(
-          "flex-shrink-0 ml-2 h-fit",
-          "p-1 rounded-[var(--radius-sm)]",
+          "flex-shrink-0 ml-[var(--spacing-x2)] h-fit",
+          "p-[var(--spacing-x1)] rounded-[var(--radius-sm)]",
           "hover:bg-black/5",
           "transition-colors duration-[var(--transition-fast)]",
           "focus:outline-none focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20",

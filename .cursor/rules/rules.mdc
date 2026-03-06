@@ -10,4 +10,8 @@ alwaysApply: true
 - Do not create unsupported variations.
 - Never use hardcoded visual values unless explicitly requested and documented.
 - Run token checks before commit: `npm run check:tokens`.
+- Run consistency checks before commit for UI/component changes: `npm run check:consistency`.
+- Run explorer inspector coverage check for explorer config/story updates: `npm run check:explorer-inspector`.
+- New component layout stories must include `parameters.explorer.inspector` config with valid `defaultMode`.
+- Before publishing, run `npm run publish:prepare` (includes `npm run sync:docs`).
 - Follow the PR review checklist at `specs/review-checklist.md` before approving or merging.

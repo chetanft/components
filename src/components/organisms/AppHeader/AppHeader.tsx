@@ -217,19 +217,19 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <Comp
         ref={ref}
         className={cn(
-          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-5 py-[0.8125rem] w-full max-w-[108rem] h-[4.875rem]",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-[var(--spacing-x5)] py-[var(--spacing-x3)] w-full max-w-[108rem] h-[4.875rem]",
           className
         )}
         {...htmlProps}
       >
         {/* Logo Section */}
         {/* Logo Section */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-[var(--spacing-x5)]">
           {/* Layout Grid Icon / Custom Addon */}
           {leftAddon ? (
             leftAddon()
           ) : (
-            <div className="bg-[var(--bg-primary)] rounded-full p-4 flex items-center justify-center w-[3.375rem] h-[3.375rem]">
+            <div className="bg-[var(--bg-primary)] rounded-full p-[var(--spacing-x4)] flex items-center justify-center w-[3.375rem] h-[3.375rem]">
               <svg width="24" height="24" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -244,10 +244,10 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
 
         {/* Notification Icons and User Profile */}
         {/* Notification Icons and User Profile */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-[var(--spacing-x4)]">
           {/* Notification Container */}
           {/* Notification Container */}
-          <div className="flex items-center gap-9">
+          <div className="flex items-center gap-[var(--spacing-x9)]">
             {/* Rocket Icon */}
             <div
               style={{
@@ -296,7 +296,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <Comp
         ref={ref}
         className={cn(
-          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-4 py-[0.8125rem] w-full max-w-[90rem] h-16",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-[var(--spacing-x4)] py-[var(--spacing-x3)] w-full max-w-[90rem] h-16",
           className
         )}
         {...htmlProps}
@@ -311,7 +311,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
           {leftAddon ? (
             leftAddon()
           ) : (
-            <div className="bg-[var(--bg-primary)] rounded-full p-4 flex items-center justify-center w-10 h-10">
+            <div className="bg-[var(--bg-primary)] rounded-full p-[var(--spacing-x4)] flex items-center justify-center w-10 h-10">
               <svg width="20" height="20" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -384,7 +384,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <Comp
         ref={ref}
         className={cn(
-          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-4 py-[0.8125rem] w-full max-w-[75rem] h-12",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-[var(--spacing-x4)] py-[var(--spacing-x3)] w-full max-w-[75rem] h-12",
           className
         )}
         {...htmlProps}
@@ -482,16 +482,16 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <Comp
         ref={ref}
         className={cn(
-          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center p-3 w-full max-w-[22.5rem]",
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center p-[var(--spacing-x3)] w-full max-w-[22.5rem]",
           className
         )}
         {...htmlProps}
       >
         {/* Logo Section */}
         {/* Logo Section */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-[var(--spacing-x3)]">
           {/* Layout Grid Icon */}
-          <div className="bg-[var(--bg-primary)] rounded-full p-4 flex items-center justify-center w-8 h-8">
+          <div className="bg-[var(--bg-primary)] rounded-full p-[var(--spacing-x4)] flex items-center justify-center w-8 h-8">
             <svg width="16" height="16" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -505,7 +505,7 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
 
         {/* Notification Icons and User Profile */}
         {/* Notification Icons and User Profile */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-[var(--spacing-x2)]">
           {/* Notification Container */}
           <div style={{
             display: 'flex',
@@ -543,16 +543,16 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
     <Comp
       ref={ref}
       className={cn(
-        getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-5 py-[0.8125rem] w-full max-w-[108rem] h-[4.875rem]",
+        getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', 'border-b border-[var(--border-primary)]'), "rounded-none flex justify-between items-center px-[var(--spacing-x5)] py-[var(--spacing-x3)] w-full max-w-[108rem] h-[4.875rem]",
         className
       )}
       {...htmlProps}
     >
       {/* Logo Section */}
       {/* Logo Section */}
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-[var(--spacing-x5)]">
         {/* Layout Grid Icon */}
-        <div className="bg-[var(--bg-primary)] rounded-full p-4 flex items-center justify-center w-[3.375rem] h-[3.375rem]">
+        <div className="bg-[var(--bg-primary)] rounded-full p-[var(--spacing-x4)] flex items-center justify-center w-[3.375rem] h-[3.375rem]">
           <svg width="24" height="24" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -566,10 +566,10 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
 
       {/* Notification Icons and User Profile */}
       {/* Notification Icons and User Profile */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-[var(--spacing-x4)]">
         {/* Notification Container */}
         {/* Notification Container */}
-        <div className="flex items-center gap-9">
+        <div className="flex items-center gap-[var(--spacing-x9)]">
           {/* Rocket Icon */}
           <div
             style={{

@@ -43,8 +43,7 @@ export const ListHeader = React.forwardRef<HTMLDivElement, ListHeaderProps>(
       <Comp
         ref={ref}
         className={cn(
-          "border-b border-[var(--color-border-secondary)]",
-          "[&>p.font-sans]:flex [&>p.font-sans]:flex-col [&>p.font-sans]:pt-2 [&>p.font-sans]:pb-4 [&>p.font-sans]:px-4",
+          "border-b border-[var(--color-border-secondary)] px-[var(--spacing-x4)] py-[var(--spacing-x3)]",
           className
         )}
         {...props}

@@ -47,17 +47,17 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
     // Size configurations - matching Figma design structure
     // Figma sizes: xxs (0.8125rem x 1rem), xs (x5 x x6), sm (1.625rem x x8), md (2.0625rem x x10), lg (2.4375rem x x12), xl (2.875rem x x14), xxl (x13 x x16)
     const sizeStyles = {
-      xxs: "w-[0.8125rem] h-[1rem]",
-      xs: "w-[var(--spacing-x5)] h-[var(--spacing-x6)]",
-      sm: "w-[1.625rem] h-[var(--spacing-x8)]",
-      md: "w-[2.0625rem] h-[var(--spacing-x10)]",
-      lg: "w-[2.4375rem] h-[var(--spacing-x12)]",
-      xl: "w-[2.875rem] h-[var(--spacing-x14)]",
-      xxl: "w-[var(--spacing-x13)] h-[var(--spacing-x16)]"
+      xxs: "w-[0.8125rem] h-[1rem] text-xs-rem",
+      xs: "w-[var(--spacing-x5)] h-[var(--spacing-x6)] text-xs-rem",
+      sm: "w-[1.625rem] h-[var(--spacing-x8)] text-sm-rem",
+      md: "w-[2.0625rem] h-[var(--spacing-x10)] text-sm-rem",
+      lg: "w-[2.4375rem] h-[var(--spacing-x12)] text-md-rem",
+      xl: "w-[2.875rem] h-[var(--spacing-x14)] text-md-rem",
+      xxl: "w-[var(--spacing-x13)] h-[var(--spacing-x16)] text-lg-rem"
     };
     
     // Triangle sizes based on container size - proportional to icon size
-    const triangleSizes = {
+    const cornerFold = {
       xxs: '0.375rem',
       xs: 'var(--spacing-x2)',
       sm: '0.625rem',
@@ -69,12 +69,12 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
     
     // Text sizes based on container size
     const textSizes = {
-      xxs: 'text-[0.5rem]',
-      xs: 'text-[0.625rem]',
-      sm: 'text-xs-rem',
+      xxs: 'text-xs-rem',
+      xs: 'text-xs-rem',
+      sm: 'text-sm-rem',
       md: 'text-sm-rem',
       lg: 'text-md-rem',
-      xl: 'text-[1.125rem]',
+      xl: 'text-md-rem',
       xxl: 'text-lg-rem'
     };
     
@@ -173,8 +173,8 @@ export const FileTypeIcon = React.forwardRef<HTMLDivElement, FileTypeIconProps>(
           <div 
             className="absolute top-0 right-0"
             style={{
-              width: triangleSizes[size],
-              height: triangleSizes[size],
+              width: cornerFold[size],
+              height: cornerFold[size],
               backgroundColor: styles.foldedCorner,
               clipPath: 'polygon(100% 0, 100% 100%, 0 0)'
             }}

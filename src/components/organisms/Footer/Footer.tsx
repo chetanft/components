@@ -60,17 +60,17 @@ export const Footer = React.forwardRef<HTMLElement, FooterProps>(
         <Divider type="primary" className="w-full" />
         <div
           className={cn(
-            "px-5 py-4 gap-[366px] max-w-full overflow-x-auto",
+            "px-[var(--spacing-x5)] py-[var(--spacing-x4)] gap-[22.875rem] max-w-full overflow-x-auto",
             layoutClasses
           )}
         >
           {hasLeftSide && (
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-[var(--spacing-x5)]">
               {leftSideButtons}
             </div>
           )}
           {rightSideButtons.length > 0 && (
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-[var(--spacing-x5)]">
               {rightSideButtons}
             </div>
           )}
@@ -108,7 +108,7 @@ export const FooterButton = React.forwardRef<HTMLButtonElement, FooterButtonProp
         ref={ref}
         variant={variant}
         size="lg"
-        className={cn("min-w-[188px] h-12", className)}
+        className={cn("min-w-[11.75rem] h-12", className)}
         {...props}
       >
         {children}

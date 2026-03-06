@@ -84,13 +84,13 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
     };
 
     const sizeStyles = {
-      xxs: 'h-component-xxs text-xs-rem px-[var(--spacing-x1)]',
-      xs: 'h-component-xs text-xs-rem px-[var(--spacing-x1)] py-[var(--spacing-x1)]',
-      sm: 'h-component-sm text-sm-rem px-[var(--spacing-x2)]',
-      md: 'h-component-md text-md-rem px-[var(--spacing-x2)] py-[var(--spacing-x2)]',
-      lg: 'h-component-lg text-md-rem px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
-      xl: 'h-component-xl text-md-rem px-[var(--spacing-x4)] py-[var(--spacing-x3)]',
-      xxl: 'h-component-xxl text-lg-rem px-[var(--spacing-x5)] py-[var(--spacing-x4)]'
+      xxs: 'h-component-xxs text-xs-rem px-[var(--spacing-x1-5)] py-[var(--spacing-x0-5)]',
+      xs: 'h-component-xs text-xs-rem px-[var(--spacing-x2)] py-[var(--spacing-x1)]',
+      sm: 'h-component-sm text-sm-rem px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
+      md: 'h-component-md text-sm-rem px-[var(--spacing-x4)] py-[var(--spacing-x3)]',
+      lg: 'h-component-lg text-md-rem px-[var(--spacing-x5)] py-[var(--spacing-x4)]',
+      xl: 'h-component-xl text-md-rem px-[var(--spacing-x6)] py-[var(--spacing-x5)]',
+      xxl: 'h-component-xxl text-lg-rem px-[var(--spacing-x7)] py-[var(--spacing-x6)]'
     };
 
     return (
@@ -142,4 +142,3 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
 );
 
 SelectTrigger.displayName = 'SelectTrigger';
-

@@ -183,9 +183,8 @@ const CardElements: React.FC<CardElementsProps> = ({
 //
 // Figma structure:
 //   <div.card_footer>              ← flex-col, w-full
-//     <Divider>                    ← full-width line, py-x4
-//     <Spacer size="x5">          ← x5 gap
-//     <div.footer-container>       ← flex, gap-x4, items-center, px-x5 (if padding)
+//     <Divider>                    ← full-width line
+//     <div.footer-container>       ← flex, gap-x4, items-center, py-x3, px-x5 (if padding)
 //       <div.display-block-left>   ← flex-1, text content
 //       <div.display-block-right>  ← flex-1, text/button content
 // ---------------------------------------------------------------------------
@@ -208,16 +207,11 @@ const CardFooterInternal: React.FC<CardFooterInternalProps> = ({
             "flex flex-col items-start pt-0 relative w-full",
             className
         )}>
-            {/* Divider — full-width horizontal line */}
-            <div className="flex items-center justify-between py-[var(--spacing-x4)] w-full">
-                <Divider type="primary" className="flex-1" />
-            </div>
-
-            <Spacer size="x5" />
+            <Divider type="primary" className="w-full" />
 
             {/* Footer Container — two-column display block */}
             <div className={cn(
-                "flex gap-[var(--spacing-x4)] items-center w-full",
+                "flex gap-[var(--spacing-x4)] items-center w-full py-[var(--spacing-x3)]",
                 padding ? "px-[var(--spacing-x5)]" : ""
             )}>
                 {/* Left display block */}
@@ -438,6 +432,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
         return (
             <Comp
                 ref={ref}
+                data-inspector-root
                 className={cn(
                     getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-secondary)] border-solid"),
                     "relative rounded-[var(--spacing-x2)] flex flex-col overflow-hidden",
@@ -453,10 +448,10 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     const isSmall = size === 'sm';
 
     const renderLoading = () => (
-        <div className="p-6">
-            <Skeleton height="var(--spacing-x6)" width="30%" className="mb-4" />
-            <Skeleton height="var(--spacing-x4)" className="mb-2" />
-            <Skeleton height="var(--spacing-x4)" className="mb-2" />
+        <div className="p-[var(--spacing-x6)]">
+            <Skeleton height="var(--spacing-x6)" width="30%" className="mb-[var(--spacing-x4)]" />
+            <Skeleton height="var(--spacing-x4)" className="mb-[var(--spacing-x2)]" />
+            <Skeleton height="var(--spacing-x4)" className="mb-[var(--spacing-x2)]" />
             <Skeleton height="var(--spacing-x4)" />
         </div>
     );
@@ -469,10 +464,11 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
         return (
             <Comp
                 ref={ref}
+                data-inspector-root
                 className={cn(
                     getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-secondary)] border-solid"),
                     "relative rounded-[var(--spacing-x2)] flex flex-col gap-0 items-start justify-end overflow-clip p-0",
-                    isAdvanced && "shadow-[0_0.25rem_0.5rem_0_rgba(0,0,0,0.1)]",
+                    isAdvanced && "shadow-[var(--shadow-md)]",
                     className
                 )}
                 {...props}
@@ -550,6 +546,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     return (
         <Comp
             ref={ref}
+            data-inspector-root
             className={cn(
                 resolvedGlass
                     ? getGlassClasses(resolvedGlass)
@@ -560,7 +557,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
             )}
             {...props}
         >
-            <div className={cn("flex-1", isSmall ? "p-3" : "p-6")}>
+            <div className={cn("flex-1", isSmall ? "p-[var(--spacing-x3)]" : "p-[var(--spacing-x6)]")}>
                 {loading ? renderLoading() : children}
             </div>
         </Comp>

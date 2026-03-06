@@ -199,14 +199,14 @@ export const Empty = React.forwardRef<HTMLDivElement, EmptyProps>(
         ref={ref}
         className={cn(
           "flex flex-col items-center justify-center",
-          "py-[var(--x8)] px-[var(--x4)]",
+          "py-[var(--spacing-x8)] px-[var(--spacing-x4)]",
           "text-center",
           className
         )}
         {...props}
       >
         {/* Image */}
-        <div className="mb-[var(--x4)]">
+        <div className="mb-[var(--spacing-x4)]">
           {renderImage()}
         </div>
 
@@ -214,7 +214,7 @@ export const Empty = React.forwardRef<HTMLDivElement, EmptyProps>(
         {description && (
           <Typography
             variant="body-secondary-regular"
-            className="text-[var(--tertiary)] max-w-[256px]"
+            className="text-[var(--tertiary)] max-w-[calc(var(--spacing-x16)*4)]"
           >
             {description}
           </Typography>
@@ -222,7 +222,7 @@ export const Empty = React.forwardRef<HTMLDivElement, EmptyProps>(
 
         {/* Actions */}
         {children && (
-          <div className="mt-[var(--x6)]">
+          <div className="mt-[var(--spacing-x6)]">
             {children}
           </div>
         )}

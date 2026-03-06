@@ -1,5 +1,7 @@
 export type ExplorerMode = "matrix" | "playground" | "both";
 export type PreviewMode = "inline" | "positioned";
+export type { ExplorerInspectorMode } from "@/types/explorer-inspector";
+import type { ExplorerInspectorConfig } from "@/types/explorer-inspector";
 export type ExplorerBehavior =
   | "inline"
   | "top-overlay"
@@ -41,6 +43,8 @@ export interface ExplorerConfig {
   positionedPreview?: ExplorerPositionedPreview;
   /** Show Glass Mode chips (Normal/Subtle/Glass/Prominent) with gradient backdrop */
   supportsGlass?: boolean;
+  /** Explorer inspector views (box model + token spacing overlays) */
+  inspector?: ExplorerInspectorConfig;
   playground?: {
     story?: string;
     controlsAllowlist?: string[];

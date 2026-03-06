@@ -4,6 +4,8 @@ import { useRouter, usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import { docsConfig } from "@/config/docs";
 import { hasStory, getAvailableStoryComponents } from "@/lib/story-loader";
+import { COMPONENT_COUNT } from "@/data/design-system.generated";
+import { DocPageHeader, DocSection, DocCodeBlock, DocCard, DocInfoBanner, DocBottomNav } from "@/components/docs";
 
 // Dynamically import the component page to avoid server-side issues
 const StoryComponentPage = dynamic(
@@ -60,50 +62,42 @@ export default function DocPage() {
   // Introduction page
   if (!slug || slug.length === 0) {
     return (
-      <div className="space-y-6">
-        <h1 className="scroll-m-20 font-bold tracking-tight" style={{ fontSize: 'var(--font-size-xxl-rem)' }}>
-          {/* 28px → 2rem (responsive) */}
-          Introduction
-        </h1>
-        <p className="leading-7 text-muted-foreground [&:not(:first-child)]:mt-6" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-          {/* 16px → 1.143rem (responsive) */}
-          Welcome to the FT Design System documentation. This library provides a set of reusable components
-          built with Radix UI and Tailwind CSS.
-        </p>
-        <div className="space-y-4 mt-8">
-          <h2 className="font-semibold tracking-tight" style={{ fontSize: 'var(--font-size-xl-rem)' }}>
-            {/* 24px → 1.714rem (responsive) */}
-            Getting Started
-          </h2>
-          <p className="text-muted-foreground" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-            {/* 16px → 1.143rem (responsive) */}
+      <div className="space-y-8">
+        <DocPageHeader
+          title="Introduction"
+          description="Welcome to the FT Design System documentation. This library provides a set of reusable components built with Radix UI and Tailwind CSS."
+        />
+
+        <DocSection title="Getting Started">
+          <p className="text-muted-foreground text-md-rem">
             Install the design system package:
           </p>
-          <div 
-            className="rounded-lg p-4 font-mono"
-            style={{
-              fontSize: 'var(--font-size-sm-rem)',
-              backgroundColor: 'var(--primary-900)',
-              color: 'var(--tertiary-0)'
-            }}
-          >
-            npm install ft-design-system
-          </div>
-        </div>
-        <div className="space-y-4 mt-8">
-          <h2 className="font-semibold tracking-tight" style={{ fontSize: 'var(--font-size-xl-rem)' }}>
-            {/* 24px → 1.714rem (responsive) */}
-            Features
-          </h2>
+          <DocCodeBlock code="npm install ft-design-system" lang="bash" filename="Terminal" />
+        </DocSection>
+
+        <DocSection title="Features">
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-            <li>80+ production-ready components</li>
+            <li>{COMPONENT_COUNT} production-ready components</li>
             <li>Built with Radix UI primitives for accessibility</li>
             <li>Styled with Tailwind CSS for customization</li>
             <li>TypeScript support out of the box</li>
             <li>Dark mode support</li>
             <li>Comprehensive Storybook documentation</li>
           </ul>
-        </div>
+        </DocSection>
+
+        <DocSection title="What's Included">
+          <div className="grid gap-4 md:grid-cols-2">
+            <DocCard title="Components" description={`${COMPONENT_COUNT} React components with full TypeScript support, accessibility built in, and dark mode.`} />
+            <DocCard title="Design Tokens" description="Complete CSS variable system for colors, spacing, typography, and theming." />
+            <DocCard title="AI Prompts" description="Machine-readable rules for Cursor, Copilot, Claude, and other AI coding assistants." />
+            <DocCard title="CLI Tools" description="Automated setup, verification, and update commands for your project." />
+          </div>
+        </DocSection>
+
+        <DocBottomNav
+          next={{ label: "AI Prompts", href: "/docs/ai-prompts" }}
+        />
       </div>
     );
   }
@@ -135,26 +129,20 @@ export default function DocPage() {
     // Check if we have stories for this component
     if (!hasStory(componentName)) {
       return (
-        <div className="space-y-6">
-          <h1 className="font-bold tracking-tight" style={{ fontSize: 'var(--font-size-xxl-rem)' }}>
-            {/* 28px → 2rem (responsive) */}
-            {componentName}
-          </h1>
-          <div className="p-6 rounded-lg border" style={{ backgroundColor: 'var(--warning-light)', borderColor: 'var(--warning)', color: 'var(--warning-dark)' }}>
-            <p className="font-medium" style={{ fontSize: 'var(--font-size-md-rem)' }}>Stories not available</p>
-            <p style={{ fontSize: 'var(--font-size-sm-rem)', marginTop: 'var(--spacing-x2)' }}>
-              {/* 14px → 1rem (responsive) */}
-              This component does not have Storybook stories yet.
-            </p>
-            <p style={{ fontSize: 'var(--font-size-sm-rem)', marginTop: 'var(--spacing-x2)' }}>
-              {/* 14px → 1rem (responsive) */}
-              Check the Storybook at{" "}
+        <div className="space-y-8">
+          <DocPageHeader
+            title={componentName}
+            description="This component does not have Storybook stories yet."
+          />
+          <DocInfoBanner variant="warning">
+            <p>
+              <strong>Stories not available</strong> — Check the Storybook at{" "}
               <a href="http://localhost:6006" className="underline">
                 localhost:6006
               </a>{" "}
               for more components.
             </p>
-          </div>
+          </DocInfoBanner>
         </div>
       );
     }
@@ -165,15 +153,11 @@ export default function DocPage() {
 
   // 404
   return (
-    <div className="space-y-6">
-      <h1 className="font-bold tracking-tight" style={{ fontSize: 'var(--font-size-xxl-rem)' }}>
-        {/* 28px → 2rem (responsive) */}
-        Page Not Found
-      </h1>
-      <p className="text-muted-foreground" style={{ fontSize: 'var(--font-size-md-rem)' }}>
-        {/* 16px → 1.143rem (responsive) */}
-        The page you're looking for doesn't exist.
-      </p>
+    <div className="space-y-8">
+      <DocPageHeader
+        title="Page Not Found"
+        description="The page you're looking for doesn't exist."
+      />
     </div>
   );
 }

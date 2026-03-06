@@ -17,7 +17,7 @@ export const sizeVariants = cva('', {
             xxs: 'h-component-xxs text-xs-rem',
             xs: 'h-component-xs text-xs-rem',
             sm: 'h-component-sm text-sm-rem',
-            md: 'h-component-md text-md-rem',
+            md: 'h-component-md text-sm-rem',
             lg: 'h-component-lg text-md-rem',
             xl: 'h-component-xl text-md-rem',
             xxl: 'h-component-xxl text-lg-rem',
@@ -49,13 +49,13 @@ export const iconSizeMap: Record<string, number> = {
 export const paddingVariants = cva('', {
     variants: {
         size: {
-            xxs: 'px-[var(--spacing-x1)]',
-            xs: 'px-[var(--spacing-x1)] py-[var(--spacing-x1)]',
-            sm: 'px-[var(--spacing-x2)]',
-            md: 'px-[var(--spacing-x2)] py-[var(--spacing-x2)]',
-            lg: 'px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
-            xl: 'px-[var(--spacing-x4)] py-[var(--spacing-x3)]',
-            xxl: 'px-[var(--spacing-x5)] py-[var(--spacing-x4)]',
+            xxs: 'px-[var(--spacing-x1-5)] py-[var(--spacing-x0-5)]',
+            xs: 'px-[var(--spacing-x2)] py-[var(--spacing-x1)]',
+            sm: 'px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
+            md: 'px-[var(--spacing-x4)] py-[var(--spacing-x3)]',
+            lg: 'px-[var(--spacing-x5)] py-[var(--spacing-x4)]',
+            xl: 'px-[var(--spacing-x6)] py-[var(--spacing-x5)]',
+            xxl: 'px-[var(--spacing-x7)] py-[var(--spacing-x6)]',
         },
     },
     defaultVariants: {

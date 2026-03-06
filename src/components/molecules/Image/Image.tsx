@@ -215,7 +215,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
         )}
         {rotate && (
           <>
-            <div className="w-px h-6 bg-[var(--overlay-control-divider)] mx-2" />
+            <div className="w-px h-6 bg-[var(--overlay-control-divider)] mx-[var(--spacing-x2)]" />
             <button
               type="button"
               onClick={handleRotateLeft}
@@ -234,7 +234,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
             </button>
           </>
         )}
-        <div className="w-px h-6 bg-[var(--overlay-control-divider)] mx-2" />
+        <div className="w-px h-6 bg-[var(--overlay-control-divider)] mx-[var(--spacing-x2)]" />
         <button
           type="button"
           onClick={handleReset}
@@ -393,7 +393,7 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
                 "bg-[var(--color-bg-secondary)] text-[var(--color-tertiary)]"
               )}
             >
-              <Icon name="image" size={32} className="mb-2" />
+              <Icon name="image" size={32} className="mb-[var(--spacing-x2)]" />
               <span className="text-sm">Failed to load image</span>
             </div>
           )}

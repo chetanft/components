@@ -46,7 +46,7 @@ export const Graphs: React.FC<GraphsProps> = ({ className = '', asChild, ...prop
       <Spacer size="x3" className="w-full shrink-0" data-name="Spacer" data-node-id="4337:17142" />
 
       {/* X-axis Labels */}
-      <div className="content-stretch flex font-normal gap-[var(--spacing-x5)] items-start leading-[0] relative shrink-0 text-[0.625rem] text-[var(--color-primary)] text-center w-full" data-name="Time Label" data-node-id="4026:14375">
+      <div className="content-stretch flex font-normal gap-[var(--spacing-x5)] items-start leading-[0] relative shrink-0 text-xxs-rem text-[var(--color-primary)] text-center w-full" data-name="Time Label" data-node-id="4026:14375">
         <div className="flex-1 min-h-px min-w-px relative shrink-0" data-node-id="4026:14376">
           <p className="leading-[1.4] whitespace-pre-wrap">4+ hrs</p>
         </div>
@@ -67,7 +67,7 @@ export const Graphs: React.FC<GraphsProps> = ({ className = '', asChild, ...prop
           <div className="flex items-center justify-center relative shrink-0 size-[var(--spacing-x3)]">
             <div className="bg-[#ff6384] size-[var(--spacing-x3)] rounded-sm" />
           </div>
-          <div className="font-normal leading-[0] not-italic relative shrink-0 text-[0.625rem] text-[var(--color-primary)] whitespace-nowrap" data-node-id="4026:14382">
+          <div className="font-normal leading-[0] not-italic relative shrink-0 text-xxs-rem text-[var(--color-primary)] whitespace-nowrap" data-node-id="4026:14382">
             <p className="leading-[1.4]">Laxmi Transporters</p>
           </div>
         </div>
@@ -75,7 +75,7 @@ export const Graphs: React.FC<GraphsProps> = ({ className = '', asChild, ...prop
           <div className="flex items-center justify-center relative shrink-0 size-[var(--spacing-x3)]">
             <div className="bg-[#ff809a] size-[var(--spacing-x3)] rounded-sm" />
           </div>
-          <div className="font-normal leading-[0] not-italic relative shrink-0 text-[0.625rem] text-[var(--color-primary)] whitespace-nowrap" data-node-id="4026:14385">
+          <div className="font-normal leading-[0] not-italic relative shrink-0 text-xxs-rem text-[var(--color-primary)] whitespace-nowrap" data-node-id="4026:14385">
             <p className="leading-[1.4]">Singh Transporters</p>
           </div>
         </div>
@@ -83,7 +83,7 @@ export const Graphs: React.FC<GraphsProps> = ({ className = '', asChild, ...prop
           <div className="flex items-center justify-center relative shrink-0 size-[var(--spacing-x3)]">
             <div className="bg-[#ffb3c3] size-[var(--spacing-x3)] rounded-sm" />
           </div>
-          <div className="font-normal leading-[0] not-italic relative shrink-0 text-[0.625rem] text-[var(--color-primary)] whitespace-nowrap" data-node-id="4026:14388">
+          <div className="font-normal leading-[0] not-italic relative shrink-0 text-xxs-rem text-[var(--color-primary)] whitespace-nowrap" data-node-id="4026:14388">
             <p className="leading-[1.4]">Others</p>
           </div>
         </div>

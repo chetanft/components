@@ -141,8 +141,8 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
         {/* Content column */}
         <div
           className={cn(
-            "flex-1 min-w-0 pb-6",
-            isRight ? "pr-3 text-right" : "pl-3",
+            "flex-1 min-w-0 pb-[var(--spacing-x6)]",
+            isRight ? "pr-[var(--spacing-x3)] text-right" : "pl-[var(--spacing-x3)]",
           )}
         >
           {rest}

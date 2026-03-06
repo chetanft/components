@@ -7,10 +7,10 @@ import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useModalContext } from './ModalContext';
 
 const modalSizes = {
-  sm: '400px',
-  md: '520px',
-  lg: '720px',
-  xl: '960px',
+  sm: '25rem',
+  md: '32.5rem',
+  lg: '45rem',
+  xl: '60rem',
   full: '90vw'
 };
 
@@ -193,4 +193,3 @@ export const ModalContent = React.forwardRef<HTMLDivElement, ModalContentProps>(
 );
 
 ModalContent.displayName = 'ModalContent';
-

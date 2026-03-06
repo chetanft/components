@@ -65,7 +65,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
     <Comp
       className={cn(
         getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', ''),
-        'flex flex-col items-center overflow-hidden px-0 py-[var(--spacing-x5)] rounded-[var(--spacing-x2)] shadow-[-6px_-6px_12px_0px_rgba(0,0,0,0.1),6px_6px_12px_0px_rgba(0,0,0,0.1)] w-[25rem]',
+        'flex flex-col items-center overflow-hidden px-0 py-[var(--spacing-x5)] rounded-[var(--spacing-x2)] shadow-[var(--shadow-lg)] w-[25rem]',
         className
       )}
       style={baseStyles}
@@ -85,7 +85,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
               <Typography variant="display-primary" color="primary">
                 {userName}
               </Typography>
-              <div className="bg-[var(--border-secondary)] flex gap-[var(--spacing-x2)] items-center justify-center px-[var(--spacing-x2)] py-[0.125rem] rounded-[var(--spacing-x1)] shrink-0">
+              <div className="bg-[var(--border-secondary)] flex gap-[var(--spacing-x2)] items-center justify-center px-[var(--spacing-x2)] py-[var(--spacing-x0-5)] rounded-[var(--spacing-x1)] shrink-0">
                 <Typography variant="body-secondary-semibold" color="primary">
                   {userBadge}
                 </Typography>
@@ -116,7 +116,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
           <button
             key={id}
             onClick={() => onMenuItemClick(id)}
-            className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[0.625rem] items-center p-[var(--spacing-x3)] relative rounded-[var(--spacing-x2)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
+            className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x2-5)] items-center p-[var(--spacing-x3)] relative rounded-[var(--spacing-x2)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
           >
             <div className="max-h-[var(--spacing-x7)] max-w-[var(--spacing-x7)] min-h-[var(--spacing-x4)] min-w-[var(--spacing-x4)] relative shrink-0 size-[var(--spacing-x4)]">
               <Icon
@@ -144,7 +144,7 @@ export const UserProfileDropdown: React.FC<UserProfileDropdownProps> = ({
       {/* Logout Item */}
       <button
         onClick={() => onMenuItemClick(logoutItem.id)}
-        className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[0.625rem] items-center px-[var(--spacing-x8)] py-[var(--spacing-x3)] relative rounded-[var(--spacing-x2)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
+        className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x2-5)] items-center px-[var(--spacing-x8)] py-[var(--spacing-x3)] relative rounded-[var(--spacing-x2)] shrink-0 w-full hover:bg-[var(--bg-secondary)] transition-colors text-left"
       >
         <div className="max-h-[var(--spacing-x7)] max-w-[var(--spacing-x7)] min-h-[var(--spacing-x4)] min-w-[var(--spacing-x4)] overflow-clip relative shrink-0 size-[var(--spacing-x4)]">
           <Icon

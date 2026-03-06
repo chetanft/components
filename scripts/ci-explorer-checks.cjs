@@ -29,6 +29,11 @@ const TRACKED_DOCS = [
   "docs/EXPLORER_QUALITY_TRIAGE.md",
   "docs/EXPLORER_VARIANT_CONTRACTS.md",
   "docs/EXPLORER_TREND_SNAPSHOT.md",
+  "docs/reports/explorer-inspector-coverage.json",
+  "docs/reports/explorer-inspector-coverage.md",
+  "docs/reports/explorer-inspector-validation.json",
+  "docs/reports/explorer-inspector-validation.md",
+  "docs/reports/explorer-inspector-baseline.json",
 ];
 
 const GENERATOR_SCRIPTS = [
@@ -40,6 +45,7 @@ const GENERATOR_SCRIPTS = [
   "scripts/generate-explorer-quality-triage.cjs",
   "scripts/generate-explorer-variant-contracts.cjs",
   "scripts/generate-explorer-trend-snapshot.cjs",
+  "scripts/generate-explorer-inspector-coverage.cjs",
 ];
 
 let failed = false;
@@ -47,6 +53,8 @@ const results = {
   contractCheck: null,
   duplicateStoryLint: null,
   storyTaxonomy: null,
+  inspectorSpec: null,
+  inspectorRegression: null,
   generators: [],
   staleDocs: [],
   errorChips: null,
@@ -72,7 +80,7 @@ function separator(title) {
 // ---------------------------------------------------------------------------
 // Step 1: Explorer contract validation
 // ---------------------------------------------------------------------------
-separator("Step 1/7: Explorer contract validation");
+separator("Step 1/9: Explorer contract validation");
 
 try {
   run("node scripts/check-explorer-contract.cjs");
@@ -87,7 +95,7 @@ try {
 // ---------------------------------------------------------------------------
 // Step 2: Duplicate story explorer lint
 // ---------------------------------------------------------------------------
-separator("Step 2/7: Duplicate story explorer lint");
+separator("Step 2/9: Duplicate story explorer lint");
 
 try {
   run("node scripts/check-duplicate-story-explorer.cjs");
@@ -102,7 +110,7 @@ try {
 // ---------------------------------------------------------------------------
 // Step 3: Story taxonomy checks (strict)
 // ---------------------------------------------------------------------------
-separator("Step 3/7: Story taxonomy checks");
+separator("Step 3/9: Story taxonomy checks");
 
 try {
   run("node scripts/ci-story-taxonomy-checks.cjs --strict", { capture: true });
@@ -115,9 +123,24 @@ try {
 }
 
 // ---------------------------------------------------------------------------
-// Step 4: Regenerate all explorer docs
+// Step 4: Inspector spec validation (strict)
 // ---------------------------------------------------------------------------
-separator("Step 4/7: Regenerate explorer docs");
+separator("Step 4/9: Inspector spec validation");
+
+try {
+  run("node scripts/check-explorer-inspector-spec.cjs --strict");
+  results.inspectorSpec = "pass";
+  console.log("Inspector spec validation passed.");
+} catch (err) {
+  results.inspectorSpec = "FAIL";
+  failed = true;
+  console.error("Inspector spec validation FAILED.");
+}
+
+// ---------------------------------------------------------------------------
+// Step 5: Regenerate all explorer docs
+// ---------------------------------------------------------------------------
+separator("Step 5/9: Regenerate explorer docs");
 
 for (const script of GENERATOR_SCRIPTS) {
   const label = path.basename(script);
@@ -132,9 +155,24 @@ for (const script of GENERATOR_SCRIPTS) {
 }
 
 // ---------------------------------------------------------------------------
-// Step 4: Check for stale docs via git diff
+// Step 6: Inspector regression checks
 // ---------------------------------------------------------------------------
-separator("Step 5/7: Check for stale docs (git diff)");
+separator("Step 6/9: Inspector regression checks");
+
+try {
+  run("node scripts/check-explorer-inspector-regression.cjs");
+  results.inspectorRegression = "pass";
+  console.log("Inspector regression checks passed.");
+} catch (err) {
+  results.inspectorRegression = "FAIL";
+  failed = true;
+  console.error("Inspector regression checks FAILED.");
+}
+
+// ---------------------------------------------------------------------------
+// Step 7: Check for stale docs via git diff
+// ---------------------------------------------------------------------------
+separator("Step 7/9: Check for stale docs (git diff)");
 
 for (const docPath of TRACKED_DOCS) {
   const absPath = path.join(ROOT, docPath);
@@ -165,9 +203,9 @@ if (results.staleDocs.length === 0) {
 }
 
 // ---------------------------------------------------------------------------
-// Step 5: Parse chip audit summary and fail if error chips > 0
+// Step 8: Parse chip audit summary and fail if error chips > 0
 // ---------------------------------------------------------------------------
-separator("Step 6/7: Check chip audit for error chips");
+separator("Step 8/9: Check chip audit for error chips");
 
 const chipAuditPath = path.join(ROOT, "docs/EXPLORER_CHIP_CONNECTION_AUDIT.md");
 
@@ -205,11 +243,13 @@ if (fs.existsSync(chipAuditPath)) {
 // ---------------------------------------------------------------------------
 // Step 6: Summary
 // ---------------------------------------------------------------------------
-separator("Step 7/7: Summary");
+separator("Step 9/9: Summary");
 
 console.log(`  Contract check:       ${results.contractCheck}`);
 console.log(`  Duplicate story lint: ${results.duplicateStoryLint}`);
 console.log(`  Story taxonomy:       ${results.storyTaxonomy}`);
+console.log(`  Inspector spec:       ${results.inspectorSpec}`);
+console.log(`  Inspector regression: ${results.inspectorRegression}`);
 for (const g of results.generators) {
   console.log(`  Generator ${g.script}: ${g.status}`);
 }

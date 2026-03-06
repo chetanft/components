@@ -55,12 +55,14 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, SwitchInputProps>(
       sm: {
         track: "w-[1.875rem] h-[var(--spacing-x4)]",
         thumb: "w-[0.875rem] h-[0.875rem]",
-        gap: "gap-[0.375rem]",
+        gap: "gap-[var(--spacing-x1-5)]",
+        text: "text-sm-rem",
       },
       md: {
         track: "w-[2.125rem] h-[0.875rem]",
         thumb: "w-[var(--spacing-x5)] h-[var(--spacing-x5)]",
         gap: "gap-[var(--spacing-x2)]",
+        text: "text-sm-rem",
       }
     };
 
@@ -69,6 +71,7 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, SwitchInputProps>(
     const trackStyles = cn(
       "relative inline-flex shrink-0 rounded-full border-0 transition-all duration-200 cursor-pointer",
       currentSize.track,
+      currentSize.text,
       isDisabled
         ? "bg-[var(--switch-disabled-bg)]"
         : checked
@@ -81,7 +84,7 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, SwitchInputProps>(
     );
 
     const thumbStyles = cn(
-      "absolute top-1/2 transform -translate-y-1/2 rounded-full transition-all duration-200 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.35)]",
+      "absolute top-1/2 transform -translate-y-1/2 rounded-full transition-all duration-200 shadow-[var(--shadow-sm)]",
       currentSize.thumb,
       checked
         ? "translate-x-[0.875rem]"
@@ -136,4 +139,3 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, SwitchInputProps>(
 );
 
 SwitchInput.displayName = 'SwitchInput';
-

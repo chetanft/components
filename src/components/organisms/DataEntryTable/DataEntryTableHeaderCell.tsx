@@ -77,10 +77,10 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
           className={cn("relative shrink-0", className)}
           {...restProps}
           style={{
-            width: 'var(--x12)',
+            width: 'var(--spacing-x12)',
             height: '3.125rem',
-            paddingLeft: 'var(--x5)',
-            paddingRight: 'var(--x2)',
+            paddingLeft: 'var(--spacing-x5)',
+            paddingRight: 'var(--spacing-x2)',
           }}
           {...props}
         />
@@ -99,8 +99,8 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
           style={{
             width: effectiveWidth,
             height: '3.125rem',
-            paddingLeft: 'var(--x2)',
-            paddingRight: 'var(--x2)',
+            paddingLeft: 'var(--spacing-x2)',
+            paddingRight: 'var(--spacing-x2)',
           }}
           {...props}
         >
@@ -109,7 +109,7 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
         {resizable && columnKey && (
           <th
             className="bg-transparent p-0 cursor-col-resize relative group"
-            style={{ width: 'var(--x1)' }}
+            style={{ width: 'var(--spacing-x1)' }}
             onMouseDown={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -121,7 +121,7 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
                 "absolute inset-y-0 w-full pointer-events-none",
                 "group-hover:bg-[var(--primary)]"
               )}
-              style={{ width: 'var(--x1)' }}
+              style={{ width: 'var(--spacing-x1)' }}
             />
           </th>
         )}

@@ -463,7 +463,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
                     {date.getDate()}
                   </span>
                   {dateCellRender && (
-                    <div className="w-full mt-1 text-xs overflow-hidden">
+                    <div className="w-full mt-[var(--spacing-x1)] text-xs overflow-hidden">
                       {dateCellRender(date)}
                     </div>
                   )}
@@ -504,7 +504,7 @@ export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
             >
               {month}
               {fullscreen && monthCellRender && (
-                <div className="mt-1 text-xs">
+                <div className="mt-[var(--spacing-x1)] text-xs">
                   {monthCellRender(monthDate)}
                 </div>
               )}

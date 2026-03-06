@@ -18,6 +18,15 @@ const meta: Meta<typeof ButtonGroup> = {
       },
     },
     explorer: {
+                                                                                                                                                                                                                                                                                                                                                                                                inspector: {
+                                                                                                                                                                                                  enabled: true,
+                                                                                                                                                                                                  defaultMode: 'token-spacing' as const,
+                                                                                                                                                                                                  spacingHints: {
+                                                                                                                                                                                                    outerXToken: 'x6',
+                                                                                                                                                                                                    outerYToken: 'x3',
+                                                                                                                                                                                                    innerGapToken: 'x2',
+                                                                                                                                                                                                  },
+                                                                                                                                                                                                },
       mode: 'matrix' as const,
       behavior: 'inline' as const,
       previewMode: 'inline' as const,

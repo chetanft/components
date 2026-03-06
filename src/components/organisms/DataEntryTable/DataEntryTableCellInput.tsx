@@ -129,7 +129,7 @@ export const DataEntryTableCellInput: React.FC<DataEntryTableCellInputProps> = (
   return (
     <div
       className={cn(
-        "flex items-center justify-between px-[var(--x3)] py-[var(--x0)]",
+        "flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x0)]",
         "h-[var(--component-height-md)]",
         "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid box-border",
         "relative shrink-0",
@@ -148,7 +148,7 @@ export const DataEntryTableCellInput: React.FC<DataEntryTableCellInputProps> = (
         }
       }}
     >
-      <div className="box-border flex flex-1 gap-[var(--x1)] h-[var(--component-height-md)] items-center min-h-px min-w-px px-[var(--x0)] py-[var(--x5)] relative rounded-[var(--radius-md)] shrink-0">
+      <div className="box-border flex flex-1 gap-[var(--spacing-x1)] h-[var(--component-height-md)] items-center min-h-px min-w-px px-[var(--spacing-x0)] py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
         <input
           ref={inputRef}
           type="text"

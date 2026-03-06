@@ -44,7 +44,7 @@ export const RadioGroupHelper = React.forwardRef<HTMLParagraphElement, RadioGrou
       <Comp
         ref={ref}
         id={helperId}
-        className={cn("mt-2 text-sm text-[var(--secondary)]", className)}
+        className={cn("mt-[var(--spacing-x2)] text-sm text-[var(--secondary)]", className)}
         {...props}
       >
         {children}

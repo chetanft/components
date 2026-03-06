@@ -45,7 +45,7 @@ export const InputSuccess = React.forwardRef<HTMLParagraphElement, InputSuccessP
         ref={ref}
         id={successId}
         role="alert"
-        className={cn("text-sm leading-relaxed mt-1.5 text-positive", className)}
+        className={cn("text-sm leading-relaxed mt-[var(--spacing-x1-5)] text-positive", className)}
         {...props}
       >
         {children}

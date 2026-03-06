@@ -52,7 +52,7 @@ export const PopconfirmIcon = React.forwardRef<HTMLDivElement, PopconfirmIconPro
     }
     
     return (
-      <div ref={ref} className={cn("flex-shrink-0 mt-0.5", className)} {...props}>
+      <div ref={ref} className={cn("flex-shrink-0 mt-[var(--spacing-x0-5)]", className)} {...props}>
         {children || <Icon name={iconName as any} size={16} className="text-[var(--color-warning)]" />}
       </div>
     );

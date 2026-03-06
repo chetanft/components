@@ -18,7 +18,7 @@ export const FigmaBadge: React.FC<FigmaBadgeProps> = ({ className, asChild, ...p
   return (
     <Comp
       className={cn(
-        "inline-flex items-center gap-1 px-2 py-0.5 rounded-[var(--radius-sm)]",
+        "inline-flex items-center gap-[var(--spacing-x1)] px-[var(--spacing-x2)] py-[var(--spacing-x0-5)] rounded-[var(--radius-sm)]",
         "bg-[var(--color-warning-light)] text-[var(--color-warning)] border border-[var(--color-warning)]",
         "text-xs font-medium",
         className
@@ -29,7 +29,7 @@ export const FigmaBadge: React.FC<FigmaBadgeProps> = ({ className, asChild, ...p
       title="Figma design not available - Component built using FT Design System tokens"
       {...props}
     >
-      <span className="text-[0.625rem]">⚠️</span>
+      <span className="text-xxs-rem">⚠️</span>
       <span>Figma design not available</span>
     </Comp>
   );

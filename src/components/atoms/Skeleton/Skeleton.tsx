@@ -72,7 +72,7 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
                             content: '';
                             position: absolute;
                             top: 0; left: 0; right: 0; bottom: 0;
-                            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+                            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent); /* audit:ok - shimmer effect */
                             animation: skeleton-wave 1.5s ease-in-out infinite;
                         }
                     `}</style>
@@ -131,7 +131,7 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
               background: linear-gradient(
                 90deg,
                 transparent,
-                rgba(255, 255, 255, 0.4),
+                rgba(255, 255, 255, 0.4), /* audit:ok - shimmer effect */
                 transparent
               );
               animation: skeleton-wave 1.5s ease-in-out infinite;

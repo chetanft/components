@@ -12,6 +12,15 @@ const meta: Meta<typeof Button> = {
       mode: 'matrix' as const,
       baseStory: 'ExplorerBase',
       previewMode: 'inline' as const,
+                                                                                                                                                                                                                                                                                                                                                                                                inspector: {
+                                                                                                                                                                                                  enabled: true,
+                                                                                                                                                                                                  defaultMode: 'token-spacing' as const,
+                                                                                                                                                                                                  spacingHints: {
+                                                                                                                                                                                                    outerXToken: 'x6',
+                                                                                                                                                                                                    outerYToken: 'x3',
+                                                                                                                                                                                                    innerGapToken: 'x2',
+                                                                                                                                                                                                  },
+                                                                                                                                                                                                },
       rows: [
         {
           id: 'style',

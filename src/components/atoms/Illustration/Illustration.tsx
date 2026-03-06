@@ -32,9 +32,9 @@ const sizeClasses: Record<IllustrationSize, string> = {
 
 const roundedClasses = {
   none: 'rounded-none',
-  sm: 'rounded-[0.75rem]',
-  md: 'rounded-[1rem]',
-  lg: 'rounded-[1.25rem]',
+  sm: 'rounded-[var(--radius-lg)]',
+  md: 'rounded-[var(--radius-xl)]',
+  lg: 'rounded-[var(--radius-2xl)]',
 };
 
 export const Illustration: React.FC<IllustrationProps> = ({
@@ -73,4 +73,3 @@ export const Illustration: React.FC<IllustrationProps> = ({
 };
 
 Illustration.displayName = 'Illustration';
-

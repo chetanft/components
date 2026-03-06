@@ -110,6 +110,28 @@
    /* #ffffff */
    --bg-secondary: var(--tertiary-100);
    /* #f8f8f9 */
+   --bg-tertiary: var(--tertiary-200);
+   /* #f4f4f6 */
+
+   /* Text Semantic Colors */
+   --text-primary: var(--primary-700);
+   /* #434f64 - main body text */
+   --text-secondary: var(--primary-500);
+   /* #5f697b - muted/secondary text */
+   --text-tertiary: var(--primary-300);
+   /* #838c9d - subtle/hint text */
+   --text-placeholder: var(--secondary-400);
+   /* #b6bac0 - placeholder text */
+   --text-disabled: var(--secondary-300);
+   /* #ced1d7 - disabled text */
+
+   /* Misc Semantic Colors */
+   --color-divider: var(--secondary-200);
+   /* #ebecef - divider/separator lines */
+   --color-primary-light: var(--neutral-100);
+   /* #ecf6ff - light primary accent bg */
+   --primary-bg-subtle: var(--neutral-100);
+   /* #ecf6ff - subtle primary background */
 
    /* =====================================================
      Token alias bridge (new naming scheme → legacy vars)
@@ -121,6 +143,7 @@
    --color-border-secondary: var(--border-secondary);
    --color-bg-primary: var(--bg-primary);
    --color-bg-secondary: var(--bg-secondary);
+   --color-bg-tertiary: var(--bg-tertiary);
    --color-critical: var(--critical);
    --color-critical-dark: var(--critical-dark);
    --color-critical-light: var(--critical-light);
@@ -140,6 +163,7 @@
    --font-weight-semibold: 600;
 
    --font-size-xs: 12px;
+   --font-size-xxs: 10px;
    --font-size-sm: 14px;
    --font-size-md: 16px;
    --font-size-lg: 20px;
@@ -164,6 +188,8 @@
 
    /* Typography Rem Values - Responsive (base: 14px, scales to 16px at >1440px) */
    --font-size-xs-rem: 0.857rem;
+   --font-size-xxs-rem: 0.714rem;
+   /* 10px / 14px */
    /* 12px / 14px */
    --font-size-sm-rem: 1rem;
    /* 14px / 14px */
@@ -179,6 +205,10 @@
    /* 36px / 14px */
    --font-size-4xl-rem: 3.429rem;
    /* 48px / 14px */
+   --font-size-3_5xl-rem: 2.5rem;
+   /* 40px / 16px parity */
+   --font-size-5xl-rem: 4.5rem;
+   /* 72px / 16px parity */
 
    --shadow-sm: 0 1px 2px 0 rgba(67, 79, 100, 0.05);
    --shadow-md: 0 4px 6px -1px rgba(67, 79, 100, 0.1);
@@ -368,6 +398,11 @@
    --radius-md: 8px;
    --radius-lg: 12px;
    --radius-xl: 16px;
+   --radius-2xl: 20px;
+   --radius-3xl: 24px;
+   --radius-4xl: 28px;
+   --radius-2xs: 2px;
+   --radius-smd: 6px;
    --radius-full: 9999px;
 
    /* Component System Variables */
@@ -379,21 +414,27 @@
    --component-gap-sm: 8px;
    --component-gap-md: 12px;
    --component-gap-lg: 16px;
+   --component-font-size-xxs: 12px;
+   --component-font-size-xs: 12px;
    --component-font-size-sm: 14px;
    --component-font-size-md: 14px;
    --component-font-size-lg: 16px;
    --component-font-size-xl: 18px;
    --component-font-weight: 500;
    --component-height-xxs: 16px;
+   --component-height-xs: 32px;
    --component-height-sm: 36px;
    --component-height-md: 40px;
    --component-height-lg: 48px;
    --component-height-xl: 64px;
+   --component-height-xxl: 72px;
    --component-padding-xxs: 2px 6px;
+   --component-padding-xs: 4px 8px;
    --component-padding-sm: 8px 12px;
    --component-padding-md: 12px 16px;
    --component-padding-lg: 16px 20px;
    --component-padding-xl: 20px 24px;
+   --component-padding-xxl: 24px 28px;
 
    /* Spacing System - 8-Point Grid */
    --x0: 0px;
@@ -438,6 +479,14 @@
    --spacing-x20: var(--x20);
    --spacing-x24: var(--x24);
    --spacing-x38: var(--x38);
+
+   /* Fractional spacing (half-steps) */
+   --spacing-x1-5: 6px;
+   /* 1.5 × 4px = 6px */
+   --spacing-x2-5: 10px;
+   /* 2.5 × 4px = 10px */
+   --spacing-x3-5: 14px;
+   /* 3.5 × 4px = 14px */
 
    /* Spacing Rem Values - Responsive (base: 14px, scales to 16px at >1440px) */
    /* Use for spacing that should scale with typography (padding, margins between text elements) */
@@ -1261,6 +1310,11 @@ body {
 }
 
 /* Rem-based text size utilities (responsive typography + line-height) */
+.text-xxs-rem {
+   font-size: var(--font-size-xxs-rem);
+   line-height: var(--lh-compact);
+}
+
 .text-xs-rem {
    font-size: var(--font-size-xs-rem);
    line-height: var(--lh-xs);
@@ -1299,6 +1353,16 @@ body {
 .text-4xl-rem {
    font-size: var(--font-size-4xl-rem);
    line-height: var(--lh-4xl);
+}
+
+.text-3_5xl-rem {
+   font-size: var(--font-size-3_5xl-rem);
+   line-height: var(--lh-4xl);
+}
+
+.text-5xl-rem {
+   font-size: var(--font-size-5xl-rem);
+   line-height: 1;
 }
 
 /* =====================================================

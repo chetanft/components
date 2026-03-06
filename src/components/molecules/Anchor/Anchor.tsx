@@ -48,7 +48,7 @@ export const AnchorLink: React.FC<AnchorLinkProps & { active?: boolean; onClick?
     <div className={cn("ft-anchor-link", className)}>
       <a
         className={cn(
-          "block relative transition-all duration-300 py-1 px-4 text-sm rounded-md",
+          "block relative transition-all duration-300 py-[var(--spacing-x1)] px-[var(--spacing-x4)] text-sm rounded-md",
           active
             ? "text-[var(--primary)] font-medium bg-[var(--primary-bg-subtle)]"
             : "text-[var(--text-secondary)] hover:text-[var(--primary)]"
@@ -60,7 +60,7 @@ export const AnchorLink: React.FC<AnchorLinkProps & { active?: boolean; onClick?
       >
         {title}
       </a>
-      {children && <div className="pl-4">{children}</div>}
+      {children && <div className="pl-[var(--spacing-x4)]">{children}</div>}
     </div>
   );
 };
@@ -181,7 +181,7 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
         <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[var(--border-primary)] opacity-50 ml-px" />
       )}
 
-      <div className={cn("relative z-10", direction === 'horizontal' ? "flex gap-2" : "flex flex-col gap-1")}>
+      <div className={cn("relative z-10", direction === 'horizontal' ? "flex gap-[var(--spacing-x2)]" : "flex flex-col gap-[var(--spacing-x1)]")}>
         {hasComposableChildren
           ? renderComposableChildren(children)
           : children

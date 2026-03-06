@@ -45,7 +45,7 @@ export const SwitchHelper = React.forwardRef<HTMLParagraphElement, SwitchHelperP
       <Comp
         ref={ref}
         id={helperId}
-        className={cn("basis-full w-full mt-1 text-sm text-[var(--secondary)]", className)}
+        className={cn("basis-full w-full mt-[var(--spacing-x1)] text-sm text-[var(--secondary)]", className)}
         style={{ marginLeft: `calc(${trackWidth} + var(--spacing-x2))`, ...props.style }}
         {...props}
       >

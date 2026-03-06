@@ -3,6 +3,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { useDescriptionsContext } from './Descriptions';
 
 export interface DescriptionsItemProps extends ComposableProps<'div'> {
   /**
@@ -41,12 +42,14 @@ export interface DescriptionsItemProps extends ComposableProps<'div'> {
  */
 export const DescriptionsItem = React.forwardRef<HTMLDivElement, DescriptionsItemProps>(
   ({ className, children, span = 1, asChild, ...props }, ref) => {
+    const { bordered } = useDescriptionsContext();
     const Comp = asChild ? Slot : 'div';
     return (
       <Comp
         ref={ref}
         className={cn(
           "flex flex-col",
+          bordered && "px-[var(--spacing-x4)] py-[var(--spacing-x3)]",
           className
         )}
         style={{

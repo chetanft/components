@@ -26,14 +26,14 @@ export interface DrawerContentProps extends ComposableProps<'div'> {
   
   /**
    * Drawer width (for left/right placement)
-   * CSS value (e.g., "400px", "50%") or number (pixels)
+   * CSS value (e.g., "25rem", "50%") or number (in CSS px units)
    * @default 400
    */
   width?: string | number;
   
   /**
    * Drawer height (for top/bottom placement)
-   * CSS value (e.g., "300px", "50vh") or number (pixels)
+   * CSS value (e.g., "18.75rem", "50vh") or number (in CSS px units)
    * @default '100%'
    */
   height?: string | number;
@@ -211,4 +211,3 @@ export const DrawerContent = React.forwardRef<HTMLDivElement, DrawerContentProps
 );
 
 DrawerContent.displayName = 'DrawerContent';
-

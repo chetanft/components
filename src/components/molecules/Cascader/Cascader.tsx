@@ -170,7 +170,7 @@ const CascaderColumn: React.FC<CascaderColumnProps> = ({
               {option.label}
             </span>
             {hasChildren && (
-              <Icon name="chevron-right" size={14} className="text-[var(--tertiary)] ml-2 flex-shrink-0" />
+              <Icon name="chevron-right" size={14} className="text-[var(--tertiary)] ml-[var(--spacing-x2)] flex-shrink-0" />
             )}
           </div>
         );

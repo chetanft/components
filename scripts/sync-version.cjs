@@ -18,8 +18,6 @@ const projectRoot = path.join(__dirname, '..');
 const rootPackageJsonPath = path.join(projectRoot, 'package.json');
 const docsPackageJsonPath = path.join(projectRoot, 'ft-docs', 'package.json');
 const changelogPath = path.join(projectRoot, 'CHANGELOG.md');
-const llmsPath = path.join(projectRoot, 'llms.txt');
-const aiContextPath = path.join(projectRoot, 'AI_CONTEXT.md');
 
 // Colors for console output
 const colors = {
@@ -53,28 +51,6 @@ function writeJsonFile(filePath, data) {
     log(`❌ Error writing ${filePath}: ${error.message}`, 'red');
     return false;
   }
-}
-
-function syncTextVersion(filePath, patterns, sourceVersion) {
-  if (!fs.existsSync(filePath)) {
-    log(`   ⚠️  ${path.relative(projectRoot, filePath)} not found, skipping`, 'yellow');
-    return true;
-  }
-
-  const original = fs.readFileSync(filePath, 'utf8');
-  let updated = original;
-  patterns.forEach(({ regex, replacer }) => {
-    updated = updated.replace(regex, replacer(sourceVersion));
-  });
-
-  if (updated !== original) {
-    fs.writeFileSync(filePath, updated, 'utf8');
-    log(`   ✅ Updated ${path.relative(projectRoot, filePath)} to ${sourceVersion}`, 'green');
-  } else {
-    log(`   ✅ ${path.relative(projectRoot, filePath)} already synced`, 'green');
-  }
-
-  return true;
 }
 
 function syncVersion() {
@@ -113,15 +89,9 @@ function syncVersion() {
     log(`   ⚠️  ft-docs/package.json not found, skipping`, 'yellow');
   }
 
-  // Step 3: Sync AI context/versioned docs
-  log('\n3️⃣ Syncing AI context files...', 'blue');
-  syncTextVersion(llmsPath, [
-    { regex: /# Version: .*/m, replacer: (v) => `# Version: ${v}` },
-    { regex: /version: .*/m, replacer: (v) => `version: ${v}` },
-  ], sourceVersion);
-  syncTextVersion(aiContextPath, [
-    { regex: /^> Version: .*$/m, replacer: (v) => `> Version: ${v} | Last Updated: 2026-03-02` },
-  ], sourceVersion);
+  // Step 3: AI context files (llms.txt, AI_CONTEXT.md) are now generated
+  // by sync-docs-data.cjs from templates — no need to patch them here.
+  log('\n3️⃣ AI context files handled by sync:docs (skipping)', 'cyan');
 
   // Step 4: Validate version consistency
   log('\n4️⃣ Validating version consistency...', 'blue');

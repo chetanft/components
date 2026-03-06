@@ -107,7 +107,7 @@ export const ReadOnly: React.FC<ReadOnlyProps> = ({
         )}
         {...props}
       >
-        <div className="box-border content-stretch flex gap-[0.625rem] items-center pb-0 pt-[0.125rem] px-0 relative shrink-0">
+        <div className="box-border content-stretch flex gap-[var(--spacing-x2-5)] items-center pb-0 pt-[var(--spacing-x0-5)] px-0 relative shrink-0">
           <div className="relative shrink-0 size-[var(--spacing-x4)]" data-name="Check- fill">
             <Icon name="check-fill" size={16} color="var(--secondary)" />
           </div>

@@ -56,7 +56,7 @@ export const NavigationLauncher: React.FC<NavigationLauncherProps> = ({
         type="button"
         onClick={toggle}
         aria-label="Open navigation"
-        className="rounded-full border border-[var(--border-primary)] p-[0.625rem] bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)] transition"
+        className="rounded-full border border-[var(--border-primary)] p-[var(--spacing-x2-5)] bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)] transition"
       >
         <svg width="20" height="20" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -84,7 +84,7 @@ export const NavigationLauncher: React.FC<NavigationLauncherProps> = ({
       )}
       onClick={close}
     >
-      <div className={cn('flex h-full w-full p-6 md:p-10', alignmentClass)}>
+      <div className={cn('flex h-full w-full p-[var(--spacing-x6)] md:p-[var(--spacing-x10)]', alignmentClass)}>
         <div
           onClick={(e) => e.stopPropagation()}
           className="max-w-[75rem] w-full"

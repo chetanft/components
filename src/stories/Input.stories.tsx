@@ -17,6 +17,15 @@ const meta: Meta<typeof Input> = {
       behavior: 'inline' as const,
       previewMode: 'inline' as const,
       baseStory: 'ExplorerBase',
+                                                                                                                                                                                                                                                                                                                                                                                                inspector: {
+                                                                                                                                                                                                  enabled: true,
+                                                                                                                                                                                                  defaultMode: 'token-spacing' as const,
+                                                                                                                                                                                                  spacingHints: {
+                                                                                                                                                                                                    outerXToken: 'x6',
+                                                                                                                                                                                                    outerYToken: 'x3',
+                                                                                                                                                                                                    innerGapToken: 'x2',
+                                                                                                                                                                                                  },
+                                                                                                                                                                                                },
       rows: [
         {
           id: 'style',

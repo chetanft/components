@@ -48,38 +48,38 @@ export const TextareaField = React.forwardRef<HTMLTextAreaElement, TextareaField
     
     const sizeStyles = {
       xxs: {
-        padding: 'px-1.5 py-1',
+        padding: 'px-[var(--spacing-x1-5)] py-[var(--spacing-x0-5)]',
         fontSize: 'text-xs-rem',
         minHeight: 'min-h-[var(--spacing-x8)]',
       },
       xs: {
-        padding: 'px-2 py-1.5',
-        fontSize: 'text-sm-rem',
+        padding: 'px-[var(--spacing-x2)] py-[var(--spacing-x1)]',
+        fontSize: 'text-xs-rem',
         minHeight: 'min-h-[var(--spacing-x10)]',
       },
       sm: {
-        padding: 'px-3 py-2',
+        padding: 'px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
         fontSize: 'text-sm-rem',
         minHeight: 'min-h-[var(--spacing-x12)]',
       },
       md: {
-        padding: 'px-3 py-2',
+        padding: 'px-[var(--spacing-x4)] py-[var(--spacing-x3)]',
         fontSize: 'text-sm-rem',
         minHeight: 'min-h-[3.5rem]',
       },
       lg: {
-        padding: 'px-5 py-4',
-        fontSize: 'text-lg-rem',
+        padding: 'px-[var(--spacing-x5)] py-[var(--spacing-x4)]',
+        fontSize: 'text-md-rem',
         minHeight: 'min-h-[var(--spacing-x16)]',
       },
       xl: {
-        padding: 'px-6 py-5',
-        fontSize: 'text-xl-rem',
+        padding: 'px-[var(--spacing-x6)] py-[var(--spacing-x5)]',
+        fontSize: 'text-md-rem',
         minHeight: 'min-h-[4.5rem]',
       },
       xxl: {
-        padding: 'px-7 py-6',
-        fontSize: 'text-xxl-rem',
+        padding: 'px-[var(--spacing-x7)] py-[var(--spacing-x6)]',
+        fontSize: 'text-lg-rem',
         minHeight: 'min-h-[var(--spacing-x20)]',
       },
     };
@@ -155,4 +155,3 @@ export const TextareaField = React.forwardRef<HTMLTextAreaElement, TextareaField
 );
 
 TextareaField.displayName = 'TextareaField';
-

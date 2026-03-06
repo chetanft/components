@@ -311,7 +311,7 @@ export const DropdownMenuItem = React.forwardRef<
             {children || label}
           </div>
           {description && (
-            <div className="text-xs text-[var(--color-tertiary)] truncate mt-[0.125rem]">
+            <div className="text-xs text-[var(--color-tertiary)] truncate mt-[var(--spacing-x0-5)]">
               {description}
             </div>
           )}

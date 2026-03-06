@@ -163,8 +163,8 @@ export const RadioSelectorOption = React.forwardRef<HTMLLabelElement, RadioSelec
           "bg-[var(--bg-secondary)]",
           selected && "border border-[var(--primary)]",
           !selected && [
-            "hover:bg-[var(--border-secondary)] hover:shadow-[0px_0px_0px_2px_rgba(206,209,215,1)]",
-            "focus-visible:bg-[var(--border-primary)] focus-visible:shadow-[0px_0px_0px_2px_rgba(0,0,0,0.25)]"
+            "hover:bg-[var(--border-secondary)] hover:shadow-[0px_0px_0px_2px_var(--secondary-300)]",
+            "focus-visible:bg-[var(--border-primary)] focus-visible:shadow-[var(--shadow-sm)]"
           ]
         ),
       className
@@ -204,7 +204,7 @@ export const RadioSelectorOption = React.forwardRef<HTMLLabelElement, RadioSelec
 
         <div className={contentContainerStyles}>
           {showRadio && (
-            <div className="relative shrink-0 mt-[0.125rem]">
+            <div className="relative shrink-0 mt-[var(--spacing-x0-5)]">
               <div className={radioStyles}>
                 {selected && (
                   <div className="absolute inset-0 flex items-center justify-center">

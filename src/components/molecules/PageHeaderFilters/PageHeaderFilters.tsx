@@ -35,8 +35,8 @@ export interface PageHeaderFiltersProps extends ComposableProps<'div'> {
  * PageHeaderFilters Component
  * 
  * Container component that manages filter layout and responsive behavior.
- * On desktop (≥1200px), filters are displayed in a horizontal row.
- * On mobile (<1200px), filters convert to icon buttons with dropdown menus.
+ * On desktop (>=1200 breakpoint), filters are displayed in a horizontal row.
+ * On mobile (<1200 breakpoint), filters convert to icon buttons with dropdown menus.
  * 
  * @public
  * 
@@ -90,4 +90,3 @@ export const PageHeaderFilters = React.forwardRef<HTMLDivElement, PageHeaderFilt
 );
 
 PageHeaderFilters.displayName = 'PageHeaderFilters';
-

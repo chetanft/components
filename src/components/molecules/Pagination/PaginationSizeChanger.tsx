@@ -65,7 +65,7 @@ export const PaginationSizeChanger = React.forwardRef<HTMLDivElement, Pagination
         )) as React.ReactElement;
 
         return (
-            <Comp ref={ref} className={cn("flex items-center gap-2 ml-4", className)} {...props}>
+            <Comp ref={ref} className={cn("flex items-center gap-[var(--spacing-x2)] ml-[var(--spacing-x4)]", className)} {...props}>
                 {content}
             </Comp>
         );

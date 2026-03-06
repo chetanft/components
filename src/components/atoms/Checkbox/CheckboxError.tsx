@@ -41,18 +41,18 @@ export const CheckboxError = React.forwardRef<HTMLParagraphElement, CheckboxErro
     const Comp = asChild ? Slot : 'p';
     
     const sizeConfig = {
-      sm: { checkbox: "w-4", gap: "gap-2" },
-      md: { checkbox: "w-5", gap: "gap-2.5" }
+      sm: { checkboxWidth: "var(--spacing-x4)", gap: "var(--spacing-x2)", text: "text-sm-rem" },
+      md: { checkboxWidth: "var(--spacing-x5)", gap: "var(--spacing-x2-5)", text: "text-sm-rem" }
     };
 
     const currentSize = sizeConfig[size];
-    const marginLeft = `calc(${currentSize.checkbox.replace('w-', '')} * 0.25rem + ${currentSize.gap.replace('gap-', '').replace('[', '').replace(']', '')} * 0.25rem)`;
+    const marginLeft = `calc(${currentSize.checkboxWidth} + ${currentSize.gap})`;
     
     return (
       <Comp
         ref={ref}
         role="alert"
-        className={cn("basis-full w-full text-sm leading-relaxed mt-1 text-critical", className)}
+        className={cn("basis-full w-full leading-relaxed mt-[var(--spacing-x1)] text-critical", currentSize.text, className)}
         style={{ marginLeft, ...props.style }}
         {...props}
       >

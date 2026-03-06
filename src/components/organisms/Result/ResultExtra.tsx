@@ -14,7 +14,7 @@ export const ResultExtra = React.forwardRef<HTMLDivElement, ResultExtraProps>(
     return (
       <Comp
         ref={ref}
-        className={cn("flex flex-wrap items-center justify-center gap-[var(--x3)] mb-[var(--x6)]", className)}
+        className={cn("flex flex-wrap items-center justify-center gap-[var(--spacing-x3)] mb-[var(--spacing-x6)]", className)}
         {...props}
       >
         {children}

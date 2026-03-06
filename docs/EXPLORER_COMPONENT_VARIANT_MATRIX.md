@@ -7,8 +7,8 @@ Correctness check meaning:
 - `Partial config`: has `explorer` but missing required default IDs
 - `Not configured`: no `explorer` block
 
-Summary: 103 component rows, 97 configured, 2 partial, 4 not configured.
-Deduping: reduced 105 story files to 103 component rows using priority (configured > partial > not configured, `src/components` > `src/stories`).
+Summary: 104 component rows, 97 configured, 2 partial, 5 not configured.
+Deduping: reduced 106 story files to 104 component rows using priority (configured > partial > not configured, `src/components` > `src/stories`).
 Duplicate component-name groups collapsed: 2.
 
 | Component | Type Variants | Style Variants | State Variants | Size Variants | Shape Variants | Content Variants | Other Axes | Correctness Check | Notes | Story File |
@@ -50,6 +50,7 @@ Duplicate component-name groups collapsed: 2.
 | FloatButton | Basic, WithType, Group | — | — | — | — | — | — | Configured | no ExplorerBase export | src/components/molecules/FloatButton/FloatButton.stories.tsx |
 | Footer | Default, Two Buttons, Three Buttons, Four Buttons, With Left Side, Custom Buttons | — | — | — | — | — | — | Configured | — | src/components/organisms/Footer/Footer.stories.tsx |
 | Form | — | — | Default, With Validation | — | — | — | Layout: Vertical, Horizontal | Configured | — | src/components/organisms/Form/Form.stories.tsx |
+| FormulaTokenDisplay | — | — | — | — | — | — | — | Not configured | — | src/stories/FormulaBuilderSubComponents.stories.tsx |
 | Grid | Basic Grid, Gutter, Offset, Flex Layout | — | — | — | — | — | Layout: Vertical Align, Justify | Configured | — | src/components/organisms/Grid/Grid.stories.tsx |
 | GridDrawer | — | — | — | — | — | — | — | Not configured | — | src/components/organisms/Drawer/GridDrawer.stories.tsx |
 | HoverCard | — | — | Default, Disabled Trigger | — | — | User Card | Behavior: Top, Bottom, Left, Right | Configured | — | src/components/molecules/HoverCard/HoverCard.stories.tsx |

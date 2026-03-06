@@ -14,7 +14,7 @@ export const ResultIcon = React.forwardRef<HTMLDivElement, ResultIconProps>(
     return (
       <Comp
         ref={ref}
-        className={cn("mb-[var(--x6)]", className)}
+        className={cn("mb-[var(--spacing-x6)]", className)}
         {...props}
       >
         {children}

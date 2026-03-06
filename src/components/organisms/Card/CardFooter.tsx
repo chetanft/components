@@ -3,7 +3,6 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Divider } from '../../atoms/Divider';
-import { Spacer } from '../../atoms/Spacer';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface CardFooterProps extends ComposableProps<'div'> {
@@ -25,9 +24,8 @@ export interface CardFooterProps extends ComposableProps<'div'> {
  * Renders a divider line followed by footer content.
  *
  * Matches Figma `.card_footer`:
- * - Full-width divider with py-x4 vertical rhythm
- * - Spacer (x5)
- * - Footer container with optional px-x5 padding
+ * - Full-width divider
+ * - Footer container with padding
  *
  * @public
  */
@@ -43,16 +41,11 @@ export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
         )}
         {...props}
       >
-        {/* Divider — matches Figma py-x4 rhythm */}
-        <div className="flex items-center justify-between py-[var(--spacing-x4)] w-full">
-          <Divider type="primary" className="flex-1" />
-        </div>
-
-        <Spacer size="x5" />
+        <Divider type="primary" className="w-full" />
 
         {/* Footer container */}
         <div className={cn(
-          "flex gap-[var(--spacing-x4)] items-center relative shrink-0 w-full",
+          "flex gap-[var(--spacing-x4)] items-center relative shrink-0 w-full py-[var(--spacing-x5)]",
           padding ? "px-[var(--spacing-x5)]" : ""
         )}>
           {children}

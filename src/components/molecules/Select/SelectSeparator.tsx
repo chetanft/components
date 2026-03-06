@@ -25,7 +25,7 @@ export const SelectSeparator = React.forwardRef<HTMLDivElement, SelectSeparatorP
         ref={ref}
         role="separator"
         className={cn(
-          '-mx-1 my-1 h-px bg-[var(--border-primary)]',
+          '-mx-[var(--spacing-x1)] my-[var(--spacing-x1)] h-px bg-[var(--border-primary)]',
           className
         )}
         {...props}

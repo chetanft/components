@@ -37,13 +37,13 @@ const DESIGN_TOKENS = {
     '#006ed3': 'neutral700 / neutral.dark',
     '#ecf6ff': 'neutral100 / neutral.light',
     '#000000': 'black',
-    '#121314': 'tertiary900 / black',
-    '#1a2330': 'primary900',
-    '#2c3547': 'primary800',
-    '#49556a': 'primary600',
-    '#6c7689': 'primary400',
-    '#9aa3b2': 'primary200',
-    '#c5cad3': 'primary100',
+    '#121314': 'tertiary-900 / black',
+    '#1a2330': 'primary-900',
+    '#2c3547': 'primary-800',
+    '#49556a': 'primary-600',
+    '#6c7689': 'primary-400',
+    '#9aa3b2': 'primary-200',
+    '#c5cad3': 'primary-100',
   },
   spacing: {
     '0px': 'x0', '4px': 'x1', '8px': 'x2', '12px': 'x3', '16px': 'x4',
@@ -106,6 +106,11 @@ function matchesToken(value, category) {
   return null;
 }
 
+function isLineIgnored(lines, lineIndex) {
+  const lineContent = lines[lineIndex] || '';
+  return /\baudit:ok\b/.test(lineContent);
+}
+
 function extractHexColors(text) {
   const lines = text.split('\n');
   const pattern = /#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})\b/g;
@@ -114,7 +119,7 @@ function extractHexColors(text) {
   while ((match = pattern.exec(text)) !== null) {
     const lineIndex = text.substring(0, match.index).split('\n').length - 1;
     const lineContent = lines[lineIndex] || '';
-    if (lineContent.includes('getCssVar(')) {
+    if (lineContent.includes('getCssVar(') || isLineIgnored(lines, lineIndex)) {
       continue;
     }
     const normalized = normalizeHex(match[0]);
@@ -126,11 +131,16 @@ function extractHexColors(text) {
 }
 
 function extractRgbaColors(text) {
+  const lines = text.split('\n');
   const pattern = /rgba?\([^)]+\)/g;
   const matches = [];
   let match;
   while ((match = pattern.exec(text)) !== null) {
-    matches.push({ value: match[0], line: text.substring(0, match.index).split('\n').length });
+    const lineIndex = text.substring(0, match.index).split('\n').length - 1;
+    if (isLineIgnored(lines, lineIndex)) {
+      continue;
+    }
+    matches.push({ value: match[0], line: lineIndex + 1 });
   }
   return matches;
 }
@@ -169,12 +179,19 @@ function analyzeFile(filePath) {
   extractHexColors(content).forEach(({ original, normalized, line }) => {
     const tokenMatch = matchesToken(normalized, 'colors');
     if (tokenMatch) {
+      // Build a useful shouldUse suggestion from the token alias chain
+      const aliases = tokenMatch.split(' / ');
+      // Prefer semantic alias (e.g. "critical.default") over scale name (e.g. "danger500")
+      const semantic = aliases.find((a) => a.includes('.') || !a.match(/\d/)) || aliases[0];
+      const shouldUse = semantic.includes('.')
+        ? `var(--${semantic.replace('.', '-')})`  // "critical.default" → "--critical-default" → use --critical
+        : `var(--${semantic})`;                   // "black" → "--black"
       issues.hexColors.push({
         value: original,
         normalized,
         line,
         token: tokenMatch,
-        shouldUse: `var(--color-${tokenMatch.split(' / ')[0].toLowerCase().replace(/\d+/g, '')})`,
+        shouldUse: shouldUse.replace('-default', ''), // --critical-default → --critical
       });
     }
   });

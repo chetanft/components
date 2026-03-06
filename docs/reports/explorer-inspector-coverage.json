@@ -1,0 +1,804 @@
+{
+  "generatedAt": "2026-03-06T02:59:22.701Z",
+  "summary": {
+    "totalExplorerStories": 99,
+    "withInspector": 99,
+    "withHints": 99,
+    "boxModelSupported": 99,
+    "tokenExactOrConfigured": 99
+  },
+  "records": [
+    {
+      "file": "src/components/atoms/Avatar/Avatar.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Badge/Badge.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Button/Button.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Checkbox/Checkbox.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Divider/Divider.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Icons/Icon.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Illustration/Illustration.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Logos/Logo.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/RadioGroup/RadioGroup.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Spacer/Spacer.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Spin/Spin.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Statistic/Statistic.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/SubText/SubText.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Switch/Switch.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Text/Text.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Textarea/Textarea.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Toggle/Toggle.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/atoms/Typography/Typography.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Affix/Affix.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Alert/Alert.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Anchor/Anchor.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/BackTop/BackTop.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Breadcrumb/Breadcrumb.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/ButtonGroup/ButtonGroup.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Calendar/Calendar.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Carousel/Carousel.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Cascader/Cascader.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Chicklet/Chicklet.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/ColorPicker/ColorPicker.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/DatePicker/DatePicker.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Descriptions/Descriptions.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Dropdown/Dropdown.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/DropdownMenu/DropdownMenu.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Empty/Empty.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/FloatButton/FloatButton.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/HoverCard/HoverCard.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Image/Image.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/InputNumber/InputNumber.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/List/List.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Loader/Loader.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Mentions/Mentions.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Notification/Notification.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Pagination/Pagination.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Popconfirm/Popconfirm.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/ProgressBar/ProgressBar.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/ProgressList/ProgressList.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/RadioSelector/RadioSelector.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Rate/Rate.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/SegmentedTabs/SegmentedTabs.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/SimpleColumnLayout/SimpleColumnLayout.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Slider/Slider.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/StackedBarChart/StackedBarChart.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Steps/Steps.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Timeline/Timeline.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/TimePicker/TimePicker.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/ToggleGroup/ToggleGroup.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Tooltip/Tooltip.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Tour/Tour.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Transfer/Transfer.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Tree/Tree.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/TreeSelect/TreeSelect.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/UploadItem/UploadItem.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/UploadThumbnail/UploadThumbnail.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/molecules/Watermark/Watermark.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/Card/Card.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/Collapsible/Collapsible.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/DataEntryTable/DataEntryTable.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/Drawer/Drawer.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/Footer/Footer.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/Form/Form.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/Grid/Grid.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/Modal/Modal.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/PageHeader/PageHeader.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/QuickFilters/QuickFilters.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/Result/Result.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/Table/TableComposable.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/Tabs/Tabs.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/components/organisms/Upload/Upload.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/AppHeader.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/AreaChart.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/ColorSystem.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/FileCard.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/FileThumbnail.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/FileTypeIcon.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/FileValidationCard.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/Input.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/Label.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/LineChart.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/NavigationLauncher.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/NavigationPopover.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/PieChart.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/RadarChart.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/RadialChart.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/ReadOnly.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/Table.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/ThemeSystem.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/UploadButton.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/UploadZone.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    },
+    {
+      "file": "src/stories/UserProfile.stories.tsx",
+      "hasInspector": true,
+      "hasHints": true,
+      "defaultMode": "token-spacing",
+      "boxModelSupported": true,
+      "tokenSpacingCoverage": "exact-or-configured"
+    }
+  ]
+}

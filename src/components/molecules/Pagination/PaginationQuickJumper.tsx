@@ -80,7 +80,7 @@ export const PaginationQuickJumper = React.forwardRef<HTMLDivElement, Pagination
                             onChange={(e) => setValue(e.target.value)}
                             onKeyDown={handleKeyDown}
                             className={cn(
-                                "w-16 px-2 py-1.5 rounded-[var(--radius-md)]",
+                                "w-16 px-[var(--spacing-x2)] py-[var(--spacing-x1-5)] rounded-[var(--radius-md)]",
                                 "border border-[var(--border-primary)]",
                                 "text-sm",
                                 "focus:outline-none focus:ring-2 focus:ring-[var(--neutral)] focus:ring-opacity-20",
@@ -95,7 +95,7 @@ export const PaginationQuickJumper = React.forwardRef<HTMLDivElement, Pagination
         )) as React.ReactElement;
 
         return (
-            <Comp ref={ref} className={cn("flex items-center gap-2 ml-4", className)} {...props}>
+            <Comp ref={ref} className={cn("flex items-center gap-[var(--spacing-x2)] ml-[var(--spacing-x4)]", className)} {...props}>
                 {content}
             </Comp>
         );

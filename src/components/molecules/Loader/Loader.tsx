@@ -111,11 +111,11 @@ export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
         {showProgressBar && (
           <div 
             className={cn(
-              "content-stretch flex flex-col gap-[var(--x2)] items-start relative rounded-full shrink-0 w-full",
+              "content-stretch flex flex-col gap-[var(--spacing-x2)] items-start relative rounded-full shrink-0 w-full",
               progressClassName
             )}
             style={{ 
-              height: progressHeight ?? 'var(--x2)',
+              height: progressHeight ?? 'var(--spacing-x2)',
               backgroundColor: 'var(--border-primary)',
               ...(progressStyle || {})
             }}
@@ -127,7 +127,7 @@ export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
               )}
               style={{
                 width: `${clampedValue}%`,
-                height: progressHeight ?? 'var(--x2)',
+                height: progressHeight ?? 'var(--spacing-x2)',
                 backgroundColor: 'var(--primary)',
                 ...(progressBarStyle || {})
               }}

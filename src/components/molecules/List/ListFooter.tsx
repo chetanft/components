@@ -43,7 +43,7 @@ export const ListFooter = React.forwardRef<HTMLDivElement, ListFooterProps>(
       <Comp
         ref={ref}
         className={cn(
-          "border-t border-[var(--color-border-secondary)]",
+          "border-t border-[var(--color-border-secondary)] px-[var(--spacing-x4)] py-[var(--spacing-x3)]",
           className
         )}
         {...props}

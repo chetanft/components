@@ -58,8 +58,8 @@ export interface FilterDropdownProps {
 /**
  * FilterDropdown Component
  * 
- * A responsive dropdown filter that shows full dropdown on desktop (≥1200px)
- * and icon button with dropdown menu on mobile (<1200px).
+ * A responsive dropdown filter that shows full dropdown on desktop (>=1200 breakpoint)
+ * and icon button with dropdown menu on mobile (<1200 breakpoint).
  * 
  * Works standalone or with PageHeaderFiltersProvider for multi-filter coordination.
  * 
@@ -86,7 +86,7 @@ export interface FilterDropdownProps {
 export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownProps>(
   ({ id, value, onChange, options, placeholder, icon = 'chevron-down', label, className, glass }, ref) => {
     const resolvedGlass = useResolvedGlass(glass);
-    const isMobile = useMediaQuery('(max-width: 1199px)');
+    const isMobile = useMediaQuery('(max-width: 74.9375em)');
     
     // Use context if available, otherwise fall back to local state (standalone mode)
     const context = usePageHeaderFiltersOptional();
@@ -305,4 +305,3 @@ export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownPro
 );
 
 FilterDropdown.displayName = 'FilterDropdown';
-

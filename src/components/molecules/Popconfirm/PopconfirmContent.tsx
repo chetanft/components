@@ -64,10 +64,10 @@ export const PopconfirmContent = React.forwardRef<HTMLDivElement, PopconfirmCont
     if (!open) return null;
     
     const placementStyles = {
-      top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
-      bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
-      left: 'right-full top-1/2 -translate-y-1/2 mr-2',
-      right: 'left-full top-1/2 -translate-y-1/2 ml-2',
+      top: 'bottom-full left-1/2 -translate-x-1/2 mb-[var(--spacing-x2)]',
+      bottom: 'top-full left-1/2 -translate-x-1/2 mt-[var(--spacing-x2)]',
+      left: 'right-full top-1/2 -translate-y-1/2 mr-[var(--spacing-x2)]',
+      right: 'left-full top-1/2 -translate-y-1/2 ml-[var(--spacing-x2)]',
     };
     
     const Comp = asChild ? Slot : 'div';
@@ -75,7 +75,7 @@ export const PopconfirmContent = React.forwardRef<HTMLDivElement, PopconfirmCont
       <Comp
         ref={ref}
         className={cn(
-          "absolute z-50 min-w-[200px] max-w-[300px]",
+          "absolute z-50 min-w-[calc(var(--spacing-x10)*5)] max-w-[calc(var(--spacing-x10)*7+var(--spacing-x5))]",
           "rounded-[var(--radius-md)]",
           getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--color-border-secondary)]'),
           "p-[var(--spacing-x4)]",
@@ -92,4 +92,3 @@ export const PopconfirmContent = React.forwardRef<HTMLDivElement, PopconfirmCont
 );
 
 PopconfirmContent.displayName = 'PopconfirmContent';
-

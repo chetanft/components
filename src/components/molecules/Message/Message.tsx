@@ -101,8 +101,8 @@ const MessageItem: React.FC<{
   return (
     <div
       className={cn(
-        "flex items-center gap-[var(--x3)]",
-        "px-[var(--x4)] py-[var(--x3)]",
+        "flex items-center gap-[var(--spacing-x3)]",
+        "px-[var(--spacing-x4)] py-[var(--spacing-x3)]",
         "rounded-[var(--radius-md)]",
         "shadow-lg",
         "animate-in fade-in slide-in-from-top-[var(--spacing-x2)] duration-200",
@@ -201,9 +201,9 @@ export const MessageContainer: React.FC<{ children: React.ReactNode }> = ({ chil
       {mounted && createPortal(
         <div
           className={cn(
-            "fixed top-[var(--x4)] left-1/2 -translate-x-1/2",
+            "fixed top-[var(--spacing-x4)] left-1/2 -translate-x-1/2",
             "z-[1080]",
-            "flex flex-col items-center gap-[var(--x2)]",
+            "flex flex-col items-center gap-[var(--spacing-x2)]",
             "pointer-events-none"
           )}
         >
@@ -332,8 +332,8 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
       <div
         ref={ref}
         className={cn(
-          "flex items-center gap-[var(--x3)]",
-          "px-[var(--x4)] py-[var(--x3)]",
+          "flex items-center gap-[var(--spacing-x3)]",
+          "px-[var(--spacing-x4)] py-[var(--spacing-x3)]",
           "rounded-[var(--radius-md)]",
           resolvedGlass && getGlassClasses(resolvedGlass),
           className
@@ -360,7 +360,7 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
         {closable && (
           <button
             onClick={onClose}
-            className="p-1 text-[var(--tertiary)] hover:text-[var(--primary)] transition-colors"
+            className="p-[var(--spacing-x1)] text-[var(--tertiary)] hover:text-[var(--primary)] transition-colors"
           >
             <Icon name="cross" size={14} />
           </button>

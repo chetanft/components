@@ -31,6 +31,15 @@ jobs:
       - name: Run token checks
         run: npm run check:tokens
 
+      - name: Run consistency checks
+        run: npm run check:consistency
+
+      - name: Run size contract checks
+        run: npm run check:size-contract
+
+      - name: Run explorer inspector coverage check
+        run: npm run check:explorer-inspector
+
       - name: Run tests
         run: npm test
 

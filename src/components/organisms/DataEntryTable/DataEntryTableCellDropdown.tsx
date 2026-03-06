@@ -153,7 +153,7 @@ export const DataEntryTableCellDropdown: React.FC<DataEntryTableCellDropdownProp
       <div
         ref={triggerRef}
         className={cn(
-          "flex items-center justify-between px-[var(--x3)] py-[var(--x0)]",
+          "flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x0)]",
           "h-[var(--component-height-md)]",
           "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid box-border",
           "relative shrink-0",
@@ -171,7 +171,7 @@ export const DataEntryTableCellDropdown: React.FC<DataEntryTableCellDropdownProp
           }
         }}
       >
-        <div className="box-border flex flex-1 gap-[var(--x1)] h-[var(--component-height-md)] items-center min-h-px min-w-px px-[var(--x0)] py-[var(--x5)] relative rounded-[var(--radius-md)] shrink-0">
+        <div className="box-border flex flex-1 gap-[var(--spacing-x1)] h-[var(--component-height-md)] items-center min-h-px min-w-px px-[var(--spacing-x0)] py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
           <p className={cn(
             "flex-1 font-normal leading-[1.4] min-h-px min-w-px overflow-ellipsis overflow-hidden relative shrink-0 whitespace-nowrap",
             hasValue ? "text-[var(--primary)]" : "text-[var(--tertiary)]",
@@ -209,7 +209,7 @@ export const DataEntryTableCellDropdown: React.FC<DataEntryTableCellDropdownProp
             width: `${dropdownPosition.width}px`,
           }}
         >
-          <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--radius-md)] shadow-lg overflow-y-auto" style={{ maxHeight: 'var(--x20)' }}>
+          <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--radius-md)] shadow-lg overflow-y-auto" style={{ maxHeight: 'var(--spacing-x20)' }}>
             {options.map((option) => (
               <button
                 key={String(option.value)}

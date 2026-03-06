@@ -1,7 +1,9 @@
 "use client"
 
-import { Package, ExternalLink } from "lucide-react"
+import { Package } from "lucide-react"
 import { useViewMode } from "@/components/view-mode-context"
+import { SYSTEM_VERSION, COMPONENT_COUNT } from "@/data/design-system.generated"
+import { DocPageHeader, DocSection, DocCodeBlock, DocLinkCard, DocCard, DocBottomNav } from "@/components/docs"
 
 const machineSpec = `# FT Design System — NPM Package
 PACKAGE: ft-design-system
@@ -23,10 +25,11 @@ module.exports = {
 }
 
 ## Package Includes
-- 50+ production-ready React components
+- ${COMPONENT_COUNT} production-ready React components
 - 190+ custom icons with TypeScript support
 - Full TypeScript definitions
 - AI-protected components for coding assistants
+- Quality gates: npm run check:tokens, npm run check:drift
 - WCAG AA accessibility compliant`
 
 export default function NPMPackagePage() {
@@ -34,59 +37,45 @@ export default function NPMPackagePage() {
 
     if (viewMode === 'machine') {
         return (
-            <pre className="whitespace-pre-wrap font-mono" style={{ fontSize: 'var(--font-size-xs-rem)', color: 'var(--primary)', lineHeight: 1.7 }}>
+            <pre className="whitespace-pre-wrap font-mono text-xs-rem leading-relaxed">
                 {machineSpec}
             </pre>
         )
     }
 
     return (
-        <div className="space-y-6">
-            <div>
-                <h1 className="text-3xl-rem font-bold mb-2">NPM Package</h1>
-                <p className="text-muted-foreground">
-                    Install and use ft-design-system in your React projects
-                </p>
-            </div>
+        <div className="space-y-8">
+            <DocPageHeader
+                title="NPM Package"
+                description="Install and use ft-design-system in your React projects"
+                badge={`v${SYSTEM_VERSION}`}
+            />
 
             <div className="grid gap-4 md:grid-cols-2">
-                <a
+                <DocLinkCard
                     href="https://www.npmjs.com/package/ft-design-system"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 rounded-lg border border-border bg-surface p-4 transition-all hover:border-primary hover:shadow-lg"
-                >
-                    <Package className="h-8 w-8 text-primary" />
-                    <div className="flex-1">
-                        <h3 className="font-semibold">ft-design-system</h3>
-                        <p className="text-sm-rem text-muted-foreground">View on npmjs.com</p>
+                    title="ft-design-system"
+                    subtitle="View on npmjs.com"
+                    icon={<Package className="h-6 w-6" />}
+                />
+                <div className="flex items-center gap-4 rounded-lg border border-border bg-surface p-5">
+                    <div className="shrink-0 w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-primary">
+                        <Package className="h-6 w-6" />
                     </div>
-                    <ExternalLink className="h-4 w-4 text-muted-foreground" />
-                </a>
-
-                <div className="flex items-center gap-3 rounded-lg border border-border bg-surface p-4">
-                    <Package className="h-8 w-8 text-primary" />
                     <div className="flex-1">
-                        <h3 className="font-semibold">Version</h3>
-                        <p className="text-sm-rem text-muted-foreground">v4.13.9</p>
+                        <p className="font-semibold text-md-rem">Version</p>
+                        <p className="text-sm-rem text-muted-foreground">v{SYSTEM_VERSION}</p>
                     </div>
                 </div>
             </div>
 
-            <div className="space-y-2">
-                <h2 className="text-xl-rem font-semibold">Installation</h2>
-                <div className="rounded-lg border bg-muted p-4">
-                    <pre className="text-sm-rem font-mono">
-                        npm install ft-design-system
-                    </pre>
-                </div>
-            </div>
+            <DocSection title="Installation">
+                <DocCodeBlock code="npm install ft-design-system" lang="bash" filename="Terminal" />
+            </DocSection>
 
-            <div className="space-y-2">
-                <h2 className="text-xl-rem font-semibold">Setup</h2>
-                <div className="rounded-lg border bg-muted p-4">
-                    <pre className="text-sm-rem font-mono whitespace-pre-wrap">
-                        {`// Import styles
+            <DocSection title="Setup">
+                <DocCodeBlock
+                    code={`// Import styles
 import 'ft-design-system/styles.css';
 
 // Import components (AI-protected by default)
@@ -94,35 +83,40 @@ import { Button, Input, Table } from 'ft-design-system';
 
 // Advanced: unprotected components
 import { Button, Input, Table } from 'ft-design-system/core';`}
-                    </pre>
-                </div>
-            </div>
+                    lang="tsx"
+                    filename="app.tsx"
+                />
+            </DocSection>
 
-            <div className="space-y-2">
-                <h2 className="text-xl-rem font-semibold">Tailwind Config</h2>
-                <div className="rounded-lg border bg-muted p-4">
-                    <pre className="text-sm-rem font-mono whitespace-pre-wrap">
-                        {`// tailwind.config.js
+            <DocSection title="Tailwind Config">
+                <DocCodeBlock
+                    code={`// tailwind.config.js
 module.exports = {
   content: [
     './src/**/*.{js,jsx,ts,tsx}',
     './node_modules/ft-design-system/**/*.{js,jsx,ts,tsx}'
   ],
 }`}
-                    </pre>
-                </div>
-            </div>
+                    lang="javascript"
+                    filename="tailwind.config.js"
+                />
+            </DocSection>
 
-            <div className="rounded-lg border bg-surface p-4">
-                <h3 className="font-semibold mb-2">Package Includes</h3>
+            <DocCard title="Package Includes">
                 <ul className="space-y-1 text-sm-rem">
-                    <li>• 50+ production-ready React components</li>
+                    <li>• {COMPONENT_COUNT} production-ready React components</li>
                     <li>• 190+ custom icons with TypeScript support</li>
                     <li>• Full TypeScript definitions</li>
                     <li>• AI-protected components for coding assistants</li>
+                    <li>• Quality gates: <code className="bg-muted px-1 rounded">npm run check:tokens</code>, <code className="bg-muted px-1 rounded">npm run check:drift</code></li>
                     <li>• WCAG AA accessibility compliant</li>
                 </ul>
-            </div>
+            </DocCard>
+
+            <DocBottomNav
+                prev={{ label: "Storybook", href: "/docs/storybook" }}
+                next={{ label: "Global CSS", href: "/docs/global-css" }}
+            />
         </div>
     )
 }

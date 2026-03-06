@@ -41,9 +41,9 @@ const textStyles = {
 };
 
   return (
-    <div className={`p-6 ${themeStyles[theme]} ${textStyles[theme]} rounded-lg border`}>
-      <Typography variant="display-primary" className="mb-4">{title}</Typography>
-      <div className="flex items-center gap-1">
+    <div className={`p-[var(--spacing-x6)] ${themeStyles[theme]} ${textStyles[theme]} rounded-lg border`}>
+      <Typography variant="display-primary" className="mb-[var(--spacing-x4)]">{title}</Typography>
+      <div className="flex items-center gap-[var(--spacing-x1)]">
         {colors.map((color, index) => (
           <div key={color.shade} className="flex flex-col items-center">
             {/* Color swatch */}
@@ -64,9 +64,9 @@ const textStyles = {
               )}
             </div>
             {/* Shade label and hex value */}
-            <div className="mt-1 text-center">
+            <div className="mt-[var(--spacing-x1)] text-center">
               <Typography variant="body-secondary-regular" className="font-mono">{color.shade}</Typography>
-              <Typography variant="body-secondary-regular" className="font-mono text-[0.625rem] opacity-70">{color.hex}</Typography>
+              <Typography variant="body-secondary-regular" className="font-mono text-xxs-rem opacity-70">{color.hex}</Typography>
             </div>
           </div>
         ))}
@@ -81,8 +81,8 @@ export function Colors() {
   return (
     <div className="w-full space-y-10">
       <div className="flex justify-between items-center">
-        <Typography variant="title-primary" className="text-[2.5rem]">Color System</Typography>
-        <div className="flex items-center gap-4">
+        <Typography variant="title-primary" className="text-3_5xl-rem">Color System</Typography>
+        <div className="flex items-center gap-[var(--spacing-x4)]">
           <Typography variant="body-secondary-medium">Current Theme: {theme}</Typography>
           <Typography variant="body-secondary-regular" className="text-gray-500">
             Complete design system colors
@@ -90,14 +90,14 @@ export function Colors() {
         </div>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
-        <Typography variant="display-primary" className="text-blue-900 mb-3">Color System Architecture</Typography>
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-[var(--spacing-x6)] mb-[var(--spacing-x8)]">
+        <Typography variant="display-primary" className="text-blue-900 mb-[var(--spacing-x3)]">Color System Architecture</Typography>
         <div className="text-blue-800 space-y-2">
           <Typography variant="body-primary-regular"><strong>Base Colors</strong> → Foundation color scales (67 colors × 3 themes = 201 CSS variables)</Typography>
           <Typography variant="body-primary-regular"><strong>Semantic Colors</strong> → Component-friendly colors that reference base scales</Typography>
           <Typography variant="body-primary-regular"><strong>Component Usage</strong> → Components use semantic colors that adapt automatically</Typography>
         </div>
-        <div className="mt-4 flex gap-4">
+        <div className="mt-[var(--spacing-x4)] flex gap-[var(--spacing-x4)]">
           <a href="?path=/story/design-system-colors-base-colors--light-mode" className="text-blue-600 hover:text-blue-800 underline">
             View Base Colors →
           </a>
@@ -108,8 +108,8 @@ export function Colors() {
       </div>
 
       <section>
-        <Typography variant="title-secondary" className="mb-6">Primary Colors</Typography>
-        <Typography variant="body-primary-regular" className="mb-6">Main color scale used for primary UI elements and text</Typography>
+        <Typography variant="title-secondary" className="mb-[var(--spacing-x6)]">Primary Colors</Typography>
+        <Typography variant="body-primary-regular" className="mb-[var(--spacing-x6)]">Main color scale used for primary UI elements and text</Typography>
 
         <HorizontalColorScale
           title="Primary Scale"
@@ -129,8 +129,8 @@ export function Colors() {
       </section>
 
       <section>
-        <Typography variant="title-secondary" className="mb-6">Secondary Colors (Borders)</Typography>
-        <Typography variant="body-primary-regular" className="mb-6">Used for borders, dividers, and subtle UI elements</Typography>
+        <Typography variant="title-secondary" className="mb-[var(--spacing-x6)]">Secondary Colors (Borders)</Typography>
+        <Typography variant="body-primary-regular" className="mb-[var(--spacing-x6)]">Used for borders, dividers, and subtle UI elements</Typography>
 
         <HorizontalColorScale
           title="Secondary Scale"
@@ -150,8 +150,8 @@ export function Colors() {
       </section>
 
       <section>
-        <Typography variant="title-secondary" className="mb-6">Semantic Colors</Typography>
-        <Typography variant="body-primary-regular" className="mb-6">Status and interaction colors for components</Typography>
+        <Typography variant="title-secondary" className="mb-[var(--spacing-x6)]">Semantic Colors</Typography>
+        <Typography variant="body-primary-regular" className="mb-[var(--spacing-x6)]">Status and interaction colors for components</Typography>
 
         <HorizontalColorScale
           title="Status Colors"

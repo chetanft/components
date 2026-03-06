@@ -35,7 +35,7 @@ export const SelectValue: React.FC<SelectValueProps> = ({
     xxs: 'text-xs-rem',
     xs: 'text-xs-rem',
     sm: 'text-sm-rem',
-    md: 'text-md-rem',
+    md: 'text-sm-rem',
     lg: 'text-md-rem',
     xl: 'text-md-rem',
     xxl: 'text-lg-rem',
@@ -53,4 +53,3 @@ export const SelectValue: React.FC<SelectValueProps> = ({
 };
 
 SelectValue.displayName = 'SelectValue';
-

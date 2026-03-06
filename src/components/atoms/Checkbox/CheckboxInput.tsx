@@ -74,14 +74,14 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
       sm: {
         checkbox: "w-4 h-4",
         icon: 12,
-        gap: "gap-2",
-        text: "text-sm"
+        gap: "gap-[var(--spacing-x2)]",
+        text: "text-sm-rem"
       },
       md: {
         checkbox: "w-5 h-5",
         icon: 16,
-        gap: "gap-2.5",
-        text: "text-base"
+        gap: "gap-[var(--spacing-x2-5)]",
+        text: "text-sm-rem"
       }
     };
 

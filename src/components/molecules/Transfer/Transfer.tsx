@@ -113,7 +113,7 @@ const TransferList = ({
     });
 
     return (
-        <div className={cn("flex flex-col rounded-md w-[250px] h-[300px] overflow-hidden", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--border-primary)]'))}>
+        <div className={cn("flex flex-col rounded-md w-[calc(var(--spacing-x10)*6+var(--spacing-x2-5))] h-[calc(var(--spacing-x20)+var(--spacing-x20)+var(--spacing-x20)+var(--spacing-x15))] overflow-hidden", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--border-primary)]'))}>
             <div className={cn("flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x2)] border-b border-[var(--border-primary)]", getGlassInnerBg(resolvedGlass, 'bg-[var(--color-bg-secondary)]', 'bg-transparent'))}>
                 <Checkbox
                     checked={allChecked}

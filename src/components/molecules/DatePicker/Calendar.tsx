@@ -59,7 +59,7 @@ interface CalendarProps {
 }
 
 const calendarVariants = cva(
-  "bg-[var(--bg-primary)] rounded-[var(--radius-md)] shadow-[0px_6px_6px_0px_rgba(0,0,0,0.16)] flex flex-col",
+  "bg-[var(--bg-primary)] rounded-[var(--radius-md)] shadow-[var(--shadow-md)] flex flex-col",
   {
     variants: {
       range: {
@@ -766,7 +766,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
           </div>
         </div>
       )}
-      <div className="flex gap-5">
+      <div className="flex gap-[var(--spacing-x5)]">
         {range && (
           <div className={quickSelectVariants({ range })}>
             {quickSelectOptions.map((option) => (
@@ -791,7 +791,7 @@ const Calendar = forwardRef<HTMLDivElement, CalendarProps>(({
         </div>
       </div>
       {rangeError && (
-        <div className="w-full px-4 py-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+        <div className="w-full px-[var(--spacing-x4)] py-[var(--spacing-x2)] bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
           <p className="text-sm text-red-600 dark:text-red-400">{rangeError}</p>
         </div>
       )}

@@ -68,7 +68,7 @@ export function ResultStatusIcon({ status = 'info' }: { status?: ResultStatus })
     return (
       <div className="relative">
         <span
-          className="text-[4.5rem] font-bold leading-none"
+          className="text-5xl-rem font-bold leading-none"
           style={{ color: config.color, opacity: 0.2 }}
         >
           {status}
@@ -133,7 +133,7 @@ export const Result = React.forwardRef<HTMLDivElement, ResultProps>(
         ref={ref}
         className={cn(
           "flex flex-col items-center justify-center",
-          "py-[var(--x12)] px-[var(--x8)]",
+          "py-[var(--spacing-x12)] px-[var(--spacing-x8)]",
           "text-center",
           getGlassClasses(resolvedGlass, '', ''),
           className

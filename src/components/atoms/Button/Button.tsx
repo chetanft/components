@@ -240,60 +240,60 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   // Button-specific sizing from Figma design
   const buttonSizing = {
     xxs: {
-      padding: 'px-1.5 py-0.5', // Increased padding
-      fontSize: 'text-xs-rem', // text-xs-rem → 0.857rem (responsive)
+      padding: 'px-[var(--spacing-x1-5)] py-[var(--spacing-x0-5)]',
+      fontSize: 'text-xs-rem',
       iconSize: 12,
       borderRadius: 'rounded-component',
-      height: 'h-6', // Increased height
-      width: 'w-6', // x6 for icon-only
+      height: 'h-6',
+      width: 'w-6',
     },
     xs: {
-      padding: 'px-2.5 py-1', // Increased padding
-      fontSize: 'text-sm-rem', // text-sm-rem → 1rem (responsive)
-      iconSize: 14, // Slightly larger icon
+      padding: 'px-[var(--spacing-x2)] py-[var(--spacing-x1)]',
+      fontSize: 'text-xs-rem',
+      iconSize: 14,
       borderRadius: 'rounded-component',
-      height: 'h-8', // Increased height
-      width: 'w-8', // x8 for icon-only
+      height: 'h-8',
+      width: 'w-8',
     },
     sm: {
-      padding: 'px-3.5 py-1.5', // Increased padding
-      fontSize: 'text-md-rem', // text-md-rem → 1.143rem (responsive)
+      padding: 'px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
+      fontSize: 'text-sm-rem',
       iconSize: 16,
       borderRadius: 'rounded-component',
-      height: 'h-9', // Increased height
-      width: 'w-9', // x9 for icon-only
+      height: 'h-9',
+      width: 'w-9',
     },
     md: {
-      padding: 'px-4 py-2', // Increased padding
-      fontSize: 'text-md-rem', // text-md-rem → 1.143rem (responsive)
+      padding: 'px-[var(--spacing-x4)] py-[var(--spacing-x3)]',
+      fontSize: 'text-sm-rem',
       iconSize: 18, // Larger icon
       borderRadius: 'rounded-component',
       height: 'h-10', // x10
       width: 'w-10', // x10 for icon-only
     },
     lg: {
-      padding: 'px-5 py-2.5', // Increased padding
-      fontSize: 'text-lg-rem', // text-lg-rem → 1.429rem (responsive)
-      iconSize: 20, // Larger icon
+      padding: 'px-[var(--spacing-x5)] py-[var(--spacing-x4)]',
+      fontSize: 'text-md-rem',
+      iconSize: 20,
       borderRadius: 'rounded-component',
-      height: 'h-12', // x12
-      width: 'w-12', // x12 for icon-only
+      height: 'h-12',
+      width: 'w-12',
     },
     xl: {
-      padding: 'px-6 py-3', // Increased padding
-      fontSize: 'text-xl-rem', // text-xl-rem → 1.714rem (responsive)
+      padding: 'px-[var(--spacing-x6)] py-[var(--spacing-x5)]',
+      fontSize: 'text-md-rem',
       iconSize: 24,
       borderRadius: 'rounded-component',
-      height: 'h-14', // x14
-      width: 'w-14', // x14 for icon-only
+      height: 'h-14',
+      width: 'w-14',
     },
     xxl: {
-      padding: 'px-7 py-3.5', // Increased padding
-      fontSize: 'text-xxl-rem', // text-xxl-rem → 2rem (responsive)
+      padding: 'px-[var(--spacing-x7)] py-[var(--spacing-x6)]',
+      fontSize: 'text-lg-rem',
       iconSize: 24,
       borderRadius: 'rounded-component',
-      height: 'h-16', // x16
-      width: 'w-16', // x16 for icon-only
+      height: 'h-16',
+      width: 'w-16',
     },
   };
 
@@ -326,7 +326,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const sizeStyles = !isLink ? cn(
     buttonSize.height,
     buttonSize.fontSize,
-    "gap-2", // x2 gap consistent across all sizes
+    "gap-[var(--spacing-x2)]", // x2 gap consistent across all sizes
     // Apply border radius based on button type
     !isIconOnly && buttonSize.borderRadius,
     // Icon-only buttons: square dimensions with no padding
@@ -339,7 +339,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     !isIconOnly && buttonSize.padding
   ) : cn(
     buttonSize.fontSize,
-    "gap-2"
+    "gap-[var(--spacing-x2)]"
   );
 
   // Variant styles using CSS variables that adapt to themes automatically
@@ -378,7 +378,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     ),
     link: cn(
       "bg-transparent text-[var(--neutral)] border-0 h-auto p-0 no-underline underline-offset-2",
-      "justify-start gap-2 items-center",
+      "justify-start gap-[var(--spacing-x2)] items-center",
       "hover:text-[var(--neutral-dark)] hover:underline hover:shadow-none",
       "focus-visible:text-[var(--neutral-dark)] focus-visible:underline focus-visible:shadow-none",
       "active:underline active:translate-y-0 active:shadow-none",

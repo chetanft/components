@@ -1,7 +1,7 @@
 # FT Design System - AI Context
 
 > **Single-file reference for AI tools to generate correct code.**
-> Version: 4.22.0 | Last Updated: 2026-03-02
+> Version: 4.22.0 | Last Updated: 2026-03-06
 
 ## Quick Start
 
@@ -24,6 +24,12 @@ import { FTProvider } from 'ft-design-system';
 
 - Before writing or modifying UI code, read relevant files in `specs/`.
 - Before commit or PR, run `npm run check:tokens`.
+- Before commit or PR for UI/component changes, run `npm run check:consistency`.
+- Before commit or PR for component size or variant changes, run `npm run check:size-contract`.
+- Before commit or PR touching explorer configs, run `npm run check:explorer-inspector`.
+- New component layouts or explorer rows must include/update `parameters.explorer.inspector` metadata.
+- Before merging dependency updates, run `npm run check:drift`.
+- Before publishing, run `npm run publish:prepare` (includes `npm run sync:docs`).
 - Do not introduce hardcoded visual values unless approved and documented.
 - For PR reviews, follow the checklist at `specs/review-checklist.md`.
 
@@ -93,7 +99,7 @@ module.exports = {
 | PageHeader | `PageHeader` | `<PageHeader title="Page" onBack={back} />` |
 | Upload | `Upload` | `<Upload onUpload={handleUpload} />` |
 | AppHeader | `AppHeader` | `<AppHeader logo={<Logo />} user={user} />` |
-| Footer | `Footer` | `<Footer links={links} copyright="2024" />` |
+| Footer | `Footer` | `<Footer links={links} copyright="2026" />` |
 
 ### Charts
 
@@ -152,21 +158,31 @@ module.exports = {
 <div className="text-positive" />                    // Success text
 ```
 
-### Spacing (8-point grid)
+### Spacing (8-point grid, use --spacing-x* canonical names)
 
 ```css
---x1: 4px;   --x2: 8px;   --x3: 12px;  --x4: 16px;
---x5: 20px;  --x6: 24px;  --x8: 32px;  --x10: 40px;
---x12: 48px; --x16: 64px; --x20: 80px; --x24: 96px;
+--spacing-x0: 0px; --spacing-x1: 4px; --spacing-x2: 8px; --spacing-x3: 12px;
+--spacing-x4: 16px; --spacing-x5: 20px; --spacing-x6: 24px; --spacing-x7: 28px;
+--spacing-x8: 32px; --spacing-x9: 36px; --spacing-x10: 40px; --spacing-x11: 44px;
+--spacing-x12: 48px; --spacing-x13: 52px; --spacing-x14: 56px; --spacing-x15: 60px;
+--spacing-x16: 64px; --spacing-x20: 80px; --spacing-x24: 96px; --spacing-x38: 152px;
+/* Half-steps */
+--spacing-x1-5: 6px; --spacing-x2-5: 10px; --spacing-x3-5: 14px;
 ```
 
 ### Border Radius
 
 ```css
+--radius-none: 0px;
 --radius-sm: 4px;
 --radius-md: 8px;
 --radius-lg: 12px;
 --radius-xl: 16px;
+--radius-2xl: 20px;
+--radius-3xl: 24px;
+--radius-4xl: 28px;
+--radius-2xs: 2px;
+--radius-smd: 6px;
 --radius-full: 9999px;
 ```
 
@@ -210,7 +226,7 @@ module.exports = {
 
 ```tsx
 // Basic Input
-<Input 
+<Input
   label="Email"
   type="email"
   placeholder="user@example.com"
@@ -229,7 +245,7 @@ module.exports = {
 />
 
 // Checkbox
-<Checkbox 
+<Checkbox
   label="I agree to terms"
   checked={agreed}
   onChange={setAgreed}
@@ -414,6 +430,24 @@ import 'ft-design-system/styles.css';
 ---
 
 ## Package Info
+
+## Typography (rem-based sizes)
+
+```css
+--font-size-xs-rem: 0.857rem;   /* 12px */
+--font-size-xxs-rem: 0.714rem;   /* 10px */
+--font-size-sm-rem: 1rem;   /* 14px */
+--font-size-md-rem: 1.143rem;   /* 16px */
+--font-size-lg-rem: 1.429rem;   /* 20px */
+--font-size-xl-rem: 1.714rem;   /* 24px */
+--font-size-xxl-rem: 2rem;   /* 28px */
+--font-size-3xl-rem: 2.571rem;   /* 36px */
+--font-size-4xl-rem: 3.429rem;   /* 48px */
+--font-size-3_5xl-rem: 2.5rem;   /* 40px */
+--font-size-5xl-rem: 4.5rem;   /* 72px */
+```
+
+---
 
 - **npm**: `npm install ft-design-system`
 - **Import**: `import { Component } from 'ft-design-system'` (AI-protected by default)

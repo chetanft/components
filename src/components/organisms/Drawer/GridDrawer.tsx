@@ -21,8 +21,8 @@ export interface GridDrawerProps extends React.HTMLAttributes<HTMLDivElement> {
  * Uses a 24-column grid system with responsive margins and gaps.
  * 
  * Grid specifications:
- * - Desktop (>1440): x5 margin, x5 gaps
- * - Tablet (<1440): x4 margin, x4 gaps
+ * - Desktop (>1440 breakpoint): x5 margin, x5 gaps
+ * - Tablet (<1440 breakpoint): x4 margin, x4 gaps
  * - Mobile: 4-column grid, x4 gaps and margin
  * 
  * Available sizes:
@@ -108,14 +108,14 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
         width: calc((100vw - 2 * var(--drawer-margin)) * 7 / 24 + 6 * var(--drawer-gap));
       }
       
-      @media (max-width: 1440px) {
+      @media (max-width: 90em) {
         .grid-drawer-container {
           --drawer-margin: var(--spacing-x4);
           --drawer-gap: var(--spacing-x4);
         }
       }
 
-      @media (max-width: 768px) {
+      @media (max-width: 48em) {
         .grid-drawer-container {
           --drawer-margin: var(--spacing-x4);
           --drawer-gap: var(--spacing-x4);
@@ -153,7 +153,7 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
         onClick={handleMaskClick}
         aria-hidden="true"
         style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.45)',
+          backgroundColor: 'var(--overlay-medium)',
         }}
       />
 
@@ -167,7 +167,7 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
         )}
         style={{
           backgroundColor: 'var(--bg-primary)',
-          boxShadow: '0 0.625rem 2.5rem rgba(0, 0, 0, 0.1)',
+          boxShadow: 'var(--shadow-xl)',
           borderRadius: 'var(--radius-md)',
           marginRight: 'var(--drawer-margin)',
           marginTop: 'var(--drawer-margin)',
@@ -179,7 +179,7 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
         {/* Header */}
         {(title || closable) && (
           <div
-            className="flex items-center justify-between px-6 py-4 border-b flex-shrink-0"
+            className="flex items-center justify-between px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-b flex-shrink-0"
             style={{
               borderColor: 'var(--border-primary)',
             }}
@@ -200,7 +200,7 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
                 type="button"
                 onClick={onClose}
                 className={cn(
-                  "p-1 rounded-[var(--radius-sm)]",
+                  "p-[var(--spacing-x1)] rounded-[var(--radius-sm)]",
                   "transition-colors",
                   "focus:outline-none focus:ring-2 focus:ring-opacity-20"
                 )}
@@ -223,7 +223,7 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
         )}
 
         {/* Body */}
-        <div className="flex-1 overflow-y-auto px-6 py-4">
+        <div className="flex-1 overflow-y-auto px-[var(--spacing-x6)] py-[var(--spacing-x4)]">
           {children}
         </div>
       </div>

@@ -89,9 +89,9 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
     // ==================== LINE TYPE ====================
     if (type === 'line') {
       const sizeStyles = {
-        sm: "h-[var(--spacing-x1)]",
-        md: "h-[var(--spacing-x2)]",
-        lg: "h-[var(--spacing-x3)]"
+        sm: { bar: "h-[var(--spacing-x1)]", text: "text-sm-rem" },
+        md: { bar: "h-[var(--spacing-x2)]", text: "text-sm-rem" },
+        lg: { bar: "h-[var(--spacing-x3)]", text: "text-md-rem" }
       };
 
       // Steps mode
@@ -100,13 +100,13 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
 
         return (
           <div className="flex items-center gap-[var(--spacing-x5)] w-full" ref={ref} {...props}>
-            <div className={cn("flex gap-1 w-full", className)}>
+            <div className={cn("flex gap-[var(--spacing-x1)] w-full", className)}>
               {Array.from({ length: steps }, (_, i) => (
                 <div
                   key={i}
                   className={cn(
                     "flex-1 rounded-[var(--radius-sm)]",
-                    sizeStyles[size],
+                    sizeStyles[size].bar,
                     animated && "transition-colors duration-300"
                   )}
                   style={{
@@ -118,7 +118,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
             <Typography
               variant="body-secondary-medium"
               as="span"
-              className="text-[var(--tertiary)] whitespace-nowrap"
+              className={cn("text-[var(--tertiary)] whitespace-nowrap", sizeStyles[size].text)}
             >
               {formatPercent()}
             </Typography>
@@ -132,7 +132,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
           <div
             className={cn(
               "relative w-full rounded-[var(--radius-md)] overflow-hidden",
-              sizeStyles[size],
+              sizeStyles[size].bar,
               className
             )}
             style={{ backgroundColor: bgColor }}
@@ -156,7 +156,7 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
           <Typography
             variant="body-secondary-medium"
             as="span"
-            className="text-[var(--tertiary)] whitespace-nowrap"
+            className={cn("text-[var(--tertiary)] whitespace-nowrap", sizeStyles[size].text)}
           >
             {formatPercent()}
           </Typography>

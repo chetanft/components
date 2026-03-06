@@ -46,8 +46,8 @@ export interface FilterDateRangeProps extends ComposableProps<'div'> {
 /**
  * FilterDateRange Component
  * 
- * A responsive date range filter that shows full date picker on desktop (≥1200px)
- * and icon button with date picker dropdown on mobile (<1200px).
+ * A responsive date range filter that shows full date picker on desktop (>=1200 breakpoint)
+ * and icon button with date picker dropdown on mobile (<1200 breakpoint).
  * 
  * Works standalone or with PageHeaderFiltersProvider for multi-filter coordination.
  * 
@@ -73,7 +73,7 @@ export interface FilterDateRangeProps extends ComposableProps<'div'> {
  */
 export const FilterDateRange = React.forwardRef<HTMLDivElement, FilterDateRangeProps>(
   ({ id, startValue, endValue, onStartChange, onEndChange, placeholder, className, glass, asChild, ...props }, ref) => {
-    const isMobile = useMediaQuery('(max-width: 1199px)');
+    const isMobile = useMediaQuery('(max-width: 74.9375em)');
     const resolvedGlass = useResolvedGlass(glass);
     
     // Use context if available, otherwise fall back to local state (standalone mode)
@@ -271,4 +271,3 @@ export const FilterDateRange = React.forwardRef<HTMLDivElement, FilterDateRangeP
 );
 
 FilterDateRange.displayName = 'FilterDateRange';
-

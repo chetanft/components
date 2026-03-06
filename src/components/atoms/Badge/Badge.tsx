@@ -144,7 +144,7 @@ const Ribbon: React.FC<BadgeRibbonProps> = ({
       {children}
       <div
         className={cn(
-          "absolute top-0 px-2 py-1 text-white text-xs-rem whitespace-nowrap z-10 font-semibold shadow-sm",
+          "absolute top-0 px-[var(--spacing-x2)] py-[var(--spacing-x1)] text-white text-xs-rem whitespace-nowrap z-10 font-semibold shadow-sm",
           placement === 'end' ? "right-0 rounded-l-md" : "left-0 rounded-r-md",
           className
         )}
@@ -232,7 +232,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       };
 
       return (
-        <span className={cn("inline-flex items-center gap-2", className)} ref={ref} {...props}>
+        <span className={cn("inline-flex items-center gap-[var(--spacing-x2)]", className)} ref={ref} {...props}>
           <span
             className={cn(
               "w-1.5 h-1.5 rounded-full flex-shrink-0",
@@ -264,10 +264,10 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
               className={cn(
                 "absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2",
                 "flex items-center justify-center text-xs-rem font-normal",
-                dot ? "w-2 h-2 p-0 rounded-full min-w-0" : "h-5 px-1.5 rounded-full min-w-[var(--spacing-x5)]",
-                (size === 'sm' || size === 'xs') && !dot && "h-4 min-w-[var(--spacing-x4)] px-1",
+                dot ? "w-2 h-2 p-0 rounded-full min-w-0" : "h-5 px-[var(--spacing-x1-5)] rounded-full min-w-[var(--spacing-x5)]",
+                (size === 'sm' || size === 'xs') && !dot && "h-4 min-w-[var(--spacing-x4)] px-[var(--spacing-x1)]",
                 (size === 'sm' || size === 'xs') && !dot && "text-xs-rem",
-                (size === 'lg') && !dot && "h-6 px-2 text-sm-rem"
+                (size === 'lg') && !dot && "h-6 px-[var(--spacing-x2)] text-sm-rem"
               )}
               style={{
                 backgroundColor: 'var(--danger)',
@@ -291,17 +291,17 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
 
     // Reduced padding to hug content tightly
     const sizeStylesMap: Record<string, string> = {
-      xs: "px-1 py-0 gap-0.5 rounded",
-      sm: "px-1.5 py-0 gap-1 rounded",
-      md: "px-2 py-0.5 gap-1 rounded",
-      lg: "px-2.5 py-0.5 gap-1.5 rounded"
+      xs: "px-[var(--spacing-x1)] py-0 gap-[var(--spacing-x0-5)] rounded text-xs-rem",
+      sm: "px-[var(--spacing-x1-5)] py-0 gap-[var(--spacing-x1)] rounded text-sm-rem",
+      md: "px-[var(--spacing-x2)] py-[var(--spacing-x0-5)] gap-[var(--spacing-x1)] rounded text-sm-rem",
+      lg: "px-[var(--spacing-x2-5)] py-[var(--spacing-x0-5)] gap-[var(--spacing-x1-5)] rounded text-md-rem"
     };
 
     const fontSizeMap: Record<string, string> = {
-      xs: "text-[0.714rem]",
-      sm: "text-[0.857rem]",
-      md: "text-[1rem]",
-      lg: "text-[1.143rem]"
+      xs: "text-xs-rem",
+      sm: "text-sm-rem",
+      md: "text-sm-rem",
+      lg: "text-md-rem"
     };
 
     const sizeStyles = sizeStylesMap[size] || sizeStylesMap.md;

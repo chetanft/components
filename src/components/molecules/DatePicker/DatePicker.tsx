@@ -36,16 +36,16 @@ const datePickerFieldVariants = cva(
   {
     variants: {
       size: {
-        xxs: "h-component-xxs text-xs",
-        xs: "h-component-xs text-xs",
-        sm: "h-component-sm text-sm",
-        md: "h-component-md text-sm",
-        lg: "h-component-lg text-base",
-        xl: "h-component-xl text-base",
-        xxl: "h-component-xxl text-lg",
+        xxs: "h-component-xxs text-xs-rem",
+        xs: "h-component-xs text-xs-rem",
+        sm: "h-component-sm text-sm-rem",
+        md: "h-component-md text-sm-rem",
+        lg: "h-component-lg text-md-rem",
+        xl: "h-component-xl text-md-rem",
+        xxl: "h-component-xxl text-lg-rem",
         // Legacy support - will be removed in future version
-        m: "h-component-md text-sm",
-        l: "h-component-lg text-base",
+        m: "h-component-md text-sm-rem",
+        l: "h-component-lg text-md-rem",
       },
       state: {
         default: "border-border dark:border-border-dark hover:border-[var(--color-primary)] dark:hover:border-[var(--color-primary)]",
@@ -116,7 +116,7 @@ export const DatePickerField = forwardRef<HTMLInputElement, DatePickerFieldProps
       <div className={cn(
         datePickerFieldVariants({ size, state }),
         componentStyles.borderRadius,
-        "px-[var(--spacing-x3)]",
+        horizontalPaddingMap[componentSize],
         className
       )}>
         <input
@@ -358,10 +358,28 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
         size === "xl" ? "xxl" :
           size as ComponentSize;
   const componentStyles = getComponentStyles(componentSize);
+  const horizontalPaddingMap: Record<ComponentSize, string> = {
+    xxs: "px-[var(--spacing-x1-5)]",
+    xs: "px-[var(--spacing-x2)]",
+    sm: "px-[var(--spacing-x3)]",
+    md: "px-[var(--spacing-x4)]",
+    lg: "px-[var(--spacing-x5)]",
+    xl: "px-[var(--spacing-x6)]",
+    xxl: "px-[var(--spacing-x7)]"
+  };
+  const rangeHorizontalPaddingMap: Record<ComponentSize, string> = {
+    xxs: "pl-[var(--spacing-x1-5)] pr-[var(--spacing-x1)]",
+    xs: "pl-[var(--spacing-x2)] pr-[var(--spacing-x1-5)]",
+    sm: "pl-[var(--spacing-x3)] pr-[var(--spacing-x2)]",
+    md: "pl-[var(--spacing-x4)] pr-[var(--spacing-x3)]",
+    lg: "pl-[var(--spacing-x5)] pr-[var(--spacing-x4)]",
+    xl: "pl-[var(--spacing-x6)] pr-[var(--spacing-x5)]",
+    xxl: "pl-[var(--spacing-x7)] pr-[var(--spacing-x6)]"
+  };
 
   // Size-specific vertical padding for inner content
   const verticalPaddingMap: Record<ComponentSize, string> = {
-    xxs: "py-[0.125rem]",
+    xxs: "py-[var(--spacing-x0-5)]",
     xs: "py-[var(--spacing-x1)]",
     sm: "py-[var(--spacing-x2)]",
     md: "py-[var(--spacing-x3)]",
@@ -925,7 +943,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
           <DatePickerProvider value={contextValue}>
               <div className={cn(
                   "flex",
-                  labelPosition === 'left' ? "flex-row items-center gap-4" : "flex-col items-start gap-2",
+                  labelPosition === 'left' ? "flex-row items-center gap-[var(--spacing-x4)]" : "flex-col items-start gap-[var(--spacing-x2)]",
                   className
               )}>
                   {children}
@@ -939,7 +957,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
       <DatePickerProvider value={contextValue}>
     <div className={cn(
       "flex",
-      labelPosition === 'left' ? "flex-row items-center gap-4" : "flex-col items-start gap-2",
+      labelPosition === 'left' ? "flex-row items-center gap-[var(--spacing-x4)]" : "flex-col items-start gap-[var(--spacing-x2)]",
       className
     )}>
       <div className="relative" ref={containerRef}>
@@ -947,12 +965,12 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
           className={cn(
             datePickerFieldVariants({ size, state: fieldState }),
             componentStyles.borderRadius,
-            range ? "pl-[var(--spacing-x3)] pr-[var(--spacing-x2)]" : "px-[var(--spacing-x3)] min-w-[calc(var(--spacing-x10)*8)]",
+            range ? rangeHorizontalPaddingMap[componentSize] : `${horizontalPaddingMap[componentSize]} min-w-[calc(var(--spacing-x10)*8)]`,
             !range ? "cursor-pointer" : ""
           )}
           onClick={() => !disabled && !range && setIsOpen(true)}
         >
-          <div className={cn("flex items-center gap-1", range ? "" : "flex-1 w-full", verticalPaddingMap[componentSize])}>
+          <div className={cn("flex items-center gap-[var(--spacing-x1)]", range ? "" : "flex-1 w-full", verticalPaddingMap[componentSize])}>
             {range ? (
               <>
                 <input
@@ -1039,7 +1057,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
           </div>
         </div>
         {inputError && (
-          <div className="absolute top-full left-0 mt-1 px-2 py-1 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-xs text-red-600 dark:text-red-400 z-10">
+          <div className="absolute top-full left-0 mt-[var(--spacing-x1)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-xs text-red-600 dark:text-red-400 z-10">
             {inputError}
           </div>
         )}
@@ -1090,3 +1108,12 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
 DatePicker.displayName = "DatePicker";
 
 export default DatePicker; 
+    const horizontalPaddingMap: Record<ComponentSize, string> = {
+      xxs: "px-[var(--spacing-x1-5)]",
+      xs: "px-[var(--spacing-x2)]",
+      sm: "px-[var(--spacing-x3)]",
+      md: "px-[var(--spacing-x4)]",
+      lg: "px-[var(--spacing-x5)]",
+      xl: "px-[var(--spacing-x6)]",
+      xxl: "px-[var(--spacing-x7)]"
+    };

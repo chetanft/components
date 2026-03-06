@@ -56,7 +56,7 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
       // Layout from Figma: row with center alignment and x2 gap
       "inline-flex items-center justify-center gap-[var(--spacing-x2)]",
       // Padding from Figma
-      "px-[var(--spacing-x2)] py-[0.125rem]",
+      "px-[var(--spacing-x2)] py-[var(--spacing-x0-5)]",
       // Transitions
       "transition-all duration-200 cursor-pointer",
       // Disabled state

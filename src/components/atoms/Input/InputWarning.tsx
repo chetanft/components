@@ -45,7 +45,7 @@ export const InputWarning = React.forwardRef<HTMLParagraphElement, InputWarningP
         ref={ref}
         id={warningId}
         role="alert"
-        className={cn("text-sm leading-relaxed mt-1.5 text-warning", className)}
+        className={cn("text-sm leading-relaxed mt-[var(--spacing-x1-5)] text-warning", className)}
         {...props}
       >
         {children}

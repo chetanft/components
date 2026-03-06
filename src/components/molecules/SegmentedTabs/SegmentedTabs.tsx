@@ -137,7 +137,7 @@ export const SegmentedTabItem = React.forwardRef<HTMLButtonElement, SegmentedTab
         ? [
             // Selected state using design tokens
             "bg-[var(--bg-primary)] text-[color:var(--primary)]",
-            "shadow-[0px_4px_4px_0px_rgba(0,0,0,0.08)]"
+            "shadow-[var(--shadow-sm)]"
           ]
         : [
             // Unselected state using design tokens  

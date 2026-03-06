@@ -133,7 +133,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         <div ref={ref} {...props}>
           <Comp
             className={cn(
-              "relative flex items-center gap-2 p-4",
+              "relative flex items-center gap-[var(--spacing-x2)] p-[var(--spacing-x4)]",
               radiusClass,
               !banner && "border border-solid",
               banner && "border-b",

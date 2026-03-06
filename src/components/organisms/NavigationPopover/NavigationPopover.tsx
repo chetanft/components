@@ -422,7 +422,7 @@ const HighlightCard = ({ metric }: { metric: HighlightMetric }) => (
 );
 
 const StatCard = ({ metric }: { metric: StatMetric }) => (
-  <div className="border border-[var(--border-secondary)] rounded-[var(--spacing-x2)] px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex items-center justify-between gap-4 bg-[var(--bg-primary)]">
+  <div className="border border-[var(--border-secondary)] rounded-[var(--spacing-x2)] px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex items-center justify-between gap-[var(--spacing-x4)] bg-[var(--bg-primary)]">
     <div className="flex flex-col gap-[var(--spacing-x1)]">
       <Typography variant="display-primary" color="primary">
         {metric.value}
@@ -763,7 +763,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
 
         <div className="flex flex-col lg:flex-row gap-[var(--spacing-x5)] px-[var(--spacing-x5)] py-[var(--spacing-x5)]">
           <div className="w-full lg:w-[16.4375rem] flex-shrink-0">
-            <nav aria-label="Primary navigation" className="flex flex-col gap-[var(--spacing-x3)] max-h-[29.5rem] overflow-y-auto pr-1">
+            <nav aria-label="Primary navigation" className="flex flex-col gap-[var(--spacing-x3)] max-h-[29.5rem] overflow-y-auto pr-[var(--spacing-x1)]">
               {availableSections.map((section) => {
                 const isActive = section.id === activeSection.id;
                 const showChevron = section.showChevron ?? Boolean(section.subCategories?.length);

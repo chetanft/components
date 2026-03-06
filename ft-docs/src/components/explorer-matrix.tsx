@@ -5,8 +5,10 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation"
 import type { StoryMeta, StoryDefinition } from "@/lib/story-loader"
 import { formatStoryName } from "@/lib/story-loader"
 import type { ExplorerConfig, ExplorerScenario } from "@/types/explorer"
+import type { ExplorerInspectorMode } from "@/types/explorer"
 import { StoryPreview } from "@/components/story-preview"
 import { cn } from "@/lib/utils"
+import { ExplorerInspector } from "@/components/explorer-inspector"
 import {
   CenterDialogPreview,
   RightPanelPreview,
@@ -78,6 +80,17 @@ export function ExplorerMatrix({
 
   const [selectedByRow, setSelectedByRow] = useState<Record<string, string>>(initialSelectedByRow);
   const [glassMode, setGlassMode] = useState<GlassChipValue>(false);
+  const initialInspector = (searchParams.get("inspector") as ExplorerInspectorMode | null)
+    ?? config.inspector?.defaultMode
+    ?? "off";
+  const [inspectorMode, setInspectorMode] = useState<ExplorerInspectorMode>(initialInspector);
+  const initialScale = Number.parseFloat(searchParams.get("inspectorScale") || "1")
+  const [inspectorScale, setInspectorScale] = useState<number>(
+    Number.isFinite(initialScale) && initialScale > 0 ? initialScale : 1
+  )
+  const [inspectorHighContrast, setInspectorHighContrast] = useState<boolean>(
+    searchParams.get("inspectorContrast") === "high"
+  )
 
   const selectedScenarios = useMemo(() => {
     return rows.map((row) => {
@@ -126,8 +139,41 @@ export function ExplorerMatrix({
         params.set(`sel_${row.id}`, selected);
       }
     });
+    if (inspectorMode && inspectorMode !== "off") {
+      params.set("inspector", inspectorMode);
+    } else {
+      params.delete("inspector");
+    }
+    if (Math.abs(inspectorScale - 1) > 0.001) {
+      params.set("inspectorScale", String(inspectorScale))
+    } else {
+      params.delete("inspectorScale")
+    }
+    if (inspectorHighContrast) {
+      params.set("inspectorContrast", "high")
+    } else {
+      params.delete("inspectorContrast")
+    }
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-  }, [selectedByRow, rows, pathname, router, searchParams])
+  }, [selectedByRow, rows, inspectorMode, inspectorScale, inspectorHighContrast, pathname, router, searchParams])
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) return
+
+      if (event.key === "0") setInspectorMode("off")
+      if (event.key === "1") setInspectorMode("box-model")
+      if (event.key === "2") setInspectorMode("token-spacing")
+      if (event.key === "3") setInspectorMode("both")
+      if (event.key === "=" || event.key === "+") setInspectorScale((prev) => Math.min(1.5, +(prev + 0.25).toFixed(2)))
+      if (event.key === "-") setInspectorScale((prev) => Math.max(0.75, +(prev - 0.25).toFixed(2)))
+      if (event.key.toLowerCase() === "c") setInspectorHighContrast((prev) => !prev)
+    }
+
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [])
 
   function handleScenarioClick(rowId: string, scenarioId: string) {
     setSelectedByRow((prev) => ({ ...prev, [rowId]: scenarioId }));
@@ -142,7 +188,14 @@ export function ExplorerMatrix({
   }
 
   const previewContent = baseStory ? (
-    <StoryPreview story={baseStory} meta={meta} chromeless overrideArgs={overrideArgs} />
+    <ExplorerInspector
+      mode={inspectorMode}
+      config={config.inspector}
+      scale={inspectorScale}
+      highContrast={inspectorHighContrast}
+    >
+      <StoryPreview story={baseStory} meta={meta} chromeless overrideArgs={overrideArgs} />
+    </ExplorerInspector>
   ) : (
     <div className="flex items-center justify-center h-full text-sm-rem text-[var(--secondary)]">
       Select a scenario to preview
@@ -229,6 +282,65 @@ export function ExplorerMatrix({
             </div>
           </div>
         )}
+        <div>
+          <h3 className="block w-full text-left text-lg-rem font-semibold pb-3 text-[var(--primary)]">
+            Inspector
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { label: "Off", value: "off" as ExplorerInspectorMode },
+              { label: "Box Model", value: "box-model" as ExplorerInspectorMode },
+              { label: "Token Spacing", value: "token-spacing" as ExplorerInspectorMode },
+              { label: "Both", value: "both" as ExplorerInspectorMode },
+            ].map((chip) => {
+              const isActive = inspectorMode === chip.value;
+              return (
+                <button
+                  key={chip.value}
+                  onClick={() => setInspectorMode(chip.value)}
+                  className={cn(
+                    "px-4 py-2 text-sm-rem rounded-md border transition-colors",
+                    isActive
+                      ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
+                      : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
+                  )}
+                >
+                  {chip.label}
+                </button>
+              )
+            })}
+          </div>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {[1, 1.25, 1.5].map((scale) => {
+              const isActive = Math.abs(inspectorScale - scale) < 0.001
+              return (
+                <button
+                  key={scale}
+                  onClick={() => setInspectorScale(scale)}
+                  className={cn(
+                    "px-3 py-1 text-sm-rem rounded-md border transition-colors",
+                    isActive
+                      ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
+                      : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
+                  )}
+                >
+                  {scale}x
+                </button>
+              )
+            })}
+            <button
+              onClick={() => setInspectorHighContrast((prev) => !prev)}
+              className={cn(
+                "px-3 py-1 text-sm-rem rounded-md border transition-colors",
+                inspectorHighContrast
+                  ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
+                  : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
+              )}
+            >
+              High Contrast
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Preview section — unified container for backdrop + component */}

@@ -51,8 +51,8 @@ export const RadioItem = React.forwardRef<HTMLLabelElement, RadioItemProps>(
     const { size, orientation } = useRadioGroupContext();
     
     const sizeStyles = {
-      sm: { gap: "gap-[0.375rem]", groupGap: "gap-[var(--spacing-x3)]" },
-      md: { gap: "gap-[var(--radio-gap)]", groupGap: "gap-[var(--spacing-x4)]" }
+      sm: { gap: "gap-[var(--spacing-x1-5)]", groupGap: "gap-[var(--spacing-x3)]", text: "text-sm-rem" },
+      md: { gap: "gap-[var(--radio-gap)]", groupGap: "gap-[var(--spacing-x4)]", text: "text-sm-rem" }
     };
 
     const currentSize = sizeStyles[size];
@@ -67,6 +67,7 @@ export const RadioItem = React.forwardRef<HTMLLabelElement, RadioItemProps>(
           className={cn(
             "inline-flex items-center",
             currentSize.gap,
+            currentSize.text,
             disabled && "opacity-50 cursor-not-allowed",
             className
           )}

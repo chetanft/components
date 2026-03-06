@@ -210,7 +210,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
             <div key={idx} className="flex items-center justify-center">
               {point.type === 'label' && (
                 <div className="flex items-center justify-center w-[var(--spacing-x4)] h-[var(--spacing-x4)] rounded-full bg-[var(--primary)]">
-                  <span className="text-[var(--color-bg-primary)] text-[0.625rem] font-medium leading-none text-center">
+                  <span className="text-[var(--color-bg-primary)] text-xxs-rem font-medium leading-none text-center">
                     {point.label || 'OR'}
                   </span>
                 </div>
@@ -276,7 +276,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
             ${isActive ? 'bg-[var(--primary)]' : 'bg-[var(--border-primary)]'}
           `}>
             <span className={`
-              text-[0.625rem] font-medium leading-none text-center
+              text-xxs-rem font-medium leading-none text-center
               ${isActive ? 'text-[var(--color-bg-primary)]' : 'text-[var(--primary)]'}
             `}>
               {item.pointLabel || 'OR'}
@@ -346,10 +346,10 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
     const isExpanded = expandedItems[item.id] || false;
 
     return (
-      <div className="flex gap-[var(--spacing-x2)] pt-2 flex-1">
+      <div className="flex gap-[var(--spacing-x2)] pt-[var(--spacing-x2)] flex-1">
         {/* Icon */}
         {item.icon && (
-          <div className="flex-shrink-0 w-4 h-4 mt-0.5">
+          <div className="flex-shrink-0 w-4 h-4 mt-[var(--spacing-x0-5)]">
             <Icon name={item.icon} size={16} color="var(--tertiary)" />
           </div>
         )}
@@ -357,7 +357,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
         {/* Content Container */}
         <div className="flex flex-col gap-[var(--spacing-x1)] flex-1 pb-[var(--spacing-x7)]">
           {/* Header */}
-          <div className="flex items-center gap-2 w-full">
+          <div className="flex items-center gap-[var(--spacing-x2)] w-full">
             {item.headerType === 'primary' ? (
               <>
                 <Typography
@@ -397,7 +397,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
                 <div
                   key={index}
                   className={`
-                    flex items-center gap-2 px-2 py-0.5 rounded text-sm-rem font-semibold
+                    flex items-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x0-5)] rounded text-sm-rem font-semibold
                     ${badge.variant === 'danger'
                       ? 'bg-[var(--critical-light)] text-[var(--critical)]'
                       : 'bg-[var(--border-secondary)] text-[var(--primary)]'
@@ -453,7 +453,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
         {renderTimeColumn(item)}
 
         {/* Path Column */}
-        <div className="flex flex-col items-center pt-2 w-8 shrink-0">
+        <div className="flex flex-col items-center pt-[var(--spacing-x2)] w-8 shrink-0">
           {/* Point */}
           {renderPoint(item)}
 

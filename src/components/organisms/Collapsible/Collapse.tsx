@@ -71,7 +71,7 @@ export const Collapse: React.FC<CollapseProps> = ({
 
   return (
     <div className={cn(
-        "flex flex-col gap-2", 
+        "flex flex-col gap-[var(--spacing-x2)]", 
         ghost ? "bg-transparent" : "bg-transparent",
         !bordered && "border-0",
         className

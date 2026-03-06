@@ -136,10 +136,10 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
     
     // Size configurations
     const sizeConfig = {
-      sm: { icon: 16, gap: 'gap-1' },
-      md: { icon: 24, gap: 'gap-1.5' },
-      lg: { icon: 32, gap: 'gap-2' },
-      xl: { icon: 40, gap: 'gap-2.5' },
+      sm: { icon: 16, gap: 'gap-[var(--spacing-x1)]', text: 'text-sm-rem' },
+      md: { icon: 24, gap: 'gap-[var(--spacing-x1-5)]', text: 'text-sm-rem' },
+      lg: { icon: 32, gap: 'gap-[var(--spacing-x2)]', text: 'text-md-rem' },
+      xl: { icon: 40, gap: 'gap-[var(--spacing-x2-5)]', text: 'text-md-rem' },
     };
 
     const config = sizeConfig[size];
@@ -309,7 +309,7 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
                     {children}
                     {/* Optional text showing current value */}
                     {hoverValue !== null && (
-                        <span className="ml-2 text-sm text-[var(--tertiary)]">
+                        <span className="ml-[var(--spacing-x2)] text-sm text-[var(--tertiary)]">
                             {hoverValue} / {count}
                         </span>
                     )}
@@ -359,6 +359,7 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
                 className={cn(
                     "inline-flex items-center",
                     config.gap,
+                    config.text,
                     className
                 )}
                 onMouseLeave={() => handleHover(null)}
@@ -370,7 +371,7 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
                 
                 {/* Optional text showing current value */}
                 {hoverValue !== null && (
-                    <span className="ml-2 text-sm text-[var(--tertiary)]">
+                    <span className="ml-[var(--spacing-x2)] text-sm text-[var(--tertiary)]">
                         {hoverValue} / {count}
                     </span>
                 )}
@@ -381,4 +382,3 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
 );
 
 Rate.displayName = 'Rate';
-

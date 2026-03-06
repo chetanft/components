@@ -1,0 +1,1821 @@
+{
+  "organisms/AppHeader": {
+    "rows": [
+      {
+        "source": "src/components/organisms/AppHeader/AppHeader.tsx",
+        "dimension": "size",
+        "variant": "mobile",
+        "tokens": [
+          "--bg-secondary",
+          "--border-primary",
+          "--spacing-x3",
+          "--spacing-x4"
+        ]
+      },
+      {
+        "source": "src/components/organisms/AppHeader/AppHeader.tsx",
+        "dimension": "size",
+        "variant": "desktop",
+        "tokens": [
+          "--bg-secondary",
+          "--border-primary",
+          "--spacing-x4",
+          "--spacing-x5"
+        ]
+      }
+    ]
+  },
+  "organisms/Card": {
+    "rows": [
+      {
+        "source": "src/components/organisms/Card/Card.tsx",
+        "dimension": "section",
+        "variant": "header",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--radius-md",
+          "--spacing-x5"
+        ]
+      },
+      {
+        "source": "src/components/organisms/Card/Card.tsx",
+        "dimension": "section",
+        "variant": "body",
+        "tokens": [
+          "--bg-primary",
+          "--spacing-x5"
+        ]
+      },
+      {
+        "source": "src/components/organisms/Card/Card.tsx",
+        "dimension": "section",
+        "variant": "footer",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--spacing-x3",
+          "--spacing-x5"
+        ]
+      }
+    ]
+  },
+  "organisms/Drawer": {
+    "rows": [
+      {
+        "source": "src/components/organisms/Drawer/DrawerContent.tsx",
+        "dimension": "section",
+        "variant": "header",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--spacing-x4",
+          "--spacing-x6"
+        ]
+      },
+      {
+        "source": "src/components/organisms/Drawer/DrawerContent.tsx",
+        "dimension": "section",
+        "variant": "body",
+        "tokens": [
+          "--bg-primary",
+          "--spacing-x4",
+          "--spacing-x6"
+        ]
+      },
+      {
+        "source": "src/components/organisms/Drawer/DrawerContent.tsx",
+        "dimension": "section",
+        "variant": "footer",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--spacing-x4",
+          "--spacing-x6"
+        ]
+      }
+    ]
+  },
+  "organisms/Modal": {
+    "rows": [
+      {
+        "source": "src/components/organisms/Modal/ModalContent.tsx",
+        "dimension": "section",
+        "variant": "header",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--spacing-x4",
+          "--spacing-x6"
+        ]
+      },
+      {
+        "source": "src/components/organisms/Modal/ModalContent.tsx",
+        "dimension": "section",
+        "variant": "body",
+        "tokens": [
+          "--bg-primary",
+          "--spacing-x4",
+          "--spacing-x6"
+        ]
+      },
+      {
+        "source": "src/components/organisms/Modal/ModalContent.tsx",
+        "dimension": "section",
+        "variant": "footer",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--spacing-x4",
+          "--spacing-x6"
+        ]
+      }
+    ]
+  },
+  "organisms/Tabs": {
+    "rows": [
+      {
+        "source": "src/components/organisms/Tabs/Tabs.tsx",
+        "dimension": "type",
+        "variant": "segmented",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--radius-sm",
+          "--spacing-x1",
+          "--spacing-x2"
+        ]
+      },
+      {
+        "source": "src/components/organisms/Tabs/Tabs.tsx",
+        "dimension": "type",
+        "variant": "line",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--spacing-x2",
+          "--spacing-x3"
+        ]
+      }
+    ]
+  },
+  "organisms/Table": {
+    "rows": [
+      {
+        "source": "src/components/organisms/Table/TableCell.tsx",
+        "dimension": "cell",
+        "variant": "header",
+        "tokens": [
+          "--bg-secondary",
+          "--border-primary",
+          "--spacing-x2",
+          "--spacing-x4"
+        ]
+      },
+      {
+        "source": "src/components/organisms/Table/TableCell.tsx",
+        "dimension": "cell",
+        "variant": "body",
+        "tokens": [
+          "--bg-primary",
+          "--border-secondary",
+          "--spacing-x2",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "molecules/List": {
+    "rows": [
+      {
+        "source": "src/components/molecules/List/ListHeader.tsx",
+        "dimension": "section",
+        "variant": "header",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--spacing-x3",
+          "--spacing-x4"
+        ]
+      },
+      {
+        "source": "src/components/molecules/List/ListBody.tsx",
+        "dimension": "section",
+        "variant": "body",
+        "tokens": [
+          "--bg-primary",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4"
+        ]
+      },
+      {
+        "source": "src/components/molecules/List/ListFooter.tsx",
+        "dimension": "section",
+        "variant": "footer",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--spacing-x3",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "organisms/Result": {
+    "rows": [
+      {
+        "source": "src/components/organisms/Result/Result.tsx",
+        "dimension": "status",
+        "variant": "success|error|info|warning",
+        "tokens": [
+          "--positive",
+          "--critical",
+          "--neutral",
+          "--warning",
+          "--spacing-x8",
+          "--spacing-x12"
+        ]
+      },
+      {
+        "source": "src/components/organisms/Result/Result.tsx",
+        "dimension": "status",
+        "variant": "404|403|500",
+        "tokens": [
+          "--critical",
+          "--tertiary",
+          "text-5xl-rem",
+          "--spacing-x16"
+        ]
+      }
+    ]
+  },
+  "molecules/Pagination": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Pagination/PaginationItem.tsx",
+        "dimension": "type",
+        "variant": "page",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--radius-md",
+          "--spacing-x1",
+          "--spacing-x2"
+        ]
+      },
+      {
+        "source": "src/components/molecules/Pagination/PaginationQuickJumper.tsx",
+        "dimension": "type",
+        "variant": "quick-jumper",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--radius-md",
+          "--spacing-x1-5",
+          "--spacing-x2"
+        ]
+      }
+    ]
+  },
+  "molecules/Tooltip": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Tooltip/TooltipContent.tsx",
+        "dimension": "placement",
+        "variant": "top|bottom|left|right",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--radius-md",
+          "--spacing-x1",
+          "--spacing-x2"
+        ]
+      }
+    ]
+  },
+  "molecules/Anchor": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Anchor/Anchor.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--border-primary",
+          "--primary",
+          "--primary-bg-subtle",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x4",
+          "--text-secondary"
+        ]
+      }
+    ]
+  },
+  "molecules/Breadcrumb": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Breadcrumb/Breadcrumb.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-neutral",
+          "--color-primary",
+          "--color-tertiary",
+          "--radius-md",
+          "--radius-sm",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--transition-fast"
+        ]
+      }
+    ]
+  },
+  "molecules/ButtonGroup": {
+    "rows": [
+      {
+        "source": "src/components/molecules/ButtonGroup/ButtonGroup.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--spacing-x2"
+        ]
+      }
+    ]
+  },
+  "molecules/Calendar": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Calendar/Calendar.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--border-primary",
+          "--border-secondary",
+          "--font-size-sm-rem",
+          "--primary",
+          "--radius-md",
+          "--radius-sm",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x20",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x6",
+          "--tertiary"
+        ]
+      }
+    ]
+  },
+  "molecules/Carousel": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Carousel/Carousel.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary",
+          "--color-border-primary",
+          "--color-border-secondary",
+          "--color-neutral",
+          "--color-primary",
+          "--glass-hover",
+          "--glass-selected",
+          "--spacing-x1",
+          "--spacing-x10",
+          "--spacing-x2",
+          "--spacing-x6"
+        ]
+      }
+    ]
+  },
+  "molecules/Cascader": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Cascader/Cascader.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--border-primary",
+          "--border-secondary",
+          "--color-primary",
+          "--color-tertiary",
+          "--font-size-md-rem",
+          "--primary",
+          "--spacing-x1",
+          "--spacing-x10",
+          "--spacing-x16",
+          "--spacing-x2",
+          "--spacing-x20",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--tertiary"
+        ]
+      }
+    ]
+  },
+  "molecules/Chicklet": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Chicklet/Chicklet.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--border-primary",
+          "--border-secondary",
+          "--primary",
+          "--spacing-x0-5",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x3"
+        ]
+      }
+    ]
+  },
+  "organisms/Collapsible": {
+    "rows": [
+      {
+        "source": "src/components/organisms/Collapsible/Collapse.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--border-primary",
+          "--border-secondary",
+          "--primary",
+          "--spacing-x10",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "molecules/ColorPicker": {
+    "rows": [
+      {
+        "source": "src/components/molecules/ColorPicker/ColorPicker.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--border-primary",
+          "--border-secondary",
+          "--color-bg-primary",
+          "--color-bg-secondary",
+          "--primary",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--text-secondary"
+        ]
+      }
+    ]
+  },
+  "molecules/Content": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Content/Content.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--spacing-x1"
+        ]
+      }
+    ]
+  },
+  "organisms/DataEntryTable": {
+    "rows": [
+      {
+        "source": "src/components/organisms/DataEntryTable/DataEntryTableBody.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--border-primary",
+          "--border-secondary",
+          "--component-height-md",
+          "--critical",
+          "--critical-light",
+          "--font-size-md",
+          "--primary",
+          "--radius-md",
+          "--radius-none",
+          "--radius-sm",
+          "--secondary",
+          "--spacing-x0",
+          "--spacing-x1",
+          "--spacing-x12",
+          "--spacing-x2",
+          "--spacing-x20",
+          "--spacing-x3",
+          "--spacing-x5",
+          "--spacing-x6",
+          "--spacing-x8",
+          "--tertiary"
+        ]
+      }
+    ]
+  },
+  "molecules/Descriptions": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Descriptions/Descriptions.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-border-secondary",
+          "--color-primary",
+          "--color-secondary",
+          "--primary-500",
+          "--radius-md",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "organisms/DisplayBlock": {
+    "rows": [
+      {
+        "source": "src/components/organisms/DisplayBlock/DisplayBlock.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary",
+          "--spacing-x0",
+          "--spacing-x1",
+          "--spacing-x5"
+        ]
+      }
+    ]
+  },
+  "molecules/Empty": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Empty/Empty.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--border-secondary",
+          "--critical",
+          "--critical-light",
+          "--spacing-x16",
+          "--spacing-x4",
+          "--spacing-x6",
+          "--spacing-x8",
+          "--tertiary"
+        ]
+      }
+    ]
+  },
+  "organisms/FileCard": {
+    "rows": [
+      {
+        "source": "src/components/organisms/FileCard/FileCard.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-secondary",
+          "--color-critical",
+          "--critical",
+          "--glass-hover",
+          "--positive",
+          "--primary",
+          "--radius-md",
+          "--secondary",
+          "--spacing-x1",
+          "--spacing-x10",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x5",
+          "--spacing-x7"
+        ]
+      }
+    ]
+  },
+  "organisms/FileThumbnail": {
+    "rows": [
+      {
+        "source": "src/components/organisms/FileThumbnail/FileThumbnail.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--overlay-control-text",
+          "--overlay-strong",
+          "--secondary",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x20",
+          "--spacing-x4",
+          "--spacing-x5",
+          "text-sm-rem"
+        ]
+      }
+    ]
+  },
+  "molecules/FileValidationCard": {
+    "rows": [
+      {
+        "source": "src/components/molecules/FileValidationCard/FileValidationCard.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--border-secondary",
+          "--color-neutral",
+          "--color-neutral-light",
+          "--critical",
+          "--critical-light",
+          "--primary",
+          "--radius-md",
+          "--radius-sm",
+          "--secondary",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--spacing-x6",
+          "--spacing-x8"
+        ]
+      }
+    ]
+  },
+  "molecules/FilterDateRange": {
+    "rows": [
+      {
+        "source": "src/components/molecules/FilterDateRange/FilterDateRange.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-secondary",
+          "--spacing-x10",
+          "--spacing-x2"
+        ]
+      }
+    ]
+  },
+  "molecules/FilterDropdown": {
+    "rows": [
+      {
+        "source": "src/components/molecules/FilterDropdown/FilterDropdown.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-secondary",
+          "--spacing-x10",
+          "--spacing-x2"
+        ]
+      }
+    ]
+  },
+  "molecules/FilterSearch": {
+    "rows": [
+      {
+        "source": "src/components/molecules/FilterSearch/FilterSearch.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--spacing-x10",
+          "--spacing-x2"
+        ]
+      }
+    ]
+  },
+  "molecules/FloatButton": {
+    "rows": [
+      {
+        "source": "src/components/molecules/FloatButton/FloatButton.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--button-primary-bg",
+          "--button-primary-border",
+          "--button-primary-hover-bg",
+          "--button-primary-text",
+          "--button-secondary-bg",
+          "--button-secondary-border",
+          "--button-secondary-hover-bg",
+          "--button-secondary-hover-border",
+          "--button-secondary-text",
+          "--color-bg-primary",
+          "--danger",
+          "--primary",
+          "--spacing-x0-5",
+          "--spacing-x1-5",
+          "--spacing-x10",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x6",
+          "text-xxs-rem"
+        ]
+      }
+    ]
+  },
+  "organisms/Footer": {
+    "rows": [
+      {
+        "source": "src/components/organisms/Footer/Footer.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--spacing-x4",
+          "--spacing-x5"
+        ]
+      }
+    ]
+  },
+  "organisms/Form": {
+    "rows": [
+      {
+        "source": "src/components/organisms/Form/Form.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--border-secondary",
+          "--radius-md",
+          "--secondary",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "molecules/Graphs": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Graphs/Graphs.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-primary",
+          "--color-secondary",
+          "--spacing-x1",
+          "--spacing-x3",
+          "--spacing-x5",
+          "text-xs-rem",
+          "text-xxs-rem"
+        ]
+      }
+    ]
+  },
+  "organisms/Grid": {
+    "rows": [
+      {
+        "source": "src/components/organisms/Grid/Grid.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--spacing-x1",
+          "--spacing-x12"
+        ]
+      }
+    ]
+  },
+  "molecules/HoverCard": {
+    "rows": [
+      {
+        "source": "src/components/molecules/HoverCard/HoverCardContent.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary",
+          "--color-border-secondary",
+          "--radius-md",
+          "--shadow-xl",
+          "--spacing-x2",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "molecules/Image": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Image/Image.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-secondary",
+          "--color-tertiary",
+          "--overlay-control-bg",
+          "--overlay-control-bg-hover",
+          "--overlay-control-divider",
+          "--overlay-control-text",
+          "--overlay-strong",
+          "--spacing-x15",
+          "--spacing-x2",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "molecules/Loader": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Loader/Loader.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--border-primary",
+          "--primary",
+          "--spacing-x2",
+          "--spacing-x5"
+        ]
+      }
+    ]
+  },
+  "molecules/Mentions": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Mentions/Mentions.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary",
+          "--color-border-primary",
+          "--color-critical",
+          "--color-neutral-light",
+          "--color-primary",
+          "--color-tertiary",
+          "--color-warning",
+          "--font-size-sm-rem",
+          "--radius-md",
+          "--spacing-x10",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "molecules/Message": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Message/Message.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--critical",
+          "--critical-light",
+          "--neutral",
+          "--neutral-light",
+          "--positive",
+          "--positive-light",
+          "--primary",
+          "--radius-md",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--tertiary",
+          "--warning",
+          "--warning-light"
+        ]
+      }
+    ]
+  },
+  "organisms/NavigationMenu": {
+    "rows": [
+      {
+        "source": "src/components/organisms/NavigationMenu/NavigationMenu.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary",
+          "--color-bg-secondary",
+          "--color-border-primary",
+          "--color-neutral",
+          "--color-neutral-light",
+          "--color-primary",
+          "--color-tertiary",
+          "--font-size-lg-rem",
+          "--font-size-md-rem",
+          "--font-size-sm-rem",
+          "--radius-md",
+          "--radius-xl",
+          "--shadow-lg",
+          "--spacing-x1",
+          "--spacing-x12",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--spacing-x6",
+          "--spacing-x8",
+          "--spacing-x9"
+        ]
+      }
+    ]
+  },
+  "organisms/NavigationPopover": {
+    "rows": [
+      {
+        "source": "src/components/organisms/NavigationPopover/NavigationLauncher.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--border-primary",
+          "--border-secondary",
+          "--font-size-md-rem",
+          "--neutral",
+          "--primary",
+          "--spacing-x1",
+          "--spacing-x10",
+          "--spacing-x2",
+          "--spacing-x2-5",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--spacing-x6",
+          "--spacing-x9",
+          "--tertiary",
+          "text-md-rem"
+        ]
+      }
+    ]
+  },
+  "molecules/Notification": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Notification/Notification.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--spacing-x2",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "organisms/PageHeader": {
+    "rows": [
+      {
+        "source": "src/components/organisms/PageHeader/PageHeader.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--border-secondary",
+          "--primary",
+          "--radius-lg",
+          "--radius-md",
+          "--secondary",
+          "--spacing-x1",
+          "--spacing-x10",
+          "--spacing-x11",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--spacing-x6",
+          "--spacing-x7",
+          "--tertiary",
+          "text-md-rem",
+          "text-sm-rem",
+          "text-xl-rem"
+        ]
+      }
+    ]
+  },
+  "molecules/PageHeaderFilters": {
+    "rows": [
+      {
+        "source": "src/components/molecules/PageHeaderFilters/PageHeaderFilters.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x5"
+        ]
+      }
+    ]
+  },
+  "molecules/PercentageOfChargeInput": {
+    "rows": [
+      {
+        "source": "src/components/molecules/PercentageOfChargeInput/PercentageOfChargeInput.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--border-primary",
+          "--critical",
+          "--font-size-lg-rem",
+          "--font-size-md-rem",
+          "--font-size-sm-rem",
+          "--font-size-xs-rem",
+          "--primary",
+          "--radius-md",
+          "--secondary",
+          "--shadow-md",
+          "--spacing-x1-5",
+          "--spacing-x10",
+          "--spacing-x12",
+          "--spacing-x14",
+          "--spacing-x16",
+          "--spacing-x2",
+          "--spacing-x2-5",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--spacing-x6",
+          "--spacing-x8",
+          "--spacing-x9",
+          "--tertiary"
+        ]
+      }
+    ]
+  },
+  "molecules/Popconfirm": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Popconfirm/PopconfirmActions.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary",
+          "--color-border-secondary",
+          "--color-warning",
+          "--radius-md",
+          "--shadow-lg",
+          "--spacing-x0-5",
+          "--spacing-x1-5",
+          "--spacing-x10",
+          "--spacing-x2",
+          "--spacing-x4",
+          "--spacing-x5"
+        ]
+      }
+    ]
+  },
+  "molecules/ProgressList": {
+    "rows": [
+      {
+        "source": "src/components/molecules/ProgressList/ProgressList.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--border-primary",
+          "--border-secondary",
+          "--color-bg-primary",
+          "--critical",
+          "--critical-light",
+          "--glass-hover",
+          "--primary",
+          "--secondary",
+          "--spacing-x0-5",
+          "--spacing-x1",
+          "--spacing-x10",
+          "--spacing-x2",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--spacing-x6",
+          "--spacing-x7",
+          "--tertiary",
+          "text-sm-rem",
+          "text-xxs-rem"
+        ]
+      }
+    ]
+  },
+  "organisms/QuickFilters": {
+    "rows": [
+      {
+        "source": "src/components/organisms/QuickFilters/QuickFilters.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary",
+          "--color-bg-secondary",
+          "--color-border-primary",
+          "--color-border-secondary",
+          "--color-critical",
+          "--color-neutral",
+          "--color-positive",
+          "--color-primary",
+          "--color-warning",
+          "--glass-selected",
+          "--radius-full",
+          "--radius-md",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x5",
+          "--spacing-x6"
+        ]
+      }
+    ]
+  },
+  "molecules/RadioSelector": {
+    "rows": [
+      {
+        "source": "src/components/molecules/RadioSelector/RadioSelector.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-secondary",
+          "--border-primary",
+          "--border-secondary",
+          "--primary",
+          "--secondary-300",
+          "--shadow-sm",
+          "--spacing-x0-5",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--tertiary"
+        ]
+      }
+    ]
+  },
+  "molecules/SegmentedTabs": {
+    "rows": [
+      {
+        "source": "src/components/molecules/SegmentedTabs/SegmentedTabs.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--color-divider",
+          "--primary",
+          "--secondary",
+          "--shadow-sm",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x4",
+          "--spacing-x6",
+          "--spacing-x8",
+          "text-sm-rem"
+        ]
+      }
+    ]
+  },
+  "molecules/Slider": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Slider/Slider.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--border-secondary",
+          "--font-size-sm-rem",
+          "--primary",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x4",
+          "--tertiary"
+        ]
+      }
+    ]
+  },
+  "molecules/StackedBarChart": {
+    "rows": [
+      {
+        "source": "src/components/molecules/StackedBarChart/StackedBarChart.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--primary",
+          "--radius-2xs",
+          "--radius-smd",
+          "--secondary",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "text-xs-rem",
+          "text-xxs-rem"
+        ]
+      }
+    ]
+  },
+  "molecules/Steps": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Steps/StepContent.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--primary",
+          "--radius-md",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x5",
+          "--tertiary",
+          "text-lg-rem",
+          "text-md-rem"
+        ]
+      }
+    ]
+  },
+  "molecules/TimePicker": {
+    "rows": [
+      {
+        "source": "src/components/molecules/TimePicker/TimePicker.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary",
+          "--color-bg-secondary",
+          "--color-border-primary",
+          "--color-border-secondary",
+          "--color-primary",
+          "--color-tertiary",
+          "--primary",
+          "--radius-md",
+          "--shadow-lg",
+          "--spacing-x1",
+          "--spacing-x1-5",
+          "--spacing-x10",
+          "--spacing-x14",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x8"
+        ]
+      }
+    ]
+  },
+  "molecules/ToggleGroup": {
+    "rows": [
+      {
+        "source": "src/components/molecules/ToggleGroup/ToggleGroup.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary",
+          "--radius-md"
+        ]
+      }
+    ]
+  },
+  "molecules/Tour": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Tour/Tour.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary",
+          "--neutral-200",
+          "--overlay-medium",
+          "--primary",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x4",
+          "--text-primary",
+          "--text-secondary",
+          "--text-tertiary"
+        ]
+      }
+    ]
+  },
+  "molecules/Transfer": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Transfer/Transfer.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--border-primary",
+          "--color-bg-primary",
+          "--color-bg-secondary",
+          "--spacing-x10",
+          "--spacing-x15",
+          "--spacing-x2",
+          "--spacing-x2-5",
+          "--spacing-x20",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--surface-hover",
+          "--text-tertiary"
+        ]
+      }
+    ]
+  },
+  "molecules/Tree": {
+    "rows": [
+      {
+        "source": "src/components/molecules/Tree/TreeNode.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-secondary",
+          "--color-border-primary",
+          "--color-border-secondary",
+          "--color-primary",
+          "--color-primary-light",
+          "--color-secondary",
+          "--color-tertiary",
+          "--glass-hover",
+          "--glass-selected",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x6"
+        ]
+      }
+    ]
+  },
+  "molecules/TreeSelect": {
+    "rows": [
+      {
+        "source": "src/components/molecules/TreeSelect/TreeSelect.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary",
+          "--color-border-secondary",
+          "--color-tertiary",
+          "--primary",
+          "--radius-md",
+          "--shadow-lg",
+          "--spacing-x1",
+          "--spacing-x10",
+          "--spacing-x15",
+          "--spacing-x2",
+          "--spacing-x20",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x8"
+        ]
+      }
+    ]
+  },
+  "organisms/Upload": {
+    "rows": [
+      {
+        "source": "src/components/organisms/Upload/Upload.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--spacing-x10",
+          "--spacing-x4",
+          "--spacing-x8"
+        ]
+      }
+    ]
+  },
+  "molecules/UploadButton": {
+    "rows": [
+      {
+        "source": "src/components/molecules/UploadButton/UploadButton.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--border-primary",
+          "--primary",
+          "--radius-md",
+          "--spacing-x10",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5"
+        ]
+      }
+    ]
+  },
+  "molecules/UploadItem": {
+    "rows": [
+      {
+        "source": "src/components/molecules/UploadItem/UploadItem.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--border-secondary",
+          "--critical",
+          "--neutral",
+          "--primary",
+          "--radius-md",
+          "--radius-sm",
+          "--secondary",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--warning"
+        ]
+      }
+    ]
+  },
+  "molecules/UploadThumbnail": {
+    "rows": [
+      {
+        "source": "src/components/molecules/UploadThumbnail/UploadThumbnail.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-secondary",
+          "--color-border-primary",
+          "--color-critical",
+          "--color-critical-light",
+          "--color-primary",
+          "--color-secondary",
+          "--radius-full",
+          "--radius-md",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x20",
+          "--spacing-x3",
+          "--spacing-x5"
+        ]
+      }
+    ]
+  },
+  "organisms/UploadZone": {
+    "rows": [
+      {
+        "source": "src/components/organisms/UploadZone/UploadZone.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-secondary",
+          "--border-primary",
+          "--neutral",
+          "--primary",
+          "--radius-md",
+          "--secondary",
+          "--spacing-x1",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--spacing-x8",
+          "--tertiary"
+        ]
+      }
+    ]
+  },
+  "organisms/UserProfile": {
+    "rows": [
+      {
+        "source": "src/components/organisms/UserProfile/UserProfile.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--spacing-x10",
+          "--spacing-x2",
+          "--spacing-x2-5",
+          "--spacing-x3"
+        ]
+      }
+    ]
+  },
+  "organisms/UserProfileDropdown": {
+    "rows": [
+      {
+        "source": "src/components/organisms/UserProfileDropdown/UserProfileDropdown.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--border-primary",
+          "--border-secondary",
+          "--critical",
+          "--font-size-md-rem",
+          "--primary",
+          "--shadow-lg",
+          "--spacing-x0-5",
+          "--spacing-x1",
+          "--spacing-x14",
+          "--spacing-x2",
+          "--spacing-x2-5",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--spacing-x7",
+          "--spacing-x8",
+          "--spacing-x9",
+          "text-md-rem"
+        ]
+      }
+    ]
+  },
+  "charts/AreaChart": {
+    "rows": [
+      {
+        "source": "src/components/charts/AreaChart.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary"
+        ]
+      }
+    ]
+  },
+  "charts/BulletChart": {
+    "rows": [
+      {
+        "source": "src/components/charts/BulletChart.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-border-primary",
+          "--color-border-secondary",
+          "--color-neutral-light"
+        ]
+      }
+    ]
+  },
+  "atoms/Colors": {
+    "rows": [
+      {
+        "source": "src/components/atoms/Colors/Colors.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--overlay-control-text",
+          "--primary",
+          "--spacing-x1",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x6",
+          "--spacing-x8",
+          "text-3_5xl-rem",
+          "text-xxs-rem"
+        ]
+      }
+    ]
+  },
+  "atoms/Divider": {
+    "rows": [
+      {
+        "source": "src/components/atoms/Divider/Divider.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--border-secondary",
+          "--spacing-x0-5",
+          "--spacing-x2",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "atoms/FigmaBadge": {
+    "rows": [
+      {
+        "source": "src/components/atoms/FigmaBadge/FigmaBadge.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-warning",
+          "--color-warning-light",
+          "--radius-sm",
+          "--spacing-x0-5",
+          "--spacing-x1",
+          "--spacing-x2",
+          "text-xxs-rem"
+        ]
+      }
+    ]
+  },
+  "charts/GaugeChart": {
+    "rows": [
+      {
+        "source": "src/components/charts/GaugeChart.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-primary",
+          "--color-secondary"
+        ]
+      }
+    ]
+  },
+  "atoms/Icons": {
+    "rows": [
+      {
+        "source": "src/components/atoms/Icons/AddTrip.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--border-primary",
+          "--critical",
+          "--primary",
+          "--secondary",
+          "--tertiary"
+        ]
+      }
+    ]
+  },
+  "atoms/Label": {
+    "rows": [
+      {
+        "source": "src/components/atoms/Label/Label.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--critical",
+          "--font-size-sm-rem",
+          "--font-size-xs-rem",
+          "--primary",
+          "--spacing-x1",
+          "--spacing-x4",
+          "--tertiary"
+        ]
+      }
+    ]
+  },
+  "charts/LineChart": {
+    "rows": [
+      {
+        "source": "src/components/charts/LineChart.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-primary"
+        ]
+      }
+    ]
+  },
+  "templates/ListingLayout": {
+    "rows": [
+      {
+        "source": "src/components/templates/ListingLayout/ListingLayout.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--border-secondary",
+          "--radius-3xl",
+          "--radius-4xl",
+          "--shadow-sm",
+          "--spacing-x1",
+          "--spacing-x10",
+          "--spacing-x12",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--spacing-x6",
+          "--spacing-x8"
+        ]
+      }
+    ]
+  },
+  "charts/RadialChart": {
+    "rows": [
+      {
+        "source": "src/components/charts/RadialChart.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--spacing-x6"
+        ]
+      }
+    ]
+  },
+  "atoms/ReadOnly": {
+    "rows": [
+      {
+        "source": "src/components/atoms/ReadOnly/ReadOnly.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--secondary",
+          "--spacing-x0-5",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x2-5",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "atoms/Select": {
+    "rows": [
+      {
+        "source": "src/components/atoms/Select/Select.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--bg-primary",
+          "--bg-secondary",
+          "--border-primary",
+          "--border-secondary",
+          "--primary",
+          "--radix-select-trigger-height",
+          "--radix-select-trigger-width",
+          "--spacing-x1",
+          "--spacing-x1-5",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x8",
+          "--tertiary",
+          "text-sm-rem"
+        ]
+      }
+    ]
+  },
+  "atoms/Skeleton": {
+    "rows": [
+      {
+        "source": "src/components/atoms/Skeleton/Skeleton.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-bg-secondary",
+          "--radius-md",
+          "--spacing-x2"
+        ]
+      }
+    ]
+  },
+  "atoms/Spacer": {
+    "rows": [
+      {
+        "source": "src/components/atoms/Spacer/Spacer.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--spacing-x1",
+          "--spacing-x10",
+          "--spacing-x11",
+          "--spacing-x12",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4",
+          "--spacing-x5",
+          "--spacing-x6",
+          "--spacing-x7",
+          "--spacing-x8",
+          "--spacing-x9"
+        ]
+      }
+    ]
+  },
+  "atoms/Statistic": {
+    "rows": [
+      {
+        "source": "src/components/atoms/Statistic/Statistic.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--spacing-x1",
+          "--spacing-x2"
+        ]
+      }
+    ]
+  },
+  "atoms/SubText": {
+    "rows": [
+      {
+        "source": "src/components/atoms/SubText/SubText.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--secondary",
+          "--spacing-x2",
+          "--spacing-x2-5",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  },
+  "atoms/Text": {
+    "rows": [
+      {
+        "source": "src/components/atoms/Text/Text.tsx",
+        "dimension": "base",
+        "variant": "default",
+        "tokens": [
+          "--color-primary",
+          "--spacing-x1",
+          "--spacing-x2",
+          "--spacing-x3",
+          "--spacing-x4"
+        ]
+      }
+    ]
+  }
+}

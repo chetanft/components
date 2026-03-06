@@ -42,7 +42,7 @@ export const AlertAction = React.forwardRef<HTMLDivElement, AlertActionProps>(
     return (
       <Comp
         ref={ref}
-        className={cn("flex-shrink-0 ml-4 flex items-center", className)}
+        className={cn("flex-shrink-0 ml-[var(--spacing-x4)] flex items-center", className)}
         {...props}
       >
         {children}

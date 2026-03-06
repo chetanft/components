@@ -40,8 +40,8 @@ export interface FilterSearchProps extends Omit<ComposableProps<'div'>, 'onChang
 /**
  * FilterSearch Component
  * 
- * A responsive search filter that shows full input on desktop (≥1200px)
- * and icon button that expands inline to input field on mobile (<1200px).
+ * A responsive search filter that shows full input on desktop (>=1200 breakpoint)
+ * and icon button that expands inline to input field on mobile (<1200 breakpoint).
  * 
  * @public
  * 
@@ -56,7 +56,7 @@ export interface FilterSearchProps extends Omit<ComposableProps<'div'>, 'onChang
  */
 export const FilterSearch = React.forwardRef<HTMLDivElement, FilterSearchProps>(
   ({ value, onChange, placeholder = 'Search', onExpand, onCollapse, className, glass, asChild, ...props }, ref) => {
-    const isMobile = useMediaQuery('(max-width: 1199px)');
+    const isMobile = useMediaQuery('(max-width: 74.9375em)');
     const resolvedGlass = useResolvedGlass(glass);
     const [isExpanded, setIsExpanded] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -189,4 +189,3 @@ export const FilterSearch = React.forwardRef<HTMLDivElement, FilterSearchProps>(
 );
 
 FilterSearch.displayName = 'FilterSearch';
-

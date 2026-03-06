@@ -71,10 +71,10 @@ export const HoverCardContent = React.forwardRef<HTMLDivElement, HoverCardConten
     if (!open) return null;
     
     const placementStyles = {
-      top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
-      bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
-      left: 'right-full top-1/2 -translate-y-1/2 mr-2',
-      right: 'left-full top-1/2 -translate-y-1/2 ml-2',
+      top: 'bottom-full left-1/2 -translate-x-1/2 mb-[var(--spacing-x2)]',
+      bottom: 'top-full left-1/2 -translate-x-1/2 mt-[var(--spacing-x2)]',
+      left: 'right-full top-1/2 -translate-y-1/2 mr-[var(--spacing-x2)]',
+      right: 'left-full top-1/2 -translate-y-1/2 ml-[var(--spacing-x2)]',
     };
     
     const Comp = asChild ? Slot : 'div';

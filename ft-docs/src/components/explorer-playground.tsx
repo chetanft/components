@@ -1,13 +1,15 @@
 "use client"
 
 import { useState, useMemo, useCallback, useEffect } from "react"
+import { useSearchParams, useRouter, usePathname } from "next/navigation"
 import type { StoryMeta, StoryDefinition } from "@/lib/story-loader"
-import type { ExplorerConfig } from "@/types/explorer"
+import type { ExplorerConfig, ExplorerInspectorMode } from "@/types/explorer"
 import { StoryPreview } from "@/components/story-preview"
 import { ExplorerPositionedPreview } from "@/components/explorer-positioned-preview"
 import { PlaygroundControl } from "@/components/playground-control"
 import { buildControls } from "@/lib/playground-controls"
 import { GlassPreviewBackdrop } from "@/components/glass-preview-backdrop"
+import { ExplorerInspector } from "@/components/explorer-inspector"
 
 type GlassChipValue = false | true | "subtle" | "prominent"
 
@@ -31,6 +33,10 @@ export function ExplorerPlayground({
   componentName,
   config,
 }: ExplorerPlaygroundProps) {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+
   const selectedStory = useMemo(() => {
     const playgroundStoryName = config.playground?.story
     if (playgroundStoryName) {
@@ -53,6 +59,16 @@ export function ExplorerPlayground({
   }, [stories, config.playground?.story])
 
   const [glassMode, setGlassMode] = useState<GlassChipValue>(false);
+  const [inspectorMode, setInspectorMode] = useState<ExplorerInspectorMode>(() =>
+    (searchParams.get("inspector") as ExplorerInspectorMode | null) ?? config.inspector?.defaultMode ?? "off"
+  );
+  const [inspectorScale, setInspectorScale] = useState<number>(() => {
+    const raw = Number.parseFloat(searchParams.get("inspectorScale") || "1")
+    return Number.isFinite(raw) && raw > 0 ? raw : 1
+  })
+  const [inspectorHighContrast, setInspectorHighContrast] = useState<boolean>(
+    searchParams.get("inspectorContrast") === "high"
+  )
 
   const [controlValues, setControlValues] = useState<Record<string, unknown>>(() => ({
     ...(meta.args ?? {}),
@@ -97,14 +113,49 @@ export function ExplorerPlayground({
   }, [controlValues, glassMode])
 
   const preview = (
-    <StoryPreview
-      meta={meta}
-      story={storyForPreview}
-      componentName={componentName}
-      overrideArgs={mergedControlValues}
-      chromeless
-    />
+    <ExplorerInspector
+      mode={inspectorMode}
+      config={config.inspector}
+      scale={inspectorScale}
+      highContrast={inspectorHighContrast}
+    >
+      <StoryPreview
+        meta={meta}
+        story={storyForPreview}
+        componentName={componentName}
+        overrideArgs={mergedControlValues}
+        chromeless
+      />
+    </ExplorerInspector>
   )
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("mode", "playground")
+    if (inspectorMode && inspectorMode !== "off") params.set("inspector", inspectorMode)
+    else params.delete("inspector")
+    if (Math.abs(inspectorScale - 1) > 0.001) params.set("inspectorScale", String(inspectorScale))
+    else params.delete("inspectorScale")
+    if (inspectorHighContrast) params.set("inspectorContrast", "high")
+    else params.delete("inspectorContrast")
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+  }, [inspectorMode, inspectorScale, inspectorHighContrast, pathname, router, searchParams])
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) return
+      if (event.key === "0") setInspectorMode("off")
+      if (event.key === "1") setInspectorMode("box-model")
+      if (event.key === "2") setInspectorMode("token-spacing")
+      if (event.key === "3") setInspectorMode("both")
+      if (event.key === "=" || event.key === "+") setInspectorScale((prev) => Math.min(1.5, +(prev + 0.25).toFixed(2)))
+      if (event.key === "-") setInspectorScale((prev) => Math.max(0.75, +(prev - 0.25).toFixed(2)))
+      if (event.key.toLowerCase() === "c") setInspectorHighContrast((prev) => !prev)
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [])
 
   return (
     <div className="grid gap-6" style={{ gridTemplateColumns: "minmax(0, 1fr) 320px", minHeight: "520px" }}>
@@ -137,6 +188,65 @@ export function ExplorerPlayground({
             </div>
           </div>
         )}
+        <div className="mb-4">
+          <h3
+            className="text-base-rem font-semibold pb-2"
+            style={{ color: "var(--primary)" }}
+          >
+            Inspector
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { label: "Off", value: "off" as ExplorerInspectorMode },
+              { label: "Box Model", value: "box-model" as ExplorerInspectorMode },
+              { label: "Token Spacing", value: "token-spacing" as ExplorerInspectorMode },
+              { label: "Both", value: "both" as ExplorerInspectorMode },
+            ].map((chip) => {
+              const isActive = inspectorMode === chip.value;
+              return (
+                <button
+                  key={chip.value}
+                  onClick={() => setInspectorMode(chip.value)}
+                  className={`px-3 py-1.5 text-sm-rem rounded-md border transition-colors ${
+                    isActive
+                      ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
+                      : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
+                  }`}
+                >
+                  {chip.label}
+                </button>
+              );
+            })}
+          </div>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {[1, 1.25, 1.5].map((scale) => {
+              const isActive = Math.abs(inspectorScale - scale) < 0.001
+              return (
+                <button
+                  key={scale}
+                  onClick={() => setInspectorScale(scale)}
+                  className={`px-3 py-1.5 text-sm-rem rounded-md border transition-colors ${
+                    isActive
+                      ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
+                      : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
+                  }`}
+                >
+                  {scale}x
+                </button>
+              )
+            })}
+            <button
+              onClick={() => setInspectorHighContrast((prev) => !prev)}
+              className={`px-3 py-1.5 text-sm-rem rounded-md border transition-colors ${
+                inspectorHighContrast
+                  ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
+                  : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
+              }`}
+            >
+              High Contrast
+            </button>
+          </div>
+        </div>
         <div className="relative">
           <GlassPreviewBackdrop active={config.supportsGlass === true && glassMode !== false} />
           <div className="relative" style={{ zIndex: 1 }}>

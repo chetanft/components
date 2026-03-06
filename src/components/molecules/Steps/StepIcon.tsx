@@ -95,7 +95,7 @@ export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
     const state = propState || 'unselected';
     const className_combined = cn(
       "rounded-[var(--radius-md)] transition-colors shrink-0",
-      direction === 'vertical' ? "w-1 h-full min-h-[101px]" : "w-full h-2",
+      direction === 'vertical' ? "w-1 h-full min-h-[6.3125rem]" : "w-full h-2",
       state === "selected" || state === "completed"
         ? "bg-[var(--primary)]"
         : "bg-[var(--tertiary)]",
@@ -123,4 +123,3 @@ export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
 );
 
 StepIcon.displayName = 'StepIcon';
-

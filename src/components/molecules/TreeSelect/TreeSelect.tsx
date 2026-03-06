@@ -391,7 +391,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
                 placeholder={placeholder}
                 className={cn(
                   "bg-transparent border-none outline-none",
-                  isMultiple && selectedKeys.length > 0 ? "flex-1 min-w-[120px]" : "w-full"
+                  isMultiple && selectedKeys.length > 0 ? "flex-1 min-w-[calc(var(--spacing-x10)*3)]" : "w-full"
                 )}
                 autoFocus
               />
@@ -436,7 +436,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
               className={cn(
                 "fixed z-[9999] rounded-[var(--radius-md)]",
                 getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--color-border-secondary)]'),
-                "max-h-[300px] overflow-auto p-[var(--spacing-x2)]"
+                "max-h-[calc(var(--spacing-x20)+var(--spacing-x20)+var(--spacing-x20)+var(--spacing-x15))] overflow-auto p-[var(--spacing-x2)]"
               )}
               style={{
                 top: dropdownPosition.top,

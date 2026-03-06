@@ -403,7 +403,7 @@ export const TimePicker = React.forwardRef<HTMLInputElement, TimePickerProps>(
     );
 
     const helperStyles = cn(
-      "text-sm leading-relaxed mt-1.5",
+      "text-sm leading-relaxed mt-[var(--spacing-x1-5)]",
       error
         ? "text-critical"
         : warning

@@ -114,7 +114,7 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
           top: position.top || 0,
           left: position.left || 0,
           width: position.width || 'var(--radix-select-trigger-width)',
-          maxHeight: '300px',
+          maxHeight: 'calc(var(--spacing-x20) + var(--spacing-x20) + var(--spacing-x20) + var(--spacing-x15))',
           overflowY: 'auto'
         }}
         role="listbox"
@@ -129,4 +129,3 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
 );
 
 SelectContent.displayName = 'SelectContent';
-

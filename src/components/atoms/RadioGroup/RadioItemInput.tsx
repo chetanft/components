@@ -58,10 +58,12 @@ export const RadioItemInput = React.forwardRef<HTMLInputElement, RadioItemInputP
       sm: {
         radio: "w-[var(--spacing-x4)] h-[var(--spacing-x4)]",
         dot: "w-[0.375rem] h-[0.375rem]",
+        text: "text-sm-rem",
       },
       md: {
         radio: "w-[var(--radio-size)] h-[var(--radio-size)]",
         dot: "w-[0.625rem] h-[0.625rem]",
+        text: "text-sm-rem",
       }
     };
 
@@ -70,6 +72,7 @@ export const RadioItemInput = React.forwardRef<HTMLInputElement, RadioItemInputP
     const radioStyles = cn(
       "relative shrink-0 rounded-full border-2 transition-all duration-200 cursor-pointer",
       currentSize.radio,
+      currentSize.text,
       isDisabled
         ? "bg-transparent border-[var(--border-disabled)] cursor-not-allowed opacity-50"
         : isSelected

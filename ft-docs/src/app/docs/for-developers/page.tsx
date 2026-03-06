@@ -1,202 +1,135 @@
 import Link from "next/link"
 import { Terminal, Package, CheckCircle, RefreshCw, Rocket, ExternalLink, Code, BookOpen } from "lucide-react"
+import { DocPageHeader, DocSection, DocCodeBlock, DocCard, DocBottomNav } from "@/components/docs"
 
 export default function ForDevelopersPage() {
     return (
         <div className="space-y-8">
-            <div>
-                <h1 className="text-3xl-rem font-bold mb-2">For Developers</h1>
-                <p className="text-muted-foreground text-lg-rem">
-                    Complete guide for developers using FT Design System with CLI commands, npm installation, and setup instructions
-                </p>
-            </div>
+            <DocPageHeader
+                title="For Developers"
+                description="Complete guide for developers using FT Design System with CLI commands, npm installation, and setup instructions"
+            />
 
             {/* Quick Start */}
-            <div className="rounded-lg border border-primary/20 bg-primary/5 p-6">
-                <h2 className="text-xl-rem font-semibold mb-4">Quick Start</h2>
+            <DocSection title="Quick Start">
                 <div className="space-y-3">
                     <div>
                         <p className="text-sm-rem font-medium mb-1">1. Install the package</p>
-                        <div className="rounded-lg border bg-muted p-3">
-                            <pre className="text-sm-rem font-mono">npm install ft-design-system</pre>
-                        </div>
+                        <DocCodeBlock code="npm install ft-design-system" lang="bash" />
                     </div>
                     <div>
                         <p className="text-sm-rem font-medium mb-1">2. Run automated setup</p>
-                        <div className="rounded-lg border bg-muted p-3">
-                            <pre className="text-sm-rem font-mono">npx ft-design-system setup</pre>
-                        </div>
+                        <DocCodeBlock code="npx ft-design-system setup" lang="bash" />
                     </div>
                     <div>
                         <p className="text-sm-rem font-medium mb-1">3. Start using components</p>
-                        <div className="rounded-lg border bg-muted p-3">
-                            <pre className="text-sm-rem font-mono whitespace-pre-wrap">{`import { Button, Input, Badge } from 'ft-design-system';`}</pre>
-                        </div>
+                        <DocCodeBlock code={`import { Button, Input, Badge } from 'ft-design-system';`} lang="tsx" />
                     </div>
                 </div>
-            </div>
+            </DocSection>
 
             {/* CLI Commands */}
-            <div>
-                <h2 className="text-xl-rem font-semibold mb-4">CLI Commands</h2>
+            <DocSection title="CLI Commands">
                 <div className="grid gap-4 md:grid-cols-2">
-                    {/* Setup Command */}
-                    <div className="rounded-lg border bg-surface p-6">
-                        <div className="flex items-center gap-3 mb-4">
-                            <Rocket className="h-6 w-6 text-primary" />
-                            <h3 className="text-lg-rem font-semibold">setup</h3>
-                        </div>
-                        <p className="text-sm-rem text-muted-foreground mb-4">
-                            Set up FT Design System in your existing project
-                        </p>
-                        <div className="rounded-lg border bg-muted p-3 mb-4">
-                            <pre className="text-xs-rem font-mono">npx ft-design-system setup</pre>
-                        </div>
-                        <ul className="space-y-2 text-sm-rem">
+                    <DocCard icon={<Rocket className="h-6 w-6" />} title="setup" description="Set up FT Design System in your existing project">
+                        <DocCodeBlock code="npx ft-design-system setup" lang="bash" />
+                        <ul className="space-y-2 text-sm-rem mt-4">
                             <li>• Detects framework automatically</li>
                             <li>• Adds CSS import to root file</li>
                             <li>• Updates Tailwind config</li>
                             <li>• Verifies setup</li>
                         </ul>
-                    </div>
+                    </DocCard>
 
-                    {/* Verify Command */}
-                    <div className="rounded-lg border bg-surface p-6">
-                        <div className="flex items-center gap-3 mb-4">
-                            <CheckCircle className="h-6 w-6 text-primary" />
-                            <h3 className="text-lg-rem font-semibold">verify</h3>
-                        </div>
-                        <p className="text-sm-rem text-muted-foreground mb-4">
-                            Verify that FT Design System is properly configured
-                        </p>
-                        <div className="rounded-lg border bg-muted p-3 mb-4">
-                            <pre className="text-xs-rem font-mono">npx ft-design-system verify</pre>
-                        </div>
-                        <ul className="space-y-2 text-sm-rem">
+                    <DocCard icon={<CheckCircle className="h-6 w-6" />} title="verify" description="Verify that FT Design System is properly configured">
+                        <DocCodeBlock code="npx ft-design-system verify" lang="bash" />
+                        <ul className="space-y-2 text-sm-rem mt-4">
                             <li>• Checks package installation</li>
                             <li>• Verifies CSS import</li>
                             <li>• Validates Tailwind config</li>
                             <li>• Provides actionable feedback</li>
                         </ul>
-                    </div>
+                    </DocCard>
 
-                    {/* Update Command */}
-                    <div className="rounded-lg border bg-surface p-6">
-                        <div className="flex items-center gap-3 mb-4">
-                            <RefreshCw className="h-6 w-6 text-primary" />
-                            <h3 className="text-lg-rem font-semibold">update</h3>
-                        </div>
-                        <p className="text-sm-rem text-muted-foreground mb-4">
-                            Update Tailwind config after package updates
-                        </p>
-                        <div className="rounded-lg border bg-muted p-3 mb-4">
-                            <pre className="text-xs-rem font-mono">npx ft-design-system update</pre>
-                        </div>
-                        <ul className="space-y-2 text-sm-rem">
+                    <DocCard icon={<RefreshCw className="h-6 w-6" />} title="update" description="Update Tailwind config after package updates">
+                        <DocCodeBlock code="npx ft-design-system update" lang="bash" />
+                        <ul className="space-y-2 text-sm-rem mt-4">
                             <li>• Refreshes Tailwind config</li>
                             <li>• Checks CSS import</li>
                             <li>• Updates content paths</li>
                             <li>• Safe to run multiple times</li>
                         </ul>
-                    </div>
+                    </DocCard>
 
-                    {/* Init Command */}
-                    <div className="rounded-lg border bg-surface p-6">
-                        <div className="flex items-center gap-3 mb-4">
-                            <Terminal className="h-6 w-6 text-primary" />
-                            <h3 className="text-lg-rem font-semibold">init</h3>
-                        </div>
-                        <p className="text-sm-rem text-muted-foreground mb-4">
-                            Scaffold a new project with FT Design System
-                        </p>
-                        <div className="rounded-lg border bg-muted p-3 mb-4">
-                            <pre className="text-xs-rem font-mono">npx ft-design-system init</pre>
-                        </div>
-                        <ul className="space-y-2 text-sm-rem">
+                    <DocCard icon={<Terminal className="h-6 w-6" />} title="init" description="Scaffold a new project with FT Design System">
+                        <DocCodeBlock code="npx ft-design-system init" lang="bash" />
+                        <ul className="space-y-2 text-sm-rem mt-4">
                             <li>• Interactive framework selection</li>
                             <li>• Pre-configured templates</li>
                             <li>• Ready to use immediately</li>
                             <li>• Supports Next.js, Vite, CRA</li>
                         </ul>
-                    </div>
+                    </DocCard>
                 </div>
-            </div>
+            </DocSection>
 
             {/* Installation Methods */}
-            <div>
-                <h2 className="text-xl-rem font-semibold mb-4">Installation</h2>
+            <DocSection title="Installation">
                 <div className="grid gap-4 md:grid-cols-3">
-                    <div className="rounded-lg border bg-surface p-4">
+                    <div className="rounded-lg border border-border bg-surface p-4">
                         <Package className="h-6 w-6 text-primary mb-2" />
                         <h3 className="font-semibold mb-2">npm</h3>
-                        <div className="rounded-lg border bg-muted p-2">
-                            <pre className="text-xs-rem font-mono">npm install ft-design-system</pre>
-                        </div>
+                        <DocCodeBlock code="npm install ft-design-system" lang="bash" />
                     </div>
-                    <div className="rounded-lg border bg-surface p-4">
+                    <div className="rounded-lg border border-border bg-surface p-4">
                         <Package className="h-6 w-6 text-primary mb-2" />
                         <h3 className="font-semibold mb-2">yarn</h3>
-                        <div className="rounded-lg border bg-muted p-2">
-                            <pre className="text-xs-rem font-mono">yarn add ft-design-system</pre>
-                        </div>
+                        <DocCodeBlock code="yarn add ft-design-system" lang="bash" />
                     </div>
-                    <div className="rounded-lg border bg-surface p-4">
+                    <div className="rounded-lg border border-border bg-surface p-4">
                         <Package className="h-6 w-6 text-primary mb-2" />
                         <h3 className="font-semibold mb-2">pnpm</h3>
-                        <div className="rounded-lg border bg-muted p-2">
-                            <pre className="text-xs-rem font-mono">pnpm add ft-design-system</pre>
-                        </div>
+                        <DocCodeBlock code="pnpm add ft-design-system" lang="bash" />
                     </div>
                 </div>
-            </div>
+            </DocSection>
 
             {/* Developer Workflow */}
-            <div className="rounded-lg border bg-surface p-6">
-                <h2 className="text-xl-rem font-semibold mb-4">Developer Workflow</h2>
+            <DocCard title="Developer Workflow">
                 <div className="space-y-4">
                     <div>
                         <h3 className="font-semibold mb-2">New Project</h3>
-                        <div className="rounded-lg border bg-muted p-3">
-                            <pre className="text-xs-rem font-mono whitespace-pre-wrap">{`mkdir my-project
+                        <DocCodeBlock code={`mkdir my-project
 cd my-project
 npx ft-design-system init
 npm install
-npm run dev`}</pre>
-                        </div>
+npm run dev`} lang="bash" />
                     </div>
                     <div>
                         <h3 className="font-semibold mb-2">Existing Project</h3>
-                        <div className="rounded-lg border bg-muted p-3">
-                            <pre className="text-xs-rem font-mono whitespace-pre-wrap">{`npm install ft-design-system
+                        <DocCodeBlock code={`npm install ft-design-system
 npx ft-design-system setup
-npx ft-design-system verify`}</pre>
-                        </div>
+npx ft-design-system verify`} lang="bash" />
                     </div>
                     <div>
                         <h3 className="font-semibold mb-2">After Package Updates</h3>
-                        <div className="rounded-lg border bg-muted p-3">
-                            <pre className="text-xs-rem font-mono whitespace-pre-wrap">{`npm update ft-design-system
+                        <DocCodeBlock code={`npm update ft-design-system
 npx ft-design-system update
-npx ft-design-system verify`}</pre>
-                        </div>
+npx ft-design-system verify`} lang="bash" />
                     </div>
                 </div>
-            </div>
+            </DocCard>
 
             {/* Using Components */}
-            <div className="rounded-lg border bg-surface p-6">
-                <h2 className="text-xl-rem font-semibold mb-4">Using Components</h2>
+            <DocCard title="Using Components">
                 <div className="space-y-4">
                     <div>
                         <h3 className="font-semibold mb-2">Basic Import</h3>
-                        <div className="rounded-lg border bg-muted p-3">
-                            <pre className="text-xs-rem font-mono whitespace-pre-wrap">{`import { Button, Input, Badge, Table } from 'ft-design-system';`}</pre>
-                        </div>
+                        <DocCodeBlock code={`import { Button, Input, Badge, Table } from 'ft-design-system';`} lang="tsx" />
                     </div>
                     <div>
                         <h3 className="font-semibold mb-2">Example Usage</h3>
-                        <div className="rounded-lg border bg-muted p-3">
-                            <pre className="text-xs-rem font-mono whitespace-pre-wrap">{`import { Button, Input, Badge } from 'ft-design-system';
+                        <DocCodeBlock code={`import { Button, Input, Badge } from 'ft-design-system';
 
 function MyComponent() {
   return (
@@ -206,34 +139,23 @@ function MyComponent() {
       <Badge variant="success">Active</Badge>
     </div>
   );
-}`}</pre>
-                        </div>
+}`} lang="tsx" filename="MyComponent.tsx" />
                     </div>
                 </div>
-            </div>
+            </DocCard>
 
             {/* Quick Links */}
-            <div className="rounded-lg border bg-muted p-6">
-                <h2 className="text-xl-rem font-semibold mb-4">Quick Links</h2>
+            <DocSection title="Quick Links">
                 <div className="grid gap-3 md:grid-cols-2">
-                    <Link 
-                        href="/docs/npm-package" 
-                        className="flex items-center gap-2 text-primary hover:underline"
-                    >
+                    <Link href="/docs/npm-package" className="flex items-center gap-2 text-primary hover:underline">
                         <BookOpen className="h-4 w-4" />
                         NPM Package Setup
                     </Link>
-                    <Link 
-                        href="/docs/npm-package" 
-                        className="flex items-center gap-2 text-primary hover:underline"
-                    >
+                    <Link href="/docs/npm-package" className="flex items-center gap-2 text-primary hover:underline">
                         <Package className="h-4 w-4" />
                         NPM Package Details
                     </Link>
-                    <Link 
-                        href="/docs/for-designers" 
-                        className="flex items-center gap-2 text-primary hover:underline"
-                    >
+                    <Link href="/docs/for-designers" className="flex items-center gap-2 text-primary hover:underline">
                         <Code className="h-4 w-4" />
                         For Designers
                     </Link>
@@ -247,21 +169,41 @@ function MyComponent() {
                         View on npmjs.com
                     </a>
                 </div>
-            </div>
+            </DocSection>
+
+            {/* Quality Gates */}
+            <DocCard title="Quality Gates">
+                <div className="space-y-4">
+                    <div>
+                        <h3 className="font-semibold mb-2">Token Audit (before commit)</h3>
+                        <DocCodeBlock code="npm run check:tokens" lang="bash" />
+                        <p className="text-sm-rem text-muted-foreground mt-1">Scans for hardcoded px, hex, rgba values that should use design tokens.</p>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold mb-2">Drift Detection (before merging dep updates)</h3>
+                        <DocCodeBlock code="npm run check:drift" lang="bash" />
+                        <p className="text-sm-rem text-muted-foreground mt-1">Detects upstream dependency changes that may affect component specs.</p>
+                    </div>
+                </div>
+            </DocCard>
 
             {/* Tips */}
-            <div className="rounded-lg border border-primary/20 bg-primary/5 p-6">
-                <h3 className="font-semibold mb-4">Tips & Best Practices</h3>
+            <DocSection title="Tips & Best Practices">
                 <ul className="space-y-2 text-sm-rem list-disc list-inside">
                     <li>Always run <code className="bg-muted px-1 rounded">npx ft-design-system verify</code> after setup</li>
-                    <li>Update config after package updates: <code className="bg-muted px-1 rounded">npx ft-design-system update</code></li>
+                    <li>Run <code className="bg-muted px-1 rounded">npm run check:tokens</code> before committing UI changes</li>
+                    <li>Use canonical <code className="bg-muted px-1 rounded">--spacing-x*</code> tokens (not legacy <code className="bg-muted px-1 rounded">--x*</code>)</li>
                     <li>Use TypeScript for better developer experience - full type definitions included</li>
                     <li>Import CSS before other styles to ensure proper cascade</li>
                     <li>Restart dev server after Tailwind config changes</li>
                     <li>Check version compatibility: <code className="bg-muted px-1 rounded">npm list ft-design-system</code></li>
                 </ul>
-            </div>
+            </DocSection>
+
+            <DocBottomNav
+                prev={{ label: "For Designers", href: "/docs/for-designers" }}
+                next={{ label: "Storybook", href: "/docs/storybook" }}
+            />
         </div>
     )
 }
-

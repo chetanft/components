@@ -29,7 +29,7 @@ export interface SpinProps extends ComposableProps<'div'> {
  * 
  * Uses:
  * - Colors: var(--primary), var(--neutral)
- * - Spacing: var(--x2), var(--x4)
+ * - Spacing: var(--spacing-x2), var(--spacing-x4)
  * - Animation: CSS keyframes
  */
 export const Spin = React.forwardRef<HTMLDivElement, SpinProps>(
@@ -61,10 +61,10 @@ export const Spin = React.forwardRef<HTMLDivElement, SpinProps>(
 
     // Size configurations using FT Design System spacing
     const sizeConfig = {
-      sm: { spinner: 16, container: 'p-[var(--x2)]' },
-      md: { spinner: 24, container: 'p-[var(--x3)]' },
-      lg: { spinner: 32, container: 'p-[var(--x4)]' },
-      xl: { spinner: 48, container: 'p-[var(--x6)]' },
+      sm: { spinner: 16, container: 'p-[var(--spacing-x2)]', text: 'text-sm-rem' },
+      md: { spinner: 24, container: 'p-[var(--spacing-x3)]', text: 'text-sm-rem' },
+      lg: { spinner: 32, container: 'p-[var(--spacing-x4)]', text: 'text-md-rem' },
+      xl: { spinner: 48, container: 'p-[var(--spacing-x6)]', text: 'text-md-rem' },
     };
 
     const config = sizeConfig[size];
@@ -81,13 +81,13 @@ export const Spin = React.forwardRef<HTMLDivElement, SpinProps>(
     const spinnerContent = (
       <div
         className={cn(
-          "inline-flex flex-col items-center justify-center gap-[var(--x2)]",
+          "inline-flex flex-col items-center justify-center gap-[var(--spacing-x2)]",
           config.container
         )}
       >
         {indicator || defaultIndicator}
         {tip && (
-          <span className="text-[var(--primary)] text-sm font-medium">
+          <span className={cn("text-[var(--primary)] font-medium", config.text)}>
             {tip}
           </span>
         )}
@@ -157,4 +157,3 @@ export const Spin = React.forwardRef<HTMLDivElement, SpinProps>(
 );
 
 Spin.displayName = 'Spin';
-

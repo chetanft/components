@@ -40,7 +40,7 @@ export const TooltipTitle = React.forwardRef<HTMLDivElement, TooltipTitleProps>(
   ({ className, children, asChild, ...props }, ref) => {
     if (asChild) {
       return (
-        <Slot ref={ref} className={cn("mb-1", className)} {...props}>
+        <Slot ref={ref} className={cn("mb-[var(--spacing-x1)]", className)} {...props}>
           <Typography variant="body-secondary-semibold">
             {children}
           </Typography>
@@ -49,7 +49,7 @@ export const TooltipTitle = React.forwardRef<HTMLDivElement, TooltipTitleProps>(
     }
     
     return (
-      <div className={cn("flex justify-between items-center mb-1", className)} {...props}>
+      <div className={cn("flex justify-between items-center mb-[var(--spacing-x1)]", className)} {...props}>
         <Typography variant="body-secondary-semibold" ref={ref as any}>
           {children}
         </Typography>

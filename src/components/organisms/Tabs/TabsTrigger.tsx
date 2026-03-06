@@ -98,7 +98,7 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
         : "justify-center";
 
     const baseStyles = cn(
-      "relative flex flex-col gap-[0.625rem] items-start transition-all cursor-pointer flex-shrink-0",
+      "relative flex flex-col gap-[var(--spacing-x2-5)] items-start transition-all cursor-pointer flex-shrink-0",
       disabled && "opacity-50 cursor-not-allowed pointer-events-none",
       type === 'primary'
         ? "px-[var(--spacing-x8)] py-[var(--spacing-x3)]"

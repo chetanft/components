@@ -59,7 +59,7 @@ export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
         role="tabpanel"
         id={`tabpanel-${value}`}
         aria-labelledby={`tab-${value}`}
-        className={cn("mt-4", className)}
+        className={cn("mt-[var(--spacing-x4)]", className)}
         {...props}
       >
         {children}

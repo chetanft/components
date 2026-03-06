@@ -47,7 +47,7 @@ export const BadgeCount = React.forwardRef<HTMLSpanElement, BadgeCountProps>(
                 ref={ref}
                 className={cn(
                     "inline-flex items-center justify-center",
-                    "min-w-[1.25rem] h-5 px-1.5",
+                    "min-w-[1.25rem] h-5 px-[var(--spacing-x1-5)]",
                     "bg-[var(--danger)] text-white",
                     "text-xs font-bold rounded-full",
                     className

@@ -44,7 +44,7 @@ export const InputHelper = React.forwardRef<HTMLParagraphElement, InputHelperPro
       <Comp
         ref={ref}
         id={helperId}
-        className={cn("text-sm leading-relaxed mt-1.5 text-helper dark:text-helper-dark", className)}
+        className={cn("text-sm leading-relaxed mt-[var(--spacing-x1-5)] text-helper dark:text-helper-dark", className)}
         {...props}
       >
         {children}

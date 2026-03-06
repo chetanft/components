@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -39,7 +39,38 @@ export function ExamplesSection({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [explorerOpen, setExplorerOpen] = useState(() => searchParams.get("explorer") === "true");
+  const [explorerVisible, setExplorerVisible] = useState(false);
   const [usageOpen, setUsageOpen] = useState(false);
+  const [usageVisible, setUsageVisible] = useState(false);
+
+  // Explorer animation: mount → slide up, close → slide down → unmount
+  useEffect(() => {
+    if (explorerOpen) {
+      // Trigger slide-up on next frame after mount
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setExplorerVisible(true));
+      });
+    }
+  }, [explorerOpen]);
+
+  const closeExplorer = useCallback(() => {
+    setExplorerVisible(false);
+    setTimeout(() => setExplorerOpen(false), 300);
+  }, []);
+
+  // Usage animation
+  useEffect(() => {
+    if (usageOpen) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setUsageVisible(true));
+      });
+    }
+  }, [usageOpen]);
+
+  const closeUsage = useCallback(() => {
+    setUsageVisible(false);
+    setTimeout(() => setUsageOpen(false), 300);
+  }, []);
   const [showAllStories, setShowAllStories] = useState(false);
   const filteredStories = stories;
 
@@ -220,18 +251,22 @@ export function ExamplesSection({
           componentName={componentName}
           meta={meta}
           stories={filteredStories}
-          onClose={() => setUsageOpen(false)}
+          onClose={closeUsage}
+          visible={usageVisible}
         />
       )}
 
       {explorerOpen && (
-        <div className="fixed inset-0 z-[70] bg-[var(--bg-primary)] flex flex-col overflow-hidden">
+        <div className={cn(
+          "fixed inset-0 z-[70] bg-[var(--bg-primary)] flex flex-col overflow-hidden transition-transform duration-300 ease-out",
+          explorerVisible ? "translate-y-0" : "translate-y-full"
+        )}>
           {/* Explorer header — fixed height */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-primary)] shrink-0">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => {
-                  setExplorerOpen(false);
+                  closeExplorer();
                   // Clean explorer param from URL
                   const url = new URL(window.location.href);
                   url.searchParams.delete("explorer");
