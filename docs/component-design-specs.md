@@ -1,7 +1,7 @@
 # FT Design System - Component Design Specifications
 
 > Auto-generated from `src/styles/globals.css` + `registry.json`.
-> Version: 4.22.0 | Generated: 2026-03-06T04:53:35.881Z
+> Version: 4.22.0 | Generated: 2026-03-06T07:39:27.834Z
 
 ---
 

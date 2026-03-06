@@ -223,6 +223,22 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   asChild,
   ...props
 }, ref) => {
+  const isButtonTextElement = (node: React.ReactNode): boolean => {
+    if (!React.isValidElement(node)) return false;
+    const nodeType = node.type as any;
+    const displayName = nodeType?.displayName ?? nodeType?.name;
+    return displayName === 'ButtonText';
+  };
+
+  const hasVisibleTextContent = (node: React.ReactNode): boolean => {
+    if (node === null || node === undefined || typeof node === 'boolean') return false;
+    if (typeof node === 'string') return node.trim().length > 0;
+    if (typeof node === 'number') return true;
+    if (Array.isArray(node)) return node.some(hasVisibleTextContent);
+    if (!React.isValidElement(node)) return false;
+    return hasVisibleTextContent(node.props?.children);
+  };
+
   // Core component implementation (AI protection applied at export layer)
   const resolvedGlass = useResolvedGlass(glass);
   const classNameHasRoundedFull = className?.includes('rounded-full') ?? false;
@@ -231,7 +247,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     ? (iconPosition === 'only' || (!children && icon) ? 'circle' : 'pill')
     : undefined;
   const resolvedShape: ResolvedButtonShape = shape ?? legacyShape ?? 'default';
-  const isIconOnly = resolvedShape === 'circle' || iconPosition === 'only' || (!children && icon);
+  const childCount = React.Children.count(children);
+  const hasButtonTextChild = React.Children.toArray(children).some(isButtonTextElement);
+  const hasAnyTextContent = hasButtonTextChild || hasVisibleTextContent(children);
+  const isComposableIconOnly = childCount > 0 && !hasAnyTextContent && !icon;
+  const isIconOnly = resolvedShape === 'circle' || iconPosition === 'only' || (!children && !!icon) || isComposableIconOnly;
   const isDisabled = disabled || loading;
   const isLink = variant === 'link';
   // Text variant icon-only buttons should keep text variant styling (borderless) per Figma design
@@ -496,16 +516,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         />
       )}
 
-      {!loading && isIconOnly && icon && (
-        typeof icon === 'string' ? (
-          <Icon
-            name={icon as IconName}
-            size={iconSize ?? buttonSize.iconSize}
-            className={iconClassName}
-            aria-hidden="true"
-          />
+      {!loading && isIconOnly && (
+        icon ? (
+          typeof icon === 'string' ? (
+            <Icon
+              name={icon as IconName}
+              size={iconSize ?? buttonSize.iconSize}
+              className={iconClassName}
+              aria-hidden="true"
+            />
+          ) : (
+            icon
+          )
         ) : (
-          icon
+          children
         )
       )}
 
