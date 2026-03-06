@@ -1,7 +1,7 @@
 # FT Design System - Component Design Specifications
 
 > Auto-generated from `src/styles/globals.css` + `registry.json`.
-> Version: 4.22.0 | Generated: 2026-03-06T03:51:15.863Z
+> Version: 4.22.0 | Generated: 2026-03-06T04:53:35.881Z
 
 ---
 
@@ -278,8 +278,8 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 Coverage: **125 / 125 components listed**
 - Manual-override: **85**
 - Variant-detected: **22**
-- Fallback-default: **0**
-- No-token-match: **18**
+- Fallback-default: **1**
+- No-token-match: **17**
 - Missing-path: **0**
 
 ### Affix (molecules)
@@ -383,11 +383,11 @@ Status: `no-token-match`
 
 ### Blocks (templates)
 
-Status: `no-token-match`
+Status: `fallback-default`
 
 | Source | Dimension | Variant | Tokens |
 |---|---|---|---|
-| src/components/templates/Blocks | base | default | _none detected_ |
+| src/components/templates/Blocks/DashboardBlock.tsx | base | default | `--bg-primary`, `--bg-secondary`, `--border-primary`, `--border-secondary`, `--critical`, `--font-size-lg-rem`, `--font-size-md-rem`, `--font-size-sm-rem`, `--font-size-xl-rem`, `--font-size-xs-rem`, `--primary`, `--radius-lg`, `--radius-md`, `--secondary`, `--shadow-lg`, `--shadow-md`, `--shadow-sm`, `--spacing-x1`, `--spacing-x1-5`, `--spacing-x10`, `--spacing-x12`, `--spacing-x14`, `--spacing-x15`, `--spacing-x2`, `--spacing-x2-5`, `--spacing-x3`, `--spacing-x3-5`, `--spacing-x4`, `--spacing-x5`, `--spacing-x6`, `--spacing-x8`, `--spacing-x9`, `--tertiary` |
 
 ### Breadcrumb (molecules)
 

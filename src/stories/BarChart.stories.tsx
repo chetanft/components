@@ -230,10 +230,8 @@ export const ThinBars: Story = {
     title: 'Thin Bars',
     data: basicData,
     height: 300,
-    options: {
-      barThickness: 16,
-      maxBarThickness: 20,
-    },
+    barThickness: 16,
+    maxBarThickness: 20,
   },
   parameters: {
     docs: {
@@ -249,10 +247,8 @@ export const ThickBars: Story = {
     title: 'Thick Bars',
     data: basicData,
     height: 300,
-    options: {
-      barThickness: 48,
-      maxBarThickness: 56,
-    },
+    barThickness: 48,
+    maxBarThickness: 56,
   },
   parameters: {
     docs: {
@@ -657,7 +653,7 @@ export const ProgressStyle: Story = {
 
 export const WithTargetLine: Story = {
   args: {
-    title: 'Sales with Target Line',
+    title: 'Sales vs Target',
     data: {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
       datasets: [
@@ -670,12 +666,10 @@ export const WithTargetLine: Story = {
         {
           label: 'Target',
           data: [20, 20, 20, 20, 20, 20],
-          type: 'line' as const,
+          backgroundColor: '#ff0036',
           borderColor: '#ff0036',
-          borderWidth: 2,
-          borderDash: [5, 5],
-          pointRadius: 0,
-          fill: false,
+          borderWidth: 1,
+          borderRadius: 4,
         },
       ],
     },
@@ -685,7 +679,7 @@ export const WithTargetLine: Story = {
     docs: {
       description: {
         story:
-          'Bar chart with a dashed target/threshold line overlay using mixed chart type.',
+          'Grouped bar chart comparing actual sales against target values.',
       },
     },
   },
@@ -821,8 +815,8 @@ export const MinimalistThin: Story = {
     title: 'Minimalist Design',
     data: basicData,
     height: 250,
+    barThickness: 12,
     options: {
-      barThickness: 12,
       plugins: {
         legend: { display: false },
       },

@@ -21,10 +21,12 @@ const SPACING_TOKENS = [
   { name: "x38", px: 152 },
 ] as const
 
+type SpacingToken = (typeof SPACING_TOKENS)[number]
+
 export function pxToToken(px: number): string {
   if (!Number.isFinite(px)) return "0"
   const abs = Math.max(0, Math.round(px))
-  let best = SPACING_TOKENS[0]
+  let best: SpacingToken = SPACING_TOKENS[0]
   let minDiff = Number.POSITIVE_INFINITY
 
   for (const token of SPACING_TOKENS) {
@@ -38,4 +40,3 @@ export function pxToToken(px: number): string {
   if (minDiff <= 1) return best.name
   return `${abs}px`
 }
-

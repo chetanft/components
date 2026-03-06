@@ -91,12 +91,17 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const ExplorerBase: Story = {
+  args: {
+    children: 'The quick brown fox jumps over the lazy dog',
+    variant: 'body-primary-regular',
+    color: 'primary',
+  },
   render: (args: any) => {
     const variant = args.variant ?? 'body-primary-regular';
     const color = args.color ?? 'primary';
     return (
       <Typography variant={variant} color={color}>
-        The quick brown fox jumps over the lazy dog
+        {args.children}
       </Typography>
     );
   },

@@ -1,8 +1,8 @@
 # FT Design System - Complete Token Reference
 
 > **Auto-generated from** `src/styles/globals.css`  
-> **Last updated:** 2026-03-02  
-> **Total tokens:** 143
+> **Last updated:** 2026-03-06  
+> **Total tokens:** 161
 
 This document provides a comprehensive reference for all design tokens available in the FT Design System. All tokens are CSS custom properties that can be used in your stylesheets or accessed via JavaScript.
 
@@ -45,6 +45,7 @@ FT Design System uses a hierarchical color system with base scales that support 
 | `--primary-300` | `#838c9d` |  |
 | `--primary-200` | `#9aa3b2` |  |
 | `--primary-100` | `#c5cad3` | Lightest |
+| `--primary-bg-subtle` | `var(--neutral-100)` |  |
 
 #### Secondary Scale
 
@@ -145,6 +146,7 @@ Semantic colors reference base color scales and adapt to theme (light/dark/night
 |-------|-------|------------|
 | `--bg-primary` | `var(--tertiary-0)` | Background color |
 | `--bg-secondary` | `var(--tertiary-100)` | Background color |
+| `--bg-tertiary` | `var(--tertiary-200)` | Background color |
 | `--border-alt` | `#ced1d7` | Border color |
 | `--border-disabled` | `#f0f1f7` | Border color |
 | `--border-hover` | `#434f64` | Border color |
@@ -252,12 +254,15 @@ FT Design System uses an 8-point grid system (4px base unit). All spacing tokens
 | `--spacing-x0-rem` | `0rem` | 0px | No spacing |
 | `--x1` | `4px` | 4px | Tight spacing |
 | `--spacing-x1` | `var(--x1)` | 4px | Tight spacing |
+| `--spacing-x1-5` | `6px` | 4px | Tight spacing |
 | `--spacing-x1-rem` | `0.286rem` | 4px | Tight spacing |
 | `--x2` | `8px` | 8px | Tight spacing |
 | `--spacing-x2` | `var(--x2)` | 8px | Tight spacing |
+| `--spacing-x2-5` | `10px` | 8px | Tight spacing |
 | `--spacing-x2-rem` | `0.571rem` | 8px | Tight spacing |
 | `--x3` | `12px` | 12px | Default spacing |
 | `--spacing-x3` | `var(--x3)` | 12px | Default spacing |
+| `--spacing-x3-5` | `14px` | 12px | Default spacing |
 | `--spacing-x3-rem` | `0.857rem` | 12px | Default spacing |
 | `--x4` | `16px` | 16px | Default spacing |
 | `--spacing-x4` | `var(--x4)` | 16px | Default spacing |
@@ -313,8 +318,10 @@ FT Design System uses an 8-point grid system (4px base unit). All spacing tokens
 | Token | Value | Description |
 |-------|-------|------------|
 | `--font-family-primary` | `'Inter', sans-serif` | Primary font family |
+| `--font-size-3_5xl-rem` | `2.5rem` | Responsive font size |
 | `--font-size-3xl-rem` | `2.571rem` | Responsive font size |
 | `--font-size-4xl-rem` | `3.429rem` | Responsive font size |
+| `--font-size-5xl-rem` | `4.5rem` | Responsive font size |
 | `--font-size-lg` | `20px` | Fixed font size |
 | `--font-size-lg-rem` | `1.429rem` | Responsive font size |
 | `--font-size-md` | `16px` | Fixed font size |
@@ -327,6 +334,8 @@ FT Design System uses an 8-point grid system (4px base unit). All spacing tokens
 | `--font-size-xs-rem` | `0.857rem` | Responsive font size |
 | `--font-size-xxl` | `28px` | Fixed font size |
 | `--font-size-xxl-rem` | `2rem` | Responsive font size |
+| `--font-size-xxs` | `10px` | Fixed font size |
+| `--font-size-xxs-rem` | `0.714rem` | Responsive font size |
 | `--font-weight-medium` | `500` | Font weight |
 | `--font-weight-regular` | `400` | Font weight |
 | `--font-weight-semibold` | `600` | Font weight |
@@ -352,11 +361,16 @@ FT Design System uses an 8-point grid system (4px base unit). All spacing tokens
 
 | Token | Value | Use Case |
 |-------|-------|----------|
+| `--radius-2xl` | `20px` |  |
+| `--radius-2xs` | `2px` |  |
+| `--radius-3xl` | `24px` |  |
+| `--radius-4xl` | `28px` |  |
 | `--radius-full` | `9999px` | Pills/circles |
 | `--radius-lg` | `12px` | Large components |
 | `--radius-md` | `8px` | Default components |
 | `--radius-none` | `0px` | Sharp corners |
 | `--radius-sm` | `4px` | Small components |
+| `--radius-smd` | `6px` |  |
 | `--radius-xl` | `16px` |  |
 
 ## Breakpoints
@@ -401,6 +415,8 @@ Component-level tokens for consistent sizing and styling.
 | `--component-font-size-md` | `14px` | font size md |
 | `--component-font-size-sm` | `14px` | font size sm |
 | `--component-font-size-xl` | `18px` | font size xl |
+| `--component-font-size-xs` | `12px` | font size xs |
+| `--component-font-size-xxs` | `12px` | font size xxs |
 | `--component-font-weight` | `500` | font weight |
 | `--component-gap-lg` | `16px` | gap lg |
 | `--component-gap-md` | `12px` | gap md |
@@ -409,11 +425,15 @@ Component-level tokens for consistent sizing and styling.
 | `--component-height-md` | `40px` | height md |
 | `--component-height-sm` | `36px` | height sm |
 | `--component-height-xl` | `64px` | height xl |
+| `--component-height-xs` | `32px` | height xs |
+| `--component-height-xxl` | `72px` | height xxl |
 | `--component-height-xxs` | `16px` | height xxs |
 | `--component-padding-lg` | `16px 20px` | padding lg |
 | `--component-padding-md` | `12px 16px` | padding md |
 | `--component-padding-sm` | `8px 12px` | padding sm |
 | `--component-padding-xl` | `20px 24px` | padding xl |
+| `--component-padding-xs` | `4px 8px` | padding xs |
+| `--component-padding-xxl` | `24px 28px` | padding xxl |
 | `--component-padding-xxs` | `2px 6px` | padding xxs |
 | `--component-transition` | `all 200ms ease-in-out` | transition |
 

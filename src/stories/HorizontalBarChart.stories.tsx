@@ -185,12 +185,15 @@ export const Rounded: Story = {
 export const ThinBars: Story = {
   args: {
     title: 'Thin Horizontal Bars',
-    data: rankingData,
-    height: 350,
-    options: {
-      barThickness: 12,
-      maxBarThickness: 16,
+    data: {
+      ...rankingData,
+      datasets: rankingData.datasets.map((dataset) => ({
+        ...dataset,
+        barThickness: 12,
+        maxBarThickness: 16,
+      })),
     },
+    height: 350,
   },
   parameters: {
     docs: {
@@ -210,14 +213,12 @@ export const ThickBars: Story = {
         {
           label: 'Value',
           data: [65, 48, 35],
+          barThickness: 48,
+          maxBarThickness: 56,
         },
       ],
     },
     height: 250,
-    options: {
-      barThickness: 48,
-      maxBarThickness: 56,
-    },
   },
   parameters: {
     docs: {
@@ -456,7 +457,7 @@ export const ProgressBars: Story = {
 
 export const ProgressWithTarget: Story = {
   args: {
-    title: 'Sales vs Target',
+    title: 'Sales vs Benchmark',
     data: {
       labels: ['Q1', 'Q2', 'Q3', 'Q4'],
       datasets: [
@@ -467,14 +468,12 @@ export const ProgressWithTarget: Story = {
           borderRadius: 4,
         },
         {
-          label: 'Target',
+          label: 'Benchmark',
           data: [80, 80, 80, 80],
-          type: 'line' as const,
+          backgroundColor: '#ff0036',
           borderColor: '#ff0036',
-          borderWidth: 2,
-          borderDash: [5, 5],
-          pointRadius: 0,
-          fill: false,
+          borderWidth: 1,
+          borderRadius: 4,
         },
       ],
     },
@@ -490,7 +489,7 @@ export const ProgressWithTarget: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Horizontal bars with a vertical target line overlay.',
+        story: 'Horizontal grouped bars comparing actual values against a benchmark.',
       },
     },
   },
@@ -538,13 +537,11 @@ export const Leaderboard: Story = {
           data: [125, 98, 87, 72, 65],
           backgroundColor: ['#ffbe07', '#c5cad3', '#cd7f32', '#42bdbd', '#42bdbd'],
           borderRadius: 4,
+          barThickness: 28,
         },
       ],
     },
     height: 300,
-    options: {
-      barThickness: 28,
-    },
   },
   parameters: {
     docs: {
@@ -616,12 +613,12 @@ export const MinimalistRanking: Story = {
           data: [92, 85, 78, 72, 65],
           backgroundColor: '#42bdbd',
           borderRadius: 6,
+          barThickness: 16,
         },
       ],
     },
     height: 280,
     options: {
-      barThickness: 16,
       plugins: {
         legend: { display: false },
       },
@@ -659,13 +656,11 @@ export const CompactDense: Story = {
           label: 'Views',
           data: [4500, 3200, 2800, 1500, 1200, 980, 850, 720, 650, 420],
           borderRadius: 2,
+          barThickness: 14,
         },
       ],
     },
     height: 400,
-    options: {
-      barThickness: 14,
-    },
   },
   parameters: {
     docs: {
