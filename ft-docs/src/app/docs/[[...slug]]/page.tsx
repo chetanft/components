@@ -8,6 +8,7 @@ import { COMPONENT_COUNT } from "@/data/design-system.generated";
 import { DocPageHeader, DocSection, DocCodeBlock, DocCard, DocInfoBanner, DocBottomNav } from "@/components/docs";
 import { useViewMode } from "@/components/view-mode-context";
 import { MachineSpecView } from "@/components/machine-spec-view";
+import { buildDocsIntroSpec } from "@/lib/machine-specs/docs-intro";
 
 // Dynamically import the component page to avoid server-side issues
 const StoryComponentPage = dynamic(
@@ -65,24 +66,7 @@ export default function DocPage() {
   // Introduction page
   if (!slug || slug.length === 0) {
     if (viewMode === "machine") {
-      const machineSpec = [
-        "# FT Design System — Documentation",
-        "PURPOSE: entrypoint for FT Design System docs",
-        "INSTALL: npm install ft-design-system",
-        "KEY_AREAS: components, design tokens, AI prompts, CLI tools, charts, icons, colors",
-        "MACHINE_ENTRYPOINTS:",
-        "- /docs/components/<component>?view=machine",
-        "- /docs/ai-prompts?view=machine",
-        "- /docs/for-designers?view=machine",
-        "- /docs/for-developers?view=machine",
-        "- /docs/storybook?view=machine",
-        "- /docs/npm-package?view=machine",
-        "- /docs/global-css?view=machine",
-        "- /docs/accessibility?view=machine",
-        "- /docs/migrations?view=machine",
-      ].join("\n");
-
-      return <MachineSpecView>{machineSpec}</MachineSpecView>;
+      return <MachineSpecView>{buildDocsIntroSpec()}</MachineSpecView>;
     }
 
     return (

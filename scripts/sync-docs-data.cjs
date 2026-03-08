@@ -236,6 +236,11 @@ function syncDocsData() {
   const llmsContent = renderTemplate(llmsTemplate, llmsReplacements);
   writeIfChanged(path.join(projectRoot, 'llms.txt'), llmsContent);
 
+  // Also copy llms.txt into ft-docs/public so Netlify serves it
+  log('   Copying llms.txt to ft-docs/public...', 'cyan');
+  writeIfChanged(path.join(projectRoot, 'ft-docs/public/llms.txt'), llmsContent);
+  writeIfChanged(path.join(projectRoot, 'ft-docs/public/.well-known/llms.txt'), llmsContent);
+
   // Step 5: Render AI_CONTEXT.md from template
   log('\n5️⃣  Generating AI_CONTEXT.md...', 'blue');
   const aiTemplate = path.join(projectRoot, 'docs/templates/AI_CONTEXT.md.template');

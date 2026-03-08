@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/site-header"
 import { useState, useMemo, useEffect } from "react"
 import { useViewMode } from "@/components/view-mode-context"
 import { MachineSpecView } from "@/components/machine-spec-view"
+import { buildIconsSpec } from "@/lib/machine-specs/icons"
 import {
   Input,
   Slider,
@@ -332,28 +333,8 @@ export default function IconsPage() {
 
   // Machine mode: plain-text icon list
   if (globalViewMode === 'machine') {
-    const machineSpec = [
-      '# FT Design System — Icons',
-      `TOTAL: ${iconNames.length}`,
-      'IMPORT: import { Icon } from "ft-design-system";',
-      'USAGE: <Icon name="icon-name" size={24} />',
-      '',
-      '## All Icon Names',
-      iconNames.join(', '),
-      '',
-      '## By Category',
-      ...Object.entries(iconCategories).filter(([k]) => k !== 'All').map(([cat, names]) =>
-        `### ${cat}\n${(names as readonly string[]).join(', ')}`
-      ),
-      '',
-      '## By Style',
-      ...Object.entries(iconStyleCategories).filter(([k]) => k !== 'All').map(([style, names]) =>
-        `### ${style}\n${(names as readonly string[]).join(', ')}`
-      ),
-    ].join('\n')
-
     return (
-      <MachineSpecView>{machineSpec}</MachineSpecView>
+      <MachineSpecView>{buildIconsSpec()}</MachineSpecView>
     )
   }
 

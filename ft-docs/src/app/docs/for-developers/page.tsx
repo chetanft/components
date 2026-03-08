@@ -6,44 +6,13 @@ import { Icon } from "@/registry"
 import { DocPageHeader, DocSection, DocCodeBlock, DocCard, DocBottomNav } from "@/components/docs"
 import { useViewMode } from "@/components/view-mode-context"
 import { MachineSpecView } from "@/components/machine-spec-view"
+import { buildDevelopersSpec } from "@/lib/machine-specs/developers"
 
 export default function ForDevelopersPage() {
     const { viewMode } = useViewMode()
 
     if (viewMode === "machine") {
-        const machineSpec = [
-            "# FT Design System — For Developers",
-            "PURPOSE: developer setup, CLI commands, imports, workflow gates",
-            "INSTALL:",
-            "- npm install ft-design-system",
-            "- yarn add ft-design-system",
-            "- pnpm add ft-design-system",
-            "",
-            "CLI:",
-            "- npx ft-design-system setup",
-            "- npx ft-design-system verify",
-            "- npx ft-design-system update",
-            "- npx ft-design-system init",
-            "",
-            "IMPORTS:",
-            "- import 'ft-design-system/styles.css';",
-            "- import { Button, Input, Badge, Table } from 'ft-design-system';",
-            "",
-            "QUALITY_GATES:",
-            "- npm run check:tokens",
-            "- npm run check:consistency",
-            "- npm run check:size-contract",
-            "- npm run check:machine-mode",
-            "- npm run check:drift",
-            "",
-            "RELATED_DOCS:",
-            "- /docs/npm-package?view=machine",
-            "- /docs/ai-prompts?view=machine",
-            "- /docs/global-css?view=machine",
-            "- /docs/components/<component>?view=machine",
-        ].join("\n")
-
-        return <MachineSpecView>{machineSpec}</MachineSpecView>
+        return <MachineSpecView>{buildDevelopersSpec()}</MachineSpecView>
     }
 
     return (

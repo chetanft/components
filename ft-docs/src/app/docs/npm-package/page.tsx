@@ -5,39 +5,13 @@ import { useViewMode } from "@/components/view-mode-context"
 import { SYSTEM_VERSION, COMPONENT_COUNT } from "@/data/design-system.generated"
 import { DocPageHeader, DocSection, DocCodeBlock, DocLinkCard, DocCard, DocBottomNav } from "@/components/docs"
 import { MachineSpecView } from "@/components/machine-spec-view"
-
-const machineSpec = `# FT Design System — NPM Package
-PACKAGE: ft-design-system
-REGISTRY: https://www.npmjs.com/package/ft-design-system
-
-## Install
-npm install ft-design-system
-
-## Setup
-import 'ft-design-system/styles.css';
-import { Button, Input, Table } from 'ft-design-system';
-
-## Tailwind Config
-module.exports = {
-  content: [
-    './src/**/*.{js,jsx,ts,tsx}',
-    './node_modules/ft-design-system/**/*.{js,jsx,ts,tsx}'
-  ],
-}
-
-## Package Includes
-- ${COMPONENT_COUNT} production-ready React components
-- 190+ custom icons with TypeScript support
-- Full TypeScript definitions
-- AI-protected components for coding assistants
-- Quality gates: npm run check:tokens, npm run check:drift
-- WCAG AA accessibility compliant`
+import { buildNpmPackageSpec } from "@/lib/machine-specs/npm-package"
 
 export default function NPMPackagePage() {
     const { viewMode } = useViewMode()
 
     if (viewMode === 'machine') {
-        return <MachineSpecView>{machineSpec}</MachineSpecView>
+        return <MachineSpecView>{buildNpmPackageSpec()}</MachineSpecView>
     }
 
     return (

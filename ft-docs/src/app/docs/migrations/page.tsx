@@ -5,6 +5,7 @@ import { ExternalLink } from "lucide-react"
 import { Icon } from "@/registry"
 import { useViewMode } from "@/components/view-mode-context"
 import { MachineSpecView } from "@/components/machine-spec-view"
+import { buildMigrationsSpec } from "@/lib/machine-specs/migrations"
 
 export default function MigrationsPage() {
     const { viewMode } = useViewMode()
@@ -74,22 +75,7 @@ export default function MigrationsPage() {
     ]
 
     if (viewMode === "machine") {
-        const machineSpec = [
-            "# FT Design System — Migration Guides",
-            "PURPOSE: component API migration reference",
-            "",
-            ...migrations.flatMap((migration) => [
-                `## ${migration.component} ${migration.version}`,
-                `STATUS: ${migration.status}`,
-                `DESCRIPTION: ${migration.description}`,
-                "CHANGES:",
-                ...migration.changes.map((change) => `- ${change}`),
-                `GUIDE_FILE: ${migration.file}`,
-                "",
-            ]),
-        ].join("\n")
-
-        return <MachineSpecView>{machineSpec}</MachineSpecView>
+        return <MachineSpecView>{buildMigrationsSpec()}</MachineSpecView>
     }
 
     return (

@@ -3,9 +3,10 @@
 import { designTokens } from "../../../../src/tokens/design-tokens"
 import { SiteHeader } from "@/components/site-header"
 import { Button } from "../../../../src/components/atoms/Button"
-import { useState, useMemo } from "react"
+import { useState } from "react"
 import { useViewMode } from "@/components/view-mode-context"
 import { MachineSpecView } from "@/components/machine-spec-view"
+import { buildColorsSpec } from "@/lib/machine-specs/colors"
 
 // Standard Tailwind colors
 const standardTailwindColors = {
@@ -385,37 +386,8 @@ export default function ColorsPage() {
 
   const colorScales = extractColorScales(selectedMode)
 
-  // Machine mode: plain-text color tokens
-  const machineSpec = useMemo(() => {
-    const lines: string[] = ['# FT Design System — Color Tokens', '']
-    for (const mode of ['lightMode', 'darkMode', 'nightMode'] as const) {
-      const label = mode === 'lightMode' ? 'Light' : mode === 'darkMode' ? 'Dark' : 'Night'
-      lines.push(`## ${label} Mode`)
-      const scales = extractColorScales(mode)
-      for (const family of colorFamilies) {
-        const swatches = scales[family.name as keyof typeof scales] || []
-        if (swatches.length === 0) continue
-        lines.push(`### ${family.label}`)
-        for (const s of swatches) {
-          lines.push(`${s.name}: ${s.hex}  css: var(${s.cssVar})  tw: ${s.tailwindClass}`)
-        }
-        lines.push('')
-      }
-    }
-    // Standard Tailwind colors
-    lines.push('## Standard Tailwind Colors')
-    for (const [name, shades] of Object.entries(standardTailwindColors)) {
-      lines.push(`### ${name}`)
-      for (const [shade, hex] of Object.entries(shades).sort(([a], [b]) => Number(b) - Number(a))) {
-        lines.push(`${name}-${shade}: ${hex}  tw: bg-${name}-${shade}`)
-      }
-      lines.push('')
-    }
-    return lines.join('\n')
-  }, [])
-
   if (viewMode === 'machine') {
-    return <MachineSpecView>{machineSpec}</MachineSpecView>
+    return <MachineSpecView>{buildColorsSpec()}</MachineSpecView>
   }
 
   const copyToClipboard = (value: string) => {

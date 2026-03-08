@@ -40,6 +40,12 @@ jobs:
       - name: Run explorer inspector coverage check
         run: npm run check:explorer-inspector
 
+      - name: Check docs sync (generated artifacts are up-to-date)
+        run: npm run check:docs-sync
+
+      - name: Check machine-mode coverage
+        run: npm run check:machine-mode
+
       - name: Run tests
         run: npm test
 

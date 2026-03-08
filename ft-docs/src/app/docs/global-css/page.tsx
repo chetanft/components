@@ -6,6 +6,7 @@ import { useViewMode } from "@/components/view-mode-context"
 import { GLOBAL_CSS_CONTENT } from "@/data/design-system.generated"
 import { DocPageHeader, DocSection, DocInfoBanner, DocCard, DocCodeBlock, DocBottomNav } from "@/components/docs"
 import { MachineSpecView } from "@/components/machine-spec-view"
+import { buildGlobalCssSpec } from "@/lib/machine-specs/global-css"
 
 const globalCssContent = GLOBAL_CSS_CONTENT
 
@@ -32,7 +33,7 @@ export default function GlobalCSSPage() {
     }
 
     if (viewMode === 'machine') {
-        return <MachineSpecView>{globalCssContent}</MachineSpecView>
+        return <MachineSpecView>{buildGlobalCssSpec()}</MachineSpecView>
     }
 
     return (

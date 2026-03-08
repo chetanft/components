@@ -4,27 +4,13 @@ import { BookOpen } from "lucide-react"
 import { DocPageHeader, DocSection, DocCodeBlock, DocLinkCard, DocCard, DocBottomNav } from "@/components/docs"
 import { useViewMode } from "@/components/view-mode-context"
 import { MachineSpecView } from "@/components/machine-spec-view"
+import { buildStorybookSpec } from "@/lib/machine-specs/storybook"
 
 export default function StorybookPage() {
     const { viewMode } = useViewMode()
 
     if (viewMode === "machine") {
-        const machineSpec = [
-            "# FT Design System — Storybook",
-            "PURPOSE: local interactive playground for components and variants",
-            "URL: http://localhost:6006",
-            "RUN:",
-            "- cd /path/to/components",
-            "- npm run storybook",
-            "",
-            "INCLUDES:",
-            "- interactive playground for components",
-            "- live prop controls",
-            "- code examples",
-            "- component documentation",
-        ].join("\n")
-
-        return <MachineSpecView>{machineSpec}</MachineSpecView>
+        return <MachineSpecView>{buildStorybookSpec()}</MachineSpecView>
     }
 
     return (

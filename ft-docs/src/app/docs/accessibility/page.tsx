@@ -4,37 +4,13 @@ import Link from "next/link"
 import { Accessibility, Keyboard, Eye, MousePointerClick } from "lucide-react"
 import { useViewMode } from "@/components/view-mode-context"
 import { MachineSpecView } from "@/components/machine-spec-view"
+import { buildAccessibilitySpec } from "@/lib/machine-specs/accessibility"
 
 export default function AccessibilityPage() {
     const { viewMode } = useViewMode()
 
     if (viewMode === "machine") {
-        const machineSpec = [
-            "# FT Design System — Accessibility",
-            "PURPOSE: accessibility capabilities and expected interaction patterns",
-            "COMPLIANCE_TARGET: WCAG AA",
-            "KEYBOARD:",
-            "- Tab / Shift+Tab navigation",
-            "- Enter / Space activation",
-            "- Arrow key navigation in composite widgets",
-            "- Escape closes overlays",
-            "",
-            "SCREEN_READER_SUPPORT:",
-            "- semantic HTML",
-            "- ARIA labels and roles",
-            "- live regions for dynamic content",
-            "",
-            "TOUCH_TARGETS:",
-            "- minimum 44x44px targets",
-            "- spacing between adjacent interactive controls",
-            "",
-            "COMPONENT_NOTES:",
-            "- Table: aria-sort and row navigation",
-            "- Dropdown: aria-expanded and arrow navigation",
-            "- Modal: focus trap and focus return",
-        ].join("\n")
-
-        return <MachineSpecView>{machineSpec}</MachineSpecView>
+        return <MachineSpecView>{buildAccessibilitySpec()}</MachineSpecView>
     }
 
     return (
