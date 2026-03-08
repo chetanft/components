@@ -84,6 +84,11 @@
     --docs-ring: var(--primary);
   }
 
+  /* Override Tailwind preflight border-color (compiled as hardcoded gray-200) */
+  *, ::before, ::after {
+    border-color: var(--docs-border);
+  }
+
   body {
     background-color: var(--docs-background);
     color: var(--docs-foreground);
