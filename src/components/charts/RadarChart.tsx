@@ -62,15 +62,15 @@ export const RadarChart: React.FC<RadarChartProps> = ({
       case 'circle':
         return {
           circular: true,
-          color: '#e1e2e4',
+          color: ftChartColors.grid,
         };
       case 'filled':
         return {
-          color: '#e1e2e4',
+          color: ftChartColors.grid,
         };
       default:
         return {
-          color: '#e1e2e4',
+          color: ftChartColors.grid,
         };
     }
   };

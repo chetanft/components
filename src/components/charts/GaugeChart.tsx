@@ -2,7 +2,7 @@ import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { ChartData, ChartOptions } from 'chart.js';
 import { BaseChart } from './BaseChart';
-import { defaultChartOptions, chartColors } from './chartConfig';
+import { defaultChartOptions, chartColors, ftChartColors } from './chartConfig';
 
 export interface GaugeChartProps {
   value: number; // 0-100
@@ -21,7 +21,7 @@ export const GaugeChart: React.FC<GaugeChartProps> = ({
   title,
   height = 300,
   color = chartColors.indigo,
-  backgroundColor = '#e1e2e4',
+  backgroundColor = ftChartColors.grid,
 }) => {
   // Normalize value to percentage for display
   const percentage = Math.min(Math.max((value - min) / (max - min), 0), 1);

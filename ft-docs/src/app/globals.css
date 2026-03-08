@@ -18,11 +18,11 @@
     --docs-popover-foreground: var(--primary);
     --docs-primary: var(--primary);
     --docs-primary-foreground: var(--bg-primary);
-    --docs-secondary: var(--border-secondary);
+    --docs-secondary: var(--bg-tertiary);
     --docs-secondary-foreground: var(--primary);
-    --docs-muted: var(--border-secondary);
+    --docs-muted: var(--bg-tertiary);
     --docs-muted-foreground: var(--secondary);
-    --docs-accent: var(--border-secondary);
+    --docs-accent: var(--bg-tertiary);
     --docs-accent-foreground: var(--primary);
     --docs-destructive: var(--critical);
     --docs-destructive-foreground: var(--bg-primary);
@@ -33,11 +33,9 @@
   }
 
   /* Dark mode - FT tokens automatically change via .dark class in main globals.css */
-  /* We just need to ensure docs tokens reference the updated FT tokens */
+  /* bg-secondary used for page background so cards (bg-primary) appear elevated */
   html.dark,
   .dark {
-    /* FT tokens will be updated by main globals.css .dark block */
-    /* These docs tokens just reference them - they'll automatically update */
     --docs-background: var(--bg-secondary);
     --docs-foreground: var(--primary);
     --docs-card: var(--bg-primary);
@@ -46,11 +44,11 @@
     --docs-popover-foreground: var(--primary);
     --docs-primary: var(--primary);
     --docs-primary-foreground: var(--bg-secondary);
-    --docs-secondary: var(--bg-primary);
+    --docs-secondary: var(--bg-tertiary);
     --docs-secondary-foreground: var(--primary);
-    --docs-muted: var(--bg-primary);
+    --docs-muted: var(--bg-tertiary);
     --docs-muted-foreground: var(--secondary);
-    --docs-accent: var(--bg-primary);
+    --docs-accent: var(--bg-tertiary);
     --docs-accent-foreground: var(--primary);
     --docs-destructive: var(--critical);
     --docs-destructive-foreground: var(--primary);
@@ -62,8 +60,6 @@
   /* Night mode - FT tokens automatically change via .night class in main globals.css */
   html.night,
   .night {
-    /* FT tokens will be updated by main globals.css .night block */
-    /* These docs tokens just reference them - they'll automatically update */
     --docs-background: var(--bg-primary);
     --docs-foreground: var(--primary);
     --docs-card: var(--bg-secondary);
@@ -72,11 +68,11 @@
     --docs-popover-foreground: var(--primary);
     --docs-primary: var(--primary);
     --docs-primary-foreground: var(--bg-primary);
-    --docs-secondary: var(--tertiary-200);
+    --docs-secondary: var(--bg-tertiary);
     --docs-secondary-foreground: var(--primary);
-    --docs-muted: var(--tertiary-200);
+    --docs-muted: var(--bg-tertiary);
     --docs-muted-foreground: var(--secondary);
-    --docs-accent: var(--tertiary-200);
+    --docs-accent: var(--bg-tertiary);
     --docs-accent-foreground: var(--primary);
     --docs-destructive: var(--critical);
     --docs-destructive-foreground: var(--bg-primary);

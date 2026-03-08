@@ -37,7 +37,7 @@ export const PolarAreaChart: React.FC<PolarAreaChartProps> = ({
     scales: {
       r: {
         grid: {
-          color: '#e1e2e4',
+          color: ftChartColors.grid,
         },
         ticks: {
           color: ftChartColors.text.secondary,
