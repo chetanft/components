@@ -450,7 +450,7 @@ function VariantUsagePanel({
 
       {/* Quick do/don't */}
       {doPair && (
-        <div className="flex gap-3 pt-2 border-t" style={{ borderColor: "var(--border-primary)" }}>
+        <div className="flex gap-3 pt-2 border-t" style={{ borderColor: "var(--docs-border)" }}>
           <div className="flex-1 flex items-start gap-2">
             <span className="mt-0.5 shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--positive-light, #dcfce7)", color: "var(--positive-dark, #16a34a)" }}>✓</span>
             <span style={{ color: "var(--secondary)" }}>{doPair.do}</span>

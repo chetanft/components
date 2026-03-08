@@ -130,7 +130,7 @@ export function CommandDialog({ open: controlledOpen, onOpenChange }: CommandDia
     <Modal open={open} onOpenChange={setOpen}>
       <ModalContent size="md" centered={false} className="!self-start mt-[15vh] overflow-hidden">
         {/* Search input */}
-        <div className="border-b border-[var(--border-primary)] px-4 py-2">
+        <div className="border-b border-border px-4 py-2">
           <Input
             ref={inputRef}
             type="text"
@@ -194,13 +194,13 @@ export function CommandDialog({ open: controlledOpen, onOpenChange }: CommandDia
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between border-t border-[var(--border-primary)] px-4 py-2 text-xs text-[var(--text-secondary)]">
+        <div className="flex items-center justify-between border-t border-border px-4 py-2 text-xs text-[var(--text-secondary)]">
           <div className="flex items-center gap-2">
-            <kbd className="inline-flex h-5 items-center rounded border border-[var(--border-primary)] bg-[var(--bg-secondary)] px-1 font-mono">
+            <kbd className="inline-flex h-5 items-center rounded border border-border bg-[var(--bg-secondary)] px-1 font-mono">
               ↑↓
             </kbd>
             <span>Navigate</span>
-            <kbd className="inline-flex h-5 items-center rounded border border-[var(--border-primary)] bg-[var(--bg-secondary)] px-1 font-mono">
+            <kbd className="inline-flex h-5 items-center rounded border border-border bg-[var(--bg-secondary)] px-1 font-mono">
               ↵
             </kbd>
             <span>Open</span>

@@ -36,7 +36,7 @@ export default function DocsLayout({
                                 <aside
                                     className="sticky top-20 h-[calc(100vh-6rem)] shrink-0 overflow-y-auto border-r w-64 pr-10"
                                     style={{
-                                        borderColor: "var(--border-primary)",
+                                        borderColor: "var(--docs-border)",
                                     }}
                                 >
                                     <SiteSidebar collapsed={false} />

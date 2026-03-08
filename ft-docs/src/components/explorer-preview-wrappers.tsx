@@ -40,7 +40,7 @@ export function ChartCanvas({ children }: { children: ReactNode }) {
       className="pointer-events-none absolute right-0 top-0 bottom-0 px-6 py-6"
       style={{ left: "392px" }}
     >
-      <div className="pointer-events-auto mx-auto flex h-full w-full max-w-[1200px] items-center justify-center rounded-lg border border-[var(--border-primary)] bg-[var(--bg-primary)] p-4">
+      <div className="pointer-events-auto mx-auto flex h-full w-full max-w-[1200px] items-center justify-center rounded-lg border border-border bg-[var(--bg-primary)] p-4">
         {children}
       </div>
     </div>

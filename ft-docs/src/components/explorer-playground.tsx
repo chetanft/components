@@ -259,9 +259,9 @@ export function ExplorerPlayground({
       {/* Controls panel */}
       <div
         className="border h-fit"
-        style={{ borderColor: "var(--border-primary)" }}
+        style={{ borderColor: "var(--docs-border)" }}
       >
-        <div className="flex items-center justify-between border-b px-4 py-3" style={{ borderColor: "var(--border-primary)" }}>
+        <div className="flex items-center justify-between border-b px-4 py-3" style={{ borderColor: "var(--docs-border)" }}>
           <h3
             className="text-base-rem font-semibold"
             style={{ color: "var(--primary)" }}

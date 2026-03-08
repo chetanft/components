@@ -27,6 +27,7 @@
     --docs-destructive: var(--critical);
     --docs-destructive-foreground: var(--bg-primary);
     --docs-border: var(--border-primary);
+    --docs-border-strong: var(--border-primary);
     --docs-input: var(--border-secondary);
     --docs-ring: var(--primary);
     --docs-radius: var(--component-border-radius);
@@ -52,7 +53,8 @@
     --docs-accent-foreground: var(--primary);
     --docs-destructive: var(--critical);
     --docs-destructive-foreground: var(--primary);
-    --docs-border: var(--border-primary);
+    --docs-border: var(--border-secondary);
+    --docs-border-strong: var(--border-primary);
     --docs-input: var(--border-primary);
     --docs-ring: var(--primary);
   }
@@ -76,7 +78,8 @@
     --docs-accent-foreground: var(--primary);
     --docs-destructive: var(--critical);
     --docs-destructive-foreground: var(--bg-primary);
-    --docs-border: var(--border-primary);
+    --docs-border: var(--border-secondary);
+    --docs-border-strong: var(--border-primary);
     --docs-input: var(--border-secondary);
     --docs-ring: var(--primary);
   }

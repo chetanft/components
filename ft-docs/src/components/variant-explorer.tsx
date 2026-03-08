@@ -191,7 +191,7 @@ export function VariantExplorer({
       <div
         className="border-r overflow-y-auto"
         style={{
-          borderColor: "var(--border-primary)",
+          borderColor: "var(--docs-border)",
           paddingRight: "var(--spacing-x4)",
         }}
         ref={listRef}

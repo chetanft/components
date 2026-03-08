@@ -356,7 +356,7 @@ export function ExplorerMatrix({
             </div>
           ) : resolvedBehavior === "chart" ? (
             <div className="relative flex h-full w-full items-center justify-center px-6 py-6" style={{ zIndex: 1 }}>
-              <div className="flex w-full max-w-[1200px] items-center justify-center rounded-lg border border-[var(--border-primary)] bg-[var(--bg-primary)] p-4">
+              <div className="flex w-full max-w-[1200px] items-center justify-center rounded-lg border border-border bg-[var(--bg-primary)] p-4">
                 {previewContent}
               </div>
             </div>

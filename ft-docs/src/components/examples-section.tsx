@@ -186,7 +186,7 @@ export function ExamplesSection({
 
       {/* Docs-only examples section */}
       {docsStories.length > 0 && (
-        <div className="space-y-6 pt-4 border-t border-[var(--border-primary)]">
+        <div className="space-y-6 pt-4 border-t border-border">
           <h2 className="text-section font-semibold text-[var(--secondary)]">
             Usage Examples
             <span
@@ -247,7 +247,7 @@ export function ExamplesSection({
           explorerVisible ? "translate-y-0" : "translate-y-full"
         )}>
           {/* Explorer header — fixed height */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-primary)] shrink-0">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
             <div className="flex items-center gap-3">
               <Button
                 variant="secondary"

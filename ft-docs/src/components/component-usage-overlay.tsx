@@ -36,7 +36,7 @@ export function ComponentUsageOverlay({
       visible ? "translate-y-0" : "translate-y-full"
     )}>
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-primary)] shrink-0">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
         <div className="flex items-center gap-3">
           <Button
             variant="secondary"
@@ -87,7 +87,7 @@ function UsageContent({
         <div
           className="rounded-lg border p-4"
           style={{
-            borderColor: "var(--border-primary)",
+            borderColor: "var(--docs-border)",
             backgroundColor: "var(--bg-secondary)",
           }}
         >
@@ -188,7 +188,7 @@ function UsageContent({
                 key={v.name}
                 className="rounded-lg border p-3 space-y-1"
                 style={{
-                  borderColor: "var(--border-primary)",
+                  borderColor: "var(--docs-border)",
                   backgroundColor: "var(--bg-primary)",
                 }}
               >

@@ -159,7 +159,7 @@ export function SiteHeader() {
     const ThemeIcon = getThemeIcon()
 
     return (
-        <header className="sticky top-0 z-50 w-full bg-[var(--bg-primary)] border-b border-[var(--border-primary)]">
+        <header className="sticky top-0 z-50 w-full bg-[var(--bg-primary)] border-b border-border">
             <div className="container flex h-14 items-center justify-between gap-0 px-5 w-full" style={{ width: '100%', maxWidth: '100%' }}>
                 <div className="mr-4 hidden md:flex">
                     <Link href="/" className="mr-6 flex items-center space-x-2">
