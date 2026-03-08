@@ -211,12 +211,12 @@ export function SiteHeader() {
                         })}
                     </nav>
                 </div>
-                <div className="flex items-center justify-end gap-2">
+                <div className="flex items-center justify-end gap-2 shrink-0">
                     <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => setCmdkOpen(true)}
-                        className="inline-flex items-center gap-2 rounded-md border border-input bg-background px-3 h-9 text-sm-rem text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground w-full max-w-[240px]"
+                        className="inline-flex items-center gap-2 rounded-md border border-input bg-background px-3 h-9 text-sm-rem text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground min-w-0 max-w-[240px]"
                     >
                         <Icon name="search" size={16} className="shrink-0" />
                         <span className="flex-1 text-left hidden sm:inline">Search...</span>
