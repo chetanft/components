@@ -20,7 +20,7 @@ Duplicate component-name groups collapsed: 2.
 | AreaChart | Basic, Linear, Step, Stacked, Gradient, WithAxes | — | — | — | — | — | — | Configured | no ExplorerBase export | src/stories/AreaChart.stories.tsx |
 | Avatar | Default, Fallback, Group | — | — | XXS, XS, SM, MD, LG, XL, XXL | — | — | — | Configured | — | src/components/atoms/Avatar/Avatar.stories.tsx |
 | BackTop | Basic, CustomContent | — | — | — | — | — | — | Configured | no ExplorerBase export | src/components/molecules/BackTop/BackTop.stories.tsx |
-| Badge | Default, Composed, Text Only, Custom Icon | Default, Success, Error, Warning, Info, Neutral, Danger | — | XS, SM, MD, LG | — | — | — | Configured | — | src/components/atoms/Badge/Badge.stories.tsx |
+| Badge | — | Default, Success, Error, Warning, Info, Neutral, Danger | — | XS, SM, MD, LG | — | Default, With Icon, Text Only | — | Configured | — | src/components/atoms/Badge/Badge.stories.tsx |
 | Breadcrumb | Default, Icons, Custom Separator | — | — | — | — | — | — | Configured | no ExplorerBase export | src/components/molecules/Breadcrumb/Breadcrumb.stories.tsx |
 | Button | — | Primary, Outline, Danger, Text, Link | Default, Disabled, Loading | XXS, XS, SM, MD, LG, XL, XXL | Default, Rounded | Leading Icon, Trailing Icon, Icon Only, Label Only | — | Configured | — | src/components/atoms/Button/Button.stories.tsx |
 | ButtonGroup | Default, Equal Width, With Icons, Wrapped | — | Default | — | — | — | — | Configured | — | src/components/molecules/ButtonGroup/ButtonGroup.stories.tsx |
