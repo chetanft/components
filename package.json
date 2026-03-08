@@ -186,7 +186,8 @@
     "find:arbitrary-classes": "node scripts/find-arbitrary-classes.cjs",
     "build:sync": "npm run sync:source-to-docs",
     "check:drift": "node scripts/detect-upstream-drift.cjs --check",
-    "drift:snapshot": "node scripts/detect-upstream-drift.cjs --snapshot"
+    "drift:snapshot": "node scripts/detect-upstream-drift.cjs --snapshot",
+    "smoke:machine-surface": "node scripts/smoke-test-machine-surface.cjs"
   },
   "dependencies": {
     "@figma/code-connect": "^1.3.3",

@@ -36,7 +36,8 @@ import { FTProvider } from 'ft-design-system';
 ## AI Surfaces
 
 - `llms.txt` is the generated discovery file for AI tools.
-- `?view=machine` on `ft-docs` routes is the machine-readable content layer.
+- `/machine/*` server routes on `ft-docs` are the primary machine-readable entrypoints (text/plain, crawler-friendly). Route handlers exist in repo source; public availability requires deployment to the hosting platform (Netlify).
+- `?view=machine` on `ft-docs` routes is the client-side toggle for interactive machine-mode preview. It requires JavaScript and is not crawler-friendly.
 - `AI_CONTEXT.md` is the local workflow contract and coding reference.
 
 ## Tailwind Configuration
