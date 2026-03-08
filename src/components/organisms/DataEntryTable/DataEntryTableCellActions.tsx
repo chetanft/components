@@ -22,21 +22,21 @@ export const DataEntryTableCellActions: React.FC<DataEntryTableCellActionsProps>
     return (
       <div
         className={cn(
-          "flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x0)]",
+          "flex items-center justify-between px-[var(--spacing-x3)] py-0",
           "h-[var(--component-height-md)]",
           "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid box-border",
           "relative shrink-0",
           className
         )}
       >
-        <div className="box-border flex gap-[var(--spacing-x2)] h-[var(--component-height-md)] items-center justify-center px-[var(--spacing-x0)] py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
+        <div className="box-border flex gap-[var(--spacing-x2)] h-[var(--component-height-md)] items-center justify-center px-0 py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
           <Button
             variant="text"
             size="xs"
             icon="add"
             iconPosition="leading"
             disabled={isDisabled}
-            className="px-[var(--spacing-x2)] py-[var(--spacing-x0)] rounded-[var(--radius-sm)]"
+            className="px-[var(--spacing-x2)] py-0 rounded-[var(--radius-sm)]"
             style={{ height: 'var(--spacing-x6)' }}
           >
             Button
@@ -49,14 +49,14 @@ export const DataEntryTableCellActions: React.FC<DataEntryTableCellActionsProps>
   return (
     <div
       className={cn(
-        "flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x0)]",
+        "flex items-center justify-between px-[var(--spacing-x3)] py-0",
         "h-[var(--component-height-md)]",
         "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid box-border",
         "relative shrink-0",
         className
       )}
     >
-      <div className="box-border flex gap-[var(--spacing-x2)] h-[var(--component-height-md)] items-center justify-center px-[var(--spacing-x0)] py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
+      <div className="box-border flex gap-[var(--spacing-x2)] h-[var(--component-height-md)] items-center justify-center px-0 py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
         {actions.map((action, index) => {
           const iconName = action.icon as any;
           return (
@@ -68,7 +68,7 @@ export const DataEntryTableCellActions: React.FC<DataEntryTableCellActionsProps>
               iconPosition="leading"
               disabled={isDisabled}
               onClick={action.onClick}
-              className="px-[var(--spacing-x2)] py-[var(--spacing-x0)] rounded-[var(--radius-sm)]"
+              className="px-[var(--spacing-x2)] py-0 rounded-[var(--radius-sm)]"
               style={{ height: 'var(--spacing-x6)' }}
             >
               {action.label}

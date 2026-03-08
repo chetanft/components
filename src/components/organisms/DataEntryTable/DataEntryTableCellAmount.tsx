@@ -133,7 +133,7 @@ export const DataEntryTableCellAmount: React.FC<DataEntryTableCellAmountProps> =
   return (
     <div
       className={cn(
-        "flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x0)]",
+        "flex items-center justify-between px-[var(--spacing-x3)] py-0",
         "h-[var(--component-height-md)]",
         "bg-[var(--bg-primary)] border border-[var(--border-secondary)] border-solid box-border",
         "relative shrink-0",
@@ -152,7 +152,7 @@ export const DataEntryTableCellAmount: React.FC<DataEntryTableCellAmountProps> =
         }
       }}
     >
-      <div className="box-border flex flex-1 font-normal gap-[var(--spacing-x1)] h-[var(--component-height-md)] items-center leading-[1.4] min-h-px min-w-px px-[var(--spacing-x0)] py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0 justify-end"
+      <div className="box-border flex flex-1 font-normal gap-[var(--spacing-x1)] h-[var(--component-height-md)] items-center leading-[1.4] min-h-px min-w-px px-0 py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0 justify-end"
       style={{
         fontSize: 'var(--font-size-md)',
         color: hasValue ? 'var(--primary)' : 'var(--tertiary)',

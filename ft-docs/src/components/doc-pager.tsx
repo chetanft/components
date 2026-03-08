@@ -2,9 +2,9 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ChevronLeft, ChevronRight } from "lucide-react"
 import { docsConfig } from "@/config/docs"
 import { cn } from "@/lib/utils"
+import { Icon } from "@/registry"
 
 export function DocPager() {
   const pathname = usePathname()
@@ -33,7 +33,7 @@ export function DocPager() {
           )}
         >
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
-            <ChevronLeft className="h-3 w-3" />
+            <Icon name="chevron-left" size={12} />
             Previous
           </span>
           <span className="text-sm-rem font-medium text-foreground group-hover:text-foreground">
@@ -53,7 +53,7 @@ export function DocPager() {
         >
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
             Next
-            <ChevronRight className="h-3 w-3" />
+            <Icon name="chevron-right" size={12} />
           </span>
           <span className="text-sm-rem font-medium text-foreground group-hover:text-foreground">
             {next.title}

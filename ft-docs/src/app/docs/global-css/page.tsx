@@ -1,10 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { Check, Copy, Download } from "lucide-react"
+import { Button, Icon } from "@/registry"
 import { useViewMode } from "@/components/view-mode-context"
 import { GLOBAL_CSS_CONTENT } from "@/data/design-system.generated"
 import { DocPageHeader, DocSection, DocInfoBanner, DocCard, DocCodeBlock, DocBottomNav } from "@/components/docs"
+import { MachineSpecView } from "@/components/machine-spec-view"
 
 const globalCssContent = GLOBAL_CSS_CONTENT
 
@@ -31,11 +32,7 @@ export default function GlobalCSSPage() {
     }
 
     if (viewMode === 'machine') {
-        return (
-            <pre className="whitespace-pre-wrap font-mono text-xs-rem leading-relaxed">
-                {globalCssContent}
-            </pre>
-        )
+        return <MachineSpecView>{globalCssContent}</MachineSpecView>
     }
 
     return (
@@ -74,43 +71,36 @@ export default function GlobalCSSPage() {
                 <div className="flex items-center justify-between">
                     <h2 className="text-2xl-rem font-semibold tracking-tight scroll-m-20">globals.css</h2>
                     <div className="flex gap-2">
-                        <button
+                        <Button
+                            variant="secondary"
+                            size="sm"
+                            icon="download"
+                            iconPosition="leading"
                             onClick={downloadFile}
-                            className="inline-flex items-center gap-2 px-4 py-2 text-sm-rem font-medium rounded-md border border-border bg-background transition-colors hover:bg-muted"
                         >
-                            <Download className="h-4 w-4" />
                             Download
-                        </button>
-                        <button
+                        </Button>
+                        <Button
+                            variant="primary"
+                            size="sm"
+                            icon={copied ? 'check' : 'copy'}
+                            iconPosition="leading"
                             onClick={copyToClipboard}
-                            className="inline-flex items-center gap-2 px-4 py-2 text-sm-rem font-medium rounded-md bg-foreground text-background transition-colors hover:bg-foreground/90"
                         >
-                            {copied ? (
-                                <>
-                                    <Check className="h-4 w-4" />
-                                    Copied!
-                                </>
-                            ) : (
-                                <>
-                                    <Copy className="h-4 w-4" />
-                                    Copy CSS
-                                </>
-                            )}
-                        </button>
+                            {copied ? 'Copied!' : 'Copy CSS'}
+                        </Button>
                     </div>
                 </div>
                 <div className="relative rounded-lg border border-border overflow-hidden group">
-                    <button
+                    <Button
+                        variant="secondary"
+                        size="xs"
+                        icon={copied ? <Icon name="check" size={14} className="text-green-600" /> : <Icon name="copy" size={14} />}
+                        iconPosition="only"
                         onClick={copyToClipboard}
-                        className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-md border bg-background text-sm-rem font-medium transition-all opacity-0 group-hover:opacity-100 hover:bg-muted"
-                        title="Copy to clipboard"
-                    >
-                        {copied ? (
-                            <Check className="h-3.5 w-3.5 text-green-600" />
-                        ) : (
-                            <Copy className="h-3.5 w-3.5" />
-                        )}
-                    </button>
+                        aria-label="Copy to clipboard"
+                        className="absolute right-3 top-3 z-10 opacity-0 group-hover:opacity-100"
+                    />
                     <pre className="p-4 overflow-x-auto font-mono text-sm-rem max-h-[600px] overflow-y-auto bg-muted">
                         <code>{globalCssContent}</code>
                     </pre>

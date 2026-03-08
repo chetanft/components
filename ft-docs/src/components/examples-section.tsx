@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useState, useMemo, useEffect, useCallback } from "react";
-import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import type { StoryDefinition, StoryMeta } from "@/lib/story-loader";
@@ -172,31 +171,17 @@ export function ExamplesSection({
 
       {/* Show more/less button for canonical stories */}
       {totalCanonical > 5 && (
-        <button
-          onClick={() => setShowAllStories(!showAllStories)}
-          className="flex items-center gap-2 mx-auto px-4 py-2 text-sm-rem font-medium transition-colors"
-          style={{
-            color: "var(--secondary)",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = "var(--primary)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = "var(--secondary)";
-          }}
-        >
-          {showAllStories ? (
-            <>
-              <ChevronUp className="h-4 w-4" />
-              Show less
-            </>
-          ) : (
-            <>
-              <ChevronDown className="h-4 w-4" />
-              Show {totalCanonical - 5} more variants
-            </>
-          )}
-        </button>
+        <div className="flex justify-center">
+          <Button
+            variant="text"
+            size="sm"
+            icon={showAllStories ? "chevron-up" : "chevron-down"}
+            iconPosition="leading"
+            onClick={() => setShowAllStories(!showAllStories)}
+          >
+            {showAllStories ? "Show less" : `Show ${totalCanonical - 5} more variants`}
+          </Button>
+        </div>
       )}
 
       {/* Docs-only examples section */}
@@ -264,7 +249,11 @@ export function ExamplesSection({
           {/* Explorer header — fixed height */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-primary)] shrink-0">
             <div className="flex items-center gap-3">
-              <button
+              <Button
+                variant="secondary"
+                size="sm"
+                icon="arrow-left"
+                iconPosition="only"
                 onClick={() => {
                   closeExplorer();
                   // Clean explorer param from URL
@@ -272,44 +261,35 @@ export function ExamplesSection({
                   url.searchParams.delete("explorer");
                   router.replace(url.pathname + url.search, { scroll: false });
                 }}
-                className="inline-flex items-center justify-center rounded-md border p-2 transition-colors bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
                 aria-label="Back to list view"
-              >
-                <ArrowLeft className="h-4 w-4" />
-              </button>
+              />
               <h2 className="text-section font-semibold text-[var(--primary)]">{componentName}</h2>
             </div>
 
             {/* Prev / Next navigation */}
             <div className="flex items-center gap-2">
-              <button
+              <Button
+                variant="secondary"
+                size="sm"
+                icon="chevron-left"
+                iconPosition={prevComponent?.title ? "leading" : "only"}
                 onClick={() => prevComponent && navigateExplorer(prevComponent.href)}
                 disabled={!prevComponent}
-                className={cn(
-                  "inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm-rem transition-colors",
-                  prevComponent
-                    ? "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
-                    : "opacity-40 cursor-not-allowed border-[var(--border-primary)] text-[var(--secondary)]"
-                )}
                 aria-label="Previous component"
               >
-                <ChevronLeft className="h-4 w-4" />
                 {prevComponent && <span className="hidden sm:inline">{prevComponent.title}</span>}
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                icon="chevron-right"
+                iconPosition={nextComponent?.title ? "trailing" : "only"}
                 onClick={() => nextComponent && navigateExplorer(nextComponent.href)}
                 disabled={!nextComponent}
-                className={cn(
-                  "inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm-rem transition-colors",
-                  nextComponent
-                    ? "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
-                    : "opacity-40 cursor-not-allowed border-[var(--border-primary)] text-[var(--secondary)]"
-                )}
                 aria-label="Next component"
               >
                 {nextComponent && <span className="hidden sm:inline">{nextComponent.title}</span>}
-                <ChevronRight className="h-4 w-4" />
-              </button>
+              </Button>
             </div>
           </div>
 

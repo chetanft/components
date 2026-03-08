@@ -28,7 +28,7 @@ export interface UserProfileProps extends Omit<ComposableProps<'div'>, 'company'
   avatarClassName?: string;
 }
 
-const baseContainer = 'bg-[var(--bg-primary)] box-border content-stretch flex rounded-[var(--spacing-x2)]';
+const baseContainer = 'bg-[var(--bg-primary)] box-border content-stretch flex rounded-[var(--radius-md)]';
 const avatarClass = 'content-stretch flex gap-[var(--spacing-x3)] items-center justify-center relative shrink-0 size-[var(--spacing-x10)] cursor-pointer';
 
 export const UserProfile: React.FC<UserProfileProps> = ({
@@ -51,7 +51,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
   ...props
 }) => {
   const resolvedGlass = useResolvedGlass(glass);
-  const containerClassName = cn(baseContainer, getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', ''), companyName ? 'gap-[0.9375rem] items-center p-[var(--spacing-x2)]' : 'gap-[var(--spacing-x2-5)] items-center justify-center overflow-clip p-[var(--spacing-x2)]', className);
+  const containerClassName = cn(baseContainer, getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', ''), companyName ? 'gap-[var(--spacing-x4)] items-center p-[var(--spacing-x2)]' : 'gap-[var(--spacing-x2-5)] items-center justify-center overflow-clip p-[var(--spacing-x2)]', className);
   const Comp = asChild ? Slot : 'div';
 
   const handleAvatarClick = (e: React.MouseEvent) => {

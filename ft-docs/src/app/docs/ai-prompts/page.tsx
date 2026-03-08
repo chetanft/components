@@ -1,12 +1,13 @@
 "use client"
 
 import Link from "next/link"
-import { Copy, Check } from "lucide-react"
 import { useState } from "react"
+import { Button, SegmentedTabs, SegmentedTabItem } from "@/registry"
 import { useViewMode } from "@/components/view-mode-context"
 import { buildMachinePrompt, buildHumanPrompt, buildCursorRules } from "@/data/prompt-builders"
 import { COMPONENT_COUNT } from "@/data/design-system.generated"
 import { DocPageHeader, DocSection, DocInfoBanner, DocCard, DocBottomNav } from "@/components/docs"
+import { MachineSpecView } from "@/components/machine-spec-view"
 
 export default function AIPromptsPage() {
     const { viewMode } = useViewMode()
@@ -33,11 +34,7 @@ export default function AIPromptsPage() {
     }
 
     if (viewMode === 'machine') {
-        return (
-            <pre className="whitespace-pre-wrap font-mono text-xs-rem leading-relaxed">
-                {machineReadablePrompt}
-            </pre>
-        )
+        return <MachineSpecView>{machineReadablePrompt}</MachineSpecView>
     }
 
     return (
@@ -55,25 +52,14 @@ export default function AIPromptsPage() {
             </DocInfoBanner>
 
             {/* Tab buttons */}
-            <div className="flex gap-2 border-b border-border">
-                {([
-                    { key: 'machine' as const, label: 'Machine-Readable' },
-                    { key: 'cursor' as const, label: 'Cursor Rules' },
-                    { key: 'human' as const, label: 'Human-Readable' },
-                ]).map(tab => (
-                    <button
-                        key={tab.key}
-                        onClick={() => setActiveTab(tab.key)}
-                        className={`px-4 py-2 text-sm-rem font-medium transition-colors border-b-2 ${
-                            activeTab === tab.key
-                                ? 'text-foreground border-foreground'
-                                : 'text-muted-foreground border-transparent hover:text-foreground'
-                        }`}
-                    >
-                        {tab.label}
-                    </button>
-                ))}
-            </div>
+            <SegmentedTabs
+                value={activeTab}
+                onChange={(value) => setActiveTab(value as 'machine' | 'human' | 'cursor')}
+            >
+                <SegmentedTabItem value="machine" label="Machine-Readable" />
+                <SegmentedTabItem value="cursor" label="Cursor Rules" />
+                <SegmentedTabItem value="human" label="Human-Readable" />
+            </SegmentedTabs>
 
             {/* Content */}
             <div className="space-y-2">
@@ -83,13 +69,15 @@ export default function AIPromptsPage() {
                         {activeTab === 'cursor' && 'Copy to .cursor/rules or .cursorrules file in your project root.'}
                         {activeTab === 'human' && 'Detailed explanations for human understanding. Use if AI needs more context.'}
                     </p>
-                    <button
+                    <Button
+                        variant="primary"
+                        size="sm"
+                        icon={copied ? 'check' : 'copy'}
+                        iconPosition="leading"
                         onClick={() => copyToClipboard(getActiveContent())}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-sm-rem font-medium bg-foreground text-background transition-colors hover:bg-foreground/90"
                     >
-                        {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                         {copied ? 'Copied!' : 'Copy'}
-                    </button>
+                    </Button>
                 </div>
                 <div className="relative rounded-lg border border-border bg-muted overflow-hidden">
                     <pre className="p-4 overflow-x-auto font-mono text-xs-rem max-h-[500px] overflow-y-auto">

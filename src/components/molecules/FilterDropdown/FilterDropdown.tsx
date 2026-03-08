@@ -248,7 +248,7 @@ export const FilterDropdown = React.forwardRef<HTMLDivElement, FilterDropdownPro
           iconPosition="only"
           onClick={handleButtonClick}
           className={cn(
-            'size-[var(--spacing-x10)] rounded-[var(--spacing-x2)]',
+            'size-[var(--spacing-x10)] rounded-[var(--radius-md)]',
             isFilterOpen && 'bg-[var(--bg-secondary)]'
           )}
           aria-label={label || placeholder || 'Filter'}

@@ -1,3 +1,5 @@
+import { Badge } from "@/registry"
+
 interface DocPageHeaderProps {
   title: string
   description: string
@@ -10,9 +12,9 @@ export function DocPageHeader({ title, description, badge }: DocPageHeaderProps)
       <div className="flex items-center gap-3 mb-2">
         <h1 className="text-3xl-rem font-bold tracking-tight">{title}</h1>
         {badge && (
-          <span className="inline-flex items-center rounded-full border border-border bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+          <Badge variant="neutral" size="xs">
             {badge}
-          </span>
+          </Badge>
         )}
       </div>
       <p className="text-muted-foreground text-lg-rem">{description}</p>

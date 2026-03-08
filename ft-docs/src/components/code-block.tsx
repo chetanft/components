@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Copy, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { highlightCode } from "@/lib/highlight"
 import { useTheme } from "next-themes"
+import { Icon, Button } from "@/registry"
 
 interface CodeBlockProps {
   code: string
@@ -47,13 +47,15 @@ export function CodeBlock({
       )}
 
       {/* Copy button */}
-      <button
+      <Button
         onClick={onCopy}
-        className="absolute right-3 top-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-md border bg-background text-sm-rem font-medium transition-all opacity-0 group-hover:opacity-100 hover:bg-muted"
+        variant="secondary"
+        size="sm"
+        className="!absolute right-3 top-3 z-10 !h-8 !w-8 !px-0 !py-0 opacity-0 group-hover:opacity-100"
         title="Copy code"
       >
-        {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
-      </button>
+        {copied ? <Icon name="check" size={14} /> : <Icon name="copy" size={14} />}
+      </Button>
 
       {/* Code content */}
       {html ? (

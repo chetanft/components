@@ -4,12 +4,10 @@ import { usePathname } from "next/navigation";
 import { SegmentedTabs, SegmentedTabItem } from "@/registry";
 import { useViewMode } from "@/components/view-mode-context";
 
-/** Paths where the Human/Machine toggle should appear */
+/** Paths where the Human/Machine toggle should appear.
+ *  Must match the MACHINE ENTRYPOINTS listed in llms.txt. */
 const TOGGLE_PATHS = [
-  "/docs/components/",
-  "/docs/ai-prompts",
-  "/docs/npm-package",
-  "/docs/global-css",
+  "/docs",
   "/colors",
   "/charts",
   "/icons",

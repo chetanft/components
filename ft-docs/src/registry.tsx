@@ -48,6 +48,8 @@ import {
     StackedBarChartBar,
     StackedBarChartSegment,
     Statistic,
+    StatisticTitle,
+    StatisticValue,
     Steps,
     StepItem,
     SubText,
@@ -71,6 +73,14 @@ import {
     Pagination,
     NotificationProvider,
     Modal,
+    ModalContent,
+    ModalBody,
+    ModalClose,
+    ModalHeader,
+    ModalTitle,
+    ModalDescription,
+    ModalFooter,
+    ModalTrigger,
     Drawer,
     GridDrawer,
     // Charts
@@ -148,6 +158,7 @@ export {
     TooltipDescription,
     TooltipArrow,
     Input,
+    Alert,
     Collapsible,
     CollapsibleTrigger,
     CollapsibleContent,
@@ -157,9 +168,23 @@ export {
     SegmentedTabs,
     SegmentedTabItem,
     Tabs,
+    Modal,
+    ModalContent,
+    ModalBody,
+    ModalClose,
+    ModalHeader,
+    ModalTitle,
+    ModalDescription,
+    ModalFooter,
+    ModalTrigger,
+    Statistic,
+    StatisticTitle,
+    StatisticValue,
 } from "../../src"
 
-import { Plus as PlusIcon, ArrowRight as ArrowRightIcon, Pencil as PencilIcon } from "lucide-react"
+import { Add as PlusIcon } from "../../src/components/atoms/Icons/Add"
+// ArrowRight and Pencil — no FT equivalent, Lucide is intentional
+import { ArrowRight as ArrowRightIcon, Pencil as PencilIcon } from "lucide-react"
 
 // Sample data for component examples
 const sampleOptions = [
@@ -291,6 +316,8 @@ export const registry: Record<string, React.ComponentType<any> | any> = {
     StackedBarChartBar,
     StackedBarChartSegment,
     Statistic,
+    StatisticTitle,
+    StatisticValue,
     Steps,
     StepItem,
     SubText,
@@ -314,6 +341,14 @@ export const registry: Record<string, React.ComponentType<any> | any> = {
     Pagination,
     NotificationProvider,
     Modal,
+    ModalContent,
+    ModalBody,
+    ModalClose,
+    ModalHeader,
+    ModalTitle,
+    ModalDescription,
+    ModalFooter,
+    ModalTrigger,
     Drawer,
     GridDrawer,
     // Charts

@@ -50,7 +50,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
     return (
       <Comp 
         className={cn(
-          "box-border content-stretch flex gap-[var(--spacing-x5)] items-start px-[var(--spacing-x0)] py-0 relative size-full", 
+          "box-border content-stretch flex gap-[var(--spacing-x5)] items-start px-0 py-0 relative size-full", 
           className
         )}
         data-name="Layout=Horizontal, Blocks=1, Padding=False"
@@ -87,7 +87,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
     return (
       <Comp 
         className={cn(
-          "box-border content-stretch flex gap-[var(--spacing-x5)] items-start px-[var(--spacing-x0)] py-0 relative size-full", 
+          "box-border content-stretch flex gap-[var(--spacing-x5)] items-start px-0 py-0 relative size-full", 
           className
         )}
         data-name="Layout=Horizontal, Blocks=2, Padding=False"
@@ -107,7 +107,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
     return (
       <Comp 
         className={cn(
-          "box-border content-stretch flex flex-col gap-[var(--spacing-x0)] items-start px-[var(--spacing-x5)] py-0 relative size-full", 
+          "box-border content-stretch flex flex-col gap-0 items-start px-[var(--spacing-x5)] py-0 relative size-full", 
           className
         )}
         data-name="Layout=Vertical, Blocks=2, Padding=True"
@@ -128,7 +128,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
     return (
       <Comp 
         className={cn(
-          "box-border content-stretch flex flex-col gap-[var(--spacing-x0)] items-start px-[var(--spacing-x0)] py-0 relative size-full", 
+          "box-border content-stretch flex flex-col gap-0 items-start px-0 py-0 relative size-full", 
           className
         )}
         data-name="Layout=Vertical, Blocks=2, Padding=False"
@@ -172,7 +172,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
     return (
       <Comp 
         className={cn(
-          "box-border content-stretch flex gap-[var(--spacing-x5)] items-start px-[var(--spacing-x0)] py-0 relative size-full", 
+          "box-border content-stretch flex gap-[var(--spacing-x5)] items-start px-0 py-0 relative size-full", 
           className
         )}
         data-name="Layout=Horizontal, Blocks=3, Padding=False"
@@ -195,7 +195,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
     return (
       <Comp 
         className={cn(
-          "box-border content-stretch flex flex-col gap-[var(--spacing-x0)] items-start px-[var(--spacing-x5)] py-0 relative size-full", 
+          "box-border content-stretch flex flex-col gap-0 items-start px-[var(--spacing-x5)] py-0 relative size-full", 
           className
         )}
         data-name="Layout=Vertical, Blocks=3, Padding=True"
@@ -220,7 +220,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
     return (
       <Comp 
         className={cn(
-          "box-border content-stretch flex flex-col gap-[var(--spacing-x0)] items-start px-[var(--spacing-x0)] py-0 relative size-full", 
+          "box-border content-stretch flex flex-col gap-0 items-start px-0 py-0 relative size-full", 
           className
         )}
         data-name="Layout=Vertical, Blocks=3, Padding=False"

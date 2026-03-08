@@ -29,18 +29,19 @@ const meta: Meta<typeof Badge> = {
       defaultScenarioId: 'default',
       rows: [
         {
-          id: 'type',
-          label: 'Type',
+          id: 'content',
+          label: 'Content',
+          values: { content: 'content' },
           scenarios: [
             { id: 'default', label: 'Default', story: 'ExplorerBase', args: { explorerContent: 'default' } },
-            { id: 'composed', label: 'Composed', story: 'ExplorerBase', args: { explorerContent: 'composed' } },
+            { id: 'with-icon', label: 'With Icon', story: 'ExplorerBase', args: { explorerContent: 'with-icon' } },
             { id: 'text-only', label: 'Text Only', story: 'ExplorerBase', args: { explorerContent: 'text-only' } },
-            { id: 'custom-icon', label: 'Custom Icon', story: 'ExplorerBase', args: { explorerContent: 'with-custom-icon' } },
           ],
         },
         {
           id: 'style',
           label: 'Style',
+          values: { style: 'variant' },
           scenarios: [
             { id: 'default', label: 'Default', story: 'ExplorerBase', args: { variant: 'default' } },
             { id: 'success', label: 'Success', story: 'ExplorerBase', args: { variant: 'success' } },
@@ -54,6 +55,7 @@ const meta: Meta<typeof Badge> = {
         {
           id: 'size',
           label: 'Size',
+          values: { size: 'size' },
           scenarios: [
             { id: 'xs', label: 'XS', story: 'ExplorerBase', args: { size: 'xs' } },
             { id: 'sm', label: 'SM', story: 'ExplorerBase', args: { size: 'sm' } },
@@ -68,7 +70,7 @@ const meta: Meta<typeof Badge> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['default', 'error', 'success', 'warning', 'neutral'],
+      options: ['default', 'error', 'success', 'warning', 'neutral', 'info', 'danger', 'normal'],
     },
     size: {
       control: { type: 'select' },
@@ -80,7 +82,7 @@ const meta: Meta<typeof Badge> = {
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-type BadgeExplorerContent = 'default' | 'composed' | 'text-only' | 'with-custom-icon';
+type BadgeExplorerContent = 'default' | 'with-icon' | 'text-only';
 
 export const ExplorerBase: Story = {
   args: {
@@ -101,16 +103,7 @@ export const ExplorerBase: Story = {
       );
     }
 
-    if (content === 'with-custom-icon') {
-      return (
-        <Badge variant={variant} size={size} glass={args.glass}>
-          <BadgeIcon icon="shield" />
-          <BadgeText>Verified</BadgeText>
-        </Badge>
-      );
-    }
-
-    if (content === 'composed') {
+    if (content === 'with-icon') {
       return (
         <Badge variant={variant} size={size} glass={args.glass}>
           <BadgeIcon icon="check" />

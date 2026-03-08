@@ -226,7 +226,7 @@ export const FilterDateRange = React.forwardRef<HTMLDivElement, FilterDateRangeP
           iconPosition="only"
           onClick={handleButtonClick}
           className={cn(
-            'size-[var(--spacing-x10)] rounded-[var(--spacing-x2)]',
+            'size-[var(--spacing-x10)] rounded-[var(--radius-md)]',
             isFilterOpen && 'bg-[var(--bg-secondary)]'
           )}
           aria-label="Date range filter"

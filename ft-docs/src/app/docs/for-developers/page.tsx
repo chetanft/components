@@ -1,8 +1,51 @@
+"use client"
+
 import Link from "next/link"
-import { Terminal, Package, CheckCircle, RefreshCw, Rocket, ExternalLink, Code, BookOpen } from "lucide-react"
+import { Terminal, Package, ExternalLink, Code, BookOpen } from "lucide-react"
+import { Icon } from "@/registry"
 import { DocPageHeader, DocSection, DocCodeBlock, DocCard, DocBottomNav } from "@/components/docs"
+import { useViewMode } from "@/components/view-mode-context"
+import { MachineSpecView } from "@/components/machine-spec-view"
 
 export default function ForDevelopersPage() {
+    const { viewMode } = useViewMode()
+
+    if (viewMode === "machine") {
+        const machineSpec = [
+            "# FT Design System — For Developers",
+            "PURPOSE: developer setup, CLI commands, imports, workflow gates",
+            "INSTALL:",
+            "- npm install ft-design-system",
+            "- yarn add ft-design-system",
+            "- pnpm add ft-design-system",
+            "",
+            "CLI:",
+            "- npx ft-design-system setup",
+            "- npx ft-design-system verify",
+            "- npx ft-design-system update",
+            "- npx ft-design-system init",
+            "",
+            "IMPORTS:",
+            "- import 'ft-design-system/styles.css';",
+            "- import { Button, Input, Badge, Table } from 'ft-design-system';",
+            "",
+            "QUALITY_GATES:",
+            "- npm run check:tokens",
+            "- npm run check:consistency",
+            "- npm run check:size-contract",
+            "- npm run check:machine-mode",
+            "- npm run check:drift",
+            "",
+            "RELATED_DOCS:",
+            "- /docs/npm-package?view=machine",
+            "- /docs/ai-prompts?view=machine",
+            "- /docs/global-css?view=machine",
+            "- /docs/components/<component>?view=machine",
+        ].join("\n")
+
+        return <MachineSpecView>{machineSpec}</MachineSpecView>
+    }
+
     return (
         <div className="space-y-8">
             <DocPageHeader
@@ -31,7 +74,7 @@ export default function ForDevelopersPage() {
             {/* CLI Commands */}
             <DocSection title="CLI Commands">
                 <div className="grid gap-4 md:grid-cols-2">
-                    <DocCard icon={<Rocket className="h-6 w-6" />} title="setup" description="Set up FT Design System in your existing project">
+                    <DocCard icon={<Icon name="rocket" size={24} />} title="setup" description="Set up FT Design System in your existing project">
                         <DocCodeBlock code="npx ft-design-system setup" lang="bash" />
                         <ul className="space-y-2 text-sm-rem mt-4">
                             <li>• Detects framework automatically</li>
@@ -41,7 +84,7 @@ export default function ForDevelopersPage() {
                         </ul>
                     </DocCard>
 
-                    <DocCard icon={<CheckCircle className="h-6 w-6" />} title="verify" description="Verify that FT Design System is properly configured">
+                    <DocCard icon={<Icon name="check-fill" size={24} />} title="verify" description="Verify that FT Design System is properly configured">
                         <DocCodeBlock code="npx ft-design-system verify" lang="bash" />
                         <ul className="space-y-2 text-sm-rem mt-4">
                             <li>• Checks package installation</li>
@@ -51,7 +94,7 @@ export default function ForDevelopersPage() {
                         </ul>
                     </DocCard>
 
-                    <DocCard icon={<RefreshCw className="h-6 w-6" />} title="update" description="Update Tailwind config after package updates">
+                    <DocCard icon={<Icon name="refresh" size={24} />} title="update" description="Update Tailwind config after package updates">
                         <DocCodeBlock code="npx ft-design-system update" lang="bash" />
                         <ul className="space-y-2 text-sm-rem mt-4">
                             <li>• Refreshes Tailwind config</li>

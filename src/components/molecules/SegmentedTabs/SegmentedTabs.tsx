@@ -74,7 +74,7 @@ export const SegmentedTabs = React.forwardRef<HTMLDivElement, SegmentedTabsProps
     const containerStyles = cn(
       // Container styles using design tokens
       getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', ''),
-      "flex gap-[var(--spacing-x1)] p-[var(--spacing-x2)] rounded-[var(--spacing-x2)]",
+      "flex gap-[var(--spacing-x1)] p-[var(--spacing-x2)] rounded-[var(--radius-md)]",
       // Width: full for default, fit for icon-only
       variant === 'icon-only' ? "w-fit" : "w-full",
       className
@@ -123,7 +123,7 @@ export const SegmentedTabItem = React.forwardRef<HTMLButtonElement, SegmentedTab
   ({ className, label, icon, selected, variant = 'default', ...props }, ref) => {
     const tabStyles = cn(
       // Base styles using design tokens
-      "flex items-center justify-center gap-[var(--spacing-x2)] py-[var(--spacing-x2)] h-[var(--spacing-x8)] rounded-[var(--spacing-x1)] transition-all duration-200 cursor-pointer relative z-10",
+      "flex items-center justify-center gap-[var(--spacing-x2)] py-[var(--spacing-x2)] h-[var(--spacing-x8)] rounded-[var(--radius-sm)] transition-all duration-200 cursor-pointer relative z-10",
       // Flex: flex-1 for default (fill space), auto for icon-only (hug content)
       variant === 'icon-only' ? "flex-none" : "flex-1",
       // Padding based on variant

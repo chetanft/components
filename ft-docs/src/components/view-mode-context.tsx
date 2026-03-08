@@ -16,8 +16,15 @@ const STORAGE_KEY = "ftds_view_mode";
 export function ViewModeProvider({ children }: { children: ReactNode }) {
   const [viewMode, setViewModeState] = useState<ViewMode>("human");
 
-  // Hydrate from localStorage after mount
+  // Hydrate from URL param (priority) or localStorage after mount
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlMode = params.get("view") as ViewMode | null;
+    if (urlMode === "human" || urlMode === "machine") {
+      setViewModeState(urlMode);
+      localStorage.setItem(STORAGE_KEY, urlMode);
+      return;
+    }
     const stored = localStorage.getItem(STORAGE_KEY) as ViewMode | null;
     if (stored === "human" || stored === "machine") {
       setViewModeState(stored);

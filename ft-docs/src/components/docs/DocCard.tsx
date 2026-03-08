@@ -1,23 +1,29 @@
-import { ReactNode } from "react"
+import React from "react"
+import { Card } from "@/registry"
 
 interface DocCardProps {
-  icon?: ReactNode
+  icon?: React.ReactNode
   title: string
   description?: string
-  children?: ReactNode
+  children?: React.ReactNode
 }
 
 export function DocCard({ icon, title, description, children }: DocCardProps) {
-  return (
-    <div className="rounded-lg border border-border bg-surface p-6">
-      <div className="flex items-center gap-3 mb-4">
-        {icon && <div className="text-primary">{icon}</div>}
-        <h3 className="text-lg-rem font-semibold">{title}</h3>
-      </div>
-      {description && (
-        <p className="text-sm-rem text-muted-foreground mb-4">{description}</p>
-      )}
-      {children}
-    </div>
+  const headerWithIcon = (
+    <span className="flex items-center gap-3">
+      {icon && <span className="text-primary">{icon}</span>}
+      {title}
+    </span>
   )
+
+  // Cast props to bridge dual @types/react versions (ft-docs vs src)
+  const cardProps = {
+    bordered: true,
+    headerTitle: headerWithIcon,
+    headerSubText: description,
+    size: "md" as const,
+    children,
+  }
+
+  return <Card {...(cardProps as any)} />
 }

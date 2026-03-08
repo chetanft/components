@@ -1,20 +1,31 @@
 "use client"
 
+import React from "react"
 import type { ControlDef } from "@/lib/playground-controls"
+import {
+  Input,
+  InputNumber,
+  Checkbox,
+  CheckboxInput,
+  CheckboxLabel,
+  Slider,
+  ColorPicker,
+  RadioGroup,
+  RadioItem,
+  RadioItemInput,
+  RadioItemLabel,
+  Dropdown,
+  DropdownTrigger,
+  DropdownContent,
+  DropdownMenu,
+  DropdownMenuItem,
+} from "../../../src"
 
 interface PlaygroundControlProps {
   control: ControlDef
   value: unknown
   onChange: (name: string, value: unknown) => void
 }
-
-const inputStyle = {
-  background: "var(--bg-primary)",
-  borderColor: "var(--border-primary)",
-  color: "var(--primary)",
-}
-
-const inputClassName = "w-full rounded-md border px-3 py-1.5 text-sm-rem"
 
 export function PlaygroundControl({ control, value, onChange }: PlaygroundControlProps) {
   const handleChange = (newValue: unknown) => {
@@ -25,105 +36,100 @@ export function PlaygroundControl({ control, value, onChange }: PlaygroundContro
     switch (control.type) {
       case "select":
         return (
-          <select
-            className={inputClassName}
-            style={inputStyle}
+          <Dropdown
             value={value != null ? String(value) : ""}
-            onChange={(e) => handleChange(e.target.value || undefined)}
+            placeholder="—"
+            size="sm"
+            onChange={(val: string | number) => handleChange(val || undefined)}
           >
-            <option value="">&mdash;</option>
-            {control.options?.map((opt) => (
-              <option key={String(opt)} value={String(opt)}>
-                {String(opt)}
-              </option>
-            ))}
-          </select>
+            <DropdownTrigger />
+            <DropdownContent>
+              <DropdownMenu>
+                <DropdownMenuItem
+                  value=""
+                  label="—"
+                />
+                {control.options?.map((opt) => (
+                  <DropdownMenuItem
+                    key={String(opt)}
+                    value={String(opt)}
+                    label={String(opt)}
+                  />
+                ))}
+              </DropdownMenu>
+            </DropdownContent>
+          </Dropdown>
         )
 
       case "boolean":
         return (
-          <label className="inline-flex items-center gap-2">
-            <input
-              type="checkbox"
-              className="h-4 w-4 rounded border accent-[var(--info)]"
+          <Checkbox size="sm">
+            <CheckboxInput
               checked={value != null ? Boolean(value) : false}
-              onChange={(e) => handleChange(e.target.checked)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e.target.checked)}
             />
-            <span className="text-sm-rem" style={{ color: "var(--primary)" }}>
-              {control.label}
-            </span>
-          </label>
+            <CheckboxLabel>{control.label}</CheckboxLabel>
+          </Checkbox>
         )
 
       case "text":
         return (
-          <input
+          <Input
+            size="sm"
             type="text"
-            className={inputClassName}
-            style={inputStyle}
             value={value != null ? String(value) : ""}
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e.target.value)}
           />
         )
 
       case "number":
         return (
-          <input
-            type="number"
-            className={inputClassName}
-            style={inputStyle}
-            value={value != null ? Number(value) : ""}
+          <InputNumber
+            size="sm"
+            value={value != null ? Number(value) : undefined}
             min={control.min}
             max={control.max}
             step={control.step}
-            onChange={(e) =>
-              handleChange(e.target.value === "" ? undefined : Number(e.target.value))
-            }
+            onChange={(val: number | null) => handleChange(val ?? undefined)}
           />
         )
 
       case "color":
         return (
-          <input
-            type="color"
-            className="h-8 w-8 cursor-pointer rounded border"
-            style={{ borderColor: "var(--border-primary)" }}
+          <ColorPicker
+            size="sm"
             value={value != null ? String(value) : "#000000"}
-            onChange={(e) => handleChange(e.target.value)}
+            onChange={(color: string) => handleChange(color)}
           />
         )
 
       case "range":
         return (
-          <input
-            type="range"
-            className="w-full accent-[var(--info)]"
-            min={control.min}
-            max={control.max}
-            step={control.step}
+          <Slider
+            min={control.min ?? 0}
+            max={control.max ?? 100}
+            step={control.step ?? 1}
             value={value != null ? Number(value) : control.min ?? 0}
-            onChange={(e) => handleChange(Number(e.target.value))}
+            onChange={(val: number | [number, number]) => handleChange(val)}
           />
         )
 
       case "radio":
         return (
-          <div className="inline-flex flex-wrap gap-3">
+          <RadioGroup
+            name={control.name}
+            value={value != null ? String(value) : ""}
+            onValueChange={(val: string) => handleChange(val)}
+            orientation="horizontal"
+            size="sm"
+          >
             {control.options?.map((opt) => (
-              <label key={String(opt)} className="inline-flex items-center gap-1.5">
-                <input
-                  type="radio"
-                  name={control.name}
-                  value={String(opt)}
-                  checked={value != null ? String(value) === String(opt) : false}
-                  onChange={() => handleChange(opt)}
-                />
-                <span className="text-sm-rem" style={{ color: "var(--primary)" }}>
-                  {String(opt)}
-                </span>
-              </label>
+              <RadioItem key={String(opt)} value={String(opt)}>
+                <RadioItemInput />
+                <RadioItemLabel>{String(opt)}</RadioItemLabel>
+              </RadioItem>
             ))}
-          </div>
+          </RadioGroup>
         )
 
       default:

@@ -63,7 +63,7 @@ export const Chicklet = forwardRef<HTMLDivElement, ChickletProps>(
       disabled && "opacity-50 cursor-not-allowed pointer-events-none",
 
       // Border radius based on variant - exact from Figma
-      variant === 'rectangular' && "rounded-[var(--spacing-x1)]",
+      variant === 'rectangular' && "rounded-[var(--radius-sm)]",
       variant === 'rounded' && "rounded-full",
 
       // Background colors based on state - use CSS variables instead of hardcoded

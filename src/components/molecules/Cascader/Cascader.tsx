@@ -151,7 +151,7 @@ const CascaderColumn: React.FC<CascaderColumnProps> = ({
             key={option.value}
             className={cn(
               "box-border flex items-center relative transition-colors duration-200",
-              "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--spacing-x3)] rounded-[var(--spacing-x2)]",
+              "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--spacing-x3)] rounded-[var(--radius-md)]",
               isSelected && "bg-[var(--bg-secondary)]",
               !isSelected && !option.disabled && "hover:bg-[var(--border-secondary)] cursor-pointer",
               option.disabled && "bg-[var(--bg-primary)] cursor-not-allowed opacity-60"
@@ -505,7 +505,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
                 "fixed z-[9999]",
                 getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-solid border-[var(--border-primary)]'),
                 "box-border flex flex-col items-start overflow-clip p-[var(--spacing-x2)]",
-                "rounded-[var(--spacing-x2)] shadow-lg"
+                "rounded-[var(--radius-md)] shadow-lg"
               )}
               style={{
                 top: dropdownPosition.top,
@@ -521,7 +521,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
                         key={index}
                         className={cn(
                           "box-border flex items-center relative transition-colors duration-200",
-                          "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--spacing-x3)] rounded-[var(--spacing-x2)]",
+                          "gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] p-[var(--spacing-x3)] rounded-[var(--radius-md)]",
                           "hover:bg-[var(--border-secondary)] cursor-pointer"
                         )}
                         onClick={() => handleSearchSelect(path)}

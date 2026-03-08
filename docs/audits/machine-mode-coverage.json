@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-03-08T13:48:53.723Z",
+  "summary": {
+    "total": 13,
+    "covered": 13,
+    "missing": 0
+  },
+  "rows": [
+    {
+      "route": "/docs",
+      "file": "ft-docs/src/app/docs/[[...slug]]/page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/docs/components/[component]",
+      "file": "ft-docs/src/components/story-component-page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/docs/ai-prompts",
+      "file": "ft-docs/src/app/docs/ai-prompts/page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/docs/for-designers",
+      "file": "ft-docs/src/app/docs/for-designers/page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/docs/for-developers",
+      "file": "ft-docs/src/app/docs/for-developers/page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/docs/storybook",
+      "file": "ft-docs/src/app/docs/storybook/page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/docs/npm-package",
+      "file": "ft-docs/src/app/docs/npm-package/page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/docs/global-css",
+      "file": "ft-docs/src/app/docs/global-css/page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/docs/accessibility",
+      "file": "ft-docs/src/app/docs/accessibility/page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/docs/migrations",
+      "file": "ft-docs/src/app/docs/migrations/page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/icons",
+      "file": "ft-docs/src/app/icons/page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/colors",
+      "file": "ft-docs/src/app/colors/page.tsx",
+      "status": "covered"
+    },
+    {
+      "route": "/charts/*",
+      "file": "ft-docs/src/components/chart-page.tsx",
+      "status": "covered"
+    }
+  ]
+}

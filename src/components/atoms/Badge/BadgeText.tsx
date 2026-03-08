@@ -60,4 +60,3 @@ export const BadgeText = React.forwardRef<HTMLSpanElement, BadgeTextProps>(
 );
 
 BadgeText.displayName = 'BadgeText';
-

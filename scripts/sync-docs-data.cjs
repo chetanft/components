@@ -17,6 +17,7 @@ const fs = require('fs');
 const path = require('path');
 const { parseCssTokens } = require('./lib/parse-css-tokens.cjs');
 const { generateComponentDesignSpecs } = require('./generate-component-design-specs.cjs');
+const { generateCoverage } = require('./generate-machine-mode-coverage.cjs');
 
 const projectRoot = path.join(__dirname, '..');
 
@@ -261,6 +262,10 @@ function syncDocsData() {
     `   ${path.relative(projectRoot, specResult.mdOut)} ${specResult.mdChanged ? '(updated)' : '(unchanged)'}`,
     'cyan'
   );
+
+  log('\n7️⃣  Generating machine mode coverage...', 'blue');
+  const coverageResult = generateCoverage();
+  log(`   Covered: ${coverageResult.summary.covered}/${coverageResult.summary.total}`, 'cyan');
 
   log('\n✅ Documentation sync complete!', 'green');
   return { version, summary };

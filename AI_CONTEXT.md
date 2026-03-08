@@ -1,7 +1,7 @@
 # FT Design System - AI Context
 
 > **Single-file reference for AI tools to generate correct code.**
-> Version: 4.22.0 | Last Updated: 2026-03-06
+> Version: 4.22.0 | Last Updated: 2026-03-08
 
 ## Quick Start
 
@@ -32,6 +32,12 @@ import { FTProvider } from 'ft-design-system';
 - Before publishing, run `npm run publish:prepare` (includes `npm run sync:docs`).
 - Do not introduce hardcoded visual values unless approved and documented.
 - For PR reviews, follow the checklist at `specs/review-checklist.md`.
+
+## AI Surfaces
+
+- `llms.txt` is the generated discovery file for AI tools.
+- `?view=machine` on `ft-docs` routes is the machine-readable content layer.
+- `AI_CONTEXT.md` is the local workflow contract and coding reference.
 
 ## Tailwind Configuration
 

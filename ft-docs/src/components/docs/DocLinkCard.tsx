@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { ExternalLink } from "lucide-react"
+import { Icon } from "@/registry"
 
 interface DocLinkCardProps {
   href: string
@@ -24,7 +24,7 @@ export function DocLinkCard({ href, title, subtitle, icon, external = true }: Do
         <p className="font-semibold text-md-rem">{title}</p>
         <p className="text-sm-rem text-muted-foreground">{subtitle}</p>
       </div>
-      {external && <ExternalLink className="h-5 w-5 shrink-0 text-muted-foreground" />}
+      {external && <Icon name="link" size={20} className="shrink-0 text-muted-foreground" />}
     </a>
   )
 }

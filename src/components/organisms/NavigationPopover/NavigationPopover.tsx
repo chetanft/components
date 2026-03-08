@@ -394,13 +394,13 @@ const HeroBlock = ({ hero }: { hero: NavigationSectionHero }) => (
         className="w-full"
       />
     ) : (
-      <div className="border border-[var(--border-primary)] rounded-[var(--spacing-x4)] bg-[var(--bg-secondary)] p-[var(--spacing-x4)] min-h-[22rem]" />
+      <div className="border border-[var(--border-primary)] rounded-[var(--radius-xl)] bg-[var(--bg-secondary)] p-[var(--spacing-x4)] min-h-[22rem]" />
     )}
   </div>
 );
 
 const HighlightCard = ({ metric }: { metric: HighlightMetric }) => (
-  <div className="border border-[var(--border-secondary)] rounded-[var(--spacing-x2)] px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex flex-col gap-[var(--spacing-x2)] bg-[var(--bg-primary)]">
+  <div className="border border-[var(--border-secondary)] rounded-[var(--radius-md)] px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex flex-col gap-[var(--spacing-x2)] bg-[var(--bg-primary)]">
     <Typography variant="display-primary" color="primary">
       {metric.title}
     </Typography>
@@ -422,7 +422,7 @@ const HighlightCard = ({ metric }: { metric: HighlightMetric }) => (
 );
 
 const StatCard = ({ metric }: { metric: StatMetric }) => (
-  <div className="border border-[var(--border-secondary)] rounded-[var(--spacing-x2)] px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex items-center justify-between gap-[var(--spacing-x4)] bg-[var(--bg-primary)]">
+  <div className="border border-[var(--border-secondary)] rounded-[var(--radius-md)] px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex items-center justify-between gap-[var(--spacing-x4)] bg-[var(--bg-primary)]">
     <div className="flex flex-col gap-[var(--spacing-x1)]">
       <Typography variant="display-primary" color="primary">
         {metric.value}
@@ -438,7 +438,7 @@ const StatCard = ({ metric }: { metric: StatMetric }) => (
 );
 
 const AlertCard = ({ metric }: { metric: AlertMetric }) => (
-  <div className="border border-[var(--border-secondary)] rounded-[var(--spacing-x2)] px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex flex-col gap-[var(--spacing-x2)] bg-[var(--bg-primary)]">
+  <div className="border border-[var(--border-secondary)] rounded-[var(--radius-md)] px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex flex-col gap-[var(--spacing-x2)] bg-[var(--bg-primary)]">
     <div className="flex items-center justify-between">
       <Typography variant="display-primary" color="primary">
         {metric.value}
@@ -461,7 +461,7 @@ const SubCategoryPanel = ({ categories }: { categories?: NavigationSectionSubCat
         {categories.map((category, index) => (
           <div
             key={`${category.title ?? 'category'}-${index}`}
-            className="bg-[var(--bg-primary)] rounded-[var(--spacing-x2)] p-[var(--spacing-x3)] flex flex-col gap-[var(--spacing-x3)]"
+            className="bg-[var(--bg-primary)] rounded-[var(--radius-md)] p-[var(--spacing-x3)] flex flex-col gap-[var(--spacing-x3)]"
           >
             {category.title && (
               <Typography variant="body-secondary-semibold" color="muted">
@@ -475,7 +475,7 @@ const SubCategoryPanel = ({ categories }: { categories?: NavigationSectionSubCat
                   key={item.label}
                   disabled={item.disabled}
                   className={cn(
-                    'flex items-center justify-between rounded-[var(--spacing-x2)] px-[var(--spacing-x3)] py-[var(--spacing-x2)] transition-colors text-left',
+                    'flex items-center justify-between rounded-[var(--radius-md)] px-[var(--spacing-x3)] py-[var(--spacing-x2)] transition-colors text-left',
                     item.status === 'active'
                       ? 'bg-[var(--bg-secondary)]'
                       : 'bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)]',
@@ -756,7 +756,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
       aria-modal="true"
       aria-label="Navigation menu"
     >
-      <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--spacing-x4)] flex flex-col">
+      <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-[var(--radius-xl)] flex flex-col">
         <div className="flex items-center justify-between px-[var(--spacing-x5)] py-[var(--spacing-x5)] border-b border-[var(--border-primary)]">
           {headerContent}
         </div>
@@ -773,7 +773,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
                     key={section.id}
                     onClick={() => handleSelect(section.id)}
                     className={cn(
-                      'flex items-center justify-between rounded-[var(--spacing-x2)] px-[var(--spacing-x3)] py-[var(--spacing-x3)] transition-colors text-left',
+                      'flex items-center justify-between rounded-[var(--radius-md)] px-[var(--spacing-x3)] py-[var(--spacing-x3)] transition-colors text-left',
                       isActive
                         ? 'bg-[var(--bg-secondary)]'
                         : 'bg-[var(--bg-primary)] hover:bg-[var(--border-secondary)]'

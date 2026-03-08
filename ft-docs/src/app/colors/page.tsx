@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site-header"
 import { Button } from "../../../../src/components/atoms/Button"
 import { useState, useMemo } from "react"
 import { useViewMode } from "@/components/view-mode-context"
+import { MachineSpecView } from "@/components/machine-spec-view"
 
 // Standard Tailwind colors
 const standardTailwindColors = {
@@ -414,13 +415,7 @@ export default function ColorsPage() {
   }, [])
 
   if (viewMode === 'machine') {
-    return (
-      <div className="min-h-screen bg-background px-6 py-10 max-w-[860px] mx-auto">
-        <pre className="whitespace-pre-wrap font-mono" style={{ fontSize: 'var(--font-size-xs-rem)', color: 'var(--primary)', lineHeight: 1.7 }}>
-          {machineSpec}
-        </pre>
-      </div>
-    )
+    return <MachineSpecView>{machineSpec}</MachineSpecView>
   }
 
   const copyToClipboard = (value: string) => {
@@ -566,4 +561,3 @@ export default function ColorsPage() {
     </div>
   )
 }
-

@@ -53,22 +53,22 @@ export const FileThumbnail = React.forwardRef<HTMLDivElement, FileThumbnailProps
         {...props}
       >
         {/* Thumbnail Container */}
-        <div className="relative shrink-0 size-[var(--spacing-x20)] rounded-[var(--spacing-x2)] overflow-hidden group">
+        <div className="relative shrink-0 size-[var(--spacing-x20)] rounded-[var(--radius-md)] overflow-hidden group">
           {/* Image Preview or File Type Icon */}
           {imageUrl ? (
             <div className="relative size-full">
               <img 
                 src={imageUrl}
                 alt={fileName}
-                className="absolute inset-0 max-w-none object-cover object-center pointer-events-none rounded-[var(--spacing-x2)] size-full"
+                className="absolute inset-0 max-w-none object-cover object-center pointer-events-none rounded-[var(--radius-md)] size-full"
               />
               {/* Hover Overlay */}
               {isHovered && hasActions && (
-                <div className="absolute inset-0 bg-[var(--overlay-strong)] rounded-[var(--spacing-x2)] pointer-events-none" />
+                <div className="absolute inset-0 bg-[var(--overlay-strong)] rounded-[var(--radius-md)] pointer-events-none" />
               )}
             </div>
           ) : (
-            <div className="flex items-center justify-center size-full px-[var(--spacing-x4)] py-[0.875rem]">
+            <div className="flex items-center justify-center size-full px-[var(--spacing-x4)] py-[var(--spacing-x3-5)]">
               <FileTypeIcon 
                 fileType={fileExtension || 'FILE'} 
                 size="lg"

@@ -435,7 +435,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
                 data-inspector-root
                 className={cn(
                     getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-secondary)] border-solid"),
-                    "relative rounded-[var(--spacing-x2)] flex flex-col overflow-hidden",
+                    "relative rounded-[var(--radius-md)] flex flex-col overflow-hidden",
                     className
                 )}
                 {...props}
@@ -467,7 +467,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
                 data-inspector-root
                 className={cn(
                     getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-secondary)] border-solid"),
-                    "relative rounded-[var(--spacing-x2)] flex flex-col gap-0 items-start justify-end overflow-clip p-0",
+                    "relative rounded-[var(--radius-md)] flex flex-col gap-0 items-start justify-end overflow-clip p-0",
                     isAdvanced && "shadow-[var(--shadow-md)]",
                     className
                 )}
@@ -551,7 +551,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
                 resolvedGlass
                     ? getGlassClasses(resolvedGlass)
                     : cn("bg-[var(--color-bg-primary)]", bordered ? "border border-[var(--border-primary)]" : ""),
-                "rounded-[var(--spacing-x2)] transition-all duration-200 flex flex-col overflow-hidden",
+                "rounded-[var(--radius-md)] transition-all duration-200 flex flex-col overflow-hidden",
                 hoverable ? "hover:shadow-lg cursor-pointer" : !resolvedGlass ? "shadow-sm" : "",
                 className
             )}

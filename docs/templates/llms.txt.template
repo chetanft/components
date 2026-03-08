@@ -106,6 +106,22 @@ schema: ft-design-system/schema
 examples: ft-design-system/examples
 docs: https://ft-design-system.dev
 
+## MACHINE ENTRYPOINTS
+mode: append ?view=machine on ft-docs routes
+docs_intro: /docs?view=machine
+components: /docs/components/<component>?view=machine
+ai_prompts: /docs/ai-prompts?view=machine
+designers: /docs/for-designers?view=machine
+developers: /docs/for-developers?view=machine
+storybook: /docs/storybook?view=machine
+npm_package: /docs/npm-package?view=machine
+global_css: /docs/global-css?view=machine
+accessibility: /docs/accessibility?view=machine
+migrations: /docs/migrations?view=machine
+icons: /icons?view=machine
+colors: /colors?view=machine
+charts: /charts/<chart>?view=machine
+
 ## COMPONENT COUNT
 {{COMPONENT_COUNT_LINES}}
 

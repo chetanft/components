@@ -10,6 +10,7 @@ import { PlaygroundControl } from "@/components/playground-control"
 import { buildControls } from "@/lib/playground-controls"
 import { GlassPreviewBackdrop } from "@/components/glass-preview-backdrop"
 import { ExplorerInspector } from "@/components/explorer-inspector"
+import { Button } from "@/registry"
 
 type GlassChipValue = false | true | "subtle" | "prominent"
 
@@ -172,17 +173,15 @@ export function ExplorerPlayground({
               {GLASS_CHIPS.map((chip) => {
                 const isActive = glassMode === chip.value;
                 return (
-                  <button
+                  <Button
                     key={chip.label}
                     onClick={() => setGlassMode(chip.value)}
-                    className={`px-3 py-1.5 text-sm-rem rounded-md border transition-colors ${
-                      isActive
-                        ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
-                        : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
-                    }`}
+                    variant={isActive ? "secondary" : "text"}
+                    size="sm"
+                    className="!px-3 !py-1.5"
                   >
                     {chip.label}
-                  </button>
+                  </Button>
                 );
               })}
             </div>
@@ -204,17 +203,15 @@ export function ExplorerPlayground({
             ].map((chip) => {
               const isActive = inspectorMode === chip.value;
               return (
-                <button
+                <Button
                   key={chip.value}
                   onClick={() => setInspectorMode(chip.value)}
-                  className={`px-3 py-1.5 text-sm-rem rounded-md border transition-colors ${
-                    isActive
-                      ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
-                      : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
-                  }`}
+                  variant={isActive ? "secondary" : "text"}
+                  size="sm"
+                  className="!px-3 !py-1.5"
                 >
                   {chip.label}
-                </button>
+                </Button>
               );
             })}
           </div>
@@ -222,29 +219,25 @@ export function ExplorerPlayground({
             {[1, 1.25, 1.5].map((scale) => {
               const isActive = Math.abs(inspectorScale - scale) < 0.001
               return (
-                <button
+                <Button
                   key={scale}
                   onClick={() => setInspectorScale(scale)}
-                  className={`px-3 py-1.5 text-sm-rem rounded-md border transition-colors ${
-                    isActive
-                      ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
-                      : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
-                  }`}
+                  variant={isActive ? "secondary" : "text"}
+                  size="sm"
+                  className="!px-3 !py-1.5"
                 >
                   {scale}x
-                </button>
+                </Button>
               )
             })}
-            <button
+            <Button
               onClick={() => setInspectorHighContrast((prev) => !prev)}
-              className={`px-3 py-1.5 text-sm-rem rounded-md border transition-colors ${
-                inspectorHighContrast
-                  ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
-                  : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
-              }`}
+              variant={inspectorHighContrast ? "secondary" : "text"}
+              size="sm"
+              className="!px-3 !py-1.5"
             >
               High Contrast
-            </button>
+            </Button>
           </div>
         </div>
         <div className="relative">
@@ -275,17 +268,15 @@ export function ExplorerPlayground({
           >
             Controls
           </h3>
-          <button
+          <Button
             type="button"
             onClick={handleReset}
-            className="rounded-md border px-3 py-1 text-sm-rem transition-colors hover:bg-[var(--bg-secondary)]"
-            style={{
-              borderColor: "var(--border-primary)",
-              color: "var(--secondary)",
-            }}
+            variant="secondary"
+            size="sm"
+            className="!px-3 !py-1"
           >
             Reset
-          </button>
+          </Button>
         </div>
         <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-3">
           {controls.map((control) => (

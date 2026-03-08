@@ -16,13 +16,7 @@ export default function DocsLayout({
     const { viewMode } = useViewMode();
     const pathname = usePathname();
 
-    // Only apply machine mode on pages that have the toggle
-    const isMachine = viewMode === "machine" && (
-        pathname.startsWith("/docs/components/") ||
-        pathname === "/docs/ai-prompts" ||
-        pathname === "/docs/npm-package" ||
-        pathname === "/docs/global-css"
-    );
+    const isMachine = viewMode === "machine" && pathname.startsWith("/docs");
 
     return (
         <div className="relative flex min-h-screen flex-col bg-background">

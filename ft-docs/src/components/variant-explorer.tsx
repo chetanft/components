@@ -9,8 +9,7 @@ import { formatStoryName } from "@/lib/story-loader";
 import { StoryPreview } from "@/components/story-preview";
 import { groupStories, type NormalizedStory } from "@/lib/variant-grouping";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent, CollapsibleHeader, CollapsibleTitle, CollapsibleIcon } from "@/registry";
-import { Input } from "@/registry";
-import { Search } from "lucide-react";
+import { Input, Button } from "@/registry";
 
 interface VariantExplorerProps {
   normalizedStories: NormalizedStory[]; // Already filtered + deduplicated + normalized
@@ -204,7 +203,7 @@ export function VariantExplorer({
             placeholder="Search variants..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            leadingIcon={<Search className="h-4 w-4" style={{ color: "var(--secondary)" }} />}
+            leadingIcon="search"
             aria-label="Search variants"
           />
         </div>
@@ -235,8 +234,10 @@ export function VariantExplorer({
                     {group.items.map((item) => {
                       const isSelected = item.id === selectedStoryId;
                       return (
-                        <button
+                        <Button
                           key={item.id}
+                          variant="text"
+                          size="sm"
                           data-story-id={item.id}
                           ref={(el) => {
                             if (el) {
@@ -247,17 +248,17 @@ export function VariantExplorer({
                           }}
                           onClick={() => handleStorySelect(item.id)}
                           className={cn(
-                            "w-full text-left px-3 py-2 text-sm-rem rounded-md transition-colors",
+                            "!w-full !text-left !justify-start !px-3 !py-2 !text-sm-rem !rounded-md !h-auto !font-normal",
                             isSelected
-                              ? "bg-[var(--primary)] text-[var(--bg-primary)]"
-                              : "text-[var(--secondary)] hover:bg-[var(--bg-secondary)]"
+                              ? "!bg-[var(--primary)] !text-[var(--bg-primary)]"
+                              : "!text-[var(--secondary)] hover:!bg-[var(--bg-secondary)] !bg-transparent"
                           )}
                           role="option"
                           aria-selected={isSelected}
                           tabIndex={isSelected ? 0 : -1}
                         >
                           {formatStoryName(item.story.name)}
-                        </button>
+                        </Button>
                       );
                     })}
                   </div>

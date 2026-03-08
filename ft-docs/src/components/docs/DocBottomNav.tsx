@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { Icon } from "@/registry"
 
 interface NavLink {
   label: string
@@ -19,7 +19,7 @@ export function DocBottomNav({ prev, next }: DocBottomNavProps) {
           href={prev.href}
           className="inline-flex items-center gap-2 text-sm-rem text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ChevronLeft className="h-4 w-4" />
+          <Icon name="chevron-left" size={16} />
           {prev.label}
         </Link>
       ) : (
@@ -31,7 +31,7 @@ export function DocBottomNav({ prev, next }: DocBottomNavProps) {
           className="inline-flex items-center gap-2 text-sm-rem text-muted-foreground hover:text-foreground transition-colors"
         >
           {next.label}
-          <ChevronRight className="h-4 w-4" />
+          <Icon name="chevron-right" size={16} />
         </Link>
       ) : (
         <div />

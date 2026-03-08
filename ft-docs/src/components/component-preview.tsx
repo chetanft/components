@@ -4,7 +4,7 @@ import * as React from "react"
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live"
 import { registry } from "@/registry"
 import { cn } from "@/lib/utils"
-import { Copy, Check, Terminal } from "lucide-react"
+import { Icon, Button } from "@/registry"
 
 interface ComponentPreviewProps {
     code: string
@@ -205,37 +205,37 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                 <div className="relative rounded-lg border bg-background shadow-sm overflow-hidden">
                     <div className="flex items-center justify-between border-b p-2">
                         <div className="flex items-center gap-2">
-                            <button
+                            <Button
                                 onClick={() => setView("preview")}
-                                className={cn(
-                                    "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm-rem font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
-                                    view === "preview" ? "bg-muted text-foreground shadow-sm" : "text-muted-foreground hover:bg-muted/50"
-                                )}
+                                variant={view === "preview" ? "secondary" : "text"}
+                                size="sm"
+                                className="!px-3 !py-1.5"
                             >
                                 Preview
-                            </button>
-                            <button
+                            </Button>
+                            <Button
                                 onClick={() => setView("code")}
-                                className={cn(
-                                    "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm-rem font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
-                                    view === "code" ? "bg-muted text-foreground shadow-sm" : "text-muted-foreground hover:bg-muted/50"
-                                )}
+                                variant={view === "code" ? "secondary" : "text"}
+                                size="sm"
+                                className="!px-3 !py-1.5"
                             >
-                                <Terminal className="mr-2 h-4 w-4" />
+                                <Icon name="document" size={16} className="mr-2" />
                                 Code
-                            </button>
+                            </Button>
                         </div>
-                        <button
+                        <Button
                             onClick={onCopy}
-                            className="inline-flex h-8 w-8 items-center justify-center rounded-md border bg-background text-sm-rem font-medium transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                            variant="secondary"
+                            size="sm"
+                            className="!h-8 !w-8 !px-0 !py-0"
                         >
                             {copied ? (
-                                <Check className="h-4 w-4" />
+                                <Icon name="check" size={16} />
                             ) : (
-                                <Copy className="h-4 w-4" />
+                                <Icon name="copy" size={16} />
                             )}
                             <span className="sr-only">Copy code</span>
-                        </button>
+                        </Button>
                     </div>
 
                     {view === "preview" && (

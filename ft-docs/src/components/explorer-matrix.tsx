@@ -15,6 +15,7 @@ import {
   TopOverlayPreview,
 } from "@/components/explorer-preview-wrappers"
 import { GlassPreviewBackdrop } from "@/components/glass-preview-backdrop"
+import { Button } from "@/registry"
 
 type GlassChipValue = false | true | "subtle" | "prominent"
 
@@ -113,6 +114,7 @@ export function ExplorerMatrix({
 
   const overrideArgs = useMemo(() => {
     const merged: Record<string, unknown> = {};
+    // First pass: collect story-level defaults
     selectedScenarios.forEach((entry) => {
       if (entry.scenario?.story) {
         const selectedStory = stories.find((s) => s.name === entry.scenario?.story);
@@ -120,6 +122,9 @@ export function ExplorerMatrix({
           Object.assign(merged, selectedStory.args);
         }
       }
+    });
+    // Second pass: apply scenario-specific args (these take priority over story defaults)
+    selectedScenarios.forEach((entry) => {
       if (entry.scenario?.args) {
         Object.assign(merged, entry.scenario.args);
       }
@@ -128,7 +133,7 @@ export function ExplorerMatrix({
       merged.glass = glassMode;
     }
     return merged;
-  }, [selectedScenarios, glassMode]);
+  }, [selectedScenarios, stories, glassMode]);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString())
@@ -237,20 +242,17 @@ export function ExplorerMatrix({
               {row.scenarios?.map((scenario) => {
                 const isActive = selectedByRow[row.id] === scenario.id;
                 return (
-                  <button
+                  <Button
                     key={scenario.id}
                     onClick={() => {
                       handleScenarioClick(row.id, scenario.id)
                     }}
-                    className={cn(
-                      "px-4 py-2 text-sm-rem rounded-md border transition-colors",
-                      isActive
-                        ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
-                        : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
-                    )}
+                    variant={isActive ? "secondary" : "text"}
+                    size="sm"
+                    className="!px-4 !py-2"
                   >
                     {scenario.label ?? formatStoryName(scenario.id)}
-                  </button>
+                  </Button>
                 )
               })}
             </div>
@@ -265,18 +267,15 @@ export function ExplorerMatrix({
               {GLASS_CHIPS.map((chip) => {
                 const isActive = glassMode === chip.value;
                 return (
-                  <button
+                  <Button
                     key={chip.label}
                     onClick={() => setGlassMode(chip.value)}
-                    className={cn(
-                      "px-4 py-2 text-sm-rem rounded-md border transition-colors",
-                      isActive
-                        ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
-                        : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
-                    )}
+                    variant={isActive ? "secondary" : "text"}
+                    size="sm"
+                    className="!px-4 !py-2"
                   >
                     {chip.label}
-                  </button>
+                  </Button>
                 );
               })}
             </div>
@@ -295,18 +294,15 @@ export function ExplorerMatrix({
             ].map((chip) => {
               const isActive = inspectorMode === chip.value;
               return (
-                <button
+                <Button
                   key={chip.value}
                   onClick={() => setInspectorMode(chip.value)}
-                  className={cn(
-                    "px-4 py-2 text-sm-rem rounded-md border transition-colors",
-                    isActive
-                      ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
-                      : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
-                  )}
+                  variant={isActive ? "secondary" : "text"}
+                  size="sm"
+                  className="!px-4 !py-2"
                 >
                   {chip.label}
-                </button>
+                </Button>
               )
             })}
           </div>
@@ -314,31 +310,25 @@ export function ExplorerMatrix({
             {[1, 1.25, 1.5].map((scale) => {
               const isActive = Math.abs(inspectorScale - scale) < 0.001
               return (
-                <button
+                <Button
                   key={scale}
                   onClick={() => setInspectorScale(scale)}
-                  className={cn(
-                    "px-3 py-1 text-sm-rem rounded-md border transition-colors",
-                    isActive
-                      ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
-                      : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
-                  )}
+                  variant={isActive ? "secondary" : "text"}
+                  size="sm"
+                  className="!px-3 !py-1"
                 >
                   {scale}x
-                </button>
+                </Button>
               )
             })}
-            <button
+            <Button
               onClick={() => setInspectorHighContrast((prev) => !prev)}
-              className={cn(
-                "px-3 py-1 text-sm-rem rounded-md border transition-colors",
-                inspectorHighContrast
-                  ? "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--border-primary)]"
-                  : "bg-[var(--bg-primary)] text-[var(--secondary)] border-[var(--border-primary)] hover:bg-[var(--bg-secondary)]"
-              )}
+              variant={inspectorHighContrast ? "secondary" : "text"}
+              size="sm"
+              className="!px-3 !py-1"
             >
               High Contrast
-            </button>
+            </Button>
           </div>
         </div>
       </div>

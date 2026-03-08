@@ -4,6 +4,7 @@ import { Package } from "lucide-react"
 import { useViewMode } from "@/components/view-mode-context"
 import { SYSTEM_VERSION, COMPONENT_COUNT } from "@/data/design-system.generated"
 import { DocPageHeader, DocSection, DocCodeBlock, DocLinkCard, DocCard, DocBottomNav } from "@/components/docs"
+import { MachineSpecView } from "@/components/machine-spec-view"
 
 const machineSpec = `# FT Design System — NPM Package
 PACKAGE: ft-design-system
@@ -36,11 +37,7 @@ export default function NPMPackagePage() {
     const { viewMode } = useViewMode()
 
     if (viewMode === 'machine') {
-        return (
-            <pre className="whitespace-pre-wrap font-mono text-xs-rem leading-relaxed">
-                {machineSpec}
-            </pre>
-        )
+        return <MachineSpecView>{machineSpec}</MachineSpecView>
     }
 
     return (

@@ -66,7 +66,7 @@ export const PageHeaderFilters = React.forwardRef<HTMLDivElement, PageHeaderFilt
           {...props}
         >
           {/* Filter Container */}
-          <div className="content-stretch flex gap-[var(--spacing-x3)] items-center overflow-clip relative rounded-[var(--spacing-x2)] shrink-0">
+          <div className="content-stretch flex gap-[var(--spacing-x3)] items-center overflow-clip relative rounded-[var(--radius-md)] shrink-0">
             {children}
           </div>
 
@@ -78,7 +78,7 @@ export const PageHeaderFilters = React.forwardRef<HTMLDivElement, PageHeaderFilt
               icon={primaryAction.icon || 'add'}
               iconPosition="leading"
               onClick={primaryAction.onClick}
-              className="rounded-[var(--spacing-x2)] shrink-0"
+              className="rounded-[var(--radius-md)] shrink-0"
             >
               {primaryAction.label}
             </Button>

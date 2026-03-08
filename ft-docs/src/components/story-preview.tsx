@@ -3,13 +3,12 @@
 import * as React from "react";
 import { useState, useMemo, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Terminal, Eye, BookOpen } from "lucide-react";
 import type { StoryDefinition, StoryMeta } from "@/lib/story-loader";
 import { formatStoryName } from "@/lib/story-loader";
 import { CodeBlock } from "@/components/code-block";
 import { extractStorySource } from "@/lib/story-source";
 import { getStorySource } from "@/app/actions/get-story-source";
-import { UserProfile, Badge } from "@/registry";
+import { UserProfile, Badge, Icon, Button } from "@/registry";
 import { getComponentGuideline } from "@/data/designer-guidelines";
 
 interface StoryPreviewProps {
@@ -325,43 +324,34 @@ export function StoryPreview({
               </span>
             )}
             <div className="flex items-center gap-1">
-              <button
+              <Button
                 onClick={() => handleViewChange("preview")}
-                className={cn(
-                  "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm-rem font-medium transition-colors",
-                  view === "preview"
-                    ? "bg-muted text-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-muted/50"
-                )}
+                variant={view === "preview" ? "secondary" : "text"}
+                size="sm"
+                className="!px-3 !py-1.5"
               >
-                <Eye className="mr-1.5 h-3.5 w-3.5" />
+                <Icon name="preview" size={14} className="mr-1.5" />
                 Preview
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={() => handleViewChange("code")}
-                className={cn(
-                  "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm-rem font-medium transition-colors",
-                  view === "code"
-                    ? "bg-muted text-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-muted/50"
-                )}
+                variant={view === "code" ? "secondary" : "text"}
+                size="sm"
+                className="!px-3 !py-1.5"
               >
-                <Terminal className="mr-1.5 h-3.5 w-3.5" />
+                <Icon name="document" size={14} className="mr-1.5" />
                 Code
-              </button>
+              </Button>
               {guideline && (
-                <button
+                <Button
                   onClick={() => handleViewChange("usage")}
-                  className={cn(
-                    "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm-rem font-medium transition-colors",
-                    view === "usage"
-                      ? "bg-muted text-foreground shadow-sm"
-                      : "text-muted-foreground hover:bg-muted/50"
-                  )}
+                  variant={view === "usage" ? "secondary" : "text"}
+                  size="sm"
+                  className="!px-3 !py-1.5"
                 >
-                  <BookOpen className="mr-1.5 h-3.5 w-3.5" />
+                  <Icon name="document" size={14} className="mr-1.5" />
                   Usage
-                </button>
+                </Button>
               )}
             </div>
           </div>
@@ -535,18 +525,15 @@ export function StoryTabs({ stories, meta, className }: StoryTabsProps) {
       {/* Tab selector */}
       <div className="flex flex-wrap gap-2 border-b pb-2">
         {stories.map((story) => (
-          <button
+          <Button
             key={story.name}
             onClick={() => setActiveStory(story.name)}
-            className={cn(
-              "px-3 py-1.5 text-sm-rem font-medium rounded-md transition-colors",
-              activeStory === story.name
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:bg-muted"
-            )}
+            variant={activeStory === story.name ? "primary" : "text"}
+            size="sm"
+            className="!px-3 !py-1.5"
           >
             {formatStoryName(story.name)}
-          </button>
+          </Button>
         ))}
       </div>
 

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { docsConfig } from "@/config/docs"
 import { cn } from "@/lib/utils"
+import { Badge } from "@/registry"
 
 export function SiteSidebar({ className, collapsed }: { className?: string; collapsed?: boolean }) {
     const pathname = usePathname()
@@ -42,19 +43,13 @@ export function SiteSidebar({ className, collapsed }: { className?: string; coll
                                     >
                                         <span>{navItem.title}</span>
                                         {navItem.badge && (
-                                            <span
-                                                className={cn(
-                                                    "ml-1.5 px-1 py-0.5 font-medium rounded-full border leading-tight whitespace-nowrap"
-                                                )}
-                                                style={{
-                                                    fontSize: "var(--font-size-xs)",
-                                                    backgroundColor: "var(--warning-100)",
-                                                    color: "var(--warning-500)",
-                                                    borderColor: "var(--warning-500)",
-                                                }}
+                                            <Badge
+                                                variant="warning"
+                                                size="xs"
+                                                className="ml-1.5"
                                             >
                                                 {navItem.badge}
-                                            </span>
+                                            </Badge>
                                         )}
                                     </Link>
                                 );

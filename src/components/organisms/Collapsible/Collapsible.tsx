@@ -97,7 +97,7 @@ export const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(({
   };
 
   const getBorderRadius = () => {
-    return type === 'Tertiary' ? 'rounded-[var(--spacing-x4)]' : 'rounded-[var(--spacing-x2)]';
+    return type === 'Tertiary' ? 'rounded-[var(--radius-xl)]' : 'rounded-[var(--radius-md)]';
   };
 
   const getBackgroundStyles = () => {

@@ -207,6 +207,12 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
     asChild,
     ...props
   }, ref) => {
+    const isComposableChild = (node: React.ReactNode): boolean => {
+      if (!React.isValidElement(node)) return false;
+      const nodeType = node.type as any;
+      const displayName = nodeType?.displayName ?? nodeType?.name;
+      return displayName === 'BadgeIcon' || displayName === 'BadgeText';
+    };
 
     const resolvedGlass = useResolvedGlass(glass);
 
@@ -432,6 +438,19 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
       : undefined;
 
     const Comp = asChild ? Slot : 'div';
+    const hasComposableChildren = React.Children.toArray(children).some(isComposableChild);
+    const contentNode = hasComposableChildren ? (
+      children
+    ) : (
+      <span
+        className={cn(
+          fontSizeMap[size] || fontSizeMap.md,
+          "inline-flex items-center font-semibold leading-[1.4]"
+        )}
+      >
+        {children || count}
+      </span>
+    );
 
     return (
       <Comp
@@ -448,14 +467,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
         {...props}
       >
         {leadingIcon && <Icon name={leadingIcon} size={iconSize} />}
-        <span
-          className={cn(
-            fontSizeMap[size] || fontSizeMap.md,
-            "font-semibold leading-[1.4]"
-          )}
-        >
-          {children || count}
-        </span>
+        {contentNode}
         {trailingIcon && <Icon name={trailingIcon} size={iconSize} />}
       </Comp>
     );

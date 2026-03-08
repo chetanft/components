@@ -5,6 +5,15 @@ import type { IconName } from "../../../../src/components/atoms/Icons/Icon"
 import { SiteHeader } from "@/components/site-header"
 import { useState, useMemo, useEffect } from "react"
 import { useViewMode } from "@/components/view-mode-context"
+import { MachineSpecView } from "@/components/machine-spec-view"
+import {
+  Input,
+  Slider,
+  ColorPicker,
+  Switch,
+  SwitchInput,
+  SwitchLabel,
+} from "../../../../src"
 
 // All available icon names - manually maintained to avoid importing all icon components
 const iconNames: IconName[] = [
@@ -344,11 +353,7 @@ export default function IconsPage() {
     ].join('\n')
 
     return (
-      <div className="min-h-screen bg-background px-6 py-10 max-w-[860px] mx-auto">
-        <pre className="whitespace-pre-wrap font-mono" style={{ fontSize: 'var(--font-size-xs-rem)', color: 'var(--primary)', lineHeight: 1.7 }}>
-          {machineSpec}
-        </pre>
-      </div>
+      <MachineSpecView>{machineSpec}</MachineSpecView>
     )
   }
 
@@ -436,23 +441,22 @@ export default function IconsPage() {
                     Color
                   </label>
                   <div className="flex items-center gap-2">
-                    <input
-                      type="color"
-                      value={iconColor === "currentColor" || iconColor.startsWith("var(") ? 
+                    <ColorPicker
+                      size="sm"
+                      value={iconColor === "currentColor" || iconColor.startsWith("var(") ?
                         (typeof window !== 'undefined' ? getComputedStyle(document.documentElement).getPropertyValue('--primary-700').trim() || "#434f64" : "#434f64")
                         : iconColor}
-                      onChange={(e) => setIconColor(e.target.value)}
-                      className="h-8 w-16 rounded border cursor-pointer"
-                      style={{ borderColor: 'var(--border-primary)' }}
+                      onChange={(color) => setIconColor(color)}
                     />
-                    <input
-                      type="text"
-                      value={iconColor}
-                      onChange={(e) => setIconColor(e.target.value)}
-                      className="flex-1 h-8 rounded-md border border-input bg-background px-2"
-                      style={{ fontSize: 'var(--font-size-xs-rem)' }}
-                      placeholder="currentColor"
-                    />
+                    <div className="flex-1">
+                      <Input
+                        size="sm"
+                        type="text"
+                        value={iconColor}
+                        onChange={(e) => setIconColor((e.target as HTMLInputElement).value)}
+                        placeholder="currentColor"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -465,14 +469,12 @@ export default function IconsPage() {
                     </label>
                     <span className="text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>{strokeWidth}px</span>
                   </div>
-                  <input
-                    type="range"
-                    min="0.5"
-                    max="4"
-                    step="0.5"
+                  <Slider
+                    min={0.5}
+                    max={4}
+                    step={0.5}
                     value={strokeWidth}
-                    onChange={(e) => setStrokeWidth(Number(e.target.value))}
-                    className="w-full accent-primary"
+                    onChange={(val) => setStrokeWidth(Number(val))}
                   />
                 </div>
 
@@ -485,35 +487,28 @@ export default function IconsPage() {
                     </label>
                     <span className="text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>{iconSize}px</span>
                   </div>
-                  <input
-                    type="range"
-                    min="16"
-                    max="48"
+                  <Slider
+                    min={16}
+                    max={48}
+                    step={1}
                     value={iconSize}
-                    onChange={(e) => setIconSize(Number(e.target.value))}
-                    className="w-full accent-primary"
+                    onChange={(val) => setIconSize(Number(val))}
                   />
                 </div>
 
                 {/* Absolute Stroke width */}
                 <div className="flex items-center justify-between mb-4">
-                  <label className="font-medium text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>
-                    {/* 12px → 0.857rem (responsive) */}
-                    Absolute Stroke width
-                  </label>
-                  <button
-                    onClick={() => setAbsoluteStrokeWidth(!absoluteStrokeWidth)}
-                    className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${absoluteStrokeWidth ? "bg-primary" : "bg-muted"
-                      }`}
-                    type="button"
-                    role="switch"
-                    aria-checked={absoluteStrokeWidth}
-                  >
-                    <span
-                      className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform ${absoluteStrokeWidth ? "translate-x-5" : "translate-x-0"
-                        }`}
+                  <Switch size="sm">
+                    <SwitchInput
+                      checked={absoluteStrokeWidth}
+                      onChange={() => setAbsoluteStrokeWidth(!absoluteStrokeWidth)}
                     />
-                  </button>
+                    <SwitchLabel>
+                      <span className="font-medium text-muted-foreground" style={{ fontSize: 'var(--font-size-xs-rem)' }}>
+                        Absolute Stroke width
+                      </span>
+                    </SwitchLabel>
+                  </Switch>
                 </div>
               </div>
 
@@ -658,19 +653,20 @@ export default function IconsPage() {
               </div>
 
               {/* Search */}
-              <div className="relative">
-                <input
+              <div className="relative max-w-md">
+                <Input
+                  size="md"
                   type="text"
                   placeholder="Search icons..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full max-w-md rounded-md border border-input bg-background px-4 py-2 shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  style={{ fontSize: 'var(--font-size-sm-rem)' }}
+                  onChange={(e) => setSearchQuery((e.target as HTMLInputElement).value)}
+                  leadingIcon="search"
+                  trailingIcon={searchQuery ? "cross" : undefined}
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground z-10"
                     type="button"
                   >
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">

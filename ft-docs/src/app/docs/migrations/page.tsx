@@ -1,7 +1,13 @@
+"use client"
+
 import Link from "next/link"
-import { FileText, AlertTriangle, CheckCircle2, ExternalLink } from "lucide-react"
+import { ExternalLink } from "lucide-react"
+import { Icon } from "@/registry"
+import { useViewMode } from "@/components/view-mode-context"
+import { MachineSpecView } from "@/components/machine-spec-view"
 
 export default function MigrationsPage() {
+    const { viewMode } = useViewMode()
     const migrations = [
         {
             component: "Table",
@@ -67,6 +73,25 @@ export default function MigrationsPage() {
         }
     ]
 
+    if (viewMode === "machine") {
+        const machineSpec = [
+            "# FT Design System — Migration Guides",
+            "PURPOSE: component API migration reference",
+            "",
+            ...migrations.flatMap((migration) => [
+                `## ${migration.component} ${migration.version}`,
+                `STATUS: ${migration.status}`,
+                `DESCRIPTION: ${migration.description}`,
+                "CHANGES:",
+                ...migration.changes.map((change) => `- ${change}`),
+                `GUIDE_FILE: ${migration.file}`,
+                "",
+            ]),
+        ].join("\n")
+
+        return <MachineSpecView>{machineSpec}</MachineSpecView>
+    }
+
     return (
         <div className="space-y-8">
             <div>
@@ -78,7 +103,7 @@ export default function MigrationsPage() {
 
             <div className="rounded-lg border border-primary/20 bg-primary/5 p-6">
                 <div className="flex items-start gap-3">
-                    <AlertTriangle className="h-5 w-5 text-primary mt-0.5" />
+                    <Icon name="triangle-alert" size={20} className="text-primary mt-0.5" />
                     <div>
                         <h3 className="font-semibold mb-2">Before You Start</h3>
                         <ul className="space-y-1 text-sm-rem text-muted-foreground">
@@ -101,13 +126,13 @@ export default function MigrationsPage() {
                         >
                             <div className="flex items-start justify-between mb-4">
                                 <div className="flex items-center gap-3">
-                                    <FileText className="h-5 w-5 text-primary" />
+                                    <Icon name="document" size={20} className="text-primary" />
                                     <div>
                                         <h3 className="text-lg-rem font-semibold">
                                             {migration.component} {migration.version}
                                         </h3>
                                         <div className="flex items-center gap-2 mt-1">
-                                            <CheckCircle2 className="h-4 w-4 text-green-600" />
+                                            <Icon name="check-fill" size={16} className="text-green-600" />
                                             <span className="text-sm-rem text-muted-foreground">
                                                 {migration.status === "complete" ? "Complete" : "In Progress"}
                                             </span>
@@ -165,4 +190,3 @@ export default function MigrationsPage() {
         </div>
     )
 }
-

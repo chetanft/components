@@ -12,8 +12,9 @@ import { DocPager } from "@/components/doc-pager";
 import { CodeBlock } from "@/components/code-block";
 import { useToc, type TocItem } from "@/components/toc-context";
 import { buildMachineSpec } from "@/lib/machine-spec";
-import { Badge } from "@/registry";
+import { Badge, Button } from "@/registry";
 import { useViewMode } from "@/components/view-mode-context";
+import { MachineSpecView } from "@/components/machine-spec-view";
 
 /**
  * Curated, user-facing descriptions (shadcn-style).
@@ -285,18 +286,7 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
 
   // Machine mode: render only raw spec text, nothing else
   if (viewMode === "machine") {
-    return (
-      <pre
-        className="whitespace-pre-wrap font-mono"
-        style={{
-          fontSize: "var(--font-size-xs-rem)",
-          color: "var(--primary)",
-          lineHeight: 1.7,
-        }}
-      >
-        {machineSpec}
-      </pre>
-    );
+    return <MachineSpecView>{machineSpec}</MachineSpecView>;
   }
 
   return (
@@ -332,18 +322,15 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
             {/* Package manager tabs */}
             <div className="flex items-center gap-1 border-b border-border">
               {(["npm", "pnpm", "yarn"] as const).map((tab) => (
-                <button
+                <Button
                   key={tab}
                   onClick={() => setInstallTab(tab)}
-                  className={cn(
-                    "px-3 py-1.5 text-sm-rem font-medium transition-colors border-b-2 -mb-px",
-                    installTab === tab
-                      ? "border-foreground text-foreground"
-                      : "border-transparent text-muted-foreground hover:text-foreground"
-                  )}
+                  variant={installTab === tab ? "secondary" : "text"}
+                  size="sm"
+                  className={cn("!rounded-none !border-0 !border-b-2 -mb-px", installTab === tab ? "!border-[var(--primary)]" : "!border-transparent")}
                 >
                   {tab}
-                </button>
+                </Button>
               ))}
             </div>
 

@@ -2,6 +2,7 @@
 
 import { ComponentPreview } from "@/components/component-preview"
 import { useViewMode } from "@/components/view-mode-context"
+import { MachineSpecView } from "@/components/machine-spec-view"
 
 export interface ChartVariant {
   id: string
@@ -28,14 +29,7 @@ export function ChartPage({ title, description, variants }: ChartPageProps) {
       ...variants.map((v) => [`## ${v.name}`, v.description, "```tsx", v.code, "```", ""].join("\n")),
     ].join("\n")
 
-    return (
-      <pre
-        className="whitespace-pre-wrap font-mono"
-        style={{ fontSize: "var(--font-size-xs-rem)", color: "var(--primary)", lineHeight: 1.7 }}
-      >
-        {machineSpec}
-      </pre>
-    )
+    return <MachineSpecView>{machineSpec}</MachineSpecView>
   }
 
   return (
