@@ -50,7 +50,7 @@ export const AlertIcon = React.forwardRef<HTMLDivElement, AlertIconProps>(
       info: 'text-[var(--neutral)]',
       success: 'text-[var(--positive)]',
       warning: 'text-[var(--warning)]',
-      danger: 'text-[var(--danger-500)]',
+      danger: 'text-[var(--critical)]',
     };
     
     const displayIcon = icon || variantIcons[variant];
@@ -74,4 +74,3 @@ export const AlertIcon = React.forwardRef<HTMLDivElement, AlertIconProps>(
 );
 
 AlertIcon.displayName = 'AlertIcon';
-

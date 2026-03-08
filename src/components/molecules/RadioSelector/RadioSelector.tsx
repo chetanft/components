@@ -163,7 +163,7 @@ export const RadioSelectorOption = React.forwardRef<HTMLLabelElement, RadioSelec
           "bg-[var(--bg-secondary)]",
           selected && "border border-[var(--primary)]",
           !selected && [
-            "hover:bg-[var(--border-secondary)] hover:shadow-[0px_0px_0px_2px_var(--secondary-300)]",
+            "hover:bg-[var(--border-secondary)] hover:shadow-[0px_0px_0px_2px_var(--border-primary)]",
             "focus-visible:bg-[var(--border-primary)] focus-visible:shadow-[var(--shadow-sm)]"
           ]
         ),

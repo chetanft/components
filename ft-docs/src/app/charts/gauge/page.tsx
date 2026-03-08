@@ -39,7 +39,7 @@ const gaugeChartVariants = [
   title="Error Rate"
   value={15}
   height={250}
-  color="#00c638"
+  color={chartColor('positive')}
 />`,
   },
   {
@@ -52,7 +52,7 @@ const gaugeChartVariants = [
   title="Memory Usage"
   value={92}
   height={250}
-  color="#ff3533"
+  color={chartColor('critical')}
 />`,
   },
   {
@@ -67,8 +67,8 @@ const gaugeChartVariants = [
   min={0}
   max={100}
   height={250}
-  color="#00c638"
-  backgroundColor="#deffe7"
+  color={chartColor('positive')}
+  backgroundColor={chartColor('positive-light')}
 />`,
   },
   {
@@ -81,8 +81,8 @@ const gaugeChartVariants = [
   title="Disk Space"
   value={75}
   height={250}
-  color="#ff6c19"
-  backgroundColor="#ffedbc"
+  color={chartColor('warning')}
+  backgroundColor={chartColor('warning-light')}
 />`,
   },
   {
@@ -95,8 +95,8 @@ const gaugeChartVariants = [
   title="System Load"
   value={95}
   height={250}
-  color="#ff3533"
-  backgroundColor="#ffeafa"
+  color={chartColor('critical')}
+  backgroundColor={chartColor('critical-light')}
 />`,
   },
   {
@@ -109,8 +109,8 @@ const gaugeChartVariants = [
   title="Progress"
   value={68}
   height={250}
-  color="#0828f7"
-  backgroundColor="#ecf6ff"
+  color={chartColor('neutral-dark')}
+  backgroundColor={chartColor('neutral-light')}
 />`,
   },
 ]

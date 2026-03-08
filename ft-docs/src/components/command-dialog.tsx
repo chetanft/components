@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo, useCallback } from "react"
 import { useRouter } from "next/navigation"
-import { Modal, ModalContent, Icon, Input, Button } from "@/registry"
+import { Modal, ModalContent, Icon, Input } from "@/registry"
 import { docsConfig } from "@/config/docs"
 import { cn } from "@/lib/utils"
 
@@ -163,29 +163,27 @@ export function CommandDialog({ open: controlledOpen, onOpenChange }: CommandDia
                   const idx = flatIndex
                   const isSelected = idx === selectedIndex
                   return (
-                    <Button
+                    <button
                       key={item.href}
-                      variant="text"
-                      size="sm"
+                      type="button"
                       data-selected={isSelected}
                       onClick={() => navigate(item.href)}
                       onMouseEnter={() => setSelectedIndex(idx)}
-                      icon={item.type === "component" ? (
+                      className={cn(
+                        "flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-sm-rem font-medium transition-colors",
+                        isSelected
+                          ? "bg-[var(--bg-interactive)] text-[var(--text-primary)]"
+                          : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-transparent"
+                      )}
+                    >
+                      {item.type === "component" ? (
                         <Icon name="dashboard" size={16} className="shrink-0" />
                       ) : (
                         <Icon name="document" size={16} className="shrink-0" />
                       )}
-                      iconPosition="leading"
-                      className={cn(
-                        "!flex w-full !items-center gap-3 !rounded-md !px-3 !py-2.5 !text-sm-rem !font-medium !h-auto !justify-start",
-                        isSelected
-                          ? "!bg-[var(--bg-interactive)] !text-[var(--text-primary)]"
-                          : "!text-[var(--text-secondary)] hover:!text-[var(--text-primary)] !bg-transparent"
-                      )}
-                    >
                       <span className="flex-1 text-left">{item.title}</span>
                       {isSelected && <Icon name="chevron-right" size={12} className="shrink-0 text-[var(--text-secondary)]" />}
-                    </Button>
+                    </button>
                   )
                 })}
               </div>

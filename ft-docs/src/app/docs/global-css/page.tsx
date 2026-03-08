@@ -96,7 +96,7 @@ export default function GlobalCSSPage() {
                     <Button
                         variant="secondary"
                         size="xs"
-                        icon={copied ? <Icon name="check" size={14} className="text-green-600" /> : <Icon name="copy" size={14} />}
+                        icon={copied ? <Icon name="check" size={14} className="text-[var(--positive-dark)]" /> : <Icon name="copy" size={14} />}
                         iconPosition="only"
                         onClick={copyToClipboard}
                         aria-label="Copy to clipboard"

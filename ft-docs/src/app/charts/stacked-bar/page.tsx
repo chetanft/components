@@ -15,19 +15,19 @@ const stackedBarChartVariants = [
 
 <StackedBarChart title="Ageing Analysis">
   <StackedBarChartBar label="4+ hrs">
-    <StackedBarChartSegment label="Laxmi Transporters" value={27} color="#42bdbd" />
-    <StackedBarChartSegment label="Singh Transporters" value={43} color="#0828f7" />
-    <StackedBarChartSegment label="Others" value={48} color="#1793e8" />
+    <StackedBarChartSegment label="Laxmi Transporters" value={27} color={chartColor('primary-700')} />
+    <StackedBarChartSegment label="Singh Transporters" value={43} color={chartColor('neutral-dark')} />
+    <StackedBarChartSegment label="Others" value={48} color={chartColor('neutral')} />
   </StackedBarChartBar>
   <StackedBarChartBar label="2-4 hrs">
-    <StackedBarChartSegment label="Laxmi Transporters" value={25} color="#42bdbd" />
-    <StackedBarChartSegment label="Singh Transporters" value={35} color="#0828f7" />
-    <StackedBarChartSegment label="Others" value={36} color="#1793e8" />
+    <StackedBarChartSegment label="Laxmi Transporters" value={25} color={chartColor('primary-700')} />
+    <StackedBarChartSegment label="Singh Transporters" value={35} color={chartColor('neutral-dark')} />
+    <StackedBarChartSegment label="Others" value={36} color={chartColor('neutral')} />
   </StackedBarChartBar>
   <StackedBarChartBar label="<2 hrs">
-    <StackedBarChartSegment label="Laxmi Transporters" value={27} color="#42bdbd" />
-    <StackedBarChartSegment label="Singh Transporters" value={33} color="#0828f7" />
-    <StackedBarChartSegment label="Others" value={23} color="#1793e8" />
+    <StackedBarChartSegment label="Laxmi Transporters" value={27} color={chartColor('primary-700')} />
+    <StackedBarChartSegment label="Singh Transporters" value={33} color={chartColor('neutral-dark')} />
+    <StackedBarChartSegment label="Others" value={23} color={chartColor('neutral')} />
   </StackedBarChartBar>
 </StackedBarChart>`,
   },
@@ -43,14 +43,14 @@ const stackedBarChartVariants = [
 
 <StackedBarChart title="Ageing">
   <StackedBarChartBar label="4+ hrs">
-    <StackedBarChartSegment label="Laxmi Transporters" value={27} color="#ffb3c3" />
-    <StackedBarChartSegment label="Singh Transporters" value={43} color="#ff809a" />
-    <StackedBarChartSegment label="Others" value={48} color="#ff6384" />
+    <StackedBarChartSegment label="Laxmi Transporters" value={27} color={chartColor('critical-light')} />
+    <StackedBarChartSegment label="Singh Transporters" value={43} color={chartColor('critical-300')} />
+    <StackedBarChartSegment label="Others" value={48} color={chartColor('critical')} />
   </StackedBarChartBar>
   <StackedBarChartBar label="2-4 hrs">
-    <StackedBarChartSegment label="Laxmi Transporters" value={25} color="#ffb3c3" />
-    <StackedBarChartSegment label="Singh Transporters" value={35} color="#ff809a" />
-    <StackedBarChartSegment label="Others" value={36} color="#ff6384" />
+    <StackedBarChartSegment label="Laxmi Transporters" value={25} color={chartColor('critical-light')} />
+    <StackedBarChartSegment label="Singh Transporters" value={35} color={chartColor('critical-300')} />
+    <StackedBarChartSegment label="Others" value={36} color={chartColor('critical')} />
   </StackedBarChartBar>
 </StackedBarChart>`,
   },
@@ -66,7 +66,7 @@ const stackedBarChartVariants = [
 
 <StackedBarChart
   title="Quarterly Sales"
-  defaultColors={['#42bdbd', '#0828f7', '#1793e8']}
+  defaultColors={[chartColor('primary-700'), chartColor('neutral-dark'), chartColor('neutral')]}
 >
   <StackedBarChartBar label="Q1">
     <StackedBarChartSegment label="Product A" value={30} />
@@ -92,14 +92,14 @@ const stackedBarChartVariants = [
 
 <StackedBarChart title="Team Performance" barHeight={220}>
   <StackedBarChartBar label="Team A">
-    <StackedBarChartSegment label="Completed" value={45} color="#00c638" />
-    <StackedBarChartSegment label="In Progress" value={30} color="#1890ff" />
-    <StackedBarChartSegment label="Pending" value={25} color="#838c9d" />
+    <StackedBarChartSegment label="Completed" value={45} color={chartColor('positive')} />
+    <StackedBarChartSegment label="In Progress" value={30} color={chartColor('neutral')} />
+    <StackedBarChartSegment label="Pending" value={25} color={chartColor('primary-300')} />
   </StackedBarChartBar>
   <StackedBarChartBar label="Team B">
-    <StackedBarChartSegment label="Completed" value={60} color="#00c638" />
-    <StackedBarChartSegment label="In Progress" value={25} color="#1890ff" />
-    <StackedBarChartSegment label="Pending" value={15} color="#838c9d" />
+    <StackedBarChartSegment label="Completed" value={60} color={chartColor('positive')} />
+    <StackedBarChartSegment label="In Progress" value={25} color={chartColor('neutral')} />
+    <StackedBarChartSegment label="Pending" value={15} color={chartColor('primary-300')} />
   </StackedBarChartBar>
 </StackedBarChart>`,
   },
@@ -115,19 +115,19 @@ const stackedBarChartVariants = [
 
 <StackedBarChart title="Project Status">
   <StackedBarChartBar label="Sprint 1">
-    <StackedBarChartSegment label="Done" value={15} color="#00c638" />
-    <StackedBarChartSegment label="In Review" value={5} color="#1890ff" />
-    <StackedBarChartSegment label="Blocked" value={2} color="#ff3533" />
+    <StackedBarChartSegment label="Done" value={15} color={chartColor('positive')} />
+    <StackedBarChartSegment label="In Review" value={5} color={chartColor('neutral')} />
+    <StackedBarChartSegment label="Blocked" value={2} color={chartColor('critical')} />
   </StackedBarChartBar>
   <StackedBarChartBar label="Sprint 2">
-    <StackedBarChartSegment label="Done" value={12} color="#00c638" />
-    <StackedBarChartSegment label="In Review" value={8} color="#1890ff" />
-    <StackedBarChartSegment label="Blocked" value={3} color="#ff3533" />
+    <StackedBarChartSegment label="Done" value={12} color={chartColor('positive')} />
+    <StackedBarChartSegment label="In Review" value={8} color={chartColor('neutral')} />
+    <StackedBarChartSegment label="Blocked" value={3} color={chartColor('critical')} />
   </StackedBarChartBar>
   <StackedBarChartBar label="Sprint 3">
-    <StackedBarChartSegment label="Done" value={18} color="#00c638" />
-    <StackedBarChartSegment label="In Review" value={4} color="#1890ff" />
-    <StackedBarChartSegment label="Blocked" value={1} color="#ff3533" />
+    <StackedBarChartSegment label="Done" value={18} color={chartColor('positive')} />
+    <StackedBarChartSegment label="In Review" value={4} color={chartColor('neutral')} />
+    <StackedBarChartSegment label="Blocked" value={1} color={chartColor('critical')} />
   </StackedBarChartBar>
 </StackedBarChart>`,
   },

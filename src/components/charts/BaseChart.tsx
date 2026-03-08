@@ -1,6 +1,5 @@
 import React from 'react';
 import { cn } from '../../lib/utils';
-import { ftChartColors } from './chartConfig';
 
 export interface BaseChartProps {
   title?: string;
@@ -29,7 +28,7 @@ export const BaseChart: React.FC<BaseChartProps> = ({
         className
       )}
       style={{
-        color: ftChartColors.text.primary,
+        color: 'var(--primary)',
       }}
     >
       {title && (
@@ -38,7 +37,7 @@ export const BaseChart: React.FC<BaseChartProps> = ({
             fontSize: 'var(--font-size-md-rem)',
             fontWeight: '600',
             fontFamily: 'Inter, system-ui, sans-serif',
-            color: ftChartColors.text.primary,
+            color: 'var(--primary)',
             margin: 0,
           }}
         >

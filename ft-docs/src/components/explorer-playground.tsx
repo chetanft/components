@@ -10,7 +10,7 @@ import { PlaygroundControl } from "@/components/playground-control"
 import { buildControls } from "@/lib/playground-controls"
 import { GlassPreviewBackdrop } from "@/components/glass-preview-backdrop"
 import { ExplorerInspector } from "@/components/explorer-inspector"
-import { Button } from "@/registry"
+import { Button, SegmentedTabs, SegmentedTabItem } from "@/registry"
 
 type GlassChipValue = false | true | "subtle" | "prominent"
 
@@ -169,22 +169,11 @@ export function ExplorerPlayground({
             >
               Glass Mode
             </h3>
-            <div className="flex flex-wrap gap-2">
-              {GLASS_CHIPS.map((chip) => {
-                const isActive = glassMode === chip.value;
-                return (
-                  <Button
-                    key={chip.label}
-                    onClick={() => setGlassMode(chip.value)}
-                    variant={isActive ? "secondary" : "text"}
-                    size="sm"
-                    className="!px-3 !py-1.5"
-                  >
-                    {chip.label}
-                  </Button>
-                );
-              })}
-            </div>
+            <SegmentedTabs value={String(glassMode)} onChange={(v) => setGlassMode(v === "false" ? false : v === "true" ? true : v as "subtle" | "prominent")}>
+              {GLASS_CHIPS.map((chip) => (
+                <SegmentedTabItem key={chip.label} value={String(chip.value)} label={chip.label} />
+              ))}
+            </SegmentedTabs>
           </div>
         )}
         <div className="mb-4">
@@ -194,50 +183,22 @@ export function ExplorerPlayground({
           >
             Inspector
           </h3>
-          <div className="flex flex-wrap gap-2">
-            {[
-              { label: "Off", value: "off" as ExplorerInspectorMode },
-              { label: "Box Model", value: "box-model" as ExplorerInspectorMode },
-              { label: "Token Spacing", value: "token-spacing" as ExplorerInspectorMode },
-              { label: "Both", value: "both" as ExplorerInspectorMode },
-            ].map((chip) => {
-              const isActive = inspectorMode === chip.value;
-              return (
-                <Button
-                  key={chip.value}
-                  onClick={() => setInspectorMode(chip.value)}
-                  variant={isActive ? "secondary" : "text"}
-                  size="sm"
-                  className="!px-3 !py-1.5"
-                >
-                  {chip.label}
-                </Button>
-              );
-            })}
-          </div>
+          <SegmentedTabs value={inspectorMode} onChange={(v) => setInspectorMode(v as ExplorerInspectorMode)}>
+            <SegmentedTabItem value="off" label="Off" />
+            <SegmentedTabItem value="box-model" label="Box Model" />
+            <SegmentedTabItem value="token-spacing" label="Token Spacing" />
+            <SegmentedTabItem value="both" label="Both" />
+          </SegmentedTabs>
           <div className="mt-2 flex flex-wrap gap-2">
-            {[1, 1.25, 1.5].map((scale) => {
-              const isActive = Math.abs(inspectorScale - scale) < 0.001
-              return (
-                <Button
-                  key={scale}
-                  onClick={() => setInspectorScale(scale)}
-                  variant={isActive ? "secondary" : "text"}
-                  size="sm"
-                  className="!px-3 !py-1.5"
-                >
-                  {scale}x
-                </Button>
-              )
-            })}
-            <Button
-              onClick={() => setInspectorHighContrast((prev) => !prev)}
-              variant={inspectorHighContrast ? "secondary" : "text"}
-              size="sm"
-              className="!px-3 !py-1.5"
-            >
-              High Contrast
-            </Button>
+            <SegmentedTabs value={String(inspectorScale)} onChange={(v) => setInspectorScale(Number(v))}>
+              <SegmentedTabItem value="1" label="1x" />
+              <SegmentedTabItem value="1.25" label="1.25x" />
+              <SegmentedTabItem value="1.5" label="1.5x" />
+            </SegmentedTabs>
+            <SegmentedTabs value={inspectorHighContrast ? "on" : "off"} onChange={(v) => setInspectorHighContrast(v === "on")}>
+              <SegmentedTabItem value="off" label="Normal" />
+              <SegmentedTabItem value="on" label="High Contrast" />
+            </SegmentedTabs>
           </div>
         </div>
         <div className="relative">

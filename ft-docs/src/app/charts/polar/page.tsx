@@ -43,7 +43,7 @@ const data = {
   title="Language Proficiency"
   data={data}
   height={350}
-  defaultColors={['#f9ca24', '#3498db', '#e74c3c', '#9b59b6', '#1abc9c']}
+  defaultColors={chartPalette('extended').slice(0, 5)}
 />`,
   },
   {
@@ -58,11 +58,11 @@ const data = {
     {
       data: [90, 75, 55, 35, 15],
       backgroundColor: [
-        'rgba(0, 198, 56, 0.7)',
-        'rgba(24, 144, 255, 0.7)',
-        'rgba(255, 190, 7, 0.7)',
-        'rgba(255, 108, 25, 0.7)',
-        'rgba(255, 53, 51, 0.7)',
+        chartAlpha('positive', 0.7),
+        chartAlpha('neutral', 0.7),
+        chartAlpha('warning', 0.7),
+        chartAlpha('warning', 0.7),
+        chartAlpha('critical', 0.7),
       ],
     },
   ],
@@ -86,10 +86,10 @@ const data = {
     {
       data: [65, 80, 70, 90],
       backgroundColor: [
-        'rgba(26, 35, 48, 0.7)',
-        'rgba(67, 79, 100, 0.7)',
-        'rgba(95, 105, 123, 0.7)',
-        'rgba(131, 140, 157, 0.7)',
+        chartAlpha('primary-900', 0.7),
+        chartAlpha('primary-700', 0.7),
+        chartAlpha('primary-500', 0.7),
+        chartAlpha('primary-300', 0.7),
       ],
     },
   ],

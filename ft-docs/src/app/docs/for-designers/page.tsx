@@ -37,9 +37,9 @@ export default function ForDesignersPage() {
 
             <DocStatCards items={[
                 { value: totalComponents, label: "Total Components" },
-                { value: figmaLinkedCount, label: "Figma Linked", color: "text-green-600 dark:text-green-400" },
-                { value: codeConnectCount, label: "Code Connect", color: "text-green-600 dark:text-green-400" },
-                { value: guidelineCount, label: "Usage Guidelines", color: "text-indigo-600 dark:text-indigo-400" },
+                { value: figmaLinkedCount, label: "Figma Linked", color: "text-[var(--positive-dark)]" },
+                { value: codeConnectCount, label: "Code Connect", color: "text-[var(--positive-dark)]" },
+                { value: guidelineCount, label: "Usage Guidelines", color: "text-[var(--neutral-dark)]" },
             ]} />
 
             <DocSection title="Components with Usage Guidelines">

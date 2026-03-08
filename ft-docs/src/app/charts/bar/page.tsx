@@ -226,7 +226,7 @@ const data = {
       label: 'Sales',
       data: [12, 19, 15, 25, 22, 30],
       backgroundColor: 'transparent',
-      borderColor: '#42bdbd',
+      borderColor: chartColor('primary-700'),
       borderWidth: 2,
       borderRadius: 4,
     },
@@ -251,7 +251,7 @@ const data = {
     {
       label: 'Status Metrics',
       data: [85, 60, 25, 70],
-      backgroundColor: ['#00c638', '#ff6c19', '#ff3533', '#1890ff'],
+      backgroundColor: [chartColor('positive'), chartColor('warning'), chartColor('critical'), chartColor('neutral')],
       borderRadius: 4,
     },
   ],
@@ -275,7 +275,7 @@ const data = {
     {
       label: 'Priority Levels',
       data: [95, 75, 55, 35, 15],
-      backgroundColor: ['#1a2330', '#434f64', '#5f697b', '#838c9d', '#c5cad3'],
+      backgroundColor: [chartColor('primary-900'), chartColor('primary-700'), chartColor('primary-500'), chartColor('primary-300'), chartColor('primary-100')],
       borderRadius: 4,
     },
   ],
@@ -299,7 +299,7 @@ const data = {
     {
       label: 'Engagement Levels',
       data: [90, 72, 58, 40, 22],
-      backgroundColor: ['#002966', '#006dd3', '#1890ff', '#80c1ff', '#ecf6ff'],
+      backgroundColor: chartPalette('neutral-scale'),
       borderRadius: 4,
     },
   ],
@@ -323,7 +323,7 @@ const data = {
     {
       label: 'Performance',
       data: [95, 78, 55, 32, 12],
-      backgroundColor: ['#004d26', '#00753d', '#00c637', '#4dff88', '#deffe7'],
+      backgroundColor: chartPalette('positive-scale'),
       borderRadius: 4,
     },
   ],
@@ -347,7 +347,7 @@ const data = {
     {
       label: 'Risk Levels',
       data: [88, 68, 48, 28, 10],
-      backgroundColor: ['#7a2f00', '#dd6a00', '#ff6c19', '#ffb366', '#ffedbc'],
+      backgroundColor: chartPalette('warning-scale'),
       borderRadius: 4,
     },
   ],
@@ -371,7 +371,7 @@ const data = {
     {
       label: 'Issue Severity',
       data: [92, 70, 50, 30, 8],
-      backgroundColor: ['#800000', '#b70100', '#ff3532', '#ff9999', '#ffeafa'],
+      backgroundColor: chartPalette('danger-scale'),
       borderRadius: 4,
     },
   ],
@@ -396,8 +396,8 @@ const data = {
       label: 'Categories',
       data: [45, 38, 52, 28, 65, 42, 55, 33, 48, 60],
       backgroundColor: [
-        '#42bdbd', '#0828f7', '#1793e8', '#ff0036', '#ffbe07',
-        '#3caaaa', '#0724de', '#1584d1', '#e60031', '#e6a806'
+        chartColor('primary-700'), chartColor('neutral-dark'), chartColor('neutral'), chartColor('critical'), chartColor('warning'),
+        chartColor('primary-500'), chartColor('neutral-900'), chartColor('neutral-dark'), chartColor('critical-dark'), chartColor('warning-dark')
       ],
       borderRadius: 4,
     },
@@ -438,7 +438,7 @@ const data = {
   title="Custom Colors"
   data={data}
   height={300}
-  defaultColors={['#ff6b6b', '#4ecdc4', '#45b7d1']}
+  defaultColors={chartPalette('default').slice(0, 3)}
 />`,
   },
   {
@@ -453,7 +453,7 @@ const data = {
     {
       label: 'Profit/Loss',
       data: [15, -8, 22, -12, 30, -5],
-      backgroundColor: ['#00c638', '#ff3533', '#00c638', '#ff3533', '#00c638', '#ff3533'],
+      backgroundColor: [chartColor('positive'), chartColor('critical'), chartColor('positive'), chartColor('critical'), chartColor('positive'), chartColor('critical')],
       borderRadius: 4,
     },
   ],
@@ -477,7 +477,7 @@ const data = {
     {
       label: 'Task Status',
       data: [75, 45, 60, 20],
-      backgroundColor: ['#00c638', '#1890ff', '#ff6c19', '#ff3533'],
+      backgroundColor: [chartColor('positive'), chartColor('neutral'), chartColor('warning'), chartColor('critical')],
       borderRadius: 4,
     },
   ],
@@ -512,14 +512,14 @@ const data = {
     {
       label: 'Actual Sales',
       data: [12, 19, 15, 25, 22, 30],
-      backgroundColor: '#42bdbd',
+      backgroundColor: chartColor('primary-700'),
       borderRadius: 4,
     },
     {
       label: 'Target',
       data: [20, 20, 20, 20, 20, 20],
       type: 'line',
-      borderColor: '#ff0036',
+      borderColor: chartColor('critical'),
       borderWidth: 2,
       borderDash: [5, 5],
       pointRadius: 0,
@@ -546,13 +546,13 @@ const data = {
     {
       label: '2024',
       data: [12, 19, 15, 25, 22, 30],
-      backgroundColor: '#42bdbd',
+      backgroundColor: chartColor('primary-700'),
       borderRadius: 4,
     },
     {
       label: '2023',
       data: [10, 15, 12, 20, 18, 25],
-      backgroundColor: '#0828f7',
+      backgroundColor: chartColor('neutral-dark'),
       borderRadius: 4,
     },
   ],
@@ -595,7 +595,7 @@ const data = {
         border: { display: false },
       },
       y: {
-        grid: { color: '#f0f1f7' },
+        grid: { color: chartColor('border-secondary') },
         border: { display: false },
       },
     },
@@ -614,17 +614,17 @@ const data = {
     {
       label: 'Completed',
       data: [45, 60, 35, 70],
-      backgroundColor: '#00c638',
+      backgroundColor: chartColor('positive'),
     },
     {
       label: 'In Progress',
       data: [25, 20, 30, 15],
-      backgroundColor: '#1890ff',
+      backgroundColor: chartColor('neutral'),
     },
     {
       label: 'Pending',
       data: [30, 20, 35, 15],
-      backgroundColor: '#838c9d',
+      backgroundColor: chartColor('primary-300'),
     },
   ],
 }

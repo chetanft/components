@@ -79,7 +79,7 @@ const data = {
   datasets: [
     {
       data: [78, 15, 7],
-      backgroundColor: ['#00c638', '#ff6c19', '#ff3533'],
+      backgroundColor: [chartColor('positive'), chartColor('warning'), chartColor('critical')],
     },
   ],
 }
@@ -101,7 +101,7 @@ const data = {
   datasets: [
     {
       data: [10, 20, 35, 25, 10],
-      backgroundColor: ['#1a2330', '#434f64', '#5f697b', '#838c9d', '#c5cad3'],
+      backgroundColor: [chartColor('primary-900'), chartColor('primary-700'), chartColor('primary-500'), chartColor('primary-300'), chartColor('primary-100')],
     },
   ],
 }
@@ -131,7 +131,7 @@ const data = {
   title="Product Mix"
   data={data}
   height={300}
-  defaultColors={['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24']}
+  defaultColors={chartPalette('default').slice(0, 4)}
 />`,
   },
   {
@@ -145,7 +145,7 @@ const data = {
   datasets: [
     {
       data: [72, 28],
-      backgroundColor: ['#42bdbd', '#e1e2e4'],
+      backgroundColor: [chartColor('primary-700'), chartColor('border-secondary')],
     },
   ],
 }
@@ -172,8 +172,8 @@ const data = {
     {
       data: [12, 15, 10, 18, 14, 11, 16, 13],
       backgroundColor: [
-        '#42bdbd', '#0828f7', '#1793e8', '#ff0036', '#ffbe07',
-        '#3caaaa', '#0724de', '#1584d1'
+        chartColor('primary-700'), chartColor('neutral-dark'), chartColor('neutral'), chartColor('critical'), chartColor('warning'),
+        chartColor('primary-500'), chartColor('neutral-900'), chartColor('neutral-dark')
       ],
     },
   ],

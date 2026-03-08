@@ -38,10 +38,10 @@ export function CodeBlock({
   }
 
   return (
-    <div className={cn("relative group rounded-lg border overflow-hidden", className)}>
+    <div className={cn("relative group rounded-lg border border-border overflow-hidden", className)}>
       {/* Filename header */}
       {filename && (
-        <div className="flex items-center border-b px-4 py-2 bg-muted/50">
+        <div className="flex items-center border-b border-border px-4 py-2 bg-muted/50">
           <span className="text-xs font-medium text-muted-foreground">{filename}</span>
         </div>
       )}
@@ -62,16 +62,14 @@ export function CodeBlock({
         <div
           className={cn(
             "overflow-x-auto text-sm-rem [&_pre]:p-4 [&_pre]:m-0 [&_code]:font-mono",
-            isDark
-              ? "[&_.shiki]:!bg-[var(--bg-secondary)]"
-              : "[&_.shiki]:!bg-[var(--bg-secondary)]"
+            "[&_.shiki]:!bg-[var(--docs-code-bg)]"
           )}
           data-theme={isDark ? "dark" : "light"}
           dangerouslySetInnerHTML={{ __html: html }}
           style={isDark ? { colorScheme: "dark" } : undefined}
         />
       ) : (
-        <pre className="p-4 text-sm-rem font-mono overflow-x-auto" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+        <pre className="p-4 text-sm-rem font-mono overflow-x-auto" style={{ backgroundColor: 'var(--docs-code-bg)' }}>
           <code>{code}</code>
         </pre>
       )}

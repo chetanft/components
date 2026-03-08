@@ -111,9 +111,9 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
         text: 'text-[var(--warning-dark)]',
       },
       danger: {
-        bg: 'bg-[var(--danger-100)]',
-        border: 'border-[var(--danger-500)]',
-        text: 'text-[var(--danger-500)]',
+        bg: 'bg-[var(--critical-light)]',
+        border: 'border-[var(--critical)]',
+        text: 'text-[var(--critical)]',
       },
     };
 

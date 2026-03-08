@@ -43,7 +43,7 @@ describe('Button Component', () => {
     it('applies primary variant styles by default', () => {
       render(<Button>Primary</Button>);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-[var(--primary-700)]', 'text-white', 'border');
+      expect(button).toHaveClass('bg-[var(--button-primary-bg)]', 'text-[var(--button-primary-text)]', 'border');
     });
 
     it('applies secondary variant styles', () => {

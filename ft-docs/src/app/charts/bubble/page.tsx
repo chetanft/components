@@ -134,7 +134,7 @@ const data = {
   title="Quarterly Growth"
   data={data}
   height={350}
-  defaultColors={['#ff6b6b', '#4ecdc4', '#45b7d1']}
+  defaultColors={chartPalette('default').slice(0, 3)}
 />`,
   },
   {
@@ -152,8 +152,8 @@ const data = {
         { x: 35, y: 35, r: 30 },
         { x: 30, y: 40, r: 20 },
       ],
-      backgroundColor: 'rgba(66, 189, 189, 0.5)',
-      borderColor: '#42bdbd',
+      backgroundColor: chartAlpha('primary-700', 0.5),
+      borderColor: chartColor('primary-700'),
     },
     {
       label: 'Category B',
@@ -162,8 +162,8 @@ const data = {
         { x: 40, y: 38, r: 28 },
         { x: 35, y: 42, r: 18 },
       ],
-      backgroundColor: 'rgba(8, 40, 247, 0.5)',
-      borderColor: '#0828f7',
+      backgroundColor: chartAlpha('neutral-dark', 0.5),
+      borderColor: chartColor('neutral-dark'),
     },
   ],
 }
@@ -189,8 +189,8 @@ const data = {
         { x: 85, y: 85, r: 15 },
         { x: 90, y: 95, r: 25 },
       ],
-      backgroundColor: 'rgba(0, 198, 56, 0.6)',
-      borderColor: '#00c638',
+      backgroundColor: chartAlpha('positive', 0.6),
+      borderColor: chartColor('positive'),
     },
     {
       label: 'At Risk',
@@ -198,8 +198,8 @@ const data = {
         { x: 50, y: 55, r: 18 },
         { x: 55, y: 60, r: 12 },
       ],
-      backgroundColor: 'rgba(255, 108, 25, 0.6)',
-      borderColor: '#ff6c19',
+      backgroundColor: chartAlpha('warning', 0.6),
+      borderColor: chartColor('warning'),
     },
     {
       label: 'Critical',
@@ -207,8 +207,8 @@ const data = {
         { x: 20, y: 25, r: 22 },
         { x: 25, y: 20, r: 16 },
       ],
-      backgroundColor: 'rgba(255, 53, 51, 0.6)',
-      borderColor: '#ff3533',
+      backgroundColor: chartAlpha('critical', 0.6),
+      borderColor: chartColor('critical'),
     },
   ],
 }

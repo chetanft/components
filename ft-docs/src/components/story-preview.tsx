@@ -8,7 +8,7 @@ import { formatStoryName } from "@/lib/story-loader";
 import { CodeBlock } from "@/components/code-block";
 import { extractStorySource } from "@/lib/story-source";
 import { getStorySource } from "@/app/actions/get-story-source";
-import { UserProfile, Badge, Icon, Button } from "@/registry";
+import { UserProfile, Badge, Icon, Button, Tabs, TabItem } from "@/registry";
 import { getComponentGuideline } from "@/data/designer-guidelines";
 
 interface StoryPreviewProps {
@@ -314,46 +314,28 @@ export function StoryPreview({
 
   return (
     <div className={cn("group relative flex flex-col space-y-2 h-full", className)}>
-      <div className="relative rounded-lg border bg-background shadow-sm overflow-hidden h-full">
+      <div className="relative rounded-lg border border-border bg-background shadow-sm overflow-hidden h-full">
         {/* Header */}
-        <div className="flex items-center justify-between border-b p-2">
+        <div className="flex items-center justify-between border-b border-border p-2">
           <div className="flex items-start justify-start gap-2 w-fit">
             {showName && (
               <span className="text-sm-rem font-medium text-foreground px-2">
                 {formatStoryName(story.name)}
               </span>
             )}
-            <div className="flex items-center gap-1">
-              <Button
-                onClick={() => handleViewChange("preview")}
-                variant={view === "preview" ? "secondary" : "text"}
-                size="sm"
-                className="!px-3 !py-1.5"
-              >
-                <Icon name="preview" size={14} className="mr-1.5" />
-                Preview
-              </Button>
-              <Button
-                onClick={() => handleViewChange("code")}
-                variant={view === "code" ? "secondary" : "text"}
-                size="sm"
-                className="!px-3 !py-1.5"
-              >
-                <Icon name="document" size={14} className="mr-1.5" />
-                Code
-              </Button>
-              {guideline && (
-                <Button
-                  onClick={() => handleViewChange("usage")}
-                  variant={view === "usage" ? "secondary" : "text"}
-                  size="sm"
-                  className="!px-3 !py-1.5"
-                >
-                  <Icon name="document" size={14} className="mr-1.5" />
-                  Usage
-                </Button>
-              )}
-            </div>
+            <Tabs
+              type="secondary"
+              activeTab={view === "preview" ? 0 : view === "code" ? 1 : 2}
+              onTabChange={(i) => handleViewChange((["preview", "code", "usage"] as const)[i])}
+            >
+              <div className="flex items-center gap-1">
+                <TabItem label="Preview" active={view === "preview"} onSelect={() => handleViewChange("preview")} type="secondary" />
+                <TabItem label="Code" active={view === "code"} onSelect={() => handleViewChange("code")} type="secondary" />
+                {guideline && (
+                  <TabItem label="Usage" active={view === "usage"} onSelect={() => handleViewChange("usage")} type="secondary" />
+                )}
+              </div>
+            </Tabs>
           </div>
         </div>
 
@@ -425,22 +407,22 @@ function VariantUsagePanel({
       {/* When to use / not to use */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div className="space-y-1.5">
-          <p className="font-medium" style={{ color: "var(--positive-dark, #16a34a)" }}>When to use</p>
+          <p className="font-medium" style={{ color: "var(--positive-dark)" }}>When to use</p>
           <ul className="space-y-1" style={{ color: "var(--secondary)" }}>
             {guideline.whenToUse.slice(0, 2).map((item, i) => (
               <li key={i} className="flex items-start gap-1.5">
-                <span style={{ color: "var(--positive, #22c55e)" }}>+</span>
+                <span style={{ color: "var(--positive)" }}>+</span>
                 <span>{item}</span>
               </li>
             ))}
           </ul>
         </div>
         <div className="space-y-1.5">
-          <p className="font-medium" style={{ color: "var(--critical, #ef4444)" }}>When not to use</p>
+          <p className="font-medium" style={{ color: "var(--critical)" }}>When not to use</p>
           <ul className="space-y-1" style={{ color: "var(--secondary)" }}>
             {guideline.whenNotToUse.slice(0, 2).map((item, i) => (
               <li key={i} className="flex items-start gap-1.5">
-                <span style={{ color: "var(--critical, #ef4444)" }}>−</span>
+                <span style={{ color: "var(--critical)" }}>−</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -452,11 +434,11 @@ function VariantUsagePanel({
       {doPair && (
         <div className="flex gap-3 pt-2 border-t" style={{ borderColor: "var(--docs-border)" }}>
           <div className="flex-1 flex items-start gap-2">
-            <span className="mt-0.5 shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--positive-light, #dcfce7)", color: "var(--positive-dark, #16a34a)" }}>✓</span>
+            <span className="mt-0.5 shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--positive-light)", color: "var(--positive-dark)" }}>✓</span>
             <span style={{ color: "var(--secondary)" }}>{doPair.do}</span>
           </div>
           <div className="flex-1 flex items-start gap-2">
-            <span className="mt-0.5 shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--critical-light, #fef2f2)", color: "var(--critical, #ef4444)" }}>✗</span>
+            <span className="mt-0.5 shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--critical-light)", color: "var(--critical)" }}>✗</span>
             <span style={{ color: "var(--secondary)" }}>{doPair.dont}</span>
           </div>
         </div>
@@ -523,19 +505,23 @@ export function StoryTabs({ stories, meta, className }: StoryTabsProps) {
   return (
     <div className={cn("space-y-4", className)}>
       {/* Tab selector */}
-      <div className="flex flex-wrap gap-2 border-b pb-2">
-        {stories.map((story) => (
-          <Button
-            key={story.name}
-            onClick={() => setActiveStory(story.name)}
-            variant={activeStory === story.name ? "primary" : "text"}
-            size="sm"
-            className="!px-3 !py-1.5"
-          >
-            {formatStoryName(story.name)}
-          </Button>
-        ))}
-      </div>
+      <Tabs
+        type="primary"
+        activeTab={stories.findIndex((s) => s.name === activeStory)}
+        onTabChange={(i) => setActiveStory(stories[i].name)}
+      >
+        <div className="flex flex-wrap">
+          {stories.map((story) => (
+            <TabItem
+              key={story.name}
+              label={formatStoryName(story.name)}
+              active={activeStory === story.name}
+              onSelect={() => setActiveStory(story.name)}
+              type="primary"
+            />
+          ))}
+        </div>
+      </Tabs>
 
       {/* Active story preview */}
       <StoryPreview story={currentStory} meta={meta} showName={false} />

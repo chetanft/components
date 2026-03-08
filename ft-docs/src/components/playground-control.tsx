@@ -2,6 +2,7 @@
 
 import React from "react"
 import type { ControlDef } from "@/lib/playground-controls"
+import { designTokens } from "../../../src/tokens/design-tokens"
 import {
   Input,
   InputNumber,
@@ -98,7 +99,7 @@ export function PlaygroundControl({ control, value, onChange }: PlaygroundContro
         return (
           <ColorPicker
             size="sm"
-            value={value != null ? String(value) : "#000000"}
+            value={value != null ? String(value) : designTokens.baseColors.lightMode.tertiary900}
             onChange={(color: string) => handleChange(color)}
           />
         )

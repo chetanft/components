@@ -192,7 +192,7 @@ const data = {
   data={data}
   height={300}
   showDots={true}
-  dotColors={['#ff0036']}
+  dotColors={[chartColor('critical')]}
 />`,
   },
   {

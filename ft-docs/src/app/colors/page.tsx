@@ -8,88 +8,6 @@ import { useViewMode } from "@/components/view-mode-context"
 import { MachineSpecView } from "@/components/machine-spec-view"
 import { buildColorsSpec } from "@/lib/machine-specs/colors"
 
-// Standard Tailwind colors
-const standardTailwindColors = {
-  teal: {
-    50: '#ecf8f8',
-    100: '#c6ebeb',
-    200: '#a1dede',
-    300: '#7bd1d1',
-    400: '#4cc0c0',
-    500: '#42bdbd',
-    600: '#3caaaa',
-    700: '#2e8484',
-    800: '#215e5e',
-    900: '#143939',
-    950: '#0d2626',
-  },
-  indigo: {
-    50: '#e6e9fe',
-    100: '#b5befd',
-    200: '#8393fb',
-    300: '#6377fa',
-    400: '#213df8',
-    500: '#0828f7',
-    600: '#0724de',
-    700: '#061cad',
-    800: '#04147c',
-    900: '#020c4a',
-    950: '#020831',
-  },
-  blue: {
-    50: '#e8f4fd',
-    100: '#b9dff8',
-    200: '#8bc9f3',
-    300: '#5db4ef',
-    400: '#37a2eb',
-    500: '#1793e8',
-    600: '#1584d1',
-    700: '#1067a2',
-    800: '#0c4a74',
-    900: '#072c46',
-    950: '#051d2e',
-  },
-  pink: {
-    50: '#ffe5eb',
-    100: '#ffb3c3',
-    200: '#ff809a',
-    300: '#ff6384',
-    400: '#ff1a4a',
-    500: '#ff0036',
-    600: '#e60031',
-    700: '#b30026',
-    800: '#80001b',
-    900: '#4d0010',
-    950: '#33000b',
-  },
-  gold: {
-    50: '#fffbf0',
-    100: '#fff4d6',
-    200: '#ffe9b3',
-    300: '#ffdd8f',
-    400: '#ffd16c',
-    500: '#ffbe07',
-    600: '#e6a806',
-    700: '#cc9205',
-    800: '#b37c04',
-    900: '#996603',
-    950: '#805002',
-  },
-  charcoal: {
-    50: '#f5f5f5',
-    100: '#e5e5e5',
-    200: '#d4d4d4',
-    300: '#a3a3a3',
-    400: '#737373',
-    500: '#525252',
-    600: '#404040',
-    700: '#363636',
-    800: '#2a2a2a',
-    900: '#211f1f',
-    950: '#1a1818',
-  },
-}
-
 // Utility functions to convert HEX to RGB and HSL
 function hexToRgb(hex: string): string {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
@@ -340,25 +258,6 @@ function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'ligh
       return bNum - aNum
     })
 
-  // Add standard Tailwind colors
-  Object.entries(standardTailwindColors).forEach(([colorName, shades]) => {
-    colors[colorName] = Object.entries(shades)
-      .map(([shade, hex]) => ({
-        name: `${colorName}-${shade}`,
-        hex: hex as string,
-        rgb: hexToRgb(hex as string),
-        hsl: hexToHsl(hex as string),
-        oklch: hexToOklch(hex as string),
-        cssVar: `--${colorName}-${shade}`,
-        tailwindClass: `bg-${colorName}-${shade}`,
-      }))
-      .sort((a, b) => {
-        const aNum = parseInt(a.name.split('-')[1]) || 0
-        const bNum = parseInt(b.name.split('-')[1]) || 0
-        return bNum - aNum // Descending order (950 to 50)
-      })
-  })
-
   return colors
 }
 
@@ -370,12 +269,6 @@ const colorFamilies = [
   { name: 'positive', label: 'Positive' },
   { name: 'warning', label: 'Warning' },
   { name: 'danger', label: 'Danger' },
-  { name: 'teal', label: 'Teal' },
-  { name: 'indigo', label: 'Indigo' },
-  { name: 'blue', label: 'Blue' },
-  { name: 'pink', label: 'Pink' },
-  { name: 'gold', label: 'Gold' },
-  { name: 'charcoal', label: 'Charcoal' },
 ]
 
 export default function ColorsPage() {
@@ -425,6 +318,20 @@ export default function ColorsPage() {
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
+      {/* Floating "Copied!" tooltip */}
+      {copiedValue && (
+        <div
+          className="fixed bottom-8 left-1/2 z-50 -translate-x-1/2 rounded-md border border-border px-4 py-2 text-sm-rem font-medium shadow-lg"
+          style={{
+            backgroundColor: "var(--bg-primary)",
+            color: "var(--primary)",
+          }}
+          role="status"
+          aria-live="polite"
+        >
+          Copied!
+        </div>
+      )}
       <SiteHeader />
       <main className="flex-1">
         <div className="container mx-auto max-w-7xl px-4 py-12">
@@ -490,6 +397,7 @@ export default function ColorsPage() {
                           key={swatch.name}
                           className="group cursor-pointer space-y-2"
                           onClick={() => copyToClipboard(displayValue)}
+                          title="Click to copy"
                         >
                           <div
                             className="relative h-24 w-full rounded-md border shadow-sm transition-transform hover:scale-105"
@@ -502,16 +410,6 @@ export default function ColorsPage() {
                               >
                                 {shade}
                               </span>
-                              <div
-                                className="mt-1 opacity-0 transition-opacity group-hover:opacity-100"
-                              >
-                                <span
-                                  className="text-xs-rem font-medium"
-                                  style={{ color: getContrastColor(swatch.hex) }}
-                                >
-                                  {isCopied ? 'Copied!' : 'Click'}
-                                </span>
-                              </div>
                             </div>
                           </div>
                           <div className="space-y-1">

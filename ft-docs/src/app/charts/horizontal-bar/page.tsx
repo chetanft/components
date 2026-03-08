@@ -37,7 +37,7 @@ const data = {
     {
       label: 'Sales ($K)',
       data: [125, 98, 87, 72, 65],
-      backgroundColor: ['#ffbe07', '#c5cad3', '#cd7f32', '#42bdbd', '#42bdbd'],
+      backgroundColor: [chartColor('warning'), chartColor('primary-100'), chartColor('warning-dark'), chartColor('primary-700'), chartColor('primary-500')],
     },
   ],
 }
@@ -60,7 +60,7 @@ const data = {
     {
       label: 'Completion',
       data: [85, 65, 45, 92],
-      backgroundColor: ['#00c638', '#1890ff', '#ff6c19', '#00c638'],
+      backgroundColor: [chartColor('positive'), chartColor('neutral'), chartColor('warning'), chartColor('positive')],
       borderRadius: 4,
     },
   ],
@@ -94,17 +94,17 @@ const data = {
     {
       label: 'Completed',
       data: [45, 38, 28, 52],
-      backgroundColor: '#00c638',
+      backgroundColor: chartColor('positive'),
     },
     {
       label: 'In Progress',
       data: [25, 22, 32, 18],
-      backgroundColor: '#1890ff',
+      backgroundColor: chartColor('neutral'),
     },
     {
       label: 'Pending',
       data: [30, 40, 40, 30],
-      backgroundColor: '#838c9d',
+      backgroundColor: chartColor('primary-300'),
     },
   ],
 }

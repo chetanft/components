@@ -118,7 +118,7 @@ export default function MigrationsPage() {
                                             {migration.component} {migration.version}
                                         </h3>
                                         <div className="flex items-center gap-2 mt-1">
-                                            <Icon name="check-fill" size={16} className="text-green-600" />
+                                            <Icon name="check-fill" size={16} className="text-[var(--positive-dark)]" />
                                             <span className="text-sm-rem text-muted-foreground">
                                                 {migration.status === "complete" ? "Complete" : "In Progress"}
                                             </span>

@@ -142,7 +142,7 @@ const data = {
   title="Custom Colors"
   data={data}
   height={300}
-  defaultColors={['#ff6b6b', '#4ecdc4']}
+  defaultColors={chartPalette('default').slice(0, 2)}
 />`,
   },
   {
@@ -161,8 +161,8 @@ const data = {
         { x: 20, y: 90 },
         { x: 25, y: 88 },
       ],
-      backgroundColor: '#00c638',
-      borderColor: '#00c638',
+      backgroundColor: chartColor('positive'),
+      borderColor: chartColor('positive'),
     },
     {
       label: 'Warning',
@@ -171,8 +171,8 @@ const data = {
         { x: 35, y: 60 },
         { x: 40, y: 52 },
       ],
-      backgroundColor: '#ff6c19',
-      borderColor: '#ff6c19',
+      backgroundColor: chartColor('warning'),
+      borderColor: chartColor('warning'),
     },
     {
       label: 'Critical',
@@ -181,8 +181,8 @@ const data = {
         { x: 50, y: 20 },
         { x: 55, y: 15 },
       ],
-      backgroundColor: '#ff3533',
-      borderColor: '#ff3533',
+      backgroundColor: chartColor('critical'),
+      borderColor: chartColor('critical'),
     },
   ],
 }
@@ -207,8 +207,8 @@ const data = {
         { x: 10, y: 12 }, { x: 12, y: 14 }, { x: 11, y: 11 },
         { x: 13, y: 15 }, { x: 14, y: 13 }, { x: 12, y: 12 },
       ],
-      backgroundColor: 'rgba(66, 189, 189, 0.6)',
-      borderColor: '#42bdbd',
+      backgroundColor: chartAlpha('primary-700', 0.6),
+      borderColor: chartColor('primary-700'),
     },
     {
       label: 'Cluster B',
@@ -216,8 +216,8 @@ const data = {
         { x: 30, y: 32 }, { x: 32, y: 34 }, { x: 31, y: 31 },
         { x: 33, y: 35 }, { x: 34, y: 33 }, { x: 32, y: 32 },
       ],
-      backgroundColor: 'rgba(8, 40, 247, 0.6)',
-      borderColor: '#0828f7',
+      backgroundColor: chartAlpha('neutral-dark', 0.6),
+      borderColor: chartColor('neutral-dark'),
     },
     {
       label: 'Cluster C',
@@ -225,8 +225,8 @@ const data = {
         { x: 50, y: 15 }, { x: 52, y: 17 }, { x: 51, y: 14 },
         { x: 53, y: 18 }, { x: 54, y: 16 }, { x: 52, y: 15 },
       ],
-      backgroundColor: 'rgba(255, 0, 54, 0.6)',
-      borderColor: '#ff0036',
+      backgroundColor: chartAlpha('critical', 0.6),
+      borderColor: chartColor('critical'),
     },
   ],
 }

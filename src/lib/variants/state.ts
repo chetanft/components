@@ -78,7 +78,7 @@ export const severityVariants = cva('', {
             info: 'bg-[var(--neutral-light)] border-[var(--neutral)] text-[var(--neutral-dark)]',
             success: 'bg-[var(--positive-light)] border-[var(--positive)] text-[var(--positive-dark)]',
             warning: 'bg-[var(--warning-light)] border-[var(--warning)] text-[var(--warning-dark)]',
-            error: 'bg-[var(--danger-100)] border-[var(--danger-500)] text-[var(--danger-500)]',
+            error: 'bg-[var(--critical-light)] border-[var(--critical)] text-[var(--critical)]',
         },
     },
     defaultVariants: {

@@ -365,9 +365,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   // Variant styles using CSS variables that adapt to themes automatically
   const variantStyles: Record<ButtonVariant, string> = {
     primary: cn(
-      "bg-[var(--primary-700)] text-white border border-[var(--primary-700)] shadow-sm",
-      "hover:bg-[var(--primary-800)] hover:border-[var(--primary-800)] hover:shadow-md",
-      "focus-visible:ring-[var(--primary-700)]",
+      "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] border border-[var(--button-primary-border)] shadow-sm",
+      "hover:bg-[var(--button-primary-hover-bg)] hover:border-[var(--button-primary-hover-bg)] hover:shadow-md",
+      "focus-visible:ring-[var(--button-primary-border)]",
       "disabled:bg-[var(--tertiary)] disabled:border-[var(--tertiary)] disabled:text-white disabled:opacity-50 disabled:shadow-none"
     ),
     secondary: cn(

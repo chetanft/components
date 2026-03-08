@@ -4,7 +4,7 @@ import * as React from "react"
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live"
 import { registry } from "@/registry"
 import { cn } from "@/lib/utils"
-import { Icon, Button } from "@/registry"
+import { Icon, Button, Tabs, TabItem } from "@/registry"
 
 interface ComponentPreviewProps {
     code: string
@@ -202,27 +202,18 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                 code={wrappedCode}
                 scope={registry}
             >
-                <div className="relative rounded-lg border bg-background shadow-sm overflow-hidden">
-                    <div className="flex items-center justify-between border-b p-2">
-                        <div className="flex items-center gap-2">
-                            <Button
-                                onClick={() => setView("preview")}
-                                variant={view === "preview" ? "secondary" : "text"}
-                                size="sm"
-                                className="!px-3 !py-1.5"
-                            >
-                                Preview
-                            </Button>
-                            <Button
-                                onClick={() => setView("code")}
-                                variant={view === "code" ? "secondary" : "text"}
-                                size="sm"
-                                className="!px-3 !py-1.5"
-                            >
-                                <Icon name="document" size={16} className="mr-2" />
-                                Code
-                            </Button>
-                        </div>
+                <div className="relative rounded-lg border border-border bg-background shadow-sm overflow-hidden">
+                    <div className="flex items-center justify-between border-b border-border p-2">
+                        <Tabs
+                            type="secondary"
+                            activeTab={view === "preview" ? 0 : 1}
+                            onTabChange={(i) => setView(i === 0 ? "preview" : "code")}
+                        >
+                            <div className="flex items-center gap-1">
+                                <TabItem label="Preview" active={view === "preview"} onSelect={() => setView("preview")} type="secondary" />
+                                <TabItem label="Code" active={view === "code"} onSelect={() => setView("code")} type="secondary" />
+                            </div>
+                        </Tabs>
                         <Button
                             onClick={onCopy}
                             variant="secondary"
@@ -247,7 +238,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                     )}
 
                     {view === "code" && (
-                        <div className="relative bg-[var(--bg-secondary)] p-4">
+                        <div className="relative bg-[var(--docs-code-bg)] p-4">
                             <LiveEditor
                                 className="font-mono text-sm-rem"
                                 disabled

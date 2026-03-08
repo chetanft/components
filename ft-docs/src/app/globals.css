@@ -31,6 +31,7 @@
     --docs-input: var(--border-secondary);
     --docs-ring: var(--primary);
     --docs-radius: var(--component-border-radius);
+    --docs-code-bg: var(--bg-secondary);
   }
 
   /* Dark mode - FT tokens automatically change via .dark class in main globals.css */
@@ -57,6 +58,7 @@
     --docs-border-strong: var(--border-primary);
     --docs-input: var(--border-primary);
     --docs-ring: var(--primary);
+    --docs-code-bg: var(--bg-tertiary);
   }
 
   /* Night mode - FT tokens automatically change via .night class in main globals.css */
@@ -82,6 +84,7 @@
     --docs-border-strong: var(--border-primary);
     --docs-input: var(--border-secondary);
     --docs-ring: var(--primary);
+    --docs-code-bg: var(--bg-secondary);
   }
 
   /* Override Tailwind preflight border-color (compiled as hardcoded gray-200) */
@@ -93,4 +96,13 @@
     background-color: var(--docs-background);
     color: var(--docs-foreground);
   }
+}
+
+/* Shiki dual-theme: activate --shiki-dark variables in dark & night modes */
+html.dark .shiki,
+html.dark .shiki span,
+html.night .shiki,
+html.night .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--docs-code-bg) !important;
 }

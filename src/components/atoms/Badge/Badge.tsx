@@ -233,7 +233,7 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
           case 'error': return 'var(--critical)';
           case 'warning': return 'var(--warning)';
           case 'default':
-          default: return 'var(--neutral-400)';
+          default: return 'var(--neutral)';
         }
       };
 

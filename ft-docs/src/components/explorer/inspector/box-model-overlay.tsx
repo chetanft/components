@@ -1,6 +1,7 @@
 "use client"
 
 import { MeasurementBadge } from "@/components/explorer/inspector/measurement-badge"
+import { chartAlpha, chartColor } from "@/lib/chart-color-tokens"
 import type { InspectorMeasurement, InspectorViewOptions } from "@/components/explorer/inspector/types"
 
 interface BoxModelOverlayProps extends InspectorViewOptions {
@@ -22,7 +23,7 @@ export function BoxModelOverlay({ measurement, scale = 1, highContrast = false }
           top: rootTop,
           width: rootWidth,
           height: rootHeight,
-          borderColor: highContrast ? "rgba(239, 68, 68, 1)" : "rgba(34, 197, 94, 0.9)",
+          borderColor: highContrast ? chartColor("critical") : chartAlpha("positive", 0.9),
           transform: `scale(${scale})`,
           transformOrigin: "top left",
         }}
@@ -34,8 +35,8 @@ export function BoxModelOverlay({ measurement, scale = 1, highContrast = false }
           top: rootTop + measurement.border.top,
           width: Math.max(0, rootWidth - measurement.border.left - measurement.border.right),
           height: Math.max(0, rootHeight - measurement.border.top - measurement.border.bottom),
-          background: highContrast ? "rgba(239, 68, 68, 0.2)" : "rgba(59, 130, 246, 0.14)",
-          outline: highContrast ? "1px dashed rgba(239, 68, 68, 0.8)" : "1px dashed rgba(59, 130, 246, 0.5)",
+          background: highContrast ? chartAlpha("critical", 0.2) : chartAlpha("neutral", 0.14),
+          outline: highContrast ? `1px dashed ${chartAlpha("critical", 0.8)}` : `1px dashed ${chartAlpha("neutral", 0.5)}`,
           transform: `scale(${scale})`,
           transformOrigin: "top left",
         }}
@@ -47,8 +48,8 @@ export function BoxModelOverlay({ measurement, scale = 1, highContrast = false }
           top: measurement.content.y,
           width: measurement.content.width,
           height: measurement.content.height,
-          background: highContrast ? "rgba(245, 158, 11, 0.2)" : "rgba(236, 72, 153, 0.12)",
-          outline: highContrast ? "1px dashed rgba(245, 158, 11, 0.9)" : "1px dashed rgba(236, 72, 153, 0.7)",
+          background: highContrast ? chartAlpha("warning", 0.2) : chartAlpha("critical", 0.12),
+          outline: highContrast ? `1px dashed ${chartAlpha("warning", 0.9)}` : `1px dashed ${chartAlpha("critical", 0.7)}`,
           transform: `scale(${scale})`,
           transformOrigin: "top left",
         }}
@@ -68,4 +69,3 @@ export function BoxModelOverlay({ measurement, scale = 1, highContrast = false }
     </>
   )
 }
-

@@ -7,6 +7,7 @@ import { useState, useMemo, useEffect } from "react"
 import { useViewMode } from "@/components/view-mode-context"
 import { MachineSpecView } from "@/components/machine-spec-view"
 import { buildIconsSpec } from "@/lib/machine-specs/icons"
+import { designTokens } from "../../../../src/tokens/design-tokens"
 import {
   Input,
   Slider,
@@ -425,7 +426,7 @@ export default function IconsPage() {
                     <ColorPicker
                       size="sm"
                       value={iconColor === "currentColor" || iconColor.startsWith("var(") ?
-                        (typeof window !== 'undefined' ? getComputedStyle(document.documentElement).getPropertyValue('--primary-700').trim() || "#434f64" : "#434f64")
+                        (typeof window !== 'undefined' ? getComputedStyle(document.documentElement).getPropertyValue('--primary-700').trim() || designTokens.baseColors.lightMode.primary700 : designTokens.baseColors.lightMode.primary700)
                         : iconColor}
                       onChange={(color) => setIconColor(color)}
                     />

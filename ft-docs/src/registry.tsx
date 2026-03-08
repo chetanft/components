@@ -42,6 +42,7 @@ import {
     RadioSelector,
     ReadOnly,
     SegmentedTabs,
+    SegmentedTabItem,
     SimpleColumnLayout,
     Spacer,
     StackedBarChart,
@@ -56,6 +57,7 @@ import {
     Switch,
     Table,
     Tabs,
+    TabItem,
     Text,
     Tooltip,
     Typography,
@@ -168,6 +170,7 @@ export {
     SegmentedTabs,
     SegmentedTabItem,
     Tabs,
+    TabItem,
     Modal,
     ModalContent,
     ModalBody,
@@ -185,6 +188,7 @@ export {
 import { Add as PlusIcon } from "../../src/components/atoms/Icons/Add"
 // ArrowRight and Pencil — no FT equivalent, Lucide is intentional
 import { ArrowRight as ArrowRightIcon, Pencil as PencilIcon } from "lucide-react"
+import { chartColor, chartAlpha, chartPalette } from "@/lib/chart-color-tokens"
 
 // Sample data for component examples
 const sampleOptions = [
@@ -310,6 +314,7 @@ export const registry: Record<string, React.ComponentType<any> | any> = {
     RadioSelector,
     ReadOnly,
     SegmentedTabs,
+    SegmentedTabItem,
     SimpleColumnLayout,
     Spacer,
     StackedBarChart,
@@ -324,6 +329,7 @@ export const registry: Record<string, React.ComponentType<any> | any> = {
     Switch,
     Table,
     Tabs,
+    TabItem,
     Text,
     Tooltip,
     Typography,
@@ -419,4 +425,7 @@ export const registry: Record<string, React.ComponentType<any> | any> = {
     sampleImageUrl,
     sampleCascaderOptions,
     sampleTimelineItems,
+    chartColor,
+    chartAlpha,
+    chartPalette,
 }

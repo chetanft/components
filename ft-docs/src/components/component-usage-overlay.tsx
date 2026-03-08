@@ -118,13 +118,13 @@ function UsageContent({
         <div
           className="rounded-lg border p-4 space-y-3"
           style={{
-            borderColor: "var(--positive, #22c55e)",
-            backgroundColor: "var(--positive-light, #f0fdf4)",
+            borderColor: "var(--positive)",
+            backgroundColor: "var(--positive-light)",
           }}
         >
           <h4
             className="font-semibold text-sm-rem"
-            style={{ color: "var(--positive-dark, #16a34a)" }}
+            style={{ color: "var(--positive-dark)" }}
           >
             When to use
           </h4>
@@ -137,7 +137,7 @@ function UsageContent({
               >
                 <span
                   className="mt-1 shrink-0 w-1.5 h-1.5 rounded-full"
-                  style={{ backgroundColor: "var(--positive, #22c55e)" }}
+                  style={{ backgroundColor: "var(--positive)" }}
                 />
                 {item}
               </li>
@@ -148,13 +148,13 @@ function UsageContent({
         <div
           className="rounded-lg border p-4 space-y-3"
           style={{
-            borderColor: "var(--critical, #ef4444)",
-            backgroundColor: "var(--critical-light, #fef2f2)",
+            borderColor: "var(--critical)",
+            backgroundColor: "var(--critical-light)",
           }}
         >
           <h4
             className="font-semibold text-sm-rem"
-            style={{ color: "var(--critical, #ef4444)" }}
+            style={{ color: "var(--critical)" }}
           >
             When not to use
           </h4>
@@ -167,7 +167,7 @@ function UsageContent({
               >
                 <span
                   className="mt-1 shrink-0 w-1.5 h-1.5 rounded-full"
-                  style={{ backgroundColor: "var(--critical, #ef4444)" }}
+                  style={{ backgroundColor: "var(--critical)" }}
                 />
                 {item}
               </li>
@@ -224,15 +224,15 @@ function UsageContent({
               <div
                 className="flex items-start gap-2 rounded-lg border p-3"
                 style={{
-                  borderColor: "var(--positive, #22c55e)",
-                  backgroundColor: "var(--positive-light, #f0fdf4)",
+                  borderColor: "var(--positive)",
+                  backgroundColor: "var(--positive-light)",
                 }}
               >
                 <span
                   className="mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold"
                   style={{
-                    backgroundColor: "var(--positive, #22c55e)",
-                    color: "white",
+                    backgroundColor: "var(--positive)",
+                    color: "var(--white)",
                   }}
                 >
                   ✓
@@ -247,15 +247,15 @@ function UsageContent({
               <div
                 className="flex items-start gap-2 rounded-lg border p-3"
                 style={{
-                  borderColor: "var(--critical, #ef4444)",
-                  backgroundColor: "var(--critical-light, #fef2f2)",
+                  borderColor: "var(--critical)",
+                  backgroundColor: "var(--critical-light)",
                 }}
               >
                 <span
                   className="mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold"
                   style={{
-                    backgroundColor: "var(--critical, #ef4444)",
-                    color: "white",
+                    backgroundColor: "var(--critical)",
+                    color: "var(--white)",
                   }}
                 >
                   ✗

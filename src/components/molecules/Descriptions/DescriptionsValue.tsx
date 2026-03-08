@@ -38,7 +38,7 @@ export const DescriptionsValue = React.forwardRef<HTMLDivElement, DescriptionsVa
     if (asChild) {
       return (
         <Slot ref={ref} className={className} {...props}>
-          <Typography variant="body-primary-regular" className="whitespace-pre-wrap" style={{ color: 'var(--primary-500)' }}>
+          <Typography variant="body-primary-regular" className="whitespace-pre-wrap" style={{ color: 'var(--tertiary)' }}>
             {children}
           </Typography>
         </Slot>
@@ -50,7 +50,7 @@ export const DescriptionsValue = React.forwardRef<HTMLDivElement, DescriptionsVa
         {React.isValidElement(children) ? (
           children
         ) : (
-          <Typography variant="body-primary-regular" className="whitespace-pre-wrap" style={{ color: 'var(--primary-500)' }}>
+          <Typography variant="body-primary-regular" className="whitespace-pre-wrap" style={{ color: 'var(--tertiary)' }}>
             {children}
           </Typography>
         )}
@@ -60,4 +60,3 @@ export const DescriptionsValue = React.forwardRef<HTMLDivElement, DescriptionsVa
 );
 
 DescriptionsValue.displayName = 'DescriptionsValue';
-

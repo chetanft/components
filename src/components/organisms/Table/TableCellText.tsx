@@ -128,7 +128,7 @@ export const TableCellText: React.FC<TableCellTextProps> = ({
           <Typography
             key={index}
             variant="body-primary-regular"
-            className={index === 0 ? "text-[var(--primary)]" : "text-[var(--primary-500)]"}
+            className={index === 0 ? "text-[var(--primary)]" : "text-[var(--tertiary)]"}
           >
             {line}
           </Typography>

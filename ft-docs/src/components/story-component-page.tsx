@@ -12,7 +12,7 @@ import { DocPager } from "@/components/doc-pager";
 import { CodeBlock } from "@/components/code-block";
 import { useToc, type TocItem } from "@/components/toc-context";
 import { buildMachineSpec } from "@/lib/machine-spec";
-import { Badge, Button } from "@/registry";
+import { Badge, Button, Tabs, TabItem } from "@/registry";
 import { useViewMode } from "@/components/view-mode-context";
 import { MachineSpecView } from "@/components/machine-spec-view";
 
@@ -320,19 +320,23 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
             <h2 className="text-section font-semibold scroll-mt-20">Installation</h2>
 
             {/* Package manager tabs */}
-            <div className="flex items-center gap-1 border-b border-border">
-              {(["npm", "pnpm", "yarn"] as const).map((tab) => (
-                <Button
-                  key={tab}
-                  onClick={() => setInstallTab(tab)}
-                  variant={installTab === tab ? "secondary" : "text"}
-                  size="sm"
-                  className={cn("!rounded-none !border-0 !border-b-2 -mb-px", installTab === tab ? "!border-[var(--primary)]" : "!border-transparent")}
-                >
-                  {tab}
-                </Button>
-              ))}
-            </div>
+            <Tabs
+              type="primary"
+              activeTab={["npm", "pnpm", "yarn"].indexOf(installTab)}
+              onTabChange={(index) => setInstallTab((["npm", "pnpm", "yarn"] as const)[index])}
+            >
+              <div className="flex">
+                {(["npm", "pnpm", "yarn"] as const).map((tab, i) => (
+                  <TabItem
+                    key={tab}
+                    label={tab}
+                    active={installTab === tab}
+                    onSelect={() => setInstallTab(tab)}
+                    type="primary"
+                  />
+                ))}
+              </div>
+            </Tabs>
 
             <CodeBlock code={installCommands[installTab]} lang="bash" />
 

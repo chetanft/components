@@ -15,7 +15,7 @@ export function MeasurementBadge({ x, y, label, highContrast = false }: Measurem
         left: x,
         top: y,
         background: highContrast ? "var(--critical)" : "var(--neutral)",
-        color: "white",
+        color: "var(--white)",
         boxShadow: "var(--shadow-sm)",
       }}
     >
@@ -23,4 +23,3 @@ export function MeasurementBadge({ x, y, label, highContrast = false }: Measurem
     </div>
   )
 }
-

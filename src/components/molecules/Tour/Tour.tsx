@@ -189,7 +189,7 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
         <div className="flex justify-between items-center mt-[var(--spacing-x4)]">
           <div className="flex gap-[var(--spacing-x1)] text-xs text-[var(--text-tertiary)]">
             {stepsFromChildren.map((_, idx) => (
-              <span key={idx} className={cn("w-2 h-2 rounded-full", idx === current ? "bg-[var(--primary)]" : "bg-[var(--neutral-200)]")} />
+              <span key={idx} className={cn("w-2 h-2 rounded-full", idx === current ? "bg-[var(--primary)]" : "bg-[var(--border-primary)]")} />
             ))}
           </div>
           <div className="flex gap-[var(--spacing-x2)]">

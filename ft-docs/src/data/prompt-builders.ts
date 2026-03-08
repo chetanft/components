@@ -55,9 +55,9 @@ Table: compose with TableHeader/TableBody/TableRow/TableHead/TableCell
 Modal: open, onOpenChange, children=ModalContent
 
 ## COLORS (use Tailwind classes)
-primary-700=#434F64 → bg-primary-700
-critical=#ff3532 → text-critical
-positive=#00c637 → text-positive
+primary-700 → bg-primary-700
+critical → text-critical
+positive → text-positive
 
 ## SPACING (8-point grid, use --spacing-x* canonical names)
 ${SPACING_SUMMARY}
@@ -98,8 +98,8 @@ import { Button } from 'ft-design-system/core';
 
 ### 2. Never use arbitrary Tailwind values
 \`\`\`tsx
-// ❌ FORBIDDEN - no hardcoded hex colors or arbitrary values
-<div className="bg-[ #434F64 ] text-[ #838C9D ]" />
+// ❌ FORBIDDEN - no hardcoded color values or arbitrary values
+<div style={{ backgroundColor: someHardcodedColor, color: anotherHardcodedColor }} />
 <Button className="h-12 rounded-lg p-4" />
 
 // ✅ CORRECT
