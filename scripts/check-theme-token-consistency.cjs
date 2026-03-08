@@ -131,6 +131,7 @@ function checkThemeTokenConsistency() {
     /^--grid-/,
     /^--container-/,
     /^--primary-bg-subtle$/, // structural alias
+    /^--secondary-0$/,       // light-mode-only base scale endpoint
   ];
 
   function isThemeInvariant(token) {

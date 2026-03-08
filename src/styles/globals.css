@@ -13,27 +13,28 @@
      BASE COLOR SCALES - LIGHT MODE (FOUNDATION)
      ===================================================== */
 
-   /* Primary Scale (9 shades) */
+   /* Primary Scale (9 shades) — matches Figma Base Colors / Primary */
    --primary-900: #1a2330;
    --primary-800: #2c3547;
    --primary-700: #434f64; /* Main brand color - dark navy */
-   --primary-600: #49556a;
-   --primary-500: #5f697b;
-   --primary-400: #6c7689;
-   --primary-300: #838c9d;
-   --primary-200: #9aa3b2;
-   --primary-100: #c5cad3;
+   --primary-600: #5f697b;
+   --primary-500: #838c9d;
+   --primary-400: #a7afb9;
+   --primary-300: #ced1d7;
+   --primary-200: #e4e7ec;
+   --primary-100: #f0f1f7;
 
-   /* Secondary Scale (9 shades) */
-   --secondary-900: #1e1f22;
-   --secondary-800: #303236;
-   --secondary-700: #4a4d52;
-   --secondary-600: #6c6f75;
-   --secondary-500: #979ba2;
+   /* Secondary Scale (10 shades including 0) — matches Figma Base Colors / Secondary */
+   --secondary-900: #2b3645;
+   --secondary-800: #3d4c60;
+   --secondary-700: #596272;
+   --secondary-600: #6f7a8a;
+   --secondary-500: #939ba5;
    --secondary-400: #b6bac0;
-   --secondary-300: #ced1d7;
-   --secondary-200: #ebecef;
-   --secondary-100: #f0f1f7;
+   --secondary-300: #d5d7dc;
+   --secondary-200: #f0f1f7;
+   --secondary-100: #f8f8f9;
+   --secondary-0: #ffffff;
 
    /* Tertiary Scale (10 shades including 0) */
    --tertiary-900: #121314;
@@ -98,32 +99,32 @@
    /* Base Semantic Colors - Reference base color scales */
    --primary: var(--primary-700);
    /* #434f64 */
-   --secondary: var(--primary-500);
+   --secondary: var(--primary-600);
    /* #5f697b */
-   --tertiary: var(--primary-300);
+   --tertiary: var(--primary-500);
    /* #838c9d */
-   --border-primary: var(--secondary-300);
-   /* #ced1d7 */
-   --border-secondary: var(--secondary-100);
-   /* #f0f1f7 */
-   --bg-primary: var(--tertiary-0);
-   /* #ffffff */
-   --bg-secondary: var(--tertiary-100);
-   /* #f8f8f9 */
+   --border-primary: var(--primary-300);
+   /* #ced1d7 — Figma: Primary/300 */
+   --border-secondary: var(--primary-100);
+   /* #f0f1f7 — Figma: Primary/100 */
+   --bg-primary: var(--secondary-0);
+   /* #ffffff — Figma: Secondary/0 */
+   --bg-secondary: var(--secondary-100);
+   /* #f8f8f9 — Figma: Secondary/100 */
    --bg-tertiary: var(--tertiary-200);
    /* #f4f4f6 */
 
    /* Text Semantic Colors */
    --text-primary: var(--primary-700);
    /* #434f64 - main body text */
-   --text-secondary: var(--primary-500);
+   --text-secondary: var(--primary-600);
    /* #5f697b - muted/secondary text */
-   --text-tertiary: var(--primary-300);
+   --text-tertiary: var(--primary-500);
    /* #838c9d - subtle/hint text */
    --text-placeholder: var(--secondary-400);
    /* #b6bac0 - placeholder text */
    --text-disabled: var(--secondary-300);
-   /* #ced1d7 - disabled text */
+   /* #ced1d7 → now #d5d7dc - disabled text */
 
    /* Misc Semantic Colors */
    --color-divider: var(--secondary-200);
@@ -1207,7 +1208,7 @@
    /* #404040 - Disabled thumb (on state) */
 
    /* Status Colors - Figma night-mode mappings */
-   --critical-dark: #b70100;
+   --critical-dark: #b80100;
    /* Critical_Dark */
    --critical: #ff6666;
    /* Critical */
@@ -1221,14 +1222,14 @@
    --warning-light: #ffebdc;
    /* Warning_Light */
 
-   --positive-dark: #00753d;
+   --positive-dark: #00763d;
    /* Positive_Dark */
    --positive: #33ff77;
    /* Positive */
    --positive-light: #dfffe8;
    /* Positive_Light */
 
-   --neutral-dark: #006dd3;
+   --neutral-dark: #006ed3;
    /* Neutral_Dark */
    --neutral: #66b3ff;
    /* Neutral */
