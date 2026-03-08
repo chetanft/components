@@ -1,19 +1,9 @@
 import { NextResponse } from "next/server";
-import { getComponentGuideline } from "@/data/designer-guidelines";
-import { getAvailableStoryComponents } from "@/lib/story-loader";
-
-/**
- * Dynamic route for per-component machine-readable specs.
- *
- * NOTE: The full `buildMachineSpec()` in lib/machine-spec.ts requires
- * StoryMeta and StoryDefinition from async Storybook story imports.
- * Those dynamic imports rely on webpack bundler context that is not
- * available in Route Handlers. This route therefore builds a static
- * spec from the designer-guidelines data (which IS server-safe) and
- * provides category, variants, do/don't guidance, Figma links, and
- * related components. Story-level detail (argTypes, story count) is
- * only available via the interactive ?view=machine client toggle.
- */
+import { buildMachineSpecFromInput } from "@/lib/machine-spec";
+import {
+  COMPONENT_MACHINE_METADATA,
+  COMPONENT_MACHINE_METADATA_BY_SLUG,
+} from "@/data/component-machine-metadata.generated";
 
 function slugToComponentName(slug: string): string {
   return slug
@@ -27,68 +17,28 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const componentName = slugToComponentName(slug);
-  const guideline = getComponentGuideline(componentName);
+  const metadata =
+    COMPONENT_MACHINE_METADATA_BY_SLUG[slug] ||
+    COMPONENT_MACHINE_METADATA[slugToComponentName(slug)];
 
-  if (!guideline) {
-    // Still provide a minimal spec even without guidelines
-    const lines = [
-      `# ${componentName}`,
-      `IMPORT: import { ${componentName} } from 'ft-design-system';`,
-      "",
-      "NOTE: No detailed designer guidelines available for this component.",
-      "For full prop/story details, visit the interactive docs page:",
-      `  /docs/components/${slug}?view=machine`,
-    ];
-    return new NextResponse(lines.join("\n"), {
+  if (!metadata) {
+    const componentName = slugToComponentName(slug);
+    return new NextResponse(buildMachineSpecFromInput(componentName, {}), {
       headers: { "Content-Type": "text/plain; charset=utf-8" },
     });
   }
 
-  const lines: string[] = [];
-
-  lines.push(`# ${componentName}`);
-  lines.push(`CATEGORY: ${guideline.category}`);
-  lines.push(`IMPORT: import { ${componentName} } from 'ft-design-system';`);
-
-  if (guideline.variants) {
-    lines.push(
-      `VARIANTS: ${guideline.variants.map((v) => v.name).join(" | ")}`
-    );
-  }
-
-  if (guideline.figmaLinks && guideline.figmaLinks.length > 0) {
-    guideline.figmaLinks.forEach((link) => {
-      lines.push(`FIGMA: ${link}`);
-    });
-  }
-
-  lines.push("");
-  lines.push(`WHEN_TO_USE: ${guideline.whenToUse.join("; ")}`);
-  lines.push(`WHEN_NOT_TO_USE: ${guideline.whenNotToUse.join("; ")}`);
-
-  lines.push("");
-  guideline.designDosAndDonts.forEach((pair) => {
-    lines.push(`DO: ${pair.do}`);
-    lines.push(`DONT: ${pair.dont}`);
-  });
-
-  if (guideline.relatedComponents.length > 0) {
-    lines.push("");
-    lines.push(`RELATED: ${guideline.relatedComponents.join(", ")}`);
-  }
-
-  if (guideline.variants && guideline.variants.length > 0) {
-    lines.push("");
-    lines.push("## Variant Details");
-    guideline.variants.forEach((v) => {
-      lines.push(`${v.name}: ${v.description} — ${v.useCase}`);
-    });
-  }
-
-  return new NextResponse(lines.join("\n"), {
-    headers: { "Content-Type": "text/plain; charset=utf-8" },
-  });
+  return new NextResponse(
+    buildMachineSpecFromInput(metadata.componentName, {
+      variantOptions: metadata.variantOptions,
+      sizeOptions: metadata.sizeOptions,
+      propNames: metadata.propNames,
+      storyCount: metadata.storyCount,
+    }),
+    {
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+    }
+  );
 }
 
 /**
@@ -96,11 +46,7 @@ export async function GET(
  * can be pre-rendered at build time.
  */
 export async function generateStaticParams() {
-  const components = getAvailableStoryComponents();
-  return components.map((name) => ({
-    slug: name
-      .replace(/([A-Z])/g, (m, p1, offset) =>
-        offset > 0 ? `-${p1.toLowerCase()}` : p1.toLowerCase()
-      ),
+  return Object.values(COMPONENT_MACHINE_METADATA).map((item) => ({
+    slug: item.slug,
   }));
 }

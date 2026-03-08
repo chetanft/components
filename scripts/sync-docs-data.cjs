@@ -18,6 +18,7 @@ const path = require('path');
 const { parseCssTokens } = require('./lib/parse-css-tokens.cjs');
 const { generateComponentDesignSpecs } = require('./generate-component-design-specs.cjs');
 const { generateCoverage } = require('./generate-machine-mode-coverage.cjs');
+const { generateComponentMachineMetadata } = require('./lib/generate-component-machine-metadata.cjs');
 
 const projectRoot = path.join(__dirname, '..');
 
@@ -268,7 +269,11 @@ function syncDocsData() {
     'cyan'
   );
 
-  log('\n7️⃣  Generating machine mode coverage...', 'blue');
+  log('\n7️⃣  Generating component machine metadata...', 'blue');
+  const machineMetadataResult = generateComponentMachineMetadata(projectRoot);
+  log(`   ${path.relative(projectRoot, machineMetadataResult.tsPath)} (${machineMetadataResult.count} components)`, 'cyan');
+
+  log('\n8️⃣  Generating machine mode coverage...', 'blue');
   const coverageResult = generateCoverage();
   log(`   Covered: ${coverageResult.summary.covered}/${coverageResult.summary.total}`, 'cyan');
 

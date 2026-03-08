@@ -6,10 +6,16 @@
 import type { StoryMeta, StoryDefinition } from "@/lib/story-loader";
 import { getComponentGuideline } from "@/data/designer-guidelines";
 
-export function buildMachineSpec(
+export interface MachineSpecInput {
+  variantOptions?: string[];
+  sizeOptions?: string[];
+  propNames?: string[];
+  storyCount?: number;
+}
+
+export function buildMachineSpecFromInput(
   componentName: string,
-  meta: StoryMeta,
-  stories: StoryDefinition[]
+  input: MachineSpecInput
 ): string {
   const guideline = getComponentGuideline(componentName);
   const lines: string[] = [];
@@ -22,43 +28,29 @@ export function buildMachineSpec(
 
   lines.push(`IMPORT: import { ${componentName} } from 'ft-design-system';`);
 
-  // Variants from guidelines or argTypes
-  if (guideline?.variants) {
-    lines.push(
-      `VARIANTS: ${guideline.variants.map((v) => v.name).join(" | ")}`
-    );
-  } else if (meta.argTypes?.variant?.options) {
-    lines.push(
-      `VARIANTS: ${(meta.argTypes.variant.options as string[]).join(" | ")}`
-    );
+  if (guideline?.variants?.length) {
+    lines.push(`VARIANTS: ${guideline.variants.map((v) => v.name).join(" | ")}`);
+  } else if (input.variantOptions?.length) {
+    lines.push(`VARIANTS: ${input.variantOptions.join(" | ")}`);
   }
 
-  // Sizes from argTypes
-  if (meta.argTypes?.size?.options) {
-    lines.push(
-      `SIZES: ${(meta.argTypes.size.options as string[]).join(" | ")}`
-    );
+  if (input.sizeOptions?.length) {
+    lines.push(`SIZES: ${input.sizeOptions.join(" | ")}`);
   }
 
-  // Props from argTypes
-  if (meta.argTypes) {
-    const propNames = Object.keys(meta.argTypes).filter(
-      (k) => k !== "children"
-    );
-    if (propNames.length > 0) {
-      lines.push(`PROPS: ${propNames.join(", ")}`);
-    }
+  if (input.propNames?.length) {
+    lines.push(`PROPS: ${input.propNames.join(", ")}`);
   }
 
-  // Figma links
-  if (guideline?.figmaLinks && guideline.figmaLinks.length > 0) {
+  if (guideline?.figmaLinks?.length) {
     guideline.figmaLinks.forEach((link) => {
       lines.push(`FIGMA: ${link}`);
     });
   }
 
-  // Stories count
-  lines.push(`STORIES: ${stories.length}`);
+  if (typeof input.storyCount === "number") {
+    lines.push(`STORIES: ${input.storyCount}`);
+  }
 
   if (guideline) {
     lines.push("");
@@ -78,4 +70,19 @@ export function buildMachineSpec(
   }
 
   return lines.join("\n");
+}
+
+export function buildMachineSpec(
+  componentName: string,
+  meta: StoryMeta,
+  stories: StoryDefinition[]
+): string {
+  return buildMachineSpecFromInput(componentName, {
+    variantOptions: (meta.argTypes?.variant?.options as string[] | undefined) || [],
+    sizeOptions: (meta.argTypes?.size?.options as string[] | undefined) || [],
+    propNames: meta.argTypes
+      ? Object.keys(meta.argTypes).filter((k) => k !== "children")
+      : [],
+    storyCount: stories.length,
+  });
 }
