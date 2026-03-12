@@ -124,7 +124,7 @@ function formatTypographyBlock(typography) {
 // ── Generate design-system.generated.ts ───────────────────────
 
 function generateTsDataFile(tokens, version, summary) {
-  const now = new Date().toISOString();
+  const now = process.env.SYNC_TIMESTAMP || new Date().toISOString();
 
   // Build spacing summary for prompt builders
   const spacingSummary = formatSpacingLines(tokens.spacingAliases);

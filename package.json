@@ -140,7 +140,7 @@
     "codemod:wave8:check": "node scripts/codemods/wave8-blocked-set-b-components.cjs --fail-on-match",
     "check:legacy-waves": "npm run codemod:wave2:check && npm run codemod:wave3:check && npm run codemod:wave4:check && npm run codemod:wave7:check && npm run codemod:wave8:check",
     "test": "jest",
-    "publish:prepare": "npm run sync:version && npm run sync:docs && npm run check:docs-sync && npm run check:consistency && npm run check:size-contract && npm run validate:docs && npm run type-check && npm run build",
+    "publish:prepare": "export SYNC_TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%S.000Z) && npm run sync:version && npm run sync:docs && npm run check:docs-sync && npm run check:consistency && npm run check:size-contract && npm run validate:docs && npm run type-check && npm run build",
     "prepublishOnly": "npm run publish:prepare",
     "publish:dry-run": "npm run publish:prepare && npm pack --dry-run",
     "publish:local": "npm run publish:prepare && npm pack",

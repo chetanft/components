@@ -103,7 +103,8 @@ function generateCoverage() {
   const mdPath = path.join(projectRoot, 'docs/audits/machine-mode-coverage.md');
 
   fs.mkdirSync(path.dirname(jsonPath), { recursive: true });
-  fs.writeFileSync(jsonPath, JSON.stringify({ generatedAt: new Date().toISOString(), summary, rows }, null, 2) + '\n');
+  const generatedAt = process.env.SYNC_TIMESTAMP || new Date().toISOString();
+  fs.writeFileSync(jsonPath, JSON.stringify({ generatedAt, summary, rows }, null, 2) + '\n');
 
   const md = [
     '# Machine Mode Coverage',

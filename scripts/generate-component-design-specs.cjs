@@ -629,7 +629,7 @@ function generateComponentDesignSpecs() {
   const autoVariantTokenMatrix = collectComponentVariantTokens(components);
   const overrides = readJsonIfExists(overridePath, {});
   const variantTokenMatrix = applyManualOverrides(autoVariantTokenMatrix, overrides);
-  const generatedAt = new Date().toISOString();
+  const generatedAt = process.env.SYNC_TIMESTAMP || new Date().toISOString();
 
   const machineData = {
     generatedAt,
