@@ -26,7 +26,7 @@ export function DocsCustomLeadingIcon() {
       <Input
         label="Search with custom icon"
         placeholder="Search..."
-        leadingIcon={<Icon name="search" size={20} className="text-blue-500" />}
+        leadingIcon={<Icon name="search" size={20} className="text-[var(--info)]" />}
       />
       <Input
         label="Email with badge icon"
@@ -48,7 +48,7 @@ export function DocsCustomTrailingIcon() {
         label="Password with custom trailing icon"
         type="password"
         placeholder="Enter password"
-        trailingIcon={<Icon name="eye-invisible" size={18} className="text-gray-500" />}
+        trailingIcon={<Icon name="eye-invisible" size={18} className="text-[var(--tertiary)]" />}
       />
       <Input
         label="Input with badge trailing icon"
@@ -91,19 +91,19 @@ export function DocsCustomIconStyling() {
         label="Blue icon"
         placeholder="Search..."
         leadingIcon="search"
-        leadingIconClassName="text-blue-500"
+        leadingIconClassName="text-[var(--info)]"
       />
       <Input
         label="Red icon"
         placeholder="Search..."
         leadingIcon="search"
-        leadingIconClassName="text-red-500"
+        leadingIconClassName="text-[var(--critical)]"
       />
       <Input
         label="Green trailing icon"
         placeholder="Search..."
         trailingIcon="check"
-        trailingIconClassName="text-green-500"
+        trailingIconClassName="text-[var(--success)]"
       />
     </div>
   );

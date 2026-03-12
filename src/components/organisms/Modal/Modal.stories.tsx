@@ -197,7 +197,7 @@ export function DocsSizes() {
                   </ModalHeader>
                   <ModalBody>
                     <p>This modal is using the <strong>{size}</strong> size preset.</p>
-                    <p className="mt-2 text-gray-500">
+                    <p className="mt-2 text-[var(--tertiary)]">
                       Content adapts to the width of the modal.
                     </p>
                   </ModalBody>

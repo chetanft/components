@@ -95,7 +95,7 @@ export const DropdownMenuSearch = React.forwardRef<HTMLDivElement, DropdownMenuS
                 style={{
                   fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
                   fontWeight: 'var(--font-weight-regular, 400)',
-                  fontSize: 'var(--font-size-md-rem)',
+                  fontSize: 'var(--font-size-sm-rem)',
                 }}
               />
             </div>

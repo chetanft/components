@@ -1,0 +1,11 @@
+{
+  "structural": {
+    "minStoryCount": 2
+  },
+  "semantic": {
+    "requireAriaLabelsOnInteractive": true
+  },
+  "layout": {
+    "requireNoTextWrapping": true
+  }
+}

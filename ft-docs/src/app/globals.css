@@ -35,10 +35,10 @@
   }
 
   /* Dark mode - FT tokens automatically change via .dark class in main globals.css */
-  /* bg-secondary used for page background so cards (bg-primary) appear elevated */
+  /* Use bg-primary for the docs canvas so bg-secondary components remain visible */
   html.dark,
   .dark {
-    --docs-background: var(--bg-secondary);
+    --docs-background: var(--bg-primary);
     --docs-foreground: var(--primary);
     --docs-card: var(--bg-primary);
     --docs-card-foreground: var(--primary);

@@ -9,6 +9,34 @@ const meta: Meta<typeof List> = {
     title: 'Molecules/List',
     component: List,
     tags: ['autodocs'],
+    argTypes: {
+        bordered: {
+            control: 'boolean',
+            description: 'Whether to show a border around the list.',
+        },
+        split: {
+            control: 'boolean',
+            description: 'Whether to show split lines between items.',
+        },
+        loading: {
+            control: 'boolean',
+            description: 'Whether to show a loading spinner.',
+        },
+        size: {
+            control: 'select',
+            options: ['sm', 'md', 'lg'],
+            description: 'Size of list items.',
+        },
+        glass: {
+            control: 'select',
+            options: ['none', 'frost', 'subtle', 'medium', 'heavy'],
+            description: 'Glass morphism variant.',
+        },
+        children: {
+            control: false,
+            description: 'Composable sub-components (ListHeader, ListBody, ListItem, etc.).',
+        },
+    },
     parameters: {
         docs: {
             description: {

@@ -1,7 +1,7 @@
 "use client";
 import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '../../../lib/utils';
-import { getGlassClasses, getGlassStateLayer, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { getGlassStateLayer, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { TabsProvider, useTabsContext } from './TabsContext';
 import { Slot, type ComposableProps } from '../../../lib/slot';
@@ -304,7 +304,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
       >
         <Comp
           ref={ref}
-          className={cn(getGlassClasses(resolvedGlass, '', ''), "flex flex-col relative", className)}
+          className={cn("flex flex-col relative", className)}
           {...props}
         >
           {children}

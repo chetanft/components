@@ -7,6 +7,25 @@ const meta: Meta<typeof BackTop> = {
   title: 'Molecules/BackTop',
   component: BackTop,
   tags: ['autodocs'],
+  argTypes: {
+    visibilityHeight: {
+      control: 'number',
+      description: 'Scroll height threshold before the button appears.',
+    },
+    glass: {
+      control: 'select',
+      options: ['none', 'frost', 'subtle', 'medium', 'heavy'],
+      description: 'Glass morphism variant.',
+    },
+    onClick: {
+      control: false,
+      description: 'Click handler called when the back-to-top button is clicked.',
+    },
+    children: {
+      control: false,
+      description: 'Custom content to render inside the button.',
+    },
+  },
   parameters: {
     layout: 'padded',
     explorer: {

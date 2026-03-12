@@ -221,10 +221,10 @@
    --transition-slow: 300ms;
 
    /* Button Colors */
-   --button-primary-bg: var(--primary-900);
+   --button-primary-bg: var(--primary-700);
    --button-primary-text: #ffffff;
    --button-primary-hover-bg: var(--primary-800);
-   --button-primary-border: var(--primary-900);
+   --button-primary-border: var(--primary-700);
 
    --button-secondary-bg: #ffffff;
    --button-secondary-text: #434f64;

@@ -110,11 +110,15 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "componentName": "BackTop",
     "slug": "back-top",
     "sourcePath": "/Users/user/Documents/components/src/components/molecules/BackTop/BackTop.stories.tsx",
-    "description": "",
+    "description": "Scroll height threshold before the button appears.",
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "visibilityHeight",
+      "glass",
+      "onClick"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 2
@@ -238,9 +242,31 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
       "autodocs"
     ],
     "propNames": [
-      "className"
+      "extra",
+      "bordered",
+      "hoverable",
+      "loading",
+      "size",
+      "actions",
+      "cover",
+      "contentVariant",
+      "eyebrowLeft",
+      "eyebrowRight",
+      "headerTitle",
+      "headerSubText",
+      "showArrowIcon",
+      "bodySections",
+      "footerText",
+      "footerButton",
+      "showFooter",
+      "showEyebrow",
+      "graphic",
+      "glass"
     ],
-    "sizeOptions": [],
+    "sizeOptions": [
+      "sm",
+      "md"
+    ],
     "variantOptions": [],
     "storyCount": 2
   },
@@ -334,6 +360,36 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     ],
     "storyCount": 8
   },
+  "Chip": {
+    "componentName": "Chip",
+    "slug": "chip",
+    "sourcePath": "/Users/user/Documents/components/src/components/atoms/Chip/Chip.stories.tsx",
+    "description": "A selectable chip component for filters, categories, and multi-option selection. Supports single and group selection modes.",
+    "tags": [
+      "autodocs"
+    ],
+    "propNames": [
+      "label",
+      "selected",
+      "variant",
+      "size",
+      "icon",
+      "disabled",
+      "onRemove",
+      "glass",
+      "className"
+    ],
+    "sizeOptions": [
+      "sm",
+      "md",
+      "lg"
+    ],
+    "variantOptions": [
+      "outlined",
+      "filled"
+    ],
+    "storyCount": 12
+  },
   "Collapsible": {
     "componentName": "Collapsible",
     "slug": "collapsible",
@@ -358,8 +414,21 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
-    "sizeOptions": [],
+    "propNames": [
+      "value",
+      "defaultValue",
+      "defaultFormat",
+      "disabled",
+      "size",
+      "presets",
+      "glass",
+      "onChange"
+    ],
+    "sizeOptions": [
+      "sm",
+      "md",
+      "lg"
+    ],
     "variantOptions": [],
     "storyCount": 3
   },
@@ -382,7 +451,18 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "selectable",
+      "resizable",
+      "showContextMenu",
+      "selectedRows",
+      "cellErrors",
+      "glass",
+      "onCellChange",
+      "onRowAdd",
+      "onRowDelete",
+      "onSelectionChange"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 2
@@ -418,8 +498,18 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
-    "sizeOptions": [],
+    "propNames": [
+      "bordered",
+      "column",
+      "layout",
+      "size",
+      "glass"
+    ],
+    "sizeOptions": [
+      "sm",
+      "md",
+      "lg"
+    ],
     "variantOptions": [],
     "storyCount": 4
   },
@@ -595,11 +685,22 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "componentName": "FloatButton",
     "slug": "float-button",
     "sourcePath": "/Users/user/Documents/components/src/components/molecules/FloatButton/FloatButton.stories.tsx",
-    "description": "",
+    "description": "Visual style of the float button.",
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "type",
+      "shape",
+      "href",
+      "target",
+      "badge",
+      "glass",
+      "icon",
+      "description",
+      "tooltip",
+      "onClick"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 3
@@ -646,7 +747,12 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "gutter",
+      "align",
+      "justify",
+      "wrap"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 2
@@ -659,7 +765,12 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "openDelay",
+      "closeDelay",
+      "width",
+      "placement"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 3
@@ -718,10 +829,27 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
       "autodocs"
     ],
     "propNames": [
+      "label",
+      "labelMandatory",
+      "labelOptional",
+      "labelSuffixIcon",
+      "labelIcon",
+      "error",
+      "warning",
+      "success",
+      "helperText",
+      "leadingIcon",
+      "trailingIcon",
+      "leadingIconSize",
+      "trailingIconSize",
+      "size",
       "variant",
-      "size"
+      "glass",
+      "disabled"
     ],
     "sizeOptions": [
+      "xxs",
+      "xs",
       "sm",
       "md",
       "lg",
@@ -785,8 +913,18 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
-    "sizeOptions": [],
+    "propNames": [
+      "bordered",
+      "split",
+      "loading",
+      "size",
+      "glass"
+    ],
+    "sizeOptions": [
+      "sm",
+      "md",
+      "lg"
+    ],
     "variantOptions": [],
     "storyCount": 6
   },
@@ -794,11 +932,18 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "componentName": "Loader",
     "slug": "loader",
     "sourcePath": "/Users/user/Documents/components/src/components/molecules/Loader/Loader.stories.tsx",
-    "description": "",
+    "description": "Progress value from 0 to 100.",
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "value",
+      "logoSize",
+      "showLogo",
+      "logo",
+      "showProgressBar",
+      "progressHeight"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 9
@@ -828,7 +973,16 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "prefix",
+      "split",
+      "status",
+      "autoSize",
+      "filterOption",
+      "onChange",
+      "onSelect",
+      "onSearch"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 3
@@ -852,9 +1006,16 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "componentName": "NavigationLauncher",
     "slug": "navigation-launcher",
     "sourcePath": "/Users/user/Documents/components/src/stories/NavigationLauncher.stories.tsx",
-    "description": "",
+    "description": "Whether to render inside a portal.",
     "tags": [],
-    "propNames": [],
+    "propNames": [
+      "usePortal",
+      "hideDefaultTrigger",
+      "alignment",
+      "showBackdrop",
+      "portalClassName",
+      "trigger"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 3
@@ -897,7 +1058,9 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "glass"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 3
@@ -975,7 +1138,10 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "showTime",
+      "glass"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 4
@@ -988,7 +1154,15 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "scrollable",
+      "glass",
+      "chipClassName",
+      "labelClassName",
+      "countClassName",
+      "onFilterClick",
+      "onFilterRemove"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 1
@@ -1087,15 +1261,20 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
   "SegmentedTabs": {
     "componentName": "SegmentedTabs",
     "slug": "segmented-tabs",
-    "sourcePath": "/Users/user/Documents/components/src/stories/SegmentedTabs.stories.tsx",
-    "description": "Segmented tabs component for switching between related views.",
+    "sourcePath": "/Users/user/Documents/components/src/components/molecules/SegmentedTabs/SegmentedTabs.stories.tsx",
+    "description": "Segmented tabs component for switching between related options using composable API.",
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "variant"
+    ],
     "sizeOptions": [],
-    "variantOptions": [],
-    "storyCount": 4
+    "variantOptions": [
+      "default",
+      "icon-only"
+    ],
+    "storyCount": 3
   },
   "SimpleColumnLayout": {
     "componentName": "SimpleColumnLayout",
@@ -1280,9 +1459,33 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "variant",
+      "layout",
+      "selectable",
+      "striped",
+      "reorderable",
+      "loading",
+      "emptyMessage",
+      "caption",
+      "rowActionsLabel",
+      "sortColumn",
+      "sortDirection",
+      "selectedRows",
+      "glass",
+      "onSelectionChange",
+      "onSort",
+      "rowAccessory",
+      "rowActions",
+      "onColumnReorder",
+      "headerLeft",
+      "headerRight"
+    ],
     "sizeOptions": [],
-    "variantOptions": [],
+    "variantOptions": [
+      "primary",
+      "secondary"
+    ],
     "storyCount": 4
   },
   "Tabs": {
@@ -1427,13 +1630,28 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "componentName": "ToggleGroup",
     "slug": "toggle-group",
     "sourcePath": "/Users/user/Documents/components/src/components/molecules/ToggleGroup/ToggleGroup.stories.tsx",
-    "description": "",
+    "description": "Selection mode: single or multiple toggles.",
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
-    "sizeOptions": [],
-    "variantOptions": [],
+    "propNames": [
+      "type",
+      "value",
+      "defaultValue",
+      "disabled",
+      "size",
+      "variant",
+      "onValueChange"
+    ],
+    "sizeOptions": [
+      "sm",
+      "md",
+      "lg"
+    ],
+    "variantOptions": [
+      "default",
+      "outline"
+    ],
     "storyCount": 3
   },
   "Tooltip": {
@@ -1460,7 +1678,16 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "open",
+      "current",
+      "defaultCurrent",
+      "mask",
+      "zIndex",
+      "onClose",
+      "onChange",
+      "onFinish"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 1
@@ -1473,7 +1700,20 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "titles",
+      "operations",
+      "targetKeys",
+      "selectedKeys",
+      "searchPlaceholder",
+      "oneWay",
+      "pagination",
+      "disabled",
+      "onChange",
+      "onSelectChange",
+      "render",
+      "footer"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 2
@@ -1789,11 +2029,15 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "componentName": "BackTop",
     "slug": "back-top",
     "sourcePath": "/Users/user/Documents/components/src/components/molecules/BackTop/BackTop.stories.tsx",
-    "description": "",
+    "description": "Scroll height threshold before the button appears.",
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "visibilityHeight",
+      "glass",
+      "onClick"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 2
@@ -1917,9 +2161,31 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
       "autodocs"
     ],
     "propNames": [
-      "className"
+      "extra",
+      "bordered",
+      "hoverable",
+      "loading",
+      "size",
+      "actions",
+      "cover",
+      "contentVariant",
+      "eyebrowLeft",
+      "eyebrowRight",
+      "headerTitle",
+      "headerSubText",
+      "showArrowIcon",
+      "bodySections",
+      "footerText",
+      "footerButton",
+      "showFooter",
+      "showEyebrow",
+      "graphic",
+      "glass"
     ],
-    "sizeOptions": [],
+    "sizeOptions": [
+      "sm",
+      "md"
+    ],
     "variantOptions": [],
     "storyCount": 2
   },
@@ -2013,6 +2279,36 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     ],
     "storyCount": 8
   },
+  "chip": {
+    "componentName": "Chip",
+    "slug": "chip",
+    "sourcePath": "/Users/user/Documents/components/src/components/atoms/Chip/Chip.stories.tsx",
+    "description": "A selectable chip component for filters, categories, and multi-option selection. Supports single and group selection modes.",
+    "tags": [
+      "autodocs"
+    ],
+    "propNames": [
+      "label",
+      "selected",
+      "variant",
+      "size",
+      "icon",
+      "disabled",
+      "onRemove",
+      "glass",
+      "className"
+    ],
+    "sizeOptions": [
+      "sm",
+      "md",
+      "lg"
+    ],
+    "variantOptions": [
+      "outlined",
+      "filled"
+    ],
+    "storyCount": 12
+  },
   "collapsible": {
     "componentName": "Collapsible",
     "slug": "collapsible",
@@ -2037,8 +2333,21 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
-    "sizeOptions": [],
+    "propNames": [
+      "value",
+      "defaultValue",
+      "defaultFormat",
+      "disabled",
+      "size",
+      "presets",
+      "glass",
+      "onChange"
+    ],
+    "sizeOptions": [
+      "sm",
+      "md",
+      "lg"
+    ],
     "variantOptions": [],
     "storyCount": 3
   },
@@ -2061,7 +2370,18 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "selectable",
+      "resizable",
+      "showContextMenu",
+      "selectedRows",
+      "cellErrors",
+      "glass",
+      "onCellChange",
+      "onRowAdd",
+      "onRowDelete",
+      "onSelectionChange"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 2
@@ -2097,8 +2417,18 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
-    "sizeOptions": [],
+    "propNames": [
+      "bordered",
+      "column",
+      "layout",
+      "size",
+      "glass"
+    ],
+    "sizeOptions": [
+      "sm",
+      "md",
+      "lg"
+    ],
     "variantOptions": [],
     "storyCount": 4
   },
@@ -2274,11 +2604,22 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "componentName": "FloatButton",
     "slug": "float-button",
     "sourcePath": "/Users/user/Documents/components/src/components/molecules/FloatButton/FloatButton.stories.tsx",
-    "description": "",
+    "description": "Visual style of the float button.",
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "type",
+      "shape",
+      "href",
+      "target",
+      "badge",
+      "glass",
+      "icon",
+      "description",
+      "tooltip",
+      "onClick"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 3
@@ -2325,7 +2666,12 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "gutter",
+      "align",
+      "justify",
+      "wrap"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 2
@@ -2338,7 +2684,12 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "openDelay",
+      "closeDelay",
+      "width",
+      "placement"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 3
@@ -2397,10 +2748,27 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
       "autodocs"
     ],
     "propNames": [
+      "label",
+      "labelMandatory",
+      "labelOptional",
+      "labelSuffixIcon",
+      "labelIcon",
+      "error",
+      "warning",
+      "success",
+      "helperText",
+      "leadingIcon",
+      "trailingIcon",
+      "leadingIconSize",
+      "trailingIconSize",
+      "size",
       "variant",
-      "size"
+      "glass",
+      "disabled"
     ],
     "sizeOptions": [
+      "xxs",
+      "xs",
       "sm",
       "md",
       "lg",
@@ -2464,8 +2832,18 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
-    "sizeOptions": [],
+    "propNames": [
+      "bordered",
+      "split",
+      "loading",
+      "size",
+      "glass"
+    ],
+    "sizeOptions": [
+      "sm",
+      "md",
+      "lg"
+    ],
     "variantOptions": [],
     "storyCount": 6
   },
@@ -2473,11 +2851,18 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "componentName": "Loader",
     "slug": "loader",
     "sourcePath": "/Users/user/Documents/components/src/components/molecules/Loader/Loader.stories.tsx",
-    "description": "",
+    "description": "Progress value from 0 to 100.",
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "value",
+      "logoSize",
+      "showLogo",
+      "logo",
+      "showProgressBar",
+      "progressHeight"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 9
@@ -2507,7 +2892,16 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "prefix",
+      "split",
+      "status",
+      "autoSize",
+      "filterOption",
+      "onChange",
+      "onSelect",
+      "onSearch"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 3
@@ -2531,9 +2925,16 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "componentName": "NavigationLauncher",
     "slug": "navigation-launcher",
     "sourcePath": "/Users/user/Documents/components/src/stories/NavigationLauncher.stories.tsx",
-    "description": "",
+    "description": "Whether to render inside a portal.",
     "tags": [],
-    "propNames": [],
+    "propNames": [
+      "usePortal",
+      "hideDefaultTrigger",
+      "alignment",
+      "showBackdrop",
+      "portalClassName",
+      "trigger"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 3
@@ -2576,7 +2977,9 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "glass"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 3
@@ -2654,7 +3057,10 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "showTime",
+      "glass"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 4
@@ -2667,7 +3073,15 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "scrollable",
+      "glass",
+      "chipClassName",
+      "labelClassName",
+      "countClassName",
+      "onFilterClick",
+      "onFilterRemove"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 1
@@ -2766,15 +3180,20 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
   "segmented-tabs": {
     "componentName": "SegmentedTabs",
     "slug": "segmented-tabs",
-    "sourcePath": "/Users/user/Documents/components/src/stories/SegmentedTabs.stories.tsx",
-    "description": "Segmented tabs component for switching between related views.",
+    "sourcePath": "/Users/user/Documents/components/src/components/molecules/SegmentedTabs/SegmentedTabs.stories.tsx",
+    "description": "Segmented tabs component for switching between related options using composable API.",
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "variant"
+    ],
     "sizeOptions": [],
-    "variantOptions": [],
-    "storyCount": 4
+    "variantOptions": [
+      "default",
+      "icon-only"
+    ],
+    "storyCount": 3
   },
   "simple-column-layout": {
     "componentName": "SimpleColumnLayout",
@@ -2959,9 +3378,33 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "variant",
+      "layout",
+      "selectable",
+      "striped",
+      "reorderable",
+      "loading",
+      "emptyMessage",
+      "caption",
+      "rowActionsLabel",
+      "sortColumn",
+      "sortDirection",
+      "selectedRows",
+      "glass",
+      "onSelectionChange",
+      "onSort",
+      "rowAccessory",
+      "rowActions",
+      "onColumnReorder",
+      "headerLeft",
+      "headerRight"
+    ],
     "sizeOptions": [],
-    "variantOptions": [],
+    "variantOptions": [
+      "primary",
+      "secondary"
+    ],
     "storyCount": 4
   },
   "tabs": {
@@ -3106,13 +3549,28 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "componentName": "ToggleGroup",
     "slug": "toggle-group",
     "sourcePath": "/Users/user/Documents/components/src/components/molecules/ToggleGroup/ToggleGroup.stories.tsx",
-    "description": "",
+    "description": "Selection mode: single or multiple toggles.",
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
-    "sizeOptions": [],
-    "variantOptions": [],
+    "propNames": [
+      "type",
+      "value",
+      "defaultValue",
+      "disabled",
+      "size",
+      "variant",
+      "onValueChange"
+    ],
+    "sizeOptions": [
+      "sm",
+      "md",
+      "lg"
+    ],
+    "variantOptions": [
+      "default",
+      "outline"
+    ],
     "storyCount": 3
   },
   "tooltip": {
@@ -3139,7 +3597,16 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "open",
+      "current",
+      "defaultCurrent",
+      "mask",
+      "zIndex",
+      "onClose",
+      "onChange",
+      "onFinish"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 1
@@ -3152,7 +3619,20 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "tags": [
       "autodocs"
     ],
-    "propNames": [],
+    "propNames": [
+      "titles",
+      "operations",
+      "targetKeys",
+      "selectedKeys",
+      "searchPlaceholder",
+      "oneWay",
+      "pagination",
+      "disabled",
+      "onChange",
+      "onSelectChange",
+      "render",
+      "footer"
+    ],
     "sizeOptions": [],
     "variantOptions": [],
     "storyCount": 2

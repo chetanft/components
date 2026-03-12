@@ -4,6 +4,45 @@ import { Mentions, MentionOption } from './Mentions';
 const meta: Meta<typeof Mentions> = {
   title: 'Molecules/Mentions',
   component: Mentions,
+  argTypes: {
+    prefix: {
+      control: 'text',
+      description: 'Character(s) that trigger the mention dropdown.',
+    },
+    split: {
+      control: 'text',
+      description: 'Separator character for splitting mention text.',
+    },
+    status: {
+      control: 'select',
+      options: ['error', 'warning'],
+      description: 'Validation status of the mentions field.',
+    },
+    autoSize: {
+      control: 'boolean',
+      description: 'Whether the textarea auto-resizes.',
+    },
+    filterOption: {
+      control: false,
+      description: 'Custom filter function for mention options.',
+    },
+    onChange: {
+      control: false,
+      description: 'Callback when the textarea value changes.',
+    },
+    onSelect: {
+      control: false,
+      description: 'Callback when a mention option is selected.',
+    },
+    onSearch: {
+      control: false,
+      description: 'Callback when searching within a mention prefix.',
+    },
+    children: {
+      control: false,
+      description: 'MentionOption children for the composable API.',
+    },
+  },
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
@@ -81,19 +120,19 @@ export const WithRichContent: Story = {
     >
       <MentionOption value="john">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-blue-500" />
+          <div className="w-6 h-6 rounded-full bg-[var(--info)]" />
           <span>John Doe</span>
         </div>
       </MentionOption>
       <MentionOption value="jane">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-green-500" />
+          <div className="w-6 h-6 rounded-full bg-[var(--success)]" />
           <span>Jane Smith</span>
         </div>
       </MentionOption>
       <MentionOption value="bob">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-purple-500" />
+          <div className="w-6 h-6 rounded-full bg-[var(--primary)]" />
           <span>Bob Johnson</span>
         </div>
       </MentionOption>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export interface BreadcrumbProps extends Omit<ComposableProps<'nav'>, 'onChange'> {
@@ -59,7 +59,6 @@ export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
         ref={ref}
         aria-label="Breadcrumb"
         className={cn(
-          getGlassClasses(resolvedGlass, '', ''),
           resolvedGlass && 'rounded-[var(--radius-md)] px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
           "flex items-center",
           className

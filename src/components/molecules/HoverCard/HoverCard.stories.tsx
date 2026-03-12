@@ -11,6 +11,29 @@ import { Icon } from '../../atoms/Icons';
 const meta: Meta<typeof HoverCard> = {
     title: 'Molecules/HoverCard',
     component: HoverCard,
+    argTypes: {
+        openDelay: {
+            control: 'number',
+            description: 'Delay in milliseconds before the card opens on hover.',
+        },
+        closeDelay: {
+            control: 'number',
+            description: 'Delay in milliseconds before the card closes when hover ends.',
+        },
+        width: {
+            control: 'number',
+            description: 'Width of the hover card content area.',
+        },
+        placement: {
+            control: 'select',
+            options: ['top', 'bottom', 'left', 'right'],
+            description: 'Placement of the card relative to the trigger.',
+        },
+        children: {
+            control: false,
+            description: 'Composable sub-components (HoverCardTrigger, HoverCardContent).',
+        },
+    },
     parameters: {
         layout: 'centered',
         docs: {

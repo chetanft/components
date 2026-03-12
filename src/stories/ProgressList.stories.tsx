@@ -21,6 +21,21 @@ const meta: Meta<typeof ProgressList> = {
     },
   },
   tags: ['autodocs'],
+  argTypes: {
+    showTime: {
+      control: 'boolean',
+      description: 'Whether to display the time column.',
+    },
+    glass: {
+      control: 'select',
+      options: [undefined, true, 'subtle', 'prominent'],
+      description: 'Enable glassmorphism effect on progress list background.',
+    },
+    children: {
+      control: false,
+      description: 'Progress list content (composable API).',
+    },
+  },
 };
 
 export default meta;

@@ -191,10 +191,30 @@ export const TableRow = <T extends TableRowType = TableRowType>({
         aria-rowindex={index + 1}
         onMouseEnter={() => setHoveredRowIndex(true)}
         onMouseLeave={() => setHoveredRowIndex(false)}
-        className={cn(className)}
+        className={cn(
+          "group/table-row transition-colors",
+          className
+        )}
         {...props}
       >
-        {children}
+        {React.Children.map(children, (child) => {
+          const childType = React.isValidElement(child) ? child.type : null;
+          const isTableCell =
+            React.isValidElement(child)
+            && (
+              childType === TableCell
+              || (typeof childType === 'function' && ((childType as React.ComponentType).displayName === 'TableCell'))
+              || (typeof childType === 'object' && childType !== null && 'displayName' in childType && (childType as { displayName?: string }).displayName === 'TableCell')
+            );
+
+          if (isTableCell) {
+            return React.cloneElement(child as React.ReactElement<Record<string, unknown>>, {
+              state: (child.props as { state?: 'default' | 'hover' | 'selected' }).state
+                ?? (selected ? 'selected' : (hoveredRowIndex ? 'hover' : 'default')),
+            });
+          }
+          return child;
+        })}
       </Comp>
     );
   }
@@ -221,7 +241,10 @@ export const TableRow = <T extends TableRowType = TableRowType>({
       aria-rowindex={index + 1}
       onMouseEnter={() => setHoveredRowIndex(true)}
       onMouseLeave={() => setHoveredRowIndex(false)}
-      className={cn(className)}
+      className={cn(
+        "transition-colors",
+        className
+      )}
       {...props}
     >
       {selectable && (

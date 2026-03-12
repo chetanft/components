@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-08T15:56:07.292Z",
+  "generatedAt": "2026-03-12T08:07:23.047Z",
   "version": "4.22.0",
   "summary": {
     "total": 125,
@@ -140,8 +140,8 @@
             "dimension": "variant",
             "variant": "danger",
             "tokens": [
-              "--danger-100",
-              "--danger-500"
+              "--critical",
+              "--critical-light"
             ],
             "detector": "object.map"
           },
@@ -774,8 +774,10 @@
             "dimension": "variant",
             "variant": "primary",
             "tokens": [
-              "--primary-700",
-              "--primary-800",
+              "--button-primary-bg",
+              "--button-primary-border",
+              "--button-primary-hover-bg",
+              "--button-primary-text",
               "--tertiary"
             ],
             "detector": "object.map"

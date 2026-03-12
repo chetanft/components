@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Typography } from '../../atoms/Typography';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { type GlassVariant } from '../../../lib/glass';
 
 export interface ContentProps extends ComposableProps<'div'> {
   /**
@@ -25,14 +25,12 @@ export const Content: React.FC<ContentProps> = ({
   asChild,
   ...props
 }) => {
-  const resolvedGlass = useResolvedGlass(glass);
   const Comp = asChild ? Slot : 'div';
   
   return (
     <Comp 
       className={cn(
         "content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative size-full",
-        getGlassClasses(resolvedGlass, '', ''),
         className
       )}
       data-name="Type=Text"

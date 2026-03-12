@@ -6,6 +6,12 @@ import { Button } from '../../atoms/Button/Button';
 const meta = {
   title: 'Molecules/Notification',
   component: NotificationProvider,
+  argTypes: {
+    children: {
+      control: false,
+      description: 'Application content wrapped by the notification provider.',
+    },
+  },
   parameters: {
     layout: 'padded',
     docs: {

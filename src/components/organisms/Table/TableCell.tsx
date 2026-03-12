@@ -168,6 +168,7 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
       className={cn(
         // Base styles
         "transition-colors duration-200 border-b border-[var(--border-primary)]",
+        "group-hover/table-row:bg-[var(--border-secondary)]",
 
         // Size variants - horizontal padding only (vertical padding via inline style)
         getHorizontalPadding(),

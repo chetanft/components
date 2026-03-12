@@ -1,0 +1,8 @@
+{
+  "structural": {
+    "minStoryCount": 2
+  },
+  "layout": {
+    "requireNoClipping": true
+  }
+}

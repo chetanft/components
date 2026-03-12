@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '../../../lib/utils';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { type GlassVariant } from '../../../lib/glass';
 
 export interface AnchorLinkProps {
   href: string;
@@ -98,7 +98,6 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
   ...props
 }, ref) => {
   const [activeLink, setActiveLink] = useState<string>('');
-  const resolvedGlass = useResolvedGlass(glass);
 
   // Detect composable children
   const hasComposableChildren = React.Children.toArray(children).some(
@@ -171,7 +170,6 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
         "ft-anchor relative",
         affix ? "sticky top-4" : "",
         direction === 'horizontal' ? "flex flex-row space-x-4" : "flex flex-col",
-        getGlassClasses(resolvedGlass, '', ''),
         className
       )}
       style={style}

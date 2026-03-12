@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { PaginationProvider } from './PaginationContext';
 
@@ -119,7 +119,6 @@ export const Pagination = React.forwardRef<HTMLDivElement, PaginationProps>(
         <Comp
           ref={ref}
           className={cn(
-            getGlassClasses(resolvedGlass, '', ''),
             resolvedGlass && 'rounded-[var(--radius-md)] px-[var(--spacing-x3)] py-[var(--spacing-x2)]',
             "flex items-center gap-[var(--spacing-x2)] flex-wrap",
             className

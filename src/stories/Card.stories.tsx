@@ -19,10 +19,93 @@ const meta: Meta<typeof Card> = {
     docsOnly: true,
   },
   argTypes: {
-    className: {
+    children: {
+      control: false,
+      description: 'Card content for composable API.',
+    },
+    extra: {
+      control: false,
+      description: 'Extra content rendered in the card.',
+    },
+    bordered: {
+      control: 'boolean',
+      description: 'Whether the card has a border.',
+    },
+    hoverable: {
+      control: 'boolean',
+      description: 'Whether the card has hover effects.',
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Show loading skeleton state.',
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['sm', 'md'],
+      description: 'Card size variant.',
+    },
+    actions: {
+      control: false,
+      description: 'Action elements for the card.',
+    },
+    cover: {
+      control: false,
+      description: 'Cover content rendered at top of card.',
+    },
+    contentVariant: {
+      control: { type: 'select' },
+      options: ['Basic', 'Advanced'],
+      description: 'Card content variant matching Figma.',
+    },
+    eyebrowLeft: {
+      control: false,
+      description: 'Eyebrow left content (badge, text, etc.).',
+    },
+    eyebrowRight: {
+      control: false,
+      description: 'Eyebrow right content (badge, text, etc.).',
+    },
+    headerTitle: {
       control: 'text',
-      description: 'Additional CSS classes'
-    }
+      description: 'Header main title text.',
+    },
+    headerSubText: {
+      control: 'text',
+      description: 'Header sub text below title.',
+    },
+    showArrowIcon: {
+      control: 'boolean',
+      description: 'Show arrow icon on right of header.',
+    },
+    bodySections: {
+      control: 'object',
+      description: 'Array of statistic/read-only row pairs.',
+    },
+    footerText: {
+      control: 'text',
+      description: 'Footer left text.',
+    },
+    footerButton: {
+      control: false,
+      description: 'Footer right button/element.',
+    },
+    showFooter: {
+      control: 'boolean',
+      description: 'Show footer section.',
+    },
+    showEyebrow: {
+      control: 'boolean',
+      description: 'Show eyebrow section.',
+    },
+    graphic: {
+      control: 'object',
+      description: 'Graphic configuration (Advanced variant).',
+    },
+    glass: {
+      control: { type: 'select' },
+      options: [undefined, true, 'subtle', 'prominent'],
+      description: 'Apply glassmorphism effect.',
+    },
   }
 };
 

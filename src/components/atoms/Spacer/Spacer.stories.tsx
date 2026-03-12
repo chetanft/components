@@ -61,12 +61,12 @@ export const Default: Story = {
     size: 'x4',
   },
   render: (args: React.ComponentProps<typeof Spacer>) => (
-    <div className="flex flex-col border border-dashed border-gray-300 rounded p-4">
-      <div className="bg-blue-100 p-3 rounded text-center text-sm">Above Element</div>
-      <div className="bg-yellow-200 flex items-center justify-center">
+    <div className="flex flex-col border border-dashed border-[var(--border-primary)] rounded p-4">
+      <div className="bg-[var(--bg-secondary)] p-3 rounded text-center text-sm">Above Element</div>
+      <div className="bg-[var(--warning-light)] flex items-center justify-center">
         <Spacer {...args} />
       </div>
-      <div className="bg-blue-100 p-3 rounded text-center text-sm">Below Element</div>
+      <div className="bg-[var(--bg-secondary)] p-3 rounded text-center text-sm">Below Element</div>
     </div>
   ),
 };
@@ -77,12 +77,12 @@ export const Horizontal: Story = {
     horizontal: true,
   },
   render: (args: React.ComponentProps<typeof Spacer>) => (
-    <div className="flex items-center border border-dashed border-gray-300 rounded p-4">
-      <div className="bg-blue-100 p-3 rounded text-center text-sm">Left</div>
-      <div className="bg-yellow-200 h-10 flex items-center">
+    <div className="flex items-center border border-dashed border-[var(--border-primary)] rounded p-4">
+      <div className="bg-[var(--bg-secondary)] p-3 rounded text-center text-sm">Left</div>
+      <div className="bg-[var(--warning-light)] h-10 flex items-center">
         <Spacer {...args} />
       </div>
-      <div className="bg-blue-100 p-3 rounded text-center text-sm">Right</div>
+      <div className="bg-[var(--bg-secondary)] p-3 rounded text-center text-sm">Right</div>
     </div>
   ),
 };
@@ -111,13 +111,13 @@ export function DocsAllSizes() {
       {sizes.map((size) => (
         <div key={size} className="flex items-center gap-4">
           <span className="w-16 text-sm font-medium">{size}</span>
-          <span className="w-12 text-xs text-gray-500">({sizeMap[size]})</span>
-          <div className="flex flex-col flex-1 border border-dashed border-gray-300 rounded">
-            <div className="bg-blue-100 p-2 text-xs text-center">Above</div>
-            <div className="bg-yellow-200">
+          <span className="w-12 text-xs text-[var(--tertiary)]">({sizeMap[size]})</span>
+          <div className="flex flex-col flex-1 border border-dashed border-[var(--border-primary)] rounded">
+            <div className="bg-[var(--bg-secondary)] p-2 text-xs text-center">Above</div>
+            <div className="bg-[var(--warning-light)]">
               <Spacer size={size} />
             </div>
-            <div className="bg-blue-100 p-2 text-xs text-center">Below</div>
+            <div className="bg-[var(--bg-secondary)] p-2 text-xs text-center">Below</div>
           </div>
         </div>
       ))}

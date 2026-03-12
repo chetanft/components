@@ -1,0 +1,12 @@
+{
+  "structural": {
+    "minStoryCount": 3,
+    "requireDisabledState": true
+  },
+  "layout": {
+    "requireNoTextWrapping": true
+  },
+  "visual": {
+    "themes": ["light", "dark"]
+  }
+}

@@ -14,6 +14,29 @@ const meta: Meta<typeof SegmentedTabs> = {
     },
   },
   tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['default', 'icon-only'],
+      description: 'Visual variant of the segmented tabs.',
+    },
+    value: {
+      control: 'text',
+      description: 'Currently selected tab value.',
+    },
+    defaultValue: {
+      control: 'text',
+      description: 'Default selected tab value (uncontrolled).',
+    },
+    onChange: {
+      control: false,
+      description: 'Callback when the selected tab changes.',
+    },
+    children: {
+      control: false,
+      description: 'SegmentedTabItem children.',
+    },
+  },
 };
 
 export default meta;

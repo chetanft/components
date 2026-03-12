@@ -1,0 +1,8 @@
+{
+  "structural": {
+    "minStoryCount": 1
+  },
+  "layout": {
+    "requireNoTextWrapping": true
+  }
+}

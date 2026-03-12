@@ -134,7 +134,7 @@ export const DocsCustomPlaceholder: Story = {
       {...args}
       placeholder={
         <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-blue-100 to-purple-100">
-          <span className="text-blue-500 animate-pulse">Loading...</span>
+          <span className="text-[var(--info)] animate-pulse">Loading...</span>
         </div>
       }
     />

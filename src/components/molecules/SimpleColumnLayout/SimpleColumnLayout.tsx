@@ -4,7 +4,7 @@ import React from 'react';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '../../organisms/Table';
 import type { TableColumn, TableRowData } from '../../organisms/Table';
 import { cn } from '../../../lib/utils';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { type GlassVariant } from '../../../lib/glass';
 
 export interface SimpleColumnCell {
   title: React.ReactNode;
@@ -59,7 +59,6 @@ export const SimpleColumnLayout = React.forwardRef<
     },
     ref
   ) => {
-    const resolvedGlass = useResolvedGlass(glass);
     if (!rows?.length) {
       return null;
     }
@@ -123,7 +122,7 @@ export const SimpleColumnLayout = React.forwardRef<
     ];
 
     return (
-      <div ref={ref} className={cn(getGlassClasses(resolvedGlass, '', ''), className)} {...props}>
+      <div ref={ref} className={cn(className)} {...props}>
         <Table className="border-0 rounded-none">
           <TableHeader>
             <TableRow>

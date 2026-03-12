@@ -5,7 +5,7 @@
   "description": "Design system built from Figma designs using Code Connect",
   "repository": "https://github.com/chetanft/components.git",
   "license": "MIT",
-  "generatedAt": "2026-03-06T07:39:30.120Z",
+  "generatedAt": "2026-03-12T08:07:27.434Z",
   "coreDependencies": {
     "peer": [
       "react",
@@ -32,8 +32,8 @@
   },
   "summary": {
     "total": 125,
-    "atoms": 25,
-    "molecules": 58,
+    "atoms": 26,
+    "molecules": 57,
     "organisms": 24,
     "charts": 16,
     "templates": 2
@@ -487,6 +487,21 @@
       ],
       "subComponents": [],
       "description": "Chicklet component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "Chip",
+      "category": "atoms",
+      "path": "src/components/atoms/Chip",
+      "files": [
+        "Chip.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "Chip component from FT Design System",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -1067,20 +1082,6 @@
           "chart.js",
           "react-chartjs-2"
         ]
-      }
-    },
-    {
-      "name": "Graphs",
-      "category": "molecules",
-      "path": "src/components/molecules/Graphs",
-      "files": [
-        "Graphs.tsx"
-      ],
-      "subComponents": [],
-      "description": "Additional CSS classes",
-      "dependencies": {
-        "internal": [],
-        "peer": []
       }
     },
     {
@@ -2870,6 +2871,7 @@
     "cascader": "Cascader",
     "checkbox": "Checkbox",
     "chicklet": "Chicklet",
+    "chip": "Chip",
     "collapsible": "Collapsible",
     "colorpicker": "ColorPicker",
     "colors": "Colors",
@@ -2897,7 +2899,6 @@
     "footer": "Footer",
     "form": "Form",
     "gaugechart": "GaugeChart",
-    "graphs": "Graphs",
     "grid": "Grid",
     "horizontalbarchart": "HorizontalBarChart",
     "hovercard": "HoverCard",

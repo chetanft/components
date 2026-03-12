@@ -61,7 +61,8 @@ export const CollapsibleIcon = React.forwardRef<HTMLDivElement, CollapsibleIconP
               size="md"
               icon={icon}
               iconPosition="only"
-              className="!w-[var(--spacing-x10)] !h-[var(--spacing-x10)] !p-0 flex items-center justify-center rounded-lg shrink-0 border border-[var(--border-primary)] pointer-events-none"
+              className="flex items-center justify-center rounded-lg shrink-0 border border-[var(--border-primary)] pointer-events-none"
+              style={{ width: 'var(--spacing-x10)', height: 'var(--spacing-x10)', padding: 0 }}
             />
           )}
         </Comp>

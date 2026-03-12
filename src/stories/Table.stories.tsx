@@ -60,6 +60,96 @@ const meta: Meta<typeof Table> = {
     },
   },
   tags: ['autodocs'],
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['primary', 'secondary'],
+      description: 'Table visual variant.',
+    },
+    layout: {
+      control: 'select',
+      options: ['default', 'simple'],
+      description: 'Table layout style.',
+    },
+    selectable: {
+      control: 'boolean',
+      description: 'Enable row selection with checkboxes.',
+    },
+    striped: {
+      control: 'boolean',
+      description: 'Enable striped row styling.',
+    },
+    reorderable: {
+      control: 'boolean',
+      description: 'Enable column reordering via drag-and-drop.',
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Show loading state.',
+    },
+    emptyMessage: {
+      control: 'text',
+      description: 'Message displayed when table is empty.',
+    },
+    caption: {
+      control: 'text',
+      description: 'Table caption for accessibility.',
+    },
+    rowActionsLabel: {
+      control: 'text',
+      description: 'Label for row actions column header.',
+    },
+    sortColumn: {
+      control: 'text',
+      description: 'Currently sorted column key.',
+    },
+    sortDirection: {
+      control: 'select',
+      options: [null, 'asc', 'desc'],
+      description: 'Current sort direction.',
+    },
+    selectedRows: {
+      control: 'object',
+      description: 'Currently selected row IDs.',
+    },
+    glass: {
+      control: 'select',
+      options: [undefined, true, 'subtle', 'prominent'],
+      description: 'Apply glassmorphism effect to the table header.',
+    },
+    children: {
+      control: false,
+      description: 'Table content (composable API).',
+    },
+    onSelectionChange: {
+      control: false,
+      description: 'Callback when selection changes.',
+    },
+    onSort: {
+      control: false,
+      description: 'Callback when column is sorted.',
+    },
+    rowAccessory: {
+      control: false,
+      description: 'Custom accessory content for each row.',
+    },
+    rowActions: {
+      control: false,
+      description: 'Custom actions for each row.',
+    },
+    onColumnReorder: {
+      control: false,
+      description: 'Callback when columns are reordered.',
+    },
+    headerLeft: {
+      control: false,
+      description: 'Left header content (simple layout only).',
+    },
+    headerRight: {
+      control: false,
+      description: 'Right header content (simple layout only).',
+    },
+  },
 };
 
 export default meta;

@@ -237,7 +237,7 @@ export function SiteHeader() {
                                 size="sm"
                                 disabled={!mounted}
                                 className={cn(
-                                    "!w-auto !border-0 !bg-transparent",
+                                    "w-auto border-0 bg-transparent",
                                     "gap-1.5 px-2.5",
                                     "text-foreground/60 hover:text-foreground hover:bg-accent",
                                     "focus-visible:ring-1 focus-visible:ring-ring",

@@ -6,6 +6,44 @@ import { useRef, useState } from 'react';
 const meta: Meta<typeof Tour> = {
   title: 'Molecules/Tour',
   component: Tour,
+  argTypes: {
+    open: {
+      control: 'boolean',
+      description: 'Whether the tour is visible.',
+    },
+    current: {
+      control: 'number',
+      description: 'Controlled current step index.',
+    },
+    defaultCurrent: {
+      control: 'number',
+      description: 'Default starting step index.',
+    },
+    mask: {
+      control: 'boolean',
+      description: 'Whether to show the overlay mask.',
+    },
+    zIndex: {
+      control: 'number',
+      description: 'z-index of the tour overlay.',
+    },
+    onClose: {
+      control: false,
+      description: 'Callback when the tour is closed.',
+    },
+    onChange: {
+      control: false,
+      description: 'Callback when the current step changes.',
+    },
+    onFinish: {
+      control: false,
+      description: 'Callback when the tour reaches the last step.',
+    },
+    children: {
+      control: false,
+      description: 'TourStep children for the composable API.',
+    },
+  },
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

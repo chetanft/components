@@ -9,6 +9,32 @@ const meta: Meta<typeof StackedBarChart> = {
   title: 'Molecules/StackedBarChart',
   component: StackedBarChart,
   tags: ['autodocs'],
+  argTypes: {
+    title: {
+      control: 'text',
+      description: 'Chart title displayed above the bars.',
+    },
+    legend: {
+      control: 'object',
+      description: 'Custom legend items array.',
+    },
+    maxValue: {
+      control: 'number',
+      description: 'Force the maximum value used for scaling.',
+    },
+    barHeight: {
+      control: 'number',
+      description: 'Explicit chart height in pixels.',
+    },
+    defaultColors: {
+      control: 'object',
+      description: 'Default color palette for segments without explicit colors.',
+    },
+    children: {
+      control: false,
+      description: 'Chart bars (composable API).',
+    },
+  },
   parameters: {
     layout: 'padded',
     explorer: {

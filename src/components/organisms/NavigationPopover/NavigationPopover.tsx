@@ -411,7 +411,8 @@ const HighlightCard = ({ metric }: { metric: HighlightMetric }) => (
       <Button
         variant="text"
         size="sm"
-        className="!p-0 text-[var(--neutral)]"
+        className="text-[var(--neutral)]"
+        style={{ padding: 0 }}
         icon={metric.actionIcon ?? 'arrow-top-right'}
         iconPosition="trailing"
       >

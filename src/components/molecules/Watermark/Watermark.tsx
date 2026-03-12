@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { type GlassVariant } from '../../../lib/glass';
 
 export interface WatermarkProps extends Omit<ComposableProps<'div'>, 'content'> {
   zIndex?: number;
@@ -43,7 +43,6 @@ export const Watermark: React.FC<WatermarkProps> = ({
   asChild,
   ...props
 }) => {
-  const resolvedGlass = useResolvedGlass(glass);
   const [base64Url, setBase64Url] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -109,7 +108,7 @@ export const Watermark: React.FC<WatermarkProps> = ({
   return (
     <Comp 
         ref={containerRef} 
-        className={cn("relative overflow-hidden", getGlassClasses(resolvedGlass, '', ''), className)}
+        className={cn("relative overflow-hidden", className)}
         style={{ position: 'relative' }}
         {...props}
     >

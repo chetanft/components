@@ -199,7 +199,7 @@ const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
             return React.cloneElement(child as React.ReactElement<AvatarProps>, {
               size: child.props.size || size,
               shape: child.props.shape || shape,
-              className: cn("border-2 border-white dark:border-gray-800", child.props.className)
+              className: cn("border-2 border-[var(--border-primary)]", child.props.className)
             });
           }
           return child;

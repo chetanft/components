@@ -128,7 +128,7 @@ export function CommandDialog({ open: controlledOpen, onOpenChange }: CommandDia
 
   return (
     <Modal open={open} onOpenChange={setOpen}>
-      <ModalContent size="md" centered={false} className="!self-start mt-[15vh] overflow-hidden">
+      <ModalContent size="md" centered={false} className="mt-[15vh] overflow-hidden" style={{ alignSelf: 'flex-start' }}>
         {/* Search input */}
         <div className="border-b border-border px-4 py-2">
           <Input
@@ -141,7 +141,7 @@ export function CommandDialog({ open: controlledOpen, onOpenChange }: CommandDia
               setSelectedIndex(0)
             }}
             leadingIcon="search"
-            className="!border-0 !shadow-none"
+            style={{ border: 0, boxShadow: 'none' }}
             wrapperClassName="w-full"
           />
         </div>

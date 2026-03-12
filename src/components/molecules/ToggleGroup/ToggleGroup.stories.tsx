@@ -5,6 +5,43 @@ import { Toggle } from '../../atoms/Toggle/Toggle';
 const meta: Meta<typeof ToggleGroup> = {
     title: 'Molecules/ToggleGroup',
     component: ToggleGroup,
+    argTypes: {
+        type: {
+            control: 'select',
+            options: ['single', 'multiple'],
+            description: 'Selection mode: single or multiple toggles.',
+        },
+        value: {
+            control: 'object',
+            description: 'Controlled selected value(s).',
+        },
+        defaultValue: {
+            control: 'object',
+            description: 'Default selected value(s) for uncontrolled mode.',
+        },
+        disabled: {
+            control: 'boolean',
+            description: 'Whether all toggles in the group are disabled.',
+        },
+        size: {
+            control: 'select',
+            options: ['sm', 'md', 'lg'],
+            description: 'Size of the toggle buttons.',
+        },
+        variant: {
+            control: 'select',
+            options: ['default', 'outline'],
+            description: 'Visual variant of the toggle buttons.',
+        },
+        onValueChange: {
+            control: false,
+            description: 'Callback when the selected value changes.',
+        },
+        children: {
+            control: false,
+            description: 'Toggle elements to render inside the group.',
+        },
+    },
     parameters: {
         layout: 'centered',
         explorer: {

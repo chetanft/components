@@ -1,0 +1,26 @@
+{
+  "structural": {
+    "minStoryCount": 1,
+    "requirePreviewVisible": true,
+    "requireNoEmptyPreviews": true,
+    "requireNoOverflow": true
+  },
+  "semantic": {
+    "requireTextContent": true,
+    "requireAriaLabelsOnInteractive": true,
+    "skipTextCheck": false
+  },
+  "layout": {
+    "maxAllowedOverflowPx": 0,
+    "requireNoClipping": true,
+    "requireNoTextWrapping": false
+  },
+  "tokens": {
+    "disallowHardcodedColors": true,
+    "allowedColorPatterns": ["var(--", "currentColor", "transparent", "inherit", "none", "initial"]
+  },
+  "visual": {
+    "diffThreshold": 0.01,
+    "themes": ["light"]
+  }
+}

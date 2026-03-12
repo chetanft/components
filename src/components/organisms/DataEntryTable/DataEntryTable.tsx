@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { type GlassVariant } from '../../../lib/glass';
 import { DataEntryTableCellContextMenu } from './DataEntryTableCellContextMenu';
 import { useColumnResize } from './useColumnResize';
 import { DataEntryTableProvider } from './DataEntryTableContext';
@@ -100,7 +100,6 @@ export const DataEntryTable = ({
   asChild,
   ...props
 }: DataEntryTableProps) => {
-  const resolvedGlass = useResolvedGlass(glass);
   const [focusedCell, setFocusedCell] = useState<{ rowId: string | number; columnKey: string } | null>(null);
   const [hoveredCell, setHoveredCell] = useState<{ rowId: string | number; columnKey: string } | null>(null);
   const [contextMenu, setContextMenu] = useState<{
@@ -153,7 +152,7 @@ export const DataEntryTable = ({
   const Comp = asChild ? Slot : 'div';
   return (
     <DataEntryTableProvider value={contextValue}>
-      <Comp className={cn("relative", getGlassClasses(resolvedGlass, '', ''), className)} {...props}>
+      <Comp className={cn("relative", className)} {...props}>
         <div className="overflow-x-auto">
           <table ref={tableRef} className="w-full border-collapse">
             {children}

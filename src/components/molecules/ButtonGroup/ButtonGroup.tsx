@@ -3,7 +3,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { type GlassVariant } from '../../../lib/glass';
 
 export interface ButtonGroupProps extends ComposableProps<'div'> {
   equalWidth?: boolean;
@@ -40,8 +40,6 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
     },
     ref
   ) => {
-    const resolvedGlass = useResolvedGlass(glass);
-
     const Comp = asChild ? Slot : 'div';
     return (
       <Comp
@@ -50,7 +48,6 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
           'inline-flex items-center gap-[var(--spacing-x2)]',
           wrap ? 'flex-wrap' : 'flex-nowrap',
           equalWidth && 'w-full',
-          getGlassClasses(resolvedGlass, '', ''),
           className
         )}
         {...props}

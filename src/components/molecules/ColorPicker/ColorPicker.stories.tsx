@@ -6,6 +6,43 @@ const meta: Meta<typeof ColorPicker> = {
   title: 'Molecules/ColorPicker',
   component: ColorPicker,
   tags: ['autodocs'],
+  argTypes: {
+    value: {
+      control: 'text',
+      description: 'Controlled color value (hex string).',
+    },
+    defaultValue: {
+      control: 'text',
+      description: 'Default color value when uncontrolled.',
+    },
+    defaultFormat: {
+      control: 'select',
+      options: ['hex', 'rgb', 'hsb'],
+      description: 'Display format for the color value.',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Whether the color picker is disabled.',
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'md', 'lg'],
+      description: 'Size of the color picker trigger.',
+    },
+    presets: {
+      control: 'object',
+      description: 'Custom color presets displayed in the picker grid.',
+    },
+    glass: {
+      control: 'select',
+      options: ['none', 'frost', 'subtle', 'medium', 'heavy'],
+      description: 'Glass morphism variant.',
+    },
+    onChange: {
+      control: false,
+      description: 'Callback fired when a color is selected.',
+    },
+  },
   parameters: {
     layout: 'padded',
     docs: {

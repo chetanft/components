@@ -6,7 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:static": "npx tsx qa/static/check-component-contract.ts",
+    "check:runtime": "npx playwright test qa/checks/structural-contract.spec.ts qa/checks/semantic-dom.spec.ts qa/checks/layout-integrity.spec.ts qa/checks/token-compliance.spec.ts",
+    "check:runtime-contract": "npx playwright test qa/checks/structural-contract.spec.ts qa/checks/semantic-dom.spec.ts",
+    "check:runtime-layout": "npx playwright test qa/checks/layout-integrity.spec.ts",
+    "check:runtime-visual": "QA_VISUAL=true npx playwright test qa/checks/visual-regression.spec.ts",
+    "check:runtime-tokens": "npx playwright test qa/checks/token-compliance.spec.ts",
+    "check:runtime-update-baselines": "QA_VISUAL=true npx playwright test qa/checks/visual-regression.spec.ts --update-snapshots",
+    "check:code-extraction": "tsx qa/static/check-code-extraction.ts",
+    "check:all": "npm run check:static && npm run check:runtime"
   },
   "dependencies": {
     "@babel/standalone": "^7.28.5",
@@ -30,6 +39,7 @@
     "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@tailwindcss/postcss": "^4",
     "@types/babel__standalone": "^7.1.9",
     "@types/node": "^20",
@@ -41,6 +51,7 @@
     "eslint-config-next": "16.0.3",
     "tailwindcss": "^3.4.18",
     "tailwindcss-animate": "^1.0.7",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

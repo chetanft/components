@@ -19,6 +19,7 @@ export const storyPathMap: Record<string, StoryLoader> = {
   'Carousel': () => import('../components/molecules/Carousel/Carousel.stories'),
   'Cascader': () => import('../components/molecules/Cascader/Cascader.stories'),
   'Checkbox': () => import('../components/atoms/Checkbox/Checkbox.stories'),
+  'Chip': () => import('../components/atoms/Chip/Chip.stories'),
   'Chicklet': () => import('../components/molecules/Chicklet/Chicklet.stories'),
   'Collapsible': () => import('../components/organisms/Collapsible/Collapsible.stories'),
   'ColorPicker': () => import('../components/molecules/ColorPicker/ColorPicker.stories'),

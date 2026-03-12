@@ -65,6 +65,17 @@ const meta: Meta<typeof PageHeader> = {
     },
   },
   tags: ['autodocs'],
+  argTypes: {
+    glass: {
+      control: 'select',
+      options: [undefined, true, 'subtle', 'prominent'],
+      description: 'Glassmorphism variant.',
+    },
+    children: {
+      control: false,
+      description: 'Children using composable API (PageHeader.Top, PageHeader.Left, etc.).',
+    },
+  },
 };
 
 export default meta;

@@ -5,6 +5,7 @@ import { LiveProvider, LiveEditor, LiveError, LivePreview } from "react-live"
 import { registry } from "@/registry"
 import { cn } from "@/lib/utils"
 import { Icon, Button, Tabs, TabItem } from "@/registry"
+import { useGlass } from "@/components/glass-provider"
 
 interface ComponentPreviewProps {
     code: string
@@ -14,6 +15,7 @@ interface ComponentPreviewProps {
 export function ComponentPreview({ code, className }: ComponentPreviewProps) {
     const [copied, setCopied] = React.useState(false)
     const [view, setView] = React.useState<"preview" | "code">("preview")
+    const { glassMode } = useGlass()
 
     const onCopy = () => {
         navigator.clipboard.writeText(code)
@@ -208,6 +210,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                             type="secondary"
                             activeTab={view === "preview" ? 0 : 1}
                             onTabChange={(i) => setView(i === 0 ? "preview" : "code")}
+                            glass={glassMode || undefined}
                         >
                             <div className="flex items-center gap-1">
                                 <TabItem label="Preview" active={view === "preview"} onSelect={() => setView("preview")} type="secondary" />
@@ -218,7 +221,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                             onClick={onCopy}
                             variant="secondary"
                             size="sm"
-                            className="!h-8 !w-8 !px-0 !py-0"
+                            style={{ width: 32, height: 32, padding: 0 }}
                         >
                             {copied ? (
                                 <Icon name="check" size={16} />
@@ -230,7 +233,7 @@ export function ComponentPreview({ code, className }: ComponentPreviewProps) {
                     </div>
 
                     {view === "preview" && (
-                        <div className="p-10 min-h-[350px] flex items-center justify-center bg-background">
+                        <div className="p-10 min-h-[350px] flex items-center justify-center bg-background overflow-hidden">
                             <div className="w-full overflow-x-auto">
                                 <LivePreview className="w-full flex justify-center min-w-0" />
                             </div>

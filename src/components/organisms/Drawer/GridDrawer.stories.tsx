@@ -136,7 +136,7 @@ export function DocsAllSizes() {
   return (
     <div className="p-6 space-y-4">
       <h3 className="text-lg font-semibold mb-4">All Grid Drawer Sizes</h3>
-      <p className="text-sm text-gray-600 mb-6">Compare the three available drawer sizes.</p>
+      <p className="text-sm text-[var(--secondary)] mb-6">Compare the three available drawer sizes.</p>
       
       <div className="flex flex-wrap gap-4">
         <Button onClick={() => setOpen16(true)}>16 Columns (66.67%)</Button>

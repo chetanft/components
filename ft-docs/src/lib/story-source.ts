@@ -137,6 +137,95 @@ export async function loadStorySource(componentName: string): Promise<string | n
   }
 }
 
+function findMatchingBrace(source: string, startIndex: number): number {
+  let depth = 0;
+  let inString = false;
+  let stringChar = "";
+
+  for (let i = startIndex; i < source.length; i++) {
+    const char = source[i];
+    const prev = i > 0 ? source[i - 1] : "";
+
+    if ((char === "'" || char === '"' || char === "`") && prev !== "\\") {
+      if (!inString) {
+        inString = true;
+        stringChar = char;
+      } else if (stringChar === char) {
+        inString = false;
+        stringChar = "";
+      }
+    }
+
+    if (inString) continue;
+
+    if (char === "{") depth += 1;
+    if (char === "}") {
+      depth -= 1;
+      if (depth === 0) {
+        return i;
+      }
+    }
+  }
+
+  return -1;
+}
+
+function findMatchingParen(source: string, startIndex: number): number {
+  let depth = 0;
+  let inString = false;
+  let stringChar = "";
+
+  for (let i = startIndex; i < source.length; i++) {
+    const char = source[i];
+    const prev = i > 0 ? source[i - 1] : "";
+
+    if ((char === "'" || char === '"' || char === "`") && prev !== "\\") {
+      if (!inString) {
+        inString = true;
+        stringChar = char;
+      } else if (stringChar === char) {
+        inString = false;
+        stringChar = "";
+      }
+    }
+
+    if (inString) continue;
+
+    if (char === "(") depth += 1;
+    if (char === ")") {
+      depth -= 1;
+      if (depth === 0) {
+        return i;
+      }
+    }
+  }
+
+  return -1;
+}
+
+function extractStoryObjectBlock(fullSource: string, storyName: string): string | null {
+  const exportRe = new RegExp(`export\\s+const\\s+${storyName}\\s*:\\s*Story\\s*=\\s*\\{`);
+  const match = exportRe.exec(fullSource);
+  if (!match) return null;
+
+  const braceStart = fullSource.indexOf("{", match.index);
+  if (braceStart === -1) return null;
+
+  const braceEnd = findMatchingBrace(fullSource, braceStart);
+  if (braceEnd === -1) return null;
+
+  return fullSource.slice(braceStart, braceEnd + 1);
+}
+
+function normalizeExtractedJSX(code: string): string {
+  let normalized = code.trim();
+  if (normalized.endsWith(",")) normalized = normalized.slice(0, -1).trim();
+  if (normalized.startsWith("(") && normalized.endsWith(")")) {
+    normalized = normalized.slice(1, -1).trim();
+  }
+  return normalized;
+}
+
 /**
  * Extract source code for a specific story from the full source
  */
@@ -144,56 +233,154 @@ export function extractStorySource(fullSource: string, storyName: string): strin
   if (typeof fullSource !== 'string') {
     return null;
   }
-  // Try to find the story export
-  // Pattern 1: export const StoryName: Story = { args: { ... } }
-  const argsPattern = new RegExp(
-    `export\\s+const\\s+${storyName}\\s*:\\s*Story\\s*=\\s*\\{[^}]*args:\\s*\\{([^}]+)\\}`,
-    's'
-  );
+  const storyObject = extractStoryObjectBlock(fullSource, storyName);
+  if (storyObject) {
+    const explicitSourceMatch = storyObject.match(/docs:\s*\{\s*source:\s*\{\s*code:\s*`([\s\S]*?)`\s*\}/m);
+    if (explicitSourceMatch?.[1]) {
+      return explicitSourceMatch[1].trim();
+    }
 
-  // Pattern 2: export function StoryName() { ... }
-  const functionPattern = new RegExp(
-    `export\\s+function\\s+${storyName}\\s*\\([^)]*\\)\\s*\\{([\\s\\S]*?)\\n\\}(?=\\n|$)`,
-    'm'
-  );
+    // Extract render body using balanced delimiter matching
+    const renderIdx = storyObject.search(/render\s*:\s*\(/);
+    if (renderIdx !== -1) {
+      const arrowIdx = storyObject.indexOf("=>", renderIdx);
+      if (arrowIdx !== -1) {
+        // Find the first non-whitespace character after =>
+        let cursor = arrowIdx + 2;
+        while (cursor < storyObject.length && /\s/.test(storyObject[cursor])) cursor++;
+
+        if (cursor < storyObject.length) {
+          const nextChar = storyObject[cursor];
+          if (nextChar === "(") {
+            // Arrow with parens: render: (args) => ( ... )
+            const closeIdx = findMatchingParen(storyObject, cursor);
+            if (closeIdx !== -1) {
+              const body = storyObject.slice(cursor + 1, closeIdx);
+              return normalizeExtractedJSX(body);
+            }
+          } else if (nextChar === "{") {
+            // Arrow with braces: render: (args) => { return (...) }
+            const closeIdx = findMatchingBrace(storyObject, cursor);
+            if (closeIdx !== -1) {
+              const body = storyObject.slice(cursor, closeIdx + 1);
+              // Try to extract the return statement's JSX
+              const returnIdx = body.indexOf("return");
+              if (returnIdx !== -1) {
+                let retCursor = returnIdx + 6;
+                while (retCursor < body.length && /\s/.test(body[retCursor])) retCursor++;
+                if (retCursor < body.length && body[retCursor] === "(") {
+                  const retClose = findMatchingParen(body, retCursor);
+                  if (retClose !== -1) {
+                    const jsx = body.slice(retCursor + 1, retClose);
+                    return normalizeExtractedJSX(jsx);
+                  }
+                }
+                // return without parens — grab until ; or end of block
+                const returnBody = body.slice(retCursor, body.length - 1).replace(/;\s*$/, "");
+                return normalizeExtractedJSX(returnBody);
+              }
+              // No return found, return the full brace body
+              return normalizeExtractedJSX(body);
+            }
+          } else {
+            // Bare expression after arrow: render: () => <Component />
+            // Scan forward to find end of expression (next comma or closing brace at depth 0)
+            let end = cursor;
+            let scanDepth = 0;
+            let inStr = false;
+            let strCh = '';
+            while (end < storyObject.length) {
+              const c = storyObject[end];
+              const p = end > 0 ? storyObject[end - 1] : '';
+              if ((c === "'" || c === '"' || c === '`') && p !== '\\') {
+                if (!inStr) { inStr = true; strCh = c; }
+                else if (strCh === c) { inStr = false; strCh = ''; }
+              }
+              if (!inStr) {
+                if (c === '{' || c === '(') scanDepth++;
+                if (c === '}' || c === ')') {
+                  if (scanDepth === 0) break;
+                  scanDepth--;
+                }
+                if (c === ',' && scanDepth === 0) break;
+              }
+              end++;
+            }
+            const bareBody = storyObject.slice(cursor, end).trim();
+            if (bareBody) return normalizeExtractedJSX(bareBody);
+          }
+        }
+      }
+    }
+
+    // Fallback: regex-based render extraction for edge cases
+    const renderMatch = storyObject.match(/render:\s*\([^)]*\)\s*=>\s*\(([\s\S]*?)\)\s*(?:,|\n\s*[a-zA-Z_])/m);
+    if (renderMatch?.[1]) {
+      return normalizeExtractedJSX(renderMatch[1]);
+    }
+
+    // Extract args object using balanced brace matching
+    // Match "args:" but not "overrideArgs:", "defaultArgs:", etc.
+    const argsRe = /(?<![a-zA-Z_])args\s*:\s*\{/g;
+    let argsReMatch: RegExpExecArray | null;
+    while ((argsReMatch = argsRe.exec(storyObject)) !== null) {
+      const braceStart = storyObject.indexOf("{", argsReMatch.index + 4);
+      if (braceStart === -1) continue;
+      const braceEnd = findMatchingBrace(storyObject, braceStart);
+      if (braceEnd !== -1) {
+        const argsBody = storyObject.slice(braceStart + 1, braceEnd);
+        return `// ${storyName} story\nargs: {\n${argsBody.trim()}\n}`;
+      }
+    }
+
+    // Fallback: regex-based args extraction
+    const argsMatch = storyObject.match(/args:\s*\{([\s\S]*?)\}\s*(?:,|\n\s*[a-zA-Z_])/m);
+    if (argsMatch?.[1]) {
+      return `// ${storyName} story\nargs: {\n${argsMatch[1].trim()}\n}`;
+    }
+
+    // Category D fallback: empty or minimal story object — return the raw definition
+    const trimmedObj = storyObject.replace(/^\{/, '').replace(/\}$/, '').trim();
+    if (trimmedObj.length > 0) {
+      return `export const ${storyName}: Story = ${storyObject}`;
+    }
+  }
+
+  // Pattern 2: export function StoryName() { ... } — use balanced brace matching
+  const funcRe = new RegExp(`export\\s+function\\s+${storyName}\\s*\\([^)]*\\)\\s*\\{`);
+  const funcMatch = funcRe.exec(fullSource);
+  if (funcMatch) {
+    const braceStart = fullSource.indexOf("{", funcMatch.index + funcMatch[0].length - 1);
+    if (braceStart !== -1) {
+      const braceEnd = findMatchingBrace(fullSource, braceStart);
+      if (braceEnd !== -1) {
+        const body = fullSource.slice(braceStart + 1, braceEnd);
+        return `// ${storyName} story\nfunction ${storyName}() {${body}}`;
+      }
+    }
+  }
 
   // Pattern 3: export const StoryName = () => { ... } or () => ( ... )
-  const arrowPattern = new RegExp(
-    `export\\s+const\\s+${storyName}\\s*=\\s*\\([^)]*\\)\\s*=>\\s*[({]([\\s\\S]*?)[)}]\\s*;?\\s*(?=\\nexport|$)`,
-    'm'
-  );
-
-  let match = fullSource.match(argsPattern);
-  if (match) {
-    return `// ${storyName} story\nargs: {\n${match[1].trim()}\n}`;
-  }
-
-  match = fullSource.match(functionPattern);
-  if (match) {
-    return `// ${storyName} story\nfunction ${storyName}() {\n${match[1]}\n}`;
-  }
-
-  match = fullSource.match(arrowPattern);
-  if (match) {
-    return `// ${storyName} story\nconst ${storyName} = () => {\n${match[1]}\n}`;
-  }
-
-  // Pattern 4: export const StoryName: Story = { render: ... }
-  const renderPattern = new RegExp(
-    `export\\s+const\\s+${storyName}\\s*:\\s*Story\\s*=\\s*\\{[\\s\\S]*?render:\\s*(?:\\(\\)\\s*=>\\s*)?([\\s\\S]*?)\\n\\};`,
-    'm'
-  );
-
-  match = fullSource.match(renderPattern);
-  if (match) {
-    let code = match[1].trim();
-    // Remove trailing comma
-    if (code.endsWith(',')) code = code.slice(0, -1);
-    // Remove wrapping parentheses
-    if (code.startsWith('(') && code.endsWith(')')) {
-      code = code.slice(1, -1).trim();
+  const arrowRe = new RegExp(`export\\s+const\\s+${storyName}\\s*=\\s*\\([^)]*\\)\\s*=>\\s*`);
+  const arrowMatch = arrowRe.exec(fullSource);
+  if (arrowMatch) {
+    const afterArrow = arrowMatch.index + arrowMatch[0].length;
+    if (afterArrow < fullSource.length) {
+      const ch = fullSource[afterArrow];
+      if (ch === "{") {
+        const closeIdx = findMatchingBrace(fullSource, afterArrow);
+        if (closeIdx !== -1) {
+          const body = fullSource.slice(afterArrow + 1, closeIdx);
+          return `// ${storyName} story\nconst ${storyName} = () => {${body}}`;
+        }
+      } else if (ch === "(") {
+        const closeIdx = findMatchingParen(fullSource, afterArrow);
+        if (closeIdx !== -1) {
+          const body = fullSource.slice(afterArrow + 1, closeIdx);
+          return normalizeExtractedJSX(body);
+        }
+      }
     }
-    return code;
   }
 
   return null;
@@ -205,4 +392,3 @@ export function extractStorySource(fullSource: string, storyName: string): strin
 export function hasStorySource(componentName: string): boolean {
   return componentName in storySourceMap;
 }
-

@@ -1,11 +1,11 @@
 // AUTO-GENERATED — DO NOT EDIT
 // Source: scripts/sync-docs-data.cjs
-// Generated: 2026-03-08T15:56:06.723Z
+// Generated: 2026-03-12T08:07:22.408Z
 
 export const SYSTEM_VERSION = "4.22.0";
 export const COMPONENT_COUNT = 125;
 export const COMPONENT_SUMMARY = {"total":125,"atoms":25,"molecules":58,"organisms":24,"charts":16,"templates":2};
-export const GENERATED_AT = "2026-03-08T15:56:06.723Z";
+export const GENERATED_AT = "2026-03-12T08:07:22.408Z";
 
 export const SPACING_TOKENS: Record<string, string> = {
   "x0": "0px",
@@ -126,27 +126,27 @@ export const SEMANTIC_COLORS: Record<string, { value: string; resolved: string }
     "resolved": "#434f64"
   },
   "secondary": {
-    "value": "var(--primary-500)",
+    "value": "var(--primary-600)",
     "resolved": "#5f697b"
   },
   "tertiary": {
-    "value": "var(--primary-300)",
+    "value": "var(--primary-500)",
     "resolved": "#838c9d"
   },
   "border-primary": {
-    "value": "var(--secondary-300)",
+    "value": "var(--primary-300)",
     "resolved": "#ced1d7"
   },
   "border-secondary": {
-    "value": "var(--secondary-100)",
+    "value": "var(--primary-100)",
     "resolved": "#f0f1f7"
   },
   "bg-primary": {
-    "value": "var(--tertiary-0)",
+    "value": "var(--secondary-0)",
     "resolved": "#ffffff"
   },
   "bg-secondary": {
-    "value": "var(--tertiary-100)",
+    "value": "var(--secondary-100)",
     "resolved": "#f8f8f9"
   },
   "bg-tertiary": {
@@ -158,11 +158,11 @@ export const SEMANTIC_COLORS: Record<string, { value: string; resolved: string }
     "resolved": "#434f64"
   },
   "text-secondary": {
-    "value": "var(--primary-500)",
+    "value": "var(--primary-600)",
     "resolved": "#5f697b"
   },
   "text-tertiary": {
-    "value": "var(--primary-300)",
+    "value": "var(--primary-500)",
     "resolved": "#838c9d"
   },
   "text-placeholder": {
@@ -171,11 +171,11 @@ export const SEMANTIC_COLORS: Record<string, { value: string; resolved: string }
   },
   "text-disabled": {
     "value": "var(--secondary-300)",
-    "resolved": "#ced1d7"
+    "resolved": "#d5d7dc"
   },
   "color-divider": {
     "value": "var(--secondary-200)",
-    "resolved": "#ebecef"
+    "resolved": "#f0f1f7"
   },
   "color-primary-light": {
     "value": "var(--neutral-100)",
@@ -258,27 +258,28 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
      BASE COLOR SCALES - LIGHT MODE (FOUNDATION)
      ===================================================== */
 
-   /* Primary Scale (9 shades) */
+   /* Primary Scale (9 shades) — matches Figma Base Colors / Primary */
    --primary-900: #1a2330;
    --primary-800: #2c3547;
    --primary-700: #434f64; /* Main brand color - dark navy */
-   --primary-600: #49556a;
-   --primary-500: #5f697b;
-   --primary-400: #6c7689;
-   --primary-300: #838c9d;
-   --primary-200: #9aa3b2;
-   --primary-100: #c5cad3;
+   --primary-600: #5f697b;
+   --primary-500: #838c9d;
+   --primary-400: #a7afb9;
+   --primary-300: #ced1d7;
+   --primary-200: #e4e7ec;
+   --primary-100: #f0f1f7;
 
-   /* Secondary Scale (9 shades) */
-   --secondary-900: #1e1f22;
-   --secondary-800: #303236;
-   --secondary-700: #4a4d52;
-   --secondary-600: #6c6f75;
-   --secondary-500: #979ba2;
+   /* Secondary Scale (10 shades including 0) — matches Figma Base Colors / Secondary */
+   --secondary-900: #2b3645;
+   --secondary-800: #3d4c60;
+   --secondary-700: #596272;
+   --secondary-600: #6f7a8a;
+   --secondary-500: #939ba5;
    --secondary-400: #b6bac0;
-   --secondary-300: #ced1d7;
-   --secondary-200: #ebecef;
-   --secondary-100: #f0f1f7;
+   --secondary-300: #d5d7dc;
+   --secondary-200: #f0f1f7;
+   --secondary-100: #f8f8f9;
+   --secondary-0: #ffffff;
 
    /* Tertiary Scale (10 shades including 0) */
    --tertiary-900: #121314;
@@ -343,32 +344,32 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
    /* Base Semantic Colors - Reference base color scales */
    --primary: var(--primary-700);
    /* #434f64 */
-   --secondary: var(--primary-500);
+   --secondary: var(--primary-600);
    /* #5f697b */
-   --tertiary: var(--primary-300);
+   --tertiary: var(--primary-500);
    /* #838c9d */
-   --border-primary: var(--secondary-300);
-   /* #ced1d7 */
-   --border-secondary: var(--secondary-100);
-   /* #f0f1f7 */
-   --bg-primary: var(--tertiary-0);
-   /* #ffffff */
-   --bg-secondary: var(--tertiary-100);
-   /* #f8f8f9 */
+   --border-primary: var(--primary-300);
+   /* #ced1d7 — Figma: Primary/300 */
+   --border-secondary: var(--primary-100);
+   /* #f0f1f7 — Figma: Primary/100 */
+   --bg-primary: var(--secondary-0);
+   /* #ffffff — Figma: Secondary/0 */
+   --bg-secondary: var(--secondary-100);
+   /* #f8f8f9 — Figma: Secondary/100 */
    --bg-tertiary: var(--tertiary-200);
    /* #f4f4f6 */
 
    /* Text Semantic Colors */
    --text-primary: var(--primary-700);
    /* #434f64 - main body text */
-   --text-secondary: var(--primary-500);
+   --text-secondary: var(--primary-600);
    /* #5f697b - muted/secondary text */
-   --text-tertiary: var(--primary-300);
+   --text-tertiary: var(--primary-500);
    /* #838c9d - subtle/hint text */
    --text-placeholder: var(--secondary-400);
    /* #b6bac0 - placeholder text */
    --text-disabled: var(--secondary-300);
-   /* #ced1d7 - disabled text */
+   /* #ced1d7 → now #d5d7dc - disabled text */
 
    /* Misc Semantic Colors */
    --color-divider: var(--secondary-200);
@@ -465,10 +466,10 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
    --transition-slow: 300ms;
 
    /* Button Colors */
-   --button-primary-bg: var(--primary-900);
+   --button-primary-bg: var(--primary-700);
    --button-primary-text: #ffffff;
    --button-primary-hover-bg: var(--primary-800);
-   --button-primary-border: var(--primary-900);
+   --button-primary-border: var(--primary-700);
 
    --button-secondary-bg: #ffffff;
    --button-secondary-text: #434f64;
@@ -538,6 +539,24 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
    --border-alt: #ced1d7;
    --focus: #434f64;
    --focus-ring: #434f64;
+
+   /* Component-Level Theme Tokens - Light Mode
+    * "-dark" suffixed aliases ensure parity with .dark / .night blocks.
+    * In light mode they simply mirror the base token value.
+    */
+   --surface-dark: var(--surface);
+   --surface-alt-dark: var(--surface-alt);
+   --surface-hover-dark: var(--surface-hover);
+   --input-dark: var(--input);
+   --input-muted-dark: var(--input-muted);
+   --input-disabled-dark: var(--input-disabled);
+   --placeholder-dark: var(--placeholder);
+   --helper-dark: var(--helper);
+   --border-dark: var(--border);
+   --border-hover-dark: var(--border-hover);
+   --border-disabled-dark: var(--border-disabled);
+   --border-alt-dark: var(--border-alt);
+   --focus-dark: var(--focus);
 
    /* Overlay Tokens */
    --overlay-strong: rgba(12, 18, 28, 0.65);
@@ -1037,14 +1056,19 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
    --badge-success-text: #86efac;
    --badge-success-border: #22c55e;
    --badge-success-hover-bg: #166534;
+   --badge-success-hover-border: #22c55e;
 
    --badge-warning-bg: #78350f;
    --badge-warning-text: #fbbf24;
    --badge-warning-border: #f59e0b;
    --badge-warning-hover-bg: #92400e;
+   --badge-warning-hover-border: #f59e0b;
 
    --badge-neutral-bg: #0c4a6e;
    --badge-neutral-text: #7dd3fc;
+   --badge-neutral-border: #38bdf8;
+   --badge-neutral-hover-bg: #075985;
+   --badge-neutral-hover-border: #38bdf8;
 
    /* Badge System Variables - Dark Mode */
    --badge-border-radius: 4px;
@@ -1331,14 +1355,19 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
    --badge-success-text: #33ff77;
    --badge-success-border: #33ff77;
    --badge-success-hover-bg: #000000;
+   --badge-success-hover-border: #33ff77;
 
    --badge-warning-bg: #1a1a1a;
    --badge-warning-text: #ff8c4d;
    --badge-warning-border: #ff8c4d;
    --badge-warning-hover-bg: #000000;
+   --badge-warning-hover-border: #ff8c4d;
 
    --badge-neutral-bg: #1a1a1a;
    --badge-neutral-text: #66b3ff;
+   --badge-neutral-border: #66b3ff;
+   --badge-neutral-hover-bg: #000000;
+   --badge-neutral-hover-border: #66b3ff;
 
    /* Badge System Variables - Night Mode */
    --badge-border-radius: 4px;
@@ -1424,7 +1453,7 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
    /* #404040 - Disabled thumb (on state) */
 
    /* Status Colors - Figma night-mode mappings */
-   --critical-dark: #b70100;
+   --critical-dark: #b80100;
    /* Critical_Dark */
    --critical: #ff6666;
    /* Critical */

@@ -15,7 +15,7 @@ import {
   TopOverlayPreview,
 } from "@/components/explorer-preview-wrappers"
 import { GlassPreviewBackdrop } from "@/components/glass-preview-backdrop"
-import { SegmentedTabs, SegmentedTabItem } from "@/registry"
+import { Chip, ChipGroup } from "@/registry"
 
 type GlassChipValue = false | true | "subtle" | "prominent"
 
@@ -238,15 +238,15 @@ export function ExplorerMatrix({
             <h3 className="block w-full text-left text-lg-rem font-semibold pb-3 text-[var(--primary)]">
               {row.label ?? formatStoryName(row.id)}
             </h3>
-            <SegmentedTabs value={selectedByRow[row.id]} onChange={(v) => handleScenarioClick(row.id, v)}>
+            <ChipGroup value={selectedByRow[row.id]} onChange={(v) => handleScenarioClick(row.id, v)}>
               {row.scenarios?.map((scenario) => (
-                <SegmentedTabItem
+                <Chip
                   key={scenario.id}
                   value={scenario.id}
                   label={scenario.label ?? formatStoryName(scenario.id)}
                 />
               ))}
-            </SegmentedTabs>
+            </ChipGroup>
           </div>
         ))}
         {config.supportsGlass && (
@@ -254,33 +254,33 @@ export function ExplorerMatrix({
             <h3 className="block w-full text-left text-lg-rem font-semibold pb-3 text-[var(--primary)]">
               Surface
             </h3>
-            <SegmentedTabs value={String(glassMode)} onChange={(v) => setGlassMode(v === "false" ? false : v === "true" ? true : v as "subtle" | "prominent")}>
+            <ChipGroup value={String(glassMode)} onChange={(v) => setGlassMode(v === "false" ? false : v === "true" ? true : v as "subtle" | "prominent")}>
               {GLASS_CHIPS.map((chip) => (
-                <SegmentedTabItem key={chip.label} value={String(chip.value)} label={chip.label} />
+                <Chip key={chip.label} value={String(chip.value)} label={chip.label} />
               ))}
-            </SegmentedTabs>
+            </ChipGroup>
           </div>
         )}
         <div>
           <h3 className="block w-full text-left text-lg-rem font-semibold pb-3 text-[var(--primary)]">
             Inspector
           </h3>
-          <SegmentedTabs value={inspectorMode} onChange={(v) => setInspectorMode(v as ExplorerInspectorMode)}>
-            <SegmentedTabItem value="off" label="Off" />
-            <SegmentedTabItem value="box-model" label="Box Model" />
-            <SegmentedTabItem value="token-spacing" label="Token Spacing" />
-            <SegmentedTabItem value="both" label="Both" />
-          </SegmentedTabs>
+          <ChipGroup value={inspectorMode} onChange={(v) => setInspectorMode(v as ExplorerInspectorMode)}>
+            <Chip value="off" label="Off" />
+            <Chip value="box-model" label="Box Model" />
+            <Chip value="token-spacing" label="Token Spacing" />
+            <Chip value="both" label="Both" />
+          </ChipGroup>
           <div className="mt-2 flex flex-wrap gap-2">
-            <SegmentedTabs value={String(inspectorScale)} onChange={(v) => setInspectorScale(Number(v))}>
-              <SegmentedTabItem value="1" label="1x" />
-              <SegmentedTabItem value="1.25" label="1.25x" />
-              <SegmentedTabItem value="1.5" label="1.5x" />
-            </SegmentedTabs>
-            <SegmentedTabs value={inspectorHighContrast ? "on" : "off"} onChange={(v) => setInspectorHighContrast(v === "on")}>
-              <SegmentedTabItem value="off" label="Normal" />
-              <SegmentedTabItem value="on" label="High Contrast" />
-            </SegmentedTabs>
+            <ChipGroup value={String(inspectorScale)} onChange={(v) => setInspectorScale(Number(v))}>
+              <Chip value="1" label="1x" />
+              <Chip value="1.25" label="1.25x" />
+              <Chip value="1.5" label="1.5x" />
+            </ChipGroup>
+            <ChipGroup value={inspectorHighContrast ? "on" : "off"} onChange={(v) => setInspectorHighContrast(v === "on")}>
+              <Chip value="off" label="Normal" />
+              <Chip value="on" label="High Contrast" />
+            </ChipGroup>
           </div>
         </div>
       </div>

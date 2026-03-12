@@ -51,7 +51,8 @@ export function CodeBlock({
         onClick={onCopy}
         variant="secondary"
         size="sm"
-        className="!absolute right-3 top-3 z-10 !h-8 !w-8 !px-0 !py-0 opacity-0 group-hover:opacity-100"
+        className="absolute right-3 top-3 z-10 opacity-0 group-hover:opacity-100"
+        style={{ width: 32, height: 32, padding: 0 }}
         title="Copy code"
       >
         {copied ? <Icon name="check" size={14} /> : <Icon name="copy" size={14} />}

@@ -45,6 +45,37 @@ const meta: Meta<typeof NavigationLauncher> = {
       ],
     },
   },
+  argTypes: {
+    usePortal: {
+      control: 'boolean',
+      description: 'Whether to render inside a portal.',
+    },
+    hideDefaultTrigger: {
+      control: 'boolean',
+      description: 'When true, the launcher renders nothing until trigger returns a node.',
+    },
+    alignment: {
+      control: 'select',
+      options: ['center', 'top-left'],
+      description: 'Controls how the popover is positioned within the overlay.',
+    },
+    showBackdrop: {
+      control: 'boolean',
+      description: 'Shows a backdrop/scrim behind the popover.',
+    },
+    portalClassName: {
+      control: 'text',
+      description: 'Optional className for the popover wrapper when rendered via portal.',
+    },
+    trigger: {
+      control: false,
+      description: 'Custom trigger render prop receiving isOpen and toggle handlers.',
+    },
+    children: {
+      control: false,
+      description: 'Navigation section content.',
+    },
+  },
 };
 
 export default meta;

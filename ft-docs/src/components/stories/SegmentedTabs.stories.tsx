@@ -1,2 +1,2 @@
-export { default } from '../../../../src/stories/SegmentedTabs.stories';
-export * from '../../../../src/stories/SegmentedTabs.stories';
+export { default } from '../../../../src/components/molecules/SegmentedTabs/SegmentedTabs.stories';
+export * from '../../../../src/components/molecules/SegmentedTabs/SegmentedTabs.stories';

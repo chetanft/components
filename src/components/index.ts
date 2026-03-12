@@ -13,6 +13,7 @@ export * from './atoms/Avatar';
 export * from './atoms/Badge';
 export * from './atoms/Button';
 export * from './atoms/Checkbox';
+export * from './atoms/Chip';
 export * from './atoms/Colors';
 export * from './atoms/Divider';
 export * from './atoms/Illustration';

@@ -3,7 +3,7 @@
 import React, { forwardRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { StepsProvider } from './StepsContext';
 
 export interface StepsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
@@ -85,7 +85,6 @@ export const Steps = forwardRef<HTMLDivElement, StepsProps>(
             }}
         >
             <Comp ref={ref} className={cn(
-                getGlassClasses(resolvedGlass, '', ''),
                 resolvedGlass && 'rounded-[var(--radius-md)] p-[var(--spacing-x3)]',
                 className
             )} {...props}>

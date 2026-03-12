@@ -7,8 +7,8 @@ Correctness check meaning:
 - `Partial config`: has `explorer` but missing required default IDs
 - `Not configured`: no `explorer` block
 
-Summary: 104 component rows, 97 configured, 2 partial, 5 not configured.
-Deduping: reduced 106 story files to 104 component rows using priority (configured > partial > not configured, `src/components` > `src/stories`).
+Summary: 105 component rows, 97 configured, 3 partial, 5 not configured.
+Deduping: reduced 107 story files to 105 component rows using priority (configured > partial > not configured, `src/components` > `src/stories`).
 Duplicate component-name groups collapsed: 2.
 
 | Component | Type Variants | Style Variants | State Variants | Size Variants | Shape Variants | Content Variants | Other Axes | Correctness Check | Notes | Story File |
@@ -30,6 +30,7 @@ Duplicate component-name groups collapsed: 2.
 | Cascader | — | — | Default, Disabled | XXS, XS, SM, MD, LG, XL, XXL | — | — | — | Configured | — | src/components/molecules/Cascader/Cascader.stories.tsx |
 | Checkbox | — | — | Unchecked, Checked, Error, Disabled | SM, MD | — | Default, Accept terms and conditions, Helper Text, Newsletter subscription, Indeterminate, Select all items | — | Configured | — | src/components/atoms/Checkbox/Checkbox.stories.tsx |
 | Chicklet | — | Default, Rounded, Bordered, Rounded Bordered | Default, Closable, Disabled, Closable Disabled | — | — | — | — | Configured | no ExplorerBase export | src/components/molecules/Chicklet/Chicklet.stories.tsx |
+| Chip | — | — | Unselected, Selected, Disabled | Small, Medium, Large | — | — | Variant: Outlined, Filled | Partial config | — | src/components/atoms/Chip/Chip.stories.tsx |
 | Collapsible | Primary, Secondary, Tertiary | — | Collapsed, Expanded, Extra, Controlled | — | — | — | — | Configured | — | src/components/organisms/Collapsible/Collapsible.stories.tsx |
 | Color System | — | — | — | — | — | — | Theme: Light Mode, Dark Mode, Night Mode | Configured | — | src/stories/ColorSystem.stories.tsx |
 | ColorPicker | Default, With Presets | — | Default, Disabled | — | — | — | — | Configured | — | src/components/molecules/ColorPicker/ColorPicker.stories.tsx |

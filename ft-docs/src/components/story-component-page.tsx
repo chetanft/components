@@ -14,6 +14,7 @@ import { useToc, type TocItem } from "@/components/toc-context";
 import { buildMachineSpec } from "@/lib/machine-spec";
 import { Badge, Button, Tabs, TabItem } from "@/registry";
 import { useViewMode } from "@/components/view-mode-context";
+import { useGlass } from "@/components/glass-provider";
 import { MachineSpecView } from "@/components/machine-spec-view";
 
 /**
@@ -23,8 +24,8 @@ import { MachineSpecView } from "@/components/machine-spec-view";
 const componentDescriptions: Record<string, string> = {
   // Atoms
   Avatar: "An image element with a fallback for representing the user.",
-  Badge: "Displays a badge or a component that looks like a badge.",
-  Button: "Displays a button or a component that looks like a button.",
+  Badge: "A small label for status, categories, or counts.",
+  Button: "A clickable element that triggers an action or event.",
   Checkbox: "A control that allows the user to toggle between checked and not checked.",
   Chicklet: "A compact, dismissible tag for filters and selections.",
   Divider: "Visually separates content into distinct sections.",
@@ -143,6 +144,7 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
   const searchParams = useSearchParams();
   const [isExplorerView, setIsExplorerView] = useState(false);
   const { viewMode } = useViewMode();
+  const { glassMode } = useGlass();
   const { setItems: setTocItems } = useToc();
 
   useEffect(() => {
@@ -308,7 +310,7 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
           {storyModule.meta.tags && storyModule.meta.tags.length > 0 && (
             <div className="flex gap-1.5">
               {storyModule.meta.tags.map((tag) => (
-                <Badge key={tag} variant="neutral" size="xs">{tag}</Badge>
+                <Badge key={tag} variant="neutral" size="sm">{tag.charAt(0).toUpperCase() + tag.slice(1)}</Badge>
               ))}
             </div>
           )}
@@ -324,6 +326,7 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
               type="primary"
               activeTab={["npm", "pnpm", "yarn"].indexOf(installTab)}
               onTabChange={(index) => setInstallTab((["npm", "pnpm", "yarn"] as const)[index])}
+              glass={glassMode || undefined}
             >
               <div className="flex">
                 {(["npm", "pnpm", "yarn"] as const).map((tab, i) => (
@@ -358,9 +361,7 @@ export function StoryComponentPage({ componentName }: StoryComponentPageProps) {
           {!isExplorerView && storyModule.meta.argTypes && Object.keys(storyModule.meta.argTypes).length > 0 && (
             <div className="space-y-4" id="props">
               <h2 className="text-section font-semibold scroll-mt-20">Props</h2>
-              <div className="overflow-hidden rounded-lg border">
-                <PropsTable meta={storyModule.meta} />
-              </div>
+              <PropsTable meta={storyModule.meta} />
             </div>
           )}
 

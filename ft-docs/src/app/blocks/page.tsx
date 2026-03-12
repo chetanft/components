@@ -57,7 +57,7 @@ export default function BlocksPage() {
               borderColor: "var(--border-secondary)",
             }}
           >
-            <PageHeader className="!bg-transparent !px-6">
+            <PageHeader style={{ background: 'transparent', paddingLeft: 'var(--spacing-x6)', paddingRight: 'var(--spacing-x6)' }}>
               <PageHeader.Top>
                 <PageHeader.Left>
                   <PageHeader.TitleGroup>

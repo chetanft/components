@@ -1,7 +1,7 @@
 # FT Design System - Complete Token Reference
 
 > **Auto-generated from** `src/styles/globals.css`  
-> **Last updated:** 2026-03-06  
+> **Last updated:** 2026-03-12  
 > **Total tokens:** 161
 
 This document provides a comprehensive reference for all design tokens available in the FT Design System. All tokens are CSS custom properties that can be used in your stylesheets or accessed via JavaScript.
@@ -39,27 +39,28 @@ FT Design System uses a hierarchical color system with base scales that support 
 | `--primary-900` | `#1a2330` | Darkest |
 | `--primary-800` | `#2c3547` |  |
 | `--primary-700` | `#434f64` | Main brand color |
-| `--primary-600` | `#49556a` |  |
-| `--primary-500` | `#5f697b` |  |
-| `--primary-400` | `#6c7689` |  |
-| `--primary-300` | `#838c9d` |  |
-| `--primary-200` | `#9aa3b2` |  |
-| `--primary-100` | `#c5cad3` | Lightest |
+| `--primary-600` | `#5f697b` |  |
+| `--primary-500` | `#838c9d` |  |
+| `--primary-400` | `#a7afb9` |  |
+| `--primary-300` | `#ced1d7` |  |
+| `--primary-200` | `#e4e7ec` |  |
+| `--primary-100` | `#f0f1f7` | Lightest |
 | `--primary-bg-subtle` | `var(--neutral-100)` |  |
 
 #### Secondary Scale
 
 | Token | Value | Description |
 |-------|-------|------------|
-| `--secondary-900` | `#1e1f22` | Darkest |
-| `--secondary-800` | `#303236` |  |
-| `--secondary-700` | `#4a4d52` | Main brand color |
-| `--secondary-600` | `#6c6f75` |  |
-| `--secondary-500` | `#979ba2` |  |
+| `--secondary-900` | `#2b3645` | Darkest |
+| `--secondary-800` | `#3d4c60` |  |
+| `--secondary-700` | `#596272` | Main brand color |
+| `--secondary-600` | `#6f7a8a` |  |
+| `--secondary-500` | `#939ba5` |  |
 | `--secondary-400` | `#b6bac0` |  |
-| `--secondary-300` | `#ced1d7` |  |
-| `--secondary-200` | `#ebecef` |  |
-| `--secondary-100` | `#f0f1f7` | Lightest |
+| `--secondary-300` | `#d5d7dc` |  |
+| `--secondary-200` | `#f0f1f7` |  |
+| `--secondary-100` | `#f8f8f9` | Lightest |
+| `--secondary-0` | `#ffffff` |  |
 
 #### Tertiary Scale
 
@@ -144,17 +145,21 @@ Semantic colors reference base color scales and adapt to theme (light/dark/night
 
 | Token | Value | Description |
 |-------|-------|------------|
-| `--bg-primary` | `var(--tertiary-0)` | Background color |
-| `--bg-secondary` | `var(--tertiary-100)` | Background color |
+| `--bg-primary` | `var(--secondary-0)` | Background color |
+| `--bg-secondary` | `var(--secondary-100)` | Background color |
 | `--bg-tertiary` | `var(--tertiary-200)` | Background color |
 | `--border-alt` | `#ced1d7` | Border color |
+| `--border-alt-dark` | `var(--border-alt)` | Border color |
+| `--border-dark` | `var(--border)` | Border color |
 | `--border-disabled` | `#f0f1f7` | Border color |
+| `--border-disabled-dark` | `var(--border-disabled)` | Border color |
 | `--border-hover` | `#434f64` | Border color |
-| `--border-primary` | `var(--secondary-300)` | Border color |
-| `--border-secondary` | `var(--secondary-100)` | Border color |
+| `--border-hover-dark` | `var(--border-hover)` | Border color |
+| `--border-primary` | `var(--primary-300)` | Border color |
+| `--border-secondary` | `var(--primary-100)` | Border color |
 | `--primary` | `var(--primary-700)` | Main brand color (references --primary-700) |
-| `--secondary` | `var(--primary-500)` | Secondary text color |
-| `--tertiary` | `var(--primary-300)` | Muted/placeholder text |
+| `--secondary` | `var(--primary-600)` | Secondary text color |
+| `--tertiary` | `var(--primary-500)` | Muted/placeholder text |
 
 ### Status Colors
 
@@ -179,8 +184,8 @@ Status colors for alerts, badges, and feedback states.
 | `--button-destructive-border` | `#ff3532` | destructive border |
 | `--button-destructive-hover-bg` | `#b70100` | destructive hover bg |
 | `--button-destructive-text` | `#ffffff` | destructive text |
-| `--button-primary-bg` | `var(--primary-900)` | primary bg |
-| `--button-primary-border` | `var(--primary-900)` | primary border |
+| `--button-primary-bg` | `var(--primary-700)` | primary bg |
+| `--button-primary-border` | `var(--primary-700)` | primary border |
 | `--button-primary-hover-bg` | `var(--primary-800)` | primary hover bg |
 | `--button-primary-text` | `#ffffff` | primary text |
 | `--button-secondary-bg` | `#ffffff` | secondary bg |
@@ -233,15 +238,24 @@ Status colors for alerts, badges, and feedback states.
 |-------|-------|------------|
 | `--border` | `#ced1d7` |  |
 | `--focus` | `#434f64` |  |
+| `--focus-dark` | `var(--focus)` | dark |
 | `--focus-ring` | `#434f64` | ring |
 | `--helper` | `#838c9d` |  |
+| `--helper-dark` | `var(--helper)` | dark |
 | `--input` | `#434f64` |  |
+| `--input-dark` | `var(--input)` | dark |
 | `--input-disabled` | `#ced1d7` | disabled |
+| `--input-disabled-dark` | `var(--input-disabled)` | disabled dark |
 | `--input-muted` | `#838c9d` | muted |
+| `--input-muted-dark` | `var(--input-muted)` | muted dark |
 | `--placeholder` | `#838c9d` |  |
+| `--placeholder-dark` | `var(--placeholder)` | dark |
 | `--surface` | `#ffffff` |  |
 | `--surface-alt` | `#f8f8f9` | alt |
+| `--surface-alt-dark` | `var(--surface-alt)` | alt dark |
+| `--surface-dark` | `var(--surface)` | dark |
 | `--surface-hover` | `#f0f1f7` | hover |
+| `--surface-hover-dark` | `var(--surface-hover)` | hover dark |
 
 ## Spacing
 

@@ -6,6 +6,51 @@ const meta: Meta<typeof FloatButton> = {
   title: 'Molecules/FloatButton',
   component: FloatButton,
   tags: ['autodocs'],
+  argTypes: {
+    type: {
+      control: 'select',
+      options: ['default', 'primary'],
+      description: 'Visual style of the float button.',
+    },
+    shape: {
+      control: 'select',
+      options: ['circle', 'square'],
+      description: 'Shape of the float button.',
+    },
+    href: {
+      control: 'text',
+      description: 'URL to navigate to, renders the button as a link.',
+    },
+    target: {
+      control: 'text',
+      description: 'Link target attribute (e.g. _blank).',
+    },
+    badge: {
+      control: 'object',
+      description: 'Badge configuration with count, dot, and color options.',
+    },
+    glass: {
+      control: 'select',
+      options: ['none', 'frost', 'subtle', 'medium', 'heavy'],
+      description: 'Glass morphism variant.',
+    },
+    icon: {
+      control: false,
+      description: 'Icon element to display inside the button.',
+    },
+    description: {
+      control: false,
+      description: 'Description text rendered below the icon.',
+    },
+    tooltip: {
+      control: false,
+      description: 'Tooltip content shown on hover.',
+    },
+    onClick: {
+      control: false,
+      description: 'Click handler for the float button.',
+    },
+  },
   parameters: {
     layout: 'padded',
     explorer: {

@@ -1,7 +1,7 @@
 # FT Design System - Component Design Specifications
 
 > Auto-generated from `src/styles/globals.css` + `registry.json`.
-> Version: 4.22.0 | Generated: 2026-03-08T15:56:07.292Z
+> Version: 4.22.0 | Generated: 2026-03-12T08:07:23.047Z
 
 ---
 
@@ -296,7 +296,7 @@ Status: `variant-detected`
 
 | Source | Dimension | Variant | Tokens |
 |---|---|---|---|
-| src/components/molecules/Alert/Alert.tsx | variant | danger | `--danger-100`, `--danger-500` |
+| src/components/molecules/Alert/Alert.tsx | variant | danger | `--critical`, `--critical-light` |
 | src/components/molecules/Alert/Alert.tsx | variant | info | `--neutral`, `--neutral-dark`, `--neutral-light` |
 | src/components/molecules/Alert/Alert.tsx | variant | success | `--positive`, `--positive-dark`, `--positive-light` |
 | src/components/molecules/Alert/Alert.tsx | variant | warning | `--warning`, `--warning-dark`, `--warning-light` |
@@ -430,7 +430,7 @@ Status: `variant-detected`
 | src/components/atoms/Button/Button.tsx | variant | destructive | `--button-destructive-bg`, `--button-destructive-border`, `--button-destructive-hover-bg`, `--button-destructive-text`, `--critical` |
 | src/components/atoms/Button/Button.tsx | variant | ghost | `--button-primary-bg`, `--button-primary-text`, `--primary`, `--tertiary` |
 | src/components/atoms/Button/Button.tsx | variant | link | `--border-primary`, `--neutral`, `--neutral-dark`, `--spacing-x2` |
-| src/components/atoms/Button/Button.tsx | variant | primary | `--primary-700`, `--primary-800`, `--tertiary` |
+| src/components/atoms/Button/Button.tsx | variant | primary | `--button-primary-bg`, `--button-primary-border`, `--button-primary-hover-bg`, `--button-primary-text`, `--tertiary` |
 | src/components/atoms/Button/Button.tsx | variant | secondary | `--border-primary`, `--button-secondary-bg`, `--button-secondary-border`, `--button-secondary-hover-bg`, `--button-secondary-hover-border`, `--button-secondary-text`, `--glass-hover`, `--primary`, `--tertiary` |
 | src/components/atoms/Button/Button.tsx | variant | text | `--button-text-bg`, `--button-text-border`, `--button-text-hover-bg`, `--button-text-text`, `--glass-hover`, `--primary`, `--tertiary` |
 

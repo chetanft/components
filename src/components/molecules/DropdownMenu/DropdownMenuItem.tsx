@@ -153,12 +153,12 @@ export const DropdownMenuItem = React.forwardRef<
       ? {
         fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
         fontStyle: 'italic',
-        fontSize: 'var(--font-size-md-rem, 1.143rem)',
+        fontSize: 'var(--font-size-sm-rem, 1rem)',
       }
       : {
         fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
         fontWeight: 'var(--font-weight-regular, 400)',
-        fontSize: 'var(--font-size-md-rem, 1.143rem)',
+        fontSize: 'var(--font-size-sm-rem, 1rem)',
       };
 
     const handleMouseEnter = () => {
@@ -199,13 +199,14 @@ export const DropdownMenuItem = React.forwardRef<
         aria-selected={isSelected}
         className={cn(
           dropdownMenuItemVariants({ state: actualState, prefix, suffix }),
-          // When glass is active, force-override opaque CVA backgrounds with translucent layers
-          resolvedGlass && actualState === 'default' && '!bg-transparent',
-          resolvedGlass && actualState === 'selected' && '!bg-[var(--glass-selected)]',
-          resolvedGlass && actualState === 'hover' && '!bg-[var(--glass-hover)]',
-          resolvedGlass && actualState === 'focused' && '!bg-[var(--glass-hover)]',
-          resolvedGlass && actualState === 'disabled' && '!bg-transparent opacity-50',
-          resolvedGlass && actualState === 'info' && '!bg-transparent',
+          // When glass is active, override opaque CVA backgrounds with translucent layers
+          // (tailwind-merge keeps last bg-* class, so these win over CVA output above)
+          resolvedGlass && actualState === 'default' && 'bg-transparent',
+          resolvedGlass && actualState === 'selected' && 'bg-[var(--glass-selected)]',
+          resolvedGlass && actualState === 'hover' && 'bg-[var(--glass-hover)]',
+          resolvedGlass && actualState === 'focused' && 'bg-[var(--glass-hover)]',
+          resolvedGlass && actualState === 'disabled' && 'bg-transparent opacity-50',
+          resolvedGlass && actualState === 'info' && 'bg-transparent',
           // When selected and hovered/focused, use justify-between to move checkmark to right
           isSelected && prefix === 'none' && !suffix && (isHovered || isFocused) && 'justify-between',
           className

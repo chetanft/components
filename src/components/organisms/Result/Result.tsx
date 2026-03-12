@@ -4,7 +4,7 @@ import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon, IconName } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { type GlassVariant } from '../../../lib/glass';
 
 export type ResultStatus = 'success' | 'error' | 'info' | 'warning' | '404' | '403' | '500';
 
@@ -125,7 +125,6 @@ export const Result = React.forwardRef<HTMLDivElement, ResultProps>(
     asChild,
     ...props
   }, ref) => {
-    const resolvedGlass = useResolvedGlass(glass);
     const Comp = asChild ? Slot : 'div';
 
     return (
@@ -135,7 +134,6 @@ export const Result = React.forwardRef<HTMLDivElement, ResultProps>(
           "flex flex-col items-center justify-center",
           "py-[var(--spacing-x12)] px-[var(--spacing-x8)]",
           "text-center",
-          getGlassClasses(resolvedGlass, '', ''),
           className
         )}
         {...props}

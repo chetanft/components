@@ -132,16 +132,19 @@ export function PropsTable({ meta, className }: PropsTableProps) {
     <Table className={cn("text-sm-rem", className)}>
       <TableHeader>
         <TableRow>
-          <TableHead>Prop</TableHead>
-          <TableHead>Type</TableHead>
-          <TableHead>Default</TableHead>
-          <TableHead>Description</TableHead>
+          <TableHead colorVariant="bg" className="w-[16%]">Prop</TableHead>
+          <TableHead colorVariant="bg" className="w-[46%]">Type</TableHead>
+          <TableHead colorVariant="bg" className="w-[14%]">Default</TableHead>
+          <TableHead colorVariant="bg" className="w-[24%]">Description</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {props.map((prop) => (
-          <TableRow key={prop.name}>
-            <TableCell>
+          <TableRow
+            key={prop.name}
+            className="group/props-row [&>td]:transition-colors [&:hover>td]:!bg-[var(--border-secondary)]"
+          >
+            <TableCell className="group-hover/props-row:bg-[var(--border-secondary)]">
               <code className="text-sm-rem bg-muted px-1.5 py-0.5 rounded font-mono">
                 {prop.name}
                 {prop.required && (
@@ -149,12 +152,12 @@ export function PropsTable({ meta, className }: PropsTableProps) {
                 )}
               </code>
             </TableCell>
-            <TableCell>
-              <Badge variant="default" size="xs" className="font-mono break-all max-w-[200px]">
+            <TableCell lineVariant="double" className="group-hover/props-row:bg-[var(--border-secondary)]">
+              <div className="max-w-full font-mono text-xs-rem text-foreground whitespace-normal break-words">
                 {prop.type}
-              </Badge>
+              </div>
             </TableCell>
-            <TableCell className="text-muted-foreground">
+            <TableCell className="text-muted-foreground group-hover/props-row:bg-[var(--border-secondary)]">
               {prop.default ? (
                 <code className="text-xs-rem bg-muted/50 px-1.5 py-0.5 rounded font-mono">
                   {prop.default}
@@ -163,7 +166,7 @@ export function PropsTable({ meta, className }: PropsTableProps) {
                 <span className="text-muted-foreground/50">&mdash;</span>
               )}
             </TableCell>
-            <TableCell className="text-muted-foreground">
+            <TableCell lineVariant="double" className="text-muted-foreground group-hover/props-row:bg-[var(--border-secondary)]">
               {prop.description || <span className="text-muted-foreground/50">&mdash;</span>}
             </TableCell>
           </TableRow>

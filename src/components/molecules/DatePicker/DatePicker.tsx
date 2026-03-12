@@ -1057,7 +1057,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
           </div>
         </div>
         {inputError && (
-          <div className="absolute top-full left-0 mt-[var(--spacing-x1)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded text-xs text-red-600 dark:text-red-400 z-10">
+          <div className="absolute top-full left-0 mt-[var(--spacing-x1)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] bg-[var(--critical-light)] border border-[var(--critical)] rounded text-xs text-[var(--critical)] z-10">
             {inputError}
           </div>
         )}

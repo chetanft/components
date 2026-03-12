@@ -62,13 +62,80 @@ const meta: Meta<typeof Input> = {
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: ['default', 'filled', 'outlined'],
+    children: {
+      control: false,
+      description: 'Input content for composable API.',
+    },
+    label: {
+      control: 'text',
+      description: 'Label text displayed above the input.',
+    },
+    labelMandatory: {
+      control: 'boolean',
+      description: 'Shows mandatory indicator (*) next to label.',
+    },
+    labelOptional: {
+      control: 'boolean',
+      description: 'Shows optional indicator next to label.',
+    },
+    labelSuffixIcon: {
+      control: 'boolean',
+      description: 'Shows suffix icon in label.',
+    },
+    labelIcon: {
+      control: false,
+      description: 'Custom icon component for label.',
+    },
+    error: {
+      control: 'text',
+      description: 'Error message displayed below input.',
+    },
+    warning: {
+      control: 'text',
+      description: 'Warning message displayed below input.',
+    },
+    success: {
+      control: 'text',
+      description: 'Success message displayed below input.',
+    },
+    helperText: {
+      control: 'text',
+      description: 'Helper text displayed below input.',
+    },
+    leadingIcon: {
+      control: false,
+      description: 'Icon displayed on the left side of input.',
+    },
+    trailingIcon: {
+      control: false,
+      description: 'Icon displayed on the right side of input.',
+    },
+    leadingIconSize: {
+      control: 'number',
+      description: 'Size for leading icon.',
+    },
+    trailingIconSize: {
+      control: 'number',
+      description: 'Size for trailing icon.',
     },
     size: {
       control: { type: 'select' },
-      options: ['sm', 'md', 'lg', 'xl', 'xxl'],
+      options: ['xxs', 'xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
+      description: 'Input size.',
+    },
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'filled', 'outlined'],
+      description: 'Visual style variant.',
+    },
+    glass: {
+      control: { type: 'select' },
+      options: [undefined, true, 'subtle', 'prominent'],
+      description: 'Enable glassmorphism effect on input background.',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Whether the input is disabled.',
     },
   },
 };

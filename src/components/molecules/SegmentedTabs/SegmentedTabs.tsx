@@ -83,7 +83,10 @@ export const SegmentedTabs = React.forwardRef<HTMLDivElement, SegmentedTabsProps
     return (
       <Comp ref={ref} className={containerStyles} {...props}>
         {React.Children.map(children, (child) => {
-          if (React.isValidElement<SegmentedTabItemProps>(child) && child.type === SegmentedTabItem) {
+          if (
+            React.isValidElement<SegmentedTabItemProps>(child) &&
+            typeof child.props.value === "string"
+          ) {
             const isSelected = currentValue === child.props.value;
             return React.cloneElement(child, {
               selected: isSelected,
@@ -120,7 +123,8 @@ SegmentedTabs.displayName = 'SegmentedTabs';
  * ```
  */
 export const SegmentedTabItem = React.forwardRef<HTMLButtonElement, SegmentedTabItemProps>(
-  ({ className, label, icon, selected, variant = 'default', ...props }, ref) => {
+  ({ className, label, icon, selected, variant = 'default', children, ...props }, ref) => {
+    const content = children ?? label;
     const tabStyles = cn(
       // Base styles using design tokens
       "flex items-center justify-center gap-[var(--spacing-x2)] py-[var(--spacing-x2)] h-[var(--spacing-x8)] rounded-[var(--radius-sm)] transition-all duration-200 cursor-pointer relative z-10",
@@ -152,7 +156,7 @@ export const SegmentedTabItem = React.forwardRef<HTMLButtonElement, SegmentedTab
         ref={ref}
         className={tabStyles}
         type="button"
-        aria-label={variant === 'icon-only' ? label : undefined}
+        aria-label={variant === 'icon-only' ? (typeof content === 'string' ? content : label) : undefined}
         style={{ pointerEvents: 'auto' }}
         {...props}
       >
@@ -163,7 +167,7 @@ export const SegmentedTabItem = React.forwardRef<HTMLButtonElement, SegmentedTab
             </span>
           </span>
         )}
-        {variant === 'default' && label && <span>{label}</span>}
+        {variant === 'default' && content && <span className="whitespace-nowrap">{content}</span>}
       </button>
     );
   }

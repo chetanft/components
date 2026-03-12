@@ -6,7 +6,7 @@ import { Button } from '../../atoms/Button/Button';
 import { IconName } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { PageHeaderFiltersProvider } from './PageHeaderFiltersContext';
-import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
+import { type GlassVariant } from '../../../lib/glass';
 
 export interface PrimaryActionConfig {
   label: string;
@@ -51,7 +51,6 @@ export interface PageHeaderFiltersProps extends ComposableProps<'div'> {
  */
 export const PageHeaderFilters = React.forwardRef<HTMLDivElement, PageHeaderFiltersProps>(
   ({ children, primaryAction, className, glass, asChild, ...props }, ref) => {
-    const resolvedGlass = useResolvedGlass(glass);
     const Comp = asChild ? Slot : 'div';
     
     return (
@@ -60,7 +59,6 @@ export const PageHeaderFilters = React.forwardRef<HTMLDivElement, PageHeaderFilt
           ref={ref}
           className={cn(
             'content-stretch flex gap-[var(--spacing-x5)] items-center relative shrink-0',
-            getGlassClasses(resolvedGlass, '', ''),
             className
           )}
           {...props}

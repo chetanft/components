@@ -51,6 +51,41 @@ const meta: Meta<typeof QuickFilters> = {
     },
   },
   tags: ['autodocs'],
+  argTypes: {
+    scrollable: {
+      control: 'boolean',
+      description: 'Whether filters are horizontally scrollable.',
+    },
+    glass: {
+      control: 'select',
+      options: [undefined, true, 'subtle', 'prominent'],
+      description: 'Glass morphism variant for filter chips.',
+    },
+    chipClassName: {
+      control: 'text',
+      description: 'Additional className for filter chip wrapper.',
+    },
+    labelClassName: {
+      control: 'text',
+      description: 'Additional className for chip label text.',
+    },
+    countClassName: {
+      control: 'text',
+      description: 'Additional className for count badge text.',
+    },
+    children: {
+      control: false,
+      description: 'Filter components (composable API).',
+    },
+    onFilterClick: {
+      control: false,
+      description: 'Callback when a filter is clicked.',
+    },
+    onFilterRemove: {
+      control: false,
+      description: 'Callback when a filter is removed.',
+    },
+  },
 };
 
 export default meta;

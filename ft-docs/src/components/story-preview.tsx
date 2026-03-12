@@ -10,6 +10,7 @@ import { extractStorySource } from "@/lib/story-source";
 import { getStorySource } from "@/app/actions/get-story-source";
 import { UserProfile, Badge, Icon, Button, Tabs, TabItem } from "@/registry";
 import { getComponentGuideline } from "@/data/designer-guidelines";
+import { useGlass } from "@/components/glass-provider";
 
 interface StoryPreviewProps {
   /** The story definition to render */
@@ -49,6 +50,7 @@ export function StoryPreview({
 }: StoryPreviewProps) {
   const [view, setView] = useState<"preview" | "code" | "usage">(defaultView || "preview");
   const [storySource, setStorySource] = useState<string | null>(null);
+  const { glassMode } = useGlass();
   const resolvedComponentName = componentName || meta.component?.displayName || meta.component?.name;
   const guideline = resolvedComponentName ? getComponentGuideline(resolvedComponentName) : undefined;
 
@@ -327,6 +329,7 @@ export function StoryPreview({
               type="secondary"
               activeTab={view === "preview" ? 0 : view === "code" ? 1 : 2}
               onTabChange={(i) => handleViewChange((["preview", "code", "usage"] as const)[i])}
+              glass={glassMode || undefined}
             >
               <div className="flex items-center gap-1">
                 <TabItem label="Preview" active={view === "preview"} onSelect={() => handleViewChange("preview")} type="secondary" />
@@ -342,16 +345,16 @@ export function StoryPreview({
         {/* Content */}
         {view === "preview" && (
           <div
-            className="p-10 min-h-[350px] bg-background overflow-x-auto flex items-center justify-center"
+            className="p-10 min-h-[350px] bg-background overflow-hidden flex items-center justify-center"
           >
-            <div className="min-w-max">
+            <div className="w-full overflow-x-auto flex justify-center">
               {renderedStory}
             </div>
           </div>
         )}
 
         {view === "code" && (
-          <CodeBlock code={codeString} lang="tsx" />
+          <CodeBlock code={codeString} lang="tsx" className="border-0 rounded-none" />
         )}
 
         {view === "usage" && guideline && (
@@ -493,6 +496,7 @@ interface StoryTabsProps {
 export function StoryTabs({ stories, meta, className }: StoryTabsProps) {
   // Always call hooks first, before any conditional returns
   const [activeStory, setActiveStory] = useState(stories[0]?.name || "");
+  const { glassMode } = useGlass();
 
   // Find current story, fallback to first story if not found
   const currentStory = stories.find((s) => s.name === activeStory) || stories[0];
@@ -509,6 +513,7 @@ export function StoryTabs({ stories, meta, className }: StoryTabsProps) {
         type="primary"
         activeTab={stories.findIndex((s) => s.name === activeStory)}
         onTabChange={(i) => setActiveStory(stories[i].name)}
+        glass={glassMode || undefined}
       >
         <div className="flex flex-wrap">
           {stories.map((story) => (

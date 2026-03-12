@@ -8,6 +8,35 @@ const meta: Meta<typeof Descriptions> = {
     title: 'Molecules/Descriptions',
     component: Descriptions,
     tags: ['autodocs'],
+    argTypes: {
+        bordered: {
+            control: 'boolean',
+            description: 'Whether to show a border around the descriptions.',
+        },
+        column: {
+            control: 'number',
+            description: 'Number of columns in the grid layout.',
+        },
+        layout: {
+            control: 'select',
+            options: ['horizontal', 'vertical'],
+            description: 'Layout direction of the description items.',
+        },
+        size: {
+            control: 'select',
+            options: ['sm', 'md', 'lg'],
+            description: 'Size of description items.',
+        },
+        glass: {
+            control: 'select',
+            options: ['none', 'frost', 'subtle', 'medium', 'heavy'],
+            description: 'Glass morphism variant.',
+        },
+        children: {
+            control: false,
+            description: 'Composable sub-components (DescriptionsTitle, DescriptionsItem, etc.).',
+        },
+    },
     parameters: {
         docs: {
             description: {

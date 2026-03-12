@@ -243,15 +243,25 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const resolvedGlass = useResolvedGlass(glass);
   const classNameHasRoundedFull = className?.includes('rounded-full') ?? false;
   type ResolvedButtonShape = ButtonShape | 'pill' | 'circle';
-  const legacyShape: ResolvedButtonShape | undefined = classNameHasRoundedFull
-    ? (iconPosition === 'only' || (!children && icon) ? 'circle' : 'pill')
-    : undefined;
-  const resolvedShape: ResolvedButtonShape = shape ?? legacyShape ?? 'default';
+
+  // Determine icon-only from content first (before shape resolution to avoid circular dependency)
   const childCount = React.Children.count(children);
   const hasButtonTextChild = React.Children.toArray(children).some(isButtonTextElement);
   const hasAnyTextContent = hasButtonTextChild || hasVisibleTextContent(children);
   const isComposableIconOnly = childCount > 0 && !hasAnyTextContent && !icon;
-  const isIconOnly = resolvedShape === 'circle' || iconPosition === 'only' || (!children && !!icon) || isComposableIconOnly;
+  const isIconOnlyByContent = iconPosition === 'only' || (!children && !!icon) || isComposableIconOnly;
+
+  // Resolve shape: 'rounded' auto-resolves to 'circle' for icon-only, 'pill' for labeled buttons
+  const legacyShape: ResolvedButtonShape | undefined = classNameHasRoundedFull
+    ? (isIconOnlyByContent ? 'circle' : 'pill')
+    : undefined;
+  const resolvedShape: ResolvedButtonShape = (() => {
+    const base = shape ?? legacyShape ?? 'default';
+    if (base === 'rounded' && isIconOnlyByContent) return 'circle';
+    if (base === 'rounded' && !isIconOnlyByContent) return 'pill';
+    return base;
+  })();
+  const isIconOnly = resolvedShape === 'circle' || isIconOnlyByContent;
   const isDisabled = disabled || loading;
   const isLink = variant === 'link';
   // Text variant icon-only buttons should keep text variant styling (borderless) per Figma design
@@ -338,8 +348,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     // Interaction states
     !isLink && !isDisabled && interactiveClass,
     isDisabled && "opacity-disabled",
-    // Circle shape stays circular regardless of custom classes
-    resolvedShape === 'circle' && "!rounded-full"
+    // Circle shape: inline shapeStyleOverrides (borderRadius: 9999) handles this
+    resolvedShape === 'circle' && "rounded-full"
   );
 
   // Use button-specific sizing from Figma design
@@ -475,7 +485,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
           sizeStyles,
           variantStyles[effectiveVariant],
           cleanedClassName,
-          resolvedShape === 'circle' && "!rounded-full"
+          resolvedShape === 'circle' && "rounded-full"
         )}
         aria-label={accessibleName}
         aria-busy={loading}
@@ -498,8 +508,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         sizeStyles,
         variantStyles[effectiveVariant],
         cleanedClassName,
-        // Ensure rounded-full is always last for circular icon-only buttons
-        resolvedShape === 'circle' && "!rounded-full"
+        resolvedShape === 'circle' && "rounded-full"
       )}
       aria-label={accessibleName}
       aria-busy={loading}

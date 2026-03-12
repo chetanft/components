@@ -5,6 +5,60 @@ import { Transfer, TransferItem } from './Transfer';
 const meta: Meta<typeof Transfer> = {
   title: 'Molecules/Transfer',
   component: Transfer,
+  argTypes: {
+    titles: {
+      control: 'object',
+      description: 'Titles for the source and target lists.',
+    },
+    operations: {
+      control: 'object',
+      description: 'Labels for the transfer operation buttons.',
+    },
+    targetKeys: {
+      control: 'object',
+      description: 'Keys of items in the target list.',
+    },
+    selectedKeys: {
+      control: 'object',
+      description: 'Keys of currently selected items.',
+    },
+    searchPlaceholder: {
+      control: 'text',
+      description: 'Placeholder text for the search input.',
+    },
+    oneWay: {
+      control: 'boolean',
+      description: 'Whether transfer is one-way (source to target only).',
+    },
+    pagination: {
+      control: 'boolean',
+      description: 'Whether to enable pagination in the lists.',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Whether the entire transfer component is disabled.',
+    },
+    onChange: {
+      control: false,
+      description: 'Callback when items are transferred between lists.',
+    },
+    onSelectChange: {
+      control: false,
+      description: 'Callback when item selection changes.',
+    },
+    render: {
+      control: false,
+      description: 'Custom render function for transfer items.',
+    },
+    footer: {
+      control: false,
+      description: 'Custom footer render function for each list.',
+    },
+    children: {
+      control: false,
+      description: 'TransferItem children for the composable API.',
+    },
+  },
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

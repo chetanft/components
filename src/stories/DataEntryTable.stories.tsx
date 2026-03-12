@@ -24,6 +24,53 @@ const meta: Meta<typeof DataEntryTable> = {
     },
   },
   tags: ['autodocs'],
+  argTypes: {
+    selectable: {
+      control: 'boolean',
+      description: 'Whether rows are selectable.',
+    },
+    resizable: {
+      control: 'boolean',
+      description: 'Whether columns are resizable.',
+    },
+    showContextMenu: {
+      control: 'boolean',
+      description: 'Whether to show context menu on hover.',
+    },
+    selectedRows: {
+      control: 'object',
+      description: 'Selected row IDs (controlled).',
+    },
+    cellErrors: {
+      control: 'object',
+      description: 'Cell errors by row ID and column key.',
+    },
+    glass: {
+      control: 'select',
+      options: [undefined, true, 'subtle', 'prominent'],
+      description: 'Glass morphism variant.',
+    },
+    children: {
+      control: false,
+      description: 'Table content (composable API).',
+    },
+    onCellChange: {
+      control: false,
+      description: 'Callback when cell value changes.',
+    },
+    onRowAdd: {
+      control: false,
+      description: 'Callback when row is added.',
+    },
+    onRowDelete: {
+      control: false,
+      description: 'Callback when row is deleted.',
+    },
+    onSelectionChange: {
+      control: false,
+      description: 'Callback when selection changes.',
+    },
+  },
 };
 
 export default meta;

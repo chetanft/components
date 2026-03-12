@@ -5,6 +5,32 @@ import { Loader } from './Loader';
 const meta: Meta<typeof Loader> = {
   title: 'Molecules/Loader',
   component: Loader,
+  argTypes: {
+    value: {
+      control: 'number',
+      description: 'Progress value from 0 to 100.',
+    },
+    logoSize: {
+      control: 'number',
+      description: 'Size of the logo/icon in pixels.',
+    },
+    showLogo: {
+      control: 'boolean',
+      description: 'Whether to show the logo/icon.',
+    },
+    logo: {
+      control: false,
+      description: 'Custom logo component to display.',
+    },
+    showProgressBar: {
+      control: 'boolean',
+      description: 'Whether to show the progress bar.',
+    },
+    progressHeight: {
+      control: 'text',
+      description: 'Height of the progress bar (CSS length or number in px).',
+    },
+  },
   parameters: {
     layout: 'centered',
     explorer: {

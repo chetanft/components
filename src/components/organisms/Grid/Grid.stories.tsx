@@ -4,6 +4,30 @@ import { Row, Col } from './Grid';
 const meta: Meta<typeof Row> = {
   title: 'Organisms/Grid',
   component: Row,
+  argTypes: {
+    gutter: {
+      control: 'object',
+      description: 'Horizontal and vertical gutter spacing as a number or [horizontal, vertical] tuple.',
+    },
+    align: {
+      control: 'select',
+      options: ['top', 'middle', 'bottom', 'stretch'],
+      description: 'Vertical alignment of columns within the row.',
+    },
+    justify: {
+      control: 'select',
+      options: ['start', 'end', 'center', 'space-around', 'space-between', 'space-evenly'],
+      description: 'Horizontal distribution of columns within the row.',
+    },
+    wrap: {
+      control: 'boolean',
+      description: 'Whether columns are allowed to wrap to the next line.',
+    },
+    children: {
+      control: false,
+      description: 'Col elements to render inside the row.',
+    },
+  },
   parameters: {
     layout: 'padded',
     docs: {
