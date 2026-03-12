@@ -1,7 +1,7 @@
 # FT Design System - Component Design Specifications
 
 > Auto-generated from `src/styles/globals.css` + `registry.json`.
-> Version: 4.22.0 | Generated: 2026-03-12T08:07:23.047Z
+> Version: 4.22.1 | Generated: 2026-03-12T08:12:13.957Z
 
 ---
 
@@ -124,8 +124,8 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 ## Component Coverage
 
 - Total: **125**
-- Atoms: **25**
-- Molecules: **58**
+- Atoms: **26**
+- Molecules: **57**
 - Organisms: **24**
 - Charts: **16**
 - Templates: **2**
@@ -136,6 +136,7 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 - **Badge** (sub: 5)
 - **Button** (sub: 3)
 - **Checkbox** (sub: 6)
+- **Chip**
 - **Colors**
 - **Divider**
 - **FigmaBadge**
@@ -182,7 +183,6 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 - **FilterDropdown**
 - **FilterSearch**
 - **FloatButton**
-- **Graphs**
 - **HoverCard** (sub: 3)
 - **Image**
 - **InputNumber** (sub: 7)
@@ -276,8 +276,8 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 > This is best-effort static extraction and may omit runtime-computed classes.
 
 Coverage: **125 / 125 components listed**
-- Manual-override: **85**
-- Variant-detected: **22**
+- Manual-override: **84**
+- Variant-detected: **23**
 - Fallback-default: **1**
 - No-token-match: **17**
 - Missing-path: **0**
@@ -496,6 +496,16 @@ Status: `manual-override`
 | Source | Dimension | Variant | Tokens |
 |---|---|---|---|
 | src/components/molecules/Chicklet/Chicklet.tsx | base | default | `--border-primary`, `--border-secondary`, `--primary`, `--spacing-x0-5`, `--spacing-x1`, `--spacing-x2`, `--spacing-x3` |
+
+### Chip (atoms)
+
+Status: `variant-detected`
+
+| Source | Dimension | Variant | Tokens |
+|---|---|---|---|
+| src/components/atoms/Chip/Chip.tsx | size | lg | `--spacing-x2`, `--spacing-x4` |
+| src/components/atoms/Chip/Chip.tsx | size | md | `--spacing-x1-5`, `--spacing-x3`, `text-sm-rem` |
+| src/components/atoms/Chip/Chip.tsx | size | sm | `--spacing-x0-5`, `--spacing-x1`, `--spacing-x2`, `text-xs-rem` |
 
 ### Collapsible (organisms)
 
@@ -835,14 +845,6 @@ Status: `manual-override`
 | Source | Dimension | Variant | Tokens |
 |---|---|---|---|
 | src/components/charts/GaugeChart.tsx | base | default | `--color-primary`, `--color-secondary` |
-
-### Graphs (molecules)
-
-Status: `manual-override`
-
-| Source | Dimension | Variant | Tokens |
-|---|---|---|---|
-| src/components/molecules/Graphs/Graphs.tsx | base | default | `--color-primary`, `--color-secondary`, `--spacing-x1`, `--spacing-x3`, `--spacing-x5`, `text-xs-rem`, `text-xxs-rem` |
 
 ### Grid (organisms)
 

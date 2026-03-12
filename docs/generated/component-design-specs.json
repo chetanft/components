@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-03-12T08:07:23.047Z",
-  "version": "4.22.0",
+  "generatedAt": "2026-03-12T08:12:13.957Z",
+  "version": "4.22.1",
   "summary": {
     "total": 125,
-    "atoms": 25,
-    "molecules": 58,
+    "atoms": 26,
+    "molecules": 57,
     "organisms": 24,
     "charts": 16,
     "templates": 2
@@ -1055,6 +1055,46 @@
         "status": "manual-override",
         "name": "Chicklet",
         "category": "molecules"
+      },
+      "atoms/Chip": {
+        "rows": [
+          {
+            "source": "src/components/atoms/Chip/Chip.tsx",
+            "dimension": "size",
+            "variant": "lg",
+            "tokens": [
+              "--spacing-x2",
+              "--spacing-x4"
+            ],
+            "detector": "object.map"
+          },
+          {
+            "source": "src/components/atoms/Chip/Chip.tsx",
+            "dimension": "size",
+            "variant": "md",
+            "tokens": [
+              "--spacing-x1-5",
+              "--spacing-x3",
+              "text-sm-rem"
+            ],
+            "detector": "object.map"
+          },
+          {
+            "source": "src/components/atoms/Chip/Chip.tsx",
+            "dimension": "size",
+            "variant": "sm",
+            "tokens": [
+              "--spacing-x0-5",
+              "--spacing-x1",
+              "--spacing-x2",
+              "text-xs-rem"
+            ],
+            "detector": "object.map"
+          }
+        ],
+        "status": "variant-detected",
+        "name": "Chip",
+        "category": "atoms"
       },
       "organisms/Collapsible": {
         "rows": [
@@ -2742,28 +2782,6 @@
         "status": "manual-override",
         "name": "GaugeChart",
         "category": "charts"
-      },
-      "molecules/Graphs": {
-        "rows": [
-          {
-            "source": "src/components/molecules/Graphs/Graphs.tsx",
-            "dimension": "base",
-            "variant": "default",
-            "tokens": [
-              "--color-primary",
-              "--color-secondary",
-              "--spacing-x1",
-              "--spacing-x3",
-              "--spacing-x5",
-              "text-xs-rem",
-              "text-xxs-rem"
-            ],
-            "detector": "manual.override"
-          }
-        ],
-        "status": "manual-override",
-        "name": "Graphs",
-        "category": "molecules"
       },
       "organisms/Grid": {
         "rows": [
@@ -5200,6 +5218,28 @@
         "status": "no-token-match",
         "name": "Watermark",
         "category": "molecules"
+      },
+      "molecules/Graphs": {
+        "rows": [
+          {
+            "source": "src/components/molecules/Graphs/Graphs.tsx",
+            "dimension": "base",
+            "variant": "default",
+            "tokens": [
+              "--color-primary",
+              "--color-secondary",
+              "--spacing-x1",
+              "--spacing-x3",
+              "--spacing-x5",
+              "text-xs-rem",
+              "text-xxs-rem"
+            ],
+            "detector": "manual.override"
+          }
+        ],
+        "status": "manual-override",
+        "name": "Graphs",
+        "category": "molecules"
       }
     }
   },
@@ -5310,6 +5350,21 @@
           "peer": [
             "@radix-ui/react-checkbox"
           ]
+        }
+      },
+      {
+        "name": "Chip",
+        "category": "atoms",
+        "path": "src/components/atoms/Chip",
+        "files": [
+          "Chip.tsx",
+          "index.ts"
+        ],
+        "subComponents": [],
+        "description": "Chip component from FT Design System",
+        "dependencies": {
+          "internal": [],
+          "peer": []
         }
       },
       {
@@ -6330,20 +6385,6 @@
         ],
         "subComponents": [],
         "description": "FloatButton component from FT Design System",
-        "dependencies": {
-          "internal": [],
-          "peer": []
-        }
-      },
-      {
-        "name": "Graphs",
-        "category": "molecules",
-        "path": "src/components/molecules/Graphs",
-        "files": [
-          "Graphs.tsx"
-        ],
-        "subComponents": [],
-        "description": "Additional CSS classes",
         "dependencies": {
           "internal": [],
           "peer": []

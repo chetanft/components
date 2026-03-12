@@ -1,12 +1,12 @@
 # FT Design System - AI Context
 # Machine-readable rules for LLMs and AI coding assistants
-# Version: 4.22.0
+# Version: 4.22.1
 
 ## IDENTITY
 name: ft-design-system
 type: react-component-library
 package: ft-design-system
-version: 4.22.0
+version: 4.22.1
 
 ## WORKFLOW CONTRACT (MANDATORY)
 - Before writing or modifying any UI code, read the relevant files under `specs/`.
@@ -145,8 +145,8 @@ charts: /charts/<chart>?view=machine
 
 ## COMPONENT COUNT
 total: 125
-atoms: 25
-molecules: 58
+atoms: 26
+molecules: 57
 organisms: 24
 charts: 16
 

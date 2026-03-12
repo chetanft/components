@@ -1,7 +1,7 @@
 # FT Design System - AI Context
 
 > **Single-file reference for AI tools to generate correct code.**
-> Version: 4.22.0 | Last Updated: 2026-03-12
+> Version: 4.22.1 | Last Updated: 2026-03-12
 
 ## Quick Start
 
