@@ -1,0 +1,592 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e691]:
+      - generic [ref=e692]:
+        - generic [ref=e693]:
+          - link "FT Design System" [ref=e694] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e695]: FT Design System
+          - navigation [ref=e696]:
+            - link "Documentation" [ref=e697] [cursor=pointer]:
+              - /url: /docs
+            - link "Components" [ref=e698] [cursor=pointer]:
+              - /url: /docs/components/button
+            - link "Colors" [ref=e699] [cursor=pointer]:
+              - /url: /colors
+            - link "Charts" [ref=e700] [cursor=pointer]:
+              - /url: /charts
+            - link "Icons" [ref=e701] [cursor=pointer]:
+              - /url: /icons
+            - link "Blocks" [ref=e702] [cursor=pointer]:
+              - /url: /blocks
+            - link "GitHub" [ref=e703] [cursor=pointer]:
+              - /url: https://github.com/chetanft/components
+        - generic [ref=e704]:
+          - button "Search... ⌘ K" [ref=e705] [cursor=pointer]:
+            - img [ref=e707]
+            - generic [ref=e709]: Search...
+            - generic:
+              - generic: ⌘
+              - text: K
+          - combobox "Select style" [ref=e712] [cursor=pointer]:
+            - img [ref=e713]
+            - generic [ref=e717]: Normal
+            - img [ref=e719]
+          - button "Switch to dark mode" [ref=e1341] [cursor=pointer]:
+            - img [ref=e1342]
+    - generic [ref=e42]:
+      - complementary [ref=e724]:
+        - generic [ref=e725]:
+          - heading "Getting Started" [level=4] [ref=e726]
+          - generic [ref=e727]:
+            - link "Introduction" [ref=e728] [cursor=pointer]:
+              - /url: /docs
+              - generic [ref=e729]: Introduction
+            - link "AI Prompts" [ref=e730] [cursor=pointer]:
+              - /url: /docs/ai-prompts
+              - generic [ref=e731]: AI Prompts
+            - link "For Designers" [ref=e732] [cursor=pointer]:
+              - /url: /docs/for-designers
+              - generic [ref=e733]: For Designers
+            - link "For Developers" [ref=e734] [cursor=pointer]:
+              - /url: /docs/for-developers
+              - generic [ref=e735]: For Developers
+            - link "Storybook" [ref=e736] [cursor=pointer]:
+              - /url: /docs/storybook
+              - generic [ref=e737]: Storybook
+            - link "NPM Package" [ref=e738] [cursor=pointer]:
+              - /url: /docs/npm-package
+              - generic [ref=e739]: NPM Package
+            - link "Global CSS" [ref=e740] [cursor=pointer]:
+              - /url: /docs/global-css
+              - generic [ref=e741]: Global CSS
+        - generic [ref=e742]:
+          - heading "Atoms" [level=4] [ref=e743]
+          - generic [ref=e744]:
+            - link "Avatar" [ref=e745] [cursor=pointer]:
+              - /url: /docs/components/avatar
+              - generic [ref=e746]: Avatar
+            - link "Badge" [ref=e747] [cursor=pointer]:
+              - /url: /docs/components/badge
+              - generic [ref=e748]: Badge
+            - link "Button" [ref=e749] [cursor=pointer]:
+              - /url: /docs/components/button
+              - generic [ref=e750]: Button
+            - link "Checkbox" [ref=e751] [cursor=pointer]:
+              - /url: /docs/components/checkbox
+              - generic [ref=e752]: Checkbox
+            - link "Divider" [ref=e753] [cursor=pointer]:
+              - /url: /docs/components/divider
+              - generic [ref=e754]: Divider
+            - link "Illustration" [ref=e755] [cursor=pointer]:
+              - /url: /docs/components/illustration
+              - generic [ref=e756]: Illustration
+            - link "Input" [ref=e757] [cursor=pointer]:
+              - /url: /docs/components/input
+              - generic [ref=e758]: Input
+            - link "Label" [ref=e759] [cursor=pointer]:
+              - /url: /docs/components/label
+              - generic [ref=e760]: Label
+            - link "Logo" [ref=e761] [cursor=pointer]:
+              - /url: /docs/components/logo
+              - generic [ref=e762]: Logo
+            - link "Radio Group" [ref=e763] [cursor=pointer]:
+              - /url: /docs/components/radio-group
+              - generic [ref=e764]: Radio Group
+            - link "Read Only" [ref=e765] [cursor=pointer]:
+              - /url: /docs/components/read-only
+              - generic [ref=e766]: Read Only
+            - link "Skeleton" [ref=e767] [cursor=pointer]:
+              - /url: /docs/components/skeleton
+              - generic [ref=e768]: Skeleton
+            - link "Spacer" [ref=e769] [cursor=pointer]:
+              - /url: /docs/components/spacer
+              - generic [ref=e770]: Spacer
+            - link "Spin" [ref=e771] [cursor=pointer]:
+              - /url: /docs/components/spin
+              - generic [ref=e772]: Spin
+            - link "Statistic" [ref=e773] [cursor=pointer]:
+              - /url: /docs/components/statistic
+              - generic [ref=e774]: Statistic
+            - link "Sub Text" [ref=e775] [cursor=pointer]:
+              - /url: /docs/components/sub-text
+              - generic [ref=e776]: Sub Text
+            - link "Switch" [ref=e777] [cursor=pointer]:
+              - /url: /docs/components/switch
+              - generic [ref=e778]: Switch
+            - link "Text" [ref=e779] [cursor=pointer]:
+              - /url: /docs/components/text
+              - generic [ref=e780]: Text
+            - link "Textarea" [ref=e781] [cursor=pointer]:
+              - /url: /docs/components/textarea
+              - generic [ref=e782]: Textarea
+            - link "Typography" [ref=e783] [cursor=pointer]:
+              - /url: /docs/components/typography
+              - generic [ref=e784]: Typography
+        - generic [ref=e785]:
+          - heading "Molecules" [level=4] [ref=e786]
+          - generic [ref=e787]:
+            - link "Alert" [ref=e788] [cursor=pointer]:
+              - /url: /docs/components/alert
+              - generic [ref=e789]: Alert
+            - link "Anchor" [ref=e790] [cursor=pointer]:
+              - /url: /docs/components/anchor
+              - generic [ref=e791]: Anchor
+            - link "Affix" [ref=e792] [cursor=pointer]:
+              - /url: /docs/components/affix
+              - generic [ref=e793]: Affix
+            - link "Back Top" [ref=e794] [cursor=pointer]:
+              - /url: /docs/components/back-top
+              - generic [ref=e795]: Back Top
+            - link "Breadcrumb" [ref=e796] [cursor=pointer]:
+              - /url: /docs/components/breadcrumb
+              - generic [ref=e797]: Breadcrumb
+            - link "Button Group" [ref=e798] [cursor=pointer]:
+              - /url: /docs/components/button-group
+              - generic [ref=e799]: Button Group
+            - link "Calendar" [ref=e800] [cursor=pointer]:
+              - /url: /docs/components/calendar
+              - generic [ref=e801]: Calendar
+            - link "Carousel" [ref=e802] [cursor=pointer]:
+              - /url: /docs/components/carousel
+              - generic [ref=e803]: Carousel
+            - link "Cascader" [ref=e804] [cursor=pointer]:
+              - /url: /docs/components/cascader
+              - generic [ref=e805]: Cascader
+            - link "Chicklet" [ref=e806] [cursor=pointer]:
+              - /url: /docs/components/chicklet
+              - generic [ref=e807]: Chicklet
+            - link "Color Picker" [ref=e808] [cursor=pointer]:
+              - /url: /docs/components/color-picker
+              - generic [ref=e809]: Color Picker
+            - link "Date Picker" [ref=e810] [cursor=pointer]:
+              - /url: /docs/components/date-picker
+              - generic [ref=e811]: Date Picker
+            - link "Descriptions" [ref=e812] [cursor=pointer]:
+              - /url: /docs/components/descriptions
+              - generic [ref=e813]: Descriptions
+            - link "Dropdown" [ref=e814] [cursor=pointer]:
+              - /url: /docs/components/dropdown
+              - generic [ref=e815]: Dropdown
+            - link "Dropdown Menu" [ref=e816] [cursor=pointer]:
+              - /url: /docs/components/dropdown-menu
+              - generic [ref=e817]: Dropdown Menu
+            - link "Empty" [ref=e818] [cursor=pointer]:
+              - /url: /docs/components/empty
+              - generic [ref=e819]: Empty
+            - link "File Validation Card" [ref=e820] [cursor=pointer]:
+              - /url: /docs/components/file-validation-card
+              - generic [ref=e821]: File Validation Card
+            - link "Float Button" [ref=e822] [cursor=pointer]:
+              - /url: /docs/components/float-button
+              - generic [ref=e823]: Float Button
+            - link "Image" [ref=e824] [cursor=pointer]:
+              - /url: /docs/components/image
+              - generic [ref=e825]: Image
+            - link "Hover Card" [ref=e826] [cursor=pointer]:
+              - /url: /docs/components/hover-card
+              - generic [ref=e827]: Hover Card
+            - link "Input Number" [ref=e828] [cursor=pointer]:
+              - /url: /docs/components/input-number
+              - generic [ref=e829]: Input Number
+            - link "Mentions" [ref=e830] [cursor=pointer]:
+              - /url: /docs/components/mentions
+              - generic [ref=e831]: Mentions
+            - link "Notification" [ref=e832] [cursor=pointer]:
+              - /url: /docs/components/notification
+              - generic [ref=e833]: Notification
+            - link "Pagination" [ref=e834] [cursor=pointer]:
+              - /url: /docs/components/pagination
+              - generic [ref=e835]: Pagination
+            - link "Popconfirm" [ref=e836] [cursor=pointer]:
+              - /url: /docs/components/popconfirm
+              - generic [ref=e837]: Popconfirm
+            - link "Progress Bar" [ref=e838] [cursor=pointer]:
+              - /url: /docs/components/progress-bar
+              - generic [ref=e839]: Progress Bar
+            - link "Loader" [ref=e840] [cursor=pointer]:
+              - /url: /docs/components/loader
+              - generic [ref=e841]: Loader
+            - link "List" [ref=e842] [cursor=pointer]:
+              - /url: /docs/components/list
+              - generic [ref=e843]: List
+            - link "Progress List" [ref=e844] [cursor=pointer]:
+              - /url: /docs/components/progress-list
+              - generic [ref=e845]: Progress List
+            - link "Radio Selector" [ref=e846] [cursor=pointer]:
+              - /url: /docs/components/radio-selector
+              - generic [ref=e847]: Radio Selector
+            - link "Rate" [ref=e848] [cursor=pointer]:
+              - /url: /docs/components/rate
+              - generic [ref=e849]: Rate
+            - link "Segmented Tabs" [ref=e850] [cursor=pointer]:
+              - /url: /docs/components/segmented-tabs
+              - generic [ref=e851]: Segmented Tabs
+            - link "Simple Column Layout" [ref=e852] [cursor=pointer]:
+              - /url: /docs/components/simple-column-layout
+              - generic [ref=e853]: Simple Column Layout
+            - link "Slider" [ref=e854] [cursor=pointer]:
+              - /url: /docs/components/slider
+              - generic [ref=e855]: Slider
+            - link "Steps" [ref=e856] [cursor=pointer]:
+              - /url: /docs/components/steps
+              - generic [ref=e857]: Steps
+            - link "Timeline" [ref=e858] [cursor=pointer]:
+              - /url: /docs/components/timeline
+              - generic [ref=e859]: Timeline
+            - link "Time Picker" [ref=e860] [cursor=pointer]:
+              - /url: /docs/components/time-picker
+              - generic [ref=e861]: Time Picker
+            - link "Tooltip" [ref=e862] [cursor=pointer]:
+              - /url: /docs/components/tooltip
+              - generic [ref=e863]: Tooltip
+            - link "Toggle" [ref=e864] [cursor=pointer]:
+              - /url: /docs/components/toggle
+              - generic [ref=e865]: Toggle
+            - link "Toggle Group" [ref=e866] [cursor=pointer]:
+              - /url: /docs/components/toggle-group
+              - generic [ref=e867]: Toggle Group
+            - link "Tour" [ref=e868] [cursor=pointer]:
+              - /url: /docs/components/tour
+              - generic [ref=e869]: Tour
+            - link "Transfer" [ref=e870] [cursor=pointer]:
+              - /url: /docs/components/transfer
+              - generic [ref=e871]: Transfer
+            - link "Tree" [ref=e872] [cursor=pointer]:
+              - /url: /docs/components/tree
+              - generic [ref=e873]: Tree
+            - link "Tree Select" [ref=e874] [cursor=pointer]:
+              - /url: /docs/components/tree-select
+              - generic [ref=e875]: Tree Select
+            - link "Upload Button" [ref=e876] [cursor=pointer]:
+              - /url: /docs/components/upload-button
+              - generic [ref=e877]: Upload Button
+            - link "Upload Item" [ref=e878] [cursor=pointer]:
+              - /url: /docs/components/upload-item
+              - generic [ref=e879]: Upload Item
+            - link "Upload Thumbnail" [ref=e880] [cursor=pointer]:
+              - /url: /docs/components/upload-thumbnail
+              - generic [ref=e881]: Upload Thumbnail
+            - link "Watermark" [ref=e882] [cursor=pointer]:
+              - /url: /docs/components/watermark
+              - generic [ref=e883]: Watermark
+        - generic [ref=e884]:
+          - heading "Organisms" [level=4] [ref=e885]
+          - generic [ref=e886]:
+            - link "App Header" [ref=e887] [cursor=pointer]:
+              - /url: /docs/components/app-header
+              - generic [ref=e888]: App Header
+            - link "Card" [ref=e889] [cursor=pointer]:
+              - /url: /docs/components/card
+              - generic [ref=e890]: Card
+            - link "Collapsible" [ref=e891] [cursor=pointer]:
+              - /url: /docs/components/collapsible
+              - generic [ref=e892]: Collapsible
+            - link "Data Entry Table" [ref=e893] [cursor=pointer]:
+              - /url: /docs/components/data-entry-table
+              - generic [ref=e894]: Data Entry Table
+            - link "Drawer" [ref=e895] [cursor=pointer]:
+              - /url: /docs/components/drawer
+              - generic [ref=e896]: Drawer
+            - link "File Card" [ref=e897] [cursor=pointer]:
+              - /url: /docs/components/file-card
+              - generic [ref=e898]: File Card
+            - link "File Thumbnail" [ref=e899] [cursor=pointer]:
+              - /url: /docs/components/file-thumbnail
+              - generic [ref=e900]: File Thumbnail
+            - link "File Type Icon" [ref=e901] [cursor=pointer]:
+              - /url: /docs/components/file-type-icon
+              - generic [ref=e902]: File Type Icon
+            - link "Footer" [ref=e903] [cursor=pointer]:
+              - /url: /docs/components/footer
+              - generic [ref=e904]: Footer
+            - link "Form" [ref=e905] [cursor=pointer]:
+              - /url: /docs/components/form
+              - generic [ref=e906]: Form
+            - link "Grid" [ref=e907] [cursor=pointer]:
+              - /url: /docs/components/grid
+              - generic [ref=e908]: Grid
+            - link "Modal" [ref=e909] [cursor=pointer]:
+              - /url: /docs/components/modal
+              - generic [ref=e910]: Modal
+            - link "Page Header" [ref=e911] [cursor=pointer]:
+              - /url: /docs/components/page-header
+              - generic [ref=e912]: Page Header
+            - link "Navigation Launcher" [ref=e913] [cursor=pointer]:
+              - /url: /docs/components/navigation-launcher
+              - generic [ref=e914]: Navigation Launcher
+            - link "Navigation Popover" [ref=e915] [cursor=pointer]:
+              - /url: /docs/components/navigation-popover
+              - generic [ref=e916]: Navigation Popover
+            - link "Quick Filters" [ref=e917] [cursor=pointer]:
+              - /url: /docs/components/quick-filters
+              - generic [ref=e918]: Quick Filters
+            - link "Result" [ref=e919] [cursor=pointer]:
+              - /url: /docs/components/result
+              - generic [ref=e920]: Result
+            - link "Table" [ref=e921] [cursor=pointer]:
+              - /url: /docs/components/table
+              - generic [ref=e922]: Table
+            - link "Tabs" [ref=e923] [cursor=pointer]:
+              - /url: /docs/components/tabs
+              - generic [ref=e924]: Tabs
+            - link "Upload" [ref=e925] [cursor=pointer]:
+              - /url: /docs/components/upload
+              - generic [ref=e926]: Upload
+            - link "Upload Zone" [ref=e927] [cursor=pointer]:
+              - /url: /docs/components/upload-zone
+              - generic [ref=e928]: Upload Zone
+            - link "User Profile" [ref=e929] [cursor=pointer]:
+              - /url: /docs/components/user-profile
+              - generic [ref=e930]: User Profile
+            - link "User Profile Dropdown" [ref=e931] [cursor=pointer]:
+              - /url: /docs/components/user-profile-dropdown
+              - generic [ref=e932]: User Profile Dropdown
+      - main [ref=e252]:
+        - generic [ref=e933]:
+          - generic [ref=e934]:
+            - generic [ref=e935]:
+              - heading "Button" [level=1] [ref=e936]
+              - paragraph [ref=e937]: Displays a button or a component that looks like a button.
+            - generic [ref=e938]:
+              - generic [ref=e940]: 7 stories
+              - generic [ref=e943]: autodocs
+          - generic [ref=e944]:
+            - heading "Installation" [level=2] [ref=e945]
+            - generic [ref=e947]:
+              - paragraph [ref=e950] [cursor=pointer]: npm
+              - paragraph [ref=e953] [cursor=pointer]: pnpm
+              - paragraph [ref=e956] [cursor=pointer]: yarn
+            - generic [ref=e957]:
+              - button "Button" [ref=e958] [cursor=pointer]:
+                - img [ref=e960]
+              - code [ref=e965]:
+                - generic [ref=e966]: npm install ft-design-system
+            - generic [ref=e967]:
+              - button "Button" [ref=e968] [cursor=pointer]:
+                - img [ref=e970]
+              - code [ref=e975]:
+                - generic [ref=e976]: "import { Button } from 'ft-design-system';"
+          - generic [ref=e977]:
+            - heading "Examples" [level=2] [ref=e978]
+            - generic [ref=e979]:
+              - generic [ref=e980]:
+                - heading "Examples" [level=2] [ref=e981]
+                - generic [ref=e982]:
+                  - button "Usage" [ref=e983] [cursor=pointer]:
+                    - img [ref=e985]
+                    - text: Usage
+                  - button "Explorer" [ref=e988] [cursor=pointer]
+              - generic [ref=e990]:
+                - heading "Default" [level=3] [ref=e991]
+                - generic [ref=e993]:
+                  - generic [ref=e997]:
+                    - paragraph [ref=e1000] [cursor=pointer]: Preview
+                    - paragraph [ref=e1003] [cursor=pointer]: Code
+                    - paragraph [ref=e1006] [cursor=pointer]: Usage
+                  - generic [ref=e1009]:
+                    - button "Add Item" [ref=e1010] [cursor=pointer]:
+                      - img [ref=e1013]
+                      - generic [ref=e1015]: Add Item
+                    - button "Save" [ref=e1016] [cursor=pointer]:
+                      - generic [ref=e1017]: Save
+                    - button "Delete" [ref=e1018] [cursor=pointer]:
+                      - img [ref=e1021]
+                      - generic [ref=e1026]: Delete
+              - generic [ref=e1027]:
+                - heading "Usage Examples5" [level=2] [ref=e1028]
+                - generic [ref=e1029]:
+                  - generic [ref=e1030]:
+                    - heading "Text Only example" [level=3] [ref=e1031]:
+                      - text: Text Only
+                      - generic [ref=e1032]: example
+                    - generic [ref=e1034]:
+                      - generic [ref=e1038]:
+                        - paragraph [ref=e1041] [cursor=pointer]: Preview
+                        - paragraph [ref=e1044] [cursor=pointer]: Code
+                        - paragraph [ref=e1047] [cursor=pointer]: Usage
+                      - generic [ref=e1050]:
+                        - button "Click Me" [ref=e1051] [cursor=pointer]:
+                          - generic [ref=e1052]: Click Me
+                        - button "Text Button" [ref=e1053] [cursor=pointer]:
+                          - generic [ref=e1054]: Text Button
+                        - button "Link Button" [ref=e1055] [cursor=pointer]:
+                          - generic [ref=e1056]: Link Button
+                  - generic [ref=e1057]:
+                    - heading "Icon Only example" [level=3] [ref=e1058]:
+                      - text: Icon Only
+                      - generic [ref=e1059]: example
+                    - generic [ref=e1061]:
+                      - generic [ref=e1065]:
+                        - paragraph [ref=e1068] [cursor=pointer]: Preview
+                        - paragraph [ref=e1071] [cursor=pointer]: Code
+                        - paragraph [ref=e1074] [cursor=pointer]: Usage
+                      - generic [ref=e1077]:
+                        - button "Button" [ref=e1078] [cursor=pointer]:
+                          - img [ref=e1081]
+                        - button "Button" [ref=e1083] [cursor=pointer]:
+                          - img [ref=e1086]
+                        - button "Button" [ref=e1088] [cursor=pointer]:
+                          - img [ref=e1091]
+                  - generic [ref=e1096]:
+                    - heading "Shape Default example" [level=3] [ref=e1097]:
+                      - text: Shape Default
+                      - generic [ref=e1098]: example
+                    - generic [ref=e1100]:
+                      - generic [ref=e1104]:
+                        - paragraph [ref=e1107] [cursor=pointer]: Preview
+                        - paragraph [ref=e1110] [cursor=pointer]: Code
+                        - paragraph [ref=e1113] [cursor=pointer]: Usage
+                      - generic [ref=e1116]:
+                        - button "Default" [ref=e1117] [cursor=pointer]:
+                          - img [ref=e1120]
+                          - generic [ref=e1122]: Default
+                        - button "Default" [ref=e1123] [cursor=pointer]:
+                          - generic [ref=e1124]: Default
+                  - generic [ref=e1125]:
+                    - heading "Shape Rounded example" [level=3] [ref=e1126]:
+                      - text: Shape Rounded
+                      - generic [ref=e1127]: example
+                    - generic [ref=e1129]:
+                      - generic [ref=e1133]:
+                        - paragraph [ref=e1136] [cursor=pointer]: Preview
+                        - paragraph [ref=e1139] [cursor=pointer]: Code
+                        - paragraph [ref=e1142] [cursor=pointer]: Usage
+                      - generic [ref=e1145]:
+                        - button "Rounded" [ref=e1146] [cursor=pointer]:
+                          - img [ref=e1149]
+                          - generic [ref=e1151]: Rounded
+                        - button "Rounded" [ref=e1152] [cursor=pointer]:
+                          - generic [ref=e1153]: Rounded
+                  - generic [ref=e1154]:
+                    - heading "With Trailing Icon example" [level=3] [ref=e1155]:
+                      - text: With Trailing Icon
+                      - generic [ref=e1156]: example
+                    - generic [ref=e1158]:
+                      - generic [ref=e1162]:
+                        - paragraph [ref=e1165] [cursor=pointer]: Preview
+                        - paragraph [ref=e1168] [cursor=pointer]: Code
+                        - paragraph [ref=e1171] [cursor=pointer]: Usage
+                      - generic [ref=e1174]:
+                        - button "Send" [ref=e1175] [cursor=pointer]:
+                          - generic [ref=e1176]: Send
+                          - img [ref=e1179]
+                        - button "Download" [ref=e1181] [cursor=pointer]:
+                          - generic [ref=e1182]: Download
+                          - img [ref=e1185]
+          - generic [ref=e1187]:
+            - heading "Props" [level=2] [ref=e1188]
+            - table [ref=e1191]:
+              - rowgroup [ref=e1192]:
+                - row "Prop Type Default Description" [ref=e1193]:
+                  - columnheader "Prop" [ref=e1194]:
+                    - generic [ref=e1197]: Prop
+                  - columnheader "Type" [ref=e1198]:
+                    - generic [ref=e1201]: Type
+                  - columnheader "Default" [ref=e1202]:
+                    - generic [ref=e1205]: Default
+                  - columnheader "Description" [ref=e1206]:
+                    - generic [ref=e1209]: Description
+              - rowgroup [ref=e1210]:
+                - row "children string — —" [ref=e1211]:
+                  - cell "children" [ref=e1212]:
+                    - code [ref=e1214]: children
+                  - cell "string" [ref=e1215]:
+                    - generic [ref=e1217]: string
+                  - cell "—" [ref=e1218]:
+                    - generic [ref=e1220]: —
+                  - cell "—" [ref=e1221]:
+                    - generic [ref=e1223]: —
+                - row "disabled boolean — —" [ref=e1224]:
+                  - cell "disabled" [ref=e1225]:
+                    - code [ref=e1227]: disabled
+                  - cell "boolean" [ref=e1228]:
+                    - generic [ref=e1230]: boolean
+                  - cell "—" [ref=e1231]:
+                    - generic [ref=e1233]: —
+                  - cell "—" [ref=e1234]:
+                    - generic [ref=e1236]: —
+                - row "glass 'false' | 'true' | 'subtle' | 'prominent' — —" [ref=e1237]:
+                  - cell "glass" [ref=e1238]:
+                    - code [ref=e1240]: glass
+                  - cell "'false' | 'true' | 'subtle' | 'prominent'" [ref=e1241]:
+                    - generic [ref=e1243]: "'false' | 'true' | 'subtle' | 'prominent'"
+                  - cell "—" [ref=e1244]:
+                    - generic [ref=e1246]: —
+                  - cell "—" [ref=e1247]:
+                    - generic [ref=e1249]: —
+                - row "icon 'add' | 'search' | 'copy' | 'send' | 'document' | 'download' | 'edit' — —" [ref=e1250]:
+                  - cell "icon" [ref=e1251]:
+                    - code [ref=e1253]: icon
+                  - cell "'add' | 'search' | 'copy' | 'send' | 'document' | 'download' | 'edit'" [ref=e1254]:
+                    - generic [ref=e1256]: "'add' | 'search' | 'copy' | 'send' | 'document' | 'download' | 'edit'"
+                  - cell "—" [ref=e1257]:
+                    - generic [ref=e1259]: —
+                  - cell "—" [ref=e1260]:
+                    - generic [ref=e1262]: —
+                - row "iconPosition 'leading' | 'trailing' | 'only' — —" [ref=e1263]:
+                  - cell "iconPosition" [ref=e1264]:
+                    - code [ref=e1266]: iconPosition
+                  - cell "'leading' | 'trailing' | 'only'" [ref=e1267]:
+                    - generic [ref=e1269]: "'leading' | 'trailing' | 'only'"
+                  - cell "—" [ref=e1270]:
+                    - generic [ref=e1272]: —
+                  - cell "—" [ref=e1273]:
+                    - generic [ref=e1275]: —
+                - row "loading boolean — —" [ref=e1276]:
+                  - cell "loading" [ref=e1277]:
+                    - code [ref=e1279]: loading
+                  - cell "boolean" [ref=e1280]:
+                    - generic [ref=e1282]: boolean
+                  - cell "—" [ref=e1283]:
+                    - generic [ref=e1285]: —
+                  - cell "—" [ref=e1286]:
+                    - generic [ref=e1288]: —
+                - row "shape 'default' | 'rounded' — —" [ref=e1289]:
+                  - cell "shape" [ref=e1290]:
+                    - code [ref=e1292]: shape
+                  - cell "'default' | 'rounded'" [ref=e1293]:
+                    - generic [ref=e1295]: "'default' | 'rounded'"
+                  - cell "—" [ref=e1296]:
+                    - generic [ref=e1298]: —
+                  - cell "—" [ref=e1299]:
+                    - generic [ref=e1301]: —
+                - row "size 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl' — —" [ref=e1302]:
+                  - cell "size" [ref=e1303]:
+                    - code [ref=e1305]: size
+                  - cell "'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'" [ref=e1306]:
+                    - generic [ref=e1308]: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'"
+                  - cell "—" [ref=e1309]:
+                    - generic [ref=e1311]: —
+                  - cell "—" [ref=e1312]:
+                    - generic [ref=e1314]: —
+                - row "variant 'primary' | 'secondary' | 'destructive' | 'text' | 'link' — —" [ref=e1315]:
+                  - cell "variant" [ref=e1316]:
+                    - code [ref=e1318]: variant
+                  - cell "'primary' | 'secondary' | 'destructive' | 'text' | 'link'" [ref=e1319]:
+                    - generic [ref=e1321]: "'primary' | 'secondary' | 'destructive' | 'text' | 'link'"
+                  - cell "—" [ref=e1322]:
+                    - generic [ref=e1324]: —
+                  - cell "—" [ref=e1325]:
+                    - generic [ref=e1327]: —
+          - generic [ref=e1328]:
+            - link "Previous Badge" [ref=e1329] [cursor=pointer]:
+              - /url: /docs/components/badge
+              - generic [ref=e1330]:
+                - img [ref=e1332]
+                - text: Previous
+              - generic [ref=e1334]: Badge
+            - link "Next Checkbox" [ref=e1335] [cursor=pointer]:
+              - /url: /docs/components/checkbox
+              - generic [ref=e1336]:
+                - text: Next
+                - img [ref=e1338]
+              - generic [ref=e1340]: Checkbox
+  - generic [ref=e264]:
+    - button "Human" [active] [ref=e265] [cursor=pointer]:
+      - generic [ref=e266]: Human
+    - button "Machine" [ref=e267] [cursor=pointer]:
+      - generic [ref=e268]: Machine
+  - button "Open Next.js Dev Tools" [ref=e274] [cursor=pointer]:
+    - img [ref=e275]
+  - alert [ref=e689]

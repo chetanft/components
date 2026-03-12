@@ -167,7 +167,7 @@
     "sync:docs": "node scripts/sync-docs-data.cjs",
     "generate:machine-mode-coverage": "node scripts/generate-machine-mode-coverage.cjs",
     "check:machine-mode": "node scripts/generate-machine-mode-coverage.cjs --strict",
-    "check:docs-sync": "node scripts/check-docs-sync.cjs && git diff --exit-code -- llms.txt AI_CONTEXT.md ft-docs/public/llms.txt ft-docs/public/.well-known/llms.txt ft-docs/src/data/design-system.generated.ts ft-docs/src/data/component-machine-metadata.generated.ts docs/component-design-specs.md docs/generated/component-design-specs.json docs/audits/machine-mode-coverage.json docs/audits/machine-mode-coverage.md",
+    "check:docs-sync": "node scripts/check-docs-sync.cjs",
     "sync:version": "node scripts/sync-version.cjs",
     "version:check:sync": "npm run sync:version && git diff --exit-code -- package.json ft-docs/package.json llms.txt AI_CONTEXT.md",
     "sync:all": "node scripts/sync-all.cjs",

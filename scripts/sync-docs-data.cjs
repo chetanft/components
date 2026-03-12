@@ -201,6 +201,7 @@ function writeIfChanged(filePath, content) {
 
 function syncDocsData() {
   log('\n🔄 Syncing documentation data from sources...\n', 'bold');
+  const syncTimestamp = process.env.SYNC_TIMESTAMP || new Date().toISOString();
 
   // Step 1: Read sources
   log('1️⃣  Reading source files...', 'blue');
@@ -219,6 +220,7 @@ function syncDocsData() {
 
   // Step 3: Generate TypeScript data file
   log('\n3️⃣  Generating TypeScript data file...', 'blue');
+  process.env.SYNC_TIMESTAMP = syncTimestamp;
   const tsContent = generateTsDataFile(tokens, version, summary);
   const tsPath = path.join(projectRoot, 'ft-docs/src/data/design-system.generated.ts');
   writeIfChanged(tsPath, tsContent);
@@ -245,7 +247,7 @@ function syncDocsData() {
   // Step 5: Render AI_CONTEXT.md from template
   log('\n5️⃣  Generating AI_CONTEXT.md...', 'blue');
   const aiTemplate = path.join(projectRoot, 'docs/templates/AI_CONTEXT.md.template');
-  const today = new Date().toISOString().split('T')[0];
+  const today = syncTimestamp.split('T')[0];
   const aiReplacements = {
     VERSION: version,
     DATE: today,
