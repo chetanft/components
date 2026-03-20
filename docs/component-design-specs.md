@@ -1,7 +1,7 @@
 # FT Design System - Component Design Specifications
 
 > Auto-generated from `src/styles/globals.css` + `registry.json`.
-> Version: 4.22.1 | Generated: 2026-03-20T05:12:10.589Z
+> Version: 4.22.1 | Generated: 2026-03-20T06:40:28.844Z
 
 ---
 
@@ -980,7 +980,7 @@ Status: `no-token-match`
 
 | Source | Dimension | Variant | Tokens |
 |---|---|---|---|
-| src/components/atoms/Logos/BirlaPivotLogo.tsx | base | default | _none detected_ |
+| src/components/atoms/Logos/AvikamLogo.tsx | base | default | _none detected_ |
 
 ### Mentions (molecules)
 
