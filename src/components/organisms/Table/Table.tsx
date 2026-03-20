@@ -195,6 +195,14 @@ export interface TableProps<T extends TableRow = TableRow> extends React.HTMLAtt
    * Apply glassmorphism effect to the table header
    */
   glass?: GlassVariant;
+
+  /**
+   * Enable sticky table header during vertical scroll
+   * When true, the outer wrapper becomes the scroll container
+   * and the thead sticks to the top.
+   * @default false
+   */
+  stickyHeader?: boolean;
 }
 
 /**
@@ -237,25 +245,59 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(({
   caption,
   className,
   glass,
+  stickyHeader = false,
   children,
   ...props
 }, ref) => {
   const resolvedGlass = useResolvedGlass(glass);
 
+  // When stickyHeader is enabled, the outer div becomes the single scroll
+  // container (overflow-auto) so that position:sticky on <thead> binds to
+  // the correct scrolling ancestor.  Without stickyHeader the original
+  // overflow-hidden + nested overflow-x-auto layout is preserved.
+
+  const stickyChildren = stickyHeader
+    ? React.Children.map(children, (child) => {
+        if (React.isValidElement(child) && (child.type as any)?.displayName === 'TableHeader') {
+          return React.cloneElement(child as React.ReactElement<any>, {
+            className: cn(
+              (child.props as any).className,
+              'sticky top-0 z-10'
+            ),
+          });
+        }
+        return child;
+      })
+    : children;
+
   return (
     <div
       ref={ref}
-      className={cn(getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-primary)]"), "rounded-[var(--radius-md)] overflow-hidden", className)}
+      className={cn(
+        getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-primary)]"),
+        "rounded-[var(--radius-md)]",
+        stickyHeader ? "overflow-auto" : "overflow-hidden",
+        className
+      )}
       {...props}
     >
-      <div className="overflow-x-auto">
+      {stickyHeader ? (
         <table className="w-full border-collapse">
           {caption && (
             <caption className="sr-only">{caption}</caption>
           )}
-          {children}
+          {stickyChildren}
         </table>
-      </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            {caption && (
+              <caption className="sr-only">{caption}</caption>
+            )}
+            {children}
+          </table>
+        </div>
+      )}
     </div>
   );
 }) as <T extends TableRow = TableRow>(props: TableProps<T> & { ref?: React.Ref<HTMLDivElement> }) => React.ReactElement;
