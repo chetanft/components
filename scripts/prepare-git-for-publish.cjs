@@ -14,12 +14,13 @@ const path = require('path');
 const projectRoot = path.join(__dirname, '..');
 const trackedFiles = require('./doc-sync-tracked-files.cjs');
 const extraTracked = ['ft-docs/package.json'];
+const { getHeadDocSyncTimestamp } = require('./publish-git-utils.cjs');
 
-function runNpmScript(scriptName) {
+function runNpmScript(scriptName, env = process.env) {
   const result = spawnSync('npm', ['run', scriptName], {
     cwd: projectRoot,
     stdio: 'inherit',
-    env: process.env,
+    env,
   });
   if ((result.status ?? 1) !== 0) {
     process.exit(result.status ?? 1);
@@ -54,7 +55,9 @@ function commitDocSync() {
 
 function main() {
   runNpmScript('sync:version');
-  runNpmScript('sync:docs');
+  const headTs = getHeadDocSyncTimestamp(projectRoot);
+  const syncEnv = headTs ? { ...process.env, SYNC_TIMESTAMP: headTs } : process.env;
+  runNpmScript('sync:docs', syncEnv);
   stageDocArtifacts();
 
   if (hasStagedChanges()) {

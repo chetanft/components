@@ -12,6 +12,7 @@ const path = require('path');
 
 const projectRoot = path.join(__dirname, '..');
 const trackedFiles = require('./doc-sync-tracked-files.cjs');
+const { getHeadDocSyncTimestamp } = require('./publish-git-utils.cjs');
 /** Updated by sync:version after a version bump */
 const extraTracked = ['ft-docs/package.json'];
 
@@ -25,10 +26,12 @@ function hasStagedChanges() {
 }
 
 function main() {
+  const headTs = getHeadDocSyncTimestamp(projectRoot);
+  const syncEnv = headTs ? { ...process.env, SYNC_TIMESTAMP: headTs } : process.env;
   const syncResult = spawnSync('npm', ['run', 'sync:docs'], {
     cwd: projectRoot,
     stdio: 'inherit',
-    env: process.env,
+    env: syncEnv,
   });
   if ((syncResult.status ?? 1) !== 0) {
     process.exit(syncResult.status ?? 1);
