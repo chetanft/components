@@ -86,10 +86,19 @@ export const UploadZone = React.forwardRef<HTMLDivElement, UploadZoneProps>(
         const input = document.createElement('input');
         input.type = 'file';
         input.multiple = multiple;
-        input.accept = acceptedFileTypes.includes('Excel') ? '.xlsx,.xls' : '';
-        if (acceptedFileTypes.includes('CSV')) {
-          input.accept += (input.accept ? ',' : '') + '.csv';
+        const aliasMap: Record<string, string[]> = {
+          'Excel': ['.xlsx', '.xls'],
+          'CSV': ['.csv'],
+        };
+        const accepts: string[] = [];
+        for (const ft of acceptedFileTypes) {
+          if (aliasMap[ft]) {
+            accepts.push(...aliasMap[ft]);
+          } else {
+            accepts.push(ft);
+          }
         }
+        input.accept = accepts.join(',');
         input.onchange = (e) => {
           const target = e.target as HTMLInputElement;
           if (target.files && target.files.length > 0) {

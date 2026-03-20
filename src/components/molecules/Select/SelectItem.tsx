@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { Icon } from '../../atoms/Icons';
 import { useSelectContext } from './SelectContext';
@@ -40,8 +40,20 @@ export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
     onClick,
     ...props
   }, ref) => {
-    const { value: selectedValue, onValueChange, onOpenChange, setSelectedLabel } = useSelectContext();
+    const { value: selectedValue, onValueChange, onOpenChange, selectedLabel, setSelectedLabel } = useSelectContext();
     const isSelected = selectedValue === value;
+    const itemRef = useRef<HTMLDivElement>(null);
+
+    // Sync label into context when this item matches the current value on mount
+    // (handles defaultValue / controlled value without a prior click)
+    useEffect(() => {
+      if (isSelected && !selectedLabel) {
+        const label = typeof children === 'string'
+          ? children
+          : itemRef.current?.textContent || value;
+        setSelectedLabel(label);
+      }
+    }, [isSelected, selectedLabel, children, value, setSelectedLabel]);
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
       if (disabled) return;
@@ -57,9 +69,12 @@ export const SelectItem = React.forwardRef<HTMLDivElement, SelectItemProps>(
       onClick?.(e);
     };
 
+    // Combine forwarded ref with local ref
+    React.useImperativeHandle(ref, () => itemRef.current as HTMLDivElement);
+
     return (
       <div
-        ref={ref}
+        ref={itemRef}
         role="option"
         aria-selected={isSelected}
         aria-disabled={disabled}

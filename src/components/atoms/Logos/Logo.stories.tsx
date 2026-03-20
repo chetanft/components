@@ -85,17 +85,26 @@ export const Default: Story = {
   args: {
     name: 'ft',
   },
+  parameters: {
+    docs: { source: { code: '<Logo name="ft" />', language: 'tsx', type: 'code' } },
+  },
 };
 
 export const FT: Story = {
   args: {
     name: 'ft',
   },
+  parameters: {
+    docs: { source: { code: '<Logo name="ft" />', language: 'tsx', type: 'code' } },
+  },
 };
 
 export const TataMotors: Story = {
   args: {
     name: 'tata-motors',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="tata-motors" />', language: 'tsx', type: 'code' } },
   },
 };
 
@@ -105,6 +114,9 @@ export const CustomSize: Story = {
     width: 150,
     height: 24,
   },
+  parameters: {
+    docs: { source: { code: '<Logo name="ft" width={150} height={24} />', language: 'tsx', type: 'code' } },
+  },
 };
 
 export const TataMotorsLarge: Story = {
@@ -113,11 +125,17 @@ export const TataMotorsLarge: Story = {
     width: 200,
     height: 40,
   },
+  parameters: {
+    docs: { source: { code: '<Logo name="tata-motors" width={200} height={40} />', language: 'tsx', type: 'code' } },
+  },
 };
 
 export const FTWhite: Story = {
   args: {
     name: 'ft-white',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="ft-white" />', language: 'tsx', type: 'code' } },
   },
 };
 
@@ -125,11 +143,17 @@ export const MDCLabs: Story = {
   args: {
     name: 'mdc-labs',
   },
+  parameters: {
+    docs: { source: { code: '<Logo name="mdc-labs" />', language: 'tsx', type: 'code' } },
+  },
 };
 
 export const ShakthiLogistics: Story = {
   args: {
     name: 'shakthi-logistics',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="shakthi-logistics" />', language: 'tsx', type: 'code' } },
   },
 };
 
@@ -137,11 +161,17 @@ export const Gati: Story = {
   args: {
     name: 'gati',
   },
+  parameters: {
+    docs: { source: { code: '<Logo name="gati" />', language: 'tsx', type: 'code' } },
+  },
 };
 
 export const BirlaPivot: Story = {
   args: {
     name: 'birla-pivot',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="birla-pivot" />', language: 'tsx', type: 'code' } },
   },
 };
 
@@ -149,11 +179,17 @@ export const Diageo: Story = {
   args: {
     name: 'diageo',
   },
+  parameters: {
+    docs: { source: { code: '<Logo name="diageo" />', language: 'tsx', type: 'code' } },
+  },
 };
 
 export const DiageoWhite: Story = {
   args: {
     name: 'diageo-white',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="diageo-white" />', language: 'tsx', type: 'code' } },
   },
 };
 
@@ -161,11 +197,17 @@ export const JSWOne: Story = {
   args: {
     name: 'jsw-one',
   },
+  parameters: {
+    docs: { source: { code: '<Logo name="jsw-one" />', language: 'tsx', type: 'code' } },
+  },
 };
 
 export const Shadowfax: Story = {
   args: {
     name: 'shadowfax',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="shadowfax" />', language: 'tsx', type: 'code' } },
   },
 };
 

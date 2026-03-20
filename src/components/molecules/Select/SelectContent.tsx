@@ -38,11 +38,10 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
     glass,
     ...props
   }, ref) => {
-    const { open, onOpenChange, glass: contextGlass } = useSelectContext();
+    const { open, onOpenChange, triggerPosition, glass: contextGlass } = useSelectContext();
     const resolvedGlass = useResolvedGlass(glass ?? contextGlass);
     const contentRef = useRef<HTMLDivElement>(null);
     const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
-    const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
 
     // Combine refs
     React.useImperativeHandle(ref, () => contentRef.current as HTMLDivElement);
@@ -52,21 +51,6 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
       const containerElement = container || document.body;
       setPortalContainer(containerElement);
     }, [container]);
-
-    // Get position from trigger
-    useEffect(() => {
-      if (open) {
-        const positionData = document.querySelector('[data-select-position]');
-        if (positionData) {
-          try {
-            const pos = JSON.parse(positionData.getAttribute('data-select-position') || '{}');
-            setPosition(pos);
-          } catch (e) {
-            // Fallback to default position
-          }
-        }
-      }
-    }, [open]);
 
     // Close on outside click
     useEffect(() => {
@@ -111,9 +95,9 @@ export const SelectContent = React.forwardRef<HTMLDivElement, SelectContentProps
         )}
         style={{
           position: 'fixed',
-          top: position.top || 0,
-          left: position.left || 0,
-          width: position.width || 'var(--radix-select-trigger-width)',
+          top: triggerPosition.top || 0,
+          left: triggerPosition.left || 0,
+          width: triggerPosition.width || 'var(--radix-select-trigger-width)',
           maxHeight: 'calc(var(--spacing-x20) + var(--spacing-x20) + var(--spacing-x20) + var(--spacing-x15))',
           overflowY: 'auto'
         }}

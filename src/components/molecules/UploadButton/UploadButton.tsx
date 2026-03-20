@@ -51,13 +51,19 @@ export const UploadButton = React.forwardRef<HTMLDivElement, UploadButtonProps>(
     };
     
     // Build accept attribute from file types
+    // Known aliases are expanded; everything else (MIME types, extensions) passes through
     const getAcceptAttribute = () => {
+      const aliasMap: Record<string, string[]> = {
+        'Excel': ['.xlsx', '.xls'],
+        'CSV': ['.csv'],
+      };
       const accepts: string[] = [];
-      if (acceptedFileTypes.includes('Excel')) {
-        accepts.push('.xlsx', '.xls');
-      }
-      if (acceptedFileTypes.includes('CSV')) {
-        accepts.push('.csv');
+      for (const ft of acceptedFileTypes) {
+        if (aliasMap[ft]) {
+          accepts.push(...aliasMap[ft]);
+        } else {
+          accepts.push(ft);
+        }
       }
       return accepts.join(',');
     };

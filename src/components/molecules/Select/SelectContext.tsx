@@ -1,8 +1,14 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
 import type { ComponentSize } from '../../../lib/utils';
 import type { GlassVariant } from '../../../lib/glass';
+
+export interface SelectPosition {
+  top: number;
+  left: number;
+  width: number;
+}
 
 export interface SelectContextValue {
   value?: string;
@@ -14,6 +20,8 @@ export interface SelectContextValue {
   size?: ComponentSize;
   setSize: (size: ComponentSize) => void;
   glass?: GlassVariant;
+  triggerPosition: SelectPosition;
+  setTriggerPosition: (pos: SelectPosition) => void;
 }
 
 const SelectContext = createContext<SelectContextValue | undefined>(undefined);
@@ -32,6 +40,8 @@ const defaultContext: SelectContextValue = {
   size: 'md',
   setSize: () => {},
   glass: undefined,
+  triggerPosition: { top: 0, left: 0, width: 0 },
+  setTriggerPosition: () => {},
 };
 
 export const useSelectContext = () => {
@@ -58,7 +68,18 @@ export const SelectContextProvider: React.FC<SelectContextProviderProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState<string | undefined>();
+  const prevValueRef = useRef(value);
   const [size, setSize] = useState<ComponentSize>('md');
+
+  // Clear selectedLabel when value changes externally so the matching
+  // SelectItem can re-sync its label on the next render.
+  useEffect(() => {
+    if (prevValueRef.current !== value) {
+      prevValueRef.current = value;
+      setSelectedLabel(undefined);
+    }
+  }, [value]);
+  const [triggerPosition, setTriggerPosition] = useState<SelectPosition>({ top: 0, left: 0, width: 0 });
 
   const handleOpenChange = useCallback((newOpen: boolean) => {
     setOpen(newOpen);
@@ -66,6 +87,10 @@ export const SelectContextProvider: React.FC<SelectContextProviderProps> = ({
 
   const handleSetSize = useCallback((newSize: ComponentSize) => {
     setSize(newSize);
+  }, []);
+
+  const handleSetTriggerPosition = useCallback((pos: SelectPosition) => {
+    setTriggerPosition(pos);
   }, []);
 
   const contextValue: SelectContextValue = {
@@ -78,6 +103,8 @@ export const SelectContextProvider: React.FC<SelectContextProviderProps> = ({
     size,
     setSize: handleSetSize,
     glass,
+    triggerPosition,
+    setTriggerPosition: handleSetTriggerPosition,
   };
 
   return (
