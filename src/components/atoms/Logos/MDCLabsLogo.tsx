@@ -1,4 +1,5 @@
 import React from 'react';
+import logoImg from './assets/mdc-labs-logo.svg';
 
 interface MDCLabsLogoProps {
   width?: number;
@@ -6,23 +7,19 @@ interface MDCLabsLogoProps {
   className?: string;
 }
 
-export const MDCLabsLogo: React.FC<MDCLabsLogoProps> = ({ 
-  width = 120, 
-  height = 28, 
-  className 
+export const MDCLabsLogo: React.FC<MDCLabsLogoProps> = ({
+  width = 158,
+  height = 26,
+  className
 }) => (
-  <svg 
-    width={width} 
-    height={height} 
-    viewBox="0 0 120 28" 
-    fill="none" 
-    xmlns="http://www.w3.org/2000/svg"
+  <img
+    src={(logoImg as any).src || logoImg}
+    alt="MDC Labs Logo"
+    width={width}
+    height={height}
     className={className}
-  >
-    {/* MDC Labs logo - Teal & Blue */}
-    <text x="0" y="20" fontSize="20" fontWeight="700" fill="#0D9488">MDC</text>
-    <text x="50" y="24" fontSize="16" fontWeight="400" fill="#3B82F6">Labs</text>
-  </svg>
+    style={{ objectFit: 'contain' }}
+  />
 );
 
 export default MDCLabsLogo;
