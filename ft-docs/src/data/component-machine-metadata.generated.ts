@@ -963,7 +963,7 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     ],
     "sizeOptions": [],
     "variantOptions": [],
-    "storyCount": 15
+    "storyCount": 25
   },
   "Mentions": {
     "componentName": "Mentions",
@@ -2882,7 +2882,7 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     ],
     "sizeOptions": [],
     "variantOptions": [],
-    "storyCount": 15
+    "storyCount": 25
   },
   "mentions": {
     "componentName": "Mentions",
