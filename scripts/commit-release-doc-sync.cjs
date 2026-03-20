@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+'use strict';
+
+/**
+ * After `npm version`, regenerates docs for the new package version and commits
+ * doc artifacts (+ ft-docs/package.json) so `check:docs-sync` in publish:prepare passes.
+ */
+
+const fs = require('fs');
+const { spawnSync, execFileSync } = require('child_process');
+const path = require('path');
+
+const projectRoot = path.join(__dirname, '..');
+const trackedFiles = require('./doc-sync-tracked-files.cjs');
+/** Updated by sync:version after a version bump */
+const extraTracked = ['ft-docs/package.json'];
+
+function hasStagedChanges() {
+  try {
+    execFileSync('git', ['diff', '--cached', '--quiet'], { cwd: projectRoot });
+    return false;
+  } catch {
+    return true;
+  }
+}
+
+function main() {
+  const syncResult = spawnSync('npm', ['run', 'sync:docs'], {
+    cwd: projectRoot,
+    stdio: 'inherit',
+    env: process.env,
+  });
+  if ((syncResult.status ?? 1) !== 0) {
+    process.exit(syncResult.status ?? 1);
+  }
+
+  const toStage = [...trackedFiles, ...extraTracked].filter((f) =>
+    fs.existsSync(path.join(projectRoot, f))
+  );
+
+  if (toStage.length === 0) {
+    process.exit(0);
+  }
+
+  execFileSync('git', ['add', '--', ...toStage], { cwd: projectRoot, stdio: 'inherit' });
+
+  if (hasStagedChanges()) {
+    execFileSync(
+      'git',
+      ['commit', '-m', 'chore: sync generated docs for release version'],
+      { cwd: projectRoot, stdio: 'inherit' }
+    );
+  }
+}
+
+main();
