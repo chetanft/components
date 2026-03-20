@@ -35,6 +35,23 @@ const meta: Meta<typeof Logo> = {
           ],
         },
         {
+          id: 'courier',
+          label: 'Courier',
+          scenarios: [
+            { id: 'gati', label: 'Gati', story: 'Gati' },
+            { id: 'delhivery', label: 'Delhivery', story: 'Delhivery' },
+            { id: 'dhl', label: 'DHL', story: 'DHL' },
+            { id: 'kgc', label: 'KGC', story: 'KGC' },
+            { id: 'avikam', label: 'Avikam', story: 'Avikam' },
+            { id: 'safexpress', label: 'Safexpress', story: 'Safexpress' },
+            { id: 'bluedart', label: 'Bluedart', story: 'Bluedart' },
+            { id: 'tvs', label: 'TVS', story: 'TVS' },
+            { id: 'criticalog', label: 'Criticalog', story: 'Criticalog' },
+            { id: 'mec', label: 'MEC', story: 'MEC' },
+            { id: 'om-logistics', label: 'OM Logistics', story: 'OMLogistics' },
+          ],
+        },
+        {
           id: 'size',
           label: 'Size',
           scenarios: [
@@ -63,7 +80,17 @@ const meta: Meta<typeof Logo> = {
         'diageo',
         'diageo-white',
         'jsw-one',
-        'shadowfax'
+        'shadowfax',
+        'delhivery',
+        'dhl',
+        'kgc',
+        'avikam',
+        'safexpress',
+        'bluedart',
+        'tvs',
+        'criticalog',
+        'mec',
+        'om-logistics',
       ],
       description: 'Logo name to display',
     },
@@ -211,6 +238,96 @@ export const Shadowfax: Story = {
   },
 };
 
+export const Delhivery: Story = {
+  args: {
+    name: 'delhivery',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="delhivery" />', language: 'tsx', type: 'code' } },
+  },
+};
+
+export const DHL: Story = {
+  args: {
+    name: 'dhl',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="dhl" />', language: 'tsx', type: 'code' } },
+  },
+};
+
+export const KGC: Story = {
+  args: {
+    name: 'kgc',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="kgc" />', language: 'tsx', type: 'code' } },
+  },
+};
+
+export const Avikam: Story = {
+  args: {
+    name: 'avikam',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="avikam" />', language: 'tsx', type: 'code' } },
+  },
+};
+
+export const Safexpress: Story = {
+  args: {
+    name: 'safexpress',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="safexpress" />', language: 'tsx', type: 'code' } },
+  },
+};
+
+export const Bluedart: Story = {
+  args: {
+    name: 'bluedart',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="bluedart" />', language: 'tsx', type: 'code' } },
+  },
+};
+
+export const TVS: Story = {
+  args: {
+    name: 'tvs',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="tvs" />', language: 'tsx', type: 'code' } },
+  },
+};
+
+export const Criticalog: Story = {
+  args: {
+    name: 'criticalog',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="criticalog" />', language: 'tsx', type: 'code' } },
+  },
+};
+
+export const MEC: Story = {
+  args: {
+    name: 'mec',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="mec" />', language: 'tsx', type: 'code' } },
+  },
+};
+
+export const OMLogistics: Story = {
+  args: {
+    name: 'om-logistics',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="om-logistics" />', language: 'tsx', type: 'code' } },
+  },
+};
+
 export const DocsAllLogos: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x6)', padding: 'var(--spacing-x5)' }}>
@@ -226,6 +343,16 @@ export const DocsAllLogos: Story = {
         <Logo name="diageo-white" />
         <Logo name="jsw-one" />
         <Logo name="shadowfax" />
+        <Logo name="delhivery" />
+        <Logo name="dhl" />
+        <Logo name="kgc" />
+        <Logo name="avikam" />
+        <Logo name="safexpress" />
+        <Logo name="bluedart" />
+        <Logo name="tvs" />
+        <Logo name="criticalog" />
+        <Logo name="mec" />
+        <Logo name="om-logistics" />
       </div>
     </div>
   ),
@@ -246,6 +373,16 @@ export const DocsAllLogos: Story = {
   <Logo name="diageo-white" />
   <Logo name="jsw-one" />
   <Logo name="shadowfax" />
+  <Logo name="delhivery" />
+  <Logo name="dhl" />
+  <Logo name="kgc" />
+  <Logo name="avikam" />
+  <Logo name="safexpress" />
+  <Logo name="bluedart" />
+  <Logo name="tvs" />
+  <Logo name="criticalog" />
+  <Logo name="mec" />
+  <Logo name="om-logistics" />
 </div>`,
         language: 'tsx',
         type: 'code',

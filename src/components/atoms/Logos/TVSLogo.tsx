@@ -1,20 +1,20 @@
 import React from 'react';
-import logoImg from './assets/gati-logo.png';
+import logoImg from './assets/tvs-logo.png';
 
-interface GatiLogoProps {
+interface TVSLogoProps {
   width?: number;
   height?: number;
   className?: string;
 }
 
-export const GatiLogo: React.FC<GatiLogoProps> = ({
-  width = 63,
+export const TVSLogo: React.FC<TVSLogoProps> = ({
+  width = 30,
   height = 22,
   className
 }) => (
   <img
     src={(logoImg as any).src || logoImg}
-    alt="Gati Logo"
+    alt="TVS Logo"
     width={width}
     height={height}
     className={className}
@@ -22,4 +22,4 @@ export const GatiLogo: React.FC<GatiLogoProps> = ({
   />
 );
 
-export default GatiLogo;
+export default TVSLogo;

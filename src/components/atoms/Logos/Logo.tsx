@@ -10,10 +10,20 @@ import { DiageoLogo } from './DiageoLogo';
 import { DiageoWhiteLogo } from './DiageoWhiteLogo';
 import { JSWOneLogo } from './JSWOneLogo';
 import { ShadowfaxLogo } from './ShadowfaxLogo';
+import { DelhiveryLogo } from './DelhiveryLogo';
+import { DHLLogo } from './DHLLogo';
+import { KGCLogo } from './KGCLogo';
+import { AvikamLogo } from './AvikamLogo';
+import { SafexpressLogo } from './SafexpressLogo';
+import { BluedartLogo } from './BluedartLogo';
+import { TVSLogo } from './TVSLogo';
+import { CriticalogLogo } from './CriticalogLogo';
+import { MECLogo } from './MECLogo';
+import { OMLogisticsLogo } from './OMLogisticsLogo';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
-export type LogoName = 
-  | 'ft' 
+export type LogoName =
+  | 'ft'
   | 'ft-white'
   | 'tata-motors'
   | 'mdc-labs'
@@ -23,7 +33,17 @@ export type LogoName =
   | 'diageo'
   | 'diageo-white'
   | 'jsw-one'
-  | 'shadowfax';
+  | 'shadowfax'
+  | 'delhivery'
+  | 'dhl'
+  | 'kgc'
+  | 'avikam'
+  | 'safexpress'
+  | 'bluedart'
+  | 'tvs'
+  | 'criticalog'
+  | 'mec'
+  | 'om-logistics';
 
 interface LogoProps extends ComposableProps<'div'> {
   name: LogoName;
@@ -130,6 +150,86 @@ export const Logo: React.FC<LogoProps> = ({
         </Comp>
       ) : (
         <ShadowfaxLogo width={width} height={height} className={className} />
+      );
+    case 'delhivery':
+      return asChild ? (
+        <Comp className={className} {...props}>
+          <DelhiveryLogo width={width} height={height} />
+        </Comp>
+      ) : (
+        <DelhiveryLogo width={width} height={height} className={className} />
+      );
+    case 'dhl':
+      return asChild ? (
+        <Comp className={className} {...props}>
+          <DHLLogo width={width} height={height} />
+        </Comp>
+      ) : (
+        <DHLLogo width={width} height={height} className={className} />
+      );
+    case 'kgc':
+      return asChild ? (
+        <Comp className={className} {...props}>
+          <KGCLogo width={width} height={height} />
+        </Comp>
+      ) : (
+        <KGCLogo width={width} height={height} className={className} />
+      );
+    case 'avikam':
+      return asChild ? (
+        <Comp className={className} {...props}>
+          <AvikamLogo width={width} height={height} />
+        </Comp>
+      ) : (
+        <AvikamLogo width={width} height={height} className={className} />
+      );
+    case 'safexpress':
+      return asChild ? (
+        <Comp className={className} {...props}>
+          <SafexpressLogo width={width} height={height} />
+        </Comp>
+      ) : (
+        <SafexpressLogo width={width} height={height} className={className} />
+      );
+    case 'bluedart':
+      return asChild ? (
+        <Comp className={className} {...props}>
+          <BluedartLogo width={width} height={height} />
+        </Comp>
+      ) : (
+        <BluedartLogo width={width} height={height} className={className} />
+      );
+    case 'tvs':
+      return asChild ? (
+        <Comp className={className} {...props}>
+          <TVSLogo width={width} height={height} />
+        </Comp>
+      ) : (
+        <TVSLogo width={width} height={height} className={className} />
+      );
+    case 'criticalog':
+      return asChild ? (
+        <Comp className={className} {...props}>
+          <CriticalogLogo width={width} height={height} />
+        </Comp>
+      ) : (
+        <CriticalogLogo width={width} height={height} className={className} />
+      );
+    case 'mec':
+      return asChild ? (
+        <Comp className={className} {...props}>
+          <MECLogo width={width} height={height} />
+        </Comp>
+      ) : (
+        <MECLogo width={width} height={height} className={className} />
+      );
+    case 'om-logistics':
+      return asChild ? (
+        <Comp className={className} {...props}>
+          <OMLogisticsLogo width={width} height={height} />
+        </Comp>
+      ) : (
+        <OMLogisticsLogo width={width} height={height} className={className} />
       );
     default:
       if (process.env.NODE_ENV !== 'production') {

@@ -1,20 +1,20 @@
 import React from 'react';
-import logoImg from './assets/gati-logo.png';
+import logoImg from './assets/delhivery-logo.png';
 
-interface GatiLogoProps {
+interface DelhiveryLogoProps {
   width?: number;
   height?: number;
   className?: string;
 }
 
-export const GatiLogo: React.FC<GatiLogoProps> = ({
-  width = 63,
+export const DelhiveryLogo: React.FC<DelhiveryLogoProps> = ({
+  width = 136,
   height = 22,
   className
 }) => (
   <img
     src={(logoImg as any).src || logoImg}
-    alt="Gati Logo"
+    alt="Delhivery Logo"
     width={width}
     height={height}
     className={className}
@@ -22,4 +22,4 @@ export const GatiLogo: React.FC<GatiLogoProps> = ({
   />
 );
 
-export default GatiLogo;
+export default DelhiveryLogo;
