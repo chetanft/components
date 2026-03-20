@@ -64,7 +64,7 @@ Duplicate component-name groups collapsed: 2.
 | LineChart | Basic, Multiple, Linear, Step, WithDots, WithLabels | — | — | — | — | — | — | Configured | no ExplorerBase export | src/stories/LineChart.stories.tsx |
 | List | Default, With Icons, With Actions | — | Default | — | — | — | — | Configured | — | src/components/molecules/List/List.stories.tsx |
 | Loader | Default, Static, Without Logo, Small Logo, Full Width | — | — | — | — | Default, No Progress Bar, Custom Progress Bar | — | Configured | — | src/components/molecules/Loader/Loader.stories.tsx |
-| Logo | — | — | — | Default, Custom Size, Large | — | — | Brand: Default (FT), FT White, Tata Motors | Configured | no ExplorerBase export | src/components/atoms/Logos/Logo.stories.tsx |
+| Logo | — | — | — | Default, Custom Size, Large | — | — | Brand: Default (FT), FT White, Tata Motors, Courier: Gati, Delhivery, DHL, KGC, Avikam, Safexpress, Bluedart, TVS, Criticalog, MEC, OM Logistics | Configured | no ExplorerBase export | src/components/atoms/Logos/Logo.stories.tsx |
 | Mentions | Default (@), Custom Prefix (#), Rich Content | — | — | — | — | — | — | Configured | no ExplorerBase export | src/components/molecules/Mentions/Mentions.stories.tsx |
 | Modal | Basic, Footer | — | — | Small, Medium, Large, Extra Large, Full | — | — | — | Configured | — | src/components/organisms/Modal/Modal.stories.tsx |
 | Multi-Theme Demo | — | — | — | — | — | — | Theme Mode: Interactive Demo, Light, Dark, Night, Comparison: Side-by-Side | Configured | — | src/stories/ThemeSystem.stories.tsx |
