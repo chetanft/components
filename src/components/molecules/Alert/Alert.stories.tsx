@@ -148,6 +148,19 @@ export const Default: Story = {
             <AlertDescription>This is an info alert message using the composable API.</AlertDescription>
         </Alert>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<Alert variant="info" radius="md">
+  <AlertIcon />
+  <AlertTitle>Information</AlertTitle>
+  <AlertDescription>This is an info alert message using the composable API.</AlertDescription>
+</Alert>`,
+                language: 'tsx',
+                type: 'code',
+            },
+        },
+    },
 };
 
 export const WithAction: Story = {
@@ -161,6 +174,22 @@ export const WithAction: Story = {
             </AlertAction>
         </Alert>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<Alert variant="success" radius="md">
+  <AlertIcon />
+  <AlertTitle>Success</AlertTitle>
+  <AlertDescription>Your changes have been saved successfully.</AlertDescription>
+  <AlertAction>
+    <Button size="sm" variant="primary">View Details</Button>
+  </AlertAction>
+</Alert>`,
+                language: 'tsx',
+                type: 'code',
+            },
+        },
+    },
 };
 
 export const Closable: Story = {
@@ -182,6 +211,20 @@ export const Closable: Story = {
                 <AlertClose onClose={() => setOpen(false)} />
             </Alert>
         );
+    },
+    parameters: {
+        docs: {
+            source: {
+                code: `<Alert variant="warning" radius="md">
+  <AlertIcon />
+  <AlertTitle>Warning</AlertTitle>
+  <AlertDescription>This alert can be dismissed.</AlertDescription>
+  <AlertClose onClose={() => setOpen(false)} />
+</Alert>`,
+                language: 'tsx',
+                type: 'code',
+            },
+        },
     },
 };
 
@@ -209,5 +252,22 @@ export const DocsComplete: Story = {
         );
     },
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Alert variant="danger" radius="md">
+  <AlertIcon />
+  <AlertTitle>Error</AlertTitle>
+  <AlertDescription>Something went wrong. Please try again.</AlertDescription>
+  <AlertAction>
+    <Button size="sm" variant="destructive">Retry</Button>
+  </AlertAction>
+  <AlertClose onClose={() => setOpen(false)} />
+</Alert>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

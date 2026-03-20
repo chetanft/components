@@ -110,6 +110,21 @@ function ComposableBasicComponent() {
 
 export const Default: Story = {
   render: () => <ComposableBasicComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [value, setValue] = useState('tab1');
+
+<SegmentedTabs value={value} onChange={setValue}>
+  <SegmentedTabItem value="tab1" label="Tab 1" />
+  <SegmentedTabItem value="tab2" label="Tab 2" />
+  <SegmentedTabItem value="tab3" label="Tab 3" />
+</SegmentedTabs>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableWithIconsComponent() {
@@ -137,6 +152,32 @@ function ComposableWithIconsComponent() {
 
 export const DocsWithIcons: Story = {
   render: () => <ComposableWithIconsComponent />,
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `const [value, setValue] = useState('home');
 
-  parameters: { docsOnly: true },
-}
+<SegmentedTabs value={value} onChange={setValue}>
+  <SegmentedTabItem
+    value="home"
+    label="Home"
+    icon={<Icon name="home" size={16} />}
+  />
+  <SegmentedTabItem
+    value="settings"
+    label="Settings"
+    icon={<Icon name="settings" size={16} />}
+  />
+  <SegmentedTabItem
+    value="profile"
+    label="Profile"
+    icon={<Icon name="user" size={16} />}
+  />
+</SegmentedTabs>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
+};

@@ -188,5 +188,26 @@ export const DocsAllLogos: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-x4)', alignItems: 'center' }}>
+  <Logo name="ft" />
+  <Logo name="ft-white" />
+  <Logo name="tata-motors" />
+  <Logo name="mdc-labs" />
+  <Logo name="shakthi-logistics" />
+  <Logo name="gati" />
+  <Logo name="birla-pivot" />
+  <Logo name="diageo" />
+  <Logo name="diageo-white" />
+  <Logo name="jsw-one" />
+  <Logo name="shadowfax" />
+</div>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

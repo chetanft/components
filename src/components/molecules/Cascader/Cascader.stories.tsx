@@ -157,5 +157,36 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Cascader size="xs" placeholder="XS Cascader">
+  <CascaderOption value="usa" label="United States">
+    <CascaderOption value="california" label="California" />
+  </CascaderOption>
+</Cascader>
+
+<Cascader size="sm" placeholder="SM Cascader">
+  <CascaderOption value="usa" label="United States">
+    <CascaderOption value="california" label="California" />
+  </CascaderOption>
+</Cascader>
+
+<Cascader size="md" placeholder="MD Cascader">
+  <CascaderOption value="usa" label="United States">
+    <CascaderOption value="california" label="California" />
+  </CascaderOption>
+</Cascader>
+
+<Cascader size="lg" placeholder="LG Cascader">
+  <CascaderOption value="usa" label="United States">
+    <CascaderOption value="california" label="California" />
+  </CascaderOption>
+</Cascader>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

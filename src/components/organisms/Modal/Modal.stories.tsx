@@ -123,6 +123,29 @@ function DefaultModalRender() {
 // Default modal using composable API
 export const Default: Story = {
   render: () => <DefaultModalRender />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [open, setOpen] = useState(false);
+
+<Modal open={open} onOpenChange={setOpen}>
+  <ModalTrigger asChild>
+    <Button>Open Modal</Button>
+  </ModalTrigger>
+  <ModalContent>
+    <ModalHeader>
+      <ModalTitle>Modal Title</ModalTitle>
+    </ModalHeader>
+    <ModalBody>
+      <p>Modal content goes here</p>
+    </ModalBody>
+  </ModalContent>
+</Modal>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // --- Composable API stories ---
@@ -245,20 +268,150 @@ function ModalSizeDemo({ size }: { size: 'sm' | 'md' | 'lg' | 'xl' | 'full' }) {
 
 export const Small: Story = {
   render: () => <ModalSizeDemo size="sm" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Modal open={open} onOpenChange={setOpen}>
+  <ModalTrigger asChild>
+    <Button>Open SM</Button>
+  </ModalTrigger>
+  <ModalContent size="sm">
+    <ModalHeader>
+      <ModalTitle>Modal Size: sm</ModalTitle>
+    </ModalHeader>
+    <ModalBody>
+      <p>This modal is using the <strong>sm</strong> size preset.</p>
+    </ModalBody>
+    <ModalFooter>
+      <ModalClose asChild>
+        <Button variant="secondary">Close</Button>
+      </ModalClose>
+    </ModalFooter>
+  </ModalContent>
+</Modal>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const Medium: Story = {
   render: () => <ModalSizeDemo size="md" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Modal open={open} onOpenChange={setOpen}>
+  <ModalTrigger asChild>
+    <Button>Open MD</Button>
+  </ModalTrigger>
+  <ModalContent size="md">
+    <ModalHeader>
+      <ModalTitle>Modal Size: md</ModalTitle>
+    </ModalHeader>
+    <ModalBody>
+      <p>This modal is using the <strong>md</strong> size preset.</p>
+    </ModalBody>
+    <ModalFooter>
+      <ModalClose asChild>
+        <Button variant="secondary">Close</Button>
+      </ModalClose>
+    </ModalFooter>
+  </ModalContent>
+</Modal>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const Large: Story = {
   render: () => <ModalSizeDemo size="lg" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Modal open={open} onOpenChange={setOpen}>
+  <ModalTrigger asChild>
+    <Button>Open LG</Button>
+  </ModalTrigger>
+  <ModalContent size="lg">
+    <ModalHeader>
+      <ModalTitle>Modal Size: lg</ModalTitle>
+    </ModalHeader>
+    <ModalBody>
+      <p>This modal is using the <strong>lg</strong> size preset.</p>
+    </ModalBody>
+    <ModalFooter>
+      <ModalClose asChild>
+        <Button variant="secondary">Close</Button>
+      </ModalClose>
+    </ModalFooter>
+  </ModalContent>
+</Modal>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const ExtraLarge: Story = {
   render: () => <ModalSizeDemo size="xl" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Modal open={open} onOpenChange={setOpen}>
+  <ModalTrigger asChild>
+    <Button>Open XL</Button>
+  </ModalTrigger>
+  <ModalContent size="xl">
+    <ModalHeader>
+      <ModalTitle>Modal Size: xl</ModalTitle>
+    </ModalHeader>
+    <ModalBody>
+      <p>This modal is using the <strong>xl</strong> size preset.</p>
+    </ModalBody>
+    <ModalFooter>
+      <ModalClose asChild>
+        <Button variant="secondary">Close</Button>
+      </ModalClose>
+    </ModalFooter>
+  </ModalContent>
+</Modal>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const Full: Story = {
   render: () => <ModalSizeDemo size="full" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Modal open={open} onOpenChange={setOpen}>
+  <ModalTrigger asChild>
+    <Button>Open FULL</Button>
+  </ModalTrigger>
+  <ModalContent size="full">
+    <ModalHeader>
+      <ModalTitle>Modal Size: full</ModalTitle>
+    </ModalHeader>
+    <ModalBody>
+      <p>This modal is using the <strong>full</strong> size preset.</p>
+    </ModalBody>
+    <ModalFooter>
+      <ModalClose asChild>
+        <Button variant="secondary">Close</Button>
+      </ModalClose>
+    </ModalFooter>
+  </ModalContent>
+</Modal>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };

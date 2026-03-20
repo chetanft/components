@@ -117,5 +117,37 @@ const ComposableTourDemo = () => {
 
 export const Default: Story = {
   render: () => <ComposableTourDemo />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const ref1 = useRef<HTMLButtonElement>(null);
+const ref2 = useRef<HTMLButtonElement>(null);
+const ref3 = useRef<HTMLButtonElement>(null);
+const [open, setOpen] = useState(false);
+
+<Button variant="primary" onClick={() => setOpen(true)}>Begin Tour</Button>
+
+<div style={{ marginTop: 40, display: 'flex', gap: 20 }}>
+  <Button ref={ref1}>Upload</Button>
+  <Button ref={ref2} variant="secondary">Save</Button>
+  <Button ref={ref3} variant="ghost">More</Button>
+</div>
+
+<Tour open={open} onClose={() => setOpen(false)}>
+  <TourStep title="Upload File" target={() => ref1.current}>
+    Put your files here.
+  </TourStep>
+  <TourStep title="Save" target={() => ref2.current}>
+    Save your changes.
+  </TourStep>
+  <TourStep title="Other Actions" target={() => ref3.current}>
+    Click to see other actions.
+  </TourStep>
+</Tour>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 

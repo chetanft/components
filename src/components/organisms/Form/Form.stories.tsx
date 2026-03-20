@@ -157,5 +157,63 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `{/* Vertical Layout (Default) */}
+<Form layout="vertical">
+  <FormItem name="v-name" required>
+    <FormLabel>Name</FormLabel>
+    <FormControl>
+      <Input placeholder="Enter name" />
+    </FormControl>
+  </FormItem>
+  <FormItem name="v-email">
+    <FormLabel>Email</FormLabel>
+    <FormControl>
+      <Input type="email" placeholder="Enter email" />
+    </FormControl>
+  </FormItem>
+  <FormItem>
+    <Button type="submit" variant="primary">Submit</Button>
+  </FormItem>
+</Form>
+
+{/* Horizontal Layout */}
+<Form layout="horizontal" labelCol={6} wrapperCol={18}>
+  <FormItem name="h-name" required>
+    <FormLabel>Name</FormLabel>
+    <FormControl>
+      <Input placeholder="Enter name" />
+    </FormControl>
+  </FormItem>
+  <FormItem name="h-email">
+    <FormLabel>Email</FormLabel>
+    <FormControl>
+      <Input type="email" placeholder="Enter email" />
+    </FormControl>
+  </FormItem>
+  <FormItem>
+    <Button type="submit" variant="primary">Submit</Button>
+  </FormItem>
+</Form>
+
+{/* Inline Layout */}
+<Form layout="inline">
+  <FormItem name="i-search">
+    <FormLabel>Search</FormLabel>
+    <FormControl>
+      <Input placeholder="Search..." />
+    </FormControl>
+  </FormItem>
+  <FormItem>
+    <Button type="submit" variant="primary">Search</Button>
+  </FormItem>
+</Form>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

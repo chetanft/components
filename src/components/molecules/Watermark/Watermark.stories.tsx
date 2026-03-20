@@ -60,6 +60,19 @@ export const Basic: Story = {
       </div>
     </Watermark>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Watermark content="FT Design System">
+  <div style={{ height: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f5f5f5' }}>
+    <Typography variant="title-secondary">Confidential Content</Typography>
+  </div>
+</Watermark>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const MultiLine: Story = {
@@ -68,6 +81,17 @@ export const MultiLine: Story = {
       <div style={{ height: 500, backgroundColor: '#fff' }} />
     </Watermark>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Watermark content={['Confidential', 'Do Not Share']}>
+  <div style={{ height: 500, backgroundColor: '#fff' }} />
+</Watermark>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const CustomStyle: Story = {
@@ -81,4 +105,19 @@ export const CustomStyle: Story = {
       <div style={{ height: 500, backgroundColor: '#fff' }} />
     </Watermark>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Watermark
+  content="Draft"
+  font={{ color: 'rgba(255, 0, 0, 0.15)', fontSize: 24 }}
+  rotate={-45}
+>
+  <div style={{ height: 500, backgroundColor: '#fff' }} />
+</Watermark>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };

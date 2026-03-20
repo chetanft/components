@@ -224,5 +224,31 @@ export const DocsBasicGrid: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Row gutter={16}>
+  <Col span={24}><div>col-24</div></Col>
+</Row>
+<Row gutter={16}>
+  <Col span={12}><div>col-12</div></Col>
+  <Col span={12}><div>col-12</div></Col>
+</Row>
+<Row gutter={16}>
+  <Col span={8}><div>col-8</div></Col>
+  <Col span={8}><div>col-8</div></Col>
+  <Col span={8}><div>col-8</div></Col>
+</Row>
+<Row gutter={16}>
+  <Col span={6}><div>col-6</div></Col>
+  <Col span={6}><div>col-6</div></Col>
+  <Col span={6}><div>col-6</div></Col>
+  <Col span={6}><div>col-6</div></Col>
+</Row>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

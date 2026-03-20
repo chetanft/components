@@ -96,6 +96,22 @@ export const Default: Story = {
       <MentionOption value="yesmeck">yesmeck</MentionOption>
     </Mentions>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Mentions
+  style={{ width: '100%', height: 100 }}
+  placeholder="Type @ to see mentions"
+>
+  <MentionOption value="afc163">afc163</MentionOption>
+  <MentionOption value="zombieJ">zombieJ</MentionOption>
+  <MentionOption value="yesmeck">yesmeck</MentionOption>
+</Mentions>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const CustomPrefix: Story = {
@@ -110,6 +126,23 @@ export const CustomPrefix: Story = {
       <MentionOption value="angular">Angular</MentionOption>
     </Mentions>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Mentions
+  style={{ width: '100%', height: 100 }}
+  placeholder="Type # to see tags"
+  prefix="#"
+>
+  <MentionOption value="react">React</MentionOption>
+  <MentionOption value="vue">Vue</MentionOption>
+  <MentionOption value="angular">Angular</MentionOption>
+</Mentions>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const WithRichContent: Story = {
@@ -138,4 +171,35 @@ export const WithRichContent: Story = {
       </MentionOption>
     </Mentions>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Mentions
+  style={{ width: '100%', height: 100 }}
+  placeholder="Type @ to mention a user"
+>
+  <MentionOption value="john">
+    <div className="flex items-center gap-2">
+      <div className="w-6 h-6 rounded-full bg-[var(--info)]" />
+      <span>John Doe</span>
+    </div>
+  </MentionOption>
+  <MentionOption value="jane">
+    <div className="flex items-center gap-2">
+      <div className="w-6 h-6 rounded-full bg-[var(--success)]" />
+      <span>Jane Smith</span>
+    </div>
+  </MentionOption>
+  <MentionOption value="bob">
+    <div className="flex items-center gap-2">
+      <div className="w-6 h-6 rounded-full bg-[var(--primary)]" />
+      <span>Bob Johnson</span>
+    </div>
+  </MentionOption>
+</Mentions>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };

@@ -118,6 +118,48 @@ function ComposableBasicComponent() {
 
 export const Default: Story = {
   render: () => <ComposableBasicComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [rows, setRows] = useState([
+  { id: 1, name: 'John Doe', email: 'john@example.com', role: 'admin' },
+  { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'user' },
+]);
+
+const handleCellChange = (rowId, columnKey, value) => {
+  setRows(rows.map(row =>
+    row.id === rowId ? { ...row, [columnKey]: value } : row
+  ));
+};
+
+<DataEntryTable onCellChange={handleCellChange}>
+  <DataEntryTableHeader>
+    <DataEntryTableHeaderRow>
+      <DataEntryTableHeaderCell key="name" width="200px">Name</DataEntryTableHeaderCell>
+      <DataEntryTableHeaderCell key="email" width="250px">Email</DataEntryTableHeaderCell>
+      <DataEntryTableHeaderCell key="role" width="150px">Role</DataEntryTableHeaderCell>
+    </DataEntryTableHeaderRow>
+  </DataEntryTableHeader>
+  <DataEntryTableBody>
+    {rows.map((row) => (
+      <DataEntryTableRow key={row.id} rowId={row.id}>
+        <DataEntryTableRowCell columnKey="name" rowId={row.id} type="input" value={row.name} placeholder="Enter name" />
+        <DataEntryTableRowCell columnKey="email" rowId={row.id} type="input" value={row.email} placeholder="Enter email" />
+        <DataEntryTableRowCell columnKey="role" rowId={row.id} type="dropdown" value={row.role}
+          options={[
+            { value: 'admin', label: 'Admin' },
+            { value: 'user', label: 'User' },
+          ]}
+        />
+      </DataEntryTableRow>
+    ))}
+  </DataEntryTableBody>
+</DataEntryTable>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableWithSelectionComponent() {
@@ -175,6 +217,44 @@ function ComposableWithSelectionComponent() {
 
 export const WithSelection: Story = {
   render: () => <ComposableWithSelectionComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [rows, setRows] = useState([
+  { id: 1, name: 'John Doe', email: 'john@example.com' },
+  { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
+  { id: 3, name: 'Bob Johnson', email: 'bob@example.com' },
+]);
+const [selectedRows, setSelectedRows] = useState([]);
+
+<DataEntryTable
+  selectable
+  selectedRows={selectedRows}
+  onSelectionChange={setSelectedRows}
+  onCellChange={handleCellChange}
+>
+  <DataEntryTableHeader>
+    <DataEntryTableHeaderRow>
+      <DataEntryTableHeaderCell key="checkbox" width="50px">Select</DataEntryTableHeaderCell>
+      <DataEntryTableHeaderCell key="name" width="200px">Name</DataEntryTableHeaderCell>
+      <DataEntryTableHeaderCell key="email" width="250px">Email</DataEntryTableHeaderCell>
+    </DataEntryTableHeaderRow>
+  </DataEntryTableHeader>
+  <DataEntryTableBody>
+    {rows.map((row) => (
+      <DataEntryTableRow key={row.id} rowId={row.id}>
+        <DataEntryTableRowCheckbox rowId={row.id} />
+        <DataEntryTableRowCell columnKey="name" rowId={row.id} type="input" value={row.name} placeholder="Enter name" />
+        <DataEntryTableRowCell columnKey="email" rowId={row.id} type="input" value={row.email} placeholder="Enter email" />
+      </DataEntryTableRow>
+    ))}
+  </DataEntryTableBody>
+</DataEntryTable>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableWithActionsComponent() {
@@ -244,6 +324,38 @@ function ComposableWithActionsComponent() {
 
 export const WithActions: Story = {
   render: () => <ComposableWithActionsComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<DataEntryTable
+  showContextMenu
+  onCellChange={handleCellChange}
+  onRowDelete={handleDelete}
+>
+  <DataEntryTableHeader>
+    <DataEntryTableHeaderRow>
+      <DataEntryTableHeaderCell key="name" width="200px">Name</DataEntryTableHeaderCell>
+      <DataEntryTableHeaderCell key="email" width="250px">Email</DataEntryTableHeaderCell>
+      <DataEntryTableHeaderCell key="actions" width="100px">Actions</DataEntryTableHeaderCell>
+    </DataEntryTableHeaderRow>
+  </DataEntryTableHeader>
+  <DataEntryTableBody>
+    {rows.map((row) => (
+      <DataEntryTableRow key={row.id} rowId={row.id}>
+        <DataEntryTableRowCell columnKey="name" rowId={row.id} type="input" value={row.name} placeholder="Enter name" />
+        <DataEntryTableRowCell columnKey="email" rowId={row.id} type="input" value={row.email} placeholder="Enter email" />
+        <DataEntryTableRowCell columnKey="actions" rowId={row.id} type="action"
+          actions={[{ label: 'Delete', onClick: () => handleDelete(row.id), variant: 'destructive' }]}
+        />
+      </DataEntryTableRow>
+    ))}
+  </DataEntryTableBody>
+</DataEntryTable>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableWithMultipleCellTypesComponent() {
@@ -311,5 +423,39 @@ function ComposableWithMultipleCellTypesComponent() {
 
 export const WithMultipleCellTypes: Story = {
   render: () => <ComposableWithMultipleCellTypesComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<DataEntryTable onCellChange={handleCellChange}>
+  <DataEntryTableHeader>
+    <DataEntryTableHeaderRow>
+      <DataEntryTableHeaderCell key="name" width="200px">Product Name</DataEntryTableHeaderCell>
+      <DataEntryTableHeaderCell key="price" width="150px">Price</DataEntryTableHeaderCell>
+      <DataEntryTableHeaderCell key="quantity" width="120px">Quantity</DataEntryTableHeaderCell>
+      <DataEntryTableHeaderCell key="category" width="150px">Category</DataEntryTableHeaderCell>
+    </DataEntryTableHeaderRow>
+  </DataEntryTableHeader>
+  <DataEntryTableBody>
+    {rows.map((row) => (
+      <DataEntryTableRow key={row.id} rowId={row.id}>
+        <DataEntryTableRowCell columnKey="name" rowId={row.id} type="input" value={row.name} placeholder="Enter product name" />
+        <DataEntryTableRowCell columnKey="price" rowId={row.id} type="amount-input" value={row.price} currencySymbol="$" />
+        <DataEntryTableRowCell columnKey="quantity" rowId={row.id} type="input" value={row.quantity} />
+        <DataEntryTableRowCell columnKey="category" rowId={row.id} type="dropdown" value={row.category}
+          options={[
+            { value: 'electronics', label: 'Electronics' },
+            { value: 'clothing', label: 'Clothing' },
+            { value: 'food', label: 'Food' },
+          ]}
+        />
+      </DataEntryTableRow>
+    ))}
+  </DataEntryTableBody>
+</DataEntryTable>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 

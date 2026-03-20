@@ -134,5 +134,23 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Typography variant="title-primary">Title Primary</Typography>
+<Typography variant="title-secondary">Title Secondary</Typography>
+<Typography variant="display-primary">Display Primary</Typography>
+<Typography variant="body-primary-semibold">Body Primary Semibold</Typography>
+<Typography variant="body-primary-medium">Body Primary Medium</Typography>
+<Typography variant="body-primary-regular">Body Primary Regular</Typography>
+<Typography variant="body-primary-italic">Body Primary Italic</Typography>
+<Typography variant="body-secondary-semibold">Body Secondary Semibold</Typography>
+<Typography variant="body-secondary-medium">Body Secondary Medium</Typography>
+<Typography variant="body-secondary-regular">Body Secondary Regular</Typography>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

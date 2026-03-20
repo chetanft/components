@@ -158,6 +158,28 @@ export const Basic: Story = {
       />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Card
+  contentVariant="Basic"
+  eyebrowLeft={<Badge variant="info">Active</Badge>}
+  eyebrowRight={<Badge variant="success">Active</Badge>}
+  headerTitle="Text"
+  headerSubText="Sub text"
+  showArrowIcon
+  bodySections={[
+    { statisticValue: 'Text', statisticLabel: 'Label', readOnlyLabel: 'Label', readOnlyText: 'Text' },
+    { statisticValue: 'Text', statisticLabel: 'Label', readOnlyLabel: 'Label', readOnlyText: 'Text' },
+  ]}
+  footerText="Text"
+  footerButton={<Button variant="primary" size="sm" icon="add">Button</Button>}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -189,6 +211,33 @@ export const Advanced: Story = {
       />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Card
+  contentVariant="Advanced"
+  eyebrowLeft={<Badge variant="info">Active</Badge>}
+  eyebrowRight={<Badge variant="success">Active</Badge>}
+  headerTitle="Text"
+  headerSubText="Sub text"
+  showArrowIcon
+  bodySections={[
+    { statisticValue: 'Text', statisticLabel: 'Label', readOnlyLabel: 'Label', readOnlyText: 'Text' },
+    { statisticValue: 'Text', statisticLabel: 'Label', readOnlyLabel: 'Label', readOnlyText: 'Text' },
+  ]}
+  footerText="Text"
+  footerButton={<Button variant="primary" size="sm" icon="add">Button</Button>}
+  graphic={{
+    graphic: 'Image',
+    padding: true,
+    imageUrl: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=300&fit=crop',
+  }}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -211,6 +260,25 @@ export const NoFooter: Story = {
       />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Card
+  contentVariant="Basic"
+  showFooter={false}
+  eyebrowLeft={<Badge variant="info">Active</Badge>}
+  eyebrowRight={<Badge variant="success">Active</Badge>}
+  headerTitle="Text"
+  headerSubText="Sub text"
+  bodySections={[
+    { statisticValue: 'Text', statisticLabel: 'Label', readOnlyLabel: 'Label', readOnlyText: 'Text' },
+  ]}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -233,6 +301,25 @@ export const NoEyebrow: Story = {
       />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Card
+  contentVariant="Basic"
+  showEyebrow={false}
+  headerTitle="Text"
+  headerSubText="Sub text"
+  bodySections={[
+    { statisticValue: 'Text', statisticLabel: 'Label', readOnlyLabel: 'Label', readOnlyText: 'Text' },
+  ]}
+  footerText="Text"
+  footerButton={<Button variant="primary" size="sm" icon="add">Button</Button>}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -260,5 +347,30 @@ export const DocsComposable: Story = {
     </Card>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Card>
+  <CardHeader>
+    <CardTitle>Card Title</CardTitle>
+    <CardDescription>This is a composable card with header, body, and footer.</CardDescription>
+  </CardHeader>
+  <CardBody>
+    <Typography variant="body-primary-regular">
+      Card body content goes here. The composable API gives full control over card structure.
+    </Typography>
+  </CardBody>
+  <CardFooter>
+    <CardActions>
+      <Button variant="secondary" size="sm">Cancel</Button>
+      <Button variant="primary" size="sm">Save</Button>
+    </CardActions>
+  </CardFooter>
+</Card>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

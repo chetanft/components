@@ -121,6 +121,16 @@ export const Default: Story = {
       description: {
         story: '✅ **Composable API**: Use SliderTrack, SliderRange, SliderThumb, and SliderLabel sub-components for flexible slider composition.',
       },
+      source: {
+        code: `<Slider defaultValue={30} className="w-[300px]">
+  <SliderTrack>
+    <SliderRange />
+  </SliderTrack>
+  <SliderThumb value={30} type="end" />
+</Slider>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -141,6 +151,17 @@ export const Range: Story = {
     docs: {
       description: {
         story: 'Use multiple SliderThumb components for range sliders.',
+      },
+      source: {
+        code: `<Slider range defaultValue={[20, 80]} className="w-[300px]">
+  <SliderTrack>
+    <SliderRange />
+  </SliderTrack>
+  <SliderThumb value={20} type="start" />
+  <SliderThumb value={80} type="end" />
+</Slider>`,
+        language: 'tsx',
+        type: 'code',
       },
     },
   },
@@ -167,6 +188,20 @@ export const DocsWithLabels: Story = {
     docs: {
       description: {
         story: 'Use SliderLabel components for marks/labels on the slider track.',
+      },
+      source: {
+        code: `<Slider defaultValue={50} className="w-[300px]">
+  <SliderTrack>
+    <SliderRange />
+  </SliderTrack>
+  <SliderThumb value={50} type="end" />
+  <SliderLabel value={0}>0\u00B0C</SliderLabel>
+  <SliderLabel value={26}>26\u00B0C</SliderLabel>
+  <SliderLabel value={37}>37\u00B0C</SliderLabel>
+  <SliderLabel value={100}>100\u00B0C</SliderLabel>
+</Slider>`,
+        language: 'tsx',
+        type: 'code',
       },
     },
   },
@@ -224,6 +259,37 @@ export const DocsVariants: Story = {
       description: {
         story: 'All visual variants of the Slider component shown side-by-side: single value, range, with labels, and vertical orientation.',
       },
+      source: {
+        code: `{/* Single Value */}
+<Slider defaultValue={30} className="w-[300px]">
+  <SliderTrack><SliderRange /></SliderTrack>
+  <SliderThumb value={30} type="end" />
+</Slider>
+
+{/* Range */}
+<Slider range defaultValue={[20, 80]} className="w-[300px]">
+  <SliderTrack><SliderRange /></SliderTrack>
+  <SliderThumb value={20} type="start" />
+  <SliderThumb value={80} type="end" />
+</Slider>
+
+{/* With Labels */}
+<Slider defaultValue={50} className="w-[300px]">
+  <SliderTrack><SliderRange /></SliderTrack>
+  <SliderThumb value={50} type="end" />
+  <SliderLabel value={0}>0</SliderLabel>
+  <SliderLabel value={50}>50</SliderLabel>
+  <SliderLabel value={100}>100</SliderLabel>
+</Slider>
+
+{/* Vertical */}
+<Slider vertical defaultValue={40} className="h-[200px]">
+  <SliderTrack><SliderRange /></SliderTrack>
+  <SliderThumb value={40} type="end" />
+</Slider>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -257,6 +323,21 @@ export const DocsStates: Story = {
     docs: {
       description: {
         story: 'Slider states: default and disabled.',
+      },
+      source: {
+        code: `{/* Default */}
+<Slider defaultValue={50} className="w-[300px]">
+  <SliderTrack><SliderRange /></SliderTrack>
+  <SliderThumb value={50} type="end" />
+</Slider>
+
+{/* Disabled */}
+<Slider defaultValue={50} disabled className="w-[300px]">
+  <SliderTrack><SliderRange /></SliderTrack>
+  <SliderThumb value={50} type="end" />
+</Slider>`,
+        language: 'tsx',
+        type: 'code',
       },
     },
   },

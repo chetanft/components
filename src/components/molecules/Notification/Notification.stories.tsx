@@ -177,6 +177,35 @@ const NotificationStory = () => (
 
 export const Default: Story = {
   render: () => <NotificationStory />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const { addNotification, clearAll } = useNotification();
+
+<NotificationProvider>
+  <Button onClick={() => addNotification({
+    type: 'success',
+    message: 'Success notification',
+    description: 'Notifications support optional descriptions and icons.',
+    icon: 'success',
+  })}>
+    Success
+  </Button>
+  <Button variant="secondary" onClick={() => addNotification({
+    type: 'info',
+    message: 'Info notification',
+  })}>
+    Info
+  </Button>
+  <Button variant="ghost" onClick={clearAll}>
+    Clear Notifications
+  </Button>
+</NotificationProvider>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 /** All notification type variants displayed together. */
@@ -221,5 +250,29 @@ export const DocsVariants: Story = {
     );
   },
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `const { addNotification } = useNotification();
+
+<NotificationProvider>
+  <Button onClick={() => addNotification({ type: 'success', message: 'Success', closable: true })}>
+    Success
+  </Button>
+  <Button variant="secondary" onClick={() => addNotification({ type: 'info', message: 'Info', closable: true })}>
+    Info
+  </Button>
+  <Button variant="secondary" onClick={() => addNotification({ type: 'warning', message: 'Warning', closable: true })}>
+    Warning
+  </Button>
+  <Button variant="destructive" onClick={() => addNotification({ type: 'danger', message: 'Danger', closable: true })}>
+    Danger
+  </Button>
+</NotificationProvider>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

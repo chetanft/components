@@ -201,5 +201,39 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `// Bidirectional Transfer
+<Transfer
+  targetKeys={targetKeys}
+  onChange={onChange}
+  titles={['Source', 'Target']}
+>
+  {data.map(item => (
+    <TransferItem key={item.key} id={item.key} title={item.title} disabled={item.disabled}>
+      {item.title}
+    </TransferItem>
+  ))}
+</Transfer>
+
+// One-Way Transfer
+<Transfer
+  oneWay
+  targetKeys={targetKeys}
+  onChange={setTargetKeys}
+  titles={['Source', 'Target']}
+>
+  {data.map(item => (
+    <TransferItem key={item.key} id={item.key} title={item.title} disabled={item.disabled}>
+      {item.title}
+    </TransferItem>
+  ))}
+</Transfer>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

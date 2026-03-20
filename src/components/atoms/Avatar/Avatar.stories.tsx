@@ -125,6 +125,17 @@ export const Default: Story = {
       description: {
         story: '✅ **Composable API**: Use AvatarImage and AvatarFallback sub-components for flexible avatar composition.',
       },
+      source: {
+        code: `<Avatar size="md" shape="circle">
+  <AvatarImage src="https://i.pravatar.cc/300" alt="User" />
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>
+<Avatar size="md" shape="circle">
+  <AvatarFallback>AB</AvatarFallback>
+</Avatar>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -147,6 +158,17 @@ export const DocsWithFallback: Story = {
     docs: {
       description: {
         story: 'AvatarFallback displays when image fails to load or is not provided.',
+      },
+      source: {
+        code: `<Avatar size="md" shape="circle">
+  <AvatarImage src="invalid-url" alt="User" />
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>
+<Avatar size="lg" shape="square">
+  <AvatarFallback>AB</AvatarFallback>
+</Avatar>`,
+        language: 'tsx',
+        type: 'code',
       },
     },
   },
@@ -172,5 +194,27 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Avatar size="md" shape="circle">
+  <AvatarImage src="https://i.pravatar.cc/300?img=1" alt="User" />
+  <AvatarFallback>JD</AvatarFallback>
+</Avatar>
+<Avatar size="md" shape="square">
+  <AvatarImage src="https://i.pravatar.cc/300?img=2" alt="User" />
+  <AvatarFallback>AB</AvatarFallback>
+</Avatar>
+<Avatar size="md" shape="circle">
+  <AvatarFallback>CD</AvatarFallback>
+</Avatar>
+<Avatar size="md" shape="square">
+  <AvatarFallback>EF</AvatarFallback>
+</Avatar>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

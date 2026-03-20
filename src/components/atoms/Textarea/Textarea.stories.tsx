@@ -102,6 +102,18 @@ export const Default: Story = {
       <TextareaField placeholder="Enter your description here..." rows={4} />
     </Textarea>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Textarea size="md">
+  <TextareaLabel>Description</TextareaLabel>
+  <TextareaField placeholder="Enter your description here..." rows={4} />
+</Textarea>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsStates: Story = {
@@ -128,5 +140,34 @@ export const DocsStates: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Textarea size="md">
+  <TextareaLabel>Default</TextareaLabel>
+  <TextareaField placeholder="Type here..." />
+</Textarea>
+
+<Textarea size="md">
+  <TextareaLabel>With helper</TextareaLabel>
+  <TextareaField placeholder="Type here..." />
+  <TextareaHelper>Helper text</TextareaHelper>
+</Textarea>
+
+<Textarea size="md">
+  <TextareaLabel>Error</TextareaLabel>
+  <TextareaField placeholder="Type here..." />
+  <TextareaError>This field has an error</TextareaError>
+</Textarea>
+
+<Textarea size="md" disabled>
+  <TextareaLabel>Disabled</TextareaLabel>
+  <TextareaField placeholder="Cannot type here" disabled />
+</Textarea>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

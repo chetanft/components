@@ -208,6 +208,32 @@ export const Default: Story = {
             description: {
                 story: '✅ **Composable API**: Use ListHeader, ListBody, ListFooter, ListItem, and ListItemContent sub-components for flexible list composition.',
             },
+            source: {
+                code: `<List bordered>
+  <ListHeader>
+    <Typography variant="body-primary-semibold">List Header</Typography>
+  </ListHeader>
+  <ListBody>
+    <ListItem>
+      <ListItemContent>
+        <ListItemTitle>Item 1</ListItemTitle>
+        <ListItemDescription>Description for item 1</ListItemDescription>
+      </ListItemContent>
+    </ListItem>
+    <ListItem>
+      <ListItemContent>
+        <ListItemTitle>Item 2</ListItemTitle>
+        <ListItemDescription>Description for item 2</ListItemDescription>
+      </ListItemContent>
+    </ListItem>
+  </ListBody>
+  <ListFooter>
+    <Typography variant="body-secondary-regular">Footer</Typography>
+  </ListFooter>
+</List>`,
+                language: 'tsx',
+                type: 'code',
+            },
         },
     },
 };
@@ -246,6 +272,32 @@ export const DocsWithIcons: Story = {
             description: {
                 story: 'Use ListItemIcon for icons in list items.',
             },
+            source: {
+                code: `<List bordered>
+  <ListBody>
+    <ListItem>
+      <ListItemIcon>
+        <Icon name="check" size={16} />
+      </ListItemIcon>
+      <ListItemContent>
+        <ListItemTitle>Completed Task</ListItemTitle>
+        <ListItemDescription>This task is done</ListItemDescription>
+      </ListItemContent>
+    </ListItem>
+    <ListItem>
+      <ListItemIcon>
+        <Icon name="alert-critical" size={16} />
+      </ListItemIcon>
+      <ListItemContent>
+        <ListItemTitle>Pending Task</ListItemTitle>
+        <ListItemDescription>This task needs attention</ListItemDescription>
+      </ListItemContent>
+    </ListItem>
+  </ListBody>
+</List>`,
+                language: 'tsx',
+                type: 'code',
+            },
         },
     },
 };
@@ -283,6 +335,32 @@ export const DocsWithActions: Story = {
         docs: {
             description: {
                 story: 'Use ListItemAction for action buttons in list items.',
+            },
+            source: {
+                code: `<List bordered>
+  <ListBody>
+    <ListItem>
+      <ListItemContent>
+        <ListItemTitle>Item with Action</ListItemTitle>
+        <ListItemDescription>This item has an action button</ListItemDescription>
+      </ListItemContent>
+      <ListItemAction>
+        <Button size="sm" variant="link">Edit</Button>
+      </ListItemAction>
+    </ListItem>
+    <ListItem>
+      <ListItemContent>
+        <ListItemTitle>Another Item</ListItemTitle>
+        <ListItemDescription>Another item with action</ListItemDescription>
+      </ListItemContent>
+      <ListItemAction>
+        <Button size="sm" variant="link">Delete</Button>
+      </ListItemAction>
+    </ListItem>
+  </ListBody>
+</List>`,
+                language: 'tsx',
+                type: 'code',
             },
         },
     },
@@ -361,6 +439,66 @@ export const DocsVariants: Story = {
             description: {
                 story: 'All visual variants of the List component shown side-by-side: sizes, bordered, with header/footer/icons/actions.',
             },
+            source: {
+                code: `{/* Default (md) */}
+<List bordered>
+  <ListBody>
+    <ListItem>
+      <ListItemContent>
+        <ListItemTitle>Default size item</ListItemTitle>
+      </ListItemContent>
+    </ListItem>
+  </ListBody>
+</List>
+
+{/* Small (sm) */}
+<List bordered size="sm">
+  <ListBody>
+    <ListItem>
+      <ListItemContent>
+        <ListItemTitle>Small size item</ListItemTitle>
+      </ListItemContent>
+    </ListItem>
+  </ListBody>
+</List>
+
+{/* Large (lg) */}
+<List bordered size="lg">
+  <ListBody>
+    <ListItem>
+      <ListItemContent>
+        <ListItemTitle>Large size item</ListItemTitle>
+      </ListItemContent>
+    </ListItem>
+  </ListBody>
+</List>
+
+{/* With Header, Footer, Icons & Actions */}
+<List bordered>
+  <ListHeader>
+    <Typography variant="body-primary-semibold">Full Feature List</Typography>
+  </ListHeader>
+  <ListBody>
+    <ListItem>
+      <ListItemIcon>
+        <Icon name="check" size={16} />
+      </ListItemIcon>
+      <ListItemContent>
+        <ListItemTitle>Item with all parts</ListItemTitle>
+        <ListItemDescription>Description text</ListItemDescription>
+      </ListItemContent>
+      <ListItemAction>
+        <Button size="sm" variant="link">Edit</Button>
+      </ListItemAction>
+    </ListItem>
+  </ListBody>
+  <ListFooter>
+    <Typography variant="body-secondary-regular">Footer</Typography>
+  </ListFooter>
+</List>`,
+                language: 'tsx',
+                type: 'code',
+            },
         },
     },
 };
@@ -412,6 +550,42 @@ export const DocsStates: Story = {
         docs: {
             description: {
                 story: 'List states: empty, single item, and borderless.',
+            },
+            source: {
+                code: `{/* Empty List */}
+<List bordered>
+  <ListBody>
+  </ListBody>
+</List>
+
+{/* Single Item */}
+<List bordered>
+  <ListBody>
+    <ListItem>
+      <ListItemContent>
+        <ListItemTitle>Only item</ListItemTitle>
+      </ListItemContent>
+    </ListItem>
+  </ListBody>
+</List>
+
+{/* Without Border */}
+<List>
+  <ListBody>
+    <ListItem>
+      <ListItemContent>
+        <ListItemTitle>Borderless item 1</ListItemTitle>
+      </ListItemContent>
+    </ListItem>
+    <ListItem>
+      <ListItemContent>
+        <ListItemTitle>Borderless item 2</ListItemTitle>
+      </ListItemContent>
+    </ListItem>
+  </ListBody>
+</List>`,
+                language: 'tsx',
+                type: 'code',
             },
         },
     },

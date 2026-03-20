@@ -98,6 +98,15 @@ export const Default: Story = {
       <div className="text-sm text-[var(--primary)]">Content below divider</div>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Divider type="primary" />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsVariants: Story = {
@@ -132,5 +141,32 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `{/* Primary */}
+<Divider type="primary" />
+
+{/* Secondary */}
+<Divider type="secondary" />
+
+{/* Tertiary */}
+<Divider type="tertiary" />
+
+{/* With Label */}
+<Divider type="with-label" label="Label" />
+
+{/* Dashed */}
+<Divider dashed />
+
+{/* Vertical */}
+<div style={{ display: 'flex', alignItems: 'center' }}>
+  Text<Divider direction="vertical" />Link<Divider direction="vertical" />Action
+</div>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

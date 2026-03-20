@@ -167,6 +167,28 @@ export const Default: Story = {
             description: {
                 story: '✅ **Composable API**: Use DescriptionsTitle, DescriptionsExtra, DescriptionsItem, DescriptionsLabel, and DescriptionsValue sub-components for flexible descriptions composition.',
             },
+            source: {
+                code: `<Descriptions bordered column={2}>
+  <DescriptionsTitle>User Info</DescriptionsTitle>
+  <DescriptionsExtra>
+    <Button size="sm">Edit</Button>
+  </DescriptionsExtra>
+  <DescriptionsItem>
+    <DescriptionsLabel>Product</DescriptionsLabel>
+    <DescriptionsValue>Cloud Database</DescriptionsValue>
+  </DescriptionsItem>
+  <DescriptionsItem>
+    <DescriptionsLabel>Billing Mode</DescriptionsLabel>
+    <DescriptionsValue>Prepaid</DescriptionsValue>
+  </DescriptionsItem>
+  <DescriptionsItem span={2}>
+    <DescriptionsLabel>Usage Time</DescriptionsLabel>
+    <DescriptionsValue>2019-04-24 18:00:00</DescriptionsValue>
+  </DescriptionsItem>
+</Descriptions>`,
+                language: 'tsx',
+                type: 'code',
+            },
         },
     },
 };
@@ -188,6 +210,18 @@ export const WithBadge: Story = {
         docs: {
             description: {
                 story: 'Use DescriptionsValue to include custom content like badges.',
+            },
+            source: {
+                code: `<Descriptions bordered column={3}>
+  <DescriptionsItem span={3}>
+    <DescriptionsLabel>Status</DescriptionsLabel>
+    <DescriptionsValue>
+      <Badge variant="success">Running</Badge>
+    </DescriptionsValue>
+  </DescriptionsItem>
+</Descriptions>`,
+                language: 'tsx',
+                type: 'code',
             },
         },
     },
@@ -232,5 +266,48 @@ export const DocsVariants: Story = {
         </div>
     ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<div className="flex flex-col gap-8 p-6">
+  <Descriptions bordered column={2}>
+    <DescriptionsTitle>Bordered (Default)</DescriptionsTitle>
+    <DescriptionsItem>
+      <DescriptionsLabel>Product</DescriptionsLabel>
+      <DescriptionsValue>Cloud Database</DescriptionsValue>
+    </DescriptionsItem>
+    <DescriptionsItem>
+      <DescriptionsLabel>Billing</DescriptionsLabel>
+      <DescriptionsValue>Prepaid</DescriptionsValue>
+    </DescriptionsItem>
+  </Descriptions>
+  <Descriptions column={2}>
+    <DescriptionsTitle>Unbounded</DescriptionsTitle>
+    <DescriptionsItem>
+      <DescriptionsLabel>Product</DescriptionsLabel>
+      <DescriptionsValue>Cloud Database</DescriptionsValue>
+    </DescriptionsItem>
+    <DescriptionsItem>
+      <DescriptionsLabel>Billing</DescriptionsLabel>
+      <DescriptionsValue>Prepaid</DescriptionsValue>
+    </DescriptionsItem>
+  </Descriptions>
+  <Descriptions bordered layout="vertical" column={2}>
+    <DescriptionsTitle>Vertical Layout</DescriptionsTitle>
+    <DescriptionsItem>
+      <DescriptionsLabel>Product</DescriptionsLabel>
+      <DescriptionsValue>Cloud Database</DescriptionsValue>
+    </DescriptionsItem>
+    <DescriptionsItem>
+      <DescriptionsLabel>Billing</DescriptionsLabel>
+      <DescriptionsValue>Prepaid</DescriptionsValue>
+    </DescriptionsItem>
+  </Descriptions>
+</div>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

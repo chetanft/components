@@ -123,6 +123,25 @@ export const Default: Story = {
       </ButtonGroupItem>
     </ButtonGroup>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<ButtonGroup glass>
+  <ButtonGroupItem>
+    <Button variant="text">Text</Button>
+  </ButtonGroupItem>
+  <ButtonGroupItem>
+    <Button variant="secondary">Secondary</Button>
+  </ButtonGroupItem>
+  <ButtonGroupItem>
+    <Button variant="primary">Primary</Button>
+  </ButtonGroupItem>
+</ButtonGroup>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsEqualWidth: Story = {
@@ -140,5 +159,24 @@ export const DocsEqualWidth: Story = {
     </ButtonGroup>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<ButtonGroup equalWidth glass>
+  <ButtonGroupItem>
+    <Button variant="text" className="w-full">Cancel</Button>
+  </ButtonGroupItem>
+  <ButtonGroupItem>
+    <Button variant="secondary" className="w-full">Save Draft</Button>
+  </ButtonGroupItem>
+  <ButtonGroupItem>
+    <Button variant="primary" className="w-full">Submit</Button>
+  </ButtonGroupItem>
+</ButtonGroup>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

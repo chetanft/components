@@ -90,5 +90,15 @@ export const DocsAllVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<SubText icon="No" />
+<SubText icon="Yes" />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

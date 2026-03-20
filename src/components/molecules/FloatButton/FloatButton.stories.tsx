@@ -96,6 +96,18 @@ export const Basic: Story = {
       />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<FloatButton
+  icon={<Icon name="add" />}
+  onClick={() => console.log('clicked')}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const WithType: Story = {
@@ -113,6 +125,24 @@ export const WithType: Story = {
       />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<>
+  <FloatButton
+    type="primary"
+    icon={<Icon name="check" />}
+  />
+  <FloatButton
+    icon={<Icon name="help-circle" />}
+    shape="square"
+  />
+</>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const Group: Story = {
@@ -123,6 +153,18 @@ export const Group: Story = {
         <FloatButton icon={<Icon name="settings" />} />
       </FloatButtonGroup>
     </div>
-  )
+  ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<FloatButtonGroup trigger="click" type="primary">
+  <FloatButton icon={<Icon name="user" />} />
+  <FloatButton icon={<Icon name="settings" />} />
+</FloatButtonGroup>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 

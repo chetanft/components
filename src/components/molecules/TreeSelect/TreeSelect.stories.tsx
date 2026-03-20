@@ -138,6 +138,36 @@ export const Default: Story = {
       </TreeNode>
     </TreeSelect>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<TreeSelect
+  label="Select organization unit"
+  placeholder="Choose a team"
+  showSearch={true}
+  helperText="Use search to quickly filter nodes"
+>
+  <TreeNode nodeKey="design" title="Design">
+    <TreeNode nodeKey="design-ui" title="UI Team" />
+    <TreeNode nodeKey="design-brand" title="Brand Team" />
+  </TreeNode>
+  <TreeNode nodeKey="engineering" title="Engineering">
+    <TreeNode nodeKey="fe" title="Frontend">
+      <TreeNode nodeKey="fe-platform" title="Platform" />
+      <TreeNode nodeKey="fe-experience" title="Experience" />
+    </TreeNode>
+    <TreeNode nodeKey="be" title="Backend" />
+  </TreeNode>
+  <TreeNode nodeKey="product" title="Product">
+    <TreeNode nodeKey="product-discovery" title="Discovery" />
+    <TreeNode nodeKey="product-research" title="Research" />
+  </TreeNode>
+</TreeSelect>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsVariants: Story = {
@@ -177,6 +207,33 @@ export const DocsVariants: Story = {
     docs: {
       description: {
         story: 'All visual variants of the TreeSelect component shown side-by-side: single select and multiple select with checkboxes.',
+      },
+      source: {
+        code: `{/* Single Select */}
+<TreeSelect placeholder="Choose a team" showSearch>
+  <TreeNode nodeKey="design" title="Design">
+    <TreeNode nodeKey="design-ui" title="UI Team" />
+    <TreeNode nodeKey="design-brand" title="Brand Team" />
+  </TreeNode>
+  <TreeNode nodeKey="engineering" title="Engineering">
+    <TreeNode nodeKey="fe" title="Frontend" />
+    <TreeNode nodeKey="be" title="Backend" />
+  </TreeNode>
+</TreeSelect>
+
+{/* Multiple Select with Checkboxes */}
+<TreeSelect placeholder="Choose teams" multiple treeCheckable showSearch>
+  <TreeNode nodeKey="design2" title="Design">
+    <TreeNode nodeKey="design-ui2" title="UI Team" />
+    <TreeNode nodeKey="design-brand2" title="Brand Team" />
+  </TreeNode>
+  <TreeNode nodeKey="engineering2" title="Engineering">
+    <TreeNode nodeKey="fe2" title="Frontend" />
+    <TreeNode nodeKey="be2" title="Backend" />
+  </TreeNode>
+</TreeSelect>`,
+        language: 'tsx',
+        type: 'code',
       },
     },
   },
@@ -218,6 +275,30 @@ export const DocsStates: Story = {
       description: {
         story: 'TreeSelect states: default, disabled, and error.',
       },
+      source: {
+        code: `{/* Default */}
+<TreeSelect placeholder="Choose a team">
+  <TreeNode nodeKey="s-design" title="Design">
+    <TreeNode nodeKey="s-design-ui" title="UI Team" />
+  </TreeNode>
+</TreeSelect>
+
+{/* Disabled */}
+<TreeSelect placeholder="Choose a team" disabled>
+  <TreeNode nodeKey="s-design2" title="Design">
+    <TreeNode nodeKey="s-design-ui2" title="UI Team" />
+  </TreeNode>
+</TreeSelect>
+
+{/* Error */}
+<TreeSelect placeholder="Select teams" error="Please choose at least one team">
+  <TreeNode nodeKey="s-design3" title="Design">
+    <TreeNode nodeKey="s-design-ui3" title="UI Team" />
+  </TreeNode>
+</TreeSelect>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -236,5 +317,23 @@ export const DocsMultiCheck: Story = {
     </TreeSelect>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<TreeSelect placeholder="Choose teams" multiple treeCheckable showSearch helperText="Select one or more teams">
+  <TreeNode nodeKey="design-m" title="Design">
+    <TreeNode nodeKey="design-ui-m" title="UI Team" />
+    <TreeNode nodeKey="design-brand-m" title="Brand Team" />
+  </TreeNode>
+  <TreeNode nodeKey="engineering-m" title="Engineering">
+    <TreeNode nodeKey="fe-m" title="Frontend" />
+    <TreeNode nodeKey="be-m" title="Backend" />
+  </TreeNode>
+</TreeSelect>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

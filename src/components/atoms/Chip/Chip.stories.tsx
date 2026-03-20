@@ -191,6 +191,19 @@ export const Group: Story = {
     };
     return <GroupExample />;
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `<ChipGroup value={value} onChange={setValue}>
+  <Chip label="Option 1" value="option1" />
+  <Chip label="Option 2" value="option2" />
+  <Chip label="Option 3" value="option3" />
+</ChipGroup>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const GroupMultiple: Story = {
@@ -211,5 +224,18 @@ export const GroupMultiple: Story = {
       );
     };
     return <MultiGroupExample />;
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<ChipGroup value={values} onChange={toggle} multiple>
+  <Chip label="Alpha" value="a" />
+  <Chip label="Beta" value="b" />
+  <Chip label="Gamma" value="c" />
+</ChipGroup>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
   },
 };

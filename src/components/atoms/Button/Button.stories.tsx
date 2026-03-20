@@ -147,6 +147,21 @@ export const Default: Story = {
       description: {
         story: '✅ **Composable API**: Use ButtonIcon and ButtonText sub-components for flexible button composition.',
       },
+      source: {
+        code: `<Button variant="primary">
+  <ButtonIcon icon="add" />
+  <ButtonText>Add Item</ButtonText>
+</Button>
+<Button variant="secondary">
+  <ButtonText>Save</ButtonText>
+</Button>
+<Button variant="destructive">
+  <ButtonIcon icon="delete" />
+  <ButtonText>Delete</ButtonText>
+</Button>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -170,6 +185,18 @@ export const DocsWithTrailingIcon: Story = {
     docs: {
       description: {
         story: 'Composable API allows flexible icon positioning.',
+      },
+      source: {
+        code: `<Button variant="primary">
+  <ButtonText>Send</ButtonText>
+  <ButtonIcon icon="send" />
+</Button>
+<Button variant="secondary">
+  <ButtonText>Download</ButtonText>
+  <ButtonIcon icon="download" />
+</Button>`,
+        language: 'tsx',
+        type: 'code',
       },
     },
   },
@@ -196,6 +223,19 @@ export const DocsIconOnly: Story = {
       description: {
         story: 'Use ButtonIcon alone for icon-only buttons.',
       },
+      source: {
+        code: `<Button variant="secondary">
+  <ButtonIcon icon="edit" />
+</Button>
+<Button variant="primary">
+  <ButtonIcon icon="add" />
+</Button>
+<Button variant="destructive">
+  <ButtonIcon icon="delete" />
+</Button>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -221,6 +261,19 @@ export const DocsTextOnly: Story = {
       description: {
         story: 'Use ButtonText alone when you only need text content.',
       },
+      source: {
+        code: `<Button variant="primary">
+  <ButtonText>Click Me</ButtonText>
+</Button>
+<Button variant="text">
+  <ButtonText>Text Button</ButtonText>
+</Button>
+<Button variant="link">
+  <ButtonText>Link Button</ButtonText>
+</Button>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -243,6 +296,17 @@ export const DocsShapeDefault: Story = {
     docsOnly: true,
     docs: {
       description: { story: 'Default button shape (square corners with component radius).' },
+      source: {
+        code: `<Button variant="primary">
+  <ButtonIcon icon="add" />
+  <ButtonText>Default</ButtonText>
+</Button>
+<Button variant="secondary">
+  <ButtonText>Default</ButtonText>
+</Button>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -264,6 +328,17 @@ export const DocsShapeRounded: Story = {
     docsOnly: true,
     docs: {
       description: { story: 'Rounded shape via `shape="rounded"`.' },
+      source: {
+        code: `<Button variant="primary" shape="rounded">
+  <ButtonIcon icon="add" />
+  <ButtonText>Rounded</ButtonText>
+</Button>
+<Button variant="secondary" shape="rounded">
+  <ButtonText>Rounded</ButtonText>
+</Button>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };

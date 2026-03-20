@@ -142,6 +142,40 @@ export const Default: Story = {
       />
     </ProgressList>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<ProgressList>
+  <ProgressListItem
+    id="1"
+    title="Step 1"
+    description="This is step 1"
+    state="completed"
+    pointType="primary"
+    lineType="solid"
+  />
+  <ProgressListItem
+    id="2"
+    title="Step 2"
+    description="This is step 2"
+    state="current"
+    pointType="primary"
+    lineType="solid"
+  />
+  <ProgressListItem
+    id="3"
+    title="Step 3"
+    description="This is step 3"
+    state="upcoming"
+    pointType="primary"
+    lineType="dashed"
+  />
+</ProgressList>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const WithTime: Story = {
@@ -170,6 +204,37 @@ export const WithTime: Story = {
       />
     </ProgressList>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<ProgressList showTime>
+  <ProgressListItem
+    id="1"
+    title="Step 1"
+    description="This is step 1"
+    state="completed"
+    pointType="primary"
+    lineType="solid"
+    timeLabel="Start time"
+    startTime="09:30 AM"
+    endTime="10:00 AM"
+  />
+  <ProgressListItem
+    id="2"
+    title="Step 2"
+    description="This is step 2"
+    state="current"
+    pointType="primary"
+    lineType="solid"
+    timeLabel="ETA"
+    startTime="10:00 AM"
+  />
+</ProgressList>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const WithIcons: Story = {
@@ -204,6 +269,43 @@ export const WithIcons: Story = {
       />
     </ProgressList>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<ProgressList>
+  <ProgressListItem
+    id="1"
+    title="Step 1"
+    description="Completed step with icon"
+    state="completed"
+    pointType="icon"
+    lineType="solid"
+    icon="check"
+  />
+  <ProgressListItem
+    id="2"
+    title="Step 2"
+    description="Current step with icon"
+    state="current"
+    pointType="icon"
+    lineType="solid"
+    icon="arrow-down"
+  />
+  <ProgressListItem
+    id="3"
+    title="Step 3"
+    description="Upcoming step"
+    state="upcoming"
+    pointType="icon"
+    lineType="dashed"
+    icon="clock"
+  />
+</ProgressList>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const WithBadges: Story = {
@@ -231,6 +333,29 @@ export const WithBadges: Story = {
       />
     </ProgressList>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<ProgressList>
+  <ProgressListItem
+    id="1"
+    title="Step with badges"
+    description="This step has badges"
+    state="completed"
+    pointType="icon"
+    lineType="solid"
+    icon="check"
+    badges={[
+      { label: 'Completed', variant: 'normal' },
+      { label: '30 min', icon: 'clock', variant: 'danger' },
+    ]}
+  />
+</ProgressList>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const WithDivider: Story = {
@@ -271,6 +396,49 @@ export const WithDivider: Story = {
       />
     </ProgressList>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<ProgressList>
+  <ProgressListItem
+    id="1"
+    title="Step 1"
+    description="First section"
+    state="completed"
+    pointType="primary"
+    lineType="solid"
+  />
+  <ProgressListItem
+    id="2"
+    title="Step 2"
+    description="First section continued"
+    state="completed"
+    pointType="primary"
+    lineType="solid"
+  />
+  <ProgressListDivider id="div1" label="Section Break" />
+  <ProgressListItem
+    id="3"
+    title="Step 3"
+    description="Second section"
+    state="current"
+    pointType="primary"
+    lineType="solid"
+  />
+  <ProgressListItem
+    id="4"
+    title="Step 4"
+    description="Second section continued"
+    state="upcoming"
+    pointType="primary"
+    lineType="dashed"
+  />
+</ProgressList>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const Collapsible: Story = {
@@ -299,5 +467,36 @@ export const Collapsible: Story = {
       />
     </ProgressList>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<ProgressList>
+  <ProgressListItem
+    id="1"
+    title="Collapsible Step"
+    description="Click to expand/collapse"
+    state="completed"
+    pointType="parent"
+    lineType="solid"
+    collapsible
+  >
+    <div className="p-4 bg-[var(--color-bg-secondary)] rounded-lg">
+      <p>This is expanded content that can be shown or hidden.</p>
+    </div>
+  </ProgressListItem>
+  <ProgressListItem
+    id="2"
+    title="Regular Step"
+    description="This step is not collapsible"
+    state="current"
+    pointType="primary"
+    lineType="solid"
+  />
+</ProgressList>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 

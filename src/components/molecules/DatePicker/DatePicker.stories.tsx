@@ -102,5 +102,25 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<div className="flex flex-col gap-4">
+  {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map((size) => (
+    <div key={size} className="flex items-center gap-3">
+      <span className="w-12 text-sm text-[var(--tertiary)]">{size.toUpperCase()}</span>
+      <DatePicker placeholder="DD/MM/YYYY" size={size} />
+    </div>
+  ))}
+  <div className="flex items-center gap-3">
+    <span className="w-12 text-sm text-[var(--tertiary)]">Range</span>
+    <DatePicker placeholder="DD/MM/YYYY" range />
+  </div>
+</div>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

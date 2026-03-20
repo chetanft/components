@@ -282,6 +282,22 @@ export const Controlled: Story = {
   args: {
     label: 'Controlled Time',
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `const [time, setTime] = useState('14:30:00');
+
+<TimePicker
+  label="Controlled Time"
+  value={time}
+  onChange={setTime}
+/>
+<p className="text-sm">Selected time: {time || 'None'}</p>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // 12-Hour Format
@@ -339,5 +355,18 @@ export const DocsSizes: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
-}
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<TimePicker size="xs" label="Extra Small" placeholder="XS" />
+<TimePicker size="sm" label="Small" placeholder="SM" />
+<TimePicker size="md" label="Medium (Default)" placeholder="MD" />
+<TimePicker size="lg" label="Large" placeholder="LG" />
+<TimePicker size="xl" label="Extra Large" placeholder="XL" />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
+};

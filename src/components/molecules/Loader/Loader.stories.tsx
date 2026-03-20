@@ -148,6 +148,30 @@ const AnimatedLoader = () => {
 
 export const Default: Story = {
   render: () => <AnimatedLoader />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [progress, setProgress] = useState(0);
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setProgress((prev) => {
+      if (prev >= 100) {
+        clearInterval(interval);
+        return 100;
+      }
+      return prev + 2;
+    });
+  }, 100);
+  return () => clearInterval(interval);
+}, []);
+
+<Loader value={progress} />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const Static: Story = {
@@ -159,6 +183,15 @@ export const Static: Story = {
       <Loader {...args} />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Loader value={65} />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const WithoutLogo: Story = {
@@ -171,6 +204,15 @@ export const WithoutLogo: Story = {
       <Loader {...args} />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Loader value={50} showLogo={false} />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const NoProgressBar: Story = {
@@ -183,6 +225,15 @@ export const NoProgressBar: Story = {
       <Loader {...args} />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Loader value={60} showProgressBar={false} />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const CustomProgressBar: Story = {
@@ -198,6 +249,21 @@ export const CustomProgressBar: Story = {
       <Loader {...args} />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Loader
+  value={45}
+  progressHeight={10}
+  progressClassName="rounded-full bg-[var(--color-border-secondary)]"
+  progressBarClassName="rounded-full"
+  progressBarStyle={{ backgroundColor: 'var(--color-primary)' }}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const CustomLogo: Story = {
@@ -214,6 +280,22 @@ export const CustomLogo: Story = {
       <Loader {...args} />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Loader
+  value={75}
+  logo={
+    <div style={{ width: 120, height: 120, backgroundColor: 'var(--primary)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+      Custom Logo
+    </div>
+  }
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const SmallLogo: Story = {
@@ -226,6 +308,15 @@ export const SmallLogo: Story = {
       <Loader {...args} />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Loader value={40} logoSize={120} />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const FullWidth: Story = {
@@ -237,4 +328,13 @@ export const FullWidth: Story = {
       <Loader {...args} />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Loader value={85} />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };

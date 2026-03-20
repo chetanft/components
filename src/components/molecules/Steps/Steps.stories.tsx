@@ -130,6 +130,39 @@ export const Default: Story = {
       </StepsList>
     </Steps>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Steps currentStep={1} direction="horizontal" type="default">
+  <StepsList>
+    <StepItem value={1}>
+      <StepIcon />
+      <StepContent>
+        <StepTitle>Login</StepTitle>
+        <StepDescription>Enter credentials</StepDescription>
+      </StepContent>
+    </StepItem>
+    <StepItem value={2}>
+      <StepIcon />
+      <StepContent>
+        <StepTitle>Verification</StepTitle>
+        <StepDescription>Check email</StepDescription>
+      </StepContent>
+    </StepItem>
+    <StepItem value={3}>
+      <StepIcon />
+      <StepContent>
+        <StepTitle>Complete</StepTitle>
+        <StepDescription>Success</StepDescription>
+      </StepContent>
+    </StepItem>
+  </StepsList>
+</Steps>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsVertical: Story = {
@@ -161,5 +194,38 @@ export const DocsVertical: Story = {
     </Steps>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Steps currentStep={2} direction="vertical" type="default">
+  <StepsList>
+    <StepItem value={1}>
+      <StepIcon />
+      <StepContent>
+        <StepTitle>Login</StepTitle>
+        <StepDescription>Enter credentials</StepDescription>
+      </StepContent>
+    </StepItem>
+    <StepItem value={2}>
+      <StepIcon />
+      <StepContent>
+        <StepTitle>Verification</StepTitle>
+        <StepDescription>Check email</StepDescription>
+      </StepContent>
+    </StepItem>
+    <StepItem value={3}>
+      <StepIcon />
+      <StepContent>
+        <StepTitle>Complete</StepTitle>
+        <StepDescription>Success</StepDescription>
+      </StepContent>
+    </StepItem>
+  </StepsList>
+</Steps>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

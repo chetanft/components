@@ -69,6 +69,15 @@ export const Default: Story = {
       <div className="bg-[var(--bg-secondary)] p-3 rounded text-center text-sm">Below Element</div>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Spacer size="x4" />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const Horizontal: Story = {
@@ -85,6 +94,15 @@ export const Horizontal: Story = {
       <div className="bg-[var(--bg-secondary)] p-3 rounded text-center text-sm">Right</div>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Spacer size="x4" horizontal />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // All sizes showcase

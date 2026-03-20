@@ -84,5 +84,17 @@ export const DocsVariants: Story = {
         </div>
     ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Toggle>Default</Toggle>
+<Toggle variant="outline">Outline</Toggle>
+<Toggle icon="check">With Icon</Toggle>
+<Toggle icon="star" aria-label="Star" />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

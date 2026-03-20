@@ -63,6 +63,17 @@ export const Basic: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Affix offsetTop={10} glass>
+  <Button variant="primary">Affix Top (10px)</Button>
+</Affix>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const Bottom: Story = {
@@ -75,4 +86,15 @@ export const Bottom: Story = {
         </div>
       </div>
     ),
+    parameters: {
+      docs: {
+        source: {
+          code: `<Affix offsetBottom={10} glass>
+  <Button variant="primary">Affix Bottom (10px)</Button>
+</Affix>`,
+          language: 'tsx',
+          type: 'code',
+        },
+      },
+    },
   };

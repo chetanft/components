@@ -105,6 +105,18 @@ export const Default: Story = {
       description: {
         story: '✅ **Composable API**: Use DropdownMenuList, DropdownMenuItem, and DropdownMenuSeparator sub-components for flexible dropdown composition.',
       },
+      source: {
+        code: `<DropdownMenu property="default">
+  <DropdownMenuList>
+    <DropdownMenuItem value="1" state="default">Option 1</DropdownMenuItem>
+    <DropdownMenuItem value="2" state="default">Option 2</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem value="3" state="default">Option 3</DropdownMenuItem>
+  </DropdownMenuList>
+</DropdownMenu>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -127,6 +139,18 @@ export const WithSearch: Story = {
       description: {
         story: 'Use DropdownMenuSearch for searchable dropdowns.',
       },
+      source: {
+        code: `<DropdownMenu property="search">
+  <DropdownMenuSearch />
+  <DropdownMenuList>
+    <DropdownMenuItem value="1" state="default">All Groups</DropdownMenuItem>
+    <DropdownMenuItem value="2" state="default">Group 1</DropdownMenuItem>
+    <DropdownMenuItem value="3" state="default">Group 2</DropdownMenuItem>
+  </DropdownMenuList>
+</DropdownMenu>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -147,11 +171,24 @@ export const DocsWithLabels: Story = {
     </div>
   ),
   parameters: {
-
     docsOnly: true,
     docs: {
       description: {
         story: 'Use DropdownMenuLabel for grouped menu items.',
+      },
+      source: {
+        code: `<DropdownMenu property="default">
+  <DropdownMenuList>
+    <DropdownMenuLabel>Section 1</DropdownMenuLabel>
+    <DropdownMenuItem value="1" state="default">Option 1</DropdownMenuItem>
+    <DropdownMenuItem value="2" state="default">Option 2</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuLabel>Section 2</DropdownMenuLabel>
+    <DropdownMenuItem value="3" state="default">Option 3</DropdownMenuItem>
+  </DropdownMenuList>
+</DropdownMenu>`,
+        language: 'tsx',
+        type: 'code',
       },
     },
   },
@@ -194,5 +231,46 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<div className="flex gap-6 p-6">
+  <div>
+    <p className="text-sm font-medium mb-2">Default</p>
+    <DropdownMenu property="default">
+      <DropdownMenuList>
+        <DropdownMenuItem value="1" state="default">Option 1</DropdownMenuItem>
+        <DropdownMenuItem value="2" state="default">Option 2</DropdownMenuItem>
+      </DropdownMenuList>
+    </DropdownMenu>
+  </div>
+  <div>
+    <p className="text-sm font-medium mb-2">With Search</p>
+    <DropdownMenu property="search">
+      <DropdownMenuSearch />
+      <DropdownMenuList>
+        <DropdownMenuItem value="1" state="default">Option 1</DropdownMenuItem>
+        <DropdownMenuItem value="2" state="default">Option 2</DropdownMenuItem>
+      </DropdownMenuList>
+    </DropdownMenu>
+  </div>
+  <div>
+    <p className="text-sm font-medium mb-2">With Groups</p>
+    <DropdownMenu property="default">
+      <DropdownMenuList>
+        <DropdownMenuLabel>Group A</DropdownMenuLabel>
+        <DropdownMenuItem value="1" state="default">Item 1</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuLabel>Group B</DropdownMenuLabel>
+        <DropdownMenuItem value="2" state="default">Item 2</DropdownMenuItem>
+      </DropdownMenuList>
+    </DropdownMenu>
+  </div>
+</div>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

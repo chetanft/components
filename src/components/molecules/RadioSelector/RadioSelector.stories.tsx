@@ -126,6 +126,33 @@ function ComposableBasicComponent() {
 
 export const Default: Story = {
   render: () => <ComposableBasicComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [value, setValue] = useState('');
+
+<RadioSelector name="choice" value={value} onChange={setValue}>
+  <RadioSelectorOption
+    value="option1"
+    header="Option 1"
+    description="This is option 1"
+  />
+  <RadioSelectorOption
+    value="option2"
+    header="Option 2"
+    description="This is option 2"
+  />
+  <RadioSelectorOption
+    value="option3"
+    header="Option 3"
+    description="This is option 3"
+  />
+</RadioSelector>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableWithIconsComponent() {
@@ -156,6 +183,36 @@ function ComposableWithIconsComponent() {
 
 export const WithIcons: Story = {
   render: () => <ComposableWithIconsComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [value, setValue] = useState('');
+
+<RadioSelector name="choice" value={value} onChange={setValue}>
+  <RadioSelectorOption
+    value="option1"
+    header="Option 1"
+    description="This is option 1"
+    icon={<Icon name="check" size={24} />}
+  />
+  <RadioSelectorOption
+    value="option2"
+    header="Option 2"
+    description="This is option 2"
+    icon={<Icon name="settings" size={24} />}
+  />
+  <RadioSelectorOption
+    value="option3"
+    header="Option 3"
+    description="This is option 3"
+    icon={<Icon name="user" size={24} />}
+  />
+</RadioSelector>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableWithoutRadioComponent() {
@@ -180,6 +237,30 @@ function ComposableWithoutRadioComponent() {
 
 export const WithoutRadio: Story = {
   render: () => <ComposableWithoutRadioComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [value, setValue] = useState('');
+
+<RadioSelector name="choice" value={value} onChange={setValue}>
+  <RadioSelectorOption
+    value="option1"
+    header="Option 1"
+    description="This option hides the radio button"
+    hideRadio
+  />
+  <RadioSelectorOption
+    value="option2"
+    header="Option 2"
+    description="This option also hides the radio button"
+    hideRadio
+  />
+</RadioSelector>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableWithDisabledComponent() {
@@ -208,6 +289,34 @@ function ComposableWithDisabledComponent() {
 
 export const WithDisabled: Story = {
   render: () => <ComposableWithDisabledComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [value, setValue] = useState('');
+
+<RadioSelector name="choice" value={value} onChange={setValue}>
+  <RadioSelectorOption
+    value="option1"
+    header="Option 1"
+    description="This is enabled"
+  />
+  <RadioSelectorOption
+    value="option2"
+    header="Option 2"
+    description="This is disabled"
+    disabled
+  />
+  <RadioSelectorOption
+    value="option3"
+    header="Option 3"
+    description="This is enabled"
+  />
+</RadioSelector>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableControlledComponent() {
@@ -235,5 +344,32 @@ function ComposableControlledComponent() {
 
 export const Controlled: Story = {
   render: () => <ComposableControlledComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [value, setValue] = useState('option1');
+
+<RadioSelector name="choice" value={value} onChange={setValue}>
+  <RadioSelectorOption
+    value="option1"
+    header="Option 1"
+    description="This is option 1 (controlled)"
+  />
+  <RadioSelectorOption
+    value="option2"
+    header="Option 2"
+    description="This is option 2 (controlled)"
+  />
+  <RadioSelectorOption
+    value="option3"
+    header="Option 3"
+    description="This is option 3 (controlled)"
+  />
+</RadioSelector>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 

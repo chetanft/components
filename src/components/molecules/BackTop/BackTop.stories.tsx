@@ -68,6 +68,15 @@ export const Basic: Story = {
       <BackTop />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<BackTop />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const CustomContent: Story = {
@@ -84,5 +93,18 @@ export const CustomContent: Story = {
       </BackTop>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<BackTop visibilityHeight={100}>
+  <Button variant="primary" size="md">
+    UP
+  </Button>
+</BackTop>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 

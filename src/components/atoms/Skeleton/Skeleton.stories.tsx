@@ -50,6 +50,14 @@ export const Default: Story = {
       description: {
         story: '✅ **Composable API**: Use SkeletonImage and SkeletonText sub-components for flexible skeleton composition.',
       },
+      source: {
+        code: `<Skeleton>
+  <SkeletonImage width={200} height={200} />
+  <SkeletonText lines={3} />
+</Skeleton>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -89,5 +97,37 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `{/* Text lines */}
+<Skeleton>
+  <SkeletonText lines={3} />
+</Skeleton>
+
+{/* Image (rectangular) */}
+<Skeleton>
+  <SkeletonImage width={200} height={120} />
+</Skeleton>
+
+{/* Image (circular) */}
+<Skeleton>
+  <SkeletonImage width={64} height={64} shape="circular" />
+</Skeleton>
+
+{/* Combined */}
+<Skeleton>
+  <div className="flex gap-4">
+    <SkeletonImage width={80} height={80} shape="circular" />
+    <div className="flex-1">
+      <SkeletonText lines={2} />
+    </div>
+  </div>
+</Skeleton>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

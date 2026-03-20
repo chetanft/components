@@ -81,5 +81,31 @@ export const Default: Story = {
       </Table>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Label</TableHead>
+      <TableHead>Value</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Label</TableCell>
+      <TableCell>Value</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Label</TableCell>
+      <TableCell>Value</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 

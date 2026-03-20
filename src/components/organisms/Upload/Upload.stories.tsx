@@ -114,7 +114,7 @@ export const ExplorerBase: Story = {
 export const Default: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadFile[]>([]);
-    
+
     return (
       <Upload
         type="drag-drop"
@@ -128,12 +128,30 @@ export const Default: Story = {
       </Upload>
     );
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `<Upload
+  type="drag-drop"
+  maxFiles={5}
+  acceptedFileTypes={['Excel', 'CSV']}
+  multiple={true}
+  onFilesChange={setFiles}
+>
+  <UploadTrigger />
+  <UploadList />
+</Upload>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const ButtonUpload: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadFile[]>([]);
-    
+
     return (
       <Upload
         type="button"
@@ -147,12 +165,30 @@ export const ButtonUpload: Story = {
       </Upload>
     );
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `<Upload
+  type="button"
+  maxFiles={10}
+  acceptedFileTypes={['Excel', 'CSV']}
+  multiple={true}
+  onFilesChange={setFiles}
+>
+  <UploadTrigger />
+  <UploadList />
+</Upload>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const WithCustomTrigger: Story = {
   render: () => {
     const [files, setFiles] = useState<UploadFile[]>([]);
-    
+
     return (
       <Upload
         type="button"
@@ -169,6 +205,28 @@ export const WithCustomTrigger: Story = {
         <UploadList />
       </Upload>
     );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<Upload
+  type="button"
+  maxFiles={5}
+  acceptedFileTypes={['Excel', 'CSV']}
+  multiple={true}
+  onFilesChange={setFiles}
+>
+  <UploadTrigger>
+    <Button variant="primary" size="lg">
+      Choose Files to Upload
+    </Button>
+  </UploadTrigger>
+  <UploadList />
+</Upload>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
   },
 };
 
@@ -200,5 +258,33 @@ export const DocsWithCustomList: Story = {
     );
   },
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Upload
+  type="drag-drop"
+  maxFiles={5}
+  acceptedFileTypes={['Excel', 'CSV']}
+  multiple={true}
+  onFilesChange={setFiles}
+>
+  <UploadTrigger />
+  <UploadList>
+    {files.map((file) => (
+      <UploadItem
+        key={file.id}
+        type="card"
+        state={file.uploadProgress && file.uploadProgress < 100 ? 'uploading' : 'uploaded'}
+        file={file}
+        onDelete={() => setFiles(files.filter(f => f.id !== file.id))}
+      />
+    ))}
+  </UploadList>
+</Upload>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

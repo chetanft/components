@@ -101,6 +101,21 @@ const ControlledComponent = (args: any) => {
 
 export const Controlled: Story = {
   render: (args: React.ComponentProps<typeof Calendar>) => <ControlledComponent {...args} />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [date, setDate] = useState(new Date());
+
+<Calendar
+  value={date}
+  onSelect={setDate}
+/>
+<p>Selected: {date.toLocaleDateString()}</p>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // Year Mode
@@ -146,6 +161,23 @@ export const Fullscreen: Story = {
       />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Calendar
+  fullscreen
+  dateCellRender={(date) => {
+    const day = date.getDate();
+    if (day === 15) return <div>Meeting</div>;
+    if (day === 20) return <div>Birthday</div>;
+    return null;
+  }}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // With Disabled Dates
@@ -162,6 +194,21 @@ export const DisabledDates: Story = {
         }}
       />
     );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<Calendar
+  disabledDate={(date) => {
+    // Disable weekends
+    const day = date.getDay();
+    return day === 0 || day === 6;
+  }}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
   },
 };
 
@@ -185,6 +232,20 @@ export const ValidRange: Story = {
         </p>
       </div>
     );
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `const minDate = new Date();
+minDate.setDate(minDate.getDate() - 7);
+const maxDate = new Date();
+maxDate.setDate(maxDate.getDate() + 30);
+
+<Calendar validRange={[minDate, maxDate]} />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
   },
 };
 
@@ -222,6 +283,35 @@ export const CustomHeader: Story = {
       )}
     />
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Calendar
+  headerRender={({ value, onChange }) => (
+    <div className="flex items-center justify-between p-4">
+      <button onClick={() => {
+        const newDate = new Date(value);
+        newDate.setMonth(newDate.getMonth() - 1);
+        onChange(newDate);
+      }}>
+        Prev
+      </button>
+      <span>{value.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+      <button onClick={() => {
+        const newDate = new Date(value);
+        newDate.setMonth(newDate.getMonth() + 1);
+        onChange(newDate);
+      }}>
+        Next
+      </button>
+    </div>
+  )}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // Event Calendar
@@ -261,6 +351,36 @@ export const EventCalendar: Story = {
       </div>
     );
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `const events = {
+  '5': ['Team Standup'],
+  '10': ['Project Review', 'Client Call'],
+  '15': ['Sprint Planning'],
+  '20': ['Demo Day'],
+  '25': ['Retrospective'],
+};
+
+<Calendar
+  fullscreen
+  dateCellRender={(date) => {
+    const dayEvents = events[date.getDate().toString()];
+    if (!dayEvents) return null;
+    return (
+      <div>
+        {dayEvents.map((event, i) => (
+          <div key={i}>{event}</div>
+        ))}
+      </div>
+    );
+  }}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // Month Selection with Events
@@ -298,5 +418,22 @@ export const DocsMonthSelectionWithSummary: Story = {
     );
   },
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Calendar
+  mode="year"
+  fullscreen
+  monthCellRender={(date) => {
+    const monthEvents = { 0: 5, 1: 3, 2: 8, /* ... */ };
+    const count = monthEvents[date.getMonth()];
+    return <div>{count} events</div>;
+  }}
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

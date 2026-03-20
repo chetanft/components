@@ -120,6 +120,23 @@ function ComposableBasicComponent() {
 
 export const Default: Story = {
   render: () => <ComposableBasicComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [value, setValue] = useState(3);
+
+<Rate value={value} onChange={setValue} count={5} size="md">
+  {Array.from({ length: 5 }, (_, i) => (
+    <RateItem key={i} index={i}>
+      <RateIcon index={i} />
+    </RateItem>
+  ))}
+</Rate>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableWithHalfStarsComponent() {
@@ -137,6 +154,23 @@ function ComposableWithHalfStarsComponent() {
 
 export const WithHalfStars: Story = {
   render: () => <ComposableWithHalfStarsComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [value, setValue] = useState(2.5);
+
+<Rate value={value} onChange={setValue} count={5} size="md" allowHalf>
+  {Array.from({ length: 5 }, (_, i) => (
+    <RateItem key={i} index={i}>
+      <RateIcon index={i} />
+    </RateItem>
+  ))}
+</Rate>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableWithTooltipsComponent() {
@@ -155,6 +189,24 @@ function ComposableWithTooltipsComponent() {
 
 export const WithTooltips: Story = {
   render: () => <ComposableWithTooltipsComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [value, setValue] = useState(3);
+const tooltips = ['Terrible', 'Bad', 'Normal', 'Good', 'Excellent'];
+
+<Rate value={value} onChange={setValue} count={5} size="md" tooltips={tooltips}>
+  {Array.from({ length: 5 }, (_, i) => (
+    <RateItem key={i} index={i}>
+      <RateIcon index={i} />
+    </RateItem>
+  ))}
+</Rate>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableCustomCharacterComponent() {
@@ -172,6 +224,23 @@ function ComposableCustomCharacterComponent() {
 
 export const CustomCharacter: Story = {
   render: () => <ComposableCustomCharacterComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [value, setValue] = useState(4);
+
+<Rate value={value} onChange={setValue} count={5} size="lg">
+  {Array.from({ length: 5 }, (_, i) => (
+    <RateItem key={i} index={i}>
+      <RateIcon index={i} />
+    </RateItem>
+  ))}
+</Rate>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const Disabled: Story = {
@@ -184,6 +253,21 @@ export const Disabled: Story = {
       ))}
     </Rate>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Rate value={4} count={5} size="md" disabled>
+  {Array.from({ length: 5 }, (_, i) => (
+    <RateItem key={i} index={i}>
+      <RateIcon index={i} />
+    </RateItem>
+  ))}
+</Rate>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 /** All size variants displayed side-by-side. */
@@ -215,5 +299,37 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
-}
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<div className="flex flex-col gap-4">
+  {(['sm', 'md', 'lg', 'xl'] as const).map((size) => (
+    <div key={size} className="flex items-center gap-4">
+      <span className="w-16 text-sm text-[var(--tertiary)]">{size.toUpperCase()}</span>
+      <Rate value={3} count={5} size={size}>
+        {Array.from({ length: 5 }, (_, i) => (
+          <RateItem key={i} index={i}>
+            <RateIcon index={i} />
+          </RateItem>
+        ))}
+      </Rate>
+    </div>
+  ))}
+  <div className="flex items-center gap-4">
+    <span className="w-16 text-sm text-[var(--tertiary)]">Half</span>
+    <Rate value={2.5} count={5} size="md" allowHalf>
+      {Array.from({ length: 5 }, (_, i) => (
+        <RateItem key={i} index={i}>
+          <RateIcon index={i} />
+        </RateItem>
+      ))}
+    </Rate>
+  </div>
+</div>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
+};

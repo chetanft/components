@@ -111,6 +111,25 @@ export const Default: Story = {
       </CollapsibleContent>
     </Collapsible>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Collapsible type="Primary" bg="Secondary">
+  <CollapsibleTrigger>
+    <CollapsibleHeader>
+      <CollapsibleIcon />
+      <CollapsibleTitle>Composable Collapsible</CollapsibleTitle>
+    </CollapsibleHeader>
+  </CollapsibleTrigger>
+  <CollapsibleContent>
+    <p>This is a basic composable collapsible using sub-components.</p>
+  </CollapsibleContent>
+</Collapsible>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsVariants: Story = {
@@ -163,5 +182,59 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<div className="space-y-4">
+  <Collapsible type="Primary" bg="Secondary">
+    <CollapsibleTrigger>
+      <CollapsibleHeader>
+        <CollapsibleIcon />
+        <CollapsibleTitle>Primary Type</CollapsibleTitle>
+      </CollapsibleHeader>
+    </CollapsibleTrigger>
+    <CollapsibleContent>
+      <p>Primary collapsible content.</p>
+    </CollapsibleContent>
+  </Collapsible>
+  <Collapsible type="Secondary" bg="Secondary">
+    <CollapsibleTrigger>
+      <CollapsibleHeader>
+        <CollapsibleIcon />
+        <CollapsibleTitle>Secondary Type</CollapsibleTitle>
+      </CollapsibleHeader>
+    </CollapsibleTrigger>
+    <CollapsibleContent>
+      <p>Secondary collapsible content.</p>
+    </CollapsibleContent>
+  </Collapsible>
+  <Collapsible type="Tertiary" bg="Secondary">
+    <CollapsibleTrigger>
+      <CollapsibleHeader>
+        <CollapsibleIcon />
+        <CollapsibleTitle>Tertiary Type</CollapsibleTitle>
+      </CollapsibleHeader>
+    </CollapsibleTrigger>
+    <CollapsibleContent>
+      <p>Tertiary collapsible content.</p>
+    </CollapsibleContent>
+  </Collapsible>
+  <Collapsible type="Primary" bg="Primary">
+    <CollapsibleTrigger>
+      <CollapsibleHeader>
+        <CollapsibleIcon />
+        <CollapsibleTitle>Primary Background</CollapsibleTitle>
+      </CollapsibleHeader>
+    </CollapsibleTrigger>
+    <CollapsibleContent>
+      <p>Collapsible with primary background variant.</p>
+    </CollapsibleContent>
+  </Collapsible>
+</div>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

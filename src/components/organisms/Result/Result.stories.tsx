@@ -148,6 +148,27 @@ export const Default: Story = {
       </ResultExtra>
     </Result>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Result status="success">
+  <ResultIcon>
+    <ResultStatusIcon status="success" />
+  </ResultIcon>
+  <ResultTitle>Successfully Purchased!</ResultTitle>
+  <ResultSubtitle>
+    Order number: 2017182818828182881. Cloud server configuration takes 1-5 minutes, please wait.
+  </ResultSubtitle>
+  <ResultExtra>
+    <Button variant="primary">Go Console</Button>
+    <Button variant="secondary">Buy Again</Button>
+  </ResultExtra>
+</Result>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsVariants: Story = {
@@ -194,5 +215,42 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Result status="success">
+  <ResultIcon><ResultStatusIcon status="success" /></ResultIcon>
+  <ResultTitle>Success</ResultTitle>
+  <ResultSubtitle>Operation completed.</ResultSubtitle>
+</Result>
+
+<Result status="error">
+  <ResultIcon><ResultStatusIcon status="error" /></ResultIcon>
+  <ResultTitle>Error</ResultTitle>
+  <ResultSubtitle>Something went wrong.</ResultSubtitle>
+</Result>
+
+<Result status="info">
+  <ResultIcon><ResultStatusIcon status="info" /></ResultIcon>
+  <ResultTitle>Info</ResultTitle>
+  <ResultSubtitle>Processing will complete shortly.</ResultSubtitle>
+</Result>
+
+<Result status="warning">
+  <ResultIcon><ResultStatusIcon status="warning" /></ResultIcon>
+  <ResultTitle>Warning</ResultTitle>
+  <ResultSubtitle>Please review.</ResultSubtitle>
+</Result>
+
+<Result status="404">
+  <ResultIcon><ResultStatusIcon status="404" /></ResultIcon>
+  <ResultTitle>Page Not Found</ResultTitle>
+  <ResultSubtitle>Sorry, the page you visited does not exist.</ResultSubtitle>
+</Result>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

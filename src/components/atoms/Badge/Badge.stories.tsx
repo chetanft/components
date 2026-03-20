@@ -147,6 +147,26 @@ export const Default: Story = {
       description: {
         story: '✅ **Composable API**: Use BadgeIcon and BadgeText sub-components for flexible badge composition.',
       },
+      source: {
+        code: `<Badge variant="success">
+  <BadgeIcon icon="check" />
+  <BadgeText>Active</BadgeText>
+</Badge>
+<Badge variant="danger">
+  <BadgeIcon icon="alert" />
+  <BadgeText>Error</BadgeText>
+</Badge>
+<Badge variant="warning">
+  <BadgeIcon icon="warning" />
+  <BadgeText>Warning</BadgeText>
+</Badge>
+<Badge variant="neutral">
+  <BadgeIcon icon="info" />
+  <BadgeText>Info</BadgeText>
+</Badge>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -172,5 +192,28 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Badge variant="success">
+  <BadgeText>Success</BadgeText>
+</Badge>
+<Badge variant="danger">
+  <BadgeText>Error</BadgeText>
+</Badge>
+<Badge variant="warning">
+  <BadgeText>Warning</BadgeText>
+</Badge>
+<Badge variant="neutral">
+  <BadgeText>Neutral</BadgeText>
+</Badge>
+<Badge variant="normal">
+  <BadgeText>Default</BadgeText>
+</Badge>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

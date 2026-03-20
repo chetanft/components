@@ -173,6 +173,37 @@ export const Default: Story = {
       </TimelineItem>
     </Timeline>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Timeline>
+  <TimelineItem>
+    <TimelineDot color="success" icon="check" />
+    <TimelineContent>
+      <TimelineLabel>2015-09-01</TimelineLabel>
+      <p>Create a services site</p>
+    </TimelineContent>
+  </TimelineItem>
+  <TimelineItem>
+    <TimelineDot color="success" icon="check" />
+    <TimelineContent>
+      <TimelineLabel>2015-09-02</TimelineLabel>
+      <p>Solve initial network problems</p>
+    </TimelineContent>
+  </TimelineItem>
+  <TimelineItem>
+    <TimelineDot color="warning" icon="clock" />
+    <TimelineContent>
+      <TimelineLabel>2015-09-03</TimelineLabel>
+      <p>Technical testing</p>
+    </TimelineContent>
+  </TimelineItem>
+</Timeline>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsAlternate: Story = {
@@ -205,5 +236,39 @@ export const DocsAlternate: Story = {
     </Timeline>
   ),
 
-  parameters: { docsOnly: true },
-}
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Timeline mode="alternate">
+  <TimelineItem>
+    <TimelineDot color="success" icon="check" />
+    <TimelineContent>
+      <TimelineLabel>2015-09-01</TimelineLabel>
+      <p className="font-medium">Application Submitted</p>
+      <p className="text-sm text-[var(--color-tertiary)]">Your application has been received</p>
+    </TimelineContent>
+  </TimelineItem>
+  <TimelineItem>
+    <TimelineDot color="success" icon="check" />
+    <TimelineContent>
+      <TimelineLabel>2015-09-02</TimelineLabel>
+      <p className="font-medium">Documents Verified</p>
+      <p className="text-sm text-[var(--color-tertiary)]">All documents verified successfully</p>
+    </TimelineContent>
+  </TimelineItem>
+  <TimelineItem>
+    <TimelineDot color="warning" icon="clock" />
+    <TimelineContent>
+      <TimelineLabel>2015-09-03</TimelineLabel>
+      <p className="font-medium">Under Review</p>
+      <p className="text-sm text-[var(--color-tertiary)]">Currently under review</p>
+    </TimelineContent>
+  </TimelineItem>
+</Timeline>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
+};

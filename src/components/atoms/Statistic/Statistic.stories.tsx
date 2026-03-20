@@ -74,6 +74,18 @@ export const Default: Story = {
       <StatisticTitle>Total Users</StatisticTitle>
     </Statistic>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Statistic>
+  <StatisticValue>1,234</StatisticValue>
+  <StatisticTitle>Total Users</StatisticTitle>
+</Statistic>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsVariants: Story = {
@@ -90,5 +102,22 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Statistic>
+  <StatisticValue>1,234</StatisticValue>
+  <StatisticTitle>Label Below</StatisticTitle>
+</Statistic>
+
+<Statistic labelPlacement="Top">
+  <StatisticTitle>Label On Top</StatisticTitle>
+  <StatisticValue>$45,678</StatisticValue>
+</Statistic>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

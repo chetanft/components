@@ -123,6 +123,18 @@ export const LineProgress: Story = {
       <Progress value={100} variant="danger" />
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Progress value={30} />
+<Progress value={50} variant="success" />
+<Progress value={70} variant="warning" />
+<Progress value={100} variant="danger" />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsPrimaryVariant: Story = {

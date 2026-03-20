@@ -175,6 +175,39 @@ export const Default: Story = {
             </HoverCardContent>
         </HoverCard>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<HoverCard>
+  <HoverCardTrigger>
+    <Button variant="link">@johndoe</Button>
+  </HoverCardTrigger>
+  <HoverCardContent>
+    <div className="flex flex-col gap-4">
+      <div className="flex gap-4">
+        <Avatar size="md" />
+        <div className="flex flex-col">
+          <Typography variant="body-primary-semibold">John Doe</Typography>
+          <Typography variant="body-secondary-regular">@johndoe</Typography>
+        </div>
+      </div>
+      <Typography variant="body-primary-regular">
+        Software Engineer at FT. Passionate about UI/UX and Design Systems.
+      </Typography>
+      <div className="flex gap-4 text-[var(--color-secondary)]">
+        <div className="flex items-center gap-1">
+          <Icon name="calendar" size={14} />
+          <Typography variant="body-secondary-regular">Joined Dec 2023</Typography>
+        </div>
+      </div>
+    </div>
+  </HoverCardContent>
+</HoverCard>`,
+                language: 'tsx',
+                type: 'code',
+            },
+        },
+    },
 };
 
 export const DocsVariants: Story = {
@@ -187,5 +220,31 @@ export const DocsVariants: Story = {
         </div>
     ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<div className="flex gap-8 items-center justify-center h-64">
+  <HoverCard placement="top">
+    <HoverCardTrigger><Button variant="link">Top</Button></HoverCardTrigger>
+    <HoverCardContent><div className="p-2">Top placement</div></HoverCardContent>
+  </HoverCard>
+  <HoverCard placement="bottom">
+    <HoverCardTrigger><Button variant="link">Bottom</Button></HoverCardTrigger>
+    <HoverCardContent><div className="p-2">Bottom placement</div></HoverCardContent>
+  </HoverCard>
+  <HoverCard placement="left">
+    <HoverCardTrigger><Button variant="link">Left</Button></HoverCardTrigger>
+    <HoverCardContent><div className="p-2">Left placement</div></HoverCardContent>
+  </HoverCard>
+  <HoverCard placement="right">
+    <HoverCardTrigger><Button variant="link">Right</Button></HoverCardTrigger>
+    <HoverCardContent><div className="p-2">Right placement</div></HoverCardContent>
+  </HoverCard>
+</div>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

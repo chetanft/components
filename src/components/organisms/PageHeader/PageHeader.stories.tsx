@@ -196,6 +196,31 @@ export const Default: Story = {
       </PageHeader.Top>
     </PageHeader>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<PageHeader>
+  <PageHeader.Top>
+    <PageHeader.Left>
+      <PageHeader.BackButton onClick={() => console.log('Back clicked')} />
+      <PageHeader.TitleGroup>
+        <PageHeader.Title>PB 09 HH6439</PageHeader.Title>
+        <PageHeader.Subtitle>MTI-7ebd1826-18bb-4a41-9009-11bc6fc5e444</PageHeader.Subtitle>
+      </PageHeader.TitleGroup>
+    </PageHeader.Left>
+    <PageHeader.Right>
+      <PageHeader.Actions>
+        <Button variant="secondary" size="md">Export</Button>
+        <Button variant="primary" size="md">Add Asset</Button>
+      </PageHeader.Actions>
+    </PageHeader.Right>
+  </PageHeader.Top>
+</PageHeader>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // ComposableWithTabs component to properly use hooks
@@ -232,5 +257,39 @@ const ComposableWithTabsComponent = () => {
 export const DocsWithTabs: Story = {
   render: () => <ComposableWithTabsComponent />,
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `const [activeTab, setActiveTab] = useState('tracking');
+
+<PageHeader>
+  <PageHeader.Top>
+    <PageHeader.Left>
+      <PageHeader.BackButton onClick={() => console.log('Back clicked')} />
+      <PageHeader.Title>PB 09 HH6439</PageHeader.Title>
+    </PageHeader.Left>
+    <PageHeader.Right>
+      <PageHeader.Actions>
+        <Button variant="secondary" size="md">Export</Button>
+        <Button variant="primary" size="md">Add Asset</Button>
+      </PageHeader.Actions>
+    </PageHeader.Right>
+  </PageHeader.Top>
+  <PageHeader.Bottom>
+    <PageHeader.Tabs value={activeTab} onValueChange={setActiveTab}>
+      <PageHeader.Tabs.List>
+        <PageHeader.Tabs.Trigger value="tracking">Tracking</PageHeader.Tabs.Trigger>
+        <PageHeader.Tabs.Trigger value="loads">Loads</PageHeader.Tabs.Trigger>
+        <PageHeader.Tabs.Trigger value="exceptions">Exceptions</PageHeader.Tabs.Trigger>
+        <PageHeader.Tabs.Trigger value="ops">Ops</PageHeader.Tabs.Trigger>
+      </PageHeader.Tabs.List>
+    </PageHeader.Tabs>
+  </PageHeader.Bottom>
+</PageHeader>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

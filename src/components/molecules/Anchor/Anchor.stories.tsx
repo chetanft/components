@@ -99,6 +99,19 @@ export const Default: Story = {
       </div>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Anchor glass>
+  <AnchorLink href="#part-1" title="Part 1" />
+  <AnchorLink href="#part-2" title="Part 2" />
+  <AnchorLink href="#part-3" title="Part 3" />
+</Anchor>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsVariants: Story = {
@@ -123,5 +136,26 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `{/* Vertical (default) */}
+<Anchor glass>
+  <AnchorLink href="#v-1" title="Section 1" />
+  <AnchorLink href="#v-2" title="Section 2" />
+  <AnchorLink href="#v-3" title="Section 3" />
+</Anchor>
+
+{/* Horizontal */}
+<Anchor glass direction="horizontal">
+  <AnchorLink href="#h-1" title="Horizontal 1" />
+  <AnchorLink href="#h-2" title="Horizontal 2" />
+  <AnchorLink href="#h-3" title="Horizontal 3" />
+</Anchor>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

@@ -103,5 +103,37 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `{/* Single Button */}
+<Footer>
+  <FooterButton variant="primary">Save</FooterButton>
+</Footer>
+
+{/* Two Buttons */}
+<Footer>
+  <FooterButton variant="secondary">Cancel</FooterButton>
+  <FooterButton variant="primary">Save</FooterButton>
+</Footer>
+
+{/* Three Buttons */}
+<Footer>
+  <FooterButton variant="text">Cancel</FooterButton>
+  <FooterButton variant="secondary">Save Draft</FooterButton>
+  <FooterButton variant="primary">Publish</FooterButton>
+</Footer>
+
+{/* With Left-Side Button */}
+<Footer>
+  <FooterButton variant="text" leftSide>Delete</FooterButton>
+  <FooterButton variant="secondary">Cancel</FooterButton>
+  <FooterButton variant="primary">Save</FooterButton>
+</Footer>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

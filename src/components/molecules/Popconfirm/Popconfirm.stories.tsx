@@ -118,6 +118,24 @@ export const Default: Story = {
             </PopconfirmContent>
         </Popconfirm>
     ),
+    parameters: {
+        docs: {
+            source: {
+                code: `<Popconfirm placement="top">
+  <PopconfirmTrigger>
+    <Button variant="destructive">Delete</Button>
+  </PopconfirmTrigger>
+  <PopconfirmContent>
+    <PopconfirmTitle>Delete this task?</PopconfirmTitle>
+    <PopconfirmDescription>Are you sure to delete this task?</PopconfirmDescription>
+    <PopconfirmActions />
+  </PopconfirmContent>
+</Popconfirm>`,
+                language: 'tsx',
+                type: 'code',
+            },
+        },
+    },
 };
 
 export const DocsWithIcon: Story = {
@@ -135,5 +153,24 @@ export const DocsWithIcon: Story = {
         </Popconfirm>
     ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Popconfirm placement="top">
+  <PopconfirmTrigger>
+    <Button>Click me</Button>
+  </PopconfirmTrigger>
+  <PopconfirmContent>
+    <PopconfirmIcon />
+    <PopconfirmTitle>Are you sure?</PopconfirmTitle>
+    <PopconfirmDescription>This action cannot be undone.</PopconfirmDescription>
+    <PopconfirmActions />
+  </PopconfirmContent>
+</Popconfirm>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

@@ -127,6 +127,18 @@ function ComposableBasicComponent() {
 
 export const Default: Story = {
   render: () => <ComposableBasicComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Checkbox size="md">
+  <CheckboxInput checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+  <CheckboxLabel>Accept terms and conditions</CheckboxLabel>
+</Checkbox>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableWithHelperComponent() {
@@ -142,6 +154,19 @@ function ComposableWithHelperComponent() {
 
 export const WithHelper: Story = {
   render: () => <ComposableWithHelperComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Checkbox size="md">
+  <CheckboxInput checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+  <CheckboxLabel>Newsletter subscription</CheckboxLabel>
+  <CheckboxHelper>Receive weekly updates about new features and products</CheckboxHelper>
+</Checkbox>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableWithErrorComponent() {
@@ -157,6 +182,19 @@ function ComposableWithErrorComponent() {
 
 export const WithError: Story = {
   render: () => <ComposableWithErrorComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Checkbox size="md">
+  <CheckboxInput checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+  <CheckboxLabel>Required field</CheckboxLabel>
+  <CheckboxError>This field must be checked to continue</CheckboxError>
+</Checkbox>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableIndeterminateComponent() {
@@ -179,6 +217,25 @@ function ComposableIndeterminateComponent() {
 
 export const Indeterminate: Story = {
   render: () => <ComposableIndeterminateComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Checkbox size="md">
+  <CheckboxInput
+    checked={checked}
+    indeterminate={indeterminate}
+    onChange={(e) => {
+      setChecked(e.target.checked);
+      setIndeterminate(false);
+    }}
+  />
+  <CheckboxLabel>Select all items</CheckboxLabel>
+</Checkbox>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsVariants: Story = {
@@ -204,5 +261,30 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Checkbox size="md">
+  <CheckboxInput />
+  <CheckboxLabel>Default unchecked</CheckboxLabel>
+</Checkbox>
+<Checkbox size="md">
+  <CheckboxInput defaultChecked />
+  <CheckboxLabel>Checked</CheckboxLabel>
+</Checkbox>
+<Checkbox size="md">
+  <CheckboxInput indeterminate />
+  <CheckboxLabel>Indeterminate</CheckboxLabel>
+</Checkbox>
+<Checkbox size="md">
+  <CheckboxInput defaultChecked />
+  <CheckboxLabel>With helper</CheckboxLabel>
+  <CheckboxHelper>Additional context for this option</CheckboxHelper>
+</Checkbox>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

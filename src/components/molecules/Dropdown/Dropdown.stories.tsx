@@ -164,6 +164,24 @@ function DefaultComponent() {
 
 export const Default: Story = {
   render: () => <DefaultComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Dropdown value={value} onChange={setValue} placeholder="Select an option">
+  <DropdownTrigger />
+  <DropdownContent>
+    <DropdownMenu>
+      <DropdownMenu.DropdownMenuItem value="option1">Option 1</DropdownMenu.DropdownMenuItem>
+      <DropdownMenu.DropdownMenuItem value="option2">Option 2</DropdownMenu.DropdownMenuItem>
+      <DropdownMenu.DropdownMenuItem value="option3">Option 3</DropdownMenu.DropdownMenuItem>
+    </DropdownMenu>
+  </DropdownContent>
+</Dropdown>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function WithLabelComponent() {
@@ -188,5 +206,26 @@ function WithLabelComponent() {
 export const DocsWithLabel: Story = {
   render: () => <WithLabelComponent />,
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<div className="space-y-2">
+  <label className="block text-sm font-medium">Select an Option</label>
+  <Dropdown value={value} onChange={setValue} placeholder="Choose...">
+    <DropdownTrigger />
+    <DropdownContent>
+      <DropdownMenu>
+        <DropdownMenu.DropdownMenuItem value="apple">Apple</DropdownMenu.DropdownMenuItem>
+        <DropdownMenu.DropdownMenuItem value="banana">Banana</DropdownMenu.DropdownMenuItem>
+        <DropdownMenu.DropdownMenuItem value="cherry">Cherry</DropdownMenu.DropdownMenuItem>
+      </DropdownMenu>
+    </DropdownContent>
+  </Dropdown>
+</div>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

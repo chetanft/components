@@ -218,5 +218,51 @@ function VariantsDemo() {
 export const DocsVariants: Story = {
   render: () => <VariantsDemo />,
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `const [rightOpen, setRightOpen] = useState(false);
+const [leftOpen, setLeftOpen] = useState(false);
+const [topOpen, setTopOpen] = useState(false);
+const [bottomOpen, setBottomOpen] = useState(false);
+
+<div className="p-6 flex gap-4 flex-wrap">
+  <Drawer open={rightOpen} onOpenChange={setRightOpen}>
+    <DrawerTrigger asChild>
+      <Button variant="primary">Right (Default)</Button>
+    </DrawerTrigger>
+    <DrawerContent placement="right" width={400}>
+      <DrawerHeader>
+        <DrawerTitle>Right Drawer</DrawerTitle>
+      </DrawerHeader>
+      <DrawerBody>
+        <Typography variant="body-primary-regular">Right placement drawer.</Typography>
+      </DrawerBody>
+      <DrawerFooter>
+        <DrawerClose asChild>
+          <Button variant="secondary">Close</Button>
+        </DrawerClose>
+      </DrawerFooter>
+    </DrawerContent>
+  </Drawer>
+  <Drawer open={leftOpen} onOpenChange={setLeftOpen}>
+    <DrawerTrigger asChild>
+      <Button variant="secondary">Left</Button>
+    </DrawerTrigger>
+    <DrawerContent placement="left" width={300}>
+      <DrawerHeader>
+        <DrawerTitle>Left Drawer</DrawerTitle>
+      </DrawerHeader>
+      <DrawerBody>
+        <Typography variant="body-primary-regular">Left placement drawer.</Typography>
+      </DrawerBody>
+    </DrawerContent>
+  </Drawer>
+</div>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

@@ -110,6 +110,18 @@ function DefaultComponent() {
 
 export const Default: Story = {
   render: () => <DefaultComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<Switch size="md">
+  <SwitchInput checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+  <SwitchLabel>Enable notifications</SwitchLabel>
+</Switch>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsVariants: Story = {
@@ -130,5 +142,27 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Switch size="md">
+  <SwitchInput />
+  <SwitchLabel>Basic switch</SwitchLabel>
+</Switch>
+
+<Switch size="md">
+  <SwitchInput defaultChecked />
+  <SwitchLabel>With helper text</SwitchLabel>
+  <SwitchHelper>Additional context for this setting</SwitchHelper>
+</Switch>
+
+<Switch size="md">
+  <SwitchInput />
+</Switch>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

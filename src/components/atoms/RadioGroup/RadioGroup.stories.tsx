@@ -120,6 +120,29 @@ function ComposableBasicComponent() {
 
 export const Default: Story = {
   render: () => <ComposableBasicComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<RadioGroup name="composable-basic" value={value} onValueChange={setValue} size="md" orientation="vertical">
+  <RadioGroupLabel>Select an option</RadioGroupLabel>
+  <RadioItem value="option1">
+    <RadioItemInput />
+    <RadioItemLabel>Option 1</RadioItemLabel>
+  </RadioItem>
+  <RadioItem value="option2">
+    <RadioItemInput />
+    <RadioItemLabel>Option 2</RadioItemLabel>
+  </RadioItem>
+  <RadioItem value="option3">
+    <RadioItemInput />
+    <RadioItemLabel>Option 3</RadioItemLabel>
+  </RadioItem>
+</RadioGroup>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function ComposableHorizontalComponent() {
@@ -144,6 +167,27 @@ function ComposableHorizontalComponent() {
 
 export const DocsHorizontal: Story = {
   render: () => <ComposableHorizontalComponent />,
-
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<RadioGroup name="composable-horizontal" value={value} onValueChange={setValue} size="md" orientation="horizontal">
+  <RadioItem value="yes">
+    <RadioItemInput />
+    <RadioItemLabel>Yes</RadioItemLabel>
+  </RadioItem>
+  <RadioItem value="no">
+    <RadioItemInput />
+    <RadioItemLabel>No</RadioItemLabel>
+  </RadioItem>
+  <RadioItem value="maybe">
+    <RadioItemInput />
+    <RadioItemLabel>Maybe</RadioItemLabel>
+  </RadioItem>
+</RadioGroup>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

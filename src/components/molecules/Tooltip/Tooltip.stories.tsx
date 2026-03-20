@@ -119,6 +119,18 @@ export const Default: Story = {
       description: {
         story: '✅ **Composable API**: Use TooltipTrigger, TooltipContent, TooltipTitle, and TooltipDescription sub-components for flexible tooltip composition.',
       },
+      source: {
+        code: `<Tooltip placement="top" align="center" color="white">
+  <TooltipTrigger>
+    <Button>Hover me</Button>
+  </TooltipTrigger>
+  <TooltipContent>
+    <TooltipDescription>This is a basic tooltip using the composable API</TooltipDescription>
+  </TooltipContent>
+</Tooltip>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -142,6 +154,19 @@ export const WithTitle: Story = {
       description: {
         story: 'Use TooltipTitle for tooltips with headings.',
       },
+      source: {
+        code: `<Tooltip placement="top" align="center" color="white">
+  <TooltipTrigger>
+    <Button>Hover for details</Button>
+  </TooltipTrigger>
+  <TooltipContent>
+    <TooltipTitle>Tooltip Title</TooltipTitle>
+    <TooltipDescription>This tooltip has both a title and description</TooltipDescription>
+  </TooltipContent>
+</Tooltip>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -164,6 +189,19 @@ export const WithArrow: Story = {
     docs: {
       description: {
         story: 'Use TooltipArrow to add an arrow pointing to the trigger element.',
+      },
+      source: {
+        code: `<Tooltip placement="top" align="center" color="white">
+  <TooltipTrigger>
+    <Button>Hover me</Button>
+  </TooltipTrigger>
+  <TooltipContent>
+    <TooltipDescription>This tooltip includes an arrow</TooltipDescription>
+    <TooltipArrow />
+  </TooltipContent>
+</Tooltip>`,
+        language: 'tsx',
+        type: 'code',
       },
     },
   },
@@ -191,5 +229,29 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Tooltip placement="top" align="center" color="white">
+  <TooltipTrigger>
+    <Button variant="secondary">Light</Button>
+  </TooltipTrigger>
+  <TooltipContent>
+    <TooltipDescription>Light tooltip variant</TooltipDescription>
+  </TooltipContent>
+</Tooltip>
+<Tooltip placement="top" align="center" color="dark">
+  <TooltipTrigger>
+    <Button variant="secondary">Dark</Button>
+  </TooltipTrigger>
+  <TooltipContent>
+    <TooltipDescription>Dark tooltip variant</TooltipDescription>
+  </TooltipContent>
+</Tooltip>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

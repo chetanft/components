@@ -147,6 +147,20 @@ export const Default: Story = {
       </Carousel>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Carousel>
+  <div>Slide 1</div>
+  <div>Slide 2</div>
+  <div>Slide 3</div>
+  <div>Slide 4</div>
+</Carousel>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // With Autoplay
@@ -165,6 +179,20 @@ export const Autoplay: Story = {
     autoplay: true,
     autoplaySpeed: 2000,
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `<Carousel autoplay autoplaySpeed={2000}>
+  <div>Slide 1</div>
+  <div>Slide 2</div>
+  <div>Slide 3</div>
+  <div>Slide 4</div>
+</Carousel>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // Fade Effect
@@ -182,6 +210,20 @@ export const FadeEffect: Story = {
   args: {
     effect: 'fade',
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `<Carousel effect="fade">
+  <div>Slide 1</div>
+  <div>Slide 2</div>
+  <div>Slide 3</div>
+  <div>Slide 4</div>
+</Carousel>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 // Without Arrows
@@ -198,6 +240,20 @@ export const WithoutArrows: Story = {
   ),
   args: {
     arrows: false,
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `<Carousel arrows={false}>
+  <div>Slide 1</div>
+  <div>Slide 2</div>
+  <div>Slide 3</div>
+  <div>Slide 4</div>
+</Carousel>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
   },
 };
 
@@ -236,5 +292,32 @@ export const DocsDotPositions: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Carousel dotPosition="top">
+  <div>1</div>
+  <div>2</div>
+</Carousel>
+
+<Carousel dotPosition="bottom">
+  <div>1</div>
+  <div>2</div>
+</Carousel>
+
+<Carousel dotPosition="left">
+  <div>1</div>
+  <div>2</div>
+</Carousel>
+
+<Carousel dotPosition="right">
+  <div>1</div>
+  <div>2</div>
+</Carousel>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

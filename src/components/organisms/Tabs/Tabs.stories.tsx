@@ -108,6 +108,26 @@ function DefaultComponent() {
 
 export const Default: Story = {
   render: () => <DefaultComponent />,
+  parameters: {
+    docs: {
+      source: {
+        code: `const [activeTab, setActiveTab] = React.useState(0);
+
+<Tabs activeTab={activeTab} onTabChange={setActiveTab} type="primary">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+    <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+  </TabsList>
+  <TabsContent value="tab1">Content of Tab 1</TabsContent>
+  <TabsContent value="tab2">Content of Tab 2</TabsContent>
+  <TabsContent value="tab3">Content of Tab 3</TabsContent>
+</Tabs>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 function WithBadgesComponent() {
@@ -174,5 +194,39 @@ export const DocsVariants: Story = {
     return <VariantsDemo />;
   },
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `{/* Primary */}
+<Tabs activeTab={activeTab} onTabChange={setActiveTab} type="primary">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+    <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+  </TabsList>
+</Tabs>
+
+{/* Secondary */}
+<Tabs activeTab={activeTab} onTabChange={setActiveTab} type="secondary">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+    <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+  </TabsList>
+</Tabs>
+
+{/* Tertiary */}
+<Tabs activeTab={activeTab} onTabChange={setActiveTab} type="tertiary">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+    <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+  </TabsList>
+</Tabs>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

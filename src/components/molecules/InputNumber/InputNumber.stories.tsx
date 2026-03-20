@@ -104,6 +104,16 @@ export const Default: Story = {
       description: {
         story: '✅ **Composable API**: Use InputNumberWrapper, InputNumberField, InputNumberControls, InputNumberPrefix, and InputNumberSuffix sub-components for flexible input composition.',
       },
+      source: {
+        code: `<InputNumber defaultValue={0}>
+  <InputNumberWrapper>
+    <InputNumberField />
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -125,6 +135,17 @@ export const WithPrefix: Story = {
       description: {
         story: 'Use InputNumberPrefix for prefix content like currency symbols.',
       },
+      source: {
+        code: `<InputNumber defaultValue={100}>
+  <InputNumberWrapper>
+    <InputNumberPrefix>$</InputNumberPrefix>
+    <InputNumberField />
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -145,6 +166,17 @@ export const WithSuffix: Story = {
     docs: {
       description: {
         story: 'Use InputNumberSuffix for suffix content like units.',
+      },
+      source: {
+        code: `<InputNumber defaultValue={50}>
+  <InputNumberWrapper>
+    <InputNumberField />
+    <InputNumberSuffix>%</InputNumberSuffix>
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>`,
+        language: 'tsx',
+        type: 'code',
       },
     },
   },
@@ -202,6 +234,45 @@ export const DocsVariants: Story = {
       description: {
         story: 'All visual variants of the InputNumber component shown side-by-side: default, with prefix, suffix, and both.',
       },
+      source: {
+        code: `{/* Default */}
+<InputNumber defaultValue={0}>
+  <InputNumberWrapper>
+    <InputNumberField />
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>
+
+{/* With Prefix */}
+<InputNumber defaultValue={100}>
+  <InputNumberWrapper>
+    <InputNumberPrefix>$</InputNumberPrefix>
+    <InputNumberField />
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>
+
+{/* With Suffix */}
+<InputNumber defaultValue={50}>
+  <InputNumberWrapper>
+    <InputNumberField />
+    <InputNumberSuffix>%</InputNumberSuffix>
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>
+
+{/* With Prefix & Suffix */}
+<InputNumber defaultValue={250}>
+  <InputNumberWrapper>
+    <InputNumberPrefix>$</InputNumberPrefix>
+    <InputNumberField />
+    <InputNumberSuffix>USD</InputNumberSuffix>
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -245,6 +316,33 @@ export const DocsStates: Story = {
       description: {
         story: 'InputNumber states: default, disabled, and error.',
       },
+      source: {
+        code: `{/* Default */}
+<InputNumber defaultValue={25}>
+  <InputNumberWrapper>
+    <InputNumberField />
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>
+
+{/* Disabled */}
+<InputNumber defaultValue={25} disabled>
+  <InputNumberWrapper>
+    <InputNumberField />
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>
+
+{/* Error */}
+<InputNumber defaultValue={-5} error>
+  <InputNumberWrapper>
+    <InputNumberField />
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -260,6 +358,20 @@ export const DisabledState: Story = {
       </InputNumber>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<InputNumber defaultValue={25} disabled>
+  <InputNumberWrapper>
+    <InputNumberField />
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const ErrorState: Story = {
@@ -273,4 +385,18 @@ export const ErrorState: Story = {
       </InputNumber>
     </div>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<InputNumber defaultValue={-5} error>
+  <InputNumberWrapper>
+    <InputNumberField />
+    <InputNumberControls />
+  </InputNumberWrapper>
+</InputNumber>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };

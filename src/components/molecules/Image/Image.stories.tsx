@@ -146,5 +146,24 @@ export const DocsCustomPlaceholder: Story = {
     height: 200,
   },
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Image
+  src="https://example.com/image.jpg"
+  alt="Custom placeholder"
+  width={300}
+  height={200}
+  placeholder={
+    <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-blue-100 to-purple-100">
+      <span className="text-[var(--info)] animate-pulse">Loading...</span>
+    </div>
+  }
+/>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

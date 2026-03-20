@@ -157,5 +157,17 @@ export const DocsSizes: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Spin size="sm" />
+<Spin size="md" />
+<Spin size="lg" />
+<Spin size="xl" />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

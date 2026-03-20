@@ -114,6 +114,15 @@ export const ExplorerBase: Story = {
 
 export const Default: Story = {
   render: () => <ColorPicker defaultValue="#1677ff" />,
+  parameters: {
+    docs: {
+      source: {
+        code: `<ColorPicker defaultValue="#1677ff" />`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsVariants: Story = {
@@ -141,5 +150,34 @@ export const DocsVariants: Story = {
     </div>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<div className="flex flex-col gap-6">
+  <div className="flex items-center gap-3">
+    <span className="w-32 text-sm text-[var(--tertiary)]">Default</span>
+    <ColorPicker defaultValue="#1677ff" />
+  </div>
+  <div className="flex items-center gap-3">
+    <span className="w-32 text-sm text-[var(--tertiary)]">Custom Presets</span>
+    <ColorPicker
+      defaultValue="#42bdbd"
+      presets={[
+        '#42bdbd',
+        '#0828f7',
+        '#1793e8',
+        '#ff0036',
+        '#ffbe07',
+        '#000000',
+        '#ffffff',
+      ]}
+    />
+  </div>
+</div>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }

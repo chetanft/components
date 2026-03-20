@@ -220,6 +220,49 @@ export const DocsVariants: Story = {
       description: {
         story: 'All visual variants of the Tree component shown side-by-side: default, with lines, icons, checkboxes, and selectable.',
       },
+      source: {
+        code: `{/* Default */}
+<Tree defaultExpandAll>
+  <TreeNode nodeKey="v-0" title="Parent">
+    <TreeNode nodeKey="v-0-0" title="Child A" isLeaf />
+    <TreeNode nodeKey="v-0-1" title="Child B" isLeaf />
+  </TreeNode>
+</Tree>
+
+{/* With Lines */}
+<Tree defaultExpandAll showLine>
+  <TreeNode nodeKey="vl-0" title="Parent">
+    <TreeNode nodeKey="vl-0-0" title="Child A" isLeaf />
+    <TreeNode nodeKey="vl-0-1" title="Child B" isLeaf />
+  </TreeNode>
+</Tree>
+
+{/* With Icons */}
+<Tree defaultExpandAll showIcon>
+  <TreeNode nodeKey="vi-0" title="Folder" icon={<Icon name="document" size={16} />}>
+    <TreeNode nodeKey="vi-0-0" title="File A" isLeaf icon={<Icon name="file" size={16} />} />
+    <TreeNode nodeKey="vi-0-1" title="File B" isLeaf icon={<Icon name="file" size={16} />} />
+  </TreeNode>
+</Tree>
+
+{/* With Checkboxes */}
+<Tree defaultExpandAll checkable>
+  <TreeNode nodeKey="vc-0" title="Parent">
+    <TreeNode nodeKey="vc-0-0" title="Child A" isLeaf />
+    <TreeNode nodeKey="vc-0-1" title="Child B" isLeaf />
+  </TreeNode>
+</Tree>
+
+{/* Selectable */}
+<Tree defaultExpandAll selectable>
+  <TreeNode nodeKey="vs-0" title="Parent">
+    <TreeNode nodeKey="vs-0-0" title="Child A" isLeaf />
+    <TreeNode nodeKey="vs-0-1" title="Child B" isLeaf />
+  </TreeNode>
+</Tree>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -258,6 +301,29 @@ export const DocsStates: Story = {
       description: {
         story: 'Tree states: fully disabled tree and mixed disabled nodes.',
       },
+      source: {
+        code: `{/* Disabled Tree */}
+<Tree defaultExpandAll disabled>
+  <TreeNode nodeKey="sd-0" title="Disabled Parent">
+    <TreeNode nodeKey="sd-0-0" title="Disabled Child A" isLeaf />
+    <TreeNode nodeKey="sd-0-1" title="Disabled Child B" isLeaf />
+  </TreeNode>
+</Tree>
+
+{/* Mixed Disabled Nodes */}
+<Tree defaultExpandAll checkable>
+  <TreeNode nodeKey="sm-0" title="Enabled Parent">
+    <TreeNode nodeKey="sm-0-0" title="Enabled Node" isLeaf />
+    <TreeNode nodeKey="sm-0-1" title="Disabled Node" isLeaf disabled />
+    <TreeNode nodeKey="sm-0-2" title="Enabled Node" isLeaf />
+  </TreeNode>
+  <TreeNode nodeKey="sm-1" title="Disabled Parent" disabled>
+    <TreeNode nodeKey="sm-1-0" title="Child Node" isLeaf />
+  </TreeNode>
+</Tree>`,
+        language: 'tsx',
+        type: 'code',
+      },
     },
   },
 };
@@ -281,6 +347,29 @@ export const Default: Story = {
       </TreeNode>
     </Tree>
   ),
+  parameters: {
+    docs: {
+      source: {
+        code: `<Tree defaultExpandAll>
+  <TreeNode nodeKey="0-0" title="Parent 0">
+    <TreeNode nodeKey="0-0-0" title="Child 0-0">
+      <TreeNode nodeKey="0-0-0-0" title="Leaf 0-0-0" isLeaf />
+      <TreeNode nodeKey="0-0-0-1" title="Leaf 0-0-1" isLeaf />
+    </TreeNode>
+    <TreeNode nodeKey="0-0-1" title="Child 0-1">
+      <TreeNode nodeKey="0-0-1-0" title="Leaf 0-1-0" isLeaf />
+    </TreeNode>
+  </TreeNode>
+  <TreeNode nodeKey="0-1" title="Parent 1">
+    <TreeNode nodeKey="0-1-0" title="Child 1-0" isLeaf />
+    <TreeNode nodeKey="0-1-1" title="Child 1-1" isLeaf />
+  </TreeNode>
+</Tree>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const DocsWithIcons: Story = {
@@ -305,5 +394,23 @@ export const DocsWithIcons: Story = {
     </Tree>
   ),
 
-  parameters: { docsOnly: true },
+  parameters: {
+    docsOnly: true,
+    docs: {
+      source: {
+        code: `<Tree defaultExpandAll showIcon>
+  <TreeNode nodeKey="src" title="src" icon={<Icon name="document" size={16} />}>
+    <TreeNode nodeKey="components" title="components" icon={<Icon name="document" size={16} />}>
+      <TreeNode nodeKey="Button.tsx" title="Button.tsx" isLeaf icon={<Icon name="file" size={16} />} />
+      <TreeNode nodeKey="Input.tsx" title="Input.tsx" isLeaf icon={<Icon name="file" size={16} />} />
+    </TreeNode>
+    <TreeNode nodeKey="index.ts" title="index.ts" isLeaf icon={<Icon name="file" size={16} />} />
+  </TreeNode>
+  <TreeNode nodeKey="package.json" title="package.json" isLeaf icon={<Icon name="file" size={16} />} />
+</Tree>`,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 }
