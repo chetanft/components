@@ -93,6 +93,7 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
   type = 'text',
   children,
   className,
+  style,
   onClick,
   asChild,
   ...props
@@ -185,7 +186,8 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
       )}
       style={{
         paddingTop: 'var(--table-cell-padding-y)',
-        paddingBottom: 'var(--table-cell-padding-y)'
+        paddingBottom: 'var(--table-cell-padding-y)',
+        ...style
       }}
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
