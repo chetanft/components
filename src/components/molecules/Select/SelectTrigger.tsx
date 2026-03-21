@@ -107,7 +107,7 @@ export const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerPr
           'text-[var(--primary)]',
           'cursor-pointer flex items-center justify-between',
           sizeStyles[size],
-          'rounded-lg',
+          'rounded-component',
           error
             ? 'border-critical focus-within:border-critical'
             : disabled
