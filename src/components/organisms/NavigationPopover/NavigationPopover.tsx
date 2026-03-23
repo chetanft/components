@@ -8,7 +8,6 @@ import { Typography } from '../../atoms/Typography';
 import { Button } from '../../atoms/Button/Button';
 import { Badge } from '../../atoms/Badge';
 import { Illustration, type IllustrationVariant } from '../../atoms/Illustration';
-import { Divider } from '../../atoms/Divider';
 import { Spacer } from '../../atoms/Spacer';
 
 type BadgeVariant = 'normal' | 'danger' | 'success' | 'warning' | 'neutral';
@@ -749,8 +748,11 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
     <div
       className={cn(
         glass
-          ? cn(getGlassClasses(resolvedGlass), 'rounded-[var(--spacing-x5)] p-[var(--spacing-x2)]')
-          : 'bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-[var(--spacing-x5)] p-[var(--spacing-x2)] shadow-lg',
+          ? cn(
+              getGlassClasses(resolvedGlass),
+              'rounded-[var(--spacing-x5)] p-[var(--spacing-x2)] overflow-hidden flex flex-col gap-[var(--spacing-x2)]'
+            )
+          : 'bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-[var(--spacing-x5)] p-[var(--spacing-x2)] shadow-lg overflow-hidden flex flex-col gap-[var(--spacing-x2)]',
         className
       )}
       role="dialog"
@@ -782,7 +784,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
                     aria-current={isActive ? 'page' : undefined}
                   >
                     <div className="flex items-center gap-[var(--spacing-x2)]">
-                      <span className="w-6 h-6 rounded-full border border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]">
+                      <span className="w-6 h-6 rounded-full flex items-center justify-center text-[var(--primary)]">
                         <Icon name={section.icon} size={16} />
                       </span>
                       <Typography variant="body-primary-semibold" color="primary">
@@ -827,12 +829,9 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
             )}
           </div>
         </div>
-        <div className="bg-[var(--bg-secondary)] rounded-b-[inherit]">
-          <Divider type="primary" className="w-full" />
-          <div className="px-[var(--spacing-x5)] py-[var(--spacing-x3)] flex items-center justify-between gap-[var(--spacing-x2)] flex-wrap">
-            {footerContent}
-          </div>
-        </div>
+      </div>
+      <div className="py-[var(--spacing-x3)] px-0 flex items-center justify-between gap-[var(--spacing-x2)] flex-wrap">
+        {footerContent}
       </div>
     </div>
   );
