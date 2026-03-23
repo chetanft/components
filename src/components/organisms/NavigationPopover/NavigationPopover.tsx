@@ -276,7 +276,7 @@ const DEFAULT_SECTIONS: NavigationSection[] = [
       {
         title: 'Collections',
         items: [
-          { label: 'Libraries', icon: 'contracted-bill', description: 'Shared resources and patterns.' },
+          { label: 'Libraries', icon: 'contracted-bill' },
           { label: 'Templates', icon: 'document', description: 'Reusable layouts for quick starts.' },
         ],
       },
@@ -485,7 +485,7 @@ const SubCategoryPanel = ({ categories }: { categories?: NavigationSectionSubCat
                   <div className="flex flex-col gap-[var(--spacing-x1)]">
                     <div className="flex items-center gap-[var(--spacing-x2)]">
                       {item.icon && (
-                        <span className="w-6 h-6 rounded-full border border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]">
+                        <span className="w-6 h-6 rounded-full flex items-center justify-center text-[var(--primary)]">
                           <Icon name={item.icon} size={16} />
                         </span>
                       )}
