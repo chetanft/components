@@ -2,7 +2,7 @@
 // Source: scripts/sync-docs-data.cjs
 // Generated: 2026-03-20T07:23:12.172Z
 
-export const SYSTEM_VERSION = "5.0.0";
+export const SYSTEM_VERSION = "5.0.1";
 export const COMPONENT_COUNT = 125;
 export const COMPONENT_SUMMARY = {"total":125,"atoms":26,"molecules":57,"organisms":24,"charts":16,"templates":2};
 export const GENERATED_AT = "2026-03-20T07:23:12.172Z";
