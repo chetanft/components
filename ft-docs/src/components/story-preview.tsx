@@ -347,7 +347,7 @@ export function StoryPreview({
           <div
             className="p-10 min-h-[350px] bg-background overflow-hidden flex items-center justify-center"
           >
-            <div className="w-full overflow-x-auto flex justify-center">
+            <div className="w-full overflow-hidden flex justify-center gap-0">
               {renderedStory}
             </div>
           </div>

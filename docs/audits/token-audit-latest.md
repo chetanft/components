@@ -1,6 +1,6 @@
 # Hardcoded Design Tokens Audit Report
 
-Generated: 2026-03-08T18:25:59.910Z
+Generated: 2026-03-23T10:12:17.611Z
 
 ## Summary
 

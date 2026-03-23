@@ -158,8 +158,7 @@ export const Divider = React.forwardRef<HTMLDivElement, DividerProps>(
       <Comp
         ref={ref}
         className={cn(
-          "box-border flex items-center w-full m-0 p-0",
-          'py-[var(--spacing-x4)]',
+          "box-border w-full m-0 p-0",
           className
         )}
         {...props}
