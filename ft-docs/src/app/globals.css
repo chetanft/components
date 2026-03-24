@@ -32,6 +32,30 @@
     --docs-ring: var(--primary);
     --docs-radius: var(--component-border-radius);
     --docs-code-bg: var(--bg-secondary);
+
+    /* Sidebar tokens */
+    --docs-sidebar: var(--bg-secondary);
+    --docs-sidebar-foreground: var(--primary);
+    --docs-sidebar-primary: var(--primary);
+    --docs-sidebar-primary-foreground: var(--bg-primary);
+    --docs-sidebar-accent: var(--bg-tertiary);
+    --docs-sidebar-accent-foreground: var(--primary);
+    --docs-sidebar-border: var(--border-secondary);
+    --docs-sidebar-ring: var(--primary);
+
+    /* Chart tokens */
+    --docs-chart-1: var(--neutral-300);
+    --docs-chart-2: var(--neutral-500);
+    --docs-chart-3: var(--neutral-700);
+    --docs-chart-4: var(--neutral-800);
+    --docs-chart-5: var(--neutral-900);
+
+    /* Font stacks */
+    --docs-font-sans: var(--font-family-primary);
+    --docs-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+    /* Spacing */
+    --docs-spacing: 0.25rem;
   }
 
   /* Dark mode - FT tokens automatically change via .dark class in main globals.css */
@@ -59,6 +83,23 @@
     --docs-input: var(--border-primary);
     --docs-ring: var(--primary);
     --docs-code-bg: var(--bg-tertiary);
+
+    /* Sidebar tokens */
+    --docs-sidebar: var(--bg-primary);
+    --docs-sidebar-foreground: var(--primary);
+    --docs-sidebar-primary: var(--primary);
+    --docs-sidebar-primary-foreground: var(--bg-secondary);
+    --docs-sidebar-accent: var(--bg-tertiary);
+    --docs-sidebar-accent-foreground: var(--primary);
+    --docs-sidebar-border: var(--border-secondary);
+    --docs-sidebar-ring: var(--primary);
+
+    /* Chart tokens */
+    --docs-chart-1: var(--neutral-300);
+    --docs-chart-2: var(--neutral-500);
+    --docs-chart-3: var(--neutral-600);
+    --docs-chart-4: var(--neutral-700);
+    --docs-chart-5: var(--neutral-800);
   }
 
   /* Night mode - FT tokens automatically change via .night class in main globals.css */
@@ -85,6 +126,23 @@
     --docs-input: var(--border-secondary);
     --docs-ring: var(--primary);
     --docs-code-bg: var(--bg-secondary);
+
+    /* Sidebar tokens */
+    --docs-sidebar: var(--bg-secondary);
+    --docs-sidebar-foreground: var(--primary);
+    --docs-sidebar-primary: var(--primary);
+    --docs-sidebar-primary-foreground: var(--bg-primary);
+    --docs-sidebar-accent: var(--bg-tertiary);
+    --docs-sidebar-accent-foreground: var(--primary);
+    --docs-sidebar-border: var(--border-secondary);
+    --docs-sidebar-ring: var(--primary);
+
+    /* Chart tokens */
+    --docs-chart-1: var(--neutral-300);
+    --docs-chart-2: var(--neutral-400);
+    --docs-chart-3: var(--neutral-500);
+    --docs-chart-4: var(--neutral-600);
+    --docs-chart-5: var(--neutral-700);
   }
 
   /* Override Tailwind preflight border-color (compiled as hardcoded gray-200) */

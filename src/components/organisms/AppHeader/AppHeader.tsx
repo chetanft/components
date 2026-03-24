@@ -230,8 +230,22 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
             leftAddon()
           ) : (
             <div className="bg-[var(--bg-primary)] rounded-full p-[var(--spacing-x4)] flex items-center justify-center w-[3.375rem] h-[3.375rem]">
-              <svg width="24" height="24" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                className="shrink-0"
+                width="24"
+                height="24"
+                viewBox="0 0 21 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ width: 'var(--spacing-x6)', height: 'var(--spacing-x6)' }}
+              >
+                <path
+                  d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z"
+                  stroke="var(--primary)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
           )}
@@ -279,9 +293,9 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
             >
               {bellIcon ?? <Bell />}
             </div>
-          </div>
 
-          {renderThemeActionIcon('var(--spacing-x6)')}
+            {renderThemeActionIcon('var(--spacing-x6)')}
+          </div>
 
           {/* User Profile */}
           {renderUserProfileSection()}
@@ -367,9 +381,9 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
             >
               {bellIcon ?? <Bell />}
             </div>
-          </div>
 
-          {renderThemeActionIcon('var(--spacing-x5)')}
+            {renderThemeActionIcon('var(--spacing-x5)')}
+          </div>
 
           {/* User Profile */}
           {renderUserProfileSection()}
@@ -465,9 +479,9 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
             >
               {bellIcon ?? <Bell />}
             </div>
-          </div>
 
-          {renderThemeActionIcon('var(--spacing-x5)')}
+            {renderThemeActionIcon('var(--spacing-x5)')}
+          </div>
 
           {/* User Profile */}
           {renderUserProfileSection({ triggerClassName: 'h-[var(--spacing-x9)]' })}
@@ -527,9 +541,9 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
             >
               {menuIcon ?? <ThreeDotMenu />}
             </div>
-          </div>
 
-          {renderThemeActionIcon('var(--spacing-x6)')}
+            {renderThemeActionIcon('var(--spacing-x6)')}
+          </div>
 
           {/* User Profile - Mobile version */}
           {renderUserProfileSection({ companyName: false })}
@@ -553,8 +567,22 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <div className="flex items-center gap-[var(--spacing-x5)]">
         {/* Layout Grid Icon */}
         <div className="bg-[var(--bg-primary)] rounded-full p-[var(--spacing-x4)] flex items-center justify-center w-[3.375rem] h-[3.375rem]">
-          <svg width="24" height="24" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <svg
+            className="shrink-0"
+            width="24"
+            height="24"
+            viewBox="0 0 21 21"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            style={{ width: 'var(--spacing-x6)', height: 'var(--spacing-x6)' }}
+          >
+            <path
+              d="M3 3h6v6H3zM12 3h6v6h-6zM12 12h6v6h-6zM3 12h6v6H3z"
+              stroke="var(--primary)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </div>
 
@@ -601,9 +629,9 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
           >
             {bellIcon ?? <Bell />}
           </div>
-        </div>
 
-        {renderThemeActionIcon('var(--spacing-x6)')}
+          {renderThemeActionIcon('var(--spacing-x6)')}
+        </div>
 
         {/* User Profile */}
         {renderUserProfileSection()}

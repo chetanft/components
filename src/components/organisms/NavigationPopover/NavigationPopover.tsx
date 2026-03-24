@@ -18,6 +18,7 @@ type HighlightMetric = {
   description: string;
   actionLabel?: string;
   actionIcon?: IconName;
+  onAction?: () => void;
 };
 
 type StatMetric = {
@@ -172,6 +173,10 @@ export interface NavigationSectionMetricComponentProps {
    * Action icon (for highlight)
    */
   actionIcon?: IconName;
+  /**
+   * Callback when the action button is clicked (for highlight)
+   */
+  onAction?: () => void;
   /**
    * Metric label (for stat/alert)
    */
@@ -414,6 +419,7 @@ const HighlightCard = ({ metric }: { metric: HighlightMetric }) => (
         style={{ padding: 0 }}
         icon={metric.actionIcon ?? 'arrow-top-right'}
         iconPosition="trailing"
+        onClick={metric.onAction}
       >
         {metric.actionLabel}
       </Button>
@@ -590,11 +596,12 @@ const extractSectionsFromChildren = (children: React.ReactNode): NavigationSecti
           return {
             variant: 'highlight' as const,
             title: metric.props.title || '',
-            description: typeof metric.props.children === 'string' 
-              ? metric.props.children 
+            description: typeof metric.props.children === 'string'
+              ? metric.props.children
               : (metric.props.description || ''),
             actionLabel: metric.props.actionLabel,
             actionIcon: metric.props.actionIcon,
+            onAction: metric.props.onAction,
           };
         } else if (metric.props.variant === 'alert') {
           return {

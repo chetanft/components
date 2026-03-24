@@ -55,6 +55,23 @@ export default {
                 border: 'var(--docs-border)',
                 input: 'var(--docs-input)',
                 ring: 'var(--docs-ring)',
+                sidebar: {
+                    DEFAULT: 'var(--docs-sidebar)',
+                    foreground: 'var(--docs-sidebar-foreground)',
+                    primary: 'var(--docs-sidebar-primary)',
+                    'primary-foreground': 'var(--docs-sidebar-primary-foreground)',
+                    accent: 'var(--docs-sidebar-accent)',
+                    'accent-foreground': 'var(--docs-sidebar-accent-foreground)',
+                    border: 'var(--docs-sidebar-border)',
+                    ring: 'var(--docs-sidebar-ring)',
+                },
+                chart: {
+                    1: 'var(--docs-chart-1)',
+                    2: 'var(--docs-chart-2)',
+                    3: 'var(--docs-chart-3)',
+                    4: 'var(--docs-chart-4)',
+                    5: 'var(--docs-chart-5)',
+                },
             },
             fontSize: {
                 ...rootConfig.theme?.extend?.fontSize,
@@ -65,6 +82,14 @@ export default {
                 'page-title': ['2.571rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],  // 36px
                 'section':    ['1.714rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],   // 24px
                 'subsection': ['1.286rem', { lineHeight: '1.4' }],                             // 18px
+            },
+            fontFamily: {
+                sans: 'var(--docs-font-sans)',
+                mono: 'var(--docs-font-mono)',
+            },
+            spacing: {
+                ...rootConfig.theme?.extend?.spacing,
+                unit: 'var(--docs-spacing)',
             },
             borderRadius: {
                 ...rootConfig.theme.extend.borderRadius,
