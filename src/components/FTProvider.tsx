@@ -359,12 +359,44 @@ FTProvider.displayName = 'FTProvider';
 /**
  * Unified hook — returns theme + glass state.
  */
+/**
+ * Default context value for when hooks are used outside FTProvider.
+ * Uses DOM-based detection so components still respond to the actual theme class.
+ */
+const defaultContext: FTThemeContextType = {
+  theme: 'light',
+  setTheme: () => {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('useFTTheme: setTheme called outside <FTProvider>. Wrap your app in <FTProvider> for theme switching.');
+    }
+  },
+  get isLight() {
+    if (typeof document === 'undefined') return true;
+    return !document.documentElement.classList.contains('dark') && !document.documentElement.classList.contains('night');
+  },
+  get isDark() {
+    if (typeof document === 'undefined') return false;
+    return document.documentElement.classList.contains('dark');
+  },
+  get isNight() {
+    if (typeof document === 'undefined') return false;
+    return document.documentElement.classList.contains('night');
+  },
+  glassMode: false,
+  setGlassMode: () => {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('useFTTheme: setGlassMode called outside <FTProvider>. Wrap your app in <FTProvider> for glass mode.');
+    }
+  },
+};
+
+/**
+ * Unified hook — returns theme + glass state.
+ * Works safely outside FTProvider (returns DOM-based defaults with dev warnings).
+ */
 export function useFTTheme(): FTThemeContextType {
   const context = React.useContext(FTThemeContext);
-  if (context === undefined) {
-    throw new Error('useFTTheme must be used within an <FTProvider>');
-  }
-  return context;
+  return context ?? defaultContext;
 }
 
 /**
@@ -372,10 +404,8 @@ export function useFTTheme(): FTThemeContextType {
  */
 export function useTheme(): ThemeContextType {
   const context = React.useContext(FTThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within an <FTProvider> (or the legacy <ThemeProvider>)');
-  }
-  const { theme, setTheme, isLight, isDark, isNight } = context;
+  const resolved = context ?? defaultContext;
+  const { theme, setTheme, isLight, isDark, isNight } = resolved;
   return { theme, setTheme, isLight, isDark, isNight };
 }
 
@@ -384,10 +414,8 @@ export function useTheme(): ThemeContextType {
  */
 export function useGlass(): GlassContextType {
   const context = React.useContext(FTThemeContext);
-  if (context === undefined) {
-    throw new Error('useGlass must be used within an <FTProvider> (or the legacy <GlassProvider>)');
-  }
-  const { glassMode, setGlassMode } = context;
+  const resolved = context ?? defaultContext;
+  const { glassMode, setGlassMode } = resolved;
   return { glassMode, setGlassMode };
 }
 
