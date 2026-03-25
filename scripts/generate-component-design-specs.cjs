@@ -614,7 +614,7 @@ function buildMarkdown({ version, summary, grouped, tokens, generatedAt, compone
 }
 
 function generateComponentDesignSpecs() {
-  const cssPath = path.join(projectRoot, 'src/styles/globals.css');
+  const cssPath = path.join(projectRoot, 'src/styles/tokens.css');
   const registryPath = path.join(projectRoot, 'registry.json');
   const pkgPath = path.join(projectRoot, 'package.json');
   const overridePath = path.join(projectRoot, 'docs/component-variant-token-overrides.json');

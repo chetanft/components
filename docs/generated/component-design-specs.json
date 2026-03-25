@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-23T11:10:26.811Z",
+  "generatedAt": "2026-03-25T10:34:14.261Z",
   "version": "5.0.1",
   "summary": {
     "total": 125,
@@ -1238,7 +1238,7 @@
             "dimension": "inRange",
             "variant": "true",
             "tokens": [
-              "--color-border-primary"
+              "--border-primary"
             ],
             "detector": "cva.variants"
           },
@@ -1247,7 +1247,7 @@
             "dimension": "open",
             "variant": "false",
             "tokens": [
-              "--color-primary"
+              "--primary"
             ],
             "detector": "cva.variants"
           },
@@ -1256,7 +1256,7 @@
             "dimension": "open",
             "variant": "true",
             "tokens": [
-              "--color-primary"
+              "--primary"
             ],
             "detector": "cva.variants"
           },
@@ -1608,15 +1608,6 @@
             "dimension": "state",
             "variant": "default",
             "tokens": [
-              "--color-primary"
-            ],
-            "detector": "cva.variants"
-          },
-          {
-            "source": "src/components/molecules/DatePicker/DatePicker.tsx",
-            "dimension": "state",
-            "variant": "default",
-            "tokens": [
               "--primary"
             ],
             "detector": "cva.variants"
@@ -1657,15 +1648,6 @@
             "variant": "focused",
             "tokens": [
               "--primary"
-            ],
-            "detector": "cva.variants"
-          },
-          {
-            "source": "src/components/molecules/DatePicker/DatePicker.tsx",
-            "dimension": "state",
-            "variant": "hover",
-            "tokens": [
-              "--color-primary"
             ],
             "detector": "cva.variants"
           },
@@ -2283,7 +2265,7 @@
             "dimension": "state",
             "variant": "default",
             "tokens": [
-              "--color-bg-primary"
+              "--bg-primary"
             ],
             "detector": "cva.variants"
           },
@@ -2292,7 +2274,7 @@
             "dimension": "state",
             "variant": "disabled",
             "tokens": [
-              "--color-bg-primary"
+              "--bg-primary"
             ],
             "detector": "cva.variants"
           },
@@ -2301,7 +2283,7 @@
             "dimension": "state",
             "variant": "focused",
             "tokens": [
-              "--color-border-primary"
+              "--border-primary"
             ],
             "detector": "cva.variants"
           },
@@ -2310,7 +2292,7 @@
             "dimension": "state",
             "variant": "hover",
             "tokens": [
-              "--color-border-secondary"
+              "--border-secondary"
             ],
             "detector": "cva.variants"
           },
@@ -2319,8 +2301,8 @@
             "dimension": "state",
             "variant": "info",
             "tokens": [
-              "--color-bg-primary",
-              "--color-border-primary"
+              "--bg-primary",
+              "--border-primary"
             ],
             "detector": "cva.variants"
           },
@@ -2329,7 +2311,7 @@
             "dimension": "state",
             "variant": "selected",
             "tokens": [
-              "--color-bg-secondary"
+              "--bg-secondary"
             ],
             "detector": "cva.variants"
           },
@@ -4619,7 +4601,7 @@
             "dimension": "dotBg",
             "variant": "danger",
             "tokens": [
-              "--color-critical"
+              "--critical"
             ],
             "detector": "object.map"
           },
@@ -4628,7 +4610,7 @@
             "dimension": "dotBg",
             "variant": "neutral",
             "tokens": [
-              "--color-neutral"
+              "--neutral"
             ],
             "detector": "object.map"
           },
@@ -4637,7 +4619,7 @@
             "dimension": "dotBg",
             "variant": "primary",
             "tokens": [
-              "--color-primary"
+              "--primary"
             ],
             "detector": "object.map"
           },
@@ -4646,7 +4628,7 @@
             "dimension": "dotBg",
             "variant": "success",
             "tokens": [
-              "--color-positive"
+              "--positive"
             ],
             "detector": "object.map"
           },
@@ -4655,7 +4637,7 @@
             "dimension": "dotBg",
             "variant": "warning",
             "tokens": [
-              "--color-warning"
+              "--warning"
             ],
             "detector": "object.map"
           },
@@ -4664,7 +4646,7 @@
             "dimension": "iconRing",
             "variant": "danger",
             "tokens": [
-              "--color-critical"
+              "--critical"
             ],
             "detector": "object.map"
           },
@@ -4673,7 +4655,7 @@
             "dimension": "iconRing",
             "variant": "neutral",
             "tokens": [
-              "--color-neutral"
+              "--neutral"
             ],
             "detector": "object.map"
           },
@@ -4682,7 +4664,7 @@
             "dimension": "iconRing",
             "variant": "primary",
             "tokens": [
-              "--color-primary"
+              "--primary"
             ],
             "detector": "object.map"
           },
@@ -4691,7 +4673,7 @@
             "dimension": "iconRing",
             "variant": "success",
             "tokens": [
-              "--color-positive"
+              "--positive"
             ],
             "detector": "object.map"
           },
@@ -4700,7 +4682,7 @@
             "dimension": "iconRing",
             "variant": "warning",
             "tokens": [
-              "--color-warning"
+              "--warning"
             ],
             "detector": "object.map"
           }
@@ -4780,9 +4762,9 @@
             "dimension": "variant",
             "variant": "default",
             "tokens": [
-              "--color-bg-secondary",
-              "--color-primary",
-              "--color-secondary"
+              "--bg-secondary",
+              "--primary",
+              "--secondary"
             ],
             "detector": "object.map"
           },
@@ -4791,10 +4773,10 @@
             "dimension": "variant",
             "variant": "outline",
             "tokens": [
-              "--color-bg-secondary",
-              "--color-border-primary",
-              "--color-primary",
-              "--color-secondary"
+              "--bg-secondary",
+              "--border-primary",
+              "--primary",
+              "--secondary"
             ],
             "detector": "object.map"
           }

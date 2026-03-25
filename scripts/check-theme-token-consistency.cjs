@@ -90,7 +90,7 @@ function scanForHardcodedHex(dirs) {
 // ---------------------------------------------------------------------------
 
 function checkThemeTokenConsistency() {
-  const css = read('src/styles/globals.css');
+  const css = read('src/styles/tokens.css');
 
   const themes = {
     ':root': extractTokensFromBlock(css, ':root'),

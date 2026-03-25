@@ -40,7 +40,7 @@ function log(message, color = 'reset') {
 // ── Read sources ──────────────────────────────────────────────
 
 function readSources() {
-  const cssPath = path.join(projectRoot, 'src/styles/globals.css');
+  const cssPath = path.join(projectRoot, 'src/styles/tokens.css');
   const pkgPath = path.join(projectRoot, 'package.json');
   const registryPath = path.join(projectRoot, 'registry.json');
 

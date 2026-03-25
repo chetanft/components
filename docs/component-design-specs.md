@@ -1,7 +1,7 @@
 # FT Design System - Component Design Specifications
 
 > Auto-generated from `src/styles/globals.css` + `registry.json`.
-> Version: 5.0.1 | Generated: 2026-03-23T11:10:26.811Z
+> Version: 5.0.1 | Generated: 2026-03-25T10:34:14.261Z
 
 ---
 
@@ -554,9 +554,9 @@ Status: `variant-detected`
 | Source | Dimension | Variant | Tokens |
 |---|---|---|---|
 | src/components/molecules/DatePicker/Calendar.tsx | inRange | false | _none detected_ |
-| src/components/molecules/DatePicker/Calendar.tsx | inRange | true | `--color-border-primary` |
-| src/components/molecules/DatePicker/Calendar.tsx | open | false | `--color-primary` |
-| src/components/molecules/DatePicker/Calendar.tsx | open | true | `--color-primary` |
+| src/components/molecules/DatePicker/Calendar.tsx | inRange | true | `--border-primary` |
+| src/components/molecules/DatePicker/Calendar.tsx | open | false | `--primary` |
+| src/components/molecules/DatePicker/Calendar.tsx | open | true | `--primary` |
 | src/components/molecules/DatePicker/Calendar.tsx | range | false | `--spacing-x4` |
 | src/components/molecules/DatePicker/Calendar.tsx | range | false | _none detected_ |
 | src/components/molecules/DatePicker/Calendar.tsx | range | true | `--spacing-x4` |
@@ -594,14 +594,12 @@ Status: `variant-detected`
 | src/components/molecules/DatePicker/DatePicker.tsx | size | xs | `text-xs-rem` |
 | src/components/molecules/DatePicker/DatePicker.tsx | size | xxl | `text-lg-rem` |
 | src/components/molecules/DatePicker/DatePicker.tsx | size | xxs | `text-xs-rem` |
-| src/components/molecules/DatePicker/DatePicker.tsx | state | default | `--color-primary` |
 | src/components/molecules/DatePicker/DatePicker.tsx | state | default | `--primary` |
 | src/components/molecules/DatePicker/DatePicker.tsx | state | disabled | _none detected_ |
 | src/components/molecules/DatePicker/DatePicker.tsx | state | filled | _none detected_ |
 | src/components/molecules/DatePicker/DatePicker.tsx | state | filled | `--primary` |
 | src/components/molecules/DatePicker/DatePicker.tsx | state | focused | _none detected_ |
 | src/components/molecules/DatePicker/DatePicker.tsx | state | focused | `--primary` |
-| src/components/molecules/DatePicker/DatePicker.tsx | state | hover | `--color-primary` |
 | src/components/molecules/DatePicker/DatePicker.tsx | state | hover | `--primary` |
 | src/components/molecules/DatePicker/DatePicker.tsx | state | prefilled | _none detected_ |
 | src/components/molecules/DatePicker/DatePicker.tsx | state | prefilled | `--primary` |
@@ -712,12 +710,12 @@ Status: `variant-detected`
 | src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | prefix | icon | _none detected_ |
 | src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | prefix | none | _none detected_ |
 | src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | prefix | radio | _none detected_ |
-| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | default | `--color-bg-primary` |
-| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | disabled | `--color-bg-primary` |
-| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | focused | `--color-border-primary` |
-| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | hover | `--color-border-secondary` |
-| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | info | `--color-bg-primary`, `--color-border-primary` |
-| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | selected | `--color-bg-secondary` |
+| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | default | `--bg-primary` |
+| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | disabled | `--bg-primary` |
+| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | focused | `--border-primary` |
+| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | hover | `--border-secondary` |
+| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | info | `--bg-primary`, `--border-primary` |
+| src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | state | selected | `--bg-secondary` |
 | src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | suffix | false | _none detected_ |
 | src/components/molecules/DropdownMenu/DropdownMenuItem.tsx | suffix | true | _none detected_ |
 
@@ -1369,16 +1367,16 @@ Status: `variant-detected`
 
 | Source | Dimension | Variant | Tokens |
 |---|---|---|---|
-| src/components/molecules/Timeline/TimelineDot.tsx | dotBg | danger | `--color-critical` |
-| src/components/molecules/Timeline/TimelineDot.tsx | dotBg | neutral | `--color-neutral` |
-| src/components/molecules/Timeline/TimelineDot.tsx | dotBg | primary | `--color-primary` |
-| src/components/molecules/Timeline/TimelineDot.tsx | dotBg | success | `--color-positive` |
-| src/components/molecules/Timeline/TimelineDot.tsx | dotBg | warning | `--color-warning` |
-| src/components/molecules/Timeline/TimelineDot.tsx | iconRing | danger | `--color-critical` |
-| src/components/molecules/Timeline/TimelineDot.tsx | iconRing | neutral | `--color-neutral` |
-| src/components/molecules/Timeline/TimelineDot.tsx | iconRing | primary | `--color-primary` |
-| src/components/molecules/Timeline/TimelineDot.tsx | iconRing | success | `--color-positive` |
-| src/components/molecules/Timeline/TimelineDot.tsx | iconRing | warning | `--color-warning` |
+| src/components/molecules/Timeline/TimelineDot.tsx | dotBg | danger | `--critical` |
+| src/components/molecules/Timeline/TimelineDot.tsx | dotBg | neutral | `--neutral` |
+| src/components/molecules/Timeline/TimelineDot.tsx | dotBg | primary | `--primary` |
+| src/components/molecules/Timeline/TimelineDot.tsx | dotBg | success | `--positive` |
+| src/components/molecules/Timeline/TimelineDot.tsx | dotBg | warning | `--warning` |
+| src/components/molecules/Timeline/TimelineDot.tsx | iconRing | danger | `--critical` |
+| src/components/molecules/Timeline/TimelineDot.tsx | iconRing | neutral | `--neutral` |
+| src/components/molecules/Timeline/TimelineDot.tsx | iconRing | primary | `--primary` |
+| src/components/molecules/Timeline/TimelineDot.tsx | iconRing | success | `--positive` |
+| src/components/molecules/Timeline/TimelineDot.tsx | iconRing | warning | `--warning` |
 
 ### TimePicker (molecules)
 
@@ -1397,8 +1395,8 @@ Status: `variant-detected`
 | src/components/atoms/Toggle/Toggle.tsx | size | lg | `--spacing-x12`, `--spacing-x5`, `text-md-rem` |
 | src/components/atoms/Toggle/Toggle.tsx | size | md | `--spacing-x10`, `--spacing-x4`, `text-sm-rem` |
 | src/components/atoms/Toggle/Toggle.tsx | size | sm | `--spacing-x3`, `--spacing-x8`, `text-sm-rem` |
-| src/components/atoms/Toggle/Toggle.tsx | variant | default | `--color-bg-secondary`, `--color-primary`, `--color-secondary` |
-| src/components/atoms/Toggle/Toggle.tsx | variant | outline | `--color-bg-secondary`, `--color-border-primary`, `--color-primary`, `--color-secondary` |
+| src/components/atoms/Toggle/Toggle.tsx | variant | default | `--bg-secondary`, `--primary`, `--secondary` |
+| src/components/atoms/Toggle/Toggle.tsx | variant | outline | `--bg-secondary`, `--border-primary`, `--primary`, `--secondary` |
 
 ### ToggleGroup (molecules)
 

@@ -1,14 +1,30 @@
 {
-  "generatedAt": "2026-03-24T17:06:05.055Z",
+  "generatedAt": "2026-03-25T10:34:15.602Z",
   "summary": {
-    "totalIssues": 0,
-    "totalFilesWithIssues": 0,
-    "byRule": {},
+    "totalIssues": 1,
+    "totalFilesWithIssues": 1,
+    "byRule": {
+      "hardcoded_px_literal": 1
+    },
     "bySeverity": {
       "error": 0,
-      "warn": 0
+      "warn": 1
     },
-    "byFile": {}
+    "byFile": {
+      "src/components/organisms/Sidebar/SidebarProvider.tsx": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      }
+    }
   },
-  "issues": []
+  "issues": [
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/organisms/Sidebar/SidebarProvider.tsx",
+      "message": "1 hardcoded px literal(s) found"
+    }
+  ]
 }

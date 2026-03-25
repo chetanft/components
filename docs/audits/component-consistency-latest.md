@@ -1,15 +1,22 @@
 # Component Consistency Report
 
-Generated: 2026-03-24T17:06:05.055Z
+Generated: 2026-03-25T10:34:15.602Z
 
 ## Summary
 
-- Total issues: **0**
-- Files with issues: **0**
+- Total issues: **1**
+- Files with issues: **1**
 - Errors: **0**
-- Warnings: **0**
+- Warnings: **1**
 
 ### Rule Breakdown
 
 | Rule | Count |
 |---|---:|
+| `hardcoded_px_literal` | 1 |
+
+## Findings
+
+### src/components/organisms/Sidebar/SidebarProvider.tsx
+
+- [WARN] `hardcoded_px_literal`: 1 hardcoded px literal(s) found

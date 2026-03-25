@@ -10,7 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const CSS_FILE = path.join(__dirname, '../src/styles/globals.css');
+const CSS_FILE = path.join(__dirname, '../src/styles/tokens.css');
 const OUTPUT_FILE = path.join(__dirname, '../docs/DESIGN_TOKENS_REFERENCE.md');
 
 // Critical tokens to check for runtime validation

@@ -1,11 +1,11 @@
 // AUTO-GENERATED — DO NOT EDIT
 // Source: scripts/sync-docs-data.cjs
-// Generated: 2026-03-23T11:10:26.811Z
+// Generated: 2026-03-25T10:34:14.261Z
 
 export const SYSTEM_VERSION = "5.0.1";
 export const COMPONENT_COUNT = 125;
 export const COMPONENT_SUMMARY = {"total":125,"atoms":26,"molecules":57,"organisms":24,"charts":16,"templates":2};
-export const GENERATED_AT = "2026-03-23T11:10:26.811Z";
+export const GENERATED_AT = "2026-03-25T10:34:14.261Z";
 
 export const SPACING_TOKENS: Record<string, string> = {
   "x0": "0px",
@@ -243,11 +243,9 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
    Usage: import './globals.css' or import '@/styles/globals.css'
 */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
+@variant dark (&:is(.dark *));
 
 /* =====================================================
    FT DESIGN SYSTEM - COMPREHENSIVE GLOBAL CSS
@@ -337,6 +335,78 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
    --danger-200: #ffcccc;
    --danger-100: #ffeafa;
 
+   /* Teal Scale (11 shades) — Chart color family */
+   --teal-950: #0D2626;
+   --teal-900: #143939;
+   --teal-800: #215E5E;
+   --teal-700: #2E8484;
+   --teal-600: #3CAAAA;
+   --teal-500: #42BDBD;
+   --teal-400: #4CC0C0;
+   --teal-300: #7BD1D1;
+   --teal-200: #A1DEDE;
+   --teal-100: #C6EBEB;
+   --teal-50: #ECF8F8;
+
+   /* Indigo Scale (11 shades) — Chart color family */
+   --indigo-950: #020831;
+   --indigo-900: #020C4A;
+   --indigo-800: #04147C;
+   --indigo-700: #061CAD;
+   --indigo-600: #0724DE;
+   --indigo-500: #0828F7;
+   --indigo-400: #213DF8;
+   --indigo-300: #6377FA;
+   --indigo-200: #8393FB;
+   --indigo-100: #B5BEFD;
+   --indigo-50: #E6E9FE;
+
+   /* Blue Scale (11 shades) — Chart color family */
+   --blue-950: #051D2E;
+   --blue-900: #072C46;
+   --blue-800: #0C4A74;
+   --blue-700: #1067A2;
+   --blue-600: #1584D1;
+   --blue-500: #1793E8;
+   --blue-400: #37A2EB;
+   --blue-300: #5DB4EF;
+   --blue-200: #8BC9F3;
+   --blue-100: #B9DFF8;
+   --blue-50: #E8F4FD;
+
+   /* Pink Scale (11 shades) — Chart color family */
+   --pink-950: #33000B;
+   --pink-900: #4D0010;
+   --pink-800: #80001B;
+   --pink-700: #B30026;
+   --pink-600: #E60031;
+   --pink-500: #FF0036;
+   --pink-400: #FF1A4A;
+   --pink-300: #FF6384;
+   --pink-200: #FF809A;
+   --pink-100: #FFB3C3;
+   --pink-50: #FFE5EB;
+
+   /* =====================================================
+     CHART COLOR PALETTE — Semantic tokens for data visualization
+     ===================================================== */
+
+   /* Primary chart palette — use these for bars, lines, pie slices */
+   --chart-1: var(--teal-500);    /* #42BDBD — first data series */
+   --chart-2: var(--indigo-500);  /* #0828F7 — second data series */
+   --chart-3: var(--blue-400);    /* #37A2EB — third data series */
+   --chart-4: var(--pink-300);    /* #FF6384 — fourth data series */
+   --chart-5: var(--teal-700);    /* #2E8484 — fifth data series */
+   --chart-6: var(--indigo-300);  /* #6377FA — sixth data series */
+   --chart-7: var(--blue-600);    /* #1584D1 — seventh data series */
+   --chart-8: var(--pink-500);    /* #FF0036 — eighth data series */
+
+   /* Extended palette for >8 series */
+   --chart-9: var(--teal-300);
+   --chart-10: var(--indigo-700);
+   --chart-11: var(--blue-200);
+   --chart-12: var(--pink-100);
+
    /* =====================================================
      SEMANTIC COLORS - SELECTED FROM BASE COLORS
      ===================================================== */
@@ -378,30 +448,6 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
    /* #ecf6ff - light primary accent bg */
    --primary-bg-subtle: var(--neutral-100);
    /* #ecf6ff - subtle primary background */
-
-   /* =====================================================
-     Token alias bridge (new naming scheme → legacy vars)
-     ===================================================== */
-   --color-primary: var(--primary);
-   --color-secondary: var(--secondary);
-   --color-tertiary: var(--tertiary);
-   --color-border-primary: var(--border-primary);
-   --color-border-secondary: var(--border-secondary);
-   --color-bg-primary: var(--bg-primary);
-   --color-bg-secondary: var(--bg-secondary);
-   --color-bg-tertiary: var(--bg-tertiary);
-   --color-critical: var(--critical);
-   --color-critical-dark: var(--critical-dark);
-   --color-critical-light: var(--critical-light);
-   --color-warning: var(--warning);
-   --color-warning-dark: var(--warning-dark);
-   --color-warning-light: var(--warning-light);
-   --color-positive: var(--positive);
-   --color-positive-dark: var(--positive-dark);
-   --color-positive-light: var(--positive-light);
-   --color-neutral: var(--neutral);
-   --color-neutral-dark: var(--neutral-dark);
-   --color-neutral-light: var(--neutral-light);
 
    --font-family-primary: 'Inter', sans-serif;
    --font-weight-regular: 400;
@@ -577,27 +623,33 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
     * Opacity ladder is non-linear — subtle is airy, prominent is noticeably
     * thicker but never milky. Blur and saturate scale with elevation.
     */
-   --glass-blur-sm: 10px;
-   --glass-blur: 16px;
-   --glass-blur-lg: 22px;
-   --glass-saturate-sm: 150%;
-   --glass-saturate: 165%;
-   --glass-saturate-lg: 180%;
+   /* Phase A: Tuned values — lower blur for readability, brighter highlights, richer depth */
+   --glass-blur-sm: 6px;
+   --glass-blur: 10px;
+   --glass-blur-lg: 16px;
+   --glass-blur-liquid: 2px;        /* Liquid Glass: minimal blur, content stays visible */
+   --glass-saturate-sm: 160%;
+   --glass-saturate: 180%;
+   --glass-saturate-lg: 200%;
+   --glass-saturate-liquid: 200%;
 
    /* Surface tints — non-linear ladder */
-   --glass-bg: rgba(255, 255, 255, 0.48);
-   --glass-bg-subtle: rgba(255, 255, 255, 0.30);
-   --glass-bg-prominent: rgba(255, 255, 255, 0.62);
+   --glass-bg: rgba(255, 255, 255, 0.42);
+   --glass-bg-subtle: rgba(255, 255, 255, 0.25);
+   --glass-bg-prominent: rgba(255, 255, 255, 0.58);
+   --glass-bg-liquid: rgba(255, 255, 255, 0.12);   /* Liquid Glass: very transparent */
 
-   /* Borders / highlights — soft, no glow */
-   --glass-border: rgba(255, 255, 255, 0.45);
-   --glass-border-subtle: rgba(255, 255, 255, 0.35);
+   /* Borders / highlights — brighter edges (Apple-aligned) */
+   --glass-border: rgba(255, 255, 255, 0.65);
+   --glass-border-subtle: rgba(255, 255, 255, 0.45);
    --glass-border-soft: rgba(0, 0, 0, 0.06);
-   --glass-inner-highlight: rgba(255, 255, 255, 0.45);
+   --glass-border-liquid: rgba(255, 255, 255, 0.80);  /* Liquid Glass: bright white edge */
+   --glass-inner-highlight: rgba(255, 255, 255, 0.60);
 
-   /* Shadows */
+   /* Shadows — improved depth with specular top highlight */
    --glass-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
    --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.10);
+   --glass-shadow-liquid: 0 8px 32px rgba(31, 38, 135, 0.15), inset 0 4px 20px rgba(255, 255, 255, 0.2);
 
    /* State layers inside glass surfaces */
    --glass-hover: rgba(255, 255, 255, 0.30);
@@ -1112,24 +1164,29 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
    --overlay-control-text: #f8fafc;
 
    /* Glass / Glassmorphism Tokens - Dark Mode (Apple-inspired) */
-   --glass-blur-sm: 12px;
-   --glass-blur: 18px;
-   --glass-blur-lg: 24px;
-   --glass-saturate-sm: 155%;
-   --glass-saturate: 170%;
-   --glass-saturate-lg: 185%;
+   --glass-blur-sm: 8px;
+   --glass-blur: 12px;
+   --glass-blur-lg: 18px;
+   --glass-blur-liquid: 2px;
+   --glass-saturate-sm: 165%;
+   --glass-saturate: 180%;
+   --glass-saturate-lg: 195%;
+   --glass-saturate-liquid: 210%;
 
-   --glass-bg: rgba(20, 22, 28, 0.50);
-   --glass-bg-subtle: rgba(20, 22, 28, 0.35);
-   --glass-bg-prominent: rgba(20, 22, 28, 0.65);
+   --glass-bg: rgba(20, 22, 28, 0.45);
+   --glass-bg-subtle: rgba(20, 22, 28, 0.30);
+   --glass-bg-prominent: rgba(20, 22, 28, 0.60);
+   --glass-bg-liquid: rgba(20, 22, 28, 0.10);
 
-   --glass-border: rgba(255, 255, 255, 0.12);
-   --glass-border-subtle: rgba(255, 255, 255, 0.07);
+   --glass-border: rgba(255, 255, 255, 0.18);
+   --glass-border-subtle: rgba(255, 255, 255, 0.10);
    --glass-border-soft: rgba(255, 255, 255, 0.04);
-   --glass-inner-highlight: rgba(255, 255, 255, 0.08);
+   --glass-border-liquid: rgba(255, 255, 255, 0.35);
+   --glass-inner-highlight: rgba(255, 255, 255, 0.12);
 
    --glass-shadow: 0 14px 40px rgba(0, 0, 0, 0.40), 0 3px 12px rgba(0, 0, 0, 0.25);
    --glass-shadow-lg: 0 18px 50px rgba(0, 0, 0, 0.50), 0 4px 14px rgba(0, 0, 0, 0.28);
+   --glass-shadow-liquid: 0 8px 32px rgba(0, 0, 0, 0.35), inset 0 4px 20px rgba(255, 255, 255, 0.06);
 
    --glass-hover: rgba(255, 255, 255, 0.07);
    --glass-pressed: rgba(255, 255, 255, 0.05);
@@ -1411,24 +1468,29 @@ export const GLOBAL_CSS_CONTENT = `/* ==========================================
    --overlay-control-text: #ffffff;
 
    /* Glass / Glassmorphism Tokens - Night Mode (macOS vibrant dark) */
-   --glass-blur-sm: 14px;
-   --glass-blur: 20px;
-   --glass-blur-lg: 26px;
-   --glass-saturate-sm: 130%;
-   --glass-saturate: 140%;
-   --glass-saturate-lg: 155%;
+   --glass-blur-sm: 8px;
+   --glass-blur: 14px;
+   --glass-blur-lg: 20px;
+   --glass-blur-liquid: 2px;
+   --glass-saturate-sm: 140%;
+   --glass-saturate: 155%;
+   --glass-saturate-lg: 170%;
+   --glass-saturate-liquid: 190%;
 
-   --glass-bg: rgba(18, 18, 20, 0.45);
-   --glass-bg-subtle: rgba(18, 18, 20, 0.30);
-   --glass-bg-prominent: rgba(18, 18, 20, 0.60);
+   --glass-bg: rgba(18, 18, 20, 0.40);
+   --glass-bg-subtle: rgba(18, 18, 20, 0.25);
+   --glass-bg-prominent: rgba(18, 18, 20, 0.55);
+   --glass-bg-liquid: rgba(18, 18, 20, 0.08);
 
-   --glass-border: rgba(255, 255, 255, 0.08);
-   --glass-border-subtle: rgba(255, 255, 255, 0.05);
+   --glass-border: rgba(255, 255, 255, 0.12);
+   --glass-border-subtle: rgba(255, 255, 255, 0.07);
    --glass-border-soft: rgba(255, 255, 255, 0.03);
-   --glass-inner-highlight: rgba(255, 255, 255, 0.06);
+   --glass-border-liquid: rgba(255, 255, 255, 0.28);
+   --glass-inner-highlight: rgba(255, 255, 255, 0.08);
 
    --glass-shadow: 0 14px 40px rgba(0, 0, 0, 0.50), 0 3px 12px rgba(0, 0, 0, 0.30);
    --glass-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.60), 0 5px 16px rgba(0, 0, 0, 0.32);
+   --glass-shadow-liquid: 0 8px 32px rgba(0, 0, 0, 0.40), inset 0 4px 20px rgba(255, 255, 255, 0.04);
 
    --glass-hover: rgba(255, 255, 255, 0.05);
    --glass-pressed: rgba(255, 255, 255, 0.03);
@@ -1723,6 +1785,46 @@ body {
                inset 0 0 0 1px var(--glass-border-soft);
 }
 
+/* ---- Liquid — Apple Liquid Glass inspired, minimal blur, maximum clarity ---- */
+.glass-liquid {
+   position: relative;
+   background: var(--glass-bg-liquid);
+   backdrop-filter: blur(var(--glass-blur-liquid)) saturate(var(--glass-saturate-liquid));
+   -webkit-backdrop-filter: blur(var(--glass-blur-liquid)) saturate(var(--glass-saturate-liquid));
+   border: 1px solid var(--glass-border-liquid);
+   border-radius: var(--glass-radius);
+   box-shadow: var(--glass-shadow-liquid);
+}
+/* Highlight layer — gradient simulates directional light casting */
+.glass-liquid::before {
+   content: "";
+   position: absolute;
+   inset: 0;
+   border-radius: inherit;
+   pointer-events: none;
+   background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.04) 50%,
+      rgba(255, 255, 255, 0.12) 100%
+   );
+   box-shadow: inset 0 1px 0 var(--glass-inner-highlight),
+               inset 0 0 0 1px var(--glass-border-soft);
+}
+/* Specular edge highlight — simulates light refraction on top edge */
+.glass-liquid::after {
+   content: "";
+   position: absolute;
+   inset: 0;
+   border-radius: inherit;
+   pointer-events: none;
+   box-shadow:
+      inset -10px -8px 0px -11px rgba(255, 255, 255, 0.6),
+      inset 0px -9px 0px -8px rgba(255, 255, 255, 0.4);
+   opacity: 0.5;
+   filter: brightness(115%);
+}
+
 /* ---- Item states inside glass surfaces ---- */
 .glass-item {
    background: transparent;
@@ -1743,7 +1845,8 @@ body {
 @supports not (backdrop-filter: blur(1px)) {
    .glass,
    .glass-subtle,
-   .glass-prominent {
+   .glass-prominent,
+   .glass-liquid {
       background: var(--glass-bg-prominent);
    }
 }
@@ -1752,10 +1855,15 @@ body {
 @media (prefers-reduced-transparency: reduce) {
    .glass,
    .glass-subtle,
-   .glass-prominent {
+   .glass-prominent,
+   .glass-liquid {
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
       background: var(--glass-bg-prominent);
+   }
+   .glass-liquid::before,
+   .glass-liquid::after {
+      display: none;
    }
 }`;
 

@@ -5,7 +5,7 @@
   "description": "Design system built from Figma designs using Code Connect",
   "repository": "https://github.com/chetanft/components.git",
   "license": "MIT",
-  "generatedAt": "2026-03-23T11:23:18.457Z",
+  "generatedAt": "2026-03-25T10:34:17.209Z",
   "coreDependencies": {
     "peer": [
       "react",
@@ -31,14 +31,36 @@
     "styles": "ft-design-system/styles.css"
   },
   "summary": {
-    "total": 125,
-    "atoms": 26,
-    "molecules": 57,
-    "organisms": 24,
+    "total": 134,
+    "atoms": 28,
+    "molecules": 63,
+    "organisms": 25,
     "charts": 16,
     "templates": 2
   },
   "components": [
+    {
+      "name": "Accordion",
+      "category": "molecules",
+      "path": "src/components/molecules/Accordion",
+      "files": [
+        "Accordion.tsx",
+        "AccordionContent.tsx",
+        "AccordionItem.tsx",
+        "AccordionTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "AccordionContent",
+        "AccordionItem",
+        "AccordionTrigger"
+      ],
+      "description": "Accordion component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
     {
       "name": "Affix",
       "category": "molecules",
@@ -82,6 +104,38 @@
           "Button",
           "Icon"
         ],
+        "peer": []
+      }
+    },
+    {
+      "name": "AlertDialog",
+      "category": "molecules",
+      "path": "src/components/molecules/AlertDialog",
+      "files": [
+        "AlertDialog.tsx",
+        "AlertDialogAction.tsx",
+        "AlertDialogCancel.tsx",
+        "AlertDialogContent.tsx",
+        "AlertDialogDescription.tsx",
+        "AlertDialogFooter.tsx",
+        "AlertDialogHeader.tsx",
+        "AlertDialogTitle.tsx",
+        "AlertDialogTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "AlertDialogAction",
+        "AlertDialogCancel",
+        "AlertDialogContent",
+        "AlertDialogDescription",
+        "AlertDialogFooter",
+        "AlertDialogHeader",
+        "AlertDialogTitle",
+        "AlertDialogTrigger"
+      ],
+      "description": "AlertDialog component props",
+      "dependencies": {
+        "internal": [],
         "peer": []
       }
     },
@@ -576,6 +630,38 @@
       }
     },
     {
+      "name": "Command",
+      "category": "molecules",
+      "path": "src/components/molecules/Command",
+      "files": [
+        "Command.tsx",
+        "CommandDialog.tsx",
+        "CommandEmpty.tsx",
+        "CommandGroup.tsx",
+        "CommandInput.tsx",
+        "CommandItem.tsx",
+        "CommandList.tsx",
+        "CommandSeparator.tsx",
+        "CommandShortcut.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "CommandDialog",
+        "CommandEmpty",
+        "CommandGroup",
+        "CommandInput",
+        "CommandItem",
+        "CommandList",
+        "CommandSeparator",
+        "CommandShortcut"
+      ],
+      "description": "Command Component",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
       "name": "Content",
       "category": "molecules",
       "path": "src/components/molecules/Content",
@@ -584,6 +670,46 @@
       ],
       "subComponents": [],
       "description": "Content type - only \"Text\" variant as shown in Figma",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
+      "name": "ContextMenu",
+      "category": "molecules",
+      "path": "src/components/molecules/ContextMenu",
+      "files": [
+        "ContextMenu.tsx",
+        "ContextMenuCheckboxItem.tsx",
+        "ContextMenuContent.tsx",
+        "ContextMenuItem.tsx",
+        "ContextMenuLabel.tsx",
+        "ContextMenuRadioGroup.tsx",
+        "ContextMenuRadioItem.tsx",
+        "ContextMenuSeparator.tsx",
+        "ContextMenuShortcut.tsx",
+        "ContextMenuSub.tsx",
+        "ContextMenuSubContent.tsx",
+        "ContextMenuSubTrigger.tsx",
+        "ContextMenuTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "ContextMenuCheckboxItem",
+        "ContextMenuContent",
+        "ContextMenuItem",
+        "ContextMenuLabel",
+        "ContextMenuRadioGroup",
+        "ContextMenuRadioItem",
+        "ContextMenuSeparator",
+        "ContextMenuShortcut",
+        "ContextMenuSub",
+        "ContextMenuSubContent",
+        "ContextMenuSubTrigger",
+        "ContextMenuTrigger"
+      ],
+      "description": "ContextMenu Component",
       "dependencies": {
         "internal": [],
         "peer": []
@@ -1444,6 +1570,28 @@
       }
     },
     {
+      "name": "InputOTP",
+      "category": "atoms",
+      "path": "src/components/atoms/InputOTP",
+      "files": [
+        "InputOTP.tsx",
+        "InputOTPGroup.tsx",
+        "InputOTPSeparator.tsx",
+        "InputOTPSlot.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "InputOTPGroup",
+        "InputOTPSeparator",
+        "InputOTPSlot"
+      ],
+      "description": "InputOTP component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
       "name": "Label",
       "category": "atoms",
       "path": "src/components/atoms/Label",
@@ -1568,7 +1716,8 @@
         "ShakthiLogisticsLogo.tsx",
         "TVSLogo.tsx",
         "TataMotorsLogo.tsx",
-        "index.ts"
+        "index.ts",
+        "resolveImageSrc.ts"
       ],
       "subComponents": [],
       "description": "Logos component from FT Design System",
@@ -1862,6 +2011,30 @@
       }
     },
     {
+      "name": "Popover",
+      "category": "molecules",
+      "path": "src/components/molecules/Popover",
+      "files": [
+        "Popover.tsx",
+        "PopoverArrow.tsx",
+        "PopoverClose.tsx",
+        "PopoverContent.tsx",
+        "PopoverTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "PopoverArrow",
+        "PopoverClose",
+        "PopoverContent",
+        "PopoverTrigger"
+      ],
+      "description": "Popover content (composable sub-components)",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
       "name": "ProgressBar",
       "category": "molecules",
       "path": "src/components/molecules/ProgressBar",
@@ -2028,6 +2201,27 @@
       }
     },
     {
+      "name": "Resizable",
+      "category": "molecules",
+      "path": "src/components/molecules/Resizable",
+      "files": [
+        "ResizableHandle.tsx",
+        "ResizablePanel.tsx",
+        "ResizablePanelGroup.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "ResizableHandle",
+        "ResizablePanel",
+        "ResizablePanelGroup"
+      ],
+      "description": "Resizable component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
+      }
+    },
+    {
       "name": "Result",
       "category": "organisms",
       "path": "src/components/organisms/Result",
@@ -2069,6 +2263,22 @@
           "chart.js",
           "react-chartjs-2"
         ]
+      }
+    },
+    {
+      "name": "ScrollArea",
+      "category": "atoms",
+      "path": "src/components/atoms/ScrollArea",
+      "files": [
+        "ScrollArea.tsx",
+        "ScrollBar.tsx",
+        "index.ts"
+      ],
+      "subComponents": [],
+      "description": "ScrollArea component from FT Design System",
+      "dependencies": {
+        "internal": [],
+        "peer": []
       }
     },
     {
@@ -2141,6 +2351,50 @@
         "peer": [
           "@radix-ui/react-select"
         ]
+      }
+    },
+    {
+      "name": "Sidebar",
+      "category": "organisms",
+      "path": "src/components/organisms/Sidebar",
+      "files": [
+        "Sidebar.tsx",
+        "SidebarContent.tsx",
+        "SidebarContext.tsx",
+        "SidebarFooter.tsx",
+        "SidebarGroup.tsx",
+        "SidebarGroupLabel.tsx",
+        "SidebarHeader.tsx",
+        "SidebarInset.tsx",
+        "SidebarMenu.tsx",
+        "SidebarMenuButton.tsx",
+        "SidebarMenuItem.tsx",
+        "SidebarProvider.tsx",
+        "SidebarRail.tsx",
+        "SidebarSeparator.tsx",
+        "SidebarTrigger.tsx",
+        "index.ts"
+      ],
+      "subComponents": [
+        "SidebarContent",
+        "SidebarContext",
+        "SidebarFooter",
+        "SidebarGroup",
+        "SidebarGroupLabel",
+        "SidebarHeader",
+        "SidebarInset",
+        "SidebarMenu",
+        "SidebarMenuButton",
+        "SidebarMenuItem",
+        "SidebarProvider",
+        "SidebarRail",
+        "SidebarSeparator",
+        "SidebarTrigger"
+      ],
+      "description": "Sidebar component props",
+      "dependencies": {
+        "internal": [],
+        "peer": []
       }
     },
     {
@@ -2860,8 +3114,10 @@
     }
   ],
   "componentIndex": {
+    "accordion": "Accordion",
     "affix": "Affix",
     "alert": "Alert",
+    "alertdialog": "AlertDialog",
     "anchor": "Anchor",
     "appheader": "AppHeader",
     "areachart": "AreaChart",
@@ -2885,7 +3141,9 @@
     "collapsible": "Collapsible",
     "colorpicker": "ColorPicker",
     "colors": "Colors",
+    "command": "Command",
     "content": "Content",
+    "contextmenu": "ContextMenu",
     "dataentrytable": "DataEntryTable",
     "datepicker": "DatePicker",
     "descriptions": "Descriptions",
@@ -2917,6 +3175,7 @@
     "image": "Image",
     "input": "Input",
     "inputnumber": "InputNumber",
+    "inputotp": "InputOTP",
     "label": "Label",
     "linechart": "LineChart",
     "list": "List",
@@ -2936,6 +3195,7 @@
     "piechart": "PieChart",
     "polarareachart": "PolarAreaChart",
     "popconfirm": "Popconfirm",
+    "popover": "Popover",
     "progressbar": "ProgressBar",
     "progresslist": "ProgressList",
     "quickfilters": "QuickFilters",
@@ -2945,10 +3205,13 @@
     "radioselector": "RadioSelector",
     "rate": "Rate",
     "readonly": "ReadOnly",
+    "resizable": "Resizable",
     "result": "Result",
     "scatterchart": "ScatterChart",
+    "scrollarea": "ScrollArea",
     "segmentedtabs": "SegmentedTabs",
     "select": "Select",
+    "sidebar": "Sidebar",
     "simplecolumnlayout": "SimpleColumnLayout",
     "skeleton": "Skeleton",
     "slider": "Slider",

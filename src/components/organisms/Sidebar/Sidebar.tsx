@@ -116,7 +116,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
             ? 'var(--sidebar-width)'
             : resolvedCollapsible === 'icon'
               ? 'var(--sidebar-width-collapsed)'
-              : '0px',
+              : '0',
         }}
       >
         <div
@@ -139,7 +139,7 @@ export const Sidebar = React.forwardRef<HTMLDivElement, SidebarProps>(
               ? 'var(--sidebar-width)'
               : resolvedCollapsible === 'icon'
                 ? 'var(--sidebar-width-collapsed)'
-                : '0px',
+                : '0',
           }}
           {...props}
         >

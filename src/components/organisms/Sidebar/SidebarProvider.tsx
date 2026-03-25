@@ -88,6 +88,7 @@ export const SidebarProvider = React.forwardRef<HTMLDivElement, SidebarProviderP
     useEffect(() => {
       if (typeof window === 'undefined') return;
 
+      // ft-consistency-ignore: breakpoint threshold for mobile detection (not a CSS token)
       const mql = window.matchMedia('(max-width: 767px)');
       const handleChange = () => setIsMobile(mql.matches);
       handleChange();

@@ -22,7 +22,7 @@ export const CommandList = forwardRef<
     ref={ref}
     data-slot="command-list"
     className={cn(
-      "max-h-[300px] overflow-y-auto overflow-x-hidden",
+      "max-h-[var(--spacing-x20,18.75rem)] overflow-y-auto overflow-x-hidden",
       "p-[var(--spacing-x1)]",
       className
     )}
