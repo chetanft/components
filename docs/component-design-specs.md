@@ -1,7 +1,7 @@
 # FT Design System - Component Design Specifications
 
 > Auto-generated from `src/styles/globals.css` + `registry.json`.
-> Version: 5.0.1 | Generated: 2026-03-25T10:34:14.261Z
+> Version: 5.0.1 | Generated: 2026-03-25T10:38:06.259Z
 
 ---
 
@@ -123,10 +123,10 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 
 ## Component Coverage
 
-- Total: **125**
-- Atoms: **26**
-- Molecules: **57**
-- Organisms: **24**
+- Total: **134**
+- Atoms: **28**
+- Molecules: **63**
+- Organisms: **25**
 - Charts: **16**
 - Templates: **2**
 
@@ -143,10 +143,12 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 - **Icons**
 - **Illustration**
 - **Input** (sub: 8)
+- **InputOTP** (sub: 3)
 - **Label**
 - **Logos**
 - **RadioGroup** (sub: 5)
 - **ReadOnly**
+- **ScrollArea**
 - **Select**
 - **Skeleton** (sub: 2)
 - **Spacer**
@@ -161,8 +163,10 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 
 ### Molecules
 
+- **Accordion** (sub: 3)
 - **Affix**
 - **Alert** (sub: 6)
+- **AlertDialog** (sub: 8)
 - **Anchor**
 - **BackTop**
 - **Breadcrumb** (sub: 5)
@@ -172,7 +176,9 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 - **Cascader**
 - **Chicklet**
 - **ColorPicker**
+- **Command** (sub: 8)
 - **Content**
+- **ContextMenu** (sub: 12)
 - **DatePicker** (sub: 4)
 - **Descriptions** (sub: 5)
 - **Dropdown** (sub: 3)
@@ -195,10 +201,12 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 - **Pagination** (sub: 9)
 - **PercentageOfChargeInput**
 - **Popconfirm** (sub: 8)
+- **Popover** (sub: 4)
 - **ProgressBar**
 - **ProgressList**
 - **RadioSelector**
 - **Rate** (sub: 3)
+- **Resizable** (sub: 3)
 - **SegmentedTabs**
 - **Select** (sub: 9)
 - **SimpleColumnLayout**
@@ -239,6 +247,7 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 - **PageHeader** (sub: 2)
 - **QuickFilters**
 - **Result** (sub: 4)
+- **Sidebar** (sub: 14)
 - **Table** (sub: 13)
 - **Tabs** (sub: 4)
 - **Upload** (sub: 3)
@@ -275,12 +284,20 @@ For variant-level drift and regression checks, use `npm run check:consistency` a
 > Auto-detected from source variant/config objects (`cva variants` and `*Styles/*Variants/*Map` patterns).
 > This is best-effort static extraction and may omit runtime-computed classes.
 
-Coverage: **125 / 125 components listed**
+Coverage: **134 / 134 components listed**
 - Manual-override: **84**
 - Variant-detected: **23**
-- Fallback-default: **1**
+- Fallback-default: **10**
 - No-token-match: **17**
 - Missing-path: **0**
+
+### Accordion (molecules)
+
+Status: `fallback-default`
+
+| Source | Dimension | Variant | Tokens |
+|---|---|---|---|
+| src/components/molecules/Accordion/AccordionContent.tsx | base | default | `--border-primary`, `--primary`, `--secondary`, `--spacing-x2`, `--spacing-x4` |
 
 ### Affix (molecules)
 
@@ -300,6 +317,14 @@ Status: `variant-detected`
 | src/components/molecules/Alert/Alert.tsx | variant | info | `--neutral`, `--neutral-dark`, `--neutral-light` |
 | src/components/molecules/Alert/Alert.tsx | variant | success | `--positive`, `--positive-dark`, `--positive-light` |
 | src/components/molecules/Alert/Alert.tsx | variant | warning | `--warning`, `--warning-dark`, `--warning-light` |
+
+### AlertDialog (molecules)
+
+Status: `fallback-default`
+
+| Source | Dimension | Variant | Tokens |
+|---|---|---|---|
+| src/components/molecules/AlertDialog/AlertDialogAction.tsx | base | default | `--bg-primary`, `--bg-secondary`, `--border-primary`, `--border-secondary`, `--critical`, `--critical-dark`, `--font-size-sm-rem`, `--font-size-xl-rem`, `--primary`, `--radius-lg`, `--shadow-xl`, `--spacing-x1`, `--spacing-x2`, `--spacing-x4`, `--spacing-x6`, `--tertiary` |
 
 ### Anchor (molecules)
 
@@ -531,6 +556,14 @@ Status: `manual-override`
 |---|---|---|---|
 | src/components/atoms/Colors/Colors.tsx | base | default | `--bg-primary`, `--bg-secondary`, `--overlay-control-text`, `--primary`, `--spacing-x1`, `--spacing-x3`, `--spacing-x4`, `--spacing-x6`, `--spacing-x8`, `text-3_5xl-rem`, `text-xxs-rem` |
 
+### Command (molecules)
+
+Status: `fallback-default`
+
+| Source | Dimension | Variant | Tokens |
+|---|---|---|---|
+| src/components/molecules/Command/Command.tsx | base | default | `--bg-primary`, `--bg-secondary`, `--border-primary`, `--font-size-sm-rem`, `--radius-lg`, `--radius-md`, `--secondary`, `--shadow-xl`, `--spacing-x1`, `--spacing-x1-5`, `--spacing-x10`, `--spacing-x2`, `--spacing-x3`, `--spacing-x6`, `--text-primary`, `--text-tertiary` |
+
 ### Content (molecules)
 
 Status: `manual-override`
@@ -538,6 +571,14 @@ Status: `manual-override`
 | Source | Dimension | Variant | Tokens |
 |---|---|---|---|
 | src/components/molecules/Content/Content.tsx | base | default | `--spacing-x1` |
+
+### ContextMenu (molecules)
+
+Status: `fallback-default`
+
+| Source | Dimension | Variant | Tokens |
+|---|---|---|---|
+| src/components/molecules/ContextMenu/ContextMenuCheckboxItem.tsx | base | default | `--bg-primary`, `--bg-secondary`, `--border-secondary`, `--primary`, `--radius-md`, `--radius-sm`, `--spacing-x1`, `--spacing-x1-5`, `--spacing-x2`, `--spacing-x8`, `--tertiary` |
 
 ### DataEntryTable (organisms)
 
@@ -930,6 +971,14 @@ Status: `variant-detected`
 | src/components/molecules/InputNumber/InputNumberField.tsx | size | xxl | `--spacing-x7`, `text-lg-rem` |
 | src/components/molecules/InputNumber/InputNumberField.tsx | size | xxs | `--spacing-x1-5`, `text-xs-rem` |
 
+### InputOTP (atoms)
+
+Status: `fallback-default`
+
+| Source | Dimension | Variant | Tokens |
+|---|---|---|---|
+| src/components/atoms/InputOTP/InputOTPSeparator.tsx | base | default | `--border-primary`, `--primary`, `--text-secondary` |
+
 ### Label (atoms)
 
 Status: `manual-override`
@@ -1087,6 +1136,14 @@ Status: `manual-override`
 |---|---|---|---|
 | src/components/molecules/Popconfirm/PopconfirmActions.tsx | base | default | `--color-bg-primary`, `--color-border-secondary`, `--color-warning`, `--radius-md`, `--shadow-lg`, `--spacing-x0-5`, `--spacing-x1-5`, `--spacing-x10`, `--spacing-x2`, `--spacing-x4`, `--spacing-x5` |
 
+### Popover (molecules)
+
+Status: `fallback-default`
+
+| Source | Dimension | Variant | Tokens |
+|---|---|---|---|
+| src/components/molecules/Popover/PopoverArrow.tsx | base | default | `--bg-primary`, `--bg-secondary`, `--border-secondary`, `--neutral`, `--primary`, `--radius-md`, `--radius-sm`, `--spacing-x2`, `--spacing-x20`, `--spacing-x4`, `--spacing-x7`, `--tertiary`, `--transition-fast` |
+
 ### ProgressBar (molecules)
 
 Status: `variant-detected`
@@ -1167,6 +1224,14 @@ Status: `manual-override`
 |---|---|---|---|
 | src/components/atoms/ReadOnly/ReadOnly.tsx | base | default | `--secondary`, `--spacing-x0-5`, `--spacing-x1`, `--spacing-x2`, `--spacing-x2-5`, `--spacing-x4` |
 
+### Resizable (molecules)
+
+Status: `fallback-default`
+
+| Source | Dimension | Variant | Tokens |
+|---|---|---|---|
+| src/components/molecules/Resizable/ResizableHandle.tsx | base | default | `--border-primary`, `--primary`, `--secondary` |
+
 ### Result (organisms)
 
 Status: `manual-override`
@@ -1183,6 +1248,14 @@ Status: `no-token-match`
 | Source | Dimension | Variant | Tokens |
 |---|---|---|---|
 | src/components/charts/ScatterChart.tsx | base | default | _none detected_ |
+
+### ScrollArea (atoms)
+
+Status: `fallback-default`
+
+| Source | Dimension | Variant | Tokens |
+|---|---|---|---|
+| src/components/atoms/ScrollArea/ScrollBar.tsx | base | default | `--border-primary` |
 
 ### SegmentedTabs (molecules)
 
@@ -1220,6 +1293,14 @@ Status: `variant-detected`
 | src/components/molecules/Select/SelectValue.tsx | fontSize | xs | `text-xs-rem` |
 | src/components/molecules/Select/SelectValue.tsx | fontSize | xxl | `text-lg-rem` |
 | src/components/molecules/Select/SelectValue.tsx | fontSize | xxs | `text-xs-rem` |
+
+### Sidebar (organisms)
+
+Status: `fallback-default`
+
+| Source | Dimension | Variant | Tokens |
+|---|---|---|---|
+| src/components/organisms/Sidebar/Sidebar.tsx | base | default | `--bg-secondary`, `--bg-tertiary`, `--border-primary`, `--border-secondary`, `--ring-primary`, `--shadow-xl`, `--sidebar-width`, `--sidebar-width-collapsed`, `--text-primary`, `--text-secondary`, `--text-tertiary` |
 
 ### SimpleColumnLayout (molecules)
 

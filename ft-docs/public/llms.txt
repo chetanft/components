@@ -144,10 +144,10 @@ colors: /colors?view=machine
 charts: /charts/<chart>?view=machine
 
 ## COMPONENT COUNT
-total: 125
-atoms: 26
-molecules: 57
-organisms: 24
+total: 134
+atoms: 28
+molecules: 63
+organisms: 25
 charts: 16
 
 ## QUICK EXAMPLES

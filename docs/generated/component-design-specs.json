@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-03-25T10:34:14.261Z",
+  "generatedAt": "2026-03-25T10:38:06.259Z",
   "version": "5.0.1",
   "summary": {
-    "total": 125,
-    "atoms": 26,
-    "molecules": 57,
-    "organisms": 24,
+    "total": 134,
+    "atoms": 28,
+    "molecules": 63,
+    "organisms": 25,
     "charts": 16,
     "templates": 2
   },
@@ -119,6 +119,26 @@
       "radius-full": "9999px"
     },
     "componentVariantTokens": {
+      "molecules/Accordion": {
+        "rows": [
+          {
+            "source": "src/components/molecules/Accordion/AccordionContent.tsx",
+            "dimension": "base",
+            "variant": "default",
+            "tokens": [
+              "--border-primary",
+              "--primary",
+              "--secondary",
+              "--spacing-x2",
+              "--spacing-x4"
+            ],
+            "detector": "fallback.file"
+          }
+        ],
+        "status": "fallback-default",
+        "name": "Accordion",
+        "category": "molecules"
+      },
       "molecules/Affix": {
         "rows": [
           {
@@ -181,6 +201,37 @@
         ],
         "status": "variant-detected",
         "name": "Alert",
+        "category": "molecules"
+      },
+      "molecules/AlertDialog": {
+        "rows": [
+          {
+            "source": "src/components/molecules/AlertDialog/AlertDialogAction.tsx",
+            "dimension": "base",
+            "variant": "default",
+            "tokens": [
+              "--bg-primary",
+              "--bg-secondary",
+              "--border-primary",
+              "--border-secondary",
+              "--critical",
+              "--critical-dark",
+              "--font-size-sm-rem",
+              "--font-size-xl-rem",
+              "--primary",
+              "--radius-lg",
+              "--shadow-xl",
+              "--spacing-x1",
+              "--spacing-x2",
+              "--spacing-x4",
+              "--spacing-x6",
+              "--tertiary"
+            ],
+            "detector": "fallback.file"
+          }
+        ],
+        "status": "fallback-default",
+        "name": "AlertDialog",
         "category": "molecules"
       },
       "molecules/Anchor": {
@@ -1170,6 +1221,37 @@
         "name": "Colors",
         "category": "atoms"
       },
+      "molecules/Command": {
+        "rows": [
+          {
+            "source": "src/components/molecules/Command/Command.tsx",
+            "dimension": "base",
+            "variant": "default",
+            "tokens": [
+              "--bg-primary",
+              "--bg-secondary",
+              "--border-primary",
+              "--font-size-sm-rem",
+              "--radius-lg",
+              "--radius-md",
+              "--secondary",
+              "--shadow-xl",
+              "--spacing-x1",
+              "--spacing-x1-5",
+              "--spacing-x10",
+              "--spacing-x2",
+              "--spacing-x3",
+              "--spacing-x6",
+              "--text-primary",
+              "--text-tertiary"
+            ],
+            "detector": "fallback.file"
+          }
+        ],
+        "status": "fallback-default",
+        "name": "Command",
+        "category": "molecules"
+      },
       "molecules/Content": {
         "rows": [
           {
@@ -1184,6 +1266,32 @@
         ],
         "status": "manual-override",
         "name": "Content",
+        "category": "molecules"
+      },
+      "molecules/ContextMenu": {
+        "rows": [
+          {
+            "source": "src/components/molecules/ContextMenu/ContextMenuCheckboxItem.tsx",
+            "dimension": "base",
+            "variant": "default",
+            "tokens": [
+              "--bg-primary",
+              "--bg-secondary",
+              "--border-secondary",
+              "--primary",
+              "--radius-md",
+              "--radius-sm",
+              "--spacing-x1",
+              "--spacing-x1-5",
+              "--spacing-x2",
+              "--spacing-x8",
+              "--tertiary"
+            ],
+            "detector": "fallback.file"
+          }
+        ],
+        "status": "fallback-default",
+        "name": "ContextMenu",
         "category": "molecules"
       },
       "organisms/DataEntryTable": {
@@ -3114,6 +3222,24 @@
         "name": "InputNumber",
         "category": "molecules"
       },
+      "atoms/InputOTP": {
+        "rows": [
+          {
+            "source": "src/components/atoms/InputOTP/InputOTPSeparator.tsx",
+            "dimension": "base",
+            "variant": "default",
+            "tokens": [
+              "--border-primary",
+              "--primary",
+              "--text-secondary"
+            ],
+            "detector": "fallback.file"
+          }
+        ],
+        "status": "fallback-default",
+        "name": "InputOTP",
+        "category": "atoms"
+      },
       "atoms/Label": {
         "rows": [
           {
@@ -3627,6 +3753,34 @@
         "name": "Popconfirm",
         "category": "molecules"
       },
+      "molecules/Popover": {
+        "rows": [
+          {
+            "source": "src/components/molecules/Popover/PopoverArrow.tsx",
+            "dimension": "base",
+            "variant": "default",
+            "tokens": [
+              "--bg-primary",
+              "--bg-secondary",
+              "--border-secondary",
+              "--neutral",
+              "--primary",
+              "--radius-md",
+              "--radius-sm",
+              "--spacing-x2",
+              "--spacing-x20",
+              "--spacing-x4",
+              "--spacing-x7",
+              "--tertiary",
+              "--transition-fast"
+            ],
+            "detector": "fallback.file"
+          }
+        ],
+        "status": "fallback-default",
+        "name": "Popover",
+        "category": "molecules"
+      },
       "molecules/ProgressBar": {
         "rows": [
           {
@@ -3902,6 +4056,24 @@
         "name": "ReadOnly",
         "category": "atoms"
       },
+      "molecules/Resizable": {
+        "rows": [
+          {
+            "source": "src/components/molecules/Resizable/ResizableHandle.tsx",
+            "dimension": "base",
+            "variant": "default",
+            "tokens": [
+              "--border-primary",
+              "--primary",
+              "--secondary"
+            ],
+            "detector": "fallback.file"
+          }
+        ],
+        "status": "fallback-default",
+        "name": "Resizable",
+        "category": "molecules"
+      },
       "organisms/Result": {
         "rows": [
           {
@@ -3948,6 +4120,22 @@
         "status": "no-token-match",
         "name": "ScatterChart",
         "category": "charts"
+      },
+      "atoms/ScrollArea": {
+        "rows": [
+          {
+            "source": "src/components/atoms/ScrollArea/ScrollBar.tsx",
+            "dimension": "base",
+            "variant": "default",
+            "tokens": [
+              "--border-primary"
+            ],
+            "detector": "fallback.file"
+          }
+        ],
+        "status": "fallback-default",
+        "name": "ScrollArea",
+        "category": "atoms"
       },
       "molecules/SegmentedTabs": {
         "rows": [
@@ -4151,6 +4339,32 @@
         "status": "variant-detected",
         "name": "Select",
         "category": "molecules"
+      },
+      "organisms/Sidebar": {
+        "rows": [
+          {
+            "source": "src/components/organisms/Sidebar/Sidebar.tsx",
+            "dimension": "base",
+            "variant": "default",
+            "tokens": [
+              "--bg-secondary",
+              "--bg-tertiary",
+              "--border-primary",
+              "--border-secondary",
+              "--ring-primary",
+              "--shadow-xl",
+              "--sidebar-width",
+              "--sidebar-width-collapsed",
+              "--text-primary",
+              "--text-secondary",
+              "--text-tertiary"
+            ],
+            "detector": "fallback.file"
+          }
+        ],
+        "status": "fallback-default",
+        "name": "Sidebar",
+        "category": "organisms"
       },
       "molecules/SimpleColumnLayout": {
         "rows": [
@@ -5649,6 +5863,28 @@
         }
       },
       {
+        "name": "InputOTP",
+        "category": "atoms",
+        "path": "src/components/atoms/InputOTP",
+        "files": [
+          "InputOTP.tsx",
+          "InputOTPGroup.tsx",
+          "InputOTPSeparator.tsx",
+          "InputOTPSlot.tsx",
+          "index.ts"
+        ],
+        "subComponents": [
+          "InputOTPGroup",
+          "InputOTPSeparator",
+          "InputOTPSlot"
+        ],
+        "description": "InputOTP component from FT Design System",
+        "dependencies": {
+          "internal": [],
+          "peer": []
+        }
+      },
+      {
         "name": "Label",
         "category": "atoms",
         "path": "src/components/atoms/Label",
@@ -5690,7 +5926,8 @@
           "ShakthiLogisticsLogo.tsx",
           "TVSLogo.tsx",
           "TataMotorsLogo.tsx",
-          "index.ts"
+          "index.ts",
+          "resolveImageSrc.ts"
         ],
         "subComponents": [],
         "description": "Logos component from FT Design System",
@@ -5742,6 +5979,22 @@
         ],
         "subComponents": [],
         "description": "Layout type",
+        "dependencies": {
+          "internal": [],
+          "peer": []
+        }
+      },
+      {
+        "name": "ScrollArea",
+        "category": "atoms",
+        "path": "src/components/atoms/ScrollArea",
+        "files": [
+          "ScrollArea.tsx",
+          "ScrollBar.tsx",
+          "index.ts"
+        ],
+        "subComponents": [],
+        "description": "ScrollArea component from FT Design System",
         "dependencies": {
           "internal": [],
           "peer": []
@@ -5961,6 +6214,28 @@
     ],
     "molecules": [
       {
+        "name": "Accordion",
+        "category": "molecules",
+        "path": "src/components/molecules/Accordion",
+        "files": [
+          "Accordion.tsx",
+          "AccordionContent.tsx",
+          "AccordionItem.tsx",
+          "AccordionTrigger.tsx",
+          "index.ts"
+        ],
+        "subComponents": [
+          "AccordionContent",
+          "AccordionItem",
+          "AccordionTrigger"
+        ],
+        "description": "Accordion component from FT Design System",
+        "dependencies": {
+          "internal": [],
+          "peer": []
+        }
+      },
+      {
         "name": "Affix",
         "category": "molecules",
         "path": "src/components/molecules/Affix",
@@ -6003,6 +6278,38 @@
             "Button",
             "Icon"
           ],
+          "peer": []
+        }
+      },
+      {
+        "name": "AlertDialog",
+        "category": "molecules",
+        "path": "src/components/molecules/AlertDialog",
+        "files": [
+          "AlertDialog.tsx",
+          "AlertDialogAction.tsx",
+          "AlertDialogCancel.tsx",
+          "AlertDialogContent.tsx",
+          "AlertDialogDescription.tsx",
+          "AlertDialogFooter.tsx",
+          "AlertDialogHeader.tsx",
+          "AlertDialogTitle.tsx",
+          "AlertDialogTrigger.tsx",
+          "index.ts"
+        ],
+        "subComponents": [
+          "AlertDialogAction",
+          "AlertDialogCancel",
+          "AlertDialogContent",
+          "AlertDialogDescription",
+          "AlertDialogFooter",
+          "AlertDialogHeader",
+          "AlertDialogTitle",
+          "AlertDialogTrigger"
+        ],
+        "description": "AlertDialog component props",
+        "dependencies": {
+          "internal": [],
           "peer": []
         }
       },
@@ -6161,6 +6468,38 @@
         }
       },
       {
+        "name": "Command",
+        "category": "molecules",
+        "path": "src/components/molecules/Command",
+        "files": [
+          "Command.tsx",
+          "CommandDialog.tsx",
+          "CommandEmpty.tsx",
+          "CommandGroup.tsx",
+          "CommandInput.tsx",
+          "CommandItem.tsx",
+          "CommandList.tsx",
+          "CommandSeparator.tsx",
+          "CommandShortcut.tsx",
+          "index.ts"
+        ],
+        "subComponents": [
+          "CommandDialog",
+          "CommandEmpty",
+          "CommandGroup",
+          "CommandInput",
+          "CommandItem",
+          "CommandList",
+          "CommandSeparator",
+          "CommandShortcut"
+        ],
+        "description": "Command Component",
+        "dependencies": {
+          "internal": [],
+          "peer": []
+        }
+      },
+      {
         "name": "Content",
         "category": "molecules",
         "path": "src/components/molecules/Content",
@@ -6169,6 +6508,46 @@
         ],
         "subComponents": [],
         "description": "Content type - only \"Text\" variant as shown in Figma",
+        "dependencies": {
+          "internal": [],
+          "peer": []
+        }
+      },
+      {
+        "name": "ContextMenu",
+        "category": "molecules",
+        "path": "src/components/molecules/ContextMenu",
+        "files": [
+          "ContextMenu.tsx",
+          "ContextMenuCheckboxItem.tsx",
+          "ContextMenuContent.tsx",
+          "ContextMenuItem.tsx",
+          "ContextMenuLabel.tsx",
+          "ContextMenuRadioGroup.tsx",
+          "ContextMenuRadioItem.tsx",
+          "ContextMenuSeparator.tsx",
+          "ContextMenuShortcut.tsx",
+          "ContextMenuSub.tsx",
+          "ContextMenuSubContent.tsx",
+          "ContextMenuSubTrigger.tsx",
+          "ContextMenuTrigger.tsx",
+          "index.ts"
+        ],
+        "subComponents": [
+          "ContextMenuCheckboxItem",
+          "ContextMenuContent",
+          "ContextMenuItem",
+          "ContextMenuLabel",
+          "ContextMenuRadioGroup",
+          "ContextMenuRadioItem",
+          "ContextMenuSeparator",
+          "ContextMenuShortcut",
+          "ContextMenuSub",
+          "ContextMenuSubContent",
+          "ContextMenuSubTrigger",
+          "ContextMenuTrigger"
+        ],
+        "description": "ContextMenu Component",
         "dependencies": {
           "internal": [],
           "peer": []
@@ -6663,6 +7042,30 @@
         }
       },
       {
+        "name": "Popover",
+        "category": "molecules",
+        "path": "src/components/molecules/Popover",
+        "files": [
+          "Popover.tsx",
+          "PopoverArrow.tsx",
+          "PopoverClose.tsx",
+          "PopoverContent.tsx",
+          "PopoverTrigger.tsx",
+          "index.ts"
+        ],
+        "subComponents": [
+          "PopoverArrow",
+          "PopoverClose",
+          "PopoverContent",
+          "PopoverTrigger"
+        ],
+        "description": "Popover content (composable sub-components)",
+        "dependencies": {
+          "internal": [],
+          "peer": []
+        }
+      },
+      {
         "name": "ProgressBar",
         "category": "molecules",
         "path": "src/components/molecules/ProgressBar",
@@ -6728,6 +7131,27 @@
           "internal": [
             "Icon"
           ],
+          "peer": []
+        }
+      },
+      {
+        "name": "Resizable",
+        "category": "molecules",
+        "path": "src/components/molecules/Resizable",
+        "files": [
+          "ResizableHandle.tsx",
+          "ResizablePanel.tsx",
+          "ResizablePanelGroup.tsx",
+          "index.ts"
+        ],
+        "subComponents": [
+          "ResizableHandle",
+          "ResizablePanel",
+          "ResizablePanelGroup"
+        ],
+        "description": "Resizable component from FT Design System",
+        "dependencies": {
+          "internal": [],
           "peer": []
         }
       },
@@ -7571,6 +7995,50 @@
             "Button",
             "Icon"
           ],
+          "peer": []
+        }
+      },
+      {
+        "name": "Sidebar",
+        "category": "organisms",
+        "path": "src/components/organisms/Sidebar",
+        "files": [
+          "Sidebar.tsx",
+          "SidebarContent.tsx",
+          "SidebarContext.tsx",
+          "SidebarFooter.tsx",
+          "SidebarGroup.tsx",
+          "SidebarGroupLabel.tsx",
+          "SidebarHeader.tsx",
+          "SidebarInset.tsx",
+          "SidebarMenu.tsx",
+          "SidebarMenuButton.tsx",
+          "SidebarMenuItem.tsx",
+          "SidebarProvider.tsx",
+          "SidebarRail.tsx",
+          "SidebarSeparator.tsx",
+          "SidebarTrigger.tsx",
+          "index.ts"
+        ],
+        "subComponents": [
+          "SidebarContent",
+          "SidebarContext",
+          "SidebarFooter",
+          "SidebarGroup",
+          "SidebarGroupLabel",
+          "SidebarHeader",
+          "SidebarInset",
+          "SidebarMenu",
+          "SidebarMenuButton",
+          "SidebarMenuItem",
+          "SidebarProvider",
+          "SidebarRail",
+          "SidebarSeparator",
+          "SidebarTrigger"
+        ],
+        "description": "Sidebar component props",
+        "dependencies": {
+          "internal": [],
           "peer": []
         }
       },
