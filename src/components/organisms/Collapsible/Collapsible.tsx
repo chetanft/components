@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from 'react';
+import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
 import { cn } from '../../../lib/utils';
 import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
-import { Slot, type ComposableProps } from '../../../lib/slot';
 import { CollapsibleProvider } from './CollapsibleContext';
 
-export interface CollapsibleProps extends Omit<ComposableProps<'div'>, 'onChange' | 'onToggle'> {
+export interface CollapsibleProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'onChange' | 'onToggle'> {
   /**
    * Collapsible content (composable API)
    */
@@ -37,6 +37,10 @@ export interface CollapsibleProps extends Omit<ComposableProps<'div'>, 'onChange
    * Apply glassmorphism effect to the collapsible surface
    */
   glass?: GlassVariant;
+  /**
+   * Render as child element (slot pattern)
+   */
+  asChild?: boolean;
 }
 
 /**
@@ -44,6 +48,7 @@ export interface CollapsibleProps extends Omit<ComposableProps<'div'>, 'onChange
  *
  * A versatile collapsible component for showing/hiding content.
  * Uses a composable API with sub-components for maximum flexibility.
+ * Built on Radix UI Collapsible primitives for full accessibility.
  *
  * @public
  *
@@ -74,25 +79,27 @@ export const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(({
   children,
   disabled,
   className,
-  asChild,
+  asChild: _asChild,
   bg = 'Secondary',
   type = 'Primary',
   glass,
   isExpanded: controlledIsExpanded,
   onToggle,
   ...props
-}, _ref) => {
+}, ref) => {
   const resolvedGlass = useResolvedGlass(glass);
   const [internalIsExpanded, setInternalIsExpanded] = useState(false);
+
+  const isControlled = controlledIsExpanded !== undefined;
   const isExpanded = controlledIsExpanded ?? internalIsExpanded;
 
-  const handleToggle = () => {
+  const handleOpenChange = (open: boolean) => {
     if (disabled) return;
-    const newValue = !isExpanded;
     if (onToggle) {
-      onToggle(newValue);
-    } else {
-      setInternalIsExpanded(newValue);
+      onToggle(open);
+    }
+    if (!isControlled) {
+      setInternalIsExpanded(open);
     }
   };
 
@@ -116,34 +123,27 @@ export const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(({
     className
   );
 
-  const wrappedChildren = asChild ? (
-    <Slot
-      ref={undefined}
-      className={combinedClassName}
-      {...(props as any)}
-    >
-      {children}
-    </Slot>
-  ) : (
-    <div
-      className={combinedClassName}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-
   return (
     <CollapsibleProvider
       value={{
         isExpanded,
-        onToggle: handleToggle,
+        onToggle: () => handleOpenChange(!isExpanded),
         disabled,
         type,
         bg,
       }}
     >
-      {wrappedChildren}
+      <CollapsiblePrimitive.Root
+        ref={ref}
+        data-slot="collapsible"
+        open={isExpanded}
+        onOpenChange={handleOpenChange}
+        disabled={disabled}
+        className={combinedClassName}
+        {...props}
+      >
+        {children}
+      </CollapsiblePrimitive.Root>
     </CollapsibleProvider>
   );
 });

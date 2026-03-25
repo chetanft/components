@@ -1,15 +1,23 @@
 "use client";
 
 import React from 'react';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useTooltipContext } from './TooltipContext';
 
-export interface TooltipArrowProps extends ComposableProps<'div'> {
+export interface TooltipArrowProps {
   /**
    * Custom arrow content (optional)
    */
   children?: React.ReactNode;
+  /**
+   * Additional CSS classes.
+   */
+  className?: string;
+  /**
+   * Merge props onto the child element instead of wrapping.
+   */
+  asChild?: boolean;
 }
 
 /**
@@ -32,57 +40,25 @@ export interface TooltipArrowProps extends ComposableProps<'div'> {
  * ```
  *
  * @remarks
- * - Wraps the HTML `<div>` element by default.
- * - Supports `asChild` prop to merge props with a custom child element.
- * - Automatically styled and positioned based on Tooltip context.
+ * - Uses Radix Tooltip.Arrow primitive for automatic positioning.
+ * - Automatically styled based on the Tooltip color context.
  */
 export const TooltipArrow = React.forwardRef<HTMLDivElement, TooltipArrowProps>(
-  ({ className, children, asChild, ...props }, ref) => {
-    const { placement, align, color } = useTooltipContext();
-    
-    const tipBaseClasses = 'absolute w-0 h-0 border-[var(--spacing-x1)] border-transparent';
-    
-    const tipPlacementClasses = {
-      top: cn(
-        tipBaseClasses,
-        'bottom-[-var(--spacing-x1)] border-b-0',
-        color === 'white' ? 'border-t-[var(--color-bg-primary)]' : 'border-t-[var(--color-primary)]'
-      ),
-      bottom: cn(
-        tipBaseClasses,
-        'top-[-var(--spacing-x1)] border-t-0',
-        color === 'white' ? 'border-b-surface' : 'border-b-primary'
-      ),
-      left: cn(
-        tipBaseClasses,
-        'right-[-var(--spacing-x1)] border-r-0',
-        color === 'white' ? 'border-l-surface' : 'border-l-primary'
-      ),
-      right: cn(
-        tipBaseClasses,
-        'left-[-var(--spacing-x1)] border-l-0',
-        color === 'white' ? 'border-r-surface' : 'border-r-primary'
-      ),
-    };
-    
-    const tipAlignClasses = {
-      start: placement === 'top' || placement === 'bottom' ? 'left-[var(--spacing-x4)]' : 'top-[var(--spacing-x4)]',
-      center: placement === 'top' || placement === 'bottom' ? 'left-1/2 -translate-x-1/2' : 'top-1/2 -translate-y-1/2',
-      end: placement === 'top' || placement === 'bottom' ? 'right-[var(--spacing-x4)] left-auto' : 'bottom-[var(--spacing-x4)] top-auto',
-    };
-    
-    const Comp = asChild ? Slot : 'div';
+  ({ className, children: _children, asChild: _asChild }, ref) => {
+    const { color } = useTooltipContext();
+
     return (
-      <Comp
-        ref={ref}
-        className={cn(tipPlacementClasses[placement], tipAlignClasses[align], className)}
-        {...props}
-      >
-        {children}
-      </Comp>
+      <TooltipPrimitive.Arrow
+        ref={ref as React.Ref<SVGSVGElement>}
+        className={cn(
+          color === 'white' ? 'fill-[var(--bg-primary)]' : 'fill-[var(--primary)]',
+          className
+        )}
+        width={10}
+        height={5}
+      />
     );
   }
 );
 
 TooltipArrow.displayName = 'TooltipArrow';
-

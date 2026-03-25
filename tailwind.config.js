@@ -1,4 +1,4 @@
-import colors from 'tailwindcss/colors';
+import tailwindAnimate from 'tailwindcss-animate';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -143,6 +143,7 @@ export default {
     'glass',
     'glass-subtle',
     'glass-prominent',
+    'glass-liquid',
     'backdrop-blur-glass-sm',
     'backdrop-blur-glass',
     'backdrop-blur-glass-lg',
@@ -237,6 +238,39 @@ export default {
           300: 'var(--danger-300)',
           200: 'var(--danger-200)',
           100: 'var(--danger-100)',
+        },
+
+        // CHART COLOR FAMILIES
+        teal: {
+          950: 'var(--teal-950)', 900: 'var(--teal-900)', 800: 'var(--teal-800)',
+          700: 'var(--teal-700)', 600: 'var(--teal-600)', 500: 'var(--teal-500)',
+          400: 'var(--teal-400)', 300: 'var(--teal-300)', 200: 'var(--teal-200)',
+          100: 'var(--teal-100)', 50: 'var(--teal-50)',
+        },
+        indigo: {
+          950: 'var(--indigo-950)', 900: 'var(--indigo-900)', 800: 'var(--indigo-800)',
+          700: 'var(--indigo-700)', 600: 'var(--indigo-600)', 500: 'var(--indigo-500)',
+          400: 'var(--indigo-400)', 300: 'var(--indigo-300)', 200: 'var(--indigo-200)',
+          100: 'var(--indigo-100)', 50: 'var(--indigo-50)',
+        },
+        blue: {
+          950: 'var(--blue-950)', 900: 'var(--blue-900)', 800: 'var(--blue-800)',
+          700: 'var(--blue-700)', 600: 'var(--blue-600)', 500: 'var(--blue-500)',
+          400: 'var(--blue-400)', 300: 'var(--blue-300)', 200: 'var(--blue-200)',
+          100: 'var(--blue-100)', 50: 'var(--blue-50)',
+        },
+        pink: {
+          950: 'var(--pink-950)', 900: 'var(--pink-900)', 800: 'var(--pink-800)',
+          700: 'var(--pink-700)', 600: 'var(--pink-600)', 500: 'var(--pink-500)',
+          400: 'var(--pink-400)', 300: 'var(--pink-300)', 200: 'var(--pink-200)',
+          100: 'var(--pink-100)', 50: 'var(--pink-50)',
+        },
+
+        // CHART SEMANTIC TOKENS (map to data series)
+        'chart': {
+          1: 'var(--chart-1)', 2: 'var(--chart-2)', 3: 'var(--chart-3)', 4: 'var(--chart-4)',
+          5: 'var(--chart-5)', 6: 'var(--chart-6)', 7: 'var(--chart-7)', 8: 'var(--chart-8)',
+          9: 'var(--chart-9)', 10: 'var(--chart-10)', 11: 'var(--chart-11)', 12: 'var(--chart-12)',
         },
 
         // SEMANTIC COLOR SYSTEM
@@ -467,6 +501,32 @@ export default {
         'component': 'var(--component-transition)',
       },
 
+      // ACCORDION & COLLAPSIBLE ANIMATION KEYFRAMES
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+        'collapsible-down': {
+          from: { height: '0', opacity: '0' },
+          to: { height: 'var(--radix-collapsible-content-height)', opacity: '1' },
+        },
+        'collapsible-up': {
+          from: { height: 'var(--radix-collapsible-content-height)', opacity: '1' },
+          to: { height: '0', opacity: '0' },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        'collapsible-down': 'collapsible-down 0.2s ease-out',
+        'collapsible-up': 'collapsible-up 0.2s ease-out',
+      },
+
       // OPACITY SYSTEM
       opacity: {
         'disabled': '0.4',
@@ -477,9 +537,7 @@ export default {
       },
     },
   },
-  plugins: [],
-  // Enable JIT mode for better performance
-  mode: 'jit',
+  plugins: [tailwindAnimate],
   // Dark mode configuration
   darkMode: 'class',
 } 

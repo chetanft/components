@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/gati-logo.png';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface GatiLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const GatiLogo: React.FC<GatiLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="Gati Logo"
     width={width}
     height={height}

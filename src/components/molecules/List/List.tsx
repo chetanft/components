@@ -87,9 +87,9 @@ export function List({
     const resolvedGlass = useResolvedGlass(glass);
 
     const containerClasses = cn(
-        "flex flex-col text-[var(--color-primary)]",
-        getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', bordered ? 'border border-[var(--color-border-secondary)]' : ''),
-        bordered && !resolvedGlass && "border border-[var(--color-border-secondary)] rounded-[var(--radius-md)]",
+        "flex flex-col text-[var(--primary)]",
+        getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', bordered ? 'border border-[var(--border-secondary)]' : ''),
+        bordered && !resolvedGlass && "border border-[var(--border-secondary)] rounded-[var(--radius-md)]",
         bordered && resolvedGlass && "rounded-[var(--radius-md)]",
         className
     );

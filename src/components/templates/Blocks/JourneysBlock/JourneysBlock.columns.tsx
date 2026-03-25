@@ -4,7 +4,7 @@ import React from 'react';
 import { Button } from '../../../atoms/Button/Button';
 import { Badge } from '../../../atoms/Badge';
 import { Checkbox } from '../../../atoms/Checkbox';
-import { Icon } from '../../../atoms/Icons';
+import { Icon, type IconName } from '../../../atoms/Icons';
 import type { TableColumn, TableRowData } from '../../../organisms/Table';
 import type { Journey } from './JourneysBlock.types';
 
@@ -94,7 +94,7 @@ export function getJourneyColumns(
         <div className="flex flex-col gap-[var(--spacing-x1)] min-w-0">
           <div className="flex items-center gap-[var(--spacing-x1)] min-w-0">
             <span className="text-sm font-medium truncate text-[var(--primary)]">{journey.vehicle_id}</span>
-            <Icon name={"help-circle" as any} style={{ width: 'var(--spacing-x3-5)', height: 'var(--spacing-x3-5)' }} className="flex-shrink-0" />
+            <Icon name={"help-circle" as IconName} style={{ width: 'var(--spacing-x3-5)', height: 'var(--spacing-x3-5)' }} className="flex-shrink-0" />
           </div>
           <span className="text-xs" style={{ color: 'var(--secondary)' }}>
             {journey.transporter} &gt;

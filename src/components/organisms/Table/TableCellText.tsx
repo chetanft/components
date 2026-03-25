@@ -163,7 +163,7 @@ export const TableCellText: React.FC<TableCellTextProps> = ({
   if (truncate) {
     return (
       <Typography
-        ref={textRef as any}
+        ref={textRef as React.Ref<HTMLElement>}
         variant="body-primary-regular"
         className={cn(
           // Type-specific colors from Figma

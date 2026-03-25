@@ -182,7 +182,7 @@ export const ChipGroup = forwardRef<HTMLDivElement, ChipGroupProps>(
           if (!React.isValidElement<ChipProps>(child)) return child;
           const chipValue = child.props.label;
           // Allow value to be passed via a data attribute or the label
-          const val = (child.props as any).value ?? child.props.label;
+          const val = child.props.value ?? child.props.label;
           return React.cloneElement(child, {
             selected: selectedSet.has(val),
             variant: child.props.variant ?? variant,

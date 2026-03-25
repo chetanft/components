@@ -1,5 +1,6 @@
 import React from 'react';
 import shadowfaxLogoImg from './assets/shadowfax-logo.png';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface ShadowfaxLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const ShadowfaxLogo: React.FC<ShadowfaxLogoProps> = ({
   className 
 }) => (
   <img
-    src={(shadowfaxLogoImg as any).src || shadowfaxLogoImg}
+    src={resolveImageSrc(shadowfaxLogoImg)}
     alt="Shadowfax Logo"
     width={width}
     height={height}

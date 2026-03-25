@@ -112,7 +112,10 @@ export default function Home() {
         <section className="container mx-auto px-4 pb-20" style={{ paddingTop: 'var(--docs-section-gap)' }}>
           <div className="mx-auto max-w-[64rem]">
             <div className="flex flex-col items-center text-center mb-12">
-              <h2 className="text-display-lg font-bold tracking-tight text-foreground">
+              <h2
+                className="font-bold tracking-tight text-foreground"
+                style={{ fontSize: "var(--font-size-xl-rem)" }}
+              >
                 Why FT Design System?
               </h2>
               <p className="mt-3 max-w-[42rem] text-muted-foreground" style={{ fontSize: 'var(--font-size-lg-rem)' }}>

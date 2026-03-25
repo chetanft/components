@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/delhivery-logo.png';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface DelhiveryLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const DelhiveryLogo: React.FC<DelhiveryLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="Delhivery Logo"
     width={width}
     height={height}

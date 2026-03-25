@@ -64,7 +64,6 @@ export const RadioItemLabel = React.forwardRef<HTMLSpanElement, RadioItemLabelPr
       );
     }
     
-    const { color: _, ...restProps } = props as any;
     return (
       <Typography
         ref={ref}
@@ -72,7 +71,7 @@ export const RadioItemLabel = React.forwardRef<HTMLSpanElement, RadioItemLabelPr
         color={labelColor}
         as="span"
         className={cn(groupDisabled && "cursor-not-allowed", className)}
-        {...restProps}
+        {...props}
       >
         {children}
       </Typography>

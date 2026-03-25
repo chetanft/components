@@ -69,4 +69,5 @@ export const CardMeta = React.forwardRef<HTMLDivElement, CardMetaProps>(
 );
 
 CardMeta.displayName = 'CardMeta';
+(CardMeta as any).slot = 'card-meta';
 

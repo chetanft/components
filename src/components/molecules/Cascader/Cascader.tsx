@@ -467,7 +467,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
                 <button
                   type="button"
                   onClick={handleClear}
-                  className="text-[var(--color-tertiary)] hover:text-[var(--color-primary)] transition-colors"
+                  className="text-[var(--tertiary)] hover:text-[var(--primary)] transition-colors"
                 >
                   <Icon name="cross" size={componentStyles.iconSize - 4} />
                 </button>
@@ -475,7 +475,7 @@ export const Cascader = React.forwardRef<HTMLInputElement, CascaderProps>(
               <Icon
                 name={isOpen ? 'chevron-up' : 'chevron-down'}
                 size={componentStyles.iconSize}
-                className="text-[var(--color-tertiary)]"
+                className="text-[var(--tertiary)]"
               />
             </div>
           </div>

@@ -76,6 +76,7 @@ export const CardImage = React.forwardRef<HTMLDivElement, CardImageProps>(
         return (
             <Comp
                 ref={ref}
+                data-slot="card-image"
                 className={cn(
                     "relative w-full overflow-hidden",
                     "bg-[var(--bg-secondary)]",
@@ -99,3 +100,4 @@ export const CardImage = React.forwardRef<HTMLDivElement, CardImageProps>(
 );
 
 CardImage.displayName = 'CardImage';
+(CardImage as any).slot = 'card-image';

@@ -378,7 +378,7 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
             <div
               className={cn(
                 "absolute inset-0 flex items-center justify-center",
-                "bg-[var(--color-bg-secondary)]"
+                "bg-[var(--bg-secondary)]"
               )}
             >
               {placeholder || <Spin size="sm" />}
@@ -390,7 +390,7 @@ export const Image = React.forwardRef<HTMLImageElement, ImageProps>(
             <div
               className={cn(
                 "absolute inset-0 flex flex-col items-center justify-center",
-                "bg-[var(--color-bg-secondary)] text-[var(--color-tertiary)]"
+                "bg-[var(--bg-secondary)] text-[var(--tertiary)]"
               )}
             >
               <Icon name="image" size={32} className="mb-[var(--spacing-x2)]" />

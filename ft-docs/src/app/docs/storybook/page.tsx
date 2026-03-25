@@ -20,19 +20,12 @@ export default function StorybookPage() {
                 description="Interactive component playground for the FT Design System"
             />
 
-            <DocLinkCard
-                href="http://localhost:6006"
-                title="Open Storybook"
-                subtitle="http://localhost:6006"
-                icon={<BookOpen className="h-6 w-6" />}
-                external={true}
-            />
-
             <DocSection title="Run Locally">
                 <p className="text-sm-rem text-muted-foreground mb-2">Navigate to design system directory:</p>
                 <DocCodeBlock code="cd /path/to/components" lang="bash" />
                 <p className="text-sm-rem text-muted-foreground mb-2 mt-4">Start Storybook:</p>
                 <DocCodeBlock code="npm run storybook" lang="bash" />
+                <p className="text-sm-rem text-muted-foreground mt-2">Storybook will open at <code className="text-xs bg-muted px-1 py-0.5 rounded">http://localhost:6006</code></p>
             </DocSection>
 
             <DocCard title="What You'll Find" description="Explore the full component library interactively.">

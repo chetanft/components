@@ -1,22 +1,27 @@
 "use client";
 
 import React from 'react';
+import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useTabsContext } from './TabsContext';
 
-export interface TabsListProps extends ComposableProps<'div'> {
+export interface TabsListProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> {
   /**
    * The tab triggers.
    */
   children?: React.ReactNode;
+  /**
+   * Support asChild pattern (forwarded to Radix)
+   */
+  asChild?: boolean;
 }
 
 /**
  * TabsList Component
  *
  * A composable component that contains TabsTrigger components.
- * Provides the container for the tab navigation.
+ * Built on Radix Tabs.List — provides arrow-key navigation and
+ * roving tabindex out of the box.
  *
  * @public
  *
@@ -33,46 +38,39 @@ export interface TabsListProps extends ComposableProps<'div'> {
  * ```
  *
  * @remarks
- * - Wraps the HTML `<div>` element by default.
- * - Supports `asChild` prop to merge props with a custom child element.
- * - Provides default styling for tab list container.
+ * - Wraps Radix Tabs.List for keyboard navigation.
+ * - Primary type: no gap between tabs (flush bottom borders).
+ * - Secondary/Tertiary type: gap between tabs.
+ * - When showLine=true (primary type), a trailing line fills remaining width.
  */
-export const TabsList = React.forwardRef<HTMLDivElement, TabsListProps>(
-  ({ className, children, asChild, ...props }, ref) => {
-    const { registerValue } = useTabsContext();
-    const Comp = asChild ? Slot : 'div';
-    
-    // Clone children and inject index prop for TabsTrigger components
-    const childrenWithIndex = React.Children.map(children, (child, index) => {
-      if (React.isValidElement(child)) {
-        // Check if this is a TabsTrigger component
-        const childType = child.type as any;
-        if (childType && typeof childType === 'object' && 'displayName' in childType && childType.displayName === 'TabsTrigger') {
-          const value = (child.props as any).value;
-          if (value) {
-            registerValue(value, index);
-          }
-          return React.cloneElement(child as React.ReactElement<any>, { 
-            ...child.props,
-            _tabIndex: index 
-          });
-        }
-      }
-      return child;
-    });
-    
-    return (
-      <Comp
-        ref={ref}
-        className={cn("flex items-center gap-[var(--spacing-x3)]", className)}
-        role="tablist"
-        {...props}
-      >
-        {childrenWithIndex}
-      </Comp>
-    );
-  }
-);
+export const TabsList = React.forwardRef<
+  React.ComponentRef<typeof TabsPrimitive.List>,
+  TabsListProps
+>(({ className, children, asChild, ...props }, ref) => {
+  const { type, showLine } = useTabsContext();
+
+  return (
+    <TabsPrimitive.List
+      ref={ref}
+      asChild={asChild}
+      className={cn(
+        "flex items-center",
+        // Primary: no gap (tabs sit flush). Secondary/Tertiary: gap between pills.
+        type === 'primary' ? "gap-0" : "gap-[var(--spacing-x3)]",
+        className
+      )}
+      {...props}
+    >
+      {children}
+      {/* Trailing line — fills remaining width after last tab (primary only) */}
+      {type === 'primary' && showLine && (
+        <div
+          className="border-b border-[var(--border-primary)] flex-[1_0_0] min-h-px min-w-px self-stretch"
+          aria-hidden="true"
+        />
+      )}
+    </TabsPrimitive.List>
+  );
+});
 
 TabsList.displayName = 'TabsList';
-

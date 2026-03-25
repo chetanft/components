@@ -44,9 +44,8 @@ export const ListItemTitle = React.forwardRef<HTMLDivElement, ListItemTitleProps
       );
     }
     
-    const { color: _, ...restProps } = props as any;
     return (
-      <Typography variant="body-primary-semibold" ref={ref as any} className={className} {...restProps}>
+      <Typography variant="body-primary-semibold" ref={ref} className={className} {...props}>
         {children}
       </Typography>
     );

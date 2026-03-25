@@ -1,22 +1,26 @@
 "use client";
 
 import React from 'react';
+import * as SliderPrimitive from '@radix-ui/react-slider';
 import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useSliderContext } from './SliderContext';
 
-export interface SliderTrackProps extends ComposableProps<'div'> {
+export interface SliderTrackProps extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Track> {
   /**
    * Track content (typically SliderRange).
    */
   children?: React.ReactNode;
+  /**
+   * @deprecated Use asChild on the parent Slider instead. Kept for API compatibility.
+   */
+  asChild?: boolean;
 }
 
 /**
  * SliderTrack Component
  *
  * A composable component for the rail/background track of a Slider.
- * Typically wraps SliderRange.
+ * Typically wraps SliderRange. Renders as a Radix Slider.Track primitive.
  *
  * @public
  *
@@ -31,55 +35,35 @@ export interface SliderTrackProps extends ComposableProps<'div'> {
  * ```
  *
  * @remarks
- * - Wraps the HTML `<div>` element by default.
- * - Supports `asChild` prop to merge props with a custom child element.
+ * - Wraps Radix UI Slider.Track primitive.
  * - Automatically styled based on vertical/horizontal orientation.
  */
-export const SliderTrack = React.forwardRef<HTMLDivElement, SliderTrackProps>(
-  ({ className, children, asChild, onClick, ...props }, ref) => {
-    const { vertical, railColor, getValueFromPosition, range, rangeValue, setValue } = useSliderContext();
-    
-    const handleRailClick = (e: React.MouseEvent<HTMLDivElement>) => {
-      const newValue = getValueFromPosition(e.clientX, e.clientY);
-      
-      if (range) {
-        const [start, end] = rangeValue;
-        const midpoint = (start + end) / 2;
-        if (newValue < midpoint) {
-          setValue([newValue, end]);
-        } else {
-          setValue([start, newValue]);
-        }
-      } else {
-        setValue(newValue);
-      }
-      
-      onClick?.(e);
-    };
-    
-    const Comp = asChild ? Slot : 'div';
-    // Cast children to exclude bigint which Slot doesn't accept
-    const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
-    
+export const SliderTrack = React.forwardRef<
+  React.ComponentRef<typeof SliderPrimitive.Track>,
+  SliderTrackProps
+>(
+  ({ className, children, ...props }, ref) => {
+    const { vertical, railColor } = useSliderContext();
+
     return (
-      <Comp
+      <SliderPrimitive.Track
         ref={ref}
+        data-slot="slider-track"
         className={cn(
-          "absolute rounded-full cursor-pointer",
-          vertical 
-            ? "w-[var(--spacing-x1)] h-full left-1/2 -translate-x-1/2" 
-            : "h-[var(--spacing-x1)] w-full top-1/2 -translate-y-1/2",
+          "relative rounded-full cursor-pointer overflow-hidden",
+          vertical
+            ? "w-[var(--spacing-x1)] h-full"
+            : "h-[var(--spacing-x1)] w-full",
           className
         )}
         style={{ backgroundColor: railColor || 'var(--border-secondary)' }}
-        onClick={handleRailClick}
         {...props}
       >
-        {safeChildren}
-      </Comp>
+        {children}
+      </SliderPrimitive.Track>
     );
   }
 );
 
 SliderTrack.displayName = 'SliderTrack';
-
+(SliderTrack as any).slot = 'slider-track';

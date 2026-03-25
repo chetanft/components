@@ -61,6 +61,7 @@ export const BadgeIcon = React.forwardRef<HTMLSpanElement, BadgeIconProps>(
       return (
         <Slot
           ref={ref}
+          data-slot="badge-icon"
           className={cn("inline-flex items-center justify-center", className)}
           {...props}
         >
@@ -73,6 +74,7 @@ export const BadgeIcon = React.forwardRef<HTMLSpanElement, BadgeIconProps>(
       return (
         <span
           ref={ref}
+          data-slot="badge-icon"
           className={cn("inline-flex items-center justify-center", className)}
           {...props}
         >
@@ -85,6 +87,7 @@ export const BadgeIcon = React.forwardRef<HTMLSpanElement, BadgeIconProps>(
       return (
         <span
           ref={ref}
+          data-slot="badge-icon"
           className={cn("inline-flex items-center justify-center", className)}
           {...props}
         >
@@ -97,6 +100,7 @@ export const BadgeIcon = React.forwardRef<HTMLSpanElement, BadgeIconProps>(
       return (
         <span
           ref={ref}
+          data-slot="badge-icon"
           className={cn("inline-flex items-center justify-center", className)}
           {...props}
         >
@@ -110,4 +114,5 @@ export const BadgeIcon = React.forwardRef<HTMLSpanElement, BadgeIconProps>(
 );
 
 BadgeIcon.displayName = 'BadgeIcon';
+(BadgeIcon as any).slot = 'badge-icon';
 

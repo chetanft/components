@@ -16,6 +16,8 @@
  * ```
  */
 
+const tailwindAnimate = require('tailwindcss-animate');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // Content paths - automatically includes FT Design System components
@@ -335,5 +337,5 @@ module.exports = {
     },
   },
   
-  plugins: [],
+  plugins: [tailwindAnimate],
 };

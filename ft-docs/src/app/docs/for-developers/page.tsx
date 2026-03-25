@@ -108,8 +108,8 @@ export default function ForDevelopersPage() {
 
             {/* Developer Workflow */}
             <DocCard title="Developer Workflow">
-                <div className="space-y-4">
-                    <div>
+                <div className="flex w-full flex-row gap-3">
+                    <div className="w-full min-w-0 flex-1">
                         <h3 className="font-semibold mb-2">New Project</h3>
                         <DocCodeBlock code={`mkdir my-project
 cd my-project
@@ -117,13 +117,13 @@ npx ft-design-system init
 npm install
 npm run dev`} lang="bash" />
                     </div>
-                    <div>
+                    <div className="w-full min-w-0 flex-1">
                         <h3 className="font-semibold mb-2">Existing Project</h3>
                         <DocCodeBlock code={`npm install ft-design-system
 npx ft-design-system setup
 npx ft-design-system verify`} lang="bash" />
                     </div>
-                    <div>
+                    <div className="w-full min-w-0 flex-1">
                         <h3 className="font-semibold mb-2">After Package Updates</h3>
                         <DocCodeBlock code={`npm update ft-design-system
 npx ft-design-system update

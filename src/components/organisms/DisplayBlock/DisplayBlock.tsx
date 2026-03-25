@@ -116,7 +116,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
@@ -137,7 +137,7 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
@@ -204,11 +204,11 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
-        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
@@ -229,11 +229,11 @@ export const DisplayBlock: React.FC<DisplayBlockProps> = ({
         <div className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
           {contentElement}
         </div>
-        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>
-        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]")} />
+        <Spacer size="x5" className={getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]")} />
         <div className="content-stretch flex flex-col gap-[var(--spacing-x1)] items-start justify-center relative shrink-0 w-full">
           <Content />
         </div>

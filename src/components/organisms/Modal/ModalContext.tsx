@@ -1,22 +1,17 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext } from 'react';
 
 /**
  * Modal context value
- * 
+ *
  * @public
  */
 export interface ModalContextValue {
   /**
-   * Whether modal is open
+   * Whether to allow closing modal by clicking the backdrop
    */
-  open: boolean;
-
-  /**
-   * Open the modal
-   */
-  setOpen: (open: boolean) => void;
+  maskClosable: boolean;
 }
 
 const ModalContext = createContext<ModalContextValue | undefined>(undefined);
@@ -26,18 +21,17 @@ const ModalContext = createContext<ModalContextValue | undefined>(undefined);
  * This provides resilience against displayName detection failures in bundled code.
  */
 const defaultContext: ModalContextValue = {
-  open: false,
-  setOpen: () => {},
+  maskClosable: true,
 };
 
 /**
  * Hook to access modal context
- * 
+ *
  * @public
  */
 export function useModalContext() {
   const context = useContext(ModalContext);
-  
+
   if (!context) {
     return defaultContext;
   }
@@ -46,42 +40,26 @@ export function useModalContext() {
 
 /**
  * Modal context provider props
- * 
+ *
  * @internal
  */
 interface ModalContextProviderProps {
   children: React.ReactNode;
-  open: boolean;
-  onOpenChange?: (open: boolean) => void;
+  maskClosable?: boolean;
 }
 
 /**
  * Modal context provider
- * 
+ *
  * @internal
  */
 export function ModalContextProvider({
   children,
-  open: controlledOpen,
-  onOpenChange,
+  maskClosable = true,
 }: ModalContextProviderProps) {
-  const [internalOpen, setInternalOpen] = useState(false);
-
-  const isControlled = onOpenChange !== undefined;
-  const open = isControlled ? controlledOpen : internalOpen;
-
-  const setOpen = useCallback((newOpen: boolean) => {
-    if (isControlled) {
-      onOpenChange?.(newOpen);
-    } else {
-      setInternalOpen(newOpen);
-    }
-  }, [isControlled, onOpenChange]);
-
   return (
-    <ModalContext.Provider value={{ open, setOpen }}>
+    <ModalContext.Provider value={{ maskClosable }}>
       {children}
     </ModalContext.Provider>
   );
 }
-

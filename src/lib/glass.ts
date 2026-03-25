@@ -1,7 +1,7 @@
 import { cn } from './utils';
 import { useState, useEffect } from 'react';
 
-export type GlassVariant = boolean | 'subtle' | 'prominent';
+export type GlassVariant = boolean | 'subtle' | 'prominent' | 'liquid';
 
 /**
  * Returns the appropriate CSS class(es) for a glass prop value.
@@ -16,6 +16,7 @@ export function getGlassClasses(
   if (!glass) return cn(solidBg, solidBorder);
   if (glass === 'subtle') return 'glass-subtle';
   if (glass === 'prominent') return 'glass-prominent';
+  if (glass === 'liquid') return 'glass-liquid';
   return 'glass';
 }
 
@@ -26,6 +27,7 @@ export function getGlassClasses(
 function getGlobalGlassFromDOM(): GlassVariant | undefined {
   if (typeof document === 'undefined') return undefined;
   const html = document.documentElement;
+  if (html.classList.contains('theme-glass-liquid')) return 'liquid';
   if (html.classList.contains('theme-glass-prominent')) return 'prominent';
   if (html.classList.contains('theme-glass-subtle')) return 'subtle';
   if (html.classList.contains('theme-glass')) return true;
@@ -80,7 +82,7 @@ export function getGlassInnerBg(
  * In non-glass mode, uses the provided solid theme color classes.
  *
  * @param glass - The resolved glass variant
- * @param solidClass - Opaque class(es) used when glass is off (e.g. 'bg-[var(--color-bg-secondary)]')
+ * @param solidClass - Opaque class(es) used when glass is off (e.g. 'bg-[var(--bg-secondary)]')
  * @param glassClass - Translucent class used when glass is on — defaults to hover token
  */
 export function getGlassStateLayer(

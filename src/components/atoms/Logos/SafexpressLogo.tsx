@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/safexpress-logo.png';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface SafexpressLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const SafexpressLogo: React.FC<SafexpressLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="Safexpress Logo"
     width={width}
     height={height}

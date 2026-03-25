@@ -97,20 +97,6 @@ const PageHeaderBase = forwardRef<HTMLDivElement, PageHeaderProps>(
 
 PageHeaderBase.displayName = 'PageHeader';
 
-// Attach subcomponents for composable API
-(PageHeaderBase as any).Top = PageHeaderTop;
-(PageHeaderBase as any).Left = PageHeaderLeft;
-(PageHeaderBase as any).Right = PageHeaderRight;
-(PageHeaderBase as any).Bottom = PageHeaderBottom;
-(PageHeaderBase as any).BackButton = PageHeaderBackButton;
-(PageHeaderBase as any).Title = PageHeaderTitle;
-(PageHeaderBase as any).Subtitle = PageHeaderSubtitle;
-(PageHeaderBase as any).Icon = PageHeaderIcon;
-(PageHeaderBase as any).TitleGroup = PageHeaderTitleGroup;
-(PageHeaderBase as any).Actions = PageHeaderActions;
-(PageHeaderBase as any).Filters = PageHeaderFiltersWrapper;
-(PageHeaderBase as any).Tabs = PageHeaderTabs;
-
 // Type for PageHeader with subcomponents
 type PageHeaderWithSubcomponents = typeof PageHeaderBase & {
   Top: typeof PageHeaderTop;
@@ -127,6 +113,20 @@ type PageHeaderWithSubcomponents = typeof PageHeaderBase & {
   Tabs: typeof PageHeaderTabs;
 };
 
-// Export with proper typing
-export const PageHeader = PageHeaderBase as PageHeaderWithSubcomponents;
+// Attach subcomponents for composable API
+const PageHeader = PageHeaderBase as PageHeaderWithSubcomponents;
+PageHeader.Top = PageHeaderTop;
+PageHeader.Left = PageHeaderLeft;
+PageHeader.Right = PageHeaderRight;
+PageHeader.Bottom = PageHeaderBottom;
+PageHeader.BackButton = PageHeaderBackButton;
+PageHeader.Title = PageHeaderTitle;
+PageHeader.Subtitle = PageHeaderSubtitle;
+PageHeader.Icon = PageHeaderIcon;
+PageHeader.TitleGroup = PageHeaderTitleGroup;
+PageHeader.Actions = PageHeaderActions;
+PageHeader.Filters = PageHeaderFiltersWrapper;
+PageHeader.Tabs = PageHeaderTabs;
+
+export { PageHeader };
 export default PageHeader;

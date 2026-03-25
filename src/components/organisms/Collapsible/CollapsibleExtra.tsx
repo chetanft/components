@@ -44,6 +44,7 @@ export const CollapsibleExtra = React.forwardRef<HTMLDivElement, CollapsibleExtr
     return (
       <Comp
         ref={ref}
+        data-slot="collapsible-extra"
         className={cn("flex items-center", className)}
         {...props}
       >

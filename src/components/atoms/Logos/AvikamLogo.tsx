@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/avikam-logo.png';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface AvikamLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const AvikamLogo: React.FC<AvikamLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="Avikam Logo"
     width={width}
     height={height}

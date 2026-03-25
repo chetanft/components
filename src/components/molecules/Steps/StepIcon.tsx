@@ -63,13 +63,13 @@ export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
       if (asChild) {
         return (
           <Slot
-            ref={ref as any}
+            ref={ref}
             className={cn(
               "relative flex shrink-0",
               direction === 'vertical' ? "items-start justify-start" : "items-center justify-center",
               className
             )}
-            {...(htmlProps as any)}
+            {...htmlProps}
           >
             {dotElement}
           </Slot>
@@ -105,9 +105,9 @@ export const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
     if (asChild) {
       return (
         <Slot
-          ref={ref as any}
+          ref={ref}
           className={className_combined}
-          {...(htmlProps as any)}
+          {...htmlProps}
         />
       );
     }

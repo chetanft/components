@@ -98,12 +98,12 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
         ? "bg-surface-alt border-border-secondary cursor-not-allowed"
         : hasError
           ? checked || indeterminate
-            ? "bg-critical border-critical text-[var(--color-bg-primary)] hover:bg-critical/90 hover:border-critical/90"
+            ? "bg-critical border-critical text-[var(--bg-primary)] hover:bg-critical/90 hover:border-critical/90"
             : "border-critical bg-surface text-critical hover:bg-critical/5"
           : checked || indeterminate
-            ? "bg-[var(--primary)] border-[var(--primary)] text-[var(--color-bg-primary)] hover:bg-[var(--primary)]/90 hover:border-[var(--primary)]/90"
+            ? "bg-[var(--primary)] border-[var(--primary)] text-[var(--bg-primary)] hover:bg-[var(--primary)]/90 hover:border-[var(--primary)]/90"
             : cn("border-[var(--border-primary)]", resolvedGlass ? cn("bg-transparent", "hover:bg-[var(--glass-hover)]") : "bg-[var(--bg-primary)] hover:bg-[var(--bg-secondary)]", "hover:border-[var(--border-hover)]"),
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)]",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)]",
       hasError
         ? "focus-visible:ring-critical/50"
         : "focus-visible:ring-[var(--primary)]/50",
@@ -117,15 +117,17 @@ export const CheckboxInput = React.forwardRef<HTMLInputElement, CheckboxInputPro
             <Slot
               ref={checkboxRef}
               id={checkboxId}
-              {...({ type: "checkbox" } as any)}
               className="sr-only"
-              disabled={isDisabled}
-              aria-invalid={hasError ? 'true' : 'false'}
-              aria-describedby={describedBy}
-              checked={checked}
-              onChange={onChange}
-              readOnly={effectiveReadOnly}
-              {...props}
+              {...({
+                type: "checkbox",
+                disabled: isDisabled,
+                'aria-invalid': hasError ? 'true' : 'false',
+                'aria-describedby': describedBy,
+                checked,
+                onChange,
+                readOnly: effectiveReadOnly,
+                ...props,
+              } as Record<string, unknown>)}
             />
             <div className={checkboxStyles} tabIndex={isDisabled ? -1 : 0}>
               {(checked || indeterminate) && (

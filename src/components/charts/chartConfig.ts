@@ -42,19 +42,21 @@ export function getCssVar(name: string, fallback: string): string {
 }
 
 // FT Design System Chart Colors - Main Palette
-// Uses getters for theme reactivity.
+// Uses dedicated chart color families (teal, indigo, blue, pink) instead of
+// semantic colors (primary, neutral, critical) to keep data visualization
+// independent from UI theme colors.
 export const chartColors = {
-  get teal() { return getCssVar('--primary-700', '#434f64'); },
-  get indigo() { return getCssVar('--neutral-dark', '#006dd3'); },
-  get blue() { return getCssVar('--neutral', '#1890ff'); },
-  get pink() { return getCssVar('--critical', '#ff3532'); },
+  get teal() { return getCssVar('--teal-500', '#42BDBD'); },
+  get indigo() { return getCssVar('--indigo-500', '#0828F7'); },
+  get blue() { return getCssVar('--blue-400', '#37A2EB'); },
+  get pink() { return getCssVar('--pink-300', '#FF6384'); },
   get gold() { return getCssVar('--warning', '#ff6c19'); },
 
-  // Extended palette (darker variants)
-  get tealDark() { return getCssVar('--primary-500', '#5f697b'); },
-  get indigoDark() { return getCssVar('--neutral-900', '#002966'); },
-  get blueDark() { return getCssVar('--neutral-dark', '#006dd3'); },
-  get pinkDark() { return getCssVar('--critical-dark', '#b70100'); },
+  // Extended palette (darker variants for secondary series)
+  get tealDark() { return getCssVar('--teal-700', '#2E8484'); },
+  get indigoDark() { return getCssVar('--indigo-300', '#6377FA'); },
+  get blueDark() { return getCssVar('--blue-600', '#1584D1'); },
+  get pinkDark() { return getCssVar('--pink-500', '#FF0036'); },
   get goldDark() { return getCssVar('--warning-dark', '#dd6a00'); },
 };
 

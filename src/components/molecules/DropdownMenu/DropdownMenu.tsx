@@ -159,8 +159,8 @@ const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
 
       return (
         <div className="h-[calc(var(--spacing-x11)+var(--spacing-x1))] relative shrink-0 w-[var(--spacing-x1)]">
-          <div className="w-full h-full bg-[var(--color-border-secondary)] rounded-full">
-            <div className="w-full h-[40%] bg-[var(--color-border-primary)] rounded-full" />
+          <div className="w-full h-full bg-[var(--border-secondary)] rounded-full">
+            <div className="w-full h-[40%] bg-[var(--border-primary)] rounded-full" />
           </div>
         </div>
       );
@@ -171,7 +171,7 @@ const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
         <div
           ref={ref}
           role="menu"
-          className={cn(dropdownMenuVariants({ property }), getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-solid border-[var(--color-border-primary)]'), className)}
+          className={cn(dropdownMenuVariants({ property }), getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-solid border-[var(--border-primary)]'), className)}
           {...props}
         >
           {/* Segmented Control */}
@@ -193,13 +193,6 @@ const DropdownMenuBase = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
 
 DropdownMenuBase.displayName = 'DropdownMenu';
 
-// Attach subcomponents for composable API
-(DropdownMenuBase as any).DropdownMenuItem = DropdownMenuItem;
-(DropdownMenuBase as any).DropdownMenuLabel = DropdownMenuLabel;
-(DropdownMenuBase as any).DropdownMenuSeparator = DropdownMenuSeparator;
-(DropdownMenuBase as any).DropdownMenuList = DropdownMenuList;
-(DropdownMenuBase as any).DropdownMenuSearch = DropdownMenuSearch;
-
 // Type for DropdownMenu with subcomponents
 type DropdownMenuWithSubcomponents = typeof DropdownMenuBase & {
   DropdownMenuItem: typeof DropdownMenuItem;
@@ -209,6 +202,13 @@ type DropdownMenuWithSubcomponents = typeof DropdownMenuBase & {
   DropdownMenuSearch: typeof DropdownMenuSearch;
 };
 
-// Export with proper typing
-export const DropdownMenu = DropdownMenuBase as DropdownMenuWithSubcomponents;
+// Attach subcomponents for composable API
+const DropdownMenu = DropdownMenuBase as DropdownMenuWithSubcomponents;
+DropdownMenu.DropdownMenuItem = DropdownMenuItem;
+DropdownMenu.DropdownMenuLabel = DropdownMenuLabel;
+DropdownMenu.DropdownMenuSeparator = DropdownMenuSeparator;
+DropdownMenu.DropdownMenuList = DropdownMenuList;
+DropdownMenu.DropdownMenuSearch = DropdownMenuSearch;
+
+export { DropdownMenu };
 export default DropdownMenu;

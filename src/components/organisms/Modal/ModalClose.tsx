@@ -1,14 +1,14 @@
 "use client";
 
 import React from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
+import type { ComposableProps } from '../../../lib/slot';
 import { Icon } from '../../atoms/Icons';
-import { useModalContext } from './ModalContext';
 
 /**
  * ModalClose component props
- * 
+ *
  * @public
  */
 export interface ModalCloseProps extends Omit<ComposableProps<'button'>, 'children'> {
@@ -21,25 +21,25 @@ export interface ModalCloseProps extends Omit<ComposableProps<'button'>, 'childr
 
 /**
  * ModalClose Component
- * 
+ *
  * A composable close button for the modal header.
  * Automatically closes the modal when clicked.
- * 
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
  * <ModalHeader>
  *   <ModalTitle>Title</ModalTitle>
  *   <ModalClose />
  * </ModalHeader>
- * 
+ *
  * // Custom close button
  * <ModalClose asChild>
  *   <Button variant="ghost" size="sm">Close</Button>
  * </ModalClose>
  * ```
- * 
+ *
  * @remarks
  * - Automatically handles closing the modal
  * - Supports `asChild` prop to merge with custom button
@@ -47,34 +47,22 @@ export interface ModalCloseProps extends Omit<ComposableProps<'button'>, 'childr
  * - Accessible: includes proper ARIA labels
  */
 export const ModalClose = React.forwardRef<HTMLButtonElement, ModalCloseProps>(
-  ({ className, asChild, children, onClick, ...props }, ref) => {
-    const { setOpen } = useModalContext();
-    
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      e.stopPropagation();
-      e.nativeEvent.stopImmediatePropagation();
-      setOpen(false);
-      onClick?.(e);
-    };
-    
+  ({ className, asChild, children, ...props }, ref) => {
     if (asChild) {
       return (
-        <Slot
+        <DialogPrimitive.Close
           ref={ref}
-          onClick={handleClick}
+          asChild
           {...props}
         >
           {children}
-        </Slot>
+        </DialogPrimitive.Close>
       );
     }
-    
+
     return (
-      <button
+      <DialogPrimitive.Close
         ref={ref}
-        type="button"
-        onClick={handleClick}
         className={cn(
           "rounded-[var(--radius-sm)]",
           "flex items-center justify-center",
@@ -96,10 +84,9 @@ export const ModalClose = React.forwardRef<HTMLButtonElement, ModalCloseProps>(
             className="text-[var(--tertiary)] pointer-events-none flex items-center justify-center m-0 p-0"
           />
         )}
-      </button>
+      </DialogPrimitive.Close>
     );
   }
 );
 
 ModalClose.displayName = 'ModalClose';
-

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { cn } from '../../../lib/utils';
-import { Icon } from '../../atoms/Icons';
+import { Icon, type IconName } from '../../atoms/Icons';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 import { usePopconfirmContext } from './PopconfirmContext';
 
@@ -53,7 +53,7 @@ export const PopconfirmIcon = React.forwardRef<HTMLDivElement, PopconfirmIconPro
     
     return (
       <div ref={ref} className={cn("flex-shrink-0 mt-[var(--spacing-x0-5)]", className)} {...props}>
-        {children || <Icon name={iconName as any} size={16} className="text-[var(--color-warning)]" />}
+        {children || <Icon name={iconName as IconName} size={16} className="text-[var(--warning)]" />}
       </div>
     );
   }

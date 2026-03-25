@@ -52,6 +52,7 @@ export const CollapsibleIcon = React.forwardRef<HTMLDivElement, CollapsibleIconP
       return (
         <Comp
           ref={ref}
+          data-slot="collapsible-icon"
           className={cn("shrink-0", className)}
           {...props}
         >
@@ -74,6 +75,7 @@ export const CollapsibleIcon = React.forwardRef<HTMLDivElement, CollapsibleIconP
       return (
         <Comp
           ref={ref}
+          data-slot="collapsible-icon"
           className={cn("flex justify-center items-start text-[var(--primary)] shrink-0", className)}
           {...props}
         >
@@ -87,6 +89,7 @@ export const CollapsibleIcon = React.forwardRef<HTMLDivElement, CollapsibleIconP
       return (
         <Comp
           ref={ref}
+          data-slot="collapsible-icon"
           className={cn("flex justify-center items-start text-[var(--primary)] shrink-0 order-last", className)}
           {...props}
         >

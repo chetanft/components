@@ -63,7 +63,6 @@ export const TextareaLabel = React.forwardRef<HTMLDivElement, TextareaLabelProps
       );
     }
     
-    const { onClick: _, ...restProps } = props as any;
     return (
       <div ref={ref}>
         <Label
@@ -72,7 +71,7 @@ export const TextareaLabel = React.forwardRef<HTMLDivElement, TextareaLabelProps
           optional={optional}
           className="mb-[var(--spacing-x2)]"
           onClick={onClick as (() => void) | undefined}
-          {...restProps}
+          {...props}
         >
           {children}
         </Label>

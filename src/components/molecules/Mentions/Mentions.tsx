@@ -148,11 +148,11 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
         value={inputValue}
         onChange={handleChange}
         className={cn(
-          "flex w-full rounded-[var(--radius-md)] border border-[var(--color-border-primary)] bg-[var(--color-bg-primary)]",
+          "flex w-full rounded-[var(--radius-md)] border border-[var(--border-primary)] bg-[var(--bg-primary)]",
           "px-[var(--spacing-x3)] py-[var(--spacing-x2)]",
-          "placeholder:text-[var(--color-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] disabled:cursor-not-allowed disabled:opacity-50",
-          status === 'error' && "border-[var(--color-critical)] focus:ring-[var(--color-critical)]",
-          status === 'warning' && "border-[var(--color-warning)] focus:ring-[var(--color-warning)]"
+          "placeholder:text-[var(--tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-50",
+          status === 'error' && "border-[var(--critical)] focus:ring-[var(--critical)]",
+          status === 'warning' && "border-[var(--warning)] focus:ring-[var(--warning)]"
         )}
         style={{ fontSize: 'var(--font-size-sm-rem)' }}
         {...props}
@@ -160,7 +160,7 @@ export const Mentions = React.forwardRef<HTMLTextAreaElement, MentionsProps>(({
       {showSuggestions && filteredOptions.length > 0 && (
         // Using Portal or absolute positioning
         <div
-          className={cn("absolute z-50 min-w-[calc(var(--spacing-x10)*5)] overflow-hidden rounded-[var(--radius-md)] shadow-md animate-in fade-in-0 zoom-in-95", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--color-border-primary)]'))}
+          className={cn("absolute z-50 min-w-[calc(var(--spacing-x10)*5)] overflow-hidden rounded-[var(--radius-md)] shadow-md animate-in fade-in-0 zoom-in-95", getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-primary)]'))}
           style={{
             top: "100%", // Simplified: always below for now
             left: 0
@@ -214,7 +214,7 @@ export const MentionOption = React.forwardRef<HTMLDivElement, MentionOptionProps
       <div
         ref={ref}
         className={cn(
-          "cursor-pointer px-[var(--spacing-x4)] py-[var(--spacing-x2)] hover:bg-[var(--color-neutral-light)]",
+          "cursor-pointer px-[var(--spacing-x4)] py-[var(--spacing-x2)] hover:bg-[var(--neutral-light)]",
           className
         )}
         style={{ fontSize: 'var(--font-size-sm-rem)' }}

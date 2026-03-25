@@ -46,7 +46,7 @@ export interface SkeletonImageProps extends ComposableProps<'div'> {
 export const SkeletonImage = React.forwardRef<HTMLDivElement, SkeletonImageProps>(
   ({ className, width, height, shape = 'rectangular', animation = 'pulse', asChild, ...props }, ref) => {
     const baseClassName = cn(
-      "bg-[var(--color-bg-secondary)]",
+      "bg-[var(--bg-secondary)]",
       shape === 'circular' ? "rounded-full" : "rounded-[var(--radius-md)]",
       animation === 'pulse' && "animate-pulse",
       animation === 'wave' && "relative overflow-hidden skeleton-wave",
@@ -58,10 +58,11 @@ export const SkeletonImage = React.forwardRef<HTMLDivElement, SkeletonImageProps
     if (asChild) {
       return (
         <Slot
-          ref={ref as any}
+          ref={ref}
+          data-slot="skeleton-image"
           className={baseClassName}
           style={style}
-          {...(props as any)}
+          {...props}
         />
       );
     }
@@ -69,6 +70,7 @@ export const SkeletonImage = React.forwardRef<HTMLDivElement, SkeletonImageProps
     return (
       <div
         ref={ref}
+        data-slot="skeleton-image"
         className={baseClassName}
         style={style}
         {...props}
@@ -78,4 +80,5 @@ export const SkeletonImage = React.forwardRef<HTMLDivElement, SkeletonImageProps
 );
 
 SkeletonImage.displayName = 'SkeletonImage';
+(SkeletonImage as any).slot = 'skeleton-image';
 

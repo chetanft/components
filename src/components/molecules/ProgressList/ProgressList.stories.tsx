@@ -94,7 +94,7 @@ export const ExplorerBase: Story = {
         ) : contentType === 'collapsible' ? (
           <ProgressList>
             <ProgressListItem id="1" title="Collapsible Step" description="Click to expand/collapse" state="completed" pointType="parent" lineType="solid" collapsible>
-              <div className="p-4 bg-[var(--color-bg-secondary)] rounded-lg">
+              <div className="p-4 bg-[var(--bg-secondary)] rounded-lg">
                 <p>This is expanded content that can be shown or hidden.</p>
               </div>
             </ProgressListItem>
@@ -453,7 +453,7 @@ export const Collapsible: Story = {
         lineType="solid"
         collapsible
       >
-        <div className="p-4 bg-[var(--color-bg-secondary)] rounded-lg">
+        <div className="p-4 bg-[var(--bg-secondary)] rounded-lg">
           <p>This is expanded content that can be shown or hidden.</p>
         </div>
       </ProgressListItem>
@@ -480,7 +480,7 @@ export const Collapsible: Story = {
     lineType="solid"
     collapsible
   >
-    <div className="p-4 bg-[var(--color-bg-secondary)] rounded-lg">
+    <div className="p-4 bg-[var(--bg-secondary)] rounded-lg">
       <p>This is expanded content that can be shown or hidden.</p>
     </div>
   </ProgressListItem>

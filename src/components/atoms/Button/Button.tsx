@@ -225,9 +225,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
 }, ref) => {
   const isButtonTextElement = (node: React.ReactNode): boolean => {
     if (!React.isValidElement(node)) return false;
-    const nodeType = node.type as any;
-    const displayName = nodeType?.displayName ?? nodeType?.name;
-    return displayName === 'ButtonText';
+    const childType = (node as any)?.type;
+    return childType?.slot === 'button-text';
   };
 
   const hasVisibleTextContent = (node: React.ReactNode): boolean => {

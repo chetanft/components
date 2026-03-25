@@ -111,6 +111,7 @@ export const RateItem = React.forwardRef<HTMLDivElement, RateItemProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="rate-item"
         className={cn(
           "relative inline-flex cursor-pointer transition-transform duration-100",
           !disabled && !readOnly && "hover:scale-110",
@@ -130,4 +131,5 @@ export const RateItem = React.forwardRef<HTMLDivElement, RateItemProps>(
 );
 
 RateItem.displayName = 'RateItem';
+(RateItem as any).slot = 'rate-item';
 

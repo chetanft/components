@@ -68,9 +68,11 @@ const sizeMap: Record<string, string> = {
 const AvatarBase = React.forwardRef<HTMLDivElement, AvatarProps>(
   ({ size = "md", shape = "circle", src, icon, alt = "User Avatar", className, style, children, asChild, ...props }, ref) => {
     // Check if using composable API (has AvatarImage or AvatarFallback as children)
-    const hasComposableChildren = React.Children.toArray(children as React.ReactNode | React.ReactNode[]).some((child: any) => 
-        child?.type?.displayName === 'AvatarImage' || child?.type?.displayName === 'AvatarFallback'
-    );
+    const hasComposableChildren = React.Children.toArray(children as React.ReactNode | React.ReactNode[]).some((child: any) => {
+        const childType = (child as any)?.type;
+        const slot = childType?.slot;
+        return slot === 'avatar-image' || slot === 'avatar-fallback';
+    });
 
     let sizeClass = typeof size === 'string' ? sizeMap[size] || sizeMap.md : '';
     let sizeStyle = typeof size === 'number' ? { width: size, height: size, fontSize: size / 2 } : {};
@@ -148,18 +150,18 @@ const AvatarBase = React.forwardRef<HTMLDivElement, AvatarProps>(
 
 AvatarBase.displayName = 'Avatar';
 
-// Attach subcomponents for composable API
-(AvatarBase as any).AvatarImage = AvatarImage;
-(AvatarBase as any).AvatarFallback = AvatarFallback;
-
 // Type for Avatar with subcomponents
 type AvatarWithSubcomponents = typeof AvatarBase & {
   AvatarImage: typeof AvatarImage;
   AvatarFallback: typeof AvatarFallback;
 };
 
-// Export with proper typing
-export const Avatar = AvatarBase as AvatarWithSubcomponents;
+// Attach subcomponents for composable API
+const Avatar = AvatarBase as AvatarWithSubcomponents;
+Avatar.AvatarImage = AvatarImage;
+Avatar.AvatarFallback = AvatarFallback;
+
+export { Avatar };
 export default Avatar;
 
 const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(

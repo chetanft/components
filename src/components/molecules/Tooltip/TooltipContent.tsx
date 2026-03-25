@@ -1,9 +1,10 @@
 "use client";
 
 import React from 'react';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { cn } from '../../../lib/utils';
 import { useResolvedGlass, getGlassClasses, type GlassVariant } from '../../../lib/glass';
-import { Slot, type ComposableProps } from '../../../lib/slot';
+import type { ComposableProps } from '../../../lib/slot';
 import { useTooltipContext } from './TooltipContext';
 import { Icon } from '../../atoms/Icons';
 
@@ -32,7 +33,7 @@ export interface TooltipContentProps extends ComposableProps<'div'> {
  * TooltipContent Component
  *
  * A composable component for the tooltip content panel.
- * Only displays when the Tooltip is open.
+ * Renders in a portal with collision detection and animations.
  *
  * @public
  *
@@ -50,67 +51,42 @@ export interface TooltipContentProps extends ComposableProps<'div'> {
  * ```
  *
  * @remarks
- * - Wraps the HTML `<div>` element by default.
+ * - Renders inside a portal to avoid overflow clipping.
+ * - Uses Radix collision detection to stay within the viewport.
  * - Supports `asChild` prop to merge props with a custom child element.
- * - Automatically shows/hides based on open state.
  * - Accessible: includes ARIA attributes for tooltip panels.
  */
 export const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentProps>(
-  ({ className, children, showClose = false, onClose, glass, asChild, ...props }, ref) => {
+  ({ className, children, showClose = false, onClose, glass, asChild: _asChild, ...props }, ref) => {
     const resolvedGlass = useResolvedGlass(glass);
-    const { open, placement, align, color } = useTooltipContext();
-
-    if (!open) return null;
+    const { placement, align, color } = useTooltipContext();
 
     const bgClass = resolvedGlass
       ? getGlassClasses(resolvedGlass, '', '')
       : (color === 'white'
-        ? 'bg-[var(--color-bg-primary)] text-[var(--color-primary)]'
-        : 'bg-[var(--color-primary)] text-[var(--color-bg-primary)]');
+        ? 'bg-[var(--bg-primary)] text-[var(--primary)]'
+        : 'bg-[var(--primary)] text-[var(--bg-primary)]');
 
     const tooltipClasses = cn(
-      'rounded-[var(--radius-sm)] p-[var(--spacing-x2)] min-w-[var(--spacing-x14)] max-w-[var(--spacing-x38)] relative',
+      'z-50 rounded-[var(--radius-sm)] p-[var(--spacing-x2)] min-w-[var(--spacing-x14)] max-w-[var(--spacing-x38)] relative shadow-md',
       bgClass,
-      resolvedGlass && 'text-[var(--color-primary)]'
+      resolvedGlass && 'text-[var(--primary)]',
+      'data-[state=delayed-open]:animate-in data-[state=closed]:animate-out',
+      'data-[state=closed]:fade-out-0 data-[state=delayed-open]:fade-in-0',
+      'data-[state=closed]:zoom-out-95 data-[state=delayed-open]:zoom-in-95',
+      'data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2',
+      'data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+      className
     );
-    
-    const tipBaseClasses = 'absolute w-0 h-0 border-[var(--spacing-x1)] border-transparent';
-    
-    const tipPlacementClasses = {
-      top: cn(
-        tipBaseClasses,
-        'bottom-[-var(--spacing-x1)] border-b-0',
-        color === 'white' ? 'border-t-[var(--color-bg-primary)]' : 'border-t-[var(--color-primary)]'
-      ),
-      bottom: cn(
-        tipBaseClasses,
-        'top-[-var(--spacing-x1)] border-t-0',
-        color === 'white' ? 'border-b-surface' : 'border-b-primary'
-      ),
-      left: cn(
-        tipBaseClasses,
-        'right-[-var(--spacing-x1)] border-r-0',
-        color === 'white' ? 'border-l-surface' : 'border-l-primary'
-      ),
-      right: cn(
-        tipBaseClasses,
-        'left-[-var(--spacing-x1)] border-l-0',
-        color === 'white' ? 'border-r-surface' : 'border-r-primary'
-      ),
-    };
-    
-    const tipAlignClasses = {
-      start: placement === 'top' || placement === 'bottom' ? 'left-[var(--spacing-x4)]' : 'top-[var(--spacing-x4)]',
-      center: placement === 'top' || placement === 'bottom' ? 'left-1/2 -translate-x-1/2' : 'top-1/2 -translate-y-1/2',
-      end: placement === 'top' || placement === 'bottom' ? 'right-[var(--spacing-x4)] left-auto' : 'bottom-[var(--spacing-x4)] top-auto',
-    };
-    
-    const Comp = asChild ? Slot : 'div';
+
     return (
-      <div className="relative inline-flex flex-col">
-        <Comp
+      <TooltipPrimitive.Portal>
+        <TooltipPrimitive.Content
           ref={ref}
-          className={cn(tooltipClasses, className)}
+          className={tooltipClasses}
+          side={placement}
+          align={align}
+          sideOffset={5}
           role="tooltip"
           {...props}
         >
@@ -118,22 +94,20 @@ export const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentPro
           {showClose && onClose && (
             <button
               onClick={onClose}
-              className="absolute top-[var(--spacing-x2)] right-[var(--spacing-x2)] p-[var(--spacing-x1)] hover:bg-[var(--color-bg-secondary)] rounded-[var(--radius-full)]"
+              className="absolute top-[var(--spacing-x2)] right-[var(--spacing-x2)] p-[var(--spacing-x1)] hover:bg-[var(--bg-secondary)] rounded-[var(--radius-full)]"
               aria-label="Close tooltip"
             >
               <Icon
                 name="cross"
                 size={16}
-                className={color === 'white' ? 'text-[var(--color-primary)]' : 'text-[var(--color-bg-primary)]'}
+                className={color === 'white' ? 'text-[var(--primary)]' : 'text-[var(--bg-primary)]'}
               />
             </button>
           )}
-          <div className={cn(tipPlacementClasses[placement], tipAlignClasses[align])} />
-        </Comp>
-      </div>
+        </TooltipPrimitive.Content>
+      </TooltipPrimitive.Portal>
     );
   }
 );
 
 TooltipContent.displayName = 'TooltipContent';
-

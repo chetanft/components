@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { DrawerContextProvider } from './DrawerContext';
 
 /**
@@ -107,12 +108,17 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(({
   children,
 }, _ref) => {
   return (
-    <DrawerContextProvider
+    <DialogPrimitive.Root
       open={open}
       onOpenChange={onOpenChange}
     >
-      {children}
-    </DrawerContextProvider>
+      <DrawerContextProvider
+        open={open}
+        onOpenChange={onOpenChange}
+      >
+        {children}
+      </DrawerContextProvider>
+    </DialogPrimitive.Root>
   );
 });
 

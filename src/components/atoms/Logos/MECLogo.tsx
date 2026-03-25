@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/mec-logo.svg';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface MECLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const MECLogo: React.FC<MECLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="MEC Logo"
     width={width}
     height={height}

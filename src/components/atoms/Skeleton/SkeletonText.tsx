@@ -46,6 +46,7 @@ export const SkeletonText = React.forwardRef<HTMLDivElement, SkeletonTextProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="skeleton-text"
         className={cn("flex flex-col gap-[var(--spacing-x2)]", className)}
         {...props}
       >
@@ -53,7 +54,7 @@ export const SkeletonText = React.forwardRef<HTMLDivElement, SkeletonTextProps>(
           <div
             key={index}
             className={cn(
-              "h-4 bg-[var(--color-bg-secondary)] rounded-[var(--radius-md)]",
+              "h-4 bg-[var(--bg-secondary)] rounded-[var(--radius-md)]",
               animation === 'pulse' && "animate-pulse",
               animation === 'wave' && "relative overflow-hidden skeleton-wave"
             )}
@@ -66,4 +67,5 @@ export const SkeletonText = React.forwardRef<HTMLDivElement, SkeletonTextProps>(
 );
 
 SkeletonText.displayName = 'SkeletonText';
+(SkeletonText as any).slot = 'skeleton-text';
 

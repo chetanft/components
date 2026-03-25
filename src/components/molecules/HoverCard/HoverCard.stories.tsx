@@ -128,7 +128,7 @@ export const ExplorerBase: Story = {
                                 <Typography variant="body-primary-regular">
                                     Software Engineer at FT. Passionate about UI/UX and Design Systems.
                                 </Typography>
-                                <div className="flex gap-4 text-[var(--color-secondary)]">
+                                <div className="flex gap-4 text-[var(--secondary)]">
                                     <div className="flex items-center gap-1">
                                         <Icon name="calendar" size={14} />
                                         <Typography variant="body-secondary-regular">Joined Dec 2023</Typography>
@@ -155,7 +155,7 @@ const UserCard = () => (
         <Typography variant="body-primary-regular">
             Software Engineer at FT. Passionate about UI/UX and Design Systems.
         </Typography>
-        <div className="flex gap-4 text-[var(--color-secondary)]">
+        <div className="flex gap-4 text-[var(--secondary)]">
             <div className="flex items-center gap-1">
                 <Icon name="calendar" size={14} />
                 <Typography variant="body-secondary-regular">Joined Dec 2023</Typography>
@@ -194,7 +194,7 @@ export const Default: Story = {
       <Typography variant="body-primary-regular">
         Software Engineer at FT. Passionate about UI/UX and Design Systems.
       </Typography>
-      <div className="flex gap-4 text-[var(--color-secondary)]">
+      <div className="flex gap-4 text-[var(--secondary)]">
         <div className="flex items-center gap-1">
           <Icon name="calendar" size={14} />
           <Typography variant="body-secondary-regular">Joined Dec 2023</Typography>

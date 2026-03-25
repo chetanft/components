@@ -1,10 +1,10 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext } from 'react';
 
 /**
  * Drawer context value
- * 
+ *
  * @public
  */
 export interface DrawerContextValue {
@@ -32,12 +32,12 @@ const defaultContext: DrawerContextValue = {
 
 /**
  * Hook to access drawer context
- * 
+ *
  * @public
  */
 export function useDrawerContext() {
   const context = useContext(DrawerContext);
-  
+
   if (!context) {
     return defaultContext;
   }
@@ -46,7 +46,7 @@ export function useDrawerContext() {
 
 /**
  * Drawer context provider props
- * 
+ *
  * @internal
  */
 interface DrawerContextProviderProps {
@@ -57,26 +57,17 @@ interface DrawerContextProviderProps {
 
 /**
  * Drawer context provider
- * 
+ *
  * @internal
  */
 export function DrawerContextProvider({
   children,
-  open: controlledOpen,
+  open,
   onOpenChange,
 }: DrawerContextProviderProps) {
-  const [internalOpen, setInternalOpen] = useState(false);
-
-  const isControlled = onOpenChange !== undefined;
-  const open = isControlled ? controlledOpen : internalOpen;
-
-  const setOpen = useCallback((newOpen: boolean) => {
-    if (isControlled) {
-      onOpenChange?.(newOpen);
-    } else {
-      setInternalOpen(newOpen);
-    }
-  }, [isControlled, onOpenChange]);
+  const setOpen = (newOpen: boolean) => {
+    onOpenChange?.(newOpen);
+  };
 
   return (
     <DrawerContext.Provider value={{ open, setOpen }}>
@@ -84,4 +75,3 @@ export function DrawerContextProvider({
     </DrawerContext.Provider>
   );
 }
-

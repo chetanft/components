@@ -43,6 +43,7 @@ export const InputSuccess = React.forwardRef<HTMLParagraphElement, InputSuccessP
     return (
       <Comp
         ref={ref}
+        data-slot="input-success"
         id={successId}
         role="alert"
         className={cn("text-sm leading-relaxed mt-[var(--spacing-x1-5)] text-positive", className)}
@@ -55,4 +56,5 @@ export const InputSuccess = React.forwardRef<HTMLParagraphElement, InputSuccessP
 );
 
 InputSuccess.displayName = 'InputSuccess';
+(InputSuccess as any).slot = 'input-success';
 

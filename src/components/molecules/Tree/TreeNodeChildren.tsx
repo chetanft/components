@@ -51,7 +51,7 @@ export const TreeNodeChildren = React.forwardRef<HTMLDivElement, TreeNodeChildre
       <Comp
         ref={ref}
         className={cn(
-          showLine && "border-l border-[var(--color-border-secondary)] ml-[calc(var(--spacing-x3)-1px)]",
+          showLine && "border-l border-[var(--border-secondary)] ml-[calc(var(--spacing-x3)-1px)]",
           className
         )}
         {...props}

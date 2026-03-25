@@ -39,9 +39,10 @@ export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
     if (asChild) {
       return (
         <Slot
-          ref={ref as any}
+          ref={ref}
+          data-slot="avatar-image"
           className={cn("w-full h-full object-cover", className)}
-          {...(props as any)}
+          {...props}
         />
       );
     }
@@ -49,6 +50,7 @@ export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
     return (
       <img
         ref={ref}
+        data-slot="avatar-image"
         className={cn("w-full h-full object-cover", className)}
         alt={alt}
         src={src}
@@ -59,4 +61,5 @@ export const AvatarImage = React.forwardRef<HTMLImageElement, AvatarImageProps>(
 );
 
 AvatarImage.displayName = 'AvatarImage';
+(AvatarImage as any).slot = 'avatar-image';
 

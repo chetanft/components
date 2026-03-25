@@ -258,10 +258,10 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(({
 
   const stickyChildren = stickyHeader
     ? React.Children.map(children, (child) => {
-        if (React.isValidElement(child) && (child.type as any)?.displayName === 'TableHeader') {
-          return React.cloneElement(child as React.ReactElement<any>, {
+        if (React.isValidElement<{ className?: string }>(child) && (child as any)?.type?.slot === 'table-header') {
+          return React.cloneElement(child, {
             className: cn(
-              (child.props as any).className,
+              child.props.className,
               'sticky top-0 z-10'
             ),
           });
@@ -303,6 +303,6 @@ export const Table = React.forwardRef<HTMLDivElement, TableProps<any>>(({
 }) as <T extends TableRow = TableRow>(props: TableProps<T> & { ref?: React.Ref<HTMLDivElement> }) => React.ReactElement;
 
 // Assign displayName after the cast
-(Table as any).displayName = 'Table';
+(Table as React.FC).displayName = 'Table';
 
 export type { ColumnType, SortDirection, TableColumn, TableLayout, TableRow, TableVariant } from './TableTypes';

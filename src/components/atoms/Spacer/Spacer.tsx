@@ -78,9 +78,9 @@ export const Spacer = React.forwardRef<HTMLDivElement, SpacerProps>(
     if (asChild) {
       return (
         <Slot
-          ref={ref as any}
+          ref={ref}
           className={combinedClassName}
-          {...(htmlProps as any)}
+          {...htmlProps}
         />
       );
     }

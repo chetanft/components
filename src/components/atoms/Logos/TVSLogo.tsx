@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/tvs-logo.png';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface TVSLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const TVSLogo: React.FC<TVSLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="TVS Logo"
     width={width}
     height={height}

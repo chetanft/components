@@ -39,7 +39,7 @@ export const TableCellItem: React.FC<TableCellItemProps> = ({
         <Icon
           name={leadingIcon}
           size={14}
-          color="var(--color-primary)" // --color-dark-100 from Figma
+          color="var(--primary)" // --color-dark-100 from Figma
         />
       )}
 
@@ -58,7 +58,7 @@ export const TableCellItem: React.FC<TableCellItemProps> = ({
         <Icon
           name={trailingIcon}
           size={16}
-          color="var(--color-primary)" // --color-dark-100 from Figma
+          color="var(--primary)" // --color-dark-100 from Figma
         />
       )}
     </div>

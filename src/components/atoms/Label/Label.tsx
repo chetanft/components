@@ -128,7 +128,7 @@ export const Label: React.FC<LabelProps> = ({
   
   return (
     <Comp
-      {...(finalProps as any)}
+      {...(finalProps as Record<string, unknown>)}
     >
       {mandatory && mandatoryAsterisk}
       <span style={{ flexShrink: 0 }}>{children}</span>

@@ -184,7 +184,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
     return (
       <div key={item.id} className="flex justify-between items-center gap-[-2.25rem] py-[var(--spacing-x4)] w-full">
         <div className="flex-1 h-px border-b border-[var(--border-primary)]" />
-        <div className={cn("flex items-center justify-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] border border-[var(--border-primary)] rounded-full shadow-sm", getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-[var(--glass-hover)]"))}>
+        <div className={cn("flex items-center justify-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] border border-[var(--border-primary)] rounded-full shadow-sm", getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]", "bg-[var(--glass-hover)]"))}>
           <Typography
             variant="body-secondary-medium"
             color="secondary"
@@ -210,7 +210,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
             <div key={idx} className="flex items-center justify-center">
               {point.type === 'label' && (
                 <div className="flex items-center justify-center w-[var(--spacing-x4)] h-[var(--spacing-x4)] rounded-full bg-[var(--primary)]">
-                  <span className="text-[var(--color-bg-primary)] text-xxs-rem font-medium leading-none text-center">
+                  <span className="text-[var(--bg-primary)] text-xxs-rem font-medium leading-none text-center">
                     {point.label || 'OR'}
                   </span>
                 </div>
@@ -229,8 +229,8 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
             className={cn(
               "flex items-center justify-center w-8 h-8 rounded-full border-2 transition-all duration-200",
               isActive
-                ? cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-[var(--glass-hover)]"), "border-[var(--primary)]")
-                : cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-[var(--glass-hover)]"), "border-[var(--border-primary)]"),
+                ? cn(getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]", "bg-[var(--glass-hover)]"), "border-[var(--primary)]")
+                : cn(getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]", "bg-[var(--glass-hover)]"), "border-[var(--border-primary)]"),
               item.collapsible && "cursor-pointer hover:border-[var(--secondary)] hover:scale-105"
             )}
             onClick={() => item.collapsible && toggleExpand(item.id)}
@@ -253,7 +253,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
             <Icon
               name={item.icon || 'arrow-down'}
               size={10}
-              color={isActive ? 'var(--color-bg-primary)' : 'var(--primary)'}
+              color={isActive ? 'var(--bg-primary)' : 'var(--primary)'}
             />
           </div>
         );
@@ -263,7 +263,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
           <div className="flex items-center justify-center w-[var(--spacing-x5)] h-[var(--spacing-x5)]">
             <div className={cn(
               "w-3 h-3 rounded-full border-4",
-              getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-[var(--glass-hover)]"),
+              getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]", "bg-[var(--glass-hover)]"),
               isActive ? "border-[var(--primary)]" : "border-[var(--border-primary)]"
             )} />
           </div>
@@ -277,7 +277,7 @@ export const ProgressList = React.forwardRef<HTMLDivElement, ProgressListProps>(
           `}>
             <span className={`
               text-xxs-rem font-medium leading-none text-center
-              ${isActive ? 'text-[var(--color-bg-primary)]' : 'text-[var(--primary)]'}
+              ${isActive ? 'text-[var(--bg-primary)]' : 'text-[var(--primary)]'}
             `}>
               {item.pointLabel || 'OR'}
             </span>
@@ -575,7 +575,7 @@ export const ProgressListDivider = React.forwardRef<HTMLDivElement, ProgressList
     return (
       <div ref={ref} className={cn("flex justify-between items-center gap-[-2.25rem] py-[var(--spacing-x4)] w-full", className)} {...props}>
         <div className="flex-1 h-px border-b border-[var(--border-primary)]" />
-        <div className="flex items-center justify-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] bg-[var(--color-bg-primary)] border border-[var(--border-primary)] rounded-full shadow-sm">
+        <div className="flex items-center justify-center gap-[var(--spacing-x2)] px-[var(--spacing-x2)] py-[var(--spacing-x1)] bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-full shadow-sm">
           <Typography
             variant="body-secondary-medium"
             color="secondary"

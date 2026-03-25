@@ -58,6 +58,7 @@ export const DatePickerTrigger = React.forwardRef<HTMLButtonElement, DatePickerT
       return (
         <Slot
           ref={ref}
+          data-slot="datepicker-trigger"
           type="button"
           onClick={handleClick}
           disabled={disabled}
@@ -86,6 +87,7 @@ export const DatePickerTrigger = React.forwardRef<HTMLButtonElement, DatePickerT
     return (
       <button
         ref={ref}
+        data-slot="datepicker-trigger"
         type="button"
         onClick={handleClick}
         disabled={disabled}
@@ -113,4 +115,5 @@ export const DatePickerTrigger = React.forwardRef<HTMLButtonElement, DatePickerT
 );
 
 DatePickerTrigger.displayName = 'DatePickerTrigger';
+(DatePickerTrigger as any).slot = 'datepicker-trigger';
 

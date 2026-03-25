@@ -42,14 +42,14 @@ export const DropdownMenuLabel = React.forwardRef<HTMLDivElement, DropdownMenuLa
       <Comp
         ref={ref}
         className={cn(
-          getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]", "bg-transparent"),
+          getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]", "bg-transparent"),
           "box-border content-stretch flex gap-[calc(var(--spacing-x2)+var(--spacing-x1)/2)] items-center px-[var(--spacing-x3)] py-[var(--spacing-x2)] relative rounded-[var(--radius-md)] shrink-0 w-full",
           className
         )}
         {...props}
       >
         <p
-          className="font-medium leading-[1.4] relative shrink-0 text-[var(--color-tertiary)]"
+          className="font-medium leading-[1.4] relative shrink-0 text-[var(--tertiary)]"
           style={{
             fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
             fontWeight: 'var(--font-weight-medium, 500)',

@@ -118,8 +118,6 @@ export const InputNumberField = React.forwardRef<HTMLInputElement, InputNumberFi
       return (
         <Slot
           ref={ref}
-          {...({ type: "text", inputMode: "decimal", value: inputValue, onChange: handleInputChange, onFocus: handleFocusInternal, onBlur: handleBlurInternal, onKeyDown: handleKeyDownInternal } as any)}
-          disabled={disabled}
           className={cn(
             "flex-1 min-w-0 bg-transparent border-none outline-none",
             "text-[var(--primary)] placeholder:text-[var(--tertiary)]",
@@ -129,7 +127,17 @@ export const InputNumberField = React.forwardRef<HTMLInputElement, InputNumberFi
             disabled && "cursor-not-allowed",
             className
           )}
-          {...props}
+          {...({
+            type: "text",
+            inputMode: "decimal",
+            value: inputValue,
+            onChange: handleInputChange,
+            onFocus: handleFocusInternal,
+            onBlur: handleBlurInternal,
+            onKeyDown: handleKeyDownInternal,
+            disabled,
+            ...props,
+          } as Record<string, unknown>)}
         >
           {children}
         </Slot>

@@ -138,7 +138,7 @@ const dateButtonVariants = cva(
         rangeEnd: "bg-[var(--border-secondary)] text-[var(--primary)] font-medium"
       },
       inRange: {
-        true: "bg-[var(--color-border-primary)]",
+        true: "bg-[var(--border-primary)]",
         false: ""
       }
     },
@@ -184,8 +184,8 @@ const dropdownVariants = cva(
   {
     variants: {
       open: {
-        true: "border-[var(--color-primary)]",
-        false: "hover:border-[var(--color-primary)]"
+        true: "border-[var(--primary)]",
+        false: "hover:border-[var(--primary)]"
       }
     },
     defaultVariants: {

@@ -51,9 +51,12 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
     ...props
   }, ref) => {
     // Check if using composable API (has SkeletonText or SkeletonImage as children)
-    const hasComposableChildren = React.Children.toArray(children as any).some((child: any) =>
-      child?.type?.displayName === 'SkeletonText' || child?.type?.displayName === 'SkeletonImage'
-    );
+    const hasComposableChildren = React.Children.toArray(children).some((child) => {
+      if (!React.isValidElement(child)) return false;
+      const childType = (child as any)?.type;
+      const slot = childType?.slot;
+      return slot === 'skeleton-text' || slot === 'skeleton-image';
+    });
 
     // If using composable API, render with sub-components
     if (hasComposableChildren) {
@@ -78,7 +81,7 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
                     `}</style>
           )}
           {asChild ? (
-            <Slot ref={ref as any} className={className} style={style} {...(props as any)}>
+            <Slot ref={ref} className={className} style={style} {...props}>
               {children}
             </Slot>
           ) : (
@@ -95,7 +98,7 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
           }
 
     const baseStyles = cn(
-      "bg-[var(--color-bg-secondary)]",
+      "bg-[var(--bg-secondary)]",
       "rounded-[var(--radius-md)]",
       animation === 'pulse' && "animate-pulse",
       animation === 'wave' && "relative overflow-hidden",
@@ -139,7 +142,7 @@ export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
           `}</style>
         )}
         {asChild ? (
-          <Slot ref={ref as any} {...(props as any)}>
+          <Slot ref={ref} {...props}>
             <div
               className={cn(baseStyles, animation === 'wave' && "skeleton-wave", className)}
               style={computedStyle}

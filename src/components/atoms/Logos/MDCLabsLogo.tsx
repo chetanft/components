@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/mdc-labs-logo.svg';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface MDCLabsLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const MDCLabsLogo: React.FC<MDCLabsLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="MDC Labs Logo"
     width={width}
     height={height}

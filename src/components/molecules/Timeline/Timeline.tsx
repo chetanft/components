@@ -77,7 +77,7 @@ function extractDotAndContent(children: React.ReactNode): {
     if (
       !dot &&
       React.isValidElement(child) &&
-      (child.type === TimelineDot || (child.type as any)?.displayName === 'TimelineDot')
+      (child.type === TimelineDot || (child as any)?.type?.slot === 'timeline-dot')
     ) {
       dot = child;
     } else {
@@ -131,8 +131,8 @@ export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
               className={cn(
                 "flex-1 w-px",
                 pending
-                  ? "border-l border-dashed border-[var(--color-border-primary)]"
-                  : "bg-[var(--color-border-primary)]",
+                  ? "border-l border-dashed border-[var(--border-primary)]"
+                  : "bg-[var(--border-primary)]",
               )}
             />
           )}
@@ -180,7 +180,7 @@ export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
               <Icon
                 name="loading"
                 size={12}
-                className="animate-spin text-[var(--color-primary)]"
+                className="animate-spin text-[var(--primary)]"
               />
             )}
           </TimelineDot>
@@ -239,6 +239,9 @@ export const Timeline = React.forwardRef<HTMLUListElement, TimelineProps>(
 Timeline.displayName = 'Timeline';
 
 // Attach Item to Timeline for convenience
-(Timeline as any).Item = TimelineItem;
+type TimelineWithSubcomponents = typeof Timeline & {
+  Item: typeof TimelineItem;
+};
+(Timeline as TimelineWithSubcomponents).Item = TimelineItem;
 
 export default Timeline;

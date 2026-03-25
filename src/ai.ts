@@ -160,10 +160,8 @@ export const AreaChart = withAIProtection(CoreAreaChart);
 export { Icon, iconMap } from './components/atoms/Icons';
 export type { IconName } from './components/atoms/Icons';
 export { Logo } from './components/atoms/Logos';
-export { FTProvider, useFTTheme } from './components/FTProvider';
-export type { FTProviderProps } from './components/FTProvider';
-export { ThemeProvider, useTheme } from './contexts/ThemeContext';
-export { GlassProvider, useGlass } from './contexts/GlassContext';
+export { FTProvider, useFTTheme, useTheme, useGlass, ThemeProvider, GlassProvider } from './components/FTProvider';
+export type { FTProviderProps, Theme, GlassMode, ThemeContextType, GlassContextType } from './components/FTProvider';
 export { ThemeSwitch } from './components/molecules/ThemeSwitch';
 
 // ======================

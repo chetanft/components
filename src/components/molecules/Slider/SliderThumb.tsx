@@ -1,14 +1,14 @@
 "use client";
 
 import React from 'react';
+import * as SliderPrimitive from '@radix-ui/react-slider';
 import { cn } from '../../../lib/utils';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipDescription } from '../Tooltip';
-import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useSliderContext } from './SliderContext';
 
-export interface SliderThumbProps extends ComposableProps<'div'> {
+export interface SliderThumbProps extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Thumb> {
   /**
-   * Thumb value
+   * Thumb value (used for tooltip display; positioning is handled by Radix)
    */
   value: number;
   /**
@@ -25,7 +25,7 @@ export interface SliderThumbProps extends ComposableProps<'div'> {
  * SliderThumb Component
  *
  * A composable component for slider handles/thumbs.
- * Typically used within Slider.
+ * Typically used within Slider. Renders as a Radix Slider.Thumb primitive.
  *
  * @public
  *
@@ -40,98 +40,67 @@ export interface SliderThumbProps extends ComposableProps<'div'> {
  * ```
  *
  * @remarks
- * - Wraps the HTML `<div>` element by default.
- * - Supports `asChild` prop to merge props with a custom child element.
- * - Automatically handles drag interactions and tooltip display.
+ * - Wraps Radix UI Slider.Thumb primitive.
+ * - Supports keyboard interaction (arrow keys) via Radix.
+ * - Automatically handles tooltip display on hover/focus.
  */
-export const SliderThumb = React.forwardRef<HTMLDivElement, SliderThumbProps>(
-  ({ className, children, value, type, asChild, onMouseDown, onMouseEnter, onMouseLeave, ...props }, ref) => {
+export const SliderThumb = React.forwardRef<
+  React.ComponentRef<typeof SliderPrimitive.Thumb>,
+  SliderThumbProps
+>(
+  ({ className, children, value, type, ...props }, ref) => {
     const {
-      vertical,
       disabled,
-      min,
-      max,
-      isDragging,
-      setIsDragging,
-      hoveredHandle,
-      setHoveredHandle,
       tooltip,
-      getPercent,
     } = useSliderContext();
-    
-    const position = getPercent(value);
-    const isActive = isDragging === type || hoveredHandle === type;
+
+    const [isActive, setIsActive] = React.useState(false);
     const showTooltip = tooltip && isActive;
-    
-    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-      e.stopPropagation();
-      if (!disabled) setIsDragging(type);
-      onMouseDown?.(e);
-    };
-    
-    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-      setHoveredHandle(type);
-      onMouseEnter?.(e);
-    };
-    
-    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-      setHoveredHandle(null);
-      onMouseLeave?.(e);
-    };
-    
-    const thumbContent = children || (
-      <div
+
+    const tooltipValue = typeof tooltip === 'object' && tooltip.formatter
+      ? tooltip.formatter(value)
+      : value;
+
+    const thumb = (
+      <SliderPrimitive.Thumb
+        ref={ref}
+        data-slot="slider-thumb"
         className={cn(
-          "absolute w-[var(--spacing-x4)] h-[var(--spacing-x4)] left-1/2 top-1/2",
-          "-translate-x-1/2 -translate-y-1/2 origin-center",
+          "block w-[var(--spacing-x4)] h-[var(--spacing-x4)]",
           "rounded-full bg-[var(--bg-primary)]",
           "border-2 border-[var(--primary)]",
-          "shadow-md cursor-pointer z-20 pointer-events-auto",
+          "shadow-md cursor-pointer",
           "transition-transform duration-100",
           "hover:scale-110 focus:scale-110",
           "focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-opacity-30",
           disabled && "cursor-not-allowed opacity-50",
           className
         )}
-        style={vertical 
-          ? { bottom: `${position}%`, left: '50%' }
-          : { left: `${position}%`, top: '50%' }
-        }
-        onMouseDown={handleMouseDown}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        tabIndex={disabled ? -1 : 0}
-        role="slider"
-        aria-valuenow={value}
-        aria-valuemin={min}
-        aria-valuemax={max}
-        aria-disabled={disabled}
+        onPointerDown={() => setIsActive(true)}
+        onPointerUp={() => setIsActive(false)}
+        onFocus={() => setIsActive(true)}
+        onBlur={() => setIsActive(false)}
+        onPointerEnter={() => setIsActive(true)}
+        onPointerLeave={(e) => {
+          // Only deactivate on leave if not currently dragging (pointer not captured)
+          if (!(e.target as HTMLElement).hasPointerCapture?.(e.pointerId)) {
+            setIsActive(false);
+          }
+        }}
         {...props}
-      />
+      >
+        {children}
+      </SliderPrimitive.Thumb>
     );
-    
-    if (asChild) {
-      return (
-        <Slot
-          ref={ref}
-          onMouseDown={handleMouseDown}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          {...props}
-        >
-          {thumbContent}
-        </Slot>
-      );
+
+    if (!tooltip) {
+      return thumb;
     }
-    
-    const tooltipValue = typeof tooltip === 'object' && tooltip.formatter
-      ? tooltip.formatter(value)
-      : value;
-    
+
     return (
       <Tooltip open={showTooltip && !!tooltip}>
         <TooltipTrigger asChild>
-          {thumbContent}
+          {thumb}
         </TooltipTrigger>
         <TooltipContent>
           <TooltipDescription>{String(tooltipValue)}</TooltipDescription>
@@ -142,4 +111,4 @@ export const SliderThumb = React.forwardRef<HTMLDivElement, SliderThumbProps>(
 );
 
 SliderThumb.displayName = 'SliderThumb';
-
+(SliderThumb as any).slot = 'slider-thumb';

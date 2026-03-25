@@ -136,8 +136,8 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
         disabled={disabled}
         onClick={() => !disabled && setOpen(!open)}
         className={cn(
-            "relative border border-[var(--border-primary)] rounded cursor-pointer flex items-center gap-[var(--spacing-x2)] p-[var(--spacing-x1)] bg-[var(--color-bg-primary)] hover:border-[var(--primary)] transition-colors",
-            disabled && "cursor-not-allowed opacity-50 bg-[var(--color-bg-secondary)]",
+            "relative border border-[var(--border-primary)] rounded cursor-pointer flex items-center gap-[var(--spacing-x2)] p-[var(--spacing-x1)] bg-[var(--bg-primary)] hover:border-[var(--primary)] transition-colors",
+            disabled && "cursor-not-allowed opacity-50 bg-[var(--bg-secondary)]",
             size === 'sm' && "h-6 px-[var(--spacing-x1)]",
             size === 'md' && "h-8 px-[var(--spacing-x2)]",
             size === 'lg' && "h-10 px-[var(--spacing-x3)]"
@@ -154,7 +154,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
 
       {open && (
         // Simple popover implementation - in real app would use proper positioning/portal
-        <div className={cn("absolute z-50 mt-[var(--spacing-x2)] top-full left-0 p-[var(--spacing-x3)] rounded-lg shadow-xl min-w-[12.5rem]", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--border-primary)]'))}>
+        <div className={cn("absolute z-50 mt-[var(--spacing-x2)] top-full left-0 p-[var(--spacing-x3)] rounded-lg shadow-xl min-w-[12.5rem]", getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-primary)]'))}>
             <div className="grid grid-cols-5 gap-[var(--spacing-x2)] mb-[var(--spacing-x3)]">
                 {presets.map(color => (
                     <button

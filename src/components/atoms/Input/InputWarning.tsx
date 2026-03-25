@@ -43,6 +43,7 @@ export const InputWarning = React.forwardRef<HTMLParagraphElement, InputWarningP
     return (
       <Comp
         ref={ref}
+        data-slot="input-warning"
         id={warningId}
         role="alert"
         className={cn("text-sm leading-relaxed mt-[var(--spacing-x1-5)] text-warning", className)}
@@ -55,4 +56,5 @@ export const InputWarning = React.forwardRef<HTMLParagraphElement, InputWarningP
 );
 
 InputWarning.displayName = 'InputWarning';
+(InputWarning as any).slot = 'input-warning';
 

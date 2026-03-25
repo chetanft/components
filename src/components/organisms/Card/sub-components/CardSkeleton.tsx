@@ -37,7 +37,7 @@ export const CardSkeleton: React.FC<CardSkeletonProps> = ({ size, className }) =
     }[cardSize];
 
     return (
-        <div className={cn(padding, className)}>
+        <div data-slot="card-skeleton" className={cn(padding, className)}>
             <Skeleton height="var(--spacing-x6)" width="30%" className="mb-[var(--spacing-x4)]" />
             <Skeleton height="var(--spacing-x4)" className="mb-[var(--spacing-x2)]" />
             <Skeleton height="var(--spacing-x4)" className="mb-[var(--spacing-x2)]" />
@@ -47,3 +47,4 @@ export const CardSkeleton: React.FC<CardSkeletonProps> = ({ size, className }) =
 };
 
 CardSkeleton.displayName = 'CardSkeleton';
+(CardSkeleton as any).slot = 'card-skeleton';

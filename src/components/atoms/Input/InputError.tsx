@@ -43,6 +43,7 @@ export const InputError = React.forwardRef<HTMLParagraphElement, InputErrorProps
     return (
       <Comp
         ref={ref}
+        data-slot="input-error"
         id={errorId}
         role="alert"
         className={cn("text-sm leading-relaxed mt-[var(--spacing-x1-5)] text-critical", className)}
@@ -55,4 +56,5 @@ export const InputError = React.forwardRef<HTMLParagraphElement, InputErrorProps
 );
 
 InputError.displayName = 'InputError';
+(InputError as any).slot = 'input-error';
 

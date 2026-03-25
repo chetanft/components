@@ -67,7 +67,7 @@ export const TreeNodeSwitcher: React.FC<TreeNodeSwitcherProps> = ({ nodeKey, isL
   if (isLeaf) {
     return showLine ? (
       <span className="w-[var(--spacing-x6)] h-[var(--spacing-x6)] flex items-center justify-center">
-        <span className="w-[calc((var(--spacing-x2)+var(--spacing-x1))/2)] h-[calc((var(--spacing-x2)+var(--spacing-x1))/2)] rounded-full bg-[var(--color-border-primary)]" />
+        <span className="w-[calc((var(--spacing-x2)+var(--spacing-x1))/2)] h-[calc((var(--spacing-x2)+var(--spacing-x1))/2)] rounded-full bg-[var(--border-primary)]" />
       </span>
     ) : (
       <span className="w-[var(--spacing-x6)]" />
@@ -82,7 +82,7 @@ export const TreeNodeSwitcher: React.FC<TreeNodeSwitcherProps> = ({ nodeKey, isL
       <Icon
         name={isExpanded ? 'chevron-down' : 'chevron-right'}
         size={16}
-        className="text-[var(--color-tertiary)] transition-transform"
+        className="text-[var(--tertiary)] transition-transform"
       />
     );
   
@@ -92,7 +92,7 @@ export const TreeNodeSwitcher: React.FC<TreeNodeSwitcherProps> = ({ nodeKey, isL
       onClick={handleExpand}
       className={cn(
         "w-[var(--spacing-x6)] h-[var(--spacing-x6)] flex items-center justify-center",
-        "hover:bg-[var(--color-bg-secondary)] rounded transition-colors",
+        "hover:bg-[var(--bg-secondary)] rounded transition-colors",
         isDisabled && "cursor-not-allowed opacity-50"
       )}
       disabled={isDisabled}

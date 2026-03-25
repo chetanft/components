@@ -140,7 +140,7 @@ export const ExplorerBase: Story = {
             onChange={setTime}
             {...sharedPickerProps}
           />
-          <p className="text-sm text-[var(--color-tertiary)]">Selected: {time || 'None'}</p>
+          <p className="text-sm text-[var(--tertiary)]">Selected: {time || 'None'}</p>
         </div>
       );
     }
@@ -174,7 +174,7 @@ export const ExplorerBase: Story = {
     if (contentType === 'form') {
       return (
         <div key={syncKey} className="space-y-4 max-w-md">
-          <h3 className="text-lg font-medium text-[var(--color-primary)]">Schedule Meeting</h3>
+          <h3 className="text-lg font-medium text-[var(--primary)]">Schedule Meeting</h3>
           <div className="grid grid-cols-2 gap-4">
             <TimePicker
               label="Start Time"
@@ -231,7 +231,7 @@ const ControlledTimePickerStory = (props: TimePickerStoryProps) => {
         value={time}
         onChange={setTime}
       />
-      <p className="text-sm text-[var(--color-tertiary)]">Selected time: {time || 'None'}</p>
+      <p className="text-sm text-[var(--tertiary)]">Selected time: {time || 'None'}</p>
     </div>
   );
 };
@@ -242,7 +242,7 @@ const FormIntegrationStory = () => {
 
   return (
     <div className="space-y-4 max-w-md">
-      <h3 className="text-lg font-medium text-[var(--color-primary)]">Schedule Meeting</h3>
+      <h3 className="text-lg font-medium text-[var(--primary)]">Schedule Meeting</h3>
       <div className="grid grid-cols-2 gap-4">
         <TimePicker
           label="Start Time"
@@ -259,7 +259,7 @@ const FormIntegrationStory = () => {
           showSecond={false}
         />
       </div>
-      <p className="text-sm text-[var(--color-secondary)]">
+      <p className="text-sm text-[var(--secondary)]">
         Meeting duration: {startTime && endTime ?
           `${startTime.slice(0, 5)} - ${endTime.slice(0, 5)}` :
           'Select times'}

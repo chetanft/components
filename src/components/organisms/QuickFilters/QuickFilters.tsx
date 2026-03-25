@@ -129,12 +129,12 @@ const FilterChip: React.FC<{
         "text-sm font-semibold font-inter",
         // Background based on Figma design
         isMainLabel
-          ? getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-[var(--glass-selected)]")
+          ? getGlassInnerBg(resolvedGlass, "bg-[var(--border-secondary)]", "bg-[var(--glass-selected)]")
           : isSelected
-            ? getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-[var(--glass-selected)]")
-            : getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]"),
+            ? getGlassInnerBg(resolvedGlass, "bg-[var(--border-secondary)]", "bg-[var(--glass-selected)]")
+            : getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]"),
         // Border: always show border except for main labels without border
-        showBorder && !isMainLabel ? "box-border border border-[var(--color-border-primary)]" : "",
+        showBorder && !isMainLabel ? "box-border border border-[var(--border-primary)]" : "",
         chipClassName
       )}
       onClick={!isMainLabel ? onSelect : undefined}
@@ -158,20 +158,20 @@ const FilterChip: React.FC<{
             // Count badge styling based on state and type
             isSelected
               ? cn(
-                getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]"),
-                displayType === 'alert' ? "text-[var(--color-critical)]" :
-                  displayType === 'warning' ? "text-[var(--color-warning)]" :
-                    displayType === 'success' ? "text-[var(--color-positive)]" :
-                      displayType === 'neutral' ? "text-[var(--color-neutral)]" :
-                        "text-[var(--color-primary)]"
+                getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]"),
+                displayType === 'alert' ? "text-[var(--critical)]" :
+                  displayType === 'warning' ? "text-[var(--warning)]" :
+                    displayType === 'success' ? "text-[var(--positive)]" :
+                      displayType === 'neutral' ? "text-[var(--neutral)]" :
+                        "text-[var(--primary)]"
               )
               : cn(
-                getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-secondary)]"),
-                displayType === 'alert' ? "text-[var(--color-critical)]" :
-                  displayType === 'warning' ? "text-[var(--color-warning)]" :
-                    displayType === 'success' ? "text-[var(--color-positive)]" :
-                      displayType === 'neutral' ? "text-[var(--color-neutral)]" :
-                        "text-[var(--color-primary)]",
+                getGlassInnerBg(resolvedGlass, "bg-[var(--bg-secondary)]"),
+                displayType === 'alert' ? "text-[var(--critical)]" :
+                  displayType === 'warning' ? "text-[var(--warning)]" :
+                    displayType === 'success' ? "text-[var(--positive)]" :
+                      displayType === 'neutral' ? "text-[var(--neutral)]" :
+                        "text-[var(--primary)]",
             countClassName
               )
           )}
@@ -181,7 +181,7 @@ const FilterChip: React.FC<{
       )}
 
       {/* Label */}
-      <span className={cn("text-[var(--color-primary)]", labelClassName)}>
+      <span className={cn("text-[var(--primary)]", labelClassName)}>
         {displayLabel}
       </span>
 
@@ -209,7 +209,7 @@ const FilterChip: React.FC<{
               <Icon
                 name="check-alt"
                 size={14}
-                className="text-[var(--color-primary)]"
+                className="text-[var(--primary)]"
               />
             </div>
           )}
@@ -229,9 +229,9 @@ const MultiOptionFilter: React.FC<{
   resolvedGlass?: GlassVariant;
 }> = ({ filter, onFilterClick, onFilterRemove, chipClassName, labelClassName, countClassName, resolvedGlass }) => {
   return (
-    <div className={cn("inline-flex items-center h-[2.25rem] rounded-[var(--radius-md)] overflow-hidden", getGlassClasses(resolvedGlass, "bg-[var(--color-bg-primary)]", "border border-[var(--color-border-primary)]"))}>
+    <div className={cn("inline-flex items-center h-[2.25rem] rounded-[var(--radius-md)] overflow-hidden", getGlassClasses(resolvedGlass, "bg-[var(--bg-primary)]", "border border-[var(--border-primary)]"))}>
       {/* Main filter section - non-clickable label with gray background */}
-      <div className={cn("h-full flex items-center px-[var(--spacing-x2)]", getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-[var(--glass-selected)]"))}>
+      <div className={cn("h-full flex items-center px-[var(--spacing-x2)]", getGlassInnerBg(resolvedGlass, "bg-[var(--border-secondary)]", "bg-[var(--glass-selected)]"))}>
         <FilterChip
           filter={filter}
           isSelected={false}
@@ -249,7 +249,7 @@ const MultiOptionFilter: React.FC<{
       {/* Options section with separators */}
       {filter.options?.map((option, index) => (
         <React.Fragment key={option.id}>
-          {index > 0 && <div className="w-px h-[2.25rem] bg-[var(--color-border-primary)]" />}
+          {index > 0 && <div className="w-px h-[2.25rem] bg-[var(--border-primary)]" />}
           <div className="px-[var(--spacing-x1)] h-full flex items-center">
             <FilterChip
               filter={filter}
@@ -358,8 +358,8 @@ export const QuickFilters: React.FC<QuickFiltersProps> = ({
                 "box-border h-[2.25rem] flex items-center px-[var(--spacing-x1)] py-0 rounded-[var(--radius-md)]",
                 "border border-solid",
                 filter.selected
-                  ? cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-border-secondary)]", "bg-[var(--glass-selected)]"), "border-[var(--color-border-primary)]")
-                  : cn(getGlassInnerBg(resolvedGlass, "bg-[var(--color-bg-primary)]"), "border-[var(--color-border-primary)]"),
+                  ? cn(getGlassInnerBg(resolvedGlass, "bg-[var(--border-secondary)]", "bg-[var(--glass-selected)]"), "border-[var(--border-primary)]")
+                  : cn(getGlassInnerBg(resolvedGlass, "bg-[var(--bg-primary)]"), "border-[var(--border-primary)]"),
                 scrollable ? 'flex-shrink-0' : ''
               )}
             >

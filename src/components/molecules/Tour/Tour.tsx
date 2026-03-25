@@ -163,7 +163,7 @@ export const Tour = React.forwardRef<HTMLDivElement, TourProps>(({
       <div
         className={cn(
           "absolute p-[var(--spacing-x4)] rounded-lg shadow-xl w-[18.75rem] z-[1002] animate-in fade-in zoom-in-95 duration-200",
-          getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', ''),
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', ''),
           className
         )}
         style={{

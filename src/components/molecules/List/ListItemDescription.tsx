@@ -44,9 +44,8 @@ export const ListItemDescription = React.forwardRef<HTMLDivElement, ListItemDesc
       );
     }
     
-    const { color: _, ...restProps } = props as any;
     return (
-      <Typography variant="body-secondary-regular" ref={ref as any} className={className} {...restProps}>
+      <Typography variant="body-secondary-regular" ref={ref} className={className} {...props}>
         {children}
       </Typography>
     );

@@ -45,7 +45,7 @@ export const DropdownMenuSeparator = React.forwardRef<HTMLDivElement, DropdownMe
         )}
         {...props}
       >
-        {children || <div className="flex-1 h-px bg-[var(--color-border-primary)]" />}
+        {children || <div className="flex-1 h-px bg-[var(--border-primary)]" />}
       </Comp>
     );
   }

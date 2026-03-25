@@ -92,7 +92,7 @@ const ControlledComponent = (args: any) => {
         value={date}
         onSelect={setDate}
       />
-      <p className="text-sm text-[var(--color-tertiary)]">
+      <p className="text-sm text-[var(--tertiary)]">
         Selected: {date.toLocaleDateString()}
       </p>
     </div>
@@ -144,14 +144,14 @@ export const Fullscreen: Story = {
           const day = date.getDate();
           if (day === 15) {
             return (
-              <div className="text-[var(--color-primary)] text-xs">
+              <div className="text-[var(--primary)] text-xs">
                 Meeting
               </div>
             );
           }
           if (day === 20) {
             return (
-              <div className="text-[var(--color-positive)] text-xs">
+              <div className="text-[var(--positive)] text-xs">
                 Birthday
               </div>
             );
@@ -227,7 +227,7 @@ export const ValidRange: Story = {
           {...args}
           validRange={[minDate, maxDate]}
         />
-        <p className="text-sm text-[var(--color-tertiary)]">
+        <p className="text-sm text-[var(--tertiary)]">
           Valid range: {minDate.toLocaleDateString()} - {maxDate.toLocaleDateString()}
         </p>
       </div>
@@ -255,18 +255,18 @@ export const CustomHeader: Story = {
     <Calendar
       {...args}
       headerRender={({ value, type, onChange, onTypeChange }) => (
-        <div className="flex items-center justify-between p-4 bg-[var(--color-bg-secondary)] rounded-t-lg">
+        <div className="flex items-center justify-between p-4 bg-[var(--bg-secondary)] rounded-t-lg">
           <button
             onClick={() => {
               const newDate = new Date(value);
               newDate.setMonth(newDate.getMonth() - 1);
               onChange(newDate);
             }}
-            className="px-3 py-1 border border-[var(--border-primary)] bg-transparent text-[var(--color-primary)] rounded hover:bg-[var(--color-bg-secondary)] transition-colors"
+            className="px-3 py-1 border border-[var(--border-primary)] bg-transparent text-[var(--primary)] rounded hover:bg-[var(--bg-secondary)] transition-colors"
           >
             Prev
           </button>
-          <span className="font-bold text-[var(--color-primary)]">
+          <span className="font-bold text-[var(--primary)]">
             {value.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
           </span>
           <button
@@ -275,7 +275,7 @@ export const CustomHeader: Story = {
               newDate.setMonth(newDate.getMonth() + 1);
               onChange(newDate);
             }}
-            className="px-3 py-1 border border-[var(--border-primary)] bg-transparent text-[var(--color-primary)] rounded hover:bg-[var(--color-bg-secondary)] transition-colors"
+            className="px-3 py-1 border border-[var(--border-primary)] bg-transparent text-[var(--primary)] rounded hover:bg-[var(--bg-secondary)] transition-colors"
           >
             Next
           </button>
@@ -339,7 +339,7 @@ export const EventCalendar: Story = {
                 {dayEvents.map((event, i) => (
                   <div
                     key={i}
-                    className="text-xs px-1 py-0.5 rounded bg-[var(--color-primary-light)] text-[var(--color-primary)] truncate"
+                    className="text-xs px-1 py-0.5 rounded bg-[var(--color-primary-light)] text-[var(--primary)] truncate"
                   >
                     {event}
                   </div>
@@ -409,7 +409,7 @@ export const DocsMonthSelectionWithSummary: Story = {
         monthCellRender={(date) => {
           const count = monthEvents[date.getMonth()];
           return (
-            <div className="text-xs text-[var(--color-tertiary)]">
+            <div className="text-xs text-[var(--tertiary)]">
               {count} events
             </div>
           );

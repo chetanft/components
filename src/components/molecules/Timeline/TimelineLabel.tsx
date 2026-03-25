@@ -42,7 +42,7 @@ export const TimelineLabel = React.forwardRef<HTMLDivElement, TimelineLabelProps
     return (
       <Comp
         ref={ref}
-        className={cn("text-[var(--color-tertiary)] text-sm", className)}
+        className={cn("text-[var(--tertiary)] text-sm", className)}
         {...props}
       >
         {safeChildren}

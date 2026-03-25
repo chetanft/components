@@ -59,7 +59,7 @@ export const BulletChart: React.FC<BulletChartProps> = ({
       {
         label: 'Bad',
         data: [ranges[0]],
-        backgroundColor: 'var(--color-neutral-light)',
+        backgroundColor: 'var(--neutral-light)',
         barPercentage: 1,
         categoryPercentage: 1,
         stack: 'ranges',
@@ -68,7 +68,7 @@ export const BulletChart: React.FC<BulletChartProps> = ({
       {
         label: 'Satisfactory',
         data: [ranges[1] - ranges[0]],
-        backgroundColor: 'var(--color-border-secondary)',
+        backgroundColor: 'var(--border-secondary)',
         barPercentage: 1,
         categoryPercentage: 1,
         stack: 'ranges',
@@ -77,7 +77,7 @@ export const BulletChart: React.FC<BulletChartProps> = ({
       {
         label: 'Good',
         data: [ranges[2] - ranges[1]],
-        backgroundColor: 'var(--color-border-primary)',
+        backgroundColor: 'var(--border-primary)',
         barPercentage: 1,
         categoryPercentage: 1,
         stack: 'ranges',

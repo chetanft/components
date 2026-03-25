@@ -1,12 +1,13 @@
 "use client";
 
 import React from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
+import { type ComposableProps } from '../../../lib/slot';
 
 /**
  * DrawerTitle component props
- * 
+ *
  * @public
  */
 export interface DrawerTitleProps extends ComposableProps<'h2'> {
@@ -18,12 +19,12 @@ export interface DrawerTitleProps extends ComposableProps<'h2'> {
 
 /**
  * DrawerTitle Component
- * 
+ *
  * A composable title component for the drawer header.
- * Provides accessible heading semantics.
- * 
+ * Provides accessible heading semantics with auto-generated unique IDs.
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
  * <DrawerHeader>
@@ -31,32 +32,29 @@ export interface DrawerTitleProps extends ComposableProps<'h2'> {
  *   <DrawerClose />
  * </DrawerHeader>
  * ```
- * 
+ *
  * @remarks
- * - Renders as an h2 element by default
+ * - Renders as an h2 element by default via Radix Dialog.Title
  * - Supports `asChild` prop for custom element composition
- * - Automatically receives proper ARIA attributes
+ * - Automatically receives proper ARIA attributes with unique IDs
  * - Use within DrawerHeader for consistent styling
  */
 export const DrawerTitle = React.forwardRef<HTMLHeadingElement, DrawerTitleProps>(
   ({ children, className, asChild, ...props }, ref) => {
-    const Comp = asChild ? Slot : 'h2';
-    
     return (
-      <Comp
+      <DialogPrimitive.Title
         ref={ref}
-        id="drawer-title"
+        asChild={asChild}
         className={cn(
-          "text-xl font-semibold text-[var(--color-primary)]",
+          "text-[length:var(--font-size-xl-rem)] font-semibold text-[var(--primary)]",
           className
         )}
         {...props}
       >
         {children}
-      </Comp>
+      </DialogPrimitive.Title>
     );
   }
 );
 
 DrawerTitle.displayName = 'DrawerTitle';
-

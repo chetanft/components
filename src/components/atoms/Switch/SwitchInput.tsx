@@ -77,7 +77,7 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, SwitchInputProps>(
         : checked
           ? "bg-[var(--switch-on-bg)]"
           : "bg-[var(--switch-off-bg)]",
-      "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--color-neutral-light)] focus-within:ring-offset-2",
+      "focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--neutral-light)] focus-within:ring-offset-2",
       hasError && "ring-2 ring-critical",
       trackClassName,
       className
@@ -106,11 +106,14 @@ export const SwitchInput = React.forwardRef<HTMLInputElement, SwitchInputProps>(
             <Slot
               ref={ref}
               id={switchId}
-              {...({ type: "checkbox", checked } as any)}
               className="sr-only"
-              disabled={isDisabled}
-              aria-invalid={hasError ? 'true' : 'false'}
-              {...props}
+              {...({
+                type: "checkbox",
+                checked,
+                disabled: isDisabled,
+                'aria-invalid': hasError ? 'true' : 'false',
+                ...props,
+              } as Record<string, unknown>)}
             />
             <div className={thumbStyles} />
           </div>

@@ -86,7 +86,7 @@ export const Descriptions: React.FC<DescriptionsProps> = ({
                     className={cn(
                         "grid w-full",
                         bordered && cn(
-                            getGlassClasses(resolvedGlass, '', 'border border-[var(--color-border-secondary)]'),
+                            getGlassClasses(resolvedGlass, '', 'border border-[var(--border-secondary)]'),
                             "rounded-[var(--radius-md)] overflow-hidden"
                         )
                     )}

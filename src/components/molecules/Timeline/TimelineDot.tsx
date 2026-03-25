@@ -24,19 +24,19 @@ export interface TimelineDotProps {
 }
 
 const dotBgMap: Record<TimelineDotColor, string> = {
-  primary: 'border-[var(--color-primary)] bg-[var(--color-primary)]',
-  success: 'border-[var(--color-positive)] bg-[var(--color-positive)]',
-  warning: 'border-[var(--color-warning)] bg-[var(--color-warning)]',
-  danger: 'border-[var(--color-critical)] bg-[var(--color-critical)]',
-  neutral: 'border-[var(--color-neutral)] bg-[var(--color-neutral)]',
+  primary: 'border-[var(--primary)] bg-[var(--primary)]',
+  success: 'border-[var(--positive)] bg-[var(--positive)]',
+  warning: 'border-[var(--warning)] bg-[var(--warning)]',
+  danger: 'border-[var(--critical)] bg-[var(--critical)]',
+  neutral: 'border-[var(--neutral)] bg-[var(--neutral)]',
 };
 
 const iconRingMap: Record<TimelineDotColor, string> = {
-  primary: 'border-[var(--color-primary)] text-[var(--color-primary)]',
-  success: 'border-[var(--color-positive)] text-[var(--color-positive)]',
-  warning: 'border-[var(--color-warning)] text-[var(--color-warning)]',
-  danger: 'border-[var(--color-critical)] text-[var(--color-critical)]',
-  neutral: 'border-[var(--color-neutral)] text-[var(--color-neutral)]',
+  primary: 'border-[var(--primary)] text-[var(--primary)]',
+  success: 'border-[var(--positive)] text-[var(--positive)]',
+  warning: 'border-[var(--warning)] text-[var(--warning)]',
+  danger: 'border-[var(--critical)] text-[var(--critical)]',
+  neutral: 'border-[var(--neutral)] text-[var(--neutral)]',
 };
 
 export const TimelineDot = React.forwardRef<HTMLDivElement, TimelineDotProps>(
@@ -46,8 +46,9 @@ export const TimelineDot = React.forwardRef<HTMLDivElement, TimelineDotProps>(
       return (
         <div
           ref={ref}
+          data-slot="timeline-dot"
           className={cn(
-            "flex items-center justify-center w-6 h-6 rounded-full bg-[var(--color-bg-primary)] border-2",
+            "flex items-center justify-center w-6 h-6 rounded-full bg-[var(--bg-primary)] border-2",
             iconRingMap[color],
             className,
           )}
@@ -66,8 +67,9 @@ export const TimelineDot = React.forwardRef<HTMLDivElement, TimelineDotProps>(
       return (
         <div
           ref={ref}
+          data-slot="timeline-dot"
           className={cn(
-            "flex items-center justify-center w-6 h-6 rounded-full bg-[var(--color-bg-primary)] border-2",
+            "flex items-center justify-center w-6 h-6 rounded-full bg-[var(--bg-primary)] border-2",
             iconRingMap[color],
             className,
           )}
@@ -81,6 +83,7 @@ export const TimelineDot = React.forwardRef<HTMLDivElement, TimelineDotProps>(
     return (
       <div
         ref={ref}
+        data-slot="timeline-dot"
         className={cn(
           "w-2.5 h-2.5 rounded-full border-2",
           dotBgMap[color],
@@ -92,3 +95,4 @@ export const TimelineDot = React.forwardRef<HTMLDivElement, TimelineDotProps>(
 );
 
 TimelineDot.displayName = 'TimelineDot';
+(TimelineDot as any).slot = 'timeline-dot';

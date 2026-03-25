@@ -5,14 +5,8 @@ import React, { createContext, useContext } from 'react';
 export type HoverCardPlacement = 'top' | 'bottom' | 'left' | 'right';
 
 export interface HoverCardContextType {
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  openDelay: number;
-  closeDelay: number;
   placement: HoverCardPlacement;
   width?: number | string;
-  openTimeoutRef: React.MutableRefObject<NodeJS.Timeout | null>;
-  closeTimeoutRef: React.MutableRefObject<NodeJS.Timeout | null>;
 }
 
 const HoverCardContext = createContext<HoverCardContextType | undefined>(undefined);
@@ -22,19 +16,13 @@ const HoverCardContext = createContext<HoverCardContextType | undefined>(undefin
  * This provides resilience against displayName detection failures in bundled code.
  */
 const createDefaultContext = (): HoverCardContextType => ({
-  open: false,
-  setOpen: () => {},
-  openDelay: 200,
-  closeDelay: 300,
   placement: 'bottom',
   width: undefined,
-  openTimeoutRef: { current: null },
-  closeTimeoutRef: { current: null },
 });
 
 export const useHoverCardContext = () => {
   const context = useContext(HoverCardContext);
-  
+
   if (!context) {
     return createDefaultContext();
   }
@@ -53,4 +41,3 @@ export const HoverCardProvider: React.FC<HoverCardProviderProps> = ({ value, chi
     </HoverCardContext.Provider>
   );
 };
-

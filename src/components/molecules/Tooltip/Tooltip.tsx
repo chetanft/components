@@ -1,15 +1,14 @@
 "use client";
 
 import React from 'react';
-import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 import { TooltipProvider } from './TooltipContext';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 export type TooltipAlignment = 'start' | 'center' | 'end';
 export type TooltipColor = 'white' | 'dark';
 
-export interface TooltipProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+export interface TooltipProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Tooltip content (for composable API)
    */
@@ -51,7 +50,7 @@ export interface TooltipProps extends Omit<ComposableProps<'div'>, 'onChange'> {
 
 /**
  * Tooltip Component
- * 
+ *
  * A versatile tooltip component for displaying contextual information.
  * Uses composable API with sub-components for maximum flexibility.
  *
@@ -75,38 +74,31 @@ export interface TooltipProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  * - All sub-components (TooltipTrigger, TooltipContent, TooltipTitle, etc.) support `asChild`
  * - Supports multiple placements and alignments
  * - Accessible: includes ARIA attributes and keyboard navigation
+ * - Renders in a portal to avoid overflow clipping
+ * - Automatic collision detection to stay within viewport
  */
 export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(({
   children,
-  showClose = false,
+  showClose: _showClose,
   onClose: _onClose,
   placement = 'top',
   align = 'center',
   color = 'white',
-  className = '',
   open: controlledOpen,
   defaultOpen = false,
-  asChild,
-  ...props
 }, _ref) => {
-  const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
-  const open = controlledOpen ?? internalOpen;
-
-  const Comp = asChild ? Slot : 'div';
   return (
-    <TooltipProvider
-      value={{
-        open,
-        setOpen: setInternalOpen,
-        placement,
-        align,
-        color,
-      }}
-    >
-      <Comp className={cn("relative inline-flex flex-col", className)} {...props}>
-        {children}
-      </Comp>
-    </TooltipProvider>
+    <TooltipPrimitive.Provider>
+      <TooltipPrimitive.Root
+        open={controlledOpen}
+        defaultOpen={defaultOpen}
+        delayDuration={200}
+      >
+        <TooltipProvider value={{ color, placement, align }}>
+          {children}
+        </TooltipProvider>
+      </TooltipPrimitive.Root>
+    </TooltipPrimitive.Provider>
   );
 });
 

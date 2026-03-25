@@ -155,6 +155,7 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="table-cell"
         className={cn(className)}
         {...props}
       >
@@ -166,6 +167,7 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
   return (
     <td
       ref={ref}
+      data-slot="table-cell"
       className={cn(
         // Base styles
         "transition-colors duration-200 border-b border-[var(--border-primary)]",
@@ -210,4 +212,5 @@ export const TableCell = React.forwardRef<HTMLTableCellElement, TableCellProps>(
   );
 });
 
-TableCell.displayName = 'TableCell'; 
+TableCell.displayName = 'TableCell';
+(TableCell as any).slot = 'table-cell'; 

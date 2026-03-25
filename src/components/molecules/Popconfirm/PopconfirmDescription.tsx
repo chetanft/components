@@ -42,9 +42,8 @@ export const PopconfirmDescription = React.forwardRef<HTMLDivElement, Popconfirm
       );
     }
     
-    const { color: _, ...restProps } = props as any;
     return (
-      <Typography variant="body-secondary-regular" className={className} ref={ref} {...restProps}>
+      <Typography variant="body-secondary-regular" className={className} ref={ref} {...props}>
         {children}
       </Typography>
     );

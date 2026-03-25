@@ -70,7 +70,7 @@ export const Text: React.FC<TextProps> = ({
   // Icon element factory matching Figma structure
   const createIconElement = (key: string) => (
     <div key={key} className="relative shrink-0 size-[var(--spacing-x4)]" data-name="Check- fill">
-      <Icon name="check-fill" size={16} className="text-[var(--color-primary)]" />
+      <Icon name="check-fill" size={16} className="text-[var(--primary)]" />
     </div>
   );
 

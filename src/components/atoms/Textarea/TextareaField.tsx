@@ -90,7 +90,7 @@ export const TextareaField = React.forwardRef<HTMLTextAreaElement, TextareaField
     const textareaStyles = cn(
       "w-full resize-y",
       "font-normal",
-      "text-[var(--color-primary)]",
+      "text-[var(--primary)]",
       "bg-[var(--bg-primary)]",
       "border border-[var(--border-primary)]",
       "rounded-md",
@@ -100,15 +100,15 @@ export const TextareaField = React.forwardRef<HTMLTextAreaElement, TextareaField
       currentSize.fontSize,
       currentSize.minHeight,
       "focus:outline-none",
-      "focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20",
-      "focus:border-[var(--color-neutral)]",
-      hasError && "border-[var(--color-critical)]",
-      hasError && "focus:border-[var(--color-critical)] focus:ring-[var(--color-critical)] focus:ring-opacity-20",
+      "focus:ring-2 focus:ring-[var(--neutral)] focus:ring-opacity-20",
+      "focus:border-[var(--neutral)]",
+      hasError && "border-[var(--critical)]",
+      hasError && "focus:border-[var(--critical)] focus:ring-[var(--critical)] focus:ring-opacity-20",
       isDisabled && "bg-[var(--bg-secondary)]",
       isDisabled && "text-[var(--text-disabled)]",
       isDisabled && "cursor-not-allowed",
       isDisabled && "opacity-60",
-      !isDisabled && "hover:border-[var(--color-tertiary)]",
+      !isDisabled && "hover:border-[var(--tertiary)]",
       className
     );
 
@@ -118,16 +118,18 @@ export const TextareaField = React.forwardRef<HTMLTextAreaElement, TextareaField
           <Slot
             ref={ref}
             id={textareaId}
-            {...({ rows } as any)}
-            disabled={isDisabled}
-            aria-describedby={describedBy}
-            aria-invalid={hasError ? 'true' : undefined}
             className={textareaStyles}
-            style={{
-              fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
-              ...props.style,
-            }}
-            {...props}
+            {...({
+              rows,
+              disabled: isDisabled,
+              'aria-describedby': describedBy,
+              'aria-invalid': hasError ? 'true' : undefined,
+              style: {
+                fontFamily: 'var(--font-family-primary, "Inter", sans-serif)',
+                ...props.style,
+              },
+              ...props,
+            } as Record<string, unknown>)}
           />
         </div>
       );

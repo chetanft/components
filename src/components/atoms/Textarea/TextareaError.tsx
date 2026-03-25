@@ -45,7 +45,7 @@ export const TextareaError = React.forwardRef<HTMLParagraphElement, TextareaErro
         ref={ref}
         id={errorId}
         role="alert"
-        className={cn("mt-[var(--spacing-x1)] text-sm text-[var(--color-critical)]", className)}
+        className={cn("mt-[var(--spacing-x1)] text-sm text-[var(--critical)]", className)}
         {...props}
       >
         {children}

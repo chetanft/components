@@ -209,9 +209,9 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
   }, ref) => {
     const isComposableChild = (node: React.ReactNode): boolean => {
       if (!React.isValidElement(node)) return false;
-      const nodeType = node.type as any;
-      const displayName = nodeType?.displayName ?? nodeType?.name;
-      return displayName === 'BadgeIcon' || displayName === 'BadgeText';
+      const childType = (node as any)?.type;
+      const slot = childType?.slot;
+      return slot === 'badge-icon' || slot === 'badge-text';
     };
 
     const resolvedGlass = useResolvedGlass(glass);
@@ -277,8 +277,8 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
               )}
               style={{
                 backgroundColor: 'var(--danger)',
-                color: 'var(--color-bg-primary)',
-                borderColor: 'var(--color-bg-primary)',
+                color: 'var(--bg-primary)',
+                borderColor: 'var(--bg-primary)',
                 borderWidth: '1px',
                 borderStyle: 'solid',
                 ...(offset ? { right: -offset[0], marginTop: offset[1] } : {})
@@ -477,5 +477,8 @@ export const Badge = React.forwardRef<HTMLDivElement, BadgeProps>(
 Badge.displayName = 'Badge';
 
 // Attach Ribbon
-(Badge as any).Ribbon = Ribbon;
+type BadgeWithSubcomponents = typeof Badge & {
+  Ribbon: typeof Ribbon;
+};
+(Badge as BadgeWithSubcomponents).Ribbon = Ribbon;
 export { Ribbon };

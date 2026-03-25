@@ -1,4 +1,5 @@
 import rootConfig from '../tailwind.config.js';
+import tailwindAnimate from 'tailwindcss-animate';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -48,7 +49,7 @@ export default {
                     foreground: 'var(--docs-accent-foreground)',
                 },
                 destructive: {
-                    ...rootConfig.theme.extend.colors.destructive, // Keep FT destructive if exists, or override
+                    ...rootConfig.theme.extend.colors.destructive,
                     DEFAULT: 'var(--docs-destructive)',
                     foreground: 'var(--docs-destructive-foreground)',
                 },
@@ -78,10 +79,9 @@ export default {
                 'display-xl': 'var(--docs-display-xl)',
                 'display-lg': 'var(--docs-display-lg)',
                 'display-sm': 'var(--docs-display-sm)',
-                // Doc page heading scale (calibrated for 14px root)
-                'page-title': ['2.571rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],  // 36px
-                'section':    ['1.714rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],   // 24px
-                'subsection': ['1.286rem', { lineHeight: '1.4' }],                             // 18px
+                'page-title': ['2.571rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],  // ~36px
+                'section':    ['1.714rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],  // ~24px
+                'subsection': ['1.286rem', { lineHeight: '1.4' }],  // ~18px
             },
             fontFamily: {
                 sans: 'var(--docs-font-sans)',
@@ -101,7 +101,7 @@ export default {
     },
     plugins: [
         ...rootConfig.plugins || [],
-        require("tailwindcss-animate")
+        tailwindAnimate,
     ],
     darkMode: 'class',
 }

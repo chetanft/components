@@ -63,8 +63,9 @@ export interface TreeSelectProps extends Omit<React.InputHTMLAttributes<HTMLInpu
 // ============================================================================
 
 // Helper function to check if a component type is TreeNode
-const isTreeNodeType = (type: any): boolean => {
+const isTreeNodeType = (type: any, _props?: any): boolean => {
   if (type === TreeNode) return true;
+  if (typeof type?.slot === 'string' && type.slot.startsWith('tree-node')) return true;
   if (typeof type === 'function' && 'displayName' in type) {
     return typeof type.displayName === 'string' && type.displayName.startsWith('TreeNode');
   }
@@ -75,13 +76,13 @@ const isTreeNodeType = (type: any): boolean => {
 const extractTreeDataFromChildren = (children: React.ReactNode): TreeNodeData[] => {
   return React.Children.toArray(children)
     .filter((child): child is React.ReactElement<any> => 
-      React.isValidElement(child) && isTreeNodeType(child.type)
+      React.isValidElement(child) && isTreeNodeType(child.type, child.props)
     )
     .map(child => {
-      const childNodes = child.props.children 
+      const childNodes = child.props.children
         ? React.Children.toArray(child.props.children)
-            .filter((c): c is React.ReactElement<any> => 
-              React.isValidElement(c) && isTreeNodeType(c.type)
+            .filter((c): c is React.ReactElement<any> =>
+              React.isValidElement(c) && isTreeNodeType(c.type, c.props)
             )
             .map(c => extractTreeDataFromChildren([c])[0])
         : undefined;
@@ -408,7 +409,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
             <Icon
               name={isOpen ? 'chevron-up' : 'chevron-down'}
               size={componentStyles.iconSize}
-              className="text-[var(--color-tertiary)]"
+              className="text-[var(--tertiary)]"
             />
           </div>
         </div>
@@ -435,7 +436,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
             <div
               className={cn(
                 "fixed z-[9999] rounded-[var(--radius-md)]",
-                getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--color-border-secondary)]'),
+                getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
                 "max-h-[calc(var(--spacing-x20)+var(--spacing-x20)+var(--spacing-x20)+var(--spacing-x15))] overflow-auto p-[var(--spacing-x2)]"
               )}
               style={{
@@ -460,7 +461,7 @@ export const TreeSelect = React.forwardRef<HTMLInputElement, TreeSelectProps>(
                   {renderTreeNodes(filteredTreeData)}
                 </Tree>
               ) : (
-                <div className="p-[var(--spacing-x4)] text-center text-[var(--color-tertiary)]">
+                <div className="p-[var(--spacing-x4)] text-center text-[var(--tertiary)]">
                   No results found
                 </div>
               )}

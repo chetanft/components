@@ -1,15 +1,19 @@
 "use client";
 
 import React from 'react';
+import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
 import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useCollapsibleContext } from './CollapsibleContext';
 
-export interface CollapsibleTriggerProps extends ComposableProps<'button'> {
+export interface CollapsibleTriggerProps extends React.ComponentPropsWithoutRef<'button'> {
   /**
    * The trigger content (typically CollapsibleHeader).
    */
   children?: React.ReactNode;
+  /**
+   * Render as child element (slot pattern)
+   */
+  asChild?: boolean;
 }
 
 /**
@@ -17,6 +21,7 @@ export interface CollapsibleTriggerProps extends ComposableProps<'button'> {
  *
  * A composable component that triggers the expand/collapse of a Collapsible.
  * Typically contains CollapsibleHeader with CollapsibleTitle and CollapsibleExtra.
+ * Built on Radix UI CollapsibleTrigger for full accessibility.
  *
  * @public
  *
@@ -41,23 +46,14 @@ export interface CollapsibleTriggerProps extends ComposableProps<'button'> {
  */
 export const CollapsibleTrigger = React.forwardRef<HTMLButtonElement, CollapsibleTriggerProps>(
   ({ className, children, asChild, onClick, ...props }, ref) => {
-    const { isExpanded, onToggle, disabled, type: _type } = useCollapsibleContext();
-    
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (!disabled) {
-        onToggle();
-        onClick?.(e);
-      }
-    };
-    
-    const Comp = asChild ? Slot : 'button';
+    const { isExpanded, disabled } = useCollapsibleContext();
+
     return (
-      <Comp
+      <CollapsiblePrimitive.Trigger
         ref={ref}
-        onClick={handleClick}
+        asChild={asChild}
+        data-slot="collapsible-trigger"
         disabled={disabled}
-        aria-expanded={isExpanded}
-        aria-disabled={disabled}
         className={cn(
           "flex flex-col items-start justify-start gap-[var(--spacing-x2)] px-[var(--spacing-x3)] py-[var(--spacing-x3)] w-full cursor-pointer",
           "border-b transition-[border-color] duration-200 ease-in-out",
@@ -75,13 +71,13 @@ export const CollapsibleTrigger = React.forwardRef<HTMLButtonElement, Collapsibl
           WebkitTapHighlightColor: 'transparent',
           WebkitTouchCallout: 'none',
         }}
+        onClick={onClick}
         {...props}
       >
         {children}
-      </Comp>
+      </CollapsiblePrimitive.Trigger>
     );
   }
 );
 
 CollapsibleTrigger.displayName = 'CollapsibleTrigger';
-

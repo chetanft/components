@@ -212,19 +212,6 @@ export function SiteHeader() {
                     </nav>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setCmdkOpen(true)}
-                        className="inline-flex items-center gap-2 rounded-md border border-input bg-background px-3 h-9 text-sm-rem text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground w-full max-w-[240px]"
-                    >
-                        <Icon name="search" size={16} className="shrink-0" />
-                        <span className="flex-1 text-left hidden sm:inline">Search...</span>
-                        <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
-                            <span className="text-xs">⌘</span>K
-                        </kbd>
-                    </Button>
-                    <CommandDialog open={cmdkOpen} onOpenChange={setCmdkOpen} />
                     <Dropdown
                         value={glassValue}
                         onChange={handleGlassChange}
@@ -275,7 +262,7 @@ export function SiteHeader() {
                         </DropdownContent>
                     </Dropdown>
                     <Button
-                        variant="ghost"
+                        variant="text"
                         size="sm"
                         iconPosition="only"
                         icon={<ThemeIcon className="h-4 w-4" />}
@@ -285,6 +272,19 @@ export function SiteHeader() {
                         title={getThemeLabel()}
                         className="shrink-0"
                     />
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setCmdkOpen(true)}
+                        className="inline-flex items-center gap-2 rounded-md border border-input bg-background px-3 h-9 text-sm-rem text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground w-full max-w-[240px]"
+                    >
+                        <Icon name="search" size={16} className="shrink-0" />
+                        <span className="flex-1 text-left hidden sm:inline">Search...</span>
+                        <kbd className="pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+                            <span className="text-xs">⌘</span>K
+                        </kbd>
+                    </Button>
+                    <CommandDialog open={cmdkOpen} onOpenChange={setCmdkOpen} />
                 </div>
             </div>
         </header>

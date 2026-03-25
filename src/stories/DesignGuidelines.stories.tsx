@@ -65,27 +65,27 @@ const colorGroups = [
   {
     title: 'Primary Colors',
     swatches: [
-      { token: 'var(--color-primary)', label: 'Primary' },
-      { token: 'var(--color-secondary)', label: 'Primary Dark' },
-      { token: 'var(--color-tertiary)', label: 'Primary Light' },
+      { token: 'var(--primary)', label: 'Primary' },
+      { token: 'var(--secondary)', label: 'Primary Dark' },
+      { token: 'var(--tertiary)', label: 'Primary Light' },
     ],
   },
   {
     title: 'Semantic Colors',
     swatches: [
-      { token: 'var(--color-positive)', label: 'Success' },
-      { token: 'var(--color-warning)', label: 'Warning' },
-      { token: 'var(--color-critical)', label: 'Error' },
-      { token: 'var(--color-neutral)', label: 'Info' },
+      { token: 'var(--positive)', label: 'Success' },
+      { token: 'var(--warning)', label: 'Warning' },
+      { token: 'var(--critical)', label: 'Error' },
+      { token: 'var(--neutral)', label: 'Info' },
     ],
   },
   {
     title: 'Neutral Colors',
     swatches: [
-      { token: 'var(--color-primary)', label: 'Text Primary' },
-      { token: 'var(--color-tertiary)', label: 'Text Secondary' },
-      { token: 'var(--color-border-primary)', label: 'Border' },
-      { token: 'var(--color-bg-secondary)', label: 'Background' },
+      { token: 'var(--primary)', label: 'Text Primary' },
+      { token: 'var(--tertiary)', label: 'Text Secondary' },
+      { token: 'var(--border-primary)', label: 'Border' },
+      { token: 'var(--bg-secondary)', label: 'Background' },
     ],
   },
 ];

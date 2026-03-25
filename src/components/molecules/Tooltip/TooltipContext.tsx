@@ -7,8 +7,6 @@ export type TooltipAlignment = 'start' | 'center' | 'end';
 export type TooltipColor = 'white' | 'dark';
 
 export interface TooltipContextType {
-  open: boolean;
-  setOpen: (open: boolean) => void;
   placement: TooltipPlacement;
   align: TooltipAlignment;
   color: TooltipColor;
@@ -21,8 +19,6 @@ const TooltipContext = createContext<TooltipContextType | undefined>(undefined);
  * This provides resilience against displayName detection failures in bundled code.
  */
 const defaultContext: TooltipContextType = {
-  open: false,
-  setOpen: () => {},
   placement: 'top',
   align: 'center',
   color: 'dark',
@@ -30,7 +26,7 @@ const defaultContext: TooltipContextType = {
 
 export const useTooltipContext = () => {
   const context = useContext(TooltipContext);
-  
+
   if (!context) {
     return defaultContext;
   }
@@ -49,4 +45,3 @@ export const TooltipProvider: React.FC<TooltipProviderProps> = ({ value, childre
     </TooltipContext.Provider>
   );
 };
-

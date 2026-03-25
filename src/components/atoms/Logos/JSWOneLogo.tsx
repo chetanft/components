@@ -1,5 +1,6 @@
 import React from 'react';
 import jswLogoImg from './assets/jsw-logo.png';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface JSWOneLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const JSWOneLogo: React.FC<JSWOneLogoProps> = ({
   className 
 }) => (
   <img
-    src={(jswLogoImg as any).src || jswLogoImg}
+    src={resolveImageSrc(jswLogoImg)}
     alt="JSW ONE Logo"
     width={width}
     height={height}

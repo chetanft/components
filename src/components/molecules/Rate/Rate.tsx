@@ -145,9 +145,11 @@ export const Rate = React.forwardRef<HTMLDivElement, RateProps>(
     const config = sizeConfig[size];
     
     // Check if using composable API (has children with Rate sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
-        child?.type?.displayName?.startsWith('Rate')
-    );
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => {
+        const childType = (child as any)?.type;
+        const slot = childType?.slot;
+        return typeof slot === 'string' && slot.startsWith('rate-');
+    });
     const activeStyle = activeColor || 'var(--warning)';
     const inactiveStyle = inactiveColor || 'var(--border-primary)';
 

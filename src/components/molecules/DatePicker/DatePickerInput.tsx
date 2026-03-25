@@ -164,9 +164,6 @@ export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInpu
       return (
         <Slot
           ref={ref}
-          {...({ type: "text", value: displayValue, placeholder: inputPlaceholder, onChange: handleChange, onFocus: handleFocus, onBlur: handleBlur } as any)}
-          disabled={disabled}
-          onClick={(e) => e.stopPropagation()}
           className={cn(
             "bg-transparent border-none outline-none text-base font-normal leading-[1.4]",
             displayValue
@@ -176,7 +173,18 @@ export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInpu
             type === 'single' ? "flex-1" : "inline-block w-auto pr-[var(--spacing-x3)]",
             className
           )}
-          {...props}
+          {...({
+            'data-slot': "datepicker-input",
+            type: "text",
+            value: displayValue,
+            placeholder: inputPlaceholder,
+            onChange: handleChange,
+            onFocus: handleFocus,
+            onBlur: handleBlur,
+            disabled,
+            onClick: (e: React.MouseEvent) => e.stopPropagation(),
+            ...props,
+          } as Record<string, unknown>)}
         >
           {children}
         </Slot>
@@ -186,6 +194,7 @@ export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInpu
     return (
       <input
         ref={ref}
+        data-slot="datepicker-input"
         type="text"
         value={displayValue}
         placeholder={inputPlaceholder}
@@ -211,4 +220,5 @@ export const DatePickerInput = React.forwardRef<HTMLInputElement, DatePickerInpu
 );
 
 DatePickerInput.displayName = 'DatePickerInput';
+(DatePickerInput as any).slot = 'datepicker-input';
 

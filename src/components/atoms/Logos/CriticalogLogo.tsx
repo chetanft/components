@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/criticalog-logo.png';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface CriticalogLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const CriticalogLogo: React.FC<CriticalogLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="Criticalog Logo"
     width={width}
     height={height}

@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
+import * as SliderPrimitive from '@radix-ui/react-slider';
 import { cn } from '../../../lib/utils';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipDescription } from '../Tooltip';
-import { Slot, type ComposableProps } from '../../../lib/slot';
 import { SliderProvider } from './SliderContext';
 import { SliderTrack } from './SliderTrack';
 import { SliderRange } from './SliderRange';
 import { SliderThumb } from './SliderThumb';
 import { SliderLabel } from './SliderLabel';
 
-export interface SliderProps extends Omit<ComposableProps<'div'>, 'onChange' | 'defaultValue'> {
+export interface SliderProps extends Omit<React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>, 'onChange' | 'defaultValue' | 'value' | 'onValueChange' | 'onValueCommit'> {
   /**
    * Current value (single or range) (controlled)
    */
@@ -68,23 +68,88 @@ export interface SliderProps extends Omit<ComposableProps<'div'>, 'onChange' | '
    */
   onChange?: (value: number | [number, number]) => void;
   /**
-   * Change complete handler (on mouse up)
+   * Change complete handler (on mouse up / keyboard commit)
    */
   onChangeComplete?: (value: number | [number, number]) => void;
   /**
    * Slider content (for composable API)
    */
   children?: React.ReactNode;
+  /**
+   * @deprecated Radix handles slot composition internally. Kept for API compatibility.
+   */
+  asChild?: boolean;
 }
 
 /**
+ * Declarative thumb with tooltip support (used in non-composable mode)
+ */
+const DeclarativeThumb = ({
+  tooltip,
+  value,
+  disabled,
+}: {
+  tooltip: SliderProps['tooltip'];
+  value: number;
+  disabled: boolean;
+}) => {
+  const [isActive, setIsActive] = React.useState(false);
+  const showTooltip = tooltip && isActive;
+
+  const tooltipValue = typeof tooltip === 'object' && tooltip.formatter
+    ? tooltip.formatter(value)
+    : value;
+
+  const thumb = (
+    <SliderPrimitive.Thumb
+      className={cn(
+        "block w-[var(--spacing-x4)] h-[var(--spacing-x4)]",
+        "rounded-full bg-[var(--bg-primary)]",
+        "border-2 border-[var(--primary)]",
+        "shadow-md cursor-pointer",
+        "transition-transform duration-100",
+        "hover:scale-110 focus:scale-110",
+        "focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-opacity-30",
+        disabled && "cursor-not-allowed opacity-50"
+      )}
+      onPointerDown={() => setIsActive(true)}
+      onPointerUp={() => setIsActive(false)}
+      onFocus={() => setIsActive(true)}
+      onBlur={() => setIsActive(false)}
+      onPointerEnter={() => setIsActive(true)}
+      onPointerLeave={(e) => {
+        if (!(e.target as HTMLElement).hasPointerCapture?.(e.pointerId)) {
+          setIsActive(false);
+        }
+      }}
+    />
+  );
+
+  if (!tooltip) {
+    return thumb;
+  }
+
+  return (
+    <Tooltip open={showTooltip && !!tooltip}>
+      <TooltipTrigger asChild>
+        {thumb}
+      </TooltipTrigger>
+      <TooltipContent>
+        <TooltipDescription>{String(tooltipValue)}</TooltipDescription>
+      </TooltipContent>
+    </Tooltip>
+  );
+};
+
+/**
  * Slider Component
- * 
+ *
  * A range input component for selecting values along a track.
+ * Built on Radix UI Slider primitives for full keyboard and accessibility support.
  * Supports composable API with sub-components for flexible composition.
- * 
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
  * // Composable API (recommended)
@@ -96,13 +161,13 @@ export interface SliderProps extends Omit<ComposableProps<'div'>, 'onChange' | '
  *   <SliderLabel value={0}>Min</SliderLabel>
  *   <SliderLabel value={100}>Max</SliderLabel>
  * </Slider>
- * 
+ *
  * ```
  *
  * @remarks
  * - Composable API provides maximum flexibility and control
- * - All sub-components (SliderTrack, SliderRange, SliderThumb, etc.) support `asChild`
  * - Supports single value and range modes, vertical/horizontal orientations
+ * - Full keyboard support via Radix: arrow keys, Home, End, Page Up/Down
  * - Uses FT Design System tokens: var(--primary) for track, var(--border-secondary) for rail
  */
 export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
@@ -122,136 +187,63 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
     onChangeComplete,
     className,
     children,
-    asChild,
+    asChild: _asChild,
     ...props
   }, ref) => {
-    const sliderRef = useRef<HTMLDivElement>(null);
-    const [internalValue, setInternalValue] = useState<number | [number, number]>(
+    // Track internal value for tooltip display in declarative mode
+    const [internalValue, setInternalValue] = React.useState<number | [number, number]>(
       controlledValue !== undefined ? controlledValue : defaultValue
     );
-    const [isDragging, setIsDragging] = useState<'start' | 'end' | null>(null);
-    const [hoveredHandle, setHoveredHandle] = useState<'start' | 'end' | null>(null);
 
     const actualValue = controlledValue !== undefined ? controlledValue : internalValue;
 
-    // Normalize to range format
-    const rangeValue = useMemo<[number, number]>(() => {
+    // Convert value to Radix format (always array)
+    const radixValue = useMemo<number[]>(() => {
       if (Array.isArray(actualValue)) {
         return actualValue;
       }
-      return [min, actualValue];
-    }, [actualValue, min]);
+      return [actualValue];
+    }, [actualValue]);
 
-    // Calculate percentage
-    const getPercent = (val: number) => ((val - min) / (max - min)) * 100;
-
-    // Calculate value from position
-    const getValueFromPosition = useCallback((clientX: number, clientY: number): number => {
-      if (!sliderRef.current) return min;
-
-      const rect = sliderRef.current.getBoundingClientRect();
-      let percent: number;
-
-      if (vertical) {
-        percent = 1 - (clientY - rect.top) / rect.height;
-      } else {
-        percent = (clientX - rect.left) / rect.width;
+    // Convert defaultValue to Radix format
+    const radixDefaultValue = useMemo<number[]>(() => {
+      if (Array.isArray(defaultValue)) {
+        return defaultValue;
       }
+      return [defaultValue];
+    }, [defaultValue]);
 
-      percent = Math.max(0, Math.min(1, percent));
-      let value = min + percent * (max - min);
-
-      // Snap to step
-      value = Math.round(value / step) * step;
-      value = Math.max(min, Math.min(max, value));
-
-      return value;
-    }, [min, max, step, vertical]);
-
-    // Update value
-    const updateValue = useCallback((newValue: number | [number, number]) => {
-      if (controlledValue === undefined) {
-        setInternalValue(newValue);
-      }
-      onChange?.(newValue);
-    }, [controlledValue, onChange]);
-
-    // Handle mouse/touch move
-    const handleMove = useCallback((clientX: number, clientY: number) => {
-      if (!isDragging || disabled) return;
-
-      const newValue = getValueFromPosition(clientX, clientY);
-
+    // Handle Radix value change
+    const handleValueChange = React.useCallback((values: number[]) => {
       if (range) {
-        const [start, end] = rangeValue;
-        if (isDragging === 'start') {
-          updateValue([Math.min(newValue, end), end]);
-        } else {
-          updateValue([start, Math.max(newValue, start)]);
-        }
+        const rangeVal: [number, number] = [values[0], values[1]];
+        setInternalValue(rangeVal);
+        onChange?.(rangeVal);
       } else {
-        updateValue(newValue);
+        setInternalValue(values[0]);
+        onChange?.(values[0]);
       }
-    }, [isDragging, disabled, range, rangeValue, getValueFromPosition, updateValue]);
+    }, [range, onChange]);
 
-    // Mouse events
-    useEffect(() => {
-      if (!isDragging) return;
-
-      const handleMouseMove = (e: MouseEvent) => {
-        handleMove(e.clientX, e.clientY);
-      };
-
-      const handleMouseUp = () => {
-        setIsDragging(null);
-        onChangeComplete?.(actualValue);
-      };
-
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-
-      return () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-      };
-    }, [isDragging, handleMove, actualValue, onChangeComplete]);
-
-    // Handle click on rail
-    const _handleRailClick = useCallback((e: React.MouseEvent) => {
-      if (disabled) return;
-
-      const newValue = getValueFromPosition(e.clientX, e.clientY);
-
+    // Handle Radix value commit (equivalent to onChangeComplete)
+    const handleValueCommit = React.useCallback((values: number[]) => {
       if (range) {
-        const [start, end] = rangeValue;
-        const midpoint = (start + end) / 2;
-        if (newValue < midpoint) {
-          updateValue([newValue, end]);
-        } else {
-          updateValue([start, newValue]);
-        }
+        onChangeComplete?.([values[0], values[1]] as [number, number]);
       } else {
-        updateValue(newValue);
+        onChangeComplete?.(values[0]);
       }
-    }, [disabled, range, rangeValue, getValueFromPosition, updateValue]);
+    }, [range, onChangeComplete]);
 
-    const startPercent = getPercent(rangeValue[0]);
-    const endPercent = getPercent(rangeValue[1]);
-    
     // Check if using composable API (has children with Slider sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
-        child?.type?.displayName?.startsWith('Slider')
-    );
-    
-    // Create context value
-    const contextValue = {
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => {
+      const childType = (child as any)?.type;
+      const slot = childType?.slot;
+      return typeof slot === 'string' && slot.startsWith('slider-');
+    });
+
+    // Create context value for sub-components
+    const contextValue = useMemo(() => ({
       value: actualValue,
-      setValue: (newValue: number | [number, number]) => {
-        if (controlledValue === undefined) {
-          setInternalValue(newValue);
-        }
-        onChange?.(newValue);
-      },
       min,
       max,
       step,
@@ -261,127 +253,79 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(
       tooltip,
       trackColor,
       railColor,
-      onChange,
-      onChangeComplete,
-      isDragging,
-      setIsDragging,
-      hoveredHandle,
-      setHoveredHandle,
-      sliderRef,
-      getPercent,
-      getValueFromPosition,
-      rangeValue,
+    }), [actualValue, min, max, step, range, vertical, disabled, tooltip, trackColor, railColor]);
+
+    // Radix Root props shared between both APIs
+    const rootProps = {
+      ref,
+      value: controlledValue !== undefined ? radixValue : undefined,
+      defaultValue: controlledValue === undefined ? radixDefaultValue : undefined,
+      onValueChange: handleValueChange,
+      onValueCommit: handleValueCommit,
+      min,
+      max,
+      step,
+      orientation: vertical ? 'vertical' as const : 'horizontal' as const,
+      disabled,
+      className: cn(
+        "relative flex touch-none select-none items-center",
+        vertical ? "h-full w-[var(--spacing-x4)] flex-col" : "w-full h-[var(--spacing-x4)]",
+        disabled && "opacity-50 cursor-not-allowed",
+        className
+      ),
+      ...props,
     };
-    
-    // If using composable API, render with context provider
+
+    // Composable API: children provide their own SliderTrack, SliderRange, SliderThumb, SliderLabel
     if (hasComposableChildren) {
-        const Comp = asChild ? Slot : 'div';
-        return (
-            <SliderProvider value={contextValue}>
-                <Comp
-                    ref={ref}
-                    className={cn(
-                        "relative",
-                        vertical ? "h-full w-[var(--spacing-x4)]" : "w-full h-[var(--spacing-x4)]",
-                        disabled && "opacity-50 cursor-not-allowed",
-                        className
-                    )}
-                    {...props}
-                >
-                    {children}
-                </Comp>
-            </SliderProvider>
-        );
-    }
-    
-    // Otherwise use declarative API
-    // Handle component (for declarative API)
-    const Handle = ({ 
-      position, 
-      value, 
-      type 
-    }: { 
-      position: number; 
-      value: number; 
-      type: 'start' | 'end';
-    }) => {
-      const isActive = isDragging === type || hoveredHandle === type;
-      const showTooltip = tooltip && isActive;
+      // Separate SliderLabel children from Radix-compatible children
+      const radixChildren: React.ReactNode[] = [];
+      const labelChildren: React.ReactNode[] = [];
 
-      const handle = (
-        <div
-          className={cn(
-            "absolute w-[var(--spacing-x4)] h-[var(--spacing-x4)] left-1/2 top-1/2",
-            "-translate-x-1/2 -translate-y-1/2 origin-center",
-            "rounded-full bg-[var(--bg-primary)]",
-            "border-2 border-[var(--primary)]",
-            "shadow-md cursor-pointer z-20 pointer-events-auto",
-            "transition-transform duration-100",
-            "hover:scale-110 focus:scale-110",
-            "focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-opacity-30",
-            disabled && "cursor-not-allowed opacity-50"
-          )}
-          style={vertical 
-            ? { bottom: `${position}%`, left: '50%' }
-            : { left: `${position}%`, top: '50%' }
-          }
-          onMouseDown={(e) => {
-            e.stopPropagation();
-            if (!disabled) setIsDragging(type);
-          }}
-          onMouseEnter={() => setHoveredHandle(type)}
-          onMouseLeave={() => setHoveredHandle(null)}
-          tabIndex={disabled ? -1 : 0}
-          role="slider"
-          aria-valuenow={value}
-          aria-valuemin={min}
-          aria-valuemax={max}
-          aria-disabled={disabled}
-        />
-      );
-
-      const tooltipValue = typeof tooltip === 'object' && tooltip.formatter
-        ? tooltip.formatter(value)
-        : value;
+      React.Children.forEach(children, (child: any) => {
+        if ((child as any)?.type?.slot === 'slider-label') {
+          labelChildren.push(child);
+        } else {
+          radixChildren.push(child);
+        }
+      });
 
       return (
-        <Tooltip open={showTooltip && !!tooltip}>
-          <TooltipTrigger asChild>
-            {handle}
-          </TooltipTrigger>
-          <TooltipContent>
-            <TooltipDescription>{String(tooltipValue)}</TooltipDescription>
-          </TooltipContent>
-        </Tooltip>
-      );
-    };
-    
-    const Comp = asChild ? Slot : 'div';
-    return (
         <SliderProvider value={contextValue}>
-            <Comp
-                ref={ref}
-                className={cn(
-                    "relative",
-                    vertical ? "h-full w-[var(--spacing-x4)]" : "w-full h-[var(--spacing-x4)]",
-                    disabled && "opacity-50 cursor-not-allowed",
-                    className
-                )}
-                {...props}
-            >
-                {/* Rail (background track) */}
-                <SliderTrack ref={sliderRef}>
-                    <SliderRange />
-                </SliderTrack>
-
-                {/* Handles */}
-                {range && (
-                    <Handle position={startPercent} value={rangeValue[0]} type="start" />
-                )}
-                <Handle position={endPercent} value={rangeValue[1]} type="end" />
-
-            </Comp>
+          <div className="relative" style={vertical ? { height: '100%' } : { width: '100%' }}>
+            <SliderPrimitive.Root {...rootProps}>
+              {radixChildren}
+            </SliderPrimitive.Root>
+            {labelChildren}
+          </div>
         </SliderProvider>
+      );
+    }
+
+    // Declarative API: render the full Radix tree internally
+    // For range mode, derive thumb values from actualValue
+    const rangeValues = Array.isArray(actualValue) ? actualValue : [actualValue];
+
+    return (
+      <SliderProvider value={contextValue}>
+        <div className="relative" style={vertical ? { height: '100%' } : { width: '100%' }}>
+          <SliderPrimitive.Root {...rootProps}>
+            <SliderTrack>
+              <SliderRange />
+            </SliderTrack>
+
+            {/* Render thumbs */}
+            {range ? (
+              <>
+                <DeclarativeThumb tooltip={tooltip} value={rangeValues[0]} disabled={disabled} />
+                <DeclarativeThumb tooltip={tooltip} value={rangeValues[1]} disabled={disabled} />
+              </>
+            ) : (
+              <DeclarativeThumb tooltip={tooltip} value={rangeValues[0]} disabled={disabled} />
+            )}
+          </SliderPrimitive.Root>
+        </div>
+      </SliderProvider>
     );
   }
 );

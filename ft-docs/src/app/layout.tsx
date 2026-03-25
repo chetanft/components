@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-import "../../../src/styles/globals.css";
+import "../../../src/styles/tokens.css";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -58,10 +58,11 @@ export default function RootLayout({
 
                   // Glass mode FOUC prevention
                   var glass = localStorage.getItem('ft-glass-mode');
-                  document.documentElement.classList.remove('theme-glass', 'theme-glass-subtle', 'theme-glass-prominent');
+                  document.documentElement.classList.remove('theme-glass', 'theme-glass-subtle', 'theme-glass-prominent', 'theme-glass-liquid');
                   if (glass === 'true') document.documentElement.classList.add('theme-glass');
                   else if (glass === 'subtle') document.documentElement.classList.add('theme-glass-subtle');
                   else if (glass === 'prominent') document.documentElement.classList.add('theme-glass-prominent');
+                  else if (glass === 'liquid') document.documentElement.classList.add('theme-glass-liquid');
                 } catch (e) {}
               })();
             `,

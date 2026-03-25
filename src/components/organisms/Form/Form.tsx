@@ -351,7 +351,11 @@ export const useForm = (formRef?: React.RefObject<HTMLFormElement>): FormInstanc
 };
 
 // Attach Item and useForm to Form
-(Form as any).Item = FormItem;
-(Form as any).useForm = useForm;
+type FormWithSubcomponents = typeof Form & {
+  Item: typeof FormItem;
+  useForm: typeof useForm;
+};
+(Form as FormWithSubcomponents).Item = FormItem;
+(Form as FormWithSubcomponents).useForm = useForm;
 
 export default Form;

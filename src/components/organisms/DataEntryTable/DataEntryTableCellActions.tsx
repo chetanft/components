@@ -3,6 +3,7 @@
 import React from 'react';
 import { cn } from '../../../lib/utils';
 import { Button } from '../../atoms/Button/Button';
+import type { IconName } from '../../atoms/Icons';
 import type { DataEntryCellState, ActionConfig } from './DataEntryTableTypes';
 
 export interface DataEntryTableCellActionsProps {
@@ -58,7 +59,7 @@ export const DataEntryTableCellActions: React.FC<DataEntryTableCellActionsProps>
     >
       <div className="box-border flex gap-[var(--spacing-x2)] h-[var(--component-height-md)] items-center justify-center px-0 py-[var(--spacing-x5)] relative rounded-[var(--radius-md)] shrink-0">
         {actions.map((action, index) => {
-          const iconName = action.icon as any;
+          const iconName = action.icon as IconName | undefined;
           return (
             <Button
               key={index}

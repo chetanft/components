@@ -422,9 +422,11 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
     const isAdvanced = contentVariant === 'Advanced';
 
     // Check if using composable API (has children with Card sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) =>
-        child?.type?.displayName?.startsWith('Card')
-    );
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => {
+        const childType = (child as any)?.type;
+        const slot = childType?.slot;
+        return typeof slot === 'string' && slot.startsWith('card-');
+    });
 
     // Composable API path
     if (hasComposableChildren) {
@@ -526,6 +528,13 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
                     </React.Fragment>
                 ))}
 
+                {/* --- Children (body content passed alongside declarative props) --- */}
+                {children && (
+                    <div className={cn("flex-1 w-full", isSmall ? "px-[var(--spacing-x3)] pb-[var(--spacing-x3)]" : "px-[var(--spacing-x6)] pb-[var(--spacing-x5)]")}>
+                        {children}
+                    </div>
+                )}
+
                 {/* --- Footer Section --- */}
                 {hasFooter && (
                     <>
@@ -550,7 +559,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
             className={cn(
                 resolvedGlass
                     ? getGlassClasses(resolvedGlass)
-                    : cn("bg-[var(--color-bg-primary)]", bordered ? "border border-[var(--border-primary)]" : ""),
+                    : cn("bg-[var(--bg-primary)]", bordered ? "border border-[var(--border-primary)]" : ""),
                 "rounded-[var(--radius-md)] transition-all duration-200 flex flex-col overflow-hidden",
                 hoverable ? "hover:shadow-lg cursor-pointer" : !resolvedGlass ? "shadow-sm" : "",
                 className
@@ -566,9 +575,15 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(({
 Card.displayName = 'Card';
 
 // Legacy exports (kept for backward compatibility)
-(Card as any).Meta = CardMeta;
-(Card as any).Elements = CardElements;
-(Card as any).Footer = CardFooterInternal;
-(Card as any).Graphic = CardGraphic;
+type CardWithSubcomponents = typeof Card & {
+  Meta: typeof CardMeta;
+  Elements: typeof CardElements;
+  Footer: typeof CardFooterInternal;
+  Graphic: typeof CardGraphic;
+};
+(Card as CardWithSubcomponents).Meta = CardMeta;
+(Card as CardWithSubcomponents).Elements = CardElements;
+(Card as CardWithSubcomponents).Footer = CardFooterInternal;
+(Card as CardWithSubcomponents).Graphic = CardGraphic;
 
 export { CardMeta, CardElements, CardFooterInternal as CardFooter, CardGraphic };

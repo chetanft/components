@@ -38,10 +38,10 @@ export const PopconfirmArrow = React.forwardRef<HTMLDivElement, PopconfirmArrowP
     const { placement } = usePopconfirmContext();
     
     const arrowStyles = {
-      top: 'top-full left-1/2 -translate-x-1/2 border-t-[var(--color-bg-primary)] border-l-transparent border-r-transparent border-b-transparent',
-      bottom: 'bottom-full left-1/2 -translate-x-1/2 border-b-[var(--color-bg-primary)] border-l-transparent border-r-transparent border-t-transparent',
-      left: 'left-full top-1/2 -translate-y-1/2 border-l-[var(--color-bg-primary)] border-t-transparent border-b-transparent border-r-transparent',
-      right: 'right-full top-1/2 -translate-y-1/2 border-r-[var(--color-bg-primary)] border-t-transparent border-b-transparent border-l-transparent',
+      top: 'top-full left-1/2 -translate-x-1/2 border-t-[var(--bg-primary)] border-l-transparent border-r-transparent border-b-transparent',
+      bottom: 'bottom-full left-1/2 -translate-x-1/2 border-b-[var(--bg-primary)] border-l-transparent border-r-transparent border-t-transparent',
+      left: 'left-full top-1/2 -translate-y-1/2 border-l-[var(--bg-primary)] border-t-transparent border-b-transparent border-r-transparent',
+      right: 'right-full top-1/2 -translate-y-1/2 border-r-[var(--bg-primary)] border-t-transparent border-b-transparent border-l-transparent',
     };
     
     const Comp = asChild ? Slot : 'div';

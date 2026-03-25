@@ -99,9 +99,9 @@ export const ExplorerBase: Story = {
             <TimelineItem>
               <TimelineDot color="success" icon="check" />
               <TimelineContent>
-                <div className="bg-[var(--color-bg-secondary)] p-4 rounded-lg">
-                  <h4 className="font-medium text-[var(--color-primary)]">Order Placed</h4>
-                  <p className="text-sm text-[var(--color-secondary)] mt-1">Your order #12345 has been placed.</p>
+                <div className="bg-[var(--bg-secondary)] p-4 rounded-lg">
+                  <h4 className="font-medium text-[var(--primary)]">Order Placed</h4>
+                  <p className="text-sm text-[var(--secondary)] mt-1">Your order #12345 has been placed.</p>
                   <TimelineLabel className="mt-2">September 1, 2015</TimelineLabel>
                 </div>
               </TimelineContent>
@@ -109,9 +109,9 @@ export const ExplorerBase: Story = {
             <TimelineItem pending>
               <TimelineDot color="neutral" icon="truck" />
               <TimelineContent>
-                <div className="bg-[var(--color-bg-secondary)] p-4 rounded-lg">
-                  <h4 className="font-medium text-[var(--color-primary)]">In Transit</h4>
-                  <p className="text-sm text-[var(--color-secondary)] mt-1">Your order is on its way.</p>
+                <div className="bg-[var(--bg-secondary)] p-4 rounded-lg">
+                  <h4 className="font-medium text-[var(--primary)]">In Transit</h4>
+                  <p className="text-sm text-[var(--secondary)] mt-1">Your order is on its way.</p>
                 </div>
               </TimelineContent>
             </TimelineItem>
@@ -214,7 +214,7 @@ export const DocsAlternate: Story = {
         <TimelineContent>
           <TimelineLabel>2015-09-01</TimelineLabel>
           <p className="font-medium">Application Submitted</p>
-          <p className="text-sm text-[var(--color-tertiary)]">Your application has been received</p>
+          <p className="text-sm text-[var(--tertiary)]">Your application has been received</p>
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
@@ -222,7 +222,7 @@ export const DocsAlternate: Story = {
         <TimelineContent>
           <TimelineLabel>2015-09-02</TimelineLabel>
           <p className="font-medium">Documents Verified</p>
-          <p className="text-sm text-[var(--color-tertiary)]">All documents verified successfully</p>
+          <p className="text-sm text-[var(--tertiary)]">All documents verified successfully</p>
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
@@ -230,7 +230,7 @@ export const DocsAlternate: Story = {
         <TimelineContent>
           <TimelineLabel>2015-09-03</TimelineLabel>
           <p className="font-medium">Under Review</p>
-          <p className="text-sm text-[var(--color-tertiary)]">Currently under review</p>
+          <p className="text-sm text-[var(--tertiary)]">Currently under review</p>
         </TimelineContent>
       </TimelineItem>
     </Timeline>
@@ -246,7 +246,7 @@ export const DocsAlternate: Story = {
     <TimelineContent>
       <TimelineLabel>2015-09-01</TimelineLabel>
       <p className="font-medium">Application Submitted</p>
-      <p className="text-sm text-[var(--color-tertiary)]">Your application has been received</p>
+      <p className="text-sm text-[var(--tertiary)]">Your application has been received</p>
     </TimelineContent>
   </TimelineItem>
   <TimelineItem>
@@ -254,7 +254,7 @@ export const DocsAlternate: Story = {
     <TimelineContent>
       <TimelineLabel>2015-09-02</TimelineLabel>
       <p className="font-medium">Documents Verified</p>
-      <p className="text-sm text-[var(--color-tertiary)]">All documents verified successfully</p>
+      <p className="text-sm text-[var(--tertiary)]">All documents verified successfully</p>
     </TimelineContent>
   </TimelineItem>
   <TimelineItem>
@@ -262,7 +262,7 @@ export const DocsAlternate: Story = {
     <TimelineContent>
       <TimelineLabel>2015-09-03</TimelineLabel>
       <p className="font-medium">Under Review</p>
-      <p className="text-sm text-[var(--color-tertiary)]">Currently under review</p>
+      <p className="text-sm text-[var(--tertiary)]">Currently under review</p>
     </TimelineContent>
   </TimelineItem>
 </Timeline>`,

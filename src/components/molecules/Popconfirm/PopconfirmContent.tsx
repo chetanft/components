@@ -77,7 +77,7 @@ export const PopconfirmContent = React.forwardRef<HTMLDivElement, PopconfirmCont
         className={cn(
           "absolute z-50 min-w-[calc(var(--spacing-x10)*5)] max-w-[calc(var(--spacing-x10)*7+var(--spacing-x5))]",
           "rounded-[var(--radius-md)]",
-          getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--color-border-secondary)]'),
+          getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-secondary)]'),
           "p-[var(--spacing-x4)]",
           placementStyles[placement],
           className

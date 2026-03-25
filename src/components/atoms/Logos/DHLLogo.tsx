@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/dhl-logo.svg';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface DHLLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const DHLLogo: React.FC<DHLLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="DHL Logo"
     width={width}
     height={height}

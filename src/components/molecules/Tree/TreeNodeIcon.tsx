@@ -66,14 +66,14 @@ export const TreeNodeIcon: React.FC<TreeNodeIconProps> = ({ nodeKey, isLeaf, ico
     if (typeof treeIcon === 'function') {
       iconElement = treeIcon({ expanded: isExpanded, isLeaf });
     } else {
-      iconElement = <Icon name={treeIcon} size={16} className="text-[var(--color-secondary)]" />;
+      iconElement = <Icon name={treeIcon} size={16} className="text-[var(--secondary)]" />;
     }
   } else {
     iconElement = (
       <Icon
         name={isLeaf ? 'file' : 'bundle'}
         size={16}
-        className="text-[var(--color-secondary)]"
+        className="text-[var(--secondary)]"
       />
     );
   }

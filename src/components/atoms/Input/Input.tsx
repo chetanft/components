@@ -234,9 +234,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ...props
   }, ref) => {
     // Check if using composable API (has children with Input sub-components)
-    const hasComposableChildren = React.Children.toArray(children).some((child: any) => 
-      child?.type?.displayName?.startsWith('Input')
-    );
+    const hasComposableChildren = React.Children.toArray(children).some((child: any) => {
+      const childType = (child as any)?.type;
+      const slot = childType?.slot;
+      return typeof slot === 'string' && slot.startsWith('input-');
+    });
     
     // If using composable API, wrap with context provider
     if (hasComposableChildren) {

@@ -117,11 +117,17 @@ export const RadioItemInput = React.forwardRef<HTMLInputElement, RadioItemInputP
           <Slot
             ref={inputRef}
             id={inputId}
-            {...({ type: "radio", name, value: itemValue, checked: isSelected, onChange: handleChange } as any)}
-            disabled={isDisabled}
             className="sr-only"
-            aria-invalid={hasError ? 'true' : 'false'}
-            {...props}
+            {...({
+              type: "radio",
+              name,
+              value: itemValue,
+              checked: isSelected,
+              onChange: handleChange,
+              disabled: isDisabled,
+              'aria-invalid': hasError ? 'true' : 'false',
+              ...props,
+            } as Record<string, unknown>)}
           />
           <div 
             className={radioStyles} 

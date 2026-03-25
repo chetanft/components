@@ -44,7 +44,7 @@ export const DescriptionsLabel = React.forwardRef<HTMLDivElement, DescriptionsLa
     }
     
     return (
-      <div className={cn("text-[var(--color-secondary)]", className)} ref={ref} {...props}>
+      <div className={cn("text-[var(--secondary)]", className)} ref={ref} {...props}>
         <Typography variant="body-secondary-regular">{children}</Typography>
       </div>
     );

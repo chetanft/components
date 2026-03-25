@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { ModalContextProvider } from './ModalContext';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 
 /**
  * Modal component props
@@ -102,12 +102,9 @@ export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(({
   children,
 }, _ref) => {
   return (
-    <ModalContextProvider
-      open={open}
-      onOpenChange={onOpenChange}
-    >
+    <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       {children}
-    </ModalContextProvider>
+    </DialogPrimitive.Root>
   );
 });
 

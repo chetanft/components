@@ -50,6 +50,7 @@ export const ButtonText = React.forwardRef<HTMLSpanElement, ButtonTextProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="button-text"
         className={cn("inline-flex items-center", className)}
         {...props}
       >
@@ -60,4 +61,5 @@ export const ButtonText = React.forwardRef<HTMLSpanElement, ButtonTextProps>(
 );
 
 ButtonText.displayName = 'ButtonText';
+(ButtonText as any).slot = 'button-text';
 

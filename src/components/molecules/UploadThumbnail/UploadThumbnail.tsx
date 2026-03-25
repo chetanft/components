@@ -90,16 +90,16 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
                 className={cn(
                   "absolute top-[calc(var(--spacing-x1)-var(--spacing-x1)/4)] right-[calc(var(--spacing-x1)-var(--spacing-x1)/4)]",
                   "w-[var(--spacing-x5)] h-[var(--spacing-x5)]",
-                  "bg-[var(--color-bg-secondary)] rounded-[var(--radius-full)]",
+                  "bg-[var(--bg-secondary)] rounded-[var(--radius-full)]",
                   "flex items-center justify-center",
                   "cursor-pointer transition-all duration-200",
-                  "hover:bg-[var(--color-critical-light)]"
+                  "hover:bg-[var(--critical-light)]"
                 )}
               >
                 <Icon 
                   name="delete" 
                   size={12}
-                  className="text-[var(--color-critical)]"
+                  className="text-[var(--critical)]"
                 />
               </div>
             )}
@@ -109,7 +109,7 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
           {showFileName && fileName && (
             <Typography 
               variant="body-secondary-regular"
-              className="text-[var(--color-secondary)] text-center w-full overflow-hidden text-ellipsis whitespace-nowrap"
+              className="text-[var(--secondary)] text-center w-full overflow-hidden text-ellipsis whitespace-nowrap"
             >
               {fileName}
             </Typography>
@@ -140,13 +140,13 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
             "transition-all duration-200",
             "cursor-pointer",
             // Default state
-            getGlassClasses(resolvedGlass, 'bg-transparent', 'border-[var(--color-border-primary)]'),
+            getGlassClasses(resolvedGlass, 'bg-transparent', 'border-[var(--border-primary)]'),
             // Hover state
-            !isDisabled && "hover:border-[var(--color-primary)]",
+            !isDisabled && "hover:border-[var(--primary)]",
             // Disabled state
             isDisabled && "opacity-50 cursor-not-allowed",
             // Force hover state if specified
-            state === 'hover' && !isDisabled && "border-[var(--color-primary)]"
+            state === 'hover' && !isDisabled && "border-[var(--primary)]"
           )}
         >
           {/* Add icon - 24x24 from Figma */}
@@ -154,8 +154,8 @@ export const UploadThumbnail = React.forwardRef<HTMLDivElement, UploadThumbnailP
             name="add" 
             size={24}
             className={cn(
-              "text-[var(--color-primary)]",
-              isDisabled && "text-[var(--color-border-primary)]"
+              "text-[var(--primary)]",
+              isDisabled && "text-[var(--border-primary)]"
             )}
           />
         </div>

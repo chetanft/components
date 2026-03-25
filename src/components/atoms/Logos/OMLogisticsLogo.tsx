@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/om-logistics-logo.svg';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface OMLogisticsLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const OMLogisticsLogo: React.FC<OMLogisticsLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="OM Logistics Logo"
     width={width}
     height={height}

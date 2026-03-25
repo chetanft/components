@@ -1,10 +1,10 @@
 "use client";
-import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useMemo, useRef, useState } from 'react';
+import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { cn } from '../../../lib/utils';
 import { getGlassStateLayer, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Icon } from '../../atoms/Icons';
 import { TabsProvider, useTabsContext } from './TabsContext';
-import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type TabType = 'primary' | 'secondary' | 'tertiary';
 export type TabState = 'unselected' | 'selected' | 'hover';
@@ -203,7 +203,7 @@ export interface Tab {
 
 export type TabsOverflowBehavior = 'auto' | 'dropdown';
 
-export interface TabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
+export interface TabsProps extends Omit<React.ComponentPropsWithoutRef<'div'>, 'onChange'> {
   /** Glassmorphism variant */
   glass?: GlassVariant;
   /**
@@ -224,17 +224,28 @@ export interface TabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
    */
   type?: TabType;
   /**
+   * Show trailing line after the last tab (primary type only).
+   * The line fills remaining width with a bottom border.
+   * @default true
+   */
+  showLine?: boolean;
+  /**
    * Overflow behavior
    * @default 'auto'
    */
   overflowBehavior?: TabsOverflowBehavior;
+  /**
+   * Support asChild pattern
+   */
+  asChild?: boolean;
 }
 
 /**
  * Tabs Component
- * 
+ *
  * A versatile tabs component for organizing content into multiple panels.
  * Uses composable API with sub-components for maximum flexibility.
+ * Built on Radix UI Tabs primitives for full keyboard navigation and accessibility.
  *
  * @public
  *
@@ -253,7 +264,7 @@ export interface TabsProps extends Omit<ComposableProps<'div'>, 'onChange'> {
  * @remarks
  * - All sub-components (TabsList, TabsTrigger, TabsContent) support `asChild`
  * - Supports multiple tab types: primary, secondary, tertiary
- * - Accessible: includes ARIA attributes and keyboard navigation
+ * - Accessible: includes ARIA attributes, roving tabindex, and arrow key navigation
  */
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   ({
@@ -262,6 +273,7 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     activeTab = 0,
     onTabChange,
     type = 'primary',
+    showLine = true,
     className,
     overflowBehavior = 'auto',
     asChild,
@@ -269,46 +281,50 @@ export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   }, ref) => {
     const resolvedGlass = useResolvedGlass(glass);
 
-    const [internalActiveTab, setInternalActiveTab] = useState(activeTab);
-    const valueToIndexMapRef = useRef<Map<string, number>>(new Map());
-    // Reset the map on each render so registrations reflect the latest tree
-    valueToIndexMapRef.current = new Map();
+    // Collect the ordered list of TabsTrigger value strings from children
+    // so we can bridge numeric activeTab <-> string value.
+    const triggerValues = useMemo(() => {
+      const values: string[] = [];
+      const walk = (node: React.ReactNode) => {
+        React.Children.forEach(node, (child) => {
+          if (!React.isValidElement(child)) return;
+          const childProps = child.props as Record<string, unknown>;
+          // Detect TabsTrigger by the presence of a `value` prop on a direct
+          // child of a TabsList-like wrapper.  We walk all children so this
+          // also works when triggers are nested inside a single TabsList.
+          if (typeof childProps.value === 'string' && childProps.children !== undefined) {
+            // Heuristic: has both `value` (string) and `children` – treat as trigger
+            values.push(childProps.value as string);
+          }
+          // Recurse into wrapper elements (e.g. TabsList)
+          if (childProps.children) {
+            walk(childProps.children as React.ReactNode);
+          }
+        });
+      };
+      walk(children);
+      return values;
+    }, [children]);
 
-    useEffect(() => {
-      if (activeTab !== undefined) {
-        setInternalActiveTab(activeTab);
-      }
-    }, [activeTab]);
+    // Bridge numeric index → string value for Radix
+    const radixValue = triggerValues[activeTab] ?? String(activeTab);
 
-    const handleTabChange = useCallback((index: number) => {
-      setInternalActiveTab(index);
-      onTabChange?.(index);
-    }, [onTabChange]);
+    const handleValueChange = useCallback((value: string) => {
+      const index = triggerValues.indexOf(value);
+      onTabChange?.(index !== -1 ? index : 0);
+    }, [triggerValues, onTabChange]);
 
-    const registerValue = useCallback((value: string, index: number) => {
-      valueToIndexMapRef.current.set(value, index);
-    }, []);
-
-    const Comp = asChild ? Slot : 'div';
     return (
-      <TabsProvider
-        value={{
-          activeTab: internalActiveTab,
-          onTabChange: handleTabChange,
-          type,
-          showLine: true,
-          valueToIndexMap: valueToIndexMapRef.current,
-          registerValue,
-          glass: resolvedGlass,
-        }}
-      >
-        <Comp
+      <TabsProvider value={{ type, showLine, glass: resolvedGlass }}>
+        <TabsPrimitive.Root
           ref={ref}
+          value={radixValue}
+          onValueChange={handleValueChange}
           className={cn("flex flex-col relative", className)}
-          {...props}
+          {...(props as React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>)}
         >
           {children}
-        </Comp>
+        </TabsPrimitive.Root>
       </TabsProvider>
     );
   }

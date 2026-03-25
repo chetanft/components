@@ -65,7 +65,7 @@ export const TreeNodeContent = React.forwardRef<HTMLDivElement, TreeNodeContentP
         {...props}
       >
         <TreeNodeIcon nodeKey={nodeKey} isLeaf={false} icon={safeIcon} />
-        <span className="truncate text-[var(--color-primary)]">
+        <span className="truncate text-[var(--primary)]">
           {safeChildren}
         </span>
       </Comp>

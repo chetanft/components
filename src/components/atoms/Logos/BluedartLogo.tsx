@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/bluedart-logo.png';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface BluedartLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const BluedartLogo: React.FC<BluedartLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="Bluedart Logo"
     width={width}
     height={height}

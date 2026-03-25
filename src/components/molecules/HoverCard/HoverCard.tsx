@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useRef, useEffect } from 'react';
-import { Slot, type ComposableProps } from '../../../lib/slot';
+import React from 'react';
+import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { HoverCardProvider } from './HoverCardContext';
 
-export interface HoverCardProps extends Omit<ComposableProps<'div'>, 'children'> {
+export interface HoverCardProps {
     /**
      * HoverCard children (composable API sub-components)
      */
@@ -36,7 +36,7 @@ export interface HoverCardProps extends Omit<ComposableProps<'div'>, 'children'>
 
 /**
  * HoverCard Component
- * 
+ *
  * A card that appears on hover with customizable content.
  * Uses composable API with sub-components for maximum flexibility.
  *
@@ -65,37 +65,15 @@ export const HoverCard: React.FC<HoverCardProps> = ({
     width = 320,
     className: _className,
     placement = 'bottom',
-    asChild,
 }) => {
-    const [open, setOpen] = useState(false);
-    const openTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-    // Create context value
-    const contextValue = {
-        open,
-        setOpen,
-        openDelay,
-        closeDelay,
-        placement,
-        width,
-        openTimeoutRef,
-        closeTimeoutRef,
-    };
-
-    useEffect(() => {
-        return () => {
-            if (openTimeoutRef.current) clearTimeout(openTimeoutRef.current);
-            if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
-        };
-    }, []);
-
-    const Comp = asChild ? Slot : 'div';
     return (
-        <HoverCardProvider value={contextValue}>
-            <Comp className="relative inline-block">
+        <HoverCardProvider value={{ placement, width }}>
+            <HoverCardPrimitive.Root
+                openDelay={openDelay}
+                closeDelay={closeDelay}
+            >
                 {children}
-            </Comp>
+            </HoverCardPrimitive.Root>
         </HoverCardProvider>
     );
 };

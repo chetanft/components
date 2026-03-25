@@ -54,7 +54,7 @@ export const BreadcrumbSeparator = React.forwardRef<HTMLSpanElement, BreadcrumbS
         className={cn("flex items-center", className)}
         {...props}
       >
-        {children || <Icon name={icon} size={16} className="text-[var(--color-tertiary)]" />}
+        {children || <Icon name={icon} size={16} className="text-[var(--tertiary)]" />}
       </Comp>
     );
   }

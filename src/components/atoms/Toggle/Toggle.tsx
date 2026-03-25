@@ -85,34 +85,32 @@ export const Toggle = React.forwardRef<HTMLButtonElement, ToggleProps>(({
         lg: 'h-12 px-[var(--spacing-x5)] min-w-[var(--spacing-x12)] text-md-rem',
     };
 
-    const baseStyles = "inline-flex items-center justify-center rounded-[var(--radius-md)] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] disabled:pointer-events-none disabled:opacity-50";
+    const baseStyles = "inline-flex items-center justify-center rounded-[var(--radius-md)] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] disabled:pointer-events-none disabled:opacity-50";
 
     const variantStyles = {
         default: cn(
             resolvedGlass
-                ? cn(getGlassClasses(resolvedGlass, 'bg-transparent', ''), "text-[var(--color-secondary)]")
-                : cn("bg-transparent hover:bg-[var(--color-bg-secondary)] text-[var(--color-secondary)]"),
-            !resolvedGlass && isPressed && "bg-[var(--color-bg-secondary)] text-[var(--color-primary)]",
-            resolvedGlass && isPressed && "text-[var(--color-primary)]"
+                ? cn(getGlassClasses(resolvedGlass, 'bg-transparent', ''), "text-[var(--secondary)]")
+                : cn("bg-transparent hover:bg-[var(--bg-secondary)] text-[var(--secondary)]"),
+            !resolvedGlass && isPressed && "bg-[var(--bg-secondary)] text-[var(--primary)]",
+            resolvedGlass && isPressed && "text-[var(--primary)]"
         ),
         outline: cn(
             resolvedGlass
-                ? cn(getGlassClasses(resolvedGlass, 'bg-transparent', 'border border-[var(--color-border-primary)]'), "text-[var(--color-secondary)]")
-                : cn("border border-[var(--color-border-primary)] bg-transparent hover:bg-[var(--color-bg-secondary)] text-[var(--color-secondary)]"),
-            !resolvedGlass && isPressed && "bg-[var(--color-bg-secondary)] text-[var(--color-primary)] border-[var(--color-primary)]",
-            resolvedGlass && isPressed && "text-[var(--color-primary)] border-[var(--color-primary)]"
+                ? cn(getGlassClasses(resolvedGlass, 'bg-transparent', 'border border-[var(--border-primary)]'), "text-[var(--secondary)]")
+                : cn("border border-[var(--border-primary)] bg-transparent hover:bg-[var(--bg-secondary)] text-[var(--secondary)]"),
+            !resolvedGlass && isPressed && "bg-[var(--bg-secondary)] text-[var(--primary)] border-[var(--primary)]",
+            resolvedGlass && isPressed && "text-[var(--primary)] border-[var(--primary)]"
         ),
     };
 
     const Comp = asChild ? Slot : 'button';
     
-    // Filter out button-specific props when using asChild
-    const { _type, disabled: _, onClick: __, ...restProps } = props as any;
-    const buttonProps = asChild ? restProps : { 
-        type: 'button' as const, 
-        disabled, 
+    const buttonProps = asChild ? props : {
+        type: 'button' as const,
+        disabled,
         onClick: handleClick,
-        ...props 
+        ...props
     };
     
     return (

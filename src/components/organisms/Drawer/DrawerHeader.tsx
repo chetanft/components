@@ -50,7 +50,7 @@ export const DrawerHeader = React.forwardRef<HTMLDivElement, DrawerHeaderProps>(
       <Comp
         ref={ref}
         className={cn(
-          "flex items-center justify-between px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-b border-[var(--color-border-secondary)] flex-shrink-0",
+          "flex items-center justify-between px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-b border-[var(--border-secondary)] flex-shrink-0",
           className
         )}
         {...props}

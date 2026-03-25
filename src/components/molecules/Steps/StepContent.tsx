@@ -60,9 +60,9 @@ export const StepContent = React.forwardRef<HTMLDivElement, StepContentProps>(
         )}
         {...props}
       >
-        {React.Children.map(children, (child: any) => {
-          if (React.isValidElement(child)) {
-            return React.cloneElement(child, { state, device } as any);
+        {React.Children.map(children, (child) => {
+          if (React.isValidElement<Record<string, unknown>>(child)) {
+            return React.cloneElement(child, { state, device });
           }
           return child;
         })}

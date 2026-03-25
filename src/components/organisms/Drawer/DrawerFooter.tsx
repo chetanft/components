@@ -51,7 +51,7 @@ export const DrawerFooter = React.forwardRef<HTMLDivElement, DrawerFooterProps>(
       <Comp
         ref={ref}
         className={cn(
-          "flex-shrink-0 px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-t border-[var(--color-border-secondary)]",
+          "flex-shrink-0 px-[var(--spacing-x6)] py-[var(--spacing-x4)] border-t border-[var(--border-secondary)]",
           className
         )}
         {...props}

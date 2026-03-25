@@ -107,6 +107,7 @@ export const DatePickerCalendar = React.forwardRef<HTMLDivElement, DatePickerCal
         {/* Calendar */}
         <div
           ref={ref}
+          data-slot="datepicker-calendar"
           className={cn(
             "fixed z-[9999]",
             portalClassName ?? contextPortalClassName,
@@ -128,3 +129,4 @@ export const DatePickerCalendar = React.forwardRef<HTMLDivElement, DatePickerCal
 );
 
 DatePickerCalendar.displayName = 'DatePickerCalendar';
+(DatePickerCalendar as any).slot = 'datepicker-calendar';

@@ -43,6 +43,7 @@ export const CardActions = React.forwardRef<HTMLDivElement, CardActionsProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="card-actions"
         className={cn("flex gap-[var(--spacing-x4)] items-center justify-end", className)}
         {...props}
       >
@@ -53,4 +54,5 @@ export const CardActions = React.forwardRef<HTMLDivElement, CardActionsProps>(
 );
 
 CardActions.displayName = 'CardActions';
+(CardActions as any).slot = 'card-actions';
 

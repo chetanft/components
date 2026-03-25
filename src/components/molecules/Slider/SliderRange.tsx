@@ -1,22 +1,26 @@
 "use client";
 
 import React from 'react';
+import * as SliderPrimitive from '@radix-ui/react-slider';
 import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useSliderContext } from './SliderContext';
 
-export interface SliderRangeProps extends ComposableProps<'div'> {
+export interface SliderRangeProps extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Range> {
   /**
    * Range content (optional).
    */
   children?: React.ReactNode;
+  /**
+   * @deprecated Use asChild on the parent Slider instead. Kept for API compatibility.
+   */
+  asChild?: boolean;
 }
 
 /**
  * SliderRange Component
  *
  * A composable component for the filled portion of a Slider track.
- * Typically used within SliderTrack.
+ * Typically used within SliderTrack. Renders as a Radix Slider.Range primitive.
  *
  * @public
  *
@@ -28,43 +32,29 @@ export interface SliderRangeProps extends ComposableProps<'div'> {
  * ```
  *
  * @remarks
- * - Wraps the HTML `<div>` element by default.
- * - Supports `asChild` prop to merge props with a custom child element.
+ * - Wraps Radix UI Slider.Range primitive.
  * - Automatically styled and positioned based on slider value and range mode.
  */
-export const SliderRange = React.forwardRef<HTMLDivElement, SliderRangeProps>(
-  ({ className, children, asChild, ...props }, ref) => {
-    const { vertical, trackColor, range, rangeValue, getPercent } = useSliderContext();
-    
-    const startPercent = getPercent(rangeValue[0]);
-    const endPercent = getPercent(rangeValue[1]);
-    
-    const Comp = asChild ? Slot : 'div';
+export const SliderRange = React.forwardRef<
+  React.ComponentRef<typeof SliderPrimitive.Range>,
+  SliderRangeProps
+>(
+  ({ className, ...props }, ref) => {
+    const { trackColor } = useSliderContext();
+
     return (
-      <Comp
+      <SliderPrimitive.Range
         ref={ref}
-        className={cn("absolute rounded-full pointer-events-none", className)}
+        data-slot="slider-range"
+        className={cn("absolute rounded-full", className)}
         style={{
           backgroundColor: trackColor || 'var(--primary)',
-          ...(vertical
-            ? {
-                width: '100%',
-                bottom: range ? `${startPercent}%` : '0%',
-                height: range ? `${endPercent - startPercent}%` : `${endPercent}%`,
-              }
-            : {
-                height: '100%',
-                left: range ? `${startPercent}%` : '0%',
-                width: range ? `${endPercent - startPercent}%` : `${endPercent}%`,
-              }),
         }}
         {...props}
-      >
-        {children}
-      </Comp>
+      />
     );
   }
 );
 
 SliderRange.displayName = 'SliderRange';
-
+(SliderRange as any).slot = 'slider-range';

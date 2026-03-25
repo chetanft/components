@@ -158,7 +158,7 @@ export const CustomSeparator: Story = {
             <BreadcrumbLink href="/about">About</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator>
-            <span className="text-[var(--color-tertiary)]">/</span>
+            <span className="text-[var(--tertiary)]">/</span>
           </BreadcrumbSeparator>
           <BreadcrumbItem>
             <BreadcrumbLink href="/about/team" isCurrentPage>Team</BreadcrumbLink>
@@ -183,7 +183,7 @@ export const CustomSeparator: Story = {
       <BreadcrumbLink href="/about">About</BreadcrumbLink>
     </BreadcrumbItem>
     <BreadcrumbSeparator>
-      <span className="text-[var(--color-tertiary)]">/</span>
+      <span className="text-[var(--tertiary)]">/</span>
     </BreadcrumbSeparator>
     <BreadcrumbItem>
       <BreadcrumbLink href="/about/team" isCurrentPage>Team</BreadcrumbLink>

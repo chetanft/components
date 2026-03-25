@@ -62,10 +62,10 @@ export const BreadcrumbLink = React.forwardRef<HTMLAnchorElement, BreadcrumbLink
       "flex items-center gap-[var(--spacing-x2)]",
       "text-sm font-medium",
       isCurrentPage
-        ? "text-[var(--color-primary)]"
-        : "text-[var(--color-primary)] hover:text-[var(--color-neutral)]",
+        ? "text-[var(--primary)]"
+        : "text-[var(--primary)] hover:text-[var(--neutral)]",
       "transition-colors duration-[var(--transition-fast)]",
-      isClickable && "focus:outline-none focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20 focus:rounded-[var(--radius-sm)]",
+      isClickable && "focus:outline-none focus:ring-2 focus:ring-[var(--neutral)] focus:ring-opacity-20 focus:rounded-[var(--radius-sm)]",
       className
     );
     
@@ -95,8 +95,8 @@ export const BreadcrumbLink = React.forwardRef<HTMLAnchorElement, BreadcrumbLink
     
     return (
       <span
-        ref={ref as any}
-        className={cn(linkStyles, "text-[var(--color-tertiary)]")}
+        ref={ref}
+        className={cn(linkStyles, "text-[var(--tertiary)]")}
         aria-current={isCurrentPage ? 'page' : undefined}
         {...props}
       >

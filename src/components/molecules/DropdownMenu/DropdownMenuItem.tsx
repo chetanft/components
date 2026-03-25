@@ -11,12 +11,12 @@ const dropdownMenuItemVariants = cva(
   {
     variants: {
       state: {
-        default: 'bg-[var(--color-bg-primary)]',
-        selected: 'bg-[var(--color-bg-secondary)]',
-        hover: 'bg-[var(--color-border-secondary)] cursor-pointer',
-        focused: 'bg-[var(--color-border-primary)] cursor-pointer',
-        disabled: 'bg-[var(--color-bg-primary)] cursor-not-allowed opacity-60',
-        info: 'bg-[var(--color-bg-primary)] border-[var(--color-border-primary)] border-b-0 border-l-0 border-r-0 border-solid border-t',
+        default: 'bg-[var(--bg-primary)]',
+        selected: 'bg-[var(--bg-secondary)]',
+        hover: 'bg-[var(--border-secondary)] cursor-pointer',
+        focused: 'bg-[var(--border-primary)] cursor-pointer',
+        disabled: 'bg-[var(--bg-primary)] cursor-not-allowed opacity-60',
+        info: 'bg-[var(--bg-primary)] border-[var(--border-primary)] border-b-0 border-l-0 border-r-0 border-solid border-t',
       },
       prefix: {
         none: '',
@@ -145,8 +145,8 @@ export const DropdownMenuItem = React.forwardRef<
     // Text color based on state - using FT design tokens
     const textColorClass =
       isDisabled || isInfo
-        ? 'text-[var(--color-tertiary)]'
-        : 'text-[var(--color-primary)]';
+        ? 'text-[var(--tertiary)]'
+        : 'text-[var(--primary)]';
 
     // Font style - use inline styles with valid CSS values (rem-based for responsive typography)
     const fontStyle = isInfo
@@ -244,8 +244,8 @@ export const DropdownMenuItem = React.forwardRef<
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <circle cx="10" cy="10" r="9" fill="var(--color-primary)" stroke="var(--color-primary)" strokeWidth="2" />
-                  <circle cx="10" cy="10" r="4" fill="var(--color-bg-primary)" />
+                  <circle cx="10" cy="10" r="9" fill="var(--primary)" stroke="var(--primary)" strokeWidth="2" />
+                  <circle cx="10" cy="10" r="4" fill="var(--bg-primary)" />
                 </svg>
               </div>
             ) : (
@@ -263,15 +263,15 @@ export const DropdownMenuItem = React.forwardRef<
                     r="9"
                     fill={
                       actualState === 'hover' || actualState === 'focused'
-                        ? 'var(--color-border-primary)'
+                        ? 'var(--border-primary)'
                         : 'transparent'
                     }
                     stroke={
                       isDisabled
-                        ? 'var(--color-tertiary)'
+                        ? 'var(--tertiary)'
                         : actualState === 'hover' || actualState === 'focused'
-                          ? 'var(--color-tertiary)'
-                          : 'var(--color-tertiary)'
+                          ? 'var(--tertiary)'
+                          : 'var(--tertiary)'
                     }
                     strokeWidth="2"
                   />
@@ -294,8 +294,8 @@ export const DropdownMenuItem = React.forwardRef<
                 size={16}
                 color={
                   isDisabled
-                    ? 'var(--color-tertiary)'
-                    : 'var(--color-primary)'
+                    ? 'var(--tertiary)'
+                    : 'var(--primary)'
                 }
                 className="absolute inset-[6.25%]"
               />
@@ -312,7 +312,7 @@ export const DropdownMenuItem = React.forwardRef<
             {children || label}
           </div>
           {description && (
-            <div className="text-xs text-[var(--color-tertiary)] truncate mt-[var(--spacing-x0-5)]">
+            <div className="text-xs text-[var(--tertiary)] truncate mt-[var(--spacing-x0-5)]">
               {description}
             </div>
           )}
@@ -329,7 +329,7 @@ export const DropdownMenuItem = React.forwardRef<
             <Icon
               name="check-alt"
               size={16}
-              color="var(--color-primary)"
+              color="var(--primary)"
             />
           </div>
         )}
@@ -344,8 +344,8 @@ export const DropdownMenuItem = React.forwardRef<
                   size={12}
                   color={
                     isDisabled
-                      ? 'var(--color-tertiary)'
-                      : 'var(--color-primary)'
+                      ? 'var(--tertiary)'
+                      : 'var(--primary)'
                   }
                   className="relative size-full"
                 />

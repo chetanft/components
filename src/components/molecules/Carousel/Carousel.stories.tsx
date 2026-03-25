@@ -115,19 +115,19 @@ export const ExplorerBase: Story = {
         ) : contentType === 'custom-dots' ? (
           <Carousel
             customDot={({ index, active }) => (
-              <span className={`w-3 h-3 rounded-full transition-all ${active ? 'bg-[var(--color-primary)] scale-125' : 'bg-[var(--color-border-primary)]'}`} />
+              <span className={`w-3 h-3 rounded-full transition-all ${active ? 'bg-[var(--primary)] scale-125' : 'bg-[var(--border-primary)]'}`} />
             )}
           >
-            <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>Slide 1</div>
-            <div className={slideStyle} style={{ backgroundColor: 'var(--color-positive)' }}>Slide 2</div>
-            <div className={slideStyle} style={{ backgroundColor: 'var(--color-warning)' }}>Slide 3</div>
+            <div className={slideStyle} style={{ backgroundColor: 'var(--primary)' }}>Slide 1</div>
+            <div className={slideStyle} style={{ backgroundColor: 'var(--positive)' }}>Slide 2</div>
+            <div className={slideStyle} style={{ backgroundColor: 'var(--warning)' }}>Slide 3</div>
           </Carousel>
         ) : (
           <Carousel arrows={arrows} dotPosition={dotPosition} autoplay={autoplay} effect={effect}>
-            <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>Slide 1</div>
-            <div className={slideStyle} style={{ backgroundColor: 'var(--color-positive)' }}>Slide 2</div>
-            <div className={slideStyle} style={{ backgroundColor: 'var(--color-warning)' }}>Slide 3</div>
-            <div className={slideStyle} style={{ backgroundColor: 'var(--color-critical)' }}>Slide 4</div>
+            <div className={slideStyle} style={{ backgroundColor: 'var(--primary)' }}>Slide 1</div>
+            <div className={slideStyle} style={{ backgroundColor: 'var(--positive)' }}>Slide 2</div>
+            <div className={slideStyle} style={{ backgroundColor: 'var(--warning)' }}>Slide 3</div>
+            <div className={slideStyle} style={{ backgroundColor: 'var(--critical)' }}>Slide 4</div>
           </Carousel>
         )}
       </div>
@@ -140,10 +140,10 @@ export const Default: Story = {
   render: (args: React.ComponentProps<typeof Carousel>) => (
     <div className="max-w-[600px]">
       <Carousel {...args}>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>Slide 1</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-positive)' }}>Slide 2</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-warning)' }}>Slide 3</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-critical)' }}>Slide 4</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--primary)' }}>Slide 1</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--positive)' }}>Slide 2</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--warning)' }}>Slide 3</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--critical)' }}>Slide 4</div>
       </Carousel>
     </div>
   ),
@@ -168,10 +168,10 @@ export const Autoplay: Story = {
   render: (args: React.ComponentProps<typeof Carousel>) => (
     <div className="max-w-[600px]">
       <Carousel {...args}>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>Slide 1</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-positive)' }}>Slide 2</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-warning)' }}>Slide 3</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-critical)' }}>Slide 4</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--primary)' }}>Slide 1</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--positive)' }}>Slide 2</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--warning)' }}>Slide 3</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--critical)' }}>Slide 4</div>
       </Carousel>
     </div>
   ),
@@ -200,10 +200,10 @@ export const FadeEffect: Story = {
   render: (args: React.ComponentProps<typeof Carousel>) => (
     <div className="max-w-[600px]">
       <Carousel {...args}>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>Slide 1</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-positive)' }}>Slide 2</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-warning)' }}>Slide 3</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-critical)' }}>Slide 4</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--primary)' }}>Slide 1</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--positive)' }}>Slide 2</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--warning)' }}>Slide 3</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--critical)' }}>Slide 4</div>
       </Carousel>
     </div>
   ),
@@ -231,10 +231,10 @@ export const WithoutArrows: Story = {
   render: (args: React.ComponentProps<typeof Carousel>) => (
     <div className="max-w-[600px]">
       <Carousel {...args}>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>Slide 1</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-positive)' }}>Slide 2</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-warning)' }}>Slide 3</div>
-        <div className={slideStyle} style={{ backgroundColor: 'var(--color-critical)' }}>Slide 4</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--primary)' }}>Slide 1</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--positive)' }}>Slide 2</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--warning)' }}>Slide 3</div>
+        <div className={slideStyle} style={{ backgroundColor: 'var(--critical)' }}>Slide 4</div>
       </Carousel>
     </div>
   ),
@@ -262,31 +262,31 @@ export const DocsDotPositions: Story = {
   render: () => (
     <div className="grid grid-cols-2 gap-8">
       <div>
-        <p className="text-sm text-[var(--color-tertiary)] mb-2">Top</p>
+        <p className="text-sm text-[var(--tertiary)] mb-2">Top</p>
         <Carousel dotPosition="top">
-          <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>1</div>
-          <div className={slideStyle} style={{ backgroundColor: 'var(--color-positive)' }}>2</div>
+          <div className={slideStyle} style={{ backgroundColor: 'var(--primary)' }}>1</div>
+          <div className={slideStyle} style={{ backgroundColor: 'var(--positive)' }}>2</div>
         </Carousel>
       </div>
       <div>
-        <p className="text-sm text-[var(--color-tertiary)] mb-2">Bottom (Default)</p>
+        <p className="text-sm text-[var(--tertiary)] mb-2">Bottom (Default)</p>
         <Carousel dotPosition="bottom">
-          <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>1</div>
-          <div className={slideStyle} style={{ backgroundColor: 'var(--color-positive)' }}>2</div>
+          <div className={slideStyle} style={{ backgroundColor: 'var(--primary)' }}>1</div>
+          <div className={slideStyle} style={{ backgroundColor: 'var(--positive)' }}>2</div>
         </Carousel>
       </div>
       <div>
-        <p className="text-sm text-[var(--color-tertiary)] mb-2">Left</p>
+        <p className="text-sm text-[var(--tertiary)] mb-2">Left</p>
         <Carousel dotPosition="left">
-          <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>1</div>
-          <div className={slideStyle} style={{ backgroundColor: 'var(--color-positive)' }}>2</div>
+          <div className={slideStyle} style={{ backgroundColor: 'var(--primary)' }}>1</div>
+          <div className={slideStyle} style={{ backgroundColor: 'var(--positive)' }}>2</div>
         </Carousel>
       </div>
       <div>
-        <p className="text-sm text-[var(--color-tertiary)] mb-2">Right</p>
+        <p className="text-sm text-[var(--tertiary)] mb-2">Right</p>
         <Carousel dotPosition="right">
-          <div className={slideStyle} style={{ backgroundColor: 'var(--color-primary)' }}>1</div>
-          <div className={slideStyle} style={{ backgroundColor: 'var(--color-positive)' }}>2</div>
+          <div className={slideStyle} style={{ backgroundColor: 'var(--primary)' }}>1</div>
+          <div className={slideStyle} style={{ backgroundColor: 'var(--positive)' }}>2</div>
         </Carousel>
       </div>
     </div>

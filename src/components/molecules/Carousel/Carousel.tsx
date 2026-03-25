@@ -223,14 +223,14 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       "w-[var(--spacing-x10)] h-[var(--spacing-x10)] rounded-full",
       resolvedGlass
         ? "bg-[var(--glass-hover)] hover:bg-[var(--glass-selected)]"
-        : "bg-[var(--color-bg-primary)]/90 hover:bg-[var(--color-bg-primary)]",
-      "shadow-lg border border-[var(--color-border-primary)]",
-      "text-[var(--color-primary)] hover:text-[var(--color-primary)]",
+        : "bg-[var(--bg-primary)]/90 hover:bg-[var(--bg-primary)]",
+      "shadow-lg border border-[var(--border-primary)]",
+      "text-[var(--primary)] hover:text-[var(--primary)]",
       "transition-all duration-200",
       resolvedGlass
         ? "disabled:opacity-30 disabled:cursor-not-allowed"
-        : "disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-[var(--color-bg-primary)]/90",
-      "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-neutral)]"
+        : "disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-[var(--bg-primary)]/90",
+      "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--neutral)]"
     );
 
     const Comp = asChild ? Slot : 'div';
@@ -344,8 +344,8 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
                   className={cn(
                     "w-[var(--spacing-x2)] h-[var(--spacing-x2)] rounded-full transition-all",
                     isActive
-                      ? "bg-[var(--color-primary)] w-[var(--spacing-x6)]"
-                      : "bg-[var(--color-border-primary)] hover:bg-[var(--color-border-secondary)]"
+                      ? "bg-[var(--primary)] w-[var(--spacing-x6)]"
+                      : "bg-[var(--border-primary)] hover:bg-[var(--border-secondary)]"
                   )}
                   role="tab"
                   aria-selected={isActive}

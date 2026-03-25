@@ -50,7 +50,7 @@ export const TooltipTitle = React.forwardRef<HTMLDivElement, TooltipTitleProps>(
     
     return (
       <div className={cn("flex justify-between items-center mb-[var(--spacing-x1)]", className)} {...props}>
-        <Typography variant="body-secondary-semibold" ref={ref as any}>
+        <Typography variant="body-secondary-semibold" ref={ref}>
           {children}
         </Typography>
       </div>

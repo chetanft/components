@@ -4,7 +4,6 @@ import React, { createContext, useContext } from 'react';
 
 export interface SliderContextType {
   value: number | [number, number];
-  setValue: (value: number | [number, number]) => void;
   min: number;
   max: number;
   step: number;
@@ -14,16 +13,6 @@ export interface SliderContextType {
   tooltip?: boolean | { formatter?: (value: number) => React.ReactNode };
   trackColor?: string;
   railColor?: string;
-  onChange?: (value: number | [number, number]) => void;
-  onChangeComplete?: (value: number | [number, number]) => void;
-  isDragging: 'start' | 'end' | null;
-  setIsDragging: (dragging: 'start' | 'end' | null) => void;
-  hoveredHandle: 'start' | 'end' | null;
-  setHoveredHandle: (handle: 'start' | 'end' | null) => void;
-  sliderRef: React.RefObject<HTMLDivElement>;
-  getPercent: (val: number) => number;
-  getValueFromPosition: (clientX: number, clientY: number) => number;
-  rangeValue: [number, number];
 }
 
 const SliderContext = createContext<SliderContextType | undefined>(undefined);
@@ -34,7 +23,6 @@ const SliderContext = createContext<SliderContextType | undefined>(undefined);
  */
 const createDefaultContext = (): SliderContextType => ({
   value: 0,
-  setValue: () => {},
   min: 0,
   max: 100,
   step: 1,
@@ -44,21 +32,11 @@ const createDefaultContext = (): SliderContextType => ({
   tooltip: true,
   trackColor: undefined,
   railColor: undefined,
-  onChange: undefined,
-  onChangeComplete: undefined,
-  isDragging: null,
-  setIsDragging: () => {},
-  hoveredHandle: null,
-  setHoveredHandle: () => {},
-  sliderRef: { current: null },
-  getPercent: (val: number) => val,
-  getValueFromPosition: () => 0,
-  rangeValue: [0, 100],
 });
 
 export const useSliderContext = () => {
   const context = useContext(SliderContext);
-  
+
   if (!context) {
     return createDefaultContext();
   }
@@ -77,4 +55,3 @@ export const SliderProvider: React.FC<SliderProviderProps> = ({ value, children 
     </SliderContext.Provider>
   );
 };
-

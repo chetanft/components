@@ -1,8 +1,8 @@
 // ======================
-// PROVIDER
+// PROVIDER (unified)
 // ======================
-export { FTProvider, useFTTheme } from './FTProvider';
-export type { FTProviderProps } from './FTProvider';
+export { FTProvider, useFTTheme, useTheme, useGlass, ThemeProvider, GlassProvider } from './FTProvider';
+export type { FTProviderProps, FTThemeContextType, ThemeContextType, GlassContextType, Theme, GlassMode, ThemeProviderProps, GlassProviderProps } from './FTProvider';
 
 // ======================
 // ATOMIC DESIGNS EXPORTS
@@ -29,6 +29,7 @@ export * from './atoms/Input';
 export * from './atoms/Label';
 export * from './atoms/Logos';
 export * from './atoms/RadioGroup';
+export * from './atoms/ScrollArea';
 export * from './atoms/ReadOnly';
 export * from './atoms/Switch';
 export * from './atoms/Text/Text';
@@ -39,8 +40,10 @@ export * from './atoms/Skeleton';
 export * from './atoms/FigmaBadge';
 export * from './atoms/Spin'; // 🆕 NEW
 export * from './atoms/Toggle';
+export * from './atoms/InputOTP';
 
 // MOLECULES - Simple combinations of atoms
+export * from './molecules/Accordion';
 export * from './molecules/Chicklet';
 export * from './molecules/ButtonGroup';
 export * from './molecules/DatePicker';
@@ -90,11 +93,16 @@ export * from './molecules/Mentions';
 export * from './molecules/Transfer';
 export * from './molecules/ColorPicker';
 export * from './molecules/Popconfirm';
+export * from './molecules/Popover';
 export * from './molecules/ToggleGroup';
 export * from './molecules/List';
 export * from './molecules/HoverCard';
 export * from './molecules/Descriptions';
 export * from './molecules/PercentageOfChargeInput';
+export * from './molecules/AlertDialog';
+export * from './molecules/Command';
+export * from './molecules/Resizable';
+export * from './molecules/ContextMenu';
 
 
 // CHARTS - Chart.js components with FT Design System styling
@@ -121,6 +129,7 @@ export * from './organisms/UserProfileDropdown';
 export * from './organisms/Modal';
 export * from './organisms/Drawer';
 export * from './organisms/PageHeader';
+export * from './organisms/Sidebar';
 // 🆕 NEW Components
 export * from './organisms/Result';
 export * from './organisms/Grid';
@@ -147,13 +156,9 @@ export { Badge as BadgeLegacy } from './atoms/Badge/Badge';
 export { cn } from '../lib/utils';
 
 // Theme System
-export { ThemeProvider, useTheme } from '../contexts/ThemeContext';
 export { ThemeSwitch } from './molecules/ThemeSwitch';
-export type { Theme, ThemeContextType, ThemeProviderProps } from '../contexts/ThemeContext';
 export type { ThemeSwitchProps } from './molecules/ThemeSwitch';
 
 // Glass System
-export { GlassProvider, useGlass } from '../contexts/GlassContext';
-export type { GlassMode, GlassContextType, GlassProviderProps } from '../contexts/GlassContext';
 export { useResolvedGlass, getGlassClasses } from '../lib/glass';
 export type { GlassVariant } from '../lib/glass';

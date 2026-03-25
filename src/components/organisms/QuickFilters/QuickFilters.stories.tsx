@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { QuickFilters, QuickFilter, FilterOption } from './QuickFilters';
+import { QuickFilters, QuickFilter, FilterOption, type FilterType } from './QuickFilters';
 
 const meta: Meta<typeof QuickFilters> = {
   title: 'UI Components/QuickFilters',
@@ -97,15 +97,22 @@ export const ExplorerBase: Story = {
     const selectionMode = args.selectionMode ?? 'default';
 
     if (filterType === 'multi') {
+      const [multiOpts, setMultiOpts] = React.useState<Record<string, string | undefined>>({
+        duration: selectionMode !== 'default' ? '0-6' : undefined,
+        status: undefined,
+      });
       return (
         <div className="p-6">
-          <QuickFilters onFilterClick={() => {}} onFilterRemove={() => {}}>
-            <QuickFilter id="duration" label="Duration" selectedOption={selectionMode !== 'default' ? '0-6' : undefined}>
+          <QuickFilters
+            onFilterClick={(id, optionId) => setMultiOpts(prev => ({ ...prev, [id]: optionId }))}
+            onFilterRemove={(id) => setMultiOpts(prev => ({ ...prev, [id]: undefined }))}
+          >
+            <QuickFilter id="duration" label="Duration" selectedOption={multiOpts.duration}>
               <FilterOption id="0-6" label="0-6 hrs" />
               <FilterOption id="6-12" label="6-12 hrs" />
               <FilterOption id="12+" label="12+ hrs" />
             </QuickFilter>
-            <QuickFilter id="status" label="Status">
+            <QuickFilter id="status" label="Status" selectedOption={multiOpts.status}>
               <FilterOption id="active" label="Active" count={12} />
               <FilterOption id="pending" label="Pending" count={5} />
             </QuickFilter>
@@ -114,7 +121,7 @@ export const ExplorerBase: Story = {
       );
     }
 
-    const items =
+    const initialItems =
       selectionMode === 'selected'
         ? [
             { id: 'f1', label: 'Filter A', count: 10, selected: true },
@@ -133,15 +140,20 @@ export const ExplorerBase: Story = {
               { id: 'f4', label: 'Completed', count: 23, selected: false },
             ];
 
+    const [items, setItems] = React.useState(initialItems);
+
     return (
       <div className="p-6">
-        <QuickFilters onFilterClick={() => {}} onFilterRemove={() => {}}>
+        <QuickFilters
+          onFilterClick={(id) => setItems(prev => prev.map(f => f.id === id ? { ...f, selected: !f.selected } : f))}
+          onFilterRemove={(id) => setItems(prev => prev.map(f => f.id === id ? { ...f, selected: false } : f))}
+        >
           {items.map((item) => (
             <QuickFilter
               key={item.id}
               id={item.id}
               label={item.label}
-              count={item.count as any}
+              count={item.count}
               selected={item.selected}
             />
           ))}
@@ -153,16 +165,26 @@ export const ExplorerBase: Story = {
 
 // Composable API - Single filters
 export function Default() {
+  const [filters, setFilters] = React.useState([
+    { id: 'filter-1', label: 'All Items', selected: false },
+    { id: 'filter-2', label: 'Active', count: 12, selected: false },
+    { id: 'filter-3', label: 'Pending', count: 5, selected: false },
+    { id: 'filter-4', label: 'Completed', count: 23, selected: false },
+  ]);
+
   return (
     <div className="p-6">
       <QuickFilters
-        onFilterClick={(id) => console.log('Clicked:', id)}
-        onFilterRemove={(id) => console.log('Removed:', id)}
+        onFilterClick={(id) => {
+          setFilters(prev => prev.map(f => f.id === id ? { ...f, selected: !f.selected } : f));
+        }}
+        onFilterRemove={(id) => {
+          setFilters(prev => prev.map(f => f.id === id ? { ...f, selected: false } : f));
+        }}
       >
-        <QuickFilter id="filter-1" label="All Items" />
-        <QuickFilter id="filter-2" label="Active" count={12} />
-        <QuickFilter id="filter-3" label="Pending" count={5} />
-        <QuickFilter id="filter-4" label="Completed" count={23} />
+        {filters.map(f => (
+          <QuickFilter key={f.id} id={f.id} label={f.label} count={f.count} selected={f.selected} />
+        ))}
       </QuickFilters>
     </div>
   );
@@ -170,18 +192,27 @@ export function Default() {
 
 // Composable API - Multi-option filters
 export function MultiOptionFilters() {
+  const [selectedOptions, setSelectedOptions] = React.useState<Record<string, string | undefined>>({
+    duration: '0-6',
+    status: undefined,
+  });
+
   return (
     <div className="p-6">
       <QuickFilters
-        onFilterClick={(id, optionId) => console.log('Clicked:', id, optionId)}
-        onFilterRemove={(id, optionId) => console.log('Removed:', id, optionId)}
+        onFilterClick={(id, optionId) => {
+          setSelectedOptions(prev => ({ ...prev, [id]: optionId }));
+        }}
+        onFilterRemove={(id) => {
+          setSelectedOptions(prev => ({ ...prev, [id]: undefined }));
+        }}
       >
-        <QuickFilter id="duration" label="Duration" selectedOption="0-6">
+        <QuickFilter id="duration" label="Duration" selectedOption={selectedOptions.duration}>
           <FilterOption id="0-6" label="0-6 hrs" />
           <FilterOption id="6-12" label="6-12 hrs" />
           <FilterOption id="12+" label="12+ hrs" />
         </QuickFilter>
-        <QuickFilter id="status" label="Status">
+        <QuickFilter id="status" label="Status" selectedOption={selectedOptions.status}>
           <FilterOption id="active" label="Active" count={12} />
           <FilterOption id="pending" label="Pending" count={5} />
           <FilterOption id="completed" label="Completed" count={23} />
@@ -192,43 +223,58 @@ export function MultiOptionFilters() {
 }
 
 export function DocsVariants() {
+  const [singleFilters, setSingleFilters] = React.useState([
+    { id: 'f-1', label: 'All Items', selected: false },
+    { id: 'f-2', label: 'Active', count: 12, selected: false },
+    { id: 'f-3', label: 'Pending', count: 5, selected: false },
+  ]);
+  const [typedFilters, setTypedFilters] = React.useState([
+    { id: 'f-a', label: 'Alert', count: 19, type: 'alert' as FilterType, selected: false },
+    { id: 'f-w', label: 'Warning', count: 5, type: 'warning' as FilterType, selected: false },
+    { id: 'f-s', label: 'Success', count: 42, type: 'success' as FilterType, selected: false },
+    { id: 'f-n', label: 'Neutral', count: 8, type: 'neutral' as FilterType, selected: false },
+  ]);
+  const [multiOptions, setMultiOptions] = React.useState<Record<string, string | undefined>>({
+    duration: '0-6',
+    status: undefined,
+  });
+
   return (
     <div className="p-6 space-y-6">
       <div>
         <p className="text-sm font-medium text-[var(--secondary)] mb-2">Single Filters</p>
         <QuickFilters
-          onFilterClick={(id) => console.log('Clicked:', id)}
-          onFilterRemove={(id) => console.log('Removed:', id)}
+          onFilterClick={(id) => setSingleFilters(prev => prev.map(f => f.id === id ? { ...f, selected: !f.selected } : f))}
+          onFilterRemove={(id) => setSingleFilters(prev => prev.map(f => f.id === id ? { ...f, selected: false } : f))}
         >
-          <QuickFilter id="f-1" label="All Items" />
-          <QuickFilter id="f-2" label="Active" count={12} />
-          <QuickFilter id="f-3" label="Pending" count={5} />
+          {singleFilters.map(f => (
+            <QuickFilter key={f.id} id={f.id} label={f.label} count={f.count} selected={f.selected} />
+          ))}
         </QuickFilters>
       </div>
       <div>
         <p className="text-sm font-medium text-[var(--secondary)] mb-2">With Types (alert, warning, success, neutral)</p>
         <QuickFilters
-          onFilterClick={(id) => console.log('Clicked:', id)}
-          onFilterRemove={(id) => console.log('Removed:', id)}
+          onFilterClick={(id) => setTypedFilters(prev => prev.map(f => f.id === id ? { ...f, selected: !f.selected } : f))}
+          onFilterRemove={(id) => setTypedFilters(prev => prev.map(f => f.id === id ? { ...f, selected: false } : f))}
         >
-          <QuickFilter id="f-a" label="Alert" count={19} type="alert" />
-          <QuickFilter id="f-w" label="Warning" count={5} type="warning" />
-          <QuickFilter id="f-s" label="Success" count={42} type="success" />
-          <QuickFilter id="f-n" label="Neutral" count={8} type="neutral" />
+          {typedFilters.map(f => (
+            <QuickFilter key={f.id} id={f.id} label={f.label} count={f.count} type={f.type} selected={f.selected} />
+          ))}
         </QuickFilters>
       </div>
       <div>
         <p className="text-sm font-medium text-[var(--secondary)] mb-2">Multi-option Filters</p>
         <QuickFilters
-          onFilterClick={(id, optionId) => console.log('Clicked:', id, optionId)}
-          onFilterRemove={(id, optionId) => console.log('Removed:', id, optionId)}
+          onFilterClick={(id, optionId) => setMultiOptions(prev => ({ ...prev, [id]: optionId }))}
+          onFilterRemove={(id) => setMultiOptions(prev => ({ ...prev, [id]: undefined }))}
         >
-          <QuickFilter id="duration" label="Duration" selectedOption="0-6">
+          <QuickFilter id="duration" label="Duration" selectedOption={multiOptions.duration}>
             <FilterOption id="0-6" label="0-6 hrs" />
             <FilterOption id="6-12" label="6-12 hrs" />
             <FilterOption id="12+" label="12+ hrs" />
           </QuickFilter>
-          <QuickFilter id="status" label="Status">
+          <QuickFilter id="status" label="Status" selectedOption={multiOptions.status}>
             <FilterOption id="active" label="Active" count={12} />
             <FilterOption id="pending" label="Pending" count={5} />
           </QuickFilter>
@@ -281,11 +327,20 @@ export function DocsStates() {
 }
 
 export function SelectedState() {
+  const [filters, setFilters] = React.useState([
+    { id: 's-3', label: 'Filter A', count: 10, selected: true },
+    { id: 's-4', label: 'Filter B', count: 5, selected: true },
+  ]);
+
   return (
     <div className="p-6">
-      <QuickFilters onFilterClick={() => {}} onFilterRemove={() => {}}>
-        <QuickFilter id="s-3" label="Filter A" count={10} selected />
-        <QuickFilter id="s-4" label="Filter B" count={5} selected />
+      <QuickFilters
+        onFilterClick={(id) => setFilters(prev => prev.map(f => f.id === id ? { ...f, selected: !f.selected } : f))}
+        onFilterRemove={(id) => setFilters(prev => prev.map(f => f.id === id ? { ...f, selected: false } : f))}
+      >
+        {filters.map(f => (
+          <QuickFilter key={f.id} id={f.id} label={f.label} count={f.count} selected={f.selected} />
+        ))}
       </QuickFilters>
     </div>
   );

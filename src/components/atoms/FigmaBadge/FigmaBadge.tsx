@@ -19,7 +19,7 @@ export const FigmaBadge: React.FC<FigmaBadgeProps> = ({ className, asChild, ...p
     <Comp
       className={cn(
         "inline-flex items-center gap-[var(--spacing-x1)] px-[var(--spacing-x2)] py-[var(--spacing-x0-5)] rounded-[var(--radius-sm)]",
-        "bg-[var(--color-warning-light)] text-[var(--color-warning)] border border-[var(--color-warning)]",
+        "bg-[var(--warning-light)] text-[var(--warning)] border border-[var(--warning)]",
         "text-xs font-medium",
         className
       )}

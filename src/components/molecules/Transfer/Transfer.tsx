@@ -113,8 +113,8 @@ const TransferList = ({
     });
 
     return (
-        <div className={cn("flex flex-col rounded-md w-[calc(var(--spacing-x10)*6+var(--spacing-x2-5))] h-[calc(var(--spacing-x20)+var(--spacing-x20)+var(--spacing-x20)+var(--spacing-x15))] overflow-hidden", getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-primary)]', 'border border-[var(--border-primary)]'))}>
-            <div className={cn("flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x2)] border-b border-[var(--border-primary)]", getGlassInnerBg(resolvedGlass, 'bg-[var(--color-bg-secondary)]', 'bg-transparent'))}>
+        <div className={cn("flex flex-col rounded-md w-[calc(var(--spacing-x10)*6+var(--spacing-x2-5))] h-[calc(var(--spacing-x20)+var(--spacing-x20)+var(--spacing-x20)+var(--spacing-x15))] overflow-hidden", getGlassClasses(resolvedGlass, 'bg-[var(--bg-primary)]', 'border border-[var(--border-primary)]'))}>
+            <div className={cn("flex items-center justify-between px-[var(--spacing-x3)] py-[var(--spacing-x2)] border-b border-[var(--border-primary)]", getGlassInnerBg(resolvedGlass, 'bg-[var(--bg-secondary)]', 'bg-transparent'))}>
                 <Checkbox
                     checked={allChecked}
                     indeterminate={indeterminate}
@@ -147,7 +147,7 @@ const TransferList = ({
                         key={item.key}
                         className={cn(
                             "flex items-center px-[var(--spacing-x3)] py-[var(--spacing-x2)] cursor-pointer transition-colors hover:bg-[var(--surface-hover)]",
-                            checkedKeys.includes(item.key) && "bg-[var(--color-bg-secondary)]",
+                            checkedKeys.includes(item.key) && "bg-[var(--bg-secondary)]",
                             (item.disabled || disabled) && "cursor-not-allowed opacity-50"
                         )}
                         onClick={() => {
@@ -173,7 +173,7 @@ const TransferList = ({
             </ul>
 
             {(footerContent || pagination) && (
-                <div className={cn("border-t border-[var(--border-primary)] px-[var(--spacing-x3)] py-[var(--spacing-x2)] text-xs text-[var(--text-tertiary)]", getGlassInnerBg(resolvedGlass, 'bg-[var(--color-bg-secondary)]', 'bg-transparent'))}>
+                <div className={cn("border-t border-[var(--border-primary)] px-[var(--spacing-x3)] py-[var(--spacing-x2)] text-xs text-[var(--text-tertiary)]", getGlassInnerBg(resolvedGlass, 'bg-[var(--bg-secondary)]', 'bg-transparent'))}>
                     {footerContent && (
                         <div className="mb-[var(--spacing-x2)]">{footerContent}</div>
                     )}

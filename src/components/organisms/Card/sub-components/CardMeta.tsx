@@ -42,6 +42,7 @@ export const CardMeta = React.forwardRef<HTMLDivElement, CardMetaProps>(
         return (
             <Comp
                 ref={ref}
+                data-slot="card-meta"
                 className={cn("flex gap-[var(--spacing-x4)] items-start", className)}
                 {...props}
             >

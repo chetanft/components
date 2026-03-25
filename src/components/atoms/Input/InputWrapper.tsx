@@ -41,6 +41,7 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="input-wrapper"
         className={cn("w-full space-y-2", className)}
         {...props}
       >
@@ -51,4 +52,5 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
 );
 
 InputWrapper.displayName = 'InputWrapper';
+(InputWrapper as any).slot = 'input-wrapper';
 

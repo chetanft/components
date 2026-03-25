@@ -98,7 +98,7 @@ export const TreeNode = React.forwardRef<HTMLDivElement, TreeNodeProps>(
       selectable,
       checkable,
       isLeaf,
-      icon: icon as any,
+      icon: icon as TreeNodeData['icon'],
     };
     
     const isExpanded = expandedKeys.has(nodeKey);
@@ -118,14 +118,14 @@ export const TreeNode = React.forwardRef<HTMLDivElement, TreeNodeProps>(
     
     const Comp = asChild ? Slot : 'div';
     return (
-      <div className="tree-node">
+      <div className="tree-node" data-slot="tree-node">
         <Comp
           ref={ref}
           className={cn(
             "flex items-center py-[var(--spacing-x1)] px-[var(--spacing-x1)]",
             "rounded transition-colors",
-            isSelected && cn(getGlassInnerBg(contextGlass, "bg-[var(--color-primary-light)]", "bg-[var(--glass-selected)]"), "text-[var(--color-primary)]"),
-            !isSelected && !isNodeDisabled && (contextGlass ? "hover:bg-[var(--glass-hover)]" : "hover:bg-[var(--color-bg-secondary)]"),
+            isSelected && cn(getGlassInnerBg(contextGlass, "bg-[var(--color-primary-light)]", "bg-[var(--glass-selected)]"), "text-[var(--primary)]"),
+            !isSelected && !isNodeDisabled && (contextGlass ? "hover:bg-[var(--glass-hover)]" : "hover:bg-[var(--bg-secondary)]"),
             isNodeDisabled && "opacity-50 cursor-not-allowed",
             blockNode && "w-full",
             className
@@ -151,3 +151,4 @@ export const TreeNode = React.forwardRef<HTMLDivElement, TreeNodeProps>(
 );
 
 TreeNode.displayName = 'TreeNode';
+(TreeNode as any).slot = 'tree-node';

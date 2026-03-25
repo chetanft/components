@@ -57,7 +57,7 @@ export const AlertClose = React.forwardRef<HTMLButtonElement, AlertCloseProps>(
           "p-[var(--spacing-x1)] rounded-[var(--radius-sm)]",
           "hover:bg-black/5",
           "transition-colors duration-[var(--transition-fast)]",
-          "focus:outline-none focus:ring-2 focus:ring-[var(--color-neutral)] focus:ring-opacity-20",
+          "focus:outline-none focus:ring-2 focus:ring-[var(--neutral)] focus:ring-opacity-20",
           className
         )}
         aria-label="Close alert"

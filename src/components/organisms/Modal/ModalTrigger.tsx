@@ -1,12 +1,12 @@
 "use client";
 
 import React from 'react';
-import { Slot, type ComposableProps } from '../../../lib/slot';
-import { useModalContext } from './ModalContext';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import type { ComposableProps } from '../../../lib/slot';
 
 /**
  * ModalTrigger component props
- * 
+ *
  * @public
  */
 export interface ModalTriggerProps extends ComposableProps<'button'> {
@@ -18,12 +18,12 @@ export interface ModalTriggerProps extends ComposableProps<'button'> {
 
 /**
  * ModalTrigger Component
- * 
+ *
  * A composable trigger button that opens the modal when clicked.
  * Must be used within a Modal component.
- * 
+ *
  * @public
- * 
+ *
  * @example
  * ```tsx
  * <Modal>
@@ -35,45 +35,24 @@ export interface ModalTriggerProps extends ComposableProps<'button'> {
  *   </ModalContent>
  * </Modal>
  * ```
- * 
+ *
  * @remarks
  * - Automatically handles opening the modal on click
  * - Supports `asChild` prop to merge props with child element
  * - Use with Button or any clickable element
  */
 export const ModalTrigger = React.forwardRef<HTMLButtonElement, ModalTriggerProps>(
-  ({ children, asChild, onClick, ...props }, ref) => {
-    const { setOpen } = useModalContext();
-    
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      setOpen(true);
-      onClick?.(e);
-    };
-    
-    if (asChild) {
-      return (
-        <Slot
-          ref={ref}
-          onClick={handleClick}
-          {...props}
-        >
-          {children}
-        </Slot>
-      );
-    }
-    
+  ({ children, asChild, ...props }, ref) => {
     return (
-      <button
+      <DialogPrimitive.Trigger
         ref={ref}
-        type="button"
-        onClick={handleClick}
+        asChild={asChild}
         {...props}
       >
         {children}
-      </button>
+      </DialogPrimitive.Trigger>
     );
   }
 );
 
 ModalTrigger.displayName = 'ModalTrigger';
-

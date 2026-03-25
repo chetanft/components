@@ -203,8 +203,7 @@ export const TableRow = <T extends TableRowType = TableRowType>({
             React.isValidElement(child)
             && (
               childType === TableCell
-              || (typeof childType === 'function' && ((childType as React.ComponentType).displayName === 'TableCell'))
-              || (typeof childType === 'object' && childType !== null && 'displayName' in childType && (childType as { displayName?: string }).displayName === 'TableCell')
+              || (child as any)?.type?.slot === 'table-cell'
             );
 
           if (isTableCell) {

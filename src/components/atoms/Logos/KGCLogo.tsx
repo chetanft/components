@@ -1,5 +1,6 @@
 import React from 'react';
 import logoImg from './assets/kgc-logo.png';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface KGCLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const KGCLogo: React.FC<KGCLogoProps> = ({
   className
 }) => (
   <img
-    src={(logoImg as any).src || logoImg}
+    src={resolveImageSrc(logoImg)}
     alt="KGC Logo"
     width={width}
     height={height}

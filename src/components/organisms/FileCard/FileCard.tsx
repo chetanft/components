@@ -282,7 +282,7 @@ export const FileCard = React.forwardRef<HTMLDivElement, FileCardProps>(
           <div className="flex items-center justify-center px-[calc(var(--spacing-x7)+var(--spacing-x1))]">
             <Typography
               variant="body-secondary-regular"
-              className="text-[var(--color-critical)]"
+              className="text-[var(--critical)]"
             >
               {errorMessage}
             </Typography>

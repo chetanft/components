@@ -41,9 +41,8 @@ export const PopconfirmTitle = React.forwardRef<HTMLDivElement, PopconfirmTitleP
       );
     }
     
-    const { color: _, ...restProps } = props as any;
     return (
-      <Typography variant="body-primary-medium" className={className} ref={ref} {...restProps}>
+      <Typography variant="body-primary-medium" className={className} ref={ref} {...props}>
         {children}
       </Typography>
     );

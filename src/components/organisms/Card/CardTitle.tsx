@@ -38,7 +38,7 @@ export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ className, children, asChild, color: _color, ...props }, ref) => {
     if (asChild) {
       return (
-        <Slot ref={ref} {...props}>
+        <Slot ref={ref} data-slot="card-title" {...props}>
           <Typography variant="display-primary" className={cn("text-[var(--primary)]", className)}>
             {children}
           </Typography>
@@ -46,14 +46,14 @@ export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
       );
     }
     
-    const { color: _, ...restProps } = props as any;
     return (
       <Typography
         ref={ref}
+        data-slot="card-title"
         variant="display-primary"
         as="h3"
         className={cn("text-[var(--primary)]", className)}
-        {...restProps}
+        {...props}
       >
         {children}
       </Typography>
@@ -62,4 +62,5 @@ export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
 );
 
 CardTitle.displayName = 'CardTitle';
+(CardTitle as any).slot = 'card-title';
 

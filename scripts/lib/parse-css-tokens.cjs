@@ -168,13 +168,18 @@ function parseCssTokens(cssContent) {
     }
   }
 
-  // --- Build the full CSS content for download (stripped @tailwind) ---
+  // --- Build the full CSS content for download (stripped @tailwind / @import) ---
   // Keep everything from the first comment block through the end
   let globalCssContent = cssContent;
-  // Strip @tailwind directives and @custom-variant for the downloadable version
+  // Strip @tailwind directives, @import "tailwindcss", @config, @custom-variant, @variant for the downloadable version
   globalCssContent = globalCssContent
     .replace(/@tailwind\s+\w+;\s*/g, '')
+    .replace(/@import\s+"tailwindcss";\s*/g, '')
+    .replace(/@config\s+[^;]+;\s*/g, '')
     .replace(/@custom-variant[^;]+;\s*/g, '')
+    .replace(/@variant\s+dark\s+[^;]+;\s*/g, '')
+    .replace(/@theme\s+inline\s*\{[^}]*\}\s*/gs, '')
+    .replace(/@source\s+inline\([^)]*\);\s*/g, '')
     .trim();
 
   // Prepend usage instructions
@@ -186,11 +191,9 @@ function parseCssTokens(cssContent) {
    Usage: import './globals.css' or import '@/styles/globals.css'
 */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
+@variant dark (&:is(.dark *));
 
 ${globalCssContent}`;
 

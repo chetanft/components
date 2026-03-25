@@ -216,7 +216,7 @@ export const GridDrawer: React.FC<GridDrawerProps> = ({
                 }}
                 aria-label="Close drawer"
               >
-                <Icon name="cross" size={20} style={{ color: 'var(--color-tertiary)' }} />
+                <Icon name="cross" size={20} style={{ color: 'var(--tertiary)' }} />
               </button>
             )}
           </div>

@@ -43,6 +43,7 @@ export const InputHelper = React.forwardRef<HTMLParagraphElement, InputHelperPro
     return (
       <Comp
         ref={ref}
+        data-slot="input-helper"
         id={helperId}
         className={cn("text-sm leading-relaxed mt-[var(--spacing-x1-5)] text-helper dark:text-helper-dark", className)}
         {...props}
@@ -54,4 +55,5 @@ export const InputHelper = React.forwardRef<HTMLParagraphElement, InputHelperPro
 );
 
 InputHelper.displayName = 'InputHelper';
+(InputHelper as any).slot = 'input-helper';
 

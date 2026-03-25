@@ -107,8 +107,7 @@ export const FooterButton = React.forwardRef<HTMLButtonElement, FooterButtonProp
       <Button
         ref={ref}
         variant={variant}
-        size="lg"
-        className={cn("min-w-[11.75rem] h-12", className)}
+        className={cn(className)}
         {...props}
       >
         {children}

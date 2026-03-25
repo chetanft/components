@@ -41,7 +41,7 @@ export const PaginationEllipsis = React.forwardRef<HTMLSpanElement, PaginationEl
     return (
       <Comp
         ref={ref}
-        className={cn("px-[var(--spacing-x2)] text-[var(--color-tertiary)]", className)}
+        className={cn("px-[var(--spacing-x2)] text-[var(--tertiary)]", className)}
         {...props}
       >
         {children || '...'}

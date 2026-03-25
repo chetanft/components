@@ -88,9 +88,9 @@ export const StepItem = React.forwardRef<HTMLDivElement, StepItemProps>(
         onClick={handleClick}
         {...props}
       >
-        {React.Children.map(children, (child: any) => {
-          if (React.isValidElement(child)) {
-            return React.cloneElement(child, { state, device, direction } as any);
+        {React.Children.map(children, (child) => {
+          if (React.isValidElement<Record<string, unknown>>(child)) {
+            return React.cloneElement(child, { state, device, direction });
           }
           return child;
         })}

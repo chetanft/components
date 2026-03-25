@@ -48,12 +48,12 @@ const datePickerFieldVariants = cva(
         l: "h-component-lg text-md-rem",
       },
       state: {
-        default: "border-border dark:border-border-dark hover:border-[var(--color-primary)] dark:hover:border-[var(--color-primary)]",
+        default: "border-border dark:border-border-dark hover:border-[var(--primary)] dark:hover:border-[var(--primary)]",
         filled: "border-border dark:border-border-dark",
         disabled: "border-border-disabled dark:border-border-disabled-dark bg-surface-disabled dark:bg-surface-disabled-dark cursor-not-allowed",
         focused: "border-primary dark:border-primary-dark",
         prefilled: "border-border dark:border-border-dark",
-        hover: "border-[var(--color-primary)] dark:border-[var(--color-primary)]",
+        hover: "border-[var(--primary)] dark:border-[var(--primary)]",
         typing: "border-border dark:border-border-dark"
       }
     },
@@ -878,9 +878,11 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({
   };
   
   // Check if using composable API (has children with DatePicker sub-components)
-  const hasComposableChildren = React.Children.toArray(children || []).some((child: any) => 
-      child?.type?.displayName?.startsWith('DatePicker')
-  );
+  const hasComposableChildren = React.Children.toArray(children || []).some((child: any) => {
+      const childType = (child as any)?.type;
+      const slot = childType?.slot;
+      return typeof slot === 'string' && slot.startsWith('datepicker-');
+  });
   
   // Create context value
   const contextValue = {

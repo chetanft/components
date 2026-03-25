@@ -183,7 +183,7 @@ export const TableHeader = <T extends TableRowType = TableRowType>({
   const Comp = asChild ? Slot : 'thead';
   
   return (
-    <Comp className={cn(className)} {...props}>
+    <Comp data-slot="table-header" className={cn(className)} {...props}>
       <tr>
         {selectable && (
           <TableHeaderItem
@@ -236,3 +236,4 @@ export const TableHeader = <T extends TableRowType = TableRowType>({
 };
 
 TableHeader.displayName = 'TableHeader';
+(TableHeader as any).slot = 'table-header';

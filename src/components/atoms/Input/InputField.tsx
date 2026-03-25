@@ -157,7 +157,7 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
       // When asChild is true, merge props with child element
       // Note: Icon handling is complex with asChild, so we render the wrapper structure
       return (
-        <div className={cn("relative", wrapperClassName)} style={wrapperStyle}>
+        <div data-slot="input-field" className={cn("relative", wrapperClassName)} style={wrapperStyle}>
           {leadingIcon && (
             <div className={cn(
               "absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none",
@@ -190,14 +190,16 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
           <Slot
             ref={ref}
             id={inputId}
-            {...({ type } as any)}
             className={inputStyles}
-            disabled={isDisabled}
-            aria-invalid={hasError ? 'true' : 'false'}
-            aria-describedby={describedBy}
-            data-size={size}
-            data-type={inputType}
-            {...props}
+            {...({
+              type,
+              disabled: isDisabled,
+              'aria-invalid': hasError ? 'true' : 'false',
+              'aria-describedby': describedBy,
+              'data-size': size,
+              'data-type': inputType,
+              ...props,
+            } as Record<string, unknown>)}
           />
           {trailingIcon && (
             <div className={cn(
@@ -233,7 +235,7 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     }
 
     return (
-      <div className={cn("relative", wrapperClassName)} style={wrapperStyle}>
+      <div data-slot="input-field" className={cn("relative", wrapperClassName)} style={wrapperStyle}>
         {leadingIcon && (
           <div className={cn(
             "absolute top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none",
@@ -310,4 +312,5 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
 );
 
 InputField.displayName = 'InputField';
+(InputField as any).slot = 'input-field';
 

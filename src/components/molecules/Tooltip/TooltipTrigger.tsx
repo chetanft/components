@@ -1,14 +1,21 @@
 "use client";
 
 import React from 'react';
-import { Slot, type ComposableProps } from '../../../lib/slot';
-import { useTooltipContext } from './TooltipContext';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 
-export interface TooltipTriggerProps extends ComposableProps<'div'> {
+export interface TooltipTriggerProps {
   /**
    * The trigger element content.
    */
   children?: React.ReactNode;
+  /**
+   * Additional CSS classes.
+   */
+  className?: string;
+  /**
+   * Merge props onto the child element instead of wrapping.
+   */
+  asChild?: boolean;
 }
 
 /**
@@ -33,51 +40,24 @@ export interface TooltipTriggerProps extends ComposableProps<'div'> {
  * ```
  *
  * @remarks
- * - Wraps the HTML `<div>` element by default.
+ * - Wraps the Radix Tooltip.Trigger primitive.
  * - Supports `asChild` prop to merge props with a custom child element.
  * - Automatically handles hover and focus events to show/hide tooltip.
  * - Accessible: includes ARIA attributes for tooltip relationships.
  */
 export const TooltipTrigger = React.forwardRef<HTMLDivElement, TooltipTriggerProps>(
-  ({ className, children, asChild, onMouseEnter, onMouseLeave, onFocus, onBlur, ...props }, ref) => {
-    const { setOpen } = useTooltipContext();
-    
-    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-      setOpen(true);
-      onMouseEnter?.(e);
-    };
-    
-    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-      setOpen(false);
-      onMouseLeave?.(e);
-    };
-    
-    const handleFocus = (e: React.FocusEvent<HTMLDivElement>) => {
-      setOpen(true);
-      onFocus?.(e);
-    };
-    
-    const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-      setOpen(false);
-      onBlur?.(e);
-    };
-    
-    const Comp = asChild ? Slot : 'div';
+  ({ className, children, asChild, ...props }, ref) => {
     return (
-      <Comp
-        ref={ref}
+      <TooltipPrimitive.Trigger
+        ref={ref as React.Ref<HTMLButtonElement>}
         className={className}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        asChild={asChild}
         {...props}
       >
         {children}
-      </Comp>
+      </TooltipPrimitive.Trigger>
     );
   }
 );
 
 TooltipTrigger.displayName = 'TooltipTrigger';
-

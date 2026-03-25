@@ -39,7 +39,7 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescri
   ({ className, children, asChild, color: _color, ...props }, ref) => {
     if (asChild) {
       return (
-        <Slot ref={ref} {...props}>
+        <Slot ref={ref} data-slot="card-description" {...props}>
           <Typography variant="body-secondary-regular" className={cn("text-[var(--secondary)]", className)}>
             {children}
           </Typography>
@@ -47,14 +47,14 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescri
       );
     }
     
-    const { color: _, ...restProps } = props as any;
     return (
       <Typography
         ref={ref}
+        data-slot="card-description"
         variant="body-secondary-regular"
         as="p"
         className={cn("text-[var(--secondary)]", className)}
-        {...restProps}
+        {...props}
       >
         {children}
       </Typography>
@@ -63,4 +63,5 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescri
 );
 
 CardDescription.displayName = 'CardDescription';
+(CardDescription as any).slot = 'card-description';
 

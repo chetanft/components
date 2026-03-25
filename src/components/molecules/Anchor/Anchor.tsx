@@ -45,7 +45,7 @@ export const AnchorLink: React.FC<AnchorLinkProps & { active?: boolean; onClick?
   };
 
   return (
-    <div className={cn("ft-anchor-link", className)}>
+    <div data-slot="anchor-link" className={cn("ft-anchor-link", className)}>
       <a
         className={cn(
           "block relative transition-all duration-300 py-[var(--spacing-x1)] px-[var(--spacing-x4)] text-sm rounded-md",
@@ -66,12 +66,13 @@ export const AnchorLink: React.FC<AnchorLinkProps & { active?: boolean; onClick?
 };
 
 AnchorLink.displayName = 'AnchorLink';
+(AnchorLink as any).slot = 'anchor-link';
 
 /** Extract hrefs from AnchorLink children (for scroll-spy in composable mode) */
 function extractHrefsFromChildren(children: React.ReactNode): string[] {
   const hrefs: string[] = [];
   React.Children.forEach(children, (child) => {
-    if (React.isValidElement(child) && (child.type as any)?.displayName === 'AnchorLink') {
+    if (React.isValidElement(child) && (child as any)?.type?.slot === 'anchor-link') {
       const href = (child.props as AnchorLinkProps).href;
       if (href) hrefs.push(href);
       // Recurse into nested AnchorLink children
@@ -103,7 +104,7 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
   const hasComposableChildren = React.Children.toArray(children).some(
     (child) =>
       React.isValidElement(child) &&
-      (child.type as any)?.displayName === 'AnchorLink'
+      (child as any)?.type?.slot === 'anchor-link'
   );
 
   // Scroll spy logic
@@ -149,7 +150,7 @@ export const Anchor = React.forwardRef<HTMLDivElement, AnchorProps>(({
   // Inject active/onClick into composable AnchorLink children
   const renderComposableChildren = (nodes: React.ReactNode): React.ReactNode => {
     return React.Children.map(nodes, (child) => {
-      if (React.isValidElement(child) && (child.type as any)?.displayName === 'AnchorLink') {
+      if (React.isValidElement(child) && (child as any)?.type?.slot === 'anchor-link') {
         const linkProps = child.props as AnchorLinkProps;
         return React.cloneElement(child as React.ReactElement<any>, {
           active: activeLink === linkProps.href,

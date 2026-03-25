@@ -41,6 +41,7 @@ export const CollapsibleTitle = React.forwardRef<HTMLDivElement, CollapsibleTitl
     return (
       <Comp
         ref={ref}
+        data-slot="collapsible-title"
         className={cn("flex-1 font-semibold text-base text-[var(--primary)]", className)}
         {...props}
       >

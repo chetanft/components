@@ -62,7 +62,6 @@ export const SwitchLabel = React.forwardRef<HTMLSpanElement, SwitchLabelProps>(
       );
     }
     
-    const { color: _, ...restProps } = props as any;
     return (
       <Typography
         ref={ref}
@@ -70,7 +69,7 @@ export const SwitchLabel = React.forwardRef<HTMLSpanElement, SwitchLabelProps>(
         color={labelColor}
         as="span"
         className={cn(contextDisabled && "cursor-not-allowed", className)}
-        {...restProps}
+        {...props}
       >
         {children}
       </Typography>

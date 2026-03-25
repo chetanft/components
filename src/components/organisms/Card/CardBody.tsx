@@ -41,6 +41,7 @@ export const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="card-body"
         className={cn("flex-1 px-[var(--spacing-x5)] py-[var(--spacing-x5)]", className)}
         {...props}
       >
@@ -51,4 +52,5 @@ export const CardBody = React.forwardRef<HTMLDivElement, CardBodyProps>(
 );
 
 CardBody.displayName = 'CardBody';
+(CardBody as any).slot = 'card-body';
 

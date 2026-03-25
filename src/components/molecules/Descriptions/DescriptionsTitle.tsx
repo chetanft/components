@@ -44,16 +44,15 @@ export const DescriptionsTitle = React.forwardRef<HTMLDivElement, DescriptionsTi
     if (asChild) {
       return (
         <Slot ref={ref} className={cn(paddingClass, className)} {...props}>
-          <Typography variant="title-secondary" className="font-semibold text-[var(--color-primary)]">
+          <Typography variant="title-secondary" className="font-semibold text-[var(--primary)]">
             {children}
           </Typography>
         </Slot>
       );
     }
 
-    const { color: _, ...restProps } = props as any;
     return (
-      <Typography variant="title-secondary" className={cn("font-semibold text-[var(--color-primary)]", paddingClass, className)} ref={ref as any} {...restProps}>
+      <Typography variant="title-secondary" className={cn("font-semibold text-[var(--primary)]", paddingClass, className)} ref={ref} {...props}>
         {children}
       </Typography>
     );

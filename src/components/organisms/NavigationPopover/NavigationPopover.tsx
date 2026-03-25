@@ -437,7 +437,7 @@ const StatCard = ({ metric }: { metric: StatMetric }) => (
         {metric.label}
       </Typography>
     </div>
-    <div className="w-10 h-10 rounded-full border border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]">
+    <div className="w-[var(--spacing-x10)] h-[var(--spacing-x10)] rounded-full border border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]">
       <Icon name="chevron-right" size={16} />
     </div>
   </div>
@@ -491,7 +491,7 @@ const SubCategoryPanel = ({ categories }: { categories?: NavigationSectionSubCat
                   <div className="flex flex-col gap-[var(--spacing-x1)]">
                     <div className="flex items-center gap-[var(--spacing-x2)]">
                       {item.icon && (
-                        <span className="w-6 h-6 rounded-full flex items-center justify-center text-[var(--primary)]">
+                        <span className="w-[var(--spacing-x6)] h-[var(--spacing-x6)] rounded-full flex items-center justify-center text-[var(--primary)]">
                           <Icon name={item.icon} size={16} />
                         </span>
                       )}
@@ -719,7 +719,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
           type="button"
           onClick={onClose}
           aria-label="Close navigation menu"
-          className="w-6 h-6 rounded-full border border-transparent hover:border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]"
+          className="w-[var(--spacing-x6)] h-[var(--spacing-x6)] rounded-full border border-transparent hover:border-[var(--border-primary)] flex items-center justify-center text-[var(--primary)]"
         >
           <Icon name="cross" size={16} />
         </button>
@@ -791,7 +791,7 @@ export const NavigationPopover: React.FC<NavigationPopoverProps> = ({
                     aria-current={isActive ? 'page' : undefined}
                   >
                     <div className="flex items-center gap-[var(--spacing-x2)]">
-                      <span className="w-6 h-6 rounded-full flex items-center justify-center text-[var(--primary)]">
+                      <span className="w-[var(--spacing-x6)] h-[var(--spacing-x6)] rounded-full flex items-center justify-center text-[var(--primary)]">
                         <Icon name={section.icon} size={16} />
                       </span>
                       <Typography variant="body-primary-semibold" color="primary">

@@ -43,14 +43,16 @@ export interface SliderLabelProps extends ComposableProps<'div'> {
  */
 export const SliderLabel = React.forwardRef<HTMLDivElement, SliderLabelProps>(
   ({ className, children, value, asChild, ...props }, ref) => {
-    const { vertical, getPercent } = useSliderContext();
-    
+    const { vertical, min, max } = useSliderContext();
+
+    const getPercent = (val: number) => ((val - min) / (max - min)) * 100;
     const percent = getPercent(value);
-    
+
     const Comp = asChild ? Slot : 'div';
     return (
       <Comp
         ref={ref}
+        data-slot="slider-label"
         className={cn(
           "absolute text-[var(--tertiary)]",
           vertical ? "left-full ml-[var(--spacing-x2)] -translate-y-1/2" : "top-full mt-[var(--spacing-x2)] -translate-x-1/2",
@@ -58,7 +60,7 @@ export const SliderLabel = React.forwardRef<HTMLDivElement, SliderLabelProps>(
         )}
         style={{
           fontSize: 'var(--font-size-sm-rem)',
-          ...(vertical 
+          ...(vertical
             ? { bottom: `${percent}%` }
             : { left: `${percent}%` })
         }}
@@ -71,4 +73,4 @@ export const SliderLabel = React.forwardRef<HTMLDivElement, SliderLabelProps>(
 );
 
 SliderLabel.displayName = 'SliderLabel';
-
+(SliderLabel as any).slot = 'slider-label';

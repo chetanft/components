@@ -59,7 +59,7 @@ export const InputLabel = React.forwardRef<HTMLDivElement, InputLabelProps>(
     
     if (asChild) {
       return (
-        <Slot ref={ref} {...props}>
+        <Slot ref={ref} data-slot="input-label" {...props}>
           <Label
             htmlFor={inputId}
             mandatory={mandatory}
@@ -73,9 +73,8 @@ export const InputLabel = React.forwardRef<HTMLDivElement, InputLabelProps>(
       );
     }
     
-    const { onClick: _, ...restProps } = props as any;
     return (
-      <div ref={ref}>
+      <div ref={ref} data-slot="input-label">
         <Label
           htmlFor={inputId}
           mandatory={mandatory}
@@ -83,7 +82,7 @@ export const InputLabel = React.forwardRef<HTMLDivElement, InputLabelProps>(
           suffixIcon={suffixIcon}
           icon={icon}
           onClick={onClick as (() => void) | undefined}
-          {...restProps}
+          {...props}
         >
           {children}
         </Label>
@@ -93,4 +92,5 @@ export const InputLabel = React.forwardRef<HTMLDivElement, InputLabelProps>(
 );
 
 InputLabel.displayName = 'InputLabel';
+(InputLabel as any).slot = 'input-label';
 

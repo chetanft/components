@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import { Slot, type ComposableProps } from '../../../lib/slot';
-import { useHoverCardContext } from './HoverCardContext';
+import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
+import type { ComposableProps } from '../../../lib/slot';
 
 export interface HoverCardTriggerProps extends ComposableProps<'div'> {
   /**
@@ -37,45 +37,18 @@ export interface HoverCardTriggerProps extends ComposableProps<'div'> {
  * - Automatically handles mouse enter/leave to show/hide card.
  */
 export const HoverCardTrigger = React.forwardRef<HTMLDivElement, HoverCardTriggerProps>(
-  ({ className, children, asChild, onMouseEnter, onMouseLeave, ...props }, ref) => {
-    const { setOpen, openDelay, closeDelay, openTimeoutRef, closeTimeoutRef } = useHoverCardContext();
-    
-    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (closeTimeoutRef.current) {
-        clearTimeout(closeTimeoutRef.current);
-        closeTimeoutRef.current = null;
-      }
-      openTimeoutRef.current = setTimeout(() => {
-        setOpen(true);
-      }, openDelay);
-      onMouseEnter?.(e);
-    };
-
-    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-      if (openTimeoutRef.current) {
-        clearTimeout(openTimeoutRef.current);
-        openTimeoutRef.current = null;
-      }
-      closeTimeoutRef.current = setTimeout(() => {
-        setOpen(false);
-      }, closeDelay);
-      onMouseLeave?.(e);
-    };
-    
-    const Comp = asChild ? Slot : 'div';
+  ({ className, children, asChild, ...props }, ref) => {
     return (
-      <Comp
-        ref={ref}
+      <HoverCardPrimitive.Trigger
+        ref={ref as React.Ref<HTMLAnchorElement>}
         className={className}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        {...props}
+        asChild={asChild}
+        {...(props as React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Trigger>)}
       >
         {children}
-      </Comp>
+      </HoverCardPrimitive.Trigger>
     );
   }
 );
 
 HoverCardTrigger.displayName = 'HoverCardTrigger';
-

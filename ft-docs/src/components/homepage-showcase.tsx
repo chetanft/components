@@ -28,7 +28,7 @@ export function HomepageShowcase() {
     <section className="container mx-auto px-4" style={{ paddingTop: 'var(--docs-section-gap)', paddingBottom: 'var(--docs-section-gap)' }}>
       <div className="mx-auto max-w-[64rem]">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-display-lg font-bold tracking-tight text-foreground">
+          <h2 className="text-xl font-bold tracking-tight text-foreground">
             Built for real products
           </h2>
           <p className="mt-3 max-w-[42rem] text-muted-foreground" style={{ fontSize: 'var(--font-size-lg-rem)' }}>

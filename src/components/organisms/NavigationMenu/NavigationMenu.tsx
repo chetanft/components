@@ -51,9 +51,9 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
   const Comp = asChild ? Slot : 'div';
 
   return (
-    <Comp className={cn(getGlassClasses(resolvedGlass, 'bg-[var(--color-bg-secondary)]', ''), "relative rounded-[var(--radius-xl)] size-full", className)} {...props}>
+    <Comp className={cn(getGlassClasses(resolvedGlass, 'bg-[var(--bg-secondary)]', ''), "relative rounded-[var(--radius-xl)] size-full", className)} {...props}>
       <div className="box-border content-stretch flex flex-col gap-[var(--spacing-x2)] items-start justify-start overflow-clip p-[var(--spacing-x2)] relative size-full">
-        <div className="bg-[var(--color-bg-primary)] h-[35.5rem] relative rounded-[var(--radius-xl)] shrink-0 w-full">
+        <div className="bg-[var(--bg-primary)] h-[35.5rem] relative rounded-[var(--radius-xl)] shrink-0 w-full">
           <div className="content-stretch flex flex-col h-[35.5rem] items-start justify-start overflow-clip relative w-full">
 
             {/* Header */}
@@ -65,13 +65,13 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                 className="block cursor-pointer overflow-clip relative shrink-0 size-[var(--spacing-x6)]"
                 onClick={onClose}
               >
-                <Icon name="close-filled" size={24} className="text-[var(--color-primary)]" />
+                <Icon name="close-filled" size={24} className="text-[var(--primary)]" />
               </button>
             </div>
 
             {/* Main Content */}
-            <div className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x5)] h-[30.75rem] items-start justify-start px-[var(--spacing-x5)] py-0 relative shrink-0 w-full">
-              <div aria-hidden="true" className="absolute border-[var(--color-border-primary)] border-[1px_0_0] border-solid inset-0 pointer-events-none" />
+            <div className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x5)] h-[30.75rem] items-start justify-start px-[var(--spacing-x5)] py-0 relative shrink-0 w-full">
+              <div aria-hidden="true" className="absolute border-[var(--border-primary)] border-[1px_0_0] border-solid inset-0 pointer-events-none" />
 
               {/* Left Sidebar */}
               <div className="box-border content-stretch flex flex-col gap-[var(--spacing-x3)] h-[30.75rem] items-start justify-start overflow-clip px-0 py-[var(--spacing-x5)] relative shrink-0 w-[16.4375rem]">
@@ -80,12 +80,12 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   {/* Summary Page */}
                   <div
                     className={cn(
-                      "bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      "bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                     )}
                     onClick={() => handleItemClick('Summary Page')}
                   >
-                    <Icon name="dashboard" size={16} className="text-[var(--color-primary)]" />
-                    <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                    <Icon name="dashboard" size={16} className="text-[var(--primary)]" />
+                    <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
 
                       <p className="leading-[1.4] whitespace-pre">Summary Page</p>
                     </div>
@@ -95,12 +95,12 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-full">
                     <div
                       className={cn(
-                        "bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                        "bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       )}
                       onClick={() => handleItemClick('Planning')}
                     >
-                      <Icon name="planning" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="planning" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Planning</p>
                       </div>
@@ -108,43 +108,43 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   </div>
 
                   {/* Full Truck Load - Selected */}
-                  <div className="bg-[var(--color-bg-secondary)] box-border content-stretch flex items-center justify-between p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full">
+                  <div className="bg-[var(--bg-secondary)] box-border content-stretch flex items-center justify-between p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full">
                     <div
                       className="content-stretch flex gap-[var(--spacing-x3)] items-center justify-start relative shrink-0 cursor-pointer"
                       onClick={() => handleItemClick('Full Truck Load')}
                     >
-                      <Icon name="truck" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="truck" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Full Truck Load</p>
                       </div>
                     </div>
-                    <Icon name="chevron-right" size={16} className="text-[var(--color-primary)]" />
+                    <Icon name="chevron-right" size={16} className="text-[var(--primary)]" />
                   </div>
 
                   {/* Part Truck Load */}
                   <button
-                    className="bg-[var(--color-bg-primary)] box-border content-stretch cursor-pointer flex items-center justify-between overflow-visible p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full transition-colors hover:bg-[var(--color-bg-secondary)]"
+                    className="bg-[var(--bg-primary)] box-border content-stretch cursor-pointer flex items-center justify-between overflow-visible p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full transition-colors hover:bg-[var(--bg-secondary)]"
                     onClick={() => handleItemClick('Part Truck Load')}
                   >
                     <div className="content-stretch flex gap-[var(--spacing-x3)] items-center justify-start relative shrink-0">
-                      <Icon name="part-truck-load" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="part-truck-load" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Part Truck Load</p>
                       </div>
                     </div>
-                    <Icon name="chevron-right" size={16} className="text-[var(--color-primary)]" />
+                    <Icon name="chevron-right" size={16} className="text-[var(--primary)]" />
                   </button>
 
                   {/* Control Tower */}
                   <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-[16.4375rem]">
                     <div
-                      className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       onClick={() => handleItemClick('Control Tower')}
                     >
-                      <Icon name="control-tower" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="control-tower" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Control Tower</p>
                       </div>
@@ -153,27 +153,27 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
 
                   {/* Dashboard */}
                   <div
-                    className="bg-[var(--color-bg-primary)] box-border content-stretch flex items-center justify-between p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                    className="bg-[var(--bg-primary)] box-border content-stretch flex items-center justify-between p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                     onClick={() => handleItemClick('Dashboard')}
                   >
                     <div className="content-stretch flex gap-[var(--spacing-x3)] items-center justify-start relative shrink-0">
-                      <Icon name="dashboard" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="dashboard" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Dashboard</p>
                       </div>
                     </div>
-                    <Icon name="chevron-right" size={16} className="text-[var(--color-primary)]" />
+                    <Icon name="chevron-right" size={16} className="text-[var(--primary)]" />
                   </div>
 
                   {/* Reports */}
                   <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-[16.4375rem]">
                     <div
-                      className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       onClick={() => handleItemClick('Reports')}
                     >
-                      <Icon name="reports" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="reports" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Reports</p>
                       </div>
@@ -182,69 +182,69 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
 
                   {/* Onboarding */}
                   <button
-                    className="bg-[var(--color-bg-primary)] box-border content-stretch cursor-pointer flex items-center justify-between overflow-visible p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full transition-colors hover:bg-[var(--color-bg-secondary)]"
+                    className="bg-[var(--bg-primary)] box-border content-stretch cursor-pointer flex items-center justify-between overflow-visible p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full transition-colors hover:bg-[var(--bg-secondary)]"
                     onClick={() => handleItemClick('Onboarding')}
                   >
                     <div className="content-stretch flex gap-[var(--spacing-x3)] items-center justify-start relative shrink-0">
-                      <Icon name="data-stack" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="data-stack" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Onboarding</p>
                       </div>
                     </div>
-                    <Icon name="chevron-right" size={16} className="text-[var(--color-primary)]" />
+                    <Icon name="chevron-right" size={16} className="text-[var(--primary)]" />
                   </button>
 
                   {/* Support */}
                   <div
-                    className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                    className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                     onClick={() => handleItemClick('Support')}
                   >
-                    <Icon name="user" size={16} className="text-[var(--color-primary)]" />
-                    <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                    <Icon name="user" size={16} className="text-[var(--primary)]" />
+                    <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
 
                       <p className="leading-[1.4] whitespace-pre">Support</p>
                     </div>
                   </div>
 
                   {/* Spacer */}
-                  <Spacer size="x5" className="bg-[var(--color-bg-primary)]" />
+                  <Spacer size="x5" className="bg-[var(--bg-primary)]" />
                 </div>
               </div>
 
               {/* Vertical Divider */}
               <div className="flex h-[34.375rem] items-center justify-center relative shrink-0 w-[1px]">
-                <div className="h-full w-[1px] bg-[var(--color-border-primary)]"></div>
+                <div className="h-full w-[1px] bg-[var(--border-primary)]"></div>
               </div>
 
               {/* Right Content Area - Submenu Columns */}
               <div className="basis-0 box-border content-stretch flex gap-[var(--spacing-x8)] grow h-full items-start justify-start min-h-px min-w-px pb-[var(--spacing-x5)] pt-[var(--spacing-x8)] px-0 relative shrink-0">
 
                 {/* INDENT Column */}
-                <div className="basis-0 bg-[var(--color-bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0">
+                <div className="basis-0 bg-[var(--bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0">
                   <div className="box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-center pl-[var(--spacing-x3)] pr-0 py-0 relative shrink-0">
-                    <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-tertiary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+                    <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--tertiary)]" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
                       
                       <p className="leading-[1.4]">INDENT</p>
                     </div>
                   </div>
                   <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-full">
                     <div
-                      className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       onClick={() => handleItemClick('My Indents')}
                     >
-                      <Icon name="indent" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="indent" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">My Indents</p>
                       </div>
                     </div>
                     <div
-                      className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       onClick={() => handleItemClick('Assigned Vehicles')}
                     >
-                      <Icon name="vehicle" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="vehicle" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Assigned Vehicles</p>
                       </div>
@@ -253,64 +253,64 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                 </div>
 
                 {/* TRACKING Column */}
-                <div className="basis-0 bg-[var(--color-bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0">
+                <div className="basis-0 bg-[var(--bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0">
                   <div className="box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-center pl-[var(--spacing-x3)] pr-0 py-0 relative shrink-0">
-                    <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-tertiary)]  text-nowrap" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+                    <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--tertiary)]  text-nowrap" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
                       
                       <p className="leading-[1.4] whitespace-pre">TRACKING</p>
                     </div>
                   </div>
                   <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-full">
                     <button
-                      className="bg-[var(--color-bg-secondary)] box-border content-stretch cursor-pointer flex gap-[var(--spacing-x3)] items-center justify-start overflow-visible p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full"
+                      className="bg-[var(--bg-secondary)] box-border content-stretch cursor-pointer flex gap-[var(--spacing-x3)] items-center justify-start overflow-visible p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full"
                       onClick={() => handleItemClick('My Journeys')}
                     >
-                      <Icon name="my-trip" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="my-trip" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">My Journeys</p>
                       </div>
                     </button>
 
                     <div
-                      className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       onClick={() => handleItemClick('History')}
                     >
-                      <Icon name="time" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="time" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">History</p>
                       </div>
                     </div>
 
                     <div
-                      className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       onClick={() => handleItemClick('Live View')}
                     >
-                      <Icon name="location" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="location" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Live View</p>
                       </div>
                     </div>
 
-                    <div className="bg-[var(--color-bg-primary)] box-border content-stretch flex items-center justify-between p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full">
+                    <div className="bg-[var(--bg-primary)] box-border content-stretch flex items-center justify-between p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full">
                       <div className="content-stretch flex gap-[var(--spacing-x3)] items-center justify-start relative shrink-0">
-                        <Icon name="warehouse" size={16} className="text-[var(--color-tertiary)]" />
-                        <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-tertiary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                        <Icon name="warehouse" size={16} className="text-[var(--tertiary)]" />
+                        <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--tertiary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
     
                           <p className="leading-[1.4] whitespace-pre">Yard Management</p>
                         </div>
                       </div>
-                      <Icon name="chevron-right" size={16} className="text-[var(--color-tertiary)]" />
+                      <Icon name="chevron-right" size={16} className="text-[var(--tertiary)]" />
                     </div>
 
                     <div
-                      className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       onClick={() => handleItemClick('Dedicated Vehicles')}
                     >
-                      <Icon name="vehicle" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="vehicle" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Dedicated Vehicles</p>
                       </div>
@@ -319,53 +319,53 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
                 </div>
 
                 {/* FREIGHT INVOICING Column */}
-                <div className="basis-0 bg-[var(--color-bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0">
+                <div className="basis-0 bg-[var(--bg-primary)] content-stretch flex flex-col gap-[var(--spacing-x4)] grow items-start justify-start min-h-px min-w-px overflow-clip relative shrink-0">
                   <div className="box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-center pl-[var(--spacing-x3)] pr-0 py-0 relative shrink-0">
-                    <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--color-tertiary)]  text-nowrap" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
+                    <div className="font-['Inter:Semibold',_sans-serif] leading-[0] not-italic relative shrink-0 text-[var(--tertiary)]  text-nowrap" style={{ fontSize: 'var(--font-size-sm-rem)' }}>
                       
                       <p className="leading-[1.4] whitespace-pre">FREIGHT INVOICING</p>
                     </div>
                   </div>
                   <div className="content-stretch flex flex-col gap-[var(--spacing-x3)] items-start justify-start relative shrink-0 w-full">
                     <div
-                      className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       onClick={() => handleItemClick('Freight Bill')}
                     >
-                      <Icon name="document" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="document" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Freight Bill</p>
                       </div>
                     </div>
 
                     <div
-                      className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       onClick={() => handleItemClick('Reconcilation')}
                     >
-                      <Icon name="reconciliation" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="reconciliation" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Reconcilation</p>
                       </div>
                     </div>
 
                     <div
-                      className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       onClick={() => handleItemClick('Dispute Management')}
                     >
-                      <Icon name="alert-critical" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="alert-critical" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Dispute Management</p>
                       </div>
                     </div>
 
                     <div
-                      className="bg-[var(--color-bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+                      className="bg-[var(--bg-primary)] box-border content-stretch flex gap-[var(--spacing-x3)] items-center justify-start p-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 w-full cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
                       onClick={() => handleItemClick('Contracts')}
                     >
-                      <Icon name="contracted-bill" size={16} className="text-[var(--color-primary)]" />
-                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--color-primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
+                      <Icon name="contracted-bill" size={16} className="text-[var(--primary)]" />
+                      <div className="font-['Inter:Regular',_sans-serif] font-normal leading-[0] not-italic relative shrink-0 text-[var(--primary)]  text-nowrap" style={{ fontSize: 'var(--font-size-md-rem)' }}>
   
                         <p className="leading-[1.4] whitespace-pre">Contracts</p>
                       </div>
@@ -376,16 +376,16 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
               </div>
             </div>
           </div>
-          <div aria-hidden="true" className="absolute border border-[var(--color-border-primary)] border-solid inset-0 pointer-events-none rounded-[var(--radius-xl)]" />
+          <div aria-hidden="true" className="absolute border border-[var(--border-primary)] border-solid inset-0 pointer-events-none rounded-[var(--radius-xl)]" />
         </div>
 
         {/* Footer */}
         <div className="box-border content-stretch flex items-center justify-between px-[var(--spacing-x5)] py-[var(--spacing-x3)] relative shrink-0 w-full">
           <button
-            className="box-border content-stretch flex gap-[var(--spacing-x2)] h-[var(--spacing-x12)] items-center justify-center px-[var(--spacing-x6)] py-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 cursor-pointer transition-colors hover:bg-[var(--color-bg-secondary)]"
+            className="box-border content-stretch flex gap-[var(--spacing-x2)] h-[var(--spacing-x12)] items-center justify-center px-[var(--spacing-x6)] py-[var(--spacing-x3)] relative rounded-[var(--radius-md)] shrink-0 cursor-pointer transition-colors hover:bg-[var(--bg-secondary)]"
             onClick={() => handleFooterButtonClick('announcement')}
           >
-            <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--color-primary)] text-[0rem] text-nowrap tracking-[0.00165rem]">
+            <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--primary)] text-[0rem] text-nowrap tracking-[0.00165rem]">
               <p className="leading-[1.4] whitespace-pre">
                 <span className="">{`New: Google drive integration  `}</span>
                 <span className="font-['Inter:Regular',_sans-serif] font-normal not-italic ">Store reports directly in google drive</span>
@@ -393,10 +393,10 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
             </div>
           </button>
           <button
-            className="content-stretch flex gap-[var(--spacing-x2)] items-center justify-start relative rounded-[var(--radius-md)] shrink-0 cursor-pointer transition-colors hover:bg-[var(--color-neutral-light)] px-[var(--spacing-x2)] py-[var(--spacing-x1)]"
+            className="content-stretch flex gap-[var(--spacing-x2)] items-center justify-start relative rounded-[var(--radius-md)] shrink-0 cursor-pointer transition-colors hover:bg-[var(--neutral-light)] px-[var(--spacing-x2)] py-[var(--spacing-x1)]"
             onClick={() => handleFooterButtonClick('releases')}
           >
-            <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--color-neutral)] text-nowrap tracking-[0.00165rem]" style={{ fontSize: 'var(--font-size-lg-rem)' }}>
+            <div className="flex flex-col font-['Inter:Medium',_sans-serif] font-medium justify-end leading-[0] not-italic relative shrink-0 text-[var(--neutral)] text-nowrap tracking-[0.00165rem]" style={{ fontSize: 'var(--font-size-lg-rem)' }}>
               
               <p className="leading-[1.4] whitespace-pre">New Releases</p>
             </div>
@@ -405,7 +405,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({
       </div>
       <div 
         aria-hidden="true" 
-        className="absolute border border-[var(--color-border-primary)] border-solid inset-0 pointer-events-none rounded-[var(--radius-xl)]" 
+        className="absolute border border-[var(--border-primary)] border-solid inset-0 pointer-events-none rounded-[var(--radius-xl)]" 
         style={{ boxShadow: 'var(--shadow-lg)' }}
       />
     </Comp>

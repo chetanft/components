@@ -1,11 +1,10 @@
 "use client";
 
 import React from 'react';
+import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
-import { useTabsContext } from './TabsContext';
 
-export interface TabsContentProps extends ComposableProps<'div'> {
+export interface TabsContentProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {
   /**
    * The value of this tab content (must match TabsTrigger value)
    */
@@ -14,13 +13,17 @@ export interface TabsContentProps extends ComposableProps<'div'> {
    * The content of the tab panel.
    */
   children?: React.ReactNode;
+  /**
+   * Support asChild pattern (forwarded to Radix)
+   */
+  asChild?: boolean;
 }
 
 /**
  * TabsContent Component
  *
  * A composable component for tab content panels.
- * Only displays when the matching TabsTrigger is selected.
+ * Built on Radix Tabs.Content — automatically shows/hides based on active tab.
  *
  * @public
  *
@@ -37,36 +40,25 @@ export interface TabsContentProps extends ComposableProps<'div'> {
  * ```
  *
  * @remarks
- * - Wraps the HTML `<div>` element by default.
+ * - Wraps Radix Tabs.Content for automatic show/hide.
  * - Supports `asChild` prop to merge props with a custom child element.
- * - Automatically shows/hides based on active tab.
  * - Accessible: includes ARIA attributes for tab panels.
  */
-export const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
-  ({ className, value, children, asChild, ...props }, ref) => {
-    const { activeTab, valueToIndexMap } = useTabsContext();
-    
-    // Find index by value using the mapping from TabsList
-    const tabIndex = valueToIndexMap.get(value) ?? -1;
-    const isActive = activeTab === tabIndex;
-    
-    if (!isActive) return null;
-    
-    const Comp = asChild ? Slot : 'div';
-    return (
-      <Comp
-        ref={ref}
-        role="tabpanel"
-        id={`tabpanel-${value}`}
-        aria-labelledby={`tab-${value}`}
-        className={cn("mt-[var(--spacing-x4)]", className)}
-        {...props}
-      >
-        {children}
-      </Comp>
-    );
-  }
-);
+export const TabsContent = React.forwardRef<
+  React.ComponentRef<typeof TabsPrimitive.Content>,
+  TabsContentProps
+>(({ className, value, children, asChild, ...props }, ref) => {
+  return (
+    <TabsPrimitive.Content
+      ref={ref}
+      value={value}
+      asChild={asChild}
+      className={cn("mt-[var(--spacing-x4)]", className)}
+      {...props}
+    >
+      {children}
+    </TabsPrimitive.Content>
+  );
+});
 
 TabsContent.displayName = 'TabsContent';
-

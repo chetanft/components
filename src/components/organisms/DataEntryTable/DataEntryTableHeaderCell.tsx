@@ -64,7 +64,7 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
       : width || 'auto';
     
     if (checkbox) {
-      const { _draggable, ...restProps } = props as any;
+      const { draggable: _draggable, ...restProps } = props;
       return (
         <TableHeaderItem
           type="checkbox"
@@ -75,14 +75,13 @@ export const DataEntryTableHeaderCell = React.forwardRef<HTMLTableCellElement, D
             onChange: checkboxProps.onChange ? () => checkboxProps.onChange?.(true) : undefined
           } : undefined}
           className={cn("relative shrink-0", className)}
-          {...restProps}
           style={{
             width: 'var(--spacing-x12)',
             height: '3.125rem',
             paddingLeft: 'var(--spacing-x5)',
             paddingRight: 'var(--spacing-x2)',
           }}
-          {...props}
+          {...(restProps as Record<string, unknown>)}
         />
       );
     }

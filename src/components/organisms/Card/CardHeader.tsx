@@ -41,6 +41,7 @@ export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="card-header"
         className={cn("flex flex-col gap-[var(--spacing-x1)] px-[var(--spacing-x5)] pt-[var(--spacing-x5)]", className)}
         {...props}
       >
@@ -51,4 +52,5 @@ export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
 );
 
 CardHeader.displayName = 'CardHeader';
+(CardHeader as any).slot = 'card-header';
 

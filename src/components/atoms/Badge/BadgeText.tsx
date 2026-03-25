@@ -50,6 +50,7 @@ export const BadgeText = React.forwardRef<HTMLSpanElement, BadgeTextProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="badge-text"
         className={cn("inline-flex items-center font-semibold leading-[1.4]", className)}
         {...props}
       >
@@ -60,3 +61,4 @@ export const BadgeText = React.forwardRef<HTMLSpanElement, BadgeTextProps>(
 );
 
 BadgeText.displayName = 'BadgeText';
+(BadgeText as any).slot = 'badge-text';

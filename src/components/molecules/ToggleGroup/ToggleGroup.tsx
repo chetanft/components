@@ -75,7 +75,7 @@ export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(({
     return (
         <Comp
             ref={ref}
-            className={cn("inline-flex rounded-[var(--radius-md)]", resolvedGlass ? getGlassClasses(resolvedGlass) : "bg-[var(--color-bg-primary)]", className)}
+            className={cn("inline-flex rounded-[var(--radius-md)]", resolvedGlass ? getGlassClasses(resolvedGlass) : "bg-[var(--bg-primary)]", className)}
             role="group"
             {...props}
         >

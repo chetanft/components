@@ -112,9 +112,9 @@ export const ExplorerBase: Story = {
           showProgressBar={showProgressBar}
           logoSize={contentType === 'small-logo' ? 120 : undefined}
           progressHeight={contentType === 'custom-progress' ? 10 : undefined}
-          progressClassName={contentType === 'custom-progress' ? "rounded-full bg-[var(--color-border-secondary)]" : undefined}
+          progressClassName={contentType === 'custom-progress' ? "rounded-full bg-[var(--border-secondary)]" : undefined}
           progressBarClassName={contentType === 'custom-progress' ? "rounded-full" : undefined}
-          progressBarStyle={contentType === 'custom-progress' ? { backgroundColor: 'var(--color-primary)' } : undefined}
+          progressBarStyle={contentType === 'custom-progress' ? { backgroundColor: 'var(--primary)' } : undefined}
         />
       </div>
     );
@@ -240,9 +240,9 @@ export const CustomProgressBar: Story = {
   args: {
     value: 45,
     progressHeight: 10,
-    progressClassName: "rounded-full bg-[var(--color-border-secondary)]",
+    progressClassName: "rounded-full bg-[var(--border-secondary)]",
     progressBarClassName: "rounded-full",
-    progressBarStyle: { backgroundColor: 'var(--color-primary)' },
+    progressBarStyle: { backgroundColor: 'var(--primary)' },
   },
   render: (args: React.ComponentProps<typeof Loader>) => (
     <div style={{ width: '500px', height: '200px', padding: '20px' }}>
@@ -255,9 +255,9 @@ export const CustomProgressBar: Story = {
         code: `<Loader
   value={45}
   progressHeight={10}
-  progressClassName="rounded-full bg-[var(--color-border-secondary)]"
+  progressClassName="rounded-full bg-[var(--border-secondary)]"
   progressBarClassName="rounded-full"
-  progressBarStyle={{ backgroundColor: 'var(--color-primary)' }}
+  progressBarStyle={{ backgroundColor: 'var(--primary)' }}
 />`,
         language: 'tsx',
         type: 'code',

@@ -75,11 +75,10 @@ export const PaginationItem = React.forwardRef<HTMLButtonElement, PaginationItem
     
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       onPageChange(page);
-      onClick?.(e as any);
+      onClick?.(e as unknown as React.MouseEvent<HTMLDivElement>);
     };
     
-    // Filter out incompatible props from ComposableProps<'div'>
-    const { _onCopy, _onCut, _onPaste, ...buttonProps } = props as any;
+    const buttonProps = props as Record<string, unknown>;
     
     return (
       <Button

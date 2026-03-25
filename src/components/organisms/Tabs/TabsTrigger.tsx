@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from 'react';
+import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { cn } from '../../../lib/utils';
-import { Slot, type ComposableProps } from '../../../lib/slot';
 import { useTabsContext } from './TabsContext';
 import { Icon } from '../../atoms/Icons';
 
-export interface TabsTriggerProps extends ComposableProps<'button'> {
+export interface TabsTriggerProps extends Omit<React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>, 'asChild'> {
   /**
    * The value of this tab (used to match with TabsContent)
    */
@@ -37,17 +37,17 @@ export interface TabsTriggerProps extends ComposableProps<'button'> {
    */
   children: React.ReactNode;
   /**
-   * Internal prop: tab index (injected by TabsList)
-   * @internal
+   * Support asChild pattern (forwarded to Radix)
    */
-  _tabIndex?: number;
+  asChild?: boolean;
 }
 
 /**
  * TabsTrigger Component
  *
  * A composable component for individual tab triggers.
- * Automatically handles selection state based on Tabs context.
+ * Built on Radix Tabs.Trigger — provides roving tabindex and
+ * keyboard navigation out of the box.
  *
  * @public
  *
@@ -62,12 +62,15 @@ export interface TabsTriggerProps extends ComposableProps<'button'> {
  * ```
  *
  * @remarks
- * - Wraps the HTML `<button>` element by default.
+ * - Wraps Radix Tabs.Trigger for accessibility.
  * - Supports `asChild` prop to merge props with a custom child element.
  * - Automatically applies selection state styling based on context.
- * - Accessible: includes ARIA attributes and keyboard navigation.
+ * - Accessible: includes ARIA attributes, roving tabindex, and keyboard navigation.
  */
-export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
+export const TabsTrigger = React.forwardRef<
+  React.ComponentRef<typeof TabsPrimitive.Trigger>,
+  TabsTriggerProps
+>(
   ({
     className,
     value,
@@ -78,26 +81,19 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
     notification,
     children,
     asChild,
-    onClick,
-    _tabIndex,
     ...props
   }, ref) => {
-    const { activeTab, onTabChange, type, showLine: _showLine } = useTabsContext();
+    const { type } = useTabsContext();
     const [isHovered, setIsHovered] = useState(false);
-    
-    // Use the index injected by TabsList, or fallback to 0 if not provided
-    const tabIndex = _tabIndex ?? 0;
-    const isSelected = activeTab === tabIndex;
-    const currentState: 'unselected' | 'selected' | 'hover' = isSelected ? 'selected' : (isHovered ? 'hover' : 'unselected');
-    
+
     const gapClass = notification ? "gap-[var(--spacing-x1)]" : "gap-[var(--spacing-x2)]";
-    const containerAlignment = currentState === 'selected' && type === 'primary'
-      ? "justify-center"
-      : type === 'primary'
-        ? "justify-start"
-        : "justify-center";
+
+    // Build class names using Radix data-state attribute for selection styling.
+    // Radix puts data-state="active" or data-state="inactive" on the trigger element.
 
     const baseStyles = cn(
+      // Use 'group' so children can style based on parent data-state
+      "group",
       "relative flex flex-col gap-[var(--spacing-x2-5)] items-start transition-all cursor-pointer flex-shrink-0",
       disabled && "opacity-50 cursor-not-allowed pointer-events-none",
       type === 'primary'
@@ -106,103 +102,55 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
       type === 'primary' && "rounded-none",
       type === 'secondary' && "rounded-lg",
       type === 'tertiary' && "rounded-full",
+
+      // Primary border styles
       type === 'primary' && [
         "border-l-0 border-r-0 border-t-0 border-solid",
-        currentState === 'selected'
-          ? "border-b-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[var(--spacing-x1)] after:bg-[var(--primary)]"
-          : currentState === 'hover'
-            ? "border-b border-b-[var(--tertiary)]"
-            : "border-b border-b-[var(--border-primary)]"
+        // Selected (active) state — bottom indicator bar
+        "data-[state=active]:border-b-0 data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-[var(--spacing-x1)] data-[state=active]:after:bg-[var(--primary)]",
+        // Inactive state — bottom border
+        "data-[state=inactive]:border-b data-[state=inactive]:border-b-[var(--border-primary)]",
       ],
+
+      // Secondary/tertiary border styles
       (type === 'secondary' || type === 'tertiary') && [
-        "border border-solid",
-        currentState === 'selected'
-          ? "border-[var(--tertiary)]"
-          : currentState === 'hover'
-            ? "border-[var(--primary)]"
-            : "border-[var(--tertiary)]"
+        "border border-solid border-[var(--tertiary)]",
       ],
-      currentState === 'selected' && [
-        (type === 'secondary' || type === 'tertiary') && "bg-[var(--border-secondary)]"
-      ],
-      currentState === 'hover' && [
-        type === 'primary' && "bg-[var(--border-secondary)]",
-        (type === 'secondary' || type === 'tertiary') && "bg-[var(--bg-secondary)]"
-      ],
-      currentState === 'unselected' && "bg-transparent",
+
+      // Background: selected state
+      (type === 'secondary' || type === 'tertiary') && "data-[state=active]:bg-[var(--border-secondary)]",
+
+      // Background: unselected
+      "data-[state=inactive]:bg-transparent",
+
       className
     );
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (!disabled) {
-        onTabChange(tabIndex);
-        onClick?.(e);
-      }
-    };
+    // Hover styles applied dynamically since they interact with data-state + mouse.
+    const hoverStyles = isHovered ? cn(
+      type === 'primary' && [
+        // Inactive hover: show border and bg
+        "data-[state=inactive]:!border-b data-[state=inactive]:!border-b-[var(--tertiary)] data-[state=inactive]:bg-[var(--border-secondary)]",
+      ],
+      (type === 'secondary' || type === 'tertiary') && [
+        "!border-[var(--primary)]",
+        "data-[state=inactive]:bg-[var(--bg-secondary)]",
+      ],
+    ) : undefined;
 
-    if (asChild) {
-      // Filter out disabled prop when using asChild (Slot doesn't accept it)
-      const { disabled: _, ...slotProps } = props as any;
-      // Cast icon and children to exclude bigint which Slot doesn't accept
-      const safeIcon = icon as Exclude<React.ReactNode, bigint> | undefined;
-      const safeChildren = children as Exclude<React.ReactNode, bigint> | undefined;
-      
-      return (
-        <Slot
-          ref={ref}
-          role="tab"
-          aria-selected={isSelected}
-          aria-controls={`tabpanel-${value}`}
-          onClick={handleClick}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className={baseStyles}
-          {...slotProps}
-        >
-          <div className={cn("flex items-center", gapClass, containerAlignment)}>
-            {safeIcon && (
-              <div className="overflow-clip relative shrink-0 size-[var(--spacing-x4)]">
-                {typeof safeIcon === 'boolean' ? (
-                  <Icon name="check" size={16} className="text-[var(--primary)]" />
-                ) : (
-                  safeIcon
-                )}
-              </div>
-            )}
-            <span className={cn(
-              "leading-[1.4] relative shrink-0 text-[var(--primary)] text-base",
-              currentState === 'selected' ? "font-semibold" : "font-normal"
-            )}>
-              {safeChildren}
-            </span>
-            {badge && (
-              <div className="bg-[var(--bg-primary)] border border-[var(--border-primary)] border-solid box-border content-stretch flex gap-[var(--spacing-x2)] h-[var(--spacing-x6)] items-center justify-center px-[var(--spacing-x1)] py-0 relative rounded-[var(--radius-sm)] shrink-0">
-                <span className="font-semibold leading-[1.4] relative shrink-0 text-[var(--primary)] text-sm">
-                  {badgeCount}
-                </span>
-              </div>
-            )}
-            {notification && (
-              <div className="relative shrink-0 size-[0.375rem]">
-                <div className="absolute inset-0 bg-[var(--critical)] rounded-full" />
-              </div>
-            )}
-          </div>
-        </Slot>
-      );
-    }
+    const containerAlignment = type === 'primary'
+      ? "group-data-[state=active]:justify-center group-data-[state=inactive]:justify-start"
+      : "justify-center";
 
     return (
-      <button
+      <TabsPrimitive.Trigger
         ref={ref}
-        role="tab"
-        aria-selected={isSelected}
-        aria-controls={`tabpanel-${value}`}
+        value={value}
         disabled={disabled}
-        onClick={handleClick}
+        asChild={asChild}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={baseStyles}
+        className={cn(baseStyles, hoverStyles)}
         {...props}
       >
         <div className={cn("flex items-center", gapClass, containerAlignment)}>
@@ -216,8 +164,8 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
             </div>
           )}
           <span className={cn(
-            "leading-[1.4] relative shrink-0 text-[var(--primary)] text-base",
-            currentState === 'selected' ? "font-semibold" : "font-normal"
+            "leading-[1.4] relative shrink-0 text-[var(--primary)] text-[length:var(--font-size-md-rem)]",
+            "group-data-[state=active]:font-semibold group-data-[state=inactive]:font-normal"
           )}>
             {children}
           </span>
@@ -234,10 +182,9 @@ export const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>
             </div>
           )}
         </div>
-      </button>
+      </TabsPrimitive.Trigger>
     );
   }
 );
 
 TabsTrigger.displayName = 'TabsTrigger';
-

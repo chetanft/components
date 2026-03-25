@@ -1,5 +1,6 @@
 import React from 'react';
 import tataMotorstLogoImg from './assets/tata-motors-logo.png';
+import { resolveImageSrc } from './resolveImageSrc';
 
 interface TataMotorsLogoProps {
   width?: number;
@@ -13,7 +14,7 @@ export const TataMotorsLogo: React.FC<TataMotorsLogoProps> = ({
   className
 }) => (
   <img
-    src={(tataMotorstLogoImg as any).src || tataMotorstLogoImg}
+    src={resolveImageSrc(tataMotorstLogoImg)}
     alt="Tata Motors Logo"
     width={width}
     height={height}

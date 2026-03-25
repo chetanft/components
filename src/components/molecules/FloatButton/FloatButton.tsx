@@ -92,7 +92,7 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
   const badgeElement = badge && (
     <span className={cn(
       "absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4",
-      "bg-[var(--danger)] text-[var(--color-bg-primary)] text-xs font-bold px-[var(--spacing-x1-5)] rounded-full min-w-[1.25rem] h-5 flex items-center justify-center border-2 border-[var(--color-bg-primary)]",
+      "bg-[var(--danger)] text-[var(--bg-primary)] text-xs font-bold px-[var(--spacing-x1-5)] rounded-full min-w-[1.25rem] h-5 flex items-center justify-center border-2 border-[var(--bg-primary)]",
       badge.dot ? "w-2.5 h-2.5 p-0 min-w-0" : ""
     )}>
       {!badge.dot && badge.count}
@@ -100,7 +100,7 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
   );
 
   const content = asChild ? (
-    <Slot ref={ref as any} className={commonClassName} onClick={onClick as any} {...props}>
+    <Slot ref={ref as React.Ref<HTMLElement>} className={commonClassName} onClick={onClick} {...props}>
       <div className="flex flex-col items-center justify-center">
         {icon || children}
         {description && <span className="text-xxs-rem leading-tight mt-[var(--spacing-x0-5)]">{description}</span>}
@@ -113,7 +113,7 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
       href={href}
       target={target}
       className={commonClassName}
-      onClick={onClick as any}
+      onClick={onClick}
       {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
     >
       <div className="flex flex-col items-center justify-center">
@@ -127,7 +127,7 @@ export const FloatButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElemen
       ref={ref as React.Ref<HTMLButtonElement>}
       type="button"
       className={commonClassName}
-      onClick={onClick as any}
+      onClick={onClick}
       {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
     >
       <div className="flex flex-col items-center justify-center">

@@ -63,10 +63,9 @@ export const FormLabel = React.forwardRef<HTMLDivElement, FormLabelProps>(
       );
     }
     
-    const { onClick: _, ...restProps } = props as any;
     return (
       <div ref={ref} className={labelClasses}>
-        <Label mandatory={mandatory} onClick={onClick as (() => void) | undefined} {...restProps}>
+        <Label mandatory={mandatory} onClick={onClick as (() => void) | undefined} {...props}>
           {children}
         </Label>
       </div>

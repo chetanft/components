@@ -35,6 +35,7 @@ export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
     return (
       <Comp
         ref={ref}
+        data-slot="card-footer"
         className={cn(
           "flex flex-col items-start pt-0 relative w-full",
           className
@@ -56,3 +57,4 @@ export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
 );
 
 CardFooter.displayName = 'CardFooter';
+(CardFooter as any).slot = 'card-footer';

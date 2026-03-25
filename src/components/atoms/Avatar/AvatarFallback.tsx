@@ -41,6 +41,7 @@ export const AvatarFallback = React.forwardRef<HTMLSpanElement, AvatarFallbackPr
     return (
       <Comp
         ref={ref}
+        data-slot="avatar-fallback"
         className={cn("flex items-center justify-center font-medium", className)}
         {...props}
       >
@@ -56,4 +57,5 @@ export const AvatarFallback = React.forwardRef<HTMLSpanElement, AvatarFallbackPr
 );
 
 AvatarFallback.displayName = 'AvatarFallback';
+(AvatarFallback as any).slot = 'avatar-fallback';
 
