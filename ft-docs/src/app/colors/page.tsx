@@ -258,6 +258,30 @@ function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'ligh
       return bNum - aNum
     })
 
+  // Dashboard / Chart color families
+  const chartFamilies = ['teal', 'indigo', 'blue', 'pink'] as const
+  for (const family of chartFamilies) {
+    colors[family] = Object.entries(baseColors)
+      .filter(([key]) => key.startsWith(family) && /\d/.test(key.replace(family, '')))
+      .map(([key, value]) => {
+        const shade = key.replace(family, '')
+        return {
+          name: `${family}-${shade}`,
+          hex: value as string,
+          rgb: hexToRgb(value as string),
+          hsl: hexToHsl(value as string),
+          oklch: hexToOklch(value as string),
+          cssVar: `--${family}-${shade}`,
+          tailwindClass: `bg-${family}-${shade}`,
+        }
+      })
+      .sort((a, b) => {
+        const aNum = parseInt(a.name.split('-')[1]) || 0
+        const bNum = parseInt(b.name.split('-')[1]) || 0
+        return bNum - aNum
+      })
+  }
+
   return colors
 }
 
@@ -269,6 +293,10 @@ const colorFamilies = [
   { name: 'positive', label: 'Positive' },
   { name: 'warning', label: 'Warning' },
   { name: 'danger', label: 'Danger' },
+  { name: 'teal', label: 'Teal (Chart)' },
+  { name: 'indigo', label: 'Indigo (Chart)' },
+  { name: 'blue', label: 'Blue (Chart)' },
+  { name: 'pink', label: 'Pink (Chart)' },
 ]
 
 export default function ColorsPage() {

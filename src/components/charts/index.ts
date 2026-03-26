@@ -17,3 +17,20 @@ export * from './GaugeChart';
 export * from './WaterfallChart';
 export * from './BulletChart';
 // export * from './FunnelChart'; // Skipped
+
+// Chart color utilities
+export {
+  chartColors,
+  getDefaultColors,
+  getExtendedColors,
+  statusColors,
+  getStatusColorsArray,
+  getMonochromeColors,
+  getNeutralScaleColors,
+  getPositiveScaleColors,
+  getWarningScaleColors,
+  getDangerScaleColors,
+  ftChartColors,
+  getDefaultChartOptions,
+  getCssVar,
+} from './chartConfig';
