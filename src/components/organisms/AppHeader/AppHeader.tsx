@@ -3,9 +3,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { cn } from '../../../lib/utils';
 import { getGlassClasses, useResolvedGlass, type GlassVariant } from '../../../lib/glass';
 import { Slot, type ComposableProps } from '../../../lib/slot';
+import { useGlass } from '../../FTProvider';
+import { Button } from '../../atoms/Button';
 import { UserProfile, type UserProfileProps } from '../UserProfile/UserProfile';
 import { UserProfileDropdown } from '../UserProfileDropdown/UserProfileDropdown';
-import { Rocket, Bell, ThreeDotMenu, Settings } from '../../atoms/Icons';
+import { Rocket, Bell, ThreeDotMenu, Settings, Glass, Expand, Compress } from '../../atoms/Icons';
 import { Logo } from '../../atoms/Logos';
 import { CompanyInfo } from '../../../types/company';
 
@@ -32,6 +34,10 @@ export interface AppHeaderProps extends Omit<ComposableProps<'header'>, 'childre
   onUserMenuItemClick?: (item: string) => void;
   /** Click handler for optional theme icon shown on the right side. */
   onThemeIconClick?: () => void;
+  /** Click handler for optional glass action icon shown on the right side. */
+  onGlassToggleClick?: () => void;
+  /** Called whenever the fullscreen/expand state changes. */
+  onExpandToggle?: (isExpanded: boolean) => void;
   className?: string;
   leftAddon?: () => React.ReactNode;
   /**
@@ -51,7 +57,7 @@ export interface AppHeaderProps extends Omit<ComposableProps<'header'>, 'childre
    */
   menuIcon?: React.ReactNode;
   /**
-   * Optional custom icon for theme action slot (defaults to Settings).
+   * Optional custom icon for theme action slot.
    */
   themeIcon?: React.ReactNode;
   /**
@@ -59,6 +65,34 @@ export interface AppHeaderProps extends Omit<ComposableProps<'header'>, 'childre
    * @default false
    */
   showThemeIcon?: boolean;
+  /**
+   * Whether to show the glass action icon on the right side.
+   * @default false
+   */
+  showGlassToggle?: boolean;
+  /**
+   * Whether to show the expand/fullscreen action button on the right side.
+   * @default false
+   */
+  showExpandButton?: boolean;
+  /**
+   * Controlled fullscreen/expanded state. When omitted, AppHeader manages
+   * fullscreen state from the browser Fullscreen API.
+   */
+  isExpanded?: boolean;
+  /**
+   * Visual state for the glass action button.
+   * @default false
+   */
+  isGlassActive?: boolean;
+  /**
+   * Optional custom icon for expand action slot.
+   */
+  expandIcon?: React.ReactNode;
+  /**
+   * Optional custom icon for collapse action slot.
+   */
+  compressIcon?: React.ReactNode;
 }
 
 /**
@@ -101,6 +135,8 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
   onUserClick = () => { },
   onUserMenuItemClick = () => { },
   onThemeIconClick = () => { },
+  onGlassToggleClick = () => { },
+  onExpandToggle,
   className,
   leftAddon,
   userProfileProps,
@@ -109,13 +145,30 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
   menuIcon,
   themeIcon,
   showThemeIcon = false,
+  showGlassToggle = false,
+  showExpandButton = false,
+  isExpanded,
+  isGlassActive,
+  expandIcon,
+  compressIcon,
   asChild,
     ...htmlProps
   } = props;
   const resolvedGlass = useResolvedGlass(glass);
+  const { glassMode, setGlassMode } = useGlass();
   const Comp = asChild ? Slot : 'header';
   const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
+  const [internalIsFullscreen, setInternalIsFullscreen] = useState(false);
   const userProfileRef = useRef<HTMLDivElement>(null);
+  const isFullscreen = isExpanded ?? internalIsFullscreen;
+  const hasActiveGlass = isGlassActive ?? Boolean(glassMode);
+
+  const syncFullscreenState = () => {
+    if (typeof document === 'undefined') return;
+    const nextValue = !!document.fullscreenElement;
+    setInternalIsFullscreen(nextValue);
+    onExpandToggle?.(nextValue);
+  };
 
   const handleUserProfileClick = () => {
     setIsUserProfileOpen((prev) => !prev);
@@ -152,6 +205,30 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       document.removeEventListener('keydown', handleEscape);
     };
   }, [isUserProfileOpen]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    syncFullscreenState();
+    document.addEventListener('fullscreenchange', syncFullscreenState);
+    return () => document.removeEventListener('fullscreenchange', syncFullscreenState);
+  }, []);
+
+  const handleExpandClick = async () => {
+    if (typeof document === 'undefined') return;
+
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+      return;
+    }
+
+    await document.documentElement.requestFullscreen();
+  };
+
+  const handleGlassToggleClick = () => {
+    const nextMode = glassMode ? false : true;
+    setGlassMode(nextMode);
+    onGlassToggleClick();
+  };
 
   type UserProfileSectionOptions = {
     companyName?: boolean;
@@ -190,23 +267,40 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
     );
   };
 
-  const renderThemeActionIcon = (sizeRem: string) => {
-    if (!showThemeIcon) return null;
+  const renderHeaderIconButton = (
+    iconNode: React.ReactNode,
+    onClick: () => void,
+    ariaLabel: string,
+    isActive = false
+  ) => (
+    <Button
+      variant="text"
+      size="sm"
+      shape="rounded"
+      icon={iconNode}
+      iconPosition="only"
+      aria-label={ariaLabel}
+      aria-pressed={isActive || undefined}
+      onClick={onClick}
+      className={cn("min-w-0", isActive && "bg-[var(--bg-primary)]")}
+    >
+    </Button>
+  );
+
+  const renderUtilityActions = () => {
+    if (!showThemeIcon && !showGlassToggle && !showExpandButton) return null;
 
     return (
-      <div
-        style={{
-          width: sizeRem,
-          height: sizeRem,
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'var(--primary)',
-        }}
-        onClick={onThemeIconClick}
-      >
-        {themeIcon ?? <Settings />}
+      <div className="flex items-center gap-[var(--spacing-x2)]">
+        {showThemeIcon && renderHeaderIconButton(themeIcon ?? <Settings />, onThemeIconClick, 'Toggle theme')}
+        {showGlassToggle && renderHeaderIconButton(<Glass />, handleGlassToggleClick, 'Toggle glass mode', hasActiveGlass)}
+        {showExpandButton &&
+          renderHeaderIconButton(
+            isFullscreen ? (compressIcon ?? <Compress />) : (expandIcon ?? <Expand />),
+            handleExpandClick,
+            isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen',
+            isFullscreen
+          )}
       </div>
     );
   };
@@ -261,40 +355,14 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
         <div className="flex items-center gap-[var(--spacing-x4)]">
           {/* Notification Container */}
           {/* Notification Container */}
-          <div className="flex items-center gap-[var(--spacing-x9)]">
+          <div className="flex items-center gap-[var(--spacing-x2)]">
             {/* Rocket Icon */}
-            <div
-              style={{
-                width: 'var(--spacing-x6)',
-                height: 'var(--spacing-x6)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--primary)',
-              }}
-              onClick={() => onNotificationClick('rocket')}
-            >
-              {rocketIcon ?? <Rocket />}
-            </div>
+            {renderHeaderIconButton(rocketIcon ?? <Rocket />, () => onNotificationClick('rocket'), 'Rocket notifications')}
 
             {/* Bell Icon */}
-            <div
-              style={{
-                width: 'var(--spacing-x6)',
-                height: 'var(--spacing-x6)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--primary)',
-              }}
-              onClick={() => onNotificationClick('bell')}
-            >
-              {bellIcon ?? <Bell />}
-            </div>
+            {renderHeaderIconButton(bellIcon ?? <Bell />, () => onNotificationClick('bell'), 'Notifications')}
 
-            {renderThemeActionIcon('var(--spacing-x6)')}
+            {renderUtilityActions()}
           </div>
 
           {/* User Profile */}
@@ -348,41 +416,15 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 'var(--spacing-x9)',
+            gap: 'var(--spacing-x2)',
           }}>
             {/* Rocket Icon */}
-            <div
-              style={{
-                width: 'var(--spacing-x5)',
-                height: 'var(--spacing-x5)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--primary)',
-              }}
-              onClick={() => onNotificationClick('rocket')}
-            >
-              {rocketIcon ?? <Rocket />}
-            </div>
+            {renderHeaderIconButton(rocketIcon ?? <Rocket />, () => onNotificationClick('rocket'), 'Rocket notifications')}
 
             {/* Bell Icon */}
-            <div
-              style={{
-                width: 'var(--spacing-x5)',
-                height: 'var(--spacing-x5)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--primary)',
-              }}
-              onClick={() => onNotificationClick('bell')}
-            >
-              {bellIcon ?? <Bell />}
-            </div>
+            {renderHeaderIconButton(bellIcon ?? <Bell />, () => onNotificationClick('bell'), 'Notifications')}
 
-            {renderThemeActionIcon('var(--spacing-x5)')}
+            {renderUtilityActions()}
           </div>
 
           {/* User Profile */}
@@ -446,41 +488,15 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 'var(--spacing-x9)',
+            gap: 'var(--spacing-x2)',
           }}>
             {/* Rocket Icon */}
-            <div
-              style={{
-                width: 'var(--spacing-x5)',
-                height: 'var(--spacing-x5)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--primary)',
-              }}
-              onClick={() => onNotificationClick('rocket')}
-            >
-              {rocketIcon ?? <Rocket />}
-            </div>
+            {renderHeaderIconButton(rocketIcon ?? <Rocket />, () => onNotificationClick('rocket'), 'Rocket notifications')}
 
             {/* Bell Icon */}
-            <div
-              style={{
-                width: 'var(--spacing-x5)',
-                height: 'var(--spacing-x5)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--primary)',
-              }}
-              onClick={() => onNotificationClick('bell')}
-            >
-              {bellIcon ?? <Bell />}
-            </div>
+            {renderHeaderIconButton(bellIcon ?? <Bell />, () => onNotificationClick('bell'), 'Notifications')}
 
-            {renderThemeActionIcon('var(--spacing-x5)')}
+            {renderUtilityActions()}
           </div>
 
           {/* User Profile */}
@@ -524,25 +540,12 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 'var(--spacing-x9)',
+            gap: 'var(--spacing-x2)',
           }}>
             {/* Three Dot Menu Icon */}
-            <div
-              style={{
-                width: 'var(--spacing-x6)',
-                height: 'var(--spacing-x6)',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--primary)',
-              }}
-              onClick={() => onNotificationClick('menu')}
-            >
-              {menuIcon ?? <ThreeDotMenu />}
-            </div>
+            {renderHeaderIconButton(menuIcon ?? <ThreeDotMenu />, () => onNotificationClick('menu'), 'Open menu')}
 
-            {renderThemeActionIcon('var(--spacing-x6)')}
+            {renderUtilityActions()}
           </div>
 
           {/* User Profile - Mobile version */}
@@ -597,40 +600,14 @@ export const AppHeader = React.forwardRef<HTMLElement, AppHeaderProps>((props, r
       <div className="flex items-center gap-[var(--spacing-x4)]">
         {/* Notification Container */}
         {/* Notification Container */}
-        <div className="flex items-center gap-[var(--spacing-x9)]">
+        <div className="flex items-center gap-[var(--spacing-x2)]">
           {/* Rocket Icon */}
-          <div
-            style={{
-              width: 'var(--spacing-x6)',
-              height: 'var(--spacing-x6)',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--primary)',
-            }}
-            onClick={() => onNotificationClick('rocket')}
-          >
-            {rocketIcon ?? <Rocket />}
-          </div>
+          {renderHeaderIconButton(rocketIcon ?? <Rocket />, () => onNotificationClick('rocket'), 'Rocket notifications')}
 
           {/* Bell Icon */}
-          <div
-            style={{
-              width: 'var(--spacing-x6)',
-              height: 'var(--spacing-x6)',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--primary)',
-            }}
-            onClick={() => onNotificationClick('bell')}
-          >
-            {bellIcon ?? <Bell />}
-          </div>
+          {renderHeaderIconButton(bellIcon ?? <Bell />, () => onNotificationClick('bell'), 'Notifications')}
 
-          {renderThemeActionIcon('var(--spacing-x6)')}
+          {renderUtilityActions()}
         </div>
 
         {/* User Profile */}

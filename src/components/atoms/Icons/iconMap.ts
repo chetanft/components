@@ -73,6 +73,7 @@ import { Flame } from './Flame';
 import { Forward } from './Forward';
 import { FtColour } from './FtColour';
 import { FtGray } from './FtGray';
+import { Glass } from './Glass';
 import { GoogleColour } from './GoogleColour';
 import { GoogleDrive } from './GoogleDrive';
 import { GoogleGray } from './GoogleGray';
@@ -259,6 +260,7 @@ export const iconMap = {
   'forward': Forward,
   'ft-colour': FtColour,
   'ft-gray': FtGray,
+  'glass': Glass,
   'google-colour': GoogleColour,
   'google-gray': GoogleGray,
   'gmail-logo': GmailLogo,

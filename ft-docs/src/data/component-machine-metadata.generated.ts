@@ -76,11 +76,15 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "propNames": [
       "user",
       "showThemeIcon",
-      "glass"
+      "glass",
+      "showGlassToggle",
+      "showExpandButton",
+      "isExpanded",
+      "onExpandToggle"
     ],
     "sizeOptions": [],
     "variantOptions": [],
-    "storyCount": 4
+    "storyCount": 6
   },
   "Avatar": {
     "componentName": "Avatar",
@@ -1995,11 +1999,15 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "propNames": [
       "user",
       "showThemeIcon",
-      "glass"
+      "glass",
+      "showGlassToggle",
+      "showExpandButton",
+      "isExpanded",
+      "onExpandToggle"
     ],
     "sizeOptions": [],
     "variantOptions": [],
-    "storyCount": 4
+    "storyCount": 6
   },
   "avatar": {
     "componentName": "Avatar",

@@ -5,7 +5,7 @@
   "description": "Design system built from Figma designs using Code Connect",
   "repository": "https://github.com/chetanft/components.git",
   "license": "MIT",
-  "generatedAt": "2026-03-26T07:25:45.578Z",
+  "generatedAt": "2026-03-30T08:46:23.808Z",
   "coreDependencies": {
     "peer": [
       "react",
@@ -1349,6 +1349,7 @@
         "Forward.tsx",
         "FtColour.tsx",
         "FtGray.tsx",
+        "Glass.tsx",
         "GmailLogo.tsx",
         "GoogleColour.tsx",
         "GoogleDrive.tsx",
