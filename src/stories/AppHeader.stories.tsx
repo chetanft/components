@@ -49,10 +49,10 @@ const meta: Meta<AppHeaderStoryArgs> = {
           scenarios: [
             { id: 'theme-on', label: 'Theme On', story: 'Default', args: { showThemeIcon: true } },
             { id: 'theme-off', label: 'Theme Off', story: 'Default', args: { showThemeIcon: false } },
-            { id: 'glass-on', label: 'Glass On', story: 'GlassAndExpand', args: { showGlassToggle: true } },
+            { id: 'glass-on', label: 'Glass On', story: 'Default', args: { glass: true, showGlassToggle: true, showExpandButton: true } },
             { id: 'glass-off', label: 'Glass Off', story: 'Default', args: { showGlassToggle: false } },
-            { id: 'expanded', label: 'Expanded', story: 'GlassAndExpand', args: { showExpandButton: true, isExpanded: true } },
-            { id: 'collapsed', label: 'Collapsed', story: 'GlassAndExpand', args: { showExpandButton: true, isExpanded: false } },
+            { id: 'expanded', label: 'Expanded', story: 'Default', args: { glass: 'prominent', showGlassToggle: true, showExpandButton: true, isExpanded: true } },
+            { id: 'collapsed', label: 'Collapsed', story: 'Default', args: { glass: true, showGlassToggle: true, showExpandButton: true, isExpanded: false } },
           ],
         },
       ],
@@ -179,28 +179,6 @@ export const OperationsManager: Story = {
     showGlassToggle: true,
     showExpandButton: true,
     isExpanded: false,
-  },
-};
-
-export const GlassAndExpand: Story = {
-  name: 'Glass + Expand',
-  args: {
-    ...baseDesktopArgs,
-    glass: true,
-    showGlassToggle: true,
-    showExpandButton: true,
-    isExpanded: false,
-  },
-};
-
-export const Expanded: Story = {
-  name: 'Expanded',
-  args: {
-    ...baseDesktopArgs,
-    glass: 'prominent',
-    showGlassToggle: true,
-    showExpandButton: true,
-    isExpanded: true,
   },
 };
 

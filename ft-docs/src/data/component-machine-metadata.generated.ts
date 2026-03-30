@@ -84,7 +84,7 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     ],
     "sizeOptions": [],
     "variantOptions": [],
-    "storyCount": 6
+    "storyCount": 4
   },
   "Avatar": {
     "componentName": "Avatar",
@@ -2007,7 +2007,7 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     ],
     "sizeOptions": [],
     "variantOptions": [],
-    "storyCount": 6
+    "storyCount": 4
   },
   "avatar": {
     "componentName": "Avatar",
