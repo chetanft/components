@@ -28,13 +28,22 @@ function hasStagedChanges() {
 function main() {
   const headTs = getHeadDocSyncTimestamp(projectRoot);
   const syncEnv = headTs ? { ...process.env, SYNC_TIMESTAMP: headTs } : process.env;
-  const syncResult = spawnSync('npm', ['run', 'sync:docs'], {
-    cwd: projectRoot,
-    stdio: 'inherit',
-    env: syncEnv,
-  });
-  if ((syncResult.status ?? 1) !== 0) {
-    process.exit(syncResult.status ?? 1);
+  const scripts = [
+    ['sync:docs', syncEnv],
+    ['check:consistency:report', process.env],
+    ['generate:registry', process.env],
+  ];
+
+  for (const [scriptName, env] of scripts) {
+    const result = spawnSync('npm', ['run', scriptName], {
+      cwd: projectRoot,
+      stdio: 'inherit',
+      env,
+    });
+
+    if ((result.status ?? 1) !== 0) {
+      process.exit(result.status ?? 1);
+    }
   }
 
   const toStage = [...trackedFiles, ...extraTracked].filter((f) =>
