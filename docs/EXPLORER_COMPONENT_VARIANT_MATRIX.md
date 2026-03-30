@@ -16,7 +16,7 @@ Duplicate component-name groups collapsed: 2.
 | Affix | Basic, Bottom | — | — | — | — | — | — | Configured | no ExplorerBase export | src/components/molecules/Affix/Affix.stories.tsx |
 | Alert | Default (Info), Success, Warning, Danger | — | Dismissible, Actionable | — | — | — | Behavior: Action, Closable, Complete | Configured | — | src/components/molecules/Alert/Alert.stories.tsx |
 | Anchor | Vertical, Horizontal | — | Default | — | — | — | — | Configured | — | src/components/molecules/Anchor/Anchor.stories.tsx |
-| AppHeader | — | — | Theme On, Theme Off | — | — | — | Branding: Tata Motors, FreightTiger | Configured | no ExplorerBase export | src/stories/AppHeader.stories.tsx |
+| AppHeader | — | — | Theme On, Theme Off, Glass On, Glass Off, Expanded, Collapsed | — | — | — | Branding: Tata Motors, FreightTiger | Configured | no ExplorerBase export | src/stories/AppHeader.stories.tsx |
 | AreaChart | Basic, Linear, Step, Stacked, Gradient, WithAxes | — | — | — | — | — | — | Configured | no ExplorerBase export | src/stories/AreaChart.stories.tsx |
 | Avatar | Default, Fallback, Group | — | — | XXS, XS, SM, MD, LG, XL, XXL | — | — | — | Configured | — | src/components/atoms/Avatar/Avatar.stories.tsx |
 | BackTop | Basic, CustomContent | — | — | — | — | — | — | Configured | no ExplorerBase export | src/components/molecules/BackTop/BackTop.stories.tsx |
