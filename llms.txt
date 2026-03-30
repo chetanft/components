@@ -1,12 +1,12 @@
 # FT Design System - AI Context
 # Machine-readable rules for LLMs and AI coding assistants
-# Version: 5.0.4
+# Version: 5.0.5
 
 ## IDENTITY
 name: ft-design-system
 type: react-component-library
 package: ft-design-system
-version: 5.0.4
+version: 5.0.5
 
 ## WORKFLOW CONTRACT (MANDATORY)
 - Before writing or modifying any UI code, read the relevant files under `specs/`.
