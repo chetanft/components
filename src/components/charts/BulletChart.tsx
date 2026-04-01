@@ -134,7 +134,7 @@ export const BulletChart: React.FC<BulletChartProps> = ({
         max: safeMax,
         grid: {
           display: false,
-          drawBorder: false,
+          drawTicks: false,
         },
         ticks: {
           ...defaultChartOptions.scales.x.ticks,
@@ -149,7 +149,7 @@ export const BulletChart: React.FC<BulletChartProps> = ({
         stacked: true,
         grid: {
           display: false,
-          drawBorder: false,
+          drawTicks: false,
         },
         ticks: {
           ...defaultChartOptions.scales.y.ticks,
