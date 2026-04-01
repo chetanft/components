@@ -1,8 +1,8 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions, Plugin } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions } from './chartConfig';
+import { createLineGlowPlugin, defaultColors, defaultChartOptions } from './chartConfig';
 
 export interface LineChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'line'>;
@@ -15,6 +15,7 @@ export interface LineChartProps extends Omit<BaseChartProps, 'children'> {
   dotColors?: string[];
   showLabel?: boolean;
   labelFormatter?: (value: number) => string;
+  glow?: boolean;
 }
 
 export const LineChart: React.FC<LineChartProps> = ({
@@ -29,6 +30,7 @@ export const LineChart: React.FC<LineChartProps> = ({
   showDots = false,
   dotRadius = 4,
   dotColors,
+  glow = true,
   defaultColors: customDefaultColors,
   ...props
 }) => {
@@ -67,10 +69,11 @@ export const LineChart: React.FC<LineChartProps> = ({
     maintainAspectRatio: false,
     responsive: true,
   };
+  const plugins: Plugin<'line'>[] | undefined = glow ? [createLineGlowPlugin<'line'>('ftLineGlow')] : undefined;
 
   return (
     <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
-      <Line data={processedData} options={chartOptions} />
+      <Line data={processedData} options={chartOptions} plugins={plugins} />
     </BaseChart>
   );
 };

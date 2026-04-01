@@ -96,6 +96,7 @@ function checkThemeTokenConsistency() {
     ':root': extractTokensFromBlock(css, ':root'),
     '.dark': extractTokensFromBlock(css, '.dark'),
     '.night': extractTokensFromBlock(css, '.night'),
+    '.origin-ui': extractTokensFromBlock(css, '.origin-ui'),
   };
 
   const themeNames = Object.keys(themes);

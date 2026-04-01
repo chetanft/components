@@ -1,8 +1,8 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions, Plugin } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions } from './chartConfig';
+import { createLineGlowPlugin, defaultColors, defaultChartOptions, toRgba } from './chartConfig';
 
 export interface AreaChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'line'>;
@@ -13,6 +13,7 @@ export interface AreaChartProps extends Omit<BaseChartProps, 'children'> {
   showDots?: boolean;
   showLegend?: boolean;
   gradient?: boolean;
+  glow?: boolean;
 }
 
 export const AreaChart: React.FC<AreaChartProps> = ({
@@ -27,6 +28,7 @@ export const AreaChart: React.FC<AreaChartProps> = ({
   showDots = false,
   showLegend = true,
   gradient = false,
+  glow = true,
   defaultColors: customDefaultColors,
   ...props
 }) => {
@@ -41,7 +43,7 @@ export const AreaChart: React.FC<AreaChartProps> = ({
       const backgroundColor = gradient
         ? `linear-gradient(180deg, ${baseColor}80 0%, ${baseColor}00 100%)`
         : fill
-        ? `${baseColor}80`
+        ? toRgba(baseColor, 0.18)
         : 'transparent';
 
       return {
@@ -76,14 +78,14 @@ export const AreaChart: React.FC<AreaChartProps> = ({
       },
     },
   };
+  const plugins: Plugin<'line'>[] | undefined = glow ? [createLineGlowPlugin<'line'>('ftAreaGlow')] : undefined;
 
   return (
     <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
-      <Line data={processedData} options={chartOptions} />
+      <Line data={processedData} options={chartOptions} plugins={plugins} />
     </BaseChart>
   );
 };
-
 
 
 

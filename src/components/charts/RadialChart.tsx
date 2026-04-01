@@ -1,8 +1,8 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions, Plugin } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
+import { createArcGlowPlugin, defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
 
 export interface RadialChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'doughnut'>;
@@ -14,6 +14,7 @@ export interface RadialChartProps extends Omit<BaseChartProps, 'children'> {
   showGrid?: boolean;
   shape?: 'circle' | 'round';
   stacked?: boolean;
+  glow?: boolean;
 }
 
 export const RadialChart: React.FC<RadialChartProps> = ({
@@ -27,6 +28,7 @@ export const RadialChart: React.FC<RadialChartProps> = ({
   showLabel = false,
   labelFormatter,
   stacked = false,
+  glow = true,
   defaultColors: customDefaultColors,
   ...props
 }) => {
@@ -80,6 +82,7 @@ export const RadialChart: React.FC<RadialChartProps> = ({
       },
     },
   };
+  const plugins: Plugin<'doughnut'>[] | undefined = glow && !stacked ? [createArcGlowPlugin<'doughnut'>('ftArcGlow')] : undefined;
 
   // Calculate percentage for label
   const percentage = value !== undefined ? Math.round((value / maxValue) * 100) : undefined;
@@ -92,7 +95,7 @@ export const RadialChart: React.FC<RadialChartProps> = ({
   return (
     <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-        <Doughnut data={processedData} options={chartOptions} />
+        <Doughnut data={processedData} options={chartOptions} plugins={plugins} />
         {showLabel && displayLabel && (
           <div
             style={{
@@ -120,8 +123,6 @@ export const RadialChart: React.FC<RadialChartProps> = ({
     </BaseChart>
   );
 };
-
-
 
 
 

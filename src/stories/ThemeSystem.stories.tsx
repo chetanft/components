@@ -17,7 +17,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Complete theme system supporting Light, Dark, and Night modes with automatic component adaptation.',
+        component: 'Complete theme system supporting Light, Dark, Night, and Origin UI modes with automatic component adaptation.',
       },
     },
     explorer: {
@@ -43,6 +43,7 @@ const meta = {
             { id: 'light', label: 'Light', story: 'ExplorerBase', args: { contentType: 'light' } },
             { id: 'dark', label: 'Dark', story: 'ExplorerBase', args: { contentType: 'dark' } },
             { id: 'night', label: 'Night', story: 'ExplorerBase', args: { contentType: 'night' } },
+            { id: 'origin-ui', label: 'Origin UI', story: 'ExplorerBase', args: { contentType: 'origin-ui' } },
           ],
         },
         {
@@ -146,7 +147,7 @@ const ThemeDemo: React.FC = () => {
 };
 
 // Wrapper component for theme demonstration
-const ThemeWrapper: React.FC<{ children: React.ReactNode; defaultTheme?: 'light' | 'dark' | 'night' }> = ({ 
+const ThemeWrapper: React.FC<{ children: React.ReactNode; defaultTheme?: 'light' | 'dark' | 'night' | 'origin-ui' }> = ({ 
   children, 
   defaultTheme = 'light' 
 }) => (
@@ -181,6 +182,10 @@ export const ExplorerBase: Story = {
           </ThemeWrapper>
         ) : contentType === 'night' ? (
           <ThemeWrapper defaultTheme="night">
+            <ThemeDemo />
+          </ThemeWrapper>
+        ) : contentType === 'origin-ui' ? (
+          <ThemeWrapper defaultTheme="origin-ui">
             <ThemeDemo />
           </ThemeWrapper>
         ) : (
@@ -255,11 +260,26 @@ export const NightTheme: Story = {
   },
 };
 
+export const OriginUiTheme: Story = {
+  render: () => (
+    <ThemeWrapper defaultTheme="origin-ui">
+      <ThemeDemo />
+    </ThemeWrapper>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Origin UI theme demonstration - Zinc-based dark palette inspired by Origin UI.',
+      },
+    },
+  },
+};
+
 export const DocsThemeComparison = () => (
   <div className="space-y-8">
     <Typography variant="title-secondary" className="text-center mb-8">Theme Comparison</Typography>
     
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
       {/* Light Theme */}
       <div className="border border-gray-300 rounded-lg overflow-hidden">
         <div className="bg-gray-100 p-2 text-center font-semibold">Light Theme</div>
@@ -272,7 +292,7 @@ export const DocsThemeComparison = () => (
           </div>
         </ThemeWrapper>
       </div>
-      
+
       {/* Dark Theme */}
       <div className="border border-gray-300 rounded-lg overflow-hidden">
         <div className="bg-gray-100 p-2 text-center font-semibold">Dark Theme</div>
@@ -285,11 +305,24 @@ export const DocsThemeComparison = () => (
           </div>
         </ThemeWrapper>
       </div>
-      
+
       {/* Night Theme */}
       <div className="border border-gray-300 rounded-lg overflow-hidden">
         <div className="bg-gray-100 p-2 text-center font-semibold">Night Theme</div>
         <ThemeWrapper defaultTheme="night">
+          <div className="p-4 space-y-4">
+            <Button variant="primary" size="sm">Primary Button</Button>
+            <Badge variant="success">Success Badge</Badge>
+            <Typography variant="body-primary-regular" color="primary">Sample text content</Typography>
+            <ProgressBar variant="primary" value={60} />
+          </div>
+        </ThemeWrapper>
+      </div>
+
+      {/* Origin UI Theme */}
+      <div className="border border-gray-300 rounded-lg overflow-hidden">
+        <div className="bg-gray-100 p-2 text-center font-semibold">Origin UI Theme</div>
+        <ThemeWrapper defaultTheme="origin-ui">
           <div className="p-4 space-y-4">
             <Button variant="primary" size="sm">Primary Button</Button>
             <Badge variant="success">Success Badge</Badge>

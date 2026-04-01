@@ -1561,12 +1561,12 @@ export const COMPONENT_MACHINE_METADATA: Record<string, ComponentMachineMetadata
     "componentName": "ThemeSystem",
     "slug": "theme-system",
     "sourcePath": "/Users/user/Documents/components/src/stories/ThemeSystem.stories.tsx",
-    "description": "Complete theme system supporting Light, Dark, and Night modes with automatic component adaptation.",
+    "description": "Complete theme system supporting Light, Dark, Night, and Origin UI modes with automatic component adaptation.",
     "tags": [],
     "propNames": [],
     "sizeOptions": [],
     "variantOptions": [],
-    "storyCount": 6
+    "storyCount": 7
   },
   "Timeline": {
     "componentName": "Timeline",
@@ -3484,12 +3484,12 @@ export const COMPONENT_MACHINE_METADATA_BY_SLUG: Record<string, ComponentMachine
     "componentName": "ThemeSystem",
     "slug": "theme-system",
     "sourcePath": "/Users/user/Documents/components/src/stories/ThemeSystem.stories.tsx",
-    "description": "Complete theme system supporting Light, Dark, and Night modes with automatic component adaptation.",
+    "description": "Complete theme system supporting Light, Dark, Night, and Origin UI modes with automatic component adaptation.",
     "tags": [],
     "propNames": [],
     "sizeOptions": [],
     "variantOptions": [],
-    "storyCount": 6
+    "storyCount": 7
   },
   "timeline": {
     "componentName": "Timeline",

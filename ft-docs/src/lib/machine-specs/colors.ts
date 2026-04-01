@@ -16,7 +16,7 @@ const colorFamilies = [
 ];
 
 function extractColorScales(
-  mode: "lightMode" | "darkMode" | "nightMode" = "lightMode"
+  mode: "lightMode" | "darkMode" | "nightMode" | "originUiMode" = "lightMode"
 ) {
   const colors: Record<string, Array<{ name: string; hex: string; cssVar: string; tailwindClass: string }>> = {};
   const baseColors = designTokens.baseColors[mode];
@@ -45,9 +45,9 @@ function extractColorScales(
 
 export function buildColorsSpec(): string {
   const lines: string[] = ["# FT Design System — Color Tokens", ""];
-  for (const mode of ["lightMode", "darkMode", "nightMode"] as const) {
+  for (const mode of ["lightMode", "darkMode", "nightMode", "originUiMode"] as const) {
     const label =
-      mode === "lightMode" ? "Light" : mode === "darkMode" ? "Dark" : "Night";
+      mode === "lightMode" ? "Light" : mode === "darkMode" ? "Dark" : mode === "nightMode" ? "Night" : "Origin UI";
     lines.push(`## ${label} Mode`);
     const scales = extractColorScales(mode);
     for (const family of colorFamilies) {

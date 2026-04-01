@@ -105,7 +105,13 @@ interface ColorSwatch {
   tailwindClass?: string
 }
 
-function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' = 'lightMode') {
+interface GradientSwatch {
+  name: string
+  cssVar: string
+  value: string
+}
+
+function extractColorScales(mode: 'lightMode' | 'darkMode' | 'nightMode' | 'originUiMode' = 'lightMode') {
   const colors: { [key: string]: ColorSwatch[] } = {}
 
   // Extract base color scales from selected mode
@@ -299,9 +305,15 @@ const colorFamilies = [
   { name: 'pink', label: 'Pink (Chart)' },
 ]
 
+const gradientSwatches: GradientSwatch[] = Object.entries(designTokens.gradients).map(([name, value]) => ({
+  name,
+  cssVar: `--gradient-${name.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)}`,
+  value,
+}))
+
 export default function ColorsPage() {
   const [selectedFormat, setSelectedFormat] = useState<'hex' | 'rgb' | 'hsl' | 'css' | 'tailwind' | 'oklch'>('hex')
-  const [selectedMode, setSelectedMode] = useState<'lightMode' | 'darkMode' | 'nightMode'>('lightMode')
+  const [selectedMode, setSelectedMode] = useState<'lightMode' | 'darkMode' | 'nightMode' | 'originUiMode'>('lightMode')
   const [copiedValue, setCopiedValue] = useState<string | null>(null)
   const { viewMode } = useViewMode()
 
@@ -377,14 +389,14 @@ export default function ColorsPage() {
             <div className="flex flex-wrap items-center gap-3">
               <label className="text-sm-rem font-semibold text-foreground">Theme:</label>
               <div className="flex flex-wrap gap-2">
-                {(['lightMode', 'darkMode', 'nightMode'] as const).map((mode) => (
+                {(['lightMode', 'darkMode', 'nightMode', 'originUiMode'] as const).map((mode) => (
                   <Button
                     key={mode}
                     onClick={() => setSelectedMode(mode)}
                     variant={selectedMode === mode ? 'primary' : 'secondary'}
                     size="sm"
                   >
-                    {mode === 'lightMode' ? 'Light' : mode === 'darkMode' ? 'Dark' : 'Night'}
+                    {mode === 'lightMode' ? 'Light' : mode === 'darkMode' ? 'Dark' : mode === 'nightMode' ? 'Night' : 'Origin UI'}
                   </Button>
                 ))}
               </div>
@@ -410,6 +422,50 @@ export default function ColorsPage() {
 
           {/* Color Families */}
           <div className="space-y-12">
+            <div className="space-y-4">
+              <div className="space-y-1">
+                <h2 className="text-xl-rem font-semibold">Gradients</h2>
+                <p className="text-sm-rem text-muted-foreground">
+                  Tokenized FT gradient presets. Click any card to copy the CSS variable.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {gradientSwatches.map((gradient) => {
+                  const displayValue = gradient.cssVar
+                  const isCopied = copiedValue === displayValue
+
+                  return (
+                    <div
+                      key={gradient.name}
+                      className="group cursor-pointer space-y-3 rounded-lg border border-border bg-card p-3 shadow-sm transition-transform hover:scale-[1.01]"
+                      onClick={() => copyToClipboard(displayValue)}
+                      title="Click to copy CSS variable"
+                    >
+                      <div
+                        className="relative h-32 w-full rounded-md border border-border"
+                        style={{ backgroundImage: gradient.value }}
+                      >
+                        <div className="absolute inset-x-3 bottom-3 flex items-center justify-between rounded-md bg-black/45 px-3 py-2 backdrop-blur-sm">
+                          <span className="text-sm-rem font-semibold text-white">{gradient.name}</span>
+                          <span className="text-xs-rem text-white/80">
+                            {isCopied ? "Copied!" : "Copy var"}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="font-mono text-xs-rem text-muted-foreground break-all">
+                          {gradient.cssVar}
+                        </div>
+                        <div className="font-mono text-xs-rem text-muted-foreground break-all">
+                          {gradient.value}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
             {colorFamilies.map((family) => {
               const swatches = colorScales[family.name as keyof typeof colorScales] || []
               return (

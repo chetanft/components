@@ -231,10 +231,17 @@ const data = {
   ],
 }
 
+const highlightedPoints = [
+  { datasetIndex: 0, pointIndex: 3 },
+  { datasetIndex: 1, pointIndex: 3 },
+  { datasetIndex: 2, pointIndex: 3 },
+]
+
 <ScatterChart
   title="Customer Segments"
   data={data}
   height={300}
+  highlightedPoints={highlightedPoints}
 />`,
   },
 ]

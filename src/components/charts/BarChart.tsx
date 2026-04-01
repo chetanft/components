@@ -1,8 +1,8 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions, Plugin } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
+import { createBarGlowPlugin, defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
 
 export interface BarChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'bar'>;
@@ -21,6 +21,8 @@ export interface BarChartProps extends Omit<BaseChartProps, 'children'> {
   showLabels?: boolean;
   /** Custom label formatter function */
   labelFormatter?: (value: number | string) => string;
+  /** Optional glow treatment for emphasized bar charts */
+  glow?: boolean;
 }
 
 export const BarChart: React.FC<BarChartProps> = ({
@@ -36,6 +38,7 @@ export const BarChart: React.FC<BarChartProps> = ({
   borderRadius = 4,
   showLabels = false,
   labelFormatter,
+  glow = false,
   defaultColors: customDefaultColors,
   ...props
 }) => {
@@ -95,14 +98,14 @@ export const BarChart: React.FC<BarChartProps> = ({
     maintainAspectRatio: false,
     responsive: true,
   };
+  const plugins: Plugin<'bar'>[] | undefined = glow ? [createBarGlowPlugin<'bar'>('ftBarGlow')] : undefined;
 
   return (
     <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
-      <Bar data={processedData} options={chartOptions} />
+      <Bar data={processedData} options={chartOptions} plugins={plugins} />
     </BaseChart>
   );
 };
-
 
 
 

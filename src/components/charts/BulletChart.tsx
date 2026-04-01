@@ -1,115 +1,187 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions, Plugin } from 'chart.js';
 import { BaseChart } from './BaseChart';
-import { defaultChartOptions, chartColors } from './chartConfig';
+import { defaultChartOptions, ftChartColors, getCssVar, toRgba } from './chartConfig';
 
 export interface BulletChartProps {
   label: string;
   current: number;
   target: number;
-  ranges: [number, number, number]; // bad, satisfactory, good (e.g., [50, 75, 100])
+  ranges: [number, number, number];
   title?: string;
   height?: number;
 }
 
+const bulletTargetMarkerPlugin: Plugin<'bar'> = {
+  id: 'ftBulletTargetMarker',
+  afterDatasetsDraw(chart) {
+    const markerTarget = (chart.options.plugins?.ftBulletTargetMarker as { target?: number } | undefined)?.target;
+    if (typeof markerTarget !== 'number') return;
+
+    const xScale = chart.scales.x;
+    const yScale = chart.scales.y;
+    if (!xScale || !yScale) return;
+
+    const x = xScale.getPixelForValue(markerTarget);
+    const centerY = yScale.getPixelForValue(0);
+    const ctx = chart.ctx;
+
+    ctx.save();
+    ctx.strokeStyle = ftChartColors.text.primary;
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x, centerY - 18);
+    ctx.lineTo(x, centerY + 18);
+    ctx.stroke();
+    ctx.restore();
+  },
+};
+
 export const BulletChart: React.FC<BulletChartProps> = ({
   label,
   current,
+  target,
   ranges,
   title,
   height = 120,
 }) => {
-  // Bullet chart implementation using stacked bars is tricky for ranges
-  // Easier approach: Multiple datasets overlapping
-  // Ranges: Background bar
-  // Current: Narrower bar
-  // Target: Vertical line (simulated or plugin)
-
-  // Since we don't have plugins, we'll use a stacked bar approach where "ranges" are segments
-  // And "current" is a bar on top (using mixed type chart or just CSS overlap? No, Chart.js supports multiple datasets)
-  // Actually Bullet chart in Chart.js usually needs a plugin or very custom dataset config.
-
-  // Simplified implementation:
-  // Dataset 1: Range 1 (Bad) - Color 1
-  // Dataset 2: Range 2 (Satisfactory) - Color 2
-  // Dataset 3: Range 3 (Good) - Color 3
-  // Dataset 4: Current Value - Narrow bar (BarPercentage)
-  // Target: We can use a scatter point or just skip for now if too complex without plugin.
+  const safeMax = Math.max(ranges[2], current, target);
+  const rangeSegments = [
+    ranges[0],
+    ranges[1] - ranges[0],
+    ranges[2] - ranges[1],
+  ];
 
   const chartData: ChartData<'bar'> = {
     labels: [label],
     datasets: [
-      // Current Value (Top Layer)
+      {
+        label: 'Poor',
+        data: [rangeSegments[0]],
+        backgroundColor: ftChartColors.border.secondary,
+        borderColor: 'transparent',
+        borderWidth: 0,
+        stack: 'ranges',
+        grouped: false,
+        borderRadius: {
+          topLeft: 999,
+          bottomLeft: 999,
+          topRight: 0,
+          bottomRight: 0,
+        },
+        borderSkipped: false,
+        barThickness: 18,
+        order: 2,
+      },
+      {
+        label: 'Average',
+        data: [rangeSegments[1]],
+        backgroundColor: toRgba(ftChartColors.border.primary, 0.72),
+        borderColor: 'transparent',
+        borderWidth: 0,
+        stack: 'ranges',
+        grouped: false,
+        borderRadius: 0,
+        borderSkipped: false,
+        barThickness: 18,
+        order: 2,
+      },
+      {
+        label: 'Excellent',
+        data: [rangeSegments[2]],
+        backgroundColor: toRgba(getCssVar('--positive', '#00c637'), 0.24),
+        borderColor: 'transparent',
+        borderWidth: 0,
+        stack: 'ranges',
+        grouped: false,
+        borderRadius: {
+          topLeft: 0,
+          bottomLeft: 0,
+          topRight: 999,
+          bottomRight: 999,
+        },
+        borderSkipped: false,
+        barThickness: 18,
+        order: 2,
+      },
       {
         label: 'Current',
         data: [current],
-        backgroundColor: chartColors.indigo, // Dark strong color
-        barPercentage: 0.3,
-        categoryPercentage: 1, // Full width of category
-        // zIndex: 10, // Removed to fix type error
+        backgroundColor: ftChartColors.text.primary,
+        borderColor: ftChartColors.text.primary,
+        borderWidth: 0,
+        grouped: false,
+        borderRadius: 999,
+        borderSkipped: false,
+        barThickness: 12,
         order: 1,
       },
-      // Ranges (Background Layers)
-      // We need them to be separate bars or stacked?
-      // If we make them stacked, they add up.
-      // So: Range 1 = val[0]
-      // Range 2 = val[1] - val[0]
-      // Range 3 = val[2] - val[1]
-      {
-        label: 'Bad',
-        data: [ranges[0]],
-        backgroundColor: 'var(--neutral-light)',
-        barPercentage: 1,
-        categoryPercentage: 1,
-        stack: 'ranges',
-        order: 2,
-      },
-      {
-        label: 'Satisfactory',
-        data: [ranges[1] - ranges[0]],
-        backgroundColor: 'var(--border-secondary)',
-        barPercentage: 1,
-        categoryPercentage: 1,
-        stack: 'ranges',
-        order: 2,
-      },
-      {
-        label: 'Good',
-        data: [ranges[2] - ranges[1]],
-        backgroundColor: 'var(--border-primary)',
-        barPercentage: 1,
-        categoryPercentage: 1,
-        stack: 'ranges',
-        order: 2,
-      }
-    ]
+    ],
   };
 
   const chartOptions: ChartOptions<'bar'> = {
     ...defaultChartOptions,
     indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       x: {
-        display: true,
-        max: ranges[2], // Max range
-        grid: { display: false }
+        ...defaultChartOptions.scales.x,
+        stacked: true,
+        min: 0,
+        max: safeMax,
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          ...defaultChartOptions.scales.x.ticks,
+          color: ftChartColors.text.secondary,
+        },
+        border: {
+          color: toRgba(ftChartColors.border.primary, 0.9),
+        },
       },
       y: {
-        display: true,
-        grid: { display: false },
-        stacked: true // Stack the ranges
-      }
+        ...defaultChartOptions.scales.y,
+        stacked: true,
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          ...defaultChartOptions.scales.y.ticks,
+          color: ftChartColors.text.primary,
+        },
+        border: {
+          color: toRgba(ftChartColors.border.primary, 0.9),
+        },
+      },
     },
     plugins: {
-      legend: { display: false },
-      title: { display: !!title, text: title }
-    }
+      ...defaultChartOptions.plugins,
+      legend: {
+        display: false,
+      },
+      title: {
+        ...defaultChartOptions.plugins.title,
+        display: false,
+      },
+      tooltip: {
+        ...defaultChartOptions.plugins.tooltip,
+        enabled: true,
+      },
+      ftBulletTargetMarker: {
+        target,
+      },
+    },
   };
 
   return (
     <BaseChart title={title} height={height}>
-      <Bar data={chartData} options={chartOptions} />
+      <Bar data={chartData} options={chartOptions} plugins={[bulletTargetMarkerPlugin]} />
     </BaseChart>
   );
 };

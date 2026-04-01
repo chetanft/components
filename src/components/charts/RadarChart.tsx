@@ -1,8 +1,8 @@
 import React from 'react';
 import { Radar } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions, Plugin } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
+import { createLineGlowPlugin, defaultColors, defaultChartOptions, ftChartColors, toRgba } from './chartConfig';
 
 export interface RadarChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'radar'>;
@@ -20,10 +20,10 @@ export const RadarChart: React.FC<RadarChartProps> = ({
   height = 400,
   className,
   options,
-  showDots = true,
+  showDots = false,
   linesOnly = false,
   labelFormatter,
-  gridType = 'default',
+  gridType = 'circle',
   showLegend = true,
   defaultColors: customDefaultColors,
   ...props
@@ -36,19 +36,21 @@ export const RadarChart: React.FC<RadarChartProps> = ({
     ...data,
     datasets: data.datasets.map((dataset, index) => {
       const baseColor = colors[index % colors.length];
-      const bgOpacity = gridType === 'filled' ? '80' : '40';
-      
+
       return {
         ...dataset,
-        backgroundColor: dataset.backgroundColor || (linesOnly ? 'transparent' : `${baseColor}${bgOpacity}`),
+        backgroundColor: dataset.backgroundColor || (linesOnly ? 'transparent' : toRgba(baseColor, gridType === 'filled' ? 0.2 : 0.12)),
         borderColor: dataset.borderColor || baseColor,
-        borderWidth: dataset.borderWidth || 2,
-        pointRadius: showDots ? (dataset.pointRadius ?? 4) : 0,
-        pointHoverRadius: showDots ? (dataset.pointHoverRadius ?? 6) : 0,
+        borderWidth: dataset.borderWidth || 4,
+        borderJoinStyle: dataset.borderJoinStyle || 'round',
+        pointRadius: showDots ? (dataset.pointRadius ?? 3) : 0,
+        pointHoverRadius: showDots ? (dataset.pointHoverRadius ?? 6) : 5,
         pointBackgroundColor: dataset.pointBackgroundColor || baseColor,
         pointBorderColor: dataset.pointBorderColor || ftChartColors.background.primary,
+        pointBorderWidth: dataset.pointBorderWidth || 2,
         pointHoverBackgroundColor: dataset.pointHoverBackgroundColor || baseColor,
         pointHoverBorderColor: dataset.pointHoverBorderColor || ftChartColors.background.primary,
+        pointHoverBorderWidth: dataset.pointHoverBorderWidth || 2,
       };
     }),
   };
@@ -62,15 +64,16 @@ export const RadarChart: React.FC<RadarChartProps> = ({
       case 'circle':
         return {
           circular: true,
-          color: ftChartColors.grid,
+          color: toRgba(ftChartColors.grid, 0.72),
         };
       case 'filled':
         return {
-          color: ftChartColors.grid,
+          color: toRgba(ftChartColors.grid, 0.72),
         };
       default:
         return {
-          color: ftChartColors.grid,
+          color: toRgba(ftChartColors.grid, 0.72),
+          circular: true,
         };
     }
   };
@@ -80,12 +83,16 @@ export const RadarChart: React.FC<RadarChartProps> = ({
     scales: {
       r: {
         grid: getGridConfig(),
+        angleLines: {
+          color: toRgba(ftChartColors.grid, 0.52),
+        },
         ticks: {
           display: gridType !== 'none',
           color: ftChartColors.text.secondary,
+          backdropColor: 'transparent',
           font: {
             family: 'Inter, system-ui, sans-serif',
-            size: 12,
+            size: 11,
           },
         },
         pointLabels: {
@@ -114,11 +121,11 @@ export const RadarChart: React.FC<RadarChartProps> = ({
     maintainAspectRatio: false,
     responsive: true,
   };
+  const plugins: Plugin<'radar'>[] = [createLineGlowPlugin<'radar'>('ftRadarGlow')];
 
   return (
     <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
-      <Radar data={processedData} options={chartOptions} />
+      <Radar data={processedData} options={chartOptions} plugins={plugins} />
     </BaseChart>
   );
 };
-

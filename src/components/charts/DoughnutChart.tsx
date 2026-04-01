@@ -1,13 +1,14 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions, Plugin } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
+import { createArcGlowPlugin, defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
 
 export interface DoughnutChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'doughnut'>;
   options?: ChartOptions<'doughnut'>;
   innerRadius?: number;
+  glow?: boolean;
 }
 
 export const DoughnutChart: React.FC<DoughnutChartProps> = ({
@@ -17,6 +18,7 @@ export const DoughnutChart: React.FC<DoughnutChartProps> = ({
   className,
   options,
   innerRadius,
+  glow = false,
   defaultColors: customDefaultColors,
   ...props
 }) => {
@@ -42,11 +44,11 @@ export const DoughnutChart: React.FC<DoughnutChartProps> = ({
     maintainAspectRatio: false,
     responsive: true,
   };
+  const plugins: Plugin<'doughnut'>[] | undefined = glow ? [createArcGlowPlugin<'doughnut'>('ftArcGlow')] : undefined;
 
   return (
     <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
-      <Doughnut data={processedData} options={chartOptions} />
+      <Doughnut data={processedData} options={chartOptions} plugins={plugins} />
     </BaseChart>
   );
 };
-

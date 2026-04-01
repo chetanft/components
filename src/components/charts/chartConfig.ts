@@ -1,5 +1,6 @@
 import {
   Chart as ChartJS,
+  ChartType,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -11,6 +12,7 @@ import {
   Legend,
   Tooltip,
   Title,
+  Plugin,
 } from 'chart.js';
 
 // Register Chart.js components
@@ -39,6 +41,12 @@ export function getCssVar(name: string, fallback: string): string {
     .getPropertyValue(name)
     .trim();
   return value || fallback;
+}
+
+export function getCssNumberVar(name: string, fallback: number): number {
+  const value = getCssVar(name, String(fallback));
+  const parsed = Number.parseFloat(value);
+  return Number.isNaN(parsed) ? fallback : parsed;
 }
 
 // FT Design System Chart Colors - Main Palette
@@ -227,6 +235,207 @@ export const ftChartColors = {
     return getCssVar('--border-secondary', '#e1e2e4');
   },
 };
+
+export function getChartGlowTokens() {
+  return {
+    blurSm: getCssVar('--chart-glow-blur-sm', '8px'),
+    blurMd: getCssVar('--chart-glow-blur-md', '16px'),
+    blurLg: getCssVar('--chart-glow-blur-lg', '24px'),
+    alphaPrimary: getCssNumberVar('--chart-glow-alpha-primary', 0.32),
+    alphaSecondary: getCssNumberVar('--chart-glow-alpha-secondary', 0.18),
+  };
+}
+
+export function toRgba(color: string | undefined | null, alpha: number): string {
+  if (!color) {
+    return `rgba(0, 0, 0, ${alpha})`;
+  }
+
+  if (color.startsWith('#')) {
+    const normalized = color.replace('#', '');
+    const full = normalized.length === 3
+      ? normalized.split('').map((part) => `${part}${part}`).join('')
+      : normalized;
+    if (/^[0-9a-fA-F]{6}$/.test(full)) {
+      const r = parseInt(full.slice(0, 2), 16);
+      const g = parseInt(full.slice(2, 4), 16);
+      const b = parseInt(full.slice(4, 6), 16);
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+    }
+  }
+
+  const match = color.match(/^rgba?\(([^)]+)\)$/);
+  if (match) {
+    const parts = match[1].split(',').map((part) => part.trim());
+    if (parts.length >= 3) {
+      return `rgba(${parts[0]}, ${parts[1]}, ${parts[2]}, ${alpha})`;
+    }
+  }
+
+  return color;
+}
+
+function getGlowBlur(size: string): number {
+  const parsed = Number.parseFloat(size);
+  return Number.isNaN(parsed) ? 0 : parsed;
+}
+
+export function createLineGlowPlugin<TType extends ChartType = 'line'>(
+  id = 'ftLineGlow'
+): Plugin<TType> {
+  return {
+    id,
+    beforeDatasetDraw(chart, args) {
+      const dataset = chart.data.datasets[args.index];
+      if (!dataset || args.index > 1) return;
+
+      const borderColor = dataset.borderColor;
+      const baseColor = typeof borderColor === 'string'
+        ? borderColor
+        : Array.isArray(borderColor)
+          ? borderColor[0]
+          : chartColors.teal;
+      const glow = getChartGlowTokens();
+      const ctx = chart.ctx;
+
+      ctx.save();
+      ctx.shadowColor = toRgba(baseColor, args.index === 0 ? glow.alphaPrimary : glow.alphaSecondary);
+      ctx.shadowBlur = getGlowBlur(args.index === 0 ? glow.blurLg : glow.blurSm);
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+    },
+    afterDatasetDraw(chart) {
+      chart.ctx.restore();
+    },
+  };
+}
+
+export function createArcGlowPlugin<TType extends ChartType = 'doughnut'>(
+  id = 'ftArcGlow',
+  targetDataIndex = 0
+): Plugin<TType> {
+  return {
+    id,
+    afterDatasetDraw(chart, args) {
+      const meta = chart.getDatasetMeta(args.index);
+      const arc = meta.data?.[targetDataIndex] as { options?: { backgroundColor?: string | string[] }; draw?: (ctx: CanvasRenderingContext2D) => void } | undefined;
+      if (!arc?.draw) return;
+
+      const backgroundColor = arc.options?.backgroundColor;
+      const baseColor = typeof backgroundColor === 'string'
+        ? backgroundColor
+        : Array.isArray(backgroundColor)
+          ? backgroundColor[0]
+          : chartColors.teal;
+      const glow = getChartGlowTokens();
+      const ctx = chart.ctx;
+
+      ctx.save();
+      ctx.shadowColor = toRgba(baseColor, glow.alphaPrimary);
+      ctx.shadowBlur = getGlowBlur(glow.blurLg);
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      arc.draw(ctx);
+      ctx.restore();
+    },
+  };
+}
+
+export function createBarGlowPlugin<TType extends ChartType = 'bar'>(
+  id = 'ftBarGlow'
+): Plugin<TType> {
+  return {
+    id,
+    beforeDatasetDraw(chart, args) {
+      if (args.index > 0) return;
+
+      const dataset = chart.data.datasets[args.index];
+      const backgroundColor = dataset?.backgroundColor;
+      const baseColor = typeof backgroundColor === 'string'
+        ? backgroundColor
+        : Array.isArray(backgroundColor)
+          ? backgroundColor[0]
+          : chartColors.teal;
+      const glow = getChartGlowTokens();
+      const ctx = chart.ctx;
+
+      ctx.save();
+      ctx.shadowColor = toRgba(baseColor, glow.alphaSecondary);
+      ctx.shadowBlur = getGlowBlur(glow.blurMd);
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+    },
+    afterDatasetDraw(chart, args) {
+      if (args.index > 0) return;
+      chart.ctx.restore();
+    },
+  };
+}
+
+export function createScatterGlowPlugin<TType extends ChartType = 'scatter'>(
+  id = 'ftScatterGlow'
+): Plugin<TType> {
+  return {
+    id,
+    beforeDatasetDraw(chart, args) {
+      const dataset = chart.data.datasets[args.index];
+      if (!(dataset as { ftGlow?: boolean } | undefined)?.ftGlow) return;
+
+      const backgroundColor = dataset?.backgroundColor;
+      const baseColor = typeof backgroundColor === 'string'
+        ? backgroundColor
+        : Array.isArray(backgroundColor)
+          ? backgroundColor[0]
+          : chartColors.teal;
+      const glow = getChartGlowTokens();
+      const ctx = chart.ctx;
+
+      ctx.save();
+      ctx.shadowColor = toRgba(baseColor, glow.alphaPrimary);
+      ctx.shadowBlur = getGlowBlur(glow.blurLg);
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+    },
+    afterDatasetDraw(chart, args) {
+      const dataset = chart.data.datasets[args.index];
+      if (!(dataset as { ftGlow?: boolean } | undefined)?.ftGlow) return;
+      chart.ctx.restore();
+    },
+  };
+}
+
+export function createPolarAreaGlowPlugin<TType extends ChartType = 'polarArea'>(
+  id = 'ftPolarGlow'
+): Plugin<TType> {
+  return {
+    id,
+    afterDatasetDraw(chart, args) {
+      const meta = chart.getDatasetMeta(args.index);
+      const glow = getChartGlowTokens();
+      const ctx = chart.ctx;
+
+      meta.data.forEach((arc) => {
+        const polarArc = arc as { options?: { backgroundColor?: string | string[] }; draw?: (ctx: CanvasRenderingContext2D) => void };
+        if (!polarArc.draw) return;
+
+        const backgroundColor = polarArc.options?.backgroundColor;
+        const baseColor = typeof backgroundColor === 'string'
+          ? backgroundColor
+          : Array.isArray(backgroundColor)
+            ? backgroundColor[0]
+            : chartColors.teal;
+
+        ctx.save();
+        ctx.shadowColor = toRgba(baseColor, glow.alphaSecondary);
+        ctx.shadowBlur = getGlowBlur(glow.blurMd);
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        polarArc.draw(ctx);
+        ctx.restore();
+      });
+    },
+  };
+}
 
 // Default Chart.js configuration using FT Design System
 // Function so colors are resolved fresh each call (theme-reactive).

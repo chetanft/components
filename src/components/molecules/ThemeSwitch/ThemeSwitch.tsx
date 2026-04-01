@@ -23,7 +23,7 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
   const { theme, setTheme } = useTheme();
 
   const handleThemeChange = (newTheme: string) => {
-    if (newTheme === 'light' || newTheme === 'dark' || newTheme === 'night') {
+    if (newTheme === 'light' || newTheme === 'dark' || newTheme === 'night' || newTheme === 'origin-ui') {
       setTheme(newTheme);
     }
   };
@@ -38,6 +38,7 @@ export const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
         <SegmentedTabItem value="light">{showLabels ? 'Light' : '☀️'}</SegmentedTabItem>
         <SegmentedTabItem value="dark">{showLabels ? 'Dark' : '🌙'}</SegmentedTabItem>
         <SegmentedTabItem value="night">{showLabels ? 'Night' : '🌃'}</SegmentedTabItem>
+        <SegmentedTabItem value="origin-ui">{showLabels ? 'Origin UI' : '◐'}</SegmentedTabItem>
       </SegmentedTabs>
     );
   }

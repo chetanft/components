@@ -1,16 +1,22 @@
 {
-  "generatedAt": "2026-03-30T10:57:35.862Z",
+  "generatedAt": "2026-04-01T13:18:27.977Z",
   "summary": {
-    "totalIssues": 1,
-    "totalFilesWithIssues": 1,
+    "totalIssues": 2,
+    "totalFilesWithIssues": 2,
     "byRule": {
-      "hardcoded_px_literal": 1
+      "hardcoded_px_literal": 2
     },
     "bySeverity": {
       "error": 0,
-      "warn": 1
+      "warn": 2
     },
     "byFile": {
+      "src/components/charts/chartConfig.ts": {
+        "total": 1,
+        "rules": {
+          "hardcoded_px_literal": 1
+        }
+      },
       "src/components/organisms/Sidebar/SidebarProvider.tsx": {
         "total": 1,
         "rules": {
@@ -20,6 +26,12 @@
     }
   },
   "issues": [
+    {
+      "rule": "hardcoded_px_literal",
+      "severity": "warn",
+      "file": "src/components/charts/chartConfig.ts",
+      "message": "3 hardcoded px literal(s) found"
+    },
     {
       "rule": "hardcoded_px_literal",
       "severity": "warn",

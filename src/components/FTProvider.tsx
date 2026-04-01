@@ -6,7 +6,7 @@ import * as React from 'react';
 // Types
 // ---------------------------------------------------------------------------
 
-export type Theme = 'light' | 'dark' | 'night';
+export type Theme = 'light' | 'dark' | 'night' | 'origin-ui';
 export type ThemeInput = Theme | 'system';
 export type GlassMode = false | 'subtle' | true | 'prominent' | 'liquid';
 
@@ -69,6 +69,7 @@ export interface ThemeContextType {
   isLight: boolean;
   isDark: boolean;
   isNight: boolean;
+  isOriginUi: boolean;
 }
 
 export interface GlassContextType {
@@ -260,7 +261,7 @@ export const FTProvider: React.FC<FTProviderProps> = ({
         localStorage.setItem(themeStorageKey, newTheme);
         // Apply immediately to <html>
         const html = document.documentElement;
-        html.classList.remove('light', 'dark', 'night');
+        html.classList.remove('light', 'dark', 'night', 'origin-ui');
         html.classList.add(newTheme);
         html.setAttribute('data-theme', newTheme);
       }
@@ -272,7 +273,7 @@ export const FTProvider: React.FC<FTProviderProps> = ({
   React.useEffect(() => {
     if (typeof document === 'undefined') return;
     const html = document.documentElement;
-    html.classList.remove('light', 'dark', 'night');
+    html.classList.remove('light', 'dark', 'night', 'origin-ui');
     html.classList.add(resolvedTheme);
     html.setAttribute('data-theme', resolvedTheme);
   }, [resolvedTheme]);
@@ -331,6 +332,7 @@ export const FTProvider: React.FC<FTProviderProps> = ({
       isLight: resolvedTheme === 'light',
       isDark: resolvedTheme === 'dark',
       isNight: resolvedTheme === 'night',
+      isOriginUi: resolvedTheme === 'origin-ui',
       glassMode,
       setGlassMode,
     }),
@@ -372,7 +374,7 @@ const defaultContext: FTThemeContextType = {
   },
   get isLight() {
     if (typeof document === 'undefined') return true;
-    return !document.documentElement.classList.contains('dark') && !document.documentElement.classList.contains('night');
+    return !document.documentElement.classList.contains('dark') && !document.documentElement.classList.contains('night') && !document.documentElement.classList.contains('origin-ui');
   },
   get isDark() {
     if (typeof document === 'undefined') return false;
@@ -381,6 +383,10 @@ const defaultContext: FTThemeContextType = {
   get isNight() {
     if (typeof document === 'undefined') return false;
     return document.documentElement.classList.contains('night');
+  },
+  get isOriginUi() {
+    if (typeof document === 'undefined') return false;
+    return document.documentElement.classList.contains('origin-ui');
   },
   glassMode: false,
   setGlassMode: () => {
@@ -405,8 +411,8 @@ export function useFTTheme(): FTThemeContextType {
 export function useTheme(): ThemeContextType {
   const context = React.useContext(FTThemeContext);
   const resolved = context ?? defaultContext;
-  const { theme, setTheme, isLight, isDark, isNight } = resolved;
-  return { theme, setTheme, isLight, isDark, isNight };
+  const { theme, setTheme, isLight, isDark, isNight, isOriginUi } = resolved;
+  return { theme, setTheme, isLight, isDark, isNight, isOriginUi };
 }
 
 /**

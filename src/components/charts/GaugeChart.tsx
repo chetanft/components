@@ -1,8 +1,8 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions, Plugin } from 'chart.js';
 import { BaseChart } from './BaseChart';
-import { defaultChartOptions, chartColors, ftChartColors } from './chartConfig';
+import { createArcGlowPlugin, defaultChartOptions, chartColors, ftChartColors } from './chartConfig';
 
 export interface GaugeChartProps {
   value: number; // 0-100
@@ -12,6 +12,7 @@ export interface GaugeChartProps {
   height?: number;
   color?: string;
   backgroundColor?: string;
+  glow?: boolean;
 }
 
 export const GaugeChart: React.FC<GaugeChartProps> = ({
@@ -22,6 +23,7 @@ export const GaugeChart: React.FC<GaugeChartProps> = ({
   height = 300,
   color = chartColors.indigo,
   backgroundColor = ftChartColors.grid,
+  glow = true,
 }) => {
   // Normalize value to percentage for display
   const percentage = Math.min(Math.max((value - min) / (max - min), 0), 1);
@@ -54,11 +56,12 @@ export const GaugeChart: React.FC<GaugeChartProps> = ({
       },
     },
   };
+  const plugins: Plugin<'doughnut'>[] | undefined = glow ? [createArcGlowPlugin<'doughnut'>('ftGaugeGlow')] : undefined;
 
   return (
     <BaseChart title={title} height={height}>
       <div className="relative w-full h-full flex flex-col items-center justify-center">
-        <Doughnut data={chartData} options={chartOptions} />
+        <Doughnut data={chartData} options={chartOptions} plugins={plugins} />
         <div className="absolute top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
           <div className="text-3xl font-bold text-[var(--primary)]">{value}</div>
           <div className="text-sm text-[var(--secondary)]">Min: {min} - Max: {max}</div>
@@ -67,5 +70,4 @@ export const GaugeChart: React.FC<GaugeChartProps> = ({
     </BaseChart>
   );
 };
-
 

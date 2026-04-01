@@ -390,6 +390,135 @@ export const designTokens = {
       pink200: "#FF809A",
       pink100: "#FFB3C3",
       pink50: "#FFE5EB"
+    },
+
+    originUiMode: {
+      // Primary Scale (Zinc palette — dark surface)
+      primary900: "#fafafa",   // zinc-50
+      primary800: "#f4f4f5",   // zinc-100
+      primary700: "#e4e4e7",   // zinc-200
+      primary600: "#d4d4d8",   // zinc-300
+      primary500: "#a1a1aa",   // zinc-400
+      primary400: "#71717a",   // zinc-500
+      primary300: "#52525b",   // zinc-600
+      primary200: "#3f3f46",   // zinc-700
+      primary100: "#27272a",   // zinc-800
+
+      // Secondary Scale (Zinc)
+      secondary900: "#fafafa",
+      secondary800: "#f4f4f5",
+      secondary700: "#e4e4e7",
+      secondary600: "#d4d4d8",
+      secondary500: "#a1a1aa",
+      secondary400: "#71717a",
+      secondary300: "#52525b",
+      secondary200: "#3f3f46",
+      secondary100: "#27272a",
+
+      // Tertiary Scale (Zinc)
+      tertiary900: "#fafafa",
+      tertiary800: "#f4f4f5",
+      tertiary700: "#e4e4e7",
+      tertiary600: "#d4d4d8",
+      tertiary500: "#a1a1aa",
+      tertiary400: "#71717a",
+      tertiary300: "#52525b",
+      tertiary200: "#3f3f46",
+      tertiary100: "#18181b",
+      tertiary0: "#0a0a0a",
+
+      // Neutral Scale (functional blues — shared)
+      neutral900: "#e0f0ff",
+      neutral800: "#cce6ff",
+      neutral700: "#b8dbff",
+      neutral600: "#a3d1ff",
+      neutral500: "#8fc7ff",
+      neutral400: "#7abeff",
+      neutral300: "#66b4ff",
+      neutral200: "#52aaff",
+      neutral100: "#3da0ff",
+
+      // Positive Scale (functional greens — shared)
+      positive900: "#ccffdd",
+      positive800: "#b8f5c8",
+      positive700: "#a3ecb3",
+      positive600: "#8fe29e",
+      positive500: "#7ad889",
+      positive400: "#66ce74",
+      positive300: "#52c460",
+      positive200: "#3dba4b",
+      positive100: "#29b036",
+
+      // Warning Scale (functional oranges — shared)
+      warning900: "#ffe6cc",
+      warning800: "#ffddb8",
+      warning700: "#ffd4a3",
+      warning600: "#ffcb8f",
+      warning500: "#ffc27a",
+      warning400: "#ffb866",
+      warning300: "#ffae52",
+      warning200: "#ffa43d",
+      warning100: "#ff9a29",
+
+      // Danger Scale (functional reds — shared)
+      danger900: "#ffe3e3",
+      danger800: "#ffd1d1",
+      danger700: "#ffbfbf",
+      danger600: "#ffadad",
+      danger500: "#ff9b9b",
+      danger400: "#ff8989",
+      danger300: "#ff7777",
+      danger200: "#ff6565",
+      danger100: "#ff5353",
+
+      // Chart Color Families (same across themes)
+      teal950: "#0D2626",
+      teal900: "#143939",
+      teal800: "#215E5E",
+      teal700: "#2E8484",
+      teal600: "#3CAAAA",
+      teal500: "#42BDBD",
+      teal400: "#4CC0C0",
+      teal300: "#7BD1D1",
+      teal200: "#A1DEDE",
+      teal100: "#C6EBEB",
+      teal50: "#ECF8F8",
+
+      indigo950: "#020831",
+      indigo900: "#020C4A",
+      indigo800: "#04147C",
+      indigo700: "#061CAD",
+      indigo600: "#0724DE",
+      indigo500: "#0828F7",
+      indigo400: "#213DF8",
+      indigo300: "#6377FA",
+      indigo200: "#8393FB",
+      indigo100: "#B5BEFD",
+      indigo50: "#E6E9FE",
+
+      blue950: "#051D2E",
+      blue900: "#072C46",
+      blue800: "#0C4A74",
+      blue700: "#1067A2",
+      blue600: "#1584D1",
+      blue500: "#1793E8",
+      blue400: "#37A2EB",
+      blue300: "#5DB4EF",
+      blue200: "#8BC9F3",
+      blue100: "#B9DFF8",
+      blue50: "#E8F4FD",
+
+      pink950: "#33000B",
+      pink900: "#4D0010",
+      pink800: "#80001B",
+      pink700: "#B30026",
+      pink600: "#E60031",
+      pink500: "#FF0036",
+      pink400: "#FF1A4A",
+      pink300: "#FF6384",
+      pink200: "#FF809A",
+      pink100: "#FFB3C3",
+      pink50: "#FFE5EB"
     }
   },
 
@@ -468,6 +597,26 @@ export const designTokens = {
         neutral: 'neutral500',        // #94caff
         white: 'primary900',          // #ffffff
         black: 'tertiary0',           // #000000
+      },
+      'origin-ui': {
+        // Map to originUiMode base colors (Zinc palette)
+        primary: 'primary700',        // #e4e4e7 (zinc-200)
+        secondary: 'primary500',      // #a1a1aa (zinc-400)
+        tertiary: 'primary400',       // #71717a (zinc-500)
+        border: {
+          primary: 'primary200',      // #3f3f46 (zinc-700)
+          secondary: 'primary100',    // #27272a (zinc-800)
+        },
+        bg: {
+          primary: 'tertiary0',       // #0a0a0a (zinc-950)
+          secondary: 'tertiary100',   // #18181b (zinc-900)
+        },
+        critical: 'danger500',        // #ff9b9b
+        warning: 'warning500',        // #ffc27a
+        positive: 'positive500',      // #7ad889
+        neutral: 'neutral500',        // #8fc7ff
+        white: 'primary900',          // #fafafa
+        black: 'tertiary0',           // #0a0a0a
       }
     },
 
@@ -519,6 +668,11 @@ export const designTokens = {
         medium: 'rgba(0, 0, 0, 0.55)',
         light: 'rgba(0, 0, 0, 0.35)',
       },
+      'origin-ui': {
+        strong: 'rgba(0, 0, 0, 0.75)',
+        medium: 'rgba(0, 0, 0, 0.55)',
+        light: 'rgba(0, 0, 0, 0.35)',
+      },
       controls: {
         light: {
           bg: 'rgba(255, 255, 255, 0.12)',
@@ -537,6 +691,12 @@ export const designTokens = {
           hover: 'rgba(255, 255, 255, 0.35)',
           divider: 'rgba(255, 255, 255, 0.4)',
           text: '#ffffff',
+        },
+        'origin-ui': {
+          bg: 'rgba(255, 255, 255, 0.16)',
+          hover: 'rgba(255, 255, 255, 0.28)',
+          divider: 'rgba(255, 255, 255, 0.35)',
+          text: '#fafafa',
         },
       },
     },
@@ -579,6 +739,19 @@ export const designTokens = {
         blurLg: '32px',
         blurSm: '12px',
         saturate: '1.3',
+      },
+      'origin-ui': {
+        bg: 'rgba(10, 10, 11, 0.45)',
+        bgSubtle: 'rgba(10, 10, 11, 0.30)',
+        bgProminent: 'rgba(10, 10, 11, 0.60)',
+        border: 'rgba(255, 255, 255, 0.15)',
+        borderSubtle: 'rgba(255, 255, 255, 0.08)',
+        shadow: '0 4px 30px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.2)',
+        shadowLg: '0 8px 40px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.25)',
+        blur: '12px',
+        blurLg: '18px',
+        blurSm: '8px',
+        saturate: '1.8',
       },
     },
   },
@@ -690,6 +863,27 @@ export const designTokens = {
     md: '0 4px 6px -1px rgba(67, 79, 100, 0.1)',
     lg: '0 10px 15px -3px rgba(67, 79, 100, 0.1)',
     xl: '0 20px 25px -5px rgba(67, 79, 100, 0.1)',
+  },
+
+  gradients: {
+    blushPeach: 'linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%)',
+    lavenderPink: 'linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)',
+    peachLilac: 'linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%)',
+    creamPeach: 'linear-gradient(to right, #ffecd2 0%, #fcb69f 100%)',
+    honeyCoral: 'linear-gradient(120deg, #f6d365 0%, #fda085 100%)',
+    pinkSky: 'linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%)',
+    roseMist: 'linear-gradient(to top, #fdcbf1 0%, #fdcbf1 1%, #e6dee9 100%)',
+    mintSky: 'linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%)',
+    neonMint: 'linear-gradient(to right, #43e97b 0%, #38f9d7 100%)',
+    sandLavender: 'linear-gradient(to top, #ebbba7 0%, #cfc7f8 100%)',
+  },
+
+  chartGlow: {
+    blurSm: '8px',
+    blurMd: '16px',
+    blurLg: '24px',
+    alphaPrimary: '0.32',
+    alphaSecondary: '0.18',
   },
 
   transitions: {
@@ -846,6 +1040,25 @@ export const cssVariables = `
     --shadow-md: ${designTokens.shadows.md};
     --shadow-lg: ${designTokens.shadows.lg};
     --shadow-xl: ${designTokens.shadows.xl};
+
+    /* Gradients */
+    --gradient-blush-peach: ${designTokens.gradients.blushPeach};
+    --gradient-lavender-pink: ${designTokens.gradients.lavenderPink};
+    --gradient-peach-lilac: ${designTokens.gradients.peachLilac};
+    --gradient-cream-peach: ${designTokens.gradients.creamPeach};
+    --gradient-honey-coral: ${designTokens.gradients.honeyCoral};
+    --gradient-pink-sky: ${designTokens.gradients.pinkSky};
+    --gradient-rose-mist: ${designTokens.gradients.roseMist};
+    --gradient-mint-sky: ${designTokens.gradients.mintSky};
+    --gradient-neon-mint: ${designTokens.gradients.neonMint};
+    --gradient-sand-lavender: ${designTokens.gradients.sandLavender};
+
+    /* Chart Glow */
+    --chart-glow-blur-sm: ${designTokens.chartGlow.blurSm};
+    --chart-glow-blur-md: ${designTokens.chartGlow.blurMd};
+    --chart-glow-blur-lg: ${designTokens.chartGlow.blurLg};
+    --chart-glow-alpha-primary: ${designTokens.chartGlow.alphaPrimary};
+    --chart-glow-alpha-secondary: ${designTokens.chartGlow.alphaSecondary};
     
     /* Transitions */
     --transition-fast: ${designTokens.transitions.fast};
@@ -877,5 +1090,7 @@ export const colors = {
   positive: designTokens.colors.positive.default,
   neutral: designTokens.colors.neutral.default,
 } as const;
+
+export const gradients = designTokens.gradients;
 
 // Legacy exports removed - migration complete ✅ 

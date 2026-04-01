@@ -1,12 +1,13 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions, Plugin } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultChartOptions, defaultColors } from './chartConfig';
+import { createBarGlowPlugin, defaultChartOptions, defaultColors } from './chartConfig';
 
 export interface HorizontalBarChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'bar'>;
   options?: ChartOptions<'bar'>;
+  glow?: boolean;
 }
 
 export const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({
@@ -15,6 +16,7 @@ export const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({
   height = 400,
   className,
   options,
+  glow = false,
   defaultColors: customDefaultColors,
   ...props
 }) => {
@@ -61,11 +63,11 @@ export const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({
       ...dataset,
     })),
   };
+  const plugins: Plugin<'bar'>[] | undefined = glow ? [createBarGlowPlugin<'bar'>('ftHorizontalBarGlow')] : undefined;
 
   return (
     <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
-      <Bar data={chartData} options={chartOptions} />
+      <Bar data={chartData} options={chartOptions} plugins={plugins} />
     </BaseChart>
   );
 };
-

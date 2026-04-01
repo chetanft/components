@@ -32,6 +32,7 @@ const meta: Meta<typeof RadarChart> = {
           label: 'Type',
           scenarios: [
             { id: 'Basic', label: 'Basic', story: 'Basic' as const },
+            { id: 'Glow', label: 'Glow', story: 'Glow' as const },
             { id: 'WithDots', label: 'WithDots', story: 'WithDots' as const },
             { id: 'LinesOnly', label: 'LinesOnly', story: 'LinesOnly' as const },
             { id: 'Multiple', label: 'Multiple', story: 'Multiple' as const },
@@ -98,6 +99,17 @@ export const Basic: Story = {
     title: 'Product Performance',
     data: basicData,
     height: 400,
+  },
+};
+
+export const Glow: Story = {
+  args: {
+    title: 'Product Performance',
+    data: basicData,
+    height: 400,
+    gridType: 'circle',
+    showDots: false,
+    showLegend: false,
   },
 };
 
@@ -224,7 +236,6 @@ export const WithLegend: Story = {
     showLegend: true,
   },
 };
-
 
 
 

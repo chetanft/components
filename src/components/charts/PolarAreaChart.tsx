@@ -1,12 +1,13 @@
 import React from 'react';
 import { PolarArea } from 'react-chartjs-2';
-import { ChartData, ChartOptions } from 'chart.js';
+import { ChartData, ChartOptions, Plugin } from 'chart.js';
 import { BaseChart, BaseChartProps } from './BaseChart';
-import { defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
+import { createPolarAreaGlowPlugin, defaultColors, defaultChartOptions, ftChartColors } from './chartConfig';
 
 export interface PolarAreaChartProps extends Omit<BaseChartProps, 'children'> {
   data: ChartData<'polarArea'>;
   options?: ChartOptions<'polarArea'>;
+  glow?: boolean;
 }
 
 export const PolarAreaChart: React.FC<PolarAreaChartProps> = ({
@@ -15,6 +16,7 @@ export const PolarAreaChart: React.FC<PolarAreaChartProps> = ({
   height = 400,
   className,
   options,
+  glow = true,
   defaultColors: customDefaultColors,
   ...props
 }) => {
@@ -60,11 +62,11 @@ export const PolarAreaChart: React.FC<PolarAreaChartProps> = ({
     maintainAspectRatio: false,
     responsive: true,
   };
+  const plugins: Plugin<'polarArea'>[] | undefined = glow ? [createPolarAreaGlowPlugin<'polarArea'>('ftPolarGlow')] : undefined;
 
   return (
     <BaseChart title={title} height={height} className={className} defaultColors={customDefaultColors} {...props}>
-      <PolarArea data={processedData} options={chartOptions} />
+      <PolarArea data={processedData} options={chartOptions} plugins={plugins} />
     </BaseChart>
   );
 };
-
