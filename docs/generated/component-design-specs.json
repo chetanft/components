@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-01T13:19:00.579Z",
+  "generatedAt": "2026-04-01T13:39:53.876Z",
   "version": "5.0.5",
   "summary": {
     "total": 134,
@@ -3372,7 +3372,7 @@
       "atoms/Logos": {
         "rows": [
           {
-            "source": "src/components/atoms/Logos/AvikamLogo.tsx",
+            "source": "src/components/atoms/Logos/ApolloTyresLogo.tsx",
             "dimension": "base",
             "variant": "default",
             "tokens": [],
@@ -5905,6 +5905,7 @@
         "category": "atoms",
         "path": "src/components/atoms/Logos",
         "files": [
+          "ApolloTyresLogo.tsx",
           "AvikamLogo.tsx",
           "BirlaPivotLogo.tsx",
           "BluedartLogo.tsx",

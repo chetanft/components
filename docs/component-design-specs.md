@@ -1,7 +1,7 @@
 # FT Design System - Component Design Specifications
 
 > Auto-generated from `src/styles/globals.css` + `registry.json`.
-> Version: 5.0.5 | Generated: 2026-04-01T13:19:00.579Z
+> Version: 5.0.5 | Generated: 2026-04-01T13:39:53.876Z
 
 ---
 
@@ -1027,7 +1027,7 @@ Status: `no-token-match`
 
 | Source | Dimension | Variant | Tokens |
 |---|---|---|---|
-| src/components/atoms/Logos/AvikamLogo.tsx | base | default | _none detected_ |
+| src/components/atoms/Logos/ApolloTyresLogo.tsx | base | default | _none detected_ |
 
 ### Mentions (molecules)
 

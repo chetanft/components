@@ -20,6 +20,7 @@ import { TVSLogo } from './TVSLogo';
 import { CriticalogLogo } from './CriticalogLogo';
 import { MECLogo } from './MECLogo';
 import { OMLogisticsLogo } from './OMLogisticsLogo';
+import { ApolloTyresLogo } from './ApolloTyresLogo';
 import { Slot, type ComposableProps } from '../../../lib/slot';
 
 export type LogoName =
@@ -43,7 +44,8 @@ export type LogoName =
   | 'tvs'
   | 'criticalog'
   | 'mec'
-  | 'om-logistics';
+  | 'om-logistics'
+  | 'apollo-tyres';
 
 interface LogoProps extends ComposableProps<'div'> {
   name: LogoName;
@@ -230,6 +232,14 @@ export const Logo: React.FC<LogoProps> = ({
         </Comp>
       ) : (
         <OMLogisticsLogo width={width} height={height} className={className} />
+      );
+    case 'apollo-tyres':
+      return asChild ? (
+        <Comp className={className} {...props}>
+          <ApolloTyresLogo width={width} height={height} />
+        </Comp>
+      ) : (
+        <ApolloTyresLogo width={width} height={height} className={className} />
       );
     default:
       if (process.env.NODE_ENV !== 'production') {

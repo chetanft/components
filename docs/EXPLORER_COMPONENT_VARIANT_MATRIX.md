@@ -64,10 +64,10 @@ Duplicate component-name groups collapsed: 2.
 | LineChart | Basic, Multiple, Linear, Step, WithDots, WithLabels | — | — | — | — | — | — | Configured | no ExplorerBase export | src/stories/LineChart.stories.tsx |
 | List | Default, With Icons, With Actions | — | Default | — | — | — | — | Configured | — | src/components/molecules/List/List.stories.tsx |
 | Loader | Default, Static, Without Logo, Small Logo, Full Width | — | — | — | — | Default, No Progress Bar, Custom Progress Bar | — | Configured | — | src/components/molecules/Loader/Loader.stories.tsx |
-| Logo | — | — | — | Default, Custom Size, Large | — | — | Brand: Default (FT), FT White, Tata Motors, Courier: Gati, Delhivery, DHL, KGC, Avikam, Safexpress, Bluedart, TVS, Criticalog, MEC, OM Logistics | Configured | no ExplorerBase export | src/components/atoms/Logos/Logo.stories.tsx |
+| Logo | — | — | — | Default, Custom Size, Large | — | — | Brand: Default (FT), FT White, Tata Motors, Courier: Gati, Delhivery, DHL, KGC, Avikam, Safexpress, Bluedart, TVS, Criticalog, MEC, OM Logistics, Apollo Tyres | Configured | no ExplorerBase export | src/components/atoms/Logos/Logo.stories.tsx |
 | Mentions | Default (@), Custom Prefix (#), Rich Content | — | — | — | — | — | — | Configured | no ExplorerBase export | src/components/molecules/Mentions/Mentions.stories.tsx |
 | Modal | Basic, Footer | — | — | Small, Medium, Large, Extra Large, Full | — | — | — | Configured | — | src/components/organisms/Modal/Modal.stories.tsx |
-| Multi-Theme Demo | — | — | — | — | — | — | Theme Mode: Interactive Demo, Light, Dark, Night, Comparison: Side-by-Side | Configured | — | src/stories/ThemeSystem.stories.tsx |
+| Multi-Theme Demo | — | — | — | — | — | — | Theme Mode: Interactive Demo, Light, Dark, Night, Origin UI, Comparison: Side-by-Side | Configured | — | src/stories/ThemeSystem.stories.tsx |
 | NavigationLauncher | DefaultLauncher, CustomTrigger, AppHeaderIntegration | — | — | — | — | — | — | Configured | no ExplorerBase export | src/stories/NavigationLauncher.stories.tsx |
 | NavigationPopover | Insights, Workspace, Reports, SubMenuVariant, ServiceHealth | — | MetricsWithoutHero, HeroTopPlacement | — | — | — | — | Configured | — | src/stories/NavigationPopover.stories.tsx |
 | Notification | Success, Info, Warning, Danger | — | — | — | — | Interactive Demo | Behavior: Closable, With Icon, Auto Dismiss | Configured | — | src/components/molecules/Notification/Notification.stories.tsx |
@@ -78,7 +78,7 @@ Duplicate component-name groups collapsed: 2.
 | Progress | Default, Line, Circle, Dashboard, Steps | Primary, Success, Warning, Danger, Active | Not Started, In Progress, Completed | — | — | — | — | Configured | — | src/components/molecules/ProgressBar/ProgressBar.stories.tsx |
 | ProgressList | Default, Time, Icons, Badges | Normal, Success, Warning, Danger | Default, Collapsible | — | — | — | — | Configured | — | src/components/molecules/ProgressList/ProgressList.stories.tsx |
 | QuickFilters | Single Filters, Multi-option | — | Default, Selected, Mixed Selection | — | — | — | — | Configured | — | src/components/organisms/QuickFilters/QuickFilters.stories.tsx |
-| RadarChart | Basic, WithDots, LinesOnly, Multiple, WithLegend | — | — | — | — | — | Grid: Basic, GridCircle, GridFilled | Configured | no ExplorerBase export | src/stories/RadarChart.stories.tsx |
+| RadarChart | Basic, Glow, WithDots, LinesOnly, Multiple, WithLegend | — | — | — | — | — | Grid: Basic, GridCircle, GridFilled | Configured | no ExplorerBase export | src/stories/RadarChart.stories.tsx |
 | RadialChart | Basic, WithLabel, WithGrid, WithText, DifferentShape, Stacked | — | — | — | — | — | — | Configured | no ExplorerBase export | src/stories/RadialChart.stories.tsx |
 | RadioGroup | — | — | Default, Error | SM, MD | — | — | Layout: Vertical, Horizontal | Configured | — | src/components/atoms/RadioGroup/RadioGroup.stories.tsx |
 | RadioSelector | Default, With Icons, Without Radio | — | Default, Disabled, Controlled | — | — | — | — | Configured | — | src/components/molecules/RadioSelector/RadioSelector.stories.tsx |

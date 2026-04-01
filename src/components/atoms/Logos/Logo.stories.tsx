@@ -49,6 +49,7 @@ const meta: Meta<typeof Logo> = {
             { id: 'criticalog', label: 'Criticalog', story: 'Criticalog' },
             { id: 'mec', label: 'MEC', story: 'MEC' },
             { id: 'om-logistics', label: 'OM Logistics', story: 'OMLogistics' },
+            { id: 'apollo-tyres', label: 'Apollo Tyres', story: 'ApolloTyres' },
           ],
         },
         {
@@ -91,6 +92,7 @@ const meta: Meta<typeof Logo> = {
         'criticalog',
         'mec',
         'om-logistics',
+        'apollo-tyres',
       ],
       description: 'Logo name to display',
     },
@@ -328,6 +330,15 @@ export const OMLogistics: Story = {
   },
 };
 
+export const ApolloTyres: Story = {
+  args: {
+    name: 'apollo-tyres',
+  },
+  parameters: {
+    docs: { source: { code: '<Logo name="apollo-tyres" />', language: 'tsx', type: 'code' } },
+  },
+};
+
 export const DocsAllLogos: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-x6)', padding: 'var(--spacing-x5)' }}>
@@ -353,6 +364,7 @@ export const DocsAllLogos: Story = {
         <Logo name="criticalog" />
         <Logo name="mec" />
         <Logo name="om-logistics" />
+        <Logo name="apollo-tyres" />
       </div>
     </div>
   ),
@@ -383,6 +395,7 @@ export const DocsAllLogos: Story = {
   <Logo name="criticalog" />
   <Logo name="mec" />
   <Logo name="om-logistics" />
+  <Logo name="apollo-tyres" />
 </div>`,
         language: 'tsx',
         type: 'code',

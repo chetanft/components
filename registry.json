@@ -5,7 +5,7 @@
   "description": "Design system built from Figma designs using Code Connect",
   "repository": "https://github.com/chetanft/components.git",
   "license": "MIT",
-  "generatedAt": "2026-04-01T13:19:01.055Z",
+  "generatedAt": "2026-04-01T13:36:53.612Z",
   "coreDependencies": {
     "peer": [
       "react",
@@ -1695,6 +1695,7 @@
       "category": "atoms",
       "path": "src/components/atoms/Logos",
       "files": [
+        "ApolloTyresLogo.tsx",
         "AvikamLogo.tsx",
         "BirlaPivotLogo.tsx",
         "BluedartLogo.tsx",

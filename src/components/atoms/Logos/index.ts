@@ -20,3 +20,4 @@ export { TVSLogo } from './TVSLogo';
 export { CriticalogLogo } from './CriticalogLogo';
 export { MECLogo } from './MECLogo';
 export { OMLogisticsLogo } from './OMLogisticsLogo';
+export { ApolloTyresLogo } from './ApolloTyresLogo';
