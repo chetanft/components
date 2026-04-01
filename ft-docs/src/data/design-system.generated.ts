@@ -1,11 +1,11 @@
 // AUTO-GENERATED — DO NOT EDIT
 // Source: scripts/sync-docs-data.cjs
-// Generated: 2026-04-01T13:43:39.640Z
+// Generated: 2026-04-01T13:49:14.477Z
 
 export const SYSTEM_VERSION = "5.0.5";
 export const COMPONENT_COUNT = 134;
 export const COMPONENT_SUMMARY = {"total":134,"atoms":28,"molecules":63,"organisms":25,"charts":16,"templates":2};
-export const GENERATED_AT = "2026-04-01T13:43:39.640Z";
+export const GENERATED_AT = "2026-04-01T13:49:14.477Z";
 
 export const SPACING_TOKENS: Record<string, string> = {
   "x0": "0px",

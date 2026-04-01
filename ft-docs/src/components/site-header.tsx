@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 // Decorative icons — no FT equivalent, Lucide is intentional
-import { Sun, Moon, MoonStar, Layers, Sparkles, Diamond } from "lucide-react"
+import { Sun, Moon, MoonStar, CircleDot, Layers, Sparkles, Diamond } from "lucide-react"
 import { CommandDialog } from "@/components/command-dialog"
 import { useGlass, type GlassMode } from "@/components/glass-provider"
 import { useTheme } from "next-themes"
@@ -43,10 +43,10 @@ export function SiteHeader() {
     const { theme, setTheme } = useTheme()
     const { glassMode, setGlassMode } = useGlass()
     const [mounted, setMounted] = useState(false)
-    const [currentTheme, setCurrentTheme] = useState<'light' | 'dark' | 'night'>('light')
+    const [currentTheme, setCurrentTheme] = useState<'light' | 'dark' | 'night' | 'origin-ui'>('light')
 
     // Theme cycling logic
-    const themes = ['light', 'dark', 'night'] as const
+    const themes = ['light', 'dark', 'night', 'origin-ui'] as const
 
     useEffect(() => {
         setMounted(true)
@@ -70,8 +70,8 @@ export function SiteHeader() {
         const html = document.documentElement
 
         // Ensure the correct class is applied
-        html.classList.remove('light', 'dark', 'night')
-        if (theme === 'dark' || theme === 'night' || theme === 'light') {
+        html.classList.remove('light', 'dark', 'night', 'origin-ui')
+        if (theme === 'dark' || theme === 'night' || theme === 'light' || theme === 'origin-ui') {
             html.classList.add(theme)
             setCurrentTheme(theme as typeof themes[number])
         } else {
@@ -80,7 +80,9 @@ export function SiteHeader() {
         }
 
         const observer = new MutationObserver(() => {
-            if (html.classList.contains('dark')) {
+            if (html.classList.contains('origin-ui')) {
+                setCurrentTheme('origin-ui')
+            } else if (html.classList.contains('dark')) {
                 setCurrentTheme('dark')
             } else if (html.classList.contains('night')) {
                 setCurrentTheme('night')
@@ -111,7 +113,7 @@ export function SiteHeader() {
         // Also manually ensure the class is applied immediately (fallback)
         if (typeof document !== 'undefined') {
             const html = document.documentElement
-            html.classList.remove('light', 'dark', 'night')
+            html.classList.remove('light', 'dark', 'night', 'origin-ui')
             html.classList.add(nextTheme)
             setCurrentTheme(nextTheme)
         }
@@ -121,6 +123,7 @@ export function SiteHeader() {
         if (!mounted) return Sun
         if (currentTheme === 'dark') return Moon
         if (currentTheme === 'night') return MoonStar
+        if (currentTheme === 'origin-ui') return CircleDot
         return Sun
     }
 
@@ -128,6 +131,7 @@ export function SiteHeader() {
         if (!mounted) return 'Switch to dark mode'
         if (currentTheme === 'light') return 'Switch to dark mode'
         if (currentTheme === 'dark') return 'Switch to night mode'
+        if (currentTheme === 'night') return 'Switch to Origin UI mode'
         return 'Switch to light mode'
     }
 

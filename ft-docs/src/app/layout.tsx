@@ -48,9 +48,9 @@ export default function RootLayout({
                   const theme = localStorage.getItem('theme') || 'light';
 
                   // Remove all theme classes first
-                  document.documentElement.classList.remove('light', 'dark', 'night');
+                  document.documentElement.classList.remove('light', 'dark', 'night', 'origin-ui');
 
-                  if (theme === 'dark' || theme === 'night' || theme === 'light') {
+                  if (theme === 'dark' || theme === 'night' || theme === 'light' || theme === 'origin-ui') {
                     document.documentElement.classList.add(theme);
                   } else {
                     document.documentElement.classList.add('light');
@@ -73,7 +73,7 @@ export default function RootLayout({
           defaultTheme="light"
           enableSystem={false}
           disableTransitionOnChange
-          themes={['light', 'dark', 'night']}
+          themes={['light', 'dark', 'night', 'origin-ui']}
         >
           <GlassProvider defaultGlass={false} storageKey="ft-glass-mode">
             <ViewModeProvider>
